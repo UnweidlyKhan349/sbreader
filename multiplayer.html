@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Multiplayer · SciBowl Practice</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="pageScroll">
+<nav class="nav">
+  <div class="brand"><span class="dot"></span> SciBowl Practice</div>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="catalog.html">Catalog</a>
+  <a class="navlink" href="solo.html">Solo Practice</a>
+  <a class="navlink active" href="multiplayer.html">Multiplayer</a>
+  <div class="spacer"></div>
+  <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
+</nav>
+
+<!-- ============== LOBBY / CHOOSE MODE ============== -->
+<div class="container" id="lobbyScreen">
+  <h1>Multiplayer</h1>
+  <p class="subtitle">Host a room and share the code, or join a friend's room. Everyone can buzz — first in locks the rest out until they've answered.</p>
+
+  <div class="setup-grid">
+    <div class="panel" id="hostPanel">
+      <h2>Host a room</h2>
+      <div class="filter-head">
+        <div class="section-title" style="margin:0;">Subject</div>
+        <div class="filter-actions">
+          <button class="btn small ghost" id="clearFiltersBtn">Clear all</button>
+        </div>
+      </div>
+      <div class="chip-row" id="subjectChips"></div>
+      <div class="section-title">Round</div>
+      <div class="dual-slider" id="roundSlider">
+        <div class="track"></div>
+        <div class="range-fill" id="roundSliderFill"></div>
+        <input type="range" id="roundMin" min="1" max="17" value="1" step="1" />
+        <input type="range" id="roundMax" min="1" max="17" value="17" step="1" />
+      </div>
+      <div class="round-range-label" id="roundRangeLabel">Rounds 1–17</div>
+      <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:8px;">
+        <input type="checkbox" id="includeUnlabeledRounds" checked /> Include unlabeled rounds
+      </label>
+      <div class="section-title">Question type</div>
+      <div class="chip-row" id="qtypeChips"></div>
+      <div class="section-title">Format</div>
+      <div class="chip-row" id="formatChips"></div>
+      <div class="section-title">Tournament</div>
+      <select id="tournamentSelect" style="width:100%; max-width:420px;"></select>
+      <p class="small-note" id="matchCount" style="margin-top:10px;"></p>
+      <div class="section-title">Reading speed</div>
+      <div class="slider-row">
+        <input type="range" id="mpRateSlider" min="0.5" max="2.5" step="0.1" value="1" />
+        <span class="slider-value" id="mpRateValue">1.0×</span>
+      </div>
+      <p class="small-note">How fast questions type themselves onto the screen. You can change this mid-game from the room settings panel.</p>
+      <div class="section-title">Your name (host)</div>
+      <input type="text" id="hostNameInput" placeholder="e.g. Alex" style="width:100%; max-width:300px;" />
+      <div style="margin-top:18px;">
+        <button class="btn primary" id="createRoomBtn" style="width:100%; justify-content:center; padding:12px;">Create room</button>
+      </div>
+    </div>
+
+    <div class="panel" id="joinPanel">
+      <h2>Join a room</h2>
+      <div class="section-title">Room code</div>
+      <input type="text" id="joinCodeInput" placeholder="e.g. AB3XZ" style="width:100%;" />
+      <div class="section-title">Your name</div>
+      <input type="text" id="joinNameInput" placeholder="e.g. Sam" style="width:100%;" />
+      <div style="margin-top:18px;">
+        <button class="btn primary" id="joinRoomBtn" style="width:100%; justify-content:center; padding:12px;">Join room</button>
+      </div>
+      <p class="small-note" id="joinStatus" style="margin-top:10px;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============== IN-GAME ROOM SETTINGS (host only) ============== -->
+<div class="modal-overlay" id="mpSettingsOverlay" style="display:none;">
+  <div class="panel modal-panel">
+    <div class="filter-head">
+      <h2 style="margin:0;">Room settings</h2>
+      <button class="btn small ghost" id="mpSettingsCloseBtn">✕</button>
+    </div>
+    <div class="section-title">Reading speed</div>
+    <div class="slider-row">
+      <input type="range" id="mpSettingsRateSlider" min="0.5" max="2.5" step="0.1" value="1" />
+      <span class="slider-value" id="mpSettingsRateValue">1.0×</span>
+    </div>
+    <div class="filter-head" style="margin-top:18px;">
+      <div class="section-title" style="margin:0;">Subject</div>
+      <div class="filter-actions">
+        <button class="btn small ghost" id="mpSettingsClearBtn">Clear all</button>
+      </div>
+    </div>
+    <div class="chip-row" id="mpSettingsSubjectChips"></div>
+    <div class="section-title">Round</div>
+    <div class="dual-slider" id="mpSettingsRoundSlider">
+      <div class="track"></div>
+      <div class="range-fill" id="mpSettingsRoundSliderFill"></div>
+      <input type="range" id="mpSettingsRoundMin" min="1" max="17" value="1" step="1" />
+      <input type="range" id="mpSettingsRoundMax" min="1" max="17" value="17" step="1" />
+    </div>
+    <div class="round-range-label" id="mpSettingsRoundRangeLabel">Rounds 1–17</div>
+    <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:8px;">
+      <input type="checkbox" id="mpSettingsIncludeUnlabeledRounds" checked /> Include unlabeled rounds
+    </label>
+    <div class="section-title">Question type</div>
+    <div class="chip-row" id="mpSettingsQtypeChips"></div>
+    <div class="section-title">Format</div>
+    <div class="chip-row" id="mpSettingsFormatChips"></div>
+    <div class="section-title">Tournament</div>
+    <select id="mpSettingsTournamentSelect" style="width:100%; max-width:420px;"></select>
+    <p class="small-note" id="mpSettingsMatchCount" style="margin-top:10px;"></p>
+    <div style="margin-top:18px; display:flex; gap:10px;">
+      <button class="btn primary" id="mpSettingsDoneBtn">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== IN-GAME ============== -->
+<div class="game-wrap mp-layout" id="mpGameScreen" style="display:none;">
+  <div class="mp-main">
+    <div class="score-bar">
+      <div class="room-code-strip">
+        <span class="small-note">Room</span>
+        <span class="room-code" id="mpRoomCodeDisplay" title="Click to copy">-----</span>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span class="pause-badge" id="mpPauseBadge" style="display:none;">⏸ Paused</span>
+        <button class="btn small" id="mpPauseBtn" style="display:none;">Pause (P)</button>
+        <button class="btn small settings-btn" id="mpSettingsBtn" style="display:none;">⚙ Room settings (S)</button>
+      </div>
+    </div>
+
+    <div class="question-panel">
+      <div class="status-pill" id="mpStatusPill" style="display:none;"></div>
+      <div class="reveal-tags" id="mpRevealTags">
+        <span class="tag" id="mpRevealSubjectTag"></span>
+        <span class="tag" id="mpRevealFormatTag"></span>
+        <span class="tag" id="mpRevealQtypeTag"></span>
+      </div>
+      <div class="reveal-measure-wrap" id="mpRevealMeasureWrap">
+        <div class="q-display" id="mpQDisplay"></div>
+        <div class="choices-display" id="mpChoicesDisplay" style="display:none;">
+          <div class="choice-box" data-letter="W"><span class="letter">W)</span><span class="choice-text" id="mpChoiceTextW"></span></div>
+          <div class="choice-box" data-letter="X"><span class="letter">X)</span><span class="choice-text" id="mpChoiceTextX"></span></div>
+          <div class="choice-box" data-letter="Y"><span class="letter">Y)</span><span class="choice-text" id="mpChoiceTextY"></span></div>
+          <div class="choice-box" data-letter="Z"><span class="letter">Z)</span><span class="choice-text" id="mpChoiceTextZ"></span></div>
+        </div>
+      </div>
+
+      <div class="timer-row" id="mpTimerRow" style="display:none;">
+        <div class="timer-bar-track"><div class="timer-bar-fill" id="mpTimerFill"></div></div>
+        <div class="timer-label" id="mpTimerLabel">4.0s</div>
+      </div>
+
+      <div class="answer-input-row" id="mpAnswerRow" style="display:none;">
+        <input type="text" id="mpAnswerInput" placeholder="Type your answer and press Enter…" autocomplete="off" />
+        <button class="btn primary" id="mpSubmitBtn">Submit</button>
+      </div>
+
+      <div class="mp-buzz-status" id="mpBuzzStatus" style="display:none;">
+        <div class="mp-buzz-who" id="mpBuzzWho"></div>
+        <div class="mp-buzz-typed" id="mpBuzzTyped"></div>
+        <div class="mp-buzz-attempts" id="mpBuzzAttempts"></div>
+      </div>
+
+      <div class="reveal-box" id="mpRevealBox" style="display:none;"></div>
+
+      <div class="controls-row">
+        <button class="btn icon-btn" id="mpBookmarkBtn" title="Bookmark (B)" style="display:none;">☆</button>
+        <button class="btn primary" id="mpBuzzBtn" style="display:none;">Buzz in (Space)</button>
+        <button class="btn primary" id="mpNextBtn" style="display:none;">Next question (N)</button>
+        <button class="btn ghost" id="mpOverrideBtn" style="display:none;">↺ Override (Q)</button>
+        <span class="shortcut-hint">Space buzz · N next (anyone) · P pause (anyone) · Q override · B bookmark · / chat</span>
+      </div>
+    </div>
+
+    <div class="section-title">Previous questions</div>
+    <div class="q-log" id="mpQuestionLog"></div>
+  </div>
+
+  <div class="mp-sidebar">
+    <div class="section-title" style="margin-top:0;">Leaderboard</div>
+    <div class="mp-players" id="mpPlayerList"></div>
+
+    <div class="mp-chat">
+      <div class="section-title" style="margin-top:0;">Chat</div>
+      <div class="mp-chat-log" id="mpChatLog"></div>
+      <div class="mp-chat-row">
+        <input type="text" id="mpChatInput" placeholder="Say something… (/ to focus)" autocomplete="off" />
+        <button class="btn icon-btn" id="mpChatSendBtn" title="Send" aria-label="Send">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== SUMMARY ============== -->
+<div class="container" id="mpSummaryScreen" style="display:none;">
+  <h1>Game complete</h1>
+  <div class="panel">
+    <div class="section-title">Final scores</div>
+    <div class="mp-players" id="mpFinalScores"></div>
+  </div>
+  <div style="margin-top:20px;">
+    <a class="btn primary" href="multiplayer.html">Back to lobby</a>
+  </div>
+</div>
+</div>
+
+<script src="js/vendor/peerjs.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/answer-check.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/peer.js"></script>
+<script src="js/multiplayer.js"></script>
+</body>
+</html>
