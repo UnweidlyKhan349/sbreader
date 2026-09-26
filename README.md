@@ -303,7 +303,6 @@ Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was remo
 - **CSUB's combined packets**: 448/400 questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR, DE, and "NATS" labels overlap in round number, and the phase order can't be inferred, so it was left as-is.
 - **SSBT 2023**: one Finals group has no round number (`r = null`).
-- **Stale page copy**: the home page's Solo card still says questions are "read aloud", and the footer credits only scibowl.live. Both are out of date (the reveal engine replaced TTS, and there are now several sources).
 - **Spacing cosmetics**: about 500 cases of a space before punctuation (`word ?`) left over from PDF extraction. They're readable and were left alone.
 - **Sources not ingested**: isobowl.com packets are locked or live-only; Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
 - **Round slider** is global (max 20), not scoped to the selected tournament.
