@@ -3,7 +3,7 @@
    - "1 and 2" <-> "12" <-> "1, 2"
    - "all" / "all three" <-> "123" (when the question enumerates 1/2/3 items)
    - "3 only" <-> "3"
-   - multiple choice: letter (W/X/Y/Z) or full choice text
+   - multiple choice: exact letter (W/X/Y/Z) and/or exact choice text
    - packet ACCEPT / DO NOT ACCEPT alternates
 */
 (function (global) {
@@ -379,47 +379,34 @@
     const itemCount = detectItemCount(question.question);
 
     // ---- Multiple choice ----
+    // Graded strictly: the answer must be exactly the correct letter, the
+    // exact text of the correct choice, or both ("W) Proton pump"). Only
+    // case, whitespace and punctuation are ignored (via normalize) - no
+    // fuzzy/substring/typo matching, and no falling through to the
+    // free-text answer-key checks, since with the choices on screen a
+    // "close" answer is simply a different choice (or none of them).
     if (question.format === 'MC' && question.choices) {
-      const upRaw = normalize(raw);
-      const letters = ['W', 'X', 'Y', 'Z'];
-      // typed just a letter, optionally with trailing ')'
-      const letterMatch = upRaw.match(/^([WXYZ])\)?$/);
-      if (letterMatch) {
-        const correct = ans.letter && letterMatch[1] === ans.letter;
-        return { correct: !!correct, matched: correct ? 'main' : null, rejected: false };
+      const correctLetter = ans.letter;
+      const correctText = correctLetter ? question.choices[correctLetter] : null;
+      const wrong = { correct: false, matched: null, rejected: false };
+      if (!correctLetter) return wrong;
+      const right = { correct: true, matched: 'main', rejected: false };
+
+      // just a letter, optionally with trailing ')'
+      const letterOnly = raw.match(/^([WXYZwxyz])\s*\)?$/);
+      if (letterOnly) return letterOnly[1].toUpperCase() === correctLetter ? right : wrong;
+
+      // exact text of the correct choice
+      if (correctText && normEqual(raw, correctText)) return right;
+
+      // "W) text" / "W. text" / "W: text" / "W - text" - the letter AND the
+      // text must both be the correct choice's.
+      const letterPrefix = raw.match(/^([WXYZwxyz])\s*[).:-]\s*(.+)$/);
+      if (letterPrefix && letterPrefix[1].toUpperCase() === correctLetter
+          && correctText && normEqual(letterPrefix[2], correctText)) {
+        return right;
       }
-      // typed "W) something" or "W something"
-      const letterPrefix = raw.trim().match(/^([WXYZwxyz])[)\.:\s-]+(.*)$/);
-      const bodyAfterLetter = letterPrefix ? letterPrefix[2] : raw;
-      const bodyLetter = letterPrefix ? letterPrefix[1].toUpperCase() : null;
-      if (bodyLetter) {
-        const correct = ans.letter && bodyLetter === ans.letter;
-        return { correct: !!correct, matched: correct ? 'main' : null, rejected: false };
-      }
-      // typed the full text of a choice - check every choice for an EXACT
-      // match first, then only fall back to the fuzzy/substring check if
-      // none matched exactly. Checking exact-or-fuzzy one letter at a time
-      // (in W/X/Y/Z order) let an earlier choice's fuzzy substring match
-      // pre-empt a later choice's exact match - e.g. typing "stable
-      // unstable" fuzzy-matched into "Unstable; unstable" (W) before ever
-      // reaching its real exact match at "Stable; unstable" (Y).
-      for (const L of letters) {
-        const choiceText = question.choices[L];
-        if (!choiceText) continue;
-        if (normEqual(bodyAfterLetter, choiceText)) {
-          const correct = ans.letter === L;
-          return { correct, matched: correct ? 'main' : null, rejected: false };
-        }
-      }
-      for (const L of letters) {
-        const choiceText = question.choices[L];
-        if (!choiceText) continue;
-        if (fuzzyContains(bodyAfterLetter, choiceText)) {
-          const correct = ans.letter === L;
-          return { correct, matched: correct ? 'main' : null, rejected: false };
-        }
-      }
-      // fall through to text-based comparison against the answer text itself
+      return wrong;
     }
 
     // ---- Reject list first: an explicit "do not accept" match is always wrong ----
