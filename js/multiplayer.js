@@ -9,8 +9,8 @@
   const TYPING_THROTTLE_MS = 150;
   const CHAT_HISTORY = 60;
 
-  const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true };
-  let subjectItems, qtypeItems, formatItems, roundSliderApi;
+  const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), levels: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true };
+  let subjectItems, qtypeItems, formatItems, levelItems, roundSliderApi;
   // Snapshot of whatever filters actually produced the room's current queue -
   // kept in sync on room creation and whenever the in-game settings panel is
   // applied, and used to seed that panel each time it's reopened.
@@ -42,7 +42,7 @@
       subjects: stateObj.subjects,
       roundRange: stateObj.roundRange,
       includeUnlabeled: stateObj.includeUnlabeled,
-      qtypes: stateObj.qtypes, formats: stateObj.formats,
+      qtypes: stateObj.qtypes, formats: stateObj.formats, levels: stateObj.levels,
       tournaments: stateObj.tournaments,
     });
   }
@@ -75,6 +75,8 @@
     buildChips(document.getElementById('qtypeChips'), qtypeItems, filterState, 'qtypes', (i) => i.label, updateMatchCount);
     formatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
     buildChips(document.getElementById('formatChips'), formatItems, filterState, 'formats', (i) => i.label, updateMatchCount);
+    levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
+    buildChips(document.getElementById('levelChips'), levelItems, filterState, 'levels', (i) => i.label, updateMatchCount);
 
     const tSelect = document.getElementById('tournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
@@ -87,7 +89,7 @@
     updateMatchCount();
 
     document.getElementById('clearFiltersBtn').addEventListener('click', () => {
-      [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats']].forEach(([items, key]) => {
+      [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats'], [levelItems, 'levels']].forEach(([items, key]) => {
         filterState[key].clear();
         items.forEach((i) => i._el.classList.remove('active'));
       });
@@ -213,7 +215,7 @@
   function sanitizeQuestion(q) {
     return {
       id: q.id, tournament: q.tournament, roundLabel: q.roundLabel, round: q.round,
-      subject: q.subject, format: q.format, qtype: q.qtype, question: q.question,
+      subject: q.subject, format: q.format, qtype: q.qtype, level: q.level, question: q.question,
       visual: q.visual,
       choices: q.choices ? { W: q.choices.W, X: q.choices.X, Y: q.choices.Y, Z: q.choices.Z } : null,
     };
@@ -319,6 +321,7 @@
       <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
       <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
       <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
+      ${q.level ? SBData.levelTagHTML(q) : ''}
       <span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>
     `;
     const isBm = SBData.bookmarks.isBookmarked(q.id);
@@ -441,6 +444,8 @@
     const subjectTag = document.getElementById('mpRevealSubjectTag');
     const formatTag = document.getElementById('mpRevealFormatTag');
     const qtypeTag = document.getElementById('mpRevealQtypeTag');
+    const levelTag = document.getElementById('mpRevealLevelTag');
+    levelTag.className = 'tag level-' + q.level;
     subjectTag.className = 'tag subject-' + q.subject;
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
     qtypeTag.className = 'tag qtype-' + q.qtype;
@@ -448,6 +453,7 @@
       { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
       { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
       { text: (QTYPE_LABELS[q.qtype] || q.qtype).toUpperCase(), el: qtypeTag },
+      { text: (SBData.LEVEL_LABELS[q.level] || q.level || '').toUpperCase(), el: levelTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
@@ -742,7 +748,7 @@
     game.log = [];
     hostPlayers.set('HOST', { id: 'HOST', name: myState.myName, score: 0, connId: 'HOST' });
     activeFilterState = {
-      subjects: new Set(filterState.subjects), qtypes: new Set(filterState.qtypes), formats: new Set(filterState.formats),
+      subjects: new Set(filterState.subjects), qtypes: new Set(filterState.qtypes), formats: new Set(filterState.formats), levels: new Set(filterState.levels),
       tournaments: new Set(filterState.tournaments), roundRange: filterState.roundRange, includeUnlabeled: filterState.includeUnlabeled,
     };
 
@@ -794,7 +800,7 @@
   // payload below for anyone who joins mid-game.
   function settingsStatePayload() {
     return {
-      subjects: [...activeFilterState.subjects], qtypes: [...activeFilterState.qtypes], formats: [...activeFilterState.formats],
+      subjects: [...activeFilterState.subjects], qtypes: [...activeFilterState.qtypes], formats: [...activeFilterState.formats], levels: [...activeFilterState.levels],
       tournaments: [...activeFilterState.tournaments], roundRange: activeFilterState.roundRange, includeUnlabeled: activeFilterState.includeUnlabeled,
       rate: myState.rate,
     };
@@ -860,7 +866,7 @@
     if (msg.type === 'skip') { hostSkipQuestion(); return; }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), tournaments: new Set(msg.tournaments),
+        subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate,
       });
       return;
@@ -1413,6 +1419,7 @@
         midGameFilterState.subjects = new Set(activeFilterState.subjects);
         midGameFilterState.qtypes = new Set(activeFilterState.qtypes);
         midGameFilterState.formats = new Set(activeFilterState.formats);
+        midGameFilterState.levels = new Set(activeFilterState.levels);
         midGameFilterState.tournaments = new Set(activeFilterState.tournaments);
         midGameFilterState.roundRange = activeFilterState.roundRange;
         midGameFilterState.includeUnlabeled = activeFilterState.includeUnlabeled;
@@ -1432,7 +1439,7 @@
   // of stale or default ones.
   function applySettingsStateLocal(s) {
     activeFilterState = {
-      subjects: new Set(s.subjects), qtypes: new Set(s.qtypes), formats: new Set(s.formats),
+      subjects: new Set(s.subjects), qtypes: new Set(s.qtypes), formats: new Set(s.formats), levels: new Set(s.levels),
       tournaments: new Set(s.tournaments), roundRange: s.roundRange, includeUnlabeled: s.includeUnlabeled,
     };
     myState.rate = s.rate || 1;
@@ -1518,8 +1525,8 @@
   }
 
   /* ================= IN-GAME ROOM SETTINGS (host only) ================= */
-  const midGameFilterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true };
-  let midGameSubjectItems, midGameQtypeItems, midGameFormatItems, midGameRoundSliderApi, midGameSettingsWired = false;
+  const midGameFilterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), levels: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true };
+  let midGameSubjectItems, midGameQtypeItems, midGameFormatItems, midGameLevelItems, midGameRoundSliderApi, midGameSettingsWired = false;
   // Set for the duration of any programmatic repaint of the settings panel
   // FROM already-authoritative state (refreshSettingsPanelFromState, below)
   // - as opposed to a real edit the person watching the panel just made.
@@ -1546,6 +1553,7 @@
     midGameSubjectItems = SBData.meta.subjects.map((s) => ({ value: s.key, label: s.label, subjectAttr: s.key }));
     midGameQtypeItems = SBData.meta.qtypes.map((q) => ({ value: q, label: QTYPE_LABELS[q] || q }));
     midGameFormatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
+    midGameLevelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
 
     const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
     midGameRoundSliderApi = SBData.wireRoundRangeSlider({
@@ -1572,7 +1580,7 @@
     SBData.enhanceMultiSelect(tSelect);
 
     document.getElementById('mpSettingsClearBtn').addEventListener('click', () => {
-      [[midGameSubjectItems, 'subjects'], [midGameQtypeItems, 'qtypes'], [midGameFormatItems, 'formats']].forEach(([items, key]) => {
+      [[midGameSubjectItems, 'subjects'], [midGameQtypeItems, 'qtypes'], [midGameFormatItems, 'formats'], [midGameLevelItems, 'levels']].forEach(([items, key]) => {
         midGameFilterState[key].clear();
         items.forEach((i) => i._el.classList.remove('active'));
       });
@@ -1610,7 +1618,7 @@
     const snapshot = {
       subjects: new Set(activeFilterState.subjects),
       qtypes: new Set(activeFilterState.qtypes),
-      formats: new Set(activeFilterState.formats),
+      formats: new Set(activeFilterState.formats), levels: new Set(activeFilterState.levels),
       tournaments: new Set(activeFilterState.tournaments),
       roundRange: activeFilterState.roundRange,
       includeUnlabeled: activeFilterState.includeUnlabeled,
@@ -1633,6 +1641,7 @@
     midGameFilterState.subjects = new Set(snapshot.subjects);
     midGameFilterState.qtypes = new Set(snapshot.qtypes);
     midGameFilterState.formats = new Set(snapshot.formats);
+    midGameFilterState.levels = new Set(snapshot.levels);
     midGameFilterState.tournaments = new Set(snapshot.tournaments);
     midGameFilterState.roundRange = snapshot.roundRange;
     midGameFilterState.includeUnlabeled = snapshot.includeUnlabeled;
@@ -1643,12 +1652,13 @@
     // it can read from is seeded with real values first, but this keeps
     // midGameFilterState/activeFilterState in lockstep regardless).
     activeFilterState = {
-      subjects: new Set(snapshot.subjects), qtypes: new Set(snapshot.qtypes), formats: new Set(snapshot.formats),
+      subjects: new Set(snapshot.subjects), qtypes: new Set(snapshot.qtypes), formats: new Set(snapshot.formats), levels: new Set(snapshot.levels),
       tournaments: new Set(snapshot.tournaments), roundRange: snapshot.roundRange, includeUnlabeled: snapshot.includeUnlabeled,
     };
     midGameFilterState.subjects = new Set(snapshot.subjects);
     midGameFilterState.qtypes = new Set(snapshot.qtypes);
     midGameFilterState.formats = new Set(snapshot.formats);
+    midGameFilterState.levels = new Set(snapshot.levels);
     midGameFilterState.tournaments = new Set(snapshot.tournaments);
     midGameFilterState.roundRange = snapshot.roundRange;
     midGameFilterState.includeUnlabeled = snapshot.includeUnlabeled;
@@ -1684,6 +1694,7 @@
       buildChips(document.getElementById('mpSettingsSubjectChips'), midGameSubjectItems, midGameFilterState, 'subjects', (i) => i.label, onChipChange);
       buildChips(document.getElementById('mpSettingsQtypeChips'), midGameQtypeItems, midGameFilterState, 'qtypes', (i) => i.label, onChipChange);
       buildChips(document.getElementById('mpSettingsFormatChips'), midGameFormatItems, midGameFilterState, 'formats', (i) => i.label, onChipChange);
+      buildChips(document.getElementById('mpSettingsLevelChips'), midGameLevelItems, midGameFilterState, 'levels', (i) => i.label, onChipChange);
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(midGameFilterState.tournaments));
       document.getElementById('mpSettingsIncludeUnlabeledRounds').checked = midGameFilterState.includeUnlabeled;
       if (midGameRoundSliderApi && midGameFilterState.roundRange) {
@@ -1739,7 +1750,7 @@
       game.total = hostGame.queue.length;
 
       activeFilterState = {
-        subjects: new Set(values.subjects), qtypes: new Set(values.qtypes), formats: new Set(values.formats),
+        subjects: new Set(values.subjects), qtypes: new Set(values.qtypes), formats: new Set(values.formats), levels: new Set(values.levels),
         tournaments: new Set(values.tournaments), roundRange: values.roundRange, includeUnlabeled: values.includeUnlabeled,
       };
     }
@@ -1759,7 +1770,7 @@
   function requestApplySettings() {
     if (suppressSettingsApplyEcho) return;
     const values = {
-      subjects: new Set(midGameFilterState.subjects), qtypes: new Set(midGameFilterState.qtypes), formats: new Set(midGameFilterState.formats),
+      subjects: new Set(midGameFilterState.subjects), qtypes: new Set(midGameFilterState.qtypes), formats: new Set(midGameFilterState.formats), levels: new Set(midGameFilterState.levels),
       tournaments: new Set(midGameFilterState.tournaments), roundRange: midGameFilterState.roundRange, includeUnlabeled: midGameFilterState.includeUnlabeled,
       rate: parseFloat(document.getElementById('mpSettingsRateSlider').value) || 1,
     };
@@ -1768,7 +1779,7 @@
     } else if (client) {
       client.send({
         type: 'updateSettings',
-        subjects: [...values.subjects], qtypes: [...values.qtypes], formats: [...values.formats],
+        subjects: [...values.subjects], qtypes: [...values.qtypes], formats: [...values.formats], levels: [...values.levels],
         tournaments: [...values.tournaments], roundRange: values.roundRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
       });

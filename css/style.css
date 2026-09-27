@@ -343,6 +343,8 @@ input[type="range"]::-moz-range-thumb:hover { transform: scale(1.15); background
 .tag.qtype-tossup { background: rgba(91,140,255,.15); color: #c3d3ff; }
 .tag.qtype-bonus { background: rgba(91,140,255,.24); color: #c3d3ff; }
 .tag.round { background: var(--bg-alt); color: var(--text-dim); }
+.tag.level-hs { background: rgba(154,167,194,.14); color: #d7deec; }
+.tag.level-ms { background: rgba(232,180,69,.16); color: #f3cd77; }
 .tag.visual-warn { background: rgba(232,180,69,.18); color: var(--warn); text-transform: none; }
 
 .grid-filters {
