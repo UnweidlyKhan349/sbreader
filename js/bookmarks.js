@@ -22,6 +22,7 @@
       <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
       <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
       <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
+      ${SBData.levelTagHTML(q)}
       <span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>
       <span class="small-note">${escapeHtml(q.tournament)}${(() => { const rp = SBData.roundLabelFor(q); return rp ? ' · ' + escapeHtml(rp) : ''; })()}</span>
     `;

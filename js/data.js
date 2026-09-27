@@ -49,6 +49,15 @@
   }
   SBData.subjectLabel = subjectLabel;
 
+  // Competition level (high school vs middle school) is a property of the
+  // tournament, not of each question, so meta.json tags each tournament with
+  // `level` ("hs"/"ms") and every question inherits it at load time.
+  const LEVEL_LABELS = { hs: 'High School', ms: 'Middle School' };
+  SBData.LEVEL_LABELS = LEVEL_LABELS;
+  SBData.levelTagHTML = function (q) {
+    return `<span class="tag level-${q.level}">${LEVEL_LABELS[q.level] || q.level}</span>`;
+  };
+
   // Question/choice text sometimes has a bracketed pronunciation guide right
   // after the word it's for, e.g. "hypertrophic [hy-pur-TROH-fic]" - drop
   // it (and the space before it). This is deliberately narrow - it only
@@ -222,11 +231,14 @@
       if (Array.isArray(meta.qtypes)) {
         meta.qtypes.sort(byFixedOrder(QTYPE_ORDER, (q) => q));
       }
+      const levelBySlug = new Map((meta.tournaments || []).map((t) => [t.slug, t.level || 'hs']));
+      if (!Array.isArray(meta.levels)) meta.levels = ['hs', 'ms'];
       // expand compact keys into a friendlier shape used throughout the app
       SBData.questions = qs.map((q) => ({
         id: q.i,
         tournament: q.t,
         tSlug: q.ts,
+        level: levelBySlug.get(q.ts) || 'hs',
         round: q.r,
         roundLabel: q.rl,
         subject: q.s,
@@ -305,14 +317,15 @@
   };
 
   /* ---------------- Filtering ---------------- */
-  // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, bookmarkedOnly, search, includeVisual }
-  // each of subjects/tournaments/formats/qtypes is either null/empty (= all) or a Set/array of allowed values
+  // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, bookmarkedOnly, search, includeVisual }
+  // each of subjects/tournaments/formats/qtypes/levels is either null/empty (= all) or a Set/array of allowed values
   SBData.filterQuestions = function (opts) {
     opts = opts || {};
     const subjects = toSetOrNull(opts.subjects);
     const tournaments = toSetOrNull(opts.tournaments);
     const formats = toSetOrNull(opts.formats);
     const qtypes = toSetOrNull(opts.qtypes);
+    const levels = toSetOrNull(opts.levels);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? readBookmarks() : null;
     const search = (opts.search || '').trim().toLowerCase();
@@ -329,6 +342,7 @@
       if (tournaments && !tournaments.has(q.tSlug)) return false;
       if (formats && !formats.has(q.format)) return false;
       if (qtypes && !qtypes.has(q.qtype)) return false;
+      if (levels && !levels.has(q.level)) return false;
       if (bookmarkedOnly && !bookmarks.has(q.id)) return false;
       if (!includeVisual && q.visual) return false;
       return true;

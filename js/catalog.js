@@ -4,6 +4,7 @@
     subjects: new Set(),
     qtypes: new Set(),
     formats: new Set(),
+    levels: new Set(),
     tournaments: new Set(),
     search: '',
     page: 1,
@@ -32,7 +33,7 @@
     });
   }
 
-  let subjectItems, qtypeItems, formatItems, roundSliderApi;
+  let subjectItems, qtypeItems, formatItems, levelItems, roundSliderApi;
 
   function init() {
     SBData.load().then(() => {
@@ -44,6 +45,9 @@
 
       formatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
       buildChips(document.getElementById('formatChips'), formatItems, 'formats', (i) => i.label);
+
+      levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
+      buildChips(document.getElementById('levelChips'), levelItems, 'levels', (i) => i.label);
 
       // Wired after subject/qtype/format items exist: wireRoundRangeSlider fires
       // onChange -> render() -> syncChipVisuals() synchronously on setup, which
@@ -87,6 +91,7 @@
         state.subjects.clear();
         state.qtypes.clear();
         state.formats.clear();
+        state.levels.clear();
         state.tournaments.clear();
         state.search = '';
         state.page = 1;
@@ -117,6 +122,7 @@
       [subjectItems, state.subjects],
       [qtypeItems, state.qtypes],
       [formatItems, state.formats],
+      [levelItems, state.levels],
     ].forEach(([items, set]) => {
       items.forEach((i) => i._el.classList.toggle('active', set.has(i.value)));
     });
@@ -130,6 +136,7 @@
       includeUnlabeled: state.includeUnlabeled,
       qtypes: state.qtypes,
       formats: state.formats,
+      levels: state.levels,
       tournaments: state.tournaments,
       search: state.search,
       includeVisual: true,
@@ -216,6 +223,7 @@
       <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
       <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
       <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
+      ${SBData.levelTagHTML(q)}
       <span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>
       ${q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : ''}
       <span class="small-note">${escapeHtml(q.tournament)}${(() => { const rp = SBData.roundLabelFor(q); return rp ? ' · ' + escapeHtml(rp) : ''; })()}</span>

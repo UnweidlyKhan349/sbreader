@@ -6,15 +6,15 @@
   const ANSWER_MS = 10000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
 
-  const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true, bookmarkedOnly: false };
-  let subjectItems, qtypeItems, formatItems, roundSliderApi;
+  const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), levels: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true, bookmarkedOnly: false };
+  let subjectItems, qtypeItems, formatItems, levelItems, roundSliderApi;
   // The in-session settings panel (opened mid-game) reuses this exact same
   // filterState object rather than a separate copy - solo has only one
   // local source of truth, unlike multiplayer where a settings panel edits
   // a draft that's broadcast and reconciled across clients. It gets its own
   // parallel set of chip/select DOM elements below (soloSettings*) so both
   // the setup screen and the mid-game panel can show/edit the same state.
-  let soloSettingsSubjectItems, soloSettingsQtypeItems, soloSettingsFormatItems, soloSettingsRoundSliderApi;
+  let soloSettingsSubjectItems, soloSettingsQtypeItems, soloSettingsFormatItems, soloSettingsLevelItems, soloSettingsRoundSliderApi;
 
   function buildChips(container, items, key, labelFn, onToggle) {
     container.innerHTML = '';
@@ -60,6 +60,7 @@
       includeUnlabeled: filterState.includeUnlabeled,
       qtypes: filterState.qtypes,
       formats: filterState.formats,
+      levels: filterState.levels,
       tournaments: filterState.tournaments,
       bookmarkedOnly: filterState.bookmarkedOnly,
     });
@@ -96,6 +97,9 @@
     formatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
     buildChips(document.getElementById('formatChips'), formatItems, 'formats', (i) => i.label, () => resyncChipGroup(soloSettingsFormatItems, 'formats'));
 
+    levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
+    buildChips(document.getElementById('levelChips'), levelItems, 'levels', (i) => i.label, () => resyncChipGroup(soloSettingsLevelItems, 'levels'));
+
     const tSelect = document.getElementById('tournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
       const opt = document.createElement('option');
@@ -112,13 +116,14 @@
     SBData.enhanceMultiSelect(tSelect);
 
     document.getElementById('clearFiltersBtn').addEventListener('click', () => {
-      [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats']].forEach(([items, key]) => {
+      [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats'], [levelItems, 'levels']].forEach(([items, key]) => {
         filterState[key].clear();
         items.forEach((i) => i._el.classList.remove('active'));
       });
       resyncChipGroup(soloSettingsSubjectItems, 'subjects');
       resyncChipGroup(soloSettingsQtypeItems, 'qtypes');
       resyncChipGroup(soloSettingsFormatItems, 'formats');
+      resyncChipGroup(soloSettingsLevelItems, 'levels');
       filterState.tournaments.clear();
       tSelect.setMultiValues([]);
       const sSelect = document.getElementById('soloSettingsTournamentSelect');
@@ -221,6 +226,10 @@
     buildChips(document.getElementById('soloSettingsFormatChips'), soloSettingsFormatItems, 'formats', (i) => i.label, () => { resyncChipGroup(formatItems, 'formats'); applySoloSettingsChange(); });
     resyncChipGroup(soloSettingsFormatItems, 'formats');
 
+    soloSettingsLevelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
+    buildChips(document.getElementById('soloSettingsLevelChips'), soloSettingsLevelItems, 'levels', (i) => i.label, () => { resyncChipGroup(levelItems, 'levels'); applySoloSettingsChange(); });
+    resyncChipGroup(soloSettingsLevelItems, 'levels');
+
     const sSelect = document.getElementById('soloSettingsTournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
       const opt = document.createElement('option');
@@ -237,12 +246,13 @@
     SBData.enhanceMultiSelect(sSelect);
 
     document.getElementById('soloSettingsClearBtn').addEventListener('click', () => {
-      [[soloSettingsSubjectItems, 'subjects'], [soloSettingsQtypeItems, 'qtypes'], [soloSettingsFormatItems, 'formats']].forEach(([, key]) => {
+      [[soloSettingsSubjectItems, 'subjects'], [soloSettingsQtypeItems, 'qtypes'], [soloSettingsFormatItems, 'formats'], [soloSettingsLevelItems, 'levels']].forEach(([, key]) => {
         filterState[key].clear();
       });
       resyncChipGroup(subjectItems, 'subjects'); resyncChipGroup(soloSettingsSubjectItems, 'subjects');
       resyncChipGroup(qtypeItems, 'qtypes'); resyncChipGroup(soloSettingsQtypeItems, 'qtypes');
       resyncChipGroup(formatItems, 'formats'); resyncChipGroup(soloSettingsFormatItems, 'formats');
+      resyncChipGroup(levelItems, 'levels'); resyncChipGroup(soloSettingsLevelItems, 'levels');
       filterState.tournaments.clear();
       sSelect.setMultiValues([]);
       document.getElementById('tournamentSelect').setMultiValues([]);
@@ -421,6 +431,8 @@
     const subjectTag = document.getElementById('revealSubjectTag');
     const formatTag = document.getElementById('revealFormatTag');
     const qtypeTag = document.getElementById('revealQtypeTag');
+    const levelTag = document.getElementById('revealLevelTag');
+    levelTag.className = 'tag level-' + q.level;
     subjectTag.className = 'tag subject-' + q.subject;
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
     qtypeTag.className = 'tag qtype-' + q.qtype;
@@ -428,6 +440,7 @@
       { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
       { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
       { text: (QTYPE_LABELS[q.qtype] || q.qtype).toUpperCase(), el: qtypeTag },
+      { text: (SBData.LEVEL_LABELS[q.level] || q.level).toUpperCase(), el: levelTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('choicesDisplay');
@@ -703,6 +716,7 @@
       <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
       <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
       <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
+      ${SBData.levelTagHTML(q)}
       <span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>
     `;
     const isBm = SBData.bookmarks.isBookmarked(q.id);
