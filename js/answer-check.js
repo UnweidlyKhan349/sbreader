@@ -271,6 +271,16 @@
   function normEqual(a, b) {
     return normalize(a) === normalize(b);
   }
+  // Only whitespace is dropped (punctuation is kept, so "1.5" never meets
+  // "15"), and only for answers containing a letter, since spacing is
+  // meaningful inside bare numbers ("1 2" vs "12").
+  function compact(s) {
+    return String(s == null ? '' : s).toUpperCase().replace(/['’‘]/g, "'").replace(/\s+/g, '');
+  }
+  function compactEqual(a, b) {
+    const ca = compact(a);
+    return ca.length >= 2 && /[A-Z]/.test(ca) && ca === compact(b);
+  }
 
   // A plain substring check for fuzzyContains would let an answer match
   // inside a completely different, sometimes opposite-meaning word - "STABLE"
@@ -411,7 +421,7 @@
 
     // ---- Reject list first: an explicit "do not accept" match is always wrong ----
     for (const rej of ans.reject || []) {
-      if (normEqual(raw, rej)) {
+      if (normEqual(raw, rej) || compactEqual(raw, rej)) {
         return { correct: false, matched: null, rejected: true };
       }
     }
@@ -474,6 +484,21 @@
     }
     for (const acc of ans.accept || []) {
       if (normEqual(raw, acc)) {
+        return { correct: true, matched: 'accept', rejected: false };
+      }
+    }
+
+    // ---- Spacing-insensitive match ----
+    // PDF extraction scattered spaces through chemical formulas and other
+    // compact answers ("SI O2", "C 3 H 7 NO 2", "MgCl 2"), so a student who
+    // types "SiO2" would fail the exact match above on spacing alone. Two
+    // answers that are identical once every space is removed are the same
+    // answer.
+    if (compactEqual(raw, ans.text)) {
+      return { correct: true, matched: 'main', rejected: false };
+    }
+    for (const acc of ans.accept || []) {
+      if (compactEqual(raw, acc)) {
         return { correct: true, matched: 'accept', rejected: false };
       }
     }

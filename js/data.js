@@ -54,9 +54,6 @@
   // `level` ("hs"/"ms") and every question inherits it at load time.
   const LEVEL_LABELS = { hs: 'High School', ms: 'Middle School' };
   SBData.LEVEL_LABELS = LEVEL_LABELS;
-  SBData.levelTagHTML = function (q) {
-    return `<span class="tag level-${q.level}">${LEVEL_LABELS[q.level] || q.level}</span>`;
-  };
 
   // Question/choice text sometimes has a bracketed pronunciation guide right
   // after the word it's for, e.g. "hypertrophic [hy-pur-TROH-fic]" - drop
@@ -260,6 +257,7 @@
         sourceUrl: q.u,
       }));
       SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
+      migrateBookmarks(meta.idAliases);
       return SBData;
     });
     return SBData._readyPromise;
@@ -282,6 +280,22 @@
     } catch (e) {
       /* ignore quota errors */
     }
+  }
+
+  // Duplicate questions were merged into one kept copy; meta.json maps each
+  // removed id to the id that replaced it. Point any saved bookmark at its
+  // kept copy so it doesn't silently disappear.
+  function migrateBookmarks(aliases) {
+    if (!aliases) return;
+    const set = readBookmarks();
+    let changed = false;
+    const out = new Set();
+    set.forEach((id) => {
+      const to = aliases[id];
+      if (to !== undefined) changed = true;
+      out.add(to !== undefined ? to : id);
+    });
+    if (changed) writeBookmarks(out);
   }
 
   SBData.bookmarks = {

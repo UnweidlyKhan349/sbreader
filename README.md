@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 74,966 questions from 97 tournaments** (37,737 tossups / 37,229 bonuses; 47,167 short answer / 27,799 multiple choice).
+**Current question bank: 70,568 questions from 96 tournaments** (35,537 tossups / 35,031 bonuses; 44,141 short answer / 26,427 multiple choice).
 
 | Subject | Questions |
 |---|---|
-| Earth & Space | 14,110 |
-| Biology | 13,971 |
-| Math | 13,052 |
-| Chemistry | 12,165 |
-| Physics | 12,120 |
-| Energy | 9,548 |
+| Earth & Space | 13,328 |
+| Biology | 13,204 |
+| Math | 12,352 |
+| Chemistry | 11,335 |
+| Physics | 11,262 |
+| Energy | 9,087 |
 
 This README covers the whole project: what the site does, how the data is shaped, where the questions came from, every major data-quality pass, the conventions the work followed, and the known limitations that are still open.
 
@@ -43,9 +43,9 @@ A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. Th
 
 ### `catalog.html` (Catalog)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input.
-- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,555 questions have no round number), question type (Toss-Up/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
+- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,320 questions have no round number), question type (Toss-Up/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
 - 40 results per page, with pagination and a jump-to-page input.
-- Each card shows subject/type/format/level tags, the question, MC choices, the answer line (with inline "also accept"), the tournament and round label, a link to the original packet (when there is one), and a bookmark star.
+- Each card shows subject/type/format tags, the question, MC choices, the answer line (with inline "also accept"), the tournament and round label, a link to the original packet (when there is one), and a bookmark star.
 
 ### `solo.html` (Solo Practice)
 - **Setup screen**: pick subjects, round range, question type, format, level (High School/Middle School), and tournament(s), plus reading speed. A live "N questions match your filters" count updates as you go.
@@ -105,6 +105,7 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 - **"Identify all" and list questions**: the item count is detected from the question's `1) … 2) …` markers, and the answer is canonicalized, so `1 and 3`, `13`, and `1, 3` all match. Item *names* are resolved to their numbers (e.g. "diatoms radiolarians"). **"All but X"** phrasing is resolved by excluding the named or numbered item(s).
 - **Ranking questions** keep order (a permutation) instead of being treated as sets.
 - **Bare numbers** match answer keys like `8 FACTORS`. Leading-number extraction and set comparison handle numeric answers.
+- **Spacing-insensitive match**: answers that contain a letter and are identical once whitespace is removed count as equal, so `SiO2` matches an answer key of `SI O2` and `MgCl2` matches `MgCl 2` (PDF extraction scattered spaces through formulas). Punctuation is kept, so `1.5` never meets `15`, and bare numbers are excluded because spacing can matter there. The same rule applies to reject lists. Checked against the whole corpus: grading every short-answer question with another question's answer gives exactly as many acceptances as before (no new false positives).
 - **Lenient matching**: stop-word-tolerant word matching, whole-run containment, and a Levenshtein typo tolerance that scales with answer length.
 
 Regression-tested against about 4,000 real "identify all" questions from the corpus, with 0 regressions.
@@ -164,14 +165,16 @@ A compact JSON array (about 25 MB raw, about 5.9 MB gzipped; GitHub Pages serves
 | `q` | question text |
 | `c` | MC choices `{W, X, Y, Z}` |
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
-| `u` | source packet URL (on 62,831 records) |
+| `u` | source packet URL (on 60,351 records) |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
 ### `data/meta.json`
-`totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
+`totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips and the High School / Middle School tag on each question. The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,749 questions); everything else is `hs` (61,217). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`). One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,749 questions); everything else is `hs` (61,217). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+
+`idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
 ---
 
@@ -187,7 +190,7 @@ Sources used:
 - **science.osti.gov MS Sample Questions**: the official NSB middle-school sample sets 1–13 plus the four "Sample Rounds" PDFs (214 PDFs, fetched through a browser context because the site's Azure WAF serves curl a JavaScript challenge). Sets 14–16 were already in the bank via isobowl and were skipped. This added **9,868 questions** to **NSB MS Regs** (labelled `Set N · Round R`, or `Sample Rounds · Round Robin N` / `Double Elimination N`, whose DE rounds have no round number). Notes:
   - Superscripts were recovered from the PDFs' font flags rather than guessed (`4.56 × 10^11`, `6 × 10^3`), and Symbol/Wingdings private-use glyphs were decoded (θ, √, °, −, reaction arrows →, absolute-value bars).
   - Excluded, never guessed: 170 records with stacked math (fractions, radicals, big brackets) that the text layer splits into loose fragments, 7 more whose math was flattened onto one line (found by hand review), 4 lost radicals/fractions, 2 short-answer prompts whose expression is an image, 5 whose answer letter and answer text name different choices, 6 with missing or mislabelled choices, 4 whose answer is missing from the text layer, and 1 with no subject label. 117 questions already in the bank (from other tournaments) and 106 repeats across the MS sets were skipped.
-  - Subjects: Life Science → Biology, Earth Science / Earth and Space → Earth & Space, General Science → Energy (the subject rule below). The old combined **Physical Science** category was split into Chemistry or Physics by a keyword classifier; on the 277 isobowl-labelled chem/phys MS questions it agrees with isobowl 88% of the time, so treat those two tags on the older MS sets as approximate.
+  - Subjects: Life Science → Biology, Earth Science / Earth and Space → Earth & Space, General Science → Energy (the subject rule below). The old combined **Physical Science** category is split into Chemistry or Physics by a trained chem-vs-phys model (see the subject-label audit below), and then every one of the 2,004 "Physical Science" questions was read by hand (see the subject-label audit below).
 - **2024 'Iolani Invitational Drive folder** (`drive.google.com/drive/folders/1-piDufZ3ECJNFpzU4pKyZ-uNHBuyI5uN`): all 7 round files checked by content; every question was already in **ISBL 2024**. The check did turn up one mangled answer there (the derivative of x·sin(x), whose nested "(Accept: …)" had been split mid-parenthesis), which was restored from the source.
 - **The user's personal desktop archive** (865 files, 63 tournament folders of PDF/DOCX/PPTX): produced the new **2026 Texas Science Bowl Invitational** (640 questions) plus 2,594 missing questions spread across 48 existing tournaments.
 - **The Science Bowl Periphery (speriphery.com) Google Drive folder** (`drive.google.com/drive/folders/1IIpY8rbKS2_tf5_Kwl2Ns_qAJ1FIkMic`; 67 tournament folders, 869 files, crawled via `embeddedfolderview`): every folder turned out to be a tournament already in the bank, so this was a straggler merge. Each packet was parsed and every question checked against the whole bank by content; only questions with no match were added. That produced **395 questions**: 224 Lexington HS 2020-21 questions (rounds 4–17 previously had only their bonuses; rounds 3 and 8 were partial), 104 CLASH 2026 replacement questions (62 HS / 42 MS, labelled `CLASH Replacement Questions` with no round number, like DASONI's replacements), 22 DASONI 2 (mostly DE8/DE9), 22 NSBA1, and 23 spread over 11 other tournaments. Excluded: visual bonuses, cross-subject "Synergy"/"Duality" questions, the SMH boss-battle joke round, questions whose equations or answers are missing from the source text, and LOST2 (image-only scans whose OCR was too noisy; LOST 2 was already ingested). Not reachable: the NWI2 2025 folder (private, 401) and ICSBT2 DE4 (owner disabled downloads). The sets speriphery.com has beyond this Drive (LBB 2026, MOOSE 2021, Yale 2026, LADWP 2023) came from its database instead; see the next two entries.
@@ -199,6 +202,15 @@ Sources used:
 - **Middle-school content** is kept. It was briefly removed (3,879 questions) and then restored from git: NSB MS Regs (the official MS sample sets: 14–16 via isobowl, 1–13 and the Sample Rounds from OSTI), CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026 (the same event ingested twice), Dasoni Standard1 (Davidson's MS "Standard" division), Deadbird Invitational (DBHSST), and MOOSE 2021. A re-check of isobowl's and speriphery's MS data against the bank found 4 more questions (2 isobowl general-science items filed under Energy, 1 NSB 2021 MS question, 1 MOOSE question), which were added.
 - **Subject rule**: any question whose source subject isn't Math, Earth & Space, Physics, Chemistry or Biology (general science, computer science, "Synergy", and so on) is filed under **Energy** rather than dropped.
 - **NSB Regs repaired from isobowl's structured copies of the same official sets**, matched slot by slot (set, round, question number, tossup/bonus) and confirmed as the same question by answer or near-identical wording: 131 questions whose text or choices had lost their math (doubled italic glyphs, missing expressions, empty choices) were replaced with the clean text and answer; 348 answers that had lost math or had an "ACCEPT" note mashed into them were replaced; and 618 more questions had flattened exponents restored (`2x4 + 3x3` → `2x^4 + 3x^3`). Existing accept/reject lists were kept and merged with isobowl's.
+- **Subject-label audit** (413 questions relabelled). Some packets file questions under the wrong category (e.g. a mycorrhizae question printed as "Earth and Space" in the Deadbird/CSBL packet), and several middle-school sources only say "Physical Science". A TF-IDF + logistic-regression model trained on the bank itself scored every Biology/Chemistry/Earth & Space/Math/Physics question out-of-fold (5 folds, exact duplicates kept in the same fold so a shared mislabel can't vouch for itself), and every disagreement at ≥90% confidence (413 questions) was reviewed by hand. 186 were moved when the question squarely belongs to the other subject (organism-level biochemistry → Biology, photons/uncertainty/mechanics → Physics, bonding/gas laws/solutions → Chemistry, observational astronomy and weather → Earth & Space, pure combinatorics/vectors → Math); genuinely cross-disciplinary ones (astrophysics calculations, thermodynamics, nuclear decay, paleontology) kept their source label. Separately, the 2,004 questions whose source label was only "Physical Science" (NSB MS sets 1–13, Deadbird Invitational, and the two CSBL rounds copied from it) were re-split into Chemistry/Physics by a chem-vs-phys model trained only on source-labelled questions (94.5% held-out accuracy, vs 88% for the earlier keyword split): 227 changed, only where the model was ≥65% sure, except Deadbird/CSBL, whose blanket "Physics" carried no information. **Energy was left out on purpose**: it is a cross-disciplinary NSB category, so a biology-flavoured Energy question isn't mislabelled; the single-subject tournaments (National ChemBowl, Earth and Space Scrimmage, Lexington Biology Bowl, Trio Online Math Bowl) were also left alone.
+- **Physical Science hand review.** All 2,004 questions whose source only said "Physical Science" were then read one by one and 78 more were corrected: 32 astronomy/weather/geology questions that had been filed under Physics (Kepler's laws, the CMB, eclipses, the ionosphere, relative humidity, Van Allen belts…) moved to Earth & Space; 24 atomic-structure and gas-law questions moved Physics → Chemistry and 20 magnetism/electronics/heat-flow questions moved Chemistry → Physics; one enzyme question went to Biology and one Local Group question to Earth & Space.
+- **Duplicate audit** (bank 74,966 → 70,568). Earlier dedup only ran within each tournament; this pass ran across the whole bank.
+  - *Exact duplicates*: same question text and answer after normalization (case, punctuation, pronunciation guides and "read as" notes ignored). 3,810 extra copies, dominated by whole events ingested twice under different names (DAST 2 / DAST1 / Moose, BUMS 2026 / Bay Ultimate MS Scibowl, Cast 2021 / Lexscibowl 2021, CSBL copies of NNHS and Deadbird rounds, BTHS 2025 / Brooklyn Tech Invitational), divisions sharing a packet (SBL "Comp"/"Stand"), and packet files parsed twice (ISBI 2025's elimination rounds held each question twice).
+  - *Truncated-answer duplicates*: same question text where one copy's answer is a fragment of the other's ("8" vs "8 TO 27", "/19" vs "(7 sqrt 19)/19", "2" vs "2 AND 3"). The complete answer is kept.
+  - *Near duplicates*: same answer, ≥85% similar wording, and the same numbers in the same order (list markers ignored), with bare list/number answers held to ≥97% similarity because the answer alone proves nothing. 524 links such as "densest planet" / "most dense planet" or math-italic vs plain copies of the same FE!M question. Pairs that only share an answer ("4^2020 mod 3" vs "2024^2024 mod 17") are rejected by the number check.
+  - *Same question, different answers*: 42 groups reviewed by hand. Formatting variants (⅛ vs 1/8, NUÉE vs NUEE) and corrupted copies ("MIT", "[AdM]", a leaked tournament name) were merged onto the good copy; genuine disagreements were worked out and the correct copy kept (AaBbCcDd × AABbCcDd → AAbbCCdd is 1/128, not 1/64; the average of x² − 6x on [1, 4] is −8, not 22; x² and 2^x meet at 3 points; a Carnot refrigerator between 27 °C and 77 °C has COP 6). Four stayed unresolved (see known limitations).
+  - Each cluster keeps one copy, chosen by: cleanest answer (no leaked footers, credits, bracketed initials or broken brackets), cleanest text (no math-italic Unicode or LaTeX remnants), official NSB sets over invitationals and original events over re-ingests or grab-bag collections, a source link, then the earliest record. 4,355 questions were removed; `meta.json`'s `idAliases` redirects their bookmarks. "Moose" (which only ever held DAST packets) is now empty and gone, leaving 96 tournaments.
+  - Also removed: 43 unrecoverable records found while auditing short stems (stems cut off mid-sentence such as "Expressing your" / "Providing your" / "Rounding your", math garbled past reading, one "Name this man" visual). Also fixed: 282 answers carrying a leaked " MIT" footer (MIT 2023) or a transcriber's Discord tag, 3 doubled reaction arrows ("→→"), and a lost "ffi" ligature (`coe"cient` → `coefficient`).
 - **Whole-bank formatting pass** (every record audited against the data format):
   - Inline accept notes moved into the answer lists: "(ACCEPT: …)", "(ALSO ACCEPT …)", "(DO NOT ACCEPT: …)" inside answers (~700), and "ACCEPT: x; DO NOT ACCEPT: y" strings stored as single list items, were split into `ac`/`rj`. Pronunciation notes, empty lists, and joke comments were dropped from `ac`. Instructions such as "(accept any order)" were kept in the answer text.
   - Multiple choice: 186 answers that had the letter only in the text ("W) …") now have `l` set. 3 choice sets that had merged ("… Y) …") were split back into four. 3 NSB questions with missing choices were restored from isobowl. 8 "MC" records that were really short-answer questions split at a variable name were rejoined. 8 multi-part questions whose W–Z choices belong to one sub-part became short-answer with the choices written inline.
@@ -208,7 +220,7 @@ Sources used:
   - Left as is: 548 records without a question number (their sources don't number them; the site doesn't display numbers).
 
 ### Corpus size over time
-36,145 (first release) → 44,742 → 45,475 (broken-parse repairs) → 47,074 → 47,891 → 59,822 (OSTI) → 63,048 (desktop archive) → 62,976 (unrecoverable/visual-bonus removals) → 61,619 (duplicate removal) → 61,618 → 62,013 (speriphery Drive stragglers) → 65,075 (isobowl + speriphery databases) → 61,272 (MS removed, NSB repair) → 65,155 (MS restored) → 65,098 (formatting pass) → **74,966** (OSTI MS sample sets 1–13, current).
+36,145 (first release) → 44,742 → 45,475 (broken-parse repairs) → 47,074 → 47,891 → 59,822 (OSTI) → 63,048 (desktop archive) → 62,976 (unrecoverable/visual-bonus removals) → 61,619 (duplicate removal) → 61,618 → 62,013 (speriphery Drive stragglers) → 65,075 (isobowl + speriphery databases) → 61,272 (MS removed, NSB repair) → 65,155 (MS restored) → 65,098 (formatting pass) → 74,966 (OSTI MS sample sets 1–13) → **70,568** (cross-bank duplicate audit, current).
 
 ---
 
@@ -309,7 +321,7 @@ Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was remo
 
 ## Project conventions and hard-won lessons
 
-- **Never trust file or folder names.** The FE!M 2025 Drive file "DE1.pdf" was internally "Round 6". The Moose folder held DAST files. Lexington's "Round 8.pdf" carried a leftover "[ROUND 3]" header. Always confirm by content.
+- **Never trust file or folder names.** The FE!M 2025 Drive file "DE1.pdf" was internally "Round 6". The Moose folder held DAST files (its copies were later merged away in the duplicate audit). Lexington's "Round 8.pdf" carried a leftover "[ROUND 3]" header. Always confirm by content.
 - **"Looks healthy" isn't proof.** Always compare against a fresh parse in both directions.
 - **Never fabricate.** If math or content can't be derived and verified, leave it or remove the record. Don't guess.
 - **Fix things once, centrally.** Display-order and label problems were fixed in `SBData.load()` instead of at every call site.
@@ -322,11 +334,11 @@ Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was remo
 ## Known limitations and open items
 
 - **Lost exponent/radical notation that can't be recovered.** Some PDFs lost `^`, `√`, or superscripts during the original extraction, leaving `x2`, `t2`, `738` (meant as 7³⁸), `e2x`, and so on. A bare `x2` looks the same as a subscript (x₂), a chemical formula (H2O), or an ordinary number, so the project deliberately does **not** reconstruct these by pattern-matching. Examples still affected: NWI 2024's ellipse question (one copy is cut off, the other has a garbled equation), MHS Rounds' Laplace transform of `t2`, several CSUB integrals, and NSB Regs Set 6's "area under … y = ?" (the function itself is missing from the source text).
-- **Duplicates across tournaments.** Dedup ran *within* each tournament. Checking across tournaments (normalized question text) shows real overlap: **Bay Ultimate MS Scibowl vs BUMS 2026** (446 of 516 match; almost certainly the same event ingested twice), **DAST 2 / DAST1 / Moose** (360), **Cast 2021 vs Lexscibowl 2021** (309), **CSBL vs NNHS Rounds 2020-21** (133), CSBL vs Deadbird (68), CCWT vs Random Stuff (45), BTHS 2025 vs Brooklyn Tech Invitational (33), and smaller amounts elsewhere. Some reuse between tournaments is legitimate (organizers do reuse questions), but the larger pairs should be reviewed and merged.
+- **Unresolved duplicate pairs.** Four same-text pairs have answers that contradict and can't be settled from the text alone, so both copies are kept: ICSBT 2025's amortized-analysis question ("2,3" vs "3 only"), an SBL Staudinger-reaction question (N2 vs triphenylphosphine oxide), an SBST inscribed-rectangle question, and two official NSB sets that disagree on a diatomic gas's total degrees of freedom (5 vs 6). Near-duplicates below 85% similarity, or with different numbers, were not merged, so reworded repeats can still appear.
 - **CSUB's combined packets**: 448/400 questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR, DE, and "NATS" labels overlap in round number, and the phase order can't be inferred, so it was left as-is.
 - **SSBT 2023**: one Finals group has no round number (`r = null`).
-- **NSB MS Regs, sets 1–13**: Chemistry vs Physics on questions the source labels "Physical Science" comes from a keyword classifier (see sources above), and "General Science" questions sit under Energy per the subject rule.
+- **Chemistry vs Physics on "Physical Science" sources** (NSB MS sets 1–13, Deadbird Invitational): chosen by a trained model (94.5% held-out accuracy), not by the packet; about 1 in 20 may still be on the wrong side. "General Science" questions sit under Energy per the subject rule.
 - **Sources not ingested**: isobowl.com packets that are live, upcoming, or not yet released (re-check after those tournaments conclude); sciencebowl.org (login-gated; needs the owner's permission); Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
 - **Round slider** is global (max 20), not scoped to the selected tournament.
 
@@ -358,101 +370,100 @@ Checks used throughout development:
 
 | Tournament | Questions |
 |---|---|
-| 2026 Texas Science Bowl Invitational | 639 |
-| AVES 2 | 563 |
-| AVES 2025 | 538 |
-| BASED 2025 | 610 |
-| Bash 2025 | 625 |
-| BASIS Peoria Rounds | 755 |
-| Bay Ultimate MS Scibowl | 516 |
-| Berkeley 2023 | 644 |
-| Brooklyn Tech Invitational | 367 |
-| BTHS 2025 | 297 |
-| BUMS 2026 | 516 |
-| Cast 2021 | 410 |
-| CCWT | 275 |
-| CCWTWO | 265 |
-| CLASH 2026 HS | 677 |
-| CLASH 2026 MS | 418 |
-| Clements 2025 | 506 |
-| CSBL | 934 |
-| CSUB | 1,641 |
-| CUT 2026 | 625 |
-| DASONI 2 | 613 |
-| Dasoni Comp1 | 427 |
-| Dasoni Standard1 | 503 |
-| DAST 2 | 452 |
-| Dast 2025 | 495 |
-| DAST1 | 456 |
-| David Rounds 2019 | 299 |
-| Deadbird Invitational | 401 |
-| Dvhs 2025 | 422 |
-| Earth and Space Scrimmage 2024 | 250 |
-| Earth and Space Scrimmage 2025 | 340 |
-| ESBOT 1 | 562 |
-| ESBOT 2 | 591 |
-| Fall 2023 | 621 |
-| FE!M 2025 | 631 |
-| GWHS Rounds | 735 |
-| ICSBT 2 | 535 |
-| ICSBT 2025 | 469 |
-| IGNIS 2022 | 747 |
-| ISBI 2025 | 452 |
-| ISBL 2024 | 292 |
+| 2026 Texas Science Bowl Invitational | 638 |
+| AVES 2 | 561 |
+| AVES 2025 | 522 |
+| BASED 2025 | 606 |
+| Bash 2025 | 621 |
+| BASIS Peoria Rounds | 750 |
+| Bay Ultimate MS Scibowl | 508 |
+| Berkeley 2023 | 634 |
+| Brooklyn Tech Invitational | 351 |
+| BTHS 2025 | 247 |
+| BUMS 2026 | 40 |
+| Cast 2021 | 403 |
+| CCWT | 272 |
+| CCWTWO | 264 |
+| CLASH 2026 HS | 673 |
+| CLASH 2026 MS | 409 |
+| Clements 2025 | 485 |
+| CSBL | 635 |
+| CSUB | 1,574 |
+| CUT 2026 | 622 |
+| DASONI 2 | 608 |
+| Dasoni Comp1 | 419 |
+| Dasoni Standard1 | 500 |
+| DAST 2 | 13 |
+| Dast 2025 | 470 |
+| DAST1 | 439 |
+| David Rounds 2019 | 296 |
+| Deadbird Invitational | 388 |
+| Dvhs 2025 | 178 |
+| Earth and Space Scrimmage 2024 | 249 |
+| Earth and Space Scrimmage 2025 | 339 |
+| ESBOT 1 | 555 |
+| ESBOT 2 | 579 |
+| Fall 2023 | 618 |
+| FE!M 2025 | 607 |
+| GWHS Rounds | 722 |
+| ICSBT 2 | 528 |
+| ICSBT 2025 | 458 |
+| IGNIS 2022 | 721 |
+| ISBI 2025 | 328 |
+| ISBL 2024 | 284 |
 | LADWP 2023 | 31 |
 | Lexington Biology Bowl 2026 | 428 |
-| Lexington HS 2020-21 | 758 |
-| Lexscibowl 2021 | 402 |
-| LOST 1 | 628 |
-| LOST 2 | 561 |
-| MEHS Rounds | 773 |
-| MHS Rounds | 871 |
-| MIT 2020 | 625 |
-| MIT 2021 | 621 |
-| MIT 2022 | 683 |
-| MIT 2023 | 637 |
-| MIT 2024 | 651 |
-| MIT 2025 | 968 |
-| MNSBT 2024 | 650 |
-| Moose | 454 |
+| Lexington HS 2020-21 | 751 |
+| Lexscibowl 2021 | 21 |
+| LOST 1 | 618 |
+| LOST 2 | 558 |
+| MEHS Rounds | 771 |
+| MHS Rounds | 819 |
+| MIT 2020 | 600 |
+| MIT 2021 | 596 |
+| MIT 2022 | 650 |
+| MIT 2023 | 604 |
+| MIT 2024 | 621 |
+| MIT 2025 | 916 |
+| MNSBT 2024 | 648 |
 | MOOSE 2021 | 350 |
-| MOSFET 2 | 506 |
-| MOSFET 2024 | 600 |
-| Mosfet1 | 605 |
-| NCB 2026 | 283 |
-| NESB | 991 |
-| NNHS Rounds 2020-21 | 778 |
-| NSB MS Regs | 11,045 |
-| NSB Regs | 11,988 |
-| NSBA1 | 726 |
-| NSBA2 | 311 |
+| MOSFET 2 | 503 |
+| MOSFET 2024 | 593 |
+| Mosfet1 | 563 |
+| NCB 2026 | 279 |
+| NESB | 987 |
+| NNHS Rounds 2020-21 | 769 |
+| NSB MS Regs | 10,973 |
+| NSB Regs | 11,931 |
+| NSBA1 | 695 |
+| NSBA2 | 308 |
 | NSBA4 | 432 |
-| NSFBL | 549 |
-| NSI 2023 | 272 |
-| NSI 2024 | 261 |
-| NWI 2024 | 286 |
-| NWI 2025 | 395 |
-| Olympus 2022 | 656 |
-| Pohaku 2024 | 322 |
-| Prometheus 2021 | 849 |
-| Random | 779 |
-| Random Stuff | 489 |
-| SBL | 1,590 |
-| SBST | 659 |
-| SBST (Spring) | 628 |
-| SCB 2025 | 492 |
-| SMH 2025 | 548 |
-| SSBT 2023 | 558 |
-| Stanford 2025 | 667 |
-| Stanford 2026 | 655 |
-| Summer 2019 | 134 |
-| Texas Sci Bowl 2025 | 678 |
-| THUMB 2025 | 205 |
-| Tjsbt 2025 | 566 |
+| NSFBL | 544 |
+| NSI 2023 | 257 |
+| NSI 2024 | 254 |
+| NWI 2024 | 278 |
+| NWI 2025 | 376 |
+| Olympus 2022 | 628 |
+| Pohaku 2024 | 316 |
+| Prometheus 2021 | 829 |
+| Random | 731 |
+| Random Stuff | 329 |
+| SBL | 1,106 |
+| SBST | 630 |
+| SBST (Spring) | 602 |
+| SCB 2025 | 479 |
+| SMH 2025 | 537 |
+| SSBT 2023 | 547 |
+| Stanford 2025 | 648 |
+| Stanford 2026 | 639 |
+| Summer 2019 | 125 |
+| Texas Sci Bowl 2025 | 647 |
+| THUMB 2025 | 204 |
+| Tjsbt 2025 | 555 |
 | Trio Online Math Bowl 2026 | 479 |
-| University Prep | 50 |
-| Walton Rounds | 755 |
-| WISC 2021 | 392 |
-| WSBT | 502 |
+| University Prep | 49 |
+| Walton Rounds | 742 |
+| WISC 2021 | 380 |
+| WSBT | 448 |
 | Yale 2026 | 80 |
-| **Total (97)** | **74,966** |
+| **Total (96)** | **70,568** |
