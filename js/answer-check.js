@@ -268,7 +268,78 @@
   }
 
   // Core string equality after normalization
+  // ---- Signs on numeric answers ----
+  // normalize() strips punctuation, "-" included, so "-2" and "2" used to
+  // compare equal - and so did "-195 degrees" / "195 degrees" and "-2+sqrt6"
+  // / "2+sqrt6". When both sides START with a number, that number's sign is
+  // part of the answer and must agree. "negative 2" / "minus 2" count as
+  // "-2", and the dash variants PDFs produce (− – ‐) as "-". A dash inside
+  // the answer ("20 – 21", "G-2", "x - 2") isn't a leading sign and is left
+  // to the ordinary rules. Checked on the corpus: of 673 keys that start with
+  // a negative number, 658 used to accept the answer with its sign dropped.
+  // A key that's exactly one number (optional sign, digits, decimal, "/n")
+  // also matches the same number written another way ("negative 2" = "-2").
+  const SIGN_RE = '(?:([+\\-\u2212\u2013\u2010])\\s*|(NEGATIVE|MINUS|POSITIVE|PLUS)\\s+)?';
+  const PURE_NUMBER_RE = new RegExp('^\\s*' + SIGN_RE + '((?:\\d[\\d,]*(?:\\.\\d+)?|\\.\\d+)(?:\\s*\\/\\s*\\d+(?:\\.\\d+)?)?)\\s*$', 'i');
+  const LEADING_NUMBER_RE = new RegExp('^\\s*' + SIGN_RE + '(?:\\d|\\.\\d)', 'i');
+  function signOf(m) {
+    const sym = m[1] || (m[2] && m[2].toUpperCase());
+    return sym && /^(?:[-\u2212\u2013\u2010]|NEGATIVE|MINUS)$/.test(sym) ? -1 : 1;
+  }
+  function pureNumber(s) {
+    const m = String(s == null ? '' : s).match(PURE_NUMBER_RE);
+    if (!m) return null;
+    const digits = m[3].replace(/[,\s]/g, '');
+    // ".5" = "0.5"; otherwise digits are compared as written ("001" is not "1")
+    return { sign: signOf(m), digits: digits.startsWith('.') ? '0' + digits : digits };
+  }
+  // Every number in the string with its sign, for answers whose terms can
+  // come in any order ("5i - 3" vs "3 + 5i", "7, -5" vs "5, 7"). A dash
+  // after a digit ("20 – 21", "2 - 3i") or glued to a letter ("G-2", "A-1",
+  // "x-2") may be a range, subtraction or label hyphen rather than a sign,
+  // so that number is left out entirely.
+  const DASH = /[-\u2212\u2013\u2010]/;
+  function signedTerms(s) {
+    const str = String(s == null ? '' : s);
+    const out = [];
+    const re = /\d+(?:\.\d+)?/g;
+    let m;
+    while ((m = re.exec(str))) {
+      let j = m.index - 1;
+      if (j >= 0 && /[\d.]/.test(str[j])) continue;
+      while (j >= 0 && str[j] === ' ') j--;
+      let sign = '+';
+      if (j >= 0 && DASH.test(str[j])) {
+        const spaced = str[j - 1] === ' ';
+        let k = j - 1;
+        while (k >= 0 && str[k] === ' ') k--;
+        const prev = k >= 0 ? str[k] : '';
+        if (/[\d.]/.test(prev) || (/[A-Za-z]/.test(prev) && !spaced)) continue;
+        sign = '-';
+      } else if (/\b(?:NEGATIVE|MINUS)\s*$/i.test(str.slice(0, j + 1))) {
+        sign = '-';
+      }
+      out.push({ sign, mag: m[0] });
+    }
+    return out;
+  }
+  function termSignConflict(a, b) {
+    const ta = signedTerms(a), tb = signedTerms(b);
+    if (!ta.length || ta.length !== tb.length) return false;
+    const mags = (t) => t.map((x) => x.mag).sort().join(' ');
+    const signed = (t) => t.map((x) => x.sign + x.mag).sort().join(' ');
+    return mags(ta) === mags(tb) && signed(ta) !== signed(tb);
+  }
+  function signConflict(a, b) {
+    const la = String(a).match(LEADING_NUMBER_RE), lb = String(b).match(LEADING_NUMBER_RE);
+    if (la && lb && signOf(la) !== signOf(lb)) return true;
+    return termSignConflict(a, b);
+  }
+
   function normEqual(a, b) {
+    if (signConflict(a, b)) return false;
+    const pa = pureNumber(a), pb = pureNumber(b);
+    if (pa && pb) return pa.sign === pb.sign && pa.digits === pb.digits;
     return normalize(a) === normalize(b);
   }
   // Only whitespace is dropped (punctuation is kept, so "1.5" never meets
@@ -278,6 +349,7 @@
     return String(s == null ? '' : s).toUpperCase().replace(/['’‘]/g, "'").replace(/\s+/g, '');
   }
   function compactEqual(a, b) {
+    if (signConflict(a, b)) return false;
     const ca = compact(a);
     return ca.length >= 2 && /[A-Z]/.test(ca) && ca === compact(b);
   }
@@ -305,6 +377,7 @@
   // Lenient fallback: one normalized string contains the other (helps with minor
   // wording differences) - only used as a soft signal, never for reject-list checks.
   function fuzzyContains(a, b) {
+    if (signConflict(a, b)) return false;
     const na = normalize(a);
     const nb = normalize(b);
     if (!na || !nb) return false;
@@ -356,6 +429,7 @@
   // it only kicks in for genuine word-order/typo cases, not answers that are
   // simply incomplete or padded with extra words.
   function lenientWordMatch(a, b) {
+    if (signConflict(a, b)) return false;
     const wa = tokenize(a);
     const wb = tokenize(b);
     if (!wa.length || wa.length !== wb.length) return false;
@@ -492,7 +566,9 @@
       if (segs.length === n && !seen.has(key)) { seen.add(key); yield segs; }
     }
     // raw words, not normalize()d ones, so a sign or decimal point survives
-    const words = raw.split(/[\s;,|]+/).filter((w) => normalize(w));
+    // (a lone "−" before a number is kept as part of the next word)
+    const words = raw.replace(/(^|[\s,;([])([-\u2212\u2013\u2010])\s+(?=\d)/g, '$1$2')
+      .split(/[\s;,|]+/).filter((w) => normalize(w));
     if (words.length < n || words.length > 24) return;
     const JOIN = new Set(['AND', 'THEN', 'OR']);
     const cuts = [];
@@ -687,17 +763,19 @@
     }
 
     // ---- Bare number(s) against a "NUMBER UNIT-WORD(S)" answer key, e.g.
-    // "8" for "8 FACTORS", "120 130" for "120 AND 130 DEGREES" ----
+    // "8" for "8 FACTORS", "120 130" for "120 AND 130 DEGREES". Compared as
+    // a set, so a multi-part key (where order can matter) is left to the
+    // part-by-part check. ----
     {
-      const rawPureNums = extractPureNumbers(raw);
+      const rawPureNums = multi ? null : extractPureNumbers(raw);
       if (rawPureNums) {
         const mainNums = extractLeadingNumbers(ans.text);
-        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums)) {
+        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums) && !signConflict(raw, ans.text)) {
           return { correct: true, matched: 'main', rejected: false };
         }
         for (const acc of accepts) {
           const accNums = extractLeadingNumbers(acc);
-          if (accNums.length && numsEqualAsSet(rawPureNums, accNums)) {
+          if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc)) {
             return { correct: true, matched: 'accept', rejected: false };
           }
         }
@@ -755,7 +833,9 @@
     // Against a multi-part key, a typed answer that's only a piece of it is
     // an incomplete answer, not a "close" one - only the say-more direction
     // is left.
-    const fuzzyOk = (key) => (answerParts(key) ? containsWholeRun(normalize(raw), normalize(key)) : fuzzyContains(raw, key));
+    const fuzzyOk = (key) => (answerParts(key)
+      ? !signConflict(raw, key) && containsWholeRun(normalize(raw), normalize(key))
+      : fuzzyContains(raw, key));
     if (fuzzyOk(ans.text)) {
       return { correct: true, matched: 'fuzzy', rejected: false };
     }
