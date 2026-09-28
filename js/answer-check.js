@@ -377,6 +377,229 @@
     return true;
   }
 
+  // ---- Multi-part answers ("FIRST QUARTER; FULL") ----
+  // A packet answer with top-level ";" separators asks for several things at
+  // once, and a student has to give every one of them. Before this, the
+  // whole-string checks below were the only route: "first quarter and full
+  // moon" failed (the "and" and the extra "moon" broke every comparison),
+  // while "full moon" on its own passed as "fuzzy" because "FULL" is a
+  // substring of it - an incomplete answer graded correct. Scraping made it
+  // worse: many packets list per-part alternates ("ACCEPT: CO2; H2O",
+  // "ACCEPT: 1ST QUARTER | FULL MOON") and those were stored either as one
+  // "|"-joined entry or as separate single-part accepts, so "LH" alone was a
+  // correct answer to "LUTEINIZING HORMONE; FOLLICLE STIMULATING HORMONE".
+  // Here each part is matched on its own, and single-part accepts only ever
+  // stand in for one part, never for the whole answer.
+
+  // Splits on ";" (and a spaced " | ") outside any brackets, so "280 [W: OW.
+  // E: SC; MDE]" (a transcriber note) stays one part and the absolute-value
+  // bars in "LN|CSC +COT |+C" are left alone.
+  function splitTopLevel(s) {
+    const str = String(s);
+    const out = [];
+    let depth = 0, cur = '';
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i];
+      if ('([{'.includes(ch)) depth++;
+      else if (')]}'.includes(ch)) depth = Math.max(0, depth - 1);
+      const pipe = ch === '|' && /\s/.test(str[i - 1] || '') && /\s/.test(str[i + 1] || '');
+      if (depth === 0 && (ch === ';' || pipe)) { out.push(cur); cur = ''; continue; }
+      cur += ch;
+    }
+    out.push(cur);
+    return out;
+  }
+  // "1) MAGNONS" / "2 - EUTHERIAN" / "3: BLUE" -> the part without its number.
+  const PART_NUMBER_RE = /^\s*\(?[1-9]\s*[).:–-]\s*/;
+  function answerParts(text) {
+    if (!text || !/;|\s\|\s/.test(text)) return null;
+    const parts = splitTopLevel(text).map((p) => p.trim()).filter((p) => normalize(p.replace(PART_NUMBER_RE, '')));
+    return parts.length >= 2 ? parts : null;
+  }
+  // The forms of one part a student might reasonably give: as written, without
+  // its "1)" number, just the value of a "MEDIAN = 25" / "ANODE: ZINC" label,
+  // with a parenthetical dropped or kept ("STRONG (FORCE)"), or any one entry
+  // of a bracketed alternate list ("[POLYSACCHARIDE, STARCH]").
+  function partVariants(part) {
+    const out = [part];
+    const noNum = part.replace(PART_NUMBER_RE, '');
+    out.push(noNum);
+    const label = noNum.match(/^[A-Za-z][A-Za-z .'’-]{0,30}?\s*[=:]\s*(.+)$/);
+    if (label) out.push(label[1]);
+    for (const v of out.slice()) {
+      if (/\(/.test(v)) {
+        out.push(v.replace(/\([^)]*\)/g, ' '));
+        out.push(v.replace(/[()]/g, ' '));
+      }
+      const br = v.trim().match(/^\[(.*)\]$/);
+      if (br) out.push(...br[1].split(','));
+    }
+    return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
+  }
+
+  // An accept entry that's a lone alternate for one part rather than a whole
+  // answer: no separators of its own, and not a whole-answer shorthand like
+  // "ALL BUT FROG" or "BOTH 10.5".
+  function isPartFragment(acc) {
+    return !/[;|,]/.test(acc)
+      && !/\bAND\b/i.test(acc)
+      && !/^\s*(ALL|BOTH|NONE|ANY|IN)\b/i.test(acc);
+  }
+
+  const NEGATORS = new Set(['NOT', 'NO', 'NON', 'NEVER', 'UN']);
+  // 'exact' | 'fuzzy' | null. Fuzzy only lets the student say slightly MORE
+  // than the part ("full moon" for "FULL", one extra word, never a negation) -
+  // saying less ("quarter" for "FIRST QUARTER") is an incomplete part.
+  function segMatch(seg, alts) {
+    let fuzzy = false;
+    const ns = normalize(seg);
+    if (!ns) return null;
+    for (const alt of alts) {
+      if (normEqual(seg, alt) || compactEqual(seg, alt) || lenientWordMatch(seg, alt)) return 'exact';
+      const na = normalize(alt);
+      if (na.length >= 3 && ns !== na && containsWholeRun(ns, na)) {
+        const extra = ns.split(' ').length - na.split(' ').length;
+        const extraWords = ns.replace(na, ' ').split(' ').filter(Boolean);
+        if (extra === 1 && !extraWords.some((w) => NEGATORS.has(w))) fuzzy = true;
+      }
+    }
+    return fuzzy ? 'fuzzy' : null;
+  }
+
+  // Does this multi-part question want its parts in a set order? "Respectively",
+  // ranking/sequence wording, or labelled/numbered parts ("MEDIAN = 25") mean
+  // yes; a packet note of "in either/any order" (stored as an accept) means no.
+  function partsAreOrdered(question, parts, notes) {
+    if (notes.some((n) => /\b(EITHER|ANY)\s+ORDER/i.test(n))) return false;
+    if (notes.some((n) => /\bTHAT ORDER\b/i.test(n))) return true;
+    const q = question.question || '';
+    if (isRankingQuestion(q)) return true;
+    if (/\b(respectively|order|rank|arrange|sequence|before and after|first|then|followed)\b/i.test(q)) return true;
+    return parts.some((p) => PART_NUMBER_RE.test(p) || /^[A-Za-z][A-Za-z .'’-]{0,30}?\s*[=:]/.test(p));
+  }
+
+  // Candidate ways to cut a typed answer into exactly n pieces: first by the
+  // separators a student would use (";", ",", "and", "then", ...), then - for
+  // "first quarter full moon" with no separator at all - every way of cutting
+  // the words into n consecutive runs (a connecting "and"/"then" at a cut is
+  // dropped).
+  function* segmentations(raw, n) {
+    const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/, /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
+    const seen = new Set();
+    for (const re of seps) {
+      const segs = raw.split(re).map((s) => s.trim().replace(/^(?:and|then)\s+/i, '')).filter(Boolean);
+      const key = segs.join('\u0000');
+      if (segs.length === n && !seen.has(key)) { seen.add(key); yield segs; }
+    }
+    // raw words, not normalize()d ones, so a sign or decimal point survives
+    const words = raw.split(/[\s;,|]+/).filter((w) => normalize(w));
+    if (words.length < n || words.length > 24) return;
+    const JOIN = new Set(['AND', 'THEN', 'OR']);
+    const cuts = [];
+    function* rec(start, left) {
+      if (left === 1) {
+        const segs = [];
+        let prev = 0;
+        for (const c of [...cuts, words.length]) {
+          let chunk = words.slice(prev, c);
+          while (chunk.length && JOIN.has(normalize(chunk[0]))) chunk = chunk.slice(1);
+          while (chunk.length && JOIN.has(normalize(chunk[chunk.length - 1]))) chunk = chunk.slice(0, -1);
+          if (!chunk.length) return;
+          segs.push(chunk.join(' '));
+          prev = c;
+        }
+        yield segs;
+        return;
+      }
+      for (let c = start + 1; c <= words.length - left + 1; c++) {
+        cuts.push(c);
+        yield* rec(c, left - 1);
+        cuts.pop();
+      }
+    }
+    yield* rec(0, n);
+  }
+
+  // Builds the per-part alternate lists for a multi-part question, and splits
+  // the accept list into whole answers vs lone per-part fragments.
+  function multiPartSpec(question) {
+    const ans = question.answer;
+    const parts = answerParts(ans.text);
+    if (!parts) return null;
+    const n = parts.length;
+    const alts = parts.map(partVariants);
+    const wholeAccepts = [];
+    const fragments = [];
+    const notes = [];
+    for (const acc of ans.accept || []) {
+      if (/\bORDER\b/i.test(acc) && !answerParts(acc)) { notes.push(acc); continue; }
+      const accParts = answerParts(acc);
+      if (accParts && accParts.length === n) {
+        accParts.forEach((p, i) => alts[i].push(...partVariants(p)));
+        wholeAccepts.push(acc);
+      } else if (isPartFragment(acc)) {
+        fragments.push(acc);
+      } else {
+        wholeAccepts.push(acc);
+      }
+    }
+    let ordered = partsAreOrdered(question, parts, notes);
+    // Fragments that are just the main parts again ("OXYGEN", "COPPER" for
+    // "COPPER; OXYGEN") are the packet's way of saying "either order".
+    const isPermutation = fragments.length === n
+      && fragments.every((f) => alts.some((a) => segMatch(f, a) === 'exact'));
+    let floating = [];
+    if (isPermutation) {
+      ordered = false;
+    } else if (fragments.length === n) {
+      // one alternate per part, in part order ("CO2", "H2O")
+      fragments.forEach((f, i) => alts[i].push(...partVariants(f)));
+    } else {
+      floating = fragments;
+    }
+    return { n, alts, floating, ordered, wholeAccepts, notes };
+  }
+
+  // Matches n typed segments to the n parts ('exact' | 'fuzzy' | null). A
+  // floating fragment can fill in for any one part, but never for a part
+  // whose own text it doesn't match when it IS another part's answer - so
+  // "copper; copper" can't pass "ZINC; COPPER" through an ACCEPT of "COPPER".
+  function matchSegments(segs, spec) {
+    const { n, alts, floating, ordered } = spec;
+    const table = segs.map((seg) => alts.map((a, k) => {
+      const m = segMatch(seg, a);
+      if (m === 'exact') return m;
+      const usable = floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact'));
+      return segMatch(seg, usable) || m;
+    }));
+    let best = null;
+    const used = new Array(n).fill(false);
+    function go(i, fuzzy) {
+      if (best === 'exact') return;
+      if (i === n) { best = fuzzy ? (best || 'fuzzy') : 'exact'; return; }
+      for (let k = 0; k < n; k++) {
+        if (used[k] || (ordered && k !== i)) continue;
+        const m = table[i][k];
+        if (!m) continue;
+        used[k] = true;
+        go(i + 1, fuzzy || m === 'fuzzy');
+        used[k] = false;
+      }
+    }
+    go(0, false);
+    return best;
+  }
+
+  function checkMultiPart(raw, spec) {
+    let best = null;
+    for (const segs of segmentations(raw, spec.n)) {
+      const m = matchSegments(segs, spec);
+      if (m === 'exact') return m;
+      if (m) best = m;
+    }
+    return best;
+  }
+
   /**
    * Grade a free-typed answer against a question.
    * Returns { correct: true|false, matched: 'main'|'accept'|'fuzzy'|null, rejected: bool }
@@ -387,6 +610,9 @@
 
     const ans = question.answer;
     const itemCount = detectItemCount(question.question);
+    // For a multi-part answer, lone per-part accepts are not whole answers.
+    const multi = question.format === 'MC' ? null : multiPartSpec(question);
+    const accepts = multi ? multi.wholeAccepts : (ans.accept || []);
 
     // ---- Multiple choice ----
     // Graded strictly: the answer must be exactly the correct letter, the
@@ -451,7 +677,7 @@
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
         }
-        for (const acc of ans.accept || []) {
+        for (const acc of accepts) {
           const accCanon = canonFn(acc, itemCount);
           if (accCanon !== null && userCanon === accCanon) {
             return { correct: true, matched: 'accept', rejected: false };
@@ -469,7 +695,7 @@
         if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums)) {
           return { correct: true, matched: 'main', rejected: false };
         }
-        for (const acc of ans.accept || []) {
+        for (const acc of accepts) {
           const accNums = extractLeadingNumbers(acc);
           if (accNums.length && numsEqualAsSet(rawPureNums, accNums)) {
             return { correct: true, matched: 'accept', rejected: false };
@@ -482,7 +708,7 @@
     if (normEqual(raw, ans.text)) {
       return { correct: true, matched: 'main', rejected: false };
     }
-    for (const acc of ans.accept || []) {
+    for (const acc of accepts) {
       if (normEqual(raw, acc)) {
         return { correct: true, matched: 'accept', rejected: false };
       }
@@ -497,31 +723,44 @@
     if (compactEqual(raw, ans.text)) {
       return { correct: true, matched: 'main', rejected: false };
     }
-    for (const acc of ans.accept || []) {
+    for (const acc of accepts) {
       if (compactEqual(raw, acc)) {
         return { correct: true, matched: 'accept', rejected: false };
       }
     }
 
+    // ---- Multi-part: every part given, each matched on its own ----
+    if (multi) {
+      const m = checkMultiPart(raw, multi);
+      if (m) return { correct: true, matched: m === 'exact' ? 'main' : 'fuzzy', rejected: false };
+    }
+
     // ---- Word-order-independent + typo-tolerant match ----
     // "jupiter saturn" should still count for "Saturn and Jupiter", and a
     // small typo like "deuterosomes" should still count for
-    // "deuterostomes" - neither is a meaningfully different answer.
-    if (lenientWordMatch(raw, ans.text)) {
+    // "deuterostomes" - neither is a meaningfully different answer. A
+    // multi-part key was already matched part by part above, where part
+    // order is enforced when it matters ("zinc; copper" vs "copper; zinc").
+    const lenientOk = (key) => !(multi && answerParts(key)) && lenientWordMatch(raw, key);
+    if (lenientOk(ans.text)) {
       return { correct: true, matched: 'lenient', rejected: false };
     }
-    for (const acc of ans.accept || []) {
-      if (lenientWordMatch(raw, acc)) {
+    for (const acc of accepts) {
+      if (lenientOk(acc)) {
         return { correct: true, matched: 'lenient', rejected: false };
       }
     }
 
     // ---- Lenient fuzzy fallback (flagged distinctly so the UI can hint "close?") ----
-    if (fuzzyContains(raw, ans.text)) {
+    // Against a multi-part key, a typed answer that's only a piece of it is
+    // an incomplete answer, not a "close" one - only the say-more direction
+    // is left.
+    const fuzzyOk = (key) => (answerParts(key) ? containsWholeRun(normalize(raw), normalize(key)) : fuzzyContains(raw, key));
+    if (fuzzyOk(ans.text)) {
       return { correct: true, matched: 'fuzzy', rejected: false };
     }
-    for (const acc of ans.accept || []) {
-      if (fuzzyContains(raw, acc)) {
+    for (const acc of accepts) {
+      if (fuzzyOk(acc)) {
         return { correct: true, matched: 'fuzzy', rejected: false };
       }
     }
