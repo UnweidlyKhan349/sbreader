@@ -257,6 +257,7 @@
         sourceUrl: q.u,
       }));
       SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
+      migrateBookmarks(meta.idAliases);
       return SBData;
     });
     return SBData._readyPromise;
@@ -279,6 +280,22 @@
     } catch (e) {
       /* ignore quota errors */
     }
+  }
+
+  // Duplicate questions were merged into one kept copy; meta.json maps each
+  // removed id to the id that replaced it. Point any saved bookmark at its
+  // kept copy so it doesn't silently disappear.
+  function migrateBookmarks(aliases) {
+    if (!aliases) return;
+    const set = readBookmarks();
+    let changed = false;
+    const out = new Set();
+    set.forEach((id) => {
+      const to = aliases[id];
+      if (to !== undefined) changed = true;
+      out.add(to !== undefined ? to : id);
+    });
+    if (changed) writeBookmarks(out);
   }
 
   SBData.bookmarks = {
