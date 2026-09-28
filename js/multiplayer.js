@@ -321,7 +321,6 @@
       <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
       <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
       <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
-      ${q.level ? SBData.levelTagHTML(q) : ''}
       <span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>
     `;
     const isBm = SBData.bookmarks.isBookmarked(q.id);
@@ -444,8 +443,6 @@
     const subjectTag = document.getElementById('mpRevealSubjectTag');
     const formatTag = document.getElementById('mpRevealFormatTag');
     const qtypeTag = document.getElementById('mpRevealQtypeTag');
-    const levelTag = document.getElementById('mpRevealLevelTag');
-    levelTag.className = 'tag level-' + q.level;
     subjectTag.className = 'tag subject-' + q.subject;
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
     qtypeTag.className = 'tag qtype-' + q.qtype;
@@ -453,7 +450,6 @@
       { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
       { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
       { text: (QTYPE_LABELS[q.qtype] || q.qtype).toUpperCase(), el: qtypeTag },
-      { text: (SBData.LEVEL_LABELS[q.level] || q.level || '').toUpperCase(), el: levelTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');

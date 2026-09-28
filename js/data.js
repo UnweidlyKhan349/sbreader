@@ -54,9 +54,6 @@
   // `level` ("hs"/"ms") and every question inherits it at load time.
   const LEVEL_LABELS = { hs: 'High School', ms: 'Middle School' };
   SBData.LEVEL_LABELS = LEVEL_LABELS;
-  SBData.levelTagHTML = function (q) {
-    return `<span class="tag level-${q.level}">${LEVEL_LABELS[q.level] || q.level}</span>`;
-  };
 
   // Question/choice text sometimes has a bracketed pronunciation guide right
   // after the word it's for, e.g. "hypertrophic [hy-pur-TROH-fic]" - drop
