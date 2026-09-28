@@ -391,7 +391,8 @@
     // ---- Multiple choice ----
     // Graded strictly: the answer must be exactly the correct letter, the
     // exact text of the correct choice, or both ("W) Proton pump"). Only
-    // case, whitespace and punctuation are ignored (via normalize) - no
+    // case, whitespace and punctuation are ignored (via normalize, plus
+    // compactEqual so "MgCl2" matches a PDF-spaced "MgCl 2") - no
     // fuzzy/substring/typo matching, and no falling through to the
     // free-text answer-key checks, since with the choices on screen a
     // "close" answer is simply a different choice (or none of them).
@@ -407,13 +408,14 @@
       if (letterOnly) return letterOnly[1].toUpperCase() === correctLetter ? right : wrong;
 
       // exact text of the correct choice
-      if (correctText && normEqual(raw, correctText)) return right;
+      if (correctText && (normEqual(raw, correctText) || compactEqual(raw, correctText))) return right;
 
       // "W) text" / "W. text" / "W: text" / "W - text" - the letter AND the
       // text must both be the correct choice's.
       const letterPrefix = raw.match(/^([WXYZwxyz])\s*[).:-]\s*(.+)$/);
       if (letterPrefix && letterPrefix[1].toUpperCase() === correctLetter
-          && correctText && normEqual(letterPrefix[2], correctText)) {
+          && correctText
+          && (normEqual(letterPrefix[2], correctText) || compactEqual(letterPrefix[2], correctText))) {
         return right;
       }
       return wrong;
