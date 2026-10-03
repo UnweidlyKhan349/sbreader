@@ -1,5 +1,5 @@
 (function () {
-  const QTYPE_LABELS = { tossup: 'Toss-Up', bonus: 'Bonus' };
+  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
 
   function labelFor(subjectKey) {

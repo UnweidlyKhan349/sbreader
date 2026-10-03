@@ -12,6 +12,9 @@
     return String(s)
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // exponent markup is ignored, so "x^2" = "x2" and "e^(-x)" = "e-x"
+      .replace(/\^\(([^()]*)\)/g, '$1')
+      .replace(/\^/g, '')
       .replace(/√/g, ' SQRT ') // so a typed "sqrt" matches a displayed "√" and vice versa
       .replace(/∛/g, ' CBRT ') // same idea for a cube-root radical
       // matched as [πΠ] (not just π) because .toUpperCase() above already
@@ -27,8 +30,18 @@
       .replace(/\bCUBE\s+ROOTS?\s+OF\b/g, ' CBRT ')
       .replace(/[^A-Z0-9'\s]/g, ' ') // strip punctuation except apostrophe
       .replace(/\s+/g, ' ')
-      .trim();
+      .trim()
+      // standard abbreviations become the full term, so "ER" and "rough ER"
+      // match "endoplasmic reticulum" and "rough endoplasmic reticulum" (and
+      // the full term still gets the usual typo tolerance)
+      .replace(ABBREVIATION_RE, (m) => ABBREVIATIONS[m]);
   }
+  const ABBREVIATIONS = {
+    ER: 'ENDOPLASMIC RETICULUM',
+    RER: 'ROUGH ENDOPLASMIC RETICULUM',
+    SER: 'SMOOTH ENDOPLASMIC RETICULUM',
+  };
+  const ABBREVIATION_RE = new RegExp('\\b(?:' + Object.keys(ABBREVIATIONS).join('|') + ')\\b', 'g');
 
   // How many enumerated items ("1) ...; 2) ...; 3) ...", or the equally
   // common "1. ...; 2. ...; 3. ...") appear in question text. Verified
@@ -293,6 +306,54 @@
     // ".5" = "0.5"; otherwise digits are compared as written ("001" is not "1")
     return { sign: signOf(m), digits: digits.startsWith('.') ? '0' + digits : digits };
   }
+  // A decimal and a fraction with exactly the same value are the same
+  // answer: "0.5" = "1/2", "0.75" = "3/4", "5.5" = "11/2". Nothing else is
+  // compared by value - two decimals, two fractions, or a decimal and an
+  // integer are still compared as written, because packets reject unreduced
+  // fractions ("15/60" for "1/4") and dropped significant figures
+  // ("1 × 10^-8" for "1.0 × 10^-8"). The fraction must also be in lowest
+  // terms, and only exact equality counts ("0.33" is not "1/3").
+  function decimalToRational(t) {
+    const m = t.match(/^(\d*)(?:\.(\d+))?$/);
+    if (!m || (!m[1] && !m[2])) return null;
+    const frac = m[2] || '';
+    return { n: BigInt((m[1] || '0') + frac), d: 10n ** BigInt(frac.length) };
+  }
+  function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+  function sameValue(pa, pb) {
+    if (pa.digits === pb.digits) return pa.sign === pb.sign;
+    const [fr, dec] = pa.digits.includes('/') ? [pa, pb] : [pb, pa];
+    if (!fr.digits.includes('/') || dec.digits.includes('/') || !dec.digits.includes('.')) return false;
+    const f = fr.digits.match(/^(\d+)\/(\d+)$/);
+    if (!f) return false;
+    const n = BigInt(f[1]), d = BigInt(f[2]);
+    if (d === 0n || gcd(n, d) !== 1n) return false;
+    const r = decimalToRational(dec.digits);
+    if (!r) return false;
+    if (n === 0n && r.n === 0n) return true;
+    return pa.sign === pb.sign && n * r.d === r.n * d;
+  }
+  // A leading number followed by the rest of the answer ("1/2 METERS",
+  // "0.5 PI"), split so the number can be compared by value.
+  const LEADING_VALUE_RE = new RegExp('^\\s*' + SIGN_RE + '((?:\\d[\\d,]*(?:\\.\\d+)?|\\.\\d+)(?:\\s*\\/\\s*(?:\\d+(?:\\.\\d+)?|\\.\\d+))?)(?![\\d.\\/])\\s*(.*)$', 'i');
+  function leadingValue(s) {
+    const m = String(s == null ? '' : s).match(LEADING_VALUE_RE);
+    if (!m) return null;
+    const digits = m[3].replace(/[,\s]/g, '');
+    return {
+      sign: signOf(m),
+      digits: digits.startsWith('.') ? '0' + digits : digits,
+      rest: normalize(m[4]),
+    };
+  }
+  // Same leading value written differently, same remainder: "0.5 PI" for
+  // "1/2 PI", "2.5 METERS" for "5/2 METERS" (see sameValue for which
+  // forms count as the same value).
+  function leadingValueEqual(a, b) {
+    const la = leadingValue(a), lb = leadingValue(b);
+    if (!la || !lb || !la.rest || la.rest !== lb.rest || la.digits === lb.digits) return false;
+    return sameValue(la, lb);
+  }
   // Every number in the string with its sign, for answers whose terms can
   // come in any order ("5i - 3" vs "3 + 5i", "7, -5" vs "5, 7"). A dash
   // after a digit ("20 – 21", "2 - 3i") or glued to a letter ("G-2", "A-1",
@@ -336,17 +397,31 @@
     return termSignConflict(a, b);
   }
 
+  // A bare decimal against a key of "FRACTION UNIT-WORD(S)" or the reverse,
+  // compared by value (see sameValue). The rest of the key must be
+  // plain unit words - not "PI", "SQRT 2", "X" or anything with a digit,
+  // where dropping it changes the answer.
+  const NOT_UNIT_WORDS = new Set(['PI', 'SQRT', 'CBRT', 'I', 'E', 'X', 'Y', 'Z', 'N', 'K', 'T', 'TIMES', 'OVER', 'PLUS', 'MINUS']);
+  function bareValueMatchesKey(raw, key) {
+    const pr = pureNumber(raw), lk = leadingValue(key);
+    if (!pr || !lk || !lk.rest || pr.digits === lk.digits) return false;
+    const words = lk.rest.split(' ');
+    if (!words.every((w) => /^[A-Z]{2,}$/.test(w) && !NOT_UNIT_WORDS.has(w))) return false;
+    return sameValue(pr, lk);
+  }
+
   function normEqual(a, b) {
     if (signConflict(a, b)) return false;
     const pa = pureNumber(a), pb = pureNumber(b);
-    if (pa && pb) return pa.sign === pb.sign && pa.digits === pb.digits;
-    return normalize(a) === normalize(b);
+    if (pa && pb) return sameValue(pa, pb);
+    return normalize(a) === normalize(b) || leadingValueEqual(a, b);
   }
   // Only whitespace is dropped (punctuation is kept, so "1.5" never meets
   // "15"), and only for answers containing a letter, since spacing is
   // meaningful inside bare numbers ("1 2" vs "12").
   function compact(s) {
-    return String(s == null ? '' : s).toUpperCase().replace(/['’‘]/g, "'").replace(/\s+/g, '');
+    return String(s == null ? '' : s).toUpperCase().replace(/['’‘]/g, "'")
+      .replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '').replace(/\s+/g, '');
   }
   function compactEqual(a, b) {
     if (signConflict(a, b)) return false;
@@ -780,6 +855,15 @@
           if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc)) {
             return { correct: true, matched: 'accept', rejected: false };
           }
+        }
+      }
+      // The same idea by value: "0.5" for "1/2 METERS", "3/4" for "0.75 LITERS".
+      if (!multi && bareValueMatchesKey(raw, ans.text)) {
+        return { correct: true, matched: 'main', rejected: false };
+      }
+      for (const acc of accepts) {
+        if (!multi && bareValueMatchesKey(raw, acc)) {
+          return { correct: true, matched: 'accept', rejected: false };
         }
       }
     }

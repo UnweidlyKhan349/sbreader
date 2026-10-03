@@ -411,6 +411,11 @@
     runtime.buzzedDuringReading = false;
     runtime.lastOutcome = null;
 
+    // The answer/reveal area can leave the page scrolled down; bring the
+    // new question back into view so it doesn't start partly off-screen.
+    const scroller = document.getElementById('pageScroll');
+    if (scroller) scroller.scrollTop = 0;
+
     playQuestionTransition();
     hidePill();
     document.getElementById('revealBox').style.display = 'none';

@@ -561,9 +561,7 @@
       nextBtn.dataset.mode = 'next';
       nextBtn.classList.add('primary');
       const qDisplay = document.getElementById('mpQDisplay');
-      qDisplay.textContent = myState.role === 'host'
-        ? 'Ready when you are — click Start or press N to begin.'
-        : 'Waiting for the host to start the game…';
+      qDisplay.textContent = 'Ready when you are — click Start or press N to begin.';
       qDisplay.classList.add('mp-waiting-text');
     } else if (game.phase === 'reading') {
       buzzBtn.style.display = amLocked ? 'none' : 'inline-flex';

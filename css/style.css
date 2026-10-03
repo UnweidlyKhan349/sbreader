@@ -47,9 +47,16 @@ body {
   overflow: hidden;
 }
 html { overflow: hidden; }
-#pageScroll { height: 100%; overflow-y: auto; overflow-x: hidden; }
+/* scrollbar-gutter keeps the scrollbar's width reserved even on pages
+   short enough not to scroll, so the nav (and its right-aligned
+   "Bookmarked questions" link) doesn't shift sideways when the scrollbar
+   appears or disappears as content loads or filters change. */
+#pageScroll { height: 100%; overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; }
 
 a { color: var(--accent); text-decoration: none; }
+
+/* Catalog search-term highlight. */
+mark.search-hit { background: rgba(250, 204, 21, 0.32); color: inherit; border-radius: 3px; padding: 0 1px; }
 a:hover { text-decoration: underline; }
 
 /* Exponent/subscript notation ("x^2", "K_c") rendered from question,

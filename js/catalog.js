@@ -12,7 +12,7 @@
     includeUnlabeled: true,
   };
 
-  const QTYPE_LABELS = { tossup: 'Toss-Up', bonus: 'Bonus' };
+  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
 
   function buildChips(container, items, key, labelFn) {
@@ -289,7 +289,42 @@
     actions.appendChild(bmBtn);
 
     card.appendChild(actions);
+    highlightMatches(card, state.search);
     return card;
+  }
+
+  // Wraps every case-insensitive occurrence of the search term in a <mark>.
+  // Works on the rendered DOM's text nodes rather than the HTML string, so
+  // the <sup>/<sub> math markup and escaped characters stay intact. Buttons
+  // are skipped (their labels aren't searched).
+  function highlightMatches(root, term) {
+    const needle = (term || '').trim().toLowerCase();
+    if (!needle) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => (n.parentElement.closest('button, .actions')
+        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const text = node.nodeValue;
+      const lower = text.toLowerCase();
+      let idx = lower.indexOf(needle);
+      if (idx === -1) return;
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      while (idx !== -1) {
+        if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
+        const mark = document.createElement('mark');
+        mark.className = 'search-hit';
+        mark.textContent = text.slice(idx, idx + needle.length);
+        frag.appendChild(mark);
+        last = idx + needle.length;
+        idx = lower.indexOf(needle, last);
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
   }
 
   function labelFor(subjectKey) {
