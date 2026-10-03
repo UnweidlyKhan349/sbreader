@@ -2,21 +2,12 @@
    Host holds the authoritative game state; every client only ever
    talks to the host (no client-to-client connections). */
 (function (global) {
-  // STUN finds a direct route between players. Behind a symmetric NAT or a
-  // strict firewall (many school networks) only a TURN relay works, and there
-  // is no free public relay any more: Open Relay's shared "openrelayproject"
-  // login stopped working when Metered moved to per-account credentials.
-  // To enable relaying, create a free app at https://dashboard.metered.ca,
-  // add a TURN credential, and list its servers here, e.g.
-  //   { urls: 'turn:<your-app>.metered.live:443?transport=tcp', username: '...', credential: '...' }
-  // TURN credentials in a static site are public by nature - use a
-  // separate, usage-capped credential for it.
-  const TURN_SERVERS = [];
+  // Google's public STUN servers, which let players find a direct route to
+  // each other. There's no TURN relay.
   const ICE_CONFIG = {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-      ...TURN_SERVERS,
     ],
   };
 

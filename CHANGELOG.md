@@ -21,7 +21,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Grading accepts equal decimals and fractions (`0.5` for `1/2`) and `ER` for endoplasmic reticulum.
 - Grading: typos and "the key plus extra words" are no longer scored as correct. They're marked wrong with a "Close" hint, and the player presses Q (Override) if they meant it. Swaps that change the term (hypertonic/hypotonic, alkane/alkene, nitrate/nitrite, ...) aren't even close. Answers that drop part of the key ("carbon" for CARBON DIOXIDE) are wrong. Alternates written inside a key ("ITCZ OR INTERTROPICAL CONVERGENCE ZONE", "GREEN ACCEPT: EMERALD") and singular/plural forms now pass. Typing the key exactly ("+6") is no longer caught by a reject entry that only differs in punctuation ("6").
 - Multiplayer: the host validates every message from a client (type, string lengths, known filter values, rate clamped to 0.5–2.5) and ignores peers that haven't joined. A player can't override a wrong answer to correct after someone else has scored the question.
-- Multiplayer: removed Open Relay's shared TURN login, which no longer works; `js/peer.js` has a slot for your own TURN credentials.
+- Multiplayer: removed Open Relay's shared TURN login, which no longer works. Connections use STUN only.
 - The home page loads only `meta.json` (58 KB) instead of the whole question bank.
 - Question cards in the catalog, bookmarks and both session logs use one shared renderer, so they all show "also accept" and "do not accept" lines.
 - Added tests (`npm test`) and a CI workflow.
