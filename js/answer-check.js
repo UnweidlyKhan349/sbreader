@@ -55,11 +55,8 @@
   // entry "...4)" is common and NOT an enumerated list. What actually marks
   // a real enumeration is a genuine 1, 2, 3, ... run in increasing order
   // (not necessarily adjacent, since other numbers can appear in between),
-  // so the item count is the length of the longest such run starting at 1 -
-  // this fixed both 153 real enumerations the old paren-only, any-order
-  // check missed (all newer packets use "1." not "1)") and 213 coordinate/
-  // matrix questions it wrongly flagged as list-style, checked by hand
-  // against the corpus.
+  // so the item count is the length of the longest such run starting at 1.
+  // Newer packets use "1." rather than "1)", so both forms count.
   const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s)/g;
   function detectItemCount(questionText) {
     if (!questionText) return null;
@@ -211,7 +208,7 @@
       if (bestIdx === -1 && normalize(seg).length >= 4) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
-          if (fuzzyContains(seg, itemTexts[i])) { bestIdx = i; break; }
+          if (eitherContains(seg, itemTexts[i])) { bestIdx = i; break; }
         }
       }
       if (bestIdx === -1) return null;
@@ -429,7 +426,7 @@
     return ca.length >= 2 && /[A-Z]/.test(ca) && ca === compact(b);
   }
 
-  // A plain substring check for fuzzyContains would let an answer match
+  // A plain substring check for the containment helpers would let an answer match
   // inside a completely different, sometimes opposite-meaning word - "STABLE"
   // is literally a substring of "UNSTABLE" (the "UN" prefix aside), so
   // without a word-boundary requirement "stable unstable" would fuzzy-match
@@ -449,17 +446,30 @@
     }
   }
 
-  // Lenient fallback: one normalized string contains the other (helps with minor
-  // wording differences) - only used as a soft signal, never for reject-list checks.
-  function fuzzyContains(a, b) {
+  // The typed answer contains the whole key plus more ("sodium chloride" for
+  // "SODIUM", "full moon" for "FULL"). That's sometimes the right answer said
+  // with extra words and sometimes a different answer, so checkAnswer only
+  // ever reports it as "close" for the player to confirm. The other direction
+  // (typing only part of the key, "carbon" for "CARBON DIOXIDE") is an
+  // incomplete answer and never matches.
+  // Naming items from the question's own numbered list is looser: there are
+  // only a few candidates on screen, so "diatoms" may pick out an item that
+  // reads "Diatoms (marine)" and the reverse.
+  function eitherContains(a, b) {
     if (signConflict(a, b)) return false;
     const na = normalize(a);
     const nb = normalize(b);
     if (!na || !nb) return false;
     if (na === nb) return true;
-    if (na.length >= 4 && containsWholeRun(nb, na)) return true;
-    if (nb.length >= 4 && containsWholeRun(na, nb)) return true;
-    return false;
+    return (na.length >= 4 && containsWholeRun(nb, na)) || (nb.length >= 4 && containsWholeRun(na, nb));
+  }
+
+  function typedContainsKey(typed, key) {
+    if (signConflict(typed, key)) return false;
+    const nt = normalize(typed);
+    const nk = normalize(key);
+    if (!nt || !nk || nt === nk) return false;
+    return nk.length >= 4 && containsWholeRun(nt, nk);
   }
 
   // ---- Word-order-independent + typo-tolerant matching ----
@@ -498,47 +508,81 @@
     }
     return dp[n];
   }
-  // Greedily pairs up each word in `a` with the closest not-yet-used word in
-  // `b` (order-independent), requiring every word to find a match within its
-  // length's typo tolerance. Requires the same word count on both sides, so
-  // it only kicks in for genuine word-order/typo cases, not answers that are
-  // simply incomplete or padded with extra words.
+  // Word pairs one or two letters apart that name different things, so a
+  // "typo" between them is really a different answer: HYPERTONIC/HYPOTONIC,
+  // ALKANE/ALKENE, NITRATE/NITRITE, TRIPHOSPHATE/DIPHOSPHATE, ... Each pair
+  // is a swap of one piece of the word for the other.
+  const CONTRAST_SWAPS = [
+    ['HYPER', 'HYPO'], ['ENDO', 'EXO'], ['ENDO', 'ECTO'], ['EXO', 'ECTO'],
+    ['INTER', 'INTRA'], ['HOMO', 'HETERO'], ['MICRO', 'MACRO'], ['SUB', 'SUPER'],
+    ['PRO', 'EU'], ['AFF', 'EFF'], ['MONO', 'DI'], ['DI', 'TRI'], ['MONO', 'TRI'],
+    ['TRI', 'TETRA'], ['ANE', 'ENE'], ['ANE', 'YNE'], ['ENE', 'YNE'],
+    ['ATE', 'ITE'], ['IDE', 'ATE'], ['IDE', 'ITE'], ['OUS', 'IC'],
+  ];
+  // Prefixes that negate the word they're on: AEROBIC/ANAEROBIC, BIOTIC/ABIOTIC.
+  const NEGATING_PREFIXES = ['A', 'AN', 'UN', 'NON', 'IN', 'IM', 'IR', 'IL', 'DIS', 'DE', 'ANTI'];
+  function swapsTo(a, b, from, to) {
+    for (let i = a.indexOf(from); i !== -1; i = a.indexOf(from, i + 1)) {
+      if (a.slice(0, i) + to + a.slice(i + from.length) === b) return true;
+    }
+    return false;
+  }
+  function contrastingWords(a, b) {
+    for (const [x, y] of CONTRAST_SWAPS) {
+      if (swapsTo(a, b, x, y) || swapsTo(a, b, y, x)) return true;
+    }
+    return NEGATING_PREFIXES.some((p) => a === p + b || b === p + a);
+  }
+
+  // Singular and plural of the same word: PROTON/PROTONS,
+  // MITOCHONDRION/MITOCHONDRIA, AXIS/AXES, NUCLEUS/NUCLEI.
+  const INFLECTION_PAIRS = [['', 'S'], ['', 'ES'], ['S', 'ES'], ['ON', 'A'], ['UM', 'A'], ['US', 'I'], ['A', 'AE'], ['IS', 'ES'], ['Y', 'IES']];
+  function inflectionOnly(a, b) {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    if (i < 3) return false;
+    const ta = a.slice(i), tb = b.slice(i);
+    return INFLECTION_PAIRS.some(([x, y]) => (ta === x && tb === y) || (ta === y && tb === x));
+  }
+
+  // Pairs up each word in `a` with a not-yet-used word in `b`, in any order.
+  // Returns 'exact' when every word matches exactly (only the order, stop
+  // words or singular/plural differ), 'typo' when some pair is only within its length's
+  // typo tolerance, or null. Requires the same word count on both sides, so
+  // incomplete or padded answers never get here.
   function lenientWordMatch(a, b) {
-    if (signConflict(a, b)) return false;
+    if (signConflict(a, b)) return null;
     const wa = tokenize(a);
     const wb = tokenize(b);
-    if (!wa.length || wa.length !== wb.length) return false;
+    if (!wa.length || wa.length !== wb.length) return null;
     const usedB = new Array(wb.length).fill(false);
+    let typo = false;
     for (const w of wa) {
       let bestIdx = -1;
       let bestDist = Infinity;
       for (let j = 0; j < wb.length; j++) {
         if (usedB[j]) continue;
-        if (w === wb[j]) { bestIdx = j; bestDist = 0; break; }
+        if (w === wb[j] || inflectionOnly(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
         const tol = typoTolerance(Math.max(w.length, wb[j].length));
-        if (!tol) continue;
+        if (!tol || contrastingWords(w, wb[j])) continue;
         const d = levenshtein(w, wb[j]);
         if (d <= tol && d < bestDist) { bestDist = d; bestIdx = j; }
       }
-      if (bestIdx === -1) return false;
+      if (bestIdx === -1) return null;
+      if (bestDist > 0) typo = true;
       usedB[bestIdx] = true;
     }
-    return true;
+    return typo ? 'typo' : 'exact';
   }
 
   // ---- Multi-part answers ("FIRST QUARTER; FULL") ----
   // A packet answer with top-level ";" separators asks for several things at
-  // once, and a student has to give every one of them. Before this, the
-  // whole-string checks below were the only route: "first quarter and full
-  // moon" failed (the "and" and the extra "moon" broke every comparison),
-  // while "full moon" on its own passed as "fuzzy" because "FULL" is a
-  // substring of it - an incomplete answer graded correct. Scraping made it
-  // worse: many packets list per-part alternates ("ACCEPT: CO2; H2O",
-  // "ACCEPT: 1ST QUARTER | FULL MOON") and those were stored either as one
-  // "|"-joined entry or as separate single-part accepts, so "LH" alone was a
-  // correct answer to "LUTEINIZING HORMONE; FOLLICLE STIMULATING HORMONE".
-  // Here each part is matched on its own, and single-part accepts only ever
-  // stand in for one part, never for the whole answer.
+  // once, and a student has to give every one of them, so each part is
+  // matched on its own. Packets also list per-part alternates ("ACCEPT: CO2;
+  // H2O", "ACCEPT: 1ST QUARTER | FULL MOON"), stored either as one
+  // "|"-joined entry or as separate single-part accepts. A single-part
+  // accept only ever stands in for its one part, so "LH" alone is not an
+  // answer to "LUTEINIZING HORMONE; FOLLICLE STIMULATING HORMONE".
 
   // Splits on ";" (and a spaced " | ") outside any brackets, so "280 [W: OW.
   // E: SC; MDE]" (a transcriber note) stays one part and the absolute-value
@@ -596,23 +640,32 @@
   }
 
   const NEGATORS = new Set(['NOT', 'NO', 'NON', 'NEVER', 'UN']);
-  // 'exact' | 'fuzzy' | null. Fuzzy only lets the student say slightly MORE
-  // than the part ("full moon" for "FULL", one extra word, never a negation) -
-  // saying less ("quarter" for "FIRST QUARTER") is an incomplete part.
+  // 'exact' | 'fuzzy' | 'typo' | null. Fuzzy only lets the student say
+  // slightly MORE than the part ("full moon" for "FULL", one extra word, never
+  // a negation) - saying less ("quarter" for "FIRST QUARTER") is an
+  // incomplete part. 'typo' is a part that's only a misspelling away, which
+  // checkAnswer reports as close rather than correct.
+  const MATCH_RANK = { exact: 3, fuzzy: 2, typo: 1 };
+  function betterMatch(a, b) {
+    return (MATCH_RANK[a] || 0) >= (MATCH_RANK[b] || 0) ? a : b;
+  }
   function segMatch(seg, alts) {
-    let fuzzy = false;
+    let best = null;
     const ns = normalize(seg);
     if (!ns) return null;
     for (const alt of alts) {
-      if (normEqual(seg, alt) || compactEqual(seg, alt) || lenientWordMatch(seg, alt)) return 'exact';
+      if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
+      const lenient = lenientWordMatch(seg, alt);
+      if (lenient === 'exact') return 'exact';
+      if (lenient === 'typo') best = betterMatch(best, 'typo');
       const na = normalize(alt);
       if (na.length >= 3 && ns !== na && containsWholeRun(ns, na)) {
         const extra = ns.split(' ').length - na.split(' ').length;
         const extraWords = ns.replace(na, ' ').split(' ').filter(Boolean);
-        if (extra === 1 && !extraWords.some((w) => NEGATORS.has(w))) fuzzy = true;
+        if (extra === 1 && !extraWords.some((w) => NEGATORS.has(w))) best = betterMatch(best, 'fuzzy');
       }
     }
-    return fuzzy ? 'fuzzy' : null;
+    return best;
   }
 
   // Does this multi-part question want its parts in a set order? "Respectively",
@@ -711,9 +764,10 @@
     return { n, alts, floating, ordered, wholeAccepts, notes };
   }
 
-  // Matches n typed segments to the n parts ('exact' | 'fuzzy' | null). A
-  // floating fragment can fill in for any one part, but never for a part
-  // whose own text it doesn't match when it IS another part's answer - so
+  // Matches n typed segments to the n parts. Returns the best assignment's
+  // weakest part match ('exact' | 'fuzzy' | 'typo') or null. A floating
+  // fragment can fill in for any one part, but never for a part whose own
+  // text it doesn't match when it IS another part's answer - so
   // "copper; copper" can't pass "ZINC; COPPER" through an ACCEPT of "COPPER".
   function matchSegments(segs, spec) {
     const { n, alts, floating, ordered } = spec;
@@ -721,23 +775,23 @@
       const m = segMatch(seg, a);
       if (m === 'exact') return m;
       const usable = floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact'));
-      return segMatch(seg, usable) || m;
+      return betterMatch(segMatch(seg, usable), m);
     }));
     let best = null;
     const used = new Array(n).fill(false);
-    function go(i, fuzzy) {
+    function go(i, weakest) {
       if (best === 'exact') return;
-      if (i === n) { best = fuzzy ? (best || 'fuzzy') : 'exact'; return; }
+      if (i === n) { best = betterMatch(best, weakest); return; }
       for (let k = 0; k < n; k++) {
         if (used[k] || (ordered && k !== i)) continue;
         const m = table[i][k];
         if (!m) continue;
         used[k] = true;
-        go(i + 1, fuzzy || m === 'fuzzy');
+        go(i + 1, MATCH_RANK[m] < MATCH_RANK[weakest] ? m : weakest);
         used[k] = false;
       }
     }
-    go(0, false);
+    go(0, 'exact');
     return best;
   }
 
@@ -746,14 +800,52 @@
     for (const segs of segmentations(raw, spec.n)) {
       const m = matchSegments(segs, spec);
       if (m === 'exact') return m;
-      if (m) best = m;
+      best = betterMatch(best, m);
     }
     return best;
   }
 
+  // A key and the alternates written inside it. Splits on ACCEPT and on a
+  // top-level " OR " (not one inside parentheses), and drops a trailing
+  // parenthetical note that starts after a space and holds a word - never
+  // math like "2x*e^(x^2)" or "(0, 3, 0)".
+  function keyVariants(text) {
+    const out = [text];
+    // "X, DO NOT ACCEPT: Y" names a wrong answer, not an alternate
+    if (/\bNOT\s+ACCEPT/i.test(text)) return out;
+    const pieces = [];
+    let depth = 0;
+    let start = 0;
+    const re = /\s*,?\s*\bACCEPT\b:?\s*|\s+OR\s+|[()[\]]/gi;
+    let m;
+    while ((m = re.exec(text))) {
+      const tok = m[0];
+      if (tok === '(' || tok === '[') { depth++; continue; }
+      if (tok === ')' || tok === ']') { depth = Math.max(0, depth - 1); continue; }
+      if (depth) continue;
+      pieces.push(text.slice(start, m.index));
+      start = m.index + tok.length;
+    }
+    if (pieces.length) {
+      pieces.push(text.slice(start));
+      // An "OR" between two equations, inequalities or roots ("x = 0 or
+      // x = 9", "MUST GIVE BOTH ANSWERS") joins halves of one answer, not
+      // alternates. Only split when a piece is words.
+      const splitsOk = !/\bBOTH\b|[=<>≤≥]/i.test(text) && pieces.some((p) => /[A-Za-z]{2,}/.test(p));
+      if (splitsOk) out.push(...pieces);
+    }
+    for (const v of out.slice()) {
+      const stripped = v.replace(/\s+\([^()]*[A-Za-z]{2,}[^()]*\)\s*$/, '');
+      if (stripped !== v) out.push(stripped);
+    }
+    return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
+  }
+
   /**
    * Grade a free-typed answer against a question.
-   * Returns { correct: true|false, matched: 'main'|'accept'|'fuzzy'|null, rejected: bool }
+   * Returns { correct, matched: 'main'|'accept'|'lenient'|'fuzzy'|null, rejected, close? }
+   * `close` marks a wrong answer that's a near miss (a typo, or the key plus
+   * extra words); the pages ask the player to override it if they meant it.
    */
   function checkAnswer(question, userInput) {
     const raw = (userInput || '').trim();
@@ -798,7 +890,14 @@
       return wrong;
     }
 
-    // ---- Reject list first: an explicit "do not accept" match is always wrong ----
+    // ---- The key or an accept typed character for character ----
+    // Checked before the reject list, which normalize() can't always tell
+    // apart from the key: "+6" vs a rejected "6", "W+ BOSON" vs "W BOSON".
+    const literal = (t) => String(t).toUpperCase().replace(/\s+/g, ' ').trim();
+    if (literal(raw) === literal(ans.text)) return { correct: true, matched: 'main', rejected: false };
+    if (accepts.some((acc) => literal(raw) === literal(acc))) return { correct: true, matched: 'accept', rejected: false };
+
+    // ---- Reject list: an explicit "do not accept" match is always wrong ----
     for (const rej of ans.reject || []) {
       if (normEqual(raw, rej) || compactEqual(raw, rej)) {
         return { correct: false, matched: null, rejected: true };
@@ -893,44 +992,46 @@
       }
     }
 
+    // ---- Alternates written into the key itself ----
+    // "ITCZ OR INTERTROPICAL CONVERGENCE ZONE", "GREEN ACCEPT: EMERALD",
+    // "TORRICELLI'S THEOREM (OR LAW)": each listed alternate, and the key
+    // without its trailing parenthetical note, is a whole answer.
+    const keys = multi ? [ans.text, ...accepts] : [ans.text, ...accepts].flatMap(keyVariants);
+    for (const key of keys) {
+      if (normEqual(raw, key) || compactEqual(raw, key)) {
+        return { correct: true, matched: 'accept', rejected: false };
+      }
+    }
+
+    // A near miss the player is asked to confirm (see `close` below) rather
+    // than one that's scored as correct.
+    let close = false;
+
     // ---- Multi-part: every part given, each matched on its own ----
     if (multi) {
       const m = checkMultiPart(raw, multi);
-      if (m) return { correct: true, matched: m === 'exact' ? 'main' : 'fuzzy', rejected: false };
+      if (m === 'exact' || m === 'fuzzy') return { correct: true, matched: m === 'exact' ? 'main' : 'fuzzy', rejected: false };
+      if (m === 'typo') close = true;
     }
 
-    // ---- Word-order-independent + typo-tolerant match ----
-    // "jupiter saturn" should still count for "Saturn and Jupiter", and a
-    // small typo like "deuterosomes" should still count for
-    // "deuterostomes" - neither is a meaningfully different answer. A
-    // multi-part key was already matched part by part above, where part
-    // order is enforced when it matters ("zinc; copper" vs "copper; zinc").
-    const lenientOk = (key) => !(multi && answerParts(key)) && lenientWordMatch(raw, key);
-    if (lenientOk(ans.text)) {
-      return { correct: true, matched: 'lenient', rejected: false };
-    }
-    for (const acc of accepts) {
-      if (lenientOk(acc)) {
-        return { correct: true, matched: 'lenient', rejected: false };
-      }
+    // ---- Word-order-independent match ----
+    // "jupiter saturn" counts for "Saturn and Jupiter". A small typo
+    // ("deuterosomes" for "deuterostomes") is only close: too many one- or
+    // two-letter differences are a different term (see CONTRAST_SWAPS for
+    // the ones that never even count as close). A multi-part key was
+    // already matched part by part above, where part order is enforced
+    // when it matters ("zinc; copper" vs "copper; zinc").
+    for (const key of keys) {
+      if (multi && answerParts(key)) continue;
+      const m = lenientWordMatch(raw, key);
+      if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
+      if (m === 'typo') close = true;
     }
 
-    // ---- Lenient fuzzy fallback (flagged distinctly so the UI can hint "close?") ----
-    // Against a multi-part key, a typed answer that's only a piece of it is
-    // an incomplete answer, not a "close" one - only the say-more direction
-    // is left.
-    const fuzzyOk = (key) => (answerParts(key)
-      ? !signConflict(raw, key) && containsWholeRun(normalize(raw), normalize(key))
-      : fuzzyContains(raw, key));
-    if (fuzzyOk(ans.text)) {
-      return { correct: true, matched: 'fuzzy', rejected: false };
-    }
-    for (const acc of accepts) {
-      if (fuzzyOk(acc)) {
-        return { correct: true, matched: 'fuzzy', rejected: false };
-      }
-    }
+    // ---- Typed answer contains the whole key plus more: close ----
+    if (!close && keys.some((key) => typedContainsKey(raw, key))) close = true;
 
+    if (close) return { correct: false, matched: null, rejected: false, close: true };
     return { correct: false, matched: null, rejected: false };
   }
 

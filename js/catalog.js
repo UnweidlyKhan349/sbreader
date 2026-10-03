@@ -12,8 +12,8 @@
     includeUnlabeled: true,
   };
 
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
-  const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
+  const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
+  const labelFor = SBData.subjectLabel;
 
   function buildChips(container, items, key, labelFn) {
     container.innerHTML = '';
@@ -216,49 +216,11 @@
   function renderCard(q) {
     const card = document.createElement('div');
     card.className = 'q-card';
+    card.appendChild(SBData.questionMetaRow(q, { roundTag: true, visualTag: true }));
+    SBData.appendQuestionBody(card, q);
 
-    const meta = document.createElement('div');
-    meta.className = 'meta-row';
-    meta.innerHTML = `
-      <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
-      <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
-      <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
-      <span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>
-      ${q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : ''}
-      <span class="small-note">${escapeHtml(q.tournament)}${(() => { const rp = SBData.roundLabelFor(q); return rp ? ' · ' + escapeHtml(rp) : ''; })()}</span>
-    `;
-    card.appendChild(meta);
-
-    const qText = document.createElement('div');
-    qText.className = 'q-text';
-    qText.innerHTML = SBData.renderMathHTML(q.question);
-    card.appendChild(qText);
-
-    if (q.choices) {
-      const ch = document.createElement('div');
-      ch.className = 'choices';
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${SBData.renderMathHTML(q.choices[L])}`).join('   ');
-      card.appendChild(ch);
-    }
-
-    const answerWrap = document.createElement('div');
+    const answerWrap = SBData.answerBlock(q, null, { source: true });
     answerWrap.style.display = 'none';
-    const aText = document.createElement('div');
-    aText.className = 'a-text';
-    aText.innerHTML = SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept);
-    answerWrap.appendChild(aText);
-    if (q.answer.reject.length) {
-      const rej = document.createElement('div');
-      rej.className = 'small-note';
-      rej.innerHTML = 'Do not accept: ' + SBData.renderMathHTML(q.answer.reject.join('; '));
-      answerWrap.appendChild(rej);
-    }
-    if (q.sourceUrl) {
-      const src = document.createElement('div');
-      src.className = 'src';
-      src.innerHTML = `<a href="${q.sourceUrl}" target="_blank" rel="noopener">Source</a>`;
-      answerWrap.appendChild(src);
-    }
     card.appendChild(answerWrap);
 
     const actions = document.createElement('div');
@@ -273,20 +235,7 @@
       toggleBtn.textContent = showing ? 'Show answer' : 'Hide answer';
     };
     actions.appendChild(toggleBtn);
-
-    const bmBtn = document.createElement('button');
-    bmBtn.className = 'btn small icon-btn';
-    const isBm = SBData.bookmarks.isBookmarked(q.id);
-    bmBtn.textContent = isBm ? '★' : '☆';
-    bmBtn.classList.toggle('active', isBm);
-    bmBtn.title = isBm ? 'Unbookmark' : 'Bookmark';
-    bmBtn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(q.id);
-      bmBtn.textContent = nowBm ? '★' : '☆';
-      bmBtn.classList.toggle('active', nowBm);
-      bmBtn.title = nowBm ? 'Unbookmark' : 'Bookmark';
-    };
-    actions.appendChild(bmBtn);
+    actions.appendChild(SBData.bookmarkButton(q.id));
 
     card.appendChild(actions);
     highlightMatches(card, state.search);
@@ -327,16 +276,7 @@
     });
   }
 
-  function labelFor(subjectKey) {
-    const found = (SBData.meta.subjects || []).find((s) => s.key === subjectKey);
-    return found ? found.label : subjectKey;
-  }
 
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
 
   init();
 })();

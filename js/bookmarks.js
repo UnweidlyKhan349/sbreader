@@ -1,50 +1,16 @@
 (function () {
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
-  const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
+  const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
+  const labelFor = SBData.subjectLabel;
 
-  function labelFor(subjectKey) {
-    const found = (SBData.meta.subjects || []).find((s) => s.key === subjectKey);
-    return found ? found.label : subjectKey;
-  }
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s == null ? '' : s;
-    return d.innerHTML;
-  }
 
   function renderCard(q) {
     const card = document.createElement('div');
     card.className = 'q-card';
+    card.appendChild(SBData.questionMetaRow(q, { roundTag: true }));
+    SBData.appendQuestionBody(card, q);
 
-    const meta = document.createElement('div');
-    meta.className = 'meta-row';
-    meta.innerHTML = `
-      <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
-      <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
-      <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
-      <span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>
-      <span class="small-note">${escapeHtml(q.tournament)}${(() => { const rp = SBData.roundLabelFor(q); return rp ? ' · ' + escapeHtml(rp) : ''; })()}</span>
-    `;
-    card.appendChild(meta);
-
-    const qText = document.createElement('div');
-    qText.className = 'q-text';
-    qText.innerHTML = SBData.renderMathHTML(q.question);
-    card.appendChild(qText);
-
-    if (q.choices) {
-      const ch = document.createElement('div');
-      ch.className = 'choices';
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${SBData.renderMathHTML(q.choices[L])}`).join('   ');
-      card.appendChild(ch);
-    }
-
-    const answerWrap = document.createElement('div');
+    const answerWrap = SBData.answerBlock(q, null, { source: true });
     answerWrap.style.display = 'none';
-    const aText = document.createElement('div');
-    aText.className = 'a-text';
-    aText.innerHTML = 'Answer: ' + (q.answer.letter ? `${q.answer.letter}) ` : '') + SBData.renderMathHTML(SBData.answerDisplayText(q));
-    answerWrap.appendChild(aText);
     card.appendChild(answerWrap);
 
     const actions = document.createElement('div');
@@ -60,24 +26,12 @@
     };
     actions.appendChild(toggleBtn);
 
-    const bmBtn = document.createElement('button');
-    bmBtn.className = 'btn small icon-btn active';
-    bmBtn.textContent = '★';
-    bmBtn.title = 'Unbookmark';
-    actions.appendChild(bmBtn);
-
     // Unbookmarking here doesn't remove the card from the page - it just
     // un-highlights the star, so an accidental click is easy to undo (click
     // the star again to re-bookmark) without the card jumping out from
     // under you. The card only actually disappears from this list the next
     // time it's loaded (a refresh), once storage no longer has it.
-    bmBtn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(q.id);
-      bmBtn.textContent = nowBm ? '★' : '☆';
-      bmBtn.classList.toggle('active', nowBm);
-      bmBtn.title = nowBm ? 'Unbookmark' : 'Bookmark';
-      updateCount();
-    };
+    actions.appendChild(SBData.bookmarkButton(q.id, updateCount));
 
     card.appendChild(actions);
     return card;

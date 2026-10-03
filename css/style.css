@@ -498,6 +498,8 @@ input[type="range"]::-moz-range-thumb:hover { transform: scale(1.15); background
 .reveal-box .ans-line .also-accept, .a-text .also-accept { color: inherit; font-size: inherit; font-weight: inherit; }
 .reveal-box .alt-line { color: var(--text-dim); font-size: 13px; margin-bottom: 3px; }
 .reveal-box .who-line { color: var(--text-dim); font-size: 13px; margin-bottom: 3px; }
+/* A wrong answer that was a near miss (a typo, or the key plus extra words). */
+.close-hint { color: var(--warn); font-size: 13px; margin-bottom: 6px; }
 .reveal-box .src-line { color: var(--text-dim); font-size: 12.5px; margin-top: 10px; }
 
 .controls-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
@@ -680,6 +682,7 @@ kbd {
 .mp-buzz-attempt-row ~ .mp-buzz-attempt-row { padding-top: 8px; border-top: 1px solid var(--border); }
 .mp-buzz-attempt-row .name { font-weight: 700; }
 .mp-buzz-attempt-row .text { color: var(--text-dim); }
+.mp-buzz-attempt-row .close-hint { margin: 0 0 0 auto; }
 
 /* ---------------- Reveal measure wrap (reserves height so buttons below don't shift) ---------------- */
 .reveal-measure-wrap { }

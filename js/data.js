@@ -4,6 +4,7 @@
     meta: null,
     questions: null,
     _readyPromise: null,
+    _metaPromise: null,
   };
 
   // Some scraped answer strings end with a Discord-style transcriber
@@ -19,8 +20,8 @@
   // Two specific 2019 packets ("DVHS Set 2 Round 2/3") have a page-footer
   // copyright notice leaked onto the end of every single answer in the
   // packet, e.g. an answer of "Hardness" was scraped as "Hardness 2019 DSB
-  // ®" - verified against the full corpus (28/35947 answers affected, every
-  // one of them in those two packets, zero false positives elsewhere):
+  // ®" - checked against the whole bank (26 answers, all in those two
+  // packets, no matches anywhere else):
   // strip a trailing "<year> <ORG> ®" tag like this wherever it turns up,
   // so a genuinely correct answer (a list-style one especially - the
   // trailing garbage broke the list/ranking canonicalizer, since "2,3,1
@@ -32,14 +33,7 @@
     return s.replace(TRAILING_WATERMARK_RE, '').trim();
   }
 
-  // meta.json's `subjects` field is a flat array of short subject keys
-  // ("bio", "chem", "ess", ...) - every filter-chip builder (solo.js,
-  // catalog.js, multiplayer.js) expects `SBData.meta.subjects` to instead be
-  // a list of {key, label} objects (so it can show a real subject name on
-  // the chip while filtering by the short key), which meant every subject
-  // chip site-wide was rendering with no text at all (`item.label` was
-  // undefined on a plain string). Expanding it here, once, at load time
-  // fixes every call site without duplicating a label map three times.
+  // Display names for meta.json's short subject keys.
   const SUBJECT_LABELS = {
     bio: 'Biology', chem: 'Chemistry', earth: 'Earth & Space', ess: 'Earth & Space',
     energy: 'Energy', math: 'Math', phys: 'Physics', other: 'General/Other',
@@ -72,8 +66,8 @@
   // PDF text extraction frequently split hyphenated compound words and
   // detached minus signs into three separate tokens with spaces on both
   // sides of the hyphen - "R-value" became "R - value", "chi-square" became
-  // "chi - square", a negative number like "-3" became "- 3". Verified
-  // against the full corpus (3692/35947 questions affected): collapsing any
+  // "chi - square", a negative number like "-3" became "- 3". Checked
+  // against the whole bank (about 2,400 questions affected): collapsing any
   // "X - Y" back to "X-Y" whenever the hyphen is directly flanked by
   // non-space characters is safe here - there's no stylistic "spaced dash as
   // a sentence aside" usage in this corpus to accidentally weld two words
@@ -117,9 +111,8 @@
     return fixSpacedApostrophes(fixSpacedHyphens(stripPronunciation(s)));
   }
 
-  // There's no real LaTeX markup anywhere in this corpus (verified by
-  // searching the full 35,947-question set for \frac, $...$, \sqrt, and
-  // similar LaTeX command syntax - none exists). What questions DO
+  // There's no real LaTeX markup anywhere in the bank (no \frac, \sqrt or
+  // similar commands; the "$" signs that appear are prices). What questions DO
   // sometimes have is plain-text "^" and "_" exponent/subscript notation
   // ("e^x", "K_c", "S_(n-1)"), carried over from however the original
   // packets were authored, alongside PDF-extraction damage that isn't
@@ -149,7 +142,7 @@
   // produces no over-long or space-containing captures.
   const MATH_SUP_BARE_RE = /(?<!\^)\^([+-]?[A-Za-z0-9]+)/g;
   const MATH_SUB_BARE_RE = /(?<!_)_([+-]?[A-Za-z0-9]+)/g;
-  function escapeHtmlForMath(s) {
+  function escapeHtml(s) {
     const d = document.createElement('div');
     d.textContent = s == null ? '' : s;
     return d.innerHTML;
@@ -183,7 +176,7 @@
   }
   function renderMathHTML(s) {
     if (!s) return '';
-    let out = renderParenGroups(escapeHtmlForMath(s));
+    let out = renderParenGroups(escapeHtml(s));
     out = out.replace(MATH_SUP_BARE_RE, '<sup>$1</sup>');
     out = out.replace(MATH_SUB_BARE_RE, '<sub>$1</sub>');
     return out;
@@ -215,71 +208,178 @@
     return s;
   }
   SBData.answerLineHTML = answerLineHTML;
+  SBData.escapeHtml = escapeHtml;
+
+  /* ---------------- Question cards (catalog, bookmarks, session logs) ---------------- */
+  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
+  const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
+  const GRADE_LABELS = { correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' };
+  SBData.QTYPE_LABELS = QTYPE_LABELS;
+  SBData.FORMAT_LABELS = FORMAT_LABELS;
+
+  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', roundTag, visualTag }
+  function questionMetaRow(q, opts) {
+    opts = opts || {};
+    const roundPart = SBData.roundLabelFor(q);
+    const row = document.createElement('div');
+    row.className = 'meta-row';
+    row.innerHTML = [
+      opts.grade ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
+      `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
+      `<span class="tag qtype-${escapeHtml(q.qtype)}">${escapeHtml(QTYPE_LABELS[q.qtype] || q.qtype)}</span>`,
+      `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
+      opts.roundTag ? `<span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>` : '',
+      opts.visualTag && q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : '',
+      `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
+    ].join('');
+    return row;
+  }
+
+  // Question text, then the MC choices if there are any.
+  function appendQuestionBody(card, q) {
+    const qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.innerHTML = renderMathHTML(q.question);
+    card.appendChild(qText);
+    if (q.choices) {
+      const ch = document.createElement('div');
+      ch.className = 'choices';
+      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${renderMathHTML(q.choices[L])}`).join('   ');
+      card.appendChild(ch);
+    }
+  }
+
+  // "Answer: ..." with its alternates, the reject list and the packet link.
+  // `answer` defaults to the question's own; multiplayer clients pass the
+  // reveal data instead, since their question copy has no answer.
+  // answer: { text, letter, accept, reject }; opts: { source }
+  function answerBlock(q, answer, opts) {
+    answer = answer || { text: answerDisplayText(q), letter: q.answer.letter, accept: q.answer.accept, reject: q.answer.reject };
+    const wrap = document.createElement('div');
+    const aText = document.createElement('div');
+    aText.className = 'a-text';
+    aText.innerHTML = answerLineHTML(answer.text, answer.letter, answer.accept);
+    wrap.appendChild(aText);
+    if (answer.reject && answer.reject.length) {
+      const rej = document.createElement('div');
+      rej.className = 'small-note';
+      rej.innerHTML = 'Do not accept: ' + renderMathHTML(answer.reject.join('; '));
+      wrap.appendChild(rej);
+    }
+    if (opts && opts.source && /^https?:\/\//i.test(q.sourceUrl || '')) {
+      const src = document.createElement('div');
+      src.className = 'src';
+      const a = document.createElement('a');
+      a.href = q.sourceUrl;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'Source';
+      src.appendChild(a);
+      wrap.appendChild(src);
+    }
+    return wrap;
+  }
+
+  // A star that toggles one question's bookmark. onChange(isBookmarked).
+  function bookmarkButton(qId, onChange) {
+    const btn = document.createElement('button');
+    btn.className = 'btn small icon-btn';
+    function paint(isBm) {
+      btn.textContent = isBm ? '★' : '☆';
+      btn.classList.toggle('active', isBm);
+      btn.title = isBm ? 'Unbookmark' : 'Bookmark';
+    }
+    paint(SBData.bookmarks.isBookmarked(qId));
+    btn.onclick = () => {
+      const nowBm = SBData.bookmarks.toggle(qId);
+      paint(nowBm);
+      if (onChange) onChange(nowBm);
+    };
+    return btn;
+  }
+
+  SBData.questionMetaRow = questionMetaRow;
+  SBData.appendQuestionBody = appendQuestionBody;
+  SBData.answerBlock = answerBlock;
+  SBData.bookmarkButton = bookmarkButton;
+
+  // meta.json's `subjects` field is a flat array of short keys, and its
+  // subjects/qtypes arrays are alphabetical (how the Python build scripts
+  // wrote them). Every chip row expects {key, label} objects in display
+  // order - Math, Physics, Biology, Chemistry, Earth & Space, Energy, and
+  // Tossup before Bonus - so that's fixed here, once, for every page.
+  const SUBJECT_ORDER = ['math', 'phys', 'bio', 'chem', 'earth', 'ess', 'energy'];
+  const QTYPE_ORDER = ['tossup', 'bonus'];
+  function byFixedOrder(order, keyOf) {
+    return (a, b) => {
+      const ai = order.indexOf(keyOf(a));
+      const bi = order.indexOf(keyOf(b));
+      return (ai === -1 ? order.length : ai) - (bi === -1 ? order.length : bi);
+    };
+  }
+  function normalizeMeta(meta) {
+    if (Array.isArray(meta.subjects) && meta.subjects.length && typeof meta.subjects[0] === 'string') {
+      meta.subjects = meta.subjects.map((key) => ({ key, label: subjectLabel(key) }));
+    }
+    if (Array.isArray(meta.subjects)) meta.subjects.sort(byFixedOrder(SUBJECT_ORDER, (s) => s.key));
+    if (Array.isArray(meta.qtypes)) meta.qtypes.sort(byFixedOrder(QTYPE_ORDER, (q) => q));
+    if (!Array.isArray(meta.levels)) meta.levels = ['hs', 'ms'];
+    return meta;
+  }
+
+  // Expands the compact on-disk records into the shape used throughout the
+  // app, applying the display-time text cleanup above.
+  function expandQuestions(meta, qs) {
+    const levelBySlug = new Map((meta.tournaments || []).map((t) => [t.slug, t.level || 'hs']));
+    return qs.map((q) => ({
+      id: q.i,
+      tournament: q.t,
+      tSlug: q.ts,
+      level: levelBySlug.get(q.ts) || 'hs',
+      round: q.r,
+      roundLabel: q.rl,
+      subject: q.s,
+      format: q.f,
+      qtype: q.qt,
+      num: q.n,
+      question: cleanText(q.q),
+      choices: q.c ? {
+        W: cleanText(q.c.W), X: cleanText(q.c.X),
+        Y: cleanText(q.c.Y), Z: cleanText(q.c.Z),
+      } : null,
+      visual: !!q.v,
+      answer: {
+        text: stripTrailingWatermark(stripAuthorTag(cleanText(q.a.t))),
+        letter: q.a.l || null,
+        accept: (q.a.ac || []).map(cleanText),
+        reject: (q.a.rj || []).map(cleanText),
+      },
+      sourceUrl: q.u,
+    }));
+  }
+  SBData.normalizeMeta = normalizeMeta;
+  SBData.expandQuestions = expandQuestions;
+
+  // Just meta.json (about 58 KB) - enough for pages that only show counts.
+  SBData.loadMeta = function () {
+    if (SBData._metaPromise) return SBData._metaPromise;
+    SBData._metaPromise = fetch('data/meta.json')
+      .then((r) => r.json())
+      .then((meta) => { SBData.meta = normalizeMeta(meta); return meta; });
+    return SBData._metaPromise;
+  };
 
   SBData.load = function () {
     if (SBData._readyPromise) return SBData._readyPromise;
     SBData._readyPromise = Promise.all([
-      fetch('data/meta.json').then((r) => r.json()),
+      SBData.loadMeta(),
       fetch('data/questions.json').then((r) => r.json()),
     ]).then(([meta, qs]) => {
-      SBData.meta = meta;
-      // Expand the raw string keys into {key, label} objects - see
-      // subjectLabel() above for why.
-      if (Array.isArray(meta.subjects) && meta.subjects.length && typeof meta.subjects[0] === 'string') {
-        meta.subjects = meta.subjects.map((key) => ({ key, label: subjectLabel(key) }));
-      }
-      // meta.json's subjects/qtypes arrays are alphabetical (an artifact of
-      // how the Python insertion scripts built them, e.g. sorted(set(...)))
-      // rather than a deliberately chosen display order - reorder both here,
-      // once, so every chip row site-wide (solo/catalog/multiplayer, plus
-      // solo's in-session settings and multiplayer's mid-game filters, which
-      // all build their chips straight from these two arrays) shows subjects
-      // as Math/Physics/Biology/Chemistry/Earth & Space/Energy and always
-      // puts the Tossup chip before Bonus, without editing every call site.
-      const SUBJECT_ORDER = ['math', 'phys', 'bio', 'chem', 'earth', 'ess', 'energy'];
-      const QTYPE_ORDER = ['tossup', 'bonus'];
-      function byFixedOrder(order, keyOf) {
-        return (a, b) => {
-          const ai = order.indexOf(keyOf(a));
-          const bi = order.indexOf(keyOf(b));
-          return (ai === -1 ? order.length : ai) - (bi === -1 ? order.length : bi);
-        };
-      }
-      if (Array.isArray(meta.subjects)) {
-        meta.subjects.sort(byFixedOrder(SUBJECT_ORDER, (s) => s.key));
-      }
-      if (Array.isArray(meta.qtypes)) {
-        meta.qtypes.sort(byFixedOrder(QTYPE_ORDER, (q) => q));
-      }
-      const levelBySlug = new Map((meta.tournaments || []).map((t) => [t.slug, t.level || 'hs']));
-      if (!Array.isArray(meta.levels)) meta.levels = ['hs', 'ms'];
-      // expand compact keys into a friendlier shape used throughout the app
-      SBData.questions = qs.map((q) => ({
-        id: q.i,
-        tournament: q.t,
-        tSlug: q.ts,
-        level: levelBySlug.get(q.ts) || 'hs',
-        round: q.r,
-        roundLabel: q.rl,
-        subject: q.s,
-        format: q.f,
-        qtype: q.qt,
-        num: q.n,
-        question: cleanText(q.q),
-        choices: q.c ? {
-          W: cleanText(q.c.W), X: cleanText(q.c.X),
-          Y: cleanText(q.c.Y), Z: cleanText(q.c.Z),
-        } : null,
-        visual: !!q.v,
-        answer: {
-          text: stripTrailingWatermark(stripAuthorTag(cleanText(q.a.t))),
-          letter: q.a.l || null,
-          accept: (q.a.ac || []).map(cleanText),
-          reject: (q.a.rj || []).map(cleanText),
-        },
-        sourceUrl: q.u,
-      }));
+      SBData.questions = expandQuestions(meta, qs);
       SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
+      if (global.SBAnswer && global.SBAnswer.setVocabulary) {
+        global.SBAnswer.setVocabulary(SBData.questions);
+      }
       migrateBookmarks(meta.idAliases);
       return SBData;
     });
@@ -289,20 +389,35 @@
   /* ---------------- Bookmarks (localStorage) ---------------- */
   const BOOKMARK_KEY = 'sb_bookmarks_v1';
 
-  function readBookmarks() {
-    try {
-      const raw = localStorage.getItem(BOOKMARK_KEY);
-      return raw ? new Set(JSON.parse(raw)) : new Set();
-    } catch (e) {
-      return new Set();
+  // Parsed once and kept in memory; re-read only when another tab changes
+  // the stored list. Callers get a copy so they can't change the cache.
+  let bookmarkCache = null;
+  function bookmarkSet() {
+    if (!bookmarkCache) {
+      try {
+        const raw = localStorage.getItem(BOOKMARK_KEY);
+        bookmarkCache = raw ? new Set(JSON.parse(raw)) : new Set();
+      } catch (e) {
+        bookmarkCache = new Set();
+      }
     }
+    return bookmarkCache;
+  }
+  function readBookmarks() {
+    return new Set(bookmarkSet());
   }
   function writeBookmarks(set) {
+    bookmarkCache = new Set(set);
     try {
       localStorage.setItem(BOOKMARK_KEY, JSON.stringify([...set]));
     } catch (e) {
       /* ignore quota errors */
     }
+  }
+  if (typeof window !== 'undefined' && window.addEventListener) {
+    window.addEventListener('storage', (e) => {
+      if (e.key === BOOKMARK_KEY || e.key === null) bookmarkCache = null;
+    });
   }
 
   // Duplicate questions were merged into one kept copy; meta.json maps each
@@ -326,7 +441,7 @@
       return readBookmarks();
     },
     isBookmarked(id) {
-      return readBookmarks().has(id);
+      return bookmarkSet().has(id);
     },
     toggle(id) {
       const set = readBookmarks();
@@ -349,7 +464,7 @@
       writeBookmarks(new Set());
     },
     count() {
-      return readBookmarks().size;
+      return bookmarkSet().size;
     },
   };
 
@@ -364,7 +479,7 @@
     const qtypes = toSetOrNull(opts.qtypes);
     const levels = toSetOrNull(opts.levels);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
-    const bookmarks = bookmarkedOnly ? readBookmarks() : null;
+    const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
     const search = (opts.search || '').trim().toLowerCase();
     const includeVisual = opts.includeVisual !== false;
     const roundRange = opts.roundRange || null; // [min, max] inclusive
@@ -467,8 +582,7 @@
   // smallest group's own supply runs dry. plain stratifiedShuffle() above
   // lets a group drop out of rotation once it's exhausted, so if e.g. Math
   // only has 16 questions after filtering and Physics has hundreds, the
-  // back half of the result is 100% Physics - exactly the "60% phys over 40
-  // questions" skew this was reported to produce. Here, a group that runs
+  // back half of the result is 100% Physics. Here, a group that runs
   // out mid-way is reshuffled and keeps taking its turn (repeating its own
   // questions) instead of dropping out, so the ratio between subjects stays
   // even for the entire length requested. length defaults to arr.length so
@@ -618,163 +732,17 @@
     };
   };
 
-  /* ---------------- Custom-styled <select> dropdown ---------------- */
-  // Native <select> popups are rendered by the OS/browser chrome, outside
-  // the page - there's no way to style their scrollbar (or anything else
-  // about them) with CSS. This progressively enhances a <select> that's
-  // already been populated with <option>s into a button + absolutely
-  // positioned panel built from plain divs, so the panel's scrollbar picks
-  // up the site's normal custom scrollbar styling like any other element.
-  // The original <select> stays in the DOM (hidden) as the source of truth:
-  // existing code that reads `.value` or listens for 'change' on it keeps
-  // working untouched. Code that sets `.value` on it programmatically
-  // (e.g. a "Clear all" handler) should call `selectEl.refreshCustomDropdown()`
-  // afterward (a no-op if the select was never enhanced) so the visible
-  // label stays in sync.
-  function enhanceSelect(selectEl) {
-    if (!selectEl || selectEl._sbEnhanced) return;
-    selectEl._sbEnhanced = true;
-
-    const originalStyle = selectEl.getAttribute('style') || '';
-    const wrap = document.createElement('div');
-    wrap.className = 'custom-select-wrap';
-    if (originalStyle) wrap.setAttribute('style', originalStyle);
-    selectEl.parentNode.insertBefore(wrap, selectEl);
-    wrap.appendChild(selectEl);
-    selectEl.classList.add('sb-native-select-hidden');
-
-    const trigger = document.createElement('button');
-    trigger.type = 'button';
-    trigger.className = 'custom-select-trigger';
-    const triggerLabel = document.createElement('span');
-    triggerLabel.className = 'custom-select-trigger-label';
-    const caret = document.createElement('span');
-    caret.className = 'custom-select-caret';
-    caret.textContent = '▾';
-    trigger.appendChild(triggerLabel);
-    trigger.appendChild(caret);
-    wrap.appendChild(trigger);
-
-    const panel = document.createElement('div');
-    panel.className = 'custom-select-panel';
-    panel.style.display = 'none';
-
-    // A search box pinned above the scrollable option list - useful once a
-    // select has more than a handful of options (e.g. dozens of
-    // tournaments), where scrolling to find one by eye is slow.
-    const searchWrap = document.createElement('div');
-    searchWrap.className = 'custom-select-search-wrap';
-    const search = document.createElement('input');
-    search.type = 'text';
-    search.className = 'custom-select-search';
-    search.placeholder = 'Search…';
-    search.autocomplete = 'off';
-    searchWrap.appendChild(search);
-    panel.appendChild(searchWrap);
-
-    const optionsList = document.createElement('div');
-    optionsList.className = 'custom-select-options';
-    panel.appendChild(optionsList);
-
-    wrap.appendChild(panel);
-
-    function buildOptions() {
-      optionsList.innerHTML = '';
-      Array.from(selectEl.options).forEach((opt) => {
-        const row = document.createElement('div');
-        row.className = 'custom-select-option';
-        row.textContent = opt.textContent;
-        row.dataset.value = opt.value;
-        row.dataset.search = opt.textContent.toLowerCase();
-        if (opt.value === selectEl.value) row.classList.add('active');
-        row.addEventListener('click', () => {
-          selectEl.value = opt.value;
-          syncLabel();
-          closePanel();
-          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-        optionsList.appendChild(row);
-      });
-    }
-
-    function applySearch() {
-      const q = search.value.trim().toLowerCase();
-      let anyVisible = false;
-      Array.from(optionsList.querySelectorAll('.custom-select-option')).forEach((row) => {
-        const match = !q || row.dataset.search.indexOf(q) !== -1;
-        row.style.display = match ? '' : 'none';
-        if (match) anyVisible = true;
-      });
-      let empty = optionsList.querySelector('.custom-select-empty');
-      if (!anyVisible) {
-        if (!empty) {
-          empty = document.createElement('div');
-          empty.className = 'custom-select-empty';
-          empty.textContent = 'No matches';
-          optionsList.appendChild(empty);
-        }
-      } else if (empty) {
-        empty.remove();
-      }
-    }
-
-    function syncLabel() {
-      const opt = selectEl.options[selectEl.selectedIndex];
-      triggerLabel.textContent = opt ? opt.textContent : '';
-      Array.from(optionsList.children).forEach((row) => {
-        if (row.dataset.value !== undefined) row.classList.toggle('active', row.dataset.value === selectEl.value);
-      });
-    }
-
-    function openPanel() {
-      buildOptions();
-      search.value = '';
-      applySearch();
-      panel.style.display = 'block';
-      wrap.classList.add('open');
-      setTimeout(() => search.focus(), 0);
-    }
-    function closePanel() {
-      panel.style.display = 'none';
-      wrap.classList.remove('open');
-    }
-
-    trigger.addEventListener('click', () => {
-      if (panel.style.display === 'none') openPanel(); else closePanel();
-    });
-    document.addEventListener('click', (e) => {
-      if (!wrap.contains(e.target)) closePanel();
-    });
-    trigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePanel();
-    });
-    search.addEventListener('input', applySearch);
-    search.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closePanel(); trigger.focus(); }
-      else if (e.key === 'Enter') {
-        e.preventDefault();
-        const firstVisible = Array.from(optionsList.querySelectorAll('.custom-select-option'))
-          .find((row) => row.style.display !== 'none');
-        if (firstVisible) firstVisible.click();
-      }
-    });
-
-    buildOptions();
-    syncLabel();
-    selectEl.refreshCustomDropdown = syncLabel;
-  }
-  SBData.enhanceSelect = enhanceSelect;
-
-  // Multi-select sibling of enhanceSelect, for filters where more than one
-  // choice should be pickable at once (currently: tournaments). Shares the
-  // same panel/search/scrollbar markup and CSS classes, but clicking a row
-  // toggles it in a Set instead of picking one value and closing the
-  // panel, and the trigger label summarizes the selection instead of
-  // showing a single option's text. The backing <select> is still used
-  // purely as the option source (its own .value/.selectedIndex are never
-  // read) - callers use selectEl.getMultiValues()/setMultiValues() instead
-  // of .value, and still get a 'change' event on user interaction.
-  function enhanceMultiSelect(selectEl) {
+  /* ---------------- Custom-styled multi-select dropdown ---------------- */
+  // Native <select> popups are drawn by the browser outside the page, so
+  // their scrollbar (or anything else) can't be styled. This turns a
+  // <select> that already has its <option>s into a button plus a panel of
+  // plain divs, with a search box, where clicking a row toggles it. The
+  // <select> stays in the DOM, hidden, only as the option source: callers
+  // use selectEl.getMultiValues()/setMultiValues() and still get a 'change'
+  // event on user interaction. opts.noun names the items in the button
+  // label ("All tournaments", "3 tournaments selected").
+  function enhanceMultiSelect(selectEl, opts) {
+    const noun = (opts && opts.noun) || 'tournament';
     if (!selectEl || selectEl._sbEnhanced) return;
     selectEl._sbEnhanced = true;
     selectEl._sbMultiValues = new Set();
@@ -878,13 +846,13 @@
     function syncLabel() {
       const n = selectEl._sbMultiValues.size;
       if (n === 0) {
-        triggerLabel.textContent = 'All tournaments';
+        triggerLabel.textContent = `All ${noun}s`;
       } else if (n === 1) {
         const [onlyVal] = selectEl._sbMultiValues;
         const opt = Array.from(selectEl.options).find((o) => o.value === onlyVal);
-        triggerLabel.textContent = opt ? opt.textContent : '1 tournament selected';
+        triggerLabel.textContent = opt ? opt.textContent : `1 ${noun} selected`;
       } else {
-        triggerLabel.textContent = `${n} tournaments selected`;
+        triggerLabel.textContent = `${n} ${noun}s selected`;
       }
       Array.from(optionsList.children).forEach((row) => {
         if (row.dataset.value !== undefined) row.classList.toggle('active', selectEl._sbMultiValues.has(row.dataset.value));
@@ -955,4 +923,4 @@
   SBData.wireRangeFill = wireRangeFill;
 
   global.SBData = SBData;
-})(window);
+})(typeof window !== 'undefined' ? window : globalThis);

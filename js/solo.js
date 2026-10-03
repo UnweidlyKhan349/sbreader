@@ -1,6 +1,6 @@
 (function () {
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
-  const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
+  const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
+  const labelFor = SBData.subjectLabel;
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
@@ -518,7 +518,7 @@
     clearRuntimeTimer();
     const q = currentQ();
     const result = text.trim() ? SBAnswer.checkAnswer(q, text) : { correct: false };
-    resolveQuestion({ attempted: true, correct: result.correct, userText: text });
+    resolveQuestion({ attempted: true, correct: result.correct, close: !!result.close, userText: text });
   }
 
   function resolveQuestion(outcome) {
@@ -526,11 +526,9 @@
     // Phase must flip to 'reveal' BEFORE skipToEnd() runs: skipToEnd() can
     // synchronously fire the reveal's onComplete callback (startBuzzWindow),
     // and that callback only bails out once the phase says we're past
-    // reading. Doing this in the old order left a stray buzz-window timer
-    // running in the background whenever a question was skipped mid-reveal
-    // (before the buzz window had naturally opened) - it would silently
-    // fire minutes later and resolve whatever question happened to be
-    // current at that point, which is the "timer goes off" bug.
+    // reading. In the other order, skipping a question mid-reveal leaves a
+    // stray buzz-window timer running that later resolves whatever question
+    // is current by then.
     runtime.phase = 'reveal';
     runtime.lastOutcome = outcome;
     if (runtime.revealCtl) runtime.revealCtl.skipToEnd();
@@ -566,6 +564,9 @@
     let html = `<div class="grade-badge ${category}">${badgeText}</div>`;
     if (outcome && outcome.attempted && outcome.userText) {
       html += `<div class="who-line">You answered: "${escapeHtml(outcome.userText)}"</div>`;
+    }
+    if (category === 'incorrect' && outcome.close) {
+      html += '<div class="close-hint">Close. If you meant the answer below, press Q or Override to count it.</div>';
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept)}</div>`;
     if (q.answer.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(q.answer.reject.join('; '))}</div>`;
@@ -709,54 +710,21 @@
     card.className = 'q-log-entry';
     card.dataset.qid = q.id;
 
-    const badgeText = entry.category === 'correct' ? 'Correct' : entry.category === 'incorrect' ? 'Incorrect' : 'Skipped';
-    const roundPart = SBData.roundLabelFor(q);
-    const meta = document.createElement('div');
-    meta.className = 'meta-row';
-    meta.innerHTML = `
-      <span class="grade-badge ${entry.category}">${badgeText}</span>
-      <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
-      <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
-      <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
-      <span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>
-    `;
-    const isBm = SBData.bookmarks.isBookmarked(q.id);
-    const bmBtn = document.createElement('button');
-    bmBtn.className = 'btn small icon-btn' + (isBm ? ' active' : '');
-    bmBtn.style.marginLeft = 'auto';
-    bmBtn.textContent = isBm ? '★' : '☆';
-    bmBtn.title = isBm ? 'Unbookmark' : 'Bookmark';
-    bmBtn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(q.id);
-      bmBtn.textContent = nowBm ? '★' : '☆';
-      bmBtn.classList.toggle('active', nowBm);
-      bmBtn.title = nowBm ? 'Unbookmark' : 'Bookmark';
-      // The main bookmark button (up by the question) shows the star for
-      // whichever question is currently displayed, which can be this exact
-      // logged question (its reveal box is still on screen) - keep the two
-      // stars in sync instead of leaving the main one stale.
+    const meta = SBData.questionMetaRow(q, { grade: entry.category });
+    // The main bookmark button (up by the question) shows the star for
+    // whichever question is currently displayed, which can be this exact
+    // logged question (its reveal box is still on screen) - keep the two
+    // stars in sync instead of leaving the main one stale.
+    const bmBtn = SBData.bookmarkButton(q.id, () => {
       const cur = currentQ();
       if (cur && cur.id === q.id) updateBookmarkBtn();
-    };
+    });
+    bmBtn.style.marginLeft = 'auto';
     meta.appendChild(bmBtn);
     card.appendChild(meta);
 
-    const qText = document.createElement('div');
-    qText.className = 'q-text';
-    qText.innerHTML = SBData.renderMathHTML(q.question);
-    card.appendChild(qText);
-
-    if (q.choices) {
-      const ch = document.createElement('div');
-      ch.className = 'choices';
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${SBData.renderMathHTML(q.choices[L])}`).join('   ');
-      card.appendChild(ch);
-    }
-
-    const aText = document.createElement('div');
-    aText.className = 'a-text';
-    aText.innerHTML = 'Answer: ' + (q.answer.letter ? `${q.answer.letter}) ` : '') + SBData.renderMathHTML(SBData.answerDisplayText(q));
-    card.appendChild(aText);
+    SBData.appendQuestionBody(card, q);
+    card.appendChild(SBData.answerBlock(q));
 
     if (entry.userText) {
       const you = document.createElement('div');
@@ -823,15 +791,6 @@
     });
   }
 
-  function labelFor(subjectKey) {
-    const found = (SBData.meta.subjects || []).find((s) => s.key === subjectKey);
-    return found ? found.label : subjectKey;
-  }
-  function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s == null ? '' : s;
-    return d.innerHTML;
-  }
 
   function wireGameControls() {
     document.getElementById('buzzBtn').addEventListener('click', buzzIn);
