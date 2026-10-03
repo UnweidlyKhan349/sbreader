@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 70,568 questions from 96 tournaments** (35,537 tossups / 35,031 bonuses; 44,141 short answer / 26,427 multiple choice).
+**Current question bank: 71,174 questions from 97 tournaments** (35,856 tossups / 35,318 bonuses; 44,572 short answer / 26,602 multiple choice).
 
 | Subject | Questions |
 |---|---|
-| Earth & Space | 13,328 |
-| Biology | 13,204 |
-| Math | 12,352 |
-| Chemistry | 11,335 |
-| Physics | 11,262 |
-| Energy | 9,087 |
+| Earth & Space | 13,429 |
+| Biology | 13,311 |
+| Math | 12,461 |
+| Chemistry | 11,441 |
+| Physics | 11,366 |
+| Energy | 9,166 |
 
 This README covers the whole project: what the site does, how the data is shaped, where the questions came from, every major data-quality pass, the conventions the work followed, and the known limitations that are still open.
 
@@ -174,7 +174,7 @@ A compact JSON array (about 25 MB raw, about 5.9 MB gzipped; GitHub Pages serves
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,749 questions); everything else is `hs` (61,217). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,168 questions); everything else is `hs` (58,006). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
@@ -198,6 +198,7 @@ Sources used:
 - **The Science Bowl Periphery (speriphery.com) Google Drive folder** (`drive.google.com/drive/folders/1IIpY8rbKS2_tf5_Kwl2Ns_qAJ1FIkMic`; 67 tournament folders, 869 files, crawled via `embeddedfolderview`): every folder turned out to be a tournament already in the bank, so this was a straggler merge. Each packet was parsed and every question checked against the whole bank by content; only questions with no match were added. That produced **395 questions**: 224 Lexington HS 2020-21 questions (rounds 4–17 previously had only their bonuses; rounds 3 and 8 were partial), 104 CLASH 2026 replacement questions (62 HS / 42 MS, labelled `CLASH Replacement Questions` with no round number, like DASONI's replacements), 22 DASONI 2 (mostly DE8/DE9), 22 NSBA1, and 23 spread over 11 other tournaments. Excluded: visual bonuses, cross-subject "Synergy"/"Duality" questions, the SMH boss-battle joke round, questions whose equations or answers are missing from the source text, and LOST2 (image-only scans whose OCR was too noisy; LOST 2 was already ingested). Not reachable: the NWI2 2025 folder (private, 401) and ICSBT2 DE4 (owner disabled downloads). The sets speriphery.com has beyond this Drive (LBB 2026, MOOSE 2021, Yale 2026, LADWP 2023) came from its database instead; see the next two entries.
 - **isobowl.com Premier packets** (public API: `/api/tournaments`, then `/api/tournaments/{id}/rounds` and `/rounds/{n}/questions`): only tournaments marked `completed` whose rounds the server actually releases. The server itself hides live packets ("hidden until the tournament concludes"), and live/upcoming events (e.g. National Chemistry Bowl, ICSBT 3) and completed-but-unreleased ones (Hawaii, ISOBowl Invitational) were not touched. Records are structured (choices, correct letter, accept/reject lists), so no text parsing was needed; LaTeX (`$$…$$`) was converted to plain text (√, ^, Σ, ∫, Greek) and the 20 records it couldn't fully convert were dropped, as were 20 image questions. Added: **NSB MS Regs** (new; the official MS sample sets 14–16), **Trio Online Math Bowl 2026** (479), **NSBA4** (432, including 76 computer/general-science questions filed under Energy), and 69 NSB Regs high-school questions that fill empty (set, round, number) slots, almost all clean copies of records removed earlier as unrecoverable. The other ~11,800 NSB high-school questions lined up slot-for-slot with existing records and were skipped.
 - **speriphery.com database** (its public Supabase `questionbank` table, the same read-only endpoint its own site uses; 18,070 rows): dedup against the bank plus the isobowl batch left 994 candidates, and **984** were added. 888 went into new tournaments: **Lexington Biology Bowl 2026** (428), **MOOSE 2021** (349; an MS event, unrelated to our older "Moose" tournament, which actually holds DAST packets), **Yale 2026** (80), and **LADWP 2023** (31, labelled `Finals (reconstructed)` because speriphery's maintainer rebuilt that round from the match video). The other 96 are stragglers placed in the tournament/round their already-ingested siblings map to. Skipped: 113 visual bonuses, 77 rows whose LaTeX didn't fully convert, 9 of speriphery's rewrites of questions we already have (e.g. a classification question turned into "identify all"), and one question whose answer choices speriphery had silently corrected.
+- **HSBT packets (uploaded by the user as a zip of 14 .docx files)**: Round Robin 1–5 and Double Elimination 1–9, each 23 tossup/bonus pairs (644 questions). Added as the new tournament **HSBT 2026** (606 questions), labelled `Round Robin N` / `Double Elimination N` and numbered RR 1–5 → rounds 1–5, DE 1–9 → rounds 6–14; there is no source link because the packets aren't hosted anywhere. Text came straight from the .docx runs, so sub/superscripts were taken from the run formatting (`NH_4Cl`) and the one Word-equation question (DE9's flux quantum, `Φ_0`) from its OMML. Format follows the content, not the packet's label: 24 questions labelled "Short Answer" have W–Z choices and are MC, and 12 labelled "Multiple Choice" have none and are SA. Author/topic tags (`[TD] GEO`, `[Gemini] ORGO`), pronunciation notes in answers and `\pi`/`sqrt{…}` LaTeX were cleaned, and inline "(ACCEPT: …)"/"do not accept" notes went into `ac`/`rj`. DE2's 20th bonus has no subject header and takes Biology from its tossup; DE2's butadiene/hexatriene bonus prints the wrong choice text next to letter Y, and the letter (lower HOMO, higher LUMO) is the correct one, so it's kept with Y's text. Excluded (38): 27 visual bonuses; 5 repeats inside the set (DE4's phase-boundary question is printed three times, and DE1/RR1, DE6/DE7 and DE7/DE8 each share a question); 4 already in the bank (an exact copy of a Texas Sci Bowl 2025 question, a near copy of a Berkeley 2023 one, a copy of IGNIS 2022's atmospheric-boundary question, and a second copy of that question keyed 2, 1, 3 instead of 3, 1, 2); and 2 with wrong answer keys (DE5's Norton equivalent, keyed as a current source in series rather than in parallel, and RR5's "sinks if unsaturated, rises if saturated" parcel, keyed absolute rather than conditional instability).
 - **sciencebowl.org (atombowl)**: not ingested. Its Firestore question store only serves signed-in users (unauthenticated reads return `PERMISSION_DENIED`); bulk-exporting it through an account would use the login to get around that restriction, so it would need the owner's permission or an export from them.
 
 ### Middle-school content, subject rule, and NSB repair
@@ -222,7 +223,7 @@ Sources used:
   - Left as is: 548 records without a question number (their sources don't number them; the site doesn't display numbers).
 
 ### Corpus size over time
-36,145 (first release) → 44,742 → 45,475 (broken-parse repairs) → 47,074 → 47,891 → 59,822 (OSTI) → 63,048 (desktop archive) → 62,976 (unrecoverable/visual-bonus removals) → 61,619 (duplicate removal) → 61,618 → 62,013 (speriphery Drive stragglers) → 65,075 (isobowl + speriphery databases) → 61,272 (MS removed, NSB repair) → 65,155 (MS restored) → 65,098 (formatting pass) → 74,966 (OSTI MS sample sets 1–13) → **70,568** (cross-bank duplicate audit, current).
+36,145 (first release) → 44,742 → 45,475 (broken-parse repairs) → 47,074 → 47,891 → 59,822 (OSTI) → 63,048 (desktop archive) → 62,976 (unrecoverable/visual-bonus removals) → 61,619 (duplicate removal) → 61,618 → 62,013 (speriphery Drive stragglers) → 65,075 (isobowl + speriphery databases) → 61,272 (MS removed, NSB repair) → 65,155 (MS restored) → 65,098 (formatting pass) → 74,966 (OSTI MS sample sets 1–13) → 70,568 (cross-bank duplicate audit) → **71,174** (HSBT 2026, current).
 
 ---
 
@@ -411,6 +412,7 @@ Checks used throughout development:
 | Fall 2023 | 618 |
 | FE!M 2025 | 607 |
 | GWHS Rounds | 722 |
+| HSBT 2026 | 606 |
 | ICSBT 2 | 528 |
 | ICSBT 2025 | 458 |
 | IGNIS 2022 | 721 |
@@ -471,4 +473,4 @@ Checks used throughout development:
 | WISC 2021 | 380 |
 | WSBT | 448 |
 | Yale 2026 | 80 |
-| **Total (96)** | **70,568** |
+| **Total (97)** | **71,174** |
