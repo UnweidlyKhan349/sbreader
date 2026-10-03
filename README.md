@@ -153,7 +153,7 @@ Peer-to-peer over WebRTC via PeerJS. The free public PeerJS broker is used only 
 
 Anyone with the room code can connect, so the host passes every message through `SBMpRules.cleanHostMessage` first. Unknown types are dropped, strings are cut to length (name 24, answer 200, chat 300), filter values must exist in `meta.json`, and the reading rate is clamped to 0.5–2.5. Peers that haven't sent `join` are ignored. Messages aren't rate-limited.
 
-Connections use Google's public STUN servers. Players behind a symmetric NAT or a strict firewall need a TURN relay, and none is configured: Open Relay's shared `openrelayproject` login no longer works. To add one, create a free app at [Metered](https://dashboard.metered.ca), make a usage-capped TURN credential, and list its servers in `TURN_SERVERS` in `js/peer.js`. Anything in that list is public, like the rest of a static site.
+Connections use Google's public STUN servers, with no TURN relay.
 
 ---
 
