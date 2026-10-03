@@ -147,8 +147,6 @@
   // "x to the (2-2x)") rather than part of the exponent itself. Verified
   // against every "^"/"_" occurrence in the corpus (393 fields) that this
   // produces no over-long or space-containing captures.
-  const MATH_SUP_PAREN_RE = /(?<!\^)\^\(([^()]*)\)/g;
-  const MATH_SUB_PAREN_RE = /(?<!_)_\(([^()]*)\)/g;
   const MATH_SUP_BARE_RE = /(?<!\^)\^([+-]?[A-Za-z0-9]+)/g;
   const MATH_SUB_BARE_RE = /(?<!_)_([+-]?[A-Za-z0-9]+)/g;
   function escapeHtmlForMath(s) {
@@ -156,11 +154,36 @@
     d.textContent = s == null ? '' : s;
     return d.innerHTML;
   }
+  // Parenthesized groups can nest ("2^(2^(2^2))", "n^(1/ln(n))"), which a
+  // single regex can't match, so they're found by paren counting and the
+  // inside is rendered recursively. An unbalanced group is left as text.
+  function renderParenGroups(s) {
+    let out = '';
+    let i = 0;
+    while (i < s.length) {
+      const c = s[i];
+      if ((c === '^' || c === '_') && s[i + 1] === '(' && s[i - 1] !== c) {
+        let depth = 0;
+        let j = i + 1;
+        for (; j < s.length; j++) {
+          if (s[j] === '(') depth++;
+          else if (s[j] === ')' && --depth === 0) break;
+        }
+        if (j < s.length) {
+          const tag = c === '^' ? 'sup' : 'sub';
+          out += `<${tag}>` + renderParenGroups(s.slice(i + 2, j)) + `</${tag}>`;
+          i = j + 1;
+          continue;
+        }
+      }
+      out += c;
+      i++;
+    }
+    return out;
+  }
   function renderMathHTML(s) {
     if (!s) return '';
-    let out = escapeHtmlForMath(s);
-    out = out.replace(MATH_SUP_PAREN_RE, '<sup>$1</sup>');
-    out = out.replace(MATH_SUB_PAREN_RE, '<sub>$1</sub>');
+    let out = renderParenGroups(escapeHtmlForMath(s));
     out = out.replace(MATH_SUP_BARE_RE, '<sup>$1</sup>');
     out = out.replace(MATH_SUB_BARE_RE, '<sub>$1</sub>');
     return out;
@@ -212,7 +235,7 @@
       // solo's in-session settings and multiplayer's mid-game filters, which
       // all build their chips straight from these two arrays) shows subjects
       // as Math/Physics/Biology/Chemistry/Earth & Space/Energy and always
-      // puts the Toss-Up chip before Bonus, without editing every call site.
+      // puts the Tossup chip before Bonus, without editing every call site.
       const SUBJECT_ORDER = ['math', 'phys', 'bio', 'chem', 'earth', 'ess', 'energy'];
       const QTYPE_ORDER = ['tossup', 'bonus'];
       function byFixedOrder(order, keyOf) {
@@ -363,13 +386,10 @@
     });
 
     if (search) {
-      out = out.filter((q) => {
-        return (
-          q.question.toLowerCase().includes(search) ||
-          q.answer.text.toLowerCase().includes(search) ||
-          q.tournament.toLowerCase().includes(search)
-        );
-      });
+      // Exponent markup is invisible on screen, so "7100" also finds "7^100".
+      const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
+      const has = (t) => { const l = t.toLowerCase(); return l.includes(search) || plain(l).includes(search); };
+      out = out.filter((q) => has(q.question) || has(q.answer.text) || has(q.tournament));
     }
     return out;
   };

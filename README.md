@@ -42,8 +42,8 @@ This README covers the whole project: what the site does, how the data is shaped
 A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json`.
 
 ### `catalog.html` (Catalog)
-- Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input.
-- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,314 questions have no round number), question type (Toss-Up/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
+- Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
+- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,314 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
 - 40 results per page, with pagination and a jump-to-page input.
 - Each card shows subject/type/format tags, the question, MC choices, the answer line (with inline "also accept"), the tournament and round label, a link to the original packet (when there is one), and a bookmark star.
 
@@ -108,6 +108,9 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 - **Spacing-insensitive match**: answers that contain a letter and are identical once whitespace is removed count as equal, so `SiO2` matches an answer key of `SI O2` and `MgCl2` matches `MgCl 2` (PDF extraction scattered spaces through formulas). Punctuation is kept, so `1.5` never meets `15`, and bare numbers are excluded because spacing can matter there. The same rule applies to reject lists. Checked against the whole corpus: grading every short-answer question with another question's answer gives exactly as many acceptances as before (no new false positives).
 - **Multi-part answers** (a key with top-level `;` parts, e.g. `FIRST QUARTER; FULL`): every part must be given, and each is matched on its own. The typed answer can be split with `;`, `,`, `and`, `then`, or nothing at all (`first quarter full moon`), and a part can carry one extra word (`full moon` for `FULL`). A part's label or number can be left off (`25` for `MEDIAN = 25`, `magnons` for `1) MAGNONS`). Order is enforced for "respectively", ranking, or sequence questions and for labelled parts. Otherwise any order is accepted, as it is when the packet says "either order". A single-part accept is only an alternate for that one part (`LH` for `LUTEINIZING HORMONE`), and `1ST QUARTER | FULL MOON` gives an alternate for each part. Before this change, a single part often passed as a whole answer through the fuzzy fallback (`full moon` alone) or through a lone per-part accept (`LH`, `COPPER`), while `first quarter and full moon` was marked wrong. Checked across the corpus: a main answer, a whole-answer accept, or the parts joined by `,` or `and` now always pass (531 multi-part questions). The only inputs that no longer pass are single parts and out-of-order answers to ordered questions.
 - **Signs on numbers**: `normalize()` strips `-`, so `-2` used to equal `2`. Now, when both answers start with a number, that leading number's sign must match. So `195 degrees` fails `-195 degrees`, `2+sqrt6` fails `-2+sqrt6`, and `negative 2`, `minus 2`, and `−2`/`–2` all equal `-2`. When both answers contain the same numbers in any order, each number's sign must also match: `3 + 5i` no longer passes `5i - 3`, and `5, 7` no longer passes `-5, 7`. A dash after a digit (`20 – 21`, `2 - 3i`) or attached to a letter (`G-2`, `A-1`) might be a range, subtraction, or label, so it isn't read as a sign. Leading zeros are kept (`001` ≠ `1`). Checked on the corpus: of 674 answer keys that start with a negative number, 659 used to accept the answer with the sign dropped. Now 18 do, and in each of those the main key or an alternate is written without a sign. The bare-number set comparison also skips multi-part keys, so a reversed answer to a "respectively" question (`18; 16` for `16; 18`) no longer passes.
+- **Fractions and decimals**: a decimal and a fraction with exactly the same value match, so `0.5` = `1/2`, `0.75` = `3/4`, `5.5` = `11/2`, also with a trailing unit or symbol (`0.5 pi` for `1/2 PI`, a bare `0.5` for `1/2 METERS`). Nothing else is compared by value: two fractions, two decimals, or a decimal and an integer are still compared as written, because packets reject unreduced fractions (`15/60` for `1/4`) and dropped significant figures (`1 × 10^-8` for `1.0 × 10^-8`). The fraction must be in lowest terms, and `0.33` is not `1/3`. Checked on the corpus: no main answer stops passing, and the only new cross-answer matches are true fraction/decimal pairs.
+- **Abbreviations**: `ER`, `RER` and `SER` read as endoplasmic reticulum, rough and smooth endoplasmic reticulum (so `rough ER` matches `ROUGH ENDOPLASMIC RETICULUM`). The table is in `normalize()` in `js/answer-check.js`.
+- **Exponent markup is ignored**: `x^2` = `x2` and `e^(-x)` = `e-x`, so answer keys that gained `^` in the superscript repair still accept what students type.
 - **Lenient matching**: stop-word-tolerant word matching, whole-run containment, and a Levenshtein typo tolerance that scales with answer length.
 
 Regression-tested against about 4,000 real "identify all" questions from the corpus, with 0 regressions.
@@ -138,7 +141,7 @@ data/questions.json  data/meta.json
   - `stripTrailingWatermark`: trailing `2019 DSB ®`-style watermarks
   - `stripPronunciation`: bracketed phonetic hyphen-chains
   - `fixSpacedHyphens` / `fixSpacedApostrophes`: PDF-extraction spacing damage
-- **`renderMathHTML`** turns real `^(...)`, `^token`, `_(...)`, and `_token` notation into `<sup>`/`<sub>`. By design it does **not** guess at lost notation; see [limitations](#known-limitations-and-open-items).
+- **`renderMathHTML`** turns real `^(...)`, `^token`, `_(...)`, and `_token` notation into `<sup>`/`<sub>`. Parenthesized groups may nest (`2^(2^(2^2))`, `n^(1/ln(n))`). By design it does **not** guess at lost notation; see [limitations](#known-limitations-and-open-items).
 - **`answerDisplayText(q)`**: for MC questions the choice text wins over `a.t`, so a damaged answer field still displays correctly.
 - **`answerLineHTML()`**: one shared "Answer: X (also accept: Y)" renderer, used by the catalog, solo, and multiplayer pages (previously copied three times). The "also accept" part now inherits the answer line's color, size, and weight instead of being dimmed and smaller.
 - **`cleanRoundLabel()`** tidies round labels for display: it strips "Copy of", strips a repeated tournament name, and spaces letters from digits (`DE1` → `DE 1`).
@@ -310,6 +313,14 @@ Subject-specific tournaments (Earth and Space Scrimmage, National ChemBowl) have
   - a stray `→` in Texas Sci Bowl 2025
 - **Unrecoverable records removed** instead of guessed: 6 collapsed OSTI Set 3 equations, Dasoni Standard1 i=54985, MEHS Rounds i=12276, orphan fragment i=3115, and others noted during ingestion.
 
+### Superscript recovery and split words
+Many questions had lost their exponents in the original text extraction, so `7^100` read as `7100` and `e^(0.5iπ)` as `e 0.5i`. **2,054 records** were repaired (bank size unchanged):
+- **Recovered from the source packets (about 1,250 records).** Every packet the bank links to or that scibowl.live, the OSTI sample sets, oly.mehvix.com and the scibowl.stanford.edu Drive folders list (1,886 files: PDFs, Google Docs exported as HTML, and .docx) was re-read with PyMuPDF / the Docs markup, which mark superscripts explicitly (font flag plus a smaller, raised glyph; `vertical-align: super`; `w:vertAlign`). Each superscript was matched back into the bank by its surrounding text (12 characters before, 5 after, ignoring spacing, or the end of the question/answer/choice), and only where every occurrence agreed. A full-size raised run is a stacked fraction's numerator, not an exponent, so it was skipped; a small raised run directly over a small lowered one was written as a fraction instead (`1 3` → `1/3`, `R2` → `R/2`), and a raised `o`/`◦` after a number became `°`. Ordinals (`th`, `st`), ®/‡ marks, lone hyphens and runs containing lost glyphs were never touched. The packet's own spacing decides whether the exponent attaches to the preceding character (`x^2`) or is a prefix (`^(14)C`, `^(1)H NMR`).
+- **Rule-based, where the notation can't be anything else (about 360 records)**: scientific notation (`6.6 × 10-34` → `10^-34`; positive exponents only with a decimal mantissa or outside Math, so `2 × 102` in arithmetic is left alone), polynomials whose next term is a lower power of the same variable (`x 3 − 10x 2 + 41x` → `x^3 − 10x^2 + 41x`; skipped when the variable is also indexed like `x1`, or when `x` may be a multiplication sign), `x2 + y2 = r2`, `e−x`/`e -3t` → `e^(−x)`, `m/s2`, `cm−1`/`s-1` after a number, and whole electron configurations (`1s2 2s2 2p6` → `1s^2 2s^2 2p^6`, only when every count fits its subshell and the digits aren't list markers like `3s 2) 4p`). `◦`/`∘`/`º` after a number became `°`, and the double-struck `ℼ` became `π`.
+- **By hand**: CCWT's and Random Stuff's "Compute e 0.5i" became `e^(0.5iπ)` (the π glyph was lost or mangled; the answer, i, confirms it).
+- **Split words (about 530 joins)**: PDF extraction had split words in two (`miles per h our`, `TRIPHENYLPHOSPH INE`, `con stant`, `Fermi l ab`). Candidates were pairs whose joined form is a real word (English word frequencies or the bank's own vocabulary) where at least one half isn't a word, plus a reviewed list of splits where both halves happen to be words (`w hat`, `t he`, `th ree`, `dis ease`, `direct ion`). Legitimate two-word terms were excluded (polyvinyl chloride, Le Chatelier, zinc blende, beam splitter, et cetera, a gain-of-function, in formation, reading aids such as "cyclo hexane").
+- Verified: every answer key still accepts its old spelling (2 exceptions, both spaced-out exponents like `5 × 10 6`), the grading regression is unchanged, and the caret-free form a student types (`x2 - 2x`) matches a key now written `x^2 - 2x`.
+
 ### Duplicate removal
 A later "re-scrape" batch (mostly ids ≥ 70000) had duplicated content from about 30 tournaments without removing the originals.
 
@@ -337,6 +348,12 @@ Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was remo
 - Room codes uppercased before joining.
 - `N` shortcut added to home, moved to solo start, then reverted (see [shortcuts](#keyboard-shortcuts)).
 - π/Π, ∛, and "square/cube root of" equivalences added to grading.
+- "Toss-Up" renamed "Tossup" everywhere; Tjsbt 2025 renamed TJSBT 2025.
+- Multiplayer guests see the same lobby prompt as the host ("Ready when you are — click Start or press N to begin."); anyone in the room can start.
+- Solo scrolls back to the question when moving to the next one.
+- The page scroller reserves the scrollbar's width (`scrollbar-gutter: stable`), so the nav's "Bookmarked questions" link no longer shifts sideways when a page starts or stops scrolling.
+- Catalog search highlights the matching text.
+- Grading accepts equal decimals and fractions (`0.5` for `1/2`) and `ER` for endoplasmic reticulum.
 
 ---
 
@@ -355,7 +372,7 @@ Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was remo
 
 ## Known limitations and open items
 
-- **Lost exponent/radical notation that can't be recovered.** Some PDFs lost `^`, `√`, or superscripts during the original extraction, leaving `x2`, `t2`, `738` (meant as 7³⁸), `e2x`, and so on. A bare `x2` looks the same as a subscript (x₂), a chemical formula (H2O), or an ordinary number, so the project deliberately does **not** reconstruct these by pattern-matching. Examples still affected: NWI 2024's ellipse question (one copy is cut off, the other has a garbled equation), MHS Rounds' Laplace transform of `t2`, several CSUB integrals, and NSB Regs Set 6's "area under … y = ?" (the function itself is missing from the source text).
+- **Lost exponent/radical notation that can't be recovered.** Most lost superscripts were restored from the source packets or by unambiguous rules (see [Superscript recovery](#superscript-recovery-and-split-words)), but some remain: questions with no source file and no pattern that proves the exponent (a bare `x2` looks the same as a subscript x₂, a formula like H2O, or an ordinary number), trig powers like `sin2 x` (indistinguishable from `sin 2x` given the corpus's spacing), and stacked fractions whose numerator and denominator are flattened onto one line. Examples still affected: NWI 2024's ellipse question (one copy is cut off, the other has a garbled equation), MHS Rounds' Laplace transform of `t2`, several CSUB integrals, and NSB Regs Set 6's "area under … y = ?" (the function itself is missing from the source text).
 - **Same-text pairs with contradicting answers.** Four same-text pairs have answers that contradict and can't be settled from the text alone, so both copies are kept: ICSBT 2025's amortized-analysis question ("2,3" vs "3 only"), an SBL Staudinger-reaction question (N2 vs triphenylphosphine oxide), an SBST inscribed-rectangle question, and two official NSB sets that disagree on a diatomic gas's total degrees of freedom (5 vs 6). Reworded repeats of a question across events are kept on purpose (see the duplicate policy).
 - **CSUB's combined packets**: 448/400 questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.
@@ -482,7 +499,7 @@ Checks used throughout development:
 | Summer 2019 | 136 |
 | Texas Sci Bowl 2025 | 650 |
 | THUMB 2025 | 206 |
-| Tjsbt 2025 | 572 |
+| TJSBT 2025 | 572 |
 | Trio Online Math Bowl 2026 | 547 |
 | University Prep | 50 |
 | Walton Rounds | 772 |
