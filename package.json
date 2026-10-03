@@ -1,0 +1,8 @@
+{
+  "name": "scibowl-practice",
+  "private": true,
+  "description": "Static Science Bowl practice site. No dependencies; this file only defines the test command.",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

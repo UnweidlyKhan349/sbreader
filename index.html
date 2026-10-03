@@ -50,7 +50,7 @@
 
 <script src="js/data.js"></script>
 <script>
-  SBData.load().then(() => {
+  SBData.loadMeta().then(() => {
     const n = SBData.meta.totalQuestions.toLocaleString();
     const t = SBData.meta.tournaments.length;
     document.getElementById('tagline').textContent = `${n} questions from ${t} tournaments — search, drill, and compete.`;

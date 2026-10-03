@@ -1,6 +1,6 @@
 (function () {
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
-  const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
+  const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
+  const labelFor = SBData.subjectLabel;
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
@@ -137,7 +137,7 @@
     // just vanishing until the next tick happens to arrive. See
     // fullRenderFromState / applyTickLocal / hideTimer.
     lastTick: null,
-    // attempts: [{ playerId, playerName, userText, correct }] - every buzz
+    // attempts: [{ playerId, playerName, userText, correct, close }] - every buzz
     // that's been graded on the CURRENT question, oldest first. Kept visible
     // to everyone (not cleared when the next player buzzes) so a wrong
     // answer stays on screen instead of disappearing the moment someone
@@ -199,13 +199,6 @@
     }
   }
 
-  function labelFor(subjectKey) {
-    const found = (SBData.meta.subjects || []).find((s) => s.key === subjectKey);
-    return found ? found.label : subjectKey;
-  }
-  function escapeHtml(s) {
-    const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML;
-  }
   // A blank submission renders as the literal word (blank), with no quote
   // marks (they'd wrongly imply the player typed the word "(blank)"); a
   // real submission still renders quoted.
@@ -312,53 +305,23 @@
     const card = document.createElement('div');
     card.className = 'q-log-entry';
     card.dataset.qid = q.id;
-    const badgeText = entry.category === 'correct' ? 'Correct' : entry.category === 'incorrect' ? 'Incorrect' : 'Skipped';
-    const roundPart = SBData.roundLabelFor(q);
-    const meta = document.createElement('div');
-    meta.className = 'meta-row';
-    meta.innerHTML = `
-      <span class="grade-badge ${entry.category}">${badgeText}</span>
-      <span class="tag subject-${q.subject}">${labelFor(q.subject)}</span>
-      <span class="tag qtype-${q.qtype}">${QTYPE_LABELS[q.qtype] || q.qtype}</span>
-      <span class="tag fmt fmt-${(q.format || '').toLowerCase()}">${FORMAT_LABELS[q.format] || q.format}</span>
-      <span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>
-    `;
-    const isBm = SBData.bookmarks.isBookmarked(q.id);
-    const bmBtn = document.createElement('button');
-    bmBtn.className = 'btn small icon-btn' + (isBm ? ' active' : '');
-    bmBtn.style.marginLeft = 'auto';
-    bmBtn.textContent = isBm ? '★' : '☆';
-    bmBtn.title = isBm ? 'Unbookmark' : 'Bookmark';
-    bmBtn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(q.id);
-      bmBtn.textContent = nowBm ? '★' : '☆';
-      bmBtn.classList.toggle('active', nowBm);
-      bmBtn.title = nowBm ? 'Unbookmark' : 'Bookmark';
-      // The main bookmark button (up by the question) shows the star for
-      // whichever question is currently active, which can be this exact
-      // logged question - keep the two stars in sync instead of leaving
-      // the main one stale.
+
+    const meta = SBData.questionMetaRow(q, { grade: entry.category });
+    // The main bookmark button (up by the question) shows the star for
+    // whichever question is currently active, which can be this exact
+    // logged question - keep the two stars in sync instead of leaving
+    // the main one stale.
+    const bmBtn = SBData.bookmarkButton(q.id, () => {
       if (game.question && game.question.id === q.id) updateMpBookmarkBtn();
-    };
+    });
+    bmBtn.style.marginLeft = 'auto';
     meta.appendChild(bmBtn);
     card.appendChild(meta);
 
-    const qText = document.createElement('div');
-    qText.className = 'q-text';
-    qText.innerHTML = SBData.renderMathHTML(q.question);
-    card.appendChild(qText);
-
-    if (q.choices) {
-      const ch = document.createElement('div');
-      ch.className = 'choices';
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${SBData.renderMathHTML(q.choices[L])}`).join('   ');
-      card.appendChild(ch);
-    }
-
-    const aText = document.createElement('div');
-    aText.className = 'a-text';
-    aText.innerHTML = (entry.answer.letter ? `${entry.answer.letter}) ` : '') + SBData.renderMathHTML(entry.answer.answerText);
-    card.appendChild(aText);
+    SBData.appendQuestionBody(card, q);
+    // Clients' question copies carry no answer, so it comes from the reveal.
+    const a = entry.answer;
+    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject }));
 
     if (entry.answeredBy) {
       const who = document.createElement('div');
@@ -422,15 +385,18 @@
     // Every attempt graded so far this question, oldest first, each as a
     // uniform "[badge] Name: "answer"" row with a divider between them -
     // once the question reaches reveal this is the room's full results
-    // list, including the final attempt (previously shown separately,
-    // above, and again - redundantly - inside the answer box itself; see
-    // showReveal(), which no longer repeats it there).
+    // list, including the final attempt (showReveal() doesn't repeat it).
     attemptsEl.innerHTML = '';
     game.attempts.forEach((a) => {
       const row = document.createElement('div');
       row.className = 'mp-buzz-attempt-row';
       const badgeText = a.correct ? 'Correct' : 'Incorrect';
-      row.innerHTML = `<span class="grade-badge ${a.correct ? 'correct' : 'incorrect'}">${badgeText}</span><span class="name">${escapeHtml(a.playerName)}${a.playerId === myState.myId ? ' (you)' : ''}:</span><span class="text">${formatUserAnswer(a.userText)}</span>`;
+      const mine = a.playerId === myState.myId;
+      // A near miss: its own player can override it (Q) to count it.
+      const closeHint = !a.correct && a.close
+        ? `<span class="close-hint">${mine && SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked) ? 'Close. Press Q if you meant the answer.' : 'Close'}</span>`
+        : '';
+      row.innerHTML = `<span class="grade-badge ${a.correct ? 'correct' : 'incorrect'}">${badgeText}</span><span class="name">${escapeHtml(a.playerName)}${mine ? ' (you)' : ''}:</span><span class="text">${formatUserAnswer(a.userText)}</span>${closeHint}`;
       attemptsEl.appendChild(row);
     });
 
@@ -596,7 +562,7 @@
       // hostOverrideLastGrade). game.attempts/game.overrideLocked are kept
       // in sync for host and client alike (see applyGradeLocal / the
       // 'graded' and 'sync' messages).
-      if (!game.overrideLocked && game.attempts.some((a) => a.playerId === myState.myId)) {
+      if (SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) {
         overrideBtn.style.display = 'inline-flex';
       }
       showReveal();
@@ -698,8 +664,7 @@
     // Per-player grade record for the CURRENT question only (cleared each
     // new question) - connId -> { correct, delta, userText, buzzedDuringReading }.
     // Lets any player who buzzed this question override their OWN answer
-    // later, not just whoever happened to buzz last (the old single
-    // hostGame.lastGrade slot could only ever represent one player).
+    // later, not just whoever happened to buzz last.
     gradesByConn: new Map(),
     // Once true (someone's overridden their answer to correct), overriding
     // is locked for the rest of the question - the room already has its
@@ -780,7 +745,7 @@
   }
 
   function hostBroadcastChat(fromId, name, text) {
-    const entry = { from: fromId, name, text: text.slice(0, 300), ts: Date.now() };
+    const entry = { from: fromId, name, text: text.slice(0, SBMpRules.LIMITS.chat), ts: Date.now() };
     hostChat.push(entry);
     while (hostChat.length > CHAT_HISTORY) hostChat.shift();
     if (host) host.broadcast({ type: 'chat', entry });
@@ -826,10 +791,14 @@
     });
   }
 
-  function handleHostMessage(connId, msg) {
+  function handleHostMessage(connId, rawMsg) {
+    const msg = SBMpRules.cleanHostMessage(rawMsg, SBData.meta);
+    if (!msg) return;
+    // Everything but 'join' needs a player who has joined.
+    if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
     if (msg.type === 'join') {
       const isLate = hostGame.phase !== 'lobby' && hostGame.phase !== 'gameover';
-      hostPlayers.set(connId, { id: connId, name: uniqueName((msg.name || 'Player').slice(0, 24)), score: 0, connId });
+      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: 0, connId });
       broadcastLobby();
       if (isLate) {
         sendSyncTo(connId);
@@ -944,10 +913,10 @@
     clearHostTimer();
     const full = hostGame.currentFull;
     const result = text.trim() ? SBAnswer.checkAnswer(full, text) : { correct: false };
-    hostApplyGrade(connId, result.correct, text);
+    hostApplyGrade(connId, result.correct, text, !!result.close);
   }
 
-  function hostApplyGrade(connId, correct, userText) {
+  function hostApplyGrade(connId, correct, userText, close) {
     const p = hostPlayers.get(connId);
     let delta = 0;
     if (correct) {
@@ -964,8 +933,8 @@
     // later even after someone else has buzzed and been graded too.
     hostGame.gradesByConn.set(connId, { correct, delta, userText, buzzedDuringReading: hostGame.buzzedDuringReading });
     const scores = [...hostPlayers.values()].map((pp) => ({ id: pp.id, score: pp.score }));
-    host.broadcast({ type: 'graded', playerId: connId, correct, delta, userText, scores });
-    applyGradeLocal(connId, correct, delta, scores, userText);
+    host.broadcast({ type: 'graded', playerId: connId, correct, delta, userText, scores, close });
+    applyGradeLocal(connId, correct, delta, scores, userText, false, undefined, close);
 
     if (correct) {
       hostReveal();
@@ -980,8 +949,8 @@
     }
     const canResumeReading = hostGame.buzzedDuringReading && revealCtl && !revealCtl.isDone();
     if (canResumeReading) {
-      // CRITICAL FIX: an incorrect buzz mid-reading must not silently end the
-      // question — resume revealing the rest of it for whoever's left.
+      // A wrong buzz mid-reading doesn't end the question: keep revealing
+      // the rest of it for whoever's left.
       hostGame.phase = 'reading';
       host.broadcast({ type: 'phase', phase: 'reading', lockedOut: [...hostGame.lockedOutIds] });
       applyPhaseLocal('reading', [...hostGame.lockedOutIds]);
@@ -1007,18 +976,12 @@
   }
 
   function hostOverrideLastGrade(requesterConnId) {
-    // Once someone's been overridden to correct, the room has its answer
-    // for this question - no more re-litigating other players' attempts.
-    if (hostGame.overrideLocked) return;
-    // Anyone who buzzed (and was graded) THIS question can override their
-    // OWN answer, whether or not they were the last one to buzz - looked up
-    // by connId now rather than assuming it's whoever's in the single
-    // "last grade" slot, which could only ever represent one player. The
-    // override button/shortcut is only ever shown for your own graded
-    // answer (see fullRenderFromState), but a message straight from a
-    // client could still claim someone else's, so enforce it here too.
+    // Players can only override their OWN answer (see canOverrideOwn). The
+    // button/shortcut only shows when that's allowed, but a message straight
+    // from a client could claim anything, so the host checks it again.
     const g = hostGame.gradesByConn.get(requesterConnId);
-    if (!g) return;
+    const attempts = [...hostGame.gradesByConn].map(([playerId, gr]) => ({ playerId, correct: gr.correct }));
+    if (!g || !SBMpRules.canOverrideOwn(attempts, requesterConnId, hostGame.overrideLocked)) return;
     const p = hostPlayers.get(requesterConnId);
     if (p) p.score -= g.delta;
     const nowCorrect = !g.correct;
@@ -1088,15 +1051,15 @@
     // Anchored to the wall clock (Date.now()), not to a running tally
     // decremented by a fixed 100ms per interval firing. A backgrounded /
     // inactive browser tab throttles setInterval - sometimes to once a
-    // second or slower - and the old fixed-decrement approach assumed every
+    // second or slower - and a fixed decrement would assume every
     // firing represented exactly 100ms of real time, so the host's own
     // countdown (and every tick it broadcasts) ran far too SLOW while its
     // tab was in the background. A non-host client interpolates smoothly
     // between ticks based on its own real elapsed time (see onClientTick),
     // so when one of those too-slow ticks finally arrived, it reported a
     // remaining time much HIGHER than what the client had already counted
-    // down to on its own - the timer visibly jumping back up, exactly the
-    // reported bug. Computing remainingMs from actual elapsed time instead
+    // down to on its own - the timer visibly jumping back up. Computing
+    // remainingMs from actual elapsed time instead
     // means every tick, however late it fires, reports the true remaining
     // time - it can only ever count down for a client, never jump up.
     hostGame.timerRemainingAtAnchor = ms;
@@ -1209,7 +1172,7 @@
     game.buzzedPlayerId = playerId; game.phase = 'answering';
     fullRenderFromState();
   }
-  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked) {
+  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close) {
     scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
     if (!correct) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
@@ -1223,7 +1186,7 @@
       existing.correct = correct;
     } else {
       const p = game.players.find((pp) => pp.id === playerId);
-      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct });
+      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close });
     }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderBuzzStatus();
@@ -1360,21 +1323,7 @@
       return;
     }
     if (msg.type === 'graded') {
-      msg.scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
-      if (!msg.correct) game.lockedOut.add(msg.playerId);
-      game.lastGrade = { playerId: msg.playerId, correct: msg.correct, userText: msg.userText };
-      if (msg.overrideLocked !== undefined) game.overrideLocked = !!msg.overrideLocked;
-      // Update THIS player's own attempt row specifically - an override can
-      // now target any earlier attempt, not just whichever one is last.
-      const existing = msg.override ? game.attempts.find((a) => a.playerId === msg.playerId) : null;
-      if (existing) {
-        existing.correct = msg.correct;
-      } else {
-        const p = game.players.find((pp) => pp.id === msg.playerId);
-        game.attempts.push({ playerId: msg.playerId, playerName: p ? p.name : '?', userText: msg.userText, correct: msg.correct });
-      }
-      renderPlayerList(document.getElementById('mpPlayerList'));
-      renderBuzzStatus();
+      applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close);
       if (game.phase === 'reveal') showReveal();
       return;
     }
@@ -1498,11 +1447,9 @@
   function doTypingInput(text) {
     if (game.phase !== 'answering' || game.buzzedPlayerId !== myState.myId) return;
     if (typingThrottled) {
-      // Don't just drop this keystroke - previously an update mid-cooldown
-      // was silently dropped forever (until the *next* keystroke happened
-      // to land outside the window), which is exactly why what others saw
-      // could lag behind or never catch up to what was actually typed.
-      // Bank the latest text and flush it the moment the cooldown ends.
+      // Don't drop this keystroke, or what others see can lag behind what
+      // was actually typed: bank the latest text and flush it the moment
+      // the cooldown ends.
       pendingTypingText = text;
       return;
     }
@@ -1627,11 +1574,9 @@
     // rate straight off the <input> element (see requestApplySettings), so
     // if that element is still sitting at its HTML default of 1.0 at this
     // instant, the very first settings-panel open of the session would
-    // silently reset everyone's reveal speed to 1.0 - previously true for
-    // the host (who alone could open this panel) and now, since anyone can
-    // trigger it and it goes out live over the network, for the room's
-    // real settings too. Setting the slider's value here first closes that
-    // gap for both the host's own local apply and a client's live message.
+    // silently reset the whole room's reveal speed to 1.0. Setting the
+    // slider's value here first prevents that, for the host's own local
+    // apply and a client's live message alike.
     midGameFilterState.subjects = new Set(snapshot.subjects);
     midGameFilterState.qtypes = new Set(snapshot.qtypes);
     midGameFilterState.formats = new Set(snapshot.formats);

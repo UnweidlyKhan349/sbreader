@@ -2,31 +2,21 @@
    Host holds the authoritative game state; every client only ever
    talks to the host (no client-to-client connections). */
 (function (global) {
-  // PeerJS defaults to Google's public STUN servers only, with no TURN
-  // fallback. STUN alone can't traverse symmetric NATs / many restrictive
-  // networks, which is a common cause of WebRTC connections hanging forever
-  // in the "connecting" state. Add STUN + a public TURN relay (Open Relay
-  // Project) as a fallback so connections have a much better chance of
-  // completing across real-world networks.
+  // STUN finds a direct route between players. Behind a symmetric NAT or a
+  // strict firewall (many school networks) only a TURN relay works, and there
+  // is no free public relay any more: Open Relay's shared "openrelayproject"
+  // login stopped working when Metered moved to per-account credentials.
+  // To enable relaying, create a free app at https://dashboard.metered.ca,
+  // add a TURN credential, and list its servers here, e.g.
+  //   { urls: 'turn:<your-app>.metered.live:443?transport=tcp', username: '...', credential: '...' }
+  // TURN credentials in a static site are public by nature - use a
+  // separate, usage-capped credential for it.
+  const TURN_SERVERS = [];
   const ICE_CONFIG = {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-      {
-        urls: 'turn:openrelay.metered.ca:80',
-        username: 'openrelayproject',
-        credential: 'openrelayproject',
-      },
-      {
-        urls: 'turn:openrelay.metered.ca:443',
-        username: 'openrelayproject',
-        credential: 'openrelayproject',
-      },
-      {
-        urls: 'turn:openrelay.metered.ca:443?transport=tcp',
-        username: 'openrelayproject',
-        credential: 'openrelayproject',
-      },
+      ...TURN_SERVERS,
     ],
   };
 
@@ -38,7 +28,7 @@
   function withTimeout(promise, ms, message) {
     let timer = null;
     const timeout = new Promise((_, reject) => {
-      timer = setTimeout(() => reject(new Error(message)), ms);
+      timer = setTimeout(() => reject(Object.assign(new Error(message), { isTimeout: true })), ms);
     });
     return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
   }
@@ -95,9 +85,12 @@
       return { roomCode, peer: null, ready: failure, broadcast() {}, sendTo() {}, playerCount() { return 0; }, close() {} };
     }
     const conns = new Map();
+    // Each failure reaches onError exactly once: through the single 'error'
+    // listener below, or - for the timeout, which isn't a PeerJS error -
+    // through the catch on `ready`.
     const rawReady = new Promise((resolve, reject) => {
       peer.on('open', (id) => { resolve(id); });
-      peer.on('error', (err) => { onError && onError(err); reject(err); });
+      peer.on('error', reject);
     });
     const api = {
       roomCode, peer,
@@ -105,7 +98,7 @@
         rawReady,
         CONNECT_TIMEOUT_MS,
         'Timed out setting up the room. Check your internet connection and try again.'
-      ).catch((err) => { onError && onError(err); throw err; }),
+      ).catch((err) => { if (err && err.isTimeout && onError) onError(err); throw err; }),
       broadcast(data) { for (const c of conns.values()) { if (c.open) c.send(data); } },
       sendTo(connId, data) { const c = conns.get(connId); if (c && c.open) c.send(data); },
       playerCount() { return conns.size; },
@@ -133,16 +126,17 @@
       return { peer: null, ready: failure, send() {}, close() {} };
     }
     let conn = null;
-    let settled = false;
+    // As in makeHost: one onError call per failure.
+    const report = (err) => { if (onError) onError(err); };
     const rawReady = new Promise((resolve, reject) => {
-      peer.on('open', (id) => {
+      peer.on('open', () => {
         conn = peer.connect(roomCode.trim(), { reliable: true });
         conn.on('open', () => { resolve(); });
         conn.on('data', (data) => onHostMessage && onHostMessage(data));
         conn.on('close', () => { onDisconnect && onDisconnect(); });
-        conn.on('error', (err) => { onError && onError(err); reject(err); });
+        conn.on('error', (err) => { report(err); reject(err); });
       });
-      peer.on('error', (err) => { onError && onError(err); reject(err); });
+      peer.on('error', (err) => { report(err); reject(err); });
     });
     const api = {
       peer,
@@ -150,11 +144,7 @@
         rawReady,
         CONNECT_TIMEOUT_MS,
         'Could not connect. Check the room code and your internet connection, then try again.'
-      ).then((v) => { settled = true; return v; }).catch((err) => {
-        if (!settled) { onError && onError(err); }
-        settled = true;
-        throw err;
-      }),
+      ).catch((err) => { if (err && err.isTimeout) report(err); throw err; }),
       send(data) { if (conn && conn.open) conn.send(data); },
       close() { if (conn) conn.close(); peer.destroy(); },
     };
