@@ -1,5 +1,5 @@
 {
-  "name": "scibowl-practice",
+  "name": "sb-reader",
   "private": true,
   "description": "Static Science Bowl practice site. No dependencies; this file only defines the test command.",
   "scripts": {

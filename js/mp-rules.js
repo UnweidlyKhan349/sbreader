@@ -1,4 +1,4 @@
-/* SciBowl Practice - multiplayer host rules with no DOM or network code, so
+/* SB Reader - multiplayer host rules with no DOM or network code, so
    they can be tested in Node.
 
    cleanHostMessage: anyone with the room code can connect and send arbitrary
