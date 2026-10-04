@@ -25,3 +25,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - The home page loads only `meta.json` (58 KB) instead of the whole question bank.
 - Question cards in the catalog, bookmarks and both session logs use one shared renderer, so they all show "also accept" and "do not accept" lines.
 - Added tests (`npm test`) and a CI workflow.
+- Rebranded the site as **SB Reader** (page titles, nav brand, README).

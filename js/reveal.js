@@ -1,4 +1,4 @@
-/* SciBowl Practice - shared letter-by-letter reveal engine.
+/* SB Reader - shared letter-by-letter reveal engine.
    Replaces text-to-speech: instead of being read aloud, the question
    (and its answer choices) type themselves onto the screen at an
    adjustable speed, and "buzzing before it's fully read" now means

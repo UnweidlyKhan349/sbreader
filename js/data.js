@@ -1,4 +1,4 @@
-/* SciBowl Practice - shared data layer */
+/* SB Reader - shared data layer */
 (function (global) {
   const SBData = {
     meta: null,

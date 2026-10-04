@@ -1,4 +1,4 @@
-/* SciBowl Practice - answer checking logic
+/* SB Reader - answer checking logic
    Handles Science Bowl grading conventions:
    - "1 and 2" <-> "12" <-> "1, 2"
    - "all" / "all three" <-> "123" (when the question enumerates 1/2/3 items)
