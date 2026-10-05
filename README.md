@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 72,669 questions from 97 tournaments** (36,661 tossups / 36,008 bonuses; 45,530 short answer / 27,139 multiple choice).
+**Current question bank: 73,249 questions from 98 tournaments** (36,960 tossups / 36,289 bonuses; 45,967 short answer / 27,282 multiple choice).
 
 | Subject | Questions |
 |---|---|
-| Biology | 15,310 |
-| Earth & Space | 14,832 |
-| Physics | 13,207 |
-| Math | 13,193 |
-| Chemistry | 13,044 |
-| Energy | 3,083 |
+| Biology | 15,416 |
+| Earth & Space | 14,937 |
+| Physics | 13,333 |
+| Math | 13,297 |
+| Chemistry | 13,152 |
+| Energy | 3,114 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -175,14 +175,14 @@ A compact JSON array (about 30 MB raw, about 6.9 MB gzipped; GitHub Pages serves
 | `q` | question text |
 | `c` | MC choices `{W, X, Y, Z}` |
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
-| `u` | source packet URL, always `https://` (on 61,740 records) |
+| `u` | source packet URL, always `https://` (on 62,320 records) |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,679 questions); everything else is `hs` (58,990). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,679 questions); everything else is `hs` (59,570). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
