@@ -8,13 +8,13 @@
 | BASED 2025 | 611 |
 | Bash 2025 | 633 |
 | BASIS Peoria Rounds | 773 |
-| Bay Ultimate MS Scibowl | 530 |
+| Bay Ultimate MS Scibowl | 532 |
 | Berkeley 2023 | 644 |
 | Brooklyn Tech Invitational | 369 |
 | BTHS 2025 | 250 |
 | BUMS 2026 | 48 |
 | Cast 2021 | 407 |
-| CCWT | 277 |
+| CCWT | 278 |
 | CCWTWO | 305 |
 | CLASH 2026 HS | 677 |
 | CLASH 2026 MS | 418 |
@@ -40,7 +40,7 @@
 | GWHS Rounds | 757 |
 | HSBT 2026 | 609 |
 | ICSBT 2 | 532 |
-| ICSBT 2025 | 460 |
+| ICSBT 2025 | 459 |
 | IGNIS 2022 | 723 |
 | ISBI 2025 | 332 |
 | ISBL 2024 | 291 |
@@ -81,13 +81,13 @@
 | Prometheus 2021 | 833 |
 | Random | 778 |
 | Random Stuff | 356 |
-| SBL | 1,130 |
-| SBST | 643 |
+| SBL | 1,129 |
+| SBST | 642 |
 | SBST (Spring) | 614 |
 | SCB 2025 | 480 |
 | SMH 2025 | 539 |
-| SMH 2026 | 580 |
-| SSBT 2023 | 551 |
+| SMH 2026 | 598 |
+| SSBT 2023 | 550 |
 | Stanford 2025 | 648 |
 | Stanford 2026 | 642 |
 | Summer 2019 | 136 |
@@ -100,4 +100,4 @@
 | WISC 2021 | 381 |
 | WSBT | 461 |
 | Yale 2026 | 92 |
-| **Total (98)** | **73,249** |
+| **Total (98)** | **73,266** |
