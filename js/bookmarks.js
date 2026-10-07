@@ -6,7 +6,7 @@
   function renderCard(q) {
     const card = document.createElement('div');
     card.className = 'q-card';
-    card.appendChild(SBData.questionMetaRow(q, { roundTag: true }));
+    card.appendChild(SBData.questionMetaRow(q));
     SBData.appendQuestionBody(card, q);
 
     const answerWrap = SBData.answerBlock(q, null, { source: true });

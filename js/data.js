@@ -217,7 +217,7 @@
   SBData.QTYPE_LABELS = QTYPE_LABELS;
   SBData.FORMAT_LABELS = FORMAT_LABELS;
 
-  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', roundTag, visualTag }
+  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', visualTag }
   function questionMetaRow(q, opts) {
     opts = opts || {};
     const roundPart = SBData.roundLabelFor(q);
@@ -228,7 +228,6 @@
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
       `<span class="tag qtype-${escapeHtml(q.qtype)}">${escapeHtml(QTYPE_LABELS[q.qtype] || q.qtype)}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
-      opts.roundTag ? `<span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>` : '',
       opts.visualTag && q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : '',
       `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
     ].join('');
@@ -466,6 +465,34 @@
     count() {
       return bookmarkSet().size;
     },
+  };
+
+  /* ---------------- Packet order ---------------- */
+  // Sorts questions the way they'd be read: by tournament (A-Z, as in the
+  // tournament picker), then round number (unlabeled rounds last), then round
+  // label (so NSB's "Set 2 · Round 1" follows "Set 1 · Round 1"), then
+  // question number, tossup before its bonus. Ties (e.g. packets without
+  // question numbers) keep the bank's own order. The order is computed once
+  // and reused, since sorting 70k questions on every keystroke would lag.
+  let packetRank = null;
+  const qtypeRank = (t) => (QTYPE_ORDER.indexOf(t) + 1 || QTYPE_ORDER.length + 1);
+  SBData.sortByPacketOrder = function (list) {
+    if (!packetRank) {
+      const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+      const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
+      const all = SBData.questions.map((q, i) => ({ q, i }));
+      all.sort((x, y) => {
+        const a = x.q, b = y.q;
+        return coll.compare(a.tournament || '', b.tournament || '')
+          || nullsLast(a.round, b.round)
+          || coll.compare(a.roundLabel || '', b.roundLabel || '')
+          || nullsLast(a.num, b.num)
+          || qtypeRank(a.qtype) - qtypeRank(b.qtype)
+          || x.i - y.i;
+      });
+      packetRank = new Map(all.map((e, rank) => [e.q.id, rank]));
+    }
+    return list.slice().sort((a, b) => packetRank.get(a.id) - packetRank.get(b.id));
   };
 
   /* ---------------- Filtering ---------------- */

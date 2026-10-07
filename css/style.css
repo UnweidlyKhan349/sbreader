@@ -349,7 +349,6 @@ input[type="range"]::-moz-range-thumb:hover { transform: scale(1.15); background
    categories the way subjects are, just different question formats. */
 .tag.qtype-tossup { background: rgba(91,140,255,.15); color: #c3d3ff; }
 .tag.qtype-bonus { background: rgba(91,140,255,.24); color: #c3d3ff; }
-.tag.round { background: var(--bg-alt); color: var(--text-dim); }
 .tag.visual-warn { background: rgba(232,180,69,.18); color: var(--warn); text-transform: none; }
 
 .grid-filters {

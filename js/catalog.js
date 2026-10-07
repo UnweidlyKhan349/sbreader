@@ -130,7 +130,7 @@
 
   function render() {
     syncChipVisuals();
-    const filtered = SBData.filterQuestions({
+    const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
       subjects: state.subjects,
       roundRange: state.roundRange,
       includeUnlabeled: state.includeUnlabeled,
@@ -140,7 +140,7 @@
       tournaments: state.tournaments,
       search: state.search,
       includeVisual: true,
-    });
+    }));
 
     document.getElementById('resultCount').textContent =
       `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
@@ -216,7 +216,7 @@
   function renderCard(q) {
     const card = document.createElement('div');
     card.className = 'q-card';
-    card.appendChild(SBData.questionMetaRow(q, { roundTag: true, visualTag: true }));
+    card.appendChild(SBData.questionMetaRow(q, { visualTag: true }));
     SBData.appendQuestionBody(card, q);
 
     const answerWrap = SBData.answerBlock(q, null, { source: true });
