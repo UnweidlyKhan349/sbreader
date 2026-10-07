@@ -130,7 +130,7 @@
 
   function render() {
     syncChipVisuals();
-    const filtered = SBData.filterQuestions({
+    const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
       subjects: state.subjects,
       roundRange: state.roundRange,
       includeUnlabeled: state.includeUnlabeled,
@@ -140,7 +140,7 @@
       tournaments: state.tournaments,
       search: state.search,
       includeVisual: true,
-    });
+    }));
 
     document.getElementById('resultCount').textContent =
       `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;

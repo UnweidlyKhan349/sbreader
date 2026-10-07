@@ -26,3 +26,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Question cards in the catalog, bookmarks and both session logs use one shared renderer, so they all show "also accept" and "do not accept" lines.
 - Added tests (`npm test`) and a CI workflow.
 - Rebranded the site as **SB Reader** (page titles, nav brand, README).
+- Grading: ranking answers must be in the keyed order. Typing the item numbers with commas or spaces in the wrong order (`3, 2, 1` for `1, 3, 2`) used to pass, and longer ranking stems ("Order the convectively available potential energy of the following…", "Place the following in chronological order") were graded as order-free sets.
+- Catalog results are listed in packet order (tournament, round, question number, tossup before bonus) instead of storage order.

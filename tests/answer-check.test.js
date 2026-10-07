@@ -133,3 +133,30 @@ test('every whole-answer accept in the corpus grades as correct', () => {
   }
   assert.deepStrictEqual(failures.slice(0, 20), []);
 });
+
+test('ranking answers must be in the keyed order', () => {
+  const q = 'Order the following three things by size: 1) a 2) b 3) c';
+  assert.ok(isCorrect('1, 3, 2', '1, 3, 2', { question: q }));
+  assert.ok(isCorrect('1, 3, 2', '132', { question: q }));
+  assert.ok(isCorrect('1, 3, 2', '1 and 3 and 2', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', '1, 2, 3', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', '3 2 1', { question: q }));
+  // the ordering can live in an accept when the key is written as values
+  const v = 'Order the following three numbers from least to greatest: 1) 42%; 2) 0.402; 3) 2/5.';
+  assert.ok(isCorrect('2/5; 0.402; 42%', '3, 2, 1', { question: v, accept: ['3, 2, 1'] }));
+  assert.ok(!isCorrect('2/5; 0.402; 42%', '1, 2, 3', { question: v, accept: ['3, 2, 1'] }));
+});
+
+test('longer ranking stems are recognised; set questions are not', () => {
+  const { isRankingQuestion } = globalThis.SBAnswer;
+  for (const q of [
+    'Order the convectively available potential energy of the following three setups in increasing order. 1) a 2) b 3) c',
+    'Place the following three events in chronological order: 1) a; 2) b; 3) c.',
+    'By name or number, sort the following compounds by increasing vibrational modes: 1) a 2) b 3) c',
+  ]) assert.ok(isRankingQuestion(q), q);
+  for (const q of [
+    'In a second-order phase transition, identify all of the following quantities that are discontinuous: 1) a 2) b 3) c',
+    'In order to improve his training sample, identify all of the following techniques that would help: 1) a 2) b 3) c',
+    'Identify all of the following that are true: 1) a 2) b 3) c',
+  ]) assert.ok(!isRankingQuestion(q), q);
+});

@@ -75,9 +75,21 @@
   // set-selection question - order is the whole point of a ranking answer.
   function isRankingQuestion(questionText) {
     if (!questionText) return false;
-    return /\b(order|rank|arrange)\b(?:[^.?!]{0,20}\b(the following|these|below)\b)/i.test(questionText)
-      || /\bin order (from|of)\b[^.?!]{0,60}\bto\b/i.test(questionText)
-      || /\bfrom\b[^.?!]{0,30}\bto\b[^.?!]{0,10}\b(order|arrange|rank)\b/i.test(questionText);
+    const t = questionText;
+    if (/\b(order|rank|arrange)\b(?:[^.?!]{0,20}\b(the following|these|below)\b)/i.test(t)
+      || /\bin order (from|of)\b[^.?!]{0,60}\bto\b/i.test(t)
+      || /\bfrom\b[^.?!]{0,30}\bto\b[^.?!]{0,10}\b(order|arrange|rank)\b/i.test(t)) return true;
+    // Longer stems put the measured quantity between the verb and "the
+    // following" ("Order the convectively available potential energy of the
+    // following three setups"), or say how to order instead ("in chronological
+    // order", "by increasing distance"). A set question ("identify all ...")
+    // never counts, nor does "order" inside "second-order" or "in order to".
+    if (/\b(identify|select|choose|name)\s+all\b/i.test(t)) return false;
+    const s = t.replace(/-order\b/gi, ' ').replace(/\bin order to\b/gi, ' ');
+    return /\b(order|rank|arrange|sort)\b[^.?!]{0,80}\b(the following|these|below)\b/i.test(s)
+      || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\b(by|in)\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
+      || /\bin\s+(increasing|decreasing|ascending|descending|chronological|sequential|reverse)\s+order\b/i.test(s)
+      || /\bchronologically\b|\bfrom (earliest|oldest|first|youngest|latest|newest|most recent)\b[^.?!]{0,40}\bto\b/i.test(s);
   }
 
   // Canonicalize a ranking-style answer ("3, 1, 2" / "312") to its digit
@@ -934,6 +946,13 @@
           if (accCanon !== null && userCanon === accCanon) {
             return { correct: true, matched: 'accept', rejected: false };
           }
+        }
+        // A ranking typed as item numbers in the wrong order is wrong. Without
+        // this, the any-order number checks below would accept "1, 2, 3" for
+        // a key of "1, 3, 2".
+        const isOrdering = (c) => c !== null && c.length === itemCount && new Set(c).size === itemCount;
+        if (ranking && [ans.text, ...accepts].some((k) => isOrdering(canonFn(k, itemCount)))) {
+          return { correct: false, matched: null, rejected: false };
         }
       }
     }

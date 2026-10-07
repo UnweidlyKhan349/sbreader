@@ -468,6 +468,34 @@
     },
   };
 
+  /* ---------------- Packet order ---------------- */
+  // Sorts questions the way they'd be read: by tournament (A-Z, as in the
+  // tournament picker), then round number (unlabeled rounds last), then round
+  // label (so NSB's "Set 2 · Round 1" follows "Set 1 · Round 1"), then
+  // question number, tossup before its bonus. Ties (e.g. packets without
+  // question numbers) keep the bank's own order. The order is computed once
+  // and reused, since sorting 70k questions on every keystroke would lag.
+  let packetRank = null;
+  const qtypeRank = (t) => (QTYPE_ORDER.indexOf(t) + 1 || QTYPE_ORDER.length + 1);
+  SBData.sortByPacketOrder = function (list) {
+    if (!packetRank) {
+      const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+      const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
+      const all = SBData.questions.map((q, i) => ({ q, i }));
+      all.sort((x, y) => {
+        const a = x.q, b = y.q;
+        return coll.compare(a.tournament || '', b.tournament || '')
+          || nullsLast(a.round, b.round)
+          || coll.compare(a.roundLabel || '', b.roundLabel || '')
+          || nullsLast(a.num, b.num)
+          || qtypeRank(a.qtype) - qtypeRank(b.qtype)
+          || x.i - y.i;
+      });
+      packetRank = new Map(all.map((e, rank) => [e.q.id, rank]));
+    }
+    return list.slice().sort((a, b) => packetRank.get(a.id) - packetRank.get(b.id));
+  };
+
   /* ---------------- Filtering ---------------- */
   // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, bookmarkedOnly, search, includeVisual }
   // each of subjects/tournaments/formats/qtypes/levels is either null/empty (= all) or a Set/array of allowed values
