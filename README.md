@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 73,266 questions from 98 tournaments** (36,967 tossups / 36,299 bonuses; 45,980 short answer / 27,286 multiple choice).
+**Current question bank: 73,085 questions from 98 tournaments** (36,894 tossups / 36,191 bonuses; 45,835 short answer / 27,250 multiple choice).
 
 | Subject | Questions |
 |---|---|
-| Biology | 15,419 |
-| Earth & Space | 14,942 |
-| Physics | 13,336 |
-| Math | 13,300 |
-| Chemistry | 13,155 |
-| Energy | 3,114 |
+| Biology | 15,411 |
+| Earth & Space | 14,932 |
+| Physics | 13,313 |
+| Math | 13,173 |
+| Chemistry | 13,144 |
+| Energy | 3,112 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -176,14 +176,14 @@ A compact JSON array (about 30 MB raw, about 6.9 MB gzipped; GitHub Pages serves
 | `q` | question text |
 | `c` | MC choices `{W, X, Y, Z}` |
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
-| `u` | source packet URL, always `https://` (on 62,337 records) |
+| `u` | source packet URL, always `https://` (on 62,296 records) |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,681 questions); everything else is `hs` (59,585). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,680 questions); everything else is `hs` (59,405). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
@@ -192,7 +192,7 @@ A compact JSON array (about 30 MB raw, about 6.9 MB gzipped; GitHub Pages serves
 ## Known limitations and open items
 
 - **Lost exponent/radical notation that can't be recovered.** Most lost superscripts were restored from the source packets or by unambiguous rules (see [Superscript recovery](docs/data-history.md#superscript-recovery-and-split-words)), but some remain: questions with no source file and no pattern that proves the exponent (a bare `x2` looks the same as a subscript x₂, a formula like H2O, or an ordinary number), trig powers like `sin2 x` (indistinguishable from `sin 2x` given the corpus's spacing), and stacked fractions whose numerator and denominator are flattened onto one line. Examples still affected: NWI 2024's ellipse question (one copy is cut off, the other has a garbled equation), MHS Rounds' Laplace transform of `t2`, several CSUB integrals, and NSB Regs Set 6's "area under … y = ?" (the function itself is missing from the source text).
-- **Wrong keys still to review.** Wrong answer keys are corrected when the right answer can be worked out (see [Wrong-key corrections](docs/data-history.md#wrong-key-corrections)), but two groups are still open. First, questions excluded for wrong keys when their packets were ingested and never added: HSBT 2026's 3 (the uploaded packets aren't hosted anywhere, so they'd need re-uploading), the source re-scan's 24, OSTI middle-school questions whose letter and answer text disagree, and one speriphery question; each needs its source fetched again. Second, an automated pass over the bank flagged records whose key contradicts itself and that haven't been read yet: 52 MC answers whose text names a different choice than their letter, 46 MC questions with an empty choice, 18 identify-all/ranking answers naming an item number the question doesn't have, 27 groups of identical questions (same text and choices) keyed differently, and MC questions with repeated choices (one of these, a TJSBT disjoint-set bonus whose math had been stripped, was repaired). Reworded repeats of a question across events are kept on purpose (see the [duplicate policy](docs/data-history.md#duplicate-policy)).
+- **Wrong keys still to review.** Wrong answer keys are corrected when the right answer can be worked out (see [Wrong-key corrections](docs/data-history.md#wrong-key-corrections)), but two groups are still open. First, questions excluded for wrong keys when their packets were ingested and never added: HSBT 2026's 3 (the uploaded packets aren't hosted anywhere, so they'd need re-uploading), the source re-scan's 24, OSTI middle-school questions whose letter and answer text disagree, and one speriphery question; each needs its source fetched again. Second, an automated pass over the bank flagged records whose key contradicts itself and that haven't been read yet: 52 MC answers whose text names a different choice than their letter, 46 MC questions with an empty choice, 18 identify-all/ranking answers naming an item number the question doesn't have, 27 groups of identical questions (same text and choices) keyed differently, and MC questions with repeated choices (one of these, a TJSBT disjoint-set bonus whose math had been stripped, was repaired). Reworded repeats of a question across events are kept on purpose (see the [duplicate policy](docs/data-history.md#duplicate-policy)), and so is NSB MS Regs Set 16 Round 7, which repeats NSB Regs Set 17 Round 10 slot for slot but is a separately published document (the MS copy carries pronunciation guides).
 - **CSUB's combined packets**: 448/400 questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.
 - **Rounds still unlabeled on purpose** (1,314 questions): replacement, tiebreak, extra, supplemental and combine sets; grab-bag packets in Random / Random Stuff; CCWTWO's three unnumbered packets plus Foothill's first-draft packet and Summer 2019's "Dan's Packet" (the packets carry no round header, and guessing a slot would be invention); ESBOT 1's Seeding Round; NSB MS Regs' Sample Rounds DE 1/DE 3 (the number of round-robin rounds before them isn't known); and LADWP 2023, whose only round is its reconstructed Finals.
