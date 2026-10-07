@@ -47,7 +47,7 @@
 | LADWP 2023 | 37 |
 | Lexington Biology Bowl 2026 | 445 |
 | Lexington HS 2020-21 | 779 |
-| Lexscibowl 2021 | 21 |
+| Lexscibowl 2021 | 23 |
 | LOST 1 | 621 |
 | LOST 2 | 561 |
 | MEHS Rounds | 776 |
@@ -100,4 +100,4 @@
 | WISC 2021 | 367 |
 | WSBT | 446 |
 | Yale 2026 | 92 |
-| **Total (98)** | **73,085** |
+| **Total (98)** | **73,087** |
