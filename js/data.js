@@ -217,7 +217,7 @@
   SBData.QTYPE_LABELS = QTYPE_LABELS;
   SBData.FORMAT_LABELS = FORMAT_LABELS;
 
-  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', roundTag, visualTag }
+  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', visualTag }
   function questionMetaRow(q, opts) {
     opts = opts || {};
     const roundPart = SBData.roundLabelFor(q);
@@ -228,7 +228,6 @@
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
       `<span class="tag qtype-${escapeHtml(q.qtype)}">${escapeHtml(QTYPE_LABELS[q.qtype] || q.qtype)}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
-      opts.roundTag ? `<span class="tag round">${q.round ? 'Round ' + q.round : 'Round —'}</span>` : '',
       opts.visualTag && q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : '',
       `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
     ].join('');

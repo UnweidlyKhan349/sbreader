@@ -28,3 +28,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Rebranded the site as **SB Reader** (page titles, nav brand, README).
 - Grading: ranking answers must be in the keyed order. Typing the item numbers with commas or spaces in the wrong order (`3, 2, 1` for `1, 3, 2`) used to pass, and longer ranking stems ("Order the convectively available potential energy of the following…", "Place the following in chronological order") were graded as order-free sets.
 - Catalog results are listed in packet order (tournament, round, question number, tossup before bonus) instead of storage order.
+- Question cards in the catalog and bookmarks no longer show a "Round N" tag; the tournament and round label ("AVES 2025 · DE 1") already say which round it is.
