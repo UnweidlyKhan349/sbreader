@@ -448,11 +448,11 @@
     const qtypeTag = document.getElementById('revealQtypeTag');
     subjectTag.className = 'tag subject-' + q.subject;
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
-    qtypeTag.className = 'tag qtype-' + q.qtype;
+    qtypeTag.className = SBData.qtypeTagClass(q);
     const tagSegments = [
       { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
       { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
-      { text: (QTYPE_LABELS[q.qtype] || q.qtype).toUpperCase(), el: qtypeTag },
+      { text: SBData.qtypeLabel(q).toUpperCase(), el: qtypeTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('choicesDisplay');

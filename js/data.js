@@ -225,6 +225,16 @@
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
   const GRADE_LABELS = { correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' };
   SBData.QTYPE_LABELS = QTYPE_LABELS;
+  // A bonus with a figure is a packet's "visual bonus", so its type tag says so.
+  // It takes the Visual tag's colour; a visual tossup keeps a separate Visual tag.
+  function isVisualBonus(q) { return !!q.visual && q.qtype === 'bonus'; }
+  function qtypeLabel(q) {
+    const base = QTYPE_LABELS[q.qtype] || q.qtype;
+    return isVisualBonus(q) ? 'Visual ' + base : base;
+  }
+  function qtypeTagClass(q) { return 'tag qtype-' + q.qtype + (isVisualBonus(q) ? ' visual' : ''); }
+  SBData.qtypeLabel = qtypeLabel;
+  SBData.qtypeTagClass = qtypeTagClass;
   SBData.FORMAT_LABELS = FORMAT_LABELS;
 
   // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped' }
@@ -236,9 +246,9 @@
     row.innerHTML = [
       opts.grade ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
-      `<span class="tag qtype-${escapeHtml(q.qtype)}">${escapeHtml(QTYPE_LABELS[q.qtype] || q.qtype)}</span>`,
+      `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
-      q.visual ? '<span class="tag visual">Visual</span>' : '',
+      q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
       `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
     ].join('');
     return row;
