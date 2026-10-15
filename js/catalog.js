@@ -5,6 +5,7 @@
     qtypes: new Set(),
     formats: new Set(),
     levels: new Set(),
+    visuals: new Set(),
     tournaments: new Set(),
     search: '',
     page: 1,
@@ -33,7 +34,7 @@
     });
   }
 
-  let subjectItems, qtypeItems, formatItems, levelItems, roundSliderApi;
+  let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi;
 
   function init() {
     SBData.load().then(() => {
@@ -49,9 +50,12 @@
       levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
       buildChips(document.getElementById('levelChips'), levelItems, 'levels', (i) => i.label);
 
+      visualItems = SBData.VISUAL_KEYS.map((v) => ({ value: v, label: SBData.VISUAL_LABELS[v] }));
+      buildChips(document.getElementById('visualChips'), visualItems, 'visuals', (i) => i.label);
+
       // Wired after subject/qtype/format items exist: wireRoundRangeSlider fires
       // onChange -> render() -> syncChipVisuals() synchronously on setup, which
-      // reads all three item arrays.
+      // reads every chip group's items.
       const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
       roundSliderApi = SBData.wireRoundRangeSlider({
         minInput: document.getElementById('roundMin'),
@@ -92,6 +96,7 @@
         state.qtypes.clear();
         state.formats.clear();
         state.levels.clear();
+        state.visuals.clear();
         state.tournaments.clear();
         state.search = '';
         state.page = 1;
@@ -123,6 +128,7 @@
       [qtypeItems, state.qtypes],
       [formatItems, state.formats],
       [levelItems, state.levels],
+      [visualItems, state.visuals],
     ].forEach(([items, set]) => {
       items.forEach((i) => i._el.classList.toggle('active', set.has(i.value)));
     });
@@ -137,9 +143,9 @@
       qtypes: state.qtypes,
       formats: state.formats,
       levels: state.levels,
+      visuals: state.visuals,
       tournaments: state.tournaments,
       search: state.search,
-      includeVisual: true,
     }));
 
     document.getElementById('resultCount').textContent =
@@ -216,7 +222,7 @@
   function renderCard(q) {
     const card = document.createElement('div');
     card.className = 'q-card';
-    card.appendChild(SBData.questionMetaRow(q, { visualTag: true }));
+    card.appendChild(SBData.questionMetaRow(q));
     SBData.appendQuestionBody(card, q);
 
     const answerWrap = SBData.answerBlock(q, null, { source: true });

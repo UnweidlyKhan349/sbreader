@@ -54,3 +54,36 @@ test('bookmark aliases point at questions that exist', () => {
   const broken = Object.entries(meta.idAliases || {}).filter(([, to]) => !ids.has(to)).slice(0, 10);
   assert.deepStrictEqual(broken, []);
 });
+
+test('every visual question\'s images exist, and every image file is used', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const { ROOT } = require('./helpers');
+  const imgDir = path.join(ROOT, 'data/img');
+  const used = new Set();
+  const problems = [];
+  for (const q of raw) {
+    if (q.im === undefined) continue;
+    if (!Array.isArray(q.im) || !q.im.length) { problems.push(`${q.i}: im is not a non-empty list`); continue; }
+    for (const im of q.im) {
+      if (typeof im.f !== 'string' || !(im.w > 0) || !(im.h > 0)) problems.push(`${q.i}: bad image entry`);
+      else if (!fs.existsSync(path.join(imgDir, im.f))) problems.push(`${q.i}: missing ${im.f}`);
+      else used.add(im.f);
+    }
+  }
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.relative(imgDir, path.join(d, e.name))]));
+  const unused = fs.existsSync(imgDir) ? walk(imgDir).filter((f) => !used.has(f)) : [];
+  assert.deepStrictEqual(problems.slice(0, 10), []);
+  assert.deepStrictEqual(unused.slice(0, 10), []);
+});
+
+test('the Visual filter splits the bank into visual and text-only questions', () => {
+  const { questions } = loadCorpus();
+  globalThis.SBData.questions = questions;
+  const visual = globalThis.SBData.filterQuestions({ visuals: ['visual'] });
+  const text = globalThis.SBData.filterQuestions({ visuals: ['text'] });
+  assert.ok(visual.length > 0);
+  assert.ok(visual.every((q) => q.images.length > 0 && q.images.every((im) => im.src.startsWith('data/img/'))));
+  assert.strictEqual(visual.length + text.length, questions.length);
+  assert.strictEqual(globalThis.SBData.filterQuestions({ visuals: ['visual', 'text'] }).length, questions.length);
+});

@@ -30,6 +30,7 @@
       qtypes: new Set(meta.qtypes || []),
       formats: new Set(meta.formats || []),
       levels: new Set(meta.levels || ['hs', 'ms']),
+      visuals: new Set(['visual', 'text']),
       tournaments: new Set((meta.tournaments || []).map((t) => t.slug)),
       maxRound: Math.max(1, ...rounds),
     };
@@ -62,6 +63,7 @@
         qtypes: knownValues(msg.qtypes, known.qtypes),
         formats: knownValues(msg.formats, known.formats),
         levels: knownValues(msg.levels, known.levels),
+        visuals: knownValues(msg.visuals, known.visuals),
         tournaments: knownValues(msg.tournaments, known.tournaments),
         roundRange,
         includeUnlabeled: msg.includeUnlabeled !== false,
