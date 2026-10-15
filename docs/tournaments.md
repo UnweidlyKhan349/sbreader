@@ -9,7 +9,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | AVES 2025 | 520 |  | hs |
 | BASED 2025 | 611 | 5 | hs |
 | Bash 2025 | 653 | 25 | hs |
-| BASIS Peoria Rounds | 773 |  | hs |
+| BASIS Peoria Rounds | 775 |  | hs |
 | Bay Ultimate MS Scibowl | 536 | 4 | ms |
 | Berkeley 2023 | 644 |  | hs |
 | Brooklyn Tech Invitational | 369 |  | hs |
@@ -17,7 +17,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | BUMS 2026 | 48 |  | ms |
 | Cast 2021 | 404 | 1 | hs |
 | CCWT | 277 |  | hs |
-| CCWTWO | 304 |  | hs |
+| CCWTWO | 308 |  | hs |
 | CLASH 2026 HS | 707 | 30 | hs |
 | CLASH 2026 MS | 428 | 10 | ms |
 | Clements 2025 | 504 |  | hs |
@@ -39,7 +39,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ESBOT 2 | 590 | 30 | hs |
 | Fall 2023 | 642 | 22 | hs |
 | FE!M 2025 | 601 | 5 | hs |
-| GWHS Rounds | 757 |  | hs |
+| GWHS Rounds | 759 |  | hs |
 | HSBT 2026 | 609 |  | hs |
 | ICSBT 2 | 536 | 4 | hs |
 | ICSBT 2025 | 457 |  | hs |
@@ -49,11 +49,11 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
-| Lexington HS 2020-21 | 779 |  | hs |
+| Lexington HS 2020-21 | 780 |  | hs |
 | Lexscibowl 2021 | 23 |  | hs |
-| LOST 1 | 621 |  | hs |
-| LOST 2 | 561 |  | hs |
-| MEHS Rounds | 776 |  | hs |
+| LOST 1 | 647 | 34 | hs |
+| LOST 2 | 599 | 46 | hs |
+| MEHS Rounds | 777 |  | hs |
 | MHS Rounds | 821 |  | hs |
 | MIT 2020 | 601 |  | hs |
 | MIT 2021 | 596 |  | hs |
@@ -68,8 +68,8 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Mosfet1 | 585 |  | hs |
 | NCB 2026 | 287 |  | hs |
 | NESB | 998 |  | hs |
-| NNHS Rounds 2020-21 | 777 |  | hs |
-| NSB MS Regs | 11,376 |  | ms |
+| NNHS Rounds 2020-21 | 778 |  | hs |
+| NSB MS Regs | 11,380 |  | ms |
 | NSB Regs | 12,026 |  | hs |
 | NSBA1 | 722 | 31 | hs |
 | NSBA2 | 309 |  | hs |
@@ -82,9 +82,9 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Olympus 2022 | 624 |  | hs |
 | Pohaku 2024 | 322 |  | hs |
 | Prometheus 2021 | 819 |  | hs |
-| Random | 778 |  | hs |
+| Random | 781 |  | hs |
 | Random Stuff | 353 |  | hs |
-| SBL | 1,129 |  | hs |
+| SBL | 1,170 | 44 | hs |
 | SBST | 642 |  | hs |
 | SBST (Spring) | 613 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
@@ -99,8 +99,8 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | TJSBT 2025 | 598 |  | hs |
 | Trio Online Math Bowl 2026 | 559 | 12 | hs |
 | University Prep | 50 |  | hs |
-| Walton Rounds | 772 |  | hs |
+| Walton Rounds | 774 |  | hs |
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (99)** | **73,915** | **371** | |
+| **Total (99)** | **74,040** | **495** | |
