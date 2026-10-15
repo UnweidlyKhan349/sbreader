@@ -40,10 +40,10 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Fall 2023 | 642 | 22 | hs |
 | FE!M 2025 | 601 | 5 | hs |
 | GWHS Rounds | 759 |  | hs |
-| HSBT 2026 | 609 |  | hs |
+| HSBT 2026 | 638 | 27 | hs |
 | ICSBT 2 | 536 | 4 | hs |
 | ICSBT 2025 | 457 |  | hs |
-| ICSBT 3 | 508 |  | hs |
+| ICSBT 3 | 518 | 10 | hs |
 | IGNIS 2022 | 720 |  | hs |
 | ISBI 2025 | 331 |  | hs |
 | ISBL 2024 | 291 |  | hs |
@@ -103,4 +103,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (99)** | **74,040** | **495** | |
+| **Total (99)** | **74,079** | **532** | |
