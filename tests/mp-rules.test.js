@@ -31,6 +31,7 @@ test('settings are limited to known values and clamped', () => {
     qtypes: 'tossup',
     formats: ['SA'],
     levels: ['hs'],
+    visuals: ['visual', 'image', 'visual'],
     tournaments: [meta.tournaments[0].slug, '__proto__'],
     roundRange: [50, -3],
     includeUnlabeled: 'no',
@@ -39,6 +40,7 @@ test('settings are limited to known values and clamped', () => {
   assert.deepStrictEqual(m.subjects, ['math']);
   assert.deepStrictEqual(m.qtypes, []);
   assert.deepStrictEqual(m.formats, ['SA']);
+  assert.deepStrictEqual(m.visuals, ['visual']);
   assert.deepStrictEqual(m.tournaments, [meta.tournaments[0].slug]);
   assert.deepStrictEqual(m.roundRange, [1, Math.max(...meta.rounds)]);
   assert.strictEqual(m.includeUnlabeled, true);

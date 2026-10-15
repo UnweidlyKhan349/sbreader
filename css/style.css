@@ -349,7 +349,42 @@ input[type="range"]::-moz-range-thumb:hover { transform: scale(1.15); background
    categories the way subjects are, just different question formats. */
 .tag.qtype-tossup { background: rgba(91,140,255,.15); color: #c3d3ff; }
 .tag.qtype-bonus { background: rgba(91,140,255,.24); color: #c3d3ff; }
-.tag.visual-warn { background: rgba(232,180,69,.18); color: var(--warn); text-transform: none; }
+.tag.visual { background: rgba(56,198,217,.16); color: #9fe9f4; }
+
+/* Figures for visual questions. Most packet figures are drawn on white, so
+   each one sits on a white card: on the dark page a transparent or white
+   diagram then reads as a slide rather than a hole in the layout. The
+   width/height attributes set in questionFigures() keep the aspect ratio
+   while the image loads. */
+.q-figures { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 4px; align-items: flex-start; }
+.q-figure {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  width: auto;
+  height: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: zoom-in;
+  box-shadow: 0 1px 6px rgba(0,0,0,.35);
+}
+.q-card .q-figure, .q-log-entry .q-figure { max-height: 300px; }
+.question-panel .q-figures { margin: 16px 0 6px; }
+.question-panel .q-figure { max-height: min(52vh, 460px); }
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px 16px;
+  background: rgba(5,8,14,.88);
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  background: #fff; border-radius: 8px; padding: 8px;
+  box-shadow: var(--shadow);
+}
+.lightbox-close { position: absolute; top: 14px; right: 14px; }
 
 .grid-filters {
   display: grid;

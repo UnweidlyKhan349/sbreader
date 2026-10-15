@@ -49,6 +49,16 @@
   const LEVEL_LABELS = { hs: 'High School', ms: 'Middle School' };
   SBData.LEVEL_LABELS = LEVEL_LABELS;
 
+  // Visual questions (a packet's "visual bonus") come with one or more
+  // images, stored in data/img/ and named in the record's `im` list. The
+  // Visual filter has two values, like every other chip row: none selected
+  // means both.
+  const VISUAL_LABELS = { visual: 'Visual', text: 'Text only' };
+  const VISUAL_KEYS = ['visual', 'text'];
+  SBData.VISUAL_LABELS = VISUAL_LABELS;
+  SBData.VISUAL_KEYS = VISUAL_KEYS;
+  const IMG_DIR = 'data/img/';
+
   // Question/choice text sometimes has a bracketed pronunciation guide right
   // after the word it's for, e.g. "hypertrophic [hy-pur-TROH-fic]" - drop
   // it (and the space before it). This is deliberately narrow - it only
@@ -217,7 +227,7 @@
   SBData.QTYPE_LABELS = QTYPE_LABELS;
   SBData.FORMAT_LABELS = FORMAT_LABELS;
 
-  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', visualTag }
+  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped' }
   function questionMetaRow(q, opts) {
     opts = opts || {};
     const roundPart = SBData.roundLabelFor(q);
@@ -228,18 +238,83 @@
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
       `<span class="tag qtype-${escapeHtml(q.qtype)}">${escapeHtml(QTYPE_LABELS[q.qtype] || q.qtype)}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
-      opts.visualTag && q.visual ? '<span class="tag visual-warn">⚠ Visual</span>' : '',
+      q.visual ? '<span class="tag visual">Visual</span>' : '',
       `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
     ].join('');
     return row;
   }
 
-  // Question text, then the MC choices if there are any.
+  // A visual question's images. The width/height attributes give each image
+  // its aspect ratio before it loads, so nothing below it jumps when it
+  // arrives. Clicking an image opens it full size. opts: { eager }
+  function questionFigures(q, opts) {
+    const wrap = document.createElement('div');
+    wrap.className = 'q-figures';
+    (q.images || []).forEach((im, k) => {
+      const img = document.createElement('img');
+      img.src = im.src;
+      if (im.w && im.h) { img.width = im.w; img.height = im.h; }
+      img.alt = q.images.length > 1 ? `Figure ${k + 1} for this question` : 'Figure for this question';
+      img.loading = opts && opts.eager ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.className = 'q-figure';
+      img.title = 'Click to enlarge';
+      img.addEventListener('click', () => openLightbox(im.src, img.alt));
+      wrap.appendChild(img);
+    });
+    return wrap;
+  }
+
+  // Full-size view of one figure. Esc, a click anywhere, or the close
+  // button dismisses it.
+  function openLightbox(src, alt) {
+    const old = document.getElementById('sbLightbox');
+    if (old) old.remove();
+    const box = document.createElement('div');
+    box.id = 'sbLightbox';
+    box.className = 'lightbox';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', alt || 'Figure');
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt || '';
+    const close = document.createElement('button');
+    close.className = 'btn small lightbox-close';
+    close.textContent = '✕';
+    close.setAttribute('aria-label', 'Close');
+    box.appendChild(img);
+    box.appendChild(close);
+    function dismiss() {
+      box.remove();
+      document.removeEventListener('keydown', onKey, true);
+    }
+    // While it's open, keys belong to it: game shortcuts (Space to buzz,
+    // N to skip) don't reach the page underneath.
+    function onKey(e) {
+      if (e.key === 'Tab') return;
+      e.stopPropagation();
+      if (e.key === 'Escape') { e.preventDefault(); dismiss(); }
+    }
+    box.addEventListener('click', dismiss);
+    document.addEventListener('keydown', onKey, true);
+    document.body.appendChild(box);
+    close.focus();
+  }
+
+  // Starts downloading a question's images ahead of time (the next one in a
+  // session's queue), so a visual question doesn't open on an empty frame.
+  function preloadImages(q) {
+    (q && q.images || []).forEach((im) => { const i = new Image(); i.src = im.src; });
+  }
+
+  // Question text, its figures if it's a visual question, then the MC
+  // choices if there are any.
   function appendQuestionBody(card, q) {
     const qText = document.createElement('div');
     qText.className = 'q-text';
     qText.innerHTML = renderMathHTML(q.question);
     card.appendChild(qText);
+    if (q.visual) card.appendChild(questionFigures(q));
     if (q.choices) {
       const ch = document.createElement('div');
       ch.className = 'choices';
@@ -299,6 +374,9 @@
 
   SBData.questionMetaRow = questionMetaRow;
   SBData.appendQuestionBody = appendQuestionBody;
+  SBData.questionFigures = questionFigures;
+  SBData.openLightbox = openLightbox;
+  SBData.preloadImages = preloadImages;
   SBData.answerBlock = answerBlock;
   SBData.bookmarkButton = bookmarkButton;
 
@@ -330,31 +408,35 @@
   // app, applying the display-time text cleanup above.
   function expandQuestions(meta, qs) {
     const levelBySlug = new Map((meta.tournaments || []).map((t) => [t.slug, t.level || 'hs']));
-    return qs.map((q) => ({
-      id: q.i,
-      tournament: q.t,
-      tSlug: q.ts,
-      level: levelBySlug.get(q.ts) || 'hs',
-      round: q.r,
-      roundLabel: q.rl,
-      subject: q.s,
-      format: q.f,
-      qtype: q.qt,
-      num: q.n,
-      question: cleanText(q.q),
-      choices: q.c ? {
-        W: cleanText(q.c.W), X: cleanText(q.c.X),
-        Y: cleanText(q.c.Y), Z: cleanText(q.c.Z),
-      } : null,
-      visual: !!q.v,
-      answer: {
-        text: stripTrailingWatermark(stripAuthorTag(cleanText(q.a.t))),
-        letter: q.a.l || null,
-        accept: (q.a.ac || []).map(cleanText),
-        reject: (q.a.rj || []).map(cleanText),
-      },
-      sourceUrl: q.u,
-    }));
+    return qs.map((q) => {
+      const images = (q.im || []).map((im) => ({ src: IMG_DIR + im.f, w: im.w, h: im.h }));
+      return {
+        id: q.i,
+        tournament: q.t,
+        tSlug: q.ts,
+        level: levelBySlug.get(q.ts) || 'hs',
+        round: q.r,
+        roundLabel: q.rl,
+        subject: q.s,
+        format: q.f,
+        qtype: q.qt,
+        num: q.n,
+        question: cleanText(q.q),
+        choices: q.c ? {
+          W: cleanText(q.c.W), X: cleanText(q.c.X),
+          Y: cleanText(q.c.Y), Z: cleanText(q.c.Z),
+        } : null,
+        images,
+        visual: images.length > 0,
+        answer: {
+          text: stripTrailingWatermark(stripAuthorTag(cleanText(q.a.t))),
+          letter: q.a.l || null,
+          accept: (q.a.ac || []).map(cleanText),
+          reject: (q.a.rj || []).map(cleanText),
+        },
+        sourceUrl: q.u,
+      };
+    });
   }
   SBData.normalizeMeta = normalizeMeta;
   SBData.expandQuestions = expandQuestions;
@@ -496,8 +578,9 @@
   };
 
   /* ---------------- Filtering ---------------- */
-  // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, bookmarkedOnly, search, includeVisual }
-  // each of subjects/tournaments/formats/qtypes/levels is either null/empty (= all) or a Set/array of allowed values
+  // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, visuals, bookmarkedOnly, search }
+  // each of subjects/tournaments/formats/qtypes/levels/visuals is either null/empty (= all) or a Set/array of allowed values
+  // (visuals holds 'visual' and/or 'text')
   SBData.filterQuestions = function (opts) {
     opts = opts || {};
     const subjects = toSetOrNull(opts.subjects);
@@ -505,10 +588,10 @@
     const formats = toSetOrNull(opts.formats);
     const qtypes = toSetOrNull(opts.qtypes);
     const levels = toSetOrNull(opts.levels);
+    const visuals = toSetOrNull(opts.visuals);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
     const search = (opts.search || '').trim().toLowerCase();
-    const includeVisual = opts.includeVisual !== false;
     const roundRange = opts.roundRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
 
@@ -523,7 +606,7 @@
       if (qtypes && !qtypes.has(q.qtype)) return false;
       if (levels && !levels.has(q.level)) return false;
       if (bookmarkedOnly && !bookmarks.has(q.id)) return false;
-      if (!includeVisual && q.visual) return false;
+      if (visuals && !visuals.has(q.visual ? 'visual' : 'text')) return false;
       return true;
     });
 
