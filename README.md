@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 73,087 questions from 98 tournaments** (36,895 tossups / 36,192 bonuses; 45,837 short answer / 27,250 multiple choice).
+**Current question bank: 73,915 questions from 99 tournaments** (37,162 tossups / 36,753 bonuses; 46,507 short answer / 27,408 multiple choice), including **371 visual questions** whose figures (375 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
-| Biology | 15,411 |
-| Earth & Space | 14,932 |
-| Physics | 13,313 |
-| Math | 13,174 |
-| Chemistry | 13,145 |
-| Energy | 3,112 |
+| Biology | 15,571 |
+| Earth & Space | 15,094 |
+| Physics | 13,471 |
+| Math | 13,336 |
+| Chemistry | 13,310 |
+| Energy | 3,133 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -24,9 +24,10 @@ This README covers what the site does, how it's built, the data format, and how 
 3. [Answer grading](#answer-grading)
 4. [Architecture](#architecture)
 5. [Data format](#data-format)
-6. [Known limitations and open items](#known-limitations-and-open-items)
-7. [Deploying](#deploying)
-8. [Local development and tests](#local-development-and-tests)
+6. [Visual questions](#visual-questions)
+7. [Known limitations and open items](#known-limitations-and-open-items)
+8. [Deploying](#deploying)
+9. [Local development and tests](#local-development-and-tests)
 
 ---
 
@@ -37,14 +38,15 @@ A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. Th
 
 ### `catalog.html` (Catalog)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
-- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,314 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
+- Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,313 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), **visual questions** (Visual/Text only; selecting neither means both), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
 - Results are listed in packet order: by tournament (A–Z), then round (unlabeled rounds last), then question number, each tossup before its bonus. Filtering to MIT 2023 shows Round 1 from question 1, then Round 2, and so on. NSB Regs, whose rounds are numbered within each set, shows Round 1 of every set before Round 2 (`SBData.sortByPacketOrder`).
 - 40 results per page, with pagination and a jump-to-page input.
-- Each card shows subject/type/format tags, the question, MC choices, the answer line (with inline "also accept"), the tournament and round label, a link to the original packet (when there is one), and a bookmark star.
+- Each card shows subject/type/format tags (plus a **Visual** tag on questions with a figure), the question, its figure(s) (click to enlarge), MC choices, the answer line (with inline "also accept"), the tournament and round label, a link to the original packet (when there is one), and a bookmark star.
 
 ### `solo.html` (Solo Practice)
-- **Setup screen**: pick subjects, round range, question type, format, level (High School/Middle School), and tournament(s), plus reading speed. A live "N questions match your filters" count updates as you go.
+- **Setup screen**: pick subjects, round range, question type, format, level (High School/Middle School), visual questions (Visual/Text only), and tournament(s), plus reading speed. A live "N questions match your filters" count updates as you go.
 - **Reveal instead of text-to-speech**: questions and their answer choices type themselves onto the screen (`js/reveal.js`) at an adjustable speed, from 0.5× to 2.5×. At 1.0× that's 21 characters per second. The reveal position is computed from wall-clock time rather than tick counts, so it doesn't fall behind in a backgrounded browser tab. Your speed is saved in `localStorage` (`sb_rate`).
+- **Figures**: a visual question shows its figure (between the question text and the choices) as soon as the question starts (the figure is part of the question, not something revealed letter by letter). The space the question text will take is reserved up front, so the figure doesn't jump as the text types out, and the next question's images are preloaded while you answer this one. Click a figure to open it full-size; `Esc` or a click closes it.
 - **Timers**: a 4 s buzz window for tossups and 20 s for bonuses once the reveal finishes, then 10 s to type an answer.
 - **Grading**: automatic (see [Answer grading](#answer-grading)), with a manual **override** if the grader gets it wrong. The score bar tracks Correct, Incorrect, and Total.
 - **Question queue**: built with `SBData.stratifiedQueue`, a round-robin across subjects that keeps cycling. Subjects stay evenly mixed for the whole session even when one subject has far fewer matching questions.
@@ -56,6 +58,7 @@ A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. Th
 - **Host or join a room** with a 5-character code. Codes use an alphabet without look-alike characters (no I/L/O/0/1). The underlying PeerJS peer ID is `sbowl-XXXXX`, but players only ever see and type `XXXXX`. Codes are **uppercased before connecting**, so typing `xfts2` joins `XFTS2`, and a pasted `sbowl-` prefix is handled whatever its case.
 - Everyone can buzz. The first buzz locks everyone else out until that player answers, and a wrong answer locks that player out for the rest of the question.
 - **Scoring**: +4 for a correct answer. A wrong answer costs −4 if you buzzed before the question finished revealing, and 0 otherwise. Players can override their own graded answer, except that a wrong answer can't be overridden to correct once someone else has scored the question.
+- Visual questions show their figure to everyone when the question starts (the host preloads the next question's images); the Visual/Text-only choice is a room setting like the other filters.
 - Live scoreboard, live typing preview (other players watch you type, throttled to 150 ms), room chat (last 60 messages), pause, bookmarks, and a question log.
 - **Room settings** (⚙ / `S`) can be edited by anyone in the room, not just the host. Changes go to the host and are then broadcast to everyone. An echo-suppression guard stops programmatic repaints from bouncing settings back and forth between clients. The "all subjects off → reset to all on close" rule applies here too, and the reset is pushed to the room like any other settings change.
 - **Joining mid-game**: late joiners get a full state sync and catch up immediately. Duplicate display names are made unique.
@@ -73,6 +76,8 @@ Lists every bookmarked question as a card, with a "Practice these" button that s
 ## Keyboard shortcuts
 
 Shortcuts are ignored while you're typing in a text field (except Enter to submit) and when modifier keys are held.
+
+While an enlarged figure is open, it takes the keyboard: `Esc` closes it and no game shortcut reaches the page underneath.
 
 **Solo (in session)**: `Space` buzz · `Enter` submit · `N` next/skip · `Q` override grading · `B` bookmark · `P` pause/resume · `S` open settings (not in bookmarked mode) · `Esc` close settings
 
@@ -128,6 +133,7 @@ js/catalog.js  js/solo.js  js/multiplayer.js  js/bookmarks.js   page logic
 js/peer.js          PeerJS wrapper: makeHost / makeClient / friendly error messages
 js/vendor/peerjs.min.js   vendored PeerJS (no CDN dependency)
 data/questions.json  data/meta.json
+data/img/<tournament-slug>/<id>.webp   figures for visual questions (375 files, about 17 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
 ```
@@ -146,13 +152,14 @@ tests/              node --test suites: grader, multiplayer rules, data shape
 - **`answerDisplayText(q)`**: for MC questions the choice text wins over `a.t`, so a damaged answer field still displays correctly.
 - **`answerLineHTML()`**: one shared "Answer: X (also accept: Y)" renderer.
 - **Question cards**: `questionMetaRow`, `appendQuestionBody`, `answerBlock` and `bookmarkButton` build the cards in the catalog, the bookmarks page and both session logs. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.
+- **Figures**: `questionFigures(q, opts)` builds the figure strip (lazy-loaded `<img>` with its width/height set so the layout doesn't shift, eager in the live question panel), `openLightbox(src, alt)` shows one full-size, and `preloadImages(q)` warms the next question's images. `expandQuestions` turns a record's `im` into `q.images` (`{src, w, h}`) and sets `q.visual`, which the filter and the Visual tag read.
 - **`cleanRoundLabel()`** tidies round labels for display: it strips "Copy of", strips a repeated tournament name, and spaces letters from digits (`DE1` → `DE 1`).
-- Also here: filtering (`filterQuestions`), shuffles (`shuffle`, `stratifiedShuffle`, `stratifiedQueue`), the dual round slider (`wireRoundRangeSlider`), the searchable multi-select (`enhanceMultiSelect`), range-fill styling, and bookmark storage (kept in memory, re-read when another tab changes it).
+- Also here: filtering (`filterQuestions`, including the `visuals` set: `visual`/`text`), shuffles (`shuffle`, `stratifiedShuffle`, `stratifiedQueue`), the dual round slider (`wireRoundRangeSlider`), the searchable multi-select (`enhanceMultiSelect`), range-fill styling, and bookmark storage (kept in memory, re-read when another tab changes it).
 
 ### Multiplayer networking
 Peer-to-peer over WebRTC via PeerJS. The free public PeerJS broker is used only for the connection handshake; no game data goes through a server. The host's browser holds the authoritative game state (queue, timers, buzzes, scoring) and broadcasts it. Clients send intents (`join`, `buzz`, `submitAnswer`, `next`, `skip`, `togglePause`, `override`, `typing`, `updateSettings`, chat).
 
-Anyone with the room code can connect, so the host passes every message through `SBMpRules.cleanHostMessage` first. Unknown types are dropped, strings are cut to length (name 24, answer 200, chat 300), filter values must exist in `meta.json`, and the reading rate is clamped to 0.5–2.5. Peers that haven't sent `join` are ignored. Messages aren't rate-limited.
+Anyone with the room code can connect, so the host passes every message through `SBMpRules.cleanHostMessage` first. Unknown types are dropped, strings are cut to length (name 24, answer 200, chat 300), filter values must exist in `meta.json` (the visual filter only takes `visual`/`text`), and the reading rate is clamped to 0.5–2.5. Peers that haven't sent `join` are ignored. Messages aren't rate-limited.
 
 Connections use Google's public STUN servers, with no TURN relay.
 
@@ -161,7 +168,7 @@ Connections use Google's public STUN servers, with no TURN relay.
 ## Data format
 
 ### `data/questions.json`
-A compact JSON array (about 30 MB raw, about 6.9 MB gzipped; GitHub Pages serves it gzipped automatically). The catalog, solo, multiplayer and bookmarks pages load all of it, because their filters and search span the whole bank. Each record looks like this:
+A compact JSON array (about 30 MB raw, about 7.1 MB gzipped; GitHub Pages serves it gzipped automatically). The catalog, solo, multiplayer and bookmarks pages load all of it, because their filters and search span the whole bank. Each record looks like this:
 
 | Key | Meaning |
 |---|---|
@@ -176,28 +183,44 @@ A compact JSON array (about 30 MB raw, about 6.9 MB gzipped; GitHub Pages serves
 | `q` | question text |
 | `c` | MC choices `{W, X, Y, Z}` |
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
-| `u` | source packet URL, always `https://` (on 62,298 records) |
+| `u` | source packet URL, always `https://` (on 63,043 records) |
+| `im` | figures for a visual question, in order: `[{f, w, h}]`, `f` a path under `data/img/` (`mit-2025/17415.webp`), `w`/`h` its pixel size. Absent on text-only questions. |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,680 questions); everything else is `hs` (59,407). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,697 questions); everything else is `hs` (60,218). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
 ---
 
+## Visual questions
+
+Some bonuses (and a few tossups) are about a picture: a diagram, graph, micrograph, spectrum, structure or photo. Earlier ingests left these out because their images weren't available; they are now in the bank with their figures.
+
+- **Which questions**: 371 records in 26 tournaments carry an `im` list (375 images; NSBA1's and Bash 2025's two-part figures have two images each, and one WSBT bonus has three). The largest sets are MIT 2025 (36), NSBA1 (31), ESBOT 2 and CLASH 2026 HS (30 each), DASONI 2 (27), Bash 2025 and MIT 2024 (25 each) and Fall 2023 (22). 80 of them were already in the bank as text and got their figure back; the rest were added. Where an existing record's text had been cut short, it was replaced with the packet's full text. Per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and how they were found and checked is in [docs/data-history.md](docs/data-history.md#visual-questions).
+- **Where the images come from**: images embedded in the PDF and .docx packets of the user's packet archive (matched to the bank by question text and cropped to the figure; where a packet's image runs off the page, the embedded picture itself was taken instead of a page render); the separate visual-bonus slide decks (MIT 2024/2025, Fall 2023, DAST, CLASH, FE!M, …), rendered slide by slide with LibreOffice and trimmed to the figure; the public SMH 2026 Google Docs; and isobowl's structured Trio Online Math Bowl rounds.
+- **Files**: `data/img/<tournament-slug>/<question id>.webp` (`<id>-1.webp`, `<id>-2.webp` … when a question has more than one figure), referenced from the record as `{f, w, h}`. Images are WebP at quality 86, at most 1,400 px on the long side, with transparency flattened onto white so they read in dark mode too; five animated figures stay GIF. Total about 17 MB. They're downloaded only when a question that uses them is shown (lazy-loaded in lists, preloaded one question ahead in solo and multiplayer), so the bank's load time is unchanged.
+- **Display**: figures sit between the question text and the choices, on a white card, capped at 420 px tall (300 px in catalog cards, `min(52vh, 460px)` in the live question panel), and open full-size in a lightbox on click. The card's `width`/`height` attributes reserve the space before the image arrives.
+- **Filter**: a "Visual questions" chip row (Visual / Text only) in the catalog, solo setup, solo settings and multiplayer room settings; selecting neither or both means no filter. It's carried in the multiplayer settings messages like every other filter.
+- **Grading** is unchanged: the answer still comes from the record's key and accept list.
+
+---
+
 ## Known limitations and open items
 
-- **Lost exponent/radical notation that can't be recovered.** Most lost superscripts were restored from the source packets or by unambiguous rules (see [Superscript recovery](docs/data-history.md#superscript-recovery-and-split-words)), but some remain: questions with no source file and no pattern that proves the exponent (a bare `x2` looks the same as a subscript x₂, a formula like H2O, or an ordinary number), trig powers like `sin2 x` (indistinguishable from `sin 2x` given the corpus's spacing), and stacked fractions whose numerator and denominator are flattened onto one line. Examples still affected: NWI 2024's ellipse question (one copy is cut off, the other has a garbled equation), MHS Rounds' Laplace transform of `t2`, several CSUB integrals, and NSB Regs Set 6's "area under … y = ?" (the function itself is missing from the source text).
-- **Wrong keys still to review.** Wrong answer keys are corrected when the right answer can be worked out (see [Wrong-key corrections](docs/data-history.md#wrong-key-corrections)), but two groups are still open. First, questions excluded for wrong keys when their packets were ingested and never added: HSBT 2026's 3 (the uploaded packets aren't hosted anywhere, so they'd need re-uploading), the source re-scan's 24, OSTI middle-school questions whose letter and answer text disagree, and one speriphery question; each needs its source fetched again. Second, an automated pass over the bank flagged records whose key contradicts itself and that haven't been read yet: 52 MC answers whose text names a different choice than their letter, 46 MC questions with an empty choice, 18 identify-all/ranking answers naming an item number the question doesn't have, 27 groups of identical questions (same text and choices) keyed differently, and MC questions with repeated choices (one of these, a TJSBT disjoint-set bonus whose math had been stripped, was repaired). Reworded repeats of a question across events are kept on purpose (see the [duplicate policy](docs/data-history.md#duplicate-policy)), and so is NSB MS Regs Set 16 Round 7, which repeats NSB Regs Set 17 Round 10 slot for slot but is a separately published document (the MS copy carries pronunciation guides).
-- **CSUB's combined packets**: 448/400 questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
+- **Lost math notation that can't be recovered.** Most lost superscripts, radicals and fractions were restored from the source packets (font flags, Word run formatting and Word equation objects) or by unambiguous rules (see [Superscript recovery](docs/data-history.md#superscript-recovery-and-split-words) and [Notation pass](docs/data-history.md#notation-pass)). What remains: questions with no source file and no pattern that proves the exponent (a bare `x2` looks the same as a subscript x₂, a formula like H2O, or an ordinary number), trig powers like `sin2 x` (indistinguishable from `sin 2x` given the corpus's spacing), and stacked fractions flattened onto one line in packets that aren't in any archive (e.g. `3 √13 13` for 3√13/13 in some answer choices). The examples this list used to name (NWI 2024's ellipse, MHS Rounds' Laplace transform of t², CSUB's integrals, NSB Regs Set 6's area under y = √x) have been repaired from the packet archive.
+- **Visual questions whose images aren't available**: HSBT 2026's 27 (the uploaded zip is no longer available), speriphery.com's database rows marked as visual (its images live in its own storage, which wasn't fetched), ICSBT 3's 10 (its visual booklet isn't released; three more carry a "the original figure for this bonus is still needed" note), SBST's figures (drawn as vector graphics in the PDFs, with no embedded image to extract), and the packets that were never reachable (NWI2 2025's private Drive folder, ICSBT2 DE4 with downloads turned off).
+- **Wrong keys still to review.** Wrong answer keys are corrected when the right answer can be worked out (see [Wrong-key corrections](docs/data-history.md#wrong-key-corrections)). Still open: questions excluded for wrong keys when their packets were ingested and never added (HSBT 2026's 3, which need the packets uploaded again; the source re-scan's 24; OSTI middle-school questions whose letter and answer text disagree; one speriphery question). Their sources, other than HSBT's, are public, so they can be re-fetched and corrected. In the bank, every MC record whose answer text names a different choice than its letter was read: 33 letters were wrong and corrected, and the remaining disagreements are answer texts that are truncated or abbreviated (the site shows the keyed choice's text, so they display correctly) or choices too garbled to judge (e.g. Texas Science Bowl Invitational's stacked-fraction choices, a CSBL rate-constant unit). 20 groups of identical questions (same text and choices) are keyed differently and haven't all been read. Reworded repeats of a question across events are kept on purpose (see the [duplicate policy](docs/data-history.md#duplicate-policy)), and so is NSB MS Regs Set 16 Round 7, which repeats NSB Regs Set 17 Round 10 slot for slot but is a separately published document (the MS copy carries pronunciation guides).
+- **A few stems are still cut off**: CCWT's "Given that sin(2x) = 0.2, representing your", GWHS's "One of the questions researchers attempted to", a Random set's "If x and y are complex numbers, then expressing your" and a few others lost the end of the question in the source's text layer and no copy of the packet has it. They're kept because the answer is intact.
+- **CSUB's combined packets**: the questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.
-- **Rounds still unlabeled on purpose** (1,314 questions): replacement, tiebreak, extra, supplemental and combine sets; grab-bag packets in Random / Random Stuff; CCWTWO's three unnumbered packets plus Foothill's first-draft packet and Summer 2019's "Dan's Packet" (the packets carry no round header, and guessing a slot would be invention); ESBOT 1's Seeding Round; NSB MS Regs' Sample Rounds DE 1/DE 3 (the number of round-robin rounds before them isn't known); and LADWP 2023, whose only round is its reconstructed Finals.
-- **Chemistry vs Physics on "Physical Science" sources** (NSB MS sets 1–13, Deadbird Invitational): chosen by a trained model (94.5% held-out accuracy), not by the packet; about 1 in 20 may still be on the wrong side. "General Science" questions sit under Energy per the subject rule.
-- **Sources not ingested**: isobowl.com packets that are live, upcoming, or not yet released (re-check after those tournaments conclude); sciencebowl.org (login-gated; needs the owner's permission); Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
+- **Rounds still unlabeled on purpose** (1,313 questions): replacement, tiebreak, extra, supplemental and combine sets; grab-bag packets in Random / Random Stuff; CCWTWO's three unnumbered packets plus Foothill's first-draft packet and Summer 2019's "Dan's Packet" (the packets carry no round header, and guessing a slot would be invention); ESBOT 1's Seeding Round; NSB MS Regs' Sample Rounds DE 1/DE 3 (the number of round-robin rounds before them isn't known); and LADWP 2023, whose only round is its reconstructed Finals.
+- **Chemistry vs Physics on "Physical Science" sources** (NSB MS sets 1–13, Deadbird Invitational): chosen by a trained model (94.5% held-out accuracy) and then read by hand; a few borderline questions could still go either way. "General Science" questions sit under Energy per the subject rule.
+- **Sources not ingested**: isobowl.com tournaments that are live, upcoming or not yet released (as of October 2026: National Chemistry Bowl, which is still live, Hawaii Science Bowl Tournament and the three ISOBowl Invitational divisions, which are completed but whose rounds the server doesn't serve, and Lexington Online Scibowl Tournament 3, upcoming; re-check after they're released); sciencebowl.org (login-gated; needs the owner's permission); Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
 - **Round slider** is global (max 20), not scoped to the selected tournament.
 
 ---
@@ -222,6 +245,6 @@ npm test        # or: node --test tests/*.test.js  (Node 18+, no install needed)
 The tests, which CI also runs on every push and pull request:
 - `tests/answer-check.test.js`: grading rules, the known false positives, and every answer key and whole-answer accept in the corpus graded against its own question.
 - `tests/mp-rules.test.js`: multiplayer message validation and override rules.
-- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, and `meta.json` counts match `questions.json`. Run it after any data change.
+- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match `questions.json`, every image a record names exists under `data/img/` and every file there is used, and the Visual filter splits the bank into visual and text-only questions with nothing left over. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.

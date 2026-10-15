@@ -1,103 +1,106 @@
 # Tournament list
 
-| Tournament | Questions |
-|---|---|
-| 2026 Texas Science Bowl Invitational | 639 |
-| AVES 2 | 563 |
-| AVES 2025 | 520 |
-| BASED 2025 | 607 |
-| Bash 2025 | 633 |
-| BASIS Peoria Rounds | 773 |
-| Bay Ultimate MS Scibowl | 532 |
-| Berkeley 2023 | 644 |
-| Brooklyn Tech Invitational | 369 |
-| BTHS 2025 | 250 |
-| BUMS 2026 | 48 |
-| Cast 2021 | 404 |
-| CCWT | 277 |
-| CCWTWO | 304 |
-| CLASH 2026 HS | 677 |
-| CLASH 2026 MS | 418 |
-| Clements 2025 | 505 |
-| CSBL | 655 |
-| CSUB | 1,599 |
-| CUT 2026 | 625 |
-| DASONI 2 | 618 |
-| Dasoni Comp1 | 420 |
-| Dasoni Standard1 | 505 |
-| DAST 2 | 14 |
-| Dast 2025 | 477 |
-| DAST1 | 440 |
-| David Rounds 2019 | 312 |
-| Deadbird Invitational | 395 |
-| Dvhs 2025 | 182 |
-| Earth and Space Scrimmage 2024 | 250 |
-| Earth and Space Scrimmage 2025 | 341 |
-| ESBOT 1 | 558 |
-| ESBOT 2 | 574 |
-| Fall 2023 | 621 |
-| FE!M 2025 | 598 |
-| GWHS Rounds | 757 |
-| HSBT 2026 | 609 |
-| ICSBT 2 | 532 |
-| ICSBT 2025 | 457 |
-| IGNIS 2022 | 720 |
-| ISBI 2025 | 331 |
-| ISBL 2024 | 291 |
-| LADWP 2023 | 37 |
-| Lexington Biology Bowl 2026 | 445 |
-| Lexington HS 2020-21 | 779 |
-| Lexscibowl 2021 | 23 |
-| LOST 1 | 621 |
-| LOST 2 | 561 |
-| MEHS Rounds | 776 |
-| MHS Rounds | 820 |
-| MIT 2020 | 601 |
-| MIT 2021 | 596 |
-| MIT 2022 | 648 |
-| MIT 2023 | 598 |
-| MIT 2024 | 620 |
-| MIT 2025 | 912 |
-| MNSBT 2024 | 650 |
-| MOOSE 2021 | 409 |
-| MOSFET 2 | 507 |
-| MOSFET 2024 | 601 |
-| Mosfet1 | 585 |
-| NCB 2026 | 287 |
-| NESB | 998 |
-| NNHS Rounds 2020-21 | 777 |
-| NSB MS Regs | 11,373 |
-| NSB Regs | 12,026 |
-| NSBA1 | 702 |
-| NSBA2 | 309 |
-| NSBA4 | 479 |
-| NSFBL | 548 |
-| NSI 2023 | 272 |
-| NSI 2024 | 252 |
-| NWI 2024 | 274 |
-| NWI 2025 | 392 |
-| Olympus 2022 | 624 |
-| Pohaku 2024 | 322 |
-| Prometheus 2021 | 819 |
-| Random | 778 |
-| Random Stuff | 355 |
-| SBL | 1,129 |
-| SBST | 642 |
-| SBST (Spring) | 613 |
-| SCB 2025 | 479 |
-| SMH 2025 | 536 |
-| SMH 2026 | 598 |
-| SSBT 2023 | 549 |
-| Stanford 2025 | 644 |
-| Stanford 2026 | 642 |
-| Summer 2019 | 136 |
-| Texas Sci Bowl 2025 | 647 |
-| THUMB 2025 | 206 |
-| TJSBT 2025 | 572 |
-| Trio Online Math Bowl 2026 | 547 |
-| University Prep | 50 |
-| Walton Rounds | 772 |
-| WISC 2021 | 367 |
-| WSBT | 446 |
-| Yale 2026 | 92 |
-| **Total (98)** | **73,087** |
+Question counts per tournament, from `data/meta.json`. "Visual" is how many of them carry a figure (see the README's [Visual questions](../README.md#visual-questions)); "Level" is the tournament's `level` (`ms` = middle school).
+
+| Tournament | Questions | Visual | Level |
+|---|---|---|---|
+| 2026 Texas Science Bowl Invitational | 639 |  | hs |
+| AVES 2 | 580 | 17 | hs |
+| AVES 2025 | 520 |  | hs |
+| BASED 2025 | 611 | 5 | hs |
+| Bash 2025 | 653 | 25 | hs |
+| BASIS Peoria Rounds | 773 |  | hs |
+| Bay Ultimate MS Scibowl | 536 | 4 | ms |
+| Berkeley 2023 | 644 |  | hs |
+| Brooklyn Tech Invitational | 369 |  | hs |
+| BTHS 2025 | 250 |  | hs |
+| BUMS 2026 | 48 |  | ms |
+| Cast 2021 | 404 | 1 | hs |
+| CCWT | 277 |  | hs |
+| CCWTWO | 304 |  | hs |
+| CLASH 2026 HS | 707 | 30 | hs |
+| CLASH 2026 MS | 428 | 10 | ms |
+| Clements 2025 | 504 |  | hs |
+| CSBL | 659 | 6 | hs |
+| CSUB | 1,597 |  | hs |
+| CUT 2026 | 625 |  | hs |
+| DASONI 2 | 644 | 27 | hs |
+| Dasoni Comp1 | 420 |  | hs |
+| Dasoni Standard1 | 505 |  | ms |
+| DAST 2 | 14 |  | hs |
+| Dast 2025 | 478 | 2 | hs |
+| DAST1 | 445 | 7 | hs |
+| David Rounds 2019 | 312 |  | hs |
+| Deadbird Invitational | 395 |  | ms |
+| Dvhs 2025 | 182 |  | hs |
+| Earth and Space Scrimmage 2024 | 250 |  | hs |
+| Earth and Space Scrimmage 2025 | 341 |  | hs |
+| ESBOT 1 | 558 |  | hs |
+| ESBOT 2 | 590 | 30 | hs |
+| Fall 2023 | 642 | 22 | hs |
+| FE!M 2025 | 601 | 5 | hs |
+| GWHS Rounds | 757 |  | hs |
+| HSBT 2026 | 609 |  | hs |
+| ICSBT 2 | 536 | 4 | hs |
+| ICSBT 2025 | 457 |  | hs |
+| ICSBT 3 | 508 |  | hs |
+| IGNIS 2022 | 720 |  | hs |
+| ISBI 2025 | 331 |  | hs |
+| ISBL 2024 | 291 |  | hs |
+| LADWP 2023 | 37 |  | hs |
+| Lexington Biology Bowl 2026 | 445 |  | hs |
+| Lexington HS 2020-21 | 779 |  | hs |
+| Lexscibowl 2021 | 23 |  | hs |
+| LOST 1 | 621 |  | hs |
+| LOST 2 | 561 |  | hs |
+| MEHS Rounds | 776 |  | hs |
+| MHS Rounds | 821 |  | hs |
+| MIT 2020 | 601 |  | hs |
+| MIT 2021 | 596 |  | hs |
+| MIT 2022 | 648 |  | hs |
+| MIT 2023 | 598 |  | hs |
+| MIT 2024 | 645 | 25 | hs |
+| MIT 2025 | 947 | 36 | hs |
+| MNSBT 2024 | 650 |  | hs |
+| MOOSE 2021 | 409 |  | ms |
+| MOSFET 2 | 507 |  | hs |
+| MOSFET 2024 | 601 |  | hs |
+| Mosfet1 | 585 |  | hs |
+| NCB 2026 | 287 |  | hs |
+| NESB | 998 |  | hs |
+| NNHS Rounds 2020-21 | 777 |  | hs |
+| NSB MS Regs | 11,376 |  | ms |
+| NSB Regs | 12,026 |  | hs |
+| NSBA1 | 722 | 31 | hs |
+| NSBA2 | 309 |  | hs |
+| NSBA4 | 479 |  | hs |
+| NSFBL | 551 | 8 | hs |
+| NSI 2023 | 272 |  | hs |
+| NSI 2024 | 252 |  | hs |
+| NWI 2024 | 275 |  | hs |
+| NWI 2025 | 392 |  | hs |
+| Olympus 2022 | 624 |  | hs |
+| Pohaku 2024 | 322 |  | hs |
+| Prometheus 2021 | 819 |  | hs |
+| Random | 778 |  | hs |
+| Random Stuff | 353 |  | hs |
+| SBL | 1,129 |  | hs |
+| SBST | 642 |  | hs |
+| SBST (Spring) | 613 |  | hs |
+| SCB 2025 | 480 | 1 | hs |
+| SMH 2025 | 536 | 11 | hs |
+| SMH 2026 | 617 | 17 | hs |
+| SSBT 2023 | 552 | 9 | hs |
+| Stanford 2025 | 644 |  | hs |
+| Stanford 2026 | 642 |  | hs |
+| Summer 2019 | 136 |  | hs |
+| Texas Sci Bowl 2025 | 647 |  | hs |
+| THUMB 2025 | 206 |  | hs |
+| TJSBT 2025 | 598 |  | hs |
+| Trio Online Math Bowl 2026 | 559 | 12 | hs |
+| University Prep | 50 |  | hs |
+| Walton Rounds | 772 |  | hs |
+| WISC 2021 | 370 | 5 | hs |
+| WSBT | 454 | 21 | hs |
+| Yale 2026 | 92 |  | hs |
+| **Total (99)** | **73,915** | **371** | |
