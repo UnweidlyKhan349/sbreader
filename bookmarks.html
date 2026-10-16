@@ -5,11 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bookmarks · SB Reader</title>
 <link rel="stylesheet" href="css/style.css" />
+<link rel="preload" href="data/bank/index.json" as="fetch" crossorigin />
+<link rel="preload" href="data/meta.json" as="fetch" crossorigin />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#0f1420" />
+<!-- Loaded here rather than at the end of <body> so the bookmarked
+     questions' tournaments start downloading at once, while the rest of
+     the page loads. -->
+<script src="js/data.js"></script>
+<script>SBData.loadBookmarked();</script>
 </head>
 <body>
 <div id="pageScroll">
 <nav class="nav">
-  <div class="brand"><span class="dot"></span> SB Reader</div>
+  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
   <a class="navlink" href="index.html">Home</a>
   <a class="navlink" href="catalog.html">Catalog</a>
   <a class="navlink" href="solo.html">Solo Practice</a>
@@ -29,7 +41,6 @@
 </div>
 </div>
 
-<script src="js/data.js"></script>
 <script src="js/bookmarks.js"></script>
 </body>
 </html>

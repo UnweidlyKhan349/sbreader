@@ -1,6 +1,6 @@
 # Question bank: sources, ingestion and data-quality history
 
-How the question bank in `data/` was built and cleaned. The ingestion and audit scripts were run from a working scratchpad and are **not in this repository**, so `questions.json` can't be rebuilt from here; changes are made to the JSON directly and checked by `npm test` (see the README).
+How the question bank in `data/` was built and cleaned. The ingestion and audit scripts were run from a working scratchpad and are **not in this repository**, so the bank can't be rebuilt from here; changes are made to the data directly and checked by `npm test`. The bank used to be one file, `data/questions.json`; it's now one file per tournament under `data/bank/`, grouped by packet, and `node tools/bank.js unpack`/`pack` converts it to and from that same flat record list for editing (see the README's [Data format](../README.md#data-format)). Where this history says `questions.json`, it means the bank.
 
 ## Where the questions came from
 

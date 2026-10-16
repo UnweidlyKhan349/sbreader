@@ -1,7 +1,7 @@
-// Shape checks on data/questions.json and data/meta.json.
+// Shape checks on the question bank (data/bank/) and data/meta.json.
 const test = require('node:test');
 const assert = require('node:assert');
-const { loadCorpus } = require('./helpers');
+const { loadCorpus, ROOT } = require('./helpers');
 
 const { raw, rawMeta: meta } = loadCorpus();
 const LETTERS = ['W', 'X', 'Y', 'Z'];
@@ -41,7 +41,7 @@ test('ids are unique', () => {
   assert.deepStrictEqual(dupes.slice(0, 10), []);
 });
 
-test('meta.json counts match questions.json', () => {
+test('meta.json counts match the bank', () => {
   assert.strictEqual(meta.totalQuestions, raw.length);
   const counts = {};
   raw.forEach((q) => { counts[q.ts] = (counts[q.ts] || 0) + 1; });
@@ -86,4 +86,64 @@ test('the Visual filter splits the bank into visual and text-only questions', ()
   assert.ok(visual.every((q) => q.images.length > 0 && q.images.every((im) => im.src.startsWith('data/img/'))));
   assert.strictEqual(visual.length + text.length, questions.length);
   assert.strictEqual(globalThis.SBData.filterQuestions({ visuals: ['visual', 'text'] }).length, questions.length);
+});
+
+test('packet order matches a direct collator sort, for the whole bank and for a filtered subset', () => {
+  const { questions } = loadCorpus();
+  globalThis.SBData.questions = questions;
+  const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+  const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
+  const qtRank = (t) => ['tossup', 'bonus'].indexOf(t);
+  const pos = new Map(questions.map((q, i) => [q, i]));
+  const reference = (list) => list.slice().sort((a, b) =>
+    coll.compare(a.tournament || '', b.tournament || '')
+    || nullsLast(a.round, b.round)
+    || coll.compare(a.roundLabel || '', b.roundLabel || '')
+    || nullsLast(a.num, b.num)
+    || qtRank(a.qtype) - qtRank(b.qtype)
+    || pos.get(a) - pos.get(b)).map((q) => q.id);
+  const ids = (list) => globalThis.SBData.sortByPacketOrder(list).map((q) => q.id);
+  assert.deepStrictEqual(ids(questions), reference(questions));
+  const subset = globalThis.SBData.filterQuestions({ subjects: ['chem'], qtypes: ['bonus'] }).reverse();
+  assert.deepStrictEqual(ids(subset), reference(subset));
+});
+
+test('data/bank holds exactly one file per meta.json tournament, in the form tools/bank.js writes', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const { packRecords, formatShard } = require('../tools/bank.js');
+  const dir = path.join(ROOT, 'data/bank');
+  const files = fs.readdirSync(dir).filter((f) => f !== 'index.json').sort();
+  assert.deepStrictEqual(files, meta.tournaments.map((t) => t.slug + '.json').sort());
+  // Re-packing the flat records reproduces every file byte for byte, so the
+  // files and the tool agree on the format (and packets aren't split up).
+  const repacked = packRecords(raw);
+  const differ = meta.tournaments.filter((t) =>
+    formatShard(repacked.get(t.slug)) !== fs.readFileSync(path.join(dir, t.slug + '.json'), 'utf8'));
+  assert.deepStrictEqual(differ.map((t) => t.slug), []);
+});
+
+test('data/bank/index.json maps every question id to its own tournament', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const index = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/bank/index.json'), 'utf8'));
+  const SBData = globalThis.SBData;
+  const wrong = raw.filter((q) => SBData.slugForId(index.ids, q.i) !== q.ts).map((q) => q.i);
+  assert.deepStrictEqual(wrong.slice(0, 10), []);
+  // Every alias target resolves too, since bookmarks are migrated first.
+  const aliasWrong = Object.values(meta.idAliases || {}).filter((to) => !SBData.slugForId(index.ids, to));
+  assert.deepStrictEqual(aliasWrong.slice(0, 10), []);
+});
+
+test('search matches the question, answer and tournament, ignoring case and exponent markup', () => {
+  const { questions } = loadCorpus();
+  const SBData = globalThis.SBData;
+  SBData.questions = questions;
+  const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
+  const has = (t, s) => { const l = t.toLowerCase(); return l.includes(s) || plain(l).includes(s); };
+  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis']) {
+    const s = search.trim().toLowerCase();
+    const expected = questions.filter((q) => has(q.question, s) || has(q.answer.text, s) || has(q.tournament, s)).map((q) => q.id);
+    assert.deepStrictEqual(SBData.filterQuestions({ search }).map((q) => q.id), expected, search);
+  }
 });

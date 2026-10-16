@@ -90,7 +90,7 @@ sub { top: 0.25em; }
   gap: 8px;
   color: var(--text);
 }
-.nav .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: inline-block; }
+.nav .brand .logo { width: 24px; height: 24px; display: block; flex-shrink: 0; }
 .nav a.navlink {
   padding: 8px 14px;
   border-radius: 8px;
