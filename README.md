@@ -125,6 +125,8 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 ```
 index.html  catalog.html  solo.html  multiplayer.html  bookmarks.html
 css/style.css
+img/logo.svg        the logo mark (nav brand); img/icon-*.png are its PWA/home-screen sizes
+favicon.svg  favicon.ico  apple-touch-icon.png  site.webmanifest   tab and home-screen icons
 js/data.js          shared loader, text cleanup, math rendering, question cards, filters, UI widgets, bookmarks
 js/answer-check.js  grading (SBAnswer)
 js/mp-rules.js      multiplayer host rules with no DOM code: message validation, who may override (SBMpRules)
