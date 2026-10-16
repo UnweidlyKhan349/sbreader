@@ -87,3 +87,23 @@ test('the Visual filter splits the bank into visual and text-only questions', ()
   assert.strictEqual(visual.length + text.length, questions.length);
   assert.strictEqual(globalThis.SBData.filterQuestions({ visuals: ['visual', 'text'] }).length, questions.length);
 });
+
+test('packet order matches a direct collator sort, for the whole bank and for a filtered subset', () => {
+  const { questions } = loadCorpus();
+  globalThis.SBData.questions = questions;
+  const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+  const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
+  const qtRank = (t) => ['tossup', 'bonus'].indexOf(t);
+  const pos = new Map(questions.map((q, i) => [q, i]));
+  const reference = (list) => list.slice().sort((a, b) =>
+    coll.compare(a.tournament || '', b.tournament || '')
+    || nullsLast(a.round, b.round)
+    || coll.compare(a.roundLabel || '', b.roundLabel || '')
+    || nullsLast(a.num, b.num)
+    || qtRank(a.qtype) - qtRank(b.qtype)
+    || pos.get(a) - pos.get(b)).map((q) => q.id);
+  const ids = (list) => globalThis.SBData.sortByPacketOrder(list).map((q) => q.id);
+  assert.deepStrictEqual(ids(questions), reference(questions));
+  const subset = globalThis.SBData.filterQuestions({ subjects: ['chem'], qtypes: ['bonus'] }).reverse();
+  assert.deepStrictEqual(ids(subset), reference(subset));
+});

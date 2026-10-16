@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bookmarks · SB Reader</title>
 <link rel="stylesheet" href="css/style.css" />
+<!-- Start the question bank download while the page and its scripts load,
+     instead of waiting for data.js to run (the fetch() there reuses it). -->
+<link rel="preload" href="data/questions.json" as="fetch" crossorigin />
+<link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />

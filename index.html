@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SB Reader</title>
 <link rel="stylesheet" href="css/style.css" />
+<link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -61,6 +62,24 @@
     document.getElementById('tagline').textContent = `${n} questions from ${t} tournaments — search, drill, and compete.`;
   }).catch(() => {
     document.getElementById('tagline').textContent = 'Could not load the question bank. Try refreshing.';
+  });
+
+  // Every other page needs the full question bank (about 7 MB gzipped), and
+  // most visits go from here to one of them. Fetch it into the browser cache
+  // while the visitor reads this page, at low priority, unless they've asked
+  // to save data or are on a very slow connection.
+  window.addEventListener('load', () => {
+    const conn = navigator.connection;
+    if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1000));
+    idle(() => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = 'data/questions.json';
+      link.as = 'fetch';
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+    });
   });
 </script>
 </body>

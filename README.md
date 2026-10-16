@@ -34,7 +34,7 @@ This README covers what the site does, how it's built, the data format, and how 
 ## Pages and features
 
 ### `index.html` (Home)
-A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone (the home page never downloads the question bank).
+A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
 ### `catalog.html` (Catalog)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
@@ -170,7 +170,7 @@ Connections use Google's public STUN servers, with no TURN relay.
 ## Data format
 
 ### `data/questions.json`
-A compact JSON array (about 30 MB raw, about 7.1 MB gzipped; GitHub Pages serves it gzipped automatically). The catalog, solo, multiplayer and bookmarks pages load all of it, because their filters and search span the whole bank. Each record looks like this:
+A compact JSON array (about 30 MB raw, about 7.1 MB gzipped; GitHub Pages serves it gzipped automatically). The catalog, solo, multiplayer and bookmarks pages load all of it, because their filters and search span the whole bank. Each of those pages starts the download from a `<link rel="preload">` in its `<head>`, so it runs while the page's scripts load instead of after; `SBData.load()`'s `fetch()` then picks up the preloaded response. After the download, expanding the records (`expandQuestions`) skips the text-cleanup regexes for the roughly 95% of strings that contain none of the characters they act on. Each record looks like this:
 
 | Key | Meaning |
 |---|---|

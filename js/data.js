@@ -117,7 +117,15 @@
     return out;
   }
 
+  // Only about 1 string in 20 needs any of the fixes above, and cleanText
+  // runs on every question, choice and answer string (about 270,000) each
+  // time a page loads the bank. One quick test for the characters the fixes
+  // act on - "[", a curly quote, " - ", a double space, or whitespace at
+  // either end - lets the rest skip all six regex passes, unchanged. That
+  // roughly halves the time the bank takes to expand after download.
+  const NEEDS_CLEANUP_RE = /[[‘’]| - | {2}|^\s|\s$/;
   function cleanText(s) {
+    if (!s || !NEEDS_CLEANUP_RE.test(s)) return s;
     return fixSpacedApostrophes(fixSpacedHyphens(stripPronunciation(s)));
   }
 
@@ -568,23 +576,47 @@
   // and reused, since sorting 70k questions on every keystroke would lag.
   let packetRank = null;
   const qtypeRank = (t) => (QTYPE_ORDER.indexOf(t) + 1 || QTYPE_ORDER.length + 1);
+  // Ranks the distinct values of a string field with the collator, so the
+  // big sort below compares integers instead of calling the collator about
+  // a million times. Values the collator calls equal share a rank.
+  function collatedRanks(coll, values) {
+    const distinct = [...new Set(values)].sort(coll.compare);
+    const rank = new Map();
+    distinct.forEach((v, i) => {
+      const prev = distinct[i - 1];
+      rank.set(v, i && coll.compare(prev, v) === 0 ? rank.get(prev) : i);
+    });
+    return rank;
+  }
   SBData.sortByPacketOrder = function (list) {
     if (!packetRank) {
       const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
       const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
-      const all = SBData.questions.map((q, i) => ({ q, i }));
+      const tRank = collatedRanks(coll, SBData.questions.map((q) => q.tournament || ''));
+      const rlRank = collatedRanks(coll, SBData.questions.map((q) => q.roundLabel || ''));
+      const all = SBData.questions.map((q, i) => ({
+        q, i, t: tRank.get(q.tournament || ''), rl: rlRank.get(q.roundLabel || ''), qt: qtypeRank(q.qtype),
+      }));
       all.sort((x, y) => {
         const a = x.q, b = y.q;
-        return coll.compare(a.tournament || '', b.tournament || '')
+        return x.t - y.t
           || nullsLast(a.round, b.round)
-          || coll.compare(a.roundLabel || '', b.roundLabel || '')
+          || x.rl - y.rl
           || nullsLast(a.num, b.num)
-          || qtypeRank(a.qtype) - qtypeRank(b.qtype)
+          || x.qt - y.qt
           || x.i - y.i;
       });
       packetRank = new Map(all.map((e, rank) => [e.q.id, rank]));
     }
-    return list.slice().sort((a, b) => packetRank.get(a.id) - packetRank.get(b.id));
+    // Every question has its own rank, so drop each into its slot instead of
+    // sorting (linear time; this runs on every filter change and keystroke).
+    const slots = new Array(packetRank.size);
+    const unranked = [];
+    list.forEach((q) => {
+      const r = packetRank.get(q.id);
+      if (r === undefined) unranked.push(q); else slots[r] = q;
+    });
+    return slots.filter((q) => q !== undefined).concat(unranked);
   };
 
   /* ---------------- Filtering ---------------- */
