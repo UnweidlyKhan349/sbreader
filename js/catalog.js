@@ -109,6 +109,7 @@
       });
 
       render();
+      SBData.prepareSearch();
     }).catch((err) => {
       document.getElementById('resultCount').textContent = 'Failed to load question data: ' + err.message;
     });

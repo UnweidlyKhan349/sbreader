@@ -422,19 +422,28 @@
     return meta;
   }
 
-  // Expands the compact on-disk records into the shape used throughout the
-  // app, applying the display-time text cleanup above.
-  function expandQuestions(meta, qs) {
-    const levelBySlug = new Map((meta.tournaments || []).map((t) => [t.slug, t.level || 'hs']));
-    return qs.map((q) => {
-      const images = (q.im || []).map((im) => ({ src: IMG_DIR + im.f, w: im.w, h: im.h }));
-      return {
+  // The bank is one file per tournament, data/bank/<slug>.json: an array of
+  // packets, each carrying the fields its questions share (`rl` round label,
+  // `r` round, `u` packet URL) and the questions under `q`. The tournament's
+  // name and slug come from meta.json. tools/bank.js converts to and from
+  // the flat one-record-per-question form; see the README's Data format.
+  const BANK_DIR = 'data/bank/';
+  const PACKET_KEYS = ['rl', 'r', 'u'];
+
+  // Expands one tournament's packets into the shape used throughout the app,
+  // applying the display-time text cleanup above.
+  function expandTournament(t, packets) {
+    const level = t.level || 'hs';
+    const out = [];
+    packets.forEach((p) => p.q.forEach((q) => {
+      const images = q.im ? q.im.map((im) => ({ src: IMG_DIR + im.f, w: im.w, h: im.h })) : [];
+      out.push({
         id: q.i,
-        tournament: q.t,
-        tSlug: q.ts,
-        level: levelBySlug.get(q.ts) || 'hs',
-        round: q.r,
-        roundLabel: q.rl,
+        tournament: t.name,
+        tSlug: t.slug,
+        level,
+        round: p.r,
+        roundLabel: p.rl,
         subject: q.s,
         format: q.f,
         qtype: q.qt,
@@ -452,37 +461,111 @@
           accept: (q.a.ac || []).map(cleanText),
           reject: (q.a.rj || []).map(cleanText),
         },
-        sourceUrl: q.u,
-      };
+        sourceUrl: p.u,
+      });
+    }));
+    return out;
+  }
+
+  // bank: [{ slug, packets }] in any order; questions come out in
+  // meta.tournaments order (A-Z), each tournament in its file's order.
+  function expandQuestions(meta, bank) {
+    const bySlug = new Map(bank.map((b) => [b.slug, b.packets]));
+    const out = [];
+    (meta.tournaments || []).forEach((t) => {
+      if (bySlug.has(t.slug)) out.push(...expandTournament(t, bySlug.get(t.slug)));
     });
+    return out;
+  }
+
+  // The flat record list (every field on every question, as in the old
+  // data/questions.json), for tests and tools/bank.js.
+  function flattenBank(meta, bank) {
+    const bySlug = new Map(bank.map((b) => [b.slug, b.packets]));
+    const out = [];
+    (meta.tournaments || []).forEach((t) => {
+      (bySlug.get(t.slug) || []).forEach((p) => p.q.forEach((q) => {
+        const rec = { i: q.i, t: t.name, ts: t.slug };
+        PACKET_KEYS.forEach((k) => { if (k in p) rec[k] = p[k]; });
+        Object.keys(q).forEach((k) => { if (k !== 'i') rec[k] = q[k]; });
+        out.push(rec);
+      }));
+    });
+    return out;
   }
   SBData.normalizeMeta = normalizeMeta;
   SBData.expandQuestions = expandQuestions;
+  SBData.flattenBank = flattenBank;
+
+  function fetchJson(url) {
+    return fetch(url).then((r) => {
+      if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
+      return r.json();
+    });
+  }
 
   // Just meta.json (about 58 KB) - enough for pages that only show counts.
   SBData.loadMeta = function () {
     if (SBData._metaPromise) return SBData._metaPromise;
-    SBData._metaPromise = fetch('data/meta.json')
-      .then((r) => r.json())
+    SBData._metaPromise = fetchJson('data/meta.json')
       .then((meta) => { SBData.meta = normalizeMeta(meta); return meta; });
     return SBData._metaPromise;
   };
 
+  SBData.bankUrls = function (meta) {
+    return meta.tournaments.map((t) => BANK_DIR + t.slug + '.json');
+  };
+
+  // Downloads the given tournaments' files in parallel, expanding each one as
+  // it arrives so the work overlaps the downloads still in flight.
+  function loadTournaments(tournaments) {
+    return Promise.all(tournaments.map((t) =>
+      fetchJson(BANK_DIR + t.slug + '.json').then((packets) => expandTournament(t, packets))))
+      .then((parts) => {
+        SBData.questions = [].concat(...parts);
+        SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
+        return SBData;
+      });
+  }
+
+  // The whole bank, for the pages whose filters and search span all of it.
+  // The pages call this from <head>, so the downloads start before the rest
+  // of the page has loaded; later calls return the same promise.
   SBData.load = function () {
     if (SBData._readyPromise) return SBData._readyPromise;
-    SBData._readyPromise = Promise.all([
-      SBData.loadMeta(),
-      fetch('data/questions.json').then((r) => r.json()),
-    ]).then(([meta, qs]) => {
-      SBData.questions = expandQuestions(meta, qs);
-      SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
-      if (global.SBAnswer && global.SBAnswer.setVocabulary) {
-        global.SBAnswer.setVocabulary(SBData.questions);
-      }
+    SBData._readyPromise = SBData.loadMeta().then((meta) => {
       migrateBookmarks(meta.idAliases);
-      return SBData;
+      return loadTournaments(meta.tournaments);
     });
     return SBData._readyPromise;
+  };
+
+  // Which tournament a question id belongs to, from data/bank/index.json's
+  // [[firstId, slug], ...] runs (sorted by id): the last run starting at or
+  // below the id.
+  function slugForId(runs, id) {
+    let lo = 0, hi = runs.length - 1, found = null;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (runs[mid][0] <= id) { found = runs[mid][1]; lo = mid + 1; } else hi = mid - 1;
+    }
+    return found;
+  }
+  SBData.slugForId = slugForId;
+
+  // Only the tournaments that hold a bookmarked question (the Bookmarks
+  // page), so a handful of bookmarks doesn't cost the whole bank.
+  // SBData.questions then holds just those tournaments' questions.
+  SBData.loadBookmarked = function () {
+    if (SBData._readyPromise) return SBData._readyPromise;
+    if (SBData._bookmarkedPromise) return SBData._bookmarkedPromise;
+    SBData._bookmarkedPromise = Promise.all([SBData.loadMeta(), fetchJson(BANK_DIR + 'index.json')])
+      .then(([meta, index]) => {
+        migrateBookmarks(meta.idAliases);
+        const slugs = new Set([...bookmarkSet()].map((id) => slugForId(index.ids, id)));
+        return loadTournaments(meta.tournaments.filter((t) => slugs.has(t.slug)));
+      });
+    return SBData._bookmarkedPromise;
   };
 
   /* ---------------- Bookmarks (localStorage) ---------------- */
@@ -652,13 +735,43 @@
       return true;
     });
 
-    if (search) {
-      // Exponent markup is invisible on screen, so "7100" also finds "7^100".
-      const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
-      const has = (t) => { const l = t.toLowerCase(); return l.includes(search) || plain(l).includes(search); };
-      out = out.filter((q) => has(q.question) || has(q.answer.text) || has(q.tournament));
-    }
+    if (search) out = out.filter((q) => searchText(q).includes(search));
     return out;
+  };
+
+  // What a search matches against: the question, answer and tournament name,
+  // lowercased, each also without exponent markup (invisible on screen, so
+  // "7100" also finds "7^100"). Built the first time a question is searched
+  // and kept, so later keystrokes don't lowercase the whole bank again. The
+  // NUL separators keep a match from running across two fields, since a
+  // typed search can't contain one.
+  const searchTexts = new WeakMap();
+  const unmarkExponents = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
+  function searchText(q) {
+    let text = searchTexts.get(q);
+    if (text === undefined) {
+      const fields = [q.question, q.answer.text, q.tournament].map((f) => (f || '').toLowerCase());
+      text = fields.join('\0');
+      const plain = fields.map(unmarkExponents).join('\0');
+      if (plain !== text) text += '\0' + plain;
+      searchTexts.set(q, text);
+    }
+    return text;
+  }
+  // Builds the search text for the whole bank ahead of time, so the first
+  // search is quick too. It runs in small batches while the browser is idle
+  // (a single pass takes long enough on a phone to make the page stutter).
+  SBData.prepareSearch = function () {
+    const qs = SBData.questions || [];
+    const idle = global.requestIdleCallback || ((fn) => setTimeout(() => fn({ timeRemaining: () => 10 }), 50));
+    let i = 0;
+    const step = (deadline) => {
+      while (i < qs.length && deadline.timeRemaining() > 2) {
+        for (const end = Math.min(qs.length, i + 200); i < end; i++) searchText(qs[i]);
+      }
+      if (i < qs.length) idle(step);
+    };
+    idle(step);
   };
 
   function toSetOrNull(v) {

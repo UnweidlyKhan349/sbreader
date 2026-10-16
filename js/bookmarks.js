@@ -45,7 +45,7 @@
     document.getElementById('practiceBtn').disabled = !n;
   }
 
-  SBData.load().then(() => {
+  SBData.loadBookmarked().then(() => {
     const ids = SBData.bookmarks.getAll();
     const results = document.getElementById('results');
     results.innerHTML = '';

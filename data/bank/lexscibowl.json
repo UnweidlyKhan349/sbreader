@@ -1,0 +1,35 @@
+[
+{"rl":"Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%202.pdf","q":[
+{"i":11861,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What principle states that no two electrons can have the same set of quantum numbers?","a":{"t":"PAULI EXCLUSION PRINCIPLE"}},
+{"i":11877,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Evaluate 69 2 - 31^2.","a":{"t":"3800"}},
+{"i":11879,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"Researchers at Argonne National Laboratory are researching how to make more efficient batteries. In a lithium - ion battery, what element serves as the anode?","a":{"t":"CARBON","l":"Y"},"c":{"W":"Lithium","X":"Cobalt","Y":"Carbon","Z":"Zinc"}},
+{"i":11881,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"What is the largest moon in the Solar System?","a":{"t":"GANYMEDE"}}]},
+{"rl":"Round 3","r":3,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%203.pdf","q":[
+{"i":11911,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"Excluding water vapor, what is the second most abundant anthropogenic greenhouse gas in the atmosphere?","a":{"t":"METHANE"}},
+{"i":11921,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following statements is true regarding rational numbers?","a":{"t":"THERE ARE COUNTABLY INFINITE RATIONAL NUMBERS","l":"X"},"c":{"W":"Multiplying non - integer rational numbers cannot be an integer","X":"There are countably infinite rational numbers","Y":"There exist distinct real numbers a and b with a finite rational numbers between a and b","Z":"Some rational numbers are not complex numbers"}}]},
+{"rl":"Round 4","r":4,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%204.pdf","q":[
+{"i":11985,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"A rigid cylinder fitted with a piston is filled with 0.1 moles of carbon dioxide and 0.1 moles of dry ice with negligible volume at 1 atmosphere. The piston is then lifted such that the volume inside the cylinder is quadrupled. What is the new pressure inside of the cylinder, in atmospheres?","a":{"t":"0.5"}}]},
+{"rl":"Round 5","r":5,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%205.pdf","q":[
+{"i":12012,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"What term is used to describe the structures formed by sedimentary rocks and the evolutionary ancestor of chloroplasts?","a":{"t":"STROMATOLITES"}},
+{"i":12034,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"What class of mollusks have a modified muscular foot so that it is on the same side as their stomach?","a":{"t":"GASTROPODA","ac":["SNAILS"]}}]},
+{"rl":"Round 6","r":6,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%206.pdf","q":[
+{"i":12068,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Two molecules experience London dispersion forces of magnitude F when at a distance D from each other. In terms of F to one significant figure, what will the magnitude of the London dispersion forces between the two molecules be at a distance 1.5D?","a":{"t":"0.06F"}}]},
+{"rl":"Round 7","r":7,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%207.pdf","q":[
+{"i":12096,"s":"ess","f":"MC","qt":"bonus","n":6,"q":"Researchers at Argonne National Lab are studying fossilized plants and plant resins. Which of the following comparisons between copal and amber is correct?","a":{"t":"AMBER HAS A HARDNESS OF A","l":"W"},"c":{"W":"Amber has a hardness of around 2.5 on the Mohs scale while copal only has a hardness of 1.5","X":"Copal formed early in geologic time than amber","Y":"Amber melts faster than copal and gives off a pine - like scent when doing so","Z":"Copal floats in saltwater unlike Amber, which sinks, especially if the solution is mixed with some plastic"}},
+{"i":12105,"s":"ess","f":"MC","qt":"tossup","n":11,"q":"Which of the following is closest to the minimum mass required to undergo a Type II supernova?","a":{"t":"8 SOLAR MASSES","l":"Z"},"c":{"W":"2 solar masses","X":"4 solar masses","Y":"6 solar masses","Z":"8 solar masses"}},
+{"i":12106,"s":"ess","f":"MC","qt":"bonus","n":11,"q":"The Cygnus Loop is what type of supernova remnant?","a":{"t":"SHELL - LIKE","l":"W"},"c":{"W":"Shell - like","X":"Composite","Y":"Mixed morphology","Z":"Thermal composite"}},
+{"i":12114,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"The rotational inertia about the z - axis of a uniform rod of mass M and length L set along the x - axis, with one end on the origin, is 1/3*ML 2. What is the moment of inertia of a rod of mass 3 kg and length 4 meters about an axis parallel to the z - axis passing through the middle of the rod?","a":{"t":"4"}},
+{"i":12123,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"By name or number, order the following three measures of speed for a sample of gas particles from least to greatest: 1) Average; 2) Root mean square; 3) Most common.","a":{"t":"3,1,2"}}]},
+{"rl":"Round 8","r":8,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%208.pdf","q":[
+{"i":12136,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Given a 0 = 69 and a n satisfies the recurrence a n+1 = √ − 9 + 6 a n, what is the limit as n approaches infinity of a n?","a":{"t":"3"}},
+{"i":12151,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Researchers at Argonne National Laboratory are researching continental drift and plate tectonics. What hypothesis was the first key scientific test of the seafloor spreading theory?","a":{"t":"VINE – MATTHEWS – MORLEY HYPOTHESIS","ac":["MORLEY - VINE - MATTHEWS HYPOTHESIS"]}}]},
+{"rl":"Round 9","r":9,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%209.pdf","q":[
+{"i":12195,"s":"bio","f":"SA","qt":"bonus","n":11,"q":"Chemically speaking, a phytochrome consists of a chromophore. The chromophore of plants is phytochromobilin and the chromophore of cyanobacteria is phycocyanobilin. What chromophore do red algae use?","a":{"t":"PHYCOCYANOBILIN"}},
+{"i":12203,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"Researchers at Oak Ridge National Lab are studying spectroscopic methods for analyzing chemical mixtures. By name or number, order the following 3 Carbon - hydrogen stretchings in terms of increasing IR wavenumber: 1) Alkane; 2) Alkene; 3) Alkyne.","a":{"t":"1,2,3"}},
+{"i":12206,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"Identify the forms of nitrogenous waste each of the following three animals excrete: 1) Yellow Bitterns; 2) Platyhelminthes; 3) Toads.","a":{"t":"URIC ACID, AMMONIA, UREA"}},
+{"i":12207,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"Ferrocene consists of a central iron cation sandwiched between two molecules of what anion?","a":{"t":"CYCLOPENTADIENYL ANION","ac":["CYCLOPENTADIENIDE"]}}]},
+{"rl":"Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%202.pdf","q":[
+{"i":11878,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate (1+sqrt(2))^3+(1 - sqrt(2))^3.","a":{"t":"14"}}]},
+{"rl":"Round 3","r":3,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%203.pdf","q":[
+{"i":11941,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"What is the denticity of EDTA?","a":{"t":"SIX","ac":["HEXADENTATE"]}}]}
+]

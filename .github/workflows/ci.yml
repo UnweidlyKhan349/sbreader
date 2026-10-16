@@ -13,6 +13,6 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check
-        run: for f in js/*.js tests/*.js; do node --check "$f"; done
+        run: for f in js/*.js tests/*.js tools/*.js; do node --check "$f"; done
       - name: Tests (grader, multiplayer rules, data shape)
         run: node --test tests/*.test.js

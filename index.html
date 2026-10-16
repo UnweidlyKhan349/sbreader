@@ -64,22 +64,25 @@
     document.getElementById('tagline').textContent = 'Could not load the question bank. Try refreshing.';
   });
 
-  // Every other page needs the full question bank (about 7 MB gzipped), and
-  // most visits go from here to one of them. Fetch it into the browser cache
-  // while the visitor reads this page, at low priority, unless they've asked
-  // to save data or are on a very slow connection.
+  // Catalog, Solo and Multiplayer need the whole question bank (about 6.7 MB
+  // gzipped, one file per tournament), and most visits go from here to one
+  // of them. Fetch it into the browser cache while the visitor reads this
+  // page, at low priority, unless they've asked to save data or are on a
+  // very slow connection.
   window.addEventListener('load', () => {
     const conn = navigator.connection;
     if (conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))) return;
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1000));
-    idle(() => {
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = 'data/questions.json';
-      link.as = 'fetch';
-      link.crossOrigin = 'anonymous';
-      document.head.appendChild(link);
-    });
+    SBData.loadMeta().then((meta) => idle(() => {
+      SBData.bankUrls(meta).forEach((url) => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = url;
+        link.as = 'fetch';
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(link);
+      });
+    })).catch(() => {});
   });
 </script>
 </body>

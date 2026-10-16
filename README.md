@@ -34,10 +34,10 @@ This README covers what the site does, how it's built, the data format, and how 
 ## Pages and features
 
 ### `index.html` (Home)
-A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
+A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
 ### `catalog.html` (Catalog)
-- Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
+- Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Each question's lowercased search text is built once, in small batches while the browser is idle after the page loads, and reused, so a keystroke doesn't lowercase the whole bank again. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
 - Filters: subject chips, a dual-handle **round-range slider** with an "Include unlabeled" checkbox (1,318 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), **visual questions** (Visual/Text only; selecting neither means both), and a searchable multi-select tournament picker. There's also a "Clear all filters" button.
 - Results are listed in packet order: by tournament (A–Z), then round (unlabeled rounds last), then question number, each tossup before its bonus. Filtering to MIT 2023 shows Round 1 from question 1, then Round 2, and so on. NSB Regs, whose rounds are numbered within each set, shows Round 1 of every set before Round 2 (`SBData.sortByPacketOrder`).
 - 40 results per page, with pagination and a jump-to-page input.
@@ -64,7 +64,7 @@ A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. Th
 - **Joining mid-game**: late joiners get a full state sync and catch up immediately. Duplicate display names are made unique.
 
 ### `bookmarks.html` (Bookmarked questions)
-Lists every bookmarked question as a card, with a "Practice these" button that starts solo bookmarked mode. Bookmarks are stored per device in `localStorage` under `sb_bookmarks_v1`.
+Lists every bookmarked question as a card, with a "Practice these" button that starts solo bookmarked mode. Bookmarks are stored per device in `localStorage` under `sb_bookmarks_v1`. The page downloads only the tournaments that hold a bookmarked question (`SBData.loadBookmarked()`, using `data/bank/index.json` to find them), not the whole bank.
 
 ### Mobile
 - Below 640 px the nav bar scrolls horizontally with a hidden scrollbar, and the brand text and links shrink. There's no horizontal page overflow on any page.
@@ -134,14 +134,17 @@ js/reveal.js        letter-by-letter reveal engine (replaced text-to-speech)
 js/catalog.js  js/solo.js  js/multiplayer.js  js/bookmarks.js   page logic
 js/peer.js          PeerJS wrapper: makeHost / makeClient / friendly error messages
 js/vendor/peerjs.min.js   vendored PeerJS (no CDN dependency)
-data/questions.json  data/meta.json
+data/meta.json      tournaments, counts, filter values, id aliases
+data/bank/<slug>.json   the question bank, one file per tournament (see Data format)
+data/bank/index.json    which tournament each question id is in
+tools/bank.js       converts the bank to and from one flat list of records, for editing
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (536 files, about 23 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
 ```
 
 ### `js/data.js` (`window.SBData`)
-- **`SBData.loadMeta()`** fetches only `meta.json`; **`SBData.load()`** fetches both files and expands the compact records (`expandQuestions`). `normalizeMeta` fixes up `meta` in one place so every page benefits:
+- **`SBData.loadMeta()`** fetches only `meta.json`; **`SBData.load()`** fetches it and then every tournament file in parallel, expanding each into the app's question shape (`expandTournament`) as it arrives, so that work overlaps the downloads still running. **`SBData.loadBookmarked()`** does the same for just the tournaments holding a bookmark. The catalog, solo and multiplayer pages include `data.js` in `<head>` and call `SBData.load()` there, so the downloads start before the rest of the page has loaded; `meta.json` is preloaded with `<link rel="preload">`. Expansion skips the text-cleanup regexes for the roughly 95% of strings that contain none of the characters they act on. `normalizeMeta` fixes up `meta` in one place so every page benefits:
   - `meta.subjects`, a flat array of keys, is expanded to `{key, label}` objects. This fixed a long-standing bug where subject chips rendered **with no text** on every page.
   - Subjects are reordered to **Math, Physics, Biology, Chemistry, Earth & Space, Energy**. (`meta.json` stores them alphabetically, a leftover of how the Python scripts built it.)
   - Question types are reordered so **Tossup always comes before Bonus**.
@@ -169,8 +172,36 @@ Connections use Google's public STUN servers, with no TURN relay.
 
 ## Data format
 
-### `data/questions.json`
-A compact JSON array (about 30 MB raw, about 7.1 MB gzipped; GitHub Pages serves it gzipped automatically). The catalog, solo, multiplayer and bookmarks pages load all of it, because their filters and search span the whole bank. Each of those pages starts the download from a `<link rel="preload">` in its `<head>`, so it runs while the page's scripts load instead of after; `SBData.load()`'s `fetch()` then picks up the preloaded response. After the download, expanding the records (`expandQuestions`) skips the text-cleanup regexes for the roughly 95% of strings that contain none of the characters they act on. Each record looks like this:
+### `data/bank/` (the question bank)
+One JSON file per tournament, `data/bank/<slug>.json` (99 files, about 21 MB raw and 6.7 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the bookmarks page loads only the ones it needs.
+
+Each file is an array of **packets**. A packet holds the fields its questions share, and the questions themselves under `q`:
+
+```json
+[
+{"rl":"AVES DE1","r":6,"u":"https://lebot.djiang.xyz/packets/AVES-2025/AVES%20DE1.pdf","q":[
+{"i":0,"s":"math","f":"SA","qt":"tossup","n":1,"q":"Rohan is driving and …","a":{"t":"36"}},
+{"i":1,"s":"math","f":"MC","qt":"bonus","n":1,"q":"How many positive integers …","a":{"t":"93","l":"Z"},"c":{"W":"50","X":"90","Y":"92","Z":"93"}}]},
+…
+]
+```
+
+Packet fields: `rl` (raw round label), `r` (round number, `null` if unlabeled) and `u` (packet URL, left out when there isn't one). A packet is a run of consecutive questions that share all three, so a tournament's questions keep their order. The tournament's name and slug aren't repeated on every question: they come from `meta.json`. Leaving those five repeated fields off each question is what makes the bank about a third smaller than the old single `data/questions.json`. Each line holds one question, so a change to a question shows up as a one-line diff.
+
+`data/bank/index.json` is `{"ids": [[firstId, slug], …]}`: runs of consecutive ids, in id order, that belong to the same tournament (about 390 runs). `SBData.slugForId` finds a question's tournament with a binary search.
+
+**Editing the bank.** `tools/bank.js` converts between these files and the flat form, one record per question carrying every field (the table below), which is what the old `data/questions.json` held:
+
+```bash
+node tools/bank.js unpack /tmp/questions.json   # bank -> flat list, in meta.json's tournament order
+# ...edit or audit /tmp/questions.json...
+node tools/bank.js pack /tmp/questions.json     # flat list -> data/bank/ (rewrites every file and index.json)
+npm test
+```
+
+`pack` groups consecutive questions of a tournament into packets, writes one file per tournament slug, deletes the file of any tournament that no longer has questions, and rebuilds `index.json`. It doesn't touch `meta.json`, so update its counts (and add a new tournament's entry, with its `level`) when they change; `npm test` fails until the two agree, and also checks that every file is exactly what `pack` would write. Small edits can also be made to a tournament's file directly.
+
+A flat record (a question plus its packet's fields and its tournament):
 
 | Key | Meaning |
 |---|---|
@@ -191,7 +222,7 @@ A compact JSON array (about 30 MB raw, about 7.1 MB gzipped; GitHub Pages serves
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
 ### `data/meta.json`
-`totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from `questions.json` after every data change, and `totalQuestions` always equals both the sum of tournament counts and the record count.
+`totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from the bank after every data change, and `totalQuestions` always equals both the sum of tournament counts and the number of questions in the bank. Every tournament listed has a file in `data/bank/`, and vice versa.
 
 `level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,697 questions); everything else is `hs` (60,218). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
@@ -247,6 +278,6 @@ npm test        # or: node --test tests/*.test.js  (Node 18+, no install needed)
 The tests, which CI also runs on every push and pull request:
 - `tests/answer-check.test.js`: grading rules, the known false positives, and every answer key and whole-answer accept in the corpus graded against its own question.
 - `tests/mp-rules.test.js`: multiplayer message validation and override rules.
-- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match `questions.json`, every image a record names exists under `data/img/` and every file there is used, and the Visual filter splits the bank into visual and text-only questions with nothing left over. Run it after any data change.
+- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each field separately. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.
