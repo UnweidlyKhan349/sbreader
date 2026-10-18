@@ -249,13 +249,13 @@
     return card;
   }
 
-  // Wraps every case-insensitive occurrence of the search term in a <mark>.
+  // Wraps every case-insensitive occurrence of each search word in a <mark>.
   // Works on the rendered DOM's text nodes rather than the HTML string, so
   // the <sup>/<sub> math markup and escaped characters stay intact. Buttons
   // are skipped (their labels aren't searched).
   function highlightMatches(root, term) {
-    const needle = (term || '').trim().toLowerCase();
-    if (!needle) return;
+    const words = SBData.searchWords(term);
+    if (!words.length) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: (n) => (n.parentElement.closest('button, .actions')
         ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
@@ -265,19 +265,30 @@
     nodes.forEach((node) => {
       const text = node.nodeValue;
       const lower = text.toLowerCase();
-      let idx = lower.indexOf(needle);
-      if (idx === -1) return;
+      // Every match of every word, sorted, with overlapping ones merged
+      // ("sod" and "sodium" both hitting "sodium" give one mark).
+      const hits = [];
+      words.forEach((w) => {
+        for (let idx = lower.indexOf(w); idx !== -1; idx = lower.indexOf(w, idx + 1)) hits.push([idx, idx + w.length]);
+      });
+      if (!hits.length) return;
+      hits.sort((a, b) => a[0] - b[0]);
+      const ranges = [hits[0]];
+      hits.slice(1).forEach(([start, end]) => {
+        const prev = ranges[ranges.length - 1];
+        if (start <= prev[1]) prev[1] = Math.max(prev[1], end);
+        else ranges.push([start, end]);
+      });
       const frag = document.createDocumentFragment();
       let last = 0;
-      while (idx !== -1) {
-        if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
+      ranges.forEach(([start, end]) => {
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
         const mark = document.createElement('mark');
         mark.className = 'search-hit';
-        mark.textContent = text.slice(idx, idx + needle.length);
+        mark.textContent = text.slice(start, end);
         frag.appendChild(mark);
-        last = idx + needle.length;
-        idx = lower.indexOf(needle, last);
-      }
+        last = end;
+      });
       if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
       node.parentNode.replaceChild(frag, node);
     });

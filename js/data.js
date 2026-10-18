@@ -716,7 +716,7 @@
     const visuals = toSetOrNull(opts.visuals);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
-    const search = (opts.search || '').trim().toLowerCase();
+    const words = SBData.searchWords(opts.search);
     const roundRange = opts.roundRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
 
@@ -735,8 +735,20 @@
       return true;
     });
 
-    if (search) out = out.filter((q) => searchText(q).includes(search));
+    if (words.length) {
+      out = out.filter((q) => {
+        const text = searchText(q);
+        return words.every((w) => text.includes(w));
+      });
+    }
     return out;
+  };
+
+  // A search is a list of words, each of which must appear somewhere in the
+  // question, answer or tournament name; they needn't be next to each other
+  // or in the typed order. Lowercased, with repeats dropped.
+  SBData.searchWords = function (search) {
+    return Array.from(new Set((search || '').toLowerCase().split(/\s+/).filter(Boolean)));
   };
 
   // What a search matches against: the question, answer and tournament name,
@@ -744,7 +756,7 @@
   // "7100" also finds "7^100"). Built the first time a question is searched
   // and kept, so later keystrokes don't lowercase the whole bank again. The
   // NUL separators keep a match from running across two fields, since a
-  // typed search can't contain one.
+  // search word can't contain one.
   const searchTexts = new WeakMap();
   const unmarkExponents = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
   function searchText(q) {
