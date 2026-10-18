@@ -71,6 +71,8 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NESB | 998 |  | hs |
 | NNHS Rounds 2020-21 | 778 |  | hs |
 | NSB MS Regs | 11,448 |  | ms |
+| NSB Nationals 2005 | 789 |  | hs |
+| NSB Regionals 2002 Set B | 832 |  | hs |
 | NSB Regs | 12,032 |  | hs |
 | NSBA1 | 722 | 31 | hs |
 | NSBA2 | 309 |  | hs |
@@ -104,4 +106,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (100)** | **74,588** | **532** | |
+| **Total (102)** | **76,209** | **532** | |
