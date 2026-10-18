@@ -9,7 +9,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | AVES 2025 | 520 |  | hs |
 | BASED 2025 | 611 | 5 | hs |
 | Bash 2025 | 653 | 25 | hs |
-| BASIS Peoria Rounds | 776 |  | hs |
+| BASIS Peoria Rounds | 784 |  | hs |
 | Bay Ultimate MS Scibowl | 536 | 4 | ms |
 | Berkeley 2023 | 644 |  | hs |
 | Brooklyn Tech Invitational | 369 |  | hs |
@@ -103,4 +103,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (99)** | **74,080** | **532** | |
+| **Total (99)** | **74,088** | **532** | |
