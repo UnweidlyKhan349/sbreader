@@ -135,15 +135,19 @@ test('data/bank/index.json maps every question id to its own tournament', () => 
   assert.deepStrictEqual(aliasWrong.slice(0, 10), []);
 });
 
-test('search matches the question, answer and tournament, ignoring case and exponent markup', () => {
+test('search matches every word in the question, answer or tournament, ignoring case, order and exponent markup', () => {
   const { questions } = loadCorpus();
   const SBData = globalThis.SBData;
   SBData.questions = questions;
   const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
   const has = (t, s) => { const l = t.toLowerCase(); return l.includes(s) || plain(l).includes(s); };
-  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis']) {
-    const s = search.trim().toLowerCase();
-    const expected = questions.filter((q) => has(q.question, s) || has(q.answer.text, s) || has(q.tournament, s)).map((q) => q.id);
+  const hasWord = (q, w) => has(q.question, w) || has(q.answer.text, w) || has(q.tournament, w);
+  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium', 'cell mitochondria membrane']) {
+    const words = search.trim().toLowerCase().split(/\s+/);
+    const expected = questions.filter((q) => words.every((w) => hasWord(q, w))).map((q) => q.id);
     assert.deepStrictEqual(SBData.filterQuestions({ search }).map((q) => q.id), expected, search);
   }
+  // Words needn't be adjacent or in order.
+  const apart = SBData.filterQuestions({ search: 'chloride sodium' }).length;
+  assert.ok(apart >= SBData.filterQuestions({ search: 'sodium chloride' }).length && apart > 0);
 });
