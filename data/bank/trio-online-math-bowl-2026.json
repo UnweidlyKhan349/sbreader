@@ -512,6 +512,7 @@
 {"i":85616,"s":"math","f":"SA","qt":"tossup","n":1,"q":"In biological organisms, the surface area to volume ratio is extremely important for an organism's metabolic rate. For a cube, the surface area to volume ratio is proportional to what power of the side length of the cube?","a":{"t":"-1"}},
 {"i":85617,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Triangles are the only polygons that can always be inscribed inside a circle. This is because the intersection of the perpendicular bisectors of each side always meet at exactly one point. What is the name for this point?","a":{"t":"CIRCUMCENTER"}},
 {"i":85618,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the product of the circumradius and inradius of a triangle with sides of length 7, 24, and 25?","a":{"t":"75/2"}},
+{"i":87692,"s":"math","f":"MC","qt":"tossup","n":3,"q":"How many positive integer factors does the number 96 have?","c":{"W":"8","X":"10","Y":"12","Z":"14"},"a":{"t":"12","l":"Y"}},
 {"i":85619,"s":"math","f":"SA","qt":"tossup","n":7,"q":"A right triangle with legs 5 and 6 is revolved around its shorter side. What is the volume of the figure created?","a":{"t":"60π"}},
 {"i":85620,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the remainder when the polynomial 5x^3 + 7x^2 + 6x + 1 is divided by x - 3?","a":{"t":"217"}},
 {"i":85621,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Find the radius and the center of the circle with equation x^2 + y^2 - 10x + 14y = 5.","a":{"t":"√(79) AND (5, -7)"}},

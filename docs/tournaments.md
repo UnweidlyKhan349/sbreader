@@ -66,14 +66,15 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | MOSFET 2 | 507 |  | hs |
 | MOSFET 2024 | 601 |  | hs |
 | Mosfet1 | 585 |  | hs |
+| National Chemistry Bowl Fall 2026 | 424 |  | hs |
 | NCB 2026 | 287 |  | hs |
 | NESB | 998 |  | hs |
 | NNHS Rounds 2020-21 | 778 |  | hs |
-| NSB MS Regs | 11,380 |  | ms |
-| NSB Regs | 12,026 |  | hs |
+| NSB MS Regs | 11,448 |  | ms |
+| NSB Regs | 12,032 |  | hs |
 | NSBA1 | 722 | 31 | hs |
 | NSBA2 | 309 |  | hs |
-| NSBA4 | 479 |  | hs |
+| NSBA4 | 480 |  | hs |
 | NSFBL | 551 | 8 | hs |
 | NSI 2023 | 272 |  | hs |
 | NSI 2024 | 252 |  | hs |
@@ -97,10 +98,10 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Texas Sci Bowl 2025 | 647 |  | hs |
 | THUMB 2025 | 206 |  | hs |
 | TJSBT 2025 | 598 |  | hs |
-| Trio Online Math Bowl 2026 | 559 | 12 | hs |
+| Trio Online Math Bowl 2026 | 560 | 12 | hs |
 | University Prep | 50 |  | hs |
 | Walton Rounds | 774 |  | hs |
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (99)** | **74,088** | **532** | |
+| **Total (100)** | **74,588** | **532** | |

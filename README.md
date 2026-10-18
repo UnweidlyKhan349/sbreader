@@ -2,16 +2,16 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 74,088 questions from 99 tournaments** (37,179 tossups / 36,909 bonuses; 46,668 short answer / 27,420 multiple choice), including **532 visual questions** whose figures (536 images) are shown with the question.
+**Current question bank: 74,588 questions from 100 tournaments** (37,497 tossups / 37,091 bonuses; 47,019 short answer / 27,569 multiple choice), including **532 visual questions** whose figures (536 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
-| Biology | 15,605 |
-| Earth & Space | 15,138 |
-| Physics | 13,499 |
-| Math | 13,364 |
-| Chemistry | 13,340 |
-| Energy | 3,142 |
+| Biology | 15,611 |
+| Earth & Space | 15,148 |
+| Physics | 13,510 |
+| Math | 13,403 |
+| Chemistry | 13,773 |
+| Energy | 3,143 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -173,7 +173,7 @@ Connections use Google's public STUN servers, with no TURN relay.
 ## Data format
 
 ### `data/bank/` (the question bank)
-One JSON file per tournament, `data/bank/<slug>.json` (99 files, about 21 MB raw and 6.7 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the bookmarks page loads only the ones it needs.
+One JSON file per tournament, `data/bank/<slug>.json` (100 files, about 21 MB raw and 6.7 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the bookmarks page loads only the ones it needs.
 
 Each file is an array of **packets**. A packet holds the fields its questions share, and the questions themselves under `q`:
 
@@ -224,7 +224,7 @@ A flat record (a question plus its packet's fields and its tournament):
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from the bank after every data change, and `totalQuestions` always equals both the sum of tournament counts and the number of questions in the bank. Every tournament listed has a file in `data/bank/`, and vice versa.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,701 questions); everything else is `hs` (60,387). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,769 questions); everything else is `hs` (60,819). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
@@ -253,7 +253,7 @@ Some bonuses (and a few tossups) are about a picture: a diagram, graph, microgra
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.
 - **Rounds still unlabeled on purpose** (1,318 questions): replacement, tiebreak, extra, supplemental and combine sets; grab-bag packets in Random / Random Stuff; CCWTWO's three unnumbered packets plus Foothill's first-draft packet and Summer 2019's "Dan's Packet" (the packets carry no round header, and guessing a slot would be invention); ESBOT 1's Seeding Round; NSB MS Regs' Sample Rounds DE 1/DE 3 (the number of round-robin rounds before them isn't known); and LADWP 2023, whose only round is its reconstructed Finals.
 - **Chemistry vs Physics on "Physical Science" sources** (NSB MS sets 1–13, Deadbird Invitational): chosen by a trained model (94.5% held-out accuracy) and then read by hand; a few borderline questions could still go either way. "General Science" questions sit under Energy per the subject rule.
-- **Sources not ingested**: isobowl.com tournaments that are live, upcoming or not yet released (as of October 2026: National Chemistry Bowl, which is still live, Hawaii Science Bowl Tournament and the three ISOBowl Invitational divisions, which are completed but whose rounds the server doesn't serve, and Lexington Online Scibowl Tournament 3, upcoming; re-check after they're released); sciencebowl.org (login-gated; needs the owner's permission); Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
+- **Sources not ingested**: isobowl.com tournaments that are live, upcoming or not yet released (as of October 18, 2026: Hawaii Science Bowl Tournament and the three ISOBowl Invitational divisions, which are completed but whose rounds the server doesn't serve, and Lexington Online Scibowl Tournament 3, live in both divisions; re-check after they're released); sciencebowl.org (login-gated; needs the owner's permission); Pleasanton Invitational's sheet returned 401; the SMH League Cup "information document" was never opened.
 - **Round slider** is global (max 20), not scoped to the selected tournament.
 
 ---
