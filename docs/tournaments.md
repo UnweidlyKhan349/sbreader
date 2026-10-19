@@ -4,6 +4,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 
 | Tournament | Questions | Visual | Level |
 |---|---|---|---|
+| 2016 Question Exchange | 1,027 |  | hs |
 | 2026 Texas Science Bowl Invitational | 639 |  | hs |
 | AVES 2 | 580 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
@@ -108,4 +109,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (104)** | **81,416** | **532** | |
+| **Total (105)** | **82,443** | **532** | |
