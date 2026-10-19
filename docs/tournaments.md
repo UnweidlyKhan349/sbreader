@@ -5,7 +5,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Tournament | Questions | Visual | Level |
 |---|---|---|---|
 | 2016 Question Exchange | 1,183 |  | hs |
-| 2026 Texas Science Bowl Invitational | 643 |  | hs |
+| 2026 Texas Science Bowl Invitational | 645 |  | hs |
 | AVES 2 | 580 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
 | BASED 2025 | 611 | 5 | hs |
@@ -53,7 +53,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Lexington HS 2020-21 | 782 |  | hs |
 | Lexscibowl 2021 | 23 |  | hs |
 | LOST 1 | 651 | 34 | hs |
-| LOST 2 | 599 | 46 | hs |
+| LOST 2 | 609 | 46 | hs |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 866 |  | hs |
 | MIT 2020 | 601 |  | hs |
@@ -110,4 +110,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (106)** | **83,070** | **535** | |
+| **Total (106)** | **83,082** | **535** | |
