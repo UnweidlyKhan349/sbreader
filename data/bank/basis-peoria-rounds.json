@@ -821,5 +821,7 @@
 {"rl":"Copy of Copy of DE—7","r":11,"u":"https://lebot.djiang.xyz/packets/BASIS%20Peoria%20Rounds/Copy%20of%20Copy%20of%20DE%E2%80%947.pdf","q":[
 {"i":87519,"s":"phys","f":"SA","qt":"tossup","n":15,"q":"Find the coordinates of the center of mass of a system with a particle of mass 5kg at (1,0), mass 3kg at (-1,0), mass 2kg at (0,1) and mass 2kg at (0,-1).","a":{"t":"(1/6, 0)"}}]},
 {"rl":"Copy of Copy of DE—9","r":13,"u":"https://lebot.djiang.xyz/packets/BASIS%20Peoria%20Rounds/Copy%20of%20Copy%20of%20DE%E2%80%949.pdf","q":[
-{"i":87522,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"Answer these questions about the types of colloids. 1) An emulsion is a mixture of two substances in what state of matter? 2) A sol is a dispersion of what state of matter in a liquid?","a":{"t":"1) LIQUID; 2) SOLID"}}]}
+{"i":87522,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"Answer these questions about the types of colloids. 1) An emulsion is a mixture of two substances in what state of matter? 2) A sol is a dispersion of what state of matter in a liquid?","a":{"t":"1) LIQUID; 2) SOLID"}}]},
+{"rl":"Copy of Copy of DE—7","r":11,"u":"https://lebot.djiang.xyz/packets/BASIS%20Peoria%20Rounds/Copy%20of%20Copy%20of%20DE%E2%80%947.pdf","q":[
+{"i":1383,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"What gaseous electronegative halogen can be found in the mineral cryolite?","a":{"t":"Fluorine"}}]}
 ]

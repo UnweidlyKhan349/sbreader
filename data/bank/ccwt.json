@@ -285,5 +285,7 @@
 {"i":85827,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Giving your answer in terms of x, evaluate the indefinite integral of ln x.","a":{"t":"x ln x − x"}}]},
 {"rl":"Bamiters+Editers - 3","r":3,"u":"https://lebot.djiang.xyz/packets/CCWT/Bamiters%2BEditers%20-%203.pdf","q":[
 {"i":85983,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"Giving your answer in millivolts, what is the equilibrium potential for sodium ions inside a neuron at 37°C if the intracellular concentration is 5 millimolar and the extracellular concentration is 50 millimolar?","a":{"t":"+61 mV"}},
-{"i":85984,"s":"math","f":"SA","qt":"tossup","n":3,"q":"Giving your answer in terms of x, what is the derivative of cos^3(x) with respect to x?","a":{"t":"−3 sin(x) cos^2(x)"}}]}
+{"i":85984,"s":"math","f":"SA","qt":"tossup","n":3,"q":"Giving your answer in terms of x, what is the derivative of cos^3(x) with respect to x?","a":{"t":"−3 sin(x) cos^2(x)"}}]},
+{"rl":"mike oxlong+editors - 2","r":2,"u":"https://lebot.djiang.xyz/packets/CCWT/mike%20oxlong%2Beditors%20-%202.pdf","q":[
+{"i":2775,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"For a lens of focal length 20 cm, what will be the image distance, in centimeters, for an object 30 cm from the lens? Assume the thickness of the lens is negligible.","a":{"t":"60"}}]}
 ]

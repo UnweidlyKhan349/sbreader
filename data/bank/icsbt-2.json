@@ -553,5 +553,9 @@
 {"rl":"ICSBT RR 2","r":2,"q":[
 {"i":96054,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"A soccer ball is squished until it pops. What physical principle is responsible for the pressure being applied at one point being transmitted equally to all other points and the walls?","a":{"t":"PASCAL'S PRINCIPLE","ac":["PASCAL'S LAW"]}}]},
 {"rl":"ICSBT RR 5","r":5,"q":[
-{"i":96055,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Identify all of the following 3 quantities that would increase as you move from the head to the mouth of a stream: 1) Flow velocity; 2) Gradient; 3) Channel roughness","a":{"t":"1 ONLY","ac":["FLOW VELOCITY"]}}]}
+{"i":96055,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Identify all of the following 3 quantities that would increase as you move from the head to the mouth of a stream: 1) Flow velocity; 2) Gradient; 3) Channel roughness","a":{"t":"1 ONLY","ac":["FLOW VELOCITY"]}}]},
+{"rl":"ICSBT RR 1","r":1,"q":[
+{"i":40632,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"What is the total kinetic energy in joules of a solid sphere rolling without slipping with translational kinetic energy 12 joules?","a":{"t":"20"}}]},
+{"rl":"ICSBT RR 4","r":4,"q":[
+{"i":40765,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"On another planet, thrown horizontally from an initial height of 6 meters at 8 meters per second, a ball lands 8√3 meters away. With the same height and initial speed, it is tossed at an angle 30 degrees from the horizontal. In meters, how far away does it land?","a":{"t":"12sqrt3"}}]}
 ]

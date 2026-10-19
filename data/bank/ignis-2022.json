@@ -746,5 +746,13 @@
 {"i":70665,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"What is the average oxidation state of oxygen in O2 F2?","a":{"t":"+1"}},
 {"i":70666,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"A basic buffer is prepared using 10^(−3) moles of an acid with a pKa of 3 and 10^(−3) moles of the acid’s conjugate acid. What is the pH of the buffer?","a":{"t":"3"}}]},
 {"rl":"Ignis_RR5","r":5,"q":[
-{"i":70668,"s":"math","f":"MC","qt":"tossup","n":20,"q":"A regular n-gon has integer internal angle measures. Which of the following can possibly be n?","a":{"t":"72","l":"W"},"c":{"W":"72","X":"75","Y":"80","Z":"100"}}]}
+{"i":70668,"s":"math","f":"MC","qt":"tossup","n":20,"q":"A regular n-gon has integer internal angle measures. Which of the following can possibly be n?","a":{"t":"72","l":"W"},"c":{"W":"72","X":"75","Y":"80","Z":"100"}}]},
+{"rl":"Ignis_DE3","r":8,"u":"https://lebot.djiang.xyz/packets/IGNIS%202022/Ignis_DE3.pdf","q":[
+{"i":44906,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Identify all of the following four solar system moons that are believed to have subsurface liquid water deposits: 1) Enceladus; 2) Europa; 3) Ganymede; 4) Titan.","a":{"t":"All"}}]},
+{"rl":"Ignis_DE7","r":12,"u":"https://lebot.djiang.xyz/packets/IGNIS%202022/Ignis_DE7.pdf","q":[
+{"i":44908,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"El Ni˜ no events reduce hurricane formation in the Atlantic by increasing which of the following atmospheric phenomena?","a":{"t":"Wind shear","l":"Z"},"c":{"W":"Thermal instability","X":"Thermal stratification","Y":"Vorticity","Z":"Wind shear"}}]},
+{"rl":"Ignis_DE8","r":13,"u":"https://lebot.djiang.xyz/packets/IGNIS%202022/Ignis_DE8.pdf","q":[
+{"i":44909,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"Efforts at controlling African Trypanosomiasis involve controlling the population of what fly that serves as its main vector?","a":{"t":"Tsetse fly"}}]},
+{"rl":"Ignis_DE1","r":6,"q":[
+{"i":70618,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"What is the ratio between the energy of the firstexcited state and the third-excited state of a rigid rotor?","a":{"t":"1/6"}}]}
 ]

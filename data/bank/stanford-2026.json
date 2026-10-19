@@ -678,5 +678,9 @@
 {"i":68920,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Aurora typically occur within what electromagnetic layer of the atmosphere, which consists of free electrons and can reflect radio waves?","a":{"t":"Ionosphere","ac":["Thermosphere"]}},
 {"i":68921,"s":"bio","f":"SA","qt":"tossup","n":14,"q":"What simplified model of flower development explains how combinatory effects from three classes of genes determine the identities of floral organs in concentric whorls?","a":{"t":"ABC hypothesis","ac":["ABC model"]}},
 {"i":68922,"s":"bio","f":"SA","qt":"tossup","n":20,"q":"Order the following three stages of PCR by increasing temperature at which they are typically performed: 1) Denaturation; 2) Annealing; 3) Extension.","a":{"t":"2, 3, 1"}},
-{"i":68923,"s":"phys","f":"SA","qt":"bonus","n":21,"q":"Three capacitors of capacitance 4, 6, and 9 microfarads are placed in series. In microfarads, what is the effective capacitance of the three capacitors together?","a":{"t":"36/19"}}]}
+{"i":68923,"s":"phys","f":"SA","qt":"bonus","n":21,"q":"Three capacitors of capacitance 4, 6, and 9 microfarads are placed in series. In microfarads, what is the effective capacitance of the three capacitors together?","a":{"t":"36/19"}}]},
+{"rl":"Stanford DE 3","r":8,"q":[
+{"i":42536,"s":"chem","f":"SA","qt":"tossup","n":15,"q":"In photoelectric devices, electrons are ejected from a metal surface only if incoming light has enough energy to overcome a material-specific threshold. What is the name of this threshold energy required to remove an electron from the surface of a metal in a vacuum?","a":{"t":"Work function"}}]},
+{"rl":"Stanford DE 4","r":9,"q":[
+{"i":42560,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"Which of the following crystal habits is most likely to develop in an environment with very few nucleation sites?","a":{"t":"Tabular","l":"Z"},"c":{"W":"Botryoidal","X":"Drusy","Y":"Massive","Z":"Tabular"}}]}
 ]

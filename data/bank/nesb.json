@@ -1022,5 +1022,7 @@
 {"rl":"rr_8","r":8,"u":"https://lebot.djiang.xyz/packets/NESB/rr_8.pdf","q":[
 {"i":85969,"s":"bio","f":"MC","qt":"bonus","n":null,"q":"The dust bowl of the 1930s resulted from:","a":{"t":"overfarming the grasslands","l":"Y"},"c":{"W":"cutting down temperate forests","X":"periodic fires","Y":"overfarming the grasslands","Z":"overgrazing of bison"}}]},
 {"rl":"de_9","r":18,"u":"https://lebot.djiang.xyz/packets/NESB/de_9.pdf","q":[
-{"i":85988,"s":"math","f":"MC","qt":"tossup","n":null,"q":"Which of the following functions is NOT a transcendental function?","a":{"t":"algebraic","l":"X"},"c":{"W":"trigonometric","X":"algebraic","Y":"logarithmic","Z":"exponential"}}]}
+{"i":85988,"s":"math","f":"MC","qt":"tossup","n":null,"q":"Which of the following functions is NOT a transcendental function?","a":{"t":"algebraic","l":"X"},"c":{"W":"trigonometric","X":"algebraic","Y":"logarithmic","Z":"exponential"}}]},
+{"rl":"rr_2","r":2,"u":"https://lebot.djiang.xyz/packets/NESB/rr_2.pdf","q":[
+{"i":96433,"s":"ess","f":"MC","qt":"bonus","n":7,"q":"In the sixteenth century, Pope Gregory XIII ordered calendar reform to more precisely measure the leap year cycle. Therefore, the year 2000","c":{"W":"will be a leap year","X":"will not be a leap year","Y":"will cause clocks to stop","Z":"will be skipped"},"a":{"t":"will be a leap year","l":"W"}}]}
 ]

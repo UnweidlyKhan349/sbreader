@@ -529,5 +529,11 @@
 {"rl":"DASONI Standard DE1","r":4,"u":"https://speriphery.com/query","q":[
 {"i":85490,"s":"math","f":"SA","qt":"tossup","n":null,"q":"What is ∫ sec x tan x?","a":{"t":"sec x + C","rj":["SECANT OF X"]}}]},
 {"rl":"DASONI Standard DE2","r":5,"u":"https://speriphery.com/query","q":[
-{"i":85491,"s":"math","f":"SA","qt":"bonus","n":null,"q":"What is lim_(x → 0) (cos 2x-1)/x^2?","a":{"t":"-2"}}]}
+{"i":85491,"s":"math","f":"SA","qt":"bonus","n":null,"q":"What is lim_(x → 0) (cos 2x-1)/x^2?","a":{"t":"-2"}}]},
+{"rl":"DASONI Standard DE5","r":8,"u":"https://lebot.djiang.xyz/packets/Dasoni%20Standard1/DASONI%20Standard%20DE5.pdf","q":[
+{"i":96428,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"An electron moves at 3.2 × 10^-13 m/s perpendicular to a magnetic field with magnitude of 9.11 × 10^-22 teslas. What is the radius of the orbit that the electron travels in, in meters and to one significant figure?","a":{"t":"2 × 10^-3"}}]},
+{"rl":"DASONI Standard DE3","r":6,"u":"https://lebot.djiang.xyz/packets/Dasoni%20Standard1/DASONI%20Standard%20DE3.pdf","q":[
+{"i":96429,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Which of the following adjectives best describes a triangle with side lengths 29, 40, and 51?","c":{"W":"Acute","X":"Right","Y":"Obtuse","Z":"Impossible"},"a":{"t":"Obtuse","l":"Y"}},
+{"i":96430,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Audrey and Evan each have 1 liter of unobtanium, and they decide to play a game with it. On each round, Audrey gives half of her unobtanium to Evan, then Evan gives half of his unobtanium to Audrey. After 30 rounds, how much unobtanium does Audrey have? Express your answer to the nearest milliliter.","a":{"t":"1333","ac":["1333 MILLILITERS","1333 ML"]}},
+{"i":96431,"s":"math","f":"SA","qt":"tossup","n":16,"q":"A spherical marble of volume 36π fits inside a box in the shape of a cube. What is the smallest possible volume of that box?","a":{"t":"216"}}]}
 ]

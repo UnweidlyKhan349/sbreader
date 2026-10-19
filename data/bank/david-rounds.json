@@ -323,5 +323,6 @@
 {"i":85954,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Find the saddle point of the following function: f(x,y) = x cubed + 3xy + y cubed.","a":{"t":"(0, 0)"}}]},
 {"rl":"Middleton 2","r":2,"u":"https://lebot.djiang.xyz/packets/David%20Rounds/Middleton%202.pdf","q":[
 {"i":85955,"s":"ess","f":"MC","qt":"bonus","n":null,"q":"Which of the following distances is closest to that of the radius of the galaxy Andromeda?","a":{"t":"100,000 light years","l":"Z"},"c":{"W":"100 light years","X":"1,000 light years","Y":"10,000 light years","Z":"100,000 light years"}},
-{"i":85956,"s":"ess","f":"SA","qt":"tossup","n":null,"q":"What is the most prominent last stage of an average star’s life before it turns into a black dwarf?","a":{"t":"WHITE DWARF"}}]}
+{"i":85956,"s":"ess","f":"SA","qt":"tossup","n":null,"q":"What is the most prominent last stage of an average star’s life before it turns into a black dwarf?","a":{"t":"WHITE DWARF"}},
+{"i":7003,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"In lab, you use a 5.00 mL volumetric pipet, a 25.00 mL volumetric flask, and a 250 mL beaker to measure out solutions to make a series of dilutions. The number of significant figures you need in the concentration of the final solution is:","a":{"t":"2","l":"X"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}}]}
 ]

@@ -788,5 +788,9 @@
 {"i":86999,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"Researchers at Lawrence Livermore National Lab are studying statistical mechanical methods to create a stable cryptocurrency using SHA256. Which of the following is closest to the total number of possible hashes in SHA256?","a":{"t":"10^77","l":"W"},"c":{"W":"10^77","X":"10^78","Y":"10^79","Z":"10^80"}}]},
 {"rl":"RR9 (1)","r":9,"u":"https://lebot.djiang.xyz/packets/NSBA1/RR9%20%281%29.pdf","q":[
 {"i":96069,"s":"math","f":"SA","qt":"bonus","n":3,"q":"On a 3 by 4 chessboard, how many perfect tilings are there with 1×2 indistinguishable dominoes?","a":{"t":"11"}},
-{"i":96070,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Identify all of the following 3 proteins that are activated in a phosphorylation cascade: 1) Protein phosphatase; 2) Protein kinase I; 3) Protein kinase II","a":{"t":"2, 3","ac":["2 AND 3"]}}]}
+{"i":96070,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Identify all of the following 3 proteins that are activated in a phosphorylation cascade: 1) Protein phosphatase; 2) Protein kinase I; 3) Protein kinase II","a":{"t":"2, 3","ac":["2 AND 3"]}}]},
+{"rl":"Playoffs 2.3","r":14,"q":[
+{"i":68964,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"In Max well’s equations, the scalar potential and vector potential are not uniquely defined, because they can undergo what transformations that preserve electromagnetic fields and form a Lie group?","a":{"t":"GAUGE TRANSFORMATIONS"}}]},
+{"rl":"RR6","r":6,"q":[
+{"i":69011,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"How many distinct H1 - NMR signals exist for 2,4 - diethylbenzoic acid?","a":{"t":"8"}}]}
 ]

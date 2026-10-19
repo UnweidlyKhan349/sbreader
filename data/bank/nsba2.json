@@ -325,5 +325,6 @@
 {"i":96058,"s":"energy","f":"SA","qt":"tossup","n":null,"q":"Given a sorted list of n integers, what is the best time complexity in classical computing when searching for a specific integer?","a":{"t":"O(log n)","ac":["LOG N"]}},
 {"i":96059,"s":"energy","f":"SA","qt":"tossup","n":null,"q":"In a neural network, what function allows an individual neuron to compute its output from the outputs of the neurons in the previous layer?","a":{"t":"ACTIVATION FUNCTION"}},
 {"i":96060,"s":"energy","f":"SA","qt":"tossup","n":null,"q":"Identify all of the following 3 logic gates that can be created from NAND gates: 1) OR; 2) XOR; 3) AND.","a":{"t":"ALL","ac":["1, 2 AND 3"]}},
-{"i":96061,"s":"energy","f":"MC","qt":"tossup","n":null,"q":"All characters included in the ASCII encoding are encoded in UTF-8 beginning with which of the following sequences of bits?","c":{"W":"10","X":"01","Y":"101","Z":"0"},"a":{"t":"0","l":"Z"}}]}
+{"i":96061,"s":"energy","f":"MC","qt":"tossup","n":null,"q":"All characters included in the ASCII encoding are encoded in UTF-8 beginning with which of the following sequences of bits?","c":{"W":"10","X":"01","Y":"101","Z":"0"},"a":{"t":"0","l":"Z"}},
+{"i":96432,"s":"bio","f":"SA","qt":"tossup","n":null,"q":"What enzymes do retroviruses such as HIV use to synthesize complementary DNA directly from an RNA template?","a":{"t":"Reverse transcriptase"}}]}
 ]

@@ -577,5 +577,9 @@
 {"rl":"Copy of SSBT FINALS","r":11,"u":"https://lebot.djiang.xyz/packets/SSBT-2023/Copy%20of%20SSBT%20FINALS.pdf","q":[
 {"i":86788,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Using the diagram above, calculate the inbreeding coefficient of Individual IV-1, assuming that the common ancestor has an inbreeding coefficient of 0","a":{"t":"1/32","ac":["3.125%"]},"im":[{"f":"ssbt-2023/86788.webp","w":806,"h":814}]}]},
 {"rl":"Copy of SSBT Playoffs Round 6","r":9,"u":"https://lebot.djiang.xyz/packets/SSBT-2023/Copy%20of%20SSBT%20Playoffs%20Round%206.pdf","q":[
-{"i":86789,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Using standard IUPAC nomenclature, correctly name the following compound","a":{"t":"METHOXYBENZENE","ac":["1-METHOXYBENZENE"]},"im":[{"f":"ssbt-2023/86789.webp","w":463,"h":377}]}]}
+{"i":86789,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Using standard IUPAC nomenclature, correctly name the following compound","a":{"t":"METHOXYBENZENE","ac":["1-METHOXYBENZENE"]},"im":[{"f":"ssbt-2023/86789.webp","w":463,"h":377}]}]},
+{"rl":"Copy of SSBT FINALS 2_","r":12,"q":[
+{"i":70210,"s":"math","f":"SA","qt":"bonus","n":6,"q":"Two fair three - sided dice with sides numbered 1, 2, and 3 are rolled. What is the expected value of the maximum value of the two die?","a":{"t":"22/9"}},
+{"i":70211,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Which of the following upper - atmosphere phenomena is most commonly associated with cyclonic activity?","a":{"t":"Divergence","l":"Z"},"c":{"W":"Ridge","X":"Trough","Y":"Convergence","Z":"Divergence"}},
+{"i":70212,"s":"math","f":"SA","qt":"bonus","n":18,"q":"In how many ways can 12 ba -- nanas be distributed to 6 children if exactly two children will have 1 banana and each child must have at least 1 banana?","a":{"t":"150"}}]}
 ]

@@ -629,5 +629,7 @@
 {"rl":"MOSFET Round 3","r":3,"u":"https://speriphery.com/query","q":[
 {"i":85466,"s":"math","f":"SA","qt":"bonus","n":null,"q":"What is 2log_(10)(40)+log_(10)(5)-3log_(10)(2)?","a":{"t":"3"}}]},
 {"rl":"MOSFET Round 7","r":7,"u":"https://speriphery.com/query","q":[
-{"i":85472,"s":"math","f":"SA","qt":"tossup","n":null,"q":"Real number a satisfies sin(a) = 12/13. What is the sum of the two possible values of sec(a)?","a":{"t":"0"}}]}
+{"i":85472,"s":"math","f":"SA","qt":"tossup","n":null,"q":"Real number a satisfies sin(a) = 12/13. What is the sum of the two possible values of sec(a)?","a":{"t":"0"}}]},
+{"rl":"MOSFET Round 7","r":7,"q":[
+{"i":41523,"s":"math","f":"MC","qt":"bonus","n":22,"q":"Which of the following numbers is NOT a prime factor of 2^16 - 1?","a":{"t":"11","l":"Y"},"c":{"W":"3","X":"5","Y":"11","Z":"17"}}]}
 ]

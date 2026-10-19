@@ -682,5 +682,25 @@
 {"i":85504,"s":"math","f":"SA","qt":"tossup","n":null,"q":"What is 5^(14) mod 7?","a":{"t":"4"}},
 {"i":85505,"s":"ess","f":"SA","qt":"bonus","n":null,"q":"In the Friedmann acceleration equation, a(t) (sometimes just simply a) stands for what dimensionless factor that parametrizes the relative expansion of the universe","a":{"t":"Scale factor"}}]},
 {"rl":"SBST Round 9","r":9,"u":"https://lebot.djiang.xyz/packets/SBST/SBSTWO/SBST%20Round%209.pdf","q":[
-{"i":85990,"s":"phys","f":"SA","qt":"tossup","n":9,"q":"Identify all of the following three quantities that, when doubled, would increase the energy of a particle in a box. 1) Length of the box; 2) Mass of the particle; 3) Principal quantum number.","a":{"t":"3 ONLY"}}]}
+{"i":85990,"s":"phys","f":"SA","qt":"tossup","n":9,"q":"Identify all of the following three quantities that, when doubled, would increase the energy of a particle in a box. 1) Length of the box; 2) Mass of the particle; 3) Principal quantum number.","a":{"t":"3 ONLY"}},
+{"i":27234,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"Nematocysts are possessed by members of what phylum?","a":{"t":"CNIDARIA"}}]},
+{"rl":"Round 11","r":11,"q":[
+{"i":69561,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"In the alternation of generations model of plants, which generation possesses gametangia?","a":{"t":"GAMETOPHYTE"}},
+{"i":69562,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"In our Sun, the photons produced in the proton - proton chain all belong to what portion of the electromagnetic spectrum?","a":{"t":"GAMMA RAY"}},
+{"i":69563,"s":"chem","f":"SA","qt":"tossup","n":14,"q":"Argonne National Lab scientists are studying the potential benefits of alcohols as blendstocks for internal combustion engines. Identify all of the following three molecules that are secondary alcohols: 1) Isobutanol; 2) Isopropanol; 3) 2 - butanol.","a":{"t":"2 AND 3"}},
+{"i":69564,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"Scientists at Fermi lab have been studying the 21 centimeter line, an emission line produced by the neutral form of what element?","a":{"t":"HYDROGEN"}},
+{"i":69565,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"The Meselson - Stahl experiment supported which of the following models of DNA replication?","a":{"t":"Semiconservative","l":"Y"},"c":{"W":"Conservative","X":"Integrative","Y":"Semiconservative","Z":"Dispersive"}},
+{"i":69566,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"What is the molecular geometry of XeOF 2?","a":{"t":"T - SHAPED"}},
+{"i":69567,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"Rank the following three 1 - molar acid solutions in terms of increasing pH: 1) Sulfuric; 2) Hydrofluoric; 3) Hydrocyanic.","a":{"t":"1,2,3"}},
+{"i":69568,"s":"ess","f":"SA","qt":"tossup","n":23,"q":"Kowalski’s and Halley’s comets are both objects that originate from what region of the solar system?","a":{"t":"KUIPER BELT"}}]},
+{"rl":"SBST Round 10","r":10,"q":[
+{"i":69570,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"According to the pressure - flow hypothesis, when sugars ar e translocated in the phloem, they must first be first transported out of the parenchyma cells into the sieve tube elements. This is done via coupling its transport to what ion?","a":{"t":"HYDROGEN"}}]},
+{"rl":"SBST Round 2","r":2,"q":[
+{"i":69582,"s":"ess","f":"MC","qt":"bonus","n":6,"q":"Which of the following planets has a 3 to 2 spin - orbit resonance with the Sun?","a":{"t":"Mercury","l":"X"},"c":{"W":"Earth","X":"Mercury","Y":"Venus","Z":"Neptune"}}]},
+{"rl":"SBST Round 3","r":3,"q":[
+{"i":69592,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the x - intercept of the line that is perpendicular to the line with equation 7 x + 11 y = 20 and passes through the point (3, 2)?","a":{"t":"19/11","ac":["19/11, 0"]}}]},
+{"rl":"SBST Round 6","r":6,"q":[
+{"i":69601,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"A 10 - kilogram block is resting on an inclined plane which makes an angle of 45 degrees with respect to the horizontal. In newtons, what is the maximum static friction force that the plane exerts on the block.","a":{"t":"49 TIMES THE SQUARE ROOT OF 2"}},
+{"i":69604,"s":"chem","f":"MC","qt":"tossup","n":6,"q":"A small sample of phenol is dissolved in a 1 - molar solution of sodium hydroxide. Which of the following is closest to the percent of phenol molecules that are deprotonated after the reaction is allowed to reach equilibrium?","a":{"t":"100","l":"Z"},"c":{"W":"0","X":"25","Y":"75","Z":"100"}},
+{"i":69611,"s":"bio","f":"SA","qt":"tossup","n":16,"q":"Alpha - melanocyte stimulating hormone is released from which endocrine gland of the human body?","a":{"t":"ANTERIOR PITUITARY","ac":["PITUITARY"]}}]}
 ]

@@ -802,5 +802,7 @@
 {"rl":"Copy of ROUND 14","r":14,"u":"https://lebot.djiang.xyz/packets/Walton%20Rounds/Copy%20of%20ROUND%2014.pdf","q":[
 {"i":87525,"s":"phys","f":"SA","qt":"tossup","n":21,"q":"What law is used in electromagnetism to calculate the magnetic field produced by a current and includes the displacement current?","a":{"t":"AMPÈRE–MAXWELL LAW","ac":["AMPERE'S CIRCUITAL LAW WITH MAXWELL'S CORRECTION","AMPERE-MAXWELL LAW"]}}]},
 {"rl":"Copy of ROUND 7","r":7,"u":"https://lebot.djiang.xyz/packets/Walton%20Rounds/Copy%20of%20ROUND%207.pdf","q":[
-{"i":87526,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Calculate the change in internal energy of a system given that the change in enthalpy is 200 Joules and the change in volume is 5 Liters at a constant pressure of 1 atmosphere.","a":{"t":"−307 JOULES","ac":["−306.6","−310"]}}]}
+{"i":87526,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Calculate the change in internal energy of a system given that the change in enthalpy is 200 Joules and the change in volume is 5 Liters at a constant pressure of 1 atmosphere.","a":{"t":"−307 JOULES","ac":["−306.6","−310"]}}]},
+{"rl":"Copy of ROUND 12","r":12,"u":"https://lebot.djiang.xyz/packets/Walton%20Rounds/Copy%20of%20ROUND%2012.pdf","q":[
+{"i":31369,"s":"phys","f":"MC","qt":"tossup","n":10,"q":"A charged particle moving through a magnetic field will experience the largest force when","a":{"t":"moving at a 90° angle to the field.","l":"Z"},"c":{"W":"moving with the field.","X":"moving against the field.","Y":"moving at a 45° angle to the field.","Z":"moving at a 90° angle to the field."}}]}
 ]
