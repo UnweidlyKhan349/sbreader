@@ -199,5 +199,7 @@
 {"rl":"DV 2025 Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%202.pdf","q":[
 {"i":45081,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"Which of the following would describe what happens when an animal cell is placed in a hypotonic solution?","a":{"t":"it will burst","l":"Z"},"c":{"W":"it will shrivel","X":"it will plasmolyze","Y":"it will become turgid","Z":"it will burst"}}]},
 {"rl":"DV 2025 Round 2","r":2,"q":[
-{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Short Answer: What number is 150% of 20?","a":{"t":"30"}}]}
+{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Short Answer: What number is 150% of 20?","a":{"t":"30"}}]},
+{"rl":"Bio Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Bio%20Supplemental.pdf","q":[
+{"i":96108,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following tools is used by scientists to replicate many copies of the same DNA fragment?","c":{"W":"Gel electrophoresis","X":"Sanger sequencing","Y":"Western blotting","Z":"Polymerase chain reaction"},"a":{"t":"Polymerase chain reaction","l":"Z","ac":["PCR"]}}]}
 ]

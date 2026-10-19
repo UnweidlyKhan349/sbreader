@@ -291,5 +291,7 @@
 {"rl":"Round 7","r":7,"q":[
 {"i":71038,"s":"math","f":"MC","qt":"tossup","n":5,"q":"If a circle with equation x^2 + y^2 = 64 has the part in the third quadrant removed, and turned into a cone, which of the following would be its volume?","a":{"t":"24 7π","l":"X"},"c":{"W":"12 7π","X":"24 7π","Y":"36 7π","Z":"72 7π"}}]},
 {"rl":"Round 3","r":3,"u":"https://lebot.djiang.xyz/packets/NWI_2024/Round%203.pdf","q":[
-{"i":86998,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"Rank the following 3 ions by increasing degree of deflection in a mass spectrometer: 1) Carbon-12 1+; 2) Carbon-12 2+; 3) Carbon-13 1+.","a":{"t":"3, 1, 2"}}]}
+{"i":86998,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"Rank the following 3 ions by increasing degree of deflection in a mass spectrometer: 1) Carbon-12 1+; 2) Carbon-12 2+; 3) Carbon-13 1+.","a":{"t":"3, 1, 2"}}]},
+{"rl":"Round 5","r":5,"u":"https://lebot.djiang.xyz/packets/NWI_2024/Round%205.pdf","q":[
+{"i":96064,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Find the sum from n = 1 to infinity of n/2^n.","a":{"t":"2"}}]}
 ]

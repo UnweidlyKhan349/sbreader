@@ -651,5 +651,10 @@
 {"i":68551,"s":"phys","f":"MC","qt":"tossup","n":24,"q":"In terms of rs, at what distance does the escape velocity from a non-rotating black hole equal c/2?","a":{"t":"4rs","l":"Z"},"c":{"W":"47 rs","X":"83 rs","Y":"92 rs","Z":"4rs"}},
 {"i":68552,"s":"phys","f":"SA","qt":"bonus","n":24,"q":"In Schwarzschild spacetime, light emitted at radius re and received at infinity has gravitational redshift 1 + z = q 2GM. If a photon is received at infinity with half the emission frequency, 1− re [r−sub−e]c2 what is re?","a":{"t":"8GM 3c2"}},
 {"i":68553,"s":"ess","f":"SA","qt":"tossup","n":25,"q":"Order the following three feedback mechanisms in increasing order of time taken for the effects of the cycle to be significantly felt: 1) Carbonate-silicate weathering 2) Cloud feedback 3) Water vapor feedback.","a":{"t":"3, 2, 1"}},
-{"i":68554,"s":"ess","f":"SA","qt":"bonus","n":25,"q":"Each night in Austin, the ground freezes! At UT, land is on a 60 degree slope, and when soil freezes, it expands outwards by 3 centimeters. It then melts again each morning. To the nearest day, how many days will it take the soil to move 100 centimeters?","a":{"t":"39 days"}}]}
+{"i":68554,"s":"ess","f":"SA","qt":"bonus","n":25,"q":"Each night in Austin, the ground freezes! At UT, land is on a 60 degree slope, and when soil freezes, it expands outwards by 3 centimeters. It then melts again each morning. To the nearest day, how many days will it take the soil to move 100 centimeters?","a":{"t":"39 days"}}]},
+{"rl":"Finals 1","r":13,"q":[
+{"i":96050,"s":"phys","f":"MC","qt":"tossup","n":4,"q":"A satellite in a bound Kepler orbit has semi-major axis a and total mechanical energy E = −GMm/(2a). Using the virial theorem, what is the time-averaged speed ⟨v⟩ in terms of G, M, and a?","c":{"W":"√(GM/(2a))","X":"√(GM/a)","Y":"√(2GM/a)","Z":"Cannot be determined from the virial theorem alone"},"a":{"t":"Cannot be determined from the virial theorem alone","l":"Z"}},
+{"i":96051,"s":"math","f":"SA","qt":"tossup","n":23,"q":"Let x = e^(2πi/9). What is the product from k = 0 to k = 8 of (2 − x^k)?","a":{"t":"511"}}]},
+{"rl":"Double Elimination 6","r":11,"q":[
+{"i":96052,"s":"math","f":"SA","qt":"bonus","n":3,"q":"What is the integral from 0 to π/2 of 1/(1 + tan x) dx?","a":{"t":"π/4"}}]}
 ]

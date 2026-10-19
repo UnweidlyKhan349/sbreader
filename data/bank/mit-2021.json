@@ -623,5 +623,7 @@
 {"rl":"round8","r":8,"q":[
 {"i":70913,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the integral of the flux of the vector field xî+y ĵ+z k̂ out of a sphere centered at the origin of radius 2?","a":{"t":"32π"}}]},
 {"rl":"round9","r":9,"q":[
-{"i":70917,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find the integral from 0 to π of x cos(x)dx.","a":{"t":"−2"}}]}
+{"i":70917,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find the integral from 0 to π of x cos(x)dx.","a":{"t":"−2"}}]},
+{"rl":"round13","r":13,"u":"https://lebot.djiang.xyz/packets/MIT-2021/round13.pdf","q":[
+{"i":96049,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the integral from negative infinity to infinity of e^(−(x^2 + 8x + 9)) dx.","a":{"t":"e^7 √π","ac":["√π e^7","e^7 · √π"]}}]}
 ]

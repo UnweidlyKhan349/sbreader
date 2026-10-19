@@ -667,7 +667,7 @@
 {"rl":"Round_5","r":5,"q":[
 {"i":69184,"s":"ess","f":"MC","qt":"tossup","n":10,"q":"Which of the following Köppen (KAWHpuhn) classification climates would be the most likely to have significant permafrost?","a":{"t":"Dfc","l":"Z"},"c":{"W":"Af","X":"BSk","Y":"Csa","Z":"Dfc"}},
 {"i":69185,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What is the area of the region bounded by the x-axis and the conic with equation y = x^2 − 25?","a":{"t":"500/3"}},
-{"i":69187,"s":"math","f":"MC","qt":"bonus","n":21,"q":"What is the units digit of 3^3?","a":{"t":"7","l":"Z"},"c":{"W":"1","X":"3","Y":"5","Z":"7"}},
+{"i":69187,"s":"math","f":"MC","qt":"bonus","n":21,"q":"What is the units digit of 3^(3^(3^(3^3))) (read as: three to the power of three to the power of three to the power of three to the power of three)?","a":{"t":"7","l":"Z"},"c":{"W":"1","X":"3","Y":"5","Z":"7"}},
 {"i":69188,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"A particle lies on the positive x-axis, and experiences a force of 7i +6k newtons. Which of the following could be the torque about the origin experienced by the particle?","a":{"t":"-5j","l":"X"},"c":{"W":"5j","X":"-5j","Y":"10i +6k","Z":"-10i -6k"}}]},
 {"rl":"Round_7","r":7,"q":[
 {"i":69193,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Researchers in the Knouse (NAUS ) Lab at MIT used a newly developed system to search for genes important to hepatocyte viability, and discovered that MHC genes involved with antigen presentation are especially essential. What does the term MHC stand for?","a":{"t":"Major histocompatibility complex"}},

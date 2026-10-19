@@ -239,7 +239,7 @@
 {"i":41883,"s":"ess","f":"MC","qt":"tossup","n":10,"q":"Which of the following metamorphic rocks is NOT correctly paired to its parent rock?","a":{"t":"SCHIST; DOLOSTONE","l":"X"},"c":{"W":"Gneiss; Granite","X":"Schist; Dolostone","Y":"Marble; Limestone","Z":"Phyllite; Shale"}},
 {"i":41884,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"Identify all of the following three statements that are TRUE regarding seismic activity: I. The Modified Mercalli Scale describes the damage caused by an earthquake on a scale from I- V II. S waves will always reach a seismogram before P waves III. The 1964 Alaska earthquake was the most powerful ever recorded on the moment magnitude scale, measuring 9.2","a":{"t":"NONE"}},
 {"i":41885,"s":"math","f":"SA","qt":"tossup","n":11,"q":"Two sets, A and B, have the same number of elements. If the union of sets A and B consists of 2022 elements, and their intersection consists of 178 elements, how many elements are in Set A?","a":{"t":"1100"}},
-{"i":41886,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the derivative of f(x) = ln(x^2 + 2x) at x = 2). 2x+2 2(2)+2 6 3","a":{"t":"¾ (SOLUTION: f′(x) = x 2+2x − −> f′(2) = = 8 = 4) 22 +2(2)"}},
+{"i":41886,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the derivative of f(x) = ln(x^2 + 2x) at x = 2?","a":{"t":"3/4","ac":["0.75"]}},
 {"i":41887,"s":"bio","f":"MC","qt":"tossup","n":12,"q":"Scientists at Brookhaven National Lab have been studying the structure of MPro, the main protease of SARS-CoV-2. Which of the following statements is incorrect regarding proteases?","a":{"t":"THEY DO NOT HELP TO FORM NEW PROTEIN PRODUCTS","l":"X"},"c":{"W":"They catalyze proteolysis","X":"They do not help to form new protein products","Y":"They play a part in cell signaling","Z":"They can be inhibited by lipophilic ligands"}},
 {"i":41888,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Scientists at Oak Ridge National Lab are studying the properties of the neutron and the existence of the theorized ‘mirror neutron’. What is the isospin of a neutron?","a":{"t":"-½"}},
 {"i":41889,"s":"bio","f":"MC","qt":"tossup","n":13,"q":"Which of the following cellular components will have the lowest pH?","a":{"t":"LYSOSOME","l":"Z"},"c":{"W":"Endoplasmic reticulum","X":"Golgi Apparatus","Y":"Peroxisome","Z":"Lysosome"}},
@@ -468,7 +468,7 @@
 {"i":42108,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"Light of wavelength 500 pm is scattered by atoms in a crystalline solid, undergoing constructive interference. If planes of atoms in the solid have an interplanar distance of 250 pm, in degrees, what is the angle of incidence for a diffraction order of 1?","a":{"t":"90"}},
 {"i":42109,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Which of the following functional groups could not be in the product of an ozonolysis reaction?","a":{"t":"ETHER","l":"W"},"c":{"W":"Ether","X":"Aldehyde","Y":"Ketone","Z":"Carboxylic Acid"}},
 {"i":42110,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"Select all of the following that are true of a Diels Alder Reaction: 1) It uses four π electrons from the diene, 2) It produced unsaturated six-membered rings, 3) A dienophile with a halogen substituent are typically good for Diels-Alder reactions","a":{"t":"1,2,3 or ALL"}},
-{"i":42111,"s":"math","f":"MC","qt":"bonus","n":19,"q":"How many perfect cubes divide the expression 3! ∗ 5!","a":{"t":"2 (SOLUTION: 24 ∗ 32 ∗ 5)","l":"Y"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}},
+{"i":42111,"s":"math","f":"MC","qt":"bonus","n":19,"q":"How many perfect cubes divide the expression 3! ∗ 5!","a":{"t":"2","l":"Y"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}},
 {"i":42112,"s":"bio","f":"MC","qt":"tossup","n":20,"q":"Which of the following sequences of DNA influence transcription near the gene?","a":{"t":"PROMOTER","l":"Y"},"c":{"W":"Enhancer","X":"Insulator","Y":"Promoter","Z":"Silencer"}},
 {"i":42113,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"What group of proteins are important to turn somatic cells into induced pluripotent stem cells?","a":{"t":"YAMANAKA FACTORS"}},
 {"i":42114,"s":"phys","f":"SA","qt":"tossup","n":21,"q":"A string of length 3 meters is attached to fixed points at its ends and vibrates as a standing wave. At its 6th harmonic, how many nodes does this standing wave pattern have?","a":{"t":"7"}},
@@ -572,7 +572,7 @@
 {"i":71135,"s":"math","f":"SA","qt":"bonus","n":23,"q":"Solve the following improper integral: ∫1 dx","a":{"t":"1"}}]},
 {"rl":"NSFBL Round 8","r":8,"q":[
 {"i":71136,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"Expressing your answer in degrees, what is Brewster’s angle for light moving between two media where the refractive index of the initial medium is 3 and the refractive index of the final medium is √3?","a":{"t":"30"}},
-{"i":71137,"s":"math","f":"SA","qt":"tossup","n":19,"q":"What is the exact derivative of 7e? x","a":{"t":"ln(7) ⋅ e x ⋅ 7e"}}]},
+{"i":71137,"s":"math","f":"SA","qt":"tossup","n":19,"q":"What is the exact derivative of 7^(e^x) (read as: seven to the power of e to the power of x)?","a":{"t":"ln(7) · e^x · 7^(e^x)"}}]},
 {"rl":"NSFBL Round 9","r":9,"q":[
 {"i":71138,"s":"math","f":"SA","qt":"tossup","n":5,"q":"Evaluate the limit as x goes to infinity of ex","a":{"t":"0"}}]},
 {"rl":"NSFBL Round 11","r":11,"q":[
@@ -580,5 +580,7 @@
 {"rl":"NSFBL Round 6","r":6,"q":[
 {"i":86765,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"Observe the following circuit diagram: The switch is closed at time t=0. After a long time, what is the current through the ammeter in amperes?","a":{"t":"2 A"},"im":[{"f":"nsfbl/86765.webp","w":1360,"h":479}]}]},
 {"rl":"NSFBL Round 7","r":7,"q":[
-{"i":86766,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Observe the given image of triangle ABC. D is a point on line AC such that BD = DC. If the measure of angle BCD is 48 degrees, then what is the measure of angle ADB?","a":{"t":"96"},"im":[{"f":"nsfbl/86766.webp","w":1360,"h":518}]}]}
+{"i":86766,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Observe the given image of triangle ABC. D is a point on line AC such that BD = DC. If the measure of angle BCD is 48 degrees, then what is the measure of angle ADB?","a":{"t":"96"},"im":[{"f":"nsfbl/86766.webp","w":1360,"h":518}]}]},
+{"rl":"NSFBL Round 1","r":1,"q":[
+{"i":96053,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A newly discovered planet has a mass that is 5 times that of the Earth, but with a radius that is 20 times larger. Giving your answer in terms of v_e, the escape velocity of Earth, what would be the escape velocity of that planet?","a":{"t":"v_e/2","ac":["1/2 v_e","HALF OF v_e"]}}]}
 ]
