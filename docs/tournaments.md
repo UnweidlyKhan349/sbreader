@@ -91,6 +91,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | SBST | 642 |  | hs |
 | SBST (Spring) | 613 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
+| Science Bowl Subject Sets 1991–93 | 3,265 |  | hs |
 | SMH 2025 | 536 | 11 | hs |
 | SMH 2026 | 617 | 17 | hs |
 | SSBT 2023 | 552 | 9 | hs |
@@ -106,4 +107,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (102)** | **76,209** | **532** | |
+| **Total (103)** | **79,474** | **532** | |
