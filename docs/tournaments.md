@@ -22,7 +22,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | CLASH 2026 MS | 428 | 10 | ms |
 | Clements 2025 | 504 |  | hs |
 | CSBL | 659 | 6 | hs |
-| CSUB | 1,597 |  | hs |
+| CSUB | 1,605 |  | hs |
 | CUT 2026 | 625 |  | hs |
 | DASONI 2 | 644 | 27 | hs |
 | Dasoni Comp1 | 420 |  | hs |
@@ -108,4 +108,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 454 | 21 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (104)** | **81,408** | **532** | |
+| **Total (104)** | **81,416** | **532** | |

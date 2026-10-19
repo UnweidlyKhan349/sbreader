@@ -2,14 +2,14 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 81,408 questions from 104 tournaments** (42,526 tossups / 38,882 bonuses; 50,183 short answer / 31,225 multiple choice), including **532 visual questions** whose figures (536 images) are shown with the question.
+**Current question bank: 81,416 questions from 104 tournaments** (42,530 tossups / 38,886 bonuses; 50,189 short answer / 31,227 multiple choice), including **532 visual questions** whose figures (536 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
-| Biology | 16,481 |
+| Biology | 16,482 |
 | Earth & Space | 16,204 |
 | Physics | 16,202 |
-| Math | 13,957 |
+| Math | 13,964 |
 | Chemistry | 14,836 |
 | Energy | 3,728 |
 
@@ -224,7 +224,7 @@ A flat record (a question plus its packet's fields and its tournament):
 ### `data/meta.json`
 `totalQuestions`, `tournaments[{slug, name, count, level}]` (sorted case-insensitively by name), `subjects`, `rounds`, `formats`, `qtypes`, `levels`, `idAliases`, `generatedAt`. It's rebuilt from the bank after every data change, and `totalQuestions` always equals both the sum of tournament counts and the number of questions in the bank. Every tournament listed has a file in `data/bank/`, and vice versa.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,769 questions); everything else is `hs` (67,639). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational and MOOSE 2021 (13,769 questions); everything else is `hs` (67,647). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
