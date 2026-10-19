@@ -859,6 +859,17 @@
    * `close` marks a wrong answer that's a near miss (a typo, or the key plus
    * extra words); the pages ask the player to override it if they meant it.
    */
+  // A choice with its bracketed reading guide removed: "[nice]", "[VAN der
+  // VALLS]", "(“one hex-why-ne”)", "(read as …)", "(pronounced …)".
+  function choiceWithoutGuide(text) {
+    if (!text) return null;
+    const out = String(text)
+      .replace(/\s*\[[^\]]*\]/g, '')
+      .replace(/\s*\((?:[“"][^)]*|read[^)]*|pron[^)]*)\)/gi, '')
+      .replace(/\s+/g, ' ').trim();
+    return out || null;
+  }
+
   function checkAnswer(question, userInput) {
     const raw = (userInput || '').trim();
     if (!raw) return { correct: false, matched: null, rejected: false, empty: true };
@@ -890,6 +901,14 @@
 
       // exact text of the correct choice
       if (correctText && (normEqual(raw, correctText) || compactEqual(raw, correctText))) return right;
+      // the correct choice without its reading guide ("gneiss [nice]",
+      // "1-hexyne (“one hex-why-ne”)"), as long as no other choice reads
+      // the same once its own guide is gone
+      const bare = choiceWithoutGuide(correctText);
+      if (bare && bare !== correctText && (normEqual(raw, bare) || compactEqual(raw, bare))
+          && !Object.entries(question.choices).some(([L, t]) => L !== correctLetter && normEqual(raw, choiceWithoutGuide(t) || t))) {
+        return right;
+      }
 
       // "W) text" / "W. text" / "W: text" / "W - text" - the letter AND the
       // text must both be the correct choice's.
