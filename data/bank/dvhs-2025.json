@@ -122,7 +122,7 @@
 {"i":40833,"s":"math","f":"SA","qt":"tossup","n":6,"q":"What is the additive inverse of -6?","a":{"t":"6"}},
 {"i":40836,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"To two significant figures, what is the acceleration due to gravity on Earth in m/s^2?","a":{"t":"9.8"}},
 {"i":40839,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following is the largest organ in the human body","a":{"t":"skin","l":"X"},"c":{"W":"liver","X":"skin","Y":"femur","Z":"brain"}},
-{"i":40843,"s":"ess","f":"MC","qt":"tossup","n":11,"q":"What planet is known as the Earth’s twin?","a":{"t":"Venus","l":"W"},"c":{"W":"venus","X":"mars","Y":"mercury","Z":"pluto"}},
+{"i":40843,"s":"ess","f":"MC","qt":"tossup","n":11,"q":"What planet is known as the Earth’s twin?","a":{"t":"venus","l":"W"},"c":{"W":"venus","X":"mars","Y":"mercury","Z":"pluto"}},
 {"i":40845,"s":"math","f":"MC","qt":"tossup","n":12,"q":"Which of the following fractions is the smallest","a":{"t":"1/9","l":"Z"},"c":{"W":"1/6","X":"1/7","Y":"1/8","Z":"1/9"}},
 {"i":40853,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"What type of alternative energy equipment uses the power of the sun to generate electricity?","a":{"t":"Solar panels"}},
 {"i":40855,"s":"ess","f":"MC","qt":"tossup","n":17,"q":"what types of rock form from lava cooling?","a":{"t":"igneous","l":"W"},"c":{"W":"igneous","X":"sedimentary","Y":"metamorphic","Z":"magma"}},
@@ -199,5 +199,7 @@
 {"rl":"DV 2025 Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%202.pdf","q":[
 {"i":45081,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"Which of the following would describe what happens when an animal cell is placed in a hypotonic solution?","a":{"t":"it will burst","l":"Z"},"c":{"W":"it will shrivel","X":"it will plasmolyze","Y":"it will become turgid","Z":"it will burst"}}]},
 {"rl":"DV 2025 Round 2","r":2,"q":[
-{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Short Answer: What number is 150% of 20?","a":{"t":"30"}}]}
+{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Short Answer: What number is 150% of 20?","a":{"t":"30"}}]},
+{"rl":"Bio Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Bio%20Supplemental.pdf","q":[
+{"i":96108,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following tools is used by scientists to replicate many copies of the same DNA fragment?","c":{"W":"Gel electrophoresis","X":"Sanger sequencing","Y":"Western blotting","Z":"Polymerase chain reaction"},"a":{"t":"Polymerase chain reaction","l":"Z","ac":["PCR"]}}]}
 ]

@@ -113,6 +113,17 @@ test('multiple choice is strict', () => {
   assert.ok(!checkAnswer(q, 'X').correct);
 });
 
+test('multiple choice ignores a choice\'s reading guide', () => {
+  const q = { question: 'Q?', format: 'MC', choices: { W: 'slate', X: 'limestone', Y: 'gneiss [nice]', Z: 'schist' },
+    answer: { text: 'gneiss [nice]', letter: 'Y', accept: [], reject: [] } };
+  assert.ok(checkAnswer(q, 'gneiss').correct);
+  assert.ok(checkAnswer(q, 'gneiss [nice]').correct);
+  assert.ok(!checkAnswer(q, 'nice').correct);
+  const twin = { question: 'Q?', format: 'MC', choices: { W: 'Fe [iron two]', X: 'Fe [iron three]', Y: 'Cu', Z: 'Zn' },
+    answer: { text: 'Fe [iron two]', letter: 'W', accept: [], reject: [] } };
+  assert.ok(!checkAnswer(twin, 'Fe').correct);
+});
+
 test('every answer key in the corpus grades as correct', () => {
   const failures = [];
   for (const q of loadCorpus().questions) {

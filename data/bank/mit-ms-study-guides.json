@@ -1,0 +1,42 @@
+[
+{"rl":"Math","r":null,"u":"https://drive.google.com/file/d/1tdhEyOJ_UGfNvONHlAgDbiLpw6CC8Miv/view","q":[
+{"i":96072,"s":"math","f":"SA","qt":"tossup","n":1,"q":"What is 45^2?","a":{"t":"2025"}},
+{"i":96073,"s":"math","f":"SA","qt":"tossup","n":2,"q":"As a base-10 logarithm, what is 3 log_10 2 + log_10 5?","a":{"t":"log_10 40","ac":["LOG 40","LOG BASE 10 OF 40"]}},
+{"i":96074,"s":"math","f":"MC","qt":"tossup","n":3,"q":"How many factors does 96 have?","c":{"W":"6","X":"12","Y":"16","Z":"24"},"a":{"t":"12","l":"X"}},
+{"i":96075,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the slope of a line with equation 3x + 4y = 15?","a":{"t":"−3/4","ac":["-0.75"]}},
+{"i":96076,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In reduced form, what is the product of (1 + 2i)(3 − i)?","a":{"t":"5 + 5i"}},
+{"i":96077,"s":"math","f":"MC","qt":"tossup","n":6,"q":"What shape is described by the equation (x − 6)^2 + 4y^2 = 1?","c":{"W":"A circle","X":"An ellipse","Y":"A parabola","Z":"A hyperbola"},"a":{"t":"An ellipse","l":"X"}},
+{"i":96078,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the probability of rolling a prime number on a six-sided die?","a":{"t":"1/2","ac":["50%","0.5"]}},
+{"i":96079,"s":"math","f":"MC","qt":"tossup","n":8,"q":"How many distinct ways are there to arrange the letters in ENERGY?","c":{"W":"120","X":"240","Y":"360","Z":"720"},"a":{"t":"360","l":"Y"}},
+{"i":96080,"s":"math","f":"MC","qt":"tossup","n":9,"q":"In the 20-person baking club, 17 people like cake and 8 people like pie. If there are 3 people who don’t like either cake or pie, how many people like both?","c":{"W":"5","X":"6","Y":"7","Z":"8"},"a":{"t":"8","l":"Z"}},
+{"i":96081,"s":"math","f":"SA","qt":"tossup","n":10,"q":"As a fraction, what is the area of the triangle with coordinates (0, 1), (1, 3), and (0, 4)?","a":{"t":"3/2"}},
+{"i":96082,"s":"math","f":"SA","qt":"tossup","n":11,"q":"How many edges are there in a regular pyramid with 16 faces?","a":{"t":"30"}},
+{"i":96083,"s":"math","f":"SA","qt":"tossup","n":12,"q":"If all alligators are green, give, by name or number, all of the following statements which are true: I. All green animals are alligators. II. If an animal is not green, then it is not an alligator. III. If an animal is not an alligator, then it is not green.","a":{"t":"II ONLY","ac":["2 ONLY","2"]}},
+{"i":96084,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the name of the figure which only contains one surface?","a":{"t":"MÖBIUS STRIP","ac":["MOBIUS STRIP","KLEIN BOTTLE"]}}]},
+{"rl":"Life Science","r":null,"u":"https://drive.google.com/file/d/1eBDvQvJJbArJuP9OXy0HfUwr2r-F0L--/view","q":[
+{"i":96085,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What phase of the cell cycle takes the longest amount of time?","a":{"t":"INTERPHASE"}},
+{"i":96086,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"How many daughter cells are produced by the end of meiosis?","a":{"t":"4","ac":["FOUR"]}},
+{"i":96087,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Two parents are looking to have a child and come to you for advice on the probability that their child will have cystic fibrosis. Given that the dad is a carrier and the mom is affected, what is the probability their child will be affected by cystic fibrosis?","a":{"t":"50%","ac":["1/2"]}},
+{"i":96088,"s":"bio","f":"SA","qt":"tossup","n":4,"q":"Mendel crosses two pea plants that are heterozygous for both pea color and pea texture. Green color is dominant to yellow, and round texture is dominant to wrinkled. What proportion of the offspring will have yellow round peas?","a":{"t":"3/16"}},
+{"i":96089,"s":"bio","f":"SA","qt":"tossup","n":5,"q":"Given a DNA sequence of AAATTGC, find the complementary strand’s sequence.","a":{"t":"TTTAACG"}},
+{"i":96090,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"What is the name for the structure of DNA as discovered by Watson and Crick?","a":{"t":"DOUBLE HELIX"}},
+{"i":96091,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"Which of the following bases does not occur in RNA?","c":{"W":"Adenine","X":"Guanine","Y":"Cytosine","Z":"Thymine"},"a":{"t":"Thymine","l":"Z"}},
+{"i":96092,"s":"bio","f":"MC","qt":"tossup","n":8,"q":"What enzyme is responsible for adding new bases to DNA in the 5’ to 3’ (READ AS: five prime to three prime) direction?","c":{"W":"RNA polymerase","X":"DNA helicase","Y":"DNA polymerase","Z":"DNA ligase"},"a":{"t":"DNA polymerase","l":"Y"}},
+{"i":96093,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following taxonomic groupings is most specific?","c":{"W":"Domain","X":"Class","Y":"Order","Z":"Phylum"},"a":{"t":"Order","l":"Y"}},
+{"i":96094,"s":"bio","f":"MC","qt":"tossup","n":10,"q":"Which of the following would not be classified under Eukarya?","c":{"W":"Green algae","X":"Diatoms","Y":"Plants","Z":"Chlamydia"},"a":{"t":"Chlamydia","l":"Z"}},
+{"i":96095,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What is the name of the response plants have to the relative lengths of light and darkness?","a":{"t":"PHOTOPERIODISM"}}]},
+{"rl":"Earth and Space Science","r":null,"u":"https://drive.google.com/file/d/1X7joXlVyFXDZav9p-0eU8uqOf9bY7nsK/view","q":[
+{"i":96096,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"By name or number, order the following 4 minerals from first to last to crystallize in magma: 1) Amphibole; 2) Biotite; 3) Olivine; 4) Quartz","a":{"t":"3, 1, 2, 4","ac":["OLIVINE, AMPHIBOLE, BIOTITE, QUARTZ"]}},
+{"i":96097,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"What is the minimum number of seismometers needed to locate the epicenter of an earthquake?","a":{"t":"3","ac":["THREE"]}},
+{"i":96098,"s":"ess","f":"MC","qt":"tossup","n":3,"q":"The ozone layer is primarily found in which layer of the atmosphere?","c":{"W":"Troposphere","X":"Stratosphere","Y":"Mesosphere","Z":"Thermosphere"},"a":{"t":"Stratosphere","l":"X"}},
+{"i":96099,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"Which Galilean moon of Jupiter is the innermost and exhibits the most volcanic activity?","c":{"W":"Ganymede","X":"Callisto","Y":"Europa","Z":"Io"},"a":{"t":"Io","l":"Z"}},
+{"i":96100,"s":"ess","f":"MC","qt":"tossup","n":5,"q":"Where on an HR diagram would a blue giant be found?","c":{"W":"Upper left","X":"Upper right","Y":"Lower left","Z":"Lower right"},"a":{"t":"Upper left","l":"W"}},
+{"i":96101,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following is the most common location for young blue stars in a spiral galaxy?","c":{"W":"Halo","X":"Nucleus","Y":"Spiral arms","Z":"Central bulge"},"a":{"t":"Spiral arms","l":"Y"}}]},
+{"rl":"Physical Science","r":null,"u":"https://drive.google.com/file/d/1A17ep2gb_rhWRiuqkCyzKqBwhN_14k3n/view","q":[
+{"i":96102,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following is NOT an SI base unit?","c":{"W":"Kilogram","X":"Coulomb","Y":"Kelvin","Z":"Candela"},"a":{"t":"Coulomb","l":"X"}},
+{"i":96103,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following is NOT an example of a physical change?","c":{"W":"Water vapor condensing","X":"Magnetizing an iron nail","Y":"Filing a piece of iron","Z":"Iron rusting"},"a":{"t":"Iron rusting","l":"Z"}},
+{"i":96104,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"Rank the following three materials in terms of increasing density: I. Polystyrene II. Glass III. Gold","a":{"t":"1, 2, 3","ac":["POLYSTYRENE, GLASS, GOLD"]}},
+{"i":96105,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How many protons and neutrons will there be in the isotope resulting from U-238 undergoing one round of alpha decay and one round of beta decay? Uranium has 92 protons.","a":{"t":"91 PROTONS, 143 NEUTRONS"}},
+{"i":96106,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"Which of the following reactions is endothermic?","c":{"W":"Chlorine gas reacts with hydrogen gas to form hydrogen chloride gas","X":"Liquid water vaporizes to yield steam","Y":"Sodium metal reacts with water to yield sodium hydroxide and hydrogen gas","Z":"Liquid water freezes to yield solid ice"},"a":{"t":"Liquid water vaporizes to yield steam","l":"X"}},
+{"i":96107,"s":"chem","f":"SA","qt":"tossup","n":6,"q":"What is the oxidation state of hydrogen atoms in ammonia?","a":{"t":"+1","ac":["1"]}}]}
+]
