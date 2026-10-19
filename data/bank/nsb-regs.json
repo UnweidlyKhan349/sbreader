@@ -12403,5 +12403,9 @@
 {"rl":"Set 4 · Round 10","r":10,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-4/Round10.pdf","q":[
 {"i":58872,"s":"chem","f":"MC","qt":"bonus","n":15,"q":"Which of the following 1.0 molar solutions will have the largest change in boiling point from that of pure water?","a":{"t":"Potassium phosphate","l":"Z"},"c":{"W":"Sodium bromide","X":"Magnesium iodide","Y":"Sucrose","Z":"Potassium phosphate"}}]},
 {"rl":"Set 15 · Round 3","r":3,"u":"https://speriphery.com/query","q":[
-{"i":85347,"s":"bio","f":"SA","qt":"bonus","n":null,"q":"Assuming a trophic efficiency of 10%, and expressing your answer as a fraction, what fraction of the energy available in primary producers will be available in the tertiary consumers?","a":{"t":"1/1000"}}]}
+{"i":85347,"s":"bio","f":"SA","qt":"bonus","n":null,"q":"Assuming a trophic efficiency of 10%, and expressing your answer as a fraction, what fraction of the energy available in primary producers will be available in the tertiary consumers?","a":{"t":"1/1000"}}]},
+{"rl":"Set 4 · Round 17","r":17,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-4/Round17.pdf","q":[
+{"i":96466,"s":"math","f":"SA","qt":"bonus","n":18,"q":"What is cosine of 15° in simplified radical form?","a":{"t":"(√2 + √6)/4","ac":["(√6 + √2)/4"]}}]},
+{"rl":"Set 8 · Round 15","r":15,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-8/Round-15-A.pdf","q":[
+{"i":96467,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the following definite integral: ∫_-3^0 √(9 − x^2) dx [the integral from negative three to zero of the square root of open parenthesis nine minus x squared close parenthesis d x].","a":{"t":"9π/4","ac":["2.25π"]}}]}
 ]

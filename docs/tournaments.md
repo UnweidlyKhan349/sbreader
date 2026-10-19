@@ -75,7 +75,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSB MS Regs | 11,448 |  | ms |
 | NSB Nationals 2005 | 789 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
-| NSB Regs | 12,037 |  | hs |
+| NSB Regs | 12,039 |  | hs |
 | NSBA1 | 724 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
@@ -83,7 +83,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSI 2023 | 272 |  | hs |
 | NSI 2024 | 252 |  | hs |
 | NWI 2024 | 276 |  | hs |
-| NWI 2025 | 394 |  | hs |
+| NWI 2025 | 397 |  | hs |
 | Olympus 2022 | 629 |  | hs |
 | Pohaku 2024 | 322 |  | hs |
 | Prometheus 2021 | 819 |  | hs |
@@ -110,4 +110,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (106)** | **83,082** | **535** | |
+| **Total (106)** | **83,087** | **535** | |
