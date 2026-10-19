@@ -13,6 +13,10 @@ A static Science Bowl practice site built from real tournament packets: a search
 | Chemistry | 15,035 |
 | Energy | 3,809 |
 
+> **Visual bonuses are implemented, and every scrape must collect them.** A question that comes with a figure (a visual bonus, or the occasional visual tossup) is stored with its image and shown in the catalog, solo and multiplayer modes, with its own Visual filter. When packets are scraped, their visual questions are scraped too, figure and all, from the packet itself or from the event's separate visual-bonus deck. They are never skipped as "visual"; one is left out only when its image exists nowhere that can be reached. See [Visual questions](#visual-questions).
+>
+> **Every question from every tournament and packet is included.** Questions with similar wording, or that test the same thing as another question, are allowed and kept, in the same tournament or across tournaments. The only questions dropped as duplicates are **true word-for-word copies inside a packet that is itself mostly copies** of another packet (a packet re-posted under another name, or the same file ingested twice), and the same question parsed twice from one slot. Apart from that, a question is left out only when it can't be used: no answer, text garbled past repair, a figure that exists nowhere, or a fact that is no longer true. See [Inclusion and duplicate policy](#inclusion-and-duplicate-policy).
+
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
 ---
@@ -25,9 +29,10 @@ This README covers what the site does, how it's built, the data format, and how 
 4. [Architecture](#architecture)
 5. [Data format](#data-format)
 6. [Visual questions](#visual-questions)
-7. [Known limitations and open items](#known-limitations-and-open-items)
-8. [Deploying](#deploying)
-9. [Local development and tests](#local-development-and-tests)
+7. [Inclusion and duplicate policy](#inclusion-and-duplicate-policy)
+8. [Known limitations and open items](#known-limitations-and-open-items)
+9. [Deploying](#deploying)
+10. [Local development and tests](#local-development-and-tests)
 
 ---
 
@@ -232,7 +237,11 @@ A flat record (a question plus its packet's fields and its tournament):
 
 ## Visual questions
 
-Some bonuses (and a few tossups) are about a picture: a diagram, graph, micrograph, spectrum, structure or photo. Earlier ingests left these out because their images weren't available; they are now in the bank with their figures.
+Some bonuses (and a few tossups) are about a picture: a diagram, graph, micrograph, spectrum, structure or photo. **Visual questions are fully implemented**: the record carries its figure, every page shows it, and a filter selects them. Very early ingests skipped them because there was nowhere to put an image; that is no longer a reason to skip anything.
+
+**Scraping rule: always scrape visual bonuses.** When a packet is ingested, its visual questions go in with their figures like any other question. Look for the figure in the packet first (embedded images; vector drawings rendered from the page), then in the event's visual-bonus deck (slides, a separate PDF, a Google Slides export, speaker notes), then in the structured source (isobowl's `imageUrl`). Only when the image exists nowhere reachable is the question left out, or kept as text if it can be answered without the picture, and the gap goes under [Known limitations](#known-limitations-and-open-items).
+
+- **Visual sweep (October 2026)**: all 1,976 packet files were searched for visual markers ("Visual Bonus" headers, NSBA1's "VISHWAL BONUS", "shown in the image", "pictured", "depicted", "the following figure/graph/pedigree", VB slide titles) and every hit was matched against the bank. All but a handful already carry their figure. Added: ICSBT 2's DE7 Brassicaceae bonus (its floral diagram is embedded in the .docx) and its ext4 "visual" bonus, which has no picture and is answerable as text. Two text-only copies that sat in a tossup slot beside the real visual bonus (NSBA1 Playoffs 2.2's Vish Fish, Finals 3's Eulerian path) and one in LOST 1 Round 13 (Bullet Cluster) were removed, with `idAliases` pointing at the visual record. Still without a figure, because none was published: Texas 2026's three visual bonuses (Round 12's sandstones and Round 13's beach profiles are left out; Round 13's 7-segment display is in the bank as text, since the display is standard), National Chemistry Bowl DE6's three (the Google Doc says "shown above" but holds no image), Fall 2023 Round 14's pipe-flow bonus (its .docx image is an empty placeholder), and SBST's and SBST (Spring)'s visual rounds (their packets never included the figures).
 
 - **Which questions**: 532 records in 31 tournaments carry an `im` list (536 images; NSBA1's and Bash 2025's two-part figures have two images each, and one WSBT bonus has three). The largest sets are LOST 2 (46), SBL (44), MIT 2025 (36), LOST 1 (34), NSBA1 (31), ESBOT 2 and CLASH 2026 HS (30 each), DASONI 2 and HSBT 2026 (27 each), Bash 2025 and MIT 2024 (25 each) and Fall 2023 (22). 99 of them were already in the bank as text and got their figure back; the rest were added. Where an existing record's text had been cut short, it was replaced with the packet's full text. Per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and how they were found and checked is in [docs/data-history.md](docs/data-history.md#visual-questions).
 - **Where the images come from**: images embedded in the PDF and .docx packets of the user's packet archive (matched to the bank by question text and cropped to the figure; where a packet's image runs off the page, the embedded picture itself was taken instead of a page render); the separate visual-bonus slide decks (MIT 2024/2025, Fall 2023, DAST, CLASH, FE!M, …), rendered slide by slide with LibreOffice and trimmed to the figure; LOST 1's and LOST 2's slide decks from scibowl.live; HSBT 2026's public visual-bonus deck (Google Slides, exported as PDF); figures drawn inline in SBL's packets and in ICSBT 3's public PDFs; the public SMH 2026 Google Docs; and isobowl's structured Trio Online Math Bowl rounds. Figures drawn as vector graphics (LOST 1's reaction schemes and circuit, SBL's geometry diagrams) have no embedded image to extract, so the page region holding the drawing is rendered at 200 dpi instead, which captures vector strokes, text labels and any pictures layered on top together.
@@ -240,6 +249,18 @@ Some bonuses (and a few tossups) are about a picture: a diagram, graph, microgra
 - **Display**: figures sit between the question text and the choices, on a white card, capped at 420 px tall (300 px in catalog cards, `min(52vh, 460px)` in the live question panel), and open full-size in a lightbox on click. The card's `width`/`height` attributes reserve the space before the image arrives.
 - **Filter**: a "Visual questions" chip row (Visual / Text only) in the catalog, solo setup, solo settings and multiplayer room settings; selecting neither or both means no filter. It's carried in the multiplayer settings messages like every other filter.
 - **Grading** is unchanged: the answer still comes from the record's key and accept list.
+
+---
+
+## Inclusion and duplicate policy
+
+**The bank includes every question from every tournament and packet.** This is the rule for every scrape and every cleanup pass:
+
+- **Similar questions stay.** Two questions that are worded alike, ask about the same fact, or test the same idea are both kept, whether they sit in one tournament or in two. So are reworded versions of an older question (an SA turned into an MC, a "which of the following" turned into "identify all"), and a lone question one event borrowed word for word from another.
+- **Only true word-for-word duplicates in copy packets are dropped.** A question is removed as a duplicate only when it is word for word the same as another (ignoring case, spacing, punctuation, list markers, pronunciation guides and author tags, but never math signs or numbers) **and** the packet it sits in is mostly copies too: at least half of that packet's questions are word-for-word copies of another packet, which means it is the same packet posted again under another name or ingested twice. The same question parsed twice from one slot, and a damaged copy of a question printed beside its clean original, count as copies too. Every removal is recorded in `meta.json`'s `idAliases`, so bookmarks move to the kept copy.
+- **Otherwise a question is left out only when it can't be used**: no answer in the packet, text garbled past repair even with the page image, a figure that was never published, an answer key that is wrong and can't be worked out, or a fact that is no longer true (e.g. "the largest petroleum producer is Russia"). Wrong keys that can be worked out are corrected instead.
+
+In October 2026 the whole bank was re-checked against this rule. The earlier duplicate audit had also removed reworded questions and lone reuses, and some ingests had skipped questions that only loosely resembled one already in the bank. Those were restored (see [docs/data-history.md](docs/data-history.md#inclusion-rule-re-check-october-2026)).
 
 ---
 

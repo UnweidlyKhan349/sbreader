@@ -557,5 +557,8 @@
 {"rl":"ICSBT RR 1","r":1,"q":[
 {"i":40632,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"What is the total kinetic energy in joules of a solid sphere rolling without slipping with translational kinetic energy 12 joules?","a":{"t":"20"}}]},
 {"rl":"ICSBT RR 4","r":4,"q":[
-{"i":40765,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"On another planet, thrown horizontally from an initial height of 6 meters at 8 meters per second, a ball lands 8√3 meters away. With the same height and initial speed, it is tossed at an angle 30 degrees from the horizontal. In meters, how far away does it land?","a":{"t":"12sqrt3"}}]}
+{"i":40765,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"On another planet, thrown horizontally from an initial height of 6 meters at 8 meters per second, a ball lands 8√3 meters away. With the same height and initial speed, it is tossed at an angle 30 degrees from the horizontal. In meters, how far away does it land?","a":{"t":"12sqrt3"}}]},
+{"rl":"ICSBT DE 7","r":12,"q":[
+{"i":96442,"s":"bio","f":"SA","qt":"bonus","n":12,"q":"Answer the following three questions about the image shown. 1) What family do the plants shown belong to? 2) How many stamens does a flower of the plant shown have? 3) Which of the following best describes the flowers of the plants shown? W) Perfect X) Imperfect Y) Androecious Z) Gynoecious","a":{"t":"1) Brassicaceae; 2) 6; 3) W) Perfect"},"im":[{"f":"icsbt-2/96442.webp","w":392,"h":301}]},
+{"i":96443,"s":"energy","f":"SA","qt":"bonus","n":19,"q":"The default file system for most Linux systems, ext4, uses a journaled file system where writes are ordered and metadata is journaled. Identify all of the following 3 scenarios which could NOT occur in ext4: 1) Metadata corruption; 2) Corrupt data with valid metadata; 3) Corrupt data with corrupt metadata.","a":{"t":"1 only","ac":["1"]}}]}
 ]
