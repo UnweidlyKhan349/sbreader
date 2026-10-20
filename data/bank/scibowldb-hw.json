@@ -2896,11 +2896,11 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7350","q":[
 {"i":94426,"s":"phys","f":"MC","qt":"tossup","n":1190,"q":"The angular frequency of a vibrating spring undergoing simple harmonic motion is doubled when:","c":{"W":"Its mass is doubled","X":"Its spring constant is doubled","Y":"Its mass is quadrupled","Z":"Its spring constant is quadrupled"},"a":{"t":"Its spring constant is quadrupled","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7351","q":[
-{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E mc^2"},"a":{"t":"Kinetic energy being converted into mass by E mc^2","l":"Z"}}]},
+{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7351","q":[
 {"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos²θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7352","q":[
-{"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10−10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
+{"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10^-10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7352","q":[
 {"i":94430,"s":"phys","f":"MC","qt":"bonus","n":1194,"q":"10^25 angstroms is equal to:","c":{"W":"One gigameter","X":"One terameter","Y":"One petameter","Z":"One exameter"},"a":{"t":"One petameter","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7353","q":[
@@ -2986,7 +2986,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7374","q":[
 {"i":94468,"s":"phys","f":"MC","qt":"tossup","n":1235,"q":"An object has a moment of inertia about an axis 1m away from its center of mass of 10 kg·m^2. If the object has a mass of 5 kg, what is its moment of inertia about a parallel axis through its center of mass?","c":{"W":"1 kg·m^2","X":"5 kg·m^2","Y":"10 kg·m^2","Z":"20 kg·m^2"},"a":{"t":"5 kg·m^2","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7374","q":[
-{"i":94469,"s":"phys","f":"SA","qt":"bonus","n":1236,"q":"What can be done to increase an object’s angular velocity by 4 times without increasing or decreasing its total kinetic energy?","a":{"t":"DECREASE THE OBJECT’S RADIUS BY 4 TIME","ac":["DECREASE ITS MOMENT OF INERTIA BY A FACTOR OF 16"]}}]},
+{"i":94469,"s":"phys","f":"SA","qt":"bonus","n":1236,"q":"What can be done to increase an object’s angular velocity by 4 times without increasing or decreasing its total kinetic energy?","a":{"t":"DECREASE THE OBJECT’S RADIUS BY 4 TIMES","ac":["DECREASE ITS MOMENT OF INERTIA BY A FACTOR OF 16"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7375","q":[
 {"i":94470,"s":"phys","f":"MC","qt":"tossup","n":1237,"q":"Increasing the radius of a circular orbit by a factor of 2 means a decrease in the satellite’s speed by a factor of:","c":{"W":"2","X":"√2 / 2","Y":"1/2","Z":"√2"},"a":{"t":"√2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7375","q":[
@@ -3342,7 +3342,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7469","q":[
 {"i":94634,"s":"phys","f":"SA","qt":"bonus","n":1413,"q":"Five resistors of resistance 1, 2, 3, 4, and 5 kOhms are in parallel and are attached to a 9-volt battery. What is the steady state current running through the resistor with resistance 3 kOhms and through the entire circuit?","a":{"t":"3 MILLIAMPERES AND 20.55 MILLIAMPERES","ac":["3 mA AND 20.55 mA"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7470","q":[
-{"i":94635,"s":"phys","f":"SA","qt":"bonus","n":1414,"q":"Two wheels with moments of inertia I1 and I2 respectively are rotating on a pole with angular speeds of ω1 and ω2. An external force pushes both of the wheels together with a force that creates no torque. After a while, what is the new angular speed of both wheels?","a":{"t":"(I1ω1 + I2ω2)/(I1 + I2)"}}]},
+{"i":94635,"s":"phys","f":"SA","qt":"bonus","n":1414,"q":"Two wheels with moments of inertia I_1 and I_2 respectively are rotating on a pole with angular speeds of ω_1 and ω_2. An external force pushes both of the wheels together with a force that creates no torque. After a while, what is the new angular speed of both wheels?","a":{"t":"(I_1 ω_1 + I_2 ω_2)/(I_1 + I_2)"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7471","q":[
 {"i":94636,"s":"phys","f":"MC","qt":"tossup","n":1415,"q":"A point on a wheel is rotating with an angular velocity of 25 radians per second through a diameter of 2 meters. What is the wheel’s centripetal acceleration?","c":{"W":"50 meters per second squared","X":"350 meters per second squared","Y":"625 meters per second squared","Z":"1250 meters per second squared"},"a":{"t":"625 meters per second squared","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7471","q":[
@@ -3352,7 +3352,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7472","q":[
 {"i":94639,"s":"phys","f":"MC","qt":"bonus","n":1418,"q":"The Earth’s magnetic field is approximately how many Gauss?","c":{"W":"0.04 - 0.06 Gauss","X":"0.3 - 0.7 Gauss","Y":"400 - 600 Gauss","Z":"40,000 - 60,000 Gauss"},"a":{"t":"0.3 - 0.7 Gauss","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7473","q":[
-{"i":94640,"s":"phys","f":"MC","qt":"tossup","n":1419,"q":"The magnetic field can be described by which fundamental SI units?","c":{"W":"Nm/As","X":"NAs/m","Y":"NAs2/m","Z":"N/Am"},"a":{"t":"N/Am","l":"Z"}}]},
+{"i":94640,"s":"phys","f":"MC","qt":"tossup","n":1419,"q":"The magnetic field can be described by which fundamental SI units?","c":{"W":"Nm/As","X":"NAs/m","Y":"NAs^2/m","Z":"N/Am"},"a":{"t":"N/Am","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7473","q":[
 {"i":94641,"s":"phys","f":"SA","qt":"bonus","n":1420,"q":"A 10 kilogram block with a charge of +5 Coulombs is traveling in the +x direction with a speed of 12 meters per second. If the block moves through an 8 Gauss magnetic field located into the board, what is the particle’s acceleration and in what direction?","a":{"t":"0.0048 METERS PER SECOND SQUARED UPWARD","ac":["0.0048 M/S^2 UP"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7474","q":[

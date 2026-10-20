@@ -100,7 +100,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3576","q":[
 {"i":89074,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following is measured in Hertz?","c":{"W":"speed","X":"frequency","Y":"wavelength","Z":"amplitude"},"a":{"t":"frequency","l":"X"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3576","q":[
-{"i":89075,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"For projectiles fired at identical speeds but various angles from the ground, neglecting air resistance and the curvature of the Earth, at what angle will the maximum horizontal distance be attained?","a":{"t":"45 DEGREES","ac":["p /4"]}}]},
+{"i":89075,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"For projectiles fired at identical speeds but various angles from the ground, neglecting air resistance and the curvature of the Earth, at what angle will the maximum horizontal distance be attained?","a":{"t":"45 DEGREES","ac":["π/4"]}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3577","q":[
 {"i":89076,"s":"bio","f":"MC","qt":"tossup","n":2,"q":"Commensalism is when:","c":{"W":"both species benefit","X":"neither species affects the other","Y":"one species benefits while the other is unaffected","Z":"both species are harmed"},"a":{"t":"one species benefits while the other is unaffected","l":"Y"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3577","q":[

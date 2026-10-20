@@ -39,7 +39,7 @@
 {"i":2857,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"Scientists at Fermilab National Laboratory are bringing together astrophysics and particle physics to study dark matter. Approximately what percentage of the universe is dark matter?","a":{"t":"27","l":"X"},"c":{"W":"15","X":"27","Y":"59","Z":"68"}},
 {"i":2858,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the name of the process that recovers sulfur from the gaseous hydrogen sulfide in natural gas?","a":{"t":"CLAUS PROCESS"}},
 {"i":2859,"s":"chem","f":"SA","qt":"tossup","n":21,"q":"The graph of 1/[A] vs time for a reaction is linear. What is the half life for this reaction?","a":{"t":"1/(k[A]_0)"}},
-{"i":2860,"s":"chem","f":"SA","qt":"bonus","n":21,"q":"Find the pH of a solution with a [OH - ] of √10.","a":{"t":"13.5"}},
+{"i":2860,"s":"chem","f":"SA","qt":"bonus","n":21,"q":"Find the pH of a solution with a [OH^-] of √10.","a":{"t":"13.5"}},
 {"i":2861,"s":"math","f":"SA","qt":"tossup","n":22,"q":"To the nearest integer, calculate the square root of 36,000","a":{"t":"190"}},
 {"i":2862,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"Which period spawned such a great variety of fish that it is commonly referred to as the Age of Fishes?","a":{"t":"Devonian","l":"Z"},"c":{"W":"Ediacaran","X":"Cambrian","Y":"Pennsylvanian","Z":"Devonian"}},
 {"i":2863,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"Which subdivision of arthropoda do scorpions and spiders belong to?","a":{"t":"CHELICERATA"}}]},
