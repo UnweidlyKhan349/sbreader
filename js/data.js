@@ -251,7 +251,6 @@
   // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped' }
   function questionMetaRow(q, opts) {
     opts = opts || {};
-    const roundPart = SBData.roundLabelFor(q);
     const row = document.createElement('div');
     row.className = 'meta-row';
     row.innerHTML = [
@@ -260,7 +259,7 @@
       `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
       q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
+      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}</span>`,
     ].join('');
     return row;
   }
@@ -817,6 +816,13 @@
   }
   SBData.roundLabelFor = function (q) {
     return cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+  };
+  // Where a question comes from, as shown on its card: tournament, round and
+  // its number in the packet ("AVES 2 · RR 1 · Q15"). Tossup 15 and bonus 15
+  // share the number; the tag row already says which one this is.
+  SBData.sourceLabelFor = function (q) {
+    const roundPart = SBData.roundLabelFor(q);
+    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(' · ');
   };
 
   function shuffle(arr) {

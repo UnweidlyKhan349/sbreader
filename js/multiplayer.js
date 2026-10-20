@@ -209,7 +209,7 @@
   }
   function sanitizeQuestion(q) {
     return {
-      id: q.id, tournament: q.tournament, roundLabel: q.roundLabel, round: q.round,
+      id: q.id, tournament: q.tournament, roundLabel: q.roundLabel, round: q.round, num: q.num,
       subject: q.subject, format: q.format, qtype: q.qtype, level: q.level, question: q.question,
       visual: q.visual, images: q.images,
       choices: q.choices ? { W: q.choices.W, X: q.choices.X, Y: q.choices.Y, Z: q.choices.Z } : null,
@@ -605,8 +605,7 @@
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(r.answerText, r.letter, r.accept)}</div>`;
     if (r.reject && r.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(r.reject.join('; '))}</div>`;
-    const roundPart = SBData.roundLabelFor(game.question);
-    html += `<div class="src-line">${escapeHtml(game.question.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</div>`;
+    html += `<div class="src-line">${escapeHtml(SBData.sourceLabelFor(game.question))}</div>`;
     box.innerHTML = html;
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
