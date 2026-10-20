@@ -755,13 +755,13 @@
   };
 
   // What a search matches against: the question, answer and tournament name,
-  // lowercased, each also without exponent markup (invisible on screen, so
-  // "7100" also finds "7^100"). Built the first time a question is searched
+  // lowercased, each also without exponent and subscript markup (invisible
+  // on screen, so "7100" also finds "7^100" and "ksp" finds "K_sp"). Built the first time a question is searched
   // and kept, so later keystrokes don't lowercase the whole bank again. The
   // NUL separators keep a match from running across two fields, since a
   // search word can't contain one.
   const searchTexts = new WeakMap();
-  const unmarkExponents = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
+  const unmarkExponents = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
   function searchText(q) {
     let text = searchTexts.get(q);
     if (text === undefined) {
