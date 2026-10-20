@@ -15,7 +15,7 @@
 {"i":33070,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the molecular geometry of Xenon Tetrafluoride?","a":{"t":"Square Planar"}},
 {"i":33071,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"Which principle in chemistry states that when a system experiences a disturbance, it will respond to restore a new equilibrium state?","a":{"t":"Le Châtelier’s Principle"}}]},
 {"rl":"DV 2025 Round 1","r":1,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%201.pdf","q":[
-{"i":33073,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"Einstein’s theory of relativity includes what famous formula which equates the energy of a particle with its rest mass?","a":{"t":"E=mc 2"}},
+{"i":33073,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"Einstein’s theory of relativity includes what famous formula which equates the energy of a particle with its rest mass?","a":{"t":"E=mc^2"}},
 {"i":33074,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Which group of elements are considered stable because they contain a full outer shell?","a":{"t":"Nobel Gases"}},
 {"i":33075,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"What is the basic unit of life known as?","a":{"t":"Cells"}},
 {"i":33076,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"In what organelle in prokaryotic cells does protein synthesis take place?","a":{"t":"Ribosomes"}},
@@ -100,7 +100,7 @@
 {"i":33157,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the hexadecimal equivalent of the decimal number 100?","a":{"t":"64"}},
 {"i":33159,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A cylinder has a radius of 4 cm and a height of 10 cm. What is its volume, in terms of π?","a":{"t":"160 π"}},
 {"i":33161,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the greatest common divisor of 84 and 126?","a":{"t":"42"}},
-{"i":33163,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the solution to the equation ∣ 3x−2 ∣ <10??","a":{"t":"8/3<x<4"}},
+{"i":33163,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the solution to the equation |3x − 2| < 10?","a":{"t":"8/3<x<4"}},
 {"i":33164,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the sum of the interior angles of a 12 - sided polygon?","a":{"t":"1800 degrees"}},
 {"i":33165,"s":"math","f":"SA","qt":"bonus","n":23,"q":"If 2^(x+1) = 8(4^x), solve for x.","a":{"t":"x = -2"}}]},
 {"rl":"Physics Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Physics%20Supplemental.pdf","q":[
@@ -112,7 +112,7 @@
 {"i":33172,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"What is the term for a lens that is thicker in the center than on the edges?","a":{"t":"Convex"}},
 {"i":33173,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"When an object is placed 3 cm away from a mirror, the image is formed 5 cm from the mirror. What is the focal length of the mirror in cm?","a":{"t":"15/8 cm or 1.875 cm"}}]},
 {"rl":"Round 10 Supplemental","r":10,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Round%2010%20Supplemental.pdf","q":[
-{"i":33180,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Aneeka is making a circuit. She connects 3 2 ohm resistors in series with each other and one 5 ohm resistor in parallel to the first 3 resistors. What is the equivalent resistance of the system?","a":{"t":"as an improper fraction in simplest form. 30/11 ohms"}}]},
+{"i":33180,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Aneeka is making a circuit. She connects 3 2 ohm resistors in series with each other and one 5 ohm resistor in parallel to the first 3 resistors. What is the equivalent resistance of the system as an improper fraction in simplest form?","a":{"t":"30/11 ohms"}}]},
 {"rl":"Round 6 Supplemental","r":6,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Round%206%20Supplemental.pdf","q":[
 {"i":33205,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Order the following levels of function from smallest to largest: 1) tissue 2) organ 3) organ system 4) cell","a":{"t":"4,1,2,3"}}]},
 {"rl":"Dvhs Round 1","r":1,"q":[
@@ -159,7 +159,7 @@
 {"i":40927,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following hormones would be responsible for reducing the Ca^(2+) levels in the bloodstream?","a":{"t":"Calcitonin","l":"Y"},"c":{"W":"Thyroxine","X":"Parathyroid Hormone","Y":"Calcitonin","Z":"Follicle Stimulating Hormone"}}]},
 {"rl":"Dvhs Chem Supplemental","r":null,"q":[
 {"i":40930,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Alan has a habit of tasting chemicals in Chemistry class. During a lab, he tastes an unknown substance and finds it to be bitter. The substance nearly slips out of his hand on the way to his mouth. Which of the following substances could Alan have tasted?","a":{"t":"bleach","l":"X"},"c":{"W":"hydrochloric acid","X":"bleach","Y":"vinegar","Z":"pure water"}},
-{"i":40932,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following substances contains an ionic bond","a":{"t":"Pb(NO3)2","l":"Y"},"c":{"W":"NO3-","X":"N2O4","Y":"Pb(NO3)2","Z":"H2O"}},
+{"i":40932,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following substances contains an ionic bond","a":{"t":"Pb(NO3)2","l":"Y"},"c":{"W":"NO3^-","X":"N2O4","Y":"Pb(NO3)2","Z":"H2O"}},
 {"i":40933,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"Armaan is rubbing his hair with a balloon and notices that his hair starts to stick up. Which of the following is true:","a":{"t":"electrons are transferred from his hair to the balloon","l":"Y"},"c":{"W":"protons are transferred from his hair to the balloon","X":"protons are transferred from the balloon to his hair","Y":"electrons are transferred from his hair to the balloon","Z":"electrons are transferred from the balloon to his hair"}},
 {"i":40935,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"Which of the following is true regarding phase changes?","a":{"t":"the temperature does not change during a phase change","l":"W"},"c":{"W":"the temperature does not change during a phase change","X":"the heat added will cause the temperature to increase","Y":"the heat added will cause the temperature to decrease","Z":"you must know the entropy to determine whether the temperature will change"}},
 {"i":40936,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following is a possible set of quantum numbers for a 3d orbital?","a":{"t":"n=3, l=2","l":"Y"},"c":{"W":"n=3, l=0","X":"n=3, l=1","Y":"n=3, l=2","Z":"n=3, l=3"}},
@@ -180,7 +180,7 @@
 {"i":40973,"s":"math","f":"SA","qt":"bonus","n":23,"q":"Solve the following system of equations for x and y: 2x+3y=7 and 4x-y=5","a":{"t":"x=11/7, y=9/7(must say which one is equal to which to get credit)"}},
 {"i":40974,"s":"math","f":"MC","qt":"tossup","n":23,"q":"A jar contains red, blue, and green marbles. If the probability of drawing a red marble is 1/4 what is the percentage chance of drawing a blue or green marble?","a":{"t":"75%","l":"Y"},"c":{"W":"25%","X":"50%","Y":"75%","Z":"0%"}},
 {"i":40976,"s":"math","f":"MC","qt":"tossup","n":23,"q":"A triangle has angle measures 40°, 60°, and 80°. What type of triangle is it?","a":{"t":"acute","l":"Z"},"c":{"W":"right","X":"obtuse","Y":"isosceles","Z":"acute"}},
-{"i":40977,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A sequence is defined as an=3n^2−2n. What is the 8th term of the sequence?","a":{"t":"176"}},
+{"i":40977,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A sequence is defined as a_n = 3n^2 − 2n. What is the 8th term of the sequence?","a":{"t":"176"}},
 {"i":40979,"s":"math","f":"MC","qt":"bonus","n":23,"q":"A quadratic function has roots 4 and –2. Which of the following could be the function?","a":{"t":"x^2-2x-8","l":"W"},"c":{"W":"x^2-2x-8","X":"x^2-x-8","Y":"x^2-3x-10","Z":"x^2-5x+8"}},
 {"i":40980,"s":"math","f":"SA","qt":"tossup","n":23,"q":"If 5/x is equal to x/20, what are the possible values for x?","a":{"t":"10 and -10 (must have both numbers)"}}]},
 {"rl":"Dvhs Physics Supplemental","r":null,"q":[
@@ -199,7 +199,7 @@
 {"rl":"DV 2025 Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%202.pdf","q":[
 {"i":45081,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"Which of the following would describe what happens when an animal cell is placed in a hypotonic solution?","a":{"t":"it will burst","l":"Z"},"c":{"W":"it will shrivel","X":"it will plasmolyze","Y":"it will become turgid","Z":"it will burst"}}]},
 {"rl":"DV 2025 Round 2","r":2,"q":[
-{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Short Answer: What number is 150% of 20?","a":{"t":"30"}}]},
+{"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What number is 150% of 20?","a":{"t":"30"}}]},
 {"rl":"Bio Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Bio%20Supplemental.pdf","q":[
 {"i":96108,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following tools is used by scientists to replicate many copies of the same DNA fragment?","c":{"W":"Gel electrophoresis","X":"Sanger sequencing","Y":"Western blotting","Z":"Polymerase chain reaction"},"a":{"t":"Polymerase chain reaction","l":"Z","ac":["PCR"]}}]}
 ]

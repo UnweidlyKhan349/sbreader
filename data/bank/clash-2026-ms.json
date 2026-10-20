@@ -1,6 +1,6 @@
 [
 {"rl":"CLASH Finals","r":9,"q":[
-{"i":46386,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Nihar cuts a hole 4 meters below the top of a 5-meter tall barrel of water, open to the atmosphere, using g as 10 meters per second squared?","a":{"t":"4√5"}},
+{"i":46386,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Nihar cuts a hole 4 meters below the top of a 5-meter tall barrel of water, open to the atmosphere. In meters per second and using g as 10 meters per second squared, what is the speed of the water exiting the hole?","a":{"t":"4√5"}},
 {"i":46387,"s":"math","f":"SA","qt":"tossup","n":2,"q":"An isosceles triangle with sides of length 1, 1, and √3 is inscribed inside of a circle. In degrees, what is the measure of the minor arc intercepted by one of the two base angles?","a":{"t":"60"}},
 {"i":46388,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Which of the following is equivalent to the p-adic valuation, v_p(x^n - y^n) for all odd primes?","a":{"t":"v_p(x - y) + v_p(n)","l":"W"},"c":{"W":"v_p(x - y) + v_p(n)","X":"v_p(x - y) - v_p(n)","Y":"v_p(x - y) * v_p(n)","Z":"v_p(x - y) / v_p(n)"}},
 {"i":46389,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What is the Hill coefficient of a protein that does not exhibit cooperative binding?","a":{"t":"1","l":"Y"},"c":{"W":"-1","X":"0","Y":"1","Z":"Undefined"}},

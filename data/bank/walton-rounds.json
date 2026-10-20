@@ -717,7 +717,7 @@
 {"i":31922,"s":"phys","f":"SA","qt":"bonus","n":19,"q":"Given that the inductance across an inductor is 2 henries and the instantaneous rate of current change is 3 amperes/second, find the instantaneous voltage.","a":{"t":"6 VOLTS"}},
 {"i":31923,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following types of hydrocarbons are saturated?","a":{"t":"Alkanes","l":"Y"},"c":{"W":"Alkynes","X":"Alkenes","Y":"Alkanes","Z":"Alcohols"}},
 {"i":31924,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"Which of the following compounds has no chain isomers?","a":{"t":"Propane","l":"X"},"c":{"W":"Hexane","X":"Propane","Y":"Butane","Z":"Octane"}},
-{"i":31925,"s":"math","f":"SA","qt":"tossup","n":21,"q":"By name or number, identify which of the following 4 options is a negative number. 1) log_(0.2)(3), 2) log_(1/3)(1/5), 3) log_4(3), 4) log_2(log_2(9))","a":{"t":"1, 3","ac":["3"]}},
+{"i":31925,"s":"math","f":"SA","qt":"tossup","n":21,"q":"By name or number, identify which of the following 4 options is a negative number. 1) log_(0.2)(3), 2) log_(1/3)(1/5), 3) log_4(3), 4) log_2(log_2(9))","a":{"t":"1"}},
 {"i":31926,"s":"math","f":"SA","qt":"bonus","n":21,"q":"Given that ln ( a + b 2 ) = ( ln ( a ) + ln ( b ) ) / 2, find the value of b in terms of a.","a":{"t":"a"}},
 {"i":31927,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"What term describes fragments of one rock unit within an igneous rock that have not been derived from the original magma that formed the rock?","a":{"t":"XENOLITHS","ac":["INCLUSIONS?"]}},
 {"i":31928,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"The age of invertebrates within the Paleozoic period encompasses what two geologic periods?","a":{"t":"ORDIVICIAN, CAMBRIAN"}},
