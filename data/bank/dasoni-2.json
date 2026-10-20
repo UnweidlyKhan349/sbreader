@@ -340,7 +340,7 @@
 {"i":39108,"s":"chem","f":"SA","qt":"tossup","n":0,"q":"Order the following three molecules in increasing dipole moment: 1) hydrogen fluoride 2) hydrogen chloride 3) hydrogen bromide","a":{"t":"3 2 1"}},
 {"i":39109,"s":"chem","f":"SA","qt":"bonus","n":0,"q":"What quantum number is responsible for the fact that every s orbital can hold two electrons?","a":{"t":"Spin quantum number"}},
 {"i":39110,"s":"phys","f":"SA","qt":"tossup","n":0,"q":"For an ideal gas, the speed of sound proportional to what power of temperature?","a":{"t":"1/2"}},
-{"i":39111,"s":"phys","f":"SA","qt":"bonus","n":0,"q":"A particle has a Lorentz factor of 7. In terms of the speed of light, c, what is the speed of the particle?","a":{"t":"(4 √3/7) c"}},
+{"i":39111,"s":"phys","f":"SA","qt":"bonus","n":0,"q":"A particle has a Lorentz factor of 7. In terms of the speed of light, c, what is the speed of the particle?","a":{"t":"(4√3/7) c"}},
 {"i":39112,"s":"phys","f":"SA","qt":"tossup","n":0,"q":"What thermodynamic distribution function is used to describe bosons?","a":{"t":"Bose-Einstein"}},
 {"i":39113,"s":"phys","f":"SA","qt":"bonus","n":0,"q":"What is the equivalent resistance between opposite corners of a regular octahedron of resistors, each with a resistance of 1 ohm?","a":{"t":"1/2"}},
 {"i":39114,"s":"phys","f":"SA","qt":"tossup","n":0,"q":"What physical law is equivalent to the statement that fluid pressure is isotropic?","a":{"t":"Pascal's principle"}},

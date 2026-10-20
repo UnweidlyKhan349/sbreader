@@ -44,7 +44,7 @@
 {"i":20450,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"What process is characterized by the accumulation of small particles into more massive objects through gravitational attraction?","a":{"t":"ACCRETION"}},
 {"i":20451,"s":"math","f":"MC","qt":"tossup","n":22,"q":"Which of the following numbers is divisible by both 3 and 5?","a":{"t":"45","l":"Z"},"c":{"W":"10","X":"25","Y":"33","Z":"45"}},
 {"i":20452,"s":"math","f":"SA","qt":"bonus","n":22,"q":"How many positive integer factors does the number 110 have?","a":{"t":"8"}},
-{"i":20453,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following is the IUPAC systematic name of the compound FeCr2O7?","a":{"t":"Iron(II) dichromate","l":"W","ac":["II"]},"c":{"W":"Iron(II) dichromate","X":"Iron(II) chromate","Y":"Iron(III) dichromate","Z":"Iron(III) chromate"}},
+{"i":20453,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following is the IUPAC systematic name of the compound FeCr2O7?","a":{"t":"Iron(II) dichromate","l":"W"},"c":{"W":"Iron(II) dichromate","X":"Iron(II) chromate","Y":"Iron(III) dichromate","Z":"Iron(III) chromate"}},
 {"i":20454,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"To the nearest degree, what is the bond angle in sulfur trioxide?","a":{"t":"120"}}]},
 {"rl":"NNHS 2020-21 Round 2 (done)","r":2,"u":"https://lebot.djiang.xyz/packets/NNHS%20Rounds/NNHS%20Rounds%201-4%20%28Regionals%20RR%29/NNHS%202020-21%20Round%202%20%28done%29.pdf","q":[
 {"i":20455,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"What is the speed of a 5 - kilogram particle with a kinetic energy of 10 joules?","a":{"t":"2"}},

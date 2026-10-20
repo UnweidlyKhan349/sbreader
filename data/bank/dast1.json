@@ -86,7 +86,7 @@
 {"i":5465,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"What name is given to the region along which transcription factors commonly bind to DNA? This region of DNA is distinct from its counterpart in its wider structure thus allowing transcription factor binding.","a":{"t":"MAJOR GROOVE"}},
 {"i":5466,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"Classify the following mammals as either marsupial [mar - SOO - pee - uhl] mammals, eutherian [yoo - THEE - ree - in] mammals, or neither of them: 1) Kangaroo; 2) Wolverine; 3) Flying Squirrel","a":{"t":"1 - MARSUPIAL; 2 - EUTHERIAN; 3 - EUTHERIAN"}}]},
 {"rl":"DAST Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/DAST1/DAST%20Round%202.pdf","q":[
-{"i":5467,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"Which of the following oxides is the most basic?","a":{"t":"Indium(I) oxide","l":"Z","ac":["I"]},"c":{"W":"Dinitrogen tetroxide","X":"Water","Y":"Indium(III) oxide","Z":"Indium(I) oxide"}},
+{"i":5467,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"Which of the following oxides is the most basic?","a":{"t":"Indium(I) oxide","l":"Z"},"c":{"W":"Dinitrogen tetroxide","X":"Water","Y":"Indium(III) oxide","Z":"Indium(I) oxide"}},
 {"i":5468,"s":"chem","f":"SA","qt":"bonus","n":1,"q":"How many pi - bonds are there in 3 - isopropyl - 1 - hexanol?","a":{"t":"0"}},
 {"i":5469,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"Which moon belonging to the outer planets has the densest atmosphere in the Solar System and is primarily composed of nitrogen?","a":{"t":"TITAN"}},
 {"i":5470,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Order the following four planets in terms of increasing density: 1) Saturn; 2) Venus; 3) Jupiter; 4) Mars.","a":{"t":"1,3,4,2"}},

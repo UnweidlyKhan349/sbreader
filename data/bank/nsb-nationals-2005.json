@@ -1032,7 +1032,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3413","q":[
 {"i":89541,"s":"math","f":"MC","qt":"tossup","n":13,"q":"Using an x-y coordinate axis, a parabola is given by the equation y = x^2. Give the x-y coordinates of the focus for the parabola:","c":{"W":"(0, 1/4)","X":"(1, 1/4)","Y":"(1, 1)","Z":"(2, 1/4)"},"a":{"t":"(0, 1/4)","l":"W"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3413","q":[
-{"i":89542,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Express the following radical in simplified form: √(5/3)","a":{"t":"1/3 √15"}}]},
+{"i":89542,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Express the following radical in simplified form: √(5/3)","a":{"t":"1/3√15"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3414","q":[
 {"i":89543,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Which of the following is a limestone originating from the compacted carbonate shells of minute organisms:","c":{"W":"coal","X":"chalk","Y":"siltstone","Z":"shale"},"a":{"t":"chalk","l":"X"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3414","q":[
