@@ -48,7 +48,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3563","q":[
 {"i":89048,"s":"math","f":"MC","qt":"tossup","n":13,"q":"Which of the following properties would you use to compute the chances of rolling either a 7 or an 11 with a pair of dice:","c":{"W":"multiplicative","X":"conditional","Y":"independent","Z":"additive"},"a":{"t":"additive","l":"Z"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3563","q":[
-{"i":89049,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Give the rational numbers in the following set: -8, -√(3), 1/5, 0, π","a":{"t":"-8, 1/5, 0"}}]},
+{"i":89049,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Give the rational numbers in the following set: -8, -√3, 1/5, 0, π","a":{"t":"-8, 1/5, 0"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3564","q":[
 {"i":89050,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Magma that reached the Earth’s surface is called:","a":{"t":"LAVA"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3564","q":[
@@ -508,7 +508,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3679","q":[
 {"i":89278,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Mars has a thin atmosphere composed mainly of what gas?","a":{"t":"CARBON DIOXIDE","ac":["CO2"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3680","q":[
-{"i":89279,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In the following data set, which of the numbers are irrational: {-8, 2/3, √(3) (pronounced: square root of 3), π (pronounced: PIE}","a":{"t":"√(3) and π"}}]},
+{"i":89279,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In the following data set, which of the numbers are irrational: {-8, 2/3, √3 (pronounced: square root of 3), π (pronounced: PIE}","a":{"t":"√3 and π"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3680","q":[
 {"i":89280,"s":"math","f":"MC","qt":"bonus","n":5,"q":"A person with lung cancer is given an MRI. Four radiologists examine each MRI independently. If each specialist can detect lung cancer with 80% accuracy, what is the probability that at least one of them will detect cancer in this patient:","c":{"W":"0.998","X":"0.01","Y":"0.25","Z":"0.8"},"a":{"t":"0.998","l":"W"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3681","q":[
@@ -1032,7 +1032,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3413","q":[
 {"i":89541,"s":"math","f":"MC","qt":"tossup","n":13,"q":"Using an x-y coordinate axis, a parabola is given by the equation y = x^2. Give the x-y coordinates of the focus for the parabola:","c":{"W":"(0, 1/4)","X":"(1, 1/4)","Y":"(1, 1)","Z":"(2, 1/4)"},"a":{"t":"(0, 1/4)","l":"W"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3413","q":[
-{"i":89542,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Express the following radical in simplified form: √(5/3)","a":{"t":"1/3 √(15)"}}]},
+{"i":89542,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Express the following radical in simplified form: √(5/3)","a":{"t":"1/3 √15"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3414","q":[
 {"i":89543,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Which of the following is a limestone originating from the compacted carbonate shells of minute organisms:","c":{"W":"coal","X":"chalk","Y":"siltstone","Z":"shale"},"a":{"t":"chalk","l":"X"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3414","q":[
@@ -1202,7 +1202,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3455","q":[
 {"i":89626,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Express cos(arctan x) (read as: cosine of arc tangent x) without trigonometric functions:","a":{"t":"1/√(x^2 + 1)"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3456","q":[
-{"i":89627,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"The Curie point of an iron-bearing mineral is 580°C. This value specifically indicates that at 581° C, the sample will be:","c":{"W":"radioactive","X":"a liquid","Y":"magnetic","Z":"non- magnetic"},"a":{"t":"non- magnetic","l":"Z"}}]},
+{"i":89627,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"The Curie point of an iron-bearing mineral is 580°C. This value specifically indicates that at 581° C, the sample will be:","c":{"W":"radioactive","X":"a liquid","Y":"magnetic","Z":"non-magnetic"},"a":{"t":"non-magnetic","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3456","q":[
 {"i":89628,"s":"ess","f":"MC","qt":"bonus","n":6,"q":"The terminus of a retreating glacier is covered by the landslide of a nearby mountain buttress, covering nearly one-third of the ablation area with a 20 foot thick blanket of rubble. Which of the following will most likely occur:","c":{"W":"the glacier continues to retreat, but at an even greater rate","X":"the glacier continues to retreat, but at the same rate","Y":"the glacier is impeded by the debris and neither advances nor retreats","Z":"the glacier begins to advance"},"a":{"t":"the glacier begins to advance","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3457","q":[
@@ -1232,7 +1232,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3463","q":[
 {"i":89641,"s":"math","f":"MC","qt":"tossup","n":13,"q":"For which of the following mathematical systems does the commutative law of multiplication NOT hold:","c":{"W":"ordinary algebra","X":"algebra of groups","Y":"algebra of fields","Z":"algebra of matrices"},"a":{"t":"algebra of matrices","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3463","q":[
-{"i":89642,"s":"math","f":"SA","qt":"bonus","n":13,"q":"The crossing point between two lines, x + 2y - 4 = 0 and -2x + y + 3 = 0, is how far away from the origin?","a":{"t":"√(5) or 2.236"}}]},
+{"i":89642,"s":"math","f":"SA","qt":"bonus","n":13,"q":"The crossing point between two lines, x + 2y - 4 = 0 and -2x + y + 3 = 0, is how far away from the origin?","a":{"t":"√5 or 2.236"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3464","q":[
 {"i":89643,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Underwater volcanoes that have a flat top are called:","c":{"W":"seamounts","X":"island arcs","Y":"abyssal mountains","Z":"guyots"},"a":{"t":"guyots","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3464","q":[

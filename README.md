@@ -2,7 +2,7 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 83,087 questions from 106 tournaments** (43,432 tossups / 39,655 bonuses; 51,123 short answer / 31,964 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 83,085 questions from 106 tournaments** (43,431 tossups / 39,654 bonuses; 51,122 short answer / 31,963 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|

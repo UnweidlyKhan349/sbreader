@@ -29,7 +29,7 @@
 {"i":12206,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"Identify the forms of nitrogenous waste each of the following three animals excrete: 1) Yellow Bitterns; 2) Platyhelminthes; 3) Toads.","a":{"t":"URIC ACID, AMMONIA, UREA"}},
 {"i":12207,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"Ferrocene consists of a central iron cation sandwiched between two molecules of what anion?","a":{"t":"CYCLOPENTADIENYL ANION","ac":["CYCLOPENTADIENIDE"]}}]},
 {"rl":"Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%202.pdf","q":[
-{"i":11878,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate (1+sqrt(2))^3+(1 - sqrt(2))^3.","a":{"t":"14"}}]},
+{"i":11878,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate (1+√2)^3+(1 - √2)^3.","a":{"t":"14"}}]},
 {"rl":"Round 3","r":3,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%203.pdf","q":[
 {"i":11941,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"What is the denticity of EDTA?","a":{"t":"SIX","ac":["HEXADENTATE"]}}]}
 ]

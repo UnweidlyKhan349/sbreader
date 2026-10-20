@@ -790,7 +790,7 @@
 {"rl":"Copy of Copy of RR—2","r":2,"u":"https://speriphery.com/query","q":[
 {"i":85373,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"What law states that the total pressure in a reaction chamber is equal to the sum of the partial pressures of the components?","a":{"t":"DALTON'S LAW OF PARTIAL PRESSURES","ac":["DALTON'S LAW"]}}]},
 {"rl":"Copy of Copy of DE—1","r":5,"u":"https://speriphery.com/query","q":[
-{"i":85424,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Compute lim_(x→1)(x-1)/(√(x)-1)","a":{"t":"2"}}]},
+{"i":85424,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Compute lim_(x→1)(x-1)/(√x-1)","a":{"t":"2"}}]},
 {"rl":"Copy of Copy of DE—3","r":7,"u":"https://lebot.djiang.xyz/packets/BASIS%20Peoria%20Rounds/Copy%20of%20Copy%20of%20DE%E2%80%943.pdf","q":[
 {"i":85816,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"Identify all of the following that are direct symptoms of COVID - 19. (1) Muscle fatigue. (2) Back pain. (3) Diarrhea. (4) Shortness of breath. (5) Blurred vision.","a":{"t":"(1), (3), (4)"}}]},
 {"rl":"Copy of Copy of DE—6","r":10,"u":"https://lebot.djiang.xyz/packets/BASIS%20Peoria%20Rounds/Copy%20of%20Copy%20of%20DE%E2%80%946.pdf","q":[

@@ -135,7 +135,7 @@
 {"i":44679,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Which of the following elements is typically the largest by mass in igneous rocks?","a":{"t":"Oxygen","l":"Y"},"c":{"W":"Iron","X":"Silicon","Y":"Oxygen","Z":"Carbon"}},
 {"i":44680,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"A cold monomictic lake, such as those found in Antarctica, generally overturns during which of the following seasons?","a":{"t":"Summer","l":"X"},"c":{"W":"Spring","X":"Summer","Y":"Autumn","Z":"Winter"}},
 {"i":44681,"s":"ess","f":"MC","qt":"tossup","n":15,"q":"Which of the following asteroid belt objects has the greatest vertical density gradient?","a":{"t":"Vesta","l":"X"},"c":{"W":"Ceres","X":"Vesta","Y":"Hygiea","Z":"Pallas"}},
-{"i":44682,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"On the galaxy color magnitude diagram, the red sequence primarily consists of what major class of galaxy?","a":{"t":"Elliptical 2025 ESS - Double Elimination 1"}}]},
+{"i":44682,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"On the galaxy color magnitude diagram, the red sequence primarily consists of what major class of galaxy?","a":{"t":"Elliptical"}}]},
 {"rl":"DE2","r":7,"q":[
 {"i":44683,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Identify all of the following properties, if increased, would correspond to an increase in the density of air: 1) Dew Point 2) Temperature 3) Pressure","a":{"t":"3 only"}},
 {"i":44684,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"In the “drip tectonics” model, drops of the lithosphere delaminate from the base of continents primarily due to the rock's transformation into what metamorphic facies?","a":{"t":"Eclogite"}},

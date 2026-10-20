@@ -71,7 +71,7 @@
 {"i":52318,"s":"ess","f":"MC","qt":"tossup","n":15,"q":"Which of the following drainage patterns has no clear pattern, and occurs in areas with significant geological disruption?","a":{"t":"deranged","l":"Z"},"c":{"W":"braided","X":"anastomosing","Y":"dendritic","Z":"deranged"}},
 {"i":52319,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Name all of the following astronomical bodies which are likely to contain population II (two) stars: 1) active galactic nucleus 2) open cluster 3) galactic halo","a":{"t":"3 only"}},
 {"i":52320,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"What effect, which occurs when electrons in a sigma bond interact with an adjacent p-orbital, explains why tertiary carbocations are more stable than primary carbocations?","a":{"t":"Hyperconjugation"}},
-{"i":52321,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"How many chiral centers does the compound 1- methylcyclopentane have?","a":{"t":"0"}},
+{"i":52321,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"How many chiral centers does the compound 1-methylcyclopentane have?","a":{"t":"0"}},
 {"i":52322,"s":"bio","f":"SA","qt":"tossup","n":17,"q":"In operant conditioning, what is the term for a stimulus or event that decreases the likelihood of a behavior being repeated by introducing an unpleasant outcome following the behavior?","a":{"t":"POSITIVE PUNISHMENT"}},
 {"i":52323,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"In muscle contraction, which protein binds to calcium ions to expose the binding sites on actin for myosin to attach during the cross-bridge cycle?","a":{"t":"TROPONIN"}},
 {"i":52324,"s":"math","f":"SA","qt":"tossup","n":18,"q":"Convert the following coordinates into polar coordinates in radians: (6, −6√3)","a":{"t":"(12, 11π/6)"}},

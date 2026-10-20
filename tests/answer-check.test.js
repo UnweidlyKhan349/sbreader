@@ -24,6 +24,9 @@ test('exact, symbolic and spacing-insensitive answers pass', () => {
     ['1/2', '0.5'],
     ['8 FACTORS', '8'],
     ['+6', '+6'],
+    ['10√2', '10sqrt(2)'],
+    ['2√(6/5)', '2sqrt(6/5)'],
+    ['5√2/2', '5 sqrt 2 / 2'],
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
 });
 

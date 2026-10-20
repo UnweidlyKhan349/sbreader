@@ -458,11 +458,11 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6643","q":[
 {"i":93257,"s":"math","f":"SA","qt":"bonus","n":58,"q":"Find the integral of 3sin(x) + 5cos(x) dx","a":{"t":"-3cos(x) + 5sin(x) + C"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6652","q":[
-{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√(3) / ( 2*√(2) )","X":"2 / √(3)","Y":"√(3) / 2","Z":"2 * √(3)"},"a":{"t":"√(3) / 2","l":"Y"}}]},
+{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√3 / ( 2*√2 )","X":"2 / √3","Y":"√3 / 2","Z":"2√3"},"a":{"t":"√3 / 2","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6655","q":[
 {"i":93258,"s":"math","f":"SA","qt":"tossup","n":60,"q":"Add the following rational expressions and give your answer in fully factored form: x/(x+2) + 4x/(x-6)","a":{"t":"x(5x + 2)/((x - 6)(x + 2))"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6659","q":[
-{"i":93259,"s":"math","f":"SA","qt":"bonus","n":61,"q":"To the nearest integer, approximate the following radical expression: 5√(3) - 7√(5)","a":{"t":"-7"}}]},
+{"i":93259,"s":"math","f":"SA","qt":"bonus","n":61,"q":"To the nearest integer, approximate the following radical expression: 5√3 - 7√5","a":{"t":"-7"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6664","q":[
 {"i":93260,"s":"math","f":"SA","qt":"bonus","n":62,"q":"Solve the following inequality for x: |x+5| > -7 (read as: the absolute value of, open parenthesis, x + 5, close parenthesis, is greater than -7)","a":{"t":"ALL REAL NUMBERS","ac":["ALL x","(-∞, ∞)"]}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6670","q":[
@@ -506,7 +506,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6718","q":[
 {"i":93279,"s":"bio","f":"MC","qt":"tossup","n":82,"q":"The molecule Acetyl Coenzyme A is most likely used in which of the following cycles:","c":{"W":"Calvin Cycle","X":"Water Cycle","Y":"Citric Acid Cycle","Z":"Nitrogen Cycle"},"a":{"t":"Citric Acid Cycle","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6718","q":[
-{"i":93280,"s":"math","f":"MC","qt":"bonus","n":83,"q":"The area of a circle is the same as the area of a square with side 4. What is the circumference of the circle?","c":{"W":"8 / √(π)","X":"4 * √(π)","Y":"4 * π","Z":"8 * √(π)"},"a":{"t":"8 * √(π)","l":"Z"}}]},
+{"i":93280,"s":"math","f":"MC","qt":"bonus","n":83,"q":"The area of a circle is the same as the area of a square with side 4. What is the circumference of the circle?","c":{"W":"8 / √π","X":"4√π","Y":"4 * π","Z":"8√π"},"a":{"t":"8√π","l":"Z"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6719","q":[
 {"i":93281,"s":"math","f":"MC","qt":"tossup","n":84,"q":"How many distinct roots does the equation x cubed minus 4 x squared plus 4x have?","c":{"W":"0","X":"1","Y":"2","Z":"3"},"a":{"t":"2","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6719","q":[
@@ -1366,7 +1366,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6950","q":[
 {"i":93691,"s":"phys","f":"MC","qt":"tossup","n":425,"q":"For which of the fundamental forces has a force carrier boson not been found?","c":{"W":"gravitational force","X":"electromagnetic force","Y":"strong nuclear force","Z":"weak nuclear force"},"a":{"t":"gravitational force","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6950","q":[
-{"i":93692,"s":"phys","f":"SA","qt":"bonus","n":426,"q":"Which of following gauge bosons are electrically neutral: photon, gluon, z boson, w- boson, w+ boson.","a":{"t":"PHOTON, GLUON, AND Z BOSON","ac":["PHOTON, GLUON, Z BOSON","FIRST, SECOND, THIRD"]}}]},
+{"i":93692,"s":"phys","f":"SA","qt":"bonus","n":426,"q":"Which of following gauge bosons are electrically neutral: photon, gluon, z boson, w-boson, w+ boson.","a":{"t":"PHOTON, GLUON, AND Z BOSON","ac":["PHOTON, GLUON, Z BOSON","FIRST, SECOND, THIRD"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6951","q":[
 {"i":93693,"s":"phys","f":"SA","qt":"tossup","n":427,"q":"List the following series for Hydrogen energy levels in order of decreasing final energy levels: Brackett, Paschen, Pfund, Lyman, Balmer.","a":{"t":"PFUND, BRACKETT, PASCHEN, BALMER, LYMAN"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6951","q":[
@@ -1682,7 +1682,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7031","q":[
 {"i":93845,"s":"phys","f":"SA","qt":"bonus","n":583,"q":"What is the name for a sophisticated lens designed to correct for chromatic aberration, and which focuses three different wavelengths, typically red, green, and blue, to a single point?","a":{"t":"APOCHROMATIC LENS","ac":["APOCHROMAT"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7032","q":[
-{"i":93846,"s":"phys","f":"MC","qt":"tossup","n":584,"q":"The Human Cannonball is shot out of a cannon at a velocity of 40 meters per second. Unfortunately, he is fired horizontally, just 5 cm above the ground. For how long is he in the air?","c":{"W":"4 seconds","X":"2√(2) seconds","Y":"0.5 seconds","Z":"0.1 seconds"},"a":{"t":"0.1 seconds","l":"Z"}}]},
+{"i":93846,"s":"phys","f":"MC","qt":"tossup","n":584,"q":"The Human Cannonball is shot out of a cannon at a velocity of 40 meters per second. Unfortunately, he is fired horizontally, just 5 cm above the ground. For how long is he in the air?","c":{"W":"4 seconds","X":"2√2 seconds","Y":"0.5 seconds","Z":"0.1 seconds"},"a":{"t":"0.1 seconds","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7032","q":[
 {"i":93847,"s":"phys","f":"SA","qt":"bonus","n":585,"q":"Billy is a horrible skier. If he accidentally skis off an 80 meter cliff at a horizontal velocity of 4 meters per second, how far from the base of the cliff will he land? You may neglect air resistance.","a":{"t":"16 METERS","ac":["16"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7033","q":[
@@ -1880,7 +1880,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7083","q":[
 {"i":93937,"s":"phys","f":"MC","qt":"tossup","n":682,"q":"A projectile is launched from the ground straight up into the air. At what time is the power exerted by gravity the greatest? Air resistance may be neglected.","c":{"W":"just as the projectile is launched","X":"as the projectile reaches its maximum height","Y":"half-way through the projectile's ascent","Z":"just before the projectile hits the ground"},"a":{"t":"just before the projectile hits the ground","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7083","q":[
-{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)","ac":["V * SQRT(2H/G)"]}}]},
+{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)","ac":["V√(2H/G)"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7084","q":[
 {"i":93939,"s":"phys","f":"SA","qt":"tossup","n":684,"q":"What small device largely replaced vacuum tubes in their roles as signal amplifiers?","a":{"t":"TRANSISTOR"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7084","q":[
@@ -2278,7 +2278,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7187","q":[
 {"i":94127,"s":"phys","f":"MC","qt":"tossup","n":881,"q":"An object is placed 20 cm to the left of a diverging lens with a focal length of 30 cm. Where will the resulting image be formed?","c":{"W":"12 cm to the right of the lens","X":"12 cm to the left of the lens","Y":"60 cm to the right of the lens","Z":"60 cm to the left of the lens"},"a":{"t":"12 cm to the left of the lens","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7187","q":[
-{"i":94128,"s":"phys","f":"MC","qt":"bonus","n":882,"q":"Two point charges placed at (0,0) and (4,0) exert a force of magnitude F on each other. If the second charge is moved to (4,4), what is the magnitude of the new force that the charges exert on each other?","c":{"W":"2F","X":"F / 2","Y":"F","Z":"F * √(2)"},"a":{"t":"F / 2","l":"X"}}]},
+{"i":94128,"s":"phys","f":"MC","qt":"bonus","n":882,"q":"Two point charges placed at (0,0) and (4,0) exert a force of magnitude F on each other. If the second charge is moved to (4,4), what is the magnitude of the new force that the charges exert on each other?","c":{"W":"2F","X":"F / 2","Y":"F","Z":"F√2"},"a":{"t":"F / 2","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7188","q":[
 {"i":94129,"s":"phys","f":"MC","qt":"tossup","n":883,"q":"Taking the speed of sound to be 300 meters per second, what is the fundamental harmonic, in Hertz, of a 5-meter pipe that is open at both ends?","c":{"W":"120 Hz","X":"60 Hz","Y":"55 Hz","Z":"30 Hz"},"a":{"t":"30 Hz","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7188","q":[
@@ -2360,7 +2360,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7209","q":[
 {"i":94168,"s":"phys","f":"MC","qt":"tossup","n":922,"q":"Which of the following is not a difference between light and sound waves?","c":{"W":"sound requires a medium; light does not","X":"sound is a longitudinal wave; light is a transverse wave","Y":"light waves are quantized; sound waves are not","Z":"light propagates at the same speed in all reference frames; sound does not"},"a":{"t":"light waves are quantized; sound waves are not","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7209","q":[
-{"i":94169,"s":"phys","f":"SA","qt":"bonus","n":923,"q":"A group of passengers have been traveling on a spaceship for 15 years, as measured by an observer at their origin. When they emerge, they have aged 10 years. Assuming that their speed was roughly constant throughout the trip, what was it? Your answer should be in terms of c, the speed of light.","a":{"t":"(√5/3)c","ac":["0.745c","SQRT(5)/3 C","SQRT(5) * C / 3"]}}]},
+{"i":94169,"s":"phys","f":"SA","qt":"bonus","n":923,"q":"A group of passengers have been traveling on a spaceship for 15 years, as measured by an observer at their origin. When they emerge, they have aged 10 years. Assuming that their speed was roughly constant throughout the trip, what was it? Your answer should be in terms of c, the speed of light.","a":{"t":"(√5/3)c","ac":["0.745c","√5/3 C","√5 * C / 3"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7210","q":[
 {"i":94170,"s":"phys","f":"SA","qt":"tossup","n":924,"q":"The reciprocal of the square root of the quantity mu naught times epsilon naught, where mu naught and epsilon naught are the permeability and permittivity of free space, respectively, is equal to what?","a":{"t":"THE SPEED OF LIGHT","ac":["C","3 × 10^8 M/S"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7210","q":[
@@ -2444,7 +2444,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7231","q":[
 {"i":94209,"s":"phys","f":"MC","qt":"tossup","n":964,"q":"In North America, wall outlets usually supply 120 volts of AC power. As the voltage in AC is constantly changing, to what quantity does 120 volts refer?","c":{"W":"the peak voltage","X":"the average voltage","Y":"the rms voltage","Z":"the average voltage of the fully rectified wave"},"a":{"t":"the rms voltage","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7231","q":[
-{"i":94210,"s":"phys","f":"MC","qt":"bonus","n":965,"q":"An AC power source supplies a sinusoidal voltage with amplitude V. What is the rms voltage?","c":{"W":"2V","X":"V * √(2)","Y":"V / 2","Z":"V / √(2)"},"a":{"t":"V / √(2)","l":"Z"}}]},
+{"i":94210,"s":"phys","f":"MC","qt":"bonus","n":965,"q":"An AC power source supplies a sinusoidal voltage with amplitude V. What is the rms voltage?","c":{"W":"2V","X":"V√2","Y":"V / 2","Z":"V / √2"},"a":{"t":"V / √2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7232","q":[
 {"i":94211,"s":"phys","f":"MC","qt":"tossup","n":966,"q":"A positive charge is uniformly distributed throughout the volume of an insulating sphere with radius X. Let R be the distance from a point to the center of the sphere. If R is less than X, then:","c":{"W":"the electric field is inversely proportional to R","X":"the electric field is directly proportional to R","Y":"the electric field is directly proportional to R^2","Z":"the electric field squared is directly proportional to R"},"a":{"t":"the electric field is directly proportional to R","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7232","q":[
@@ -2872,7 +2872,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7342","q":[
 {"i":94414,"s":"phys","f":"MC","qt":"bonus","n":1178,"q":"A 10kg object with initial velocity 10m/s collides inelastically with an initially stationary 40kg object. How much kinetic energy is dissipated in the collision?","c":{"W":"50 Joules","X":"400 Joules","Y":"600 Joules","Z":"800 Joules"},"a":{"t":"400 Joules","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7343","q":[
-{"i":94415,"s":"phys","f":"SA","qt":"tossup","n":1179,"q":"What is the term for an exotic atom composed of a pion+ meson and a pion- meson?","a":{"t":"PIONIUM"}}]},
+{"i":94415,"s":"phys","f":"SA","qt":"tossup","n":1179,"q":"What is the term for an exotic atom composed of a pion+ meson and a pion-meson?","a":{"t":"PIONIUM"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7344","q":[
 {"i":94416,"s":"phys","f":"MC","qt":"tossup","n":1180,"q":"A rope being pulled at both ends would be an example of which type of stress?","c":{"W":"Shear Stress","X":"Tensile Stress","Y":"Bulk Stress","Z":"None of the above"},"a":{"t":"Tensile Stress","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7345","q":[

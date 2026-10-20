@@ -17,6 +17,7 @@
       .replace(/\^/g, '')
       .replace(/√/g, ' SQRT ') // so a typed "sqrt" matches a displayed "√" and vice versa
       .replace(/∛/g, ' CBRT ') // same idea for a cube-root radical
+      .replace(/(SQRT|CBRT)/g, ' $1 ') // a typed "10sqrt(2)" splits like "10√2"
       // matched as [πΠ] (not just π) because .toUpperCase() above already
       // ran and turns lowercase π into capital Π - a bare /π/ here would
       // silently never match and the symbol would just get stripped as

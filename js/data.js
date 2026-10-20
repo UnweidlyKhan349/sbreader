@@ -157,9 +157,12 @@
   // start of the NEXT term ("x^2 - 2x" is "x squared, minus 2x", not
   // "x to the (2-2x)") rather than part of the exponent itself. Verified
   // against every "^"/"_" occurrence in the corpus (393 fields) that this
-  // produces no over-long or space-containing captures.
-  const MATH_SUP_BARE_RE = /(?<!\^)\^([+-]?[A-Za-z0-9]+)/g;
-  const MATH_SUB_BARE_RE = /(?<!_)_([+-]?[A-Za-z0-9]+)/g;
+  // produces no over-long or space-containing captures. A lone sign after
+  // "^" is an ion charge ("H^+", "NO3^-", "e^−") and is superscripted on its
+  // own. A single Greek letter is a token too ("n^α", "ν_μ", "log_φ"), but
+  // never joins a Latin run, so "μ_0μ_r" stays two subscripts.
+  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
+  const MATH_SUB_BARE_RE = /(?<!_)_([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF]))/g;
   function escapeHtml(s) {
     const d = document.createElement('div');
     d.textContent = s == null ? '' : s;

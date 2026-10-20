@@ -494,7 +494,7 @@
 {"rl":"Aug 25 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4711","q":[
 {"i":95245,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"The absolute value of the resting potential of a neuron with respect to the extracellular area is closest to:","c":{"W":"70 V","X":"70 mV","Y":"85 mV","Z":"55 mv"},"a":{"t":"70 mV","l":"X"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4712","q":[
-{"i":95246,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"A reaction with an order of greater than one can become a pseudo-first- order reaction if which of the following is true for all but one of the reactants?","c":{"W":"If the oxidation numbers of these reactants are all zero","X":"If all of these reactants have a net charge","Y":"If these reactants are solids or liquids","Z":"If these reactants are heavily in excess"},"a":{"t":"If these reactants are heavily in excess","l":"Z"}}]},
+{"i":95246,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"A reaction with an order of greater than one can become a pseudo-first-order reaction if which of the following is true for all but one of the reactants?","c":{"W":"If the oxidation numbers of these reactants are all zero","X":"If all of these reactants have a net charge","Y":"If these reactants are solids or liquids","Z":"If these reactants are heavily in excess"},"a":{"t":"If these reactants are heavily in excess","l":"Z"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4712","q":[
 {"i":95247,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Place these allotropes of Phosphorus from least thermodynamically stable to most thermodynamically stable: White Phosphorus, Black Phosphorus, Red Phosphorus, Violet Phosphorus","a":{"t":"White Phosphorus, Red Phosphorus, Violet Phosphorus, Black Phosphorus"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4713","q":[
@@ -828,7 +828,7 @@
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4806","q":[
 {"i":95400,"s":"math","f":"SA","qt":"tossup","n":6,"q":"What is the discrete analog of the Dirac delta function?","a":{"t":"Kronecker delta function"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4806","q":[
-{"i":95401,"s":"math","f":"SA","qt":"bonus","n":7,"q":"What is (1+√(3)i)^15?","a":{"t":"-32768"}}]},
+{"i":95401,"s":"math","f":"SA","qt":"bonus","n":7,"q":"What is (1+√3i)^15?","a":{"t":"-32768"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4807","q":[
 {"i":95402,"s":"ess","f":"SA","qt":"tossup","n":8,"q":"What is the intrusive counterpart of basalt?","a":{"t":"Gabbro"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4807","q":[
@@ -974,7 +974,7 @@
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4847","q":[
 {"i":95463,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"What moon of Saturn has a tidally heated subsurface ocean that vents through plumes near its south pole?","a":{"t":"ENCELADUS"}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4848","q":[
-{"i":95464,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following pairs of angles are complementary?","c":{"W":"tan^-1(1) and sin^-1(√(3)/2)","X":"cos^-1(2/3) and cos^-1(-2/3)","Y":"sin^-1(1/3) and cos^-1(1/3)","Z":"tan^-1(1/5) and cos^-1(4/5)"},"a":{"t":"sin^-1(1/3) and cos^-1(1/3)","l":"Y"}}]},
+{"i":95464,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following pairs of angles are complementary?","c":{"W":"tan^-1(1) and sin^-1(√3/2)","X":"cos^-1(2/3) and cos^-1(-2/3)","Y":"sin^-1(1/3) and cos^-1(1/3)","Z":"tan^-1(1/5) and cos^-1(4/5)"},"a":{"t":"sin^-1(1/3) and cos^-1(1/3)","l":"Y"}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/bonus/4848","q":[
 {"i":95465,"s":"math","f":"SA","qt":"bonus","n":9,"q":"List the following angles from smallest to largest: cos^-1(2/5), sin^-1(4/5), tan^-1(2)","a":{"t":"sin^-1(4/5), tan^-1(2), cos^-1(2/5)","ac":["2","3","1"]}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4849","q":[
@@ -986,7 +986,7 @@
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4850","q":[
 {"i":95469,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"What post-translational modification of mucins allows them to hold large amounts of water?","a":{"t":"Glycosylation"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4851","q":[
-{"i":95470,"s":"phys","f":"MC","qt":"tossup","n":3,"q":"Which of the following describes, relative to the original cyclotron frequency, the new cyclotron frequency when the mass of the particle is doubled?","c":{"W":"It is multiplied by 2","X":"It is multiplied by √(2)","Y":"It is divided by 2","Z":"It is divided by √(2)"},"a":{"t":"It is divided by 2","l":"Y"}}]},
+{"i":95470,"s":"phys","f":"MC","qt":"tossup","n":3,"q":"Which of the following describes, relative to the original cyclotron frequency, the new cyclotron frequency when the mass of the particle is doubled?","c":{"W":"It is multiplied by 2","X":"It is multiplied by √2","Y":"It is divided by 2","Z":"It is divided by √2"},"a":{"t":"It is divided by 2","l":"Y"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4852","q":[
 {"i":95471,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"Which metal, other than aluminum, does the alloy duralumin contain in the greatest proportion?","c":{"W":"Iron","X":"Copper","Y":"Molybdenum","Z":"Nickel"},"a":{"t":"Copper","l":"X"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4853","q":[
@@ -1120,7 +1120,7 @@
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4888","q":[
 {"i":95524,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"What is the half-life of the most common isotope of uranium found in nature, also used in nuclear power plants?","c":{"W":"8.2 billion years","X":"4.5 billion years","Y":"6.7 billion years","Z":"3.9 billion years"},"a":{"t":"4.5 billion years","l":"X"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4889","q":[
-{"i":95525,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the value of the speed of light in km/s, with 2 significant figures?","a":{"t":"3.0 × 10^5","rj":["3 * 10^5 or 300000"]}}]},
+{"i":95525,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the value of the speed of light in km/s, with 2 significant figures?","a":{"t":"3.0 × 10^5","rj":["3 × 10^5 or 300000"]}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4889","q":[
 {"i":95526,"s":"phys","f":"SA","qt":"bonus","n":8,"q":"If spaceship A and spaceship B pass each other going in opposite directions at 3/5 of the speed of light, at what speed does spaceship B appear to be going, to an observer in spaceship A?","a":{"t":"15/17 c","ac":["15/17","0.88c"]}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4890","q":[
@@ -2164,7 +2164,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5174","q":[
 {"i":95955,"s":"math","f":"SA","qt":"tossup","n":87,"q":"What is the 5th non-triangular number?","a":{"t":"8"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5175","q":[
-{"i":95956,"s":"math","f":"SA","qt":"bonus","n":88,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at P. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a":{"t":"√(22)"}}]},
+{"i":95956,"s":"math","f":"SA","qt":"bonus","n":88,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at P. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a":{"t":"√22"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5176","q":[
 {"i":95957,"s":"math","f":"SA","qt":"tossup","n":89,"q":"What is the value of the quantity (sin^4 x + 2cos^2 x sin^2 x + cos^4 x)^2?","a":{"t":"1"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5177","q":[
