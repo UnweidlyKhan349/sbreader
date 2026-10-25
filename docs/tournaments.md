@@ -11,7 +11,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | BASED 2025 | 611 | 5 | hs |
 | Bash 2025 | 653 | 25 | hs |
 | BASIS Peoria Rounds | 785 |  | hs |
-| Bay Ultimate MS Scibowl | 536 | 4 | ms |
+| Bay Ultimate MS Scibowl | 520 | 4 | ms |
 | Berkeley 2023 | 644 |  | hs |
 | Brooklyn Tech Invitational | 369 |  | hs |
 | BTHS 2025 | 252 |  | hs |
@@ -31,7 +31,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | DAST 2 | 14 |  | hs |
 | Dast 2025 | 493 | 2 | hs |
 | DAST1 | 445 | 7 | hs |
-| David Rounds 2019 | 313 |  | hs |
+| David Rounds 2019 | 312 |  | hs |
 | Deadbird Invitational | 395 |  | ms |
 | Dvhs 2025 | 183 |  | hs |
 | Earth and Space Scrimmage 2024 | 250 |  | hs |
@@ -112,4 +112,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (108)** | **84,135** | **535** | |
+| **Total (108)** | **84,118** | **535** | |

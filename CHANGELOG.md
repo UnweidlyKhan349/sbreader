@@ -41,3 +41,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Catalog: with no tournament picked, results list the newest tournaments first (each in packet order), using an approximate date per tournament in `meta.json`; picking tournaments lists them A-Z as before.
 - Catalog: Prev/Next (and the page box) under the results keep the pager where it was on screen instead of jumping to the top.
 - Tournament pickers list the selected tournaments first when opened.
+- Solo and multiplayer show a **Source** link to the question's packet next to the tournament, round and question number once the answer is revealed, and in the session log. In multiplayer the link travels with the answer, so it can't be opened before the reveal.
+- Chemical formulas in questions, choices and answers display their counts as subscripts (H₂SO₄, Ca(OH)₂), with a guard list for look-alikes such as SN2, sp3 and HSP70.
