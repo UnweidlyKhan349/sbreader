@@ -598,7 +598,7 @@
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept)}</div>`;
     if (q.answer.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(q.answer.reject.join('; '))}</div>`;
-    html += `<div class="src-line">${escapeHtml(SBData.sourceLabelFor(q))}</div>`;
+    html += `<div class="src-line">${SBData.sourceLineHTML(q)}</div>`;
     box.innerHTML = html;
     box.style.display = 'block';
     if (q.choices && q.answer.letter) {
@@ -751,7 +751,7 @@
     card.appendChild(meta);
 
     SBData.appendQuestionBody(card, q);
-    card.appendChild(SBData.answerBlock(q));
+    card.appendChild(SBData.answerBlock(q, null, { source: true }));
 
     if (entry.userText) {
       const you = document.createElement('div');

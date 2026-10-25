@@ -323,7 +323,7 @@
     SBData.appendQuestionBody(card, q);
     // Clients' question copies carry no answer, so it comes from the reveal.
     const a = entry.answer;
-    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject }));
+    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject, sourceUrl: a.sourceUrl }, { source: true }));
 
     if (entry.answeredBy) {
       const who = document.createElement('div');
@@ -605,7 +605,7 @@
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(r.answerText, r.letter, r.accept)}</div>`;
     if (r.reject && r.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(r.reject.join('; '))}</div>`;
-    html += `<div class="src-line">${escapeHtml(SBData.sourceLabelFor(game.question))}</div>`;
+    html += `<div class="src-line">${SBData.sourceLineHTML(game.question, r.sourceUrl || null)}</div>`;
     box.innerHTML = html;
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
@@ -1039,6 +1039,9 @@
       // SBData.answerDisplayText.
       answerText: SBData.answerDisplayText(full), letter: full.answer.letter || null,
       accept: full.answer.accept, reject: full.answer.reject,
+      // The packet link is sent with the answer, not with the question,
+      // so nobody can open the packet before the answer is shown.
+      sourceUrl: full.sourceUrl || null,
     };
     const grade = hostGame.lastGrade;
     const category = grade && grade.correct ? 'correct' : (hostGame.anyAttempt ? 'incorrect' : 'skipped');

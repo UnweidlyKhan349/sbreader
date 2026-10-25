@@ -46,7 +46,7 @@
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5559","q":[
 {"i":93098,"s":"ess","f":"MC","qt":"bonus","n":23,"q":"Which of the following types of stars would be found in the lower left hand region of the Hertzsprung–Russell diagram?","c":{"W":"Red Giant","X":"Brown Dwarf","Y":"White Dwarf","Z":"Super Giant"},"a":{"t":"White Dwarf","l":"Y"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5560","q":[
-{"i":93099,"s":"ess","f":"MC","qt":"bonus","n":24,"q":"Which of the following stars would be found in the center regions of the HR diagram","c":{"W":"Cygni","X":"Sirius","Y":"Betelgeuse","Z":"Arcturus"},"a":{"t":"Sirius","l":"X"}}]},
+{"i":93099,"s":"ess","f":"MC","qt":"bonus","n":24,"q":"Which of the following stars would be found in the center regions of the HR diagram?","c":{"W":"Cygni","X":"Sirius","Y":"Betelgeuse","Z":"Arcturus"},"a":{"t":"Sirius","l":"X"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5613","q":[
 {"i":93100,"s":"ess","f":"MC","qt":"bonus","n":25,"q":"Ishtar Terra and Aphrodite Terra are the two \"continents\" of","c":{"W":"Venus","X":"Mars","Y":"Saturn","Z":"Mercury"},"a":{"t":"Venus","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5614","q":[
@@ -60,15 +60,15 @@
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5650","q":[
 {"i":93104,"s":"ess","f":"MC","qt":"bonus","n":30,"q":"Which of the following objects is most likely to have a very large redshift?","c":{"W":"neutron star","X":"nova","Y":"quasar","Z":"supernova"},"a":{"t":"quasar","l":"Y"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5663","q":[
-{"i":96270,"s":"ess","f":"MC","qt":"tossup","n":31,"q":"Which of these is the brightest planet in the night sky","c":{"W":"Jupiter","X":"Mars","Y":"Venus","Z":"Mercury"},"a":{"t":"Venus","l":"Y"}}]},
+{"i":96270,"s":"ess","f":"MC","qt":"tossup","n":31,"q":"Which of these is the brightest planet in the night sky?","c":{"W":"Jupiter","X":"Mars","Y":"Venus","Z":"Mercury"},"a":{"t":"Venus","l":"Y"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5663","q":[
 {"i":93105,"s":"ess","f":"MC","qt":"bonus","n":32,"q":"Mercury's spin-orbit resonance is","c":{"W":"2:1","X":"4:3","Y":"3:2","Z":"3:1"},"a":{"t":"3:2","l":"Y"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5664","q":[
 {"i":96271,"s":"ess","f":"MC","qt":"tossup","n":33,"q":"The lunar highlands are made up of","c":{"W":"phosphorus","X":"Carbon","Y":"Sulfur","Z":"Aluminum"},"a":{"t":"Aluminum","l":"Z"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5665","q":[
-{"i":93106,"s":"ess","f":"MC","qt":"tossup","n":34,"q":"Which of these is a characteristic of Jovian Planets","c":{"W":"Strong magnetic fields","X":"Slow Rotation","Y":"Small radii","Z":"Closely Spaced Orbits"},"a":{"t":"Strong magnetic fields","l":"W"}}]},
+{"i":93106,"s":"ess","f":"MC","qt":"tossup","n":34,"q":"Which of these is a characteristic of Jovian Planets?","c":{"W":"Strong magnetic fields","X":"Slow Rotation","Y":"Small radii","Z":"Closely Spaced Orbits"},"a":{"t":"Strong magnetic fields","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5665","q":[
-{"i":93107,"s":"ess","f":"MC","qt":"bonus","n":35,"q":"Which is not a characteristic of a terrestrial planet","c":{"W":"Few Moons","X":"No Rings","Y":"High Density","Z":"Fast Rotation"},"a":{"t":"Fast Rotation","l":"Z"}}]},
+{"i":93107,"s":"ess","f":"MC","qt":"bonus","n":35,"q":"Which is not a characteristic of a terrestrial planet?","c":{"W":"Few Moons","X":"No Rings","Y":"High Density","Z":"Fast Rotation"},"a":{"t":"Fast Rotation","l":"Z"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5666","q":[
 {"i":93108,"s":"ess","f":"MC","qt":"tossup","n":36,"q":"Where does the sun generate its energy from?","c":{"W":"Nuclear Fusion","X":"Chemical Bonding","Y":"Photosynthesis","Z":"Nuclear Decay"},"a":{"t":"Nuclear Fusion","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5666","q":[
@@ -80,7 +80,7 @@
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5674","q":[
 {"i":93112,"s":"ess","f":"MC","qt":"tossup","n":40,"q":"The \"Great Dark Spot\" seen by Voyager 2 in 1989 was located on","c":{"W":"Neptune","X":"the sun","Y":"Jupiter","Z":"Saturn"},"a":{"t":"Neptune","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5675","q":[
-{"i":93113,"s":"ess","f":"MC","qt":"tossup","n":41,"q":"Which of these is NOT a reason on why the Martian water is gone","c":{"W":"It evaporated due to high temperature","X":"It escaped into space","Y":"It exists as permafrost","Z":"It is contained in the Martian Polar Caps"},"a":{"t":"It evaporated due to high temperature","l":"W"}}]},
+{"i":93113,"s":"ess","f":"MC","qt":"tossup","n":41,"q":"Which of these is NOT a reason on why the Martian water is gone?","c":{"W":"It evaporated due to high temperature","X":"It escaped into space","Y":"It exists as permafrost","Z":"It is contained in the Martian Polar Caps"},"a":{"t":"It evaporated due to high temperature","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5679","q":[
 {"i":96272,"s":"ess","f":"MC","qt":"bonus","n":42,"q":"The Hertzsprung-Russell Diagram of stars DIRECTLY compares what TWO of the following properties of stars?","c":{"W":"size and temperature","X":"temperature and luminosity","Y":"size and luminosity","Z":"temperature and density"},"a":{"t":"temperature and luminosity","l":"X"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5719","q":[
@@ -396,13 +396,13 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6536","q":[
 {"i":93233,"s":"math","f":"SA","qt":"tossup","n":27,"q":"Solve the following equation for y: 36(3/5)(5/12)(3/9) = -y + y + y","a":{"t":"y = 3"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6551","q":[
-{"i":96310,"s":"math","f":"SA","qt":"tossup","n":28,"q":"How many solutions are there for the equation, cos(4x) = 0, for the interval 0 < x < 2pi","a":{"t":"8"}}]},
+{"i":96310,"s":"math","f":"SA","qt":"tossup","n":28,"q":"How many solutions are there for the equation, cos(4x) = 0, for the interval 0 < x < 2π?","a":{"t":"8"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6568","q":[
 {"i":93234,"s":"math","f":"SA","qt":"tossup","n":29,"q":"Factor the following expression as completely as possible: x^3 - y^3","a":{"t":"(x - y)(x^2 + xy + y^2)"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6572","q":[
 {"i":93235,"s":"math","f":"SA","qt":"tossup","n":30,"q":"Convert 2π radians into degrees.","a":{"t":"360","ac":["360 DEGREES"]}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6575","q":[
-{"i":93236,"s":"math","f":"MC","qt":"tossup","n":31,"q":"Which of the following is the expression that defines the hyperbolic sine function:","c":{"W":"( e^x - e^(-x) ) / 2","X":"( e^x + e^(-x) ) / 2","Y":"2 / ( e^x + e^(-x) )","Z":"2 / ( e^x - e^(-x) )"},"a":{"t":"( e^x - e^(-x) ) / 2","l":"W"}}]},
+{"i":93236,"s":"math","f":"MC","qt":"tossup","n":31,"q":"Which of the following is the expression that defines the hyperbolic sine function:","c":{"W":"(e^x - e^(-x)) / 2","X":"(e^x + e^(-x)) / 2","Y":"2 / (e^x + e^(-x))","Z":"2 / (e^x - e^(-x))"},"a":{"t":"(e^x - e^(-x)) / 2","l":"W"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6577","q":[
 {"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18º18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6579","q":[
@@ -458,7 +458,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6643","q":[
 {"i":93257,"s":"math","f":"SA","qt":"bonus","n":58,"q":"Find the integral of 3sin(x) + 5cos(x) dx","a":{"t":"-3cos(x) + 5sin(x) + C"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6652","q":[
-{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√3 / ( 2*√2 )","X":"2 / √3","Y":"√3 / 2","Z":"2√3"},"a":{"t":"√3 / 2","l":"Y"}}]},
+{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√3 / (2*√2)","X":"2 / √3","Y":"√3 / 2","Z":"2√3"},"a":{"t":"√3 / 2","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6655","q":[
 {"i":93258,"s":"math","f":"SA","qt":"tossup","n":60,"q":"Add the following rational expressions and give your answer in fully factored form: x/(x+2) + 4x/(x-6)","a":{"t":"x(5x + 2)/((x - 6)(x + 2))"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6659","q":[
@@ -468,7 +468,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6670","q":[
 {"i":96318,"s":"math","f":"MC","qt":"tossup","n":63,"q":"Find the derivative of the function f(x)=x^2","c":{"W":"x^2","X":"2x","Y":"2","Z":"none of the above"},"a":{"t":"2x","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6670","q":[
-{"i":93261,"s":"math","f":"MC","qt":"bonus","n":64,"q":"Which of the following could be f(x) if the derivative of f(x) is x^2/2","c":{"W":"x^3 + 2","X":"x^3/6 - 6","Y":"x + 1","Z":"3x^3"},"a":{"t":"x^3/6 - 6","l":"X"}}]},
+{"i":93261,"s":"math","f":"MC","qt":"bonus","n":64,"q":"Which of the following could be f(x) if the derivative of f(x) is x^2/2?","c":{"W":"x^3 + 2","X":"x^3/6 - 6","Y":"x + 1","Z":"3x^3"},"a":{"t":"x^3/6 - 6","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6671","q":[
 {"i":93262,"s":"math","f":"SA","qt":"tossup","n":65,"q":"Find the sum of 1+2+4+...+64","a":{"t":"127"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6671","q":[
@@ -1124,7 +1124,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6886","q":[
 {"i":93577,"s":"phys","f":"SA","qt":"bonus","n":304,"q":"Two identical resistors have the color pattern red-black-orange, disregarding tolerance. If they are connected in parallel, what is their equivalent resistance?","a":{"t":"10^4 OHMS","ac":["10,000 OHMS","10 KILOHMS","10 KILOOHMS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6887","q":[
-{"i":93578,"s":"phys","f":"SA","qt":"tossup","n":305,"q":"What is the period of an oscillation if an object’s position is given by x = sin (3t)?","a":{"t":"2π/3","ac":["2PI/3","2.09"]}}]},
+{"i":93578,"s":"phys","f":"SA","qt":"tossup","n":305,"q":"What is the period of an oscillation if an object’s position is given by x = sin(3t)?","a":{"t":"2π/3","ac":["2PI/3","2.09"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6887","q":[
 {"i":93579,"s":"phys","f":"MC","qt":"bonus","n":306,"q":"The current through a resistor doubles. The heat dissipated by the resistor","c":{"W":"halves","X":"remains the same","Y":"doubles","Z":"quadruples"},"a":{"t":"quadruples","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6888","q":[
@@ -2298,7 +2298,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7192","q":[
 {"i":94137,"s":"phys","f":"MC","qt":"tossup","n":891,"q":"A spring hangs from a ceiling, initially at equilibrium. When a mass of 1.5 kg is attached to it, the spring stretches an additional 4.0 meters. What is the spring constant?","c":{"W":"3.0 N/m","X":"3.8 N/m","Y":"4.5 N/m","Z":"5.3 N/m"},"a":{"t":"3.8 N/m","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7192","q":[
-{"i":94138,"s":"phys","f":"SA","qt":"bonus","n":892,"q":"A wheel spins up from rest at a constant angular acceleration of 6.25 π radians per second squared. What is its angular velocity after one full revolution, in terms of π?","a":{"t":"5π RADIANS PER SECOND","ac":["5π","5 PI"]}}]},
+{"i":94138,"s":"phys","f":"SA","qt":"bonus","n":892,"q":"A wheel spins up from rest at a constant angular acceleration of 6.25π radians per second squared. What is its angular velocity after one full revolution, in terms of π?","a":{"t":"5π RADIANS PER SECOND","ac":["5π","5 PI"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7193","q":[
 {"i":94139,"s":"phys","f":"SA","qt":"tossup","n":893,"q":"Roughly what is the lowest audible frequency for most people?","a":{"t":"16 HERTZ","ac":["20 HERTZ","15 TO 20 HERTZ"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7194","q":[
@@ -2504,7 +2504,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7246","q":[
 {"i":94235,"s":"phys","f":"MC","qt":"bonus","n":994,"q":"96 Joules of work is done to compress a spring with a spring constant of 12 Newtons per meter. An 8-kilogram block is attached to the end of the spring, and it is released to oscillate in simple harmonic motion. What is the magnitude of the maximum acceleration that it experiences?","c":{"W":"2 meters per second squared","X":"3 meters per second squared","Y":"6 meters per second squared","Z":"12 meters per second squared"},"a":{"t":"6 meters per second squared","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7247","q":[
-{"i":94236,"s":"phys","f":"MC","qt":"tossup","n":995,"q":"Consider a spring with a force constant of 40 N / m connected to a mass of 10 kg. When the mass is pulled 1 meter from equilibrium, what will the resulting frequency of oscillation of the system be?","c":{"W":"π","X":"2 π","Y":"1 / π","Z":"1 / (2 π)"},"a":{"t":"1 / π","l":"Y"}}]},
+{"i":94236,"s":"phys","f":"MC","qt":"tossup","n":995,"q":"Consider a spring with a force constant of 40 N / m connected to a mass of 10 kg. When the mass is pulled 1 meter from equilibrium, what will the resulting frequency of oscillation of the system be?","c":{"W":"π","X":"2π","Y":"1 / π","Z":"1 / (2π)"},"a":{"t":"1 / π","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7247","q":[
 {"i":94237,"s":"phys","f":"SA","qt":"bonus","n":996,"q":"When a spring with a force constant of 10 N / m is connected at one end to another spring with a force constant of 5 N / m, what is the resultant force constant of the whole series?","a":{"t":"10/3 N/m","ac":["10/3","3.33 N/m"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7248","q":[
@@ -3172,7 +3172,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7422","q":[
 {"i":94557,"s":"phys","f":"SA","qt":"tossup","n":1328,"q":"The elusive Higgs Boson, according to the Standard Model, gives all particles their what?","a":{"t":"MASS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7422","q":[
-{"i":94558,"s":"phys","f":"MC","qt":"bonus","n":1329,"q":"What is the de Broglie wavelength of a 60 kg human traveling at 5 m/s? Include h (Planck’s constant) in your answer.","c":{"W":"12·h","X":"300·h","Y":"h / 12","Z":"h / 300"},"a":{"t":"h / 300","l":"Z"}}]},
+{"i":94558,"s":"phys","f":"MC","qt":"bonus","n":1329,"q":"What is the de Broglie wavelength of a 60 kg human traveling at 5 m/s? Include h(Planck’s constant) in your answer.","c":{"W":"12·h","X":"300·h","Y":"h / 12","Z":"h / 300"},"a":{"t":"h / 300","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7423","q":[
 {"i":94559,"s":"phys","f":"MC","qt":"tossup","n":1330,"q":"What is the effective resistance of two 5 Ω resistors in series?","c":{"W":"5/2 Ω","X":"5/4 Ω","Y":"5 Ω","Z":"10 Ω"},"a":{"t":"10 Ω","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7423","q":[
@@ -3528,11 +3528,11 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7520","q":[
 {"i":94719,"s":"phys","f":"SA","qt":"bonus","n":1506,"q":"How long is this projectile in the air, to 1 decimal place (taking g = 10 m/s^2)?","a":{"t":"2.0 SECONDS","ac":["2.0","2"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7521","q":[
-{"i":94720,"s":"phys","f":"MC","qt":"tossup","n":1507,"q":"A metal ball on an insulated stand is touched by a positively charged glass rod. Which of the following is correct","c":{"W":"the ball loses electrons and the rod gains electron","X":"the ball gains electrons and the rod loses electrons","Y":"both the rod and the ball lose electrons","Z":"both the rod and the ball gain protons"},"a":{"t":"the ball loses electrons and the rod gains electron","l":"W"}}]},
+{"i":94720,"s":"phys","f":"MC","qt":"tossup","n":1507,"q":"A metal ball on an insulated stand is touched by a positively charged glass rod. Which of the following is correct?","c":{"W":"the ball loses electrons and the rod gains electron","X":"the ball gains electrons and the rod loses electrons","Y":"both the rod and the ball lose electrons","Z":"both the rod and the ball gain protons"},"a":{"t":"the ball loses electrons and the rod gains electron","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7521","q":[
 {"i":94721,"s":"phys","f":"SA","qt":"bonus","n":1508,"q":"If a 0.44m long guitar string is tuned to an A note at 440Hz above middle C, what is the wavelength in cm of the fundamental, to 2 significant figures?","a":{"t":"88 CENTIMETERS","ac":["88"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7522","q":[
-{"i":94722,"s":"phys","f":"MC","qt":"tossup","n":1509,"q":"A ball of mass 2.0Kg is thrown vertically into the air with an initial velocity of 12m/s. How high will the ball travel","c":{"W":"3.6m","X":"7.2m","Y":"14.4m","Z":"28.8m"},"a":{"t":"7.2m","l":"X"}}]},
+{"i":94722,"s":"phys","f":"MC","qt":"tossup","n":1509,"q":"A ball of mass 2.0Kg is thrown vertically into the air with an initial velocity of 12m/s. How high will the ball travel?","c":{"W":"3.6m","X":"7.2m","Y":"14.4m","Z":"28.8m"},"a":{"t":"7.2m","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7522","q":[
 {"i":94723,"s":"phys","f":"SA","qt":"bonus","n":1510,"q":"A pellet of mass 2.0g is shot at 100.0m/s and gets lodged in a heavy lemon of mass 1.0Kg. How fast will the lemon travel, if initially at rest?","a":{"t":"0.2 M/S","ac":["0.1996","1/5 M/S"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7523","q":[
@@ -3544,7 +3544,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7525","q":[
 {"i":96390,"s":"phys","f":"SA","qt":"tossup","n":1514,"q":"What is the third derivative of position?","a":{"t":"JERK"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7525","q":[
-{"i":94727,"s":"phys","f":"MC","qt":"bonus","n":1515,"q":"Which of the following is not a term for the fourth derivative of position","c":{"W":"Snap","X":"Shock","Y":"jounce","Z":"they are all correct"},"a":{"t":"Shock","l":"X"}}]},
+{"i":94727,"s":"phys","f":"MC","qt":"bonus","n":1515,"q":"Which of the following is not a term for the fourth derivative of position?","c":{"W":"Snap","X":"Shock","Y":"jounce","Z":"they are all correct"},"a":{"t":"Shock","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7526","q":[
 {"i":94728,"s":"phys","f":"MC","qt":"tossup","n":1516,"q":"Which of the following colors does not exist in Quantum Chromodynamics?(excluding anti-colors)","c":{"W":"Red","X":"Green","Y":"Yellow","Z":"Blue"},"a":{"t":"Yellow","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7526","q":[
@@ -3602,7 +3602,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7542","q":[
 {"i":94752,"s":"phys","f":"SA","qt":"tossup","n":1543,"q":"What is the momentum of a ball thrown vertically upward when it reaches its highest point?","a":{"t":"ZERO","ac":["0"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7542","q":[
-{"i":96394,"s":"phys","f":"MC","qt":"bonus","n":1544,"q":"Which pot of water will boil last when all are heated with the same source","c":{"W":"aluminum","X":"iron","Y":"brass","Z":"titanium"},"a":{"t":"titanium","l":"Z"}}]},
+{"i":96394,"s":"phys","f":"MC","qt":"bonus","n":1544,"q":"Which pot of water will boil last when all are heated with the same source?","c":{"W":"aluminum","X":"iron","Y":"brass","Z":"titanium"},"a":{"t":"titanium","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7543","q":[
 {"i":96395,"s":"phys","f":"MC","qt":"tossup","n":1545,"q":"By which of the following can a real image be produced?","c":{"W":"a concave mirror","X":"a plane mirror","Y":"a diverging lens","Z":"a convex mirror"},"a":{"t":"a concave mirror","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7543","q":[
@@ -3614,7 +3614,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7545","q":[
 {"i":94754,"s":"phys","f":"MC","qt":"tossup","n":1549,"q":"A condensate under an intense magnetic field was observed to implode suddenly and then explode. This phenomenon is called","c":{"W":"Ferminova","X":"Bosenova","Y":"Cassanova","Z":"Quark nova"},"a":{"t":"Bosenova","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7546","q":[
-{"i":94755,"s":"phys","f":"MC","qt":"tossup","n":1550,"q":"Who is given credit for being first to detect the Neutrino","c":{"W":"Wolgang Pauli","X":"Enrico Fermi","Y":"Clyde Cowan Jr. and Fredrick Reines","Z":"Jan Oort"},"a":{"t":"Clyde Cowan Jr. and Fredrick Reines","l":"Y"}}]},
+{"i":94755,"s":"phys","f":"MC","qt":"tossup","n":1550,"q":"Who is given credit for being first to detect the Neutrino?","c":{"W":"Wolgang Pauli","X":"Enrico Fermi","Y":"Clyde Cowan Jr. and Fredrick Reines","Z":"Jan Oort"},"a":{"t":"Clyde Cowan Jr. and Fredrick Reines","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7546","q":[
 {"i":94756,"s":"phys","f":"SA","qt":"bonus","n":1551,"q":"The neutrino detector at the Homestake Gold Mine near Lead, South Dakota, functions on the basis that neutrinos interact with Chlorine-37 atoms to produce what?","a":{"t":"ARGON-37","ac":["RADIOACTIVE ARGON-37","ARGON"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7547","q":[
@@ -3626,7 +3626,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7548","q":[
 {"i":94760,"s":"phys","f":"MC","qt":"bonus","n":1555,"q":"Cooper pairs have been observably bound by","c":{"W":"phonons","X":"photons","Y":"gluons","Z":"plasmons"},"a":{"t":"phonons","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7549","q":[
-{"i":94761,"s":"phys","f":"MC","qt":"tossup","n":1556,"q":"Consider a particle with 18 degrees of freedom. What is the molar heat capacity at constant volume","c":{"W":"3R/2","X":"6R","Y":"9R","Z":"18R"},"a":{"t":"9R","l":"Y"}}]},
+{"i":94761,"s":"phys","f":"MC","qt":"tossup","n":1556,"q":"Consider a particle with 18 degrees of freedom. What is the molar heat capacity at constant volume?","c":{"W":"3R/2","X":"6R","Y":"9R","Z":"18R"},"a":{"t":"9R","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7549","q":[
 {"i":94762,"s":"phys","f":"SA","qt":"bonus","n":1557,"q":"At relativistic speeds, velocities do not add simply. The factor r in the expression v/c = tanh(r), where v is the observed speed and c is the speed of light, does add, however. Name this factor.","a":{"t":"RAPIDITY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7550","q":[
@@ -3698,7 +3698,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7567","q":[
 {"i":94794,"s":"phys","f":"SA","qt":"bonus","n":1591,"q":"What is the unit of electrical conductance and electric admittance?","a":{"t":"SIEMENS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7568","q":[
-{"i":94795,"s":"phys","f":"MC","qt":"tossup","n":1592,"q":"What is the moment of inertia around the center of a uniform disk of mass 5 Kg and a radius of 2 m","c":{"W":"20 kg·m^2","X":"40 kg·m^2","Y":"10 kg·m^2","Z":"60 kg·m^2"},"a":{"t":"10 kg·m^2","l":"Y"}}]},
+{"i":94795,"s":"phys","f":"MC","qt":"tossup","n":1592,"q":"What is the moment of inertia around the center of a uniform disk of mass 5 Kg and a radius of 2 m?","c":{"W":"20 kg·m^2","X":"40 kg·m^2","Y":"10 kg·m^2","Z":"60 kg·m^2"},"a":{"t":"10 kg·m^2","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7568","q":[
 {"i":94796,"s":"phys","f":"SA","qt":"bonus","n":1593,"q":"How long will it take a 5 Kg ball thrown from the ground vertically upward at a speed of 10m/s to hit the ground?","a":{"t":"2 SECONDS","ac":["2","2.04"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7569","q":[
@@ -3734,7 +3734,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7576","q":[
 {"i":96402,"s":"phys","f":"SA","qt":"bonus","n":1609,"q":"A 2.5 m long organ pipe is open at one end and closed at the other. Its fundamental tone has a wavelength of","a":{"t":"10 METERS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7577","q":[
-{"i":94810,"s":"phys","f":"MC","qt":"tossup","n":1610,"q":"What type of flow occurs when a fluid flows in parallel layers, with no disruption between the layers","c":{"W":"Laminar","X":"Turbulent","Y":"Couette","Z":"Viscous"},"a":{"t":"Laminar","l":"W"}}]},
+{"i":94810,"s":"phys","f":"MC","qt":"tossup","n":1610,"q":"What type of flow occurs when a fluid flows in parallel layers, with no disruption between the layers?","c":{"W":"Laminar","X":"Turbulent","Y":"Couette","Z":"Viscous"},"a":{"t":"Laminar","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7577","q":[
 {"i":94811,"s":"phys","f":"SA","qt":"bonus","n":1611,"q":"What is the name given to the ratio of inertial forces to viscous forces that is used to determine whether a flow will be laminar or turbulent?","a":{"t":"REYNOLDS NUMBER"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7578","q":[
@@ -3838,9 +3838,9 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7604","q":[
 {"i":94859,"s":"phys","f":"SA","qt":"bonus","n":1661,"q":"Which of Kepler’s laws relates the square of the period of orbit with the cube of the semimajor axis?","a":{"t":"KEPLER'S THIRD LAW","ac":["THIRD LAW"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7605","q":[
-{"i":94860,"s":"phys","f":"MC","qt":"tossup","n":1662,"q":"Which of the following pairings is least correct","c":{"W":"strong nuclear force: very strong: short range","X":"weak nuclear force: very weak: long range","Y":"electromagnetism: strong:long range","Z":"gravity: weak : long range"},"a":{"t":"weak nuclear force: very weak: long range","l":"X"}}]},
+{"i":94860,"s":"phys","f":"MC","qt":"tossup","n":1662,"q":"Which of the following pairings is least correct?","c":{"W":"strong nuclear force: very strong: short range","X":"weak nuclear force: very weak: long range","Y":"electromagnetism: strong:long range","Z":"gravity: weak : long range"},"a":{"t":"weak nuclear force: very weak: long range","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7605","q":[
-{"i":96405,"s":"phys","f":"MC","qt":"bonus","n":1663,"q":"Which of the following is not a consequence of general relativity","c":{"W":"Time goes more slowly in higher gravitational fields.","X":"Orbits precess in a way unexpected in Newton's theory of gravity.","Y":"Rays of light always move in a straight line iregardless of a gravitational field.","Z":"Frame-dragging, in which a rotating mass \"drags along\" the space time around it."},"a":{"t":"Rays of light always move in a straight line iregardless of a gravitational field.","l":"Y"}}]},
+{"i":96405,"s":"phys","f":"MC","qt":"bonus","n":1663,"q":"Which of the following is not a consequence of general relativity?","c":{"W":"Time goes more slowly in higher gravitational fields.","X":"Orbits precess in a way unexpected in Newton's theory of gravity.","Y":"Rays of light always move in a straight line iregardless of a gravitational field.","Z":"Frame-dragging, in which a rotating mass \"drags along\" the space time around it."},"a":{"t":"Rays of light always move in a straight line iregardless of a gravitational field.","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7607","q":[
 {"i":94861,"s":"phys","f":"MC","qt":"tossup","n":1664,"q":"An object has a density of 0.50Kg/m^3 and a mass of 10.0Kg . Assuming g=10.0m/s^2 What is the buoyant force in newtons when it is placed in water?","c":{"W":"100","X":"200","Y":"0.5","Z":"500"},"a":{"t":"100","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7607","q":[

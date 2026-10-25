@@ -490,7 +490,7 @@
 {"i":72018,"s":"math","f":"MC","qt":"tossup","n":18,"q":"How many undirected hypergraphs can be constructed on 4 labelled vertices, given that a hypergraph is an ordered pair (V, E) of vertices and hyperedges, and a hyperedge is a generalization of an edge to any positive integer number of vertices?","a":{"t":"32768","l":"Y"},"c":{"W":"64","X":"256","Y":"32768","Z":"65336"}},
 {"i":72019,"s":"math","f":"SA","qt":"bonus","n":18,"q":"A method of counting distinct colorings under a symmetry group that is an extension of Burnside's Lemma, what theorem uses a cycle index polynomial to count exact configurations and tracks specific weight/usage?","a":{"t":"POLYA’S ENUMERATION THEOREM"}},
 {"i":72020,"s":"math","f":"SA","qt":"tossup","n":19,"q":"What hyperbola passes through a triangle's three vertices, its centroid, and its orthocenter?","a":{"t":"KIEPERT HYPERBOLA"}},
-{"i":72021,"s":"math","f":"SA","qt":"tossup","n":20,"q":"The fact that the integral of cosx from 0 to pi/2 and the integral of sinx from 0 to pi/2 are equal can be proved by what rule, which states that integrating a function over a closed interval yields the exact same total area when you replace the variable x with the sum of the lower and upper bounds minus x?","a":{"t":"KING’S RULE"}},
+{"i":72021,"s":"math","f":"SA","qt":"tossup","n":20,"q":"The fact that the integral of cosx from 0 to π/2 and the integral of sinx from 0 to π/2 are equal can be proved by what rule, which states that integrating a function over a closed interval yields the exact same total area when you replace the variable x with the sum of the lower and upper bounds minus x?","a":{"t":"KING’S RULE"}},
 {"i":72022,"s":"math","f":"SA","qt":"bonus","n":20,"q":"How many finite abelian groups of order 16 or 24 are there?","a":{"t":"8"}}]},
 {"rl":"Round Robin 1","r":1,"u":"https://isobowl.com/premier/tournaments/trio-online-math-bowl-tomb?round=1","q":[
 {"i":85602,"s":"math","f":"SA","qt":"bonus","n":3,"q":"What is the units digit of 7^(2026)?","a":{"t":"9"}},
@@ -499,7 +499,7 @@
 {"i":85605,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the largest power of 2 that divides 4^(2^8)?","a":{"t":"2^(512)"}},
 {"i":85606,"s":"math","f":"SA","qt":"bonus","n":10,"q":"If the line tangent to the graph of the differentiable function f of x at the point (4, 2) passes through the point (12, 11), then what is the value of the derivative of f of x when x = 4?","a":{"t":"9/8"}},
 {"i":85607,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the remainder when 74 is divided by 7?","a":{"t":"4"}},
-{"i":85608,"s":"math","f":"MC","qt":"tossup","n":20,"q":"Which of the following is equal to the derivative of sin^2 x + cos^2 x at x = (π)/(2)?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}}]},
+{"i":85608,"s":"math","f":"MC","qt":"tossup","n":20,"q":"Which of the following is equal to the derivative of sin^2 x + cos^2 x at x = π/2?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}}]},
 {"rl":"Round Robin 2","r":2,"u":"https://isobowl.com/premier/tournaments/trio-online-math-bowl-tomb?round=2","q":[
 {"i":85609,"s":"math","f":"SA","qt":"bonus","n":6,"q":"Find the sum of the first 7 perfect squares.","a":{"t":"140"}},
 {"i":85610,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Monish is really bad at spelling. He accidentally spells the word TOMB as T-O-O-M-B. How many ways are there to rearrange the letters in Monish's version of the word?","a":{"t":"60"}},
@@ -522,9 +522,9 @@
 {"rl":"Round Robin 4","r":4,"u":"https://isobowl.com/premier/tournaments/trio-online-math-bowl-tomb?round=4","q":[
 {"i":85625,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Which of the following is the distance between the circle (x-2)^2 + (y-3)^2 = 4 and the line 3x+4y=2?","a":{"t":"6/5","l":"Z"},"c":{"W":"4/5","X":"1","Y":"16/5","Z":"6/5"}},
 {"i":85626,"s":"math","f":"MC","qt":"bonus","n":10,"q":"A false positive is also known as which of the following types of statistical errors?","a":{"t":"Type 1","l":"W"},"c":{"W":"Type 1","X":"Type 2","Y":"Type 3","Z":"Type 4"}},
-{"i":85627,"s":"math","f":"SA","qt":"tossup","n":12,"q":"An equilateral triangle has side length 3. What is the area of the region inside its circumcircle but not in the triangle itself?","a":{"t":"3π - (9√3)/(4)"}},
+{"i":85627,"s":"math","f":"SA","qt":"tossup","n":12,"q":"An equilateral triangle has side length 3. What is the area of the region inside its circumcircle but not in the triangle itself?","a":{"t":"3π - 9√3/4"}},
 {"i":85628,"s":"math","f":"MC","qt":"tossup","n":13,"q":"How many positive integers less than or equal to 75 are relatively prime to 30?","a":{"t":"20","l":"Y"},"c":{"W":"16","X":"18","Y":"20","Z":"24"}},
-{"i":85629,"s":"math","f":"SA","qt":"bonus","n":16,"q":"Simplify the following expression, writing it in the format a + bi: (1+2i)/(3+5i)","a":{"t":"13/34 + (i)/(34)","ac":["(13+i)/(34)"]}},
+{"i":85629,"s":"math","f":"SA","qt":"bonus","n":16,"q":"Simplify the following expression, writing it in the format a + bi: (1+2i)/(3+5i)","a":{"t":"13/34 + i/34","ac":["(13+i)/(34)"]}},
 {"i":85630,"s":"math","f":"MC","qt":"tossup","n":17,"q":"The interior angle of a certain n gon is 165 degrees. How many sides does this polygon have?","a":{"t":"24","l":"Y"},"c":{"W":"22","X":"23","Y":"24","Z":"25"}},
 {"i":85631,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the cosine of the largest angle in a triangle with side lengths of 7, 8, and 9?","a":{"t":"2/7"}},
 {"i":85632,"s":"math","f":"MC","qt":"bonus","n":20,"q":"Which of the following is the cardinality of the set of algebraic numbers?","a":{"t":"Countably Infinite","l":"X"},"c":{"W":"Finite","X":"Countably Infinite","Y":"Uncountably infinite","Z":"Indeterminate"}}]},
@@ -546,7 +546,7 @@
 {"i":85645,"s":"math","f":"SA","qt":"tossup","n":11,"q":"The function f(x) = x^2 - 3 and g(x) = √(x+3). What is the absolute difference between the values of f(g(49)) and g(f(49))?","a":{"t":"0"}},
 {"i":85646,"s":"math","f":"SA","qt":"tossup","n":13,"q":"In the word ONLINE, spelled O N L I N E, how many ways are there to re-arrange the letters such that no two of the same letters are consecutive?","a":{"t":"240"}},
 {"i":85647,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Find the area of a triangle with side lengths √5, √10, and √13.","a":{"t":"7/2"}},
-{"i":85648,"s":"math","f":"MC","qt":"bonus","n":15,"q":"If y is a function of x such that (dy)/(dx) = (x)/(y) and y(3) = 4, which of the following equations is true?","a":{"t":"y^2-x^2 = 7","l":"W"},"c":{"W":"y^2-x^2 = 7","X":"y^2 + x^2 = 25","Y":"y^2 - x^2 = -7","Z":"y^2 + x^2 = -25"}}]},
+{"i":85648,"s":"math","f":"MC","qt":"bonus","n":15,"q":"If y is a function of x such that dy/dx = x/y and y(3) = 4, which of the following equations is true?","a":{"t":"y^2-x^2 = 7","l":"W"},"c":{"W":"y^2-x^2 = 7","X":"y^2 + x^2 = 25","Y":"y^2 - x^2 = -7","Z":"y^2 + x^2 = -25"}}]},
 {"rl":"DE 3","r":8,"u":"https://isobowl.com/premier/tournaments/trio-online-math-bowl-tomb?round=8","q":[
 {"i":85649,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Three lines that are pairwise non-parallel, two circles, and one pentagon all exist on the coordinate plane. What is the maximum number of intersections between at least two of these objects on the plane?","a":{"t":"43"}},
 {"i":85650,"s":"math","f":"SA","qt":"bonus","n":8,"q":"How many functions f from the set 1,2,3,4,5 to the set 1,2,3,4,5 satisfy f(f(x)) = x?","a":{"t":"26"}},

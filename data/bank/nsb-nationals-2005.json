@@ -78,7 +78,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3570","q":[
 {"i":89063,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"The Persied’s Meteor Showers are viewed in the State of Maine during what month?","a":{"t":"AUGUST"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3571","q":[
-{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2pi","Y":"4pi","Z":"1/2 π"},"a":{"t":"4pi","l":"Y"}}]},
+{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2π","Y":"4π","Z":"1/2 π"},"a":{"t":"4π","l":"Y"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3571","q":[
 {"i":89065,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the total angular distance in degrees over a sphere?","a":{"t":"360 DEGREES"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3572","q":[
@@ -540,7 +540,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3687","q":[
 {"i":89294,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"Which moon is the only other body in our solar system, besides the Earth, that has an atmosphere of mostly nitrogen?","a":{"t":"TITAN"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3688","q":[
-{"i":89295,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the formula for the volume of a sphere of radius R:","a":{"t":"(4/3)πR^3","ac":["4/3 pi R^3"]}}]},
+{"i":89295,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the formula for the volume of a sphere of radius R:","a":{"t":"(4/3)πR^3","ac":["4/3 π R^3"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3688","q":[
 {"i":89296,"s":"math","f":"MC","qt":"bonus","n":13,"q":"The Babylonian number system is base 60, which makes it:","c":{"W":"vigesimal","X":"quinary","Y":"binary","Z":"sexagesimal"},"a":{"t":"sexagesimal","l":"Z"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3689","q":[
@@ -958,7 +958,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3394","q":[
 {"i":89504,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"Calculate the number of calories needed to raise the temperature of 20 grams of water from 20° C to 30° C:","a":{"t":"200 CALORIES"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3395","q":[
-{"i":89505,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"When high speed electrons or protons from the solar wind collide with gases in the Earth’s upper atmosphere causing them to fluoresce, this results in what phenomena?","a":{"t":"AURORA","ac":["NORTHERN","SOUTHERN LIGHTS","AURORA AUSTRALIS","AURORA BOREALIS"]}}]},
+{"i":89505,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"When high speed electrons or protons from the solar wind collide with gases in the Earth’s upper atmosphere causing them to fluoresce, this results in what phenomena?","a":{"t":"AURORA","ac":["NORTHERN LIGHTS","SOUTHERN LIGHTS","AURORA AUSTRALIS","AURORA BOREALIS"]}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3395","q":[
 {"i":89506,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"What is the astronomical term for the region of ionized hydrogen in interstellar space?","a":{"t":"H II REGION"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3396","q":[
