@@ -4672,7 +4672,7 @@
 {"i":78059,"s":"bio","f":"SA","qt":"tossup","n":14,"q":"Houseflies are in the order Diptera. What does \"diptera\" mean?","a":{"t":"TWO WINGS"}},
 {"i":78060,"s":"bio","f":"SA","qt":"bonus","n":14,"q":"Name the most unusual and obvious adaptation an angler fish has to help it catch its prey.","a":{"t":"BIOLUMINESCENT LURE"}},
 {"i":78061,"s":"phys","f":"MC","qt":"tossup","n":15,"q":"How is the relationship between the temperature and volume of an ideal gas characterized?","a":{"t":"Directly proportional","l":"W"},"c":{"W":"Directly proportional","X":"Inversely proportional","Y":"Exponential","Z":"Independent"}},
-{"i":78062,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"What is the molecular formula for amazonite?","a":{"t":"KAlSi2O2"}},
+{"i":78062,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"What is the molecular formula for amazonite?","a":{"t":"KAlSi3O8"}},
 {"i":78063,"s":"chem","f":"MC","qt":"tossup","n":16,"q":"Which of the following metals is the best conductor of electricity?","a":{"t":"Silver","l":"X"},"c":{"W":"Copper","X":"Silver","Y":"Gold","Z":"Aluminum"}},
 {"i":78064,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Given that the molecular weight of sodium hydroxide is 40 grams per mole, calculate to the nearest hundredth the molarity of a solution with 2 grams of sodium hydroxide dissolved in 5 liters of water.","a":{"t":"0.01"}},
 {"i":78065,"s":"ess","f":"MC","qt":"tossup","n":17,"q":"Which of the following silicate mineral groups has a single-chain silicate structure?","a":{"t":"Pyroxenes","l":"Y"},"c":{"W":"Feldspars","X":"Micas","Y":"Pyroxenes","Z":"Amphiboles"}},
