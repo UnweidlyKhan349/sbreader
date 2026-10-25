@@ -253,7 +253,7 @@
 {"i":47007,"s":"math","f":"SA","qt":"bonus","n":8,"q":"What is the inradius of a 9-40-41 triangle?","a":{"t":"4"}},
 {"i":47008,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"Which part of a spiral galaxy hosts the youngest stars?","a":{"t":"Spiral Arms","l":"W"},"c":{"W":"Spiral Arms","X":"Central bulge","Y":"Black hole","Z":"Halo"}},
 {"i":47009,"s":"ess","f":"SA","qt":"bonus","n":9,"q":"A solar eclipse begins at 9:04am local time for an observer on Earth. From the reference point of the sun, at what time did the moon first begin to pass in front of it?","a":{"t":"8:56 AM"}},
-{"i":47010,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"Identify all of the following 3 substances that are network solids: Boron nitride Silicon carbide Diamond","a":{"t":"ALL OF THEM"}},
+{"i":47010,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"Identify all of the following 3 substances that are network solids: 1) Boron nitride 2) Silicon carbide 3) Diamond","a":{"t":"ALL OF THEM"}},
 {"i":47011,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"What is the term for colloids with a liquid phase dispersed among a gaseous medium?","a":{"t":"AEROSOL"}},
 {"i":47012,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"What name is given to the type of fluid flow with a particularly low Reynolds number displaying smooth flow without lateral mixing?","a":{"t":"LAMINAR"}},
 {"i":47013,"s":"phys","f":"SA","qt":"bonus","n":11,"q":"You create a graph with time on the x-axis and plot a line along the graph. If the slope of this line gives the acceleration of an object, what quantity must be placed on the y-axis?","a":{"t":"VELOCITY"}},

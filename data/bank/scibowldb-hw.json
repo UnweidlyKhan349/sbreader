@@ -894,7 +894,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6828","q":[
 {"i":93467,"s":"phys","f":"SA","qt":"tossup","n":189,"q":"A loaded mousetrap stores 50 Joules of energy. As it is released, it is used to power the horizontal movement of a small 4 kilogram car. Once the mousetrap has unwound completely, how fast is the car moving?","a":{"t":"5 METERS PER SECOND","ac":["5"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6828","q":[
-{"i":93468,"s":"phys","f":"SA","qt":"bonus","n":190,"q":"In the same situation, if the potential energy of the mousetrap doubles, by what factor does the final speed increase?","a":{"t":"SQUARE ROOT OF 2","ac":["√2","1.41"]}}]},
+{"i":93468,"s":"phys","f":"SA","qt":"bonus","n":190,"q":"In the same situation, if the potential energy of the mousetrap doubles, by what factor does the final speed increase?","a":{"t":"√2","ac":["√2","1.41","SQUARE ROOT OF 2"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6829","q":[
 {"i":93469,"s":"phys","f":"MC","qt":"tossup","n":191,"q":"How much work is done by a constant force of 6 Newtons pointing north on an object as the object moves 3 meters east?","c":{"W":"0 Joules","X":"0.5 Joules","Y":"2 Joules","Z":"4 Joules"},"a":{"t":"0 Joules","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6829","q":[
