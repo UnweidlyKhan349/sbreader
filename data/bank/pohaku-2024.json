@@ -327,5 +327,5 @@
 {"i":47080,"s":"chem","f":"MC","qt":"tossup","n":22,"q":"Methanol is an alcohol with chemical formula CH3OH. Alcohols are molecules which contain which of the following functional groups?","a":{"t":"hydroxyl","l":"X"},"c":{"W":"carboxyl","X":"hydroxyl","Y":"ketone","Z":"aldehyde"}},
 {"i":47081,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What constant, which is used to define the kelvin, can be thought of as the equivalent of the ideal gas constant for individual particles?","a":{"t":"BOLTZMANN'S CONSTANT"}},
 {"i":47082,"s":"phys","f":"SA","qt":"tossup","n":23,"q":"A magnetic field of magnitude 10 teslas points in the positive x-direction. If an electron with velocity 100 m/s moves in the positive x-direction, in newtons, what is the magnitude of the resulting force on the electron?","a":{"t":"0"}},
-{"i":47083,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"An object is placed 6 meters away from a converging lens with focal length 2 meters. What is the resulting magnification of this system?","a":{"t":"-0.5 (must have the negative sign, accept negative 0.5)"}}]}
+{"i":47083,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"An object is placed 6 meters away from a converging lens with focal length 2 meters. What is the resulting magnification of this system?","a":{"t":"−0.5","ac":["negative 0.5","-1/2"]}}]}
 ]

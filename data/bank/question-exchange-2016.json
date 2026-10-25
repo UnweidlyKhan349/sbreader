@@ -1390,7 +1390,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4960","q":[
 {"i":95646,"s":"bio","f":"SA","qt":"bonus","n":98,"q":"What is the corepressor molecule in the trp operon?","a":{"t":"tryptophan"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4961","q":[
-{"i":95647,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"What form of hybridization is found in Sulfur Hexafluoride?","c":{"W":"sp3","X":"sp3d2","Y":"sp3d3","Z":"sp4d3"},"a":{"t":"sp3d2","l":"X"}}]},
+{"i":95647,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"What form of hybridization is found in Sulfur Hexafluoride?","c":{"W":"sp^3","X":"sp^3d^2","Y":"sp^3d^3","Z":"sp4d3"},"a":{"t":"sp^3d^2","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4961","q":[
 {"i":96179,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"Which of the following amino acids is aromatic?","c":{"W":"Tryptophan","X":"Glutamic Acid","Y":"Methionine","Z":"Lysine"},"a":{"t":"Tryptophan","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4962","q":[
@@ -1440,7 +1440,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4974","q":[
 {"i":95665,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"What name should be given to a molecule with the formula N2O5?","a":{"t":"dinitrogen pentoxide"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4975","q":[
-{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp2","Y":"sp3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
+{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp^2","Y":"sp^3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4975","q":[
 {"i":95667,"s":"chem","f":"MC","qt":"bonus","n":27,"q":"Which of the following is least related to the strength of a covalent bond?","c":{"W":"vibrational frequency","X":"bond order","Y":"bond length","Z":"bond direction"},"a":{"t":"bond direction","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4976","q":[
@@ -1490,7 +1490,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4988","q":[
 {"i":96190,"s":"chem","f":"SA","qt":"bonus","n":50,"q":"Which element has the largest atomic radius?","a":{"t":"Cesium","ac":["CS","FRANCIUM"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4989","q":[
-{"i":96191,"s":"chem","f":"SA","qt":"tossup","n":51,"q":"What is the hybridization of the molecular bonds of Ammonia?","a":{"t":"sp3"}}]},
+{"i":96191,"s":"chem","f":"SA","qt":"tossup","n":51,"q":"What is the hybridization of the molecular bonds of Ammonia?","a":{"t":"sp^3"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4989","q":[
 {"i":95685,"s":"chem","f":"SA","qt":"bonus","n":52,"q":"Which element is most likely to act as an ideal gas?","a":{"t":"HELIUM","ac":["HE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4990","q":[
@@ -1504,7 +1504,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4993","q":[
 {"i":96193,"s":"chem","f":"SA","qt":"tossup","n":57,"q":"What is the most common isotope of Hydrogen?","a":{"t":"Protium"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4993","q":[
-{"i":96194,"s":"chem","f":"SA","qt":"bonus","n":58,"q":"What is the hybridization of carbon atoms in alkanes?","a":{"t":"sp3"}}]},
+{"i":96194,"s":"chem","f":"SA","qt":"bonus","n":58,"q":"What is the hybridization of carbon atoms in alkanes?","a":{"t":"sp^3"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4994","q":[
 {"i":95689,"s":"chem","f":"SA","qt":"tossup","n":59,"q":"In the standard notation for a voltaic cell, the double vertical line \"||\" represents","a":{"t":"SALT BRIDGE","ac":["POROUS BARRIER"],"rj":["STANDARD HYDROGEN ELECTRODE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4994","q":[
@@ -1530,7 +1530,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5000","q":[
 {"i":95693,"s":"chem","f":"MC","qt":"bonus","n":70,"q":"Which of the following molecules is a saturated hydrocarbon?","c":{"W":"C2H4","X":"C3H8","Y":"CH3OH","Z":"C4H6"},"a":{"t":"C3H8","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5001","q":[
-{"i":95694,"s":"chem","f":"MC","qt":"tossup","n":71,"q":"A tetrahedral molecule, XY4 would be formed if X were using the orbital hybridization:","c":{"W":"p2","X":"s2","Y":"sp2","Z":"sp3"},"a":{"t":"sp3","l":"Z"}}]},
+{"i":95694,"s":"chem","f":"MC","qt":"tossup","n":71,"q":"A tetrahedral molecule, XY4 would be formed if X were using the orbital hybridization:","c":{"W":"p2","X":"s2","Y":"sp^2","Z":"sp^3"},"a":{"t":"sp^3","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5001","q":[
 {"i":95695,"s":"chem","f":"MC","qt":"bonus","n":72,"q":"How does a Bronsted-Lowry acid differ from its conjugate base?","c":{"W":"The acid has one more proton.","X":"The acid has one less proton.","Y":"The acid has one more electron.","Z":"The acid has one less electron."},"a":{"t":"The acid has one more proton.","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5002","q":[
@@ -1572,7 +1572,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5011","q":[
 {"i":95712,"s":"chem","f":"MC","qt":"bonus","n":91,"q":"What is the main method of helium production?","c":{"W":"Retrieval from the upper atmosphere","X":"Distillation from natural gas","Y":"Extraction from rock compounds","Z":"Distillation from the lower atmosphere"},"a":{"t":"Distillation from natural gas","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5012","q":[
-{"i":95713,"s":"chem","f":"SA","qt":"tossup","n":92,"q":"What form of hybridization does the carbonyl carbon of a ketone have?","a":{"t":"sp2"}}]},
+{"i":95713,"s":"chem","f":"SA","qt":"tossup","n":92,"q":"What form of hybridization does the carbonyl carbon of a ketone have?","a":{"t":"sp^2"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5012","q":[
 {"i":96204,"s":"chem","f":"MC","qt":"bonus","n":93,"q":"Which of the following is amphoteric?","c":{"W":"Zinc Oxide","X":"Aluminum Chloride","Y":"Acetic Acid","Z":"Magnesium Oxide"},"a":{"t":"Zinc Oxide","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5013","q":[
@@ -1636,7 +1636,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5028","q":[
 {"i":95730,"s":"chem","f":"MC","qt":"bonus","n":123,"q":"Which of the following is the strongest oxidizing agent?","c":{"W":"Pb^(2+)","X":"I2","Y":"Ag^+","Z":"Pb"},"a":{"t":"Ag^+","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5029","q":[
-{"i":96218,"s":"chem","f":"MC","qt":"tossup","n":124,"q":"What is the hybridization of the sulfur atom in SF4?","c":{"W":"sp2","X":"sp3","Y":"sp3d","Z":"sp3d2"},"a":{"t":"sp3d","l":"Y"}}]},
+{"i":96218,"s":"chem","f":"MC","qt":"tossup","n":124,"q":"What is the hybridization of the sulfur atom in SF4?","c":{"W":"sp^2","X":"sp^3","Y":"sp^3d","Z":"sp^3d^2"},"a":{"t":"sp^3d","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5030","q":[
 {"i":95731,"s":"chem","f":"SA","qt":"tossup","n":125,"q":"Which famous chemist was responsible for creating the field of colloid chemistry and created laws for effusion and diffusion?","a":{"t":"Thomas Graham"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5030","q":[

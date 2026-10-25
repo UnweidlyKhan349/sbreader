@@ -189,7 +189,7 @@
 {"i":44158,"s":"math","f":"SA","qt":"tossup","n":12,"q":"What is the area under the curve from x=1 to x=3 of the graph y=2^x?","a":{"t":"6/(ln2)"}},
 {"i":44159,"s":"math","f":"SA","qt":"bonus","n":12,"q":"What is the greatest common factor of 1397 and 2849?","a":{"t":"11"}},
 {"i":44160,"s":"chem","f":"MC","qt":"tossup","n":14,"q":"Which of the following elements is most likely to form a compound with an expanded octet?","a":{"t":"Sulfur","l":"Y"},"c":{"W":"Nitrogen","X":"Oxygen","Y":"Sulfur","Z":"Carbon"}},
-{"i":44161,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"What is the hybridization of the central atom in xenon tetrafluoride (XeF4)?","a":{"t":"sp3d2"}},
+{"i":44161,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"What is the hybridization of the central atom in xenon tetrafluoride (XeF4)?","a":{"t":"sp^3d^2"}},
 {"i":44162,"s":"bio","f":"SA","qt":"tossup","n":15,"q":"Maturation Promoting Factor, or MPF, is an example of what type of enzyme, which is important for controlling the progression of the cell cycle?","a":{"t":"CYCLIN DEPENDENT KINASE","ac":["CDK"]}},
 {"i":44163,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"A PET scan is a diagnostic often used to test for cancer. In this test, a radioactive version of what molecule is used to determine regions of high metabolic activity in a patient?","a":{"t":"GLUCOSE"}},
 {"i":44164,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"Which of the following are extrusive igneous rocks? I. Andesite; II. Pumice; III. Pegmatite","a":{"t":"I and II"}},

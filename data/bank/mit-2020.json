@@ -436,7 +436,7 @@
 {"i":14254,"s":"ess","f":"SA","qt":"bonus","n":17,"q":"By name or number, indicate all of the following three stars that are in the Winter Triangle: 1) Altair 2) Deneb 3) Vega","a":{"t":"None of them"}},
 {"i":14255,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Which male reproductive cells produce testosterone?","a":{"t":"Leydig cells"}},
 {"i":14256,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"The protein that blocks myosin binding to actin in relaxed muscle is","a":{"t":"Tropomyosin","l":"X"},"c":{"W":"Titin","X":"Tropomyosin","Y":"Troponin C","Z":"Calmodulin"}},
-{"i":14257,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following molecules will have sp3d hybridization?","a":{"t":"SF4","l":"Y"},"c":{"W":"H2SO4","X":"BF3","Y":"SF4","Z":"CO2"}},
+{"i":14257,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following molecules will have sp^3d hybridization?","a":{"t":"SF4","l":"Y"},"c":{"W":"H2SO4","X":"BF3","Y":"SF4","Z":"CO2"}},
 {"i":14258,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"By name or number, arrange the following 3 measurements of an ideal gas in increasing order: 1) Root mean square velocity 2) Average speed 3) Most probable speed","a":{"t":"3,2,1"}},
 {"i":14259,"s":"math","f":"MC","qt":"tossup","n":20,"q":"A commonly cited benefit of the seximal, or base 6, number system is that it provides convenient decimal representations of many simple fractions. Which of the following fractions terminates in seximal but not in decimal?","a":{"t":"1 / 9","l":"Y"},"c":{"W":"1 / 4","X":"1 / 8","Y":"1 / 9","Z":"1 / 11"}},
 {"i":14260,"s":"math","f":"SA","qt":"bonus","n":20,"q":"When the seximal number 1344255 is converted to decimal, what is its last digit?","a":{"t":"9"}},

@@ -1,6 +1,6 @@
 [
 {"rl":"Copy of SSBT FINALS 2_","r":12,"u":"https://lebot.djiang.xyz/packets/SSBT-2023/Copy%20of%20SSBT%20FINALS%202_.pdf","q":[
-{"i":28877,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Rank the following three bonds by increasing bond dissociation energy; 1) Oxygen sp2 bonded to hydrogen; 2) Carbon sp2 bonded to Hydrogen; 3) Carbon sp bonded to Hydrogen;","a":{"t":"2,3,1"}},
+{"i":28877,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Rank the following three bonds by increasing bond dissociation energy; 1) Oxygen sp^2 bonded to hydrogen; 2) Carbon sp^2 bonded to Hydrogen; 3) Carbon sp bonded to Hydrogen;","a":{"t":"2,3,1"}},
 {"i":28878,"s":"chem","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following three reactions that proceed via a carbon anion intermediate? 1) Williamson's ether synthesis; 2) E2 substitution; 3) Oxymercuration - Demercuration","a":{"t":"NONE"}},
 {"i":28879,"s":"math","f":"SA","qt":"tossup","n":2,"q":"A ball is dropped from 81 meters above the ground such that it bounces to 2/5 its height every time. What value does the distance traveled downward by the ball approach?","a":{"t":"135"}},
 {"i":28880,"s":"math","f":"SA","qt":"bonus","n":2,"q":"An equilateral triangle with side length 6 is formed from the vertices of a regular hexagon. What is the area of the hexagon?","a":{"t":"18√3"}},
@@ -275,7 +275,7 @@
 {"i":29176,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"What is the name of the mechanoreceptors which are phasic and detect gross pressure changes and vibrations in the skin?","a":{"t":"PACINIAN CORPUSCLE","ac":["LAMELLAR CORPUSCLE","VATER - PACINI CORPUSCLE"]}},
 {"i":29177,"s":"math","f":"SA","qt":"tossup","n":14,"q":"A biker bikes at a constant speed of 8 m/s uphill and 16 m/s downhill. If the biker spends 6 seconds biking uphill and 10 seconds biking downhill on a trail, how long in seconds will the biker spend on hills if he bikes the whole way back to where he started?","a":{"t":"23"}},
 {"i":29178,"s":"math","f":"SA","qt":"bonus","n":14,"q":"If a, b, c, and d are the roots of the polynomial 4x^4 + 5x^2 + 5x - 13, what is the value of a^2 + b^2 + c^2 + d^2?","a":{"t":"5/2","ac":["2.5"]}},
-{"i":29179,"s":"chem","f":"SA","qt":"tossup","n":15,"q":"What is the hybridization of iodine in iodine trichloride?","a":{"t":"SP3D"}},
+{"i":29179,"s":"chem","f":"SA","qt":"tossup","n":15,"q":"What is the hybridization of iodine in iodine trichloride?","a":{"t":"sp^3d"}},
 {"i":29180,"s":"chem","f":"MC","qt":"bonus","n":15,"q":"Which of the following is not true regarding a racemic mixture?","a":{"t":"Racemic mixtures are optically active","l":"W"},"c":{"W":"Racemic mixtures are optically active","X":"The percent enantiomeric excess of a racemic mixture is 0%","Y":"Racemic mixtures are identical to their pure enantiomer components in physical properties","Z":"Racemic mixtures are composed of equal amounts of enantiomers"}},
 {"i":29181,"s":"phys","f":"SA","qt":"tossup","n":16,"q":"Identify all of the following 3 color charges that a quark may have: 1) Red; 2) Yellow; 3) Green.","a":{"t":"1 AND 3"}},
 {"i":29182,"s":"phys","f":"MC","qt":"bonus","n":16,"q":"Which of the following bosons can exist in two oppositely charged states?","a":{"t":"W Boson","l":"X"},"c":{"W":"Gluon","X":"W Boson","Y":"Higgs Boson","Z":"Z Boson"}},

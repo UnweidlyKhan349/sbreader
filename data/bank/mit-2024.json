@@ -565,7 +565,7 @@
 {"i":16830,"s":"math","f":"MC","qt":"tossup","n":23,"q":"How many prime numbers less than 50 have a units digit that is a composite number?","a":{"t":"2","l":"X"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
 {"i":16831,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A continuous function f(x) defined on the positive real numbers satisfies 2f(x) + f(1/x) = x for all values of x. Find f(2).","a":{"t":"7/6"}}]},
 {"rl":"2024_MIT_Science_Bowl_Round_9","r":9,"u":"https://lebot.djiang.xyz/packets/MIT-2024/2024_MIT_Science_Bowl_Round_9.pdf","q":[
-{"i":16832,"s":"math","f":"SA","qt":"tossup","n":1,"q":"Let z equal √3 − i. What is z^3?","a":{"t":"−8i (DO NOT ACCEPT: 8i)"}},
+{"i":16832,"s":"math","f":"SA","qt":"tossup","n":1,"q":"Let z equal √3 − i. What is z^3?","a":{"t":"−8i","rj":["8i"]}},
 {"i":16834,"s":"bio","f":"MC","qt":"tossup","n":2,"q":"Researchers at the Weissman lab are studying secretin secretion by S cells. These S cells are located in what organ of the digestive system?","a":{"t":"Small Intestine","l":"Y"},"c":{"W":"Pancreas","X":"Esophagus","Y":"Small Intestine","Z":"Gallbladder"}},
 {"i":16835,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Researchers at MIT’s Center for Bits and Atoms are researching nuclear spins. Identify all of the following three nuclei that can be studied via NMR spectroscopy: 1) Carbon-12 2) Carbon-13 3) Nitrogen-14","a":{"t":"2 and 3"}},
 {"i":16836,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"The electric field on the axis of an electric dipole is proportional to what power of the distance from the dipole?","a":{"t":"−3"}},

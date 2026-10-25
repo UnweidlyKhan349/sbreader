@@ -164,7 +164,7 @@
 {"i":40935,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"Which of the following is true regarding phase changes?","a":{"t":"the temperature does not change during a phase change","l":"W"},"c":{"W":"the temperature does not change during a phase change","X":"the heat added will cause the temperature to increase","Y":"the heat added will cause the temperature to decrease","Z":"you must know the entropy to determine whether the temperature will change"}},
 {"i":40936,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following is a possible set of quantum numbers for a 3d orbital?","a":{"t":"n=3, l=2","l":"Y"},"c":{"W":"n=3, l=0","X":"n=3, l=1","Y":"n=3, l=2","Z":"n=3, l=3"}},
 {"i":40939,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"To 3 significant figures, what is the volume of 1 mole of CO2 at 1 atm and 0 degrees Celsius?","a":{"t":"22.4 L"}},
-{"i":40940,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following is the hybridization of the Sulfur atom in SF6?","a":{"t":"d2sp3","l":"Y"},"c":{"W":"sp3","X":"sp2","Y":"d2sp3","Z":"dsp3"}},
+{"i":40940,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following is the hybridization of the Sulfur atom in SF6?","a":{"t":"d^2sp^3","l":"Y"},"c":{"W":"sp^3","X":"sp^2","Y":"d^2sp^3","Z":"dsp^3"}},
 {"i":40941,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the molecular geometry of SF6?","a":{"t":"Octahedral"}},
 {"i":40942,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"Identify all of the following that are considered intermolecular bonds. 1) hydrogen bonding 2) covalent bonding 3) dipole-dipole interactions","a":{"t":"1 and 3"}},
 {"i":40947,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"How many degrees of unsaturation are in Benzene, C6H6?","a":{"t":"4"}}]},
@@ -182,7 +182,7 @@
 {"i":40976,"s":"math","f":"MC","qt":"tossup","n":23,"q":"A triangle has angle measures 40°, 60°, and 80°. What type of triangle is it?","a":{"t":"acute","l":"Z"},"c":{"W":"right","X":"obtuse","Y":"isosceles","Z":"acute"}},
 {"i":40977,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A sequence is defined as a_n = 3n^2 − 2n. What is the 8th term of the sequence?","a":{"t":"176"}},
 {"i":40979,"s":"math","f":"MC","qt":"bonus","n":23,"q":"A quadratic function has roots 4 and –2. Which of the following could be the function?","a":{"t":"x^2-2x-8","l":"W"},"c":{"W":"x^2-2x-8","X":"x^2-x-8","Y":"x^2-3x-10","Z":"x^2-5x+8"}},
-{"i":40980,"s":"math","f":"SA","qt":"tossup","n":23,"q":"If 5/x is equal to x/20, what are the possible values for x?","a":{"t":"10 and -10 (must have both numbers)"}}]},
+{"i":40980,"s":"math","f":"SA","qt":"tossup","n":23,"q":"If 5/x is equal to x/20, what are the possible values for x?","a":{"t":"10 and -10"}}]},
 {"rl":"Dvhs Physics Supplemental","r":null,"q":[
 {"i":40984,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Which law states that for every action there is an equal and opposite reaction?","a":{"t":"Newton’s 3rd Law(of motion)"}},
 {"i":40987,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"A 20 kg object is moving at 3 m/s around a track with radius 18 m. What is the centripetal force the object experiences?","a":{"t":"10 N"}},

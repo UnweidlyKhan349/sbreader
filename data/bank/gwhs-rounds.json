@@ -654,7 +654,7 @@
 {"i":9734,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"What are the products of the reaction of bromomethane and hydroxide?","a":{"t":"METHANOL AND BROMIDE","ac":["C2H5OH AND Br^-"]}},
 {"i":9735,"s":"math","f":"SA","qt":"tossup","n":18,"q":"In triangle ABC, AB = 6, BC = 7, and CA = 12.8. Triangle DEF has DE = 2 * AB, EF = BC, and m ∠ ABC = m ∠ DEF. What is the ratio of the area of triangle ABC to the area of triangle DEF?","a":{"t":"1/2"}},
 {"i":9736,"s":"math","f":"SA","qt":"bonus","n":18,"q":"Triangle JPF has JP = 3, PF = 4 and FJ = 5. Let point A be the foot of the altitude from P to FJ, and point B be the foot of the median from P to FJ. What is the absolute difference in the areas of triangles PAJ and PBJ?","a":{"t":"21/25"}},
-{"i":9737,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"What is the hybridization of the central atom in XeF4?","a":{"t":"SP3D2","ac":["D2SP3"]}},
+{"i":9737,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"What is the hybridization of the central atom in XeF4?","a":{"t":"sp^3d^2","ac":["D2SP3"]}},
 {"i":9738,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"What is the electron pair geometry and molecular geometry, respectively, of xenon difluoride?","a":{"t":"ELECTRON PAIR GEOMETRY: TRIGONAL BIPYRAMIDAL, MOLECULAR GEOMETRY: LINEAR"}},
 {"i":9739,"s":"phys","f":"SA","qt":"tossup","n":20,"q":"What is the unit of measure for electrical conductance, originally called mhos because it is the reciprocal unit of resistance?","a":{"t":"SIEMENS"}},
 {"i":9740,"s":"phys","f":"SA","qt":"bonus","n":20,"q":"Given that the derived unit Siemens is equivalent to an inverse ohm, express the units of Siemens in terms of base SI units.","a":{"t":"m^-2 kg^-1 s^3 A^2"}},

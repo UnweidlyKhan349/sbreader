@@ -1,6 +1,6 @@
 [
 {"rl":"Fall Round 1","r":1,"q":[
-{"i":39836,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What is the hybridization of the central carbon atom in formaldehyde?","a":{"t":"SP2"}},
+{"i":39836,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What is the hybridization of the central carbon atom in formaldehyde?","a":{"t":"sp^2"}},
 {"i":39837,"s":"chem","f":"SA","qt":"bonus","n":1,"q":"Identify all of the three following properties that are state functions: 1) Heat; 2) Work; 3) Enthalpy.","a":{"t":"3 ONLY"}},
 {"i":39838,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"Yeast produces beer and other alcohol products through what general reaction pathway?","a":{"t":"FERMENTATION","ac":["ANAEROBIC RESPIRATION"]}},
 {"i":39839,"s":"bio","f":"MC","qt":"bonus","n":2,"q":"Which of the following monophyletic groups is NOT classified as being one of the three major biological domains?","a":{"t":"Protista","l":"X"},"c":{"W":"Bacteria","X":"Protista","Y":"Eukarya","Z":"Archaea"}},
@@ -293,7 +293,7 @@
 {"i":40119,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find all values of x that satisfy the following equation: the quantity x + 1 cubed equals the quantity x – 1 times the quantity x + 2 times the quantity x + 3.","a":{"t":"x = 1 + 2√2 AND x = 1 − 2√2"}},
 {"i":40120,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"A circuit consisting of a fully charged 4 farad capacitor, 4 henry inductor, and a 300 ohm resistor, is closed. What is the resonant angular frequency of the circuit in radians per second?","a":{"t":"0.25"}}]},
 {"rl":"Fall Round 5","r":5,"q":[
-{"i":40121,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Scientists measure the activity of radioactive samples using what SI derived unit?","a":{"t":"BECQUEREL (don’t accept Curie: not SI unit)"}},
+{"i":40121,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Scientists measure the activity of radioactive samples using what SI derived unit?","a":{"t":"BECQUEREL","rj":["CURIE"]}},
 {"i":40122,"s":"chem","f":"SA","qt":"bonus","n":1,"q":"Rank the following three diatomic compounds in order of increasing bond dissociation energy: 1) NF; 2) HF; 3) HCl.","a":{"t":"1, 3, 2"}},
 {"i":40123,"s":"ess","f":"MC","qt":"tossup","n":2,"q":"Which of the following ocean currents is a cold current that flows northward?","a":{"t":"Benguela Current","l":"Z"},"c":{"W":"California Current","X":"Canary Current","Y":"Kuroshio Current","Z":"Benguela Current"}},
 {"i":40124,"s":"math","f":"SA","qt":"bonus","n":3,"q":"The function f of x equals 3x^3 – 2x^2 – 9x + 6 has a single rational root. What is its value?","a":{"t":"2/3"}},

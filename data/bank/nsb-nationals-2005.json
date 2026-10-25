@@ -124,7 +124,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3582","q":[
 {"i":89086,"s":"chem","f":"MC","qt":"tossup","n":7,"q":"Which of the following correctly describes STP:","c":{"W":"4° C at 1 Atmosphere","X":"0° C at 0 Atmosphere","Y":"23° C at 1 Atmosphere","Z":"0° C at 1 Atmosphere"},"a":{"t":"0° C at 1 Atmosphere","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3582","q":[
-{"i":89087,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET (need not be in order)"}}]},
+{"i":89087,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3583","q":[
 {"i":89088,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"A typical CD-ROM can hold a maximum of about how much data?","c":{"W":"650 MB","X":"1.5 GB","Y":"2.5 GB","Z":"15 GB"},"a":{"t":"650 MB","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3583","q":[
@@ -746,7 +746,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3740","q":[
 {"i":89397,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"A mixture of turpentine, ether, camphor gum, and powdered emory, was historically used for which of the following:","c":{"W":"sealing mirrored surfaces","X":"grinding glass surfaces","Y":"gluing glass plates together","Z":"coating lenses for chromatic aberration"},"a":{"t":"grinding glass surfaces","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3740","q":[
-{"i":89398,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION (must be in correct order)"}}]},
+{"i":89398,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3741","q":[
 {"i":89399,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT true about JAVA:","c":{"W":"it provides support for networking.","X":"it is an ISO standard language","Y":"it is an object oriented language","Z":"it is a dynamic language."},"a":{"t":"it is an ISO standard language","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3741","q":[
@@ -1076,7 +1076,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3424","q":[
 {"i":89563,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"An element that can exist in several natural forms, such as coal versus diamonds, are typically referred to as:","c":{"W":"morphotropes","X":"heliotropes","Y":"isotopes","Z":"allotropes"},"a":{"t":"allotropes","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3424","q":[
-{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp2 orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
+{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp^2 orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3425","q":[
 {"i":89565,"s":"bio","f":"MC","qt":"tossup","n":25,"q":"PCR does NOT use which of the following:","c":{"W":"heat to separate strands","X":"primers","Y":"DNA polymerase","Z":"reverse transcriptase"},"a":{"t":"reverse transcriptase","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3425","q":[

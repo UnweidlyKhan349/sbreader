@@ -306,7 +306,7 @@
 {"i":52550,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Researchers at Jefferson Lab are studying the formation of lambda particles, which are typically made up of an up, down, and strange quark. Identify all of the following three types of particles that lambda particles fall under: 1) Baryons 2) Hadrons 3) Mesons","a":{"t":"1 and 2"}},
 {"i":52551,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"By name or number, rank the following three regions of the human vertebrae from superior to inferior: 1) thoracic, 2) lumbar, 3) cervical","a":{"t":"3, 1, 2"}},
 {"i":52552,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"Which plant hormone is primarily responsible for fruit ripening?","a":{"t":"ETHYLENE"}},
-{"i":52553,"s":"chem","f":"SA","qt":"tossup","n":14,"q":"What is the hybridization of the central carbon atom in the CO3^(2-) ion?","a":{"t":"sp2"}},
+{"i":52553,"s":"chem","f":"SA","qt":"tossup","n":14,"q":"What is the hybridization of the central carbon atom in the CO3^(2-) ion?","a":{"t":"sp^2"}},
 {"i":52554,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"The critical point on a pressure-temperature diagram refers to a state where which two states of matter exist in equilibrium, what are these two states of matter?","a":{"t":"LIQUID AND GAS"}},
 {"i":52555,"s":"phys","f":"SA","qt":"tossup","n":15,"q":"Which of the following 3 properties are all true regarding an inelastic collision? 1) Kinetic energy is conserved 2) Total energy is conserved 3) Momentum is conserved","a":{"t":"2, 3"}},
 {"i":52556,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"Oscar owns a beautiful red box. Suddenly, Moudu shines a blue light onto the red box. What color is produced when this occurs?","a":{"t":"Black"}},
