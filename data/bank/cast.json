@@ -407,7 +407,7 @@
 {"i":70703,"s":"math","f":"SA","qt":"bonus","n":16,"q":"How many edges must be removed from K6, the complete graph on six vertices to leave a graph without any copies of K4, the complete graph on four vertices?","a":{"t":"3"}},
 {"i":70704,"s":"ess","f":"MC","qt":"bonus","n":23,"q":"Due to the high penetration of x-rays, the Chandra X- Ray Observatory makes use of which of the following types of mirrors?","a":{"t":"Parabolic","l":"X"},"c":{"W":"Spherical","X":"Parabolic","Y":"Hyperbolic","Z":"Planar"}}]},
 {"rl":"Round 8","r":8,"q":[
-{"i":70706,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Given a_0 = 69 and a_n satisfies the recurrence a_(n+1) = √(−9 + 6a_n) (READ: a sub n plus 1 equals the square root of open parentheses negative 9 plus 6 times a sub n close parentheses), what is the limit as n approaches infinity of a_n?","a":{"t":"3"}},
+{"i":70706,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Given a_0 = 69 and a_n satisfies the recurrence a_(n+1) = √(−9 + 6a_n), what is the limit as n approaches infinity of a_n?","a":{"t":"3"}},
 {"i":70707,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"A gas cloud emits light at a frequency of 1.07 x 10^10 Hz. If the light is observed to have a frequency of 1.00 x 10^10 Hz from earth, how far away is the gas cloud, in megaparsecs to 1 significant figure?","a":{"t":"300"}},
 {"i":70708,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"What chromosome can the mutation causing Prader-Willi Syndrome be located on?","a":{"t":"15"}},
 {"i":70709,"s":"math","f":"SA","qt":"tossup","n":21,"q":"What is the sum from i = 0 to 11 of (-1)^i* (11 choose i)","a":{"t":"0"}},

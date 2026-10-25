@@ -26,7 +26,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3557","q":[
 {"i":89037,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Water covers what percent of the earth's surface?","c":{"W":"25%","X":"55%","Y":"40%","Z":"70%"},"a":{"t":"70%","l":"Z"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3557","q":[
-{"i":89038,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"Severe annual crop damage to corn is caused by this fungus, which belongs to the order Ustiliginales (pronounced: you-STILL-ig-nay-lees):","a":{"t":"SMUT"}}]},
+{"i":89038,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"Severe annual crop damage to corn is caused by this fungus, which belongs to the order Ustiliginales:","a":{"t":"SMUT"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3558","q":[
 {"i":89039,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"With few exceptions, a computer infestation program that can replicate by attaching itself to other programs is called a:","c":{"W":"worm","X":"Trojan horse","Y":"terminator","Z":"virus"},"a":{"t":"virus","l":"Z"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3558","q":[
@@ -54,7 +54,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3564","q":[
 {"i":89051,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"On the day of the summer solstice in the Southern Hemisphere, the sun can be seen directly overhead at what location around the globe?","a":{"t":"TROPIC OF CAPRICORN","ac":["23.5 ° SOUTH OF THE EQUATOR"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3565","q":[
-{"i":89052,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"The WHO ( pronounced: W, H, O) is the abbreviated name for what international scientific organization?","a":{"t":"WORLD HEALTH ORGANIZATION"}}]},
+{"i":89052,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"The WHO is the abbreviated name for what international scientific organization?","a":{"t":"WORLD HEALTH ORGANIZATION"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3565","q":[
 {"i":89053,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What type of balance is used for measuring forces of very small magnitudes by how much twist they cause in a fiber or wire?","a":{"t":"TORSION BALANCE"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3566","q":[
@@ -78,7 +78,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3570","q":[
 {"i":89063,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"The Persied’s Meteor Showers are viewed in the State of Maine during what month?","a":{"t":"AUGUST"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3571","q":[
-{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2pi (pronounced: 2 PIE)","Y":"4pi (pronounced: 4 PIE)","Z":"1/2 π (pronounced: one-half PIE)"},"a":{"t":"4pi (pronounced: 4 PIE)","l":"Y"}}]},
+{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2pi","Y":"4pi","Z":"1/2 π"},"a":{"t":"4pi","l":"Y"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3571","q":[
 {"i":89065,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the total angular distance in degrees over a sphere?","a":{"t":"360 DEGREES"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3572","q":[
@@ -96,7 +96,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3575","q":[
 {"i":89072,"s":"bio","f":"SA","qt":"tossup","n":25,"q":"The biological term for programmed cell death is:","a":{"t":"APOPTOSIS"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3575","q":[
-{"i":89073,"s":"bio","f":"MC","qt":"bonus","n":25,"q":"Plant tissues are generally divided into four main types:","c":{"W":"dermal, vascular, ground, meristematic","X":"connective, vascular, ground, meristematic","Y":"vascular, ground, meristematic, mesenchymal (pronounced: mes-en-kye-mal)","Z":"vascular, ground, meristematic, mesodermal"},"a":{"t":"dermal, vascular, ground, meristematic","l":"W"}}]},
+{"i":89073,"s":"bio","f":"MC","qt":"bonus","n":25,"q":"Plant tissues are generally divided into four main types:","c":{"W":"dermal, vascular, ground, meristematic","X":"connective, vascular, ground, meristematic","Y":"vascular, ground, meristematic, mesenchymal","Z":"vascular, ground, meristematic, mesodermal"},"a":{"t":"dermal, vascular, ground, meristematic","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3576","q":[
 {"i":89074,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following is measured in Hertz?","c":{"W":"speed","X":"frequency","Y":"wavelength","Z":"amplitude"},"a":{"t":"frequency","l":"X"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3576","q":[
@@ -114,7 +114,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3579","q":[
 {"i":89081,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"What are the scientific names for the two regions of a sunspot?","a":{"t":"UMBRA AND PENUMBRA"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3580","q":[
-{"i":89082,"s":"math","f":"MC","qt":"tossup","n":5,"q":"What would a graph of the equation f(x) = |x| (read as: f of x equals the absolute value of x) look like?","c":{"W":"it would be shaped like the letter V","X":"it would have a sigmoid shape","Y":"it would have a parabolic shape","Z":"it would have a sine wave shape"},"a":{"t":"it would be shaped like the letter V","l":"W"}}]},
+{"i":89082,"s":"math","f":"MC","qt":"tossup","n":5,"q":"What would a graph of the equation f(x) = |x| look like?","c":{"W":"it would be shaped like the letter V","X":"it would have a sigmoid shape","Y":"it would have a parabolic shape","Z":"it would have a sine wave shape"},"a":{"t":"it would be shaped like the letter V","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3580","q":[
 {"i":89083,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Six factorial equals what number?","a":{"t":"720"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3581","q":[
@@ -132,13 +132,13 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3584","q":[
 {"i":89090,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"What is the term for the speed at which an object will overcome the gravitational attraction of the Earth?","a":{"t":"ESCAPE VELOCITY"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3585","q":[
-{"i":89091,"s":"bio","f":"SA","qt":"tossup","n":10,"q":"What kingdom of organisms does a professional Mycologist (pronounced: my-KOL’-o-jist) study?","a":{"t":"FUNGI"}}]},
+{"i":89091,"s":"bio","f":"SA","qt":"tossup","n":10,"q":"What kingdom of organisms does a professional Mycologist study?","a":{"t":"FUNGI"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3585","q":[
 {"i":89092,"s":"bio","f":"MC","qt":"bonus","n":10,"q":"Which of the following responses do auxins NOT typically produce in plants:","c":{"W":"cell elongation","X":"fruit maturation","Y":"xylem differentiation","Z":"pollen tube growth"},"a":{"t":"pollen tube growth","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3586","q":[
 {"i":89093,"s":"chem","f":"SA","qt":"tossup","n":11,"q":"What molecule is characteristically prevalent in sour milk and tired muscles?","a":{"t":"LACTIC ACID"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3586","q":[
-{"i":89094,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"Which of the following has the same electron configuration as neon:","c":{"W":"Ar","X":"F","Y":"Cl- (pronounced C, L, minus)","Z":"Na+ (pronounced N, A, plus)"},"a":{"t":"Na+ (pronounced N, A, plus)","l":"Z"}}]},
+{"i":89094,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"Which of the following has the same electron configuration as neon:","c":{"W":"Ar","X":"F","Y":"Cl-","Z":"Na+"},"a":{"t":"Na+","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3587","q":[
 {"i":89095,"s":"ess","f":"SA","qt":"tossup","n":12,"q":"This powerful telescope weighs about 11 tons, has a primary mirror 7.9 feet in diameter, and orbits about 380 miles above the earth:","a":{"t":"THE HUBBLE TELESCOPE","ac":["HUBBLE","HUBBLE SPACE TELESCOPE"]}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3587","q":[
@@ -190,7 +190,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3599","q":[
 {"i":89119,"s":"bio","f":"SA","qt":"bonus","n":24,"q":"Which germ layer in mammals is predominantly responsible for forming the nervous system?","a":{"t":"ECTODERM"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3600","q":[
-{"i":89120,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"The wavelength of yellow light is 600 nanometers. What is the wavelength in centimeters:","c":{"W":"6.0 × 10^-9 (read as: 6.0 times 10 to the minus 9)","X":"6.0 × 10^-7","Y":"6.0 × 10^-5","Z":"6.0 × 10^-2"},"a":{"t":"6.0 × 10^-5","l":"Y"}}]},
+{"i":89120,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"The wavelength of yellow light is 600 nanometers. What is the wavelength in centimeters:","c":{"W":"6.0 × 10^-9","X":"6.0 × 10^-7","Y":"6.0 × 10^-5","Z":"6.0 × 10^-2"},"a":{"t":"6.0 × 10^-5","l":"Y"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3600","q":[
 {"i":89121,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"What is the term for the pH at which an amino acid or protein becomes electrically neutral?","a":{"t":"ISOELECTRIC POINT"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3601","q":[
@@ -202,7 +202,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3603","q":[
 {"i":89125,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"Spallanzani, Pasteur, and Reti were:","c":{"W":"Italian scientists","X":"scientists involved with dispelling the theory of continuous generations","Y":"scientists involved with dispelling the theories of spontaneous generation","Z":"scientists who all began working as lens grinders"},"a":{"t":"scientists involved with dispelling the theories of spontaneous generation","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3603","q":[
-{"i":89126,"s":"bio","f":"MC","qt":"bonus","n":3,"q":"Which of the following is NOT one of Koch’s (pronounced: Coke’s) Postulates:","c":{"W":"the specific causative agent must be found in every case of the disease","X":"the disease organism can be isolated in impure culture","Y":"inoculation of a sample of the culture into a healthy susceptible animal must produce the same disease","Z":"diseased organisms must be recovered from the body of the inoculated animal"},"a":{"t":"the disease organism can be isolated in impure culture","l":"X"}}]},
+{"i":89126,"s":"bio","f":"MC","qt":"bonus","n":3,"q":"Which of the following is NOT one of Koch’s Postulates:","c":{"W":"the specific causative agent must be found in every case of the disease","X":"the disease organism can be isolated in impure culture","Y":"inoculation of a sample of the culture into a healthy susceptible animal must produce the same disease","Z":"diseased organisms must be recovered from the body of the inoculated animal"},"a":{"t":"the disease organism can be isolated in impure culture","l":"X"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3604","q":[
 {"i":89127,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"The 29½ days it takes the Moon to complete an orbit around the Earth is called a:","c":{"W":"synodic month","X":"sidereal month","Y":"orbital month","Z":"solar month"},"a":{"t":"synodic month","l":"W"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3604","q":[
@@ -284,7 +284,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3623","q":[
 {"i":89166,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Who determined that the square of a planet’s period is proportional to the cube of its average distance from the sun?","a":{"t":"KEPLER"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3624","q":[
-{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm3 (read as: 1 × 10^-8 moles per cubic decimeter)?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
+{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm3?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3624","q":[
 {"i":89168,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What gas was discovered by Daniel Rutherford in 1772 by placing a mouse inside a bell jar, removing all the oxygen in the jar by burning a substance in it, and demonstrating the asphyxiation of the mouse:","a":{"t":"NITROGEN","ac":["N2"]}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3625","q":[
@@ -312,7 +312,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3630","q":[
 {"i":89180,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Rounded off to the nearest whole year, how many years would it take for your money to double in an investment that was increasing with an annual compound rate of 3.5%?","a":{"t":"20 YEARS"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3631","q":[
-{"i":89181,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following is NOT likely to have been formed by glaciers:","c":{"W":"arete (pronounced: are-RET)","X":"hanging valley","Y":"fjord (pronounced: FEE-yord)","Z":"dike"},"a":{"t":"dike","l":"Z"}}]},
+{"i":89181,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following is NOT likely to have been formed by glaciers:","c":{"W":"arete","X":"hanging valley","Y":"fjord","Z":"dike"},"a":{"t":"dike","l":"Z"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3631","q":[
 {"i":89182,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Give the common name of the historic mineral that was the original source of radium and the first substance in which helium was discovered on earth:","a":{"t":"PITCHBLENDE","ac":["URANINITE or UO2"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3632","q":[
@@ -330,7 +330,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3635","q":[
 {"i":89189,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"Which of the following are NOT carbonate minerals:","c":{"W":"calcite","X":"magnesite","Y":"dolomite","Z":"graphite"},"a":{"t":"graphite","l":"Z"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3635","q":[
-{"i":89190,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"Give the symbol for the element that is derived from the Latin word Plumbum (pronounced: PLUM-bum):","a":{"t":"Pb"}}]},
+{"i":89190,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"Give the symbol for the element that is derived from the Latin word Plumbum:","a":{"t":"Pb"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3636","q":[
 {"i":89191,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"When a green colored object is illuminated by a green light it will appear as what color to the human eye?","a":{"t":"GREEN"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3636","q":[
@@ -358,7 +358,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3642","q":[
 {"i":89203,"s":"bio","f":"MC","qt":"tossup","n":17,"q":"Transfer RNA with an amino acid attached to it is called:","c":{"W":"a charged tRNA","X":"an amino acyl tRNA","Y":"a tRNA with an amino acid attached","Z":"t-primed RNA"},"a":{"t":"an amino acyl tRNA","l":"X"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3642","q":[
-{"i":89204,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"This anatomical term means “nearer the midsagittal (pronounced: mid-SAJ-it-al) plane”:","a":{"t":"MEDIAL"}}]},
+{"i":89204,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"This anatomical term means “nearer the midsagittal plane”:","a":{"t":"MEDIAL"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3643","q":[
 {"i":89205,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Under which of the following conditions will iron rust:","c":{"W":"in water","X":"in water and oxygen","Y":"in oil","Z":"in oil and water"},"a":{"t":"in water and oxygen","l":"X"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3643","q":[
@@ -380,9 +380,9 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3647","q":[
 {"i":89214,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"What is the name given to the region of the Earth’s mantle located from about 75 to 300 kilometers below the surface, where rocks have little strength?","a":{"t":"ASTHENOSPHERE"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3648","q":[
-{"i":89215,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"Which of the following is true about a brain cell from a ‘normal’ individual human:","c":{"W":"some DNA sequences are present in multiple copies","X":"most of the DNA codes for protein","Y":"most genes are transcribed","Z":"most genes are arranged in operon-like (pronounced: OPP-err-on) clusters"},"a":{"t":"some DNA sequences are present in multiple copies","l":"W"}}]},
+{"i":89215,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"Which of the following is true about a brain cell from a ‘normal’ individual human:","c":{"W":"some DNA sequences are present in multiple copies","X":"most of the DNA codes for protein","Y":"most genes are transcribed","Z":"most genes are arranged in operon-like clusters"},"a":{"t":"some DNA sequences are present in multiple copies","l":"W"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3648","q":[
-{"i":89216,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"The gustatory (pronounced: GUS-tah-tory) system has to do mostly with what human sense?","a":{"t":"TASTE"}}]},
+{"i":89216,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"The gustatory system has to do mostly with what human sense?","a":{"t":"TASTE"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3649","q":[
 {"i":89217,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"Which of the following is NOT true about the Periodic Table:","c":{"W":"metals tend to gain electrons while nonmetals tend to lose electrons","X":"metals tend to lose electrons while nonmetals tend to gain electrons","Y":"elements with metallic properties are found on the left side of the table","Z":"alkali metals are found in the vertical column that contains lithium"},"a":{"t":"metals tend to gain electrons while nonmetals tend to lose electrons","l":"W"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3649","q":[
@@ -420,7 +420,7 @@
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3657","q":[
 {"i":89234,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"Who was the first president of the International Psychoanalysis Association who theorized that the shadow archetype consists of animal instincts:","a":{"t":"CARL JUNG"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3658","q":[
-{"i":89235,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Which of the following would be a measurement of a typical printer’s resolution:","c":{"W":"0.25 millimeters","X":"300 dpi","Y":"640 X 480 (pronounced: 640 BY 480)","Z":"200 RSU"},"a":{"t":"300 dpi","l":"X"}}]},
+{"i":89235,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Which of the following would be a measurement of a typical printer’s resolution:","c":{"W":"0.25 millimeters","X":"300 dpi","Y":"640 X 480","Z":"200 RSU"},"a":{"t":"300 dpi","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3658","q":[
 {"i":89236,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"The ARPANET was an example of a:","c":{"W":"telephone network","X":"LAN","Y":"WAN","Z":"email address"},"a":{"t":"WAN","l":"Y"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3659","q":[
@@ -450,7 +450,7 @@
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3665","q":[
 {"i":89249,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"In the tempering of steel tools, the process of rapidly cooling the tool is called:","c":{"W":"quickening","X":"quenching","Y":"drawing","Z":"case hardening"},"a":{"t":"quenching","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3665","q":[
-{"i":89250,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"What is the general name of the unusual infectious agents that causes spongiform (pronounced: SPONGE-ih-form) encephalopathy (pronounced: EN-seff-a-lop-o-thee)?","a":{"t":"PRIONS"}}]},
+{"i":89250,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"What is the general name of the unusual infectious agents that causes spongiform encephalopathy?","a":{"t":"PRIONS"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3666","q":[
 {"i":89251,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"A double sided, double layered DVD designed under today’s specifications, has a top storage capacity of:","c":{"W":"less than 6 gigabytes","X":"greater than 16 gigabytes","Y":"8 to 10 gigabytes","Z":"12-14 gigabytes"},"a":{"t":"greater than 16 gigabytes","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3666","q":[
@@ -508,7 +508,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3679","q":[
 {"i":89278,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Mars has a thin atmosphere composed mainly of what gas?","a":{"t":"CARBON DIOXIDE","ac":["CO2"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3680","q":[
-{"i":89279,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In the following data set, which of the numbers are irrational: {-8, 2/3, √3 (pronounced: square root of 3), π (pronounced: PIE}","a":{"t":"√3 and π"}}]},
+{"i":89279,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In the following data set, which of the numbers are irrational: {-8, 2/3, √3, π}","a":{"t":"√3 and π"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3680","q":[
 {"i":89280,"s":"math","f":"MC","qt":"bonus","n":5,"q":"A person with lung cancer is given an MRI. Four radiologists examine each MRI independently. If each specialist can detect lung cancer with 80% accuracy, what is the probability that at least one of them will detect cancer in this patient:","c":{"W":"0.998","X":"0.01","Y":"0.25","Z":"0.8"},"a":{"t":"0.998","l":"W"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3681","q":[
@@ -556,7 +556,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3692","q":[
 {"i":89302,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"Which element has the simplest absorption spectrum?","a":{"t":"HYDROGEN"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3693","q":[
-{"i":89303,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"The following pathway, CO2 + H2O + energy yields (CH2O)n + O2 (pronounced: parenthesis C, H, 2, O, close parenthesis, subscript n, + O, 2), represents which of the following:","c":{"W":"cellular respiration","X":"photosynthesis","Y":"an irreversible reaction","Z":"glycolysis"},"a":{"t":"photosynthesis","l":"X"}}]},
+{"i":89303,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"The following pathway, CO2 + H2O + energy yields (CH2O)n + O2, represents which of the following:","c":{"W":"cellular respiration","X":"photosynthesis","Y":"an irreversible reaction","Z":"glycolysis"},"a":{"t":"photosynthesis","l":"X"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3693","q":[
 {"i":89304,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What is the vector for Rocky Mountain Spotted Fever?","a":{"t":"THE TICK","ac":["DERMACENTOR"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3694","q":[
@@ -654,7 +654,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3717","q":[
 {"i":89351,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"The atom’s nucleus is held together by which of the following:","c":{"W":"strong interactions of the quark and gluon constituents of the atom’s nucleus","X":"strong interactions of the quark and lepton constituents of the atom’s nucleus","Y":"weak interactions of the quark and lepton constituents of the atom’s nucleus","Z":"strong interactions of the lepton and gluon constituents of the atom’s nucleus"},"a":{"t":"strong interactions of the quark and gluon constituents of the atom’s nucleus","l":"W"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3717","q":[
-{"i":89352,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"If F equals electric force, and q and q’ (read as: q-prime) are the charges on two particles, the expression F is proportional to q times q prime divided by distance squared is what law?","a":{"t":"COULOMB’S LAW"}}]},
+{"i":89352,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"If F equals electric force, and q and q’ are the charges on two particles, the expression F is proportional to q times q prime divided by distance squared is what law?","a":{"t":"COULOMB’S LAW"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3718","q":[
 {"i":89353,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Which of the following metals react violently with water to produce hydrogen gas:","c":{"W":"sodium","X":"zinc","Y":"platinum","Z":"silver"},"a":{"t":"sodium","l":"W"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3718","q":[
@@ -738,7 +738,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3738","q":[
 {"i":89393,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the sum of the internal angles of a pentagon:","a":{"t":"540°"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3738","q":[
-{"i":89394,"s":"math","f":"MC","qt":"bonus","n":13,"q":"Which of the following is the surface area of a perfect sphere with a radius of 10 meters?","c":{"W":"1256.7 m^2 (read as: meters squared)","X":"1200.5 m^2","Y":"628 m^2","Z":"125.7 m^2"},"a":{"t":"1256.7 m^2 (read as: meters squared)","l":"W"}}]},
+{"i":89394,"s":"math","f":"MC","qt":"bonus","n":13,"q":"Which of the following is the surface area of a perfect sphere with a radius of 10 meters?","c":{"W":"1256.7 m^2","X":"1200.5 m^2","Y":"628 m^2","Z":"125.7 m^2"},"a":{"t":"1256.7 m^2","l":"W"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3739","q":[
 {"i":89395,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Ground depressions in areas of Karst topography are called:","c":{"W":"kettles","X":"grabens","Y":"sinkholes","Z":"cirques"},"a":{"t":"sinkholes","l":"Y"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3739","q":[
@@ -766,7 +766,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3745","q":[
 {"i":89407,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"If the temperature of a star increases from 10,000K to 30,000K, by what factor will the rate of energy radiated per second increase?","a":{"t":"81","ac":["3^4"]}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3746","q":[
-{"i":89408,"s":"math","f":"MC","qt":"tossup","n":21,"q":"Given that the log_10 2 = 0.301 (read as: log base 10 of 2 equals 0.301), what is the log_10 8 (read as: log base 10 of 8) equal to:","c":{"W":"0.903","X":"1.204","Y":"1.002","Z":"1.293"},"a":{"t":"0.903","l":"W"}}]},
+{"i":89408,"s":"math","f":"MC","qt":"tossup","n":21,"q":"Given that the log_10 2 = 0.301, what is the log_10 8 equal to:","c":{"W":"0.903","X":"1.204","Y":"1.002","Z":"1.293"},"a":{"t":"0.903","l":"W"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3746","q":[
 {"i":89409,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the mean for the following data set of 5 numbers: 84, 50, 73, 27, 16","a":{"t":"50"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3747","q":[
@@ -832,13 +832,13 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3362","q":[
 {"i":89440,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"What term is most commonly used to refer to the actual motion that stars have in relation to each other, and over many years will lead to changes in the shapes of constellations?","a":{"t":"PROPER MOTION"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3363","q":[
-{"i":89441,"s":"math","f":"MC","qt":"tossup","n":13,"q":"Find x if the log_5 (x) = -2 (read as: log base 5 of x equals negative 2)","c":{"W":"0.04","X":"0.06","Y":"0.08","Z":"0.09"},"a":{"t":"0.04","l":"W"}}]},
+{"i":89441,"s":"math","f":"MC","qt":"tossup","n":13,"q":"Find x if the log_5 (x) = -2","c":{"W":"0.04","X":"0.06","Y":"0.08","Z":"0.09"},"a":{"t":"0.04","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3363","q":[
 {"i":89442,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What is the greatest common divisor for the numbers 102 and 30?","a":{"t":"6"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3364","q":[
 {"i":89443,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Which of the following minerals best illustrates the property of cleavage:","c":{"W":"quartz","X":"chrysotite","Y":"pyrite","Z":"mica"},"a":{"t":"mica","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3364","q":[
-{"i":89444,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"Which of the following is an example of a metamorphic rock:","c":{"W":"gneiss (pronounced: nice)","X":"granite","Y":"sandstone","Z":"limestone"},"a":{"t":"gneiss (pronounced: nice)","l":"W"}}]},
+{"i":89444,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"Which of the following is an example of a metamorphic rock:","c":{"W":"gneiss","X":"granite","Y":"sandstone","Z":"limestone"},"a":{"t":"gneiss","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3365","q":[
 {"i":89445,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"As more of the water turns into ice, the temperature of the remaining liquid in a vessel:","c":{"W":"decreases","X":"can not be determined from the available information","Y":"increases","Z":"remains the same"},"a":{"t":"remains the same","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3365","q":[
@@ -864,7 +864,7 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3371","q":[
 {"i":89457,"s":"math","f":"MC","qt":"tossup","n":21,"q":"Using an x-y coordinate axis, a parabola is represented by the equation x^2 = 6y. The vertex of this parabola is at what coordinate point:","c":{"W":"(0, 0)","X":"(1, 1)","Y":"(1, 2)","Z":"(2, 2)"},"a":{"t":"(0, 0)","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3371","q":[
-{"i":89458,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the midpoint of the line segment joining points (4, -2) , (-3, 7) (read as: parentheses 4, comma, negative 2, close parentheses, parentheses negative 3, comma, 7, close parentheses)?","a":{"t":"(1/2, 5/2)"}}]},
+{"i":89458,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the midpoint of the line segment joining points (4, -2) , (-3, 7)?","a":{"t":"(1/2, 5/2)"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3372","q":[
 {"i":89459,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"The term empirical is most accurately described as a conclusion based on:","c":{"W":"intuition","X":"careful theoretical propositions","Y":"extrapolating from the specific to the general","Z":"experimentation and observation"},"a":{"t":"experimentation and observation","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3372","q":[
@@ -920,9 +920,9 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3385","q":[
 {"i":89485,"s":"bio","f":"MC","qt":"tossup","n":10,"q":"Bacteria that cannot grow in the presence of oxygen are:","c":{"W":"aerobes","X":"obligate anaerobes","Y":"facultative anaerobes","Z":"obligate aerobes"},"a":{"t":"obligate anaerobes","l":"X"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3385","q":[
-{"i":89486,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"The acromion (pronounced: AH-crome-ee-on) process is part of what human bone?","a":{"t":"SCAPULA"}}]},
+{"i":89486,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"The acromion process is part of what human bone?","a":{"t":"SCAPULA"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3386","q":[
-{"i":89487,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"Which of the following hydrocarbons is an example of an alkyne (pronounced: AL-kine):","c":{"W":"ethane","X":"ethylene","Y":"acetylene","Z":"benzene"},"a":{"t":"acetylene","l":"Y"}}]},
+{"i":89487,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"Which of the following hydrocarbons is an example of an alkyne:","c":{"W":"ethane","X":"ethylene","Y":"acetylene","Z":"benzene"},"a":{"t":"acetylene","l":"Y"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3386","q":[
 {"i":89488,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"What is the allotropic form of phosphorous that is a white waxy solid that reacts violently with air?","a":{"t":"WHITE PHOSPHOROUS"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3387","q":[
@@ -950,7 +950,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3392","q":[
 {"i":89500,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"The electromagnetic force is carried by this familiar boson:","a":{"t":"PHOTON"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3393","q":[
-{"i":89501,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"In plants, stomata are made up of which of the following:","c":{"W":"guard cells and collenchyma (pronounced: ko-LEN-key-ma) cells","X":"collenchyma cells and parenchyma cells","Y":"parenchyma cells and stomatal pores","Z":"guard cells and stomatal pores"},"a":{"t":"guard cells and stomatal pores","l":"Z"}}]},
+{"i":89501,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"In plants, stomata are made up of which of the following:","c":{"W":"guard cells and collenchyma cells","X":"collenchyma cells and parenchyma cells","Y":"parenchyma cells and stomatal pores","Z":"guard cells and stomatal pores"},"a":{"t":"guard cells and stomatal pores","l":"Z"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3393","q":[
 {"i":89502,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"Which of the following is NOT true:","c":{"W":"sperm and egg contribute equal amounts of genetic information to the zygote","X":"in the first meiotic division a polar body is formed","Y":"in deuterastomes, the blastopore forms the anus","Z":"most angiosperms and vertebrates are diploid"},"a":{"t":"sperm and egg contribute equal amounts of genetic information to the zygote","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3394","q":[
@@ -962,7 +962,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3395","q":[
 {"i":89506,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"What is the astronomical term for the region of ionized hydrogen in interstellar space?","a":{"t":"H II REGION"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3396","q":[
-{"i":89507,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following is NOT a metamorphic rock:","c":{"W":"schist","X":"gneiss (pronounced: nice)","Y":"slate","Z":"shale"},"a":{"t":"shale","l":"Z"}}]},
+{"i":89507,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following is NOT a metamorphic rock:","c":{"W":"schist","X":"gneiss","Y":"slate","Z":"shale"},"a":{"t":"shale","l":"Z"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3396","q":[
 {"i":89508,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"The theory that suggests that earthquakes result from the release of stored elastic energy by slippage on faults is called:","a":{"t":"ELASTIC REBOUND THEORY"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3397","q":[
@@ -978,7 +978,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3399","q":[
 {"i":89514,"s":"bio","f":"MC","qt":"bonus","n":24,"q":"Tight junctions, adherans junctions, and desmosomes are:","c":{"W":"forms of intercellular attachment","X":"forms of communication between cells","Y":"all variations of gap junctions","Z":"methods of active transport"},"a":{"t":"forms of intercellular attachment","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3400","q":[
-{"i":89515,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"The characteristic bad odor emitted in skunk spray is caused by which of the following:","c":{"W":"thiols (pronounced: THIGH-ols)","X":"aldehydes","Y":"phenols","Z":"alkenes"},"a":{"t":"thiols (pronounced: THIGH-ols)","l":"W"}}]},
+{"i":89515,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"The characteristic bad odor emitted in skunk spray is caused by which of the following:","c":{"W":"thiols","X":"aldehydes","Y":"phenols","Z":"alkenes"},"a":{"t":"thiols","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3400","q":[
 {"i":89516,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"A gas tank has a mixture of oxygen gas at 0.5 atmospheres, nitrogen gas at 380 millimeters mercury, and helium at 760 torr. Calculate, in atmospheres and to the nearest whole number, the total pressure in the tank:","a":{"t":"2 ATMOSPHERES"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3401","q":[
@@ -1048,7 +1048,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3417","q":[
 {"i":89549,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"Which of the following is the correct representation of the capacitance of a parallel plate capacitor where C is capacitance, Q is charge, and V is voltage across the capacitor:","c":{"W":"C = Q/V","X":"C = V/Q","Y":"C = Q x V","Z":"C = V + Q"},"a":{"t":"C = Q/V","l":"W"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3417","q":[
-{"i":89550,"s":"phys","f":"MC","qt":"bonus","n":17,"q":"Which of the following materials does NOT polarize light:","c":{"W":"an Argentum prism","X":"crystals of calcite cut with a 68 degree angle cleaved along the optic axis and bound together with canada balsam","Y":"reflection of unpolarized light from an insulator","Z":"a Nicol (pronounced: Ny-call) prism"},"a":{"t":"an Argentum prism","l":"W"}}]},
+{"i":89550,"s":"phys","f":"MC","qt":"bonus","n":17,"q":"Which of the following materials does NOT polarize light:","c":{"W":"an Argentum prism","X":"crystals of calcite cut with a 68 degree angle cleaved along the optic axis and bound together with canada balsam","Y":"reflection of unpolarized light from an insulator","Z":"a Nicol prism"},"a":{"t":"an Argentum prism","l":"W"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3418","q":[
 {"i":89551,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"A bond that results from the overlap between two p orbitals oriented perpendicularly to the inter-nuclear axis is called a:","c":{"W":"sigma bond","X":"π bond","Y":"delta bond","Z":"kappa bond"},"a":{"t":"π bond","l":"X"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3418","q":[
@@ -1076,7 +1076,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3424","q":[
 {"i":89563,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"An element that can exist in several natural forms, such as coal versus diamonds, are typically referred to as:","c":{"W":"morphotropes","X":"heliotropes","Y":"isotopes","Z":"allotropes"},"a":{"t":"allotropes","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3424","q":[
-{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp2 (pronounced: S, P, 2) orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
+{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp2 orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3425","q":[
 {"i":89565,"s":"bio","f":"MC","qt":"tossup","n":25,"q":"PCR does NOT use which of the following:","c":{"W":"heat to separate strands","X":"primers","Y":"DNA polymerase","Z":"reverse transcriptase"},"a":{"t":"reverse transcriptase","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3425","q":[
@@ -1106,7 +1106,7 @@
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3431","q":[
 {"i":89578,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Eroding ice sheets sometimes mold smooth, nearly parallel ridges of sediment or bedrock that are elongated parallel to the direction of ice flow. These are called:","a":{"t":"DRUMLINS"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3432","q":[
-{"i":89579,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"Diabetes Type I (read as: Type one) usually affects which of the following groups of people:","c":{"W":"old","X":"young","Y":"middle aged","Z":"all age groups equally"},"a":{"t":"young","l":"X"}}]},
+{"i":89579,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"Diabetes Type I usually affects which of the following groups of people:","c":{"W":"old","X":"young","Y":"middle aged","Z":"all age groups equally"},"a":{"t":"young","l":"X"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3432","q":[
 {"i":89580,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"The process by which ice melts under pressure and almost immediately re-freezes when the pressure is removed, is called:","a":{"t":"REGELATION"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3433","q":[
@@ -1140,7 +1140,7 @@
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3440","q":[
 {"i":89595,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"This behavioral scientist’s position on conditioning and reinforcement was influenced by the writings of Ernst Mach, Henri Poincare, and Bertrand Russell:","a":{"t":"B. F. SKINNER"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3440","q":[
-{"i":89596,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"How many picometers (pronounced: PIE-co-meters) are in a nanometer?","a":{"t":"1000","ac":["10^3","TEN TO THE THIRD POWER"]}}]},
+{"i":89596,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"How many picometers are in a nanometer?","a":{"t":"1000","ac":["10^3","TEN TO THE THIRD POWER"]}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3441","q":[
 {"i":89597,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"In Java, all objects, including arrays, implement the methods of this class:","c":{"W":"class","X":"object","Y":"array","Z":"system"},"a":{"t":"object","l":"X"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3441","q":[
@@ -1148,7 +1148,7 @@
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3442","q":[
 {"i":89599,"s":"bio","f":"MC","qt":"tossup","n":17,"q":"What is a flower called if it is cut longitudinally through the middle and produces 2 halves that are mirror images of each other:","c":{"W":"actinomorphic","X":"polymorphic","Y":"bimorphic","Z":"zygomorphic"},"a":{"t":"actinomorphic","l":"W"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3442","q":[
-{"i":89600,"s":"bio","f":"MC","qt":"bonus","n":17,"q":"What would the fruit be known as if the separate carpels of one gynoecium (pronounced: GINE-ee-sea-um) fuse during development:","c":{"W":"simple fruit","X":"aggregate fruit","Y":"multiple fruit","Z":"complex fruit"},"a":{"t":"aggregate fruit","l":"X"}}]},
+{"i":89600,"s":"bio","f":"MC","qt":"bonus","n":17,"q":"What would the fruit be known as if the separate carpels of one gynoecium fuse during development:","c":{"W":"simple fruit","X":"aggregate fruit","Y":"multiple fruit","Z":"complex fruit"},"a":{"t":"aggregate fruit","l":"X"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3443","q":[
 {"i":89601,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Knowing that copper is below iron in the activity series of metals in aqueous solutions, which of the following would you expect when copper metal is added to a solution of iron (II) sulfate:","c":{"W":"the copper metal will be oxidized to form the copper cation","X":"the copper reacts to form hydrogen gas","Y":"the iron cation will be reduced to iron metal","Z":"no reaction occurs"},"a":{"t":"no reaction occurs","l":"Z"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3443","q":[
@@ -1200,7 +1200,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3455","q":[
 {"i":89625,"s":"math","f":"SA","qt":"tossup","n":5,"q":"Factor the expression: x^2 + 3x - 10","a":{"t":"(x + 5)(x - 2)"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3455","q":[
-{"i":89626,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Express cos(arctan x) (read as: cosine of arc tangent x) without trigonometric functions:","a":{"t":"1/√(x^2 + 1)"}}]},
+{"i":89626,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Express cos(arctan x) without trigonometric functions:","a":{"t":"1/√(x^2 + 1)"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3456","q":[
 {"i":89627,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"The Curie point of an iron-bearing mineral is 580°C. This value specifically indicates that at 581° C, the sample will be:","c":{"W":"radioactive","X":"a liquid","Y":"magnetic","Z":"non-magnetic"},"a":{"t":"non-magnetic","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3456","q":[
@@ -1222,9 +1222,9 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3460","q":[
 {"i":89636,"s":"phys","f":"MC","qt":"bonus","n":10,"q":"Which of the following is the conventional description of radioactive isomers:","c":{"W":"atoms with the same number of nucleons but different radioactive decay schemes","X":"atoms with different numbers of nucleons but the same radioactive decay schemes","Y":"atoms with the same numbers of nucleons and the same radioactive decay schemes","Z":"molecules with the same radioactive atoms but different structures"},"a":{"t":"atoms with the same number of nucleons but different radioactive decay schemes","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3461","q":[
-{"i":89637,"s":"bio","f":"MC","qt":"tossup","n":11,"q":"Which of the following is NOT associated with PKU, which is also known as phenylketonuria (read as: phenyl-KEE-tone-uria):","c":{"W":"brain damage","X":"an inborn error of metabolism","Y":"Kappa proteins in the urine","Z":"inability to metabolize phenylalanine"},"a":{"t":"Kappa proteins in the urine","l":"Y"}}]},
+{"i":89637,"s":"bio","f":"MC","qt":"tossup","n":11,"q":"Which of the following is NOT associated with PKU, which is also known as phenylketonuria:","c":{"W":"brain damage","X":"an inborn error of metabolism","Y":"Kappa proteins in the urine","Z":"inability to metabolize phenylalanine"},"a":{"t":"Kappa proteins in the urine","l":"Y"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3461","q":[
-{"i":89638,"s":"bio","f":"MC","qt":"bonus","n":11,"q":"In a nucleosome, the DNA is wrapped around:","c":{"W":"a cluster of histones 1, 2A, 2B, 3 and 4","X":"ribosomes","Y":"the nucleolus (pronounced: NEW-clee-oh-luss)","Z":"a single histone monomer"},"a":{"t":"a cluster of histones 1, 2A, 2B, 3 and 4","l":"W"}}]},
+{"i":89638,"s":"bio","f":"MC","qt":"bonus","n":11,"q":"In a nucleosome, the DNA is wrapped around:","c":{"W":"a cluster of histones 1, 2A, 2B, 3 and 4","X":"ribosomes","Y":"the nucleolus","Z":"a single histone monomer"},"a":{"t":"a cluster of histones 1, 2A, 2B, 3 and 4","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3462","q":[
 {"i":89639,"s":"ess","f":"MC","qt":"tossup","n":12,"q":"In the early 1700’s, James Bradley calculated the speed of light at 185 thousand miles per second based partially on which of the following:","c":{"W":"the amount he angled his telescope to observe stars because of the motion of the Earth","X":"the reflection of light using three mirrors about 20 meters apart","Y":"the bending of light around planets","Z":"the reflection of light from an 8-sided rotating mirror"},"a":{"t":"the amount he angled his telescope to observe stars because of the motion of the Earth","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3462","q":[
@@ -1256,9 +1256,9 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3469","q":[
 {"i":89653,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Incomplete division of a yolk-rich egg is known as:","c":{"W":"holoblastic cleavage","X":"meroblastic cleavage","Y":"binary fission","Z":"determinate cleavage"},"a":{"t":"meroblastic cleavage","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3469","q":[
-{"i":89654,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"In certain tissues, where nuclear division is NOT followed by cytokinesis, which of the following will occur:","c":{"W":"meiotic disjunction","X":"a syncytium (pronounced: SIN-sish-e-um) results","Y":"chiasmata can form in abnormal numbers","Z":"a diploid zygote is always formed"},"a":{"t":"a syncytium (pronounced: SIN-sish-e-um) results","l":"X"}}]},
+{"i":89654,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"In certain tissues, where nuclear division is NOT followed by cytokinesis, which of the following will occur:","c":{"W":"meiotic disjunction","X":"a syncytium results","Y":"chiasmata can form in abnormal numbers","Z":"a diploid zygote is always formed"},"a":{"t":"a syncytium results","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3470","q":[
-{"i":89655,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"According to most accepted theories, the Oort Cloud cannot account for the origin of what types of comets in our solar system:","c":{"W":"comets that have origins outside of the Kuiper (pronounced: KY-per) belt.","X":"comets that have short orbits and travel along the ecliptic","Y":"comets that are classified as cold comets","Z":"comets that have origins at a distance farther from the sun than the Oort Cloud"},"a":{"t":"comets that have short orbits and travel along the ecliptic","l":"X"}}]},
+{"i":89655,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"According to most accepted theories, the Oort Cloud cannot account for the origin of what types of comets in our solar system:","c":{"W":"comets that have origins outside of the Kuiper belt.","X":"comets that have short orbits and travel along the ecliptic","Y":"comets that are classified as cold comets","Z":"comets that have origins at a distance farther from the sun than the Oort Cloud"},"a":{"t":"comets that have short orbits and travel along the ecliptic","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3470","q":[
 {"i":89656,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"To use this ancient astronomical instrument, the user hangs it from a metal ring attached to the top of a round star map and looks toward a specific star through a sighting device called an adilade:","a":{"t":"AN ASTROLABE"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3471","q":[
@@ -1270,7 +1270,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3472","q":[
 {"i":89660,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"Over a time period of thousands of years, which of the following is true for the Carbon Cycle:","c":{"W":"the oceans determine atmospheric CO2 concentration","X":"the atmosphere determines the oceanic CO2 concentration","Y":"the oceans have only a minor affect on atmospheric CO2 concentration","Z":"the terrestrial CO2 reservoir directly determines the oceanic CO2 concentration"},"a":{"t":"the oceans determine atmospheric CO2 concentration","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3473","q":[
-{"i":89661,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following is NOT an example of a chelating (pronounced: KEE-lay-ting) agent:","c":{"W":"EDTA","X":"hemoglobin","Y":"chlorophyll","Z":"lead"},"a":{"t":"lead","l":"Z"}}]},
+{"i":89661,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following is NOT an example of a chelating agent:","c":{"W":"EDTA","X":"hemoglobin","Y":"chlorophyll","Z":"lead"},"a":{"t":"lead","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3473","q":[
 {"i":89662,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"What is the name of the tarnish resistant alloy of tin and lead which can be hardened by antimony and copper?","a":{"t":"PEWTER"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3474","q":[
@@ -1330,9 +1330,9 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3487","q":[
 {"i":89690,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"If the mass of gases collapsing in a nebulae are insufficient to initiate enough nuclear energy to become a main sequence star, it will usually become what type of star?","a":{"t":"BROWN DWARF"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3488","q":[
-{"i":89691,"s":"math","f":"MC","qt":"tossup","n":13,"q":"The universal set U contains the elements {1,2,3,4,5} (pronounced: data set 1,2,3,4,5). Set A contains the elements {1,3}. What elements does the set A’ (read as: A prime) contain:","c":{"W":"{1,2,4}","X":"{2,4,5}","Y":"{1,4,5}","Z":"{3,4,5}"},"a":{"t":"{2,4,5}","l":"X"}}]},
+{"i":89691,"s":"math","f":"MC","qt":"tossup","n":13,"q":"The universal set U contains the elements {1,2,3,4,5}. Set A contains the elements {1,3}. What elements does the set A’ contain:","c":{"W":"{1,2,4}","X":"{2,4,5}","Y":"{1,4,5}","Z":"{3,4,5}"},"a":{"t":"{2,4,5}","l":"X"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3488","q":[
-{"i":89692,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Simplify the expression: (4! + 3!)/5! (read as: The quantity 4 factorial + 3 factorial divided by 5 factorial)","a":{"t":"1/4"}}]},
+{"i":89692,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Simplify the expression: (4! + 3!)/5!","a":{"t":"1/4"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3489","q":[
 {"i":89693,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"What would most likely result if the Earth’s axis of rotation were tilted 10 degrees less than it now tilts?","c":{"W":"less difference between winter and summer in the Northern Hemisphere","X":"colder winters and warmer summers in the Northern Hemisphere","Y":"shorter days and longer nights at the Equator","Z":"warmer winters and warmer summers in the Northern Hemisphere"},"a":{"t":"less difference between winter and summer in the Northern Hemisphere","l":"W"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3489","q":[
@@ -1350,11 +1350,11 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3492","q":[
 {"i":89700,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"At 10 cents per kilowatt hour, how much does it cost to run an 1800 watt hair dryer for 2 hours?","a":{"t":"36 CENTS"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3493","q":[
-{"i":89701,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"A sensory neuron is also referred to as which of the following:","c":{"W":"motor neuron","X":"interneuron","Y":"efferent (pronounced: EE-ferent) neuron","Z":"afferent (pronounced: A-ferent) neuron"},"a":{"t":"afferent (pronounced: A-ferent) neuron","l":"Z"}}]},
+{"i":89701,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"A sensory neuron is also referred to as which of the following:","c":{"W":"motor neuron","X":"interneuron","Y":"efferent neuron","Z":"afferent neuron"},"a":{"t":"afferent neuron","l":"Z"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3493","q":[
 {"i":89702,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"If the Gram stain reveals a red-stained coccus, which of the following would most likely be true:","c":{"W":"it would not be sensitive to penicillin","X":"it would be acid-fast","Y":"it would possess the “Park-Peptide”","Z":"it would be motile"},"a":{"t":"it would not be sensitive to penicillin","l":"W"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3494","q":[
-{"i":89703,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following is the formula for the hydronium (pronounced: HY-DRO-knee-um) ion:","c":{"W":"OH-","X":"H+","Y":"H3O-","Z":"H3O+"},"a":{"t":"H3O+","l":"Z"}}]},
+{"i":89703,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following is the formula for the hydronium ion:","c":{"W":"OH-","X":"H+","Y":"H3O-","Z":"H3O+"},"a":{"t":"H3O+","l":"Z"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3494","q":[
 {"i":89704,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"The explosive TNT made from nitric acid is formally known as:","a":{"t":"TRINITROTOLUENE"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3495","q":[
@@ -1376,7 +1376,7 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3499","q":[
 {"i":89713,"s":"bio","f":"MC","qt":"tossup","n":24,"q":"In addition to the number of offspring produced at each birth and parental life span, what is the main determinant of biotic potential in a mammalian species:","c":{"W":"number of male offspring","X":"number of female offspring","Y":"number of males in the population","Z":"age of the female parent at first reproduction"},"a":{"t":"age of the female parent at first reproduction","l":"Z"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3499","q":[
-{"i":89714,"s":"bio","f":"MC","qt":"bonus","n":24,"q":"If Loci (pronounced: LOW-cye) are very close together along a chromosome, there will be:","c":{"W":"a greater chance for crossing over","X":"a decreased chance for crossing over","Y":"no chance for crossing over","Z":"crossing over at an unpredictable frequency"},"a":{"t":"a decreased chance for crossing over","l":"X"}}]},
+{"i":89714,"s":"bio","f":"MC","qt":"bonus","n":24,"q":"If Loci are very close together along a chromosome, there will be:","c":{"W":"a greater chance for crossing over","X":"a decreased chance for crossing over","Y":"no chance for crossing over","Z":"crossing over at an unpredictable frequency"},"a":{"t":"a decreased chance for crossing over","l":"X"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3500","q":[
 {"i":89715,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"Which of the following are NOT examples of intermolecular forces:","c":{"W":"hydrogen-bond forces","X":"covalent-bond forces","Y":"London-dispersion forces","Z":"dipole-dipole forces"},"a":{"t":"covalent-bond forces","l":"X"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3500","q":[
@@ -1390,7 +1390,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3503","q":[
 {"i":89720,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"The major antibody of the human body, especially for immunity after vaccinations, is:","c":{"W":"IgG","X":"IgA","Y":"IgF","Z":"IgN"},"a":{"t":"IgG","l":"W"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3503","q":[
-{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: (Pronunciation: please give a brief pause at each hyphen between the reading of each three letters) CCA - CCC - CCA - TAC - CCC - TTA - TAT","a":{"t":"GGU - GGG - GGU - AUG -GGG - AAU - AUA"}}]},
+{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: CCA - CCC - CCA - TAC - CCC - TTA - TAT","a":{"t":"GGU - GGG - GGU - AUG -GGG - AAU - AUA"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3504","q":[
 {"i":89722,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"General relativity does NOT allow for which of the following descriptions of the universe:","c":{"W":"the universe is constructed like a 4-dimensional hyperbola","X":"the universe is infinite and unbounded","Y":"the universe is both finite and unbounded","Z":"the universe is both finite and bounded"},"a":{"t":"the universe is both finite and bounded","l":"Z"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3504","q":[
@@ -1416,7 +1416,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3509","q":[
 {"i":89733,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"If the speed of sound is 331 m/s, what is the wavelength, rounded to the first decimal place, of a soundwave that has a frequency of 100 hertz?","a":{"t":"3.3 METERS"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3510","q":[
-{"i":89734,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"Which positions on the benzene ring are the chlorine atoms found in the compound para-dichloro-benzene (pronounced: PARA-DIE-chloro-ben-zeen):","c":{"W":"1 and 2","X":"1 and 3","Y":"1 and 4","Z":"1 and 5"},"a":{"t":"1 and 4","l":"Y"}}]},
+{"i":89734,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"Which positions on the benzene ring are the chlorine atoms found in the compound para-dichloro-benzene:","c":{"W":"1 and 2","X":"1 and 3","Y":"1 and 4","Z":"1 and 5"},"a":{"t":"1 and 4","l":"Y"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3510","q":[
 {"i":89735,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"Name two isotopes that have the distinction of being the only isotopes that have individual names and are the atoms of choice in the research efforts to create fusion reactors?","a":{"t":"DEUTERIUM AND TRITIUM","ac":["HYDROGEN-2","D","HYDROGEN-3","T"]}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3511","q":[
@@ -1496,7 +1496,7 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3529","q":[
 {"i":89773,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"The largest structure discovered in the universe is a supercluster nicknamed:","a":{"t":"THE GREAT WALL"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3530","q":[
-{"i":89774,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the area of the region enclosed by the graph of the polar curve r = 1/(sin θ + cos θ) (read as: r equals 1 over sine theta plus cosine theta) and the x axis and y axis?","a":{"t":"0.5"}}]},
+{"i":89774,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the area of the region enclosed by the graph of the polar curve r = 1/(sin θ + cos θ) and the x axis and y axis?","a":{"t":"0.5"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3531","q":[
 {"i":89775,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"For the weather-watcher, a long-lasting contrail left by a passing aircraft would NOT be indicative of which of the following:","c":{"W":"the surrounding air mass contains little moisture","X":"the surrounding air mass is close to saturation","Y":"may indicate an approaching frontal system","Z":"the aircraft is flying through air temperatures well below freezing"},"a":{"t":"the surrounding air mass contains little moisture","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3531","q":[
@@ -1510,11 +1510,11 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3533","q":[
 {"i":89780,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"Which of the following programming languages would be the LEAST efficient, in terms of the time required to write the program, for writing a large accounting program:","c":{"W":"C++","X":"dBASE","Y":"File Maker","Z":"Visual Basic"},"a":{"t":"C++","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3534","q":[
-{"i":89781,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following is NOT an autoimmune disease:","c":{"W":"lupus","X":"rheumatoid arthritis","Y":"most cases of Addison’s disease","Z":"post prandrial (pronounced: PRAN-dree-al) distension"},"a":{"t":"post prandrial (pronounced: PRAN-dree-al) distension","l":"Z"}}]},
+{"i":89781,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following is NOT an autoimmune disease:","c":{"W":"lupus","X":"rheumatoid arthritis","Y":"most cases of Addison’s disease","Z":"post prandrial distension"},"a":{"t":"post prandrial distension","l":"Z"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3534","q":[
-{"i":89782,"s":"bio","f":"MC","qt":"bonus","n":9,"q":"A protein’s tertiary structure is most strongly influenced by:","c":{"W":"ATP synthetase (pronounced: SIN-the-tase)","X":"imbedding in the plasma membrane","Y":"ionic and hydrogen bonds between R groups","Z":"the quaternary structure"},"a":{"t":"ionic and hydrogen bonds between R groups","l":"Y"}}]},
+{"i":89782,"s":"bio","f":"MC","qt":"bonus","n":9,"q":"A protein’s tertiary structure is most strongly influenced by:","c":{"W":"ATP synthetase","X":"imbedding in the plasma membrane","Y":"ionic and hydrogen bonds between R groups","Z":"the quaternary structure"},"a":{"t":"ionic and hydrogen bonds between R groups","l":"Y"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3535","q":[
-{"i":89783,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"In a paper chromatography experiment, if ether is used for the solvent and the sample is quickly carried up the paper, then the sample was:","c":{"W":"hydrophobic (pronounced: hydro-FOE-bic)","X":"hydrophilic (pronounced: hydro-FILL-ick)","Y":"polar","Z":"water soluble"},"a":{"t":"hydrophobic (pronounced: hydro-FOE-bic)","l":"W"}}]},
+{"i":89783,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"In a paper chromatography experiment, if ether is used for the solvent and the sample is quickly carried up the paper, then the sample was:","c":{"W":"hydrophobic","X":"hydrophilic","Y":"polar","Z":"water soluble"},"a":{"t":"hydrophobic","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3535","q":[
 {"i":89784,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"A solution with a hydroxide ion concentration of 1 × 10^-12 is:","c":{"W":"weakly acidic","X":"strongly acidic","Y":"weakly basic","Z":"strongly basic"},"a":{"t":"strongly acidic","l":"X"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3536","q":[
@@ -1558,15 +1558,15 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3545","q":[
 {"i":89804,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"A red shift of z = 1.0 means the original wavelength has increased by what multiple?","a":{"t":"2 TIMES"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3546","q":[
-{"i":89805,"s":"math","f":"MC","qt":"tossup","n":21,"q":"For which values of x from the set of real numbers does the following inequality hold: 8x - 6 < 2x + 6 (read as: 8x - 6 is less than 2x + 6)","c":{"W":"x < 2 (read as: x is less than 2)","X":"x > 2 (read as: x is greater than 2)","Y":"x < 4 (read as: x is less than 4)","Z":"x > 4 (read as: x is greater than 4)"},"a":{"t":"x < 2 (read as: x is less than 2)","l":"W"}}]},
+{"i":89805,"s":"math","f":"MC","qt":"tossup","n":21,"q":"For which values of x from the set of real numbers does the following inequality hold: 8x - 6 < 2x + 6","c":{"W":"x < 2","X":"x > 2","Y":"x < 4","Z":"x > 4"},"a":{"t":"x < 2","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3546","q":[
 {"i":89806,"s":"math","f":"SA","qt":"bonus","n":21,"q":"The remainder obtained when 3x^4 + 7x^3 + 8x^2 - 2x - 3 is divided by x + 1 is what?","a":{"t":"3"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3547","q":[
 {"i":89807,"s":"ess","f":"MC","qt":"tossup","n":22,"q":"In the Earth's atmosphere, which of the following is TRUE about the thermosphere:","c":{"W":"temperatures can reach as high as 1500° C","X":"it is terminated by the mesopause","Y":"it is found 50-80 kilometers above the Earth","Z":"it is a place where ozone absorbs UV radiation coming from the sun"},"a":{"t":"temperatures can reach as high as 1500° C","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3547","q":[
-{"i":89808,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"A desert weathering feature consisting of a thin, shiny, reddish-brown to blackish coating on some stones, is called:","c":{"W":"desert varnish","X":"caliche (pronounced: ka-LEE-chee)","Y":"gypsum","Z":"desert frost"},"a":{"t":"desert varnish","l":"W"}}]},
+{"i":89808,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"A desert weathering feature consisting of a thin, shiny, reddish-brown to blackish coating on some stones, is called:","c":{"W":"desert varnish","X":"caliche","Y":"gypsum","Z":"desert frost"},"a":{"t":"desert varnish","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3548","q":[
-{"i":89809,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"A paramount set of procedures for identifying bacterial pathogens is called:","c":{"W":"Pasteur’s postulates","X":"primary response","Y":"vaccination","Z":"Koch’s (pronounced: coke’s) postulates"},"a":{"t":"Koch’s (pronounced: coke’s) postulates","l":"Z"}}]},
+{"i":89809,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"A paramount set of procedures for identifying bacterial pathogens is called:","c":{"W":"Pasteur’s postulates","X":"primary response","Y":"vaccination","Z":"Koch’s postulates"},"a":{"t":"Koch’s postulates","l":"Z"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3548","q":[
 {"i":89810,"s":"bio","f":"MC","qt":"bonus","n":23,"q":"During replication, new bases are added to the:","c":{"W":"3 prime phosphate","X":"3 prime hydroxyl","Y":"5 prime phosphate","Z":"5 prime hydroxyl"},"a":{"t":"3 prime hydroxyl","l":"X"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3549","q":[

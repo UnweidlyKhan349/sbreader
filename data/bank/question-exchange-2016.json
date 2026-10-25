@@ -180,9 +180,9 @@
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4626","q":[
 {"i":95101,"s":"math","f":"MC","qt":"bonus","n":6,"q":"The sum of the squares of the reciprocals of all positive integers is equal to which of the following:","c":{"W":"-1/12","X":"Euler's constant","Y":"e","Z":"π^2/6"},"a":{"t":"π^2/6","l":"Z"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4627","q":[
-{"i":96119,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"What is the common name for the 27-carbon lipid whose synthesis is in part regulated by HMG CoA (read as: H, M, G, koh, A) reductase and is the basic starting point for estrogen synthesis?","a":{"t":"Cholesterol"}}]},
+{"i":96119,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"What is the common name for the 27-carbon lipid whose synthesis is in part regulated by HMG CoA reductase and is the basic starting point for estrogen synthesis?","a":{"t":"Cholesterol"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4627","q":[
-{"i":96120,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"From what vitamin is the electron carrier FAD (read as: F, A, D) derived?","a":{"t":"Riboflavin","ac":["Vitamin B2"]}}]},
+{"i":96120,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"From what vitamin is the electron carrier FAD derived?","a":{"t":"Riboflavin","ac":["Vitamin B2"]}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4628","q":[
 {"i":95102,"s":"phys","f":"MC","qt":"tossup","n":9,"q":"A disk is mounted on a frictionless axle with a moment of inertia I. It is spinning with an initial angular speed of ω. A constant torque τ is applied to the disk so that it stops in time t. What is the power required to dissipate the wheel’s energy during this time?","c":{"W":"(Iω^2)/(2t)","X":"(Iω)/t","Y":"(Iω^2)/(2τ)","Z":"(Iω)/τ"},"a":{"t":"(Iω^2)/(2t)","l":"W"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4628","q":[
@@ -358,7 +358,7 @@
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4672","q":[
 {"i":95185,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"As a ball is falling down from the top of a tower, its gravitational potential energy is transferred into what other type of energy, besides kinetic energy?","a":{"t":"THERMAL ENERGY","rj":["HEAT"]}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4673","q":[
-{"i":95186,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the integral of cos(x) dx (co-sine of x d x) from 1/4 π to 0?","a":{"t":"-√2/2","ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}]},
+{"i":95186,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the integral of cos(x) dx from 1/4 π to 0?","a":{"t":"-√2/2","ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4674","q":[
 {"i":95187,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Categorize the following molecules according to the arrangement of electron pairs geometry: carbon dioxide, dihydrogen monoxide, and methane.","a":{"t":"CARBON DIOXIDE IS LINEAR, DIHYDROGEN MONOXIDE IS TETRAHEDRAL, METHANE IS TETRAHEDRAL"}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4675","q":[
@@ -404,9 +404,9 @@
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4687","q":[
 {"i":96125,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"What is the SI unit for luminous intensity?","a":{"t":"candela"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4687","q":[
-{"i":95207,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"What is the name of the derived SI unit given by 1 kg/(m·s^2) (read: one kilogram per meter per second squared)?","a":{"t":"PASCAL"}}]},
+{"i":95207,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"What is the name of the derived SI unit given by 1 kg/(m·s^2)?","a":{"t":"PASCAL"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4688","q":[
-{"i":95208,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the chemical formula of Titanium (III) oxide (read: Titanium three oxide)?","a":{"t":"Ti2O3"}}]},
+{"i":95208,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the chemical formula of Titanium (III) oxide?","a":{"t":"Ti2O3"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4688","q":[
 {"i":95209,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"What is the mass number of the atom that uranium-238 becomes after alpha decay?","a":{"t":"234"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4689","q":[
@@ -876,7 +876,7 @@
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4820","q":[
 {"i":95422,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"During the fusion of two elements, what massless type of energy is sometimes formed?","a":{"t":"GAMMA RAYS"}}]},
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4820","q":[
-{"i":95423,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"When two atoms are undergoing fusion, ΔH (READ: the change in enthalpy) is _________.","c":{"W":"Positive","X":"Negative","Y":"Zero","Z":"Positive and then negative"},"a":{"t":"Negative","l":"X"}}]},
+{"i":95423,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"When two atoms are undergoing fusion, ΔH is _________.","c":{"W":"Positive","X":"Negative","Y":"Zero","Z":"Positive and then negative"},"a":{"t":"Negative","l":"X"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4821","q":[
 {"i":95424,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What is the most common inflammatory cause of chest pain in teenage adolescents, especially in females?","a":{"t":"Costochondritis","ac":["Chest wall pain","costosternal syndrome","costosternal chondrodynia"]}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4821","q":[
@@ -1304,7 +1304,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4939","q":[
 {"i":95604,"s":"bio","f":"MC","qt":"tossup","n":55,"q":"Genetic variation can be introduced into bacteria by all of the following methods EXCEPT:","c":{"W":"transfer of DNA between bacteria through pili","X":"mutation","Y":"transformation","Z":"DNA amplification"},"a":{"t":"DNA amplification","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4939","q":[
-{"i":95605,"s":"bio","f":"MC","qt":"bonus","n":56,"q":"An mRNA actively being translated in the cytoplasm would have all of the following EXCEPT:","c":{"W":"a poly-A tail","X":"a 5' (read as 5 prime) cap","Y":"exons","Z":"introns"},"a":{"t":"introns","l":"Z"}}]},
+{"i":95605,"s":"bio","f":"MC","qt":"bonus","n":56,"q":"An mRNA actively being translated in the cytoplasm would have all of the following EXCEPT:","c":{"W":"a poly-A tail","X":"a 5' cap","Y":"exons","Z":"introns"},"a":{"t":"introns","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4940","q":[
 {"i":95606,"s":"bio","f":"MC","qt":"tossup","n":57,"q":"All of the following are examples of substances found in bacteria or archaea EXCEPT:","c":{"W":"peptidoglycan","X":"flagellin","Y":"chitin","Z":"phycobilin"},"a":{"t":"chitin","l":"Y"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4940","q":[
@@ -1472,7 +1472,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4983","q":[
 {"i":95678,"s":"chem","f":"SA","qt":"tossup","n":41,"q":"In complex of manganese (II) ion exhibiting a low spin state, how many d electrons are paired?","a":{"t":"Four"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4983","q":[
-{"i":95679,"s":"chem","f":"SA","qt":"bonus","n":42,"q":"What is the conjugate base of HPO4^(2-) (read as: hydrogen phosphate)?","a":{"t":"PO4^(3-)","ac":["PHOSPHATE"]}}]},
+{"i":95679,"s":"chem","f":"SA","qt":"bonus","n":42,"q":"What is the conjugate base of HPO4^(2-)?","a":{"t":"PO4^(3-)","ac":["PHOSPHATE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4984","q":[
 {"i":95680,"s":"chem","f":"MC","qt":"tossup","n":43,"q":"Which of the following is true regarding complex ions?","c":{"W":"Their formation constants are usually very small and they often form colored coordination compounds.","X":"Their formation constants are usually very small and they often form colorless coordination compounds.","Y":"Their formation constants are usually very large and they often form colored coordination compounds.","Z":"Their formation constants are usually very large and they often form colorless coordination compounds."},"a":{"t":"Their formation constants are usually very large and they often form colored coordination compounds.","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4984","q":[
@@ -1590,7 +1590,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5016","q":[
 {"i":95716,"s":"chem","f":"SA","qt":"tossup","n":100,"q":"Name all of the following 4 species that contain an odd number of electrons: O2^-; O2^(2-); SO2; CO","a":{"t":"O2^- (SUPEROXIDE)","ac":["O2^-","SUPEROXIDE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5016","q":[
-{"i":95717,"s":"chem","f":"SA","qt":"bonus","n":101,"q":"What are the 2 alkenes (read as: al-KEENS) with the shortest carbon chains and lowest molecular weights?","a":{"t":"ethene, propene","ac":["ethylene","propylene"]}}]},
+{"i":95717,"s":"chem","f":"SA","qt":"bonus","n":101,"q":"What are the 2 alkenes with the shortest carbon chains and lowest molecular weights?","a":{"t":"ethene, propene","ac":["ethylene","propylene"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5017","q":[
 {"i":96209,"s":"chem","f":"SA","qt":"tossup","n":102,"q":"You need to prepare 500 milliliters of a 0.100 molar NaOH solution from a 0.250 molar solution. What volume, in milliliters, of the 0.250 molar solution must be diluted to 500 milliliters?","a":{"t":"200"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5018","q":[
@@ -2190,7 +2190,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5183","q":[
 {"i":95968,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"By name or number, list all of the following elements that are ferromagnetic: 1) Cobalt, 2) Manganese, 3) Cadmium, 4) Silver","a":{"t":"COBALT","ac":["CO","1"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5184","q":[
-{"i":95969,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"When charging or discharging a capacitor, what is the quantity RC (read as resistance times capacitance) known as?","a":{"t":"Time constant"}}]},
+{"i":95969,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"When charging or discharging a capacitor, what is the quantity RC known as?","a":{"t":"Time constant"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5184","q":[
 {"i":95970,"s":"phys","f":"MC","qt":"bonus","n":11,"q":"At point 'A' on a circuit the wire is grounded. At point 'B' on the same circuit there is a emf of 30 volts. If there are two identical resistors with resistance of 10 ohms in parallel, between point 'A' and point 'B', what is the current in ampere flowing through either resistor?","c":{"W":"15","X":"3","Y":"9","Z":"6"},"a":{"t":"3","l":"X"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5185","q":[

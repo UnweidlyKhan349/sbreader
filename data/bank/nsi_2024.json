@@ -241,8 +241,8 @@
 {"i":22369,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"What is the incident stellar flux, to the nearest hundred, on an extrasolar planet given a distance of 1.496x10^11 meters and stellar luminosity of 1.339x10^28?","a":{"t":"47600 W/m^2"}},
 {"i":22370,"s":"phys","f":"MC","qt":"tossup","n":16,"q":"Bottom quarks most often decay into either an up-quark or a charm quark via what fundamental force?","a":{"t":"Weak","l":"X"},"c":{"W":"Strong","X":"Weak","Y":"Electromagnetic","Z":"Gravity"}},
 {"i":22371,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"An object is placed 15 cm in front of a diverging lens which has a focal length with a magnitude of 10 cm. Determine the image distance, in centimeters, from the lens.","a":{"t":"30 cm"}},
-{"i":22373,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the determinant of the following 3 by 3 matrix? (Row One: Three, One, Two. Row Two: Negative Three, Five, Negative One. Row Three: Negative Two, Zero, Two)","a":{"t":"58"}},
-{"i":22374,"s":"ess","f":"MC","qt":"tossup","n":18,"q":"Scientists at Niskayuna Newtons Lab are researching the various layers of the earth. What is the approximate depth of the Earth’s D'’ (d double prime) layer?","a":{"t":"2700 km","l":"Z"},"c":{"W":"700 km","X":"1400 km","Y":"3800 km","Z":"2700 km"}},
+{"i":22373,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the determinant of the following 3 by 3 matrix? [[3, 1, 2], [−3, 5, −1], [−2, 0, 2]]","a":{"t":"58"}},
+{"i":22374,"s":"ess","f":"MC","qt":"tossup","n":18,"q":"Scientists at Niskayuna Newtons Lab are researching the various layers of the earth. What is the approximate depth of the Earth’s D'’ layer?","a":{"t":"2700 km","l":"Z"},"c":{"W":"700 km","X":"1400 km","Y":"3800 km","Z":"2700 km"}},
 {"i":22375,"s":"phys","f":"MC","qt":"bonus","n":18,"q":"In radar systems, microwave frequency bands are crucial for different applications due to their specific propagation characteristics. Consider a radar system designed to detect small objects at long ranges with high resolution. If the radar operates in a frequency band that balances resolution with the ability to penetrate atmospheric moisture, which microwave frequency band would be most suitable?","a":{"t":"X-band","l":"Z"},"c":{"W":"L-band","X":"W-band","Y":"V-band","Z":"X-band"}}]},
 {"rl":"NSI2_RR1","r":1,"u":"https://lebot.djiang.xyz/packets/NSI_2024/NSI2_RR1.pdf","q":[
 {"i":45188,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the shortest distance between the point (4,3) and the equation 3y=5x+1?","a":{"t":"6√34/17"}}]},
@@ -252,7 +252,7 @@
 {"i":45190,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"Which of the following functional group changes would be necessary to convert Chlorophyll A to Chlorophyll B?","a":{"t":"Methyl to Aldehyde","l":"Z"},"c":{"W":"Ketone to Methyl","X":"Methyl to Ketone","Y":"Aldehyde to Methyl","Z":"Methyl to Aldehyde"}},
 {"i":45191,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Researchers at the Very Large Telescope use four telescopes named Antu, Kueyen, Melipal, and Yepun to observe the universe. Given that each of these telescopes has a primary mirror diameter of 8.2 m and disregarding atmospheric distortion, how far apart would two objects 4.6x10^5 km away, emitting an average wavelength of 550 nm, have to be from each other in order to be resolved by a single telescope, to the nearest whole meter?","a":{"t":"38 km"}}]},
 {"rl":"NSI2_Finals","r":7,"q":[
-{"i":71060,"s":"math","f":"SA","qt":"tossup","n":5,"q":"If a multivariate function is defined as f(x, y) = 4sin^2(x)cos(y), evaluate ∇f(x, y) (READ AS: the gradient of f(x, y))","a":{"t":"8sin(x)cos(x)cos(y)i - 4sin^2(x)sin(y)j"}}]},
+{"i":71060,"s":"math","f":"SA","qt":"tossup","n":5,"q":"If a multivariate function is defined as f(x, y) = 4sin^2(x)cos(y), evaluate ∇f(x, y)","a":{"t":"8sin(x)cos(x)cos(y)i - 4sin^2(x)sin(y)j"}}]},
 {"rl":"NSI2_Quarters","r":5,"q":[
 {"i":71062,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"What term describes high-density, gravity-driven winds coming off higher elevations which can open up polynyas in ice shelves?","a":{"t":"KATABATIC WINDS"}}]},
 {"rl":"NSI2_Semis","r":6,"q":[
@@ -264,7 +264,7 @@
 {"rl":"NSI2_RR2","r":2,"q":[
 {"i":71070,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the coordinates of the hole of the graph f(x)= (2x^2-18) / (x-3)","a":{"t":"(3, 12)"}}]},
 {"rl":"NSI2_RR3","r":3,"q":[
-{"i":71071,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is ∑_(n=0)^∞ 3(1/4)^n (read as: the sum from n=0 to infinity of 3 times one-fourth to the power n)?","a":{"t":"4"}}]},
+{"i":71071,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is ∑_(n=0)^∞ 3(1/4)^n?","a":{"t":"4"}}]},
 {"rl":"NSI2_SE1","r":4,"q":[
 {"i":71072,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the equation of the slant asymptote of f(x) = (x^3 − x^2 + x + 1)/(x^2 + 3x − 1)?","a":{"t":"y = x-4"}},
 {"i":71075,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the value of (√2 + i√2)^3?","a":{"t":"−4√2 + 4√2 i","ac":["-4√2 + 4i√2"]}}]}

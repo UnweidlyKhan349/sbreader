@@ -137,7 +137,7 @@
 {"i":30203,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the most stable cycloalkane and what conformation of said cycloalkane is the most stable?","a":{"t":"Cyclohexane and Chair Conformation.","ac":["Adam"]}}]},
 {"rl":"Dan_s Packet","r":null,"u":"https://lebot.djiang.xyz/packets/Summer/Dan_s%20Packet.pdf","q":[
 {"i":85900,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Giving your answer as an integer in base 10, what is the output of the bitwise operation: 5 or 9?","a":{"t":"13"}},
-{"i":85901,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"PETE can also be synthesized by esterification between terephthalic [tera-tha-lic] acid and ethylene glycol. What byproduct is released by this reaction?","a":{"t":"Water","ac":["H2O"]}}]},
+{"i":85901,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"PETE can also be synthesized by esterification between terephthalic acid and ethylene glycol. What byproduct is released by this reaction?","a":{"t":"Water","ac":["H2O"]}}]},
 {"rl":"Round 3 Summer Tournament","r":3,"u":"https://lebot.djiang.xyz/packets/Summer/Round%203%20Summer%20Tournament.pdf","q":[
 {"i":85902,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"Consider the mass spectrometry graphs for n-butanol, sec butanol, and tert butanol. Order the relative areas of the m/z=57 peaks for the three butanol isomers by increasing area. The mass of butanol is 74","a":{"t":"N BUTANOL, SEC BUTANOL, TERT BUTANOL"}}]},
 {"rl":"Summer Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/Summer/Summer%20Round%202.pdf","q":[
