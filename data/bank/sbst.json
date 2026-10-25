@@ -675,7 +675,7 @@
 {"rl":"SBST Round 9","r":9,"u":"https://speriphery.com/query","q":[
 {"i":85497,"s":"chem","f":"MC","qt":"tossup","n":null,"q":"Which of the following temperature and reagent choices best favor elimination over substitution when using 2-chloropropane as a substrate?","a":{"t":"High temperature, strong base","l":"Z"},"c":{"W":"Low temperature, weak base","X":"Low temperature, strong base","Y":"High temperature, weak base","Z":"High temperature, strong base"}}]},
 {"rl":"SBST Round 8","r":8,"u":"https://speriphery.com/query","q":[
-{"i":85502,"s":"math","f":"MC","qt":"bonus","n":null,"q":"Which of the following best describes the polar graph with equation r^2=(2)/(9sin^2θ+4cos^2θ)","a":{"t":"An ellipse","l":"X"},"c":{"W":"A line","X":"An ellipse","Y":"A parabola","Z":"A vertical hyperbola"}}]},
+{"i":85502,"s":"math","f":"MC","qt":"bonus","n":null,"q":"Which of the following best describes the polar graph with equation r^2=2/(9sin^2θ+4cos^2θ)","a":{"t":"An ellipse","l":"X"},"c":{"W":"A line","X":"An ellipse","Y":"A parabola","Z":"A vertical hyperbola"}}]},
 {"rl":"Round 12","r":12,"u":"https://speriphery.com/query","q":[
 {"i":85503,"s":"ess","f":"SA","qt":"tossup","n":null,"q":"Order the following three events in Mars' history from MOST to LEAST recent to occur: 1) Formation of the Hellas basin; 2) Slow heat loss; 3) Rapid cooling due to axial tilt.","a":{"t":"1, 3, 2"}}]},
 {"rl":"Round 13","r":13,"u":"https://speriphery.com/query","q":[

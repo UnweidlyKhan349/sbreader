@@ -114,7 +114,7 @@
 {"i":38908,"s":"ess","f":"MC","qt":"tossup","n":0,"q":"Which of the following exoplanet detection techniques has detected the most exoplanets to date?","a":{"t":"Transit","l":"Y"},"c":{"W":"Radial Velocity","X":"Direct Imaging","Y":"Transit","Z":"Astrometry"}},
 {"i":38909,"s":"ess","f":"MC","qt":"bonus","n":0,"q":"The Sun has an apparent magnitude of -26 at a distance of 5 × 10^-6 parsecs. Which of the following is closest to the Sun’s absolute magnitude?","a":{"t":"5","l":"Y"},"c":{"W":"-6","X":"-1","Y":"5","Z":"8"}},
 {"i":38910,"s":"math","f":"SA","qt":"tossup","n":0,"q":"Identify all of the following shapes that could be the inversion of a circle with respect to another circle. 1) Circle 2) Line 3) Parabola","a":{"t":"1 and 2"}},
-{"i":38911,"s":"math","f":"SA","qt":"bonus","n":0,"q":"What is the value of five halves factorial?","a":{"t":"15 √(π)/8"}},
+{"i":38911,"s":"math","f":"SA","qt":"bonus","n":0,"q":"What is the value of five halves factorial?","a":{"t":"15 √π/8"}},
 {"i":38912,"s":"bio","f":"SA","qt":"tossup","n":0,"q":"In insects, molting occurs over metamorphosis when what hormone is at high concentrations?","a":{"t":"Juvenile hormone"}},
 {"i":38913,"s":"bio","f":"MC","qt":"bonus","n":0,"q":"Which of the following animals relies on single circulation?","a":{"t":"Atlantic mackerel","l":"Z"},"c":{"W":"Brown bear","X":"Poison dart frog","Y":"Caiman lizard","Z":"Atlantic mackerel"}},
 {"i":38914,"s":"phys","f":"MC","qt":"tossup","n":0,"q":"Which of the following gives the correct unit for surface tension?","a":{"t":"Pascal times meter","l":"X"},"c":{"W":"Pascal","X":"Pascal times meter","Y":"Pascal times second","Z":"Pascal times second squared"}},
