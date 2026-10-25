@@ -154,7 +154,7 @@
 {"i":28039,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"A plant growing in your garden demonstrates an abnormal super - complex leaf phyllotaxy in which the leaf contains branching sub - leaflets off of the sub - leaflets. A wild - type plant next to it lacks this same pattern and instead only exhibits compound leaves. A mutation in what gene is most likely to cause this pattern?","a":{"t":"KNOTTED - 1"}}]},
 {"rl":"SCB DE5","r":10,"u":"https://lebot.djiang.xyz/packets/SCB-2025/SCB%20DE5.pdf","q":[
 {"i":28040,"s":"math","f":"SA","qt":"tossup","n":1,"q":"How many ways are there to reorder the letters in REDDER spelled R - E - D - D - E - R such that the word is a palindrome?","a":{"t":"6"}},
-{"i":28041,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Distinct digits D, M and C between 0 and 9 satisfy the equation D2M × 3 = M7C, where D2M and M7C are three-digit numbers. What is D + M + C?","a":{"t":"16"}},
+{"i":28041,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Distinct digits between 0 and 9 satisfy the equation D2M × 3 = M7C. What is D + M + C?","a":{"t":"16"}},
 {"i":28042,"s":"phys","f":"SA","qt":"tossup","n":2,"q":"Rank the following 3 types of radiation by increasing deflection in a magnetic field: 1) Alpha 2) Beta 3) Gamma","a":{"t":"3,1,2"}},
 {"i":28043,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"A resistor of 2.5 ohms and an inductor connected to a voltage source of 10 volts. At a certain moment, the current is 1 amp. Find the rate at which energy is stored in the inductor.","a":{"t":"7.5 Watts"}},
 {"i":28045,"s":"ess","f":"SA","qt":"bonus","n":3,"q":"Rank the following variable stars in term of increasing period: 1) Classical Cepheids 2) RR Lyrae 3) ZZ Ceti","a":{"t":"3, 2, 1"}},
