@@ -575,7 +575,7 @@
 {"i":55309,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"The quantization of angular momentum in fundamental particles was discovered by what experiment in 1922?","a":{"t":"STERN-GERLACH EXPERIMENT"}},
 {"i":55310,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"Quantum physicists hypothesize that the exchange of the graviton gives rise to the force of gravity. What is the spin of the hypothetical graviton?","a":{"t":"2"}},
 {"i":55311,"s":"math","f":"SA","qt":"tossup","n":4,"q":"15 choose 7 plus 15 choose 8 is equal to n choose k. What is n+k?","a":{"t":"24"}},
-{"i":55312,"s":"math","f":"SA","qt":"bonus","n":4,"q":"How many terms does the trinomial expansion of (a+b+c)^10 have?","a":{"t":"66 (12*11/2)"}},
+{"i":55312,"s":"math","f":"SA","qt":"bonus","n":4,"q":"How many terms does the trinomial expansion of (a+b+c)^10 have?","a":{"t":"66"}},
 {"i":55313,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"What is the name for the equatorial region where the trade winds meet?","a":{"t":"ITCZ OR INTERTROPICAL CONVERGENCE ZONE","ac":["DOLDRUMS"]}},
 {"i":55314,"s":"ess","f":"SA","qt":"bonus","n":5,"q":"El nifio and la nina are different phases of what overall cycle?","a":{"t":"El-nifio Southern Oscillation"}},
 {"i":55315,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"Scientists at Lawrence Berkeley National Laboratory are developing methods to detect chromosomal defects in sperm cells. In the human male reproductive system, what cells, next to the seminiferous tubules, are activated by LH?","a":{"t":"LEYDIG CELLS"}},

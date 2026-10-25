@@ -242,7 +242,7 @@
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6093","q":[
 {"i":93179,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"In a certain reaction, the reaction order of H+ is 2. If the pH of a solution is increased by 3, by what factor does the rate change?","c":{"W":"1000000","X":"1000","Y":"1/1000","Z":"1/1000000"},"a":{"t":"1/1000000","l":"Z"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6093","q":[
-{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O2-","X":"F-","Y":"Na+","Z":"Acetate"},"a":{"t":"Na+","l":"Y"}}]},
+{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O^(2-)","X":"F-","Y":"Na+","Z":"Acetate"},"a":{"t":"Na+","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6131","q":[
 {"i":93181,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"In the United States, Grain alcohol is made:","c":{"W":"from coal","X":"by fermenting starches","Y":"from methanol","Z":"from vinegar by fermenting acetic acid"},"a":{"t":"by fermenting starches","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6170","q":[
