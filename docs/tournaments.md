@@ -18,7 +18,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | BUMS 2026 | 48 |  | ms |
 | Cast 2021 | 404 | 1 | hs |
 | CCWT | 278 |  | hs |
-| CCWTWO | 308 |  | hs |
+| CCWTWO | 307 |  | hs |
 | CLASH 2026 HS | 714 | 30 | hs |
 | CLASH 2026 MS | 429 | 10 | ms |
 | Clements 2025 | 505 |  | hs |
@@ -50,12 +50,12 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
-| Lexington HS 2020-21 | 781 |  | hs |
+| Lexington HS 2020-21 | 780 |  | hs |
 | Lexscibowl 2021 | 23 |  | hs |
 | LOST 1 | 651 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
 | MEHS Rounds | 776 |  | hs |
-| MHS Rounds | 866 |  | hs |
+| MHS Rounds | 865 |  | hs |
 | MIT 2020 | 601 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -89,7 +89,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Prometheus 2021 | 819 |  | hs |
 | Random | 783 |  | hs |
 | Random Stuff | 358 |  | hs |
-| SBL | 1,221 | 44 | hs |
+| SBL | 1,220 | 44 | hs |
 | SBST | 657 |  | hs |
 | SBST (Spring) | 617 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
@@ -110,4 +110,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (106)** | **83,085** | **535** | |
+| **Total (106)** | **83,081** | **535** | |

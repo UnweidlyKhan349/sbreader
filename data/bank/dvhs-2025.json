@@ -100,7 +100,7 @@
 {"i":33157,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the hexadecimal equivalent of the decimal number 100?","a":{"t":"64"}},
 {"i":33159,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A cylinder has a radius of 4 cm and a height of 10 cm. What is its volume, in terms of π?","a":{"t":"160 π"}},
 {"i":33161,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the greatest common divisor of 84 and 126?","a":{"t":"42"}},
-{"i":33163,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the solution to the equation |3x − 2| < 10?","a":{"t":"8/3<x<4"}},
+{"i":33163,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the solution to the equation |3x − 2| < 10?","a":{"t":"-8/3<x<4"}},
 {"i":33164,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the sum of the interior angles of a 12 - sided polygon?","a":{"t":"1800 degrees"}},
 {"i":33165,"s":"math","f":"SA","qt":"bonus","n":23,"q":"If 2^(x+1) = 8(4^x), solve for x.","a":{"t":"x = -2"}}]},
 {"rl":"Physics Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Physics%20Supplemental.pdf","q":[

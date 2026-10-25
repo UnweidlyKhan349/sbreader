@@ -8,7 +8,7 @@
 {"i":43069,"s":"math","f":"SA","qt":"bonus","n":15,"q":"By name or number, identify which of the following are equal to 0: 1) 56 mod 7 2) The number of primes between 90 and 96 inclusive 3) Floor of -0.4","a":{"t":"1 and 2"}},
 {"i":43072,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"Order the following 3 diatomic molecules by increasing bond enthalpy: 1) N2 2) O2 3) Cl2","a":{"t":"3, 2, 1"}}]},
 {"rl":"BUMS DE 2","r":7,"q":[
-{"i":43082,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"By name or number, identify all of the following compounds that are ionic. 1) H2O 2) HCl 3) ZnBr2","a":{"t":"2, 3"}},
+{"i":43082,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"By name or number, identify all of the following compounds that are ionic. 1) H2O 2) HCl 3) ZnBr2","a":{"t":"3"}},
 {"i":43084,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"Convex mirrors always produce which of the following types of images? Real and upright Real and inverted Virtual and upright Virtual and inverted","a":{"t":"Virtual and upright"}},
 {"i":43088,"s":"math","f":"SA","qt":"tossup","n":5,"q":"Liam Tran is trying to find the best order of video games to play in order to maximize his misery on Friday night. He usually plays Overwatch, Marvel Rivals, and Clash Royale. How many permutations of these games exist in total?","a":{"t":"6"}},
 {"i":43093,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"The electrolysis of water produces which of the following diatomic gases? 1) Hydrogen 2) Helium 3) Nitrogen 4) Oxygen","a":{"t":"1, 4"}},
@@ -16,7 +16,7 @@
 {"rl":"BUMS DE 3","r":8,"q":[
 {"i":43142,"s":"chem","f":"SA","qt":"tossup","n":12,"q":"By name or number, rank the following 4 intermolecular forces by increasing strength. 1) Ion-dipole 2) Dipole-dipole 3) Hydrogen bonds 4) London dispersion forces","a":{"t":"4, 2, 3, 1"}},
 {"i":43151,"s":"bio","f":"SA","qt":"bonus","n":16,"q":"Huntington's disease is caused by many repeats of which of the following four nucleotides? 1) Adenine 2) Cytosine 3) Guanine 4) Thymine","a":{"t":"1, 2, 3"}},
-{"i":43154,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"By name or number, identify which of the following are fermions. 1) Photon 2) Electron 3) Neutron","a":{"t":"1, 2"}}]},
+{"i":43154,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"By name or number, identify which of the following are fermions. 1) Photon 2) Electron 3) Neutron","a":{"t":"2, 3"}}]},
 {"rl":"BUMS DE 4","r":9,"q":[
 {"i":43163,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Order the following three acids given their concentrations by increasing pH. 1) 0.1M hydrochloric acid 2) 1M sulfuric acid 3) 0.1M acetic acid","a":{"t":"2, 1, 3"}},
 {"i":43170,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"Select all of the following three taxa that are not phyla. 1) Chordata 2) Brachiopoda 3) Fungi","a":{"t":"3 only"}},

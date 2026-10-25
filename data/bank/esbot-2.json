@@ -568,7 +568,7 @@
 {"i":70922,"s":"math","f":"SA","qt":"tossup","n":6,"q":"What is the least positive integer n such that √(2023 · n) is an integer?","a":{"t":"7"}}]},
 {"rl":"DE12","r":12,"q":[
 {"i":70923,"s":"math","f":"MC","qt":"tossup","n":4,"q":"The function f from the integers to the integers satisfies f(x + y) = f(x) + f(y). Which of the following integers is a possible value of f(6)?","a":{"t":"2022","l":"Y"},"c":{"W":"2020","X":"2021","Y":"2022","Z":"2023"}},
-{"i":70925,"s":"math","f":"SA","qt":"tossup","n":19,"q":"A 2 x 2 matrix, A, can be diagonalized as PDP^(-1) [P D P inverse] where P has entries [2 3 1 2] and D has entries [2 0 0 1]. What is the sum of the eigenvalues of the matrix A?","a":{"t":"17"}}]},
+{"i":70925,"s":"math","f":"SA","qt":"tossup","n":19,"q":"A 2 x 2 matrix, A, can be diagonalized as PDP^(-1) [P D P inverse] where P has entries [2 3 1 2] and D has entries [2 0 0 1]. What is the sum of the eigenvalues of the matrix A?","a":{"t":"3"}}]},
 {"rl":"DE13","r":13,"q":[
 {"i":70926,"s":"math","f":"SA","qt":"tossup","n":4,"q":"If the expression sin(x) cos(x) = 2/5, what is the value of (sin(x) + cos(x))^2?","a":{"t":"9/5"}},
 {"i":70928,"s":"math","f":"SA","qt":"tossup","n":23,"q":"The inner product of two arbitrary complex numbers w and v is equal to 1 + 2i. What is the inner product of 2v and 2w?","a":{"t":"4 − 8i"}}]},

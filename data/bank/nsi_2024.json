@@ -264,7 +264,7 @@
 {"rl":"NSI2_RR2","r":2,"q":[
 {"i":71070,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the coordinates of the hole of the graph f(x)= (2x^2-18) / (x-3)","a":{"t":"(3, 12)"}}]},
 {"rl":"NSI2_RR3","r":3,"q":[
-{"i":71071,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is ∑_(n=0)^∞ 3(1/4)^n?","a":{"t":"4"}}]},
+{"i":71071,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is ∑_(n=0)^∞ 3(1/4)^n (read as: the sum from n=0 to infinity of 3 times one-fourth to the power n)?","a":{"t":"4"}}]},
 {"rl":"NSI2_SE1","r":4,"q":[
 {"i":71072,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the equation of the slant asymptote of f(x) = (x^3 − x^2 + x + 1)/(x^2 + 3x − 1)?","a":{"t":"y = x-4"}},
 {"i":71075,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the value of (√2 + i√2)^3?","a":{"t":"−4√2 + 4√2 i","ac":["-4√2 + 4i√2"]}}]}

@@ -410,7 +410,7 @@
 {"i":40690,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"By name or number, identify all of the following three amino acids that you are likely to find in an alpha helix: 1) Methionine; 2) Leucine; 3) Lysine","a":{"t":"All"}},
 {"i":40691,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"The Born-Haber cycle can indirectly calculate the lattice energy of an ionic solid by applying what law, which states that the net change in enthalpy of a reaction is equal to the sum of all its steps?","a":{"t":"Hess’s Law"}},
 {"i":40692,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Order the following 3 liquids by increasing vapor pressure: 1) Diethyl ether; 2) Acetone; 3) Water","a":{"t":"3 2 1"}},
-{"i":40693,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is i to the power of 2 plus i to the power of 0 plus i to the power of 2 plus i to the power of 6?","a":{"t":"0"}},
+{"i":40693,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is i to the power of 2 plus i to the power of 0 plus i to the power of 2 plus i to the power of 6?","a":{"t":"-2"}},
 {"i":40694,"s":"math","f":"SA","qt":"bonus","n":3,"q":"A geometric series begins with the three terms 1, x, and 12+x, where x is positive. What is x?","a":{"t":"4"}},
 {"i":40695,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"A Carnot engine has an efficiency of ⅔, and has a cold reservoir temperature of 293 Kelvin. What is the temperature of the hot reservoir, in degrees Kelvin?","a":{"t":"879"}},
 {"i":40696,"s":"phys","f":"MC","qt":"bonus","n":4,"q":"Given a displacement vector of 6i + 6j + 7k, which of the following force vectors would produce the most work?","a":{"t":"-i + 7j + 7k","l":"Y"},"c":{"W":"8i + 6j -12k","X":"3i + 3j + 3/2k","Y":"-i + 7j + 7k","Z":"4i + 4j + 14/3k"}},

@@ -1160,7 +1160,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6895","q":[
 {"i":93595,"s":"phys","f":"SA","qt":"bonus","n":322,"q":"One method for producing entangled photons is called the SPDC. It involves splitting a photon along a crystal and producing two newer photons of lower energy that split energy and momentum. What does SPDC stand for?","a":{"t":"SPONTANEOUS PARAMETRIC DOWN-CONVERSION"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6896","q":[
-{"i":93596,"s":"phys","f":"MC","qt":"tossup","n":323,"q":"An object is placed 40 centimeters from a concave mirror with focal length 2 meters. What is the magnification of the object?","c":{"W":"-1.25","X":"- 0.4","Y":"0.5","Z":"1.25"},"a":{"t":"1.25","l":"Z"}}]},
+{"i":93596,"s":"phys","f":"MC","qt":"tossup","n":323,"q":"An object is placed 40 centimeters from a concave mirror with focal length 2 meters. What is the magnification of the object?","c":{"W":"-1.25","X":"-0.4","Y":"0.5","Z":"1.25"},"a":{"t":"1.25","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6896","q":[
 {"i":93597,"s":"phys","f":"SA","qt":"bonus","n":324,"q":"Name, in order, the two kinds of glass commonly used to produce an achromatic doublet by combining a biconvex lens of the first with a biconcave lens of the second.","a":{"t":"CROWN GLASS AND FLINT GLASS","ac":["CROWN AND FLINT"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6897","q":[

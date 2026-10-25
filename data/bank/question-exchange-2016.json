@@ -2302,7 +2302,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5215","q":[
 {"i":96016,"s":"phys","f":"MC","qt":"bonus","n":65,"q":"Given G as the gravitational constant and there exists an equilateral triangle with side length \"a\" and identical objects with mass of \"x\" what is the total gravitational potential energy of this system?","c":{"W":"−9√3·Gxy/a","X":"−3√3·Gx^2/a","Y":"−3Gx^2/a","Z":"−√3·Gx^2/a"},"a":{"t":"−3Gx^2/a","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5216","q":[
-{"i":96017,"s":"phys","f":"MC","qt":"tossup","n":66,"q":"A closed hemispherical shell of radius R is filled with fluid at uniform pressure p. The net force of the fluid on the curved portion of the shell is given by:","c":{"W":"2πR^2p","X":"4πR^2p","Y":"πR^2p","Z":"(4/3)πR^2p"},"a":{"t":"πR^2p","l":"Y"}}]},
+{"i":96017,"s":"phys","f":"MC","qt":"tossup","n":66,"q":"A closed hemispherical shell of radius R is filled with fluid at uniform pressure p. The net force of the fluid on the curved portion of the shell is given by:","c":{"W":"2πR^2 p","X":"4πR^2 p","Y":"πR^2 p","Z":"(4/3)πR^2 p"},"a":{"t":"πR^2 p","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5216","q":[
 {"i":96018,"s":"phys","f":"SA","qt":"bonus","n":67,"q":"A boat floating in fresh water displaces 16,000 N of water. How many newtons of saltwater would it displace if it floats in saltwater of specific gravity 1.17?","a":{"t":"16,000"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5217","q":[

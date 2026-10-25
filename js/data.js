@@ -160,8 +160,11 @@
   // produces no over-long or space-containing captures. A lone sign after
   // "^" is an ion charge ("H^+", "NO3^-", "e^−") and is superscripted on its
   // own. A single Greek letter is a token too ("n^α", "ν_μ", "log_φ"), but
-  // never joins a Latin run, so "μ_0μ_r" stays two subscripts.
-  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
+  // never joins a Latin run, so "μ_0μ_r" stays two subscripts. A bare
+  // exponent that starts with digits takes only the digits: "x^3y" is x³y,
+  // "sp^3d" is sp³d and "^1H" is ¹H (a longer exponent like "e^(2x)" is
+  // written with parentheses).
+  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
   const MATH_SUB_BARE_RE = /(?<!_)_([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF]))/g;
   function escapeHtml(s) {
     const d = document.createElement('div');
