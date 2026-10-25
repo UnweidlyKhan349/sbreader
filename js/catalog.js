@@ -137,6 +137,8 @@
 
   function render() {
     syncChipVisuals();
+    // With no tournament picked, newest tournaments come first; picking
+    // tournaments lists them A-Z, as in the picker.
     const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
       subjects: state.subjects,
       roundRange: state.roundRange,
@@ -147,7 +149,7 @@
       visuals: state.visuals,
       tournaments: state.tournaments,
       search: state.search,
-    }));
+    }), { recent: state.tournaments.size === 0 });
 
     document.getElementById('resultCount').textContent =
       `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
@@ -168,6 +170,19 @@
     renderPagination(totalPages);
   }
 
+  // Changes page from the pager under the results. The new page is usually
+  // a different height, so the window is scrolled to keep the pager where it
+  // was on screen: Prev/Next can be clicked again without hunting for it.
+  function goToPage(n) {
+    const el = document.getElementById('pagination');
+    const before = el.getBoundingClientRect().top;
+    state.page = n;
+    render();
+    // The page scrolls inside #pageScroll, not the window.
+    const scroller = document.getElementById('pageScroll') || document.scrollingElement;
+    scroller.scrollTop += el.getBoundingClientRect().top - before;
+  }
+
   function renderPagination(totalPages) {
     const el = document.getElementById('pagination');
     el.innerHTML = '';
@@ -176,7 +191,7 @@
     prev.className = 'btn small';
     prev.textContent = '← Prev';
     prev.disabled = state.page <= 1;
-    prev.onclick = () => { state.page--; render(); window.scrollTo({top:0, behavior:'smooth'}); };
+    prev.onclick = () => goToPage(state.page - 1);
     el.appendChild(prev);
 
     const span = document.createElement('span');
@@ -195,9 +210,7 @@
       if (!Number.isFinite(n)) n = state.page;
       n = Math.min(totalPages, Math.max(1, n));
       if (n !== state.page) {
-        state.page = n;
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        goToPage(n);
       } else {
         pageInput.value = String(state.page);
       }
@@ -216,7 +229,7 @@
     next.className = 'btn small';
     next.textContent = 'Next →';
     next.disabled = state.page >= totalPages;
-    next.onclick = () => { state.page++; render(); window.scrollTo({top:0, behavior:'smooth'}); };
+    next.onclick = () => goToPage(state.page + 1);
     el.appendChild(next);
   }
 

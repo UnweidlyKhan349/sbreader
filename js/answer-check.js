@@ -12,11 +12,13 @@
     return String(s)
       .toUpperCase()
       .replace(/['’‘]/g, "'")
-      // exponent markup is ignored, so "x^2" = "x2" and "e^(-x)" = "e-x"
-      .replace(/\^\(([^()]*)\)/g, '$1')
-      .replace(/\^/g, '')
+      // exponent and subscript markup is ignored, so "x^2" = "x2",
+      // "e^(-x)" = "e-x" and "K_sp" = "Ksp"
+      .replace(/[\^_]\(([^()]*)\)/g, '$1')
+      .replace(/[\^_]/g, '')
       .replace(/√/g, ' SQRT ') // so a typed "sqrt" matches a displayed "√" and vice versa
       .replace(/∛/g, ' CBRT ') // same idea for a cube-root radical
+      .replace(/(SQRT|CBRT)/g, ' $1 ') // a typed "10sqrt(2)" splits like "10√2"
       // matched as [πΠ] (not just π) because .toUpperCase() above already
       // ran and turns lowercase π into capital Π - a bare /π/ here would
       // silently never match and the symbol would just get stripped as

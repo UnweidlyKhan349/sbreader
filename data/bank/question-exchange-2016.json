@@ -46,7 +46,7 @@
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4589","q":[
 {"i":95043,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"A BJT with a hFE of 150 has a base current of 320mA. Assuming it is not driven to saturation, what is the collector current, to the nearest tenth of an ampere?","a":{"t":"48.0 A","ac":["48 A","48"]}}]},
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4589","q":[
-{"i":95044,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"Rank the following diode configurations in order of decreasing voltage drop: forward-biased silicon diode, forward-biased germanium diode, reverse-biased Zener diode, reverse-biased avalanche diode.","a":{"t":"reverse-biased avalanche diode, reverse-biased Zener diode, forward-biased silicon diode, forward-biased germanium diode","ac":["4","3","1","2"]}}]},
+{"i":95044,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"Rank the following diode configurations in order of decreasing voltage drop: forward-biased silicon diode, forward-biased germanium diode, reverse-biased Zener diode, reverse-biased avalanche diode.","a":{"t":"reverse-biased avalanche diode, reverse-biased Zener diode, forward-biased silicon diode, forward-biased germanium diode","ac":["4, 3, 1, 2"]}}]},
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4590","q":[
 {"i":95045,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"Name all of the following properties of depleted uranium that make it especially suitable for use in projectiles. I) It is highly radioactive II) It is very dense III) It is very hard IV) It is pyrophoric","a":{"t":"II and IV"}}]},
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4590","q":[
@@ -180,9 +180,9 @@
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4626","q":[
 {"i":95101,"s":"math","f":"MC","qt":"bonus","n":6,"q":"The sum of the squares of the reciprocals of all positive integers is equal to which of the following:","c":{"W":"-1/12","X":"Euler's constant","Y":"e","Z":"π^2/6"},"a":{"t":"π^2/6","l":"Z"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4627","q":[
-{"i":96119,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"What is the common name for the 27-carbon lipid whose synthesis is in part regulated by HMG CoA (read as: H, M, G, koh, A) reductase and is the basic starting point for estrogen synthesis?","a":{"t":"Cholesterol"}}]},
+{"i":96119,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"What is the common name for the 27-carbon lipid whose synthesis is in part regulated by HMG CoA reductase and is the basic starting point for estrogen synthesis?","a":{"t":"Cholesterol"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4627","q":[
-{"i":96120,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"From what vitamin is the electron carrier FAD (read as: F, A, D) derived?","a":{"t":"Riboflavin","ac":["Vitamin B2"]}}]},
+{"i":96120,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"From what vitamin is the electron carrier FAD derived?","a":{"t":"Riboflavin","ac":["Vitamin B2"]}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4628","q":[
 {"i":95102,"s":"phys","f":"MC","qt":"tossup","n":9,"q":"A disk is mounted on a frictionless axle with a moment of inertia I. It is spinning with an initial angular speed of ω. A constant torque τ is applied to the disk so that it stops in time t. What is the power required to dissipate the wheel’s energy during this time?","c":{"W":"(Iω^2)/(2t)","X":"(Iω)/t","Y":"(Iω^2)/(2τ)","Z":"(Iω)/τ"},"a":{"t":"(Iω^2)/(2t)","l":"W"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4628","q":[
@@ -358,7 +358,7 @@
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4672","q":[
 {"i":95185,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"As a ball is falling down from the top of a tower, its gravitational potential energy is transferred into what other type of energy, besides kinetic energy?","a":{"t":"THERMAL ENERGY","rj":["HEAT"]}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4673","q":[
-{"i":95186,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the integral of cos(x) dx (co-sine of x d x) from 1/4 π to 0?","a":{"t":"-√2/2","ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}]},
+{"i":95186,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the integral of cos(x) dx from 1/4 π to 0?","a":{"t":"-√2/2","ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4674","q":[
 {"i":95187,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Categorize the following molecules according to the arrangement of electron pairs geometry: carbon dioxide, dihydrogen monoxide, and methane.","a":{"t":"CARBON DIOXIDE IS LINEAR, DIHYDROGEN MONOXIDE IS TETRAHEDRAL, METHANE IS TETRAHEDRAL"}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4675","q":[
@@ -404,9 +404,9 @@
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4687","q":[
 {"i":96125,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"What is the SI unit for luminous intensity?","a":{"t":"candela"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4687","q":[
-{"i":95207,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"What is the name of the derived SI unit given by 1 kg/(m·s^2) (read: one kilogram per meter per second squared)?","a":{"t":"PASCAL"}}]},
+{"i":95207,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"What is the name of the derived SI unit given by 1 kg/(m·s^2)?","a":{"t":"PASCAL"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4688","q":[
-{"i":95208,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the chemical formula of Titanium (III) oxide (read: Titanium three oxide)?","a":{"t":"Ti2O3"}}]},
+{"i":95208,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the chemical formula of Titanium (III) oxide?","a":{"t":"Ti2O3"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4688","q":[
 {"i":95209,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"What is the mass number of the atom that uranium-238 becomes after alpha decay?","a":{"t":"234"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4689","q":[
@@ -434,7 +434,7 @@
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4695","q":[
 {"i":95220,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"What is the spin number of a gauge boson?","a":{"t":"1"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4696","q":[
-{"i":95221,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following kinematics formulas is derived using the chain rule?","c":{"W":"x(t) = 1/2at^2 + v_0t + c_0","X":"v_f^2 = v_i^2 + 2a∆x","Y":"Distance is a scalar & displacement is a vector","Z":"a = (dv)/dt"},"a":{"t":"v_f^2 = v_i^2 + 2a∆x","l":"X"}}]},
+{"i":95221,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following kinematics formulas is derived using the chain rule?","c":{"W":"x(t) = 1/2at^2 + v_0 t + c_0","X":"v_f^2 = v_i^2 + 2a∆x","Y":"Distance is a scalar & displacement is a vector","Z":"a = (dv)/dt"},"a":{"t":"v_f^2 = v_i^2 + 2a∆x","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4696","q":[
 {"i":95222,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"You do 10J work on a block by applying a force 20N in a direction 30º from the vertical. Assuming that no other forces are acting on the block, how far did you move it in the horizontal direction?","c":{"W":"½ m","X":"1 m","Y":"2 m","Z":"5 m"},"a":{"t":"1 m","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4697","q":[
@@ -442,9 +442,9 @@
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4697","q":[
 {"i":96127,"s":"bio","f":"MC","qt":"bonus","n":4,"q":"Which of the following is not a polymer?","c":{"W":"Chitin","X":"Albumin","Y":"Trypsin","Z":"Valine"},"a":{"t":"Valine","l":"Z"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4698","q":[
-{"i":95224,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"Cu[H2O]62+ is blue and CuCl42- is green in aqueous solution. You have an aqueous solution of CuSO4. You add NaCl and the solution becomes green. Which of the following explains this color change?","c":{"W":"Boyle's Law","X":"Hess's Law","Y":"LeChatelier's Principle","Z":"Intermolecular Forces"},"a":{"t":"LeChatelier's Principle","l":"Y"}}]},
+{"i":95224,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"Cu[H2O]6^(2+) is blue and CuCl4^(2-) is green in aqueous solution. You have an aqueous solution of CuSO4. You add NaCl and the solution becomes green. Which of the following explains this color change?","c":{"W":"Boyle's Law","X":"Hess's Law","Y":"LeChatelier's Principle","Z":"Intermolecular Forces"},"a":{"t":"LeChatelier's Principle","l":"Y"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4698","q":[
-{"i":95225,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"An organic compound has a sharp peak in its IR spectrum at 1700cm-1. In its 1H-NMR spectrum, it detects a proton at 9.8ppm. What functional group do you suspect that this organic compound contains?","c":{"W":"ketone","X":"carboxylic acid","Y":"ether","Z":"aldehyde"},"a":{"t":"aldehyde","l":"Z"}}]},
+{"i":95225,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"An organic compound has a sharp peak in its IR spectrum at 1700 cm^-1. In its 1H-NMR spectrum, it detects a proton at 9.8ppm. What functional group do you suspect that this organic compound contains?","c":{"W":"ketone","X":"carboxylic acid","Y":"ether","Z":"aldehyde"},"a":{"t":"aldehyde","l":"Z"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4699","q":[
 {"i":95226,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"What is the approximate shape of the observable universe?","a":{"t":"a sphere"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4699","q":[
@@ -494,7 +494,7 @@
 {"rl":"Aug 25 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4711","q":[
 {"i":95245,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"The absolute value of the resting potential of a neuron with respect to the extracellular area is closest to:","c":{"W":"70 V","X":"70 mV","Y":"85 mV","Z":"55 mv"},"a":{"t":"70 mV","l":"X"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4712","q":[
-{"i":95246,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"A reaction with an order of greater than one can become a pseudo-first- order reaction if which of the following is true for all but one of the reactants?","c":{"W":"If the oxidation numbers of these reactants are all zero","X":"If all of these reactants have a net charge","Y":"If these reactants are solids or liquids","Z":"If these reactants are heavily in excess"},"a":{"t":"If these reactants are heavily in excess","l":"Z"}}]},
+{"i":95246,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"A reaction with an order of greater than one can become a pseudo-first-order reaction if which of the following is true for all but one of the reactants?","c":{"W":"If the oxidation numbers of these reactants are all zero","X":"If all of these reactants have a net charge","Y":"If these reactants are solids or liquids","Z":"If these reactants are heavily in excess"},"a":{"t":"If these reactants are heavily in excess","l":"Z"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4712","q":[
 {"i":95247,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Place these allotropes of Phosphorus from least thermodynamically stable to most thermodynamically stable: White Phosphorus, Black Phosphorus, Red Phosphorus, Violet Phosphorus","a":{"t":"White Phosphorus, Red Phosphorus, Violet Phosphorus, Black Phosphorus"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4713","q":[
@@ -670,7 +670,7 @@
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4762","q":[
 {"i":95327,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Torque, defined as force at a distance, is equal to which of the following?","c":{"W":"Force times the radius squared","X":"Mass times velocity squared","Y":"The time derivative of angular momentum","Z":"The integral of force as a function of x"},"a":{"t":"The time derivative of angular momentum","l":"Y"}}]},
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4762","q":[
-{"i":95328,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"Name all of the following five particles that have a net half-integer spin: proton, neutron, electron, tau, and photon.","a":{"t":"proton, neutron, electron, tau","ac":["1","2","3","4 or all but 5"]}}]},
+{"i":95328,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"Name all of the following five particles that have a net half-integer spin: proton, neutron, electron, tau, and photon.","a":{"t":"proton, neutron, electron, tau","ac":["1, 2, 3, 4","all but 5"]}}]},
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4763","q":[
 {"i":95329,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"What type of cancer is the HeLa cell derived from?","a":{"t":"cervical cancer"}}]},
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4763","q":[
@@ -686,7 +686,7 @@
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4766","q":[
 {"i":95334,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"Intrusive igneous rocks are characterized by which of the following?","c":{"W":"Smaller crystal structures","X":"Larger crystal structures","Y":"Fine-grained textures","Z":"Shiny luster"},"a":{"t":"Larger crystal structures","l":"X"}}]},
 {"rl":"Jun 16 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4766","q":[
-{"i":95335,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"Order the following minerals from hardest to softest: corundum, Gypsum, Fluorite, Quartz","a":{"t":"corundum, Quartz, Fluorite, Gypsum","ac":["1","4","3","2"]}}]},
+{"i":95335,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"Order the following minerals from hardest to softest: corundum, Gypsum, Fluorite, Quartz","a":{"t":"corundum, Quartz, Fluorite, Gypsum","ac":["1, 4, 3, 2"]}}]},
 {"rl":"Jun 16 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4767","q":[
 {"i":95336,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"A box with mass 10 kg and dimensions 10 cm by 20 cm by 30 cm slides down a frictionless ramp that makes 45 degrees to the horizontal, with the 20 cm by 30 cm side touching the ramp and the 10 cm by 20 cm sides facing along the ramp. The box slides 4 m before reaching a frictionless level surface. Which of the following is closest to the speed of the box?","c":{"W":"4.3 m/s","X":"7.5 m/s","Y":"9.8 m/s","Z":"420 m/s"},"a":{"t":"7.5 m/s","l":"X"}}]},
 {"rl":"Jun 16 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4767","q":[
@@ -788,7 +788,7 @@
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4793","q":[
 {"i":95383,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"Name the four elements that are ferromagnetic at or near room temperature, in increasing order of Curie temperature","a":{"t":"GADOLINIUM, NICKEL, IRON, COBALT","ac":["GD, NI, FE, CO"]}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4794","q":[
-{"i":96141,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the sum of the first three Fermat primes?","a":{"t":"25 Fermat prime: 2^2^n + 1, 3+5+17 = 25"}}]},
+{"i":96141,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the sum of the first three Fermat primes?","a":{"t":"25"}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4795","q":[
 {"i":96142,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"Which law states that the vapor pressure of a solution of a non-volatile solute is equal to the vapor pressure of the pure solvent at that temperature multiplied by its mole fraction.","a":{"t":"Raoult’s Law"}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4795","q":[
@@ -806,7 +806,7 @@
 {"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/tossup/4799","q":[
 {"i":95389,"s":"phys","f":"MC","qt":"tossup","n":5,"q":"How many ergs are equivalent to one joule?","c":{"W":"10^4","X":"10^7","Y":"10^-7","Z":"10^-4"},"a":{"t":"10^7","l":"X"}}]},
 {"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/tossup/4800","q":[
-{"i":95390,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Put the following four rocks in order of increasing metamorphic grade: Gneiss, Migmatite, Phyllite, Slate","a":{"t":"Slate, Phyllite, Gneiss, Migmatite","ac":["4","3","1","2"]}}]},
+{"i":95390,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Put the following four rocks in order of increasing metamorphic grade: Gneiss, Migmatite, Phyllite, Slate","a":{"t":"Slate, Phyllite, Gneiss, Migmatite","ac":["4, 3, 1, 2"]}}]},
 {"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/bonus/4800","q":[
 {"i":95391,"s":"ess","f":"MC","qt":"bonus","n":7,"q":"What is the highest temperature, in degrees celsius, at which metamorphism can take place, not including \"ultra-high\" metamorphic temperatures?","c":{"W":"600 to 700","X":"700 to 900","Y":"900 to 1100","Z":"1200 to 1300"},"a":{"t":"700 to 900","l":"X"}}]},
 {"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/tossup/4801","q":[
@@ -828,7 +828,7 @@
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4806","q":[
 {"i":95400,"s":"math","f":"SA","qt":"tossup","n":6,"q":"What is the discrete analog of the Dirac delta function?","a":{"t":"Kronecker delta function"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4806","q":[
-{"i":95401,"s":"math","f":"SA","qt":"bonus","n":7,"q":"What is (1+√(3)i)^15?","a":{"t":"-32768"}}]},
+{"i":95401,"s":"math","f":"SA","qt":"bonus","n":7,"q":"What is (1+√3i)^15?","a":{"t":"-32768"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4807","q":[
 {"i":95402,"s":"ess","f":"SA","qt":"tossup","n":8,"q":"What is the intrusive counterpart of basalt?","a":{"t":"Gabbro"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4807","q":[
@@ -876,7 +876,7 @@
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4820","q":[
 {"i":95422,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"During the fusion of two elements, what massless type of energy is sometimes formed?","a":{"t":"GAMMA RAYS"}}]},
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4820","q":[
-{"i":95423,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"When two atoms are undergoing fusion, ΔH (READ: the change in enthalpy) is _________.","c":{"W":"Positive","X":"Negative","Y":"Zero","Z":"Positive and then negative"},"a":{"t":"Negative","l":"X"}}]},
+{"i":95423,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"When two atoms are undergoing fusion, ΔH is _________.","c":{"W":"Positive","X":"Negative","Y":"Zero","Z":"Positive and then negative"},"a":{"t":"Negative","l":"X"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4821","q":[
 {"i":95424,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What is the most common inflammatory cause of chest pain in teenage adolescents, especially in females?","a":{"t":"Costochondritis","ac":["Chest wall pain","costosternal syndrome","costosternal chondrodynia"]}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4821","q":[
@@ -974,9 +974,9 @@
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4847","q":[
 {"i":95463,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"What moon of Saturn has a tidally heated subsurface ocean that vents through plumes near its south pole?","a":{"t":"ENCELADUS"}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4848","q":[
-{"i":95464,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following pairs of angles are complementary?","c":{"W":"tan^-1(1) and sin^-1(√(3)/2)","X":"cos^-1(2/3) and cos^-1(-2/3)","Y":"sin^-1(1/3) and cos^-1(1/3)","Z":"tan^-1(1/5) and cos^-1(4/5)"},"a":{"t":"sin^-1(1/3) and cos^-1(1/3)","l":"Y"}}]},
+{"i":95464,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following pairs of angles are complementary?","c":{"W":"tan^-1(1) and sin^-1(√3/2)","X":"cos^-1(2/3) and cos^-1(-2/3)","Y":"sin^-1(1/3) and cos^-1(1/3)","Z":"tan^-1(1/5) and cos^-1(4/5)"},"a":{"t":"sin^-1(1/3) and cos^-1(1/3)","l":"Y"}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/bonus/4848","q":[
-{"i":95465,"s":"math","f":"SA","qt":"bonus","n":9,"q":"List the following angles from smallest to largest: cos^-1(2/5), sin^-1(4/5), tan^-1(2)","a":{"t":"sin^-1(4/5), tan^-1(2), cos^-1(2/5)","ac":["2","3","1"]}}]},
+{"i":95465,"s":"math","f":"SA","qt":"bonus","n":9,"q":"List the following angles from smallest to largest: cos^-1(2/5), sin^-1(4/5), tan^-1(2)","a":{"t":"sin^-1(4/5), tan^-1(2), cos^-1(2/5)","ac":["2, 3, 1"]}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4849","q":[
 {"i":95466,"s":"energy","f":"SA","qt":"tossup","n":10,"q":"What is the current (As of late September 2016) concentration of CO2 in the atmosphere in parts per million?","a":{"t":"400 PPM","ac":["400","401 PPM","402 PPM"]}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/bonus/4849","q":[
@@ -986,7 +986,7 @@
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4850","q":[
 {"i":95469,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"What post-translational modification of mucins allows them to hold large amounts of water?","a":{"t":"Glycosylation"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4851","q":[
-{"i":95470,"s":"phys","f":"MC","qt":"tossup","n":3,"q":"Which of the following describes, relative to the original cyclotron frequency, the new cyclotron frequency when the mass of the particle is doubled?","c":{"W":"It is multiplied by 2","X":"It is multiplied by √(2)","Y":"It is divided by 2","Z":"It is divided by √(2)"},"a":{"t":"It is divided by 2","l":"Y"}}]},
+{"i":95470,"s":"phys","f":"MC","qt":"tossup","n":3,"q":"Which of the following describes, relative to the original cyclotron frequency, the new cyclotron frequency when the mass of the particle is doubled?","c":{"W":"It is multiplied by 2","X":"It is multiplied by √2","Y":"It is divided by 2","Z":"It is divided by √2"},"a":{"t":"It is divided by 2","l":"Y"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4852","q":[
 {"i":95471,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"Which metal, other than aluminum, does the alloy duralumin contain in the greatest proportion?","c":{"W":"Iron","X":"Copper","Y":"Molybdenum","Z":"Nickel"},"a":{"t":"Copper","l":"X"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4853","q":[
@@ -998,7 +998,7 @@
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4854","q":[
 {"i":95475,"s":"math","f":"MC","qt":"bonus","n":8,"q":"Which of the following best describes the shape of the curve described by the equation r=0.2 + cos(theta)?","c":{"W":"A circle","X":"A limacon with a loop","Y":"A cardioid","Z":"A limacon with a dimple"},"a":{"t":"A limacon with a loop","l":"X"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4855","q":[
-{"i":95476,"s":"energy","f":"SA","qt":"bonus","n":9,"q":"Rank the following nuclear reactor technologies in order of decreasing capacity installed: boiling water reactor, pressurized heavy-water reactor, pressurized light-water reactor","a":{"t":"pressurized light-water reactor, boiling water reactor, pressurized heavy-water reactor","ac":["3","1","2"]}}]},
+{"i":95476,"s":"energy","f":"SA","qt":"bonus","n":9,"q":"Rank the following nuclear reactor technologies in order of decreasing capacity installed: boiling water reactor, pressurized heavy-water reactor, pressurized light-water reactor","a":{"t":"pressurized light-water reactor, boiling water reactor, pressurized heavy-water reactor","ac":["3, 1, 2"]}}]},
 {"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4856","q":[
 {"i":95477,"s":"energy","f":"MC","qt":"tossup","n":1,"q":"What country produces the largest amount of mined uranium per year?","c":{"W":"Kazakhstan","X":"United States","Y":"China","Z":"Australia"},"a":{"t":"Kazakhstan","l":"W"}}]},
 {"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4856","q":[
@@ -1042,7 +1042,7 @@
 {"rl":"Sep 22 · Blair","r":null,"u":"https://scibowldb.com/bonus/4866","q":[
 {"i":96157,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Compute the sum from n = 1 to infinity of [1/n - 1/(n+1)]","a":{"t":"1"}}]},
 {"rl":"Sep 22 · Blair","r":null,"u":"https://scibowldb.com/tossup/4867","q":[
-{"i":96158,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"By name or number, order the following three countries in increasing order of oil imports in 2014: China, Canada, Japan.","a":{"t":"2, 3, 1","ac":["CANADA","JAPAN","CHINA"]}}]},
+{"i":96158,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"By name or number, order the following three countries in increasing order of oil imports in 2014: China, Canada, Japan.","a":{"t":"2, 3, 1","ac":["CANADA, JAPAN, CHINA"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4868","q":[
 {"i":96159,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"The Coriolis Effect deflects winds in the Northern Hemisphere:","c":{"W":"To the west","X":"To the east","Y":"To the left","Z":"To the right"},"a":{"t":"To the right","l":"Z"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4868","q":[
@@ -1120,7 +1120,7 @@
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4888","q":[
 {"i":95524,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"What is the half-life of the most common isotope of uranium found in nature, also used in nuclear power plants?","c":{"W":"8.2 billion years","X":"4.5 billion years","Y":"6.7 billion years","Z":"3.9 billion years"},"a":{"t":"4.5 billion years","l":"X"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4889","q":[
-{"i":95525,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the value of the speed of light in km/s, with 2 significant figures?","a":{"t":"3.0 × 10^5","rj":["3 * 10^5 or 300000"]}}]},
+{"i":95525,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the value of the speed of light in km/s, with 2 significant figures?","a":{"t":"3.0 × 10^5","rj":["3 × 10^5 or 300000"]}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4889","q":[
 {"i":95526,"s":"phys","f":"SA","qt":"bonus","n":8,"q":"If spaceship A and spaceship B pass each other going in opposite directions at 3/5 of the speed of light, at what speed does spaceship B appear to be going, to an observer in spaceship A?","a":{"t":"15/17 c","ac":["15/17","0.88c"]}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4890","q":[
@@ -1304,7 +1304,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4939","q":[
 {"i":95604,"s":"bio","f":"MC","qt":"tossup","n":55,"q":"Genetic variation can be introduced into bacteria by all of the following methods EXCEPT:","c":{"W":"transfer of DNA between bacteria through pili","X":"mutation","Y":"transformation","Z":"DNA amplification"},"a":{"t":"DNA amplification","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4939","q":[
-{"i":95605,"s":"bio","f":"MC","qt":"bonus","n":56,"q":"An mRNA actively being translated in the cytoplasm would have all of the following EXCEPT:","c":{"W":"a poly-A tail","X":"a 5' (read as 5 prime) cap","Y":"exons","Z":"introns"},"a":{"t":"introns","l":"Z"}}]},
+{"i":95605,"s":"bio","f":"MC","qt":"bonus","n":56,"q":"An mRNA actively being translated in the cytoplasm would have all of the following EXCEPT:","c":{"W":"a poly-A tail","X":"a 5' cap","Y":"exons","Z":"introns"},"a":{"t":"introns","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4940","q":[
 {"i":95606,"s":"bio","f":"MC","qt":"tossup","n":57,"q":"All of the following are examples of substances found in bacteria or archaea EXCEPT:","c":{"W":"peptidoglycan","X":"flagellin","Y":"chitin","Z":"phycobilin"},"a":{"t":"chitin","l":"Y"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4940","q":[
@@ -1408,7 +1408,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4965","q":[
 {"i":95653,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"What feature of a chemical species allows it to act as a ligand in a complex ion?","a":{"t":"A LONE PAIR OF ELECTRONS (IT IS A LEWIS BASE)","ac":["IT ACTS AS A LEWIS BASE","HAS A LONE PAIR"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4965","q":[
-{"i":95654,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ionic solutions is colorless?","c":{"W":"Cu(2+)","X":"Ni(2+)","Y":"Mn(7+)","Z":"Zn(2+)"},"a":{"t":"Zn(2+)","l":"Z"}}]},
+{"i":95654,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ionic solutions is colorless?","c":{"W":"Cu^(2+)","X":"Ni^(2+)","Y":"Mn^(7+)","Z":"Zn^(2+)"},"a":{"t":"Zn^(2+)","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4966","q":[
 {"i":95655,"s":"chem","f":"SA","qt":"tossup","n":11,"q":"Which metallic element is in the liquid state at room temperature?","a":{"t":"Mercury"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4966","q":[
@@ -1436,11 +1436,11 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4973","q":[
 {"i":96184,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following is a correct formula?","c":{"W":"KH2PO4","X":"CaC2H3O2","Y":"Na2ClO4","Z":"Ba(CO3)2"},"a":{"t":"KH2PO4","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4973","q":[
-{"i":95664,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the formula for the iodate ion?","a":{"t":"IO3-"}}]},
+{"i":95664,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the formula for the iodate ion?","a":{"t":"IO3^-"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4974","q":[
 {"i":95665,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"What name should be given to a molecule with the formula N2O5?","a":{"t":"dinitrogen pentoxide"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4975","q":[
-{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^2-. Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp2","Y":"sp3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
+{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp2","Y":"sp3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4975","q":[
 {"i":95667,"s":"chem","f":"MC","qt":"bonus","n":27,"q":"Which of the following is least related to the strength of a covalent bond?","c":{"W":"vibrational frequency","X":"bond order","Y":"bond length","Z":"bond direction"},"a":{"t":"bond direction","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4976","q":[
@@ -1472,7 +1472,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4983","q":[
 {"i":95678,"s":"chem","f":"SA","qt":"tossup","n":41,"q":"In complex of manganese (II) ion exhibiting a low spin state, how many d electrons are paired?","a":{"t":"Four"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4983","q":[
-{"i":95679,"s":"chem","f":"SA","qt":"bonus","n":42,"q":"What is the conjugate base of HPO4^2- (read as: hydrogen phosphate)?","a":{"t":"PO4^3-","ac":["PHOSPHATE"]}}]},
+{"i":95679,"s":"chem","f":"SA","qt":"bonus","n":42,"q":"What is the conjugate base of HPO4^(2-)?","a":{"t":"PO4^(3-)","ac":["PHOSPHATE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4984","q":[
 {"i":95680,"s":"chem","f":"MC","qt":"tossup","n":43,"q":"Which of the following is true regarding complex ions?","c":{"W":"Their formation constants are usually very small and they often form colored coordination compounds.","X":"Their formation constants are usually very small and they often form colorless coordination compounds.","Y":"Their formation constants are usually very large and they often form colored coordination compounds.","Z":"Their formation constants are usually very large and they often form colorless coordination compounds."},"a":{"t":"Their formation constants are usually very large and they often form colored coordination compounds.","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4984","q":[
@@ -1588,9 +1588,9 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5015","q":[
 {"i":96208,"s":"chem","f":"SA","qt":"bonus","n":99,"q":"Why are oxygenates used as gasoline additives?","a":{"t":"they allow for more complete combustion"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5016","q":[
-{"i":95716,"s":"chem","f":"SA","qt":"tossup","n":100,"q":"Name all of the following 4 species that contain an odd number of electrons: O2^-; O2^2-; SO2; CO","a":{"t":"O2^- (SUPEROXIDE)","ac":["O2^-","SUPEROXIDE"]}}]},
+{"i":95716,"s":"chem","f":"SA","qt":"tossup","n":100,"q":"Name all of the following 4 species that contain an odd number of electrons: O2^-; O2^(2-); SO2; CO","a":{"t":"O2^- (SUPEROXIDE)","ac":["O2^-","SUPEROXIDE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5016","q":[
-{"i":95717,"s":"chem","f":"SA","qt":"bonus","n":101,"q":"What are the 2 alkenes (read as: al-KEENS) with the shortest carbon chains and lowest molecular weights?","a":{"t":"ethene, propene","ac":["ethylene","propylene"]}}]},
+{"i":95717,"s":"chem","f":"SA","qt":"bonus","n":101,"q":"What are the 2 alkenes with the shortest carbon chains and lowest molecular weights?","a":{"t":"ethene, propene","ac":["ethylene","propylene"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5017","q":[
 {"i":96209,"s":"chem","f":"SA","qt":"tossup","n":102,"q":"You need to prepare 500 milliliters of a 0.100 molar NaOH solution from a 0.250 molar solution. What volume, in milliliters, of the 0.250 molar solution must be diluted to 500 milliliters?","a":{"t":"200"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5018","q":[
@@ -1598,7 +1598,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5018","q":[
 {"i":96211,"s":"chem","f":"SA","qt":"bonus","n":104,"q":"Knowing that the chemical name for gypsum is calcium sulfate dihydrate, gypsum is what percent water by weight? Assume the atomic masses of calcium = 40; sulfur = 32 and oxygen = 16.","a":{"t":"21"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5019","q":[
-{"i":95718,"s":"chem","f":"SA","qt":"tossup","n":105,"q":"What relation does Charles's law describe?","a":{"t":"VOLUME AND TEMPERATURE (V1/T1 = V2/T2)","ac":["V1/T1 = V2/T2","V/T IS CONSTANT"]}}]},
+{"i":95718,"s":"chem","f":"SA","qt":"tossup","n":105,"q":"What relation does Charles's law describe?","a":{"t":"VOLUME AND TEMPERATURE (V_1/T_1 = V_2/T_2)","ac":["V_1/T_1 = V_2/T_2","V/T IS CONSTANT"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5019","q":[
 {"i":96212,"s":"chem","f":"SA","qt":"bonus","n":106,"q":"According to VSEPR bonding theory, what type of geometry does a molecule have when the central atom is surrounded by 4 bonded groups, such as in methane?","a":{"t":"TETRAHEDRAL"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5020","q":[
@@ -1606,7 +1606,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5020","q":[
 {"i":96214,"s":"chem","f":"SA","qt":"bonus","n":108,"q":"Which is the correct name for N2O3","a":{"t":"Dinitrogen Trioxide"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5021","q":[
-{"i":96215,"s":"chem","f":"MC","qt":"tossup","n":109,"q":"Which one of the following has the greatest tendency to lose an electron?","c":{"W":"Zn","X":"Cl-","Y":"Br2","Z":"A mixture of PbSO4 and H2O"},"a":{"t":"Zn","l":"W"}}]},
+{"i":96215,"s":"chem","f":"MC","qt":"tossup","n":109,"q":"Which one of the following has the greatest tendency to lose an electron?","c":{"W":"Zn","X":"Cl^-","Y":"Br2","Z":"A mixture of PbSO4 and H2O"},"a":{"t":"Zn","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5021","q":[
 {"i":96216,"s":"chem","f":"SA","qt":"bonus","n":110,"q":"The wavelength of yellow light is 600 nanometers. What is the wavelength in centimeters: (use scientific notation)?","a":{"t":"6.0 × 10^-5","ac":["6 × 10^-5"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5022","q":[
@@ -1634,7 +1634,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5028","q":[
 {"i":95729,"s":"chem","f":"SA","qt":"tossup","n":122,"q":"Which famous chemist formulated the rule that mass is conserved through chemical reactions?","a":{"t":"LAVOISIER","ac":["ANTOINE LAVOISIER"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5028","q":[
-{"i":95730,"s":"chem","f":"MC","qt":"bonus","n":123,"q":"Which of the following is the strongest oxidizing agent?","c":{"W":"Pb2+","X":"I2","Y":"Ag+","Z":"Pb"},"a":{"t":"Ag+","l":"Y"}}]},
+{"i":95730,"s":"chem","f":"MC","qt":"bonus","n":123,"q":"Which of the following is the strongest oxidizing agent?","c":{"W":"Pb^(2+)","X":"I2","Y":"Ag^+","Z":"Pb"},"a":{"t":"Ag^+","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5029","q":[
 {"i":96218,"s":"chem","f":"MC","qt":"tossup","n":124,"q":"What is the hybridization of the sulfur atom in SF4?","c":{"W":"sp2","X":"sp3","Y":"sp3d","Z":"sp3d2"},"a":{"t":"sp3d","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5030","q":[
@@ -1668,11 +1668,11 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5038","q":[
 {"i":95744,"s":"chem","f":"MC","qt":"tossup","n":139,"q":"Which one of these metals doesn't produce a red flame in a flame test?","c":{"W":"Rubidium","X":"Strontium","Y":"Cesium","Z":"Lithium"},"a":{"t":"Cesium","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5038","q":[
-{"i":95745,"s":"chem","f":"SA","qt":"bonus","n":140,"q":"A solution contains some BaSO4 at 25 °C. It is found to contain 4 × 10^-5 mole/liter of Ba^2+ ions. What is the Ksp of the BaSO4 in scientific notation?","a":{"t":"1.6 × 10^-9"}}]},
+{"i":95745,"s":"chem","f":"SA","qt":"bonus","n":140,"q":"A solution contains some BaSO4 at 25 °C. It is found to contain 4 × 10^-5 mole/liter of Ba^(2+) ions. What is the Ksp of the BaSO4 in scientific notation?","a":{"t":"1.6 × 10^-9"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5039","q":[
 {"i":95746,"s":"chem","f":"MC","qt":"tossup","n":141,"q":"When the reaction of Silver Nitrate (aqueous) and Sodium Chloride (aqueous) goes to completion, what is formed?","c":{"W":"A Gas","X":"Water","Y":"An Acid","Z":"A Precipitate"},"a":{"t":"A Precipitate","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5039","q":[
-{"i":95747,"s":"chem","f":"MC","qt":"bonus","n":142,"q":"When does the value of pH equal the value of pKa?","c":{"W":"when [HA] = [A-]","X":"at the end point of a titration","Y":"everywhere in the buffer region","Z":"in the Henderson-Hasselbach equation"},"a":{"t":"when [HA] = [A-]","l":"W"}}]},
+{"i":95747,"s":"chem","f":"MC","qt":"bonus","n":142,"q":"When does the value of pH equal the value of pKa?","c":{"W":"when [HA] = [A^-]","X":"at the end point of a titration","Y":"everywhere in the buffer region","Z":"in the Henderson-Hasselbach equation"},"a":{"t":"when [HA] = [A^-]","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5040","q":[
 {"i":95748,"s":"chem","f":"MC","qt":"tossup","n":143,"q":"Which of the following is not a reason for the use of nitrogen in many explosives?","c":{"W":"these explosives form gases, which expand","X":"the bond between two nitrogen atoms is very strong","Y":"these explosives form toxic compounds such as cyanide","Z":"nitrogen is widely available"},"a":{"t":"these explosives form toxic compounds such as cyanide","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5040","q":[
@@ -1688,7 +1688,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5043","q":[
 {"i":95751,"s":"chem","f":"MC","qt":"tossup","n":149,"q":"Which of the following factors will contribute to a decrease in oxygen in a pond?","c":{"W":"decreasing salinity","X":"increasing acidity","Y":"increasing temperature","Z":"increasing surface tension of the water"},"a":{"t":"increasing temperature","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5043","q":[
-{"i":95752,"s":"chem","f":"MC","qt":"bonus","n":150,"q":"When KCl dissolves in water, the solution cools noticeably to the touch. It may be concluded that","c":{"W":"the entropy increase overcomes the unfavorable heat of dissolution","X":"KCl is relatively insoluble in water","Y":"the entropy decreases when KCI dissolves","Z":"the boiling point of the solution will be less than 100 degrees Celsius"},"a":{"t":"the entropy increase overcomes the unfavorable heat of dissolution","l":"W"}}]},
+{"i":95752,"s":"chem","f":"MC","qt":"bonus","n":150,"q":"When KCl dissolves in water, the solution cools noticeably to the touch. It may be concluded that","c":{"W":"the entropy increase overcomes the unfavorable heat of dissolution","X":"KCl is relatively insoluble in water","Y":"the entropy decreases when KCl dissolves","Z":"the boiling point of the solution will be less than 100 degrees Celsius"},"a":{"t":"the entropy increase overcomes the unfavorable heat of dissolution","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5044","q":[
 {"i":95753,"s":"chem","f":"MC","qt":"tossup","n":151,"q":"Which compound, made from the indicated pairs of ions, will be insoluble?","c":{"W":"Iron (III) and phosphate ion","X":"Bromide ion and ammonium ion","Y":"Calcium ion and bromide ion","Z":"Bromide ion and iron (III)"},"a":{"t":"Iron (III) and phosphate ion","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5044","q":[
@@ -2018,7 +2018,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5134","q":[
 {"i":95890,"s":"math","f":"SA","qt":"tossup","n":14,"q":"If n is a positive integer, what is the smallest value of n such that n! + 1 is a perfect square?","a":{"t":"4"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5134","q":[
-{"i":95891,"s":"math","f":"SA","qt":"bonus","n":15,"q":"If z1 = 3 − 4i and z2 = 7 + i, find the absolute value of z1z2 in simplest terms.","a":{"t":"25√2"}}]},
+{"i":95891,"s":"math","f":"SA","qt":"bonus","n":15,"q":"If z_1 = 3 − 4i and z_2 = 7 + i, find the absolute value of z_1 z_2 in simplest terms.","a":{"t":"25√2"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5135","q":[
 {"i":95892,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the inverse of the 2x2 matrix (row 1: 6 10), (row 2: 3 5)?","a":{"t":"NO INVERSE (THE DETERMINANT IS 0)","ac":["IT HAS NO INVERSE","DOES NOT EXIST"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5136","q":[
@@ -2064,7 +2064,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5148","q":[
 {"i":95910,"s":"math","f":"SA","qt":"tossup","n":37,"q":"Which of the following are true about the roots of the polynomial x^3 − 29x^2 + 229x? I. 0 is a root; II. There must be a real, positive root; III. There must be three real roots","a":{"t":"I ONLY","ac":["I"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5148","q":[
-{"i":95911,"s":"math","f":"SA","qt":"bonus","n":38,"q":"Solve the following linear system of equations in 3 variables: 2x + y + 4z=9 -x + 2y + 5z=-11 5x + 3y + 3z=-4","a":{"t":"x = 4, y = −11, z = 3","ac":["(4, −11, 3)"]}}]},
+{"i":95911,"s":"math","f":"SA","qt":"bonus","n":38,"q":"Solve the following linear system of equations in 3 variables: 2x + y + 4z = 9; -x + 2y + 5z = -11; 5x + 3y + 3z = -4","a":{"t":"x = 4, y = −11, z = 3","ac":["(4, −11, 3)"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5149","q":[
 {"i":95912,"s":"math","f":"MC","qt":"tossup","n":39,"q":"To test products, there is a test that identifies 95% of defective products as defective, but also labels 10% of all working products as defective. If 85% of the products made are not defective, approximately what percentage of the products the test labels defective are actually defective?","c":{"W":"39%","X":"84%","Y":"67%","Z":"42%"},"a":{"t":"67%","l":"Y"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5149","q":[
@@ -2088,7 +2088,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5154","q":[
 {"i":95921,"s":"math","f":"SA","qt":"tossup","n":49,"q":"What is the integral of sec x dx?","a":{"t":"ln|sec x + tan x| + C"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5154","q":[
-{"i":95922,"s":"math","f":"MC","qt":"bonus","n":50,"q":"Which of these functions cannot be integrated and represented with elementary functions?","c":{"W":"(sin^5 x)(cos^6 x) dx","X":"e^x · x^3 dx","Y":"e^(x^2) dx","Z":"tan x sin x dx"},"a":{"t":"e^(x^2) dx","l":"Y"}}]},
+{"i":95922,"s":"math","f":"MC","qt":"bonus","n":50,"q":"Which of these functions cannot be integrated and represented with elementary functions?","c":{"W":"∫ (sin^5 x)(cos^6 x) dx","X":"∫ e^x · x^3 dx","Y":"∫ e^(x^2) dx","Z":"∫ tan x sin x dx"},"a":{"t":"∫ e^(x^2) dx","l":"Y"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5155","q":[
 {"i":95923,"s":"math","f":"MC","qt":"bonus","n":51,"q":"When the inner diagonal of a cube is 7 times root 3 inches, what is the surface area of the cube?","c":{"W":"216 square inches","X":"294 square inches","Y":"343 square inches","Z":"512 square inches"},"a":{"t":"294 square inches","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5156","q":[
@@ -2128,7 +2128,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5164","q":[
 {"i":95939,"s":"math","f":"SA","qt":"bonus","n":69,"q":"What is the largest integer that can't be written as the sum of 3's and 4's?","a":{"t":"5"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5165","q":[
-{"i":96255,"s":"math","f":"MC","qt":"tossup","n":70,"q":"What is the limit as x approaches 0 of x times In x?","c":{"W":"-1","X":"1","Y":"0","Z":"The limit does not exist."},"a":{"t":"0","l":"Y"}}]},
+{"i":96255,"s":"math","f":"MC","qt":"tossup","n":70,"q":"What is the limit as x approaches 0 of x times ln x?","c":{"W":"-1","X":"1","Y":"0","Z":"The limit does not exist."},"a":{"t":"0","l":"Y"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5165","q":[
 {"i":95940,"s":"math","f":"SA","qt":"bonus","n":71,"q":"What is the derivative of arcsec x?","a":{"t":"1/(|x|√(x^2 − 1))","ac":["1/(x√(x^2 − 1))"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5166","q":[
@@ -2152,7 +2152,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5170","q":[
 {"i":95949,"s":"math","f":"SA","qt":"bonus","n":81,"q":"The first term of an arithmetic sequence is x, and the xth term is x^2, for x not equal to 1. If the common difference is equal to 7, what is the 12th term of the sequence?","a":{"t":"84"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5171","q":[
-{"i":95950,"s":"math","f":"MC","qt":"tossup","n":82,"q":"For an infinite sequence of numbers a_0,a_1,which of the following best describes the polynomial P(x)= sum( i=0 to infinity) a_i x^i.","c":{"W":"Riemann zeta function","X":"Generating function","Y":"Newtonian series","Z":"Tchebychev polynomial"},"a":{"t":"Generating function","l":"X"}}]},
+{"i":95950,"s":"math","f":"MC","qt":"tossup","n":82,"q":"For an infinite sequence of numbers a_0, a_1, ..., which of the following best describes the polynomial P(x) = sum(i=0 to infinity) a_i x^i.","c":{"W":"Riemann zeta function","X":"Generating function","Y":"Newtonian series","Z":"Tchebychev polynomial"},"a":{"t":"Generating function","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5171","q":[
 {"i":95951,"s":"math","f":"SA","qt":"bonus","n":83,"q":"In the Pell equation x^2 − 3y^2 = 1 the smallest solution is x=2 and y=1. The next smallest solution is x=7 and y=4. Compute the third smallest solution.","a":{"t":"x = 26, y = 15","ac":["(26, 15)"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5172","q":[
@@ -2160,11 +2160,11 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5173","q":[
 {"i":95953,"s":"math","f":"SA","qt":"tossup","n":85,"q":"Which of the following statements concerning prime numbers are true? 1. If a and n are relatively prime then there are infinitely many primes that leave a remainder of a when divided by n. 2. All integers less than p are quadratic residues modulo p 3. There are infinitely many prime numbers","a":{"t":"1 and 3"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5173","q":[
-{"i":95954,"s":"math","f":"SA","qt":"bonus","n":86,"q":"If a1+a2+a3+a4+a5=17 for positive integers a1,a2,a3,a4,a5, then maximize the product a1a2a3a4a5?","a":{"t":"432"}}]},
+{"i":95954,"s":"math","f":"SA","qt":"bonus","n":86,"q":"If a_1 + a_2 + a_3 + a_4 + a_5 = 17 for positive integers a_1, a_2, a_3, a_4, a_5, then maximize the product a_1 a_2 a_3 a_4 a_5?","a":{"t":"432"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5174","q":[
 {"i":95955,"s":"math","f":"SA","qt":"tossup","n":87,"q":"What is the 5th non-triangular number?","a":{"t":"8"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5175","q":[
-{"i":95956,"s":"math","f":"SA","qt":"bonus","n":88,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at P. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a":{"t":"√(22)"}}]},
+{"i":95956,"s":"math","f":"SA","qt":"bonus","n":88,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at P. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a":{"t":"√22"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5176","q":[
 {"i":95957,"s":"math","f":"SA","qt":"tossup","n":89,"q":"What is the value of the quantity (sin^4 x + 2cos^2 x sin^2 x + cos^4 x)^2?","a":{"t":"1"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5177","q":[
@@ -2180,7 +2180,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5180","q":[
 {"i":95963,"s":"phys","f":"MC","qt":"bonus","n":4,"q":"A certain capacitor, in series with a 720-Ω resistor, is being charged. At the end of 10 ms(milliseconds) its charge is half the final value. The capacitance is about:","c":{"W":"9.6 μF","X":"14 μF","Y":"20 μF","Z":"7.2 F"},"a":{"t":"20 μF","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5181","q":[
-{"i":95964,"s":"phys","f":"MC","qt":"tossup","n":5,"q":"In the capacitor discharge formula q = q0 e^(−t/(RC)) the term RC is more commonly referred to as:","c":{"W":"The time limit","X":"The time of charge","Y":"The time constant","Z":"It does not have a specific name"},"a":{"t":"The time constant","l":"Y"}}]},
+{"i":95964,"s":"phys","f":"MC","qt":"tossup","n":5,"q":"In the capacitor discharge formula q = q_0 e^(−t/(RC)) the term RC is more commonly referred to as:","c":{"W":"The time limit","X":"The time of charge","Y":"The time constant","Z":"It does not have a specific name"},"a":{"t":"The time constant","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5181","q":[
 {"i":95965,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"Resistor 1 has twice the resistance of resistor 2. They are connected in parallel to a battery. The ratio of the thermal energy generation rate in 1 to that in 2 is:","a":{"t":"1:2"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5182","q":[
@@ -2190,7 +2190,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5183","q":[
 {"i":95968,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"By name or number, list all of the following elements that are ferromagnetic: 1) Cobalt, 2) Manganese, 3) Cadmium, 4) Silver","a":{"t":"COBALT","ac":["CO","1"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5184","q":[
-{"i":95969,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"When charging or discharging a capacitor, what is the quantity RC (read as resistance times capacitance) known as?","a":{"t":"Time constant"}}]},
+{"i":95969,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"When charging or discharging a capacitor, what is the quantity RC known as?","a":{"t":"Time constant"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5184","q":[
 {"i":95970,"s":"phys","f":"MC","qt":"bonus","n":11,"q":"At point 'A' on a circuit the wire is grounded. At point 'B' on the same circuit there is a emf of 30 volts. If there are two identical resistors with resistance of 10 ohms in parallel, between point 'A' and point 'B', what is the current in ampere flowing through either resistor?","c":{"W":"15","X":"3","Y":"9","Z":"6"},"a":{"t":"3","l":"X"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5185","q":[
@@ -2302,9 +2302,9 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5215","q":[
 {"i":96016,"s":"phys","f":"MC","qt":"bonus","n":65,"q":"Given G as the gravitational constant and there exists an equilateral triangle with side length \"a\" and identical objects with mass of \"x\" what is the total gravitational potential energy of this system?","c":{"W":"−9√3·Gxy/a","X":"−3√3·Gx^2/a","Y":"−3Gx^2/a","Z":"−√3·Gx^2/a"},"a":{"t":"−3Gx^2/a","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5216","q":[
-{"i":96017,"s":"phys","f":"MC","qt":"tossup","n":66,"q":"A closed hemispherical shell of radius R is filled with fluid at uniform pressure p. The net force of the fluid on the curved portion of the shell is given by:","c":{"W":"2πR^2p","X":"4πR^2p","Y":"πR^2p","Z":"(4/3)πR^2p"},"a":{"t":"πR^2p","l":"Y"}}]},
+{"i":96017,"s":"phys","f":"MC","qt":"tossup","n":66,"q":"A closed hemispherical shell of radius R is filled with fluid at uniform pressure p. The net force of the fluid on the curved portion of the shell is given by:","c":{"W":"2πR^2 p","X":"4πR^2 p","Y":"πR^2 p","Z":"(4/3)πR^2 p"},"a":{"t":"πR^2 p","l":"Y"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5216","q":[
-{"i":96018,"s":"phys","f":"SA","qt":"bonus","n":67,"q":"A boat floating in fresh water displaces 16, 000N of water. How many newtons of saltwater would it displace if it floats in saltwater of specific gravity 1.17?","a":{"t":"16,000"}}]},
+{"i":96018,"s":"phys","f":"SA","qt":"bonus","n":67,"q":"A boat floating in fresh water displaces 16,000 N of water. How many newtons of saltwater would it displace if it floats in saltwater of specific gravity 1.17?","a":{"t":"16,000"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5217","q":[
 {"i":96019,"s":"phys","f":"SA","qt":"tossup","n":68,"q":"The quantity epsilon naught multiplied by the time derivative of electric flux represents what quantity in the Maxwell-Ampere equation?","a":{"t":"Displacement current"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5218","q":[
@@ -2336,7 +2336,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5225","q":[
 {"i":96033,"s":"phys","f":"SA","qt":"tossup","n":82,"q":"A certain heat engine draws 500 cal/s from a water bath at 27 ° C and transfers 400 cal/s to a reservoir at a lower temperature. The efficiency of this engine is:","a":{"t":"20%"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5225","q":[
-{"i":96034,"s":"phys","f":"MC","qt":"bonus","n":83,"q":"A Carnot refrigerator runs between a cold reservoir at temperature TC and a hot reservoir at temperature TH. You want to increase its coefficient of performance. Of the following, which change results in the greatest increase in the coefficient? The value of ΔT is the same for all changes.","c":{"W":"Raise the temperature of the hot reservoir by ΔT","X":"Raise the temperature of the cold reservoir by ΔT","Y":"Lower the temperature of the hot reservoir by ½ΔT and raise the temperature of the cold reservoir by ½ΔT","Z":"Lower the temperature of the cold reservoir by ΔT"},"a":{"t":"Raise the temperature of the cold reservoir by ΔT","l":"X"}}]},
+{"i":96034,"s":"phys","f":"MC","qt":"bonus","n":83,"q":"A Carnot refrigerator runs between a cold reservoir at temperature T_C and a hot reservoir at temperature T_H. You want to increase its coefficient of performance. Of the following, which change results in the greatest increase in the coefficient? The value of ΔT is the same for all changes.","c":{"W":"Raise the temperature of the hot reservoir by ΔT","X":"Raise the temperature of the cold reservoir by ΔT","Y":"Lower the temperature of the hot reservoir by ½ΔT and raise the temperature of the cold reservoir by ½ΔT","Z":"Lower the temperature of the cold reservoir by ΔT"},"a":{"t":"Raise the temperature of the cold reservoir by ΔT","l":"X"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5226","q":[
 {"i":96035,"s":"phys","f":"MC","qt":"tossup","n":84,"q":"Find the angular frequency of oscillations in a LC circuit if the total inductance is 2 henry and the total capacitance is 8 farad.","c":{"W":"1/4","X":"1/2","Y":"1/3","Z":"1/5"},"a":{"t":"1/4","l":"W"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5226","q":[

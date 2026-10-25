@@ -108,6 +108,23 @@ test('packet order matches a direct collator sort, for the whole bank and for a 
   assert.deepStrictEqual(ids(subset), reference(subset));
 });
 
+test('the newest-first order lists tournaments by meta.json date, each in packet order', () => {
+  const { questions } = globalThis.SBData;
+  globalThis.SBData.meta = loadCorpus().meta;
+  const date = new Map(meta.tournaments.map((t) => [t.name, t.date]));
+  assert.ok(meta.tournaments.every((t) => /^\d{4}-\d{2}-\d{2}$/.test(t.date || '')), 'every tournament has a YYYY-MM-DD date');
+  const recent = globalThis.SBData.sortByPacketOrder(questions, { recent: true });
+  const packet = globalThis.SBData.sortByPacketOrder(questions);
+  assert.strictEqual(recent.length, questions.length);
+  for (let i = 1; i < recent.length; i++) {
+    assert.ok(date.get(recent[i - 1].tournament) >= date.get(recent[i].tournament), `dates descend at ${i}`);
+  }
+  // Within one tournament the two orders agree.
+  const t = recent[0].tournament;
+  assert.deepStrictEqual(recent.filter((q) => q.tournament === t).map((q) => q.id),
+    packet.filter((q) => q.tournament === t).map((q) => q.id));
+});
+
 test('data/bank holds exactly one file per meta.json tournament, in the form tools/bank.js writes', () => {
   const fs = require('fs');
   const path = require('path');

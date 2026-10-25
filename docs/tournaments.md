@@ -18,7 +18,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | BUMS 2026 | 48 |  | ms |
 | Cast 2021 | 404 | 1 | hs |
 | CCWT | 278 |  | hs |
-| CCWTWO | 308 |  | hs |
+| CCWTWO | 307 |  | hs |
 | CLASH 2026 HS | 714 | 30 | hs |
 | CLASH 2026 MS | 429 | 10 | ms |
 | Clements 2025 | 505 |  | hs |
@@ -41,8 +41,8 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Fall 2023 | 642 | 22 | hs |
 | FE!M 2025 | 606 | 5 | hs |
 | GWHS Rounds | 760 |  | hs |
-| HSBT 2026 | 640 | 27 | hs |
-| ICSBT 2 | 542 | 5 | hs |
+| HSBT 2026 | 644 | 27 | hs |
+| ICSBT 2 | 543 | 5 | hs |
 | ICSBT 2025 | 458 |  | hs |
 | ICSBT 3 | 519 | 10 | hs |
 | IGNIS 2022 | 724 |  | hs |
@@ -50,12 +50,14 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
-| Lexington HS 2020-21 | 782 |  | hs |
+| Lexington HS 2020-21 | 780 |  | hs |
 | Lexscibowl 2021 | 23 |  | hs |
 | LOST 1 | 651 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
+| LOST 3 HS | 556 |  | hs |
+| LOST 3 MS | 455 |  | ms |
 | MEHS Rounds | 776 |  | hs |
-| MHS Rounds | 866 |  | hs |
+| MHS Rounds | 865 |  | hs |
 | MIT 2020 | 601 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -75,7 +77,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSB MS Regs | 11,448 |  | ms |
 | NSB Nationals 2005 | 789 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
-| NSB Regs | 12,039 |  | hs |
+| NSB Regs | 12,038 |  | hs |
 | NSBA1 | 724 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
@@ -89,14 +91,14 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Prometheus 2021 | 819 |  | hs |
 | Random | 783 |  | hs |
 | Random Stuff | 358 |  | hs |
-| SBL | 1,221 | 44 | hs |
+| SBL | 1,242 | 44 | hs |
 | SBST | 657 |  | hs |
 | SBST (Spring) | 617 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
-| ScibowlDB HW | 2,081 |  | hs |
-| Science Bowl Subject Sets 1991–93 | 3,279 |  | hs |
+| ScibowlDB HW | 2,082 |  | hs |
+| Science Bowl Subject Sets 1991–93 | 3,292 |  | hs |
 | SMH 2025 | 512 | 11 | hs |
-| SMH 2026 | 617 | 17 | hs |
+| SMH 2026 | 618 | 17 | hs |
 | SSBT 2023 | 554 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
@@ -108,6 +110,6 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | University Prep | 50 |  | hs |
 | Walton Rounds | 775 |  | hs |
 | WISC 2021 | 370 | 5 | hs |
-| WSBT | 457 | 23 | hs |
+| WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (106)** | **83,087** | **535** | |
+| **Total (108)** | **84,135** | **535** | |

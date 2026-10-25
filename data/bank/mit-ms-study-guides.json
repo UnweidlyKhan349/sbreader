@@ -21,7 +21,7 @@
 {"i":96089,"s":"bio","f":"SA","qt":"tossup","n":5,"q":"Given a DNA sequence of AAATTGC, find the complementary strand’s sequence.","a":{"t":"TTTAACG"}},
 {"i":96090,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"What is the name for the structure of DNA as discovered by Watson and Crick?","a":{"t":"DOUBLE HELIX"}},
 {"i":96091,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"Which of the following bases does not occur in RNA?","c":{"W":"Adenine","X":"Guanine","Y":"Cytosine","Z":"Thymine"},"a":{"t":"Thymine","l":"Z"}},
-{"i":96092,"s":"bio","f":"MC","qt":"tossup","n":8,"q":"What enzyme is responsible for adding new bases to DNA in the 5’ to 3’ (READ AS: five prime to three prime) direction?","c":{"W":"RNA polymerase","X":"DNA helicase","Y":"DNA polymerase","Z":"DNA ligase"},"a":{"t":"DNA polymerase","l":"Y"}},
+{"i":96092,"s":"bio","f":"MC","qt":"tossup","n":8,"q":"What enzyme is responsible for adding new bases to DNA in the 5’ to 3’ direction?","c":{"W":"RNA polymerase","X":"DNA helicase","Y":"DNA polymerase","Z":"DNA ligase"},"a":{"t":"DNA polymerase","l":"Y"}},
 {"i":96093,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following taxonomic groupings is most specific?","c":{"W":"Domain","X":"Class","Y":"Order","Z":"Phylum"},"a":{"t":"Order","l":"Y"}},
 {"i":96094,"s":"bio","f":"MC","qt":"tossup","n":10,"q":"Which of the following would not be classified under Eukarya?","c":{"W":"Green algae","X":"Diatoms","Y":"Plants","Z":"Chlamydia"},"a":{"t":"Chlamydia","l":"Z"}},
 {"i":96095,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What is the name of the response plants have to the relative lengths of light and darkness?","a":{"t":"PHOTOPERIODISM"}}]},

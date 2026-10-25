@@ -26,7 +26,7 @@
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5545","q":[
 {"i":93090,"s":"ess","f":"MC","qt":"bonus","n":13,"q":"Which of the following stars is a red giant?","c":{"W":"Rigel","X":"Arcturus","Y":"Alpha Centauri","Z":"Eta Carina"},"a":{"t":"Arcturus","l":"X"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5546","q":[
-{"i":93091,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"What is the stellar classification for our sun?","c":{"W":"Population I (read as one)","X":"K2V","Y":"G2V","Z":"Population III (read as three)"},"a":{"t":"G2V","l":"Y"}}]},
+{"i":93091,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"What is the stellar classification for our sun?","c":{"W":"Population I","X":"K2V","Y":"G2V","Z":"Population III"},"a":{"t":"G2V","l":"Y"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5546","q":[
 {"i":93092,"s":"ess","f":"MC","qt":"bonus","n":15,"q":"Which of the following is a satellite of Pluto?","c":{"W":"Titan","X":"Charon","Y":"Oberon","Z":"Phobos"},"a":{"t":"Charon","l":"X"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/tossup/5547","q":[
@@ -222,17 +222,17 @@
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5957","q":[
 {"i":93173,"s":"bio","f":"MC","qt":"tossup","n":47,"q":"What job do kinases carry out?","c":{"W":"dephosphorylation","X":"ubiquination","Y":"phosphorylation","Z":"oxidation/reduction"},"a":{"t":"phosphorylation","l":"Y"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5963","q":[
-{"i":96282,"s":"bio","f":"MC","qt":"bonus","n":48,"q":"Hormones which function in sending chemical signal between two or more individuals are known as:","c":{"W":"leucomones","X":"pheromones (pron: fair-oh-moans)","Y":"comones","Z":"no choice"},"a":{"t":"pheromones (pron: fair-oh-moans)","l":"X"}}]},
+{"i":96282,"s":"bio","f":"MC","qt":"bonus","n":48,"q":"Hormones which function in sending chemical signal between two or more individuals are known as:","c":{"W":"leucomones","X":"pheromones","Y":"comones","Z":"no choice"},"a":{"t":"pheromones","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6024","q":[
 {"i":93174,"s":"chem","f":"MC","qt":"bonus","n":1,"q":"Which of the following tend to be the least acidic?","c":{"W":"Alkanes","X":"Alkenes","Y":"Alkynes","Z":"Alcohols"},"a":{"t":"Alkanes","l":"W"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6026","q":[
-{"i":93175,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"The IUPAC (pron: I-U-PAC) name for formaldehyde is","c":{"W":"methanone.","X":"acetal.","Y":"methanal.","Z":"propanone."},"a":{"t":"methanal.","l":"Y"}}]},
+{"i":93175,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"The IUPAC name for formaldehyde is","c":{"W":"methanone.","X":"acetal.","Y":"methanal.","Z":"propanone."},"a":{"t":"methanal.","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6034","q":[
 {"i":93176,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"H2O2 is to the molecular formula of hydrogen peroxide as HO is to what?","a":{"t":"empirical formula","ac":["empirical"]}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6038","q":[
 {"i":96283,"s":"chem","f":"MC","qt":"tossup","n":4,"q":"When a strip of sodium reacts with dilute HCl it releases hydrogen gas this release is called:","c":{"W":"combustion","X":"effervescence","Y":"diffusion","Z":"ebullition"},"a":{"t":"effervescence","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6066","q":[
-{"i":93177,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"Arrange the following 4 bonds in order of INCREASING bond lengths: C-C (read as: C single bond C); C=C (read as: C double bond C); C≡C (read as: C triple bond C); C-H (read as: C single bond H)","a":{"t":"C–H, C≡C, C=C, C–C","ac":["C-H, C TRIPLE BOND C, C DOUBLE BOND C, C-C"]}}]},
+{"i":93177,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"Arrange the following 4 bonds in order of INCREASING bond lengths: C-C; C=C; C≡C; C-H","a":{"t":"C–H, C≡C, C=C, C–C","ac":["C-H, C TRIPLE BOND C, C DOUBLE BOND C, C-C"]}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6075","q":[
 {"i":96284,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"Which of the following is the term used for the resistance of a liquid system to flow?","c":{"W":"surface tension","X":"diffusion","Y":"viscosity","Z":"cohesion"},"a":{"t":"viscosity","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6077","q":[
@@ -344,9 +344,9 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6484","q":[
 {"i":96307,"s":"math","f":"MC","qt":"tossup","n":1,"q":"The sin(180 degrees + A) is equal to which of the following?","c":{"W":"sin(A)","X":"-sin(A)","Y":"cos(A)","Z":"-cos(A)"},"a":{"t":"-sin(A)","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6487","q":[
-{"i":93210,"s":"math","f":"MC","qt":"bonus","n":2,"q":"The trigonometric function cos(2A) (read: cosine of the angle 2A) is equal to which of the following relationships?","c":{"W":"1 - sin^2(A) (read: one minus the sine squared of A)","X":"cos^2(A) - sin^2(A) (read: cosine squared of angle A minus the sine squared of angle A)","Y":"2sin(A)cos(A) (read: 2 times the sine of A times the cosine of A)","Z":"none of the above"},"a":{"t":"cos^2(A) - sin^2(A) (read: cosine squared of angle A minus the sine squared of angle A)","l":"X"}}]},
+{"i":93210,"s":"math","f":"MC","qt":"bonus","n":2,"q":"The trigonometric function cos(2A) is equal to which of the following relationships?","c":{"W":"1 - sin^2(A)","X":"cos^2(A) - sin^2(A)","Y":"2sin(A)cos(A)","Z":"none of the above"},"a":{"t":"cos^2(A) - sin^2(A)","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6488","q":[
-{"i":93211,"s":"math","f":"MC","qt":"bonus","n":3,"q":"The graph of r = 3sec(θ) (read as: r = 3 secant theta) is a:","c":{"W":"parabola","X":"circle","Y":"hyperbola","Z":"line"},"a":{"t":"line","l":"Z"}}]},
+{"i":93211,"s":"math","f":"MC","qt":"bonus","n":3,"q":"The graph of r = 3sec(θ) is a:","c":{"W":"parabola","X":"circle","Y":"hyperbola","Z":"line"},"a":{"t":"line","l":"Z"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6493","q":[
 {"i":96308,"s":"math","f":"MC","qt":"bonus","n":4,"q":"What is the area of the region bounded by why equals ex squared and why equals ex?","c":{"W":"1","X":"1/6","Y":"1/2","Z":"6"},"a":{"t":"1/6","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6494","q":[
@@ -388,9 +388,9 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6503","q":[
 {"i":93230,"s":"math","f":"SA","qt":"tossup","n":23,"q":"P(x) is a function from the positive integers to the positive reals such that P(x+y) is equal to the product of P(x) and P(y) for all pairs of positive integers (x,y). If P(3) = 5, evaluate P(12).","a":{"t":"625"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6503","q":[
-{"i":93231,"s":"math","f":"SA","qt":"bonus","n":24,"q":"Let F(n) (Read: F of n) denote the nth Fibonacci number. As n goes to infinity, F(n+1)/F(n) approaches a constant. As a decimal to the nearest thousandth, what is this constant?","a":{"t":"1.618"}}]},
+{"i":93231,"s":"math","f":"SA","qt":"bonus","n":24,"q":"Let F(n) denote the nth Fibonacci number. As n goes to infinity, F(n+1)/F(n) approaches a constant. As a decimal to the nearest thousandth, what is this constant?","a":{"t":"1.618"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6508","q":[
-{"i":93232,"s":"math","f":"SA","qt":"bonus","n":25,"q":"Solve the following equation for x: -10|x + 2| = -50 (read as: negative 10 times the absolute value of, open parenthesis, x + 2, close parenthesis, equals negative 50)","a":{"t":"3 AND -7"}}]},
+{"i":93232,"s":"math","f":"SA","qt":"bonus","n":25,"q":"Solve the following equation for x: -10|x + 2| = -50","a":{"t":"3 AND -7"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6527","q":[
 {"i":96309,"s":"math","f":"SA","qt":"tossup","n":26,"q":"Solve the following equation for x: 1/10 (2*3 + x)^2 = 10","a":{"t":"4 And -16"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6536","q":[
@@ -404,7 +404,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6575","q":[
 {"i":93236,"s":"math","f":"MC","qt":"tossup","n":31,"q":"Which of the following is the expression that defines the hyperbolic sine function:","c":{"W":"( e^x - e^(-x) ) / 2","X":"( e^x + e^(-x) ) / 2","Y":"2 / ( e^x + e^(-x) )","Z":"2 / ( e^x - e^(-x) )"},"a":{"t":"( e^x - e^(-x) ) / 2","l":"W"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6577","q":[
-{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18º18'36\" (read as: 18 degrees, 18 minutes, 36 seconds) to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
+{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18º18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6579","q":[
 {"i":96312,"s":"math","f":"SA","qt":"tossup","n":33,"q":"Simplify the following fractional radicand to an expression that has the lowest whole number radicand: 1296^(1/4)","a":{"t":"6"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6581","q":[
@@ -458,13 +458,13 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6643","q":[
 {"i":93257,"s":"math","f":"SA","qt":"bonus","n":58,"q":"Find the integral of 3sin(x) + 5cos(x) dx","a":{"t":"-3cos(x) + 5sin(x) + C"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6652","q":[
-{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√(3) / ( 2*√(2) )","X":"2 / √(3)","Y":"√(3) / 2","Z":"2 * √(3)"},"a":{"t":"√(3) / 2","l":"Y"}}]},
+{"i":96317,"s":"math","f":"MC","qt":"tossup","n":59,"q":"If the cos A = 1/2 and terminates in Quadrant I of the Cartesian coordinate system, in a unit circle find sin A:","c":{"W":"√3 / ( 2*√2 )","X":"2 / √3","Y":"√3 / 2","Z":"2√3"},"a":{"t":"√3 / 2","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6655","q":[
 {"i":93258,"s":"math","f":"SA","qt":"tossup","n":60,"q":"Add the following rational expressions and give your answer in fully factored form: x/(x+2) + 4x/(x-6)","a":{"t":"x(5x + 2)/((x - 6)(x + 2))"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6659","q":[
-{"i":93259,"s":"math","f":"SA","qt":"bonus","n":61,"q":"To the nearest integer, approximate the following radical expression: 5√(3) - 7√(5)","a":{"t":"-7"}}]},
+{"i":93259,"s":"math","f":"SA","qt":"bonus","n":61,"q":"To the nearest integer, approximate the following radical expression: 5√3 - 7√5","a":{"t":"-7"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6664","q":[
-{"i":93260,"s":"math","f":"SA","qt":"bonus","n":62,"q":"Solve the following inequality for x: |x+5| > -7 (read as: the absolute value of, open parenthesis, x + 5, close parenthesis, is greater than -7)","a":{"t":"ALL REAL NUMBERS","ac":["ALL x","(-∞, ∞)"]}}]},
+{"i":93260,"s":"math","f":"SA","qt":"bonus","n":62,"q":"Solve the following inequality for x: |x+5| > -7","a":{"t":"ALL REAL NUMBERS","ac":["ALL x","(-∞, ∞)"]}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6670","q":[
 {"i":96318,"s":"math","f":"MC","qt":"tossup","n":63,"q":"Find the derivative of the function f(x)=x^2","c":{"W":"x^2","X":"2x","Y":"2","Z":"none of the above"},"a":{"t":"2x","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6670","q":[
@@ -502,11 +502,11 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6679","q":[
 {"i":93277,"s":"math","f":"SA","qt":"bonus","n":80,"q":"In linear algebra, an operation is defined on two vector spaces over the same field to construct a vector space whose dimension is the product of the dimensions of the original spaces. What is this product called?","a":{"t":"Tensor product"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6702","q":[
-{"i":93278,"s":"math","f":"SA","qt":"bonus","n":81,"q":"Find the following indefinite integral: ∫ xe^x dx (read as: the integral of x times e to the x power, dx)","a":{"t":"xe^x - e^x + C"}}]},
+{"i":93278,"s":"math","f":"SA","qt":"bonus","n":81,"q":"Find the following indefinite integral: ∫ xe^x dx","a":{"t":"xe^x - e^x + C"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6718","q":[
 {"i":93279,"s":"bio","f":"MC","qt":"tossup","n":82,"q":"The molecule Acetyl Coenzyme A is most likely used in which of the following cycles:","c":{"W":"Calvin Cycle","X":"Water Cycle","Y":"Citric Acid Cycle","Z":"Nitrogen Cycle"},"a":{"t":"Citric Acid Cycle","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6718","q":[
-{"i":93280,"s":"math","f":"MC","qt":"bonus","n":83,"q":"The area of a circle is the same as the area of a square with side 4. What is the circumference of the circle?","c":{"W":"8 / √(π)","X":"4 * √(π)","Y":"4 * π","Z":"8 * √(π)"},"a":{"t":"8 * √(π)","l":"Z"}}]},
+{"i":93280,"s":"math","f":"MC","qt":"bonus","n":83,"q":"The area of a circle is the same as the area of a square with side 4. What is the circumference of the circle?","c":{"W":"8 / √π","X":"4√π","Y":"4 * π","Z":"8√π"},"a":{"t":"8√π","l":"Z"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6719","q":[
 {"i":93281,"s":"math","f":"MC","qt":"tossup","n":84,"q":"How many distinct roots does the equation x cubed minus 4 x squared plus 4x have?","c":{"W":"0","X":"1","Y":"2","Z":"3"},"a":{"t":"2","l":"Y"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6719","q":[
@@ -974,7 +974,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6849","q":[
 {"i":96329,"s":"phys","f":"MC","qt":"tossup","n":229,"q":"The reduced Planck’s constant can also be referred to as the","c":{"W":"Fermi constant","X":"Faraday constant","Y":"Zeeman constant","Z":"Dirac constant"},"a":{"t":"Dirac constant","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6849","q":[
-{"i":93503,"s":"phys","f":"SA","qt":"bonus","n":230,"q":"Give Planck’s constant in Joule seconds to two significant figures.","a":{"t":"6.6 × 10^-34 J·s","ac":["6.6 × 10^-34","6.6 × 10^-34"]}}]},
+{"i":93503,"s":"phys","f":"SA","qt":"bonus","n":230,"q":"Give Planck’s constant in Joule seconds to two significant figures.","a":{"t":"6.6 × 10^-34 J·s","ac":["6.6 × 10^-34"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6850","q":[
 {"i":93504,"s":"phys","f":"MC","qt":"tossup","n":231,"q":"A 9-Volt battery has an internal resistance of 0.5 Ohms. If it is connected across a circuit with resistance of 4.5 Ohms, how much current flows?","c":{"W":"1.8 Amperes","X":"2 Amperes","Y":"2.25 Amperes","Z":"3 Amperes"},"a":{"t":"1.8 Amperes","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6850","q":[
@@ -1160,13 +1160,13 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6895","q":[
 {"i":93595,"s":"phys","f":"SA","qt":"bonus","n":322,"q":"One method for producing entangled photons is called the SPDC. It involves splitting a photon along a crystal and producing two newer photons of lower energy that split energy and momentum. What does SPDC stand for?","a":{"t":"SPONTANEOUS PARAMETRIC DOWN-CONVERSION"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6896","q":[
-{"i":93596,"s":"phys","f":"MC","qt":"tossup","n":323,"q":"An object is placed 40 centimeters from a concave mirror with focal length 2 meters. What is the magnification of the object?","c":{"W":"-1.25","X":"- 0.4","Y":"0.5","Z":"1.25"},"a":{"t":"1.25","l":"Z"}}]},
+{"i":93596,"s":"phys","f":"MC","qt":"tossup","n":323,"q":"An object is placed 40 centimeters from a concave mirror with focal length 2 meters. What is the magnification of the object?","c":{"W":"-1.25","X":"-0.4","Y":"0.5","Z":"1.25"},"a":{"t":"1.25","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6896","q":[
 {"i":93597,"s":"phys","f":"SA","qt":"bonus","n":324,"q":"Name, in order, the two kinds of glass commonly used to produce an achromatic doublet by combining a biconvex lens of the first with a biconcave lens of the second.","a":{"t":"CROWN GLASS AND FLINT GLASS","ac":["CROWN AND FLINT"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6897","q":[
 {"i":93598,"s":"phys","f":"SA","qt":"tossup","n":325,"q":"Who began using the terms \"alpha\", \"beta\", and \"gamma\" when referring to radiation?","a":{"t":"ERNEST RUTHERFORD","ac":["RUTHERFORD"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6897","q":[
-{"i":93599,"s":"phys","f":"MC","qt":"bonus","n":326,"q":"This man was first to conceive the idea of a nuclear chain reaction, and worked with Enrico Fermi to produce the first one in 1942.","c":{"W":"Hans Bethe","X":"George Gamow","Y":"Otto Robert Frisch","Z":"Leó Szilárd (LEH-o SEE-lourd)"},"a":{"t":"Leó Szilárd (LEH-o SEE-lourd)","l":"Z"}}]},
+{"i":93599,"s":"phys","f":"MC","qt":"bonus","n":326,"q":"This man was first to conceive the idea of a nuclear chain reaction, and worked with Enrico Fermi to produce the first one in 1942.","c":{"W":"Hans Bethe","X":"George Gamow","Y":"Otto Robert Frisch","Z":"Leó Szilárd"},"a":{"t":"Leó Szilárd","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6898","q":[
 {"i":93600,"s":"phys","f":"SA","qt":"tossup","n":327,"q":"What type of fluid flow involves adjacent layers of fluid sliding smoothly in the same direction?","a":{"t":"LAMINAR FLOW"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6898","q":[
@@ -1366,7 +1366,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6950","q":[
 {"i":93691,"s":"phys","f":"MC","qt":"tossup","n":425,"q":"For which of the fundamental forces has a force carrier boson not been found?","c":{"W":"gravitational force","X":"electromagnetic force","Y":"strong nuclear force","Z":"weak nuclear force"},"a":{"t":"gravitational force","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6950","q":[
-{"i":93692,"s":"phys","f":"SA","qt":"bonus","n":426,"q":"Which of following gauge bosons are electrically neutral: photon, gluon, z boson, w- boson, w+ boson.","a":{"t":"PHOTON, GLUON, AND Z BOSON","ac":["PHOTON, GLUON, Z BOSON","FIRST, SECOND, THIRD"]}}]},
+{"i":93692,"s":"phys","f":"SA","qt":"bonus","n":426,"q":"Which of following gauge bosons are electrically neutral: photon, gluon, z boson, w-boson, w+ boson.","a":{"t":"PHOTON, GLUON, AND Z BOSON","ac":["PHOTON, GLUON, Z BOSON","FIRST, SECOND, THIRD"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6951","q":[
 {"i":93693,"s":"phys","f":"SA","qt":"tossup","n":427,"q":"List the following series for Hydrogen energy levels in order of decreasing final energy levels: Brackett, Paschen, Pfund, Lyman, Balmer.","a":{"t":"PFUND, BRACKETT, PASCHEN, BALMER, LYMAN"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6951","q":[
@@ -1682,7 +1682,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7031","q":[
 {"i":93845,"s":"phys","f":"SA","qt":"bonus","n":583,"q":"What is the name for a sophisticated lens designed to correct for chromatic aberration, and which focuses three different wavelengths, typically red, green, and blue, to a single point?","a":{"t":"APOCHROMATIC LENS","ac":["APOCHROMAT"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7032","q":[
-{"i":93846,"s":"phys","f":"MC","qt":"tossup","n":584,"q":"The Human Cannonball is shot out of a cannon at a velocity of 40 meters per second. Unfortunately, he is fired horizontally, just 5 cm above the ground. For how long is he in the air?","c":{"W":"4 seconds","X":"2√(2) seconds","Y":"0.5 seconds","Z":"0.1 seconds"},"a":{"t":"0.1 seconds","l":"Z"}}]},
+{"i":93846,"s":"phys","f":"MC","qt":"tossup","n":584,"q":"The Human Cannonball is shot out of a cannon at a velocity of 40 meters per second. Unfortunately, he is fired horizontally, just 5 cm above the ground. For how long is he in the air?","c":{"W":"4 seconds","X":"2√2 seconds","Y":"0.5 seconds","Z":"0.1 seconds"},"a":{"t":"0.1 seconds","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7032","q":[
 {"i":93847,"s":"phys","f":"SA","qt":"bonus","n":585,"q":"Billy is a horrible skier. If he accidentally skis off an 80 meter cliff at a horizontal velocity of 4 meters per second, how far from the base of the cliff will he land? You may neglect air resistance.","a":{"t":"16 METERS","ac":["16"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7033","q":[
@@ -1880,7 +1880,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7083","q":[
 {"i":93937,"s":"phys","f":"MC","qt":"tossup","n":682,"q":"A projectile is launched from the ground straight up into the air. At what time is the power exerted by gravity the greatest? Air resistance may be neglected.","c":{"W":"just as the projectile is launched","X":"as the projectile reaches its maximum height","Y":"half-way through the projectile's ascent","Z":"just before the projectile hits the ground"},"a":{"t":"just before the projectile hits the ground","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7083","q":[
-{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)","ac":["V * SQRT(2H/G)"]}}]},
+{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)","ac":["V√(2H/G)"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7084","q":[
 {"i":93939,"s":"phys","f":"SA","qt":"tossup","n":684,"q":"What small device largely replaced vacuum tubes in their roles as signal amplifiers?","a":{"t":"TRANSISTOR"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7084","q":[
@@ -2278,7 +2278,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7187","q":[
 {"i":94127,"s":"phys","f":"MC","qt":"tossup","n":881,"q":"An object is placed 20 cm to the left of a diverging lens with a focal length of 30 cm. Where will the resulting image be formed?","c":{"W":"12 cm to the right of the lens","X":"12 cm to the left of the lens","Y":"60 cm to the right of the lens","Z":"60 cm to the left of the lens"},"a":{"t":"12 cm to the left of the lens","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7187","q":[
-{"i":94128,"s":"phys","f":"MC","qt":"bonus","n":882,"q":"Two point charges placed at (0,0) and (4,0) exert a force of magnitude F on each other. If the second charge is moved to (4,4), what is the magnitude of the new force that the charges exert on each other?","c":{"W":"2F","X":"F / 2","Y":"F","Z":"F * √(2)"},"a":{"t":"F / 2","l":"X"}}]},
+{"i":94128,"s":"phys","f":"MC","qt":"bonus","n":882,"q":"Two point charges placed at (0,0) and (4,0) exert a force of magnitude F on each other. If the second charge is moved to (4,4), what is the magnitude of the new force that the charges exert on each other?","c":{"W":"2F","X":"F / 2","Y":"F","Z":"F√2"},"a":{"t":"F / 2","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7188","q":[
 {"i":94129,"s":"phys","f":"MC","qt":"tossup","n":883,"q":"Taking the speed of sound to be 300 meters per second, what is the fundamental harmonic, in Hertz, of a 5-meter pipe that is open at both ends?","c":{"W":"120 Hz","X":"60 Hz","Y":"55 Hz","Z":"30 Hz"},"a":{"t":"30 Hz","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7188","q":[
@@ -2360,7 +2360,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7209","q":[
 {"i":94168,"s":"phys","f":"MC","qt":"tossup","n":922,"q":"Which of the following is not a difference between light and sound waves?","c":{"W":"sound requires a medium; light does not","X":"sound is a longitudinal wave; light is a transverse wave","Y":"light waves are quantized; sound waves are not","Z":"light propagates at the same speed in all reference frames; sound does not"},"a":{"t":"light waves are quantized; sound waves are not","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7209","q":[
-{"i":94169,"s":"phys","f":"SA","qt":"bonus","n":923,"q":"A group of passengers have been traveling on a spaceship for 15 years, as measured by an observer at their origin. When they emerge, they have aged 10 years. Assuming that their speed was roughly constant throughout the trip, what was it? Your answer should be in terms of c, the speed of light.","a":{"t":"(√5/3)c","ac":["0.745c","SQRT(5)/3 C","SQRT(5) * C / 3"]}}]},
+{"i":94169,"s":"phys","f":"SA","qt":"bonus","n":923,"q":"A group of passengers have been traveling on a spaceship for 15 years, as measured by an observer at their origin. When they emerge, they have aged 10 years. Assuming that their speed was roughly constant throughout the trip, what was it? Your answer should be in terms of c, the speed of light.","a":{"t":"(√5/3)c","ac":["0.745c","√5/3 C","√5 * C / 3"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7210","q":[
 {"i":94170,"s":"phys","f":"SA","qt":"tossup","n":924,"q":"The reciprocal of the square root of the quantity mu naught times epsilon naught, where mu naught and epsilon naught are the permeability and permittivity of free space, respectively, is equal to what?","a":{"t":"THE SPEED OF LIGHT","ac":["C","3 × 10^8 M/S"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7210","q":[
@@ -2444,7 +2444,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7231","q":[
 {"i":94209,"s":"phys","f":"MC","qt":"tossup","n":964,"q":"In North America, wall outlets usually supply 120 volts of AC power. As the voltage in AC is constantly changing, to what quantity does 120 volts refer?","c":{"W":"the peak voltage","X":"the average voltage","Y":"the rms voltage","Z":"the average voltage of the fully rectified wave"},"a":{"t":"the rms voltage","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7231","q":[
-{"i":94210,"s":"phys","f":"MC","qt":"bonus","n":965,"q":"An AC power source supplies a sinusoidal voltage with amplitude V. What is the rms voltage?","c":{"W":"2V","X":"V * √(2)","Y":"V / 2","Z":"V / √(2)"},"a":{"t":"V / √(2)","l":"Z"}}]},
+{"i":94210,"s":"phys","f":"MC","qt":"bonus","n":965,"q":"An AC power source supplies a sinusoidal voltage with amplitude V. What is the rms voltage?","c":{"W":"2V","X":"V√2","Y":"V / 2","Z":"V / √2"},"a":{"t":"V / √2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7232","q":[
 {"i":94211,"s":"phys","f":"MC","qt":"tossup","n":966,"q":"A positive charge is uniformly distributed throughout the volume of an insulating sphere with radius X. Let R be the distance from a point to the center of the sphere. If R is less than X, then:","c":{"W":"the electric field is inversely proportional to R","X":"the electric field is directly proportional to R","Y":"the electric field is directly proportional to R^2","Z":"the electric field squared is directly proportional to R"},"a":{"t":"the electric field is directly proportional to R","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7232","q":[
@@ -2872,7 +2872,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7342","q":[
 {"i":94414,"s":"phys","f":"MC","qt":"bonus","n":1178,"q":"A 10kg object with initial velocity 10m/s collides inelastically with an initially stationary 40kg object. How much kinetic energy is dissipated in the collision?","c":{"W":"50 Joules","X":"400 Joules","Y":"600 Joules","Z":"800 Joules"},"a":{"t":"400 Joules","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7343","q":[
-{"i":94415,"s":"phys","f":"SA","qt":"tossup","n":1179,"q":"What is the term for an exotic atom composed of a pion+ meson and a pion- meson?","a":{"t":"PIONIUM"}}]},
+{"i":94415,"s":"phys","f":"SA","qt":"tossup","n":1179,"q":"What is the term for an exotic atom composed of a pion+ meson and a pion-meson?","a":{"t":"PIONIUM"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7344","q":[
 {"i":94416,"s":"phys","f":"MC","qt":"tossup","n":1180,"q":"A rope being pulled at both ends would be an example of which type of stress?","c":{"W":"Shear Stress","X":"Tensile Stress","Y":"Bulk Stress","Z":"None of the above"},"a":{"t":"Tensile Stress","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7345","q":[
@@ -2896,11 +2896,11 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7350","q":[
 {"i":94426,"s":"phys","f":"MC","qt":"tossup","n":1190,"q":"The angular frequency of a vibrating spring undergoing simple harmonic motion is doubled when:","c":{"W":"Its mass is doubled","X":"Its spring constant is doubled","Y":"Its mass is quadrupled","Z":"Its spring constant is quadrupled"},"a":{"t":"Its spring constant is quadrupled","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7351","q":[
-{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E mc^2"},"a":{"t":"Kinetic energy being converted into mass by E mc^2","l":"Z"}}]},
+{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7351","q":[
 {"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos²θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7352","q":[
-{"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10−10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
+{"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10^-10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7352","q":[
 {"i":94430,"s":"phys","f":"MC","qt":"bonus","n":1194,"q":"10^25 angstroms is equal to:","c":{"W":"One gigameter","X":"One terameter","Y":"One petameter","Z":"One exameter"},"a":{"t":"One petameter","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7353","q":[
@@ -2986,7 +2986,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7374","q":[
 {"i":94468,"s":"phys","f":"MC","qt":"tossup","n":1235,"q":"An object has a moment of inertia about an axis 1m away from its center of mass of 10 kg·m^2. If the object has a mass of 5 kg, what is its moment of inertia about a parallel axis through its center of mass?","c":{"W":"1 kg·m^2","X":"5 kg·m^2","Y":"10 kg·m^2","Z":"20 kg·m^2"},"a":{"t":"5 kg·m^2","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7374","q":[
-{"i":94469,"s":"phys","f":"SA","qt":"bonus","n":1236,"q":"What can be done to increase an object’s angular velocity by 4 times without increasing or decreasing its total kinetic energy?","a":{"t":"DECREASE THE OBJECT’S RADIUS BY 4 TIME","ac":["DECREASE ITS MOMENT OF INERTIA BY A FACTOR OF 16"]}}]},
+{"i":94469,"s":"phys","f":"SA","qt":"bonus","n":1236,"q":"What can be done to increase an object’s angular velocity by 4 times without increasing or decreasing its total kinetic energy?","a":{"t":"DECREASE THE OBJECT’S RADIUS BY 4 TIMES","ac":["DECREASE ITS MOMENT OF INERTIA BY A FACTOR OF 16"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7375","q":[
 {"i":94470,"s":"phys","f":"MC","qt":"tossup","n":1237,"q":"Increasing the radius of a circular orbit by a factor of 2 means a decrease in the satellite’s speed by a factor of:","c":{"W":"2","X":"√2 / 2","Y":"1/2","Z":"√2"},"a":{"t":"√2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7375","q":[
@@ -3342,7 +3342,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7469","q":[
 {"i":94634,"s":"phys","f":"SA","qt":"bonus","n":1413,"q":"Five resistors of resistance 1, 2, 3, 4, and 5 kOhms are in parallel and are attached to a 9-volt battery. What is the steady state current running through the resistor with resistance 3 kOhms and through the entire circuit?","a":{"t":"3 MILLIAMPERES AND 20.55 MILLIAMPERES","ac":["3 mA AND 20.55 mA"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7470","q":[
-{"i":94635,"s":"phys","f":"SA","qt":"bonus","n":1414,"q":"Two wheels with moments of inertia I1 and I2 respectively are rotating on a pole with angular speeds of ω1 and ω2. An external force pushes both of the wheels together with a force that creates no torque. After a while, what is the new angular speed of both wheels?","a":{"t":"(I1ω1 + I2ω2)/(I1 + I2)"}}]},
+{"i":94635,"s":"phys","f":"SA","qt":"bonus","n":1414,"q":"Two wheels with moments of inertia I_1 and I_2 respectively are rotating on a pole with angular speeds of ω_1 and ω_2. An external force pushes both of the wheels together with a force that creates no torque. After a while, what is the new angular speed of both wheels?","a":{"t":"(I_1 ω_1 + I_2 ω_2)/(I_1 + I_2)"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7471","q":[
 {"i":94636,"s":"phys","f":"MC","qt":"tossup","n":1415,"q":"A point on a wheel is rotating with an angular velocity of 25 radians per second through a diameter of 2 meters. What is the wheel’s centripetal acceleration?","c":{"W":"50 meters per second squared","X":"350 meters per second squared","Y":"625 meters per second squared","Z":"1250 meters per second squared"},"a":{"t":"625 meters per second squared","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7471","q":[
@@ -3352,7 +3352,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7472","q":[
 {"i":94639,"s":"phys","f":"MC","qt":"bonus","n":1418,"q":"The Earth’s magnetic field is approximately how many Gauss?","c":{"W":"0.04 - 0.06 Gauss","X":"0.3 - 0.7 Gauss","Y":"400 - 600 Gauss","Z":"40,000 - 60,000 Gauss"},"a":{"t":"0.3 - 0.7 Gauss","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7473","q":[
-{"i":94640,"s":"phys","f":"MC","qt":"tossup","n":1419,"q":"The magnetic field can be described by which fundamental SI units?","c":{"W":"Nm/As","X":"NAs/m","Y":"NAs2/m","Z":"N/Am"},"a":{"t":"N/Am","l":"Z"}}]},
+{"i":94640,"s":"phys","f":"MC","qt":"tossup","n":1419,"q":"The magnetic field can be described by which fundamental SI units?","c":{"W":"Nm/As","X":"NAs/m","Y":"NAs^2/m","Z":"N/Am"},"a":{"t":"N/Am","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7473","q":[
 {"i":94641,"s":"phys","f":"SA","qt":"bonus","n":1420,"q":"A 10 kilogram block with a charge of +5 Coulombs is traveling in the +x direction with a speed of 12 meters per second. If the block moves through an 8 Gauss magnetic field located into the board, what is the particle’s acceleration and in what direction?","a":{"t":"0.0048 METERS PER SECOND SQUARED UPWARD","ac":["0.0048 M/S^2 UP"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7474","q":[
@@ -4160,5 +4160,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7694","q":[
 {"i":95012,"s":"phys","f":"MC","qt":"tossup","n":1822,"q":"If you quadruple the length of a pendulum of a grandfather clock, this will?","c":{"W":"quadruple the period","X":"double the frequency","Y":"double the period","Z":"have no effect"},"a":{"t":"double the period","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7694","q":[
-{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]}
+{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6467","q":[
+{"i":93206,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"Which State consumes the most energy?","c":{"W":"California","X":"Florida","Y":"Texas","Z":"New York"},"a":{"t":"Texas","l":"Y"}}]}
 ]

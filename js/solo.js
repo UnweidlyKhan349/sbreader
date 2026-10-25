@@ -598,8 +598,7 @@
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept)}</div>`;
     if (q.answer.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(q.answer.reject.join('; '))}</div>`;
-    const roundPart = SBData.roundLabelFor(q);
-    html += `<div class="src-line">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</div>`;
+    html += `<div class="src-line">${escapeHtml(SBData.sourceLabelFor(q))}</div>`;
     box.innerHTML = html;
     box.style.display = 'block';
     if (q.choices && q.answer.letter) {

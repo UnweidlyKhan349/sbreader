@@ -157,9 +157,15 @@
   // start of the NEXT term ("x^2 - 2x" is "x squared, minus 2x", not
   // "x to the (2-2x)") rather than part of the exponent itself. Verified
   // against every "^"/"_" occurrence in the corpus (393 fields) that this
-  // produces no over-long or space-containing captures.
-  const MATH_SUP_BARE_RE = /(?<!\^)\^([+-]?[A-Za-z0-9]+)/g;
-  const MATH_SUB_BARE_RE = /(?<!_)_([+-]?[A-Za-z0-9]+)/g;
+  // produces no over-long or space-containing captures. A lone sign after
+  // "^" is an ion charge ("H^+", "NO3^-", "e^−") and is superscripted on its
+  // own. A single Greek letter is a token too ("n^α", "ν_μ", "log_φ"), but
+  // never joins a Latin run, so "μ_0μ_r" stays two subscripts. A bare
+  // exponent that starts with digits takes only the digits: "x^3y" is x³y,
+  // "sp^3d" is sp³d and "^1H" is ¹H (a longer exponent like "e^(2x)" is
+  // written with parentheses).
+  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
+  const MATH_SUB_BARE_RE = /(?<!_)_([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF]))/g;
   function escapeHtml(s) {
     const d = document.createElement('div');
     d.textContent = s == null ? '' : s;
@@ -248,7 +254,6 @@
   // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped' }
   function questionMetaRow(q, opts) {
     opts = opts || {};
-    const roundPart = SBData.roundLabelFor(q);
     const row = document.createElement('div');
     row.className = 'meta-row';
     row.innerHTML = [
@@ -257,7 +262,7 @@
       `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
       q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      `<span class="small-note">${escapeHtml(q.tournament)}${roundPart ? ' · ' + escapeHtml(roundPart) : ''}</span>`,
+      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}</span>`,
     ].join('');
     return row;
   }
@@ -655,9 +660,11 @@
   // tournament picker), then round number (unlabeled rounds last), then round
   // label (so NSB's "Set 2 · Round 1" follows "Set 1 · Round 1"), then
   // question number, tossup before its bonus. Ties (e.g. packets without
-  // question numbers) keep the bank's own order. The order is computed once
-  // and reused, since sorting 70k questions on every keystroke would lag.
-  let packetRank = null;
+  // question numbers) keep the bank's own order. With { recent: true } the
+  // tournaments go newest first instead (by the date in meta.json, then
+  // A-Z), each still in packet order. Each order is computed once and
+  // reused, since sorting 80k questions on every keystroke would lag.
+  const packetRanks = {};
   const qtypeRank = (t) => (QTYPE_ORDER.indexOf(t) + 1 || QTYPE_ORDER.length + 1);
   // Ranks the distinct values of a string field with the collator, so the
   // big sort below compares integers instead of calling the collator about
@@ -671,26 +678,37 @@
     });
     return rank;
   }
-  SBData.sortByPacketOrder = function (list) {
-    if (!packetRank) {
-      const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
-      const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
-      const tRank = collatedRanks(coll, SBData.questions.map((q) => q.tournament || ''));
-      const rlRank = collatedRanks(coll, SBData.questions.map((q) => q.roundLabel || ''));
-      const all = SBData.questions.map((q, i) => ({
-        q, i, t: tRank.get(q.tournament || ''), rl: rlRank.get(q.roundLabel || ''), qt: qtypeRank(q.qtype),
-      }));
-      all.sort((x, y) => {
-        const a = x.q, b = y.q;
-        return x.t - y.t
-          || nullsLast(a.round, b.round)
-          || x.rl - y.rl
-          || nullsLast(a.num, b.num)
-          || x.qt - y.qt
-          || x.i - y.i;
+  function buildPacketRank(recent) {
+    const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+    const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
+    const tRank = collatedRanks(coll, SBData.questions.map((q) => q.tournament || ''));
+    if (recent) {
+      // Newest date first; tournaments without a date go last, A-Z.
+      const dates = new Map(((SBData.meta && SBData.meta.tournaments) || []).map((t) => [t.name, t.date || '']));
+      const names = [...tRank.keys()].sort((a, b) => {
+        const da = dates.get(a) || '', db = dates.get(b) || '';
+        return (da === db ? 0 : da > db ? -1 : 1) || tRank.get(a) - tRank.get(b);
       });
-      packetRank = new Map(all.map((e, rank) => [e.q.id, rank]));
+      names.forEach((n, i) => tRank.set(n, i));
     }
+    const rlRank = collatedRanks(coll, SBData.questions.map((q) => q.roundLabel || ''));
+    const all = SBData.questions.map((q, i) => ({
+      q, i, t: tRank.get(q.tournament || ''), rl: rlRank.get(q.roundLabel || ''), qt: qtypeRank(q.qtype),
+    }));
+    all.sort((x, y) => {
+      const a = x.q, b = y.q;
+      return x.t - y.t
+        || nullsLast(a.round, b.round)
+        || x.rl - y.rl
+        || nullsLast(a.num, b.num)
+        || x.qt - y.qt
+        || x.i - y.i;
+    });
+    return new Map(all.map((e, rank) => [e.q.id, rank]));
+  }
+  SBData.sortByPacketOrder = function (list, opts) {
+    const key = opts && opts.recent ? 'recent' : 'az';
+    const packetRank = packetRanks[key] || (packetRanks[key] = buildPacketRank(key === 'recent'));
     // Every question has its own rank, so drop each into its slot instead of
     // sorting (linear time; this runs on every filter change and keystroke).
     const slots = new Array(packetRank.size);
@@ -752,13 +770,13 @@
   };
 
   // What a search matches against: the question, answer and tournament name,
-  // lowercased, each also without exponent markup (invisible on screen, so
-  // "7100" also finds "7^100"). Built the first time a question is searched
+  // lowercased, each also without exponent and subscript markup (invisible
+  // on screen, so "7100" also finds "7^100" and "ksp" finds "K_sp"). Built the first time a question is searched
   // and kept, so later keystrokes don't lowercase the whole bank again. The
   // NUL separators keep a match from running across two fields, since a
   // search word can't contain one.
   const searchTexts = new WeakMap();
-  const unmarkExponents = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
+  const unmarkExponents = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
   function searchText(q) {
     let text = searchTexts.get(q);
     if (text === undefined) {
@@ -814,6 +832,13 @@
   }
   SBData.roundLabelFor = function (q) {
     return cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+  };
+  // Where a question comes from, as shown on its card: tournament, round and
+  // its number in the packet ("AVES 2 · RR 1 · Q15"). Tossup 15 and bonus 15
+  // share the number; the tag row already says which one this is.
+  SBData.sourceLabelFor = function (q) {
+    const roundPart = SBData.roundLabelFor(q);
+    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(' · ');
   };
 
   function shuffle(arr) {
@@ -1074,9 +1099,15 @@
 
     wrap.appendChild(panel);
 
+    // Selected options are listed first (in their usual order), so what's
+    // picked is visible on opening; the list is rebuilt on each open, and
+    // ticking an option while open leaves it where it is.
     function buildOptions() {
       optionsList.innerHTML = '';
-      Array.from(selectEl.options).forEach((opt) => {
+      const all = Array.from(selectEl.options);
+      const picked = all.filter((o) => selectEl._sbMultiValues.has(o.value));
+      const rest = all.filter((o) => !selectEl._sbMultiValues.has(o.value));
+      [...picked, ...rest].forEach((opt, i) => {
         const row = document.createElement('div');
         row.className = 'custom-select-option custom-select-option-multi';
         row.dataset.value = opt.value;
@@ -1088,6 +1119,7 @@
         row.appendChild(check);
         row.appendChild(label);
         if (selectEl._sbMultiValues.has(opt.value)) row.classList.add('active');
+        if (picked.length && rest.length && i === picked.length - 1) row.classList.add('custom-select-option-last-picked');
         row.addEventListener('click', () => {
           if (selectEl._sbMultiValues.has(opt.value)) selectEl._sbMultiValues.delete(opt.value);
           else selectEl._sbMultiValues.add(opt.value);
