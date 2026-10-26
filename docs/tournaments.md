@@ -50,7 +50,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
-| Lexington HS 2020-21 | 780 |  | hs |
+| Lexington HS 2020-21 | 779 |  | hs |
 | Lexscibowl 2021 | 23 |  | hs |
 | LOST 1 | 651 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
@@ -112,4 +112,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (108)** | **84,118** | **535** | |
+| **Total (108)** | **84,117** | **535** | |

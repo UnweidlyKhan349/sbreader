@@ -2704,7 +2704,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7298","q":[
 {"i":94333,"s":"phys","f":"SA","qt":"bonus","n":1094,"q":"The LIGO is designed to detect the very minute physical strains produced by passing gravitational waves. What does LIGO stand for?","a":{"t":"LASER INTERFEROMETER GRAVITATIONAL-WAVE OBSERVATORY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7299","q":[
-{"i":94334,"s":"phys","f":"MC","qt":"tossup","n":1095,"q":"If a substance has specific heat c and molar mass M, its molar heat capacity is best given by","c":{"W":"c / M","X":"M / c","Y":"c * M","Z":"1/ (c * M)"},"a":{"t":"c * M","l":"Y"}}]},
+{"i":94334,"s":"phys","f":"MC","qt":"tossup","n":1095,"q":"If a substance has specific heat c and molar mass M, its molar heat capacity is best given by","c":{"W":"c / M","X":"M / c","Y":"c * M","Z":"1/(c * M)"},"a":{"t":"c * M","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7299","q":[
 {"i":94335,"s":"phys","f":"SA","qt":"bonus","n":1096,"q":"This rule states that the heat capacity of an object depends primarily on how many atoms the object contains, and that two objects with the same number of atoms will have similar heat capacities. What is it?","a":{"t":"DULONG-PETIT LAW","ac":["RULE OF DULONG AND PETIT","LAW OF DULONG AND PETIT"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7300","q":[

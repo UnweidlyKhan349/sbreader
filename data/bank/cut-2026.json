@@ -94,7 +94,7 @@
 {"i":37757,"s":"ess","f":"MC","qt":"tossup","n":22,"q":"Which of the following pairs of adjectives describes the universe?","a":{"t":"isotropic and homogeneous","l":"Y"},"c":{"W":"isotropic and heterogeneous","X":"anisotropic and heterogeneous","Y":"isotropic and homogeneous","Z":"isotropic and heterogeneous"}},
 {"i":37758,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"Identify all of the following 3 features that are erosional: 1) baymouth bar 2) tombolo 3) spit","a":{"t":"none"}},
 {"i":37759,"s":"math","f":"SA","qt":"tossup","n":23,"q":"Sumin wants to buy candied apples. The candied apples come in packs of 11 and 6. What is the maximum number of candied apples that Sumin cannot buy?","a":{"t":"49"}},
-{"i":37760,"s":"math","f":"SA","qt":"bonus","n":23,"q":"How many distinct arrangements of the letters in the word LEVEL, L-E-V-E-L, are there?","a":{"t":"30"}},
+{"i":37760,"s":"math","f":"SA","qt":"bonus","n":23,"q":"How many distinct arrangements of the letters in the word LEVEL are there?","a":{"t":"30"}},
 {"i":37761,"s":"ess","f":"SA","qt":"tossup","n":24,"q":"Scientists at Oak Ridge National Lab are studying dark energy. What term added to Einstein’s field equations is used to explain dark energy and the accelerating expansion of the universe?","a":{"t":"cosmological constant"}},
 {"i":37762,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"Scientists at Los Alamos National Lab are studying lanthanide contraction, a phenomenon occurring in lanthanide elements due to the poor shielding of the increasing nuclear charge by the added 4f electrons. Identify all of the following 3 elements that display lanthanide contraction: 1) cerium 2) promethium 3) europium","a":{"t":"all"}}]},
 {"rl":"CUT DE 2","r":8,"u":"https://speriphery.com/query","q":[

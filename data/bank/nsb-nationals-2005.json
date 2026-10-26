@@ -1346,7 +1346,7 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3491","q":[
 {"i":89698,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following is NOT true of ROM:","c":{"W":"contains vital permanently stored information","X":"is non-volatile","Y":"it is sometimes referred to as main memory","Z":"with few exceptions, if an error occurs on the chip, it must be replaced"},"a":{"t":"it is sometimes referred to as main memory","l":"Y"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3492","q":[
-{"i":89699,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"Werner Heisenberg found that when the uncertainties in the determinations of position and momentum of a single particle are multiplied together, the product is approximately greater than or equal to:","c":{"W":"the speed of light","X":"the energy of a photon","Y":"Planck’s constant","Z":"Avagadro’s number"},"a":{"t":"Planck’s constant","l":"Y"}}]},
+{"i":89699,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"Werner Heisenberg found that when the uncertainties in the determinations of position and momentum of a single particle are multiplied together, the product is approximately greater than or equal to:","c":{"W":"the speed of light","X":"the energy of a photon","Y":"Planck’s constant","Z":"Avogadro’s number"},"a":{"t":"Planck’s constant","l":"Y"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3492","q":[
 {"i":89700,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"At 10 cents per kilowatt hour, how much does it cost to run an 1800 watt hair dryer for 2 hours?","a":{"t":"36 CENTS"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3493","q":[

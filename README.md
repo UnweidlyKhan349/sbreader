@@ -2,7 +2,7 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 84,118 questions from 108 tournaments** (43,976 tossups / 40,142 bonuses; 51,786 short answer / 32,332 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 84,117 questions from 108 tournaments** (43,976 tossups / 40,141 bonuses; 51,785 short answer / 32,332 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
@@ -160,7 +160,7 @@ tests/              node --test suites: grader, multiplayer rules, data shape
   - `stripPronunciation`: bracketed phonetic hyphen-chains
   - `fixSpacedHyphens` / `fixSpacedApostrophes`: PDF-extraction spacing damage
 - **`renderMathHTML`** turns real `^(...)`, `^token`, `_(...)`, and `_token` notation into `<sup>`/`<sub>`. Parenthesized groups may nest (`2^(2^(2^2))`, `n^(1/ln(n))`). By design it does **not** guess at lost notation; see [limitations](#known-limitations-and-open-items).
-- **Chemical formulas**: after the math pass, `subscriptFormulas` writes the counts in formulas such as `H2SO4`, `Ca(OH)2` and `C6H12O6` as subscripts. A run counts as a formula only when every symbol is an element, no count is 1 or starts with 0, no element repeats back to back, and it isn't a lone element (except a short list of real molecules: `O2`, `N2`, `Cl2`, `S8`, `C60`, …) or one of the bank's look-alikes (`SN2`, `sp3`, `HSP70`, `IC50`, `H3K27`, `COV2`, …). The stored text isn't changed, and grading ignores the subscripts.
+- **Chemical formulas**: after the math pass, `subscriptFormulas` writes the counts in formulas such as `H2SO4`, `Ca(OH)2` and `C6H12O6` as subscripts. A run counts as a formula only when every symbol is an element, no count is 1 or starts with 0, no element repeats back to back, and it isn't a lone element (except a short list of real molecules: `O2`, `N2`, `Cl2`, `S8`, `C60`, …) or one of the bank's look-alikes (`SN2`, `sp3`, `HSP70`, `IC50`, `H3K27`, `P700`, …). An ion written with its charge as a superscript (`H3^+`, `S2^(2-)`) gets its subscript even as a lone element. The stored text isn't changed, and grading ignores the subscripts.
 - **`answerDisplayText(q)`**: for MC questions the choice text wins over `a.t`, so a damaged answer field still displays correctly.
 - **`answerLineHTML()`**: one shared "Answer: X (also accept: Y)" renderer.
 - **Question cards**: `questionMetaRow`, `appendQuestionBody`, `answerBlock` and `bookmarkButton` build the cards in the catalog, the bookmarks page and both session logs. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.

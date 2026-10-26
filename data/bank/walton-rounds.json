@@ -402,7 +402,7 @@
 {"i":31614,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"What electron transporter, which may be found as quinone, hydroquinone, or semiquinone, is utilized in the brain and serves as an energy carrier to generate ATP in cellular respiration?","a":{"t":"FAD+ TRANSPORTER","ac":["FLAVIN ADENINE DINUCLEOTIDE","FAD","FAD TRANSPORTER","FLAVIN ADENINE DINUCLEOTIDE TRANSPORTER"]}},
 {"i":31615,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"What molecule is a precursor of a vital coenzyme that helps to convert carbohydrates into ATP, providing energy for cellular processes such as the Krebs Cycle.","a":{"t":"RIBOFLAVIN"}},
 {"i":31616,"s":"math","f":"SA","qt":"tossup","n":22,"q":"Quadrilateral ABCD circumscribes circle O. Side AB is 10, BC is 13, and AD is 17, what is the length of side CD.","a":{"t":"20"}},
-{"i":31617,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find the value of the local minima of the function 18tan^(2)(θ) + 2tan^(2)(π /2 - θ)","a":{"t":"12"}},
+{"i":31617,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find the value of the local minima of the function 18tan^(2)(θ) + 2tan^(2)(π/2 - θ)","a":{"t":"12"}},
 {"i":31618,"s":"phys","f":"MC","qt":"tossup","n":23,"q":"In which of the following harmonic oscillators does the system reach equilibrium the fastest?","a":{"t":"Critically damped","l":"Y"},"c":{"W":"Undamped","X":"Underdamped","Y":"Critically damped","Z":"Overdamped"}}]},
 {"rl":"Copy of ROUND 2","r":2,"u":"https://lebot.djiang.xyz/packets/Walton%20Rounds/Copy%20of%20ROUND%202.pdf","q":[
 {"i":31619,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What gland secretes epinephrine?","a":{"t":"ADRENAL GLAND","ac":["S"]}},

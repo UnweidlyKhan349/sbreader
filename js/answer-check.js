@@ -926,7 +926,9 @@
     // ---- The key or an accept typed character for character ----
     // Checked before the reject list, which normalize() can't always tell
     // apart from the key: "+6" vs a rejected "6", "W+ BOSON" vs "W BOSON".
-    const literal = (t) => String(t).toUpperCase().replace(/\s+/g, ' ').trim();
+    // Exponent markup is dropped here too, so "W+ boson" is the key "W^+ BOSON".
+    const literal = (t) => String(t).toUpperCase().replace(/[\^_]\(([^()]*)\)/g, '$1')
+      .replace(/[\^_]/g, '').replace(/\s+/g, ' ').trim();
     if (literal(raw) === literal(ans.text)) return { correct: true, matched: 'main', rejected: false };
     if (accepts.some((acc) => literal(raw) === literal(acc))) return { correct: true, matched: 'accept', rejected: false };
 
