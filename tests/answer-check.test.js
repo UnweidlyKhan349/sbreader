@@ -98,6 +98,10 @@ test('reject list and signs', () => {
   assert.ok(!isCorrect('CURIE', 'becquerel', { reject: ['BECQUEREL'] }));
   assert.ok(!isCorrect('-195 DEGREES', '195 degrees'));
   assert.ok(isCorrect('-2', 'negative 2'));
+  const wPlus = { reject: ['W BOSON', 'W^- BOSON'] };
+  assert.ok(isCorrect('W^+ BOSON', 'W+ boson', wPlus));
+  assert.ok(!isCorrect('W^+ BOSON', 'W boson', wPlus));
+  assert.ok(!isCorrect('W^+ BOSON', 'W- boson', wPlus));
 });
 
 test('multi-part answers need every part', () => {

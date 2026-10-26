@@ -22,7 +22,7 @@
 {"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/bonus/4582","q":[
 {"i":95031,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"The trinucleotide repeat CAG in the Huntingtin gene corresponds to which amino acid?","a":{"t":"GLUTAMINE"}}]},
 {"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/tossup/4583","q":[
-{"i":95032,"s":"chem","f":"MC","qt":"tossup","n":3,"q":"Under what circumstances do most gases differ the most from the Ideal Gas Law","c":{"W":"High Temperature, High Pressure","X":"High Temperature, Low Pressure","Y":"Low Temperature, High Pressure","Z":"Low Temperature, Low Pressure"},"a":{"t":"Low Temperature, High Pressure","l":"Y"}}]},
+{"i":95032,"s":"chem","f":"MC","qt":"tossup","n":3,"q":"Under what circumstances do most gases differ the most from the Ideal Gas Law?","c":{"W":"High Temperature, High Pressure","X":"High Temperature, Low Pressure","Y":"Low Temperature, High Pressure","Z":"Low Temperature, Low Pressure"},"a":{"t":"Low Temperature, High Pressure","l":"Y"}}]},
 {"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/tossup/4584","q":[
 {"i":95033,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"An object 36 cm away from a thin lens with a focal length of 6 cm will create an image how far away from the lens in cm?","a":{"t":"7.2"}}]},
 {"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/bonus/4584","q":[
@@ -64,7 +64,7 @@
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4593","q":[
 {"i":95052,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"Name all of the following which are advantages of HVDC transmission systems over HVAC systems: I) They are easily converted between voltages. II) Less conductor material is required for the same distance and capacity. III) They can join unsynchronized AC power grids. IV) They have less loss than AC transmissions.","a":{"t":"II, III, and IV","ac":["all but I"]}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/tossup/4594","q":[
-{"i":96110,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Identify by name or number all of the following three compounds that are common reducing agents 1) Lithium Aluminum Hydride 2)Ozone 3)Sodium Borohydride","a":{"t":"1 and 3"}}]},
+{"i":96110,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Identify by name or number all of the following three compounds that are common reducing agents 1) Lithium Aluminum Hydride 2) Ozone 3) Sodium Borohydride","a":{"t":"1 and 3"}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/bonus/4594","q":[
 {"i":95053,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Between the endo and exo product, which would you generally expect to occur in higher concentration in the products of a Diels Alder reaction?","a":{"t":"Endo"}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/tossup/4595","q":[
@@ -308,7 +308,7 @@
 {"rl":"Aug 25 · Clements","r":null,"u":"https://scibowldb.com/tossup/4660","q":[
 {"i":95161,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"According to Molecular orbital theory which of the following are unstable 1) He2 2) H2 3) Li2","a":{"t":"1 ONLY","ac":["HE2","1"]}}]},
 {"rl":"Aug 25 · Clements","r":null,"u":"https://scibowldb.com/bonus/4660","q":[
-{"i":95162,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"Which of the following theories provides a reasonably accurate prediction of aromaticity in hydrocarbons","c":{"W":"Lewis' rule","X":"Huckel's rule","Y":"Diels Rule","Z":"Dewar's rule"},"a":{"t":"Huckel's rule","l":"X"}}]},
+{"i":95162,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"Which of the following theories provides a reasonably accurate prediction of aromaticity in hydrocarbons?","c":{"W":"Lewis' rule","X":"Huckel's rule","Y":"Diels Rule","Z":"Dewar's rule"},"a":{"t":"Huckel's rule","l":"X"}}]},
 {"rl":"Aug 25 · Clements","r":null,"u":"https://scibowldb.com/tossup/4661","q":[
 {"i":95163,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"What once-theorized particle was discovered at the LHC in 2015?","a":{"t":"PENTAQUARK"}}]},
 {"rl":"Aug 25 · Clements","r":null,"u":"https://scibowldb.com/bonus/4661","q":[
@@ -348,7 +348,7 @@
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4670","q":[
 {"i":95181,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"Name the scientist who came up with the concept of orbital hybridization?","a":{"t":"LINUS PAULING"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4670","q":[
-{"i":95182,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"By number, list which ones of the following are strong acids: 1) HF, 2) HCl, 3)H2O, 4)HCN, 5)HClO3","a":{"t":"2 AND 5","ac":["HCl AND HClO3"]}}]},
+{"i":95182,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"By number, list which ones of the following are strong acids: 1) HF, 2) HCl, 3) H2O, 4) HCN, 5) HClO3","a":{"t":"2 AND 5","ac":["HCl AND HClO3"]}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4671","q":[
 {"i":96123,"s":"math","f":"MC","qt":"tossup","n":11,"q":"Which of the following numbers is a semiprime?","c":{"W":"3","X":"5","Y":"8","Z":"10"},"a":{"t":"10","l":"Z"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4671","q":[
@@ -512,7 +512,7 @@
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4716","q":[
 {"i":95254,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"Identify the quality of crystals that classify them as euhedral or anhedral","c":{"W":"Face Structure","X":"Chemical Composition","Y":"Cleavage","Z":"Melting Temperature"},"a":{"t":"Face Structure","l":"W"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4717","q":[
-{"i":95255,"s":"energy","f":"SA","qt":"bonus","n":10,"q":"Order the following steps of coal formation chronologically: 1)peat 2)lignite 3)bituminous 4)anthracite","a":{"t":"1, 2, 3, 4"}}]},
+{"i":95255,"s":"energy","f":"SA","qt":"bonus","n":10,"q":"Order the following steps of coal formation chronologically: 1) peat 2) lignite 3) bituminous 4) anthracite","a":{"t":"1, 2, 3, 4"}}]},
 {"rl":"Jul 14 · Blair","r":null,"u":"https://scibowldb.com/tossup/4718","q":[
 {"i":96132,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Ants belong to which insect order?","c":{"W":"Blattodea","X":"Isoptera","Y":"Diptera","Z":"Hymenoptera"},"a":{"t":"Hymenoptera","l":"Z"}}]},
 {"rl":"Jul 14 · Blair","r":null,"u":"https://scibowldb.com/bonus/4718","q":[
@@ -1116,7 +1116,7 @@
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4887","q":[
 {"i":95522,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Besides calcium-rich plagioclase feldspar, what is a dominant mineral that helps compose mafic igneous rocks?","a":{"t":"PYROXENE","ac":["OLIVINE"]}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4888","q":[
-{"i":95523,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"Which of the following geothermal plants can harvest energy from reservoirs at temperatures as low as 57˚C?","c":{"W":"Dry steam power plants","X":"Flash steam power plants","Y":"Binary cycle power plant","Z":"Conduit power plants"},"a":{"t":"Binary cycle power plant","l":"Y"}}]},
+{"i":95523,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"Which of the following geothermal plants can harvest energy from reservoirs at temperatures as low as 57°C?","c":{"W":"Dry steam power plants","X":"Flash steam power plants","Y":"Binary cycle power plant","Z":"Conduit power plants"},"a":{"t":"Binary cycle power plant","l":"Y"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4888","q":[
 {"i":95524,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"What is the half-life of the most common isotope of uranium found in nature, also used in nuclear power plants?","c":{"W":"8.2 billion years","X":"4.5 billion years","Y":"6.7 billion years","Z":"3.9 billion years"},"a":{"t":"4.5 billion years","l":"X"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4889","q":[
@@ -1390,7 +1390,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4960","q":[
 {"i":95646,"s":"bio","f":"SA","qt":"bonus","n":98,"q":"What is the corepressor molecule in the trp operon?","a":{"t":"tryptophan"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4961","q":[
-{"i":95647,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"What form of hybridization is found in Sulfur Hexafluoride?","c":{"W":"sp3","X":"sp3d2","Y":"sp3d3","Z":"sp4d3"},"a":{"t":"sp3d2","l":"X"}}]},
+{"i":95647,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"What form of hybridization is found in Sulfur Hexafluoride?","c":{"W":"sp^3","X":"sp^3d^2","Y":"sp^3d^3","Z":"sp4d3"},"a":{"t":"sp^3d^2","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4961","q":[
 {"i":96179,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"Which of the following amino acids is aromatic?","c":{"W":"Tryptophan","X":"Glutamic Acid","Y":"Methionine","Z":"Lysine"},"a":{"t":"Tryptophan","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4962","q":[
@@ -1440,7 +1440,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4974","q":[
 {"i":95665,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"What name should be given to a molecule with the formula N2O5?","a":{"t":"dinitrogen pentoxide"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4975","q":[
-{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp2","Y":"sp3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
+{"i":95666,"s":"chem","f":"MC","qt":"tossup","n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c":{"W":"sp","X":"sp^2","Y":"sp^3","Z":"None of these"},"a":{"t":"sp","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4975","q":[
 {"i":95667,"s":"chem","f":"MC","qt":"bonus","n":27,"q":"Which of the following is least related to the strength of a covalent bond?","c":{"W":"vibrational frequency","X":"bond order","Y":"bond length","Z":"bond direction"},"a":{"t":"bond direction","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4976","q":[
@@ -1490,7 +1490,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4988","q":[
 {"i":96190,"s":"chem","f":"SA","qt":"bonus","n":50,"q":"Which element has the largest atomic radius?","a":{"t":"Cesium","ac":["CS","FRANCIUM"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4989","q":[
-{"i":96191,"s":"chem","f":"SA","qt":"tossup","n":51,"q":"What is the hybridization of the molecular bonds of Ammonia?","a":{"t":"sp3"}}]},
+{"i":96191,"s":"chem","f":"SA","qt":"tossup","n":51,"q":"What is the hybridization of the molecular bonds of Ammonia?","a":{"t":"sp^3"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4989","q":[
 {"i":95685,"s":"chem","f":"SA","qt":"bonus","n":52,"q":"Which element is most likely to act as an ideal gas?","a":{"t":"HELIUM","ac":["HE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4990","q":[
@@ -1504,7 +1504,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4993","q":[
 {"i":96193,"s":"chem","f":"SA","qt":"tossup","n":57,"q":"What is the most common isotope of Hydrogen?","a":{"t":"Protium"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4993","q":[
-{"i":96194,"s":"chem","f":"SA","qt":"bonus","n":58,"q":"What is the hybridization of carbon atoms in alkanes?","a":{"t":"sp3"}}]},
+{"i":96194,"s":"chem","f":"SA","qt":"bonus","n":58,"q":"What is the hybridization of carbon atoms in alkanes?","a":{"t":"sp^3"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4994","q":[
 {"i":95689,"s":"chem","f":"SA","qt":"tossup","n":59,"q":"In the standard notation for a voltaic cell, the double vertical line \"||\" represents","a":{"t":"SALT BRIDGE","ac":["POROUS BARRIER"],"rj":["STANDARD HYDROGEN ELECTRODE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4994","q":[
@@ -1530,7 +1530,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5000","q":[
 {"i":95693,"s":"chem","f":"MC","qt":"bonus","n":70,"q":"Which of the following molecules is a saturated hydrocarbon?","c":{"W":"C2H4","X":"C3H8","Y":"CH3OH","Z":"C4H6"},"a":{"t":"C3H8","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5001","q":[
-{"i":95694,"s":"chem","f":"MC","qt":"tossup","n":71,"q":"A tetrahedral molecule, XY4 would be formed if X were using the orbital hybridization:","c":{"W":"p2","X":"s2","Y":"sp2","Z":"sp3"},"a":{"t":"sp3","l":"Z"}}]},
+{"i":95694,"s":"chem","f":"MC","qt":"tossup","n":71,"q":"A tetrahedral molecule, XY4 would be formed if X were using the orbital hybridization:","c":{"W":"p2","X":"s2","Y":"sp^2","Z":"sp^3"},"a":{"t":"sp^3","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5001","q":[
 {"i":95695,"s":"chem","f":"MC","qt":"bonus","n":72,"q":"How does a Bronsted-Lowry acid differ from its conjugate base?","c":{"W":"The acid has one more proton.","X":"The acid has one less proton.","Y":"The acid has one more electron.","Z":"The acid has one less electron."},"a":{"t":"The acid has one more proton.","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5002","q":[
@@ -1572,7 +1572,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5011","q":[
 {"i":95712,"s":"chem","f":"MC","qt":"bonus","n":91,"q":"What is the main method of helium production?","c":{"W":"Retrieval from the upper atmosphere","X":"Distillation from natural gas","Y":"Extraction from rock compounds","Z":"Distillation from the lower atmosphere"},"a":{"t":"Distillation from natural gas","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5012","q":[
-{"i":95713,"s":"chem","f":"SA","qt":"tossup","n":92,"q":"What form of hybridization does the carbonyl carbon of a ketone have?","a":{"t":"sp2"}}]},
+{"i":95713,"s":"chem","f":"SA","qt":"tossup","n":92,"q":"What form of hybridization does the carbonyl carbon of a ketone have?","a":{"t":"sp^2"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5012","q":[
 {"i":96204,"s":"chem","f":"MC","qt":"bonus","n":93,"q":"Which of the following is amphoteric?","c":{"W":"Zinc Oxide","X":"Aluminum Chloride","Y":"Acetic Acid","Z":"Magnesium Oxide"},"a":{"t":"Zinc Oxide","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5013","q":[
@@ -1604,7 +1604,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5020","q":[
 {"i":96213,"s":"chem","f":"MC","qt":"tossup","n":107,"q":"The ideal fuel for fuel cell use is:","c":{"W":"compressed natural gas","X":"reformulated gasoline","Y":"hydrogen","Z":"Methanol"},"a":{"t":"hydrogen","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5020","q":[
-{"i":96214,"s":"chem","f":"SA","qt":"bonus","n":108,"q":"Which is the correct name for N2O3","a":{"t":"Dinitrogen Trioxide"}}]},
+{"i":96214,"s":"chem","f":"SA","qt":"bonus","n":108,"q":"Which is the correct name for N2O3?","a":{"t":"Dinitrogen Trioxide"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5021","q":[
 {"i":96215,"s":"chem","f":"MC","qt":"tossup","n":109,"q":"Which one of the following has the greatest tendency to lose an electron?","c":{"W":"Zn","X":"Cl^-","Y":"Br2","Z":"A mixture of PbSO4 and H2O"},"a":{"t":"Zn","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5021","q":[
@@ -1636,9 +1636,9 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5028","q":[
 {"i":95730,"s":"chem","f":"MC","qt":"bonus","n":123,"q":"Which of the following is the strongest oxidizing agent?","c":{"W":"Pb^(2+)","X":"I2","Y":"Ag^+","Z":"Pb"},"a":{"t":"Ag^+","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5029","q":[
-{"i":96218,"s":"chem","f":"MC","qt":"tossup","n":124,"q":"What is the hybridization of the sulfur atom in SF4?","c":{"W":"sp2","X":"sp3","Y":"sp3d","Z":"sp3d2"},"a":{"t":"sp3d","l":"Y"}}]},
+{"i":96218,"s":"chem","f":"MC","qt":"tossup","n":124,"q":"What is the hybridization of the sulfur atom in SF4?","c":{"W":"sp^2","X":"sp^3","Y":"sp^3d","Z":"sp^3d^2"},"a":{"t":"sp^3d","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5030","q":[
-{"i":95731,"s":"chem","f":"SA","qt":"tossup","n":125,"q":"Which famous chemist was responsible for creating the field of colloid chemistry and created laws for effusion and diffusion","a":{"t":"Thomas Graham"}}]},
+{"i":95731,"s":"chem","f":"SA","qt":"tossup","n":125,"q":"Which famous chemist was responsible for creating the field of colloid chemistry and created laws for effusion and diffusion?","a":{"t":"Thomas Graham"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5030","q":[
 {"i":95732,"s":"chem","f":"SA","qt":"bonus","n":126,"q":"What law, proposed by Joseph Proust, states that a chemical compound will always have its own characteristic ratio of elemental components?","a":{"t":"LAW OF DEFINITE PROPORTIONS","ac":["LAW OF CONSTANT COMPOSITION"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5031","q":[
@@ -1808,13 +1808,13 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5077","q":[
 {"i":95795,"s":"ess","f":"SA","qt":"bonus","n":53,"q":"What are the two densest planets in our solar system?","a":{"t":"EARTH AND MERCURY","ac":["MERCURY AND EARTH"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5078","q":[
-{"i":96239,"s":"ess","f":"SA","qt":"tossup","n":54,"q":"What star has the greatest apparent magnitude","a":{"t":"Sun"}}]},
+{"i":96239,"s":"ess","f":"SA","qt":"tossup","n":54,"q":"What star has the greatest apparent magnitude?","a":{"t":"Sun"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5078","q":[
 {"i":95796,"s":"ess","f":"MC","qt":"bonus","n":55,"q":"Which planet or planets rotate in retrograde?","c":{"W":"Venus","X":"Uranus","Y":"Venus and Uranus","Z":"Uranus and Jupiter"},"a":{"t":"Venus and Uranus","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5079","q":[
-{"i":95797,"s":"ess","f":"MC","qt":"tossup","n":56,"q":"What is the name for the apparent line dividing night and day","c":{"W":"Seperator","X":"Day-Night Meridian","Y":"Terminator","Z":"Prime Meridian"},"a":{"t":"Terminator","l":"Y"}}]},
+{"i":95797,"s":"ess","f":"MC","qt":"tossup","n":56,"q":"What is the name for the apparent line dividing night and day?","c":{"W":"Seperator","X":"Day-Night Meridian","Y":"Terminator","Z":"Prime Meridian"},"a":{"t":"Terminator","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5079","q":[
-{"i":95798,"s":"ess","f":"SA","qt":"bonus","n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it recieves from the sun?","a":{"t":"Uranus"}}]},
+{"i":95798,"s":"ess","f":"SA","qt":"bonus","n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it receives from the sun?","a":{"t":"Uranus"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5080","q":[
 {"i":95799,"s":"ess","f":"MC","qt":"tossup","n":58,"q":"What is defined to be the distance from the Sun, to a body whose stellar parallax is one arcsecond?","c":{"W":"astronomical unit","X":"Schwarzschild radius","Y":"parsec","Z":"light-second"},"a":{"t":"parsec","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5080","q":[
@@ -1942,7 +1942,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5112","q":[
 {"i":95858,"s":"ess","f":"MC","qt":"bonus","n":120,"q":"What is the name of the supercontinent that formed about 600 million years ago, just before Pangaea?","c":{"W":"Pannotia","X":"Ur","Y":"Laurentia","Z":"Columbia"},"a":{"t":"Pannotia","l":"W"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5113","q":[
-{"i":95859,"s":"ess","f":"MC","qt":"tossup","n":121,"q":"Which of the following parts of the sun has the lowest temperature","c":{"W":"Corona","X":"Chromosphere","Y":"Transition region","Z":"Photosphere"},"a":{"t":"Photosphere","l":"Z"}}]},
+{"i":95859,"s":"ess","f":"MC","qt":"tossup","n":121,"q":"Which of the following parts of the sun has the lowest temperature?","c":{"W":"Corona","X":"Chromosphere","Y":"Transition region","Z":"Photosphere"},"a":{"t":"Photosphere","l":"Z"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5113","q":[
 {"i":95860,"s":"ess","f":"SA","qt":"bonus","n":122,"q":"Throughout the second half of the 20th century, the number of neutrinos measured coming from the Sun was a third of the theoretically predicted number. What behavior of neutrinos revealed that the predicted number of neutrinos were, indeed, being released?","a":{"t":"Neutrino oscillation","ac":["neutrinos change flavor"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5114","q":[
@@ -2104,11 +2104,11 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5158","q":[
 {"i":95929,"s":"math","f":"MC","qt":"bonus","n":57,"q":"How many terms does the 15th integral of sin x dx have?","c":{"W":"1","X":"2","Y":"15","Z":"16"},"a":{"t":"16","l":"Z"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5159","q":[
-{"i":95930,"s":"math","f":"MC","qt":"tossup","n":58,"q":"What is the y-intercept in the equation y = 4x + 3 -2","c":{"W":"3","X":"1","Y":"-2","Z":"2"},"a":{"t":"1","l":"X"}}]},
+{"i":95930,"s":"math","f":"MC","qt":"tossup","n":58,"q":"What is the y-intercept in the equation y = 4x + 3 -2?","c":{"W":"3","X":"1","Y":"-2","Z":"2"},"a":{"t":"1","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5159","q":[
 {"i":95931,"s":"math","f":"MC","qt":"bonus","n":59,"q":"If 3x - y = 12, what is 8^x / 2^y","c":{"W":"2^12","X":"4^4","Y":"8^3","Z":"Cannot be determined"},"a":{"t":"2^12","l":"W"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5160","q":[
-{"i":95932,"s":"math","f":"SA","qt":"tossup","n":60,"q":"What shape is the graph of y = x^2 + 1","a":{"t":"parabola"}}]},
+{"i":95932,"s":"math","f":"SA","qt":"tossup","n":60,"q":"What shape is the graph of y = x^2 + 1?","a":{"t":"parabola"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5160","q":[
 {"i":95933,"s":"math","f":"SA","qt":"bonus","n":61,"q":"What is the name of the curve that is one possible inverse of a parabola, its shape resembling a heart, and that also appears in the Mandelbrot set?","a":{"t":"cardioid"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5161","q":[
@@ -2148,7 +2148,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5169","q":[
 {"i":95947,"s":"math","f":"SA","qt":"bonus","n":79,"q":"What is the smallest positive integer with 5 distinct prime factors?","a":{"t":"2310"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5170","q":[
-{"i":95948,"s":"math","f":"MC","qt":"tossup","n":80,"q":"What is the geometric mean of the roots of the polynomial 2x^3 − 2x^2 − 228x − 432","c":{"W":"4","X":"6","Y":"8","Z":"10"},"a":{"t":"6","l":"X"}}]},
+{"i":95948,"s":"math","f":"MC","qt":"tossup","n":80,"q":"What is the geometric mean of the roots of the polynomial 2x^3 − 2x^2 − 228x − 432?","c":{"W":"4","X":"6","Y":"8","Z":"10"},"a":{"t":"6","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5170","q":[
 {"i":95949,"s":"math","f":"SA","qt":"bonus","n":81,"q":"The first term of an arithmetic sequence is x, and the xth term is x^2, for x not equal to 1. If the common difference is equal to 7, what is the 12th term of the sequence?","a":{"t":"84"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5171","q":[

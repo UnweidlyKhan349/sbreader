@@ -198,12 +198,50 @@
     }
     return out;
   }
+  // Chemical formulas are stored the way players type them ("CO2",
+  // "C3H7NO2", "Ca(OH)2") and shown with their counts as subscripts. A run
+  // counts as a formula only when every symbol in it is an element, it has
+  // a count, no count is 1 or starts with 0, and it isn't one of the
+  // look-alikes the bank uses for other things (SN2 reactions, vitamin B2, P700,
+  // histone H3, SH2 domains, K2V star classes, ...). A lone element with a
+  // count ("C14", "Th1", "U235") is left alone unless it's a common
+  // molecule (O2, Cl2, S8, C60). A run right before a sign is a charge
+  // when it's one element or ends in two digits ("Na2+", "Al3+",
+  // "SO42-"), so it's left as typed; "NH4+" and "H3O+" still get their
+  // subscripts. A run written with its charge as a superscript ("H3^+",
+  // "N5^(+)") is an ion, so a lone element gets its subscript there too.
+  // A coefficient in front stays full size ("2H2O", "5H2O").
+  // Checked against every matching run in the bank.
+  const ELEMENTS = new Set(('H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr ' +
+    'Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os ' +
+    'Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr').split(' '));
+  const CHEM_LONE_OK = new Set(['H2', 'O2', 'N2', 'F2', 'Cl2', 'Br2', 'I2', 'O3', 'S8', 'P4', 'C60', 'Cl3', 'I3', 'C2', 'Li2', 'Na2', 'Be2', 'He2', 'Ne2', 'Hg2']);
+  const CHEM_NOT = new Set(['SN2', 'SH2', 'H2B', 'K2V', 'COP2', 'PS2', 'SP2', 'SP3', 'HSP70', 'HSP90', 'KIN10', 'FBP7', 'POP3', 'SU2', 'H3K27', 'BV480', 'COV2', 'HHV3', 'IC50', 'P680', 'P700']);
+  const CHEM_RUN_RE = /(?<![A-Za-z_^.\-]|\d\.)((?:[A-Z][a-z]?\d*|\((?:[A-Z][a-z]?\d*)+\)\d*)+)(?![A-Za-z0-9]|\.\d)(?=([+\-−–](?![A-Za-z0-9]))?)/g;
+  const ION_SUP_RE = /^<sup>\d*[+\-−–]<\/sup>/;
+  function isFormula(run, charge, ion) {
+    if (!/\d/.test(run) || CHEM_NOT.has(run)) return false;
+    const els = run.match(/[A-Z][a-z]?/g);
+    if (!els.every((e) => ELEMENTS.has(e))) return false;
+    const counts = run.match(/\d+/g);
+    if (counts.some((n) => n === '1' || n[0] === '0')) return false;
+    if (els.every((e) => e === els[0]) && els.length > 1) return false;
+    const lone = els.length === 1 && !run.includes('(');
+    if (charge && (lone || /\d\d$/.test(run))) return false;
+    return lone ? ion || CHEM_LONE_OK.has(run) : true;
+  }
+  function subscriptFormulas(html) {
+    return html.replace(CHEM_RUN_RE, (m, run, charge, at, str) =>
+      (isFormula(run, charge, ION_SUP_RE.test(str.slice(at + m.length)))
+        ? run.replace(/([A-Za-z)])(\d+)/g, '$1<sub>$2</sub>') : m));
+  }
+  SBData.subscriptFormulas = subscriptFormulas;
   function renderMathHTML(s) {
     if (!s) return '';
     let out = renderParenGroups(escapeHtml(s));
     out = out.replace(MATH_SUP_BARE_RE, '<sup>$1</sup>');
     out = out.replace(MATH_SUB_BARE_RE, '<sub>$1</sub>');
-    return out;
+    return subscriptFormulas(out);
   }
   SBData.renderMathHTML = renderMathHTML;
 
@@ -349,7 +387,7 @@
   // "Answer: ..." with its alternates, the reject list and the packet link.
   // `answer` defaults to the question's own; multiplayer clients pass the
   // reveal data instead, since their question copy has no answer.
-  // answer: { text, letter, accept, reject }; opts: { source }
+  // answer: { text, letter, accept, reject, sourceUrl }; opts: { source }
   function answerBlock(q, answer, opts) {
     answer = answer || { text: answerDisplayText(q), letter: q.answer.letter, accept: q.answer.accept, reject: q.answer.reject };
     const wrap = document.createElement('div');
@@ -363,11 +401,12 @@
       rej.innerHTML = 'Do not accept: ' + renderMathHTML(answer.reject.join('; '));
       wrap.appendChild(rej);
     }
-    if (opts && opts.source && /^https?:\/\//i.test(q.sourceUrl || '')) {
+    const srcUrl = answer.sourceUrl || q.sourceUrl;
+    if (opts && opts.source && isPacketUrl(srcUrl)) {
       const src = document.createElement('div');
       src.className = 'src';
       const a = document.createElement('a');
-      a.href = q.sourceUrl;
+      a.href = srcUrl;
       a.target = '_blank';
       a.rel = 'noopener';
       a.textContent = 'Source';
@@ -839,6 +878,19 @@
   SBData.sourceLabelFor = function (q) {
     const roundPart = SBData.roundLabelFor(q);
     return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(' · ');
+  };
+  function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
+  // The source line under a revealed answer in solo and multiplayer: the
+  // label, plus a link to the original packet when there is one. `url`
+  // defaults to the question's own (multiplayer clients pass the reveal's,
+  // since their question copy leaves it out until the answer is shown).
+  SBData.sourceLineHTML = function (q, url) {
+    url = url === undefined ? q.sourceUrl : url;
+    let html = escapeHtml(SBData.sourceLabelFor(q));
+    if (isPacketUrl(url)) {
+      html += ` · <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Source</a>`;
+    }
+    return html;
   };
 
   function shuffle(arr) {

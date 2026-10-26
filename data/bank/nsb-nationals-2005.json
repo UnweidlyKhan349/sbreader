@@ -22,7 +22,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3556","q":[
 {"i":89035,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following would give the best indication of how a rock was formed:","c":{"W":"structure and color","X":"mineralogy and texture","Y":"structure and weight","Z":"shape and size"},"a":{"t":"mineralogy and texture","l":"X"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3556","q":[
-{"i":89036,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"During which equinoxes are day and night of equal length around the world:","a":{"t":"AUTUMNAL AND VERNAL EQUINOXES","ac":["VERNAL AND AUTUMNAL EQUINOXES","BOTH"]}}]},
+{"i":89036,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"During which equinoxes are day and night of equal length around the world:","a":{"t":"AUTUMNAL AND VERNAL EQUINOXES","ac":["VERNAL AND AUTUMNAL EQUINOXES"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3557","q":[
 {"i":89037,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Water covers what percent of the earth's surface?","c":{"W":"25%","X":"55%","Y":"40%","Z":"70%"},"a":{"t":"70%","l":"Z"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3557","q":[
@@ -78,7 +78,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3570","q":[
 {"i":89063,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"The Persied’s Meteor Showers are viewed in the State of Maine during what month?","a":{"t":"AUGUST"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3571","q":[
-{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2pi","Y":"4pi","Z":"1/2 π"},"a":{"t":"4pi","l":"Y"}}]},
+{"i":89064,"s":"math","f":"MC","qt":"tossup","n":21,"q":"The surface of a sphere subtends a solid angle of what amount at its center:","c":{"W":"π","X":"2π","Y":"4π","Z":"1/2 π"},"a":{"t":"4π","l":"Y"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3571","q":[
 {"i":89065,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the total angular distance in degrees over a sphere?","a":{"t":"360 DEGREES"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3572","q":[
@@ -124,7 +124,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3582","q":[
 {"i":89086,"s":"chem","f":"MC","qt":"tossup","n":7,"q":"Which of the following correctly describes STP:","c":{"W":"4° C at 1 Atmosphere","X":"0° C at 0 Atmosphere","Y":"23° C at 1 Atmosphere","Z":"0° C at 1 Atmosphere"},"a":{"t":"0° C at 1 Atmosphere","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3582","q":[
-{"i":89087,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET (need not be in order)"}}]},
+{"i":89087,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3583","q":[
 {"i":89088,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"A typical CD-ROM can hold a maximum of about how much data?","c":{"W":"650 MB","X":"1.5 GB","Y":"2.5 GB","Z":"15 GB"},"a":{"t":"650 MB","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3583","q":[
@@ -284,7 +284,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3623","q":[
 {"i":89166,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Who determined that the square of a planet’s period is proportional to the cube of its average distance from the sun?","a":{"t":"KEPLER"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3624","q":[
-{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm3?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
+{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm^3?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3624","q":[
 {"i":89168,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What gas was discovered by Daniel Rutherford in 1772 by placing a mouse inside a bell jar, removing all the oxygen in the jar by burning a substance in it, and demonstrating the asphyxiation of the mouse:","a":{"t":"NITROGEN","ac":["N2"]}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3625","q":[
@@ -540,7 +540,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3687","q":[
 {"i":89294,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"Which moon is the only other body in our solar system, besides the Earth, that has an atmosphere of mostly nitrogen?","a":{"t":"TITAN"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3688","q":[
-{"i":89295,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the formula for the volume of a sphere of radius R:","a":{"t":"(4/3)πR^3","ac":["4/3 pi R^3"]}}]},
+{"i":89295,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the formula for the volume of a sphere of radius R:","a":{"t":"(4/3)πR^3","ac":["4/3 π R^3"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3688","q":[
 {"i":89296,"s":"math","f":"MC","qt":"bonus","n":13,"q":"The Babylonian number system is base 60, which makes it:","c":{"W":"vigesimal","X":"quinary","Y":"binary","Z":"sexagesimal"},"a":{"t":"sexagesimal","l":"Z"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3689","q":[
@@ -746,7 +746,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3740","q":[
 {"i":89397,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"A mixture of turpentine, ether, camphor gum, and powdered emory, was historically used for which of the following:","c":{"W":"sealing mirrored surfaces","X":"grinding glass surfaces","Y":"gluing glass plates together","Z":"coating lenses for chromatic aberration"},"a":{"t":"grinding glass surfaces","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3740","q":[
-{"i":89398,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION (must be in correct order)"}}]},
+{"i":89398,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3741","q":[
 {"i":89399,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT true about JAVA:","c":{"W":"it provides support for networking.","X":"it is an ISO standard language","Y":"it is an object oriented language","Z":"it is a dynamic language."},"a":{"t":"it is an ISO standard language","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3741","q":[
@@ -958,7 +958,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3394","q":[
 {"i":89504,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"Calculate the number of calories needed to raise the temperature of 20 grams of water from 20° C to 30° C:","a":{"t":"200 CALORIES"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3395","q":[
-{"i":89505,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"When high speed electrons or protons from the solar wind collide with gases in the Earth’s upper atmosphere causing them to fluoresce, this results in what phenomena?","a":{"t":"AURORA","ac":["NORTHERN","SOUTHERN LIGHTS","AURORA AUSTRALIS","AURORA BOREALIS"]}}]},
+{"i":89505,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"When high speed electrons or protons from the solar wind collide with gases in the Earth’s upper atmosphere causing them to fluoresce, this results in what phenomena?","a":{"t":"AURORA","ac":["NORTHERN LIGHTS","SOUTHERN LIGHTS","AURORA AUSTRALIS","AURORA BOREALIS"]}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3395","q":[
 {"i":89506,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"What is the astronomical term for the region of ionized hydrogen in interstellar space?","a":{"t":"H II REGION"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3396","q":[
@@ -1076,7 +1076,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3424","q":[
 {"i":89563,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"An element that can exist in several natural forms, such as coal versus diamonds, are typically referred to as:","c":{"W":"morphotropes","X":"heliotropes","Y":"isotopes","Z":"allotropes"},"a":{"t":"allotropes","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3424","q":[
-{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp2 orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
+{"i":89564,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What is the characteristic geometrical arrangement in a molecule that has a hybrid orbital set of three identical sp^2 orbitals?","a":{"t":"TRIGONAL PLANAR"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3425","q":[
 {"i":89565,"s":"bio","f":"MC","qt":"tossup","n":25,"q":"PCR does NOT use which of the following:","c":{"W":"heat to separate strands","X":"primers","Y":"DNA polymerase","Z":"reverse transcriptase"},"a":{"t":"reverse transcriptase","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3425","q":[
@@ -1346,7 +1346,7 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3491","q":[
 {"i":89698,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following is NOT true of ROM:","c":{"W":"contains vital permanently stored information","X":"is non-volatile","Y":"it is sometimes referred to as main memory","Z":"with few exceptions, if an error occurs on the chip, it must be replaced"},"a":{"t":"it is sometimes referred to as main memory","l":"Y"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3492","q":[
-{"i":89699,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"Werner Heisenberg found that when the uncertainties in the determinations of position and momentum of a single particle are multiplied together, the product is approximately greater than or equal to:","c":{"W":"the speed of light","X":"the energy of a photon","Y":"Planck’s constant","Z":"Avagadro’s number"},"a":{"t":"Planck’s constant","l":"Y"}}]},
+{"i":89699,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"Werner Heisenberg found that when the uncertainties in the determinations of position and momentum of a single particle are multiplied together, the product is approximately greater than or equal to:","c":{"W":"the speed of light","X":"the energy of a photon","Y":"Planck’s constant","Z":"Avogadro’s number"},"a":{"t":"Planck’s constant","l":"Y"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3492","q":[
 {"i":89700,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"At 10 cents per kilowatt hour, how much does it cost to run an 1800 watt hair dryer for 2 hours?","a":{"t":"36 CENTS"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3493","q":[

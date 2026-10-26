@@ -9,11 +9,11 @@
 {"rl":"DAST Round 3","r":3,"q":[
 {"i":39550,"s":"energy","f":"SA","qt":"bonus","n":18,"q":"Scientists at Sandia National Labs are working toward getting certain solar cells to commercialization. These solar cells have a crystal structure similar to bridgmanite and iopartite, which both follow the general chemical formula ABX3. What class of materials is named after the mineral calcium titanium oxide?","a":{"t":"PEROVSKITE"}}]},
 {"rl":"DAST Round 5","r":5,"q":[
-{"i":39632,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Give the expression for the indefinite integral of 2x times the sine of open parenthesis x squared close parenthesis times the cosine of open parenthesis x squared close parenthesis dx.","a":{"t":"(1/2)sin^2(x^2) + C"}}]},
+{"i":39632,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Give the expression for the indefinite integral of 2x times the sine of (x squared) times the cosine of (x squared) dx.","a":{"t":"(1/2)sin^2(x^2) + C"}}]},
 {"rl":"DAST Round 7","r":7,"q":[
 {"i":39710,"s":"math","f":"SA","qt":"bonus","n":6,"q":"A rectangle ABCD with AB and CD equal to 3 and BC and AD equal to 2, has point E on AB that is one unit away from point A, point F on AB that is one unit away from point B, and point G on AD that is one unit away from point A. What is the circumradius of the triangle EFG?","a":{"t":"√10/2"}}]},
 {"rl":"DAST Round 8","r":8,"q":[
-{"i":39752,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the indefinite integral of sine of x times the square root of open parentheses 1 plus tangent of x squared close parentheses with respect to x?","a":{"t":"-ln(|cos(x)|) + C"}},
+{"i":39752,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the indefinite integral of sine of x times the square root of (1 plus tangent of x squared) with respect to x?","a":{"t":"-ln(|cos(x)|) + C"}},
 {"i":39761,"s":"math","f":"SA","qt":"tossup","n":9,"q":"If f of x, y equals x squared times y, what is the partial derivative with respect to x of the partial derivative with respect to y of f plus the partial derivative with respect to y of the partial derivative with respect to x of f?","a":{"t":"4x"}}]},
 {"rl":"DAST Round 9","r":9,"q":[
 {"i":39803,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Line l can be parameterized as x equals 2 t, y equals 3 t plus 2, and z equals –5 t plus 8. In simplest radical form, what is the distance between the points on the line where t equals 3 and where t equals 5?","a":{"t":"2√38"}},
