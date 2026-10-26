@@ -270,7 +270,7 @@
 {"i":49039,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"Which of the following is a serial port on a PC:","a":{"t":"COM 2","l":"W"},"c":{"W":"COM 2","X":"LPT 1","Y":"CON","Z":"USB"}},
 {"i":49040,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"What is the chemical formula for Iron (II) carbonate?","a":{"t":"FeCO3"}},
 {"i":49041,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Calculate the equivalent weight in grams of H3PO4, whose molar mass is 98, assuming all hydrogens react:","a":{"t":"33","ac":["32 - 33 GRAMS"]}},
-{"i":49042,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"What is the most common term for the measure of opposition of a circuit to a variable electrical current?","a":{"t":"IMPEDENCE"}},
+{"i":49042,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"What is the most common term for the measure of opposition of a circuit to a variable electrical current?","a":{"t":"IMPEDANCE"}},
 {"i":49043,"s":"phys","f":"MC","qt":"bonus","n":10,"q":"William Bragg explained that “when rays struck atoms in the rarefied gas they caused the atoms to emit…”","a":{"t":"high speed electrons","l":"Z"},"c":{"W":"light","X":"x rays","Y":"beta positrons","Z":"high speed electrons"}},
 {"i":49044,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What is the most common name for the anaerobic degradation of glucose to lactic acid?","a":{"t":"GLYCOLYSIS"}},
 {"i":49045,"s":"bio","f":"MC","qt":"bonus","n":11,"q":"Which of the following scientists was responsible for helping to dispel the theory of spontaneous generation:","a":{"t":"Spallanzani","l":"W"},"c":{"W":"Spallanzani","X":"Koch","Y":"Darwin","Z":"Hooke"}},

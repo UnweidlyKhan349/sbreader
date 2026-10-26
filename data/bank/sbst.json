@@ -700,7 +700,7 @@
 {"rl":"SBST Round 3","r":3,"q":[
 {"i":69592,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the x - intercept of the line that is perpendicular to the line with equation 7 x + 11 y = 20 and passes through the point (3, 2)?","a":{"t":"19/11","ac":["19/11, 0"]}}]},
 {"rl":"SBST Round 6","r":6,"q":[
-{"i":69601,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"A 10 - kilogram block is resting on an inclined plane which makes an angle of 45 degrees with respect to the horizontal. In newtons, what is the maximum static friction force that the plane exerts on the block.","a":{"t":"49√2","ac":["49 TIMES THE SQUARE ROOT OF 2"]}},
+{"i":69601,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"A 10 - kilogram block is resting on an inclined plane which makes an angle of 45 degrees with respect to the horizontal. In newtons, what is the maximum static friction force that the plane exerts on the block?","a":{"t":"49√2","ac":["49 TIMES THE SQUARE ROOT OF 2"]}},
 {"i":69604,"s":"chem","f":"MC","qt":"tossup","n":6,"q":"A small sample of phenol is dissolved in a 1 - molar solution of sodium hydroxide. Which of the following is closest to the percent of phenol molecules that are deprotonated after the reaction is allowed to reach equilibrium?","a":{"t":"100","l":"Z"},"c":{"W":"0","X":"25","Y":"75","Z":"100"}},
 {"i":69611,"s":"bio","f":"SA","qt":"tossup","n":16,"q":"Alpha - melanocyte stimulating hormone is released from which endocrine gland of the human body?","a":{"t":"ANTERIOR PITUITARY","ac":["PITUITARY"]}}]}
 ]
