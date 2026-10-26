@@ -452,7 +452,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6613","q":[
 {"i":93255,"s":"math","f":"SA","qt":"bonus","n":55,"q":"Which invariant was used to show that there exist two polyhedra with the same volume, such that it was not possible to dissect one into finitely many pieces and rearrange the pieces into the other?","a":{"t":"Dehn invariant"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6640","q":[
-{"i":93256,"s":"math","f":"SA","qt":"bonus","n":56,"q":"Simplify the following, giving your answer in simplest radical form: the ninth root of x to the sixth power","a":{"t":"CUBE ROOT OF x^2","ac":["∛(x^2)","x^(2/3)"]}}]},
+{"i":93256,"s":"math","f":"SA","qt":"bonus","n":56,"q":"Simplify the following, giving your answer in simplest radical form: the ninth root of x to the sixth power","a":{"t":"∛(x^2)","ac":["x^(2/3)","CUBE ROOT OF x^2"]}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6641","q":[
 {"i":96316,"s":"math","f":"SA","qt":"bonus","n":57,"q":"Solve the following equation for all real values of x: x^2 - 2x - 8 = 0","a":{"t":"4 Or -2"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6643","q":[
@@ -1102,7 +1102,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6881","q":[
 {"i":93566,"s":"phys","f":"MC","qt":"tossup","n":293,"q":"If a constant force F is applied over a displacement x with an angle between F and x of a, what is the work done by the force?","c":{"W":"F/x","X":"F*x","Y":"F*x*cos (a)","Z":"F*x*sin (a)"},"a":{"t":"F*x*cos (a)","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6881","q":[
-{"i":93567,"s":"phys","f":"SA","qt":"bonus","n":294,"q":"Suppose that a 2-kg object moves along the x-axis such that its velocity at the origin is 8 meters per second in the positive direction. If a net force is applied to an object such that F (x) = - 3x^2 Newtons per meter squared, at what position will the object first come to rest?","a":{"t":"x = 4 METERS","ac":["4 METERS","4"]}}]},
+{"i":93567,"s":"phys","f":"SA","qt":"bonus","n":294,"q":"Suppose that a 2-kg object moves along the x-axis such that its velocity at the origin is 8 meters per second in the positive direction. If a net force is applied to an object such that F (x) = -3x^2 Newtons per meter squared, at what position will the object first come to rest?","a":{"t":"x = 4 METERS","ac":["4 METERS","4"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6882","q":[
 {"i":93568,"s":"phys","f":"MC","qt":"tossup","n":295,"q":"If a conducting slab is carefully placed between the plates of a capacitor so that the slab does not touch either plate","c":{"W":"the capacitance increases","X":"the capacitance decreases","Y":"the capacitance does not change","Z":"it’s impossible to know without knowing the dimensions of the system"},"a":{"t":"the capacitance increases","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6882","q":[

@@ -452,7 +452,7 @@
 {"rl":"Round 7","r":7,"u":"https://speriphery.com/query","q":[
 {"i":85438,"s":"bio","f":"SA","qt":"bonus","n":null,"q":"In methanogens, what is the final electron acceptor in the electron transport chain?","a":{"t":"CARBON DIOXIDE","ac":["CO2"]}},
 {"i":85439,"s":"bio","f":"MC","qt":"bonus","n":null,"q":"Which of the following plants is an epiphyte?","a":{"t":"Vanilla","l":"Y"},"c":{"W":"Dodder","X":"Indian pipe","Y":"Vanilla","Z":"Mistletoe"}},
-{"i":85440,"s":"bio","f":"SA","qt":"tossup","n":null,"q":"The two layers of a sponge are seperated by what jelly-like layer of primitive connective tissue?","a":{"t":"MESOHYL"}}]},
+{"i":85440,"s":"bio","f":"SA","qt":"tossup","n":null,"q":"The two layers of a sponge are separated by what jelly-like layer of primitive connective tissue?","a":{"t":"MESOHYL"}}]},
 {"rl":"Round 8","r":8,"u":"https://speriphery.com/query","q":[
 {"i":85441,"s":"bio","f":"MC","qt":"bonus","n":null,"q":"Allen crosses a red plant with a white plant and finds that all the F1 offspring are red plants. He then self-crosses the F1 generation and finds a ratio of 9 red to 3 blue to 4 white. What type of epistasis is being displayed?","a":{"t":"Recessive","l":"X"},"c":{"W":"Dominant","X":"Recessive","Y":"Duplicate Dominant","Z":"Duplicate Recessive"}}]},
 {"rl":"Round 9","r":9,"u":"https://speriphery.com/query","q":[

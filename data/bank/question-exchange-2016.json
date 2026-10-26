@@ -64,7 +64,7 @@
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4593","q":[
 {"i":95052,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"Name all of the following which are advantages of HVDC transmission systems over HVAC systems: I) They are easily converted between voltages. II) Less conductor material is required for the same distance and capacity. III) They can join unsynchronized AC power grids. IV) They have less loss than AC transmissions.","a":{"t":"II, III, and IV","ac":["all but I"]}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/tossup/4594","q":[
-{"i":96110,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Identify by name or number all of the following three compounds that are common reducing agents 1) Lithium Aluminum Hydride 2)Ozone 3)Sodium Borohydride","a":{"t":"1 and 3"}}]},
+{"i":96110,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"Identify by name or number all of the following three compounds that are common reducing agents 1) Lithium Aluminum Hydride 2) Ozone 3) Sodium Borohydride","a":{"t":"1 and 3"}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/bonus/4594","q":[
 {"i":95053,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Between the endo and exo product, which would you generally expect to occur in higher concentration in the products of a Diels Alder reaction?","a":{"t":"Endo"}}]},
 {"rl":"Aug 11 · Clements","r":null,"u":"https://scibowldb.com/tossup/4595","q":[
@@ -348,7 +348,7 @@
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4670","q":[
 {"i":95181,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"Name the scientist who came up with the concept of orbital hybridization?","a":{"t":"LINUS PAULING"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4670","q":[
-{"i":95182,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"By number, list which ones of the following are strong acids: 1) HF, 2) HCl, 3)H2O, 4)HCN, 5)HClO3","a":{"t":"2 AND 5","ac":["HCl AND HClO3"]}}]},
+{"i":95182,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"By number, list which ones of the following are strong acids: 1) HF, 2) HCl, 3) H2O, 4) HCN, 5) HClO3","a":{"t":"2 AND 5","ac":["HCl AND HClO3"]}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4671","q":[
 {"i":96123,"s":"math","f":"MC","qt":"tossup","n":11,"q":"Which of the following numbers is a semiprime?","c":{"W":"3","X":"5","Y":"8","Z":"10"},"a":{"t":"10","l":"Z"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4671","q":[
@@ -512,7 +512,7 @@
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4716","q":[
 {"i":95254,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"Identify the quality of crystals that classify them as euhedral or anhedral","c":{"W":"Face Structure","X":"Chemical Composition","Y":"Cleavage","Z":"Melting Temperature"},"a":{"t":"Face Structure","l":"W"}}]},
 {"rl":"Aug 25 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4717","q":[
-{"i":95255,"s":"energy","f":"SA","qt":"bonus","n":10,"q":"Order the following steps of coal formation chronologically: 1)peat 2)lignite 3)bituminous 4)anthracite","a":{"t":"1, 2, 3, 4"}}]},
+{"i":95255,"s":"energy","f":"SA","qt":"bonus","n":10,"q":"Order the following steps of coal formation chronologically: 1) peat 2) lignite 3) bituminous 4) anthracite","a":{"t":"1, 2, 3, 4"}}]},
 {"rl":"Jul 14 · Blair","r":null,"u":"https://scibowldb.com/tossup/4718","q":[
 {"i":96132,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Ants belong to which insect order?","c":{"W":"Blattodea","X":"Isoptera","Y":"Diptera","Z":"Hymenoptera"},"a":{"t":"Hymenoptera","l":"Z"}}]},
 {"rl":"Jul 14 · Blair","r":null,"u":"https://scibowldb.com/bonus/4718","q":[
@@ -1814,7 +1814,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5079","q":[
 {"i":95797,"s":"ess","f":"MC","qt":"tossup","n":56,"q":"What is the name for the apparent line dividing night and day?","c":{"W":"Seperator","X":"Day-Night Meridian","Y":"Terminator","Z":"Prime Meridian"},"a":{"t":"Terminator","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5079","q":[
-{"i":95798,"s":"ess","f":"SA","qt":"bonus","n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it recieves from the sun?","a":{"t":"Uranus"}}]},
+{"i":95798,"s":"ess","f":"SA","qt":"bonus","n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it receives from the sun?","a":{"t":"Uranus"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5080","q":[
 {"i":95799,"s":"ess","f":"MC","qt":"tossup","n":58,"q":"What is defined to be the distance from the Sun, to a body whose stellar parallax is one arcsecond?","c":{"W":"astronomical unit","X":"Schwarzschild radius","Y":"parsec","Z":"light-second"},"a":{"t":"parsec","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5080","q":[

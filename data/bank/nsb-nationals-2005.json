@@ -284,7 +284,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3623","q":[
 {"i":89166,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Who determined that the square of a planet’s period is proportional to the cube of its average distance from the sun?","a":{"t":"KEPLER"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3624","q":[
-{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm3?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
+{"i":89167,"s":"chem","f":"MC","qt":"tossup","n":24,"q":"What is the pH of a solution with a hydronium ion concentration of 1 × 10^-8 moles/dm^3?","c":{"W":"7","X":"6","Y":"8","Z":"7.5"},"a":{"t":"8","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3624","q":[
 {"i":89168,"s":"chem","f":"SA","qt":"bonus","n":24,"q":"What gas was discovered by Daniel Rutherford in 1772 by placing a mouse inside a bell jar, removing all the oxygen in the jar by burning a substance in it, and demonstrating the asphyxiation of the mouse:","a":{"t":"NITROGEN","ac":["N2"]}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3625","q":[
