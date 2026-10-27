@@ -399,7 +399,7 @@
 {"i":19807,"s":"energy","f":"SA","qt":"bonus","n":21,"q":"What is the only data structure in the programming language LISP?","a":{"t":"A LIST"}},
 {"i":19808,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"The elevations on the surface of the tongue are known as","a":{"t":"PAPILLAE"}},
 {"i":19809,"s":"bio","f":"MC","qt":"bonus","n":22,"q":"All the petals of a flower form the","a":{"t":"corolla.","l":"W"},"c":{"W":"corolla.","X":"carpel.","Y":"calyx.","Z":"stamen."}},
-{"i":19810,"s":"math","f":"SA","qt":"tossup","n":23,"q":"In radians, what is the period of the function t = cos(4s)?","a":{"t":"PI/2","ac":["1.57"]}},
+{"i":19810,"s":"math","f":"SA","qt":"tossup","n":23,"q":"In radians, what is the period of the function t = cos(4s)?","a":{"t":"π/2","ac":["1.57","PI/2"]}},
 {"i":19811,"s":"math","f":"MC","qt":"bonus","n":23,"q":"USA Deli sells cheese with 20% water content at $3.50 per pound. Removing moisture from the cheese costs $1.00 per pound of water removed. At what rate per pound would cheese with a 10% water content have to be sold to keep the same profit?","a":{"t":"$4.00","l":"Y"},"c":{"W":"$3.60","X":"$3.80","Y":"$4.00","Z":"$4.20"}},
 {"i":19812,"s":"phys","f":"SA","qt":"tossup","n":24,"q":"The pressure placed on a square with 1/2 meter sides is 1000 Pascals. How much force, in Newtons, is being applied to the square?","a":{"t":"250","ac":["NEWTONS"]}},
 {"i":19813,"s":"phys","f":"MC","qt":"bonus","n":24,"q":"Which of the following is NOT closely associated with a non-magnetic Phase Diagram?","a":{"t":"Curie Point","l":"X"},"c":{"W":"Eutectic Temperature","X":"Curie Point","Y":"Solidus","Z":"Liquidus Curves"}},

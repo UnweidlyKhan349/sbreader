@@ -6,16 +6,18 @@ A static Science Bowl practice site built from real tournament packets: a search
 
 | Subject | Questions |
 |---|---|
-| Biology | 16,957 |
-| Earth & Space | 16,730 |
-| Physics | 16,775 |
-| Math | 14,449 |
-| Chemistry | 15,363 |
-| Energy | 3,861 |
+| Biology | 16,953 |
+| Earth & Space | 16,729 |
+| Physics | 16,772 |
+| Math | 14,448 |
+| Chemistry | 15,364 |
+| Energy | 3,851 |
 
 > **Visual bonuses are implemented, and every scrape must collect them.** A question that comes with a figure (a visual bonus, or the occasional visual tossup) is stored with its image and shown in the catalog, solo and multiplayer modes, with its own Visual filter. When packets are scraped, their visual questions are scraped too, figure and all, from the packet itself or from the event's separate visual-bonus deck. They are never skipped as "visual"; one is left out only when its image exists nowhere that can be reached. See [Visual questions](#visual-questions).
 >
 > **Every question from every tournament and packet is included.** Questions with similar wording, or that test the same thing as another question, are allowed and kept, in the same tournament or across tournaments. A question an event prints more than once (in two rounds, twice in one round, or in both its HS and MS divisions) stays every time. The only questions dropped as duplicates are **mass copies**: the word-for-word copies inside a packet that is itself mostly copies of another packet (a packet re-posted under another name, or the same file ingested twice), and the same question parsed twice from one slot. When in doubt, keep. Apart from that, a question is left out only when it can't be used: no answer, text garbled past repair, a figure that exists nowhere, or a fact that is no longer true. See [Inclusion and duplicate policy](#inclusion-and-duplicate-policy).
+>
+> **Every question is stored the way the site shows it.** Pronunciation guides, moderator prompts and writer notes are removed, answer keys hold only the answer (alternates go to the accept and reject lists), spoken math is written in notation, and math uses `^`/`_` markup. The same rules apply to every packet, old or newly scraped. See [Text and notation conventions](#text-and-notation-conventions).
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -30,9 +32,10 @@ This README covers what the site does, how it's built, the data format, and how 
 5. [Data format](#data-format)
 6. [Visual questions](#visual-questions)
 7. [Inclusion and duplicate policy](#inclusion-and-duplicate-policy)
-8. [Known limitations and open items](#known-limitations-and-open-items)
-9. [Deploying](#deploying)
-10. [Local development and tests](#local-development-and-tests)
+8. [Text and notation conventions](#text-and-notation-conventions)
+9. [Known limitations and open items](#known-limitations-and-open-items)
+10. [Deploying](#deploying)
+11. [Local development and tests](#local-development-and-tests)
 
 ---
 
@@ -180,7 +183,7 @@ Connections use Google's public STUN servers, with no TURN relay.
 ## Data format
 
 ### `data/bank/` (the question bank)
-One JSON file per tournament, `data/bank/<slug>.json` (106 files, about 24 MB raw and 7.0 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the bookmarks page loads only the ones it needs.
+One JSON file per tournament, `data/bank/<slug>.json` (108 files, about 24 MB raw and 7.2 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the bookmarks page loads only the ones it needs.
 
 Each file is an array of **packets**. A packet holds the fields its questions share, and the questions themselves under `q`:
 
@@ -195,7 +198,7 @@ Each file is an array of **packets**. A packet holds the fields its questions sh
 
 Packet fields: `rl` (raw round label), `r` (round number, `null` if unlabeled) and `u` (packet URL, left out when there isn't one). A packet is a run of consecutive questions that share all three, so a tournament's questions keep their order. The tournament's name and slug aren't repeated on every question: they come from `meta.json`. Leaving those five repeated fields off each question is what makes the bank about a third smaller than the old single `data/questions.json`. Each line holds one question, so a change to a question shows up as a one-line diff.
 
-`data/bank/index.json` is `{"ids": [[firstId, slug], …]}`: runs of consecutive ids, in id order, that belong to the same tournament (about 390 runs). `SBData.slugForId` finds a question's tournament with a binary search.
+`data/bank/index.json` is `{"ids": [[firstId, slug], …]}`: runs of consecutive ids, in id order, that belong to the same tournament (about 430 runs). `SBData.slugForId` finds a question's tournament with a binary search.
 
 **Editing the bank.** `tools/bank.js` converts between these files and the flat form, one record per question carrying every field (the table below), which is what the old `data/questions.json` held:
 
@@ -223,7 +226,7 @@ A flat record (a question plus its packet's fields and its tournament):
 | `q` | question text |
 | `c` | MC choices `{W, X, Y, Z}` |
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
-| `u` | source packet URL, always `https://` (on 63,043 records) |
+| `u` | source packet URL, always `https://` (on 73,725 records) |
 | `im` | figures for a visual question, in order: `[{f, w, h}]`, `f` a path under `data/img/` (`mit-2025/17415.webp`), `w`/`h` its pixel size. Absent on text-only questions. |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
@@ -233,7 +236,7 @@ A flat record (a question plus its packet's fields and its tournament):
 
 Each tournament also has a `date` (`YYYY-MM-DD`, approximate where the event's day isn't known) used for the catalog's newest-first order; a new tournament needs one.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational, MIT MS Study Guides and MOOSE 2021 (13,805 questions); everything else is `hs` (68,697). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational, LOST 3 MS, MIT MS Study Guides and MOOSE 2021 (14,249 questions); everything else is `hs` (69,868). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
@@ -265,9 +268,42 @@ Some bonuses (and a few tossups) are about a picture: a diagram, graph, microgra
 - **Only mass duplicates are dropped.** A question is removed as a duplicate only when it is word for word the same as another (ignoring case, spacing, punctuation, list markers, pronunciation guides and author tags, but never math signs or numbers) **and** the packet it sits in is mostly copies too: at least half of that packet's questions are word-for-word copies of another packet, which means it is the same packet posted again under another name or ingested twice. The same question parsed twice from one slot, and a damaged copy of a question printed beside its clean original, count as copies too. Every removal is recorded in `meta.json`'s `idAliases`, so bookmarks move to the kept copy.
 - **Otherwise a question is left out only when it can't be used**: no answer in the packet, text garbled past repair even with the page image, a figure that was never published, an answer key that is wrong and can't be worked out, or a fact that is no longer true (e.g. "the largest petroleum producer is Russia"). Wrong keys that can be worked out are corrected instead.
 
-Text is stored as a player reads it: pronunciation guides (`[my-OH-sis]`, `(pron: …)`, `Voigt (voyt)`) and spoken readings of math or formulas (`0.3939... [zero point three nine three nine repeating]`, `(read as: …)`) are removed on every ingest; where a reading was the only copy of the math, the math is written out instead.
-
 In October 2026 the whole bank was re-checked against this rule. The earlier duplicate audit had also removed reworded questions and lone reuses, and some ingests had skipped questions that only loosely resembled one already in the bank. Those were restored (see [docs/data-history.md](docs/data-history.md#inclusion-rule-re-check-october-2026)). On October 25 the rule was loosened again so that repeats inside one event stay too, and the 43 that earlier passes and ingests had dropped were put back (see [Lenient duplicate policy](docs/data-history.md#lenient-duplicate-policy-october-25-2026)).
+
+---
+
+## Text and notation conventions
+
+Questions are read on screen, not heard, so the bank stores each one the way a player should see it. These rules were set by earlier cleanup passes (the history is in [docs/data-history.md](docs/data-history.md)). They apply to every packet, and every new scrape has to follow them too.
+
+**Remove text meant for the moderator or the writer**
+- Pronunciation guides (`[my-OH-sis]`, `(pron: …)`, `Voigt (voyt)`) and spoken readings of math or formulas (`0.3939... [zero point three nine three nine repeating]`, `(read as: …)`) are removed. Where a reading was the only copy of the math, the math is written out instead.
+- Moderator prompts and reading aids go too: the 1991–93 sets' "Is it:" before the choices, spelled-out words and acronyms ("spelled A-B-R-A", "G-I-G-O"), "(short pause)", "Read slowly".
+- So do writer tags and drafting notes (`[JR]`, `name#1234`, "hi please write some phys or chem"), packet section headers glued to stems ("(Mech) – Multiple Choice"), page footers and watermarks, and template slots ("Your bonus question goes here.").
+- Joke rounds (SMH 2025's boss battle, Bay Ultimate's BUMS Special) are left out. Themed rounds (Synergy, Duality, Estimation) and single joke-framed questions inside regular rounds are kept.
+
+**Answer keys hold the answer and nothing else**
+- Inline `(ACCEPT: …)`, `ACCEPT …` and `(DO NOT ACCEPT: …)` notes are moved into the accept (`ac`) and reject (`rj`) lists. Moderator notes such as "(must give units)" or "(order irrelevant)" are dropped. A note that changes grading is kept as grading data: "do not accept" parts go to the reject list, "accept either" parts to the accept list, and "must give both" keys join their parts with AND.
+- On a multi-part key split by `;`, an accept entry may be an alternate for one part (`DIAMONDOIDS` for `1) ADAMANTANES; …`), and the grader matches it to that part. On any other key, every accept entry is graded as a whole answer. An alternate for one item of a list such as `OXYGEN AND WATER` is therefore written out in full (`O2 AND WATER`); a lone `O2` would pass by itself.
+- Accept entries that say nothing specific ("EQUIVALENTS", "WORD FORMS", "or similar", "ANYTHING THAT SOUNDS VAGUELY SIMILAR") are dropped. Entries that describe a range or class ("ANYTHING BETWEEN 90 AND 95", "Anything metallic") stay, for the player who overrides.
+- An identify-all or ranking key is written `1, 3, 2`, not `132`.
+- A multiple-choice answer's text is exactly the keyed choice's text. A question printed as short answer with W–Z choices in its stem is stored as multiple choice (multi-part bonuses with a choice set inside one part stay short answer).
+
+**Write math in notation**
+- Spoken math becomes notation: "8 TIMES THE SQUARE ROOT OF 14" becomes `8√14`, "4PI" becomes `4π`, "left parenthesis x + 1 right parenthesis" becomes `(x + 1)`, `sqrt(…)` becomes `√…`, and `*` or `x` used as a times sign before `10^` becomes `×`. In answer keys, the spoken form stays as an accepted answer. A spoken key whose grouping is ambiguous ("1 + ROOT 2 OVER 2") is left as printed.
+- Exponents and subscripts use `^` and `_` markup, never Unicode super- or subscript characters: `x^2`, `cm^-1`, `^(13)C`, `log_2 x`, `∫_0^1`. A bare exponent ends where its leading digits end (`x^3y`), so a longer exponent needs parentheses (`e^(-2t)`). Chemical formulas are written with plain digits (`H2SO4`, `[Fe(CN)6]^(3-)`), and the site renders the subscripts.
+- Ion charges are superscripts: `Ca^(2+)`, `NO3^-`, `H^+`. So are hybridizations (`sp^3d^2`) and electron configurations (`1s^2 2s^2 2p^6`).
+- A negative number has no space after its sign (`-2`, `–4`). The display joins `X - Y` into `X-Y`, so "is - 2" would show as "is-2".
+- There's no space before `?`, `,` or a closing `:`, and none inside `√3`, `10^-3` or `σ/3`. Compound names split by a spaced dash ("MICHAELIS – MENTEN") are hyphenated. Math-italic letters (𝑥, 𝜋) are plain letters.
+
+**Fix extraction damage, not content**
+- Misspellings, doubled words and split or glued words are corrected (recieve, Heisenburg, Avagadro, "a a result").
+- A formatting pass changes formatting only. A wrong answer key is corrected only when the right answer can be worked out, and every correction is recorded in [Wrong-key corrections](docs/data-history.md#wrong-key-corrections).
+
+**Placement**
+- A tournament's rounds are numbered in order through its phases (round robin, then double elimination or playoffs, then finals), so the round slider reads in order.
+- Questions from subjects outside the five (general science, computer science, special rounds) go to the subject they clearly belong to, otherwise to Energy. A single-subject event (Earth and Space Scrimmage, the National Chemistry Bowl, Lexington Biology Bowl, Trio Online Math Bowl) keeps every question in its subject.
+- Every tournament has a `level` and an approximate `date` in `meta.json` (see [Data format](#datametajson)).
 
 ---
 
@@ -276,7 +312,12 @@ In October 2026 the whole bank was re-checked against this rule. The earlier dup
 - **Lost math notation that can't be recovered.** Most lost superscripts, radicals and fractions were restored from the source packets (font flags, Word run formatting and Word equation objects) or by unambiguous rules (see [Superscript recovery](docs/data-history.md#superscript-recovery-and-split-words) and [Notation pass](docs/data-history.md#notation-pass)). What remains: questions with no source file and no pattern that proves the exponent (a bare `x2` looks the same as a subscript x₂, a formula like H2O, or an ordinary number), trig powers like `sin2 x` (indistinguishable from `sin 2x` given the corpus's spacing), and stacked fractions flattened onto one line in packets that aren't in any archive (e.g. `3 √13 13` for 3√13/13 in some answer choices). The examples this list used to name (NWI 2024's ellipse, MHS Rounds' Laplace transform of t², CSUB's integrals, NSB Regs Set 6's area under y = √x) have been repaired from the packet archive.
 - **Visual questions whose images aren't available**: SBST's (its packets print the question but not the figure, which was shown separately at the event; speriphery's one SBST visual row has a sentence where its image file should be), LOST 2 Round 13's harmonic-oscillator bonus (its deck has no slide for it), 8 visual questions in other scibowl.live packets whose page carries no figure (ESBOT 2's Haber mechanism, dragon cross and radius-of-convergence choices, FE!M 2025's tolmetin synthesis, ICSBT 2025's murex dyes, diffusion model and Mandelbrot set, NSBA1's audio bonus), and ICSBT2 DE4, whose downloads are turned off (NWI2 2025's Drive folder is private, but its packets are on scibowl.live and in the final Drive source). speriphery.com's 133 visual rows were checked: the other 132 are already in the bank with their figure. LOST 3 HS and MS (October 2026) have no figures anywhere reachable: isobowl serves their rounds without images, and no slide deck was posted on isobowl, scibowl.live or the tournament site. 26 of their visual bonuses are left out; 10 whose every part can be answered from the text are kept, with the stem reworded so it no longer points at a picture.
 - **Wrong keys still to review.** Wrong answer keys are corrected when the right answer can be worked out (see [Wrong-key corrections](docs/data-history.md#wrong-key-corrections)). The public packets (all 875 on scibowl.live, oly.mehvix.com's 400 and OSTI's 214 middle-school PDFs) were downloaded again and compared with the bank, and the wrong keys they turned up were corrected or added with the right answer. HSBT 2026's three, held back until its packets were public, are settled (two added with corrected keys; the third repeats a correctly keyed question in the same set). Still open: the one speriphery question the earlier notes mention, which couldn't be identified again, and ICSBT 3's PF5 bond-order question (the PDF confirms the key "axial 3/4, equatorial 1", which is doubtful, so it stays out). In the bank, every MC record whose answer text names a different choice than its letter was read: 33 letters were wrong and corrected, and the remaining disagreements are answer texts that are truncated or abbreviated (the site shows the keyed choice's text). The garbled choices this note used to list (the 2026 Texas Invitational's stacked fractions, a CSBL rate-constant unit, LOST 2's OCR'd math) were rebuilt from the packet pages. 20 groups of identical questions (same text and choices) are keyed differently and haven't all been read. Reworded repeats of a question across events are kept on purpose (see the [duplicate policy](docs/data-history.md#duplicate-policy)), and so is NSB MS Regs Set 16 Round 7, which repeats NSB Regs Set 17 Round 10 slot for slot but is a separately published document (the MS copy carries pronunciation guides).
-- **Doubtful items left as printed**: NSB MS Regs Set 3 Round 12 B4 prints "MgCl" in its list of substances (the key, NaOH, is right), and WSBT Playoff Round 4 B16 asks how an ideal gas's energy density g(E) changes when E doubles, which depends on kT that the question doesn't give (keyed "√2/e^2").
+- **Left for review after the conventions check** (October 27, 2026; see [data-history](docs/data-history.md#conventions-check-october-27-2026)):
+  - **Lone accepts on list keys.** On a key that isn't split by `;`, an accept naming one item of the list is graded as a whole answer, so that item alone passes (`GRAVITY` for the four fundamental interactions, `K^+` for "potassium, nitrate"). A rough scan flags about 200 records. Many are fine (a synonym for the whole answer, `ALL`), and the rest need to be read one by one.
+  - **"Name any N" keys** (`(ACCEPT TWO) CHEMICAL, MECHANICAL, …`, `ANY TWO OF: …`, about 20) list more items than the question asks for, and the grader can't grade "any two of these". They stay as printed.
+  - **Grader gaps in multi-part keys**: parts labelled `I)`, `II)` (HSBT and ICSBT 3 visual bonuses) can't be answered without the labels, and a part keyed as a letter plus its choice text (`3) W ((R)-METHYL 3-HYDROXYBUTANOATE)`) doesn't accept the letter alone. The bank's other keys label parts `1)`, `2)`, which the grader lets you leave off.
+  - **Spoken radicals in multiple-choice choices** (`5 root 5`, `the square root of 3 to the square root of 2`, about 30 choice sets) are left as printed. The radical rule was applied to answer keys, and changing a choice also means changing its key.
+- **Doubtful items left as printed**: NSB MS Regs Set 4 Round 12 B21 (how Down syndrome is identified) accepts "FRAGILE X, MISSING PART OF THE X CHROMOSOME", which looks carried over from another question. NSB MS Regs Set 3 Round 12 B4 prints "MgCl" in its list of substances (the key, NaOH, is right), and WSBT Playoff Round 4 B16 asks how an ideal gas's energy density g(E) changes when E doubles, which depends on kT that the question doesn't give (keyed "√2/e^2").
 - **Cut-off stems**: 92 records whose stem stopped before the question (CCWT's "Given that sin(2x) = 0.2, representing your", GWHS's "One of the questions researchers attempted to", a Random set's "If x and y are complex numbers, then expressing your", many MEHS stems cut after their first sentence) got the rest of the stem from the re-downloaded packets. Any still cut short have no complete copy in the packets that were re-read; they're kept because the answer is intact.
 - **CSUB's combined packets**: the questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.

@@ -842,7 +842,7 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3365","q":[
 {"i":89445,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"As more of the water turns into ice, the temperature of the remaining liquid in a vessel:","c":{"W":"decreases","X":"can not be determined from the available information","Y":"increases","Z":"remains the same"},"a":{"t":"remains the same","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3365","q":[
-{"i":89446,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What were the two most valuable products derived from the tree Castanea americana ?","a":{"t":"CHESTNUTS AND WOOD","ac":["FOOD AND WOOD"]}}]},
+{"i":89446,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What were the two most valuable products derived from the tree Castanea americana?","a":{"t":"CHESTNUTS AND WOOD","ac":["FOOD AND WOOD"]}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3366","q":[
 {"i":89447,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"There are several types of these systems commonly used in intranets designed to prevent unauthorized access by internet users to or from a private network:","a":{"t":"FIREWALL"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3366","q":[
@@ -864,7 +864,7 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3371","q":[
 {"i":89457,"s":"math","f":"MC","qt":"tossup","n":21,"q":"Using an x-y coordinate axis, a parabola is represented by the equation x^2 = 6y. The vertex of this parabola is at what coordinate point:","c":{"W":"(0, 0)","X":"(1, 1)","Y":"(1, 2)","Z":"(2, 2)"},"a":{"t":"(0, 0)","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3371","q":[
-{"i":89458,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the midpoint of the line segment joining points (4, -2) , (-3, 7)?","a":{"t":"(1/2, 5/2)"}}]},
+{"i":89458,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the midpoint of the line segment joining points (4, -2), (-3, 7)?","a":{"t":"(1/2, 5/2)"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3372","q":[
 {"i":89459,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"The term empirical is most accurately described as a conclusion based on:","c":{"W":"intuition","X":"careful theoretical propositions","Y":"extrapolating from the specific to the general","Z":"experimentation and observation"},"a":{"t":"experimentation and observation","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3372","q":[
@@ -1016,7 +1016,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3409","q":[
 {"i":89533,"s":"phys","f":"MC","qt":"tossup","n":9,"q":"If the velocity of a charged particle is doubled while it is moving in a circular orbit in a uniform magnetic field, what will happen to the orbital radius:","c":{"W":"it is halved","X":"it decreases by the square of the velocity","Y":"it is doubled","Z":"it remains the same"},"a":{"t":"it is doubled","l":"Y"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3409","q":[
-{"i":89534,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"What is the wavelength of a wave moving at 100 meters per second if its frequency is 5 Hertz ?","a":{"t":"20 METERS"}}]},
+{"i":89534,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"What is the wavelength of a wave moving at 100 meters per second if its frequency is 5 Hertz?","a":{"t":"20 METERS"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3410","q":[
 {"i":89535,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"On the periodic chart, which of the following types of elements are found in the lowest numbers:","c":{"W":"metals","X":"nonmetals","Y":"metalloids","Z":"halogens"},"a":{"t":"halogens","l":"Z"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3410","q":[

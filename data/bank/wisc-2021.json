@@ -339,7 +339,7 @@
 {"rl":"Round 1","r":1,"u":"https://speriphery.com/query","q":[
 {"i":73692,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following vitamins which are fat-soluble: 1) A 2) D 3) E 4) K","a":{"t":"All"}}]},
 {"rl":"Round 2","r":2,"q":[
-{"i":70081,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"If a ray of light enters air at an angle of 45° to the normal, what is the minimum index of refraction needed for the original medium to reflect the light?","a":{"t":"√2 (ROOT 2)"}},
+{"i":70081,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"If a ray of light enters air at an angle of 45° to the normal, what is the minimum index of refraction needed for the original medium to reflect the light?","a":{"t":"√2"}},
 {"i":70082,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"How many times more light will a 60 centimeter telescope collect compared to a 5 centimeter telescope?","a":{"t":"144"}},
 {"i":70083,"s":"ess","f":"SA","qt":"bonus","n":3,"q":"Order the following three moon phases from first to last in a lunar month: 1) Full moon; 2) Third quarter; 3) Waxing gibbous.","a":{"t":"3, 1, 2 (WAXING GIBBOUS, FULL MOON, THIRD QUARTER)"}},
 {"i":70084,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"How many milliliters of a 2 molar sodium chloride solution are needed to make 500 milliliters of a 0.25 molar sodium chloride solution?","a":{"t":"62.5","l":"X"},"c":{"W":"50","X":"62.5","Y":"75","Z":"87.5"}},

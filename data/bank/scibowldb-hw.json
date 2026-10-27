@@ -218,7 +218,7 @@
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5954","q":[
 {"i":93171,"s":"bio","f":"MC","qt":"bonus","n":45,"q":"PCD, or programmed cell death, is the acronym for what process?","c":{"W":"necrosis","X":"apoptosis","Y":"anatomy","Z":"cell trauma"},"a":{"t":"apoptosis","l":"X"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5955","q":[
-{"i":93172,"s":"bio","f":"MC","qt":"tossup","n":46,"q":"Photosynthesis is the result of which two of these processes ?","c":{"W":"Dark Reactions and the Calvin Cycle","X":"Light Independent reactions and the Calvin Cycle","Y":"Chemiosmosis and Respiration","Z":"Light Reactions and the Calvin Cycle"},"a":{"t":"Light Reactions and the Calvin Cycle","l":"Z"}}]},
+{"i":93172,"s":"bio","f":"MC","qt":"tossup","n":46,"q":"Photosynthesis is the result of which two of these processes?","c":{"W":"Dark Reactions and the Calvin Cycle","X":"Light Independent reactions and the Calvin Cycle","Y":"Chemiosmosis and Respiration","Z":"Light Reactions and the Calvin Cycle"},"a":{"t":"Light Reactions and the Calvin Cycle","l":"Z"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5957","q":[
 {"i":93173,"s":"bio","f":"MC","qt":"tossup","n":47,"q":"What job do kinases carry out?","c":{"W":"dephosphorylation","X":"ubiquination","Y":"phosphorylation","Z":"oxidation/reduction"},"a":{"t":"phosphorylation","l":"Y"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5963","q":[
@@ -2898,7 +2898,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7351","q":[
 {"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7351","q":[
-{"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos²θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
+{"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos^2θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7352","q":[
 {"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10^-10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7352","q":[

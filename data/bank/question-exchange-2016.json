@@ -108,7 +108,7 @@
 {"rl":"Aug 11 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4605","q":[
 {"i":95071,"s":"math","f":"SA","qt":"tossup","n":11,"q":"What is the slope of f(x) =3x^2+18x+4 at x=3?","a":{"t":"36"}}]},
 {"rl":"Aug 11 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4606","q":[
-{"i":96113,"s":"math","f":"SA","qt":"tossup","n":1,"q":"What is the sum from n = 1 to infinity of 1/n ?","a":{"t":"INFINITY","ac":["DIVERGENT","DIVERGES","IT DIVERGES"]}}]},
+{"i":96113,"s":"math","f":"SA","qt":"tossup","n":1,"q":"What is the sum from n = 1 to infinity of 1/n?","a":{"t":"INFINITY","ac":["DIVERGENT","DIVERGES","IT DIVERGES"]}}]},
 {"rl":"Aug 11 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4606","q":[
 {"i":95072,"s":"math","f":"MC","qt":"bonus","n":2,"q":"What is the name of series 1/n from n = 1 to infinity?","c":{"W":"Riemann Series","X":"Pascal Series","Y":"Oscillation Series","Z":"Harmonic Series"},"a":{"t":"Harmonic Series","l":"Z"}}]},
 {"rl":"Aug 11 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4607","q":[
@@ -598,7 +598,7 @@
 {"rl":"Jul 28 · Blair","r":null,"u":"https://scibowldb.com/bonus/4741","q":[
 {"i":95295,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Jim has 5 distinct pairs of socks in his drawer. He picks out three individual socks. What is the probability that he pulls out a matching pair?","a":{"t":"1/3"}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4742","q":[
-{"i":95296,"s":"math","f":"MC","qt":"tossup","n":1,"q":"Which of the following is a correct representation for the second partial of f with respect to x and then y?","c":{"W":"∂²xy/∂f","X":"∂x∂y/∂²f","Y":"∂²f/∂x∂y","Z":"∂²f/∂y∂x"},"a":{"t":"∂²f/∂y∂x","l":"Z"}}]},
+{"i":95296,"s":"math","f":"MC","qt":"tossup","n":1,"q":"Which of the following is a correct representation for the second partial of f with respect to x and then y?","c":{"W":"∂^2xy/∂f","X":"∂x∂y/∂^2f","Y":"∂^2f/∂x∂y","Z":"∂^2f/∂y∂x"},"a":{"t":"∂^2f/∂y∂x","l":"Z"}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4742","q":[
 {"i":95297,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the derivative of (x^2 + 3)(3x^2 + 4x)?","a":{"t":"12x^3 + 12x^2 + 18x + 12","ac":["2x(3x^2 + 4x) + (6x + 4)(x^2 + 3)"]}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4743","q":[
@@ -754,7 +754,7 @@
 {"rl":"Jun 30 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4785","q":[
 {"i":95367,"s":"chem","f":"SA","qt":"tossup","n":6,"q":"A compound with two -OH groups is called a","a":{"t":"Diol"}}]},
 {"rl":"Jun 30 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4785","q":[
-{"i":96140,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"According to valence bond theory, what is the hybridization of the central atom of xenon tetrafluoride?","a":{"t":"sp^3d^2","ac":["sp3d2"]}}]},
+{"i":96140,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"According to valence bond theory, what is the hybridization of the central atom of xenon tetrafluoride?","a":{"t":"sp^3d^2","ac":["sp^3d^2"]}}]},
 {"rl":"Jun 30 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4786","q":[
 {"i":95368,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"A certain stick measures two meters in a frame of reference that is motionless with respect to the stick. What is the length of the stick as measured by an observer in a reference frame moving at six-tenths the speed of light in the direction that the stick points?","c":{"W":"2 meters","X":"1.5 meters","Y":"1.6 meters","Z":"2.5 meters"},"a":{"t":"1.6 meters","l":"Y"}}]},
 {"rl":"Jun 30 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4786","q":[
@@ -846,7 +846,7 @@
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4811","q":[
 {"i":95409,"s":"math","f":"SA","qt":"tossup","n":5,"q":"If x and y are distinct prime integers, the product of x cubed and y squared has how many whole number factors?","a":{"t":"12"}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4811","q":[
-{"i":95410,"s":"math","f":"SA","qt":"bonus","n":6,"q":"If f(x) = 12 - 3x , what is f(2x/5) when x = 1/3, to the nearest tenth?","a":{"t":"11.6"}}]},
+{"i":95410,"s":"math","f":"SA","qt":"bonus","n":6,"q":"If f(x) = 12 - 3x, what is f(2x/5) when x = 1/3, to the nearest tenth?","a":{"t":"11.6"}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4812","q":[
 {"i":95411,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Most stalagmites are composed of what rock?","c":{"W":"Basalt","X":"Sandstone","Y":"Limestone","Z":"Ovaline"},"a":{"t":"Limestone","l":"Y"}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4812","q":[
@@ -1050,7 +1050,7 @@
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4869","q":[
 {"i":96160,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"Using arene substitution patterns, what is another name for 1,4-Dimethylbenzene?","a":{"t":"Para-xylene"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4870","q":[
-{"i":95495,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"A ball of volume 1 cm^3 is fully submerged in a tub of water. Taking the density of water to be 1,000 kg/m³ and g to be 9.8 m/s^2, what is the buoyant force in Newtons?","a":{"t":"0.0098 N","ac":["0.0098","9.8 × 10^-3 N"]}}]},
+{"i":95495,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"A ball of volume 1 cm^3 is fully submerged in a tub of water. Taking the density of water to be 1,000 kg/m^3 and g to be 9.8 m/s^2, what is the buoyant force in Newtons?","a":{"t":"0.0098 N","ac":["0.0098","9.8 × 10^-3 N"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4871","q":[
 {"i":95496,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"The acronym EAST, given to a magnetic fusion energy reactor located in China, stands for what?","c":{"W":"Energy Acquiring Subatomic Torus","X":"East Asian Superconducting Torus","Y":"Electron Accelerating Supersonic Titan","Z":"Experimental Advanced Superconducting Tokamak"},"a":{"t":"Experimental Advanced Superconducting Tokamak","l":"Z"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4871","q":[
@@ -1726,7 +1726,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5054","q":[
 {"i":95770,"s":"ess","f":"MC","qt":"tossup","n":12,"q":"The reason there aren't any active volcanoes in the Himalayan mountain range is because:","c":{"W":"The Indian plate is composed of basaltic igneous rock, which only melts at higher temperatures.","X":"It was formed by localized faults in the Earth's upper crust.","Y":"It was formed by the collision of two continental plates with no significant density differences.","Z":"It is composed of extinct volcanoes."},"a":{"t":"It was formed by the collision of two continental plates with no significant density differences.","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5055","q":[
-{"i":96223,"s":"ess","f":"SA","qt":"tossup","n":13,"q":"Thousands of rivers drain the continental United States. These rivers primarily drain into which three bodies of water?","a":{"t":"GULF OF MEXICO, ATLANTIC OCEAN , PACIFIC OCEAN","ac":["GULF OF ST. LAWRENCE","SEA OF CORTEZ","GULF OF CALIFORNIA"]}}]},
+{"i":96223,"s":"ess","f":"SA","qt":"tossup","n":13,"q":"Thousands of rivers drain the continental United States. These rivers primarily drain into which three bodies of water?","a":{"t":"GULF OF MEXICO, ATLANTIC OCEAN, PACIFIC OCEAN","ac":["GULF OF MEXICO, GULF OF ST. LAWRENCE, PACIFIC OCEAN","GULF OF MEXICO, ATLANTIC OCEAN, SEA OF CORTEZ","GULF OF MEXICO, ATLANTIC OCEAN, GULF OF CALIFORNIA"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5056","q":[
 {"i":95771,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"What is a system or group of parallel mountain ranges together with the intervening plateaus and other features?","a":{"t":"Cordillera"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5057","q":[
@@ -1812,7 +1812,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5078","q":[
 {"i":95796,"s":"ess","f":"MC","qt":"bonus","n":55,"q":"Which planet or planets rotate in retrograde?","c":{"W":"Venus","X":"Uranus","Y":"Venus and Uranus","Z":"Uranus and Jupiter"},"a":{"t":"Venus and Uranus","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5079","q":[
-{"i":95797,"s":"ess","f":"MC","qt":"tossup","n":56,"q":"What is the name for the apparent line dividing night and day?","c":{"W":"Seperator","X":"Day-Night Meridian","Y":"Terminator","Z":"Prime Meridian"},"a":{"t":"Terminator","l":"Y"}}]},
+{"i":95797,"s":"ess","f":"MC","qt":"tossup","n":56,"q":"What is the name for the apparent line dividing night and day?","c":{"W":"Separator","X":"Day-Night Meridian","Y":"Terminator","Z":"Prime Meridian"},"a":{"t":"Terminator","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5079","q":[
 {"i":95798,"s":"ess","f":"SA","qt":"bonus","n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it receives from the sun?","a":{"t":"Uranus"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5080","q":[
@@ -2024,7 +2024,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5136","q":[
 {"i":95893,"s":"math","f":"MC","qt":"tossup","n":17,"q":"If θ is an angle such that sin(θ) < 0 and cos(θ) = 0, where in the coordinate plane is it located?","c":{"W":"Between the 2nd and 3rd quadrants","X":"Between the 3rd and 4th quadrants","Y":"Between the 1st and 4th quadrants","Z":"Between the 1st and 2nd quadrants"},"a":{"t":"Between the 3rd and 4th quadrants","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5136","q":[
-{"i":95894,"s":"math","f":"SA","qt":"bonus","n":18,"q":"What is the remainder of x^10 + x + 1 divided by (x − 1)^2 ?","a":{"t":"11x-8"}}]},
+{"i":95894,"s":"math","f":"SA","qt":"bonus","n":18,"q":"What is the remainder of x^10 + x + 1 divided by (x − 1)^2?","a":{"t":"11x-8"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5137","q":[
 {"i":95895,"s":"math","f":"MC","qt":"tossup","n":19,"q":"Given the equation of a conic section, y^2/16 − x^2/25 = 1, what is the length of the conjugate axis?","c":{"W":"16","X":"8","Y":"10","Z":"25"},"a":{"t":"10","l":"Y"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5137","q":[
@@ -2060,7 +2060,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5145","q":[
 {"i":96251,"s":"math","f":"SA","qt":"bonus","n":35,"q":"What is the name of a line that intersects two or more coplanar lines in different points?","a":{"t":"Transversal"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5146","q":[
-{"i":95909,"s":"math","f":"SA","qt":"bonus","n":36,"q":"Let f(x) = ax^7 + bx^3 + cx - 5 , where a,b, and c are real numbers. What is the value of f(7) if f(-7) = 8?","a":{"t":"-18"}}]},
+{"i":95909,"s":"math","f":"SA","qt":"bonus","n":36,"q":"Let f(x) = ax^7 + bx^3 + cx - 5, where a,b, and c are real numbers. What is the value of f(7) if f(-7) = 8?","a":{"t":"-18"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5148","q":[
 {"i":95910,"s":"math","f":"SA","qt":"tossup","n":37,"q":"Which of the following are true about the roots of the polynomial x^3 − 29x^2 + 229x? I. 0 is a root; II. There must be a real, positive root; III. There must be three real roots","a":{"t":"I ONLY","ac":["I"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5148","q":[

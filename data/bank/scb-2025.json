@@ -365,7 +365,7 @@
 {"i":28265,"s":"bio","f":"SA","qt":"bonus","n":16,"q":"What Eukaryotic supergroup, whose notable members include diatoms, Plasmodium, and amoebas, is named for its three main clades: Stramenopiles, Alveolates, and Rhizarians?","a":{"t":"SAR"}},
 {"i":28266,"s":"chem","f":"MC","qt":"tossup","n":17,"q":"Which of the following terms best describes the relationship between 2 - methylbutane and 3 - methylbutane?","a":{"t":"Same compound","l":"Z"},"c":{"W":"Structural isomers","X":"Enantiomers","Y":"Diastereomers","Z":"Same compound"}},
 {"i":28267,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"What is the enthalpy of sublimation of water to 3 significant figures and in KJ/mol, given that the enthalpy of vaporization for water is 40.7 KJ/mol, and the enthalpy of fusion for water is 6.0 KJ/mol?","a":{"t":"46.7 KJ/mol"}},
-{"i":28268,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"Identify which 2 of the following 4 regions of the electromagnetic spectrum that are commonly used to identify pulsars: 1) Radio 2) Microwave 3) Visible 4) X - Ray","a":{"t":"14"}},
+{"i":28268,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"Identify which 2 of the following 4 regions of the electromagnetic spectrum that are commonly used to identify pulsars: 1) Radio 2) Microwave 3) Visible 4) X - Ray","a":{"t":"1, 4"}},
 {"i":28269,"s":"ess","f":"SA","qt":"bonus","n":18,"q":"Due to gravitational interactions with early planetesimals and asteroids, all the Gas Giants except for what Planet experienced an increase in orbital radius?","a":{"t":"Jupiter"}},
 {"i":28270,"s":"math","f":"SA","qt":"tossup","n":19,"q":"What is the interior angle of a regular polygon with 20 sides?","a":{"t":"162","ac":["9π/10"]}},
 {"i":28271,"s":"math","f":"SA","qt":"bonus","n":19,"q":"What is the sum of the geometric sequence with first term 2 and third term 1?","a":{"t":"4 + 2√2"}},
@@ -493,9 +493,9 @@
 {"i":70805,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"What term refers to a cell-signalling pathway in bacteria in which each individual releases autoinducers in order to help each other gauge density, regulating the formation of biofilms or other symbiotic activities?","a":{"t":"Quorum Sensing"}},
 {"i":70806,"s":"ess","f":"SA","qt":"tossup","n":8,"q":"What is the general term for a ridge-shaped glacial deposit of unconsolidated sediment deposited directly by a glacier?","a":{"t":"Moraine","ac":["End moraine","recessional moraine","lateral moraine","medial moraine","terminal moraine","ground moraine"]}},
 {"i":70809,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"Assuming no air resistance and that g = 10 m/s^2, what is the maximum height reached by an object thrown with a velocity of 10 m/s straight up?","a":{"t":"5 meters"}},
-{"i":70811,"s":"ess","f":"SA","qt":"tossup","n":13,"q":"Rank the following 3 galaxies by increasing mass: 1) Large Magellanic Cloud 2) Andromeda Galaxy 3) Milky Way","a":{"t":"132"}}]},
+{"i":70811,"s":"ess","f":"SA","qt":"tossup","n":13,"q":"Rank the following 3 galaxies by increasing mass: 1) Large Magellanic Cloud 2) Andromeda Galaxy 3) Milky Way","a":{"t":"1, 3, 2"}}]},
 {"rl":"SCB RR3","r":3,"q":[
-{"i":70813,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"Identify all of the following quantities that are conserved in equillibrium: 1) Integral of torque with respect to time 2) Derivative of force with respect to time 3) Integral of force with respect to time","a":{"t":"13"}}]},
+{"i":70813,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"Identify all of the following quantities that are conserved in equilibrium: 1) Integral of torque with respect to time 2) Derivative of force with respect to time 3) Integral of force with respect to time","a":{"t":"1, 3"}}]},
 {"rl":"SCB RR4","r":4,"q":[
 {"i":70814,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"Identify all of the following 3 species which are paramagnetic in its ground state: 1) CO 2) F2 3) He2","a":{"t":"NONE"}},
 {"i":70815,"s":"math","f":"SA","qt":"tossup","n":9,"q":"What is the sum of the z-scores of the list of numbers 1, 2, 3, 6, 7, 8.","a":{"t":"0"}},

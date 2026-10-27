@@ -418,7 +418,7 @@
 {"i":85412,"s":"chem","f":"SA","qt":"tossup","n":null,"q":"In the hyposulfite ion, what is the charge on the sulfur atom?","a":{"t":"2"}},
 {"i":85413,"s":"ess","f":"MC","qt":"tossup","n":null,"q":"What spectral class of stars characteristically has the strongest Balmer lines in its spectral graphs?","a":{"t":"A","l":"W"},"c":{"W":"A","X":"M","Y":"K","Z":"B"}},
 {"i":85414,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"Give the balanced chemical equation for the “thermite” reaction, in which aluminum metal is added to ferric oxide to produce iron metal and aluminum oxide. Answer in the form w + x -> y + z","a":{"t":"Fe2O3 + 2Al -> Al2O3 + 2Fe","ac":["Fe2O3 + 2Al yields Al2O3 + 2Fe"]}},
-{"i":85415,"s":"math","f":"MC","qt":"tossup","n":null,"q":"What is the value of sin(10°)cos(20°)+cos(10°)*sin(20°) ?","a":{"t":"1/2","l":"W"},"c":{"W":"1/2","X":"√3/2","Y":"√2","Z":"1"}},
+{"i":85415,"s":"math","f":"MC","qt":"tossup","n":null,"q":"What is the value of sin(10°)cos(20°)+cos(10°)*sin(20°)?","a":{"t":"1/2","l":"W"},"c":{"W":"1/2","X":"√3/2","Y":"√2","Z":"1"}},
 {"i":85416,"s":"math","f":"SA","qt":"bonus","n":null,"q":"What is the minimum value of 10/(sin(θ)cos(θ))?","a":{"t":"20"}},
 {"i":85417,"s":"bio","f":"SA","qt":"bonus","n":null,"q":"Researchers at the Argonne National Laboratory are using the Advanced Photon Source to help study drugs for the treatment of COVID-19. The COVID-19 disease is caused by the SARS-CoV-2 virus, which contains the PLpro enzyme, which is used to cleave proteins into smaller components. What type of enzyme is the PLpro enzyme?","a":{"t":"PROTEASE"}},
 {"i":85418,"s":"ess","f":"SA","qt":"tossup","n":null,"q":"What is the brightest star in the constellation Bootes?","a":{"t":"ARCTURUS"}}]},
