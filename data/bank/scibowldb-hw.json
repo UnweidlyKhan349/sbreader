@@ -260,7 +260,7 @@
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6395","q":[
 {"i":96289,"s":"ess","f":"MC","qt":"tossup","n":5,"q":"Iceland is least likely to have","c":{"W":"a fissure eruption","X":"a lava plateau","Y":"an explosive eruption","Z":"a shield volcano"},"a":{"t":"an explosive eruption","l":"Y"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6397","q":[
-{"i":93185,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Order the following noble gases in order of highest to lowest abundance in Earth's atmosphere: helium, argon, neon, xenon.","a":{"t":"ARGON, NEON, HELIUM, XENON"}}]},
+{"i":93185,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Order the following noble gases in order of highest to lowest abundance in Earth's atmosphere: helium, argon, neon, xenon.","a":{"t":"ARGON, NEON, HELIUM, XENON","ac":["Ar, Ne, He, Xe"]}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/bonus/6397","q":[
 {"i":96290,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"What type of mass wasting is most common in regions of permafrost?","a":{"t":"Solifluction"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6398","q":[
@@ -786,7 +786,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6800","q":[
 {"i":93413,"s":"phys","f":"SA","qt":"tossup","n":135,"q":"What term refers to a material taking a different path on a stress/strain graph as it compresses than when it decompresses?","a":{"t":"ELASTIC HYSTERESIS","ac":["HYSTERESIS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6800","q":[
-{"i":93414,"s":"phys","f":"SA","qt":"bonus","n":136,"q":"Order the following materials in terms of increasing Young’s modulus: aluminum, iron, lead.","a":{"t":"LEAD, ALUMINUM, IRON"}}]},
+{"i":93414,"s":"phys","f":"SA","qt":"bonus","n":136,"q":"Order the following materials in terms of increasing Young’s modulus: aluminum, iron, lead.","a":{"t":"LEAD, ALUMINUM, IRON","ac":["Pb, Al, Fe"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6801","q":[
 {"i":93415,"s":"phys","f":"MC","qt":"tossup","n":137,"q":"When sound forms a standing wave of compression in a pipe, a closed end always shows","c":{"W":"a displacement node and a pressure node","X":"a displacement node and a pressure antinode","Y":"a displacement antinode and a pressure node","Z":"a displacement antinode and a pressure antinode"},"a":{"t":"a displacement node and a pressure antinode","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6801","q":[
@@ -2316,7 +2316,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7197","q":[
 {"i":94146,"s":"phys","f":"MC","qt":"bonus","n":900,"q":"Which of the following substances has the highest index of refraction?","c":{"W":"ice","X":"table salt","Y":"air","Z":"zircon"},"a":{"t":"zircon","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7198","q":[
-{"i":94147,"s":"phys","f":"SA","qt":"tossup","n":901,"q":"The first gas laser was created using a mixture of what two gases?","a":{"t":"HELIUM AND NEON"}}]},
+{"i":94147,"s":"phys","f":"SA","qt":"tossup","n":901,"q":"The first gas laser was created using a mixture of what two gases?","a":{"t":"HELIUM AND NEON","ac":["He AND Ne"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7198","q":[
 {"i":94148,"s":"phys","f":"MC","qt":"bonus","n":902,"q":"Who created the first working laser?","c":{"W":"Theodore Maiman","X":"John Bardeen","Y":"Max Born","Z":"Otto Stern"},"a":{"t":"Theodore Maiman","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7199","q":[

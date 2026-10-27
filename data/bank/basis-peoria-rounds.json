@@ -354,7 +354,7 @@
 {"i":1455,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the supremum of the following set over the real numbers {2, 4, 6, 8, 9, 11}?","a":{"t":"11"}},
 {"i":1456,"s":"math","f":"MC","qt":"bonus","n":16,"q":"Which of the following sets obeys the axiom of completeness?","a":{"t":"The Real Numbers","l":"X"},"c":{"W":"The Natural Numbers","X":"The Real Numbers","Y":"The Rational Numbers","Z":"The Integers"}},
 {"i":1457,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"What is the name for the type of sand, found in Venezuela and Alberta, containing high concentrations of bitumen?","a":{"t":"TAR SAND"}},
-{"i":1458,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"What two compounds make up gas hydrate?","a":{"t":"METHANE AND WATER"}},
+{"i":1458,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"What two compounds make up gas hydrate?","a":{"t":"METHANE AND WATER","ac":["CH4 AND H2O"]}},
 {"i":1459,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"Glycerol can be reacted with concentrated nitric acid to produce nitroglycerin. What acid is used to catalyze this reaction?","a":{"t":"Sulfuric"}},
 {"i":1460,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"The human skull consists of mostly irregular bones. Which of the following pairs of irregular bones forms the hard palate of the mouth?","a":{"t":"Maxillary and Palatine","l":"X"},"c":{"W":"Ethmoid and Vomer","X":"Maxillary and Palatine","Y":"Zygomatic and Sphenoid","Z":"Mandible and Nasal"}},
 {"i":1461,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"What 3 paired bones fuse during adolescence to form the pelvis?","a":{"t":"Ilium, Ischium, and Pubis"}},

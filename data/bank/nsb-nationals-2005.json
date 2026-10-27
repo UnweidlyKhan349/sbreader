@@ -88,7 +88,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3573","q":[
 {"i":89068,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"In the chemistry lab, for safety reasons, when a concentrated acid is mixed with water:","c":{"W":"the water is always added to the acid","X":"the acid is always added to the water","Y":"these can only be mixed at cold temperatures","Z":"these can never be mixed"},"a":{"t":"the acid is always added to the water","l":"X"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3573","q":[
-{"i":89069,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"What are the two most common end-products of alcoholic fermentation?","a":{"t":"ETHANOL AND CARBON DIOXIDE","ac":["ALCOHOL AND CARBON DIOXIDE","C2H5OH + CO2"]}}]},
+{"i":89069,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"What are the two most common end-products of alcoholic fermentation?","a":{"t":"ETHANOL AND CARBON DIOXIDE","ac":["ALCOHOL AND CARBON DIOXIDE","C2H5OH AND CO2"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3574","q":[
 {"i":89070,"s":"phys","f":"MC","qt":"tossup","n":24,"q":"When a person whirls a rock on the end of a string and maintains it in uniform circular motion, the force exerted on the rock is most accurately referred to as:","c":{"W":"centrifugal","X":"centripetal","Y":"rotational","Z":"center fleeing"},"a":{"t":"centripetal","l":"X"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3574","q":[

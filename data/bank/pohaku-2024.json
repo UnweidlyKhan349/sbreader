@@ -78,7 +78,7 @@
 {"i":46836,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"What is the most common gas in Earth’s atmosphere?","a":{"t":"NITROGEN"}},
 {"i":46837,"s":"ess","f":"MC","qt":"bonus","n":15,"q":"Which of the following primarily determines the size of crystals in an igneous rock?","a":{"t":"Time taken to solidify","l":"X"},"c":{"W":"Chemical composition","X":"Time taken to solidify","Y":"Freezing temperature","Z":"Pressure the cooling magma was under"}},
 {"i":46838,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"What term refers to a reaction that absorbs heat from the environment?","a":{"t":"ENDOTHERMIC"}},
-{"i":46839,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"What two elements are the main components of glass?","a":{"t":"SILICON AND OXYGEN"}},
+{"i":46839,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"What two elements are the main components of glass?","a":{"t":"SILICON AND OXYGEN","ac":["Si AND O"]}},
 {"i":46840,"s":"phys","f":"SA","qt":"tossup","n":17,"q":"A nine-volt battery is connected to a lightbulb with a resistance of 3 ohms. What is the current, in amps, that flows through the circuit?","a":{"t":"3 AMPS"}},
 {"i":46841,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"What name is given to the type of reflection that occurs in mirrors where the resulting image is a clear reflection of the object in the mirror?","a":{"t":"SPECULAR"}},
 {"i":46842,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Researchers in the U.S. Office of Public Health are studying disease transmission in order to mitigate another catastrophic pandemic. Many diseases can be preemptively weakened by giving an individual a dose of a weaker version of the carrier of the disease. What is the term for this process, which was first done to prevent smallpox?","a":{"t":"VACCINATION"}},

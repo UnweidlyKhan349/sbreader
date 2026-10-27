@@ -194,7 +194,7 @@
 {"i":2732,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"Order the following three flavors of quarks from LEAST to MOST massive: 1) Charm; 2) Top; 3) Up.","a":{"t":"3,1,2"}},
 {"i":2733,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"What is the term for a molecule which has at least one positively charged functional group and one negatively charged functional group, but has an overall charge of zero?","a":{"t":"ZWITTERION"}},
 {"i":2734,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"From smallest to largest binding energy, the photoelectron spectroscopy spectrum of a neutral element has peaks of amplitudes 4 units, 4 units, 8 units. What element is this?","a":{"t":"OXYGEN"}},
-{"i":2735,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Ferredoxins are defined as having what two elements?","a":{"t":"IRON AND SULFUR","ac":["SULFUR AND IRON"]}},
+{"i":2735,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Ferredoxins are defined as having what two elements?","a":{"t":"IRON AND SULFUR","ac":["SULFUR AND IRON","Fe AND S"]}},
 {"i":2736,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"By number order the following 5 skin layers from innermost to outermost: 1) stratum basale; 2) stratum corneum; 3) stratum granulosum; 4) stratum lucidum; 5) stratum spinosum.","a":{"t":"1, 5, 3, 4, 2"}},
 {"i":2737,"s":"ess","f":"MC","qt":"tossup","n":19,"q":"During which of the following months is the Cancer constellation most visible from the Northern hemisphere?","a":{"t":"March","l":"W"},"c":{"W":"March","X":"June","Y":"September","Z":"December"}},
 {"i":2738,"s":"ess","f":"SA","qt":"bonus","n":19,"q":"What mineral is the chief source of chromium?","a":{"t":"CHROMITE"}},

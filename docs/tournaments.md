@@ -82,7 +82,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
 | NSFBL | 552 | 8 | hs |
-| NSI 2023 | 272 |  | hs |
+| NSI 2023 | 270 |  | hs |
 | NSI 2024 | 252 |  | hs |
 | NWI 2024 | 276 |  | hs |
 | NWI 2025 | 397 |  | hs |
@@ -112,4 +112,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (108)** | **84,117** | **535** | |
+| **Total (108)** | **84,115** | **535** | |
