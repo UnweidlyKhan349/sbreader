@@ -91,16 +91,25 @@
     return /\b(order|rank|arrange|sort)\b[^.?!]{0,80}\b(the following|these|below)\b/i.test(s)
       || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\b(by|in)\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
       || /\bin\s+(increasing|decreasing|ascending|descending|chronological|sequential|reverse)\s+order\b/i.test(s)
+      || /\bin\s+order\s+of\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
+      || /\b(order|rank|arrange|sort)\s+them\b/i.test(s)
       || /\bchronologically\b|\bfrom (earliest|oldest|first|youngest|latest|newest|most recent)\b[^.?!]{0,40}\bto\b/i.test(s);
   }
 
   // Canonicalize a ranking-style answer ("3, 1, 2" / "312") to its digit
   // sequence AS TYPED - order is preserved, not sorted.
-  function canonicalizeRanked(raw, itemCount) {
+  // A typed answer (`typed`) must be item numbers only: "3, 1, 2", "3 then 1
+  // then 2", "312" - never "128/3" or "VERTICES = 12, EDGES = 30", whose
+  // digits merely include 1 to 3. A key keeps its labels ("1, 3, 2
+  // (TACHOCLINE, …)", "1. INFLATION 3. RECOMBINATION 2. REIONIZATION").
+  function canonicalizeRanked(raw, itemCount, typed) {
     if (!itemCount) return null;
     const up = normalize(raw);
     if (!up) return null;
-    const digits = (up.match(/[1-9]/g) || []).map(Number).filter((d) => d <= itemCount);
+    if (typed && !/^[1-9]+$/.test(up) && !/^[1-9](?:\s+(?:(?:AND|THEN)\s+)?[1-9])*$/.test(up)) return null;
+    const all = (up.match(/[1-9]/g) || []).map(Number);
+    if (typed && all.some((d) => d > itemCount)) return null;
+    const digits = all.filter((d) => d <= itemCount);
     if (!digits.length) return null;
     return digits.join('');
   }
@@ -694,13 +703,83 @@
     return parts.some((p) => PART_NUMBER_RE.test(p) || /^[A-Za-z][A-Za-z .'’-]{0,30}?\s*[=:]/.test(p));
   }
 
+  // The items of a comma/"and" list key ("LEAD, ALUMINUM, WATER", "MAGNESIUM
+  // AND IRON"), split outside brackets. Null when there aren't two.
+  function listItems(key) {
+    const items = [];
+    let depth = 0, cur = '';
+    const s = String(key);
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if ('([{'.includes(ch)) depth++;
+      else if (')]}'.includes(ch)) depth = Math.max(0, depth - 1);
+      if (depth === 0) {
+        const sep = s.slice(i).match(/^(?:\s*,\s*(?:AND\s+)?|\s+AND\s+)/i);
+        // "40,000" is one number, not two items
+        const thousands = sep && sep[0] === ',' && /\d/.test(s[i - 1] || '') && /^\d{3}(?!\d)/.test(s.slice(i + 1));
+        if (sep && !thousands) { items.push(cur); cur = ''; i += sep[0].length - 1; continue; }
+      }
+      cur += ch;
+    }
+    items.push(cur);
+    const out = items.map((t) => t.trim()).filter((t) => normalize(t));
+    return out.length >= 2 ? out : null;
+  }
+
+  // Does a list key's question want its items in order: ranking wording,
+  // "respectively", a matrix written in rows, an ordered pair or a point's
+  // coordinates? Stricter than partsAreOrdered: "the first battery" or "first
+  // generation fuel cells" in a stem doesn't make a list ordered.
+  function listIsOrdered(question) {
+    const q = question.question || '';
+    return isRankingQuestion(q) || /\brespectively\b/i.test(q)
+      || (/\bin (?:that|this) order\b/i.test(q) && !/\bnot necessarily in (?:that|this) order\b/i.test(q))
+      || /\bin rows\b|\bwhat matrix\b|\bordered (?:pair|triple)\b|\b(?:cartesian|polar|rectangular) coordinates\b/i.test(q)
+      || /\bcoordinates (?:of|for) (?:this|that|the) point\b/i.test(q);
+  }
+
+  // Chemical formulas or element symbols as the bank writes them: real
+  // symbols, case-sensitive ("Fe", "CO2", "Na^+", "SO4^(2-)"). At least one
+  // item needs a lowercase letter, a count or a charge unless all are one or
+  // two letters ("C, N, O", "CO AND H"), so "NO AND ION" never passes for them.
+  const ELEMENT_SYMBOL = '(?:He|Li|Be|Ne|Na|Mg|Al|Si|Cl|Ar|Ca|Sc|Ti|Cr|Mn|Fe|Co|Ni|Cu|Zn|Ga|Ge|As|Se|Br|Kr|Rb|Sr|Zr|Nb|Mo|Tc|Ru|Rh|Pd|Ag|Cd|In|Sn|Sb|Te|Xe|Cs|Ba|La|Ce|Pr|Nd|Pm|Sm|Eu|Gd|Tb|Dy|Ho|Er|Tm|Yb|Lu|Hf|Ta|Re|Os|Ir|Pt|Au|Hg|Tl|Pb|Bi|Po|At|Rn|Fr|Ra|Ac|Th|Pa|Np|Pu|Am|Cm|Bk|Cf|Es|Fm|Md|No|Lr|H|B|C|N|O|F|P|S|K|V|Y|I|W|U)';
+  const FORMULA_ITEM_RE = new RegExp('^(?:' + ELEMENT_SYMBOL + '\\d*|\\(|\\)\\d*)+(?:\\^(?:\\(\\d*[+-]\\)|\\d*[+-]))?$');
+  function areFormulas(items) {
+    const ts = items.map((x) => x.replace(/\s+/g, ''));
+    return ts.every((t) => FORMULA_ITEM_RE.test(t))
+      && (ts.every((t) => t.length <= 2) || ts.some((t) => /[a-z\d^]/.test(t)));
+  }
+
+  // A list key matched item by item: "CO2 and nitrogen" or "co2 n" for
+  // "CARBON DIOXIDE AND MOLECULAR NITROGEN". An accept with the key's item
+  // count lends its items to the key items in their places when it's written
+  // all in formulas ("CO2 AND N2") or renames just one item ("CARBON DIOXIDE
+  // AND NITROGEN"), so names, formulas and alternates mix in any answer. A
+  // second answer in words ("ALUMINUM AND SILICON") never mixes with the key.
+  function listSpec(question) {
+    const ans = question.answer;
+    const items = listItems(ans.text);
+    if (!items) return null;
+    const alts = items.map(partVariants);
+    for (const acc of ans.accept || []) {
+      const ai = listItems(acc);
+      if (!ai || ai.length !== items.length) continue;
+      const differs = ai.map((x, i) => !normEqual(x, items[i]));
+      if (areFormulas(ai) || differs.filter(Boolean).length === 1) {
+        ai.forEach((x, i) => { if (differs[i]) alts[i].push(x); });
+      }
+    }
+    return { n: items.length, alts, floating: [], ordered: listIsOrdered(question), noSlash: true };
+  }
+
   // Candidate ways to cut a typed answer into exactly n pieces: first by the
   // separators a student would use (";", ",", "and", "then", ...), then - for
   // "first quarter full moon" with no separator at all - every way of cutting
   // the words into n consecutive runs (a connecting "and"/"then" at a cut is
   // dropped).
-  function* segmentations(raw, n) {
-    const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/, /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
+  function* segmentations(raw, n, noSlash) {
+    const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/,
+      noSlash ? /\s*(?:[;,&]|\s\|\s|\band\b|\bthen\b)\s*/i : /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
     const seen = new Set();
     for (const re of seps) {
       const segs = raw.split(re).map((s) => s.trim().replace(/^(?:and|then)\s+/i, '')).filter(Boolean);
@@ -811,7 +890,7 @@
 
   function checkMultiPart(raw, spec) {
     let best = null;
-    for (const segs of segmentations(raw, spec.n)) {
+    for (const segs of segmentations(raw, spec.n, spec.noSlash)) {
       const m = matchSegments(segs, spec);
       if (m === 'exact') return m;
       best = betterMatch(best, m);
@@ -944,7 +1023,7 @@
     if (itemCount) {
       const ranking = isRankingQuestion(question.question);
       const canonFn = ranking ? canonicalizeRanked : canonicalizeList;
-      let userCanon = canonFn(raw, itemCount);
+      let userCanon = canonFn(raw, itemCount, true);
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
         // a ranking one, where order is the point and term-matching doesn't
@@ -1062,12 +1141,23 @@
     // two-letter differences are a different term (see CONTRAST_SWAPS for
     // the ones that never even count as close). A multi-part key was
     // already matched part by part above, where part order is enforced
-    // when it matters ("zinc; copper" vs "copper; zinc").
+    // when it matters ("zinc; copper" vs "copper; zinc"). A list key is
+    // matched item by item too (see listSpec), and on an ordered question
+    // ("respectively", "order the following") only in its order.
+    const list = multi ? null : listSpec(question);
+    if (list) {
+      const m = checkMultiPart(raw, list);
+      if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
+      if (m) close = true;
+    }
     for (const key of keys) {
       if (multi && answerParts(key)) continue;
-      const m = lenientWordMatch(raw, key);
+      const items = list && list.ordered ? listItems(key) : null;
+      const m = items
+        ? checkMultiPart(raw, { n: items.length, alts: items.map(partVariants), floating: [], ordered: true, noSlash: true })
+        : lenientWordMatch(raw, key);
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
-      if (m === 'typo') close = true;
+      if (m) close = true;
     }
 
     // ---- Typed answer contains the whole key plus more: close ----

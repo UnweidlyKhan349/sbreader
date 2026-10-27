@@ -218,7 +218,7 @@
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5954","q":[
 {"i":93171,"s":"bio","f":"MC","qt":"bonus","n":45,"q":"PCD, or programmed cell death, is the acronym for what process?","c":{"W":"necrosis","X":"apoptosis","Y":"anatomy","Z":"cell trauma"},"a":{"t":"apoptosis","l":"X"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5955","q":[
-{"i":93172,"s":"bio","f":"MC","qt":"tossup","n":46,"q":"Photosynthesis is the result of which two of these processes ?","c":{"W":"Dark Reactions and the Calvin Cycle","X":"Light Independent reactions and the Calvin Cycle","Y":"Chemiosmosis and Respiration","Z":"Light Reactions and the Calvin Cycle"},"a":{"t":"Light Reactions and the Calvin Cycle","l":"Z"}}]},
+{"i":93172,"s":"bio","f":"MC","qt":"tossup","n":46,"q":"Photosynthesis is the result of which two of these processes?","c":{"W":"Dark Reactions and the Calvin Cycle","X":"Light Independent reactions and the Calvin Cycle","Y":"Chemiosmosis and Respiration","Z":"Light Reactions and the Calvin Cycle"},"a":{"t":"Light Reactions and the Calvin Cycle","l":"Z"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5957","q":[
 {"i":93173,"s":"bio","f":"MC","qt":"tossup","n":47,"q":"What job do kinases carry out?","c":{"W":"dephosphorylation","X":"ubiquination","Y":"phosphorylation","Z":"oxidation/reduction"},"a":{"t":"phosphorylation","l":"Y"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5963","q":[
@@ -260,7 +260,7 @@
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6395","q":[
 {"i":96289,"s":"ess","f":"MC","qt":"tossup","n":5,"q":"Iceland is least likely to have","c":{"W":"a fissure eruption","X":"a lava plateau","Y":"an explosive eruption","Z":"a shield volcano"},"a":{"t":"an explosive eruption","l":"Y"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6397","q":[
-{"i":93185,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Order the following noble gases in order of highest to lowest abundance in Earth's atmosphere: helium, argon, neon, xenon.","a":{"t":"ARGON, NEON, HELIUM, XENON"}}]},
+{"i":93185,"s":"ess","f":"SA","qt":"tossup","n":6,"q":"Order the following noble gases in order of highest to lowest abundance in Earth's atmosphere: helium, argon, neon, xenon.","a":{"t":"ARGON, NEON, HELIUM, XENON","ac":["Ar, Ne, He, Xe"]}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/bonus/6397","q":[
 {"i":96290,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"What type of mass wasting is most common in regions of permafrost?","a":{"t":"Solifluction"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6398","q":[
@@ -320,7 +320,7 @@
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6457","q":[
 {"i":93202,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which of the following countries has not ratified the NPT (Nuclear non proliferation treaty)?","c":{"W":"Iran","X":"India","Y":"China","Z":"Russia"},"a":{"t":"India","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6458","q":[
-{"i":93203,"s":"energy","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
+{"i":93203,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6458","q":[
 {"i":93204,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In 2009, the economic downturn led to a decline in U.S. energy consumption and energy-related CO2 emissions. What other factor helped reduce CO2 emissions?","c":{"W":"lower natural gas prices","X":"more use of renewable energy","Y":"reduced electricity generation from coal","Z":"all of the above"},"a":{"t":"all of the above","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6459","q":[
@@ -786,7 +786,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6800","q":[
 {"i":93413,"s":"phys","f":"SA","qt":"tossup","n":135,"q":"What term refers to a material taking a different path on a stress/strain graph as it compresses than when it decompresses?","a":{"t":"ELASTIC HYSTERESIS","ac":["HYSTERESIS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6800","q":[
-{"i":93414,"s":"phys","f":"SA","qt":"bonus","n":136,"q":"Order the following materials in terms of increasing Young’s modulus: aluminum, iron, lead.","a":{"t":"LEAD, ALUMINUM, IRON"}}]},
+{"i":93414,"s":"phys","f":"SA","qt":"bonus","n":136,"q":"Order the following materials in terms of increasing Young’s modulus: aluminum, iron, lead.","a":{"t":"LEAD, ALUMINUM, IRON","ac":["Pb, Al, Fe"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6801","q":[
 {"i":93415,"s":"phys","f":"MC","qt":"tossup","n":137,"q":"When sound forms a standing wave of compression in a pipe, a closed end always shows","c":{"W":"a displacement node and a pressure node","X":"a displacement node and a pressure antinode","Y":"a displacement antinode and a pressure node","Z":"a displacement antinode and a pressure antinode"},"a":{"t":"a displacement node and a pressure antinode","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6801","q":[
@@ -2316,7 +2316,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7197","q":[
 {"i":94146,"s":"phys","f":"MC","qt":"bonus","n":900,"q":"Which of the following substances has the highest index of refraction?","c":{"W":"ice","X":"table salt","Y":"air","Z":"zircon"},"a":{"t":"zircon","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7198","q":[
-{"i":94147,"s":"phys","f":"SA","qt":"tossup","n":901,"q":"The first gas laser was created using a mixture of what two gases?","a":{"t":"HELIUM AND NEON"}}]},
+{"i":94147,"s":"phys","f":"SA","qt":"tossup","n":901,"q":"The first gas laser was created using a mixture of what two gases?","a":{"t":"HELIUM AND NEON","ac":["He AND Ne"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7198","q":[
 {"i":94148,"s":"phys","f":"MC","qt":"bonus","n":902,"q":"Who created the first working laser?","c":{"W":"Theodore Maiman","X":"John Bardeen","Y":"Max Born","Z":"Otto Stern"},"a":{"t":"Theodore Maiman","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7199","q":[
@@ -2898,7 +2898,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7351","q":[
 {"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7351","q":[
-{"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos²θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
+{"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos^2θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7352","q":[
 {"i":94429,"s":"phys","f":"SA","qt":"tossup","n":1193,"q":"This unit of measure is named after a nineteenth century Swedish physicist who was one of the pioneers in the field of spectroscopy. His development of a chart of the spectrum of solar radiation express the wavelength of electromagnetic radiation in multiples of 1 × 10^-10 meters, a length which is equivalent to this unit. What is the unit?","a":{"t":"ÅNGSTRÖM","ac":["ANGSTROM"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7352","q":[

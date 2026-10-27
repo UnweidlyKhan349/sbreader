@@ -36,7 +36,7 @@
 {"i":10215,"s":"phys","f":"SA","qt":"bonus","n":18,"q":"A positron exceeds the speed of light within glass and emits what characteristic blue radiation as a result?","a":{"t":"Cherenkov radiation"}},
 {"i":10216,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"HIV is a member of what family of viruses, which use reverse transcriptase to convert their single-stranded RNA genome to double-stranded DNA?","a":{"t":"Retroviruses","ac":["Retroviridae"]}},
 {"i":10217,"s":"energy","f":"MC","qt":"bonus","n":18,"q":"Which of the following utility functions would be closest to orthogonal to general human utility functions?","a":{"t":"Maximizing AI computing power","l":"Y"},"c":{"W":"Maximizing human happiness","X":"Minimizing human happiness","Y":"Maximizing AI computing power","Z":"Minimizing number of actions taken"}},
-{"i":10219,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Evaluate ∫₀¹ e^x dx.","a":{"t":"e − 1"}},
+{"i":10219,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Evaluate ∫_0^1 e^x dx.","a":{"t":"e − 1"}},
 {"i":10220,"s":"chem","f":"SA","qt":"tossup","n":21,"q":"Order the following three metals by increasing reactivity with a solution of hydrochloric acid: 1) Iron; 2) Copper; 3) Sodium","a":{"t":"2,1,3"}},
 {"i":10221,"s":"chem","f":"MC","qt":"bonus","n":21,"q":"Which of the following elements has the most exothermic first electron affinity?","a":{"t":"Sulfur","l":"Z"},"c":{"W":"Nitrogen","X":"Phosphorus","Y":"Oxygen","Z":"Sulfur"}},
 {"i":10222,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"What features in the asteroid belt are produced by Jupiter’s gravitational field effecting asteroid orbits?","a":{"t":"Kirkwood gaps"}},

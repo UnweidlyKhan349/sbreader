@@ -159,6 +159,13 @@ test('ranking answers must be in the keyed order', () => {
   assert.ok(isCorrect('1, 3, 2', '1 and 3 and 2', { question: q }));
   assert.ok(!isCorrect('1, 3, 2', '1, 2, 3', { question: q }));
   assert.ok(!isCorrect('1, 3, 2', '3 2 1', { question: q }));
+  // typed digits that only include the item numbers are not a ranking
+  assert.ok(!isCorrect('1, 3, 2', '138/2', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', 'vertices = 1, edges = 32', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', '1, 3, 4, 2', { question: q }));
+  // a key may carry the item names after its numbers
+  assert.ok(isCorrect('1, 3, 2 (A, C, B)', '1, 3, 2', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2 (A, C, B)', '2, 3, 1', { question: q }));
   // the ordering can live in an accept when the key is written as values
   const v = 'Order the following three numbers from least to greatest: 1) 42%; 2) 0.402; 3) 2/5.';
   assert.ok(isCorrect('2/5; 0.402; 42%', '3, 2, 1', { question: v, accept: ['3, 2, 1'] }));
@@ -177,4 +184,35 @@ test('longer ranking stems are recognised; set questions are not', () => {
     'In order to improve his training sample, identify all of the following techniques that would help: 1) a 2) b 3) c',
     'Identify all of the following that are true: 1) a 2) b 3) c',
   ]) assert.ok(!isRankingQuestion(q), q);
+});
+
+test('list answers mix names with an all-formula accept, in any order', () => {
+  const co2 = { accept: ['CARBON DIOXIDE AND NITROGEN', 'CO2 AND N2', 'CO2 AND N'] };
+  for (const typed of ['nitrogen and carbon dioxide', 'co2 n', 'CO2 and nitrogen', 'n2, carbon dioxide'])
+    assert.ok(isCorrect('CARBON DIOXIDE AND MOLECULAR NITROGEN', typed, co2), typed);
+  for (const typed of ['co2', 'carbon dioxide', 'co2 and o2'])
+    assert.ok(!isCorrect('CARBON DIOXIDE AND MOLECULAR NITROGEN', typed, co2), typed);
+  // a second answer in words is a whole answer, not a source of alternates
+  const pair = { accept: ['ALUMINUM AND SILICON'] };
+  assert.ok(isCorrect('CALCIUM AND SODIUM', 'silicon and aluminum', pair));
+  assert.ok(!isCorrect('CALCIUM AND SODIUM', 'calcium and silicon', pair));
+  // all-caps words are not formulas
+  assert.ok(!isCorrect('IRON AND SULFUR', 'iron and ion', { accept: ['NO AND ION'] }));
+});
+
+test('list answers to ordered questions keep their order', () => {
+  const resp = { question: 'What metal is in forsterite and what metal is in fayalite, respectively?', accept: ['Mg AND Fe'] };
+  assert.ok(isCorrect('MAGNESIUM AND IRON', 'magnesium, iron', resp));
+  assert.ok(isCorrect('MAGNESIUM AND IRON', 'mg and iron', resp));
+  assert.ok(!isCorrect('MAGNESIUM AND IRON', 'iron, magnesium', resp));
+  assert.ok(!isCorrect('MAGNESIUM AND IRON', 'fe and mg', resp));
+  const rank = { question: 'Order the following from worst to best conductor: aluminum, water, gold' };
+  assert.ok(isCorrect('WATER, ALUMINUM, GOLD', 'water aluminum gold', rank));
+  assert.ok(!isCorrect('WATER, ALUMINUM, GOLD', 'gold, aluminum, water', rank));
+  // "not necessarily in that order" doesn't ask for an order; "40,000" is one item
+  assert.ok(isCorrect('ARGON AND NEON', 'neon and argon', { question: 'Name the two gases, not necessarily in that order.' }));
+  assert.ok(!isCorrect('-40,000 VOLTS', '000 volts, -40'));
+  // "3/2" is a fraction, not the items 3 and 2
+  assert.ok(isCorrect('x = 2 AND x = 3', '3 and 2'));
+  assert.ok(!isCorrect('x = 2 AND x = 3', '3/2'));
 });
