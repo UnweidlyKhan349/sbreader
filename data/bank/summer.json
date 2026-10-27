@@ -1,6 +1,6 @@
 [
 {"rl":"Dan's Packet","r":null,"u":"https://lebot.djiang.xyz/packets/Summer/Dan_s%20Packet.pdf","q":[
-{"i":30068,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"By name or number, identify all of the following compounds that adopt a crown conformation: 1) cyclo-octasulfur, 2) cyclooctatetraene, 3) cyclohexane, 4) cyclooctane","a":{"t":"1 and 4","ac":["in either order"]}},
+{"i":30068,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"By name or number, identify all of the following compounds that adopt a crown conformation: 1) cyclo-octasulfur, 2) cyclooctatetraene, 3) cyclohexane, 4) cyclooctane","a":{"t":"1 and 4"}},
 {"i":30069,"s":"chem","f":"MC","qt":"bonus","n":1,"q":"Which of the following is NOT true of the twist-boat in cyclohexane’s ring flip mechanism?","a":{"t":"The twist-boat is a meso compound","l":"Z"},"c":{"W":"It is more stable than the boat conformation","X":"It is more stable than the half-chair conformation","Y":"The twist-boat and half-chair transition are chiral molecules","Z":"The twist-boat is a meso compound"}},
 {"i":30070,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"By name or number, order the following events from oldest to most recent: 1) Paleozoic ice age, 2) Snowball Earth, 3) Pleistocene glaciation, 4) Eocene-Oligocene transition.","a":{"t":"2,1,4,3"}},
 {"i":30071,"s":"ess","f":"MC","qt":"bonus","n":2,"q":"The Milankovitch cycles describe how fluctuations in the Earth’s movement affect climate over the course of tens of thousands of years. Which of the following cycles has the shortest period?","a":{"t":"Axial precession","l":"X"},"c":{"W":"Apsidal precession","X":"Axial precession","Y":"Orbital inclination","Z":"Orbital shape"}},
@@ -134,7 +134,7 @@
 {"i":30200,"s":"phys","f":"SA","qt":"bonus","n":20,"q":"Calculate the volume of a gas sample at 3 atmospheres in cubic meters when the volume of the same sample is 6 cubic meters at 1 atmosphere.","a":{"t":"2"}},
 {"i":30201,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"What type of innate immune cell is responsible for killing tumor cells and cells infected by viruses?","a":{"t":"NATURAL KILLER CELL"}},
 {"i":30202,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"By name or number identify all of the following four objects that are considered to be moons of Pluto: 1) Charon 2) Makemake 3) Amalthea 4) Dione","a":{"t":"1 ONLY"}},
-{"i":30203,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the most stable cycloalkane and what conformation of said cycloalkane is the most stable?","a":{"t":"Cyclohexane and Chair Conformation.","ac":["Adam"]}}]},
+{"i":30203,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the most stable cycloalkane and what conformation of said cycloalkane is the most stable?","a":{"t":"Cyclohexane and Chair Conformation."}}]},
 {"rl":"Dan's Packet","r":null,"u":"https://lebot.djiang.xyz/packets/Summer/Dan_s%20Packet.pdf","q":[
 {"i":85900,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Giving your answer as an integer in base 10, what is the output of the bitwise operation: 5 or 9?","a":{"t":"13"}},
 {"i":85901,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"PETE can also be synthesized by esterification between terephthalic acid and ethylene glycol. What byproduct is released by this reaction?","a":{"t":"Water","ac":["H2O"]}}]},

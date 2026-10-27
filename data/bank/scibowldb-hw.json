@@ -320,7 +320,7 @@
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6457","q":[
 {"i":93202,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which of the following countries has not ratified the NPT (Nuclear non proliferation treaty)?","c":{"W":"Iran","X":"India","Y":"China","Z":"Russia"},"a":{"t":"India","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6458","q":[
-{"i":93203,"s":"energy","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
+{"i":93203,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6458","q":[
 {"i":93204,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In 2009, the economic downturn led to a decline in U.S. energy consumption and energy-related CO2 emissions. What other factor helped reduce CO2 emissions?","c":{"W":"lower natural gas prices","X":"more use of renewable energy","Y":"reduced electricity generation from coal","Z":"all of the above"},"a":{"t":"all of the above","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6459","q":[

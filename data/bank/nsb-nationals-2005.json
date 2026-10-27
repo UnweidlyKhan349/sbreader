@@ -56,7 +56,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3565","q":[
 {"i":89052,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"The WHO is the abbreviated name for what international scientific organization?","a":{"t":"WORLD HEALTH ORGANIZATION"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3565","q":[
-{"i":89053,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What type of balance is used for measuring forces of very small magnitudes by how much twist they cause in a fiber or wire?","a":{"t":"TORSION BALANCE"}}]},
+{"i":89053,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"What type of balance is used for measuring forces of very small magnitudes by how much twist they cause in a fiber or wire?","a":{"t":"TORSION BALANCE"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3566","q":[
 {"i":89054,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"What is the field of GENERAL SCIENCE that deals with designing computer systems that can recognize spoken words:","a":{"t":"VOICE RECOGNITION","ac":["SPEECH RECOGNITION"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3566","q":[
@@ -64,7 +64,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3567","q":[
 {"i":89056,"s":"chem","f":"MC","qt":"tossup","n":17,"q":"Magnesium can exist as three naturally occurring isotopes. These isotopes would all have the same:","c":{"W":"atomic weight","X":"number of neutrons","Y":"number of protons","Z":"nucleus"},"a":{"t":"number of protons","l":"Y"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3567","q":[
-{"i":89057,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"Carbohydrates are made of what three elements?","a":{"t":"CARBON, HYDROGEN, OXYGEN","ac":["C","H","AND O"]}}]},
+{"i":89057,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"Carbohydrates are made of what three elements?","a":{"t":"CARBON, HYDROGEN, OXYGEN","ac":["C, H, O"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3568","q":[
 {"i":89058,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"What is the name for the physical constant with a value of 6.62 × 10^-27 erg seconds?","a":{"t":"PLANCK’S CONSTANT"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3568","q":[
@@ -82,7 +82,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3571","q":[
 {"i":89065,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the total angular distance in degrees over a sphere?","a":{"t":"360 DEGREES"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3572","q":[
-{"i":89066,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"Predicting data values on a graph that fall between two points is most typically referred to as:","a":{"t":"INTERPOLATION"}}]},
+{"i":89066,"s":"math","f":"SA","qt":"tossup","n":22,"q":"Predicting data values on a graph that fall between two points is most typically referred to as:","a":{"t":"INTERPOLATION"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3572","q":[
 {"i":89067,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"The emerald is the green crystalline form of what common mineral?","a":{"t":"BERYL","ac":["BERYLLIUM ALUMINUM SILICATE"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3573","q":[
@@ -124,7 +124,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3582","q":[
 {"i":89086,"s":"chem","f":"MC","qt":"tossup","n":7,"q":"Which of the following correctly describes STP:","c":{"W":"4° C at 1 Atmosphere","X":"0° C at 0 Atmosphere","Y":"23° C at 1 Atmosphere","Z":"0° C at 1 Atmosphere"},"a":{"t":"0° C at 1 Atmosphere","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3582","q":[
-{"i":89087,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET"}}]},
+{"i":89087,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"What are the 7 colors that Newton used to describe the visible light spectrum:","a":{"t":"RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, AND VIOLET"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3583","q":[
 {"i":89088,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"A typical CD-ROM can hold a maximum of about how much data?","c":{"W":"650 MB","X":"1.5 GB","Y":"2.5 GB","Z":"15 GB"},"a":{"t":"650 MB","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3583","q":[
@@ -218,7 +218,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3607","q":[
 {"i":89133,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"Which of the following is NOT true concerning electric cars:","c":{"W":"a major challenge to this form of transportation is an efficient durable battery","X":"in 1900, more battery operated electric cars were built in the USA than gasoline engine cars","Y":"fleet cars are currently employing battery powered vehicles in many states","Z":"they are unsuitable for urban areas"},"a":{"t":"they are unsuitable for urban areas","l":"Z"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3607","q":[
-{"i":89134,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"When an ideal line is extended into a region beyond where data exists on a graph, it is most typically called:","a":{"t":"EXTRAPOLATION"}}]},
+{"i":89134,"s":"math","f":"SA","qt":"bonus","n":7,"q":"When an ideal line is extended into a region beyond where data exists on a graph, it is most typically called:","a":{"t":"EXTRAPOLATION"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3608","q":[
 {"i":89135,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Typically, printers are connected to which of the following ports:","c":{"W":"RTC","X":"PS/2","Y":"LPT","Z":"COM"},"a":{"t":"LPT","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3608","q":[
@@ -318,7 +318,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3632","q":[
 {"i":89183,"s":"energy","f":"SA","qt":"tossup","n":7,"q":"Which federal agency is primarily in charge of our National Laboratories and is charged with ensuring a stable supply of energy for the nation?","a":{"t":"DEPARTMENT OF ENERGY","ac":["DOE"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3632","q":[
-{"i":89184,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What is the term for the error of a compass as a consequence of the difference between magnetic North and true North?","a":{"t":"DECLINATION","ac":["VARIATION"]}}]},
+{"i":89184,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"What is the term for the error of a compass as a consequence of the difference between magnetic North and true North?","a":{"t":"DECLINATION","ac":["VARIATION"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3633","q":[
 {"i":89185,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Ultimately, the character of the pixel which is primarily responsible for the resolution of a CRT is:","c":{"W":"size","X":"number","Y":"shape","Z":"color"},"a":{"t":"size","l":"W"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3633","q":[
@@ -348,9 +348,9 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3639","q":[
 {"i":89198,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"The name of this mineral is derived from the Latin word which means “to flow”. One of its major uses is as a flux to help melt iron ore. What is its name?","a":{"t":"FLUORITE","ac":["CALCIUM FLUORIDE","CaF2"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3640","q":[
-{"i":89199,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Photobiology is the branch of science which is basically concerned with:","c":{"W":"how organisms see","X":"how to record images of living systems with various optical instruments","Y":"the effects of visible and ultraviolet radiation on living systems","Z":"how living systems produce visible light"},"a":{"t":"the effects of visible and ultraviolet radiation on living systems","l":"Y"}}]},
+{"i":89199,"s":"bio","f":"MC","qt":"tossup","n":15,"q":"Photobiology is the branch of science which is basically concerned with:","c":{"W":"how organisms see","X":"how to record images of living systems with various optical instruments","Y":"the effects of visible and ultraviolet radiation on living systems","Z":"how living systems produce visible light"},"a":{"t":"the effects of visible and ultraviolet radiation on living systems","l":"Y"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3640","q":[
-{"i":89200,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"At what temperature, rounded off to whole degrees Centigrade, does distilled water reach its maximum density at sea level?","a":{"t":"4 DEGREES"}}]},
+{"i":89200,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"At what temperature, rounded off to whole degrees Centigrade, does distilled water reach its maximum density at sea level?","a":{"t":"4 DEGREES"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3641","q":[
 {"i":89201,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following would be a measurement of a computer screen’s dot pitch:","c":{"W":"0.25 millimeters","X":"70 hertz","Y":"1200 dpi","Z":"650 megabytes"},"a":{"t":"0.25 millimeters","l":"W"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3641","q":[
@@ -362,7 +362,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3643","q":[
 {"i":89205,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Under which of the following conditions will iron rust:","c":{"W":"in water","X":"in water and oxygen","Y":"in oil","Z":"in oil and water"},"a":{"t":"in water and oxygen","l":"X"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3643","q":[
-{"i":89206,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"In order to compare two different gas samples, scientists use what is called the STP. What does STP stand for?","a":{"t":"STANDARD TEMPERATURE AND PRESSURE","ac":["0° C","273 K AND 1 ATM","760 mm Hg"]}}]},
+{"i":89206,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"In order to compare two different gas samples, scientists use what is called the STP. What does STP stand for?","a":{"t":"STANDARD TEMPERATURE AND PRESSURE","ac":["273 K AND 1 ATM","0° C AND 760 mm Hg"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3644","q":[
 {"i":89207,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"Cathode rays are actually:","c":{"W":"photons","X":"electrons","Y":"protons","Z":"positrons"},"a":{"t":"electrons","l":"X"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3644","q":[
@@ -644,7 +644,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3714","q":[
 {"i":89346,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"The angle of insolation on the Earth’s surface is most direct at which latitude:","c":{"W":"0°","X":"90° North or South","Y":"66.5° North or South","Z":"23.5° North or South"},"a":{"t":"0°","l":"W"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3715","q":[
-{"i":89347,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"At small apertures or high f stops, a single lens reflex camera will have which of the following properties:","c":{"W":"have more light gathering capacity","X":"generally require fast shutter speeds for all films in normal daylight","Y":"have more depth of field","Z":"have less depth of field"},"a":{"t":"have more depth of field","l":"Y"}}]},
+{"i":89347,"s":"phys","f":"MC","qt":"tossup","n":15,"q":"At small apertures or high f stops, a single lens reflex camera will have which of the following properties:","c":{"W":"have more light gathering capacity","X":"generally require fast shutter speeds for all films in normal daylight","Y":"have more depth of field","Z":"have less depth of field"},"a":{"t":"have more depth of field","l":"Y"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3715","q":[
 {"i":89348,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"Juglans nigra is the genus and species of what common name tree, whose wood is prized for its qualities in furniture making:","a":{"t":"BLACK WALNUT","ac":["WALNUT"]}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3716","q":[
@@ -712,9 +712,9 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3731","q":[
 {"i":89380,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"A limestone cave that is open to the sky or whose roof has collapsed is now called a:","a":{"t":"SINKHOLE"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3732","q":[
-{"i":89381,"s":"energy","f":"SA","qt":"tossup","n":7,"q":"No reported cases of this pervasive and deadly disease has been reported in the western hemisphere for over two decades and it is believed to be nearly eliminated from the Earth:","a":{"t":"SMALLPOX"}}]},
+{"i":89381,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"No reported cases of this pervasive and deadly disease has been reported in the western hemisphere for over two decades and it is believed to be nearly eliminated from the Earth:","a":{"t":"SMALLPOX"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3732","q":[
-{"i":89382,"s":"energy","f":"MC","qt":"bonus","n":7,"q":"The majority of people experience the worst jet-lag flying in which of the following directions:","c":{"W":"East to West","X":"West to East","Y":"North to South","Z":"South to North"},"a":{"t":"West to East","l":"X"}}]},
+{"i":89382,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"The majority of people experience the worst jet-lag flying in which of the following directions:","c":{"W":"East to West","X":"West to East","Y":"North to South","Z":"South to North"},"a":{"t":"West to East","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3733","q":[
 {"i":89383,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Which of the following is NOT an example of a programming language:","c":{"W":"Pascal","X":"BIOS","Y":"Cobol","Z":"Fortran"},"a":{"t":"BIOS","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3733","q":[
@@ -722,7 +722,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3734","q":[
 {"i":89385,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Francesco Redi is known for an experiment that refuted which of the following theories:","c":{"W":"the theory of spontaneous generation","X":"phlogiston theory","Y":"the theory of bad humors","Z":"the theory that disease was caused by astrological events"},"a":{"t":"the theory of spontaneous generation","l":"W"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3734","q":[
-{"i":89386,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"For a flower to be complete, it must possess what four types of floral appendages?","a":{"t":"SEPALS, PETALS, STAMENS, AND CARPELS","ac":["SEPALS","PETALS","STAMENS","AND PISTALS"]}}]},
+{"i":89386,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"For a flower to be complete, it must possess what four types of floral appendages?","a":{"t":"SEPALS, PETALS, STAMENS, AND CARPELS","ac":["SEPALS, PETALS, STAMENS, AND PISTILS"]}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3735","q":[
 {"i":89387,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"The disruption of the three-dimensional shape of a protein by factors such as heat, acids, bases, and organic solvents, is called what?","a":{"t":"DENATURATION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3735","q":[
@@ -746,7 +746,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3740","q":[
 {"i":89397,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"A mixture of turpentine, ether, camphor gum, and powdered emory, was historically used for which of the following:","c":{"W":"sealing mirrored surfaces","X":"grinding glass surfaces","Y":"gluing glass plates together","Z":"coating lenses for chromatic aberration"},"a":{"t":"grinding glass surfaces","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3740","q":[
-{"i":89398,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
+{"i":89398,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3741","q":[
 {"i":89399,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT true about JAVA:","c":{"W":"it provides support for networking.","X":"it is an ISO standard language","Y":"it is an object oriented language","Z":"it is a dynamic language."},"a":{"t":"it is an ISO standard language","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3741","q":[
@@ -758,7 +758,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3743","q":[
 {"i":89403,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"Which of the following is true of an oxidation reaction:","c":{"W":"in an electrolytic cell, oxidation takes place at the cathode","X":"in the following reaction, bromine is oxidized: Br2 + 2e- → 2Br-","Y":"in a chemical reaction, the substance that is being oxidized is also known as the reducing agent","Z":"in a chemical reaction, the substance that is being oxidized is also known as the oxidizing agent"},"a":{"t":"in a chemical reaction, the substance that is being oxidized is also known as the reducing agent","l":"Y"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3743","q":[
-{"i":89404,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"Name any 5 of the 8 nonmetals that form homonuclear diatomic molecules:","a":{"t":"HYDROGEN, NITROGEN, OXYGEN, FLUORINE, CHLORINE, BROMINE, IODINE, ASTATINE","ac":["any 5","H2","N2","O2","F2","Cl2","Br2","I2","At2"]}}]},
+{"i":89404,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"Name any 5 of the 8 nonmetals that form homonuclear diatomic molecules:","a":{"t":"HYDROGEN, NITROGEN, OXYGEN, FLUORINE, CHLORINE, BROMINE, IODINE, ASTATINE","ac":["H2, N2, O2, F2, Cl2, Br2, I2, At2"]}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3744","q":[
 {"i":89405,"s":"phys","f":"SA","qt":"tossup","n":19,"q":"The lowest frequency that determines the pitch of a musical note is most commonly called the:","a":{"t":"FUNDAMENTAL","ac":["FUNDAMENTAL TONE"]}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3745","q":[
@@ -840,9 +840,9 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3364","q":[
 {"i":89444,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"Which of the following is an example of a metamorphic rock:","c":{"W":"gneiss","X":"granite","Y":"sandstone","Z":"limestone"},"a":{"t":"gneiss","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3365","q":[
-{"i":89445,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"As more of the water turns into ice, the temperature of the remaining liquid in a vessel:","c":{"W":"decreases","X":"can not be determined from the available information","Y":"increases","Z":"remains the same"},"a":{"t":"remains the same","l":"Z"}}]},
+{"i":89445,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"As more of the water turns into ice, the temperature of the remaining liquid in a vessel:","c":{"W":"decreases","X":"can not be determined from the available information","Y":"increases","Z":"remains the same"},"a":{"t":"remains the same","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3365","q":[
-{"i":89446,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What were the two most valuable products derived from the tree Castanea americana?","a":{"t":"CHESTNUTS AND WOOD","ac":["FOOD AND WOOD"]}}]},
+{"i":89446,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"What were the two most valuable products derived from the tree Castanea americana?","a":{"t":"CHESTNUTS AND WOOD","ac":["FOOD AND WOOD"]}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3366","q":[
 {"i":89447,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"There are several types of these systems commonly used in intranets designed to prevent unauthorized access by internet users to or from a private network:","a":{"t":"FIREWALL"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3366","q":[
@@ -868,7 +868,7 @@
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3372","q":[
 {"i":89459,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"The term empirical is most accurately described as a conclusion based on:","c":{"W":"intuition","X":"careful theoretical propositions","Y":"extrapolating from the specific to the general","Z":"experimentation and observation"},"a":{"t":"experimentation and observation","l":"Z"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3372","q":[
-{"i":89460,"s":"energy","f":"SA","qt":"bonus","n":22,"q":"Order the following elements in dry weight per cent make-up in the human body, from the HIGHEST percent to the LOWEST percent content: Calcium; Nitrogen; Carbon; Magnesium:","a":{"t":"CARBON; NITROGEN; CALCIUM; MAGNESIUM"}}]},
+{"i":89460,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"Order the following elements in dry weight per cent make-up in the human body, from the HIGHEST percent to the LOWEST percent content: Calcium; Nitrogen; Carbon; Magnesium:","a":{"t":"CARBON; NITROGEN; CALCIUM; MAGNESIUM"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/tossup/3373","q":[
 {"i":89461,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"If a human being were to be exposed suddenly to the surface of Mars, which of the following would most likely occur to the person’s blood:","c":{"W":"it would boil in a matter of seconds","X":"it would freeze in a matter of seconds","Y":"it would coagulate in a matter of seconds","Z":"there would be no immediate change"},"a":{"t":"it would boil in a matter of seconds","l":"W"}}]},
 {"rl":"Round 10","r":10,"u":"https://scibowldb.com/bonus/3373","q":[
@@ -940,7 +940,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3390","q":[
 {"i":89495,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Bells are typically cast in which of the following:","c":{"W":"in a bronze alloy of about 75% copper and 25% zinc","X":"in a brass alloy of about 75% copper and 25% tin","Y":"in a bronze alloy of about 75% copper and 25% tin","Z":"in a brass alloy of about 75% copper and 25% zinc"},"a":{"t":"in a bronze alloy of about 75% copper and 25% tin","l":"Y"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3390","q":[
-{"i":89496,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Uranium-238, uranium-235, and thorium-232 all undergo decay to form isotopes of this one element of the carbon group:","a":{"t":"LEAD"}}]},
+{"i":89496,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Uranium-238, uranium-235, and thorium-232 all undergo decay to form isotopes of this one element of the carbon group:","a":{"t":"LEAD"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3391","q":[
 {"i":89497,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"The term SQL, which is sometimes pronounced \"sequel\", stands for what language?","a":{"t":"STRUCTURED QUERY LANGUAGE."}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3391","q":[
@@ -966,7 +966,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3396","q":[
 {"i":89508,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"The theory that suggests that earthquakes result from the release of stored elastic energy by slippage on faults is called:","a":{"t":"ELASTIC REBOUND THEORY"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3397","q":[
-{"i":89509,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"A satellite that orbits the equatorial plane of the Earth at a speed matching the Earth’s orbit is said to be in what kind of orbit?","a":{"t":"GEOSYNCHRONOUS"}}]},
+{"i":89509,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"A satellite that orbits the equatorial plane of the Earth at a speed matching the Earth’s orbit is said to be in what kind of orbit?","a":{"t":"GEOSYNCHRONOUS"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3397","q":[
 {"i":89510,"s":"energy","f":"MC","qt":"bonus","n":22,"q":"After thorough cleaning and repeated applications of ammonium polysulfide followed by drying, the steel is then rubbed briskly with a cloth and sealed with linseed oil. This process describes which of the following:","c":{"W":"bluing of steel","X":"preparation of steel for cheap jewelry","Y":"long term storage preparation of high grade steel","Z":"preparation of steel for use in nuclear reactors"},"a":{"t":"bluing of steel","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3398","q":[
@@ -1040,7 +1040,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3415","q":[
 {"i":89545,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What is the usual name for the recent technology which is involved with the fabrication of structures measuring in the realm of molecular and atomic sizes?","a":{"t":"NANOTECHNOLOGY"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3415","q":[
-{"i":89546,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Occurring as a colorless crystalline salt or white powder, what substance, commonly sold in hardware stores and supermarkets, is used as an antiseptic, cleansing agent, water softener, corrosion inhibitor in antifreeze, in flux for silver soldering and in the manufacture of Pyrex glass?","a":{"t":"BORAX","ac":["SODIUM TETRABORATE DECAHYDRATE"]}}]},
+{"i":89546,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Occurring as a colorless crystalline salt or white powder, what substance, commonly sold in hardware stores and supermarkets, is used as an antiseptic, cleansing agent, water softener, corrosion inhibitor in antifreeze, in flux for silver soldering and in the manufacture of Pyrex glass?","a":{"t":"BORAX","ac":["SODIUM TETRABORATE DECAHYDRATE"]}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3416","q":[
 {"i":89547,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Starting a computer as minimalistically as possible by loading only those files and programs that are absolutely required by the operating system, is called a:","c":{"W":"cold boot","X":"warm boot","Y":"clean boot","Z":"clear boot"},"a":{"t":"clean boot","l":"Y"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3416","q":[
@@ -1208,7 +1208,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3457","q":[
 {"i":89629,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"To which of the following groups does the popular organism for developmental biological studies called C. elegans belong:","c":{"W":"budding yeasts","X":"nematodes","Y":"flatworms","Z":"vascular plants"},"a":{"t":"nematodes","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3457","q":[
-{"i":89630,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"What force of nature is responsible for the fact that heated gases in a flame take on a tear-drop shape?","a":{"t":"GRAVITY"}}]},
+{"i":89630,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"What force of nature is responsible for the fact that heated gases in a flame take on a tear-drop shape?","a":{"t":"GRAVITY"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3458","q":[
 {"i":89631,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"A WAN would be absolutely required for a network:","c":{"W":"between two computers","X":"between two buildings on a college campus","Y":"between neighboring towns","Z":"between two continents"},"a":{"t":"between two continents","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3458","q":[
@@ -1338,7 +1338,7 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3489","q":[
 {"i":89694,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"The property exhibited by certain minerals, such as sphalerite, which causes them to give off \"flashes\" of light when struck, is called?","a":{"t":"TRIBOLUMINESCENCE"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3490","q":[
-{"i":89695,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"In what continent does the AIDS epidemic affect the greatest proportion of the population?","a":{"t":"AFRICA"}}]},
+{"i":89695,"s":"bio","f":"SA","qt":"tossup","n":15,"q":"In what continent does the AIDS epidemic affect the greatest proportion of the population?","a":{"t":"AFRICA"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3490","q":[
 {"i":89696,"s":"bio","f":"MC","qt":"bonus","n":15,"q":"Anthropologists most often infer brain shape from which of the following:","c":{"W":"presence of high zygomatic arch","X":"contours of fossil skulls","Y":"presence or absence of occipital bones","Z":"direct observation of preserved brains"},"a":{"t":"contours of fossil skulls","l":"X"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3491","q":[
@@ -1418,7 +1418,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3510","q":[
 {"i":89734,"s":"chem","f":"MC","qt":"tossup","n":10,"q":"Which positions on the benzene ring are the chlorine atoms found in the compound para-dichloro-benzene:","c":{"W":"1 and 2","X":"1 and 3","Y":"1 and 4","Z":"1 and 5"},"a":{"t":"1 and 4","l":"Y"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3510","q":[
-{"i":89735,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"Name two isotopes that have the distinction of being the only isotopes that have individual names and are the atoms of choice in the research efforts to create fusion reactors?","a":{"t":"DEUTERIUM AND TRITIUM","ac":["HYDROGEN-2","D","HYDROGEN-3","T"]}}]},
+{"i":89735,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"Name two isotopes that have the distinction of being the only isotopes that have individual names and are the atoms of choice in the research efforts to create fusion reactors?","a":{"t":"DEUTERIUM AND TRITIUM","ac":["HYDROGEN-2 AND HYDROGEN-3","D AND T"]}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3511","q":[
 {"i":89736,"s":"bio","f":"MC","qt":"tossup","n":11,"q":"T cells do much of their work by releasing:","c":{"W":"antibodies","X":"lymphocytes","Y":"cytokines","Z":"stress"},"a":{"t":"cytokines","l":"Y"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3511","q":[
@@ -1482,7 +1482,7 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3526","q":[
 {"i":89766,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which of the following is NOT true of the Calvin-Benson Cycle:","c":{"W":"it is also sometimes called the dark reactions of photosynthesis","X":"it is also sometimes called the light independent reactions of photosynthesis","Y":"it converts energy trapped in the light reactions into sugar","Z":"it does not require stores of potential energy"},"a":{"t":"it does not require stores of potential energy","l":"Z"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3526","q":[
-{"i":89767,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What are the 3 tissue layers in plants that become distinct during fruit growth?","a":{"t":"EXOCARP, MESOCARP, AND ENDOCARP","ac":["in any order"]}}]},
+{"i":89767,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What are the 3 tissue layers in plants that become distinct during fruit growth?","a":{"t":"EXOCARP, MESOCARP, AND ENDOCARP"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3527","q":[
 {"i":89768,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following is NOT an example of a voltaic cell:","c":{"W":"lead-storage battery","X":"electrolytic cell","Y":"dry cell","Z":"nickel-cadmium battery"},"a":{"t":"electrolytic cell","l":"X"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3527","q":[
@@ -1502,7 +1502,7 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3531","q":[
 {"i":89776,"s":"ess","f":"MC","qt":"bonus","n":6,"q":"Geologic time can be expressed in either relative or absolute time. Which is associated with absolute time:","c":{"W":"uranium-lead dating","X":"fossil correlation","Y":"superimposition","Z":"physical feature correlation"},"a":{"t":"uranium-lead dating","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3532","q":[
-{"i":89777,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"Which of the following is the most appropriate statistical operation to evaluate whether three sets of plants, that differ only in their exposure to three different fertilizers, reacted differently:","c":{"W":"regression analysis","X":"range analysis","Y":"comparison of standard deviations","Z":"analysis of variance"},"a":{"t":"analysis of variance","l":"Z"}}]},
+{"i":89777,"s":"math","f":"MC","qt":"tossup","n":7,"q":"Which of the following is the most appropriate statistical operation to evaluate whether three sets of plants, that differ only in their exposure to three different fertilizers, reacted differently:","c":{"W":"regression analysis","X":"range analysis","Y":"comparison of standard deviations","Z":"analysis of variance"},"a":{"t":"analysis of variance","l":"Z"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3532","q":[
 {"i":89778,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"This fungus is the causative agent for what was known in medieval times as St. Anthony’s fire, and is now used as a source for certain drugs:","a":{"t":"ERGOT"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3533","q":[
