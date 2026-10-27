@@ -159,6 +159,13 @@ test('ranking answers must be in the keyed order', () => {
   assert.ok(isCorrect('1, 3, 2', '1 and 3 and 2', { question: q }));
   assert.ok(!isCorrect('1, 3, 2', '1, 2, 3', { question: q }));
   assert.ok(!isCorrect('1, 3, 2', '3 2 1', { question: q }));
+  // typed digits that only include the item numbers are not a ranking
+  assert.ok(!isCorrect('1, 3, 2', '138/2', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', 'vertices = 1, edges = 32', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2', '1, 3, 4, 2', { question: q }));
+  // a key may carry the item names after its numbers
+  assert.ok(isCorrect('1, 3, 2 (A, C, B)', '1, 3, 2', { question: q }));
+  assert.ok(!isCorrect('1, 3, 2 (A, C, B)', '2, 3, 1', { question: q }));
   // the ordering can live in an accept when the key is written as values
   const v = 'Order the following three numbers from least to greatest: 1) 42%; 2) 0.402; 3) 2/5.';
   assert.ok(isCorrect('2/5; 0.402; 42%', '3, 2, 1', { question: v, accept: ['3, 2, 1'] }));
@@ -205,4 +212,7 @@ test('list answers to ordered questions keep their order', () => {
   // "not necessarily in that order" doesn't ask for an order; "40,000" is one item
   assert.ok(isCorrect('ARGON AND NEON', 'neon and argon', { question: 'Name the two gases, not necessarily in that order.' }));
   assert.ok(!isCorrect('-40,000 VOLTS', '000 volts, -40'));
+  // "3/2" is a fraction, not the items 3 and 2
+  assert.ok(isCorrect('x = 2 AND x = 3', '3 and 2'));
+  assert.ok(!isCorrect('x = 2 AND x = 3', '3/2'));
 });

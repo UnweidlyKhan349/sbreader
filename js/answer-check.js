@@ -98,11 +98,18 @@
 
   // Canonicalize a ranking-style answer ("3, 1, 2" / "312") to its digit
   // sequence AS TYPED - order is preserved, not sorted.
-  function canonicalizeRanked(raw, itemCount) {
+  // A typed answer (`typed`) must be item numbers only: "3, 1, 2", "3 then 1
+  // then 2", "312" - never "128/3" or "VERTICES = 12, EDGES = 30", whose
+  // digits merely include 1 to 3. A key keeps its labels ("1, 3, 2
+  // (TACHOCLINE, …)", "1. INFLATION 3. RECOMBINATION 2. REIONIZATION").
+  function canonicalizeRanked(raw, itemCount, typed) {
     if (!itemCount) return null;
     const up = normalize(raw);
     if (!up) return null;
-    const digits = (up.match(/[1-9]/g) || []).map(Number).filter((d) => d <= itemCount);
+    if (typed && !/^[1-9]+$/.test(up) && !/^[1-9](?:\s+(?:(?:AND|THEN)\s+)?[1-9])*$/.test(up)) return null;
+    const all = (up.match(/[1-9]/g) || []).map(Number);
+    if (typed && all.some((d) => d > itemCount)) return null;
+    const digits = all.filter((d) => d <= itemCount);
     if (!digits.length) return null;
     return digits.join('');
   }
@@ -762,7 +769,7 @@
         ai.forEach((x, i) => { if (differs[i]) alts[i].push(x); });
       }
     }
-    return { n: items.length, alts, floating: [], ordered: listIsOrdered(question) };
+    return { n: items.length, alts, floating: [], ordered: listIsOrdered(question), noSlash: true };
   }
 
   // Candidate ways to cut a typed answer into exactly n pieces: first by the
@@ -770,8 +777,9 @@
   // "first quarter full moon" with no separator at all - every way of cutting
   // the words into n consecutive runs (a connecting "and"/"then" at a cut is
   // dropped).
-  function* segmentations(raw, n) {
-    const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/, /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
+  function* segmentations(raw, n, noSlash) {
+    const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/,
+      noSlash ? /\s*(?:[;,&]|\s\|\s|\band\b|\bthen\b)\s*/i : /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
     const seen = new Set();
     for (const re of seps) {
       const segs = raw.split(re).map((s) => s.trim().replace(/^(?:and|then)\s+/i, '')).filter(Boolean);
@@ -882,7 +890,7 @@
 
   function checkMultiPart(raw, spec) {
     let best = null;
-    for (const segs of segmentations(raw, spec.n)) {
+    for (const segs of segmentations(raw, spec.n, spec.noSlash)) {
       const m = matchSegments(segs, spec);
       if (m === 'exact') return m;
       best = betterMatch(best, m);
@@ -1015,7 +1023,7 @@
     if (itemCount) {
       const ranking = isRankingQuestion(question.question);
       const canonFn = ranking ? canonicalizeRanked : canonicalizeList;
-      let userCanon = canonFn(raw, itemCount);
+      let userCanon = canonFn(raw, itemCount, true);
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
         // a ranking one, where order is the point and term-matching doesn't
@@ -1146,7 +1154,7 @@
       if (multi && answerParts(key)) continue;
       const items = list && list.ordered ? listItems(key) : null;
       const m = items
-        ? checkMultiPart(raw, { n: items.length, alts: items.map(partVariants), floating: [], ordered: true })
+        ? checkMultiPart(raw, { n: items.length, alts: items.map(partVariants), floating: [], ordered: true, noSlash: true })
         : lenientWordMatch(raw, key);
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
