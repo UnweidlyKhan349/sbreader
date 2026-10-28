@@ -3761,7 +3761,7 @@
 {"i":77167,"s":"math","f":"SA","qt":"tossup","n":25,"q":"Express 4 factorial as a whole number.","a":{"t":"24"}},
 {"i":77168,"s":"math","f":"SA","qt":"bonus","n":25,"q":"Expressing your answer in terms of π, simplify 4x^3 - 6(x^2 + 2) - 3π + 3x(x^2) + 6π - 8.","a":{"t":"7x^3 - 6x^2 - 20 + 3π","ac":["OTHER ORDERS OF TERMS"]}}]},
 {"rl":"Set 4 · Round 12","r":12,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/MS-Sample-Questions/Sample-Set-4/Round12.pdf","q":[
-{"i":77169,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"What component of the air does humidity measure?","a":{"t":"Water vapor","l":"Y"},"c":{"W":"Nitrogen","X":"Dust and other particulate matter","Y":"Water vapor","Z":"Carbon monoxide"}},
+{"i":77169,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"What component of the air does humidity measure?","a":{"t":"Water vapor","l":"Y"},"c":{"W":"Nitrogen","X":"Dust and other particulate matter","Y":"Water vapor","Z":"Carbon monoxide"}},
 {"i":77170,"s":"phys","f":"MC","qt":"bonus","n":1,"q":"An object suspended above the ground by a string is acted upon by:","a":{"t":"Tension that equals its weight","l":"X"},"c":{"W":"No net tension","X":"Tension that equals its weight","Y":"Tension that equals its mass","Z":"Tension independent of its mass"}},
 {"i":77171,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"Which phylum of animals possesses a dorsal nerve cord?","a":{"t":"CHORDATA"}},
 {"i":77172,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"Name by words or numbers all of the following four organelles found in plant cells that may have arisen as a result of a symbiotic relationship with prokaryotes: 1) chloroplast, 2) endoplasmic reticulum, 3) ribosome, or 4) mitochondria?","a":{"t":"CHLOROPLAST AND MITOCHONDRIA","ac":["1, 4"]}},

@@ -2,15 +2,15 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 84,115 questions from 108 tournaments** (43,974 tossups / 40,141 bonuses; 51,783 short answer / 32,332 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 84,115 questions from 108 tournaments** (43,971 tossups / 40,144 bonuses; 51,783 short answer / 32,332 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
-| Biology | 16,989 |
-| Earth & Space | 16,769 |
+| Biology | 16,990 |
+| Earth & Space | 16,772 |
 | Physics | 16,824 |
-| Math | 14,460 |
-| Chemistry | 15,395 |
+| Math | 14,458 |
+| Chemistry | 15,393 |
 | Energy | 3,678 |
 
 > **Visual bonuses are implemented, and every scrape must collect them.** A question that comes with a figure (a visual bonus, or the occasional visual tossup) is stored with its image and shown in the catalog, solo and multiplayer modes, with its own Visual filter. When packets are scraped, their visual questions are scraped too, figure and all, from the packet itself or from the event's separate visual-bonus deck. They are never skipped as "visual"; one is left out only when its image exists nowhere that can be reached. See [Visual questions](#visual-questions).
@@ -147,7 +147,10 @@ js/vendor/peerjs.min.js   vendored PeerJS (no CDN dependency)
 data/meta.json      tournaments, counts, filter values, id aliases
 data/bank/<slug>.json   the question bank, one file per tournament (see Data format)
 data/bank/index.json    which tournament each question id is in
+data/source-subjects.json   the subject each question's packet prints (checked by npm test, not loaded by the site)
+data/subject-overrides.json questions deliberately filed under a different subject than their packet prints
 tools/bank.js       converts the bank to and from one flat list of records, for editing
+tools/subject-audit.js   reads the subject each question's packet prints and records it in data/source-subjects.json
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
@@ -211,6 +214,14 @@ npm test
 ```
 
 `pack` groups consecutive questions of a tournament into packets, writes one file per tournament slug, deletes the file of any tournament that no longer has questions, and rebuilds `index.json`. It doesn't touch `meta.json`, so update its counts (and add a new tournament's entry, with its `level`) when they change; `npm test` fails until the two agree, and also checks that every file is exactly what `pack` would write. Small edits can also be made to a tournament's file directly.
+
+**Recording packet subjects.** After adding questions, put their packets' text in a folder (`pdftotext`, a Google Doc's `?format=txt` export, a .docx's text), optionally with a `urls.json` that maps each packet's URL to its file, and run:
+
+```bash
+node tools/subject-audit.js /tmp/packets --write
+```
+
+It finds each new question's stem in the packets, reads the subject label printed before it, prints every question filed under a different subject, and records the printed subjects in `data/source-subjects.json` (`null` when it can't find the stem or its label). Read each difference: fix the question's subject when the packet is right, or add `"<id>": "printed→filed"` to `data/subject-overrides.json` when the packet mislabels it. `--all` re-checks questions that already have an entry, without changing them.
 
 A flat record (a question plus its packet's fields and its tournament):
 
@@ -304,6 +315,7 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 **Placement**
 - A tournament's rounds are numbered in order through its phases (round robin, then double elimination or playoffs, then finals), so the round slider reads in order.
 - **Energy is a last resort.** Every question filed under Energy, whatever its packet called it (NSB's Energy category, General Science, Computer Science, special rounds), is read. If it squarely belongs to Math, Physics, Biology, Chemistry or Earth & Space, it moves there. The question is judged by what it asks, not by a "Researchers at X National Lab" lead-in. Energy keeps computer science, energy technology and resources (reactors, grids, batteries, fuels, power statistics and policy), units and lab practice, history-of-science trivia, and questions that need two subjects about equally. When in doubt, the question stays in Energy. Every new scrape has to apply this too. A single-subject event (Earth and Space Scrimmage, the National Chemistry Bowl, Lexington Biology Bowl, Trio Online Math Bowl) keeps every question in its subject.
+- **A question's subject matches what its packet prints**, unless the packet mislabels it. `data/source-subjects.json` records the printed subject of every question (`"other"` for Energy, General Science, Physical Science and the like, which the Energy rule places; `null` where no packet could be checked), and `npm test` fails when a question's subject differs from it without an entry in `data/subject-overrides.json`. An override is written `"printed→filed"`, so changing that question's subject again makes the test fail until someone re-reads it. A packet's label is overridden only after reading the question, when it belongs to the other subject at least as much (an enzyme question printed under Chemistry, a Kepler's-laws question under Physics); a question that plainly fits the printed subject keeps it. Every new scrape records the printed subjects with `tools/subject-audit.js` (see [Editing the bank](#databank-the-question-bank)) and settles each difference it lists. A single-subject event's questions are all recorded as its subject.
 - Every tournament has a `level` and an approximate `date` in `meta.json` (see [Data format](#datametajson)).
 
 ---
@@ -349,6 +361,6 @@ npm test        # or: node --test tests/*.test.js  (Node 18+, no install needed)
 The tests, which CI also runs on every push and pull request:
 - `tests/answer-check.test.js`: grading rules, the known false positives, and every answer key and whole-answer accept in the corpus graded against its own question.
 - `tests/mp-rules.test.js`: multiplayer message validation and override rules.
-- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each word against each field separately. Run it after any data change.
+- `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every question's subject matches the subject its packet prints or is a listed override (see [Placement](#text-and-notation-conventions)), every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each word against each field separately. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.

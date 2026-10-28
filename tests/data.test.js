@@ -152,6 +152,40 @@ test('data/bank/index.json maps every question id to its own tournament', () => 
   assert.deepStrictEqual(aliasWrong.slice(0, 10), []);
 });
 
+// data/source-subjects.json holds, for every question, the subject its
+// packet prints (or its ScibowlDB/isobowl entry, or a copy's packet when its
+// own isn't online): a subject key, "other" for
+// Energy, General Science and the like (placed by the Energy rule), or null
+// when no source could be checked. A question filed under a different subject
+// than its source prints must be listed in data/subject-overrides.json as
+// "printed→filed", so a mislabel can't slip in unnoticed (README: Placement).
+test('every subject matches what its source prints, or is a listed override', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const read = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+  const printed = read('data/source-subjects.json');
+  const overrides = read('data/subject-overrides.json');
+  const subjects = new Set(meta.subjects);
+  const byId = new Map(raw.map((q) => [String(q.i), q]));
+  const found = check(raw, {
+    'no entry in data/source-subjects.json (null if the source can\'t be checked)': (q) => !(String(q.i) in printed),
+    'unknown printed subject': (q) => printed[q.i] != null && printed[q.i] !== 'other' && !subjects.has(printed[q.i]),
+    'differs from its source and isn\'t a listed override': (q) => {
+      const p = printed[q.i];
+      return p != null && p !== 'other' && p !== q.s && overrides[q.i] !== `${p}→${q.s}`;
+    },
+  });
+  // An override that no longer describes a difference is stale.
+  const stale = Object.entries(overrides).filter(([id, v]) => {
+    const q = byId.get(id);
+    return !q || v !== `${printed[id]}→${q.s}`;
+  }).map(([id]) => id);
+  if (stale.length) found['stale override'] = stale.slice(0, 10);
+  const extra = Object.keys(printed).filter((id) => !byId.has(id));
+  if (extra.length) found['source subject for a question not in the bank'] = extra.slice(0, 10);
+  assert.deepStrictEqual(found, {});
+});
+
 test('search matches every word in the question, answer or tournament, ignoring case, order and exponent markup', () => {
   const { questions } = loadCorpus();
   const SBData = globalThis.SBData;

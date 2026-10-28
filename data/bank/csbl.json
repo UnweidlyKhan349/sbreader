@@ -365,7 +365,7 @@
 {"i":3457,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"Consider a zeroth-order reaction with a single aqueous reactant, X. If the initial concentration of X is 2 molar, and the half-life at this time is 10 seconds, how many seconds will elapse before the concentration is 0.5 molar.","a":{"t":"15"}},
 {"i":3458,"s":"phys","f":"SA","qt":"tossup","n":21,"q":"Identify ALL of the following types of materials that have higher resistance at higher temperatures: I. Insulator II. Semiconductor III. Conductor","a":{"t":"III ONLY"}},
 {"i":3459,"s":"phys","f":"SA","qt":"bonus","n":21,"q":"Two solid spheres of radius r are in contact with each other. Given UNIFORM DENSITY, the gravitational force between the spheres is proportional to what power of r?","a":{"t":"4"}},
-{"i":3460,"s":"math","f":"MC","qt":"tossup","n":22,"q":"Which of the following is closest to a lunar synodic day?","a":{"t":"24 hours and 50 minutes","l":"Z"},"c":{"W":"12 hours","X":"12 hours and 25 minutes","Y":"24 hours","Z":"24 hours and 50 minutes"}},
+{"i":3460,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"Which of the following is closest to a lunar synodic day?","a":{"t":"24 hours and 50 minutes","l":"Z"},"c":{"W":"12 hours","X":"12 hours and 25 minutes","Y":"24 hours","Z":"24 hours and 50 minutes"}},
 {"i":3461,"s":"math","f":"SA","qt":"tossup","n":23,"q":"What is the derivative with respect to x of f(x) = sin(x)/tan(x)","a":{"t":"−sin(x)"}},
 {"i":3462,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the radius of a circle inscribed in a triangle with side lengths of 13, 15, and 18?","a":{"t":"20√23/23"}}]},
 {"rl":"CSBL_Round_7","r":7,"u":"https://lebot.djiang.xyz/packets/CSBL/CSBL_Round_7.pdf","q":[
