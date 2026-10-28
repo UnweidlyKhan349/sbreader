@@ -308,7 +308,10 @@
     card.className = 'q-log-entry';
     card.dataset.qid = q.id;
 
-    const meta = SBData.questionMetaRow(q, { grade: entry.category });
+    // Clients' question copies carry no answer or packet link, so those come
+    // from the reveal.
+    const a = entry.answer;
+    const meta = SBData.questionMetaRow(q, { grade: entry.category, sourceUrl: a.sourceUrl });
     // The main bookmark button (up by the question) shows the star for
     // whichever question is currently active, which can be this exact
     // logged question - keep the two stars in sync instead of leaving
@@ -321,9 +324,7 @@
     card.appendChild(meta);
 
     SBData.appendQuestionBody(card, q);
-    // Clients' question copies carry no answer, so it comes from the reveal.
-    const a = entry.answer;
-    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject, sourceUrl: a.sourceUrl }, { source: true }));
+    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject }));
 
     if (entry.answeredBy) {
       const who = document.createElement('div');

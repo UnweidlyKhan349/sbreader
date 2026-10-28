@@ -289,9 +289,13 @@
   SBData.qtypeTagClass = qtypeTagClass;
   SBData.FORMAT_LABELS = FORMAT_LABELS;
 
-  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped' }
+  // The tag row. opts: { grade: 'correct'|'incorrect'|'skipped', sourceUrl }
+  // With a packet sourceUrl, a "Source" link follows the source label.
   function questionMetaRow(q, opts) {
     opts = opts || {};
+    const srcLink = isPacketUrl(opts.sourceUrl)
+      ? ` · <a href="${escapeHtml(opts.sourceUrl)}" target="_blank" rel="noopener">Source</a>`
+      : '';
     const row = document.createElement('div');
     row.className = 'meta-row';
     row.innerHTML = [
@@ -300,7 +304,7 @@
       `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
       q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}</span>`,
+      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}${srcLink}</span>`,
     ].join('');
     return row;
   }

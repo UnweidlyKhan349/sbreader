@@ -737,7 +737,7 @@
     card.className = 'q-log-entry';
     card.dataset.qid = q.id;
 
-    const meta = SBData.questionMetaRow(q, { grade: entry.category });
+    const meta = SBData.questionMetaRow(q, { grade: entry.category, sourceUrl: q.sourceUrl });
     // The main bookmark button (up by the question) shows the star for
     // whichever question is currently displayed, which can be this exact
     // logged question (its reveal box is still on screen) - keep the two
@@ -751,7 +751,7 @@
     card.appendChild(meta);
 
     SBData.appendQuestionBody(card, q);
-    card.appendChild(SBData.answerBlock(q, null, { source: true }));
+    card.appendChild(SBData.answerBlock(q, null));
 
     if (entry.userText) {
       const you = document.createElement('div');
