@@ -150,7 +150,7 @@ data/bank/index.json    which tournament each question id is in
 data/source-subjects.json   the subject each question's packet prints (checked by npm test, not loaded by the site)
 data/subject-overrides.json questions deliberately filed under a different subject than their packet prints
 tools/bank.js       converts the bank to and from one flat list of records, for editing
-tools/subject-audit.js   reads the subject each question's packet prints and records it in data/source-subjects.json
+tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
@@ -215,13 +215,13 @@ npm test
 
 `pack` groups consecutive questions of a tournament into packets, writes one file per tournament slug, deletes the file of any tournament that no longer has questions, and rebuilds `index.json`. It doesn't touch `meta.json`, so update its counts (and add a new tournament's entry, with its `level`) when they change; `npm test` fails until the two agree, and also checks that every file is exactly what `pack` would write. Small edits can also be made to a tournament's file directly.
 
-**Recording packet subjects.** After adding questions, put their packets' text in a folder (`pdftotext`, a Google Doc's `?format=txt` export, a .docx's text), optionally with a `urls.json` that maps each packet's URL to its file, and run:
+**Checking new questions against their packets.** After adding questions, put their packets' text in a folder (`pdftotext`, a Google Doc's `?format=txt` export, a .docx's text), with a `urls.json` that maps each packet's URL to its file, and run:
 
 ```bash
 node tools/subject-audit.js /tmp/packets --write
 ```
 
-It finds each new question's stem in the packets, reads the subject label printed before it, prints every question filed under a different subject, and records the printed subjects in `data/source-subjects.json` (`null` when it can't find the stem or its label). Read each difference: fix the question's subject when the packet is right, or add `"<id>": "printed→filed"` to `data/subject-overrides.json` when the packet mislabels it. `--all` re-checks questions that already have an entry, without changing them.
+It finds each new question's stem in the packets and reads the header printed before it. It prints every question filed under a different subject than the label there, and every question whose type or number differs from the `TOSS-UP 5)` / `BONUS 5)` marker; it records the printed subjects in `data/source-subjects.json` (`null` when it can't find the stem or its label). Read each difference. For a subject, fix the question when the packet is right, or add `"<id>": "printed→filed"` to `data/subject-overrides.json` when the packet mislabels it. For a type or number, fix the question when the packet is right; packets misprint headers too (`TOSS-UP 19` twice, `BONUS 8` right after tossup 18), so check the questions around it first. Type and number are read only from a question's own packet (listed in `urls.json`), since a copy elsewhere can sit in another slot. `--all` re-checks questions that already have an entry, without changing them.
 
 A flat record (a question plus its packet's fields and its tournament):
 

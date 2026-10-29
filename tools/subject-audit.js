@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-/* Checks each question's subject against the subject its packet prints, and
-   records what the packet prints in data/source-subjects.json.
+/* Checks each question's subject, and its tossup/bonus type and number,
+   against what its packet prints, and records the printed subject in
+   data/source-subjects.json.
 
-   Packets print a subject ahead of each question ("13) BIO – Short Answer",
-   "TOSS-UP 5) EARTH AND SPACE Multiple Choice"). This finds each question's
-   stem in the packet text and reads the last subject label between the end
-   of the previous answer and the stem.
+   Packets print a header ahead of each question ("BONUS 13) BIO – Short
+   Answer", "TOSS-UP 5) EARTH AND SPACE Multiple Choice"). This finds each
+   question's stem in the packet text and reads the header between the end of
+   the previous answer and the stem: the last subject label, and the last
+   TOSS-UP or BONUS marker with the number right after it.
 
      node tools/subject-audit.js <texts-dir> [--write] [--all]
 
@@ -15,14 +17,19 @@
    file only; any other question is looked for in every file.
 
    Only questions with no entry in data/source-subjects.json are checked,
-   unless --all is given. The report lists each one that differs from its
-   packet. --write records the printed subjects (a subject key, "other" for
+   unless --all is given. The report lists each one whose subject, type or
+   number differs from its packet. Type and number are read only from the
+   question's own packet (a copy elsewhere can sit in another slot), and only
+   when the header is unambiguous. --write records the printed subjects (a subject key, "other" for
    Energy, General Science, Physical Science and so on, or null when the
    stem or its label wasn't found) and leaves existing entries alone.
 
    Then read every difference. Fix the question's subject when the packet is
    right; when the packet mislabels it, add "printed→filed" for it to
-   data/subject-overrides.json. npm test fails until each one is settled. */
+   data/subject-overrides.json. npm test fails until each one is settled.
+   Fix a type or number when the packet is right; a packet's own header can
+   be wrong too (TOSS-UP 19 printed twice, BONUS 8 after tossup 18), so read
+   the questions around it first. */
 const fs = require('fs');
 const path = require('path');
 const { unpack } = require('./bank.js');
@@ -41,6 +48,11 @@ const LABELS = [
 ];
 const LABEL_RE = /(?<![A-Za-z])(EARTH\s*(?:AND|&)\s*SPACE(?:\s*SCIENCES?)?|EARTH\s*SCIENCES?|ASTRONOMY|ESS|E&S|LIFE\s*SCIENCES?|BIOLOGY|BIO|CHEMISTRY|CHEM|PHYSICAL\s*SCIENCES?|PHYSICS|PHYS|MATHEMATICS|MATH|ENERGY|GENERAL\s*SCIENCES?|COMPUTER\s*SCIENCES?)(?![A-Za-z])/gi;
 const ANSWER_RE = /ANSWER\s*:|ACCEPT\s*:|\n\s*\n\s*\n/gi;
+const MARK_RE = /(TOSS[\s\-–]*UPS?|BONUS)\b/gi;
+// A marker and its number: "TOSS-UP 5)", "BONUS\n13) BIO", "Tossup 8.". A
+// second number right after ("TOSS-UP 9) 3)", a Word list number before the
+// real one) makes the number unreadable.
+const SLOT_RE = /^(?:TOSS[\s\-–]*UPS?|BONUS)\b[\s:#\-–]*(?:QUESTION\s*)?(\d{1,3})\s*[).:\]](\s*\d{1,3}\s*[).:\]])?/i;
 
 function labelKey(text) {
   const hit = LABELS.find(([re]) => re.test(text.trim()));
@@ -70,28 +82,38 @@ function loadTexts(dir) {
   return { texts, urls };
 }
 
-// The labels printed before each place the stem appears in one text. In the
-// question's own packet a short opening is enough to find it; elsewhere a
+// Where the stem starts in one text, at the longest opening that matches. In
+// the question's own packet a short opening is enough to find it; elsewhere a
 // generic opening ("which of the following is not") would match other
 // questions, so it takes 60 characters, or the whole of a shorter stem of
 // at least 40.
-function labelsIn(text, stem, own) {
+function stemStarts(text, stem, own) {
   for (const len of own ? [80, 60, 40, 25] : [80, 60]) {
     const key = stem.slice(0, len);
     if (key.length < Math.min(len, own ? 25 : 60) && key !== stem) continue;
     if (key.length < (own ? 25 : 40)) continue;
-    const found = new Set();
-    for (let at = text.norm.indexOf(key); at >= 0; at = text.norm.indexOf(key, at + 1)) {
-      const start = text.pos[at];
-      let win = text.raw.slice(Math.max(0, start - 90), start);
-      const cuts = [...win.matchAll(ANSWER_RE)];
-      if (cuts.length) win = win.slice(cuts[cuts.length - 1].index + cuts[cuts.length - 1][0].length);
-      const hits = [...win.matchAll(LABEL_RE)];
-      found.add(hits.length ? labelKey(hits[hits.length - 1][1]) : null);
-    }
-    if (found.size) return found;
+    const starts = [];
+    for (let at = text.norm.indexOf(key); at >= 0; at = text.norm.indexOf(key, at + 1)) starts.push(text.pos[at]);
+    if (starts.length) return starts;
   }
-  return new Set();
+  return [];
+}
+
+// The header before a stem: the text from the end of the previous answer.
+function headerBefore(text, start, reach) {
+  const win = text.raw.slice(Math.max(0, start - reach), start);
+  const cuts = [...win.matchAll(ANSWER_RE)];
+  return cuts.length ? win.slice(cuts[cuts.length - 1].index + cuts[cuts.length - 1][0].length) : win;
+}
+
+// The labels printed before each place the stem appears in one text.
+function labelsIn(text, stem, own) {
+  const found = new Set();
+  stemStarts(text, stem, own).forEach((start) => {
+    const hits = [...headerBefore(text, start, 90).matchAll(LABEL_RE)];
+    found.add(hits.length ? labelKey(hits[hits.length - 1][1]) : null);
+  });
+  return found;
 }
 
 // The single subject the packet prints for this question, or null.
@@ -105,12 +127,31 @@ function printedSubject(q, texts, urls) {
   return found.size === 1 ? [...found][0] : null;
 }
 
+// The type and number the question's own packet prints, { qt, n }, or null
+// when it isn't in urls.json, its stem isn't found exactly once, or the
+// header has no marker or has both a TOSS-UP and a BONUS (a page footer
+// between them). n is null when no number follows the marker.
+function printedSlot(q, texts, urls) {
+  const own = q.u && urls[q.u];
+  if (!own || !texts.has(own)) return null;
+  const text = texts.get(own);
+  const starts = stemStarts(text, normalize(q.q).norm, true);
+  if (starts.length !== 1) return null;
+  const header = headerBefore(text, starts[0], 300);
+  const marks = [...header.matchAll(MARK_RE)];
+  const kinds = new Set(marks.map((m) => (/^BONUS$/i.test(m[1]) ? 'bonus' : 'tossup')));
+  if (kinds.size !== 1) return null;
+  const last = marks[marks.length - 1];
+  const num = header.slice(last.index).match(SLOT_RE);
+  return { qt: [...kinds][0], n: num && !num[2] ? Number(num[1]) : null };
+}
+
 function writeSources(sources) {
   const rows = Object.entries(sources).sort((a, b) => Number(a[0]) - Number(b[0]));
   fs.writeFileSync(SOURCE_FILE, '{\n' + rows.map(([id, v]) => `"${id}":${JSON.stringify(v)}`).join(',\n') + '\n}\n');
 }
 
-module.exports = { normalize, labelsIn, printedSubject };
+module.exports = { normalize, labelsIn, printedSubject, printedSlot };
 
 if (require.main === module) {
   const args = process.argv.slice(2);
@@ -123,14 +164,22 @@ if (require.main === module) {
   const { texts, urls } = loadTexts(dir);
   const todo = unpack().filter((q) => args.includes('--all') || !(String(q.i) in sources));
   let agree = 0, other = 0, missing = 0;
+  let slotAgree = 0, slotDiffer = 0, slotMissing = 0;
+  const line = (q, what) => console.log(`${q.i}\t${q.t}\t${q.rl || ''}\t${q.qt} ${q.n ?? ''}\t${what}\t${q.q.slice(0, 90)}`);
   todo.forEach((q) => {
     const p = printedSubject(q, texts, urls);
     if (p == null) missing++;
     else if (p === 'other') other++;
     else if (p === q.s) agree++;
-    else console.log(`${q.i}\t${q.t}\t${q.rl || ''}\t${q.qt} ${q.n ?? ''}\tpacket ${p}, filed ${q.s}\t${q.q.slice(0, 90)}`);
+    else line(q, `packet ${p}, filed ${q.s}`);
     if (args.includes('--write') && !(String(q.i) in sources)) sources[q.i] = p;
+    const slot = printedSlot(q, texts, urls);
+    if (!slot) slotMissing++;
+    else if (slot.qt === q.qt && (slot.n == null || slot.n === q.n)) slotAgree++;
+    else { slotDiffer++; line(q, `packet ${slot.qt} ${slot.n ?? ''}, filed ${q.qt} ${q.n ?? ''}`.replace(/ ,/, ',')); }
   });
-  console.error(`${todo.length} checked: ${agree} agree, ${todo.length - agree - other - missing} differ (listed above), ${other} printed under a non-subject category, ${missing} not found.`);
+  console.error(`${todo.length} checked.`);
+  console.error(`Subject: ${agree} agree, ${todo.length - agree - other - missing} differ (listed above), ${other} printed under a non-subject category, ${missing} not found.`);
+  console.error(`Type and number: ${slotAgree} agree, ${slotDiffer} differ (listed above), ${slotMissing} not read (no own packet in urls.json, stem not found once, or no clear header).`);
   if (args.includes('--write')) writeSources(sources);
 }
