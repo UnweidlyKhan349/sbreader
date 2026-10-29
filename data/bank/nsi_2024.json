@@ -50,7 +50,7 @@
 {"i":22176,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"What assay should be used to analyze levels of post translational glycosylation of proteins?","a":{"t":"Eastern Blot","l":"Y"},"c":{"W":"Northern Blot","X":"Southern Blot","Y":"Eastern Blot","Z":"Western Blot"}},
 {"i":22177,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"What is the name given to the effect where, upon expansion of a real gas, it cools?","a":{"t":"JOULES-THOMSON EFFECT"}},
 {"i":22178,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"What is the average oxidation state of Cobalt in Cobalt (II) hexafluorocobaltate(III)?","a":{"t":"2.4"}},
-{"i":22179,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"A glacier lake connected in series to others like it by a single stream is known by what name?","a":{"t":"paternoster lake"}},
+{"i":22179,"s":"ess","f":"SA","qt":"bonus","n":9,"q":"A glacier lake connected in series to others like it by a single stream is known by what name?","a":{"t":"paternoster lake"}},
 {"i":22180,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"How much energy in joules is used by a series circuit with a 4 ohm resistor and current 1.5 amps over a period of 6 seconds.","a":{"t":"54"}},
 {"i":22181,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"What law states that the magnetic field created by an electric current is defined by the permeability of free space multiplied by the current strength.","a":{"t":"Ampere’s Law"}},
 {"i":22182,"s":"math","f":"MC","qt":"tossup","n":11,"q":"Let the function f(x) be the sum of cubes from 1 to x. For how many values of x from 1 to 22, inclusive, is f(x) divisible by 25?","a":{"t":"8","l":"Y"},"c":{"W":"6","X":"7","Y":"8","Z":"9"}},

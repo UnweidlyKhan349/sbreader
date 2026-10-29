@@ -232,7 +232,7 @@
 {"i":6932,"s":"math","f":"SA","qt":"bonus","n":5,"q":"If the hands of a working clock move continuously, how many times per day are the hour and minute hands perpendicular to each other?","a":{"t":"44"}},
 {"i":6933,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"What is the resonant angular frequency, in radians per second of an LC circuit with a capacitance of 5 millifarads, and an inductance of 20 millihenrys?","a":{"t":"100"}},
 {"i":6934,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"How many times greater is the electric field close to a conductor than a sheet of charge, given they have the same surface charge density?","a":{"t":"2"}},
-{"i":6935,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"List the following 3 types of coal that correspond to the correct location that they can be readily found. 1) Anthracite in Central Germany; 2) Anthracite in the Rocky Mountains; 3) Peat coal in the Australian Outback.","a":{"t":"2"}},
+{"i":6935,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"List the following 3 types of coal that correspond to the correct location that they can be readily found. 1) Anthracite in Central Germany; 2) Anthracite in the Rocky Mountains; 3) Peat coal in the Australian Outback.","a":{"t":"2"}},
 {"i":6936,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"Rank the following 3 species in order of increasing standard reduction potential: 1) F2; 2) 2H+; 3) Cl2","a":{"t":"2,3,1"}},
 {"i":6937,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"Identify all of the following 3 compounds that are considered internal alkynes: 1) Methylacetylene; 2) Diisopropyl Acetylene; 3) Phenylpropyl Acetylene.","a":{"t":"2 AND 3"}},
 {"i":6938,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following statements of the protein family, serine proteases, is NOT correct?","a":{"t":"They all enzymatically cleave the same protein.","l":"W"},"c":{"W":"They all enzymatically cleave the same protein.","X":"They all contain similar three-dimensional conformations.","Y":"They all have very similar primary structures.","Z":"They are all catalytic enzymes."}},
@@ -319,9 +319,9 @@
 {"i":85844,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"What amorphous sedimentary rock is primarily used for the production of aluminum through the Bayer process?","a":{"t":"BAUXITE"}},
 {"i":85845,"s":"math","f":"SA","qt":"tossup","n":20,"q":"Simplify: Sin(x) + sin(pi-x)","a":{"t":"2SIN(X)"}}]},
 {"rl":"MHS Round 3pdf","r":3,"u":"https://lebot.djiang.xyz/packets/David%20Rounds/MHS%20Round%203pdf.pdf","q":[
-{"i":85954,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Find the saddle point of the following function: f(x,y) = x cubed + 3xy + y cubed.","a":{"t":"(0, 0)"}}]},
+{"i":85954,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Find the saddle point of the following function: f(x,y) = x cubed + 3xy + y cubed.","a":{"t":"(0, 0)"}}]},
 {"rl":"Middleton 2","r":2,"u":"https://lebot.djiang.xyz/packets/David%20Rounds/Middleton%202.pdf","q":[
-{"i":85955,"s":"ess","f":"MC","qt":"bonus","n":null,"q":"Which of the following distances is closest to that of the radius of the galaxy Andromeda?","a":{"t":"100,000 light years","l":"Z"},"c":{"W":"100 light years","X":"1,000 light years","Y":"10,000 light years","Z":"100,000 light years"}},
-{"i":85956,"s":"ess","f":"SA","qt":"tossup","n":null,"q":"What is the most prominent last stage of an average star’s life before it turns into a black dwarf?","a":{"t":"WHITE DWARF"}},
+{"i":85955,"s":"ess","f":"MC","qt":"bonus","n":4,"q":"Which of the following distances is closest to that of the radius of the galaxy Andromeda?","a":{"t":"100,000 light years","l":"Z"},"c":{"W":"100 light years","X":"1,000 light years","Y":"10,000 light years","Z":"100,000 light years"}},
+{"i":85956,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"What is the most prominent last stage of an average star’s life before it turns into a black dwarf?","a":{"t":"WHITE DWARF"}},
 {"i":7003,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"In lab, you use a 5.00 mL volumetric pipet, a 25.00 mL volumetric flask, and a 250 mL beaker to measure out solutions to make a series of dilutions. The number of significant figures you need in the concentration of the final solution is:","a":{"t":"2","l":"X"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}}]}
 ]

@@ -18,12 +18,12 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | BUMS 2026 | 48 |  | ms |
 | Cast 2021 | 404 | 1 | hs |
 | CCWT | 278 |  | hs |
-| CCWTWO | 307 |  | hs |
+| CCWTWO | 306 |  | hs |
 | CLASH 2026 HS | 714 | 30 | hs |
 | CLASH 2026 MS | 429 | 10 | ms |
 | Clements 2025 | 505 |  | hs |
 | CSBL | 660 | 6 | hs |
-| CSUB | 1,648 |  | hs |
+| CSUB | 1,647 |  | hs |
 | CUT 2026 | 625 |  | hs |
 | DASONI 2 | 646 | 27 | hs |
 | Dasoni Comp1 | 420 |  | hs |
@@ -45,7 +45,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ICSBT 2 | 543 | 5 | hs |
 | ICSBT 2025 | 458 |  | hs |
 | ICSBT 3 | 519 | 10 | hs |
-| IGNIS 2022 | 724 |  | hs |
+| IGNIS 2022 | 721 |  | hs |
 | ISBI 2025 | 335 |  | hs |
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
@@ -86,7 +86,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSI 2024 | 252 |  | hs |
 | NWI 2024 | 276 |  | hs |
 | NWI 2025 | 397 |  | hs |
-| Olympus 2022 | 629 |  | hs |
+| Olympus 2022 | 624 |  | hs |
 | Pohaku 2024 | 322 |  | hs |
 | Prometheus 2021 | 819 |  | hs |
 | Random | 783 |  | hs |
@@ -103,7 +103,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
 | Summer 2019 | 137 |  | hs |
-| Texas Sci Bowl 2025 | 650 |  | hs |
+| Texas Sci Bowl 2025 | 649 |  | hs |
 | THUMB 2025 | 206 |  | hs |
 | TJSBT 2025 | 598 |  | hs |
 | Trio Online Math Bowl 2026 | 560 | 12 | hs |
@@ -112,4 +112,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (108)** | **84,115** | **535** | |
+| **Total (108)** | **84,104** | **535** | |

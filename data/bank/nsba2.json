@@ -320,7 +320,7 @@
 {"i":70991,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Peter and Vedang are walking along a roadcut in Oklahoma looking for crinoid fossils. Crinoids are passive suspension feeders who attach themselves to the sea bottom. What phylum do crinoids belong to?","a":{"t":"ECHINODERMATA"}},
 {"i":70992,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"Expressing your answer in hexadecimal, how is the decimal number -5 written in two’s complement notation in a one-byte system?","a":{"t":"FB"}}]},
 {"rl":"RR5 (3)","r":3,"u":"https://lebot.djiang.xyz/packets/NSBA2/RR5%20%283%29.pdf","q":[
-{"i":85972,"s":"energy","f":"SA","qt":"bonus","n":null,"q":"What character in a regular expression signifies that a given character must occur at least once, but may repeat in a matched string?","a":{"t":"+"}}]},
+{"i":85972,"s":"energy","f":"SA","qt":"bonus","n":9,"q":"What character in a regular expression signifies that a given character must occur at least once, but may repeat in a matched string?","a":{"t":"+"}}]},
 {"rl":"NSBA2 Combine","r":null,"q":[
 {"i":96058,"s":"energy","f":"SA","qt":"tossup","n":null,"q":"Given a sorted list of n integers, what is the best time complexity in classical computing when searching for a specific integer?","a":{"t":"O(log n)","ac":["LOG N"]}},
 {"i":96059,"s":"energy","f":"SA","qt":"tossup","n":null,"q":"In a neural network, what function allows an individual neuron to compute its output from the outputs of the neurons in the previous layer?","a":{"t":"ACTIVATION FUNCTION"}},

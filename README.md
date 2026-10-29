@@ -2,15 +2,15 @@
 
 A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 84,115 questions from 108 tournaments** (43,971 tossups / 40,144 bonuses; 51,783 short answer / 32,332 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 84,104 questions from 108 tournaments** (44,026 tossups / 40,078 bonuses; 51,776 short answer / 32,328 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
-| Biology | 16,990 |
-| Earth & Space | 16,772 |
+| Biology | 16,986 |
+| Earth & Space | 16,768 |
 | Physics | 16,824 |
-| Math | 14,458 |
-| Chemistry | 15,393 |
+| Math | 14,457 |
+| Chemistry | 15,391 |
 | Energy | 3,678 |
 
 > **Visual bonuses are implemented, and every scrape must collect them.** A question that comes with a figure (a visual bonus, or the occasional visual tossup) is stored with its image and shown in the catalog, solo and multiplayer modes, with its own Visual filter. When packets are scraped, their visual questions are scraped too, figure and all, from the packet itself or from the event's separate visual-bonus deck. They are never skipped as "visual"; one is left out only when its image exists nowhere that can be reached. See [Visual questions](#visual-questions).

@@ -87,7 +87,7 @@
 {"i":30153,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"What isomer differs by the exchange of a ligand with an anion or a neutral molecule that is outside the coordination sphere?","a":{"t":"IONIZATION"}},
 {"i":30154,"s":"ess","f":"SA","qt":"tossup","n":19,"q":"Which of the following minerals has a sheet-like silicate structure? 1) Biotite 2) Muscovite 3) Microcline 4) Talc","a":{"t":"1,2,4"}},
 {"i":30155,"s":"ess","f":"MC","qt":"bonus","n":19,"q":"Large, euhedral crystals of muscovite embedded in an igneous rock are indicative of which of the following environments?","a":{"t":"Slow cooling time at low temperatures","l":"Z"},"c":{"W":"Quick cooling time at high temperatures","X":"Quick cooling time at low temperatures","Y":"Slow cooling time at high temperatures","Z":"Slow cooling time at low temperatures"}},
-{"i":30156,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Find the volume of the region of points (x,y,z) such that (x^2 +y^2 +z^2 +8)^2 ≤ 36(x^2 +y^2).","a":{"t":"6π^2"}},
+{"i":30156,"s":"math","f":"SA","qt":"tossup","n":20,"q":"Find the volume of the region of points (x,y,z) such that (x^2 +y^2 +z^2 +8)^2 ≤ 36(x^2 +y^2).","a":{"t":"6π^2"}},
 {"i":30157,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Evaluate, 2*(6^2)","a":{"t":"72"}},
 {"i":30158,"s":"math","f":"SA","qt":"bonus","n":20,"q":"The Trivial Theorem states that the square of any real number is not less than what number?","a":{"t":"0"}}]},
 {"rl":"Summer Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/Summer/Summer%20Round%202.pdf","q":[

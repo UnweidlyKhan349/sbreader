@@ -815,7 +815,7 @@
 {"i":86020,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What is the molecular formula of sulfur dioxide?","a":{"t":"SO2"}},
 {"i":86021,"s":"math","f":"SA","qt":"tossup","n":17,"q":"How many distinct ways are there to arrange the letters of the word “energy”?","a":{"t":"360"}},
 {"i":86022,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"What is the charge of a hydride anion?","a":{"t":"-1"}},
-{"i":86048,"s":"phys","f":"SA","qt":"bonus","n":null,"q":"What is the integral of jerk with respect to time?","a":{"t":"ACCELERATION"}}]},
+{"i":86048,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"What is the integral of jerk with respect to time?","a":{"t":"ACCELERATION"}}]},
 {"rl":"Round 7","r":7,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%207.pdf","q":[
 {"i":87536,"s":"math","f":"SA","qt":"tossup","n":14,"q":"Daniel’s math test scores are of the increasing sequence 1, 3, 4, 9, 10, 12, 13…(etc), which consists of all the positive integers which are powers of 3 or sums of distinct powers of 3. Find the 44th term of this sequence.","a":{"t":"279"}},
 {"i":96056,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the definite integral from 0 to π/3 of sec x dx.","a":{"t":"ln(2 + √3)"}}]},
