@@ -360,7 +360,7 @@ There's no build step, `npm install`, or environment variables. `package.json` o
 
 ### Search engines and link previews
 
-- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1200×630), so shared links get a title, summary and picture.
+- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1280×640, with everything inside the middle band so GitHub's cropped repo card shows it whole), so shared links get a title, summary and picture.
 - `bookmarks.html` and `404.html` are `noindex`: bookmarks live in each visitor's browser, so there's nothing there to index.
 - `sitemap.xml` lists the four public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
 - The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
