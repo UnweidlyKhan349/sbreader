@@ -40,7 +40,22 @@
   <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
 </nav>
 
-<div class="container">
+<div class="container catalog-container">
+<div class="catalog-layout">
+  <!-- Tournament picker as a sidebar on wide screens; below 900px it's
+       hidden and the dropdown in the filter panel is used instead. Both
+       drive the same selection (catalog.js). -->
+  <aside class="tournament-sidebar" id="tournamentSidebar" aria-label="Tournaments">
+    <div class="ts-head">
+      <span class="field-label" style="margin:0;">Tournaments</span>
+      <button type="button" class="custom-select-clear-btn" id="tsClearBtn">Clear</button>
+    </div>
+    <input type="search" class="custom-select-search" id="tsSearch" placeholder="Search tournaments…" autocomplete="off" aria-label="Search tournaments" />
+    <div class="ts-summary" id="tsSummary">All tournaments</div>
+    <div class="ts-list" id="tsList"></div>
+  </aside>
+
+  <div class="catalog-main">
   <h1>Catalog</h1>
   <p class="subtitle" id="resultCount">Loading…</p>
 
@@ -87,7 +102,7 @@
         <span class="field-label">Visual questions</span>
         <div class="chip-row" id="visualChips"></div>
       </div>
-      <div>
+      <div id="tournamentFilterCell">
         <span class="field-label">Tournament</span>
         <select id="tournamentSelect" style="width:100%;"></select>
       </div>
@@ -99,6 +114,8 @@
 
   <div id="results"></div>
   <div class="pagination" id="pagination"></div>
+  </div>
+</div>
 </div>
 </div>
 

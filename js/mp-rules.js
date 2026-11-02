@@ -44,6 +44,10 @@
     const { type } = msg;
     if (NO_FIELDS.has(type)) return { type };
     if (type === 'join') return { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
+    if (type === 'rename') {
+      const name = str(msg.name, LIMITS.name).trim();
+      return name ? { type, name } : null;
+    }
     if (type === 'submitAnswer' || type === 'typing') return { type, text: str(msg.text, LIMITS.answer) };
     if (type === 'chatSend') {
       const text = str(msg.text, LIMITS.chat).trim();

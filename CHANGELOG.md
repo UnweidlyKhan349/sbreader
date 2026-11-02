@@ -47,3 +47,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Grading: typing the key exactly now ignores its exponent markup too, so "W+ boson" matches a key stored as "W^+ BOSON" even when "W boson" is on the reject list.
 - SEO: descriptive page titles, meta descriptions, canonical URLs, Open Graph/Twitter cards with a 1280×640 preview image (`img/og-image.png`), `sitemap.xml`, a `404.html`, and `noindex` on the per-device bookmarks page. README opens with a keyword-rich summary, live-site link and badges.
 - Added an MIT license for the site code (the question data stays with its packets' authors).
+- Catalog: on wide screens the tournament picker is a sidebar checklist beside the results, so many more tournaments are visible at once; phones keep the dropdown.
+- Multiplayer: clicking the room code copies an invite link that joins the room directly, and every player can rename themselves mid-game.

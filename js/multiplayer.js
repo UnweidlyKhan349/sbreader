@@ -18,6 +18,16 @@
 
   const myState = { role: null, myId: null, myName: '', rate: 1 };
 
+  // The last name used on this device, prefilled into the name boxes and
+  // used when joining straight from an invite link.
+  const NAME_KEY = 'sb_mp_name';
+  function savedName() {
+    try { return (localStorage.getItem(NAME_KEY) || '').slice(0, SBMpRules.LIMITS.name); } catch (e) { return ''; }
+  }
+  function saveName(name) {
+    try { localStorage.setItem(NAME_KEY, name); } catch (e) { /* storage blocked */ }
+  }
+
   /* ================= LOBBY SETUP ================= */
   function buildChips(container, items, stateObj, key, labelFn, onChange) {
     container.innerHTML = '';
@@ -108,6 +118,12 @@
     rateSlider.addEventListener('input', () => {
       document.getElementById('mpRateValue').textContent = parseFloat(rateSlider.value).toFixed(1) + '×';
     });
+
+    const prevName = savedName();
+    if (prevName) {
+      document.getElementById('hostNameInput').value = prevName;
+      document.getElementById('joinNameInput').value = prevName;
+    }
 
     document.getElementById('createRoomBtn').addEventListener('click', createRoom);
     document.getElementById('joinRoomBtn').addEventListener('click', joinRoom);
@@ -216,16 +232,28 @@
     };
   }
   function displayRoomCode(code) { return code.startsWith(ROOM_PREFIX) ? code.slice(ROOM_PREFIX.length) : code; }
+  function showRoomCode(code) {
+    const el = document.getElementById('mpRoomCodeDisplay');
+    el.textContent = displayRoomCode(code);
+    el.dataset.code = displayRoomCode(code);
+  }
+
+  // A link to this page that joins the room as soon as it's opened (see
+  // joinFromLink).
+  function inviteLink(code) {
+    return `${location.origin}${location.pathname}?room=${encodeURIComponent(code)}`;
+  }
 
   function copyRoomCode() {
     const el = document.getElementById('mpRoomCodeDisplay');
-    const text = el.textContent;
-    if (!text || text === '-----') return;
+    const code = el.dataset.code;
+    if (!code) return;
+    const text = inviteLink(code);
     const showCopied = () => {
-      const prev = el.textContent;
-      el.textContent = 'Copied!';
+      const prev = code;
+      el.textContent = 'Link copied!';
       el.classList.add('copied');
-      setTimeout(() => { el.textContent = prev; el.classList.remove('copied'); }, 1100);
+      setTimeout(() => { el.textContent = prev; el.classList.remove('copied'); }, 1400);
     };
     const legacyCopy = () => {
       try {
@@ -649,8 +677,13 @@
     const log = document.getElementById('mpChatLog');
     if (!log) return;
     const row = document.createElement('div');
-    row.className = 'mp-chat-msg' + (entry.from === myState.myId ? ' me' : '');
-    row.innerHTML = `<span class="who">${escapeHtml(entry.name)}:</span>${escapeHtml(entry.text)}`;
+    if (entry.system) {
+      row.className = 'mp-chat-msg system';
+      row.textContent = entry.text;
+    } else {
+      row.className = 'mp-chat-msg' + (entry.from === myState.myId ? ' me' : '');
+      row.innerHTML = `<span class="who">${escapeHtml(entry.name)}:</span>${escapeHtml(entry.text)}`;
+    }
     log.appendChild(row);
     while (log.children.length > 200) log.removeChild(log.firstChild);
     log.scrollTop = log.scrollHeight;
@@ -659,7 +692,8 @@
     text = (text || '').trim();
     if (!text) return;
     if (myState.role === 'host') {
-      hostBroadcastChat('HOST', myState.myName, text);
+      const me = hostPlayers.get('HOST');
+      hostBroadcastChat('HOST', me ? me.name : myState.myName, text);
     } else if (client) {
       client.send({ type: 'chatSend', text });
     }
@@ -715,7 +749,8 @@
 
     myState.role = 'host';
     myState.myId = 'HOST';
-    myState.myName = document.getElementById('hostNameInput').value.trim() || 'Host';
+    myState.myName = document.getElementById('hostNameInput').value.trim().slice(0, SBMpRules.LIMITS.name) || 'Host';
+    if (document.getElementById('hostNameInput').value.trim()) saveName(myState.myName);
     myState.rate = parseFloat(document.getElementById('mpRateSlider').value) || 1;
 
     hostGame.queue = pool;
@@ -738,7 +773,7 @@
 
     host.ready.then((id) => {
       enterGameScreen();
-      document.getElementById('mpRoomCodeDisplay').textContent = displayRoomCode(id);
+      showRoomCode(id);
       broadcastLobby();
       fullRenderFromState();
     }).catch((err) => {
@@ -762,8 +797,9 @@
     if (host) host.broadcast({ type: 'lobby', players: game.players, roomCode: host.roomCode });
   }
 
-  function hostBroadcastChat(fromId, name, text) {
+  function hostBroadcastChat(fromId, name, text, system) {
     const entry = { from: fromId, name, text: text.slice(0, SBMpRules.LIMITS.chat), ts: Date.now() };
+    if (system) entry.system = true;
     hostChat.push(entry);
     while (hostChat.length > CHAT_HISTORY) hostChat.shift();
     if (host) host.broadcast({ type: 'chat', entry });
@@ -853,6 +889,21 @@
       return;
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
+    if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
+  }
+
+  // Any player can rename themselves mid-game. The name is made unique the
+  // same way as on joining, and the room is told in chat.
+  function hostRenamePlayer(connId, desired) {
+    const p = hostPlayers.get(connId);
+    if (!p || !desired) return;
+    const name = uniqueName(desired, connId);
+    if (name === p.name) return;
+    const old = p.name;
+    p.name = name;
+    if (connId === 'HOST') myState.myName = name;
+    broadcastLobby();
+    hostBroadcastChat('SYSTEM', '', `${old} is now ${name}`, true);
   }
 
   function hostNextQuestion() {
@@ -1246,7 +1297,9 @@
     let codeRaw = document.getElementById('joinCodeInput').value.trim().toUpperCase();
     if (codeRaw.toLowerCase().startsWith(ROOM_PREFIX)) codeRaw = codeRaw.slice(ROOM_PREFIX.length);
     const code = ROOM_PREFIX + codeRaw;
-    const name = document.getElementById('joinNameInput').value.trim() || 'Player';
+    const typedName = document.getElementById('joinNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
+    const name = typedName || 'Player';
+    if (typedName) saveName(typedName);
     const joinStatusEl = document.getElementById('joinStatus');
     if (!codeRaw) { joinStatusEl.textContent = 'Enter a room code.'; joinStatusEl.classList.remove('status-error'); return; }
     myState.role = 'client';
@@ -1263,7 +1316,10 @@
       myState.myId = client.peer.id;
       client.send({ type: 'join', name });
       enterGameScreen();
-      document.getElementById('mpRoomCodeDisplay').textContent = displayRoomCode(code);
+      showRoomCode(code);
+      // Put the room in the address bar, so reloading rejoins it and the
+      // URL can be shared as is.
+      try { history.replaceState(null, '', inviteLink(codeRaw)); } catch (e) { /* e.g. file:// */ }
       fullRenderFromState();
     }).catch((err) => {
       joinStatusEl.textContent = SBPeer.friendlyPeerError(err);
@@ -1274,6 +1330,8 @@
   function handleClientMessage(msg) {
     if (msg.type === 'lobby') {
       game.players = msg.players;
+      const me = game.players.find((p) => p.id === myState.myId);
+      if (me) myState.myName = me.name;
       renderPlayerList(document.getElementById('mpPlayerList'));
       return;
     }
@@ -1752,7 +1810,48 @@
     }
   }
 
+  /* ================= RENAMING ================= */
+  function openRename() {
+    const row = document.getElementById('mpRenameRow');
+    const input = document.getElementById('mpRenameInput');
+    const me = game.players.find((p) => p.id === myState.myId);
+    input.value = me ? me.name : myState.myName;
+    row.style.display = 'flex';
+    input.focus();
+    input.select();
+  }
+  function closeRename() {
+    document.getElementById('mpRenameRow').style.display = 'none';
+  }
+  function submitRename() {
+    const name = document.getElementById('mpRenameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
+    closeRename();
+    if (!name) return;
+    saveName(name);
+    if (myState.role === 'host') hostRenamePlayer('HOST', name);
+    else if (client) client.send({ type: 'rename', name });
+  }
+
+  // multiplayer.html?room=CODE (the link copied by clicking the room code)
+  // joins that room straight away, under the name last used on this device.
+  function joinFromLink() {
+    let code = '';
+    try { code = (new URLSearchParams(location.search).get('room') || '').trim(); } catch (e) { return; }
+    if (!code) return;
+    document.getElementById('joinCodeInput').value = code;
+    document.getElementById('joinPanel').scrollIntoView({ block: 'center' });
+    joinRoom();
+  }
+
   function wireGameControls() {
+    document.getElementById('mpRenameBtn').addEventListener('click', () => {
+      if (document.getElementById('mpRenameRow').style.display === 'none') openRename(); else closeRename();
+    });
+    document.getElementById('mpRenameSaveBtn').addEventListener('click', submitRename);
+    document.getElementById('mpRenameInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submitRename(); }
+      if (e.key === 'Escape') { e.preventDefault(); closeRename(); }
+    });
     document.getElementById('mpBuzzBtn').addEventListener('click', doBuzz);
     document.getElementById('mpNextBtn').addEventListener('click', handleNextBtn);
     document.getElementById('mpOverrideBtn').addEventListener('click', doOverride);
@@ -1824,6 +1923,7 @@
   SBData.load().then(() => {
     initLobby();
     wireGameControls();
+    joinFromLink();
   }).catch((err) => {
     document.getElementById('lobbyScreen').innerHTML = '<p>Failed to load question data: ' + err.message + '</p>';
   });
