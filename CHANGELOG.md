@@ -45,3 +45,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Chemical formulas in questions, choices and answers display their counts as subscripts (H₂SO₄, Ca(OH)₂), with a guard list for look-alikes such as SN2, sp3 and HSP70.
 - Ions written with a superscript charge get their subscripts even when they're one element (H₃⁺), and P680/P700 are no longer read as phosphorus.
 - Grading: typing the key exactly now ignores its exponent markup too, so "W+ boson" matches a key stored as "W^+ BOSON" even when "W boson" is on the reject list.
+- SEO: descriptive page titles, meta descriptions, canonical URLs, Open Graph/Twitter cards with a 1200×630 preview image (`img/og-image.png`), `WebApplication` structured data and a crawlable About section on the home page, `sitemap.xml`, a `404.html`, and `noindex` on the per-device bookmarks page. README opens with a keyword-rich summary, live-site link and badges.
