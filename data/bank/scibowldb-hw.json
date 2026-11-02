@@ -240,9 +240,9 @@
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6092","q":[
 {"i":93178,"s":"chem","f":"MC","qt":"bonus","n":8,"q":"The Born-Haber cycle most directly results from which of the following?","c":{"W":"Second Law of Thermodynamics","X":"Avogadro's Law","Y":"Conservation of energy","Z":"Conservation of Charge"},"a":{"t":"Conservation of energy","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6093","q":[
-{"i":93179,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"In a certain reaction, the reaction order of H+ is 2. If the pH of a solution is increased by 3, by what factor does the rate change?","c":{"W":"1000000","X":"1000","Y":"1/1000","Z":"1/1000000"},"a":{"t":"1/1000000","l":"Z"}}]},
+{"i":93179,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"In a certain reaction, the reaction order of H^+ is 2. If the pH of a solution is increased by 3, by what factor does the rate change?","c":{"W":"1000000","X":"1000","Y":"1/1000","Z":"1/1000000"},"a":{"t":"1/1000000","l":"Z"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6093","q":[
-{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O^(2-)","X":"F-","Y":"Na+","Z":"Acetate"},"a":{"t":"Na+","l":"Y"}}]},
+{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O^(2-)","X":"F^-","Y":"Na^+","Z":"Acetate"},"a":{"t":"Na^+","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6131","q":[
 {"i":93181,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"In the United States, Grain alcohol is made:","c":{"W":"from coal","X":"by fermenting starches","Y":"from methanol","Z":"from vinegar by fermenting acetic acid"},"a":{"t":"by fermenting starches","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6170","q":[
@@ -404,7 +404,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6575","q":[
 {"i":93236,"s":"math","f":"MC","qt":"tossup","n":31,"q":"Which of the following is the expression that defines the hyperbolic sine function:","c":{"W":"(e^x - e^(-x)) / 2","X":"(e^x + e^(-x)) / 2","Y":"2 / (e^x + e^(-x))","Z":"2 / (e^x - e^(-x))"},"a":{"t":"(e^x - e^(-x)) / 2","l":"W"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6577","q":[
-{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18º18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
+{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18°18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6579","q":[
 {"i":96312,"s":"math","f":"SA","qt":"tossup","n":33,"q":"Simplify the following fractional radicand to an expression that has the lowest whole number radicand: 1296^(1/4)","a":{"t":"6"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6581","q":[
@@ -760,7 +760,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6793","q":[
 {"i":93400,"s":"phys","f":"MC","qt":"tossup","n":122,"q":"When light is incident upon a material of a different index of refraction, some of the incident light is reflected and some is refracted. As the angle of the incident light from the normal increases from 0° to 90°, which is true?","c":{"W":"more of the light is reflected","X":"more of the light is refracted","Y":"more of the light is polarized","Z":"more of the light is phase shifted"},"a":{"t":"more of the light is reflected","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6793","q":[
-{"i":93401,"s":"phys","f":"MC","qt":"bonus","n":123,"q":"Mr. Maine is wandering in the desert. His internal compass steers him to what appears to be two bodies of water, in opposite directions. However, he knows that only one of the bodies of water is real. Luckily, he always carries polarized sunglasses. What will he observe about the real body of water as opposed to the tricky mirage?","c":{"W":"the water will appear unpolarized while the mirage will appear polarized","X":"the water will appear polarized while the mirage will appear unpolarized","Y":"both sources are unpolarized - Mr. Maine is stuck.","Z":"both sources are polarized - Mr. Maine is stuck anyway."},"a":{"t":"the water will appear polarized while the mirage will appear unpolarized","l":"X"}}]},
+{"i":93401,"s":"phys","f":"MC","qt":"bonus","n":123,"q":"Mr. Maine is wandering in the desert. His internal compass steers him to what appears to be two bodies of water, in opposite directions. However, he knows that only one of the bodies of water is real. Luckily, he always carries polarized sunglasses. What will he observe about the real body of water as opposed to the tricky mirage?","c":{"W":"the water will appear unpolarized while the mirage will appear polarized","X":"the water will appear polarized while the mirage will appear unpolarized","Y":"both sources are unpolarized-Mr. Maine is stuck.","Z":"both sources are polarized-Mr. Maine is stuck anyway."},"a":{"t":"the water will appear polarized while the mirage will appear unpolarized","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6794","q":[
 {"i":93402,"s":"phys","f":"MC","qt":"tossup","n":124,"q":"A capacitor is charged and then isolated. It is cooled down below its superconducting temperature, and then shorted. The reason that current is not infinite is","c":{"W":"there is a limited amount of energy stored","X":"the system exhibits self-inductance","Y":"the system melts as soon as any current flows","Z":"current is infinite"},"a":{"t":"the system exhibits self-inductance","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6794","q":[
@@ -1794,7 +1794,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7061","q":[
 {"i":93897,"s":"phys","f":"SA","qt":"tossup","n":639,"q":"This theory, which proposes that every fermion has a boson partner and every boson a fermion partner, is abbreviated SUSY. What is it?","a":{"t":"SUPERSYMMETRY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7061","q":[
-{"i":93898,"s":"phys","f":"MC","qt":"bonus","n":640,"q":"Which of the following does not match each boson with its theorized supersymmetric partner?","c":{"W":"W boson - wino","X":"photon - photino","Y":"Z boson - zitino","Z":"all of the above are correctly matched"},"a":{"t":"Z boson - zitino","l":"Y"}}]},
+{"i":93898,"s":"phys","f":"MC","qt":"bonus","n":640,"q":"Which of the following does not match each boson with its theorized supersymmetric partner?","c":{"W":"W boson – wino","X":"photon – photino","Y":"Z boson – zitino","Z":"all of the above are correctly matched"},"a":{"t":"Z boson – zitino","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7062","q":[
 {"i":93899,"s":"phys","f":"SA","qt":"tossup","n":641,"q":"What type of lens consists of sections of curved surfaces that together act like a lens of the same focal length but much larger size?","a":{"t":"FRESNEL LENS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7063","q":[
@@ -2202,7 +2202,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7167","q":[
 {"i":94091,"s":"phys","f":"SA","qt":"bonus","n":843,"q":"What is the distance between two successive nodes in a wave?","a":{"t":"HALF A WAVELENGTH","ac":["ONE HALF WAVELENGTH","λ/2"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7168","q":[
-{"i":94092,"s":"phys","f":"MC","qt":"tossup","n":844,"q":"Which of the following correctly matches a decay process with its corresponding emitted particle?","c":{"W":"alpha decay - deuterium nucleus","X":"beta minus decay - positron","Y":"beta plus decay - electron","Z":"gamma decay - photon"},"a":{"t":"gamma decay - photon","l":"Z"}}]},
+{"i":94092,"s":"phys","f":"MC","qt":"tossup","n":844,"q":"Which of the following correctly matches a decay process with its corresponding emitted particle?","c":{"W":"alpha decay – deuterium nucleus","X":"beta minus decay – positron","Y":"beta plus decay – electron","Z":"gamma decay – photon"},"a":{"t":"gamma decay – photon","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7168","q":[
 {"i":94093,"s":"phys","f":"SA","qt":"bonus","n":845,"q":"What SI unit of activity is named after the scientist who discovered radioactivity in uranium?","a":{"t":"BECQUEREL"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7169","q":[
@@ -2668,7 +2668,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7289","q":[
 {"i":94316,"s":"phys","f":"MC","qt":"tossup","n":1076,"q":"A calorie is defined as the amount of heat necessary to raise the temperature of one gram of water from","c":{"W":"0°C to 1° C","X":"4° C to 5° C","Y":"14.5°C to 15.5° C","Z":"21.1° C to 22.1° C"},"a":{"t":"14.5°C to 15.5° C","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7290","q":[
-{"i":94317,"s":"phys","f":"MC","qt":"tossup","n":1077,"q":"A weight scale is read at the following locations. Which location would give the lowest value for weight?","c":{"W":"90 ºN","X":"60 ºN","Y":"30 ºN","Z":"0 ºN"},"a":{"t":"0 ºN","l":"Z"}}]},
+{"i":94317,"s":"phys","f":"MC","qt":"tossup","n":1077,"q":"A weight scale is read at the following locations. Which location would give the lowest value for weight?","c":{"W":"90 °N","X":"60 °N","Y":"30 °N","Z":"0 °N"},"a":{"t":"0 °N","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7290","q":[
 {"i":94318,"s":"phys","f":"MC","qt":"bonus","n":1078,"q":"The Rankine cycle is most associated with which of the following?","c":{"W":"Refrigerator","X":"Diesel engine","Y":"Steam engine","Z":"Stirling engine"},"a":{"t":"Steam engine","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7291","q":[
@@ -2858,7 +2858,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7338","q":[
 {"i":94407,"s":"phys","f":"MC","qt":"bonus","n":1171,"q":"Nuclear isomers are metastable states of atomic nuclei that can become less excited through the emission of","c":{"W":"alpha decay","X":"beta plus decay","Y":"beta minus decay","Z":"gamma decay"},"a":{"t":"gamma decay","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7339","q":[
-{"i":94408,"s":"phys","f":"SA","qt":"bonus","n":1172,"q":"What temperature in ºC and pressure in atmospheres are necessary at the triple point of water? Give the answers to two and three decimal places, respectively.","a":{"t":"0.01 °C AND 0.006 ATMOSPHERES","ac":["0.01 DEGREES CELSIUS, 0.006 ATMOSPHERES"]}}]},
+{"i":94408,"s":"phys","f":"SA","qt":"bonus","n":1172,"q":"What temperature in °C and pressure in atmospheres are necessary at the triple point of water? Give the answers to two and three decimal places, respectively.","a":{"t":"0.01 °C AND 0.006 ATMOSPHERES","ac":["0.01 DEGREES CELSIUS, 0.006 ATMOSPHERES"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7340","q":[
 {"i":94409,"s":"phys","f":"SA","qt":"tossup","n":1173,"q":"Which of Kepler's laws states that planets move in elliptical orbits?","a":{"t":"KEPLER'S FIRST LAW","ac":["FIRST LAW","FIRST"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7340","q":[
@@ -2878,7 +2878,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7345","q":[
 {"i":94417,"s":"phys","f":"MC","qt":"tossup","n":1181,"q":"A ring, solid cylinder, hollow sphere, and solid sphere are all rolled down a steep hill. If the objects have equal masses and radii, and they all roll without slipping, which object will reach the bottom of the hill first?","c":{"W":"ring","X":"solid cylinder","Y":"hollow sphere","Z":"solid sphere"},"a":{"t":"solid sphere","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7345","q":[
-{"i":94418,"s":"phys","f":"SA","qt":"bonus","n":1182,"q":"A hollow ring is given an initial velocity of 8 meters per second and rolls without slipping up a hillside inclined at 30º from the horizontal. What total distance will it roll up the hill before stopping, taking the Earth’s gravitational acceleration to be 10 meters per second squared?","a":{"t":"12.8 METERS","ac":["12.8"]}}]},
+{"i":94418,"s":"phys","f":"SA","qt":"bonus","n":1182,"q":"A hollow ring is given an initial velocity of 8 meters per second and rolls without slipping up a hillside inclined at 30° from the horizontal. What total distance will it roll up the hill before stopping, taking the Earth’s gravitational acceleration to be 10 meters per second squared?","a":{"t":"12.8 METERS","ac":["12.8"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7346","q":[
 {"i":94419,"s":"phys","f":"MC","qt":"tossup","n":1183,"q":"Neglecting air resistance, how long would it take for an object dropped from a height of 490 meters to fall to the ground?","c":{"W":"4 seconds","X":"10 seconds","Y":"16 seconds","Z":"49 seconds"},"a":{"t":"10 seconds","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7346","q":[
@@ -3494,7 +3494,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7512","q":[
 {"i":94702,"s":"phys","f":"SA","qt":"tossup","n":1489,"q":"Which law states the mathematical relationship that measures the force between two charged particles at a certain distance from one another.","a":{"t":"COULOMB’S LAW"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7512","q":[
-{"i":94703,"s":"phys","f":"MC","qt":"bonus","n":1490,"q":"Which of the following is incorrectly paired with its units of measurement?","c":{"W":"Current - Amperes","X":"Resistance - Ohms","Y":"Capacitance - Farads","Z":"Electric power - Volts"},"a":{"t":"Electric power - Volts","l":"Z"}}]},
+{"i":94703,"s":"phys","f":"MC","qt":"bonus","n":1490,"q":"Which of the following is incorrectly paired with its units of measurement?","c":{"W":"Current – Amperes","X":"Resistance – Ohms","Y":"Capacitance – Farads","Z":"Electric power – Volts"},"a":{"t":"Electric power – Volts","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7513","q":[
 {"i":94704,"s":"phys","f":"MC","qt":"tossup","n":1491,"q":"What physical phenomenon occurs whenever there is relative motion between a source of waves and an observer?","c":{"W":"Lorentz Effect","X":"Doppler Effect","Y":"Einstein Effect","Z":"De Broglie Effect"},"a":{"t":"Doppler Effect","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7513","q":[
@@ -4116,9 +4116,9 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7681","q":[
 {"i":94990,"s":"phys","f":"MC","qt":"bonus","n":1800,"q":"Which of the following is NOT true?","c":{"W":"Kepler's second law directly correlates the square of a planet's semi-major axis to the cube of its period","X":"The rotational kinetic energy of a disk is proportional to the square of its angular speed","Y":"Osmosis is the diffusion of water across a semi-permeable membrane from a high water concentration to a low water concentration","Z":"Two objects at thermal equilibrium with each other are at the same temperature"},"a":{"t":"Kepler's second law directly correlates the square of a planet's semi-major axis to the cube of its period","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7682","q":[
-{"i":94991,"s":"phys","f":"MC","qt":"tossup","n":1801,"q":"If the index of refraction of a material is 2, and light enters the material at an angle of 90º, by what angle does light bend in the medium relative to the normal?","c":{"W":"60º","X":"45º","Y":"30º","Z":"15º"},"a":{"t":"30º","l":"Y"}}]},
+{"i":94991,"s":"phys","f":"MC","qt":"tossup","n":1801,"q":"If the index of refraction of a material is 2, and light enters the material at an angle of 90°, by what angle does light bend in the medium relative to the normal?","c":{"W":"60°","X":"45°","Y":"30°","Z":"15°"},"a":{"t":"30°","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7682","q":[
-{"i":94992,"s":"phys","f":"MC","qt":"bonus","n":1802,"q":"Which of the following is true of the relationship between current and voltage across capacitors in AC circuits?","c":{"W":"Voltage leads Current by 90º.","X":"Voltage and Current are in phase.","Y":"Current leads Voltage by 90º.","Z":"Voltage and Current are 180º out of phase."},"a":{"t":"Current leads Voltage by 90º.","l":"Y"}}]},
+{"i":94992,"s":"phys","f":"MC","qt":"bonus","n":1802,"q":"Which of the following is true of the relationship between current and voltage across capacitors in AC circuits?","c":{"W":"Voltage leads Current by 90°.","X":"Voltage and Current are in phase.","Y":"Current leads Voltage by 90°.","Z":"Voltage and Current are 180° out of phase."},"a":{"t":"Current leads Voltage by 90°.","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7683","q":[
 {"i":94993,"s":"phys","f":"SA","qt":"tossup","n":1803,"q":"In the 1960s, Raymond Davis Jr. devised a way to count these particles, especially those produced by solar fusion, using a large tank of perchloroethylene, a cleaning fluid. What were these particles?","a":{"t":"NEUTRINOS","ac":["SOLAR NEUTRINOS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7683","q":[

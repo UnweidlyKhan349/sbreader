@@ -62,7 +62,7 @@
 {"i":33120,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"When two heterozygous individuals are crossed, what percent of their offspring will exhibit the recessive phenotype?","a":{"t":"25%"}},
 {"i":33121,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"Albert Einstein won the Nobel Prize in physics for the discovery of what phenomenon which describes the energy of photons?","a":{"t":"Photoelectric Effect"}},
 {"i":33122,"s":"ess","f":"SA","qt":"tossup","n":12,"q":"The San Andreas Fault is an example of what kind of fault?","a":{"t":"Strike Slip","rj":["Transform"]}},
-{"i":33123,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"What specific type of plate boundary creates continental volcanic arcs such as the Cascade mountain range?","a":{"t":"Ocean - Continent Convergent","rj":["CONVERGENT"]}},
+{"i":33123,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"What specific type of plate boundary creates continental volcanic arcs such as the Cascade mountain range?","a":{"t":"Ocean-Continent Convergent","rj":["CONVERGENT"]}},
 {"i":33124,"s":"math","f":"SA","qt":"tossup","n":13,"q":"If Ashwin buys 1 1/4 pounds of fruit and 1/4 pound of vegetables, how much food did he buy in total?","a":{"t":"1.5 lbs or 1 1/2"}},
 {"i":33125,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Dougherty Valley High School is 78.9% Asian. If there are 3000 students at Dougherty Valley High School, how many students are at Dougherty Valley High School are Asian?","a":{"t":"2,367"}},
 {"i":33126,"s":"phys","f":"SA","qt":"tossup","n":14,"q":"Which scientist published a book on the laws of motion based on his interactions with an apple?","a":{"t":"Newton"}},
@@ -101,7 +101,7 @@
 {"i":33159,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A cylinder has a radius of 4 cm and a height of 10 cm. What is its volume, in terms of π?","a":{"t":"160π"}},
 {"i":33161,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the greatest common divisor of 84 and 126?","a":{"t":"42"}},
 {"i":33163,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the solution to the equation |3x − 2| < 10?","a":{"t":"-8/3<x<4"}},
-{"i":33164,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the sum of the interior angles of a 12 - sided polygon?","a":{"t":"1800 degrees"}},
+{"i":33164,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the sum of the interior angles of a 12-sided polygon?","a":{"t":"1800 degrees"}},
 {"i":33165,"s":"math","f":"SA","qt":"bonus","n":23,"q":"If 2^(x+1) = 8(4^x), solve for x.","a":{"t":"x = -2"}}]},
 {"rl":"Physics Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Physics%20Supplemental.pdf","q":[
 {"i":33167,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"Identify all of the following quantities which are considered vector quantities: 1) acceleration 2) speed 3) distance traveled","a":{"t":"1 only"}},

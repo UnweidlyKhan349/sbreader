@@ -613,7 +613,7 @@
 {"i":70542,"s":"phys","f":"MC","qt":"tossup","n":13,"q":"Two point charges, one with charge +4q and one with charge −1q, are positioned on the x-axis such that the former is at the origin and the latter is at +6. At what point on the x-axis can a charge of +2q be placed such that it is subject to zero net force?","a":{"t":"+12","l":"Z"},"c":{"W":"−6","X":"−3","Y":"+4","Z":"+12"}},
 {"i":70543,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Researchers at MIT are involved in the Mars Oxygen In- Situ Resource Utilization Experiment, or MOXIE, aboard the Perserverance Rover, which explores the feasbility of generating oxygen from the Martian atmosphere. What gas is the most common component of Mars’s atmosphere?","a":{"t":"Carbon dioxide"}}]},
 {"rl":"round7","r":7,"q":[
-{"i":70548,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Given that ammonia has a Kb of 2×10^-5, when equal volumes of an 0.4 molar ammonia solution and 0.4 molar HCl solution are reacted, to one significant figure, what is the pH of the resulting solution?","a":{"t":"5"}},
+{"i":70548,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Given that ammonia has a Kb of 2 × 10^-5, when equal volumes of an 0.4 molar ammonia solution and 0.4 molar HCl solution are reacted, to one significant figure, what is the pH of the resulting solution?","a":{"t":"5"}},
 {"i":70549,"s":"math","f":"SA","qt":"tossup","n":14,"q":"What is the slope of a line with y-intercept of 3 that goes through the point (4, 1)?","a":{"t":"−1/2"}},
 {"i":70550,"s":"bio","f":"MC","qt":"tossup","n":15,"q":"Which of the following animals would exhibit a pulmocutaneous circuit?","a":{"t":"Amphibians","l":"Z"},"c":{"W":"Mammals","X":"Reptiles","Y":"Birds","Z":"Amphibians"}}]},
 {"rl":"round8","r":8,"q":[

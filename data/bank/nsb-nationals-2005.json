@@ -138,7 +138,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3586","q":[
 {"i":89093,"s":"chem","f":"SA","qt":"tossup","n":11,"q":"What molecule is characteristically prevalent in sour milk and tired muscles?","a":{"t":"LACTIC ACID"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3586","q":[
-{"i":89094,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"Which of the following has the same electron configuration as neon:","c":{"W":"Ar","X":"F","Y":"Cl-","Z":"Na+"},"a":{"t":"Na+","l":"Z"}}]},
+{"i":89094,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"Which of the following has the same electron configuration as neon:","c":{"W":"Ar","X":"F","Y":"Cl^-","Z":"Na^+"},"a":{"t":"Na^+","l":"Z"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3587","q":[
 {"i":89095,"s":"ess","f":"SA","qt":"tossup","n":12,"q":"This powerful telescope weighs about 11 tons, has a primary mirror 7.9 feet in diameter, and orbits about 380 miles above the earth:","a":{"t":"THE HUBBLE TELESCOPE","ac":["HUBBLE","HUBBLE SPACE TELESCOPE"]}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3587","q":[
@@ -210,7 +210,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3605","q":[
 {"i":89129,"s":"math","f":"SA","qt":"tossup","n":5,"q":"When a quadratic function is plotted on a typical graph, it assumes what shape?","a":{"t":"PARABOLA"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3605","q":[
-{"i":89130,"s":"math","f":"SA","qt":"bonus","n":5,"q":"A country adopted a policy requiring all couples to continue having children until they had a girl, after which they must stop having children. How many children will the average family have and what will the sex distribution be?","a":{"t":"TWO CHILDREN - ONE BOY AND ONE GIRL"}}]},
+{"i":89130,"s":"math","f":"SA","qt":"bonus","n":5,"q":"A country adopted a policy requiring all couples to continue having children until they had a girl, after which they must stop having children. How many children will the average family have and what will the sex distribution be?","a":{"t":"TWO CHILDREN – ONE BOY AND ONE GIRL"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3606","q":[
 {"i":89131,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"The Arctic Circle lies at which of the following latitudes:","c":{"W":"66.5° North","X":"90° North","Y":"66.5° South","Z":"90° South"},"a":{"t":"66.5° North","l":"W"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3606","q":[
@@ -584,7 +584,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3699","q":[
 {"i":89316,"s":"bio","f":"SA","qt":"bonus","n":24,"q":"What three main parts make up the carpel of a plant?","a":{"t":"STIGMA, STYLE, AND OVARY"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3700","q":[
-{"i":89317,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"Which one of the following has the greatest tendency to lose an electron?","c":{"W":"Zn","X":"Cl-","Y":"Br2","Z":"a mixture of PbSO4 and H2O"},"a":{"t":"Zn","l":"W"}}]},
+{"i":89317,"s":"chem","f":"MC","qt":"tossup","n":25,"q":"Which one of the following has the greatest tendency to lose an electron?","c":{"W":"Zn","X":"Cl^-","Y":"Br2","Z":"a mixture of PbSO4 and H2O"},"a":{"t":"Zn","l":"W"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3700","q":[
 {"i":89318,"s":"chem","f":"SA","qt":"bonus","n":25,"q":"Round the following number to four significant figures and express the result in standard exponential notation: 0.006543210","a":{"t":"6.543 × 10^-3"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3701","q":[
@@ -636,7 +636,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3712","q":[
 {"i":89342,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"These doughnut shaped zones of atomic particles consists of electrons and protons captured by the Earth’s magnetic field from the solar winds and are called:","a":{"t":"VAN ALLEN BELTS"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3713","q":[
-{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI - LOBACHEVSKY GEOMETRY","or RIENMANN GEOMETRY"]}}]},
+{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI-LOBACHEVSKY GEOMETRY","or RIENMANN GEOMETRY"]}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3713","q":[
 {"i":89344,"s":"math","f":"SA","qt":"bonus","n":13,"q":"If the length of the cycloid is 4 times the diameter of a rotating circle, then the area under the arch traced out by that cycloid is how many times the area of the rotating circle?","a":{"t":"3 TIMES"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3714","q":[
@@ -944,7 +944,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3391","q":[
 {"i":89497,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"The term SQL, which is sometimes pronounced \"sequel\", stands for what language?","a":{"t":"STRUCTURED QUERY LANGUAGE."}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3391","q":[
-{"i":89498,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following shows a superclass - subclass relation:","c":{"W":"holiday - Labor Day","X":"Labor day - holiday","Y":"car - wheel","Z":"wheel - car"},"a":{"t":"holiday - Labor Day","l":"W"}}]},
+{"i":89498,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following shows a superclass-subclass relation:","c":{"W":"holiday – Labor Day","X":"Labor day – holiday","Y":"car – wheel","Z":"wheel – car"},"a":{"t":"holiday – Labor Day","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3392","q":[
 {"i":89499,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"When marchers break step while crossing a bridge, they do so to avoid a possible bridge collapse, which is based mostly on this physical concept:","c":{"W":"isostacy","X":"inertia","Y":"resonance","Z":"chaos"},"a":{"t":"resonance","l":"Y"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3392","q":[
@@ -1280,7 +1280,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3475","q":[
 {"i":89665,"s":"bio","f":"MC","qt":"tossup","n":25,"q":"Aposematic coloration does which of the following:","c":{"W":"tricks predators into believing the prey is bigger than it appears","X":"alerts predators to stay away","Y":"entices prey into a trap","Z":"camouflages its prey"},"a":{"t":"alerts predators to stay away","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3475","q":[
-{"i":89666,"s":"bio","f":"MC","qt":"bonus","n":25,"q":"The chemiosmotic theory of ATP production in electron transport is based on:","c":{"W":"the pH of the cytosol","X":"sodium channels in both mitochondria and chloroplasts","Y":"H+ gradient across the mitochondrial membrane","Z":"the second law of thermodynamics"},"a":{"t":"H+ gradient across the mitochondrial membrane","l":"Y"}}]},
+{"i":89666,"s":"bio","f":"MC","qt":"bonus","n":25,"q":"The chemiosmotic theory of ATP production in electron transport is based on:","c":{"W":"the pH of the cytosol","X":"sodium channels in both mitochondria and chloroplasts","Y":"H^+ gradient across the mitochondrial membrane","Z":"the second law of thermodynamics"},"a":{"t":"H^+ gradient across the mitochondrial membrane","l":"Y"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3476","q":[
 {"i":89667,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"In Rome in 1934, Enrico Fermi bombarded samples of uranium with neutrons. He thought the resulting radioactive products were evidence that he had:","c":{"W":"fissioned the uranium atoms","X":"fused the uranium atoms","Y":"created slow neutrons","Z":"created elements beyond uranium on the periodic chart"},"a":{"t":"created elements beyond uranium on the periodic chart","l":"Z"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3476","q":[
@@ -1354,7 +1354,7 @@
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3493","q":[
 {"i":89702,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"If the Gram stain reveals a red-stained coccus, which of the following would most likely be true:","c":{"W":"it would not be sensitive to penicillin","X":"it would be acid-fast","Y":"it would possess the “Park-Peptide”","Z":"it would be motile"},"a":{"t":"it would not be sensitive to penicillin","l":"W"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3494","q":[
-{"i":89703,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following is the formula for the hydronium ion:","c":{"W":"OH-","X":"H+","Y":"H3O-","Z":"H3O+"},"a":{"t":"H3O+","l":"Z"}}]},
+{"i":89703,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following is the formula for the hydronium ion:","c":{"W":"OH^-","X":"H^+","Y":"H3O^-","Z":"H3O^+"},"a":{"t":"H3O^+","l":"Z"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3494","q":[
 {"i":89704,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"The explosive TNT made from nitric acid is formally known as:","a":{"t":"TRINITROTOLUENE"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3495","q":[
@@ -1390,7 +1390,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3503","q":[
 {"i":89720,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"The major antibody of the human body, especially for immunity after vaccinations, is:","c":{"W":"IgG","X":"IgA","Y":"IgF","Z":"IgN"},"a":{"t":"IgG","l":"W"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3503","q":[
-{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: CCA - CCC - CCA - TAC - CCC - TTA - TAT","a":{"t":"GGU - GGG - GGU - AUG -GGG - AAU - AUA"}}]},
+{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: CCA-CCC-CCA-TAC-CCC-TTA-TAT","a":{"t":"GGU-GGG-GGU-AUG-GGG-AAU-AUA"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3504","q":[
 {"i":89722,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"General relativity does NOT allow for which of the following descriptions of the universe:","c":{"W":"the universe is constructed like a 4-dimensional hyperbola","X":"the universe is infinite and unbounded","Y":"the universe is both finite and unbounded","Z":"the universe is both finite and bounded"},"a":{"t":"the universe is both finite and bounded","l":"Z"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3504","q":[

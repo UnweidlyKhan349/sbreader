@@ -183,7 +183,7 @@
 {"i":46939,"s":"math","f":"SA","qt":"bonus","n":20,"q":"A ball is launched such that its height is given by the equation y(t) = -5t^2+45t+5. What is the minimum height on the interval from t = 1 to t = 5.","a":{"t":"45"}},
 {"i":46940,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Where on an HR diagram would one find a white dwarf?","a":{"t":"Bottom left","l":"X"},"c":{"W":"Bottom right","X":"Bottom left","Y":"Top right","Z":"Top left"}},
 {"i":46941,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"At some points in space, spacecraft are able to stay in the same place due to the balance of gravitational forces from celestial bodies. What name is given to these points?","a":{"t":"LAGRANGE POINTS"}},
-{"i":46942,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"How many electrons does an H+ ion have?","a":{"t":"ZERO"}},
+{"i":46942,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"How many electrons does an H^+ ion have?","a":{"t":"ZERO"}},
 {"i":46943,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"Brass is an alloy made up of copper and what other metal element?","a":{"t":"ZINC"}},
 {"i":46944,"s":"phys","f":"SA","qt":"tossup","n":23,"q":"What particle is the mediator of the electromagnetic force and makes up light?","a":{"t":"PHOTON"}},
 {"i":46945,"s":"phys","f":"MC","qt":"bonus","n":23,"q":"A 10 gram cube of unobtainium has a specific heat capacity of 15 joules per gram-Kelvin. How many joules of energy does it take to raise the temperature of the cube fifteen degrees Kelvin?","a":{"t":"2250","l":"Y"},"c":{"W":"1250","X":"1750","Y":"2250","Z":"2750"}}]},
