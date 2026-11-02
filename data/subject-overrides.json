@@ -270,5 +270,11 @@
 "95725":"chem→phys",
 "95726":"chem→phys",
 "95727":"chem→phys",
-"95794":"ess→chem"
+"95794":"ess→chem",
+"106101":"bio→ess",
+"107169":"ess→bio",
+"107173":"ess→bio",
+"107180":"ess→chem",
+"107181":"ess→bio",
+"107625":"bio→ess"
 }
