@@ -45,7 +45,7 @@ This README covers what the site does, how it's built, the data format, and how 
 ## Pages and features
 
 ### `index.html` (Home)
-A landing page with cards linking to Catalog, Solo Practice, and Multiplayer, followed by a short About section. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
+A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
 ### `catalog.html` (Catalog)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Each word typed must appear somewhere in those fields, but the words needn't be next to each other or in order (`chloride sodium` finds "sodium chloride", and `aves photosynthesis` finds AVES questions about photosynthesis). Each question's lowercased search text is built once, in small batches while the browser is idle after the page loads, and reused, so a keystroke doesn't lowercase the whole bank again. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
@@ -360,7 +360,7 @@ There's no build step, `npm install`, or environment variables. `package.json` o
 
 ### Search engines and link previews
 
-- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1200×630), so shared links get a title, summary and picture. The home page also carries `WebApplication` structured data (JSON-LD) and a short About section of plain crawlable text, and its tagline has static fallback counts that the script replaces with the exact ones.
+- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1200×630), so shared links get a title, summary and picture.
 - `bookmarks.html` and `404.html` are `noindex`: bookmarks live in each visitor's browser, so there's nothing there to index.
 - `sitemap.xml` lists the four public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
 - The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).

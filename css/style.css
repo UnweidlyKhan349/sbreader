@@ -736,9 +736,3 @@ html.sb-boot-hide-setup #setupScreen { display: none; }
   color: var(--text-dim); font-size: 15px;
 }
 html.sb-boot-hide-setup .boot-loading { display: flex; }
-
-/* Home page "About" copy below the mode cards: plain prose, kept narrow
-   so the lines stay readable. */
-.about { max-width: 760px; padding-top: 0; padding-bottom: 0; }
-.about h2 { margin: 0 0 10px; }
-.about p { color: var(--text-dim); font-size: 14.5px; line-height: 1.65; margin: 0 0 12px; }
