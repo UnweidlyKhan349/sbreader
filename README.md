@@ -1,6 +1,15 @@
-# SB Reader
+# SB Reader: free Science Bowl practice questions, buzzer trainer and multiplayer
 
-A static Science Bowl practice site built from real tournament packets: a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks. It's plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
+[![Live site](https://img.shields.io/badge/live%20site-unweidlykhan349.github.io%2Fsbreader-5b8cff)](https://unweidlykhan349.github.io/sbreader/)
+[![CI](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml/badge.svg)](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml)
+
+**[Open SB Reader →](https://unweidlykhan349.github.io/sbreader/)**
+
+[![SB Reader: free Science Bowl practice from real tournament packets](img/og-image.png)](https://unweidlykhan349.github.io/sbreader/)
+
+SB Reader is a free practice site for the **National Science Bowl** (NSB) and other Science Bowl tournaments, for high school and middle school teams. It has over 80,000 real tossups and bonuses in biology, chemistry, physics, math, earth & space science and energy, taken from regional, nationals and invitational packets (MIT, Stanford, Yale and many more). Search them in the catalog, drill alone with a buzzer and automatic grading, or play against friends in an online multiplayer room. No account or install needed.
+
+Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
 **Current question bank: 84,104 questions from 108 tournaments** (44,026 tossups / 40,078 bonuses; 51,776 short answer / 32,328 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
@@ -42,7 +51,7 @@ This README covers what the site does, how it's built, the data format, and how 
 ## Pages and features
 
 ### `index.html` (Home)
-A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
+A landing page with cards linking to Catalog, Solo Practice, and Multiplayer, followed by a short About section. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
 ### `catalog.html` (Catalog)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Each word typed must appear somewhere in those fields, but the words needn't be next to each other or in order (`chloride sodium` finds "sodium chloride", and `aves photosynthesis` finds AVES questions about photosynthesis). Each question's lowercased search text is built once, in small batches while the browser is idle after the page loads, and reused, so a keystroke doesn't lowercase the whole bank again. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
@@ -348,6 +357,14 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 3. The site will be live at `https://<you>.github.io/<repo>/`.
 
 There's no build step, `npm install`, or environment variables. `package.json` only defines `npm test` and has no dependencies.
+
+### Search engines and link previews
+
+- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1200×630), so shared links get a title, summary and picture. The home page also carries `WebApplication` structured data (JSON-LD) and a short About section of plain crawlable text, and its tagline has static fallback counts that the script replaces with the exact ones.
+- `bookmarks.html` and `404.html` are `noindex`: bookmarks live in each visitor's browser, so there's nothing there to index.
+- `sitemap.xml` lists the four public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
+- The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
+- `img/og-image.png` doubles as the repo's social preview: upload it under **Settings → General → Social preview**.
 
 ## Local development and tests
 
