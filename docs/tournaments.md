@@ -59,7 +59,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 3 MS | 455 |  | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 865 |  | hs |
-| Mira Loma Question Database | 16,758 |  | hs |
+| Mira Loma Question Database | 16,665 |  | hs |
 | MIT 2020 | 601 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -104,7 +104,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | SSBT 2023 | 554 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
-| Stuyvesant Question Bank | 2,419 |  | hs |
+| Stuyvesant Question Bank | 2,417 |  | hs |
 | Summer 2019 | 137 |  | hs |
 | Texas Sci Bowl 2025 | 649 |  | hs |
 | THUMB 2025 | 206 |  | hs |
@@ -116,4 +116,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (112)** | **103,969** | **535** | |
+| **Total (112)** | **103,874** | **535** | |
