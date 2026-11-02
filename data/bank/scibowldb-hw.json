@@ -760,7 +760,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6793","q":[
 {"i":93400,"s":"phys","f":"MC","qt":"tossup","n":122,"q":"When light is incident upon a material of a different index of refraction, some of the incident light is reflected and some is refracted. As the angle of the incident light from the normal increases from 0° to 90°, which is true?","c":{"W":"more of the light is reflected","X":"more of the light is refracted","Y":"more of the light is polarized","Z":"more of the light is phase shifted"},"a":{"t":"more of the light is reflected","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6793","q":[
-{"i":93401,"s":"phys","f":"MC","qt":"bonus","n":123,"q":"Mr. Maine is wandering in the desert. His internal compass steers him to what appears to be two bodies of water, in opposite directions. However, he knows that only one of the bodies of water is real. Luckily, he always carries polarized sunglasses. What will he observe about the real body of water as opposed to the tricky mirage?","c":{"W":"the water will appear unpolarized while the mirage will appear polarized","X":"the water will appear polarized while the mirage will appear unpolarized","Y":"both sources are unpolarized - Mr. Maine is stuck.","Z":"both sources are polarized - Mr. Maine is stuck anyway."},"a":{"t":"the water will appear polarized while the mirage will appear unpolarized","l":"X"}}]},
+{"i":93401,"s":"phys","f":"MC","qt":"bonus","n":123,"q":"Mr. Maine is wandering in the desert. His internal compass steers him to what appears to be two bodies of water, in opposite directions. However, he knows that only one of the bodies of water is real. Luckily, he always carries polarized sunglasses. What will he observe about the real body of water as opposed to the tricky mirage?","c":{"W":"the water will appear unpolarized while the mirage will appear polarized","X":"the water will appear polarized while the mirage will appear unpolarized","Y":"both sources are unpolarized-Mr. Maine is stuck.","Z":"both sources are polarized-Mr. Maine is stuck anyway."},"a":{"t":"the water will appear polarized while the mirage will appear unpolarized","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6794","q":[
 {"i":93402,"s":"phys","f":"MC","qt":"tossup","n":124,"q":"A capacitor is charged and then isolated. It is cooled down below its superconducting temperature, and then shorted. The reason that current is not infinite is","c":{"W":"there is a limited amount of energy stored","X":"the system exhibits self-inductance","Y":"the system melts as soon as any current flows","Z":"current is infinite"},"a":{"t":"the system exhibits self-inductance","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6794","q":[
@@ -1794,7 +1794,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7061","q":[
 {"i":93897,"s":"phys","f":"SA","qt":"tossup","n":639,"q":"This theory, which proposes that every fermion has a boson partner and every boson a fermion partner, is abbreviated SUSY. What is it?","a":{"t":"SUPERSYMMETRY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7061","q":[
-{"i":93898,"s":"phys","f":"MC","qt":"bonus","n":640,"q":"Which of the following does not match each boson with its theorized supersymmetric partner?","c":{"W":"W boson - wino","X":"photon - photino","Y":"Z boson - zitino","Z":"all of the above are correctly matched"},"a":{"t":"Z boson - zitino","l":"Y"}}]},
+{"i":93898,"s":"phys","f":"MC","qt":"bonus","n":640,"q":"Which of the following does not match each boson with its theorized supersymmetric partner?","c":{"W":"W boson – wino","X":"photon – photino","Y":"Z boson – zitino","Z":"all of the above are correctly matched"},"a":{"t":"Z boson – zitino","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7062","q":[
 {"i":93899,"s":"phys","f":"SA","qt":"tossup","n":641,"q":"What type of lens consists of sections of curved surfaces that together act like a lens of the same focal length but much larger size?","a":{"t":"FRESNEL LENS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7063","q":[
@@ -2202,7 +2202,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7167","q":[
 {"i":94091,"s":"phys","f":"SA","qt":"bonus","n":843,"q":"What is the distance between two successive nodes in a wave?","a":{"t":"HALF A WAVELENGTH","ac":["ONE HALF WAVELENGTH","λ/2"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7168","q":[
-{"i":94092,"s":"phys","f":"MC","qt":"tossup","n":844,"q":"Which of the following correctly matches a decay process with its corresponding emitted particle?","c":{"W":"alpha decay - deuterium nucleus","X":"beta minus decay - positron","Y":"beta plus decay - electron","Z":"gamma decay - photon"},"a":{"t":"gamma decay - photon","l":"Z"}}]},
+{"i":94092,"s":"phys","f":"MC","qt":"tossup","n":844,"q":"Which of the following correctly matches a decay process with its corresponding emitted particle?","c":{"W":"alpha decay – deuterium nucleus","X":"beta minus decay – positron","Y":"beta plus decay – electron","Z":"gamma decay – photon"},"a":{"t":"gamma decay – photon","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7168","q":[
 {"i":94093,"s":"phys","f":"SA","qt":"bonus","n":845,"q":"What SI unit of activity is named after the scientist who discovered radioactivity in uranium?","a":{"t":"BECQUEREL"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7169","q":[
@@ -3494,7 +3494,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7512","q":[
 {"i":94702,"s":"phys","f":"SA","qt":"tossup","n":1489,"q":"Which law states the mathematical relationship that measures the force between two charged particles at a certain distance from one another.","a":{"t":"COULOMB’S LAW"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7512","q":[
-{"i":94703,"s":"phys","f":"MC","qt":"bonus","n":1490,"q":"Which of the following is incorrectly paired with its units of measurement?","c":{"W":"Current - Amperes","X":"Resistance - Ohms","Y":"Capacitance - Farads","Z":"Electric power - Volts"},"a":{"t":"Electric power - Volts","l":"Z"}}]},
+{"i":94703,"s":"phys","f":"MC","qt":"bonus","n":1490,"q":"Which of the following is incorrectly paired with its units of measurement?","c":{"W":"Current – Amperes","X":"Resistance – Ohms","Y":"Capacitance – Farads","Z":"Electric power – Volts"},"a":{"t":"Electric power – Volts","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7513","q":[
 {"i":94704,"s":"phys","f":"MC","qt":"tossup","n":1491,"q":"What physical phenomenon occurs whenever there is relative motion between a source of waves and an observer?","c":{"W":"Lorentz Effect","X":"Doppler Effect","Y":"Einstein Effect","Z":"De Broglie Effect"},"a":{"t":"Doppler Effect","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7513","q":[

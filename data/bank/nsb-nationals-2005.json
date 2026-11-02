@@ -210,7 +210,7 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3605","q":[
 {"i":89129,"s":"math","f":"SA","qt":"tossup","n":5,"q":"When a quadratic function is plotted on a typical graph, it assumes what shape?","a":{"t":"PARABOLA"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3605","q":[
-{"i":89130,"s":"math","f":"SA","qt":"bonus","n":5,"q":"A country adopted a policy requiring all couples to continue having children until they had a girl, after which they must stop having children. How many children will the average family have and what will the sex distribution be?","a":{"t":"TWO CHILDREN - ONE BOY AND ONE GIRL"}}]},
+{"i":89130,"s":"math","f":"SA","qt":"bonus","n":5,"q":"A country adopted a policy requiring all couples to continue having children until they had a girl, after which they must stop having children. How many children will the average family have and what will the sex distribution be?","a":{"t":"TWO CHILDREN – ONE BOY AND ONE GIRL"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3606","q":[
 {"i":89131,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"The Arctic Circle lies at which of the following latitudes:","c":{"W":"66.5° North","X":"90° North","Y":"66.5° South","Z":"90° South"},"a":{"t":"66.5° North","l":"W"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3606","q":[
@@ -636,7 +636,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3712","q":[
 {"i":89342,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"These doughnut shaped zones of atomic particles consists of electrons and protons captured by the Earth’s magnetic field from the solar winds and are called:","a":{"t":"VAN ALLEN BELTS"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3713","q":[
-{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI - LOBACHEVSKY GEOMETRY","or RIENMANN GEOMETRY"]}}]},
+{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI-LOBACHEVSKY GEOMETRY","or RIENMANN GEOMETRY"]}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3713","q":[
 {"i":89344,"s":"math","f":"SA","qt":"bonus","n":13,"q":"If the length of the cycloid is 4 times the diameter of a rotating circle, then the area under the arch traced out by that cycloid is how many times the area of the rotating circle?","a":{"t":"3 TIMES"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3714","q":[
@@ -944,7 +944,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3391","q":[
 {"i":89497,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"The term SQL, which is sometimes pronounced \"sequel\", stands for what language?","a":{"t":"STRUCTURED QUERY LANGUAGE."}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3391","q":[
-{"i":89498,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following shows a superclass - subclass relation:","c":{"W":"holiday - Labor Day","X":"Labor day - holiday","Y":"car - wheel","Z":"wheel - car"},"a":{"t":"holiday - Labor Day","l":"W"}}]},
+{"i":89498,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following shows a superclass-subclass relation:","c":{"W":"holiday – Labor Day","X":"Labor day – holiday","Y":"car – wheel","Z":"wheel – car"},"a":{"t":"holiday – Labor Day","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3392","q":[
 {"i":89499,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"When marchers break step while crossing a bridge, they do so to avoid a possible bridge collapse, which is based mostly on this physical concept:","c":{"W":"isostacy","X":"inertia","Y":"resonance","Z":"chaos"},"a":{"t":"resonance","l":"Y"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3392","q":[
@@ -1390,7 +1390,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3503","q":[
 {"i":89720,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"The major antibody of the human body, especially for immunity after vaccinations, is:","c":{"W":"IgG","X":"IgA","Y":"IgF","Z":"IgN"},"a":{"t":"IgG","l":"W"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3503","q":[
-{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: CCA - CCC - CCA - TAC - CCC - TTA - TAT","a":{"t":"GGU - GGG - GGU - AUG -GGG - AAU - AUA"}}]},
+{"i":89721,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Using the following single stranded DNA, give the corresponding messenger RNA sequence: CCA-CCC-CCA-TAC-CCC-TTA-TAT","a":{"t":"GGU-GGG-GGU-AUG-GGG-AAU-AUA"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3504","q":[
 {"i":89722,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"General relativity does NOT allow for which of the following descriptions of the universe:","c":{"W":"the universe is constructed like a 4-dimensional hyperbola","X":"the universe is infinite and unbounded","Y":"the universe is both finite and unbounded","Z":"the universe is both finite and bounded"},"a":{"t":"the universe is both finite and bounded","l":"Z"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3504","q":[

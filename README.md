@@ -315,7 +315,7 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 - Exponents and subscripts use `^` and `_` markup, never Unicode super- or subscript characters: `x^2`, `cm^-1`, `^(13)C`, `log_2 x`, `∫_0^1`. A bare exponent ends where its leading digits end (`x^3y`), so a longer exponent needs parentheses (`e^(-2t)`). Chemical formulas are written with plain digits (`H2SO4`, `[Fe(CN)6]^(3-)`), and the site renders the subscripts.
 - Ion charges are superscripts: `Ca^(2+)`, `NO3^-`, `H^+`. So are hybridizations (`sp^3d^2`) and electron configurations (`1s^2 2s^2 2p^6`).
 - A negative number has no space after its sign (`-2`, `–4`). The display joins `X - Y` into `X-Y`, so "is - 2" would show as "is-2".
-- There's no space before `?`, `,` or a closing `:`, and none inside `√3`, `10^-3` or `σ/3`. Compound names split by a spaced dash ("MICHAELIS – MENTEN") are hyphenated. Math-italic letters (𝑥, 𝜋) are plain letters.
+- There's no space before `?`, `,` or a closing `:`, and none inside `√3`, `10^-3` or `σ/3`. Compound names split by a spaced dash ("MICHAELIS – MENTEN") are hyphenated. Compound words split by a spaced hyphen ("light - dependent", "Bose - Einstein", "2 - cyclohexen - 1 - ol") are joined too. A dash that separates a label from its description ("Pearl – Calcite", "I – Mitochondrial Matrix", "TSH – thyroid gland") is an en dash with spaces, because the display joins any "X - Y" written with a plain hyphen. A minus sign keeps its spaces. Math-italic letters (𝑥, 𝜋) are plain letters.
 
 **Fix extraction damage, not content**
 - Misspellings, doubled words and split or glued words are corrected (recieve, Heisenburg, Avagadro, "a a result").

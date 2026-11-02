@@ -776,7 +776,7 @@
 {"rl":"Jun 30 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4790","q":[
 {"i":95377,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"A π-helix is stabilized by hydrogen bonds between the backbones of constituent amino acid. If the surrounding area is all π-helix, what are the numbers of the residue(s) that amino acid number 41 in an arbitrary protein bonds to?","a":{"t":"Amino acids number 36 and 46"}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4791","q":[
-{"i":95378,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Name all of the following that are atmospheric circulation cells: 1 - Hadley cell, 2 - Ferrel cell, 3 - Daniell cell, 4 - Polar cell","a":{"t":"1, 2, 4","ac":["HADLEY, FERREL, POLAR"]}}]},
+{"i":95378,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Name all of the following that are atmospheric circulation cells: 1 – Hadley cell, 2 – Ferrel cell, 3 – Daniell cell, 4 – Polar cell","a":{"t":"1, 2, 4","ac":["HADLEY, FERREL, POLAR"]}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4791","q":[
 {"i":95379,"s":"ess","f":"MC","qt":"bonus","n":2,"q":"In which of the following seasons are the Westerlies the strongest?","c":{"W":"Fall","X":"Winter","Y":"Spring","Z":"Summer"},"a":{"t":"Winter","l":"X"}}]},
 {"rl":"Jun 30 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4792","q":[
@@ -854,7 +854,7 @@
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4813","q":[
 {"i":95412,"s":"phys","f":"SA","qt":"tossup","n":9,"q":"What law describes the relationship between the angles of incidence and refraction for waves changing medium?","a":{"t":"Snell's Law","ac":["Snell-Descartes Law"]}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4813","q":[
-{"i":95413,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"Characteristics of simple harmonic motion involve which of the following? 1 - The acceleration is constant. 2 - The restoring force is proportional to the displacement. 3 - The frequency is independent of the amplitude.","a":{"t":"2 and 3"}}]},
+{"i":95413,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"Characteristics of simple harmonic motion involve which of the following? 1 – The acceleration is constant. 2 – The restoring force is proportional to the displacement. 3 – The frequency is independent of the amplitude.","a":{"t":"2 and 3"}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4814","q":[
 {"i":95414,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which country currently generates the most electricity through nuclear reactors?","c":{"W":"United States","X":"France","Y":"Ukraine","Z":"Finland"},"a":{"t":"United States","l":"W"}}]},
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4815","q":[
@@ -2278,7 +2278,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5209","q":[
 {"i":96006,"s":"phys","f":"SA","qt":"bonus","n":53,"q":"Using g = 10 m/s^2, given the weight of an object is 2700 Newtons, what is the mass of the object on the Moon, if its gravitational force is 1/6 as strong as that on Earth? Round your answer to the first decimal place.","a":{"t":"270 KG","ac":["270","270.0 KG"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5210","q":[
-{"i":96007,"s":"phys","f":"SA","qt":"tossup","n":54,"q":"Which of the following units are a measure of magnetic field strength? 1 - Gauss 2 - Tesla 3 - Weber 4 - Henry","a":{"t":"1, 2","ac":["GAUSS AND TESLA"]}}]},
+{"i":96007,"s":"phys","f":"SA","qt":"tossup","n":54,"q":"Which of the following units are a measure of magnetic field strength? 1-Gauss 2-Tesla 3 - Weber 4-Henry","a":{"t":"1, 2","ac":["GAUSS AND TESLA"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5210","q":[
 {"i":96008,"s":"phys","f":"MC","qt":"bonus","n":55,"q":"If the axle of a wheel is moving at a velocity of v, what is the instantaneous velocity of the top of the wheel?","c":{"W":"-2v","X":"0","Y":"v","Z":"2v"},"a":{"t":"2v","l":"Z"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5211","q":[
