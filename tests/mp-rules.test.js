@@ -20,6 +20,14 @@ test('string fields are coerced and cut to length', () => {
   assert.strictEqual(cleanHostMessage({ type: 'chatSend', text: 'x'.repeat(5000) }, meta).text.length, 300);
 });
 
+test('a rename needs a non-blank name, cut to length', () => {
+  assert.deepStrictEqual(cleanHostMessage({ type: 'rename', name: '  Sam  ' }, meta), { type: 'rename', name: 'Sam' });
+  assert.strictEqual(cleanHostMessage({ type: 'rename', name: 'x'.repeat(100) }, meta).name.length, 24);
+  for (const name of ['', '   ', null, 5]) {
+    assert.strictEqual(cleanHostMessage({ type: 'rename', name }, meta), null, JSON.stringify(name));
+  }
+});
+
 test('extra fields on simple messages are dropped', () => {
   assert.deepStrictEqual(cleanHostMessage({ type: 'buzz', playerId: 'HOST' }, meta), { type: 'buzz' });
 });

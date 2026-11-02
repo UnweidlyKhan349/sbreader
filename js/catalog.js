@@ -84,6 +84,7 @@
         render();
       });
       SBData.enhanceMultiSelect(tSelect);
+      buildTournamentSidebar(tSelect);
 
       document.getElementById('searchBox').addEventListener('input', debounce((e) => {
         state.search = e.target.value;
@@ -102,6 +103,8 @@
         state.page = 1;
         document.getElementById('searchBox').value = '';
         tSelect.setMultiValues([]);
+        document.getElementById('tsSearch').value = '';
+        filterTournamentSidebar();
         if (roundSliderApi) roundSliderApi.reset();
         document.getElementById('includeUnlabeledRounds').checked = true;
         state.includeUnlabeled = true;
@@ -113,6 +116,78 @@
     }).catch((err) => {
       document.getElementById('resultCount').textContent = 'Failed to load question data: ' + err.message;
     });
+  }
+
+  // The sidebar list of tournaments shown on wide screens (CSS hides it
+  // below 900px, where the dropdown in the filter panel is shown instead).
+  // Both edit state.tournaments; render() keeps the two in step.
+  let tsRows = [];
+  function buildTournamentSidebar(tSelect) {
+    const list = document.getElementById('tsList');
+    list.innerHTML = '';
+    tsRows = SBData.meta.tournaments.map((t) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'ts-row';
+      row.dataset.search = t.name.toLowerCase();
+      row.setAttribute('aria-pressed', 'false');
+      const check = document.createElement('span');
+      check.className = 'custom-select-option-check';
+      const name = document.createElement('span');
+      name.className = 'ts-name';
+      name.textContent = t.name;
+      const count = document.createElement('span');
+      count.className = 'ts-count';
+      count.textContent = t.count.toLocaleString();
+      row.append(check, name, count);
+      row.addEventListener('click', () => {
+        if (state.tournaments.has(t.slug)) state.tournaments.delete(t.slug);
+        else state.tournaments.add(t.slug);
+        tSelect.setMultiValues([...state.tournaments]);
+        state.page = 1;
+        render();
+      });
+      list.appendChild(row);
+      return { row, slug: t.slug };
+    });
+    const empty = document.createElement('div');
+    empty.className = 'custom-select-empty';
+    empty.id = 'tsEmpty';
+    empty.textContent = 'No matches';
+    empty.style.display = 'none';
+    list.appendChild(empty);
+
+    document.getElementById('tsSearch').addEventListener('input', filterTournamentSidebar);
+    document.getElementById('tsClearBtn').addEventListener('click', () => {
+      if (!state.tournaments.size) return;
+      state.tournaments.clear();
+      tSelect.setMultiValues([]);
+      state.page = 1;
+      render();
+    });
+  }
+
+  function filterTournamentSidebar() {
+    const q = document.getElementById('tsSearch').value.trim().toLowerCase();
+    let any = false;
+    tsRows.forEach(({ row }) => {
+      const match = !q || row.dataset.search.indexOf(q) !== -1;
+      row.style.display = match ? '' : 'none';
+      if (match) any = true;
+    });
+    document.getElementById('tsEmpty').style.display = any ? 'none' : '';
+  }
+
+  function syncTournamentSidebar() {
+    tsRows.forEach(({ row, slug }) => {
+      const on = state.tournaments.has(slug);
+      row.classList.toggle('active', on);
+      row.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    const n = state.tournaments.size;
+    document.getElementById('tsSummary').textContent =
+      n === 0 ? 'All tournaments' : `${n} selected`;
+    document.getElementById('tsClearBtn').disabled = n === 0;
   }
 
   function debounce(fn, ms) {
@@ -137,6 +212,7 @@
 
   function render() {
     syncChipVisuals();
+    syncTournamentSidebar();
     // With no tournament picked, newest tournaments come first; picking
     // tournaments lists them A-Z, as in the picker.
     const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
