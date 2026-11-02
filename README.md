@@ -1,6 +1,7 @@
 # SB Reader: free Science Bowl practice questions, buzzer trainer and multiplayer
 
 [![Live site](https://img.shields.io/badge/live%20site-unweidlykhan349.github.io%2Fsbreader-5b8cff)](https://unweidlykhan349.github.io/sbreader/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-35c281)](LICENSE)
 [![CI](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml/badge.svg)](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml)
 
 **[Open SB Reader →](https://unweidlykhan349.github.io/sbreader/)**
@@ -39,6 +40,7 @@ This README covers what the site does, how it's built, the data format, and how 
 9. [Known limitations and open items](#known-limitations-and-open-items)
 10. [Deploying](#deploying)
 11. [Local development and tests](#local-development-and-tests)
+12. [License](#license)
 
 ---
 
@@ -381,3 +383,9 @@ The tests, which CI also runs on every push and pull request:
 - `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every question's subject matches the subject its packet prints or is a listed override (see [Placement](#text-and-notation-conventions)), every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each word against each field separately. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.
+
+## License
+
+The site's code is released under the [MIT License](LICENSE). `js/vendor/peerjs.min.js` is [PeerJS](https://github.com/peers/peerjs), which has its own MIT license.
+
+The questions and figures in `data/` are not covered by it: they come from the tournament packets listed in [docs/tournaments.md](docs/tournaments.md) and belong to their writers and tournaments.

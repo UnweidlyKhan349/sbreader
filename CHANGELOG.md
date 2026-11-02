@@ -46,3 +46,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Ions written with a superscript charge get their subscripts even when they're one element (H₃⁺), and P680/P700 are no longer read as phosphorus.
 - Grading: typing the key exactly now ignores its exponent markup too, so "W+ boson" matches a key stored as "W^+ BOSON" even when "W boson" is on the reject list.
 - SEO: descriptive page titles, meta descriptions, canonical URLs, Open Graph/Twitter cards with a 1280×640 preview image (`img/og-image.png`), `sitemap.xml`, a `404.html`, and `noindex` on the per-device bookmarks page. README opens with a keyword-rich summary, live-site link and badges.
+- Added an MIT license for the site code (the question data stays with its packets' authors).
