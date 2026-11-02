@@ -1666,7 +1666,7 @@
 {"i":99710,"s":"math","f":"SA","qt":"bonus","n":59,"q":"What is the derivative of 42x^2","a":{"t":"84x"}},
 {"i":99864,"s":"math","f":"SA","qt":"tossup","n":60,"q":"For all positive integers n, what is the degree of the polynomial (x^2 -3)^(2n) in terms of n.","a":{"t":"4n"}},
 {"i":99865,"s":"math","f":"SA","qt":"bonus","n":60,"q":"State the solutions, in increasing value, for the equation (x+1)^3 - x^3 - x^2 = 0","a":{"t":"Only","ac":["the answers read in this order): -1","-1/2"]}},
-{"i":99866,"s":"math","f":"SA","qt":"tossup","n":61,"q":"Compute 100^2 -98 × 10^2","a":{"t":"4"}},
+{"i":99866,"s":"math","f":"SA","qt":"tossup","n":61,"q":"Compute 100^2 -98 × 102","a":{"t":"4"}},
 {"i":99867,"s":"math","f":"SA","qt":"tossup","n":62,"q":"Find the product of all primes less than 11.","a":{"t":"210"}},
 {"i":99868,"s":"math","f":"MC","qt":"bonus","n":62,"q":"Find the number of triangular numbers less than 2016.","c":{"W":"58","X":"60","Y":"62","Z":"64"},"a":{"t":"62","l":"Y"}},
 {"i":99869,"s":"math","f":"MC","qt":"tossup","n":63,"q":"Which three numbers satisfy the Pythagorean Theorem?","c":{"W":"1, 1, and √3","X":"3, 4, and 5.01","Y":"pi/3, pi/4, pi/5","Z":"1/3, 1/4, 5/12"},"a":{"t":"1/3, 1/4, 5/12","l":"Z"}},

@@ -409,7 +409,7 @@
 {"i":5787,"s":"ess","f":"SA","qt":"bonus","n":23,"q":"A star is 16 times as massive as the Sun. What factor of the Sun’s lifetime will this star’s lifetime be?","a":{"t":"1/1024"}}]},
 {"rl":"DAST Round 9","r":9,"u":"https://lebot.djiang.xyz/packets/DAST1/DAST%20Round%209.pdf","q":[
 {"i":5788,"s":"math","f":"MC","qt":"tossup","n":1,"q":"Which of the following vectors is perpendicular to the plane defined by the equation x minus 2 y plus 3 z equals 6?","a":{"t":"–2 i plus 4 j minus 6 k","l":"Y"},"c":{"W":"2 j minus k","X":"3 i minus 2 j plus 4 k","Y":"–2 i plus 4 j minus 6 k","Z":"i plus 2 j plus 3 k"}},
-{"i":5789,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Given a sphere with the equation x squared plus y squared plus z squared equals 9, what is the equation for a plane tangent to this sphere at the point (1, 2, 2)?","a":{"t":"x + 2 y + 2 z = 9"}},
+{"i":5789,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Given a sphere with the equation x^2 + y^2 + z^2 = 9, what is the equation for a plane tangent to this sphere at the point (1, 2, 2)?","a":{"t":"x + 2y + 2z = 9"}},
 {"i":5790,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"How many hydrogen atoms are in the molecule cyclohexanone?","a":{"t":"10"}},
 {"i":5791,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Identify all of the following four species that are electrophiles: 1) Enolates; 2) H plus; 3) Water; 4) Carbenium.","a":{"t":"2 AND 4"}},
 {"i":5792,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"An ammeter of a low resistance of 0.1 ohms is used to measure the current through a 10 ohm resistor. The ammeter is placed with the resistor in series, and the system is then connected to an ideal battery of 100 volts. Find the current measured by the ammeter to the nearest tenth of an ampere.","a":{"t":"9.9"}},

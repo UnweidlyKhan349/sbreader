@@ -776,7 +776,7 @@
 {"i":85875,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"In order to confirm if the proteins folded as predicted, the researchers used high-field nuclear magnetic resonance (NMR) spectrometers .What wavelength of electromagnetic radiation does NMR primarily use?","a":{"t":"Radio Waves","l":"X"},"c":{"W":"Gamma Rays","X":"Radio Waves","Y":"X-Rays","Z":"Microwaves"}}]},
 {"rl":"Round 6","r":6,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%206.pdf","q":[
 {"i":85876,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"What type of protein assists in the folding of other proteins?","a":{"t":"CHAPERONIN"}},
-{"i":85877,"s":"phys","f":"SA","qt":"tossup","n":14,"q":"Nuclear physicists at Brookhaven National Laboratory are studying quantum spin. The exact quantum spin of a proton is 1⁄2 of what constant?","a":{"t":"REDUCED PLANK CONSTANT","rj":["PLANCK'S CONSTANT"]}}]},
+{"i":85877,"s":"phys","f":"SA","qt":"tossup","n":14,"q":"Nuclear physicists at Brookhaven National Laboratory are studying quantum spin. The exact quantum spin of a proton is 1/2 of what constant?","a":{"t":"REDUCED PLANK CONSTANT","rj":["PLANCK'S CONSTANT"]}}]},
 {"rl":"Round 7","r":7,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%207.pdf","q":[
 {"i":85878,"s":"bio","f":"MC","qt":"bonus","n":22,"q":"Which of the following cells performs most of the metabolic functions of a plant, synthesizing and storing various organic products?","a":{"t":"Parenchyma Cells","l":"Y"},"c":{"W":"Sclerenchyma Sclereids","X":"Tracheids","Y":"Parenchyma Cells","Z":"Collenchyma cells"}}]},
 {"rl":"Round 8","r":8,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%208.pdf","q":[

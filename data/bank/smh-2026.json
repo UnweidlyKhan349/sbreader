@@ -433,7 +433,7 @@
 {"i":86492,"s":"math","f":"SA","qt":"tossup","n":14,"q":"What is the minimum number of triangles required to create a 3 dimensional solid with positive volume and surface area?","a":{"t":"4"}},
 {"i":86493,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Two secants PAB and PCD are drawn from an external point P to a circle, with A and C being the nearer intersection points. If PA=4, AB=8, and PC=3, what is the length of CD?","a":{"t":"13"}},
 {"i":86494,"s":"chem","f":"SA","qt":"tossup","n":15,"q":"Hriday Meka has somehow managed to create the elusive ion C^(5+). Assuming both species are in their ground states, what would be the ratio of ionization energy between C^(5+) and a hydrogen atom?","a":{"t":"36"}},
-{"i":86495,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Rank the following three linear anions in order of increasing stability: 1) CNO-, 2) NCO-, 3) CON-","a":{"t":"3, 1, 2"}},
+{"i":86495,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Rank the following three linear anions in order of increasing stability: 1) CNO^-, 2) NCO^-, 3) CON^-","a":{"t":"3, 1, 2"}},
 {"i":86496,"s":"ess","f":"SA","qt":"tossup","n":16,"q":"Identify all of the following styles of eruptions associated with the action of steam. 1) Surtseyan 2) Phreatomagmatic 3) Strombolian","a":{"t":"1, 2"}},
 {"i":86497,"s":"ess","f":"SA","qt":"bonus","n":16,"q":"Order the following three scales of atmospheric motion by increasing persistence of movement patterns: 1) mesoscale 2) synoptic scale 3) macroscale","a":{"t":"1, 2, 3"}},
 {"i":86498,"s":"bio","f":"SA","qt":"tossup","n":17,"q":"Known to exert its effects by digesting SNAREs, what neurotoxin leads to flaccid paralysis by inhibiting the release of acetylcholine?","a":{"t":"BOTULINUM TOXIN","ac":["BOTOX"]}},

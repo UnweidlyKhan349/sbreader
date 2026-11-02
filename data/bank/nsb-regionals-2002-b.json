@@ -269,7 +269,7 @@
 {"i":88454,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"In Windows 98, long file names can be up to how many characters long:","c":{"W":"35","X":"75","Y":"100","Z":"255"},"a":{"t":"255","l":"Z"}},
 {"i":88455,"s":"bio","f":"SA","qt":"tossup","n":9,"q":"The oval window is directly stimulated by the vibrations of what bone?","a":{"t":"STAPES"}},
 {"i":88456,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"Hair is mostly composed of what protein?","a":{"t":"KERATIN"}},
-{"i":88457,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following compounds contains a coordinate covalent bond:","c":{"W":"NH4+","X":"N2H4","Y":"N2","Z":"NH3"},"a":{"t":"NH4+","l":"W"}},
+{"i":88457,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following compounds contains a coordinate covalent bond:","c":{"W":"NH4^+","X":"N2H4","Y":"N2","Z":"NH3"},"a":{"t":"NH4^+","l":"W"}},
 {"i":88458,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"What is the most common name for the magnetic fusion confinement system first developed in the USSR that has the shape of a toroid?","a":{"t":"TOKAMAK"}},
 {"i":88459,"s":"phys","f":"SA","qt":"bonus","n":11,"q":"In 1995, two scientists from the University of Colorado created what new state of matter that would lead to their winning of a Nobel prize:","a":{"t":"BOSE-EINSTEIN CONDENSATE","ac":["BEC"]}},
 {"i":88460,"s":"ess","f":"MC","qt":"tossup","n":12,"q":"What is the most common name for the pattern found etched on samples of iron meteorites?","c":{"W":"Widmanstätten pattern","X":"Rhombic pattern","Y":"Halley’s pattern","Z":"Chondritic Rhombite pattern"},"a":{"t":"Widmanstätten pattern","l":"W"}},

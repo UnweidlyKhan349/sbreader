@@ -190,7 +190,7 @@
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4629","q":[
 {"i":95104,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What country has the largest geothermal production capacity?","a":{"t":"UNITED STATES","ac":["USA"]}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4630","q":[
-{"i":95105,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"When would we say that a liquid wets the surface?","c":{"W":"the contact angle > 90º","X":"the adhesive force is perpendicular to the surface","Y":"the contact angle < 90º","Z":"the contact angle < 120º"},"a":{"t":"the contact angle < 90º","l":"Y"}}]},
+{"i":95105,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"When would we say that a liquid wets the surface?","c":{"W":"the contact angle > 90°","X":"the adhesive force is perpendicular to the surface","Y":"the contact angle < 90°","Z":"the contact angle < 120°"},"a":{"t":"the contact angle < 90°","l":"Y"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/bonus/4630","q":[
 {"i":95106,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"Which of the following pairs of laws have the most similar formulas?","c":{"W":"Newton’s 2nd Law & Newton’s 3rd Law","X":"Newton’s Law of Gravity & Coulomb’s Law","Y":"Newton’s Law of Gravity & Kepler’s 3rd Law","Z":"Coulomb’s Law and Gauss’s Law"},"a":{"t":"Newton’s Law of Gravity & Coulomb’s Law","l":"X"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4631","q":[
@@ -202,7 +202,7 @@
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/bonus/4632","q":[
 {"i":95110,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"What metal is chelated in chlorophyll?","a":{"t":"Magnesium"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4633","q":[
-{"i":95111,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Nautical twilight is defined to occur when the geometric center of the sun is how many degrees below the horizon?","c":{"W":"between 0º and 6º","X":"between 6º and 12º","Y":"between 12º and 18º","Z":"greater than 18º"},"a":{"t":"between 6º and 12º","l":"X"}}]},
+{"i":95111,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Nautical twilight is defined to occur when the geometric center of the sun is how many degrees below the horizon?","c":{"W":"between 0° and 6°","X":"between 6° and 12°","Y":"between 12° and 18°","Z":"greater than 18°"},"a":{"t":"between 6° and 12°","l":"X"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/bonus/4633","q":[
 {"i":95112,"s":"ess","f":"MC","qt":"bonus","n":8,"q":"Gypsum is a hydrated ionic compound. How many moles of water are present in 1 mole of gypsum?","c":{"W":"2","X":"3","Y":"5","Z":"8"},"a":{"t":"2","l":"W"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4634","q":[
@@ -436,7 +436,7 @@
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4696","q":[
 {"i":95221,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following kinematics formulas is derived using the chain rule?","c":{"W":"x(t) = 1/2at^2 + v_0 t + c_0","X":"v_f^2 = v_i^2 + 2a∆x","Y":"Distance is a scalar & displacement is a vector","Z":"a = (dv)/dt"},"a":{"t":"v_f^2 = v_i^2 + 2a∆x","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4696","q":[
-{"i":95222,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"You do 10J work on a block by applying a force 20N in a direction 30º from the vertical. Assuming that no other forces are acting on the block, how far did you move it in the horizontal direction?","c":{"W":"½ m","X":"1 m","Y":"2 m","Z":"5 m"},"a":{"t":"1 m","l":"X"}}]},
+{"i":95222,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"You do 10J work on a block by applying a force 20N in a direction 30° from the vertical. Assuming that no other forces are acting on the block, how far did you move it in the horizontal direction?","c":{"W":"½ m","X":"1 m","Y":"2 m","Z":"5 m"},"a":{"t":"1 m","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4697","q":[
 {"i":95223,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"Which of the following enzymes is used in protein digestion?","c":{"W":"Sucrase","X":"Lipase","Y":"Pepsin","Z":"Adenine"},"a":{"t":"Pepsin","l":"Y"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4697","q":[
@@ -1218,7 +1218,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4916","q":[
 {"i":95568,"s":"bio","f":"SA","qt":"bonus","n":12,"q":"What was the phage that Hershey and Chase used in their experiments, and what two radioactive substances did they tag it with?","a":{"t":"T2, S35 and P32","rj":["Sulfur and Phosphorus"]}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4917","q":[
-{"i":95569,"s":"bio","f":"MC","qt":"tossup","n":13,"q":"Which experimental treatment would increase the rate of sucrose transport into a plant cell?","c":{"W":"decreasing extracellular sucrose concentration","X":"decreasing extracellular pH","Y":"decreasing cytoplasmic pH","Z":"adding a substance that makes the membrane more permeable to H+ ions"},"a":{"t":"decreasing extracellular pH","l":"X"}}]},
+{"i":95569,"s":"bio","f":"MC","qt":"tossup","n":13,"q":"Which experimental treatment would increase the rate of sucrose transport into a plant cell?","c":{"W":"decreasing extracellular sucrose concentration","X":"decreasing extracellular pH","Y":"decreasing cytoplasmic pH","Z":"adding a substance that makes the membrane more permeable to H^+ ions"},"a":{"t":"decreasing extracellular pH","l":"X"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4918","q":[
 {"i":95570,"s":"bio","f":"MC","qt":"tossup","n":14,"q":"After three rounds of cell fractionation, the pellet would be rich in:","c":{"W":"nuclei","X":"microsomes","Y":"mitochondria","Z":"ribosomes"},"a":{"t":"microsomes","l":"X"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4918","q":[

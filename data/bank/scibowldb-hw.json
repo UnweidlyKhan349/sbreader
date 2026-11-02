@@ -240,9 +240,9 @@
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6092","q":[
 {"i":93178,"s":"chem","f":"MC","qt":"bonus","n":8,"q":"The Born-Haber cycle most directly results from which of the following?","c":{"W":"Second Law of Thermodynamics","X":"Avogadro's Law","Y":"Conservation of energy","Z":"Conservation of Charge"},"a":{"t":"Conservation of energy","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6093","q":[
-{"i":93179,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"In a certain reaction, the reaction order of H+ is 2. If the pH of a solution is increased by 3, by what factor does the rate change?","c":{"W":"1000000","X":"1000","Y":"1/1000","Z":"1/1000000"},"a":{"t":"1/1000000","l":"Z"}}]},
+{"i":93179,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"In a certain reaction, the reaction order of H^+ is 2. If the pH of a solution is increased by 3, by what factor does the rate change?","c":{"W":"1000000","X":"1000","Y":"1/1000","Z":"1/1000000"},"a":{"t":"1/1000000","l":"Z"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6093","q":[
-{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O^(2-)","X":"F-","Y":"Na+","Z":"Acetate"},"a":{"t":"Na+","l":"Y"}}]},
+{"i":93180,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Which of the following ions has the least effect on pH of a solution?","c":{"W":"O^(2-)","X":"F^-","Y":"Na^+","Z":"Acetate"},"a":{"t":"Na^+","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6131","q":[
 {"i":93181,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"In the United States, Grain alcohol is made:","c":{"W":"from coal","X":"by fermenting starches","Y":"from methanol","Z":"from vinegar by fermenting acetic acid"},"a":{"t":"by fermenting starches","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6170","q":[
@@ -404,7 +404,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6575","q":[
 {"i":93236,"s":"math","f":"MC","qt":"tossup","n":31,"q":"Which of the following is the expression that defines the hyperbolic sine function:","c":{"W":"(e^x - e^(-x)) / 2","X":"(e^x + e^(-x)) / 2","Y":"2 / (e^x + e^(-x))","Z":"2 / (e^x - e^(-x))"},"a":{"t":"(e^x - e^(-x)) / 2","l":"W"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6577","q":[
-{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18º18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
+{"i":96311,"s":"math","f":"SA","qt":"bonus","n":32,"q":"Convert the angle, 18°18'36\" to degrees, to the second decimal place:","a":{"t":"18.31"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6579","q":[
 {"i":96312,"s":"math","f":"SA","qt":"tossup","n":33,"q":"Simplify the following fractional radicand to an expression that has the lowest whole number radicand: 1296^(1/4)","a":{"t":"6"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6581","q":[
@@ -2668,7 +2668,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7289","q":[
 {"i":94316,"s":"phys","f":"MC","qt":"tossup","n":1076,"q":"A calorie is defined as the amount of heat necessary to raise the temperature of one gram of water from","c":{"W":"0°C to 1° C","X":"4° C to 5° C","Y":"14.5°C to 15.5° C","Z":"21.1° C to 22.1° C"},"a":{"t":"14.5°C to 15.5° C","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7290","q":[
-{"i":94317,"s":"phys","f":"MC","qt":"tossup","n":1077,"q":"A weight scale is read at the following locations. Which location would give the lowest value for weight?","c":{"W":"90 ºN","X":"60 ºN","Y":"30 ºN","Z":"0 ºN"},"a":{"t":"0 ºN","l":"Z"}}]},
+{"i":94317,"s":"phys","f":"MC","qt":"tossup","n":1077,"q":"A weight scale is read at the following locations. Which location would give the lowest value for weight?","c":{"W":"90 °N","X":"60 °N","Y":"30 °N","Z":"0 °N"},"a":{"t":"0 °N","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7290","q":[
 {"i":94318,"s":"phys","f":"MC","qt":"bonus","n":1078,"q":"The Rankine cycle is most associated with which of the following?","c":{"W":"Refrigerator","X":"Diesel engine","Y":"Steam engine","Z":"Stirling engine"},"a":{"t":"Steam engine","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7291","q":[
@@ -2858,7 +2858,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7338","q":[
 {"i":94407,"s":"phys","f":"MC","qt":"bonus","n":1171,"q":"Nuclear isomers are metastable states of atomic nuclei that can become less excited through the emission of","c":{"W":"alpha decay","X":"beta plus decay","Y":"beta minus decay","Z":"gamma decay"},"a":{"t":"gamma decay","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7339","q":[
-{"i":94408,"s":"phys","f":"SA","qt":"bonus","n":1172,"q":"What temperature in ºC and pressure in atmospheres are necessary at the triple point of water? Give the answers to two and three decimal places, respectively.","a":{"t":"0.01 °C AND 0.006 ATMOSPHERES","ac":["0.01 DEGREES CELSIUS, 0.006 ATMOSPHERES"]}}]},
+{"i":94408,"s":"phys","f":"SA","qt":"bonus","n":1172,"q":"What temperature in °C and pressure in atmospheres are necessary at the triple point of water? Give the answers to two and three decimal places, respectively.","a":{"t":"0.01 °C AND 0.006 ATMOSPHERES","ac":["0.01 DEGREES CELSIUS, 0.006 ATMOSPHERES"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7340","q":[
 {"i":94409,"s":"phys","f":"SA","qt":"tossup","n":1173,"q":"Which of Kepler's laws states that planets move in elliptical orbits?","a":{"t":"KEPLER'S FIRST LAW","ac":["FIRST LAW","FIRST"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7340","q":[
@@ -2878,7 +2878,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7345","q":[
 {"i":94417,"s":"phys","f":"MC","qt":"tossup","n":1181,"q":"A ring, solid cylinder, hollow sphere, and solid sphere are all rolled down a steep hill. If the objects have equal masses and radii, and they all roll without slipping, which object will reach the bottom of the hill first?","c":{"W":"ring","X":"solid cylinder","Y":"hollow sphere","Z":"solid sphere"},"a":{"t":"solid sphere","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7345","q":[
-{"i":94418,"s":"phys","f":"SA","qt":"bonus","n":1182,"q":"A hollow ring is given an initial velocity of 8 meters per second and rolls without slipping up a hillside inclined at 30º from the horizontal. What total distance will it roll up the hill before stopping, taking the Earth’s gravitational acceleration to be 10 meters per second squared?","a":{"t":"12.8 METERS","ac":["12.8"]}}]},
+{"i":94418,"s":"phys","f":"SA","qt":"bonus","n":1182,"q":"A hollow ring is given an initial velocity of 8 meters per second and rolls without slipping up a hillside inclined at 30° from the horizontal. What total distance will it roll up the hill before stopping, taking the Earth’s gravitational acceleration to be 10 meters per second squared?","a":{"t":"12.8 METERS","ac":["12.8"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7346","q":[
 {"i":94419,"s":"phys","f":"MC","qt":"tossup","n":1183,"q":"Neglecting air resistance, how long would it take for an object dropped from a height of 490 meters to fall to the ground?","c":{"W":"4 seconds","X":"10 seconds","Y":"16 seconds","Z":"49 seconds"},"a":{"t":"10 seconds","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7346","q":[
@@ -4116,9 +4116,9 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7681","q":[
 {"i":94990,"s":"phys","f":"MC","qt":"bonus","n":1800,"q":"Which of the following is NOT true?","c":{"W":"Kepler's second law directly correlates the square of a planet's semi-major axis to the cube of its period","X":"The rotational kinetic energy of a disk is proportional to the square of its angular speed","Y":"Osmosis is the diffusion of water across a semi-permeable membrane from a high water concentration to a low water concentration","Z":"Two objects at thermal equilibrium with each other are at the same temperature"},"a":{"t":"Kepler's second law directly correlates the square of a planet's semi-major axis to the cube of its period","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7682","q":[
-{"i":94991,"s":"phys","f":"MC","qt":"tossup","n":1801,"q":"If the index of refraction of a material is 2, and light enters the material at an angle of 90º, by what angle does light bend in the medium relative to the normal?","c":{"W":"60º","X":"45º","Y":"30º","Z":"15º"},"a":{"t":"30º","l":"Y"}}]},
+{"i":94991,"s":"phys","f":"MC","qt":"tossup","n":1801,"q":"If the index of refraction of a material is 2, and light enters the material at an angle of 90°, by what angle does light bend in the medium relative to the normal?","c":{"W":"60°","X":"45°","Y":"30°","Z":"15°"},"a":{"t":"30°","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7682","q":[
-{"i":94992,"s":"phys","f":"MC","qt":"bonus","n":1802,"q":"Which of the following is true of the relationship between current and voltage across capacitors in AC circuits?","c":{"W":"Voltage leads Current by 90º.","X":"Voltage and Current are in phase.","Y":"Current leads Voltage by 90º.","Z":"Voltage and Current are 180º out of phase."},"a":{"t":"Current leads Voltage by 90º.","l":"Y"}}]},
+{"i":94992,"s":"phys","f":"MC","qt":"bonus","n":1802,"q":"Which of the following is true of the relationship between current and voltage across capacitors in AC circuits?","c":{"W":"Voltage leads Current by 90°.","X":"Voltage and Current are in phase.","Y":"Current leads Voltage by 90°.","Z":"Voltage and Current are 180° out of phase."},"a":{"t":"Current leads Voltage by 90°.","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7683","q":[
 {"i":94993,"s":"phys","f":"SA","qt":"tossup","n":1803,"q":"In the 1960s, Raymond Davis Jr. devised a way to count these particles, especially those produced by solar fusion, using a large tank of perchloroethylene, a cleaning fluid. What were these particles?","a":{"t":"NEUTRINOS","ac":["SOLAR NEUTRINOS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7683","q":[
