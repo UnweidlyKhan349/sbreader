@@ -10,6 +10,8 @@
 
 SB Reader is a free practice site for the **National Science Bowl** (NSB) and other Science Bowl tournaments, for high school and middle school teams. It has over 80,000 real tossups and bonuses in biology, chemistry, physics, math, earth & space science and energy, taken from regional, nationals and invitational packets (MIT, Stanford, Yale and many more). Search them in the catalog, drill alone with a buzzer and automatic grading, or play against friends in an online multiplayer room. No account or install needed.
 
+Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) on GitHub).
+
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
 **Current question bank: 84,104 questions from 108 tournaments** (44,026 tossups / 40,078 bonuses; 51,776 short answer / 32,328 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
