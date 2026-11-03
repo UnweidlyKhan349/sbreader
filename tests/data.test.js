@@ -35,6 +35,18 @@ test('every record has the fields and values the site expects', () => {
   assert.deepStrictEqual(found, {});
 });
 
+// PDF extraction can leave control characters in text: form feeds from page
+// breaks, Symbol-font glyphs decoded as U+000F, newlines from layout. The
+// bank writes everything on one line (matrices as "first row 2, 3, 4, ...").
+test('no text field holds a control character', () => {
+  const CONTROL = /[\u0000-\u001f]/;
+  const texts = (q) => [q.t, q.rl, q.q, ...Object.values(q.c || {}), q.a.t, ...(q.a.ac || []), ...(q.a.rj || [])];
+  const found = check(raw, {
+    'control character in text': (q) => texts(q).some((s) => typeof s === 'string' && CONTROL.test(s)),
+  });
+  assert.deepStrictEqual(found, {});
+});
+
 test('ids are unique', () => {
   const seen = new Set();
   const dupes = raw.filter((q) => seen.has(q.i) || !seen.add(q.i)).map((q) => q.i);
