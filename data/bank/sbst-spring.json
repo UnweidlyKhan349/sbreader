@@ -652,8 +652,5 @@
 {"rl":"Spring Tournament Round 7 FINAL","r":7,"u":"https://lebot.djiang.xyz/packets/SBST%20%28Spring%29/Spring%20Tournament%20Round%207%20FINAL.pdf","q":[
 {"i":27774,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Rank the following three degrees of substitution in terms of increasing likelihood of attack in acid-catalyzed epoxide ring opening: 1) Primary; 2) Secondary; 3) Tertiary.","a":{"t":"2,1,3"}}]},
 {"rl":"Spring Tournament Round 1","r":1,"q":[
-{"i":70265,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"A vessel containing 3 moles of H2 gas is held at pressure of 2 atmospheres and a volume of 9 liters. If another 3 moles of gas are added, and the container is expanded to a volume of 12 liters, what is the final pressure of the vessel, in atmospheres, assuming constant temperature?","a":{"t":"3"}},
-{"i":70268,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Several types of non-Watson-Crick base pairing may occur during translation due to what phenomenon involving genetic code redundancy?","a":{"t":"WOBBLE"}}]},
-{"rl":"Spring Tournament Round 14 FINAL","r":14,"q":[
-{"i":70284,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"What is the metal-ligand bond order in Co(H2O)6^(2+), assuming no pi interactions?","a":{"t":"5/6"}}]}
+{"i":70268,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Several types of non-Watson-Crick base pairing may occur during translation due to what phenomenon involving genetic code redundancy?","a":{"t":"WOBBLE"}}]}
 ]

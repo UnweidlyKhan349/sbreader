@@ -15,21 +15,21 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Berkeley 2023 | 644 |  | hs |
 | Brooklyn Tech Invitational | 369 |  | hs |
 | BTHS 2025 | 252 |  | hs |
-| BUMS 2026 | 48 |  | ms |
+| BUMS 2026 | 30 |  | ms |
 | Cast 2021 | 404 | 1 | hs |
 | CCWT | 278 |  | hs |
 | CCWTWO | 306 |  | hs |
 | CLASH 2026 HS | 714 | 30 | hs |
 | CLASH 2026 MS | 429 | 10 | ms |
 | Clements 2025 | 505 |  | hs |
-| CSBL | 660 | 6 | hs |
+| CSBL | 656 | 6 | hs |
 | CSUB | 1,647 |  | hs |
 | CUT 2026 | 625 |  | hs |
 | DASONI 2 | 646 | 27 | hs |
 | Dasoni Comp1 | 420 |  | hs |
 | Dasoni Standard1 | 509 |  | ms |
-| DAST 2 | 14 |  | hs |
-| Dast 2025 | 493 | 2 | hs |
+| DAST 2 | 13 |  | hs |
+| Dast 2025 | 478 | 2 | hs |
 | DAST1 | 445 | 7 | hs |
 | David Rounds 2019 | 312 |  | hs |
 | Deadbird Invitational | 395 |  | ms |
@@ -40,32 +40,32 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | ESBOT 2 | 593 | 30 | hs |
 | Evan Zhong Study Sets | 168 |  | hs |
 | Fall 2023 | 642 | 22 | hs |
-| FE!M 2025 | 606 | 5 | hs |
+| FE!M 2025 | 600 | 5 | hs |
 | GWHS Rounds | 760 |  | hs |
 | HSBT 2026 | 644 | 27 | hs |
 | ICSBT 2 | 543 | 5 | hs |
 | ICSBT 2025 | 458 |  | hs |
 | ICSBT 3 | 519 | 10 | hs |
-| IGNIS 2022 | 721 |  | hs |
+| IGNIS 2022 | 720 |  | hs |
 | ISBI 2025 | 335 |  | hs |
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
 | Lexington HS 2020-21 | 779 |  | hs |
-| Lexscibowl 2021 | 23 |  | hs |
-| LOST 1 | 651 | 34 | hs |
+| Lexscibowl 2021 | 17 |  | hs |
+| LOST 1 | 648 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
 | LOST 3 HS | 556 |  | hs |
 | LOST 3 MS | 455 |  | ms |
 | MEHS Rounds | 776 |  | hs |
-| MHS Rounds | 865 |  | hs |
-| Mira Loma Question Database | 16,646 |  | hs |
-| MIT 2020 | 601 |  | hs |
+| MHS Rounds | 828 |  | hs |
+| Mira Loma Question Database | 16,562 |  | hs |
+| MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
 | MIT 2023 | 598 |  | hs |
-| MIT 2024 | 658 | 25 | hs |
-| MIT 2025 | 951 | 36 | hs |
+| MIT 2024 | 646 | 25 | hs |
+| MIT 2025 | 950 | 36 | hs |
 | MIT MS Study Guides | 36 |  | ms |
 | MNSBT 2024 | 650 |  | hs |
 | MOOSE 2021 | 409 |  | ms |
@@ -80,7 +80,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSB Nationals 2005 | 789 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
 | NSB Regs | 12,038 |  | hs |
-| NSBA1 | 724 | 31 | hs |
+| NSBA1 | 723 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
 | NSFBL | 552 | 8 | hs |
@@ -92,16 +92,16 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Pohaku 2024 | 322 |  | hs |
 | Prometheus 2021 | 819 |  | hs |
 | Random | 783 |  | hs |
-| Random Stuff | 358 |  | hs |
+| Random Stuff | 356 |  | hs |
 | SBL | 1,242 | 44 | hs |
-| SBST | 657 |  | hs |
-| SBST (Spring) | 617 |  | hs |
+| SBST | 643 |  | hs |
+| SBST (Spring) | 615 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
 | ScibowlDB HW | 2,082 |  | hs |
 | Science Bowl Subject Sets 1991–93 | 3,292 |  | hs |
 | SMH 2025 | 512 | 11 | hs |
 | SMH 2026 | 618 | 17 | hs |
-| SSBT 2023 | 554 | 9 | hs |
+| SSBT 2023 | 552 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
 | Stuyvesant Question Bank | 2,416 |  | hs |
@@ -116,4 +116,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 458 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (112)** | **103,853** | **535** | |
+| **Total (112)** | **103,643** | **535** | |

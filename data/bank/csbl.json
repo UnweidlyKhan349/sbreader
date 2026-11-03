@@ -419,11 +419,6 @@
 {"i":3551,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A five-liter gas held at constant pressure has a temperature of 27 celsius. What would the temperature be, in Kelvin, if the gas underwent an expansion to 10 liters?","a":{"t":"600"}},
 {"i":3562,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"Scientists at Argonne National Lab are researching the adaptations that plants have made to be able to pollinate new, untouched lands. What type of ecological succession is demonstrated when lichens and mosses colonize land that has been left by a retreating glacier?","a":{"t":"PRIMARY SUCCESSION"}},
 {"i":3583,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"What is the name of the gland that is responsible for producing human tears?","a":{"t":"LACHRYMAL GLAND"}}]},
-{"rl":"Round_3 (1)","r":1,"u":"https://lebot.djiang.xyz/packets/CSBL/Round_3%20%281%29.pdf","q":[
-{"i":3610,"s":"bio","f":"MC","qt":"bonus","n":8,"q":"Which of the following nucleotide bases is NOT a pyrimidine?","a":{"t":"Guanine","l":"X"},"c":{"W":"Cytosine","X":"Guanine","Y":"Thymine","Z":"Uracil"}},
-{"i":3623,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"What was the first planet to be discovered using a telescope?","a":{"t":"URANUS"}}]},
-{"rl":"Round_4 (1)","r":1,"u":"https://lebot.djiang.xyz/packets/CSBL/Round_4%20%281%29.pdf","q":[
-{"i":3680,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Hibernation is an example of what physiological state of decreased activity and metabolism?","a":{"t":"TORPOR"}}]},
 {"rl":"Round_6 (1)","r":1,"u":"https://lebot.djiang.xyz/packets/CSBL/Round_6%20%281%29.pdf","q":[
 {"i":3751,"s":"math","f":"SA","qt":"tossup","n":10,"q":"Evaluate 11^2 - 8^2.","a":{"t":"57"}}]},
 {"rl":"Round_7 (1)","r":7,"u":"https://oly.mehvix.com/pdfs/scibowl/CSBL/Round_7%20%281%29.pdf","q":[
@@ -673,7 +668,6 @@
 {"rl":"CSBL_Round_7","r":7,"q":[
 {"i":69539,"s":"bio","f":"MC","qt":"tossup","n":6,"q":"Scientists at Brookhaven Lab have pioneered a technique of using X-ray nanovision to observe bacteria in tissue. Which of the following mechanisms is NOT used by bacteria to generate motion?","a":{"t":"Microvilli","l":"X"},"c":{"W":"Surface Protein Complexes","X":"Microvilli","Y":"Flagella","Z":"Pili"}},
 {"i":69540,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"Scientists at Argonne National Lab are attempting to use 3-D structures to battle infectious diseases. 2 types of bacteria that they have studied are Listeria and Rickettsia. Identify ALL of the following diseases that are caused by these genera of bacteria: I. Listeriosis II. Rickets III. Rocky Mountain Spotted Fever IV. Typhus","a":{"t":"I, III, IV","ac":["ALL BUT II"]}},
-{"i":69541,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Simplify the following fraction, giving your answer in a+bi form: (3+6i)/(12−15i)","a":{"t":"−6/41 + (13/41)i"}},
 {"i":69543,"s":"math","f":"SA","qt":"bonus","n":17,"q":"Simplify the following expression: sin(21)cos(21)tan(21) + sin(69)cos(69)tan(69)","a":{"t":"1"}},
 {"i":69544,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"Scientists at the Joint Genome Institute are studying gene expression in metabolic pathways. Which of the following is NOT a tool used to study the expression of a gene?","a":{"t":"Southern Blotting","l":"Z"},"c":{"W":"RNA-Seq","X":"qRT-PCR","Y":"DNA Microarray","Z":"Southern Blotting"}},
 {"i":69545,"s":"ess","f":"MC","qt":"tossup","n":22,"q":"At high latitudes, which of the following correctly describes the change in TEMPERATURE and DENSITY as you approach the surface from underwater?","a":{"t":"Temperature remains Constant, Density Remains Constant","l":"Z"},"c":{"W":"Temperature Increases, Density Remains Constant","X":"Temperature Decreases, Density Remains Constant","Y":"Temperature Remains Constant, Density Decreases","Z":"Temperature remains Constant, Density Remains Constant"}}]},
