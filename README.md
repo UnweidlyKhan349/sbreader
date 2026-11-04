@@ -172,7 +172,6 @@ data/source-subjects.json   the subject each question's packet prints (checked b
 data/subject-overrides.json questions deliberately filed under a different subject than their packet prints
 tools/bank.js       converts the bank to and from one flat list of records, for editing
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
-tools/stamp-assets.js    tags each page's CSS/JS links with a hash of the file (?v=...), so a deploy never pairs new HTML with cached old files
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
@@ -395,15 +394,11 @@ python3 -m http.server 8000
 # open http://localhost:8000/
 
 npm test        # or: node --test tests/*.test.js  (Node 18+, no install needed)
-node tools/stamp-assets.js   # after changing any CSS or JS file
 ```
-
-**Asset tags.** Every page links its CSS and JS as `file?v=<hash of the file>`. GitHub Pages lets browsers reuse a file for 10 minutes, so without the tags a deploy can leave a visitor with the new HTML and the old CSS/JS (a page that half works) until those expire. With them, a changed file gets a new URL and is fetched fresh. After editing any CSS or JS file, run `node tools/stamp-assets.js`; `tests/assets.test.js` fails until every tag matches its file.
 
 The tests, which CI also runs on every push and pull request:
 - `tests/answer-check.test.js`: grading rules, the known false positives, and every answer key and whole-answer accept in the corpus graded against its own question.
-- `tests/mp-rules.test.js`: multiplayer message validation and override rules, public lobbies, player IDs, and who runs the game.
-- `tests/assets.test.js`: every page's CSS/JS links carry the current `?v=` tag (see **Asset tags** above).
+- `tests/mp-rules.test.js`: multiplayer message validation and override rules.
 - `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every question's subject matches the subject its packet prints or is a listed override (see [Placement](#text-and-notation-conventions)), every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each word against each field separately. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.
