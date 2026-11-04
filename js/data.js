@@ -438,6 +438,86 @@
     return btn;
   }
 
+  // A question as a Bootstrap card, laid out like qbreader's database cards:
+  //   header - the tournament, round and question number, and the star
+  //   body   - the question, its figures and choices, a rule, the answer
+  //   footer - subject / type / format badges and the packet link
+  // Used by the catalog, the bookmarks page and the play history.
+  // opts: {
+  //   grade: 'correct'|'incorrect'|'skipped'  badge before the source label
+  //   answer: reveal data for answerBlock (multiplayer; default the question's own)
+  //   sourceUrl: packet link (default the question's own)
+  //   hideAnswer: start with the answer hidden behind a "Show answer" link
+  //   note: an extra line under the answer ("You answered: ...")
+  //   onBookmark(isBookmarked)
+  // }
+  function questionCard(q, opts) {
+    opts = opts || {};
+    const card = document.createElement('div');
+    card.className = 'card q-card mb-3';
+    card.dataset.qid = q.id;
+
+    const header = document.createElement('div');
+    header.className = 'card-header d-flex align-items-center gap-2';
+    const title = document.createElement('b');
+    title.className = 'q-card-title me-auto';
+    if (opts.grade) {
+      const badge = document.createElement('span');
+      badge.className = 'grade-badge me-2 ' + opts.grade;
+      badge.textContent = GRADE_LABELS[opts.grade];
+      title.appendChild(badge);
+    }
+    title.appendChild(document.createTextNode(SBData.sourceLabelFor(q)));
+    header.appendChild(title);
+    const star = bookmarkButton(q.id, opts.onBookmark);
+    star.classList.remove('btn-outline-secondary', 'btn-sm');
+    star.classList.add('btn-link', 'q-card-star');
+    header.appendChild(star);
+    card.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    appendQuestionBody(body, q);
+    const hr = document.createElement('hr');
+    hr.className = 'my-2';
+    body.appendChild(hr);
+    const answerWrap = answerBlock(q, opts.answer || null);
+    if (opts.hideAnswer) {
+      answerWrap.style.display = 'none';
+      const show = document.createElement('button');
+      show.type = 'button';
+      show.className = 'btn btn-link p-0 show-answer-btn';
+      show.textContent = 'Show answer';
+      show.addEventListener('click', () => {
+        answerWrap.style.display = '';
+        show.remove();
+      });
+      body.appendChild(show);
+    }
+    body.appendChild(answerWrap);
+    if (opts.note) {
+      const note = document.createElement('div');
+      note.className = 'small-note mt-1';
+      note.textContent = opts.note;
+      body.appendChild(note);
+    }
+    card.appendChild(body);
+
+    const footer = document.createElement('div');
+    footer.className = 'card-footer small d-flex flex-wrap align-items-center gap-1';
+    const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
+    footer.innerHTML = [
+      `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
+      `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
+      `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
+      q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
+      isPacketUrl(src) ? `<a class="ms-auto" href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>` : '',
+    ].join('');
+    card.appendChild(footer);
+    return card;
+  }
+
+  SBData.questionCard = questionCard;
   SBData.questionMetaRow = questionMetaRow;
   SBData.appendQuestionBody = appendQuestionBody;
   SBData.questionFigures = questionFigures;

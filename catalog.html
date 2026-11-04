@@ -70,82 +70,59 @@
   </div>
 </nav>
 
-<div class="container mt-3 mb-5 catalog-container">
-<div class="catalog-layout">
-  <!-- Tournament picker as a sidebar on wide screens; below 900px it's
-       hidden and the dropdown in the filter panel is used instead. Both
-       drive the same selection (catalog.js). -->
-  <aside class="tournament-sidebar" id="tournamentSidebar" aria-label="Tournaments">
-    <div class="ts-head">
-      <span class="field-label" style="margin:0;">Tournaments</span>
-      <button type="button" class="custom-select-clear-btn" id="tsClearBtn">Clear</button>
+<div class="container-xl mt-3 mb-5">
+  <p class="lead">Search the database that powers SB Reader.</p>
+  <p>
+    Every word you type must appear somewhere in a question, its answer or its tournament name, in any order.
+    Star a question to save it to your <a href="bookmarks.html">bookmarks</a>; the <a href="set-list.html">set list</a> shows every tournament.
+  </p>
+
+  <div class="input-group mb-2">
+    <input type="search" class="form-control" id="searchBox" placeholder="Query" aria-label="Search question text, answers, or tournament" autocomplete="off" />
+    <button class="btn btn-info" type="button" id="searchBtn">Search</button>
+  </div>
+  <div class="row g-2 mb-2">
+    <div class="col-12 col-md-6" id="tournamentFilterCell">
+      <select id="tournamentSelect" aria-label="Tournaments"></select>
     </div>
-    <input type="search" class="custom-select-search" id="tsSearch" placeholder="Search tournaments…" autocomplete="off" aria-label="Search tournaments" />
-    <div class="ts-summary" id="tsSummary">All tournaments</div>
-    <div class="ts-list" id="tsList"></div>
-  </aside>
-
-  <div class="catalog-main">
-  <h1>Catalog</h1>
-  <p class="subtitle" id="resultCount">Loading…</p>
-
-  <div class="panel" style="margin-bottom:20px;">
-    <div style="margin-bottom:16px;">
-      <span class="field-label">Search</span>
-      <input type="search" id="searchBox" placeholder="Search question text, answers, or tournament…" style="width:100%; max-width: 520px;" />
-    </div>
-
-    <div class="grid-filters">
-      <div>
-        <span class="field-label">Subject</span>
-        <div class="chip-row" id="subjectChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Round</span>
-        <div class="dual-slider" id="roundSlider">
+    <div class="col-12 col-md-6">
+      <div class="d-flex align-items-center gap-2 h-100 px-1">
+        <span class="text-nowrap" id="roundRangeLabel">Rounds 1–17</span>
+        <div class="dual-slider flex-grow-1" id="roundSlider">
           <div class="track"></div>
           <div class="range-fill" id="roundSliderFill"></div>
-          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" />
-          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" />
+          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
+          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
         </div>
-        <div class="round-range-label" id="roundRangeLabel">Rounds 1–17</div>
-        <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:6px;">
-          <input type="checkbox" id="includeUnlabeledRounds" checked /> Include unlabeled
-        </label>
-      </div>
-      <div>
-        <span class="field-label">Question type</span>
-        <div class="chip-row" id="qtypeChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Format</span>
-        <div class="chip-row" id="formatChips"></div>
       </div>
     </div>
-
-    <div class="grid-filters" style="margin-top:16px;">
-      <div>
-        <span class="field-label">Level</span>
-        <div class="chip-row" id="levelChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Visual questions</span>
-        <div class="chip-row" id="visualChips"></div>
-      </div>
-      <div id="tournamentFilterCell">
-        <span class="field-label">Tournament</span>
-        <select id="tournamentSelect" style="width:100%;"></select>
-      </div>
-      <div style="align-self: end; display:flex; gap:8px;">
-        <button class="btn btn-outline-secondary" id="clearFilters">Clear all filters</button>
+  </div>
+  <div class="row g-2 mb-2 filter-groups">
+    <div class="col-12 col-lg-6"><div class="chip-row" id="subjectChips" role="group" aria-label="Subjects"></div></div>
+    <div class="col-12 col-lg-6">
+      <div class="d-flex flex-wrap filter-chip-groups">
+        <div class="chip-row" id="qtypeChips" role="group" aria-label="Question type"></div>
+        <div class="chip-row" id="formatChips" role="group" aria-label="Format"></div>
+        <div class="chip-row" id="levelChips" role="group" aria-label="Level"></div>
+        <div class="chip-row" id="visualChips" role="group" aria-label="Visual questions"></div>
       </div>
     </div>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
+    <label class="form-check-label" for="includeUnlabeledRounds">Include questions with no round number</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="hideAnswers" />
+    <label class="form-check-label" for="hideAnswers">Hide answers</label>
+  </div>
+  <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mb-3">
+    <span class="fw-bold" id="resultCount">Loading…</span>
+    <button class="btn btn-link p-0 ms-auto" type="button" id="clearFilters">Clear all filters</button>
   </div>
 
   <div id="results"></div>
-  <div class="pagination" id="pagination"></div>
-  </div>
-</div>
+  <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
 <script src="js/catalog.js"></script>

@@ -64,12 +64,13 @@
   </div>
 </nav>
 
-<div class="container mt-3 mb-5">
-  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-    <h1 style="margin:0;">Bookmarked questions</h1>
-    <button class="btn btn-primary" id="practiceBtn" style="padding:12px 20px;">Practice these</button>
+<div class="container-xl mt-3 mb-5">
+  <p class="lead">Your bookmarked questions.</p>
+  <p>Bookmarks are saved in this browser. Star a question anywhere on the site to add it here; click a star again to remove it.</p>
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+    <span class="fw-bold" id="resultCount">Loading…</span>
+    <button class="btn btn-primary ms-auto" id="practiceBtn">Practice these</button>
   </div>
-  <p class="subtitle" id="resultCount">Loading…</p>
 
   <div id="results"></div>
 </div>

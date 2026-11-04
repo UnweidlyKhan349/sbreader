@@ -1,40 +1,10 @@
 (function () {
-  const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
-  const labelFor = SBData.subjectLabel;
-
-
+  // Unbookmarking here doesn't remove the card from the page - it just
+  // un-highlights the star, so an accidental click is easy to undo (click
+  // the star again to re-bookmark) without the card jumping out from under
+  // you. The card only disappears from this list the next time it's loaded.
   function renderCard(q) {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.appendChild(SBData.questionMetaRow(q));
-    SBData.appendQuestionBody(card, q);
-
-    const answerWrap = SBData.answerBlock(q, null, { source: true });
-    answerWrap.style.display = 'none';
-    card.appendChild(answerWrap);
-
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'btn btn-sm btn-outline-secondary';
-    toggleBtn.textContent = 'Show answer';
-    toggleBtn.onclick = () => {
-      const showing = answerWrap.style.display !== 'none';
-      answerWrap.style.display = showing ? 'none' : 'block';
-      toggleBtn.textContent = showing ? 'Show answer' : 'Hide answer';
-    };
-    actions.appendChild(toggleBtn);
-
-    // Unbookmarking here doesn't remove the card from the page - it just
-    // un-highlights the star, so an accidental click is easy to undo (click
-    // the star again to re-bookmark) without the card jumping out from
-    // under you. The card only actually disappears from this list the next
-    // time it's loaded (a refresh), once storage no longer has it.
-    actions.appendChild(SBData.bookmarkButton(q.id, updateCount));
-
-    card.appendChild(actions);
-    return card;
+    return SBData.questionCard(q, { hideAnswer: true, onBookmark: updateCount });
   }
 
   function updateCount() {

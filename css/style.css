@@ -317,81 +317,31 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 }
 .lightbox-close { position: absolute; top: 14px; right: 14px; }
 
-.grid-filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
 .filter-checkbox-label { font-size: .9rem; }
 
-/* ---------------- Catalog tournament sidebar ---------------- */
-/* Wide screens get a sticky, full-height list of tournaments beside the
-   results instead of the dropdown in the filter panel; below 900px the
-   sidebar is hidden and the dropdown is used. */
-.catalog-container { max-width: 1440px; }
-.catalog-layout { display: flex; gap: 22px; align-items: flex-start; }
-.catalog-main { flex: 1; min-width: 0; }
-.tournament-sidebar {
-  width: 290px; flex-shrink: 0; position: sticky; top: 76px;
-  max-height: calc(100vh - 96px); display: flex; flex-direction: column; gap: 8px;
-  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 12px 10px;
-}
-.ts-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 2px; }
-.ts-head .custom-select-clear-btn { padding: 4px 10px; }
-.ts-head .custom-select-clear-btn:disabled { opacity: .45; cursor: default; border-color: var(--border); color: var(--text-dim); }
-.ts-summary { font-size: 12px; color: var(--text-dim); padding: 0 2px; }
-.ts-list { flex: 1; min-height: 0; overflow-y: auto; margin: 0 -6px; padding: 0 4px; }
-.ts-row {
-  width: 100%; display: flex; align-items: center; gap: 9px; text-align: left;
-  background: transparent; border: 0; border-radius: 6px; padding: 7px 8px;
-  color: var(--text); font: inherit; font-size: 13.5px; cursor: pointer;
-}
-.ts-row:hover { background: var(--panel-2); }
-.ts-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.ts-row .ts-name { flex: 1; min-width: 0; }
-.ts-row .ts-count { font-size: 12px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
-.ts-row.active { background: rgba(var(--bs-primary-rgb),.12); color: var(--accent); font-weight: 700; }
-.ts-row.active .custom-select-option-check {
-  background: var(--accent); border-color: var(--accent);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M6.5 11.5 3 8l1.06-1.06L6.5 9.38l5.44-5.44L13 5l-6.5 6.5Z'/%3E%3C/svg%3E");
-  background-size: 12px; background-position: center; background-repeat: no-repeat;
-}
-@media (min-width: 900px) { #tournamentFilterCell { display: none; } }
-@media (max-width: 899px) { .tournament-sidebar { display: none; } }
+.filter-chip-groups { column-gap: 1rem; row-gap: .375rem; }
+.btn-link { text-decoration: none; }
+.btn-link:hover { text-decoration: underline; }
+.filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; flex-wrap: wrap; gap: .5rem; }
+.filter-actions { display: flex; gap: .5rem; }
 
-.filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-.filter-actions { display: flex; gap: 8px; }
+.icon-btn { min-width: 2.25rem; padding-left: .5rem; padding-right: .5rem; }
+.btn.icon-btn.active { color: var(--warn); }
 
-.icon-btn {
-  width: 36px; height: 36px; padding: 0; justify-content: center; font-size: 17px; line-height: 1;
-}
-.icon-btn.active { color: var(--warn); border-color: var(--warn); }
+/* ---------------- Question cards (SBData.questionCard) ---------------- */
+.q-card .card-header { padding-top: .35rem; padding-bottom: .35rem; }
+.btn.q-card-star { font-size: 1.15rem; line-height: 1; padding: 0 .25rem; border: 0; color: var(--bs-secondary-color); text-decoration: none; }
+.btn.q-card-star:hover, .btn.q-card-star.active { color: var(--warn); }
+.q-card .q-text { margin: 0 0 .25rem; }
+.q-card .choices { margin: .25rem 0; white-space: pre-wrap; }
+.q-card .a-text { font-weight: 700; }
+.q-card .q-figure { max-height: 300px; }
+.q-card .card-footer { color: var(--bs-secondary-color); }
+.q-card .card-footer .tag { font-size: .7rem; }
 
-.q-card {
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-}
-.q-card .meta-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
-.q-card .q-text { font-size: 15px; margin: 6px 0; }
-.q-card .a-text { color: var(--good); font-weight: 700; font-size: 14px; }
-.q-card .src { color: var(--text-dim); font-size: 12px; margin-top: 6px; }
-.q-card .choices { color: var(--text-dim); font-size: 13.5px; margin: 4px 0; }
-.q-card .actions { display:flex; gap:8px; margin-top:10px; }
-
-.pagination { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; }
-.pagination span { color: var(--text-dim); font-size: 13px; }
-.page-jump-input {
-  width: 52px; text-align: center; background: var(--bg-alt); color: var(--text);
-  border: 1px solid var(--border); border-radius: 6px; padding: 5px 4px; font-size: 13px;
-}
-.page-jump-input:focus { outline: none; border-color: var(--accent); }
-/* Hide the number input's browser-default up/down spinner arrows - they're
-   fiddly at this width and the field is a "type a page and press Enter"
-   jump box, not a stepper. */
+/* Pagination's "Page [n] of N" jump box. */
+.page-jump { width: auto; }
+.page-jump-input { width: 4.5rem; text-align: center; }
 .page-jump-input::-webkit-outer-spin-button, .page-jump-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .page-jump-input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
@@ -601,8 +551,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    the container and can pick up + drag the nearest handle in one motion,
    in either direction, even when both handles are tied at the same point. */
 .dual-slider { position: relative; height: 30px; margin-top: 4px; cursor: pointer; }
-.dual-slider .track { position: absolute; top: 50%; left: 8px; right: 8px; height: 6px; margin-top: -3px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 4px; }
-.dual-slider .range-fill { position: absolute; top: 50%; height: 6px; margin-top: -3px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 4px; }
+.dual-slider .track { position: absolute; top: 50%; left: 8px; right: 8px; height: 8px; margin-top: -4px; background: var(--bs-secondary-bg); border-radius: 8px; }
+.dual-slider .range-fill { position: absolute; top: 50%; height: 8px; margin-top: -4px; background: rgba(var(--bs-primary-rgb), .35); border-radius: 8px; }
 .dual-slider input[type="range"] {
   position: absolute; top: 0; left: 0; width: 100%; height: 30px; margin: 0;
   background: transparent; border: none; outline: none; border-radius: 0;
@@ -619,7 +569,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   pointer-events: none; width: 16px; height: 16px; border-radius: 50%;
   background: var(--accent); border: 0; cursor: pointer;
 }
-.round-range-label { color: var(--text-dim); font-size: 12.5px; margin-top: 6px; }
+.round-range-label { margin-top: .25rem; }
 
 /* ---------------- Reveal tag badges (subject/format/qtype revealed in sequence) ---------------- */
 .reveal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; min-height: 22px; }
