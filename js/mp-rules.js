@@ -40,12 +40,36 @@
   // one message a peer may send without joining (see publicLobbies).
   const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'peek']);
 
+  // A player's ID for the life of their browser, sent with 'join' so a
+  // player who drops out (or follows the room to a new host) gets their
+  // score back. Not a secret: it only ever guards a practice score.
+  const PID_RE = /^[A-Za-z0-9_-]{8,40}$/;
+  function cleanPid(v) {
+    return typeof v === 'string' && PID_RE.test(v) ? v : '';
+  }
+
+  // Every player holds a copy of the room, so when the host leaves any of
+  // them can carry on hosting it. To keep them from all trying at once, the
+  // longest-standing player still here goes first and the rest wait their
+  // turn. Returns how many places from the front `myId` is (0 = go now).
+  // players: the host's last player list, in joining order.
+  function takeoverRank(players, leavingHostId, myId) {
+    const order = players.map((p) => p.id).filter((id) => id !== leavingHostId);
+    const i = order.indexOf(myId);
+    return i < 0 ? order.length : i;
+  }
+
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   function cleanHostMessage(msg, meta) {
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
     const { type } = msg;
     if (NO_FIELDS.has(type)) return { type };
-    if (type === 'join') return { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
+    if (type === 'join') {
+      const out = { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
+      const pid = cleanPid(msg.pid);
+      if (pid) out.pid = pid;
+      return out;
+    }
     if (type === 'rename') {
       const name = str(msg.name, LIMITS.name).trim();
       return name ? { type, name } : null;
@@ -108,5 +132,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, takeoverRank, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);

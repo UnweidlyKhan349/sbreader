@@ -82,3 +82,18 @@ test('there is a public lobby for all subjects and one per subject but energy', 
   assert.strictEqual(findPublicLobby(meta, 'energy'), null);
   assert.strictEqual(findPublicLobby(meta, null), null);
 });
+
+test('a join keeps a well-formed player ID and drops anything else', () => {
+  assert.deepStrictEqual(cleanHostMessage({ type: 'join', name: 'Sam', pid: 'abcDEF12-34_x' }, meta), { type: 'join', name: 'Sam', pid: 'abcDEF12-34_x' });
+  for (const pid of ['short', 'x'.repeat(41), 'has space 123', '<script>12', 42, null]) {
+    assert.deepStrictEqual(cleanHostMessage({ type: 'join', name: 'Sam', pid }, meta), { type: 'join', name: 'Sam' }, JSON.stringify(pid));
+  }
+});
+
+test('the longest-standing player left takes over first', () => {
+  const { takeoverRank } = globalThis.SBMpRules;
+  const players = [{ id: 'HOST' }, { id: 'a' }, { id: 'b' }, { id: 'c' }];
+  assert.strictEqual(takeoverRank(players, 'HOST', 'a'), 0);
+  assert.strictEqual(takeoverRank(players, 'HOST', 'c'), 2);
+  assert.strictEqual(takeoverRank(players, 'HOST', 'zzz'), 3);
+});

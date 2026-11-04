@@ -60,7 +60,7 @@
   // ping every few seconds is the fallback: SILENCE_MS is longer than a
   // hidden tab's slowest timers (about once a minute), so a backgrounded
   // player isn't dropped for that alone.
-  const ICE_GRACE_MS = 8000;
+  const ICE_GRACE_MS = 3000;
   const PING_MS = 5000;
   const SILENCE_MS = 75000;
   const PING = '__ping';
@@ -145,6 +145,11 @@
       conn.on('error', drop);
     });
     peer.on('error', (err) => onError && onError(err));
+    // Losing the broker doesn't touch the players already connected, but
+    // nobody new could find the room (or take it over) until it's back.
+    peer.on('disconnected', () => {
+      setTimeout(() => { if (!peer.destroyed && peer.disconnected) peer.reconnect(); }, 1000);
+    });
     return api;
   }
 
