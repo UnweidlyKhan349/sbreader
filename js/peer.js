@@ -52,6 +52,41 @@
     }
   }
 
+  // Noticing that the other end is gone. PeerJS only closes a connection
+  // once ICE reaches 'failed', which can take a long while after a tab is
+  // closed, so the room would sit waiting for a host (or a player) who left.
+  // The browser's own consent checks move ICE to 'disconnected' within
+  // seconds, unaffected by timer throttling, so that's the main signal. A
+  // ping every few seconds is the fallback: SILENCE_MS is longer than a
+  // hidden tab's slowest timers (about once a minute), so a backgrounded
+  // player isn't dropped for that alone.
+  const ICE_GRACE_MS = 8000;
+  const PING_MS = 5000;
+  const SILENCE_MS = 75000;
+  const PING = '__ping';
+  function watchConn(conn, onDead) {
+    let lastHeard = Date.now();
+    let iceTimer = null;
+    let done = false;
+    const stop = () => { done = true; clearInterval(pinger); clearTimeout(iceTimer); };
+    const dead = () => { if (done) return; stop(); try { conn.close(); } catch (e) { /* already closed */ } onDead(); };
+    conn.on('iceStateChanged', (state) => {
+      if (state === 'disconnected') {
+        if (!iceTimer) iceTimer = setTimeout(dead, ICE_GRACE_MS);
+      } else if (state === 'connected' || state === 'completed') {
+        clearTimeout(iceTimer);
+        iceTimer = null;
+      }
+    });
+    conn.on('close', stop);
+    const pinger = setInterval(() => {
+      if (Date.now() - lastHeard > SILENCE_MS) { dead(); return; }
+      if (conn.open) conn.send({ type: PING });
+    }, PING_MS);
+    // Call with each message; true means it was a ping, for this layer only.
+    return (data) => { lastHeard = Date.now(); return !!(data && data.type === PING); };
+  }
+
   function randomRoomCode() {
     const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
     let s = '';
@@ -59,8 +94,10 @@
     return s;
   }
 
-  function makeHost({ onPlayerMessage, onPlayerConnect, onPlayerDisconnect, onError }) {
-    const roomCode = 'sbowl-' + randomRoomCode();
+  // peerId: a fixed ID to claim (a public lobby's) instead of a random room
+  // code. If someone already holds it, `ready` rejects with 'unavailable-id'.
+  function makeHost({ peerId, onPlayerMessage, onPlayerConnect, onPlayerDisconnect, onError }) {
+    const roomCode = peerId || 'sbowl-' + randomRoomCode();
     let peer;
     try {
       peer = new Peer(roomCode, { debug: 0, config: ICE_CONFIG });
@@ -73,7 +110,7 @@
       const failure = Promise.reject(err);
       failure.catch(() => {});
       onError && onError(err);
-      return { roomCode, peer: null, ready: failure, broadcast() {}, sendTo() {}, playerCount() { return 0; }, close() {} };
+      return { roomCode, peer: null, ready: failure, broadcast() {}, sendTo() {}, closeConn() {}, playerCount() { return 0; }, close() {} };
     }
     const conns = new Map();
     // Each failure reaches onError exactly once: through the single 'error'
@@ -92,15 +129,20 @@
       ).catch((err) => { if (err && err.isTimeout && onError) onError(err); throw err; }),
       broadcast(data) { for (const c of conns.values()) { if (c.open) c.send(data); } },
       sendTo(connId, data) { const c = conns.get(connId); if (c && c.open) c.send(data); },
+      closeConn(connId) { const c = conns.get(connId); if (c) c.close(); },
       playerCount() { return conns.size; },
       close() { for (const c of conns.values()) c.close(); peer.destroy(); },
     };
     peer.on('connection', (conn) => {
       conns.set(conn.peer, conn);
-      conn.on('data', (data) => onPlayerMessage && onPlayerMessage(conn.peer, data));
+      // Each of these can fire for one connection; onPlayerDisconnect must
+      // cope with being told more than once.
+      const drop = () => { if (conns.get(conn.peer) === conn) conns.delete(conn.peer); onPlayerDisconnect && onPlayerDisconnect(conn.peer); };
+      const heard = watchConn(conn, drop);
+      conn.on('data', (data) => { if (!heard(data) && onPlayerMessage) onPlayerMessage(conn.peer, data); });
       conn.on('open', () => { onPlayerConnect && onPlayerConnect(conn.peer); });
-      conn.on('close', () => { conns.delete(conn.peer); onPlayerDisconnect && onPlayerDisconnect(conn.peer); });
-      conn.on('error', (err) => { conns.delete(conn.peer); onPlayerDisconnect && onPlayerDisconnect(conn.peer); });
+      conn.on('close', drop);
+      conn.on('error', drop);
     });
     peer.on('error', (err) => onError && onError(err));
     return api;
@@ -119,12 +161,15 @@
     let conn = null;
     // As in makeHost: one onError call per failure.
     const report = (err) => { if (onError) onError(err); };
+    let gone = false;
+    const disconnected = () => { if (gone) return; gone = true; onDisconnect && onDisconnect(); };
     const rawReady = new Promise((resolve, reject) => {
       peer.on('open', () => {
         conn = peer.connect(roomCode.trim(), { reliable: true });
+        const heard = watchConn(conn, disconnected);
         conn.on('open', () => { resolve(); });
-        conn.on('data', (data) => onHostMessage && onHostMessage(data));
-        conn.on('close', () => { onDisconnect && onDisconnect(); });
+        conn.on('data', (data) => { if (!heard(data) && onHostMessage) onHostMessage(data); });
+        conn.on('close', disconnected);
         conn.on('error', (err) => { report(err); reject(err); });
       });
       peer.on('error', (err) => { report(err); reject(err); });
@@ -142,5 +187,65 @@
     return api;
   }
 
-  global.SBPeer = { makeHost, makeClient, friendlyPeerError };
+  // Asks each room in `ids` how many players it has, without joining:
+  // connects, sends 'peek', and waits for the host's 'peekInfo'. Resolves to
+  // a Map of id -> player count, 0 for a room nobody is hosting, or null when
+  // the connection failed. The broker usually reports an ID nobody holds as
+  // 'peer-unavailable' at once, but not reliably for one asked about
+  // recently, so a room that hasn't answered by the timeout counts as empty
+  // too: a live host answers within a second or two.
+  const PROBE_TIMEOUT_MS = 8000;
+  const PROBE_FATAL = new Set(['browser-incompatible', 'invalid-id', 'invalid-key', 'network', 'ssl-unavailable', 'server-error', 'socket-error', 'socket-closed', 'unavailable-id']);
+  function probeRooms(ids) {
+    const results = new Map();
+    return new Promise((resolve) => {
+      let peer = null;
+      let timer = null;
+      const finish = (unanswered) => {
+        clearTimeout(timer);
+        ids.forEach((id) => { if (!results.has(id)) results.set(id, unanswered); });
+        try { if (peer) peer.destroy(); } catch (e) { /* already gone */ }
+        resolve(results);
+      };
+      const settle = (id, value) => {
+        if (results.has(id)) return;
+        results.set(id, value);
+        if (results.size >= ids.length) finish(null);
+      };
+      if (!ids.length) { resolve(results); return; }
+      timer = setTimeout(() => finish(0), PROBE_TIMEOUT_MS);
+      try {
+        peer = new Peer({ debug: 0, config: ICE_CONFIG });
+      } catch (err) {
+        finish(null);
+        return;
+      }
+      peer.on('open', () => {
+        ids.forEach((id) => {
+          const conn = peer.connect(id, { reliable: true });
+          conn.on('open', () => conn.send({ type: 'peek' }));
+          conn.on('data', (data) => {
+            if (data && data.type === 'peekInfo') {
+              settle(id, Math.max(0, Math.floor(Number(data.players)) || 0));
+              conn.close();
+            }
+          });
+          conn.on('error', () => settle(id, null));
+        });
+      });
+      peer.on('error', (err) => {
+        const type = err && err.type;
+        if (type === 'peer-unavailable') {
+          const m = /peer (\S+)/.exec(err.message || '');
+          if (m && ids.includes(m[1])) settle(m[1], 0);
+        } else if (PROBE_FATAL.has(type)) {
+          finish(null);
+        }
+        // Anything else concerns one connection, which its own handlers
+        // (or the timeout) settle.
+      });
+    });
+  }
+
+  global.SBPeer = { makeHost, makeClient, probeRooms, friendlyPeerError };
 })(window);

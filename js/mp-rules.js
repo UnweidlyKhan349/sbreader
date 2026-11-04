@@ -36,7 +36,9 @@
     };
   }
 
-  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override']);
+  // 'peek' asks a public lobby's host how many players are in it; it's the
+  // one message a peer may send without joining (see publicLobbies).
+  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'peek']);
 
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   function cleanHostMessage(msg, meta) {
@@ -88,5 +90,23 @@
     return mine.correct || !attempts.some((a) => a.playerId !== playerId && a.correct);
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, LIMITS, RATE_MIN, RATE_MAX };
+  // Public lobbies: rooms with a fixed, well-known peer ID that anyone can
+  // join from the lobby list. There's no server to keep them open, so the
+  // first player in hosts, and when the host leaves the lobby moves to
+  // whoever claims the ID next. One lobby covers every subject, and each
+  // subject but energy has its own.
+  const PUBLIC_PREFIX = 'sbowl-pub-';
+  const NO_PUBLIC_LOBBY = new Set(['energy']);
+  function publicLobbies(meta) {
+    const keys = (meta.subjects || []).map((s) => (typeof s === 'string' ? s : s.key));
+    return [{ key: 'all', subjects: keys }].concat(
+      keys.filter((k) => !NO_PUBLIC_LOBBY.has(k)).map((k) => ({ key: k, subjects: [k] }))
+    ).map((l) => ({ ...l, peerId: PUBLIC_PREFIX + l.key }));
+  }
+  function findPublicLobby(meta, key) {
+    const k = typeof key === 'string' ? key.trim().toLowerCase() : '';
+    return publicLobbies(meta).find((l) => l.key === k) || null;
+  }
+
+  global.SBMpRules = { cleanHostMessage, canOverrideOwn, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);

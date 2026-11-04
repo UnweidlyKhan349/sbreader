@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Multiplayer Science Bowl – Play Online with Friends · SB Reader</title>
-<meta name="description" content="Host or join an online Science Bowl room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
+<meta name="description" content="Join a public Science Bowl lobby, or host or join a room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
 <link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/multiplayer.html" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="SB Reader" />
 <meta property="og:title" content="Multiplayer Science Bowl – Play Online with Friends" />
-<meta property="og:description" content="Host or join an online Science Bowl room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
+<meta property="og:description" content="Join a public Science Bowl lobby, or host or join a room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
 <meta property="og:url" content="https://unweidlykhan349.github.io/sbreader/multiplayer.html" />
 <meta property="og:image" content="https://unweidlykhan349.github.io/sbreader/img/og-image.png" />
 <meta property="og:image:width" content="1280" />
@@ -43,7 +43,21 @@
 <!-- ============== LOBBY / CHOOSE MODE ============== -->
 <div class="container" id="lobbyScreen">
   <h1>Multiplayer</h1>
-  <p class="subtitle">Host a room and share the code (click it in the room to copy an invite link), or join a friend's room. Everyone can buzz — first in locks the rest out until they've answered.</p>
+  <p class="subtitle">Jump into a public lobby, host a room and share the code (click it in the room to copy an invite link), or join a friend's room. Everyone can buzz — first in locks the rest out until they've answered.</p>
+
+  <div class="panel public-panel" id="publicPanel">
+    <div class="filter-head">
+      <h2 style="margin:0;">Public lobbies</h2>
+      <button class="btn small ghost" id="publicRefreshBtn" title="Check how many players are in each lobby">↻ Refresh</button>
+    </div>
+    <p class="small-note" style="margin:0;">Open rooms anyone can join: one mixing every subject, and one for each subject except energy. A lobby’s subject is fixed; everything else can be changed from the room settings.</p>
+    <div class="public-lobbies" id="publicLobbyList"></div>
+    <div class="public-name-row">
+      <label class="section-title" for="publicNameInput" style="margin:0;">Your name</label>
+      <input type="text" id="publicNameInput" placeholder="e.g. Sam" maxlength="24" />
+    </div>
+    <p class="small-note" id="publicStatus" style="margin:10px 0 0;"></p>
+  </div>
 
   <div class="setup-grid">
     <div class="panel" id="hostPanel">
@@ -124,6 +138,7 @@
       </div>
     </div>
     <div class="chip-row" id="mpSettingsSubjectChips"></div>
+    <p class="small-note" id="mpSettingsSubjectFixed" style="display:none; margin:0;"></p>
     <div class="section-title">Round</div>
     <div class="dual-slider" id="mpSettingsRoundSlider">
       <div class="track"></div>
@@ -157,7 +172,7 @@
   <div class="mp-main">
     <div class="score-bar">
       <div class="room-code-strip">
-        <span class="small-note">Room</span>
+        <span class="small-note" id="mpRoomLabel">Room</span>
         <span class="room-code" id="mpRoomCodeDisplay" title="Click to copy an invite link">-----</span>
       </div>
       <div style="display:flex; gap:8px; align-items:center;">

@@ -65,3 +65,20 @@ test('a player can override only their own grade, and only one player scores', (
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', false), true);
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', true), false);
 });
+
+test('a peek needs no fields', () => {
+  assert.deepStrictEqual(cleanHostMessage({ type: 'peek', players: 99 }, meta), { type: 'peek' });
+});
+
+test('there is a public lobby for all subjects and one per subject but energy', () => {
+  const { publicLobbies, findPublicLobby } = globalThis.SBMpRules;
+  const lobbies = publicLobbies(meta);
+  const keys = meta.subjects.map((s) => s.key);
+  assert.deepStrictEqual(lobbies.map((l) => l.key), ['all', ...keys.filter((k) => k !== 'energy')]);
+  assert.deepStrictEqual(lobbies[0].subjects, keys);
+  for (const l of lobbies.slice(1)) assert.deepStrictEqual(l.subjects, [l.key]);
+  assert.strictEqual(new Set(lobbies.map((l) => l.peerId)).size, lobbies.length);
+  assert.strictEqual(findPublicLobby(meta, ' BIO ').key, 'bio');
+  assert.strictEqual(findPublicLobby(meta, 'energy'), null);
+  assert.strictEqual(findPublicLobby(meta, null), null);
+});
