@@ -59,10 +59,26 @@
   // (not necessarily adjacent, since other numbers can appear in between),
   // so the item count is the length of the longest such run starting at 1.
   // Newer packets use "1." rather than "1)", so both forms count.
-  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s)/g;
+  // Some packets (Mira Loma's especially) write "1: ... 2: ..." instead; a
+  // colon counts only with a space after it, so times ("3:30") and ratios
+  // ("1:2") never do. The space is only looked at, not consumed, so a stem
+  // ending "... of order 8: 1) ..." still sees the "1)" after it. A colon
+  // after a label word ("row 1: 2, 3", "Step 1: A + B → D") is a heading,
+  // not a list item.
+  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s|:(?=\s))/g;
+  const COLON_LABEL_RE = /\b(?:rows?|columns?|cols?|steps?|stages?|phases?|parts?|rounds?|sets?|levels?|questions?|problems?)\s*$/i;
+  function itemMarkers(questionText) {
+    const markers = [];
+    for (const m of questionText.matchAll(ITEM_MARKER_RE)) {
+      const end = m.index + m[0].length;
+      if (m[0].endsWith(':') && COLON_LABEL_RE.test(questionText.slice(Math.max(0, m.index - 20), end - 2))) continue;
+      markers.push({ num: parseInt(m[1], 10), index: m.index, end });
+    }
+    return markers;
+  }
   function detectItemCount(questionText) {
     if (!questionText) return null;
-    const nums = [...questionText.matchAll(ITEM_MARKER_RE)].map((m) => parseInt(m[1], 10));
+    const nums = itemMarkers(questionText).map((m) => m.num);
     if (!nums.length) return null;
     let want = 1;
     for (const n of nums) { if (n === want) want++; }
@@ -87,9 +103,10 @@
     // order", "by increasing distance"). A set question ("identify all ...")
     // never counts, nor does "order" inside "second-order" or "in order to".
     if (/\b(identify|select|choose|name)\s+all\b/i.test(t)) return false;
-    const s = t.replace(/-order\b/gi, ' ').replace(/\bin order to\b/gi, ' ');
+    const s = t.replace(/-order\b/gi, ' ').replace(/\bin order (?:to|for|that)\b/gi, ' ');
     return /\b(order|rank|arrange|sort)\b[^.?!]{0,80}\b(the following|these|below)\b/i.test(s)
       || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\b(by|in)\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
+      || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\bin\s+(?:the\s+)?(?:correct\s+|proper\s+|right\s+)?order\b/i.test(s)
       || /\bin\s+(increasing|decreasing|ascending|descending|chronological|sequential|reverse)\s+order\b/i.test(s)
       || /\bin\s+order\s+of\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
       || /\b(order|rank|arrange|sort)\s+them\b/i.test(s)
@@ -169,12 +186,7 @@
   // can't be cleanly matched up to itemCount.
   function extractItemTexts(questionText, itemCount) {
     if (!questionText || !itemCount) return null;
-    const re = /(?:^|[\s;,:])([1-9])(?:\)|\.\s)/g;
-    const markers = [];
-    let m;
-    while ((m = re.exec(questionText))) {
-      markers.push({ num: parseInt(m[1], 10), index: m.index, end: re.lastIndex });
-    }
+    const markers = itemMarkers(questionText);
     const picked = [];
     let want = 1;
     for (const mk of markers) {
@@ -191,6 +203,27 @@
       texts.push(t);
     }
     return texts;
+  }
+
+  // Does an answer key label its parts ("1) +, 2) -, 3) -", "1: RIGHT;
+  // 2: LEFT", "1) Equilibrium line; 2) 2, 1, 3") rather than name items by
+  // number ("2) AND 3)", "3) SA NODE; 1) AV NODE; ...", "1) 2) 3)")? It does
+  // when its markers run 1, 2, 3, ... in order and at least one of them is
+  // followed by something other than that item's own text.
+  function keyLabelsParts(key, questionText, itemCount) {
+    if (!key) return false;
+    const marks = itemMarkers(key);
+    if (marks.length < 2 || marks.some((m, i) => m.num !== i + 1)) return false;
+    const items = extractItemTexts(questionText, itemCount) || [];
+    const norm = (s) => normalize(s).toLowerCase().replace(/\b(and|or)\b/g, ' ').replace(/\s+/g, ' ').trim();
+    return marks.some((m, i) => {
+      const text = key.slice(m.end, i + 1 < marks.length ? marks[i + 1].index : key.length);
+      if (!text.replace(/\b(?:and|or)\b/gi, '').replace(/[\s,;.]/g, '')) return false;
+      const seg = norm(text);
+      if (!seg) return true; // only signs or symbols ("+", "–"): an answer, not an item
+      const item = items[m.num - 1] ? norm(items[m.num - 1]) : '';
+      return !(item && (item.includes(seg) || seg.includes(item)));
+    });
   }
 
   // Tries to read a typed answer as a set of the question's own enumerated
@@ -1024,6 +1057,16 @@
       const ranking = isRankingQuestion(question.question);
       const canonFn = ranking ? canonicalizeRanked : canonicalizeList;
       let userCanon = canonFn(raw, itemCount, true);
+      if (userCanon === null && ranking) {
+        // A ranking can be typed with the item names themselves, in order
+        // ("SA node, AV node, bundle of His"). Every item must be named once,
+        // and the names must stay distinct once normalized ("NO2^-" and
+        // "NO2^+" don't), or the order couldn't be told from the names.
+        const itemTexts = extractItemTexts(question.question, itemCount);
+        const distinct = itemTexts && new Set(itemTexts.map((s) => normalize(s))).size === itemTexts.length;
+        const nums = distinct ? resolveTermsToNumbers(raw, itemTexts) : null;
+        if (nums && nums.length === itemCount && new Set(nums).size === itemCount) userCanon = nums.join('');
+      }
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
         // a ranking one, where order is the point and term-matching doesn't
@@ -1039,12 +1082,17 @@
         }
       }
       if (userCanon !== null) {
-        const mainCanon = canonFn(ans.text, itemCount);
+        // A key that labels its own parts ("1: RIGHT; 2: LEFT", "1) + 2) -")
+        // answers each item in turn; it isn't a choice of items, so its
+        // numbers mustn't be read as one ("all" or "123" would pass). Those
+        // keys are left to the multi-part checks below.
+        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null : canonFn(k, itemCount));
+        const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
         }
         for (const acc of accepts) {
-          const accCanon = canonFn(acc, itemCount);
+          const accCanon = canonKey(acc);
           if (accCanon !== null && userCanon === accCanon) {
             return { correct: true, matched: 'accept', rejected: false };
           }
@@ -1053,7 +1101,7 @@
         // this, the any-order number checks below would accept "1, 2, 3" for
         // a key of "1, 3, 2".
         const isOrdering = (c) => c !== null && c.length === itemCount && new Set(c).size === itemCount;
-        if (ranking && [ans.text, ...accepts].some((k) => isOrdering(canonFn(k, itemCount)))) {
+        if (ranking && [ans.text, ...accepts].some((k) => isOrdering(canonKey(k)))) {
           return { correct: false, matched: null, rejected: false };
         }
       }

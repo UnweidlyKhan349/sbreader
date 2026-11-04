@@ -216,3 +216,52 @@ test('list answers to ordered questions keep their order', () => {
   assert.ok(isCorrect('x = 2 AND x = 3', '3 and 2'));
   assert.ok(!isCorrect('x = 2 AND x = 3', '3/2'));
 });
+
+test('"1: ... 2: ..." items count, but times, ratios and labels do not', () => {
+  const { detectItemCount, extractItemTexts } = globalThis.SBAnswer;
+  const q = 'Which of the following planets have rings? 1: Mars 2: Jupiter 3: Uranus 4: Neptune';
+  assert.strictEqual(detectItemCount(q), 4);
+  assert.deepStrictEqual(extractItemTexts(q, 4), ['Mars', 'Jupiter', 'Uranus', 'Neptune']);
+  assert.ok(isCorrect('2, 3, AND 4', '234', { question: q }));
+  assert.ok(isCorrect('2, 3, AND 4', 'jupiter, uranus and neptune', { question: q }));
+  assert.ok(!isCorrect('2, 3, AND 4', '2 and 3', { question: q }));
+  // a colon ending the stem doesn't hide the "1)" after it
+  assert.strictEqual(detectItemCount('Identify all of the following about the number 6: 1) perfect 2) prime 3) triangular'), 3);
+  for (const s of [
+    'The train leaves at 3:30 and arrives at 4:15. 1:2 is the ratio of 2:3 mixtures.',
+    'What is 3 times the 2 by 2 matrix with row 1: −2, 1 and row 2: 0, 5?',
+    'The proposed mechanism is Step 1: A + B → D Step 2: D + B → E Step 3: E + A → C.',
+  ]) assert.strictEqual(detectItemCount(s), null, s);
+});
+
+test('rankings with "1:" markers keep their order, and can be typed as names', () => {
+  const q = 'Rank the following elements in increasing order of their reactivity with fluorine: 1: Carbon 2: Lithium 3: Cesium 4: Oxygen';
+  assert.ok(isCorrect('4, 1, 2, 3', '4123', { question: q }));
+  assert.ok(isCorrect('4, 1, 2, 3', 'oxygen, carbon, lithium, cesium', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', '3, 2, 1, 4', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', 'carbon, oxygen, lithium, cesium', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', 'all', { question: q }));
+  // names that only differ by a charge can't carry an order
+  const ions = 'Rank the following species in increasing bond angle: 1) NO2 2) NO2^- 3) NO2^+';
+  assert.ok(isCorrect('2, 1, 3', '213', { question: ions }));
+  assert.ok(!isCorrect('2, 1, 3', 'NO2^+, NO2, NO2^-', { question: ions }));
+  // "put/list/place ... in (the correct) order" is a ranking
+  const { isRankingQuestion } = globalThis.SBAnswer;
+  for (const s of [
+    'Put the following plant structures in order, starting at the center of the woody stem. 1: a 2: b 3: c',
+    'List the following steps in order, for the secretion of H^+ ions. 1: a 2: b 3: c',
+    'Place the following four geological time divisions in the correct order, from longest to shortest: 1) a, 2) b, 3) c, 4) d.',
+  ]) assert.ok(isRankingQuestion(s), s);
+  assert.ok(!isRankingQuestion('What would the pressure have to be, in atmospheres, in order for the gas to have a volume of 500 mL?'));
+});
+
+test('a key that answers each item in turn is not a choice of items', () => {
+  const q = 'For the following 3 processes, predict whether the change in enthalpy is positive or negative: 1: melting 2: freezing 3: boiling';
+  assert.ok(isCorrect('1: +; 2: –; 3: +', '1: +; 2: –; 3: +', { question: q }));
+  assert.ok(!isCorrect('1: +; 2: –; 3: +', 'all', { question: q }));
+  assert.ok(!isCorrect('1: +; 2: –; 3: +', '123', { question: q }));
+  // numbers written with their markers still name items
+  const sel = 'Identify all of the following three statements that are true: 1) a 2) b 3) c';
+  assert.ok(isCorrect('1) AND 2)', '12', { question: sel }));
+  assert.ok(isCorrect('2) AND 3)', '2 and 3', { question: sel }));
+});
