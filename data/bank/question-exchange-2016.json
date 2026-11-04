@@ -1996,7 +1996,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5128","q":[
 {"i":95879,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Given 504 = 2^3 × 3^2 × 7, compute the sum of the positive divisors of 504","a":{"t":"1560"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5129","q":[
-{"i":95880,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Simplify (sin15° cos75° − cos15° sin75°)/(cos15° cos75° + sin15° sin75°)","c":{"W":"negative square root of 3","X":"1/2","Y":"-1/2","Z":"square root 6 minus square root 2 all over 2"},"a":{"t":"negative square root of 3","l":"W"}}]},
+{"i":95880,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Simplify (sin15° cos75° − cos15° sin75°)/(cos15° cos75° + sin15° sin75°)","c":{"W":"−√3","X":"1/2","Y":"-1/2","Z":"(√6 − √2)/2"},"a":{"t":"−√3","l":"W"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5129","q":[
 {"i":95881,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Compute (2 + 2√3 i)^6.","a":{"t":"4096"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5130","q":[

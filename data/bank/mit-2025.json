@@ -946,7 +946,6 @@
 {"rl":"Round 2","r":2,"q":[
 {"i":69119,"s":"math","f":"MC","qt":"tossup","n":24,"q":"Given that x has more than one distinct prime factor, which of these could NOT be the number of factors of x?","a":{"t":"97","l":"W"},"c":{"W":"97","X":"98","Y":"99","Z":"100"}}]},
 {"rl":"Round 3","r":3,"q":[
-{"i":69120,"s":"math","f":"MC","qt":"tossup","n":3,"q":"Which of the following best describes the function f(x) = 2^(1/x), defined for all nonzero x?","a":{"t":"decreasing for all nonzero x","l":"X"},"c":{"W":"increasing for all nonzero x","X":"decreasing for all nonzero x","Y":"increasing for all negative x, decreasing for all positive x","Z":"decreasing for all negative x, increasing for all positive x"}},
 {"i":69123,"s":"math","f":"SA","qt":"tossup","n":11,"q":"Let p be a prime number. Identify all of the following 3 options that are necessarily coprime to p: 1) p + 1; 2) p + 2; 3) p + 3","a":{"t":"1 ONLY"}},
 {"i":69124,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Daina is manually computing the sum of the first n positive odd numbers. He forgets to add one of the numbers and gets a sum of 29. Which number did he forget to include?","a":{"t":"7"}}]},
 {"rl":"Round 13","r":13,"u":"https://lebot.djiang.xyz/packets/MIT-2025/Round%2013.pdf","q":[

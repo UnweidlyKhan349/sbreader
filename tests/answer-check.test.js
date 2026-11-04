@@ -216,3 +216,119 @@ test('list answers to ordered questions keep their order', () => {
   assert.ok(isCorrect('x = 2 AND x = 3', '3 and 2'));
   assert.ok(!isCorrect('x = 2 AND x = 3', '3/2'));
 });
+
+test('"1: ... 2: ..." items count, but times, ratios and labels do not', () => {
+  const { detectItemCount, extractItemTexts } = globalThis.SBAnswer;
+  const q = 'Which of the following planets have rings? 1: Mars 2: Jupiter 3: Uranus 4: Neptune';
+  assert.strictEqual(detectItemCount(q), 4);
+  assert.deepStrictEqual(extractItemTexts(q, 4), ['Mars', 'Jupiter', 'Uranus', 'Neptune']);
+  assert.ok(isCorrect('2, 3, AND 4', '234', { question: q }));
+  assert.ok(isCorrect('2, 3, AND 4', 'jupiter, uranus and neptune', { question: q }));
+  assert.ok(!isCorrect('2, 3, AND 4', '2 and 3', { question: q }));
+  // a colon ending the stem doesn't hide the "1)" after it
+  assert.strictEqual(detectItemCount('Identify all of the following about the number 6: 1) perfect 2) prime 3) triangular'), 3);
+  for (const s of [
+    'The train leaves at 3:30 and arrives at 4:15. 1:2 is the ratio of 2:3 mixtures.',
+    'What is 3 times the 2 by 2 matrix with row 1: −2, 1 and row 2: 0, 5?',
+    'The proposed mechanism is Step 1: A + B → D Step 2: D + B → E Step 3: E + A → C.',
+  ]) assert.strictEqual(detectItemCount(s), null, s);
+});
+
+test('rankings with "1:" markers keep their order, and can be typed as names', () => {
+  const q = 'Rank the following elements in increasing order of their reactivity with fluorine: 1: Carbon 2: Lithium 3: Cesium 4: Oxygen';
+  assert.ok(isCorrect('4, 1, 2, 3', '4123', { question: q }));
+  assert.ok(isCorrect('4, 1, 2, 3', 'oxygen, carbon, lithium, cesium', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', '3, 2, 1, 4', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', 'carbon, oxygen, lithium, cesium', { question: q }));
+  assert.ok(!isCorrect('4, 1, 2, 3', 'all', { question: q }));
+  // names that only differ by a charge can't carry an order
+  const ions = 'Rank the following species in increasing bond angle: 1) NO2 2) NO2^- 3) NO2^+';
+  assert.ok(isCorrect('2, 1, 3', '213', { question: ions }));
+  assert.ok(!isCorrect('2, 1, 3', 'NO2^+, NO2, NO2^-', { question: ions }));
+  // "put/list/place ... in (the correct) order" is a ranking
+  const { isRankingQuestion } = globalThis.SBAnswer;
+  for (const s of [
+    'Put the following plant structures in order, starting at the center of the woody stem. 1: a 2: b 3: c',
+    'List the following steps in order, for the secretion of H^+ ions. 1: a 2: b 3: c',
+    'Place the following four geological time divisions in the correct order, from longest to shortest: 1) a, 2) b, 3) c, 4) d.',
+  ]) assert.ok(isRankingQuestion(s), s);
+  assert.ok(!isRankingQuestion('What would the pressure have to be, in atmospheres, in order for the gas to have a volume of 500 mL?'));
+});
+
+test('a key that answers each item in turn is not a choice of items', () => {
+  const q = 'For the following 3 processes, predict whether the change in enthalpy is positive or negative: 1: melting 2: freezing 3: boiling';
+  assert.ok(isCorrect('1: +; 2: –; 3: +', '1: +; 2: –; 3: +', { question: q }));
+  assert.ok(!isCorrect('1: +; 2: –; 3: +', 'all', { question: q }));
+  assert.ok(!isCorrect('1: +; 2: –; 3: +', '123', { question: q }));
+  // numbers written with their markers still name items
+  const sel = 'Identify all of the following three statements that are true: 1) a 2) b 3) c';
+  assert.ok(isCorrect('1) AND 2)', '12', { question: sel }));
+  assert.ok(isCorrect('2) AND 3)', '2 and 3', { question: sel }));
+});
+
+test('"name any N" keys pass any N distinct listed items, and nothing else', () => {
+  const key = 'ANY TWO OF: EARTH, TITAN, PLUTO, TRITON';
+  for (const typed of ['Earth and Titan', 'pluto, triton', 'Titan Earth', 'earth, titan, pluto']) assert.ok(isCorrect(key, typed), typed);
+  for (const typed of ['earth', 'earth, mars', 'earth, earth']) assert.ok(!isCorrect(key, typed), typed);
+  assert.ok(isCorrect('(ACCEPT 4) LEVER, WEDGE, PULLEY, WHEEL & AXLE, INCLINED PLANE, SCREW', 'lever, pulley, screw, wedge'));
+  assert.ok(!isCorrect('(ACCEPT 4) LEVER, WEDGE, PULLEY, WHEEL & AXLE, INCLINED PLANE, SCREW', 'lever, pulley, screw'));
+  assert.ok(isCorrect('{ANY 2} PHENYLALANINE; TYROSINE; TRYPTOPHAN; METHIONINE', 'tyrosine and tryptophan'));
+  assert.ok(isCorrect('Pluto, Ceres, Makemake, Eris, Haumea (any 3)', 'pluto ceres eris'));
+  // a parenthetical is another name for the item
+  assert.ok(isCorrect('Accept any four of the following five: Tetrahedron, Hexahedron (cube), Octahedron, Dodecahedron, Icosahedron', 'cube, tetrahedron, octahedron, icosahedron'));
+});
+
+test('multi-part keys: roman part labels and a part keyed as letter plus choice', () => {
+  assert.ok(isCorrect('I) 490; II) 40', '490, 40'));
+  assert.ok(!isCorrect('I) 490; II) 40', '40, 490'));
+  assert.ok(isCorrect('I) Line; II) Parabola; III) Circle', 'line, parabola, circle'));
+  const key = '1) Carbon; 2) X) B-V increases because B-band flux is suppressed';
+  for (const typed of ['carbon; X', 'carbon, x', 'carbon; B-V increases because B-band flux is suppressed']) assert.ok(isCorrect(key, typed), typed);
+  assert.ok(!isCorrect(key, 'carbon; W'));
+  assert.ok(isCorrect('1) 3; 2) W ((R)-METHYL 3-HYDROXYBUTANOATE)', '3, W'));
+});
+
+test('scientific notation in any common form, and numbers compared whole', () => {
+  for (const typed of ['3.2 * 10^23', '3.2*10^23', '3.2 x 10^23', '3.2x10^23', '3.2e23', '3.2 × 10^23 J']) assert.ok(isCorrect('3.2 × 10^23 J', typed), typed);
+  for (const typed of ['2.3 * 10^23', '3.2 * 10^32', '3.2e32']) assert.ok(!isCorrect('3.2 × 10^23 J', typed), typed);
+  assert.ok(isCorrect('1.6 × 10^-19 C', '1.6e-19'));
+  assert.ok(!isCorrect('1.6 × 10^-19 C', '1.6e19'));
+  // a decimal is one number: its digits can't be reordered
+  assert.ok(!isCorrect('7.2', '2.7'));
+  assert.ok(!isCorrect('4.5 METERS', '5.4'));
+  assert.ok(!isCorrect('12.5 GRAMS', '5.12'));
+  assert.ok(isCorrect('12.5 GRAMS', '12.5'));
+  assert.ok(isCorrect('40,000 VOLTS', '40000'));
+  // a bare number passes for a number and its units, not for more math or a sign word
+  assert.ok(isCorrect('1080 N', '1080'));
+  assert.ok(isCorrect('4 TIMES AS FAST', '4'));
+  assert.ok(!isCorrect('7 times 10^-10', '7'));
+  assert.ok(!isCorrect('20 pi', '20'));
+  assert.ok(!isCorrect('3.9', '3.9 x 10^2'));
+  assert.ok(!isCorrect('-870 JOULES', '870', { accept: ['870 JOULES LESS'] }));
+  assert.ok(isCorrect('-870 JOULES', '870 joules less', { accept: ['870 JOULES LESS'] }));
+  // the same in one part of a multi-part answer
+  assert.ok(isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 3.2 * 10^23'));
+  assert.ok(!isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 2.3 * 10^23'));
+});
+
+test('short answer: a unit may be written out or abbreviated; multiple choice stays exact', () => {
+  for (const [key, typed] of [
+    ['3.2 × 10^23 J', '3.2*10^23 joules'], ['10 JOULES', '10 J'], ['9.8 m/s^2', '9.8 meters per second squared'],
+    ['5 kJ/mol', '5 kilojoules per mole'], ['100 °C', '100 degrees Celsius'], ['300 K', '300 kelvin'],
+    ['2.5 eV', '2.5 electron volts'], ['5 OHMS', '5 Ω'], ['12 CM BEHIND THE MIRROR', '12 centimeters behind the mirror'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['10 JOULES', '10 N'], ['9.8 m/s^2', '9.8 meters per second'], ['5 kJ/mol', '5 J/mol'],
+    ['5 COULOMBS', '5 celsius'], ['5 FARADS', '5 fahrenheit'], ['5 MOLAR', '5 meters'], ['3.2 × 10^23 J', '2.3*10^23 joules'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  // only after a number: a unit's name and its symbol are different answers
+  assert.ok(!isCorrect('JOULE', 'J'));
+  // in a multi-part answer too, but a number cut out of unseparated words isn't bare
+  assert.ok(isCorrect('4 SECONDS; 1/16', '4 s; 1/16'));
+  assert.ok(!isCorrect('4 SECONDS; 1/16', '4 meters; 1/16'));
+  const mc = { question: 'Q?', format: 'MC', choices: { W: '10 joules', X: '10 newtons', Y: '5 J', Z: '5 N' },
+    answer: { text: '10 joules', letter: 'W', accept: [], reject: [] } };
+  for (const typed of ['W', '10 joules', 'W) 10 joules']) assert.ok(checkAnswer(mc, typed).correct, typed);
+  for (const typed of ['10 J', '10 joule']) assert.ok(!checkAnswer(mc, typed).correct, typed);
+});

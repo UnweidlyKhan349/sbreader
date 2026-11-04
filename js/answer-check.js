@@ -12,6 +12,10 @@
     return String(s)
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
+      // dropped as punctuation below)
+      .replace(/(\d)\s*X\s*(?=10\s*\^)/g, '$1 ')
+      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1$2 10 $3')
       // exponent and subscript markup is ignored, so "x^2" = "x2",
       // "e^(-x)" = "e-x" and "K_sp" = "Ksp"
       .replace(/[\^_]\(([^()]*)\)/g, '$1')
@@ -30,7 +34,11 @@
       // matches the other.
       .replace(/\bSQUARE\s+ROOTS?\s+OF\b/g, ' SQRT ')
       .replace(/\bCUBE\s+ROOTS?\s+OF\b/g, ' CBRT ')
-      .replace(/[^A-Z0-9'\s]/g, ' ') // strip punctuation except apostrophe
+      // a decimal point stays part of its number, so "7.2" is one word and
+      // never matches "2.7" by word order
+      .replace(/(\d)\.(?=\d)/g, '$1\u0001')
+      .replace(/[^A-Z0-9'\s\u0001]/g, ' ') // strip punctuation except apostrophe
+      .replace(/\u0001/g, '.')
       .replace(/\s+/g, ' ')
       .trim()
       // standard abbreviations become the full term, so "ER" and "rough ER"
@@ -59,10 +67,26 @@
   // (not necessarily adjacent, since other numbers can appear in between),
   // so the item count is the length of the longest such run starting at 1.
   // Newer packets use "1." rather than "1)", so both forms count.
-  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s)/g;
+  // Some packets (Mira Loma's especially) write "1: ... 2: ..." instead; a
+  // colon counts only with a space after it, so times ("3:30") and ratios
+  // ("1:2") never do. The space is only looked at, not consumed, so a stem
+  // ending "... of order 8: 1) ..." still sees the "1)" after it. A colon
+  // after a label word ("row 1: 2, 3", "Step 1: A + B → D") is a heading,
+  // not a list item.
+  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s|:(?=\s))/g;
+  const COLON_LABEL_RE = /\b(?:rows?|columns?|cols?|steps?|stages?|phases?|parts?|rounds?|sets?|levels?|questions?|problems?)\s*$/i;
+  function itemMarkers(questionText) {
+    const markers = [];
+    for (const m of questionText.matchAll(ITEM_MARKER_RE)) {
+      const end = m.index + m[0].length;
+      if (m[0].endsWith(':') && COLON_LABEL_RE.test(questionText.slice(Math.max(0, m.index - 20), end - 2))) continue;
+      markers.push({ num: parseInt(m[1], 10), index: m.index, end });
+    }
+    return markers;
+  }
   function detectItemCount(questionText) {
     if (!questionText) return null;
-    const nums = [...questionText.matchAll(ITEM_MARKER_RE)].map((m) => parseInt(m[1], 10));
+    const nums = itemMarkers(questionText).map((m) => m.num);
     if (!nums.length) return null;
     let want = 1;
     for (const n of nums) { if (n === want) want++; }
@@ -87,9 +111,10 @@
     // order", "by increasing distance"). A set question ("identify all ...")
     // never counts, nor does "order" inside "second-order" or "in order to".
     if (/\b(identify|select|choose|name)\s+all\b/i.test(t)) return false;
-    const s = t.replace(/-order\b/gi, ' ').replace(/\bin order to\b/gi, ' ');
+    const s = t.replace(/-order\b/gi, ' ').replace(/\bin order (?:to|for|that)\b/gi, ' ');
     return /\b(order|rank|arrange|sort)\b[^.?!]{0,80}\b(the following|these|below)\b/i.test(s)
       || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\b(by|in)\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
+      || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\bin\s+(?:the\s+)?(?:correct\s+|proper\s+|right\s+)?order\b/i.test(s)
       || /\bin\s+(increasing|decreasing|ascending|descending|chronological|sequential|reverse)\s+order\b/i.test(s)
       || /\bin\s+order\s+of\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
       || /\b(order|rank|arrange|sort)\s+them\b/i.test(s)
@@ -169,12 +194,7 @@
   // can't be cleanly matched up to itemCount.
   function extractItemTexts(questionText, itemCount) {
     if (!questionText || !itemCount) return null;
-    const re = /(?:^|[\s;,:])([1-9])(?:\)|\.\s)/g;
-    const markers = [];
-    let m;
-    while ((m = re.exec(questionText))) {
-      markers.push({ num: parseInt(m[1], 10), index: m.index, end: re.lastIndex });
-    }
+    const markers = itemMarkers(questionText);
     const picked = [];
     let want = 1;
     for (const mk of markers) {
@@ -191,6 +211,27 @@
       texts.push(t);
     }
     return texts;
+  }
+
+  // Does an answer key label its parts ("1) +, 2) -, 3) -", "1: RIGHT;
+  // 2: LEFT", "1) Equilibrium line; 2) 2, 1, 3") rather than name items by
+  // number ("2) AND 3)", "3) SA NODE; 1) AV NODE; ...", "1) 2) 3)")? It does
+  // when its markers run 1, 2, 3, ... in order and at least one of them is
+  // followed by something other than that item's own text.
+  function keyLabelsParts(key, questionText, itemCount) {
+    if (!key) return false;
+    const marks = itemMarkers(key);
+    if (marks.length < 2 || marks.some((m, i) => m.num !== i + 1)) return false;
+    const items = extractItemTexts(questionText, itemCount) || [];
+    const norm = (s) => normalize(s).toLowerCase().replace(/\b(and|or)\b/g, ' ').replace(/\s+/g, ' ').trim();
+    return marks.some((m, i) => {
+      const text = key.slice(m.end, i + 1 < marks.length ? marks[i + 1].index : key.length);
+      if (!text.replace(/\b(?:and|or)\b/gi, '').replace(/[\s,;.]/g, '')) return false;
+      const seg = norm(text);
+      if (!seg) return true; // only signs or symbols ("+", "–"): an answer, not an item
+      const item = items[m.num - 1] ? norm(items[m.num - 1]) : '';
+      return !(item && (item.includes(seg) || seg.includes(item)));
+    });
   }
 
   // Tries to read a typed answer as a set of the question's own enumerated
@@ -273,25 +314,59 @@
   // start with the right number as correct. `extractLeadingNumbers` is used
   // on the answer-key side instead, where trailing descriptor words are
   // expected and fine to ignore.
+  // The numbers in a text as whole values: "4.5" stays 4.5 (normalize()
+  // would split it into 4 and 5), "40,000" is 40000, and scientific notation
+  // in any common form ("3.2 × 10^23", "3.2 x 10^23", "3.2*10^23", "3.2e23",
+  // a bare "10^23") is one number, "3.2E23", with its exponent's sign kept.
+  // Signs on the numbers themselves are left to signConflict().
+  const SCI_RE = /(\d+(?:\.\d+)?|\.\d+)\s*(?:[X×*·∙]|TIMES)\s*10\s*\^\s*\(?\s*([+\-−–]?\s*\d+)\s*\)?/g;
+  function numberTokens(text) {
+    const s = String(text == null ? '' : text).toUpperCase()
+      .replace(/(\d),(?=\d{3}(?!\d))/g, '$1')
+      .replace(SCI_RE, (m, a, b) => ` ${a}E${b.replace(/[−–]/, '-').replace(/\s+/g, '')} `)
+      .replace(/(^|[^\dA-Z.])10\s*\^\s*\(?\s*([+\-−–]?\d+)\s*\)?/g, (m, pre, b) => `${pre} 1E${b.replace(/[−–]/, '-')} `)
+      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1 $2E$3 ');
+    return s.split(/[\s;,()[\]]+/).map((w) => w.replace(/^[+\-−–]+/, '').replace(/[.:!?]+$/, '')).filter(Boolean);
+  }
+  const NUMBER_TOKEN_RE = /^(?:\d+(?:\.\d+)?|\.\d+)(?:E[+\-]?\d+)?$/;
+  const canonNumber = (w) => (w.startsWith('.') ? '0' + w : w);
   function extractPureNumbers(text) {
-    const tokens = normalize(text).split(' ').filter(Boolean);
     const nums = [];
-    for (const t of tokens) {
-      if (/^[0-9]+(?:\.[0-9]+)?$/.test(t)) { nums.push(t); continue; }
-      if (t === 'AND' || t === 'OR') continue;
+    for (const w of numberTokens(text)) {
+      if (NUMBER_TOKEN_RE.test(w)) { nums.push(canonNumber(w)); continue; }
+      if (w === 'AND' || w === 'OR' || w === '&') continue;
       return null;
     }
     return nums.length ? nums : null;
   }
   function extractLeadingNumbers(text) {
-    const tokens = normalize(text).split(' ').filter(Boolean);
     const nums = [];
-    for (const t of tokens) {
-      if (/^[0-9]+(?:\.[0-9]+)?$/.test(t)) { nums.push(t); continue; }
-      if (t === 'AND' || t === 'OR') continue;
+    for (const w of numberTokens(text)) {
+      if (NUMBER_TOKEN_RE.test(w)) { nums.push(canonNumber(w)); continue; }
+      if (w === 'AND' || w === 'OR' || w === '&') continue;
       break;
     }
     return nums;
+  }
+  // Does what follows a key's leading number(s) read as units ("8 FACTORS",
+  // "12 CM BEHIND THE MIRROR", "3.9 kcal/mol", "2 ONLY (8)")? Not when it is
+  // more math ("3 TIMES THE SQUARE ROOT OF 3", "3 SQRT 11") or a word that
+  // carries the sign ("870 JOULES LESS", "273 DEGREES BELOW ZERO"): then a
+  // bare number isn't the whole answer.
+  const SIGN_WORDS = new Set(['LESS', 'BELOW', 'DECREASE', 'DECREASES', 'DECREASED', 'LOSS', 'LOST', 'LOSE', 'LOSES',
+    'DROP', 'DROPS', 'DROPPED', 'LOWER', 'FALL', 'FALLS', 'NEGATIVE', 'MINUS', 'DOWN', 'UNDER', 'DEFICIT', 'REDUCTION']);
+  const MATH_WORDS = new Set(['SQRT', 'CBRT', 'PI', 'OVER', 'PLUS', 'MINUS', 'DIVIDED', 'I']);
+  function unitTail(text) {
+    const words = numberTokens(text);
+    let i = 0;
+    while (i < words.length && (NUMBER_TOKEN_RE.test(words[i]) || ['AND', 'OR', '&'].includes(words[i]))) i++;
+    const tail = words.slice(i);
+    if (!tail.length) return true;
+    if (!/^[A-Z][A-Z0-9'./^*\-]*$/.test(tail[0]) || MATH_WORDS.has(tail[0])) return false;
+    // "1000 TIMES" or "4 TIMES AS FAST" is an answer; "24 TIMES THE
+    // PERMITTIVITY ..." or "2 TIMES 10 TO THE 8TH" is more math
+    if (tail[0] === 'TIMES' && tail.length > 1 && (/^\d|^\.\d/.test(tail[1]) || ['THE', 'SQUARE', 'CUBE', 'PI', 'SQRT', 'A', 'AN'].includes(tail[1]))) return false;
+    return !tail.some((w) => SIGN_WORDS.has(w.replace(/[^A-Z]/g, '')));
   }
   function numsEqualAsSet(a, b) {
     if (!a.length || a.length !== b.length) return false;
@@ -625,8 +700,9 @@
     out.push(cur);
     return out;
   }
-  // "1) MAGNONS" / "2 - EUTHERIAN" / "3: BLUE" -> the part without its number.
-  const PART_NUMBER_RE = /^\s*\(?[1-9]\s*[).:–-]\s*/;
+  // "1) MAGNONS" / "2 - EUTHERIAN" / "3: BLUE" / "II) AMYGDALA" -> the part
+  // without its number. Roman labels stop at IX: "X)" is a choice letter.
+  const PART_NUMBER_RE = /^\s*\(?(?:[1-9]\s*[).:–-]|(?:IX|IV|V?I{1,3}|V)\s*[):])\s*/;
   function answerParts(text) {
     if (!text || !/;|\s\|\s/.test(text)) return null;
     const parts = splitTopLevel(text).map((p) => p.trim()).filter((p) => normalize(p.replace(PART_NUMBER_RE, '')));
@@ -642,6 +718,10 @@
     out.push(noNum);
     const label = noNum.match(/^[A-Za-z][A-Za-z .'’-]{0,30}?\s*[=:]\s*(.+)$/);
     if (label) out.push(label[1]);
+    // a multiple-choice part keyed as its letter and choice ("W) DNA
+    // GLYCOSYLASE", "W ((R)-METHYL 3-HYDROXYBUTANOATE)") takes either one
+    const choice = noNum.match(/^([WXYZ])\)\s*(\S.*)$/) || noNum.match(/^([WXYZ])\s+\((.+)\)\s*$/);
+    if (choice) out.push(choice[1], choice[2]);
     for (const v of out.slice()) {
       if (/\(/.test(v)) {
         out.push(v.replace(/\([^)]*\)/g, ' '));
@@ -672,12 +752,21 @@
   function betterMatch(a, b) {
     return (MATCH_RANK[a] || 0) >= (MATCH_RANK[b] || 0) ? a : b;
   }
-  function segMatch(seg, alts) {
+  function segMatch(seg, alts, wordCut) {
     let best = null;
     const ns = normalize(seg);
     if (!ns) return null;
+    // not for a piece cut out of unseparated words: "4 meters 1/16" cut as
+    // "4" + "meters 1/16" mustn't make "4" pass for "4 SECONDS"
+    const segNums = wordCut ? null : extractPureNumbers(seg);
     for (const alt of alts) {
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
+      // a bare number for a part keyed as that number and a unit ("3.2 *
+      // 10^23" for "3.2 × 10^23 J"), as for a single answer
+      if (segNums) {
+        const altNums = extractLeadingNumbers(alt);
+        if (altNums.length && numsEqualAsSet(segNums, altNums) && !signConflict(seg, alt) && unitTail(alt)) return 'exact';
+      }
       const lenient = lenientWordMatch(seg, alt);
       if (lenient === 'exact') return 'exact';
       if (lenient === 'typo') best = betterMatch(best, 'typo');
@@ -805,6 +894,7 @@
           segs.push(chunk.join(' '));
           prev = c;
         }
+        segs.wordCut = true;
         yield segs;
         return;
       }
@@ -865,7 +955,7 @@
   function matchSegments(segs, spec) {
     const { n, alts, floating, ordered } = spec;
     const table = segs.map((seg) => alts.map((a, k) => {
-      const m = segMatch(seg, a);
+      const m = segMatch(seg, a, segs.wordCut);
       if (m === 'exact') return m;
       const usable = floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact'));
       return betterMatch(segMatch(seg, usable), m);
@@ -886,6 +976,60 @@
     }
     go(0, 'exact');
     return best;
+  }
+
+  // "Name any N of these" keys: "ANY TWO OF: EARTH, TITAN, PLUTO",
+  // "(ACCEPT 3) DRY, STATIC, ...", "{ANY 2} A; B; C", "Accept any four of the
+  // following five: ...", "Pluto, Ceres, Eris (any 3)". Returns { n, alts }
+  // when the key lists more items than it asks for, else null.
+  const NUMBER_WORDS = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6 };
+  function anyOfSpec(key) {
+    if (!key) return null;
+    const N = '(\\d|ONE|TWO|THREE|FOUR|FIVE|SIX)';
+    const forms = [
+      new RegExp('^\\s*(?:ACCEPT\\s+)?ANY\\s+' + N + '(?:\\s+OF)?(?:\\s+THE\\s+FOLLOWING(?:\\s+\\w+)?)?\\s*:?\\s*(.+)$', 'i'),
+      new RegExp('^\\s*[({]\\s*(?:ACCEPT|ANY)\\s+' + N + '\\s*[)}]\\s*(.+)$', 'i'),
+      new RegExp('^\\s*ACCEPT\\s+' + N + '\\s+OF\\s+THE\\s+FOLLOWING(?:\\s+\\w+)?\\s*:?\\s*(.+)$', 'i'),
+    ];
+    let n = null, list = null;
+    for (const re of forms) {
+      const m = key.match(re);
+      if (m) { n = m[1]; list = m[2]; break; }
+    }
+    if (!list) {
+      const m = key.match(new RegExp('^(.+?)\\s*\\(\\s*ANY\\s+' + N + '\\s*\\)\\s*$', 'i'));
+      if (m) { list = m[1]; n = m[2]; }
+    }
+    if (!list) return null;
+    n = /\d/.test(n) ? parseInt(n, 10) : NUMBER_WORDS[n.toUpperCase()];
+    const items = list.split(/\s*(?:[;,]|\bAND\b|\bOR\b)\s*(?![^()]*\))/i)
+      .map((s) => s.trim().replace(/\.$/, '')).filter((s) => normalize(s));
+    if (!n || items.length <= n) return null;
+    // a parenthetical in a listed item is another name for it ("HEXAHEDRON (CUBE)")
+    return { n, alts: items.map((it) => [...partVariants(it), ...[...it.matchAll(/\(([^()]+)\)/g)].map((m) => m[1].trim())]) };
+  }
+  // Every typed item names a different listed one, and there are at least n.
+  function checkAnyOf(raw, spec) {
+    const tries = [raw.split(/\s*(?:[;,]|\band\b|\bor\b|&)\s*/i).map((s) => s.trim()).filter(Boolean)];
+    for (const segs of segmentations(raw, spec.n, true)) tries.push(segs);
+    for (const segs of tries) {
+      if (segs.length < spec.n || segs.length > spec.alts.length) continue;
+      const used = new Array(spec.alts.length).fill(false);
+      const go = (i) => {
+        if (i === segs.length) return true;
+        for (let k = 0; k < spec.alts.length; k++) {
+          if (used[k]) continue;
+          const m = segMatch(segs[i], spec.alts[k], segs.wordCut);
+          if (m !== 'exact' && m !== 'fuzzy') continue;
+          used[k] = true;
+          if (go(i + 1)) return true;
+          used[k] = false;
+        }
+        return false;
+      };
+      if (go(0)) return true;
+    }
+    return false;
   }
 
   function checkMultiPart(raw, spec) {
@@ -951,7 +1095,7 @@
     return out || null;
   }
 
-  function checkAnswer(question, userInput) {
+  function gradeAnswer(question, userInput) {
     const raw = (userInput || '').trim();
     if (!raw) return { correct: false, matched: null, rejected: false, empty: true };
 
@@ -1018,12 +1162,30 @@
       }
     }
 
+    // ---- "Name any N of these" keys: any N distinct listed items pass ----
+    if (question.format !== 'MC') {
+      for (const k of [ans.text, ...(ans.accept || [])]) {
+        const spec = anyOfSpec(k);
+        if (spec && checkAnyOf(raw, spec)) return { correct: true, matched: k === ans.text ? 'main' : 'accept', rejected: false };
+      }
+    }
+
     // ---- List-style answers ("1 and 2", "all", "3 only", "312" ranking,
     // the item names themselves, or "all but <item>") ----
     if (itemCount) {
       const ranking = isRankingQuestion(question.question);
       const canonFn = ranking ? canonicalizeRanked : canonicalizeList;
       let userCanon = canonFn(raw, itemCount, true);
+      if (userCanon === null && ranking) {
+        // A ranking can be typed with the item names themselves, in order
+        // ("SA node, AV node, bundle of His"). Every item must be named once,
+        // and the names must stay distinct once normalized ("NO2^-" and
+        // "NO2^+" don't), or the order couldn't be told from the names.
+        const itemTexts = extractItemTexts(question.question, itemCount);
+        const distinct = itemTexts && new Set(itemTexts.map((s) => normalize(s))).size === itemTexts.length;
+        const nums = distinct ? resolveTermsToNumbers(raw, itemTexts) : null;
+        if (nums && nums.length === itemCount && new Set(nums).size === itemCount) userCanon = nums.join('');
+      }
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
         // a ranking one, where order is the point and term-matching doesn't
@@ -1039,12 +1201,17 @@
         }
       }
       if (userCanon !== null) {
-        const mainCanon = canonFn(ans.text, itemCount);
+        // A key that labels its own parts ("1: RIGHT; 2: LEFT", "1) + 2) -")
+        // answers each item in turn; it isn't a choice of items, so its
+        // numbers mustn't be read as one ("all" or "123" would pass). Those
+        // keys are left to the multi-part checks below.
+        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null : canonFn(k, itemCount));
+        const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
         }
         for (const acc of accepts) {
-          const accCanon = canonFn(acc, itemCount);
+          const accCanon = canonKey(acc);
           if (accCanon !== null && userCanon === accCanon) {
             return { correct: true, matched: 'accept', rejected: false };
           }
@@ -1053,7 +1220,7 @@
         // this, the any-order number checks below would accept "1, 2, 3" for
         // a key of "1, 3, 2".
         const isOrdering = (c) => c !== null && c.length === itemCount && new Set(c).size === itemCount;
-        if (ranking && [ans.text, ...accepts].some((k) => isOrdering(canonFn(k, itemCount)))) {
+        if (ranking && [ans.text, ...accepts].some((k) => isOrdering(canonKey(k)))) {
           return { correct: false, matched: null, rejected: false };
         }
       }
@@ -1067,12 +1234,12 @@
       const rawPureNums = multi ? null : extractPureNumbers(raw);
       if (rawPureNums) {
         const mainNums = extractLeadingNumbers(ans.text);
-        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums) && !signConflict(raw, ans.text)) {
+        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums) && !signConflict(raw, ans.text) && unitTail(ans.text)) {
           return { correct: true, matched: 'main', rejected: false };
         }
         for (const acc of accepts) {
           const accNums = extractLeadingNumbers(acc);
-          if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc)) {
+          if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc) && unitTail(acc)) {
             return { correct: true, matched: 'accept', rejected: false };
           }
         }
@@ -1167,6 +1334,94 @@
     return { correct: false, matched: null, rejected: false };
   }
 
+
+  // ---- Units (short answer only) ----
+  // A unit written out or abbreviated is the same unit: "3.2 × 10^23 JOULES"
+  // = "3.2 × 10^23 J", "9.8 meters per second squared" = "9.8 m/s^2". Only a
+  // unit right after a number is touched, so a bare "C" (carbon or coulomb?)
+  // or "N" (nitrogen or newton?) is never rewritten. Multiple choice never
+  // gets here: its answer must be the exact letter or choice.
+  const UNIT_NAMES = [
+    ['KILOELECTRON VOLTS?|KILOELECTRONVOLTS?', 'KEV'], ['MEGAELECTRON VOLTS?|MEGAELECTRONVOLTS?', 'MEV'],
+    ['ELECTRON VOLTS?|ELECTRONVOLTS?|ELECTRON-VOLTS?', 'EV'],
+    ['KILOWATT[ -]HOURS?', 'KWH'], ['LIGHT[ -]YEARS?', 'LY'], ['ASTRONOMICAL UNITS?', 'AU'],
+    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?', 'MJ'], ['JOULES?', 'J'],
+    ['KILONEWTONS?', 'KN'], ['NEWTONS?', 'N'],
+    ['KILOWATTS?', 'KW'], ['MEGAWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
+    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?', 'MV'], ['VOLTS?', 'V'],
+    ['MILLIAMPERES?|MILLIAMPS?', 'MA'], ['AMPERES?|AMPS?', 'A'],
+    ['OHMS?|Ω', 'OHM'], ['COULOMBS?', 'C'], ['FARADS?', 'F'], ['HENRIES|HENRYS?', 'H'], ['TESLAS?', 'T'],
+    ['KILOHERTZ', 'KHZ'], ['MEGAHERTZ', 'MHZ'], ['GIGAHERTZ', 'GHZ'], ['HERTZ', 'HZ'],
+    ['KILOPASCALS?', 'KPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
+    ['KELVINS?', 'K'], ['DEGC', 'DEGC'], ['DEGF', 'DEGF'], ['DEGREES?|°', 'DEG'],
+    ['KILOMETERS?|KILOMETRES?', 'KM'], ['CENTIMETERS?|CENTIMETRES?', 'CM'], ['MILLIMETERS?|MILLIMETRES?', 'MM'],
+    ['NANOMETERS?|NANOMETRES?', 'NM'], ['METERS?|METRES?', 'M'],
+    ['KILOGRAMS?', 'KG'], ['MILLIGRAMS?', 'MG'], ['GRAMS?', 'G'],
+    ['MILLISECONDS?', 'MS'], ['SECONDS?|SECS?', 'S'], ['MINUTES?|MINS?', 'MIN'], ['HOURS?|HRS?', 'HR'],
+    ['MILLILITERS?|MILLILITRES?', 'ML'], ['LITERS?|LITRES?', 'L'],
+    ['MOLES?', 'MOL'], ['KILOCALORIES?', 'KCAL'], ['CALORIES?', 'CAL'], ['PARSECS?', 'PC'],
+  ];
+  const UNIT_SYMBOLS = new Set(UNIT_NAMES.map(([, s]) => s));
+  function unitSymbol(word) {
+    for (const [n, s] of UNIT_NAMES) if (new RegExp('^(?:' + n + ')$').test(word)) return s;
+    return UNIT_SYMBOLS.has(word) ? word : null;
+  }
+  // After a number, rewrite the run of unit words that follows ("JOULES PER
+  // MOLE", "METERS PER SECOND SQUARED", "M/S^2") into symbols ("J/MOL",
+  // "M/S^2"); anything else ends the run.
+  function canonicalUnits(text) {
+    if (text == null) return text;
+    // temperatures get their own symbols, so Celsius never meets coulombs (C)
+    // or Fahrenheit farads (F)
+    const s = String(text).toUpperCase()
+      .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)C(?:ELSIUS)?(?![A-Z])|\bCELSIUS\b/g, ' DEGC ')
+      .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)F(?:AHRENHEIT)?(?![A-Z])|\bFAHRENHEIT\b/g, ' DEGF ')
+      .replace(/\bDEG(?:REE)?S?\s+K(?:ELVINS?)?(?![A-Z])/g, ' K ');
+    const NUM = /(\d+(?:\.\d+)?(?:\s*(?:[X×*·]|TIMES)\s*10\s*\^\s*\(?[+\-−–]?\d+\)?|E[+\-]?\d+)?)/y;
+    let out = '', i = 0;
+    while (i < s.length) {
+      NUM.lastIndex = i;
+      const m = (i === 0 || !/[A-Z0-9.]/.test(s[i - 1])) && /\d/.test(s[i]) ? NUM.exec(s) : null;
+      if (!m) { out += s[i++]; continue; }
+      out += m[1];
+      let j = NUM.lastIndex, units = [], sep = '';
+      for (;;) {
+        const rest = s.slice(j);
+        const per = rest.match(/^\s*(?:PER\b|\/)\s*/);
+        if (units.length && per) { sep = '/'; j += per[0].length; continue; }
+        const pow = rest.match(/^\s*(SQUARED|CUBED|\^\s*\(?[23]\)?)/);
+        if (units.length && pow) { units[units.length - 1] += pow[1].startsWith('S') ? '^2' : pow[1].startsWith('C') ? '^3' : '^' + pow[1].replace(/\D/g, ''); j += pow[0].length; continue; }
+        const w = rest.match(/^\s*([A-ZΩ°]+)(?![A-Z])/) || rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)/);
+        const two = rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)(?![A-Z])/);
+        const word = two ? two[1] : w && w[1];
+        const sym = word && unitSymbol(word.replace(/-/g, ' '));
+        if (!sym) break;
+        units.push((units.length ? (sep || ' ') : ' ') + sym);
+        sep = '';
+        j += (two ? two[0] : w[0]).length;
+      }
+      out += units.join('').replace(/^ /, ' ');
+      i = j;
+      if (units.length && i < s.length && !/\s/.test(s[i])) out += ' ';
+    }
+    return out;
+  }
+  function checkAnswer(question, userInput) {
+    const first = gradeAnswer(question, userInput);
+    if (first.correct || question.format === 'MC' || !question.answer) return first;
+    const ans = question.answer;
+    const u = {
+      ...question,
+      answer: { ...ans, text: canonicalUnits(ans.text), accept: (ans.accept || []).map(canonicalUnits), reject: (ans.reject || []).map(canonicalUnits) },
+    };
+    const raw = canonicalUnits(userInput || '');
+    const changed = raw !== String(userInput || '').toUpperCase() || u.answer.text !== String(ans.text).toUpperCase()
+      || u.answer.accept.some((a, k) => a !== String(ans.accept[k]).toUpperCase());
+    if (!changed) return first;
+    const second = gradeAnswer(u, raw);
+    return second.correct || second.rejected ? second : first;
+  }
+
   global.SBAnswer = {
     normalize,
     detectItemCount,
@@ -1179,5 +1434,6 @@
     extractPureNumbers,
     extractLeadingNumbers,
     checkAnswer,
+    canonicalUnits,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

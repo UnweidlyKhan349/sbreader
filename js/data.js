@@ -974,13 +974,14 @@
   /* ---------------- Shared dual-handle round-range slider wiring ---------------- */
   // opts: { minInput, maxInput, fillEl, labelEl, maxRound, onChange(lo, hi) }
   SBData.wireRoundRangeSlider = function (opts) {
-    const { minInput, maxInput, fillEl, labelEl, maxRound, onChange } = opts;
+    const { minInput, maxInput, fillEl, labelEl, onChange } = opts;
+    let maxRound = opts.maxRound;
     minInput.min = maxInput.min = 1;
     minInput.max = maxInput.max = maxRound;
     minInput.value = 1;
     maxInput.value = maxRound;
 
-    function render() {
+    function draw() {
       const lo = parseInt(minInput.value, 10);
       const hi = parseInt(maxInput.value, 10);
       const span = Math.max(1, maxRound - 1);
@@ -988,6 +989,10 @@
       const pctHi = ((hi - 1) / span) * 100;
       if (fillEl) { fillEl.style.left = pctLo + '%'; fillEl.style.width = Math.max(0, pctHi - pctLo) + '%'; }
       if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}–${hi}`;
+      return [lo, hi];
+    }
+    function render() {
+      const [lo, hi] = draw();
       if (onChange) onChange(lo, hi);
     }
     function onMinInput() {
@@ -1087,7 +1092,43 @@
       reset() { minInput.value = 1; maxInput.value = maxRound; render(); },
       getRange() { return [parseInt(minInput.value, 10), parseInt(maxInput.value, 10)]; },
       setRange(lo, hi) { minInput.value = lo; maxInput.value = hi; render(); },
+      // Rescales the slider to the rounds the current tournaments have. A
+      // range that reached the old top keeps reaching the top; otherwise it's
+      // clamped. Doesn't call onChange: returns the new [lo, hi] when anything
+      // moved (for the caller to store), else null.
+      setMax(n) {
+        n = Math.max(1, n || 1);
+        if (n === maxRound) return null;
+        const lo = parseInt(minInput.value, 10);
+        const hi = parseInt(maxInput.value, 10);
+        const newHi = hi >= maxRound ? n : Math.min(hi, n);
+        const newLo = Math.min(lo, newHi);
+        maxRound = n;
+        minInput.max = maxInput.max = n;
+        minInput.value = newLo;
+        maxInput.value = newHi;
+        return draw();
+      },
     };
+  };
+
+  // The highest numbered round among the given tournament slugs (all
+  // tournaments when none are picked, or when the picked ones have no
+  // numbered rounds), so the round slider only spans rounds that exist.
+  let maxRoundBySlug = null;
+  SBData.maxRoundFor = function (slugs) {
+    const globalMax = Math.max(1, ...(SBData.meta && SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
+    const list = slugs ? [...slugs] : [];
+    if (!list.length || !SBData.questions) return globalMax;
+    if (!maxRoundBySlug) {
+      maxRoundBySlug = new Map();
+      for (const q of SBData.questions) {
+        if (q.round == null) continue;
+        if (!(maxRoundBySlug.get(q.tSlug) >= q.round)) maxRoundBySlug.set(q.tSlug, q.round);
+      }
+    }
+    const m = Math.max(0, ...list.map((s) => maxRoundBySlug.get(s) || 0));
+    return m || globalMax;
   };
 
   /* ---------------- Custom-styled multi-select dropdown ---------------- */

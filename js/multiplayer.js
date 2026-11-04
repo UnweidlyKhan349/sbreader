@@ -58,6 +58,8 @@
   }
   function getFiltered() { return filterQuestionsFor(filterState); }
   function updateMatchCount() {
+    const moved = roundSliderApi && roundSliderApi.setMax(SBData.maxRoundFor(filterState.tournaments));
+    if (moved) filterState.roundRange = moved;
     document.getElementById('matchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
   }
 
@@ -1564,6 +1566,8 @@
   let suppressSettingsApplyEcho = false;
 
   function updateMidGameMatchCount() {
+    const moved = midGameRoundSliderApi && midGameRoundSliderApi.setMax(SBData.maxRoundFor(midGameFilterState.tournaments));
+    if (moved) midGameFilterState.roundRange = moved;
     document.getElementById('mpSettingsMatchCount').textContent =
       `${filterQuestionsFor(midGameFilterState).length.toLocaleString()} questions match your filters`;
   }

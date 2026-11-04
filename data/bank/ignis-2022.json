@@ -749,7 +749,5 @@
 {"rl":"Ignis_DE7","r":12,"u":"https://lebot.djiang.xyz/packets/IGNIS%202022/Ignis_DE7.pdf","q":[
 {"i":44908,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"El Niño events reduce hurricane formation in the Atlantic by increasing which of the following atmospheric phenomena?","a":{"t":"Wind shear","l":"Z"},"c":{"W":"Thermal instability","X":"Thermal stratification","Y":"Vorticity","Z":"Wind shear"}}]},
 {"rl":"Ignis_DE8","r":13,"u":"https://lebot.djiang.xyz/packets/IGNIS%202022/Ignis_DE8.pdf","q":[
-{"i":44909,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"Efforts at controlling African Trypanosomiasis involve controlling the population of what fly that serves as its main vector?","a":{"t":"Tsetse fly"}}]},
-{"rl":"Ignis_DE1","r":6,"q":[
-{"i":70618,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"What is the ratio between the energy of the first-excited state and the third-excited state of a rigid rotor?","a":{"t":"1/6"}}]}
+{"i":44909,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"Efforts at controlling African Trypanosomiasis involve controlling the population of what fly that serves as its main vector?","a":{"t":"Tsetse fly"}}]}
 ]
