@@ -43,7 +43,7 @@
 {"rl":"DE2","r":7,"u":"https://drive.google.com/drive/folders/1HDMEgswmUXrrlmNEmn5zommGRd8Wijg1","q":[
 {"i":53052,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What is the name for the process utilizing light to catalyze respiration?","a":{"t":"Photorespiration"}},
 {"i":53053,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What is the name for the part of the leaf that connects it to the stem?","a":{"t":"Petiole"}},
-{"i":53054,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"By name or number, identify all of the following compounds that are ionic. 1. H2O 2. HCl 3. ZnBr2","a":{"t":"2, 3"}},
+{"i":53054,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"By name or number, identify all of the following compounds that are ionic. 1. H2O 2. HCl 3. ZnBr2","a":{"t":"3"}},
 {"i":53055,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"Interns in Liam's chemistry lab are dropping pieces of zinc metal into a solution of copper sulfate. Which type of reaction is most likely taking place here?","a":{"t":"Redox","l":"W"},"c":{"W":"Redox","X":"Neutralization","Y":"Double displacement","Z":"Decomposition"}},
 {"i":53056,"s":"phys","f":"MC","qt":"tossup","n":3,"q":"Convex mirrors always produce which of the following types of images?","a":{"t":"Virtual and upright","l":"Y"},"c":{"W":"Real and upright","X":"Real and inverted","Y":"Virtual and upright","Z":"Virtual and inverted"}},
 {"i":53057,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"3 capacitors of capacitance C are connected to the same circuit. In terms of C, what is the largest possible capacitance that could be formed from a combination of these three capacitors?","a":{"t":"3C"}},
