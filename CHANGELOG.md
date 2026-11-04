@@ -58,3 +58,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer: a closed host (or player) tab is noticed within about 15 seconds instead of leaving the room waiting for a long time.
 - Multiplayer: **rooms belong to nobody.** Every player is connected to every other and keeps the whole live game, so anyone can leave, the player who started the room included: they're just taken off the leaderboard (score kept) and the game goes on at once, mid-question included. Private rooms and public lobbies alike.
 - Multiplayer: scores follow the player. A player who leaves and comes back in the same browser (reload or invite link) gets their score back.
+- Pages link their CSS and JS with a content hash (`?v=...`, from `tools/stamp-assets.js`), so a visitor never gets new HTML with stale cached CSS/JS after a deploy. That mix hid the public lobby list and its spacing right after it shipped.
