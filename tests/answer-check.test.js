@@ -311,3 +311,24 @@ test('scientific notation in any common form, and numbers compared whole', () =>
   assert.ok(isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 3.2 * 10^23'));
   assert.ok(!isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 2.3 * 10^23'));
 });
+
+test('short answer: a unit may be written out or abbreviated; multiple choice stays exact', () => {
+  for (const [key, typed] of [
+    ['3.2 × 10^23 J', '3.2*10^23 joules'], ['10 JOULES', '10 J'], ['9.8 m/s^2', '9.8 meters per second squared'],
+    ['5 kJ/mol', '5 kilojoules per mole'], ['100 °C', '100 degrees Celsius'], ['300 K', '300 kelvin'],
+    ['2.5 eV', '2.5 electron volts'], ['5 OHMS', '5 Ω'], ['12 CM BEHIND THE MIRROR', '12 centimeters behind the mirror'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['10 JOULES', '10 N'], ['9.8 m/s^2', '9.8 meters per second'], ['5 kJ/mol', '5 J/mol'],
+    ['5 COULOMBS', '5 celsius'], ['5 FARADS', '5 fahrenheit'], ['5 MOLAR', '5 meters'], ['3.2 × 10^23 J', '2.3*10^23 joules'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  // only after a number: a unit's name and its symbol are different answers
+  assert.ok(!isCorrect('JOULE', 'J'));
+  // in a multi-part answer too, but a number cut out of unseparated words isn't bare
+  assert.ok(isCorrect('4 SECONDS; 1/16', '4 s; 1/16'));
+  assert.ok(!isCorrect('4 SECONDS; 1/16', '4 meters; 1/16'));
+  const mc = { question: 'Q?', format: 'MC', choices: { W: '10 joules', X: '10 newtons', Y: '5 J', Z: '5 N' },
+    answer: { text: '10 joules', letter: 'W', accept: [], reject: [] } };
+  for (const typed of ['W', '10 joules', 'W) 10 joules']) assert.ok(checkAnswer(mc, typed).correct, typed);
+  for (const typed of ['10 J', '10 joule']) assert.ok(!checkAnswer(mc, typed).correct, typed);
+});

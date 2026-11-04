@@ -752,11 +752,13 @@
   function betterMatch(a, b) {
     return (MATCH_RANK[a] || 0) >= (MATCH_RANK[b] || 0) ? a : b;
   }
-  function segMatch(seg, alts) {
+  function segMatch(seg, alts, wordCut) {
     let best = null;
     const ns = normalize(seg);
     if (!ns) return null;
-    const segNums = extractPureNumbers(seg);
+    // not for a piece cut out of unseparated words: "4 meters 1/16" cut as
+    // "4" + "meters 1/16" mustn't make "4" pass for "4 SECONDS"
+    const segNums = wordCut ? null : extractPureNumbers(seg);
     for (const alt of alts) {
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
       // a bare number for a part keyed as that number and a unit ("3.2 *
@@ -892,6 +894,7 @@
           segs.push(chunk.join(' '));
           prev = c;
         }
+        segs.wordCut = true;
         yield segs;
         return;
       }
@@ -952,7 +955,7 @@
   function matchSegments(segs, spec) {
     const { n, alts, floating, ordered } = spec;
     const table = segs.map((seg) => alts.map((a, k) => {
-      const m = segMatch(seg, a);
+      const m = segMatch(seg, a, segs.wordCut);
       if (m === 'exact') return m;
       const usable = floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact'));
       return betterMatch(segMatch(seg, usable), m);
@@ -1016,7 +1019,7 @@
         if (i === segs.length) return true;
         for (let k = 0; k < spec.alts.length; k++) {
           if (used[k]) continue;
-          const m = segMatch(segs[i], spec.alts[k]);
+          const m = segMatch(segs[i], spec.alts[k], segs.wordCut);
           if (m !== 'exact' && m !== 'fuzzy') continue;
           used[k] = true;
           if (go(i + 1)) return true;
@@ -1092,7 +1095,7 @@
     return out || null;
   }
 
-  function checkAnswer(question, userInput) {
+  function gradeAnswer(question, userInput) {
     const raw = (userInput || '').trim();
     if (!raw) return { correct: false, matched: null, rejected: false, empty: true };
 
@@ -1331,6 +1334,94 @@
     return { correct: false, matched: null, rejected: false };
   }
 
+
+  // ---- Units (short answer only) ----
+  // A unit written out or abbreviated is the same unit: "3.2 × 10^23 JOULES"
+  // = "3.2 × 10^23 J", "9.8 meters per second squared" = "9.8 m/s^2". Only a
+  // unit right after a number is touched, so a bare "C" (carbon or coulomb?)
+  // or "N" (nitrogen or newton?) is never rewritten. Multiple choice never
+  // gets here: its answer must be the exact letter or choice.
+  const UNIT_NAMES = [
+    ['KILOELECTRON VOLTS?|KILOELECTRONVOLTS?', 'KEV'], ['MEGAELECTRON VOLTS?|MEGAELECTRONVOLTS?', 'MEV'],
+    ['ELECTRON VOLTS?|ELECTRONVOLTS?|ELECTRON-VOLTS?', 'EV'],
+    ['KILOWATT[ -]HOURS?', 'KWH'], ['LIGHT[ -]YEARS?', 'LY'], ['ASTRONOMICAL UNITS?', 'AU'],
+    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?', 'MJ'], ['JOULES?', 'J'],
+    ['KILONEWTONS?', 'KN'], ['NEWTONS?', 'N'],
+    ['KILOWATTS?', 'KW'], ['MEGAWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
+    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?', 'MV'], ['VOLTS?', 'V'],
+    ['MILLIAMPERES?|MILLIAMPS?', 'MA'], ['AMPERES?|AMPS?', 'A'],
+    ['OHMS?|Ω', 'OHM'], ['COULOMBS?', 'C'], ['FARADS?', 'F'], ['HENRIES|HENRYS?', 'H'], ['TESLAS?', 'T'],
+    ['KILOHERTZ', 'KHZ'], ['MEGAHERTZ', 'MHZ'], ['GIGAHERTZ', 'GHZ'], ['HERTZ', 'HZ'],
+    ['KILOPASCALS?', 'KPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
+    ['KELVINS?', 'K'], ['DEGC', 'DEGC'], ['DEGF', 'DEGF'], ['DEGREES?|°', 'DEG'],
+    ['KILOMETERS?|KILOMETRES?', 'KM'], ['CENTIMETERS?|CENTIMETRES?', 'CM'], ['MILLIMETERS?|MILLIMETRES?', 'MM'],
+    ['NANOMETERS?|NANOMETRES?', 'NM'], ['METERS?|METRES?', 'M'],
+    ['KILOGRAMS?', 'KG'], ['MILLIGRAMS?', 'MG'], ['GRAMS?', 'G'],
+    ['MILLISECONDS?', 'MS'], ['SECONDS?|SECS?', 'S'], ['MINUTES?|MINS?', 'MIN'], ['HOURS?|HRS?', 'HR'],
+    ['MILLILITERS?|MILLILITRES?', 'ML'], ['LITERS?|LITRES?', 'L'],
+    ['MOLES?', 'MOL'], ['KILOCALORIES?', 'KCAL'], ['CALORIES?', 'CAL'], ['PARSECS?', 'PC'],
+  ];
+  const UNIT_SYMBOLS = new Set(UNIT_NAMES.map(([, s]) => s));
+  function unitSymbol(word) {
+    for (const [n, s] of UNIT_NAMES) if (new RegExp('^(?:' + n + ')$').test(word)) return s;
+    return UNIT_SYMBOLS.has(word) ? word : null;
+  }
+  // After a number, rewrite the run of unit words that follows ("JOULES PER
+  // MOLE", "METERS PER SECOND SQUARED", "M/S^2") into symbols ("J/MOL",
+  // "M/S^2"); anything else ends the run.
+  function canonicalUnits(text) {
+    if (text == null) return text;
+    // temperatures get their own symbols, so Celsius never meets coulombs (C)
+    // or Fahrenheit farads (F)
+    const s = String(text).toUpperCase()
+      .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)C(?:ELSIUS)?(?![A-Z])|\bCELSIUS\b/g, ' DEGC ')
+      .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)F(?:AHRENHEIT)?(?![A-Z])|\bFAHRENHEIT\b/g, ' DEGF ')
+      .replace(/\bDEG(?:REE)?S?\s+K(?:ELVINS?)?(?![A-Z])/g, ' K ');
+    const NUM = /(\d+(?:\.\d+)?(?:\s*(?:[X×*·]|TIMES)\s*10\s*\^\s*\(?[+\-−–]?\d+\)?|E[+\-]?\d+)?)/y;
+    let out = '', i = 0;
+    while (i < s.length) {
+      NUM.lastIndex = i;
+      const m = (i === 0 || !/[A-Z0-9.]/.test(s[i - 1])) && /\d/.test(s[i]) ? NUM.exec(s) : null;
+      if (!m) { out += s[i++]; continue; }
+      out += m[1];
+      let j = NUM.lastIndex, units = [], sep = '';
+      for (;;) {
+        const rest = s.slice(j);
+        const per = rest.match(/^\s*(?:PER\b|\/)\s*/);
+        if (units.length && per) { sep = '/'; j += per[0].length; continue; }
+        const pow = rest.match(/^\s*(SQUARED|CUBED|\^\s*\(?[23]\)?)/);
+        if (units.length && pow) { units[units.length - 1] += pow[1].startsWith('S') ? '^2' : pow[1].startsWith('C') ? '^3' : '^' + pow[1].replace(/\D/g, ''); j += pow[0].length; continue; }
+        const w = rest.match(/^\s*([A-ZΩ°]+)(?![A-Z])/) || rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)/);
+        const two = rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)(?![A-Z])/);
+        const word = two ? two[1] : w && w[1];
+        const sym = word && unitSymbol(word.replace(/-/g, ' '));
+        if (!sym) break;
+        units.push((units.length ? (sep || ' ') : ' ') + sym);
+        sep = '';
+        j += (two ? two[0] : w[0]).length;
+      }
+      out += units.join('').replace(/^ /, ' ');
+      i = j;
+      if (units.length && i < s.length && !/\s/.test(s[i])) out += ' ';
+    }
+    return out;
+  }
+  function checkAnswer(question, userInput) {
+    const first = gradeAnswer(question, userInput);
+    if (first.correct || question.format === 'MC' || !question.answer) return first;
+    const ans = question.answer;
+    const u = {
+      ...question,
+      answer: { ...ans, text: canonicalUnits(ans.text), accept: (ans.accept || []).map(canonicalUnits), reject: (ans.reject || []).map(canonicalUnits) },
+    };
+    const raw = canonicalUnits(userInput || '');
+    const changed = raw !== String(userInput || '').toUpperCase() || u.answer.text !== String(ans.text).toUpperCase()
+      || u.answer.accept.some((a, k) => a !== String(ans.accept[k]).toUpperCase());
+    if (!changed) return first;
+    const second = gradeAnswer(u, raw);
+    return second.correct || second.rejected ? second : first;
+  }
+
   global.SBAnswer = {
     normalize,
     detectItemCount,
@@ -1343,5 +1434,6 @@
     extractPureNumbers,
     extractLeadingNumbers,
     checkAnswer,
+    canonicalUnits,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
