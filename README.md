@@ -14,13 +14,13 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
 
-**Current question bank: 103,641 questions from 112 tournaments** (56,265 tossups / 47,376 bonuses; 64,483 short answer / 39,158 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 103,640 questions from 112 tournaments** (56,265 tossups / 47,375 bonuses; 64,482 short answer / 39,158 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
 | Subject | Questions |
 |---|---|
 | Biology | 22,419 |
 | Earth & Space | 20,864 |
-| Physics | 19,711 |
+| Physics | 19,710 |
 | Math | 16,721 |
 | Chemistry | 19,131 |
 | Energy | 4,795 |
@@ -257,7 +257,7 @@ A flat record (a question plus its packet's fields and its tournament):
 
 Each tournament also has a `date` (`YYYY-MM-DD`, approximate where the event's day isn't known) used for the catalog's newest-first order; a new tournament needs one.
 
-`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational, LOST 3 MS, MIT MS Study Guides and MOOSE 2021 (14,231 questions); everything else is `hs` (89,410). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
+`level` is `hs` or `ms` and belongs to the tournament, not the record: every question inherits its tournament's level at load time (`SBData.load()`), which drives the Level filter chips (the level isn't shown as a tag on questions). The middle-school tournaments are NSB MS Regs, CLASH 2026 MS, Bay Ultimate MS Scibowl, BUMS 2026, Dasoni Standard1, Deadbird Invitational, LOST 3 MS, MIT MS Study Guides and MOOSE 2021 (14,231 questions); everything else is `hs` (89,409). **A rebuild of `meta.json` has to carry each tournament's `level` over**, and a new tournament needs one assigned (a missing `level` is treated as `hs`).
 
 `idAliases` maps the id of every question removed as a duplicate to the id of the copy that was kept; `SBData.load()` uses it to move saved bookmarks onto the kept copy, so merging duplicates never silently deletes someone's bookmark. Keep it when rebuilding `meta.json`. One known blur: "Random Stuff" is a grab-bag tournament that includes one MS earth-science packet but is tagged `hs` as a whole.
 
@@ -346,7 +346,7 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
   - **"Name any N" keys** (`(ACCEPT TWO) CHEMICAL, MECHANICAL, …`, `ANY TWO OF: …`, about 20) list more items than the question asks for, and the grader can't grade "any two of these". They stay as printed.
   - **Grader gaps in multi-part keys**: parts labelled `I)`, `II)` (HSBT and ICSBT 3 visual bonuses) can't be answered without the labels, and a part keyed as a letter plus its choice text (`3) W ((R)-METHYL 3-HYDROXYBUTANOATE)`) doesn't accept the letter alone. The bank's other keys label parts `1)`, `2)`, which the grader lets you leave off.
   - **Spoken radicals in multiple-choice choices** (`5 root 5`, `the square root of 3 to the square root of 2`, about 30 choice sets) are left as printed. The radical rule was applied to answer keys, and changing a choice also means changing its key.
-- **Doubtful items left as printed**: NSB MS Regs Set 4 Round 12 B21 (how Down syndrome is identified) accepts "FRAGILE X, MISSING PART OF THE X CHROMOSOME", which looks carried over from another question. NSB MS Regs Set 3 Round 12 B4 prints "MgCl" in its list of substances (the key, NaOH, is right), and WSBT Playoff Round 4 B16 asks how an ideal gas's energy density g(E) changes when E doubles, which depends on kT that the question doesn't give (keyed "√2/e^2").
+- **Doubtful items settled (November 2026)**: NSB MS Regs Set 4 Round 12 B21 no longer accepts fragile X syndrome for Down syndrome, Set 3 Round 12 B4 lists MgCl2 (printed "MgCl"), and WSBT Playoff Round 4 B16 (an ideal gas's probability density g(E) when E doubles, keyed √2/e^2, which needs E = 2kT the question never gives) was removed; see [data-history](docs/data-history.md#doubtful-items-november-2026).
 - **Cut-off stems**: 92 records whose stem stopped before the question (CCWT's "Given that sin(2x) = 0.2, representing your", GWHS's "One of the questions researchers attempted to", a Random set's "If x and y are complex numbers, then expressing your", many MEHS stems cut after their first sentence) got the rest of the stem from the re-downloaded packets. Any still cut short have no complete copy in the packets that were re-read; they're kept because the answer is intact.
 - **CSUB's combined packets**: the questions from `rround1-9`/`rround10-17` sit on rounds 1 and 10, because the source doesn't say which specific round each belongs to.
 - **BASIS Peoria Rounds**: RR and DE are ordered (1–4, 5–13), but the "NATS" set's place in the sequence can't be inferred, so it stays on 1–4.

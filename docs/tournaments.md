@@ -114,6 +114,6 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | University Prep | 50 |  | hs |
 | Walton Rounds | 775 |  | hs |
 | WISC 2021 | 370 | 5 | hs |
-| WSBT | 458 | 23 | hs |
+| WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (112)** | **103,641** | **535** | |
+| **Total (112)** | **103,640** | **535** | |
