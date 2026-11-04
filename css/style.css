@@ -657,6 +657,8 @@ kbd {
 .mp-player-row.answered-correct { border-color: var(--good); background: rgba(53,194,129,.1); }
 .mp-player-row.answered-incorrect { border-color: var(--bad); background: rgba(239,90,111,.1); }
 .mp-player-row .badge { font-size: 11px; color: var(--text-dim); }
+.mp-player-row.offline { opacity: .55; border-style: dashed; }
+.mp-player-row.offline .name { font-weight: 600; }
 
 .room-code {
   font-size: 26px; letter-spacing: 3px; font-weight: 800;
@@ -761,6 +763,8 @@ kbd {
 
 .room-code-strip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .room-code-strip .room-code { font-size: 16px; padding: 4px 10px; letter-spacing: 2px; }
+/* "Link copied!" and a lobby's name are words, not codes: no code spacing. */
+.room-code-strip .room-code.copied, .room-code-strip .room-code.is-name { letter-spacing: .2px; }
 
 /* ---------------- Multiplayer buzz/typing/result status panel ---------------- */
 .mp-buzz-status {

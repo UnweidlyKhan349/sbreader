@@ -261,6 +261,8 @@
     const el = document.getElementById('mpRoomCodeDisplay');
     const lobby = myState.publicLobby;
     el.textContent = lobby ? lobbyLabel(lobby) : displayRoomCode(code);
+    // A lobby's name reads as a word, not a code, so it isn't spaced out.
+    el.classList.toggle('is-name', !!lobby);
     el.dataset.code = displayRoomCode(code);
     document.getElementById('mpRoomLabel').textContent = lobby ? 'Public lobby' : 'Room';
   }
@@ -306,8 +308,17 @@
   /* ================= RENDERING (host + client share this) ================= */
   function renderPlayerList(container) {
     container.innerHTML = '';
-    game.players.slice().sort((a, b) => b.score - a.score).forEach((p) => {
+    // Players who've left stay on the board, marked offline, until they come
+    // back or an hour passes (SBMpRules.stillOffline, pruneOffline).
+    const offline = (game.departed || []).map((d) => ({ id: null, name: d.name, score: d.score, offline: true }));
+    game.players.concat(offline).sort((a, b) => b.score - a.score).forEach((p) => {
       const row = document.createElement('div');
+      if (p.offline) {
+        row.className = 'mp-player-row offline';
+        row.innerHTML = `<span class="name">${escapeHtml(p.name)}</span> <span class="badge">offline</span> <span class="pts">${p.score}</span>`;
+        container.appendChild(row);
+        return;
+      }
       // A graded attempt always wins (correct/incorrect), even though
       // game.buzzedPlayerId keeps pointing at the last-buzzed player all the
       // way through the reveal phase (other UI uses that to keep showing who
@@ -767,6 +778,8 @@
   function uniqueName(desired, excludeConnId) {
     const taken = new Set();
     hostPlayers.forEach((p, id) => { if (id !== excludeConnId) taken.add(p.name); });
+    // Offline players still show on the board, so their names stay taken.
+    departedPlayers.forEach((d) => taken.add(d.name));
     if (!taken.has(desired)) return desired;
     let n = 2;
     while (taken.has(`${desired} ${n}`)) n++;
@@ -806,6 +819,24 @@
   // back. Every player has a copy (see broadcastLobby).
   const DEPARTED_MAX = 100;
   const departedPlayers = new Map();
+  function markOffline(p) {
+    departedPlayers.delete(p.pid);
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, leftAt: Date.now() });
+    while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
+  }
+  // Run by whoever runs the game, once a minute. Returns whether it removed
+  // anyone, for takeOver.
+  function pruneOffline() {
+    const now = Date.now();
+    let removed = false;
+    departedPlayers.forEach((d, pid) => {
+      if (!SBMpRules.stillOffline(d, now)) { departedPlayers.delete(pid); removed = true; }
+    });
+    return removed;
+  }
+  setInterval(() => {
+    if (myState.role === 'host' && pruneOffline()) broadcastLobby();
+  }, 60 * 1000);
   function hostPlayerLeft(connId) {
     const p = hostPlayers.get(connId);
     if (!p) return;
@@ -815,9 +846,7 @@
     }
     hostPlayers.delete(connId);
     if (p.pid) {
-      departedPlayers.delete(p.pid);
-      departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score });
-      while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
+      markOffline(p);
     }
     broadcastLobby();
   }
@@ -965,7 +994,8 @@
 
     if (hostGame.index >= hostGame.queue.length) {
       hostGame.phase = 'gameover';
-      const scores = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score }));
+      const scores = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score }))
+        .concat([...departedPlayers.values()].map((d) => ({ id: null, name: `${d.name} (offline)`, score: d.score })));
       host.broadcast({ type: 'gameover', scores });
       applyGameOverLocal(scores);
       return;
@@ -1451,13 +1481,14 @@
     // Players: whoever's still connected stays; anyone else has left.
     hostPlayers.clear();
     departedPlayers.clear();
-    (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, d); });
+    (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
       if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, connId: p.id, pid: p.pid || null });
-      else if (p.pid) departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score });
+      else if (p.pid) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
     memberInfo.forEach((info, id) => { if (isUp(id) && !hostPlayers.has(id)) addPlayer(id, info.name, info.pid); });
+    pruneOffline();
     hostChat.length = 0;
     hostChat.push(...chatMirror);
 
