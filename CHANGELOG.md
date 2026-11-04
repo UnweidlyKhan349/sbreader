@@ -49,3 +49,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Added an MIT license for the site code (the question data stays with its packets' authors).
 - Catalog: on wide screens the tournament picker is a sidebar checklist beside the results, so many more tournaments are visible at once; phones keep the dropdown.
 - Multiplayer: clicking the room code copies an invite link that joins the room directly, and every player can rename themselves mid-game.
+- Grading counts `1: … 2: …` as item markers (not times, ratios or `row 1:` labels), so about 500 more list and ranking questions grade by item number or name; "put/place/list … in order" is a ranking; rankings can be typed with the item names in order; and a key that answers each item in turn (`1: RIGHT; 2: LEFT`) no longer passes `all` or `123`.
+- Grading handles "name any N" keys (any N distinct listed items pass), roman part labels (`I)`, `II)`), and multi-part parts keyed as a letter plus its choice (the letter alone passes).

@@ -658,8 +658,9 @@
     out.push(cur);
     return out;
   }
-  // "1) MAGNONS" / "2 - EUTHERIAN" / "3: BLUE" -> the part without its number.
-  const PART_NUMBER_RE = /^\s*\(?[1-9]\s*[).:–-]\s*/;
+  // "1) MAGNONS" / "2 - EUTHERIAN" / "3: BLUE" / "II) AMYGDALA" -> the part
+  // without its number. Roman labels stop at IX: "X)" is a choice letter.
+  const PART_NUMBER_RE = /^\s*\(?(?:[1-9]\s*[).:–-]|(?:IX|IV|V?I{1,3}|V)\s*[):])\s*/;
   function answerParts(text) {
     if (!text || !/;|\s\|\s/.test(text)) return null;
     const parts = splitTopLevel(text).map((p) => p.trim()).filter((p) => normalize(p.replace(PART_NUMBER_RE, '')));
@@ -675,6 +676,10 @@
     out.push(noNum);
     const label = noNum.match(/^[A-Za-z][A-Za-z .'’-]{0,30}?\s*[=:]\s*(.+)$/);
     if (label) out.push(label[1]);
+    // a multiple-choice part keyed as its letter and choice ("W) DNA
+    // GLYCOSYLASE", "W ((R)-METHYL 3-HYDROXYBUTANOATE)") takes either one
+    const choice = noNum.match(/^([WXYZ])\)\s*(\S.*)$/) || noNum.match(/^([WXYZ])\s+\((.+)\)\s*$/);
+    if (choice) out.push(choice[1], choice[2]);
     for (const v of out.slice()) {
       if (/\(/.test(v)) {
         out.push(v.replace(/\([^)]*\)/g, ' '));
@@ -921,6 +926,60 @@
     return best;
   }
 
+  // "Name any N of these" keys: "ANY TWO OF: EARTH, TITAN, PLUTO",
+  // "(ACCEPT 3) DRY, STATIC, ...", "{ANY 2} A; B; C", "Accept any four of the
+  // following five: ...", "Pluto, Ceres, Eris (any 3)". Returns { n, alts }
+  // when the key lists more items than it asks for, else null.
+  const NUMBER_WORDS = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6 };
+  function anyOfSpec(key) {
+    if (!key) return null;
+    const N = '(\\d|ONE|TWO|THREE|FOUR|FIVE|SIX)';
+    const forms = [
+      new RegExp('^\\s*(?:ACCEPT\\s+)?ANY\\s+' + N + '(?:\\s+OF)?(?:\\s+THE\\s+FOLLOWING(?:\\s+\\w+)?)?\\s*:?\\s*(.+)$', 'i'),
+      new RegExp('^\\s*[({]\\s*(?:ACCEPT|ANY)\\s+' + N + '\\s*[)}]\\s*(.+)$', 'i'),
+      new RegExp('^\\s*ACCEPT\\s+' + N + '\\s+OF\\s+THE\\s+FOLLOWING(?:\\s+\\w+)?\\s*:?\\s*(.+)$', 'i'),
+    ];
+    let n = null, list = null;
+    for (const re of forms) {
+      const m = key.match(re);
+      if (m) { n = m[1]; list = m[2]; break; }
+    }
+    if (!list) {
+      const m = key.match(new RegExp('^(.+?)\\s*\\(\\s*ANY\\s+' + N + '\\s*\\)\\s*$', 'i'));
+      if (m) { list = m[1]; n = m[2]; }
+    }
+    if (!list) return null;
+    n = /\d/.test(n) ? parseInt(n, 10) : NUMBER_WORDS[n.toUpperCase()];
+    const items = list.split(/\s*(?:[;,]|\bAND\b|\bOR\b)\s*(?![^()]*\))/i)
+      .map((s) => s.trim().replace(/\.$/, '')).filter((s) => normalize(s));
+    if (!n || items.length <= n) return null;
+    // a parenthetical in a listed item is another name for it ("HEXAHEDRON (CUBE)")
+    return { n, alts: items.map((it) => [...partVariants(it), ...[...it.matchAll(/\(([^()]+)\)/g)].map((m) => m[1].trim())]) };
+  }
+  // Every typed item names a different listed one, and there are at least n.
+  function checkAnyOf(raw, spec) {
+    const tries = [raw.split(/\s*(?:[;,]|\band\b|\bor\b|&)\s*/i).map((s) => s.trim()).filter(Boolean)];
+    for (const segs of segmentations(raw, spec.n, true)) tries.push(segs);
+    for (const segs of tries) {
+      if (segs.length < spec.n || segs.length > spec.alts.length) continue;
+      const used = new Array(spec.alts.length).fill(false);
+      const go = (i) => {
+        if (i === segs.length) return true;
+        for (let k = 0; k < spec.alts.length; k++) {
+          if (used[k]) continue;
+          const m = segMatch(segs[i], spec.alts[k]);
+          if (m !== 'exact' && m !== 'fuzzy') continue;
+          used[k] = true;
+          if (go(i + 1)) return true;
+          used[k] = false;
+        }
+        return false;
+      };
+      if (go(0)) return true;
+    }
+    return false;
+  }
+
   function checkMultiPart(raw, spec) {
     let best = null;
     for (const segs of segmentations(raw, spec.n, spec.noSlash)) {
@@ -1048,6 +1107,14 @@
     for (const rej of ans.reject || []) {
       if (normEqual(raw, rej) || compactEqual(raw, rej)) {
         return { correct: false, matched: null, rejected: true };
+      }
+    }
+
+    // ---- "Name any N of these" keys: any N distinct listed items pass ----
+    if (question.format !== 'MC') {
+      for (const k of [ans.text, ...(ans.accept || [])]) {
+        const spec = anyOfSpec(k);
+        if (spec && checkAnyOf(raw, spec)) return { correct: true, matched: k === ans.text ? 'main' : 'accept', rejected: false };
       }
     }
 

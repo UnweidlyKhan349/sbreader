@@ -265,3 +265,25 @@ test('a key that answers each item in turn is not a choice of items', () => {
   assert.ok(isCorrect('1) AND 2)', '12', { question: sel }));
   assert.ok(isCorrect('2) AND 3)', '2 and 3', { question: sel }));
 });
+
+test('"name any N" keys pass any N distinct listed items, and nothing else', () => {
+  const key = 'ANY TWO OF: EARTH, TITAN, PLUTO, TRITON';
+  for (const typed of ['Earth and Titan', 'pluto, triton', 'Titan Earth', 'earth, titan, pluto']) assert.ok(isCorrect(key, typed), typed);
+  for (const typed of ['earth', 'earth, mars', 'earth, earth']) assert.ok(!isCorrect(key, typed), typed);
+  assert.ok(isCorrect('(ACCEPT 4) LEVER, WEDGE, PULLEY, WHEEL & AXLE, INCLINED PLANE, SCREW', 'lever, pulley, screw, wedge'));
+  assert.ok(!isCorrect('(ACCEPT 4) LEVER, WEDGE, PULLEY, WHEEL & AXLE, INCLINED PLANE, SCREW', 'lever, pulley, screw'));
+  assert.ok(isCorrect('{ANY 2} PHENYLALANINE; TYROSINE; TRYPTOPHAN; METHIONINE', 'tyrosine and tryptophan'));
+  assert.ok(isCorrect('Pluto, Ceres, Makemake, Eris, Haumea (any 3)', 'pluto ceres eris'));
+  // a parenthetical is another name for the item
+  assert.ok(isCorrect('Accept any four of the following five: Tetrahedron, Hexahedron (cube), Octahedron, Dodecahedron, Icosahedron', 'cube, tetrahedron, octahedron, icosahedron'));
+});
+
+test('multi-part keys: roman part labels and a part keyed as letter plus choice', () => {
+  assert.ok(isCorrect('I) 490; II) 40', '490, 40'));
+  assert.ok(!isCorrect('I) 490; II) 40', '40, 490'));
+  assert.ok(isCorrect('I) Line; II) Parabola; III) Circle', 'line, parabola, circle'));
+  const key = '1) Carbon; 2) X) B-V increases because B-band flux is suppressed';
+  for (const typed of ['carbon; X', 'carbon, x', 'carbon; B-V increases because B-band flux is suppressed']) assert.ok(isCorrect(key, typed), typed);
+  assert.ok(!isCorrect(key, 'carbon; W'));
+  assert.ok(isCorrect('1) 3; 2) W ((R)-METHYL 3-HYDROXYBUTANOATE)', '3, W'));
+});
