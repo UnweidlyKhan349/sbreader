@@ -16,31 +16,61 @@
 <meta property="og:image:height" content="640" />
 <meta property="og:image:alt" content="SB Reader: free Science Bowl practice from real tournament packets" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
 <script src="js/data.js"></script>
 <script>SBData.load();</script>
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="index.html">Home</a>
-  <a class="navlink active" href="catalog.html">Catalog</a>
-  <a class="navlink" href="solo.html">Solo Practice</a>
-  <a class="navlink" href="multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <a class="nav-link ms-3 ms-lg-0" href="https://github.com/UnweidlyKhan349/sbreader">GitHub</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="container catalog-container">
+<div class="container mt-3 mb-5 catalog-container">
 <div class="catalog-layout">
   <!-- Tournament picker as a sidebar on wide screens; below 900px it's
        hidden and the dropdown in the filter panel is used instead. Both
@@ -107,7 +137,7 @@
         <select id="tournamentSelect" style="width:100%;"></select>
       </div>
       <div style="align-self: end; display:flex; gap:8px;">
-        <button class="btn ghost" id="clearFilters">Clear all filters</button>
+        <button class="btn btn-outline-secondary" id="clearFilters">Clear all filters</button>
       </div>
     </div>
   </div>
@@ -115,7 +145,6 @@
   <div id="results"></div>
   <div class="pagination" id="pagination"></div>
   </div>
-</div>
 </div>
 </div>
 

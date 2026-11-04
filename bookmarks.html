@@ -8,14 +8,17 @@
 <!-- Bookmarks live in this browser's localStorage, so the page has
      nothing to show a search engine. -->
 <meta name="robots" content="noindex" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
 <link rel="preload" href="data/bank/index.json" as="fetch" crossorigin />
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the bookmarked
      questions' tournaments start downloading at once, while the rest of
      the page loads. -->
@@ -23,26 +26,52 @@
 <script>SBData.loadBookmarked();</script>
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="index.html">Home</a>
-  <a class="navlink" href="catalog.html">Catalog</a>
-  <a class="navlink" href="solo.html">Solo Practice</a>
-  <a class="navlink" href="multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink active" href="bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <a class="nav-link ms-3 ms-lg-0" href="https://github.com/UnweidlyKhan349/sbreader">GitHub</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="container">
+<div class="container mt-3 mb-5">
   <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
     <h1 style="margin:0;">Bookmarked questions</h1>
-    <button class="btn primary" id="practiceBtn" style="padding:12px 20px;">Practice these</button>
+    <button class="btn btn-primary" id="practiceBtn" style="padding:12px 20px;">Practice these</button>
   </div>
   <p class="subtitle" id="resultCount">Loading…</p>
 
   <div id="results"></div>
-</div>
 </div>
 
 <script src="js/bookmarks.js"></script>

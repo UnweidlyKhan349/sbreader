@@ -258,9 +258,7 @@
     const before = el.getBoundingClientRect().top;
     state.page = n;
     render();
-    // The page scrolls inside #pageScroll, not the window.
-    const scroller = document.getElementById('pageScroll') || document.scrollingElement;
-    scroller.scrollTop += el.getBoundingClientRect().top - before;
+    window.scrollBy(0, el.getBoundingClientRect().top - before);
   }
 
   function renderPagination(totalPages) {
@@ -268,7 +266,7 @@
     el.innerHTML = '';
     if (totalPages <= 1) return;
     const prev = document.createElement('button');
-    prev.className = 'btn small';
+    prev.className = 'btn btn-sm btn-outline-secondary';
     prev.textContent = '← Prev';
     prev.disabled = state.page <= 1;
     prev.onclick = () => goToPage(state.page - 1);
@@ -306,7 +304,7 @@
     el.appendChild(ofSpan);
 
     const next = document.createElement('button');
-    next.className = 'btn small';
+    next.className = 'btn btn-sm btn-outline-secondary';
     next.textContent = 'Next →';
     next.disabled = state.page >= totalPages;
     next.onclick = () => goToPage(state.page + 1);
@@ -327,7 +325,7 @@
     actions.className = 'actions';
 
     const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'btn small';
+    toggleBtn.className = 'btn btn-sm btn-outline-secondary';
     toggleBtn.textContent = 'Show answer';
     toggleBtn.onclick = () => {
       const showing = answerWrap.style.display !== 'none';

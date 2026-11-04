@@ -16,39 +16,69 @@
 <meta property="og:image:height" content="640" />
 <meta property="og:image:alt" content="SB Reader: free Science Bowl practice from real tournament packets" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
 <script src="js/data.js"></script>
 <script>SBData.load();</script>
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="index.html">Home</a>
-  <a class="navlink" href="catalog.html">Catalog</a>
-  <a class="navlink" href="solo.html">Solo Practice</a>
-  <a class="navlink active" href="multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <a class="nav-link ms-3 ms-lg-0" href="https://github.com/UnweidlyKhan349/sbreader">GitHub</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- ============== LOBBY / CHOOSE MODE ============== -->
-<div class="container" id="lobbyScreen">
+<div class="container mt-3 mb-5" id="lobbyScreen">
   <h1>Multiplayer</h1>
   <p class="subtitle">Jump into a public lobby, create a room and share the code (click it in the room to copy an invite link), or join a friend's room. Everyone can buzz — first in locks the rest out until they've answered. Rooms don't depend on whoever started them: anyone can leave and the game carries on.</p>
 
   <div class="panel public-panel" id="publicPanel">
     <div class="filter-head">
       <h2 style="margin:0;">Public lobbies</h2>
-      <button class="btn small ghost" id="publicRefreshBtn" title="Check how many players are in each lobby">↻ Refresh</button>
+      <button class="btn btn-sm btn-outline-secondary" id="publicRefreshBtn" title="Check how many players are in each lobby">↻ Refresh</button>
     </div>
     <p class="small-note" style="margin:0;">Open rooms anyone can join: one mixing every subject, and one for each subject except energy. A lobby’s subject is fixed; everything else can be changed from the room settings.</p>
     <div class="public-lobbies" id="publicLobbyList"></div>
@@ -65,7 +95,7 @@
       <div class="filter-head">
         <div class="section-title" style="margin:0;">Subject</div>
         <div class="filter-actions">
-          <button class="btn small ghost" id="clearFiltersBtn">Clear all</button>
+          <button class="btn btn-sm btn-outline-secondary" id="clearFiltersBtn">Clear all</button>
         </div>
       </div>
       <div class="chip-row" id="subjectChips"></div>
@@ -101,7 +131,7 @@
       <div class="section-title">Your name</div>
       <input type="text" id="hostNameInput" placeholder="e.g. Alex" style="width:100%; max-width:300px;" />
       <div style="margin-top:18px;">
-        <button class="btn primary" id="createRoomBtn" style="width:100%; justify-content:center; padding:12px;">Create room</button>
+        <button class="btn btn-primary" id="createRoomBtn" style="width:100%; justify-content:center; padding:12px;">Create room</button>
       </div>
     </div>
 
@@ -112,7 +142,7 @@
       <div class="section-title">Your name</div>
       <input type="text" id="joinNameInput" placeholder="e.g. Sam" style="width:100%;" />
       <div style="margin-top:18px;">
-        <button class="btn primary" id="joinRoomBtn" style="width:100%; justify-content:center; padding:12px;">Join room</button>
+        <button class="btn btn-primary" id="joinRoomBtn" style="width:100%; justify-content:center; padding:12px;">Join room</button>
       </div>
       <p class="small-note" id="joinStatus" style="margin-top:10px;"></p>
     </div>
@@ -124,7 +154,7 @@
   <div class="panel modal-panel">
     <div class="filter-head">
       <h2 style="margin:0;">Room settings</h2>
-      <button class="btn small ghost" id="mpSettingsCloseBtn">✕</button>
+      <button class="btn btn-sm btn-outline-secondary" id="mpSettingsCloseBtn">✕</button>
     </div>
     <div class="section-title">Reading speed</div>
     <div class="slider-row">
@@ -134,7 +164,7 @@
     <div class="filter-head" style="margin-top:18px;">
       <div class="section-title" style="margin:0;">Subject</div>
       <div class="filter-actions">
-        <button class="btn small ghost" id="mpSettingsClearBtn">Clear all</button>
+        <button class="btn btn-sm btn-outline-secondary" id="mpSettingsClearBtn">Clear all</button>
       </div>
     </div>
     <div class="chip-row" id="mpSettingsSubjectChips"></div>
@@ -162,7 +192,7 @@
     <select id="mpSettingsTournamentSelect" style="width:100%; max-width:420px;"></select>
     <p class="small-note" id="mpSettingsMatchCount" style="margin-top:10px;"></p>
     <div style="margin-top:18px; display:flex; gap:10px;">
-      <button class="btn primary" id="mpSettingsDoneBtn">Done</button>
+      <button class="btn btn-primary" id="mpSettingsDoneBtn">Done</button>
     </div>
   </div>
 </div>
@@ -177,8 +207,8 @@
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
         <span class="pause-badge" id="mpPauseBadge" style="display:none;">⏸ Paused</span>
-        <button class="btn small" id="mpPauseBtn" style="display:none;">Pause (P)</button>
-        <button class="btn small settings-btn" id="mpSettingsBtn" style="display:none;">⚙ Room settings (S)</button>
+        <button class="btn btn-sm btn-outline-secondary" id="mpPauseBtn" style="display:none;">Pause (P)</button>
+        <button class="btn btn-sm btn-danger settings-btn" id="mpSettingsBtn" style="display:none;">⚙ Room settings (S)</button>
       </div>
     </div>
 
@@ -207,7 +237,7 @@
 
       <div class="answer-input-row" id="mpAnswerRow" style="display:none;">
         <input type="text" id="mpAnswerInput" placeholder="Type your answer and press Enter…" autocomplete="off" />
-        <button class="btn primary" id="mpSubmitBtn">Submit</button>
+        <button class="btn btn-primary" id="mpSubmitBtn">Submit</button>
       </div>
 
       <div class="mp-buzz-status" id="mpBuzzStatus" style="display:none;">
@@ -219,10 +249,10 @@
       <div class="reveal-box" id="mpRevealBox" style="display:none;"></div>
 
       <div class="controls-row">
-        <button class="btn icon-btn" id="mpBookmarkBtn" title="Bookmark (B)" style="display:none;">☆</button>
-        <button class="btn primary" id="mpBuzzBtn" style="display:none;">Buzz in (Space)</button>
-        <button class="btn primary" id="mpNextBtn" style="display:none;">Next question (N)</button>
-        <button class="btn ghost" id="mpOverrideBtn" style="display:none;">↺ Override (Q)</button>
+        <button class="btn btn-outline-secondary icon-btn" id="mpBookmarkBtn" title="Bookmark (B)" style="display:none;">☆</button>
+        <button class="btn btn-primary" id="mpBuzzBtn" style="display:none;">Buzz in (Space)</button>
+        <button class="btn btn-primary" id="mpNextBtn" style="display:none;">Next question (N)</button>
+        <button class="btn btn-outline-secondary" id="mpOverrideBtn" style="display:none;">↺ Override (Q)</button>
         <span class="shortcut-hint">Space buzz · N next (anyone) · P pause (anyone) · Q override · B bookmark · / chat</span>
       </div>
     </div>
@@ -234,11 +264,11 @@
   <div class="mp-sidebar">
     <div class="mp-leaderboard-head">
       <div class="section-title" style="margin:0;">Leaderboard</div>
-      <button class="btn small ghost" id="mpRenameBtn" title="Change your name">✎ Rename</button>
+      <button class="btn btn-sm btn-outline-secondary" id="mpRenameBtn" title="Change your name">✎ Rename</button>
     </div>
     <div class="mp-rename-row" id="mpRenameRow" style="display:none;">
       <input type="text" id="mpRenameInput" maxlength="24" placeholder="Your name" autocomplete="off" aria-label="Your name" />
-      <button class="btn small primary" id="mpRenameSaveBtn">Save</button>
+      <button class="btn btn-sm btn-primary" id="mpRenameSaveBtn">Save</button>
     </div>
     <div class="mp-players" id="mpPlayerList"></div>
 
@@ -247,7 +277,7 @@
       <div class="mp-chat-log" id="mpChatLog"></div>
       <div class="mp-chat-row">
         <input type="text" id="mpChatInput" placeholder="Say something… (/ to focus)" autocomplete="off" />
-        <button class="btn icon-btn" id="mpChatSendBtn" title="Send" aria-label="Send">
+        <button class="btn btn-outline-secondary icon-btn" id="mpChatSendBtn" title="Send" aria-label="Send">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
       </div>
@@ -256,16 +286,15 @@
 </div>
 
 <!-- ============== SUMMARY ============== -->
-<div class="container" id="mpSummaryScreen" style="display:none;">
+<div class="container mt-3 mb-5" id="mpSummaryScreen" style="display:none;">
   <h1>Game complete</h1>
   <div class="panel">
     <div class="section-title">Final scores</div>
     <div class="mp-players" id="mpFinalScores"></div>
   </div>
   <div style="margin-top:20px;">
-    <a class="btn primary" href="multiplayer.html">Back to lobby</a>
+    <a class="btn btn-primary" href="multiplayer.html">Back to lobby</a>
   </div>
-</div>
 </div>
 
 <script src="js/vendor/peerjs.min.js"></script>

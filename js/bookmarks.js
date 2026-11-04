@@ -17,7 +17,7 @@
     actions.className = 'actions';
 
     const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'btn small';
+    toggleBtn.className = 'btn btn-sm btn-outline-secondary';
     toggleBtn.textContent = 'Show answer';
     toggleBtn.onclick = () => {
       const showing = answerWrap.style.display !== 'none';

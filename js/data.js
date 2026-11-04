@@ -344,7 +344,7 @@
     img.src = src;
     img.alt = alt || '';
     const close = document.createElement('button');
-    close.className = 'btn small lightbox-close';
+    close.className = 'btn btn-sm btn-light lightbox-close';
     close.textContent = '✕';
     close.setAttribute('aria-label', 'Close');
     box.appendChild(img);
@@ -423,7 +423,7 @@
   // A star that toggles one question's bookmark. onChange(isBookmarked).
   function bookmarkButton(qId, onChange) {
     const btn = document.createElement('button');
-    btn.className = 'btn small icon-btn';
+    btn.className = 'btn btn-sm btn-outline-secondary icon-btn';
     function paint(isBm) {
       btn.textContent = isBm ? '★' : '☆';
       btn.classList.toggle('active', isBm);

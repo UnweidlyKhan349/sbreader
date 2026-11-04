@@ -611,7 +611,7 @@
       // it's the literal letter N, not a player count.
       nextBtn.textContent = 'Start (N)';
       nextBtn.dataset.mode = 'next';
-      nextBtn.classList.add('primary');
+      nextBtn.classList.add('btn-primary'); nextBtn.classList.remove('btn-outline-secondary');
       const qDisplay = document.getElementById('mpQDisplay');
       qDisplay.textContent = 'Ready when you are — click Start or press N to begin.';
       qDisplay.classList.add('mp-waiting-text');
@@ -620,13 +620,13 @@
       nextBtn.style.display = 'inline-flex';
       nextBtn.textContent = 'Skip (N)';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.classList.remove('primary');
+      nextBtn.classList.remove('btn-primary'); nextBtn.classList.add('btn-outline-secondary');
     } else if (game.phase === 'buzzwindow') {
       buzzBtn.style.display = amLocked ? 'none' : 'inline-flex';
       nextBtn.style.display = 'inline-flex';
       nextBtn.textContent = 'Skip (N)';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.classList.remove('primary');
+      nextBtn.classList.remove('btn-primary'); nextBtn.classList.add('btn-outline-secondary');
     } else if (game.phase === 'answering') {
       if (amBuzzed) {
         answerRow.style.display = 'flex';
@@ -640,7 +640,7 @@
       nextBtn.style.display = 'inline-flex';
       nextBtn.textContent = 'Next question (N)';
       nextBtn.dataset.mode = 'next';
-      nextBtn.classList.add('primary');
+      nextBtn.classList.add('btn-primary'); nextBtn.classList.remove('btn-outline-secondary');
       // Anyone who buzzed and was graded THIS question can override their
       // own answer - not just whoever happened to be graded last, and not
       // just the host. Once someone's been overridden to correct, though,

@@ -434,8 +434,7 @@
 
     // The answer/reveal area can leave the page scrolled down; bring the
     // new question back into view so it doesn't start partly off-screen.
-    const scroller = document.getElementById('pageScroll');
-    if (scroller) scroller.scrollTop = 0;
+    window.scrollTo(0, 0);
 
     playQuestionTransition();
     hidePill();
@@ -668,8 +667,8 @@
 
   function setNextButtonMode(mode) {
     const btn = document.getElementById('nextBtn');
-    if (mode === 'skip') { btn.style.display = 'inline-flex'; btn.textContent = 'Skip (N)'; btn.dataset.mode = 'skip'; btn.classList.remove('primary'); }
-    else if (mode === 'next') { btn.style.display = 'inline-flex'; btn.textContent = 'Next question (N)'; btn.dataset.mode = 'next'; btn.classList.add('primary'); }
+    if (mode === 'skip') { btn.style.display = 'inline-flex'; btn.textContent = 'Skip (N)'; btn.dataset.mode = 'skip'; btn.classList.remove('btn-primary'); btn.classList.add('btn-outline-secondary'); }
+    else if (mode === 'next') { btn.style.display = 'inline-flex'; btn.textContent = 'Next question (N)'; btn.dataset.mode = 'next'; btn.classList.add('btn-primary'); btn.classList.remove('btn-outline-secondary'); }
     else { btn.style.display = 'none'; btn.dataset.mode = ''; }
   }
   function handleNextButton() {
@@ -811,8 +810,8 @@
       <div class="ans-line">${doneMsg}</div>
       <div class="alt-line">${session.correct} correct · ${session.incorrect} incorrect (${session.skipped} skipped) · ${session.correct + session.incorrect} total</div>
       <div style="margin-top:14px; display:flex; gap:10px;">
-        <button class="btn primary" id="playAgainBtn">${leftBtnLabel}</button>
-        <a class="btn ghost" href="catalog.html">Browse catalog</a>
+        <button class="btn btn-primary" id="playAgainBtn">${leftBtnLabel}</button>
+        <a class="btn btn-outline-secondary" href="catalog.html">Browse catalog</a>
       </div>
     `;
     box.style.display = 'block';
