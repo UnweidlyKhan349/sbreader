@@ -1,8 +1,9 @@
-/* SB Reader - multiplayer host rules with no DOM or network code, so
-   they can be tested in Node.
+/* SB Reader - multiplayer rules with no DOM or network code, so they can be
+   tested in Node.
 
    cleanHostMessage: anyone with the room code can connect and send arbitrary
-   data, so the host only ever acts on the cleaned copy this returns - known
+   data, so the player running the game (the coordinator) only ever acts on
+   the cleaned copy this returns - known
    type, string fields cut to length, settings limited to values that exist
    in meta.json. */
 (function (global) {
@@ -38,12 +39,61 @@
 
   const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override']);
 
+  // A player's ID for the life of their browser, sent with 'join' so a
+  // player who drops out and comes back gets their score back. Not a secret: it only ever guards a practice score.
+  const PID_RE = /^[A-Za-z0-9_-]{8,40}$/;
+  function cleanPid(v) {
+    return typeof v === 'string' && PID_RE.test(v) ? v : '';
+  }
+
+  /* Who runs the game. Every player holds the whole live game, but buzzes,
+     timers and grading still need one player to rule on them, the
+     "coordinator". It's simply the longest-standing player still connected,
+     so when they leave, everyone agrees at once on who carries on, and that
+     player continues from their own copy without missing a beat.
+
+     coordinatorOrder: the room's player IDs in joining order, then anyone
+     connected who isn't on the list yet (in ID order). */
+  function coordinatorOrder(playerIds, extraIds) {
+    const out = [];
+    const seen = new Set();
+    const add = (id) => { if (typeof id === 'string' && !seen.has(id)) { seen.add(id); out.push(id); } };
+    (playerIds || []).forEach(add);
+    [...(extraIds || [])].sort().forEach(add);
+    return out;
+  }
+  function pickCoordinator(order, isUp) {
+    return order.find((id) => isUp(id)) || null;
+  }
+  function rankIn(order, id) {
+    const i = order.indexOf(id);
+    return i < 0 ? Infinity : i;
+  }
+  // Every message from a coordinator is stamped with its term, which goes up
+  // by one each time a new player takes over. Follow a message when its term
+  // is newer than ours, or it's our coordinator's; if two players took over
+  // in the same term, the one earlier in the order wins.
+  // view: { term, coordinatorId, order }
+  function acceptsCoordinator(view, from, term) {
+    if (typeof term !== 'number' || !Number.isFinite(term)) return false;
+    if (term !== view.term) return term > view.term;
+    if (from === view.coordinatorId) return true;
+    const a = rankIn(view.order, from);
+    const b = rankIn(view.order, view.coordinatorId);
+    return a < b || (a === b && from < view.coordinatorId);
+  }
+
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   function cleanHostMessage(msg, meta) {
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
     const { type } = msg;
     if (NO_FIELDS.has(type)) return { type };
-    if (type === 'join') return { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
+    if (type === 'join') {
+      const out = { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
+      const pid = cleanPid(msg.pid);
+      if (pid) out.pid = pid;
+      return out;
+    }
     if (type === 'rename') {
       const name = str(msg.name, LIMITS.name).trim();
       return name ? { type, name } : null;
@@ -88,5 +138,23 @@
     return mine.correct || !attempts.some((a) => a.playerId !== playerId && a.correct);
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, LIMITS, RATE_MIN, RATE_MAX };
+  // Public lobbies: rooms with a fixed, well-known code that anyone can join
+  // from the lobby list. There's no server to keep them open: the first
+  // player in opens one, and like any room it lasts as long as anyone is in
+  // it. One lobby covers every subject, and each subject but energy has its
+  // own.
+  const PUBLIC_PREFIX = 'sbowl-pub-';
+  const NO_PUBLIC_LOBBY = new Set(['energy']);
+  function publicLobbies(meta) {
+    const keys = (meta.subjects || []).map((s) => (typeof s === 'string' ? s : s.key));
+    return [{ key: 'all', subjects: keys }].concat(
+      keys.filter((k) => !NO_PUBLIC_LOBBY.has(k)).map((k) => ({ key: k, subjects: [k] }))
+    ).map((l) => ({ ...l, peerId: PUBLIC_PREFIX + l.key }));
+  }
+  function findPublicLobby(meta, key) {
+    const k = typeof key === 'string' ? key.trim().toLowerCase() : '';
+    return publicLobbies(meta).find((l) => l.key === k) || null;
+  }
+
+  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);
