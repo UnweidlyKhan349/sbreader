@@ -66,10 +66,6 @@ test('a player can override only their own grade, and only one player scores', (
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', true), false);
 });
 
-test('a peek needs no fields', () => {
-  assert.deepStrictEqual(cleanHostMessage({ type: 'peek', players: 99 }, meta), { type: 'peek' });
-});
-
 test('there is a public lobby for all subjects and one per subject but energy', () => {
   const { publicLobbies, findPublicLobby } = globalThis.SBMpRules;
   const lobbies = publicLobbies(meta);
@@ -90,10 +86,24 @@ test('a join keeps a well-formed player ID and drops anything else', () => {
   }
 });
 
-test('the longest-standing player left takes over first', () => {
-  const { takeoverRank } = globalThis.SBMpRules;
-  const players = [{ id: 'HOST' }, { id: 'a' }, { id: 'b' }, { id: 'c' }];
-  assert.strictEqual(takeoverRank(players, 'HOST', 'a'), 0);
-  assert.strictEqual(takeoverRank(players, 'HOST', 'c'), 2);
-  assert.strictEqual(takeoverRank(players, 'HOST', 'zzz'), 3);
+test('the longest-standing player still connected runs the game', () => {
+  const { coordinatorOrder, pickCoordinator } = globalThis.SBMpRules;
+  const order = coordinatorOrder(['a', 'b', 'c', 'b'], new Set(['z', 'c', 'y']));
+  assert.deepStrictEqual(order, ['a', 'b', 'c', 'y', 'z']);
+  assert.strictEqual(pickCoordinator(order, () => true), 'a');
+  assert.strictEqual(pickCoordinator(order, (id) => id !== 'a'), 'b');
+  assert.strictEqual(pickCoordinator(order, (id) => id === 'y'), 'y');
+  assert.strictEqual(pickCoordinator(order, () => false), null);
+});
+
+test('messages from a newer term, or from our coordinator, are followed', () => {
+  const { acceptsCoordinator } = globalThis.SBMpRules;
+  const view = { term: 3, coordinatorId: 'b', order: ['a', 'b', 'c'] };
+  assert.strictEqual(acceptsCoordinator(view, 'b', 3), true);
+  assert.strictEqual(acceptsCoordinator(view, 'c', 4), true);
+  assert.strictEqual(acceptsCoordinator(view, 'a', 2), false);
+  // Same term, two coordinators: the earlier one in the order wins.
+  assert.strictEqual(acceptsCoordinator(view, 'a', 3), true);
+  assert.strictEqual(acceptsCoordinator(view, 'c', 3), false);
+  for (const t of [undefined, '4', NaN, Infinity]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
 });

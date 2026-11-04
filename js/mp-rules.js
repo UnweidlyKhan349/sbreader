@@ -1,8 +1,9 @@
-/* SB Reader - multiplayer host rules with no DOM or network code, so
-   they can be tested in Node.
+/* SB Reader - multiplayer rules with no DOM or network code, so they can be
+   tested in Node.
 
    cleanHostMessage: anyone with the room code can connect and send arbitrary
-   data, so the host only ever acts on the cleaned copy this returns - known
+   data, so the player running the game (the coordinator) only ever acts on
+   the cleaned copy this returns - known
    type, string fields cut to length, settings limited to values that exist
    in meta.json. */
 (function (global) {
@@ -36,27 +37,50 @@
     };
   }
 
-  // 'peek' asks a public lobby's host how many players are in it; it's the
-  // one message a peer may send without joining (see publicLobbies).
-  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'peek']);
+  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override']);
 
   // A player's ID for the life of their browser, sent with 'join' so a
-  // player who drops out (or follows the room to a new host) gets their
-  // score back. Not a secret: it only ever guards a practice score.
+  // player who drops out and comes back gets their score back. Not a secret: it only ever guards a practice score.
   const PID_RE = /^[A-Za-z0-9_-]{8,40}$/;
   function cleanPid(v) {
     return typeof v === 'string' && PID_RE.test(v) ? v : '';
   }
 
-  // Every player holds a copy of the room, so when the host leaves any of
-  // them can carry on hosting it. To keep them from all trying at once, the
-  // longest-standing player still here goes first and the rest wait their
-  // turn. Returns how many places from the front `myId` is (0 = go now).
-  // players: the host's last player list, in joining order.
-  function takeoverRank(players, leavingHostId, myId) {
-    const order = players.map((p) => p.id).filter((id) => id !== leavingHostId);
-    const i = order.indexOf(myId);
-    return i < 0 ? order.length : i;
+  /* Who runs the game. Every player holds the whole live game, but buzzes,
+     timers and grading still need one player to rule on them, the
+     "coordinator". It's simply the longest-standing player still connected,
+     so when they leave, everyone agrees at once on who carries on, and that
+     player continues from their own copy without missing a beat.
+
+     coordinatorOrder: the room's player IDs in joining order, then anyone
+     connected who isn't on the list yet (in ID order). */
+  function coordinatorOrder(playerIds, extraIds) {
+    const out = [];
+    const seen = new Set();
+    const add = (id) => { if (typeof id === 'string' && !seen.has(id)) { seen.add(id); out.push(id); } };
+    (playerIds || []).forEach(add);
+    [...(extraIds || [])].sort().forEach(add);
+    return out;
+  }
+  function pickCoordinator(order, isUp) {
+    return order.find((id) => isUp(id)) || null;
+  }
+  function rankIn(order, id) {
+    const i = order.indexOf(id);
+    return i < 0 ? Infinity : i;
+  }
+  // Every message from a coordinator is stamped with its term, which goes up
+  // by one each time a new player takes over. Follow a message when its term
+  // is newer than ours, or it's our coordinator's; if two players took over
+  // in the same term, the one earlier in the order wins.
+  // view: { term, coordinatorId, order }
+  function acceptsCoordinator(view, from, term) {
+    if (typeof term !== 'number' || !Number.isFinite(term)) return false;
+    if (term !== view.term) return term > view.term;
+    if (from === view.coordinatorId) return true;
+    const a = rankIn(view.order, from);
+    const b = rankIn(view.order, view.coordinatorId);
+    return a < b || (a === b && from < view.coordinatorId);
   }
 
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
@@ -114,11 +138,11 @@
     return mine.correct || !attempts.some((a) => a.playerId !== playerId && a.correct);
   }
 
-  // Public lobbies: rooms with a fixed, well-known peer ID that anyone can
-  // join from the lobby list. There's no server to keep them open, so the
-  // first player in hosts, and when the host leaves the lobby moves to
-  // whoever claims the ID next. One lobby covers every subject, and each
-  // subject but energy has its own.
+  // Public lobbies: rooms with a fixed, well-known code that anyone can join
+  // from the lobby list. There's no server to keep them open: the first
+  // player in opens one, and like any room it lasts as long as anyone is in
+  // it. One lobby covers every subject, and each subject but energy has its
+  // own.
   const PUBLIC_PREFIX = 'sbowl-pub-';
   const NO_PUBLIC_LOBBY = new Set(['energy']);
   function publicLobbies(meta) {
@@ -132,5 +156,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, takeoverRank, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);

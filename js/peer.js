@@ -1,6 +1,6 @@
-/* Thin wrapper around PeerJS for a star-topology multiplayer room.
-   Host holds the authoritative game state; every client only ever
-   talks to the host (no client-to-client connections). */
+/* Thin wrapper around PeerJS for multiplayer rooms: a full mesh in which
+   every player is connected to every other (see makeMesh), plus the
+   lobby-list probe (probeRooms). */
 (function (global) {
   // Google's public STUN servers, which let players find a direct route to
   // each other. There's no TURN relay.
@@ -94,102 +94,151 @@
     return s;
   }
 
-  // peerId: a fixed ID to claim (a public lobby's) instead of a random room
-  // code. If someone already holds it, `ready` rejects with 'unavailable-id'.
-  function makeHost({ peerId, onPlayerMessage, onPlayerConnect, onPlayerDisconnect, onError }) {
-    const roomCode = peerId || 'sbowl-' + randomRoomCode();
-    let peer;
-    try {
-      peer = new Peer(roomCode, { debug: 0, config: ICE_CONFIG });
-    } catch (err) {
-      // If the PeerJS library itself failed to load/initialize (blocked
-      // script, unsupported browser, etc.) this throws synchronously - catch
-      // it and report it like any other connection failure instead of
-      // leaving the caller with an uncaught exception and a UI stuck on
-      // "Connecting..." forever.
-      const failure = Promise.reject(err);
-      failure.catch(() => {});
-      onError && onError(err);
-      return { roomCode, peer: null, ready: failure, broadcast() {}, sendTo() {}, closeConn() {}, playerCount() { return 0; }, close() {} };
-    }
-    const conns = new Map();
-    // Each failure reaches onError exactly once: through the single 'error'
-    // listener below, or - for the timeout, which isn't a PeerJS error -
-    // through the catch on `ready`.
-    const rawReady = new Promise((resolve, reject) => {
-      peer.on('open', (id) => { resolve(id); });
-      peer.on('error', reject);
-    });
-    const api = {
-      roomCode, peer,
-      ready: withTimeout(
-        rawReady,
-        CONNECT_TIMEOUT_MS,
-        'Timed out setting up the room. Check your internet connection and try again.'
-      ).catch((err) => { if (err && err.isTimeout && onError) onError(err); throw err; }),
-      broadcast(data) { for (const c of conns.values()) { if (c.open) c.send(data); } },
-      sendTo(connId, data) { const c = conns.get(connId); if (c && c.open) c.send(data); },
-      closeConn(connId) { const c = conns.get(connId); if (c) c.close(); },
-      playerCount() { return conns.size; },
-      close() { for (const c of conns.values()) c.close(); peer.destroy(); },
-    };
-    peer.on('connection', (conn) => {
-      conns.set(conn.peer, conn);
-      // Each of these can fire for one connection; onPlayerDisconnect must
-      // cope with being told more than once.
-      const drop = () => { if (conns.get(conn.peer) === conn) conns.delete(conn.peer); onPlayerDisconnect && onPlayerDisconnect(conn.peer); };
-      const heard = watchConn(conn, drop);
-      conn.on('data', (data) => { if (!heard(data) && onPlayerMessage) onPlayerMessage(conn.peer, data); });
-      conn.on('open', () => { onPlayerConnect && onPlayerConnect(conn.peer); });
-      conn.on('close', drop);
-      conn.on('error', drop);
-    });
-    peer.on('error', (err) => onError && onError(err));
-    // Losing the broker doesn't touch the players already connected, but
-    // nobody new could find the room (or take it over) until it's back.
-    peer.on('disconnected', () => {
-      setTimeout(() => { if (!peer.destroyed && peer.disconnected) peer.reconnect(); }, 1000);
-    });
-    return api;
-  }
+  /* ---------- Mesh: a room that belongs to nobody ----------
+     Every player connects to every other player. The room's code is only a
+     "door": whoever holds that peer ID answers newcomers with the list of
+     players to connect to (and lobby-list probes with a player count). The
+     door can change hands without anyone in the room noticing.
 
-  function makeClient(roomCode, { onHostMessage, onDisconnect, onError }) {
-    let peer;
+     makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo() })
+       ready              resolves with this player's own peer ID
+       join(roomId)       through the door: connects to every player listed;
+                          resolves { members, ...doorInfo } (the ones reached)
+       claimDoor(roomId)  takes the room's ID; rejects 'unavailable-id' if held
+       releaseDoor(), holdsDoor()
+       send(id, data), broadcast(data), isUp(id), memberIds()
+       connectTo(id)      (re)connects to one player
+       leave()            tells everyone, then closes everything */
+  const MESH_CONNECT_MS = 10000;
+  const DOOR_HOLD_MS = 15000;
+  const BYE = '__bye';
+
+  function makeMesh({ onMessage, onJoin, onLeave, doorInfo }) {
+    const conns = new Map();
+    let self;
+    let door = null;
+    // Failed connects come back as errors on the peer, naming the ID.
+    const pending = new Map(); // peer ID -> reject
     try {
-      peer = new Peer({ debug: 0, config: ICE_CONFIG });
+      self = new Peer({ debug: 0, config: ICE_CONFIG });
     } catch (err) {
       const failure = Promise.reject(err);
       failure.catch(() => {});
-      onError && onError(err);
-      return { peer: null, ready: failure, send() {}, close() {} };
+      return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, memberIds: () => [], connectTo: () => failure, leave() {} };
     }
-    let conn = null;
-    // As in makeHost: one onError call per failure.
-    const report = (err) => { if (onError) onError(err); };
-    let gone = false;
-    const disconnected = () => { if (gone) return; gone = true; onDisconnect && onDisconnect(); };
-    const rawReady = new Promise((resolve, reject) => {
-      peer.on('open', () => {
-        conn = peer.connect(roomCode.trim(), { reliable: true });
-        const heard = watchConn(conn, disconnected);
-        conn.on('open', () => { resolve(); });
-        conn.on('data', (data) => { if (!heard(data) && onHostMessage) onHostMessage(data); });
-        conn.on('close', disconnected);
-        conn.on('error', (err) => { report(err); reject(err); });
+    const ready = withTimeout(new Promise((resolve, reject) => {
+      self.on('open', resolve);
+      self.on('error', (err) => {
+        const m = err && err.type === 'peer-unavailable' && /peer (\S+)/.exec(err.message || '');
+        if (m && pending.has(m[1])) { pending.get(m[1])(err); return; }
+        reject(err);
       });
-      peer.on('error', (err) => { report(err); reject(err); });
+    }), CONNECT_TIMEOUT_MS, 'Timed out reaching the connection service. Check your internet connection and try again.');
+    ready.catch(() => {});
+    self.on('disconnected', () => {
+      setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
     });
-    const api = {
-      peer,
-      ready: withTimeout(
-        rawReady,
-        CONNECT_TIMEOUT_MS,
-        'Could not connect. Check the room code and your internet connection, then try again.'
-      ).catch((err) => { if (err && err.isTimeout) report(err); throw err; }),
-      send(data) { if (conn && conn.open) conn.send(data); },
-      close() { if (conn) conn.close(); peer.destroy(); },
+
+    function adopt(conn) {
+      const id = conn.peer;
+      const old = conns.get(id);
+      conns.set(id, conn);
+      if (old && old !== conn) { try { old.close(); } catch (e) { /* replaced */ } }
+      let gone = false;
+      const drop = (graceful) => {
+        if (gone) return;
+        gone = true;
+        if (conns.get(id) !== conn) return; // replaced by a newer link
+        conns.delete(id);
+        if (onLeave) onLeave(id, !!graceful);
+      };
+      const heard = watchConn(conn, () => drop(false));
+      conn.on('data', (data) => {
+        if (heard(data)) return;
+        if (data && data.type === BYE) { drop(true); try { conn.close(); } catch (e) { /* gone */ } return; }
+        if (onMessage) onMessage(id, data);
+      });
+      conn.on('close', () => drop(false));
+      conn.on('error', () => drop(false));
+      if (!old && onJoin) onJoin(id);
+    }
+    self.on('connection', (conn) => {
+      conn.on('open', () => adopt(conn));
+    });
+
+    function connectTo(id) {
+      return ready.then(() => withTimeout(new Promise((resolve, reject) => {
+        pending.set(id, reject);
+        const conn = self.connect(id, { reliable: true });
+        conn.on('open', () => { pending.delete(id); adopt(conn); resolve(id); });
+        conn.on('error', (err) => { pending.delete(id); reject(err); });
+      }), MESH_CONNECT_MS, 'Could not reach a player.').finally(() => pending.delete(id)));
+    }
+
+    function join(roomId) {
+      return ready.then(() => withTimeout(new Promise((resolve, reject) => {
+        pending.set(roomId, reject);
+        const conn = self.connect(roomId, { reliable: true });
+        conn.on('open', () => conn.send({ type: '__hello' }));
+        conn.on('error', (err) => reject(err));
+        conn.on('data', (data) => {
+          if (!data || data.type !== '__members' || !Array.isArray(data.members)) return;
+          pending.delete(roomId);
+          try { conn.close(); } catch (e) { /* done with the door */ }
+          resolve(data);
+        });
+      }), CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
+        .finally(() => pending.delete(roomId)))
+        .then((info) => {
+          const others = info.members.filter((id) => typeof id === 'string' && id !== self.id);
+          return Promise.allSettled(others.map(connectTo)).then(() => ({ ...info, members: others.filter((id) => conns.has(id)) }));
+        });
+    }
+
+    function claimDoor(roomId) {
+      if (door && !door.destroyed && door.id === roomId) return Promise.resolve(roomId);
+      releaseDoor();
+      let d;
+      try { d = new Peer(roomId, { debug: 0, config: ICE_CONFIG }); } catch (err) { return Promise.reject(err); }
+      door = d;
+      d.on('connection', (conn) => {
+        conn.on('data', (data) => {
+          if (!data) return;
+          const info = doorInfo ? doorInfo() : {};
+          if (data.type === '__hello') conn.send({ type: '__members', members: [self.id, ...conns.keys()], ...info });
+          else if (data.type === 'peek') conn.send({ type: 'peekInfo', players: info.players || 0 });
+        });
+        setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, DOOR_HOLD_MS);
+      });
+      d.on('disconnected', () => {
+        setTimeout(() => { if (!d.destroyed && d.disconnected) d.reconnect(); }, 1000);
+      });
+      return withTimeout(new Promise((resolve, reject) => {
+        d.on('open', resolve);
+        d.on('error', reject);
+      }), CONNECT_TIMEOUT_MS, 'Timed out setting up the room. Check your internet connection and try again.')
+        .catch((err) => { if (door === d) door = null; try { d.destroy(); } catch (e) { /* never opened */ } throw err; });
+    }
+    function releaseDoor() {
+      if (door) { try { door.destroy(); } catch (e) { /* gone */ } }
+      door = null;
+    }
+
+    return {
+      ready,
+      get id() { return self.id; },
+      join, claimDoor, releaseDoor, connectTo,
+      holdsDoor: () => !!(door && door.open),
+      send(id, data) { const c = conns.get(id); if (c && c.open) c.send(data); },
+      broadcast(data) { for (const c of conns.values()) { if (c.open) c.send(data); } },
+      isUp: (id) => conns.has(id),
+      memberIds: () => [...conns.keys()],
+      leave() {
+        for (const c of conns.values()) { try { if (c.open) c.send({ type: BYE }); } catch (e) { /* going */ } }
+        releaseDoor();
+        try { self.destroy(); } catch (e) { /* gone */ }
+      },
     };
-    return api;
   }
 
   // Asks each room in `ids` how many players it has, without joining:
@@ -252,5 +301,5 @@
     });
   }
 
-  global.SBPeer = { makeHost, makeClient, probeRooms, friendlyPeerError };
+  global.SBPeer = { makeMesh, probeRooms, randomRoomCode, friendlyPeerError };
 })(window);

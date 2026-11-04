@@ -727,8 +727,8 @@
     text = (text || '').trim();
     if (!text) return;
     if (myState.role === 'host') {
-      const me = hostPlayers.get('HOST');
-      hostBroadcastChat('HOST', me ? me.name : myState.myName, text);
+      const me = hostPlayers.get(myState.myId);
+      hostBroadcastChat(myState.myId, me ? me.name : myState.myName, text);
     } else if (client) {
       client.send({ type: 'chatSend', text });
     }
@@ -781,99 +781,6 @@
     };
   }
 
-  function createRoom() {
-    const pool = getFiltered();
-    if (!pool.length) { alert('No questions match your filters.'); return; }
-    const typedName = document.getElementById('hostNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
-    if (typedName) saveName(typedName);
-    startHosting({
-      pool, filters: filterState, name: typedName || 'Host',
-      rate: parseFloat(document.getElementById('mpRateSlider').value) || 1,
-    }).catch((err) => {
-      alert('Could not start the room.\n\n' + SBPeer.friendlyPeerError(err));
-    });
-  }
-
-  // Opens a room hosted in this browser and enters it. With `peerId`, claims
-  // that fixed ID (a public lobby's, or a room being taken over); the promise
-  // rejects with 'unavailable-id' when someone else already holds it.
-  // `restore` carries on a room whose host left (see takeOver).
-  function startHosting({ pool, filters, name, rate, lobby, peerId, restore }) {
-    const h = SBPeer.makeHost({
-      peerId,
-      onPlayerMessage: handleHostMessage,
-      onPlayerConnect: () => {},
-      onPlayerDisconnect: hostPlayerLeft,
-      onError: (err) => { if (!peerId || err.type !== 'unavailable-id') console.error('Room error:', err); },
-    });
-    return h.ready.then((id) => {
-      host = h;
-      client = null;
-      myState.role = 'host';
-      myState.myId = 'HOST';
-      myState.myName = name;
-      myState.rate = rate;
-      myState.publicLobby = lobby || null;
-      myState.roomId = id;
-      resetHostGame();
-      // Stratify by subject so every selected subject gets roughly equal turns
-      // for the whole game, instead of subjects with more questions in the
-      // pool dominating once a smaller subject's supply runs out.
-      hostGame.queue = SBData.stratifiedQueue(pool, (q) => q.subject);
-      hostGame.index = -1;
-      hostGame.phase = 'lobby';
-      hostPlayers.clear();
-      departedPlayers.clear();
-      hostChat.length = 0;
-      game.log = [];
-      game.phase = 'lobby';
-      game.question = null;
-      let resumeQuestion = null;
-      if (restore) {
-        // Everyone else gets their score back when they rejoin (by pid);
-        // until then they're kept with the players who've left.
-        restore.departed.concat(restore.players).forEach((p) => {
-          if (p.pid && p.pid !== myState.pid) departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score });
-        });
-        game.log = restore.log;
-        hostChat.push(...restore.chat);
-        const cur = restore.question && SBData.byId.get(restore.question.id);
-        if (cur && restore.phase !== 'lobby' && restore.phase !== 'gameover') {
-          hostGame.queue = [cur].concat(hostGame.queue.filter((q) => q.id !== cur.id));
-          hostGame.index = 0;
-          hostGame.currentFull = cur;
-          game.question = sanitizeQuestion(cur);
-          if (restore.phase === 'reveal') {
-            hostGame.phase = 'reveal';
-            game.phase = 'reveal';
-            game.lastRevealData = restore.lastRevealData;
-            game.attempts = restore.attempts;
-          } else {
-            resumeQuestion = { anyAttempt: restore.attempts.length > 0 };
-          }
-        }
-      }
-      game.total = hostGame.queue.length;
-      hostPlayers.set('HOST', { id: 'HOST', name, score: restore ? restore.myScore : 0, connId: 'HOST', pid: myState.pid });
-      activeFilterState = copyFilters(filters);
-      enterGameScreen();
-      showRoomCode(id);
-      broadcastLobby();
-      fullRenderFromState();
-      // A question that was mid-play when the host left can't be picked up
-      // where it was (their timers and buzzes went with them), so it's
-      // revealed as it stands.
-      if (resumeQuestion) {
-        hostGame.anyAttempt = resumeQuestion.anyAttempt;
-        hostReveal();
-      }
-      return id;
-    }, (err) => {
-      try { h.close(); } catch (e) { /* never opened */ }
-      throw err;
-    });
-  }
-
   function resetHostGame() {
     clearHostTimer();
     Object.assign(hostGame, {
@@ -902,6 +809,10 @@
   function hostPlayerLeft(connId) {
     const p = hostPlayers.get(connId);
     if (!p) return;
+    if (hostGame.phase === 'answering' && hostGame.buzzedConnId === connId) {
+      clearHostTimer();
+      buzzedPlayerGone(connId);
+    }
     hostPlayers.delete(connId);
     if (p.pid) {
       departedPlayers.delete(p.pid);
@@ -926,7 +837,7 @@
     game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, pid: p.pid || null }));
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
-    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, roomCode: host.roomCode });
+    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, roomCode: myState.roomId });
   }
 
   function hostBroadcastChat(fromId, name, text, system) {
@@ -980,15 +891,6 @@
   function handleHostMessage(connId, rawMsg) {
     const msg = SBMpRules.cleanHostMessage(rawMsg, SBData.meta);
     if (!msg) return;
-    // A public lobby's player count, for the lobby list. The asker closes
-    // the connection once it has the answer; close it here too in case it
-    // doesn't.
-    if (msg.type === 'peek') {
-      if (!myState.publicLobby || hostPlayers.has(connId)) return;
-      host.sendTo(connId, { type: 'peekInfo', players: hostPlayers.size });
-      setTimeout(() => { if (host && !hostPlayers.has(connId)) host.closeConn(connId); }, 5000);
-      return;
-    }
     // Everything but 'join' needs a player who has joined.
     if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
     if (msg.type === 'join') {
@@ -1042,7 +944,7 @@
     if (name === p.name) return;
     const old = p.name;
     p.name = name;
-    if (connId === 'HOST') myState.myName = name;
+    if (connId === myState.myId) myState.myName = name;
     broadcastLobby();
     hostBroadcastChat('SYSTEM', '', `${old} is now ${name}`, true);
   }
@@ -1080,7 +982,7 @@
   }
 
   function hostStartBuzzWindow() {
-    if (hostGame.phase !== 'reading') return;
+    if (myState.role !== 'host' || hostGame.phase !== 'reading') return;
     hostGame.phase = 'buzzwindow';
     host.broadcast({ type: 'phase', phase: 'buzzwindow' });
     applyPhaseLocal('buzzwindow');
@@ -1113,10 +1015,7 @@
     // If the answer timer runs out, submit whatever they'd typed so far
     // instead of forcing a blank - game.liveTypingText tracks their latest
     // known input for exactly this buzzed player throughout the countdown.
-    hostRunTimer(ANSWER_MS, 'answer', () => {
-      const pendingText = game.liveTypingFrom === connId ? game.liveTypingText : '';
-      hostHandleAnswer(connId, pendingText);
-    });
+    hostRunTimer(ANSWER_MS, 'answer', () => answerTimeUp(connId));
   }
 
   function hostHandleAnswer(connId, text) {
@@ -1426,8 +1325,309 @@
     });
   }
 
-  /* ================= CLIENT (joiner) LOGIC ================= */
+  /* ================= THE ROOM ================= */
+  // A room belongs to nobody. Every player is connected to every other
+  // (SBPeer.makeMesh) and keeps the whole live game: players, scores, the
+  // players who've left, the log, the chat, the settings, and where the
+  // current question stands (phase, buzzes, timers). One player, the
+  // longest-standing one still here, rules on buzzes, timers and grading -
+  // the "coordinator", which is what the host* functions above do. When they
+  // leave, everyone already agrees on who's next (SBMpRules.pickCoordinator),
+  // and that player carries on from their own copy at once, mid-question
+  // included. Anyone who leaves is simply taken off the leaderboard, their
+  // score kept for if they come back.
+  //
+  // The room's code is only its door: the coordinator holds that peer ID and
+  // answers newcomers with the list of players to connect to.
   let client = null;
+  let mesh = null;
+  let term = 0;
+  let coordinatorId = null;
+  // The coordinator's last word on what the other players can't see for
+  // themselves (penalty context, per-player grades); see engineSnapshot.
+  let followerEngine = null;
+  // Who's connected and what they joined as (from their 'join').
+  const memberInfo = new Map();
+  let doorLoopRunning = false;
+  const DOOR_RETRY_MS = 3000;
+  const DOOR_ATTEMPTS = 40;
+
+  // Messages a coordinator sends carry its term, and all but the frequent
+  // ones carry the engine state, so whoever takes over next is never more
+  // than one message behind.
+  const NO_ENGINE = new Set(['tick', 'typing', 'chat']);
+  function engineSnapshot() {
+    return {
+      buzzedDuringReading: hostGame.buzzedDuringReading,
+      anyAttempt: hostGame.anyAttempt,
+      buzzwindowRemainingMs: hostGame.buzzwindowRemainingMs,
+      grades: [...hostGame.gradesByConn],
+    };
+  }
+  function stamp(msg) {
+    const out = { ...msg, term };
+    if (!NO_ENGINE.has(msg.type)) out.eng = engineSnapshot();
+    return out;
+  }
+  const hostLink = {
+    broadcast(msg) { if (mesh) mesh.broadcast(stamp(msg)); },
+    sendTo(id, msg) { if (mesh) mesh.send(id, stamp(msg)); },
+  };
+  const clientLink = {
+    send(msg) { if (mesh && coordinatorId) mesh.send(coordinatorId, msg); },
+  };
+
+  function isUp(id) { return !!mesh && (id === mesh.id || mesh.isUp(id)); }
+  function memberOrder() {
+    return SBMpRules.coordinatorOrder(game.players.map((p) => p.id), [...memberInfo.keys(), mesh ? mesh.id : null].filter(Boolean));
+  }
+
+  function openMesh() {
+    if (!mesh) {
+      mesh = SBPeer.makeMesh({
+        onMessage: onMeshMessage,
+        onLeave: onMemberLeft,
+        doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
+      });
+    }
+    return mesh.ready;
+  }
+
+  function onMeshMessage(from, data) {
+    if (!data || typeof data !== 'object' || typeof data.type !== 'string') return;
+    if (data.type === 'join') {
+      const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
+      if (!msg) return;
+      memberInfo.set(from, { name: msg.name, pid: msg.pid || null });
+      if (myState.role === 'host') handleHostMessage(from, msg);
+      return;
+    }
+    if ('term' in data) {
+      // From a coordinator: follow it, or ignore it (see acceptsCoordinator).
+      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder() }, from, data.term)) return;
+      if (from !== coordinatorId || data.term !== term) followCoordinator(from, data.term);
+      if (data.eng) followerEngine = data.eng;
+      handleClientMessage(data);
+      return;
+    }
+    if (myState.role === 'host') handleHostMessage(from, data);
+  }
+
+  function followCoordinator(id, newTerm) {
+    if (myState.role === 'host' && mesh) {
+      clearHostTimer();
+      mesh.releaseDoor();
+    }
+    term = newTerm;
+    coordinatorId = id;
+    myState.role = 'client';
+    host = null;
+    client = clientLink;
+  }
+
+  function onMemberLeft(id) {
+    memberInfo.delete(id);
+    if (!mesh || !myState.role) return;
+    if (myState.role === 'host') {
+      hostPlayerLeft(id);
+      return;
+    }
+    if (id !== coordinatorId) return;
+    const next = SBMpRules.pickCoordinator(memberOrder().filter((x) => x !== id), isUp);
+    if (!next || next === mesh.id) takeOver();
+    else coordinatorId = next; // they take over; their first message has a newer term
+  }
+
+  // Carry on the room from this player's own copy, exactly where it stands.
+  function takeOver() {
+    term += 1;
+    coordinatorId = mesh.id;
+    myState.role = 'host';
+    host = hostLink;
+    client = null;
+    const tick = game.lastTick;
+    stopClientTickLoop();
+
+    // Players: whoever's still connected stays; anyone else has left.
+    hostPlayers.clear();
+    departedPlayers.clear();
+    (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, d); });
+    game.players.forEach((p) => {
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, connId: p.id, pid: p.pid || null });
+      else if (p.pid) departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score });
+    });
+    if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
+    memberInfo.forEach((info, id) => { if (isUp(id) && !hostPlayers.has(id)) addPlayer(id, info.name, info.pid); });
+    hostChat.length = 0;
+    hostChat.push(...chatMirror);
+
+    // The questions still to come: the room's settings, minus what's been asked.
+    const filters = activeFilterState || lobbyFilters(myState.publicLobby || { subjects: SBData.meta.subjects.map((x) => x.key) });
+    if (!activeFilterState) activeFilterState = copyFilters(filters);
+    const asked = new Set(game.log.map((e) => e.question && e.question.id));
+    const cur = game.question && SBData.byId.get(game.question.id);
+    if (cur) asked.add(cur.id);
+    const all = filterQuestionsFor(filters);
+    const fresh = all.filter((q) => !asked.has(q.id));
+    const tail = SBData.stratifiedQueue(fresh.length ? fresh : all, (q) => q.subject);
+    const playing = cur && game.phase !== 'lobby' && game.phase !== 'gameover';
+    const eng = followerEngine || {};
+    clearHostTimer();
+    Object.assign(hostGame, {
+      queue: playing ? [cur].concat(tail) : tail,
+      index: playing ? 0 : -1,
+      phase: playing ? game.phase : 'lobby',
+      currentFull: playing ? cur : null,
+      buzzedConnId: game.buzzedPlayerId || null,
+      buzzedDuringReading: !!eng.buzzedDuringReading,
+      anyAttempt: !!eng.anyAttempt || game.attempts.length > 0,
+      buzzwindowRemainingMs: typeof eng.buzzwindowRemainingMs === 'number' ? eng.buzzwindowRemainingMs : null,
+      lockedOutIds: new Set(game.lockedOut),
+      gradesByConn: new Map(Array.isArray(eng.grades) ? eng.grades : []),
+      overrideLocked: !!game.overrideLocked,
+      paused: !!game.paused,
+      lastGrade: game.lastGrade ? { connId: game.lastGrade.playerId, correct: game.lastGrade.correct, delta: 0, userText: game.lastGrade.userText } : null,
+    });
+    game.total = hostGame.queue.length;
+
+    // Pick the question up where it is.
+    const left = (kind) => (tick && tick.kind === kind ? tick.remainingMs : null);
+    if (hostGame.phase === 'reading') {
+      if (!revealCtl || revealCtl.isDone()) hostStartBuzzWindow();
+    } else if (hostGame.phase === 'buzzwindow') {
+      const full = cur.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
+      hostRunTimer(left('buzz') ?? full, 'buzz', () => hostReveal(), tick ? tick.totalMs : full);
+    } else if (hostGame.phase === 'answering') {
+      const who = hostGame.buzzedConnId;
+      if (who && hostPlayers.has(who)) hostRunTimer(left('answer') ?? ANSWER_MS, 'answer', () => answerTimeUp(who), ANSWER_MS);
+      else buzzedPlayerGone(who);
+    }
+    broadcastLobby();
+    keepDoor();
+  }
+
+  function addPlayer(id, name, pid) {
+    const pidInUse = pid && [...hostPlayers.values()].some((p) => p.pid === pid);
+    const back = pid && !pidInUse ? departedPlayers.get(pid) : null;
+    if (back) departedPlayers.delete(pid);
+    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, connId: id, pid: pidInUse ? null : (pid || null) });
+  }
+
+  // The coordinator holds the room's code, so newcomers can find the room.
+  // When it changes hands, the old holder's ID can take a while to free up
+  // (up to a minute if they dropped off rather than leaving), so keep
+  // trying. If someone else answers on it, this player has been cut off
+  // from the room: rejoin it, score and all.
+  async function keepDoor() {
+    if (doorLoopRunning) return;
+    doorLoopRunning = true;
+    try {
+      for (let i = 0; i < DOOR_ATTEMPTS && myState.role === 'host' && mesh && !mesh.holdsDoor(); i++) {
+        try {
+          await mesh.claimDoor(myState.roomId);
+          if (myState.role !== 'host') mesh.releaseDoor();
+          return;
+        } catch (err) {
+          if (err && err.type === 'unavailable-id' && myState.role === 'host') {
+            try {
+              const info = await mesh.join(myState.roomId);
+              if (info.coordinator && info.coordinator !== mesh.id && !hostPlayers.has(info.coordinator) && myState.role === 'host') {
+                rejoinRoom(info);
+                return;
+              }
+            } catch (e) { /* nobody there yet */ }
+          }
+        }
+        await sleep(DOOR_RETRY_MS);
+      }
+    } finally {
+      doorLoopRunning = false;
+    }
+  }
+  function rejoinRoom(info) {
+    followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : term);
+    mesh.broadcast({ type: 'join', name: myState.myName, pid: myState.pid });
+  }
+
+  // A player who leaves while answering just stops answering: no penalty,
+  // and the question goes on for everyone else.
+  function buzzedPlayerGone(connId) {
+    hostGame.buzzedDuringReading = false;
+    hostApplyGrade(connId, false, '', false);
+  }
+  function answerTimeUp(connId) {
+    let text = game.liveTypingFrom === connId ? game.liveTypingText : '';
+    if (connId === myState.myId) text = document.getElementById('mpAnswerInput').value;
+    hostHandleAnswer(connId, text);
+  }
+
+  function enterRoomAs(roomId, name, lobby) {
+    myState.myId = mesh.id;
+    myState.myName = name;
+    myState.publicLobby = lobby || null;
+    myState.roomId = roomId;
+    enterGameScreen();
+    showRoomCode(roomId);
+    // Put the room in the address bar, so reloading rejoins it and the URL
+    // can be shared as is.
+    try { history.replaceState(null, '', inviteLink(displayRoomCode(roomId))); } catch (e) { /* e.g. file:// */ }
+  }
+
+  // Opens a new room under `roomId`, with this player first in it.
+  // Rejects with 'unavailable-id' if that code is taken.
+  async function startRoom({ roomId, pool, filters, name, rate, lobby }) {
+    await openMesh();
+    await mesh.claimDoor(roomId);
+    term = 1;
+    coordinatorId = mesh.id;
+    myState.role = 'host';
+    host = hostLink;
+    client = null;
+    myState.rate = rate;
+    resetHostGame();
+    // Stratify by subject so every selected subject gets roughly equal turns
+    // for the whole game, instead of subjects with more questions in the
+    // pool dominating once a smaller subject's supply runs out.
+    hostGame.queue = SBData.stratifiedQueue(pool, (q) => q.subject);
+    game.total = hostGame.queue.length;
+    game.log = [];
+    hostPlayers.clear();
+    departedPlayers.clear();
+    hostChat.length = 0;
+    activeFilterState = copyFilters(filters);
+    myState.myName = name;
+    hostPlayers.set(mesh.id, { id: mesh.id, name, score: 0, connId: mesh.id, pid: myState.pid });
+    enterRoomAs(roomId, name, lobby);
+    broadcastLobby();
+    fullRenderFromState();
+  }
+
+  // Joins the room behind `roomId` through its door.
+  async function joinExisting(roomId, name, lobby) {
+    await openMesh();
+    const info = await mesh.join(roomId);
+    if (!info.coordinator || !isUp(info.coordinator)) {
+      throw new Error('Could not connect to the players in that room. Try again, or try a different network.');
+    }
+    followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : 0);
+    enterRoomAs(roomId, name, lobby);
+    mesh.broadcast({ type: 'join', name, pid: myState.pid });
+    fullRenderFromState();
+  }
+
+  function createRoom() {
+    const pool = getFiltered();
+    if (!pool.length) { alert('No questions match your filters.'); return; }
+    const typedName = document.getElementById('hostNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
+    if (typedName) saveName(typedName);
+    const rate = parseFloat(document.getElementById('mpRateSlider').value) || 1;
+    const tryCode = (n) => startRoom({ roomId: ROOM_PREFIX + SBPeer.randomRoomCode(), pool, filters: filterState, name: typedName || 'Player', rate })
+      .catch((err) => { if (err && err.type === 'unavailable-id' && n < 3) return tryCode(n + 1); throw err; });
+    tryCode(0).catch((err) => {
+      alert('Could not start the room.\n\n' + SBPeer.friendlyPeerError(err));
+    });
+  }
+
   function joinRoom() {
     // The visible room code is always uppercase (see displayRoomCode/
     // randomRoomCode), so capitalize whatever was typed before connecting -
@@ -1439,129 +1639,23 @@
     if (codeRaw.toLowerCase().startsWith(ROOM_PREFIX)) codeRaw = codeRaw.slice(ROOM_PREFIX.length);
     const code = ROOM_PREFIX + codeRaw;
     const typedName = document.getElementById('joinNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
-    const name = typedName || 'Player';
+    const name = typedName || savedName() || 'Player';
     if (typedName) saveName(typedName);
     const joinStatusEl = document.getElementById('joinStatus');
     if (!codeRaw) { joinStatusEl.textContent = 'Enter a room code.'; joinStatusEl.classList.remove('status-error'); return; }
+    if (myState.role) return;
     joinStatusEl.textContent = 'Connecting…';
     joinStatusEl.classList.remove('status-error');
-    startJoining(code, name).catch((err) => {
+    // The code can be between holders for a moment (someone just left), so
+    // a room that isn't found gets a couple more tries.
+    const attempt = (n) => joinExisting(code, name).catch((err) => {
+      if (err && (err.type === 'peer-unavailable' || err.isTimeout) && n < 2) return sleep(1500).then(() => attempt(n + 1));
+      throw err;
+    });
+    attempt(0).catch((err) => {
       joinStatusEl.textContent = SBPeer.friendlyPeerError(err);
       joinStatusEl.classList.add('status-error');
     });
-  }
-
-  // Connects to the room with peer ID `code` and enters it (`lobby` when it's
-  // a public lobby). If the host leaves, this player helps carry the room on
-  // instead of the game ending (see takeOver).
-  function startJoining(code, name, lobby) {
-    let joined = false;
-    const c = SBPeer.makeClient(code, {
-      onHostMessage: handleClientMessage,
-      onDisconnect: () => {
-        if (joined && client === c) takeOver();
-      },
-      onError: (err) => { if (joined || !lobby) console.error('Join error:', err); },
-    });
-    return c.ready.then(() => {
-      joined = true;
-      client = c;
-      myState.role = 'client';
-      myState.myName = name;
-      myState.publicLobby = lobby || null;
-      myState.roomId = code;
-      myState.myId = c.peer.id;
-      c.send({ type: 'join', name, pid: myState.pid });
-      enterGameScreen();
-      showRoomCode(code);
-      // Put the room in the address bar, so reloading rejoins it and the
-      // URL can be shared as is.
-      try { history.replaceState(null, '', inviteLink(displayRoomCode(code))); } catch (e) { /* e.g. file:// */ }
-      fullRenderFromState();
-    }, (err) => {
-      try { c.close(); } catch (e) { /* never opened */ }
-      throw err;
-    });
-  }
-
-  /* ================= TAKING OVER A ROOM ================= */
-  // Every player is a host in waiting: each keeps a copy of the room (the
-  // players and their scores, the players who've left, the question log, the
-  // chat and the settings; see broadcastLobby / sendSyncTo). When the host
-  // leaves, the players left claim the room's own ID in turn, longest-
-  // standing first (SBMpRules.takeoverRank). The first to get it hosts from
-  // its copy, so nothing resets, and the others rejoin it under their pid and
-  // get their scores back. A claim fails while the broker still holds the old
-  // host's ID (up to a minute if they dropped off rather than closing the
-  // tab), so it keeps trying for a while.
-  const TAKEOVER_FIRST_MS = 300;
-  const TAKEOVER_STEP_MS = 1500;
-  const TAKEOVER_ATTEMPTS = 10;
-  let takingOver = false;
-
-  function roomSnapshot() {
-    const me = game.players.find((p) => p.id === myState.myId);
-    return {
-      players: game.players.map((p) => ({ ...p })),
-      departed: (game.departed || []).map((p) => ({ ...p })),
-      log: game.log.slice(),
-      chat: chatMirror.slice(),
-      settings: activeFilterState ? copyFilters(activeFilterState) : (myState.publicLobby ? lobbyFilters(myState.publicLobby) : null),
-      rate: myState.rate,
-      question: game.question,
-      phase: game.phase,
-      lastRevealData: game.lastRevealData,
-      attempts: game.attempts.slice(),
-      myScore: me ? me.score : 0,
-    };
-  }
-
-  // Questions for the room's settings, leaving out the ones it has asked.
-  function takeoverPool(snap) {
-    const filters = snap.settings || lobbyFilters({ subjects: SBData.meta.subjects.map((x) => x.key) });
-    const asked = new Set(snap.log.map((e) => e.question && e.question.id));
-    if (snap.question) asked.add(snap.question.id);
-    const all = filterQuestionsFor(filters);
-    const fresh = all.filter((q) => !asked.has(q.id));
-    return { filters, pool: fresh.length ? fresh : all };
-  }
-
-  async function takeOver() {
-    if (takingOver || game.phase === 'gameover') return;
-    takingOver = true;
-    const snap = roomSnapshot();
-    const roomId = myState.roomId;
-    const lobby = myState.publicLobby;
-    const name = myState.myName;
-    const rank = SBMpRules.takeoverRank(snap.players, 'HOST', myState.myId);
-    if (client) { try { client.close(); } catch (e) { /* already gone */ } }
-    client = null;
-    myState.role = null;
-    stopClientTickLoop();
-    if (revealCtl && !revealCtl.isDone()) revealCtl.pause();
-    renderChatAppend({ system: true, local: true, text: 'The host left. Carrying on with the same scores…' });
-    await sleep(TAKEOVER_FIRST_MS + rank * TAKEOVER_STEP_MS);
-    for (let attempt = 0; attempt < TAKEOVER_ATTEMPTS; attempt++) {
-      try {
-        const { filters, pool } = takeoverPool(snap);
-        await startHosting({ pool, filters, name, rate: snap.rate, lobby, peerId: roomId, restore: snap });
-        takingOver = false;
-        hostBroadcastChat('SYSTEM', '', `${myState.myName} is hosting now. Scores carried over.`, true);
-        return;
-      } catch (err) {
-        if (!err || err.type !== 'unavailable-id') { await sleep(1500 + Math.random() * 1500); continue; }
-      }
-      try {
-        await startJoining(roomId, name, lobby);
-        takingOver = false;
-        return;
-      } catch (err) {
-        await sleep(1000 + Math.random() * 2000);
-      }
-    }
-    takingOver = false;
-    alert('Lost the connection to the room.');
-    location.href = location.pathname + (lobby ? `?lobby=${encodeURIComponent(lobby.key)}` : '');
   }
 
   /* ================= PUBLIC LOBBIES ================= */
@@ -1611,14 +1705,14 @@
       setPublicStatus(attempt ? `Still connecting to ${label}…` : `Connecting to ${label}…`);
       try {
         const filters = lobbyFilters(lobby);
-        await startHosting({ pool: filterQuestionsFor(filters), filters, name, rate: 1, lobby, peerId: lobby.peerId });
+        await startRoom({ roomId: lobby.peerId, pool: filterQuestionsFor(filters), filters, name, rate: 1, lobby });
         return;
       } catch (err) {
         lastErr = err;
         if (!err || err.type !== 'unavailable-id') break;
       }
       try {
-        await startJoining(lobby.peerId, name, lobby);
+        await joinExisting(lobby.peerId, name, lobby);
         return;
       } catch (err) {
         lastErr = err;
@@ -1739,7 +1833,9 @@
       myState.rate = msg.rate || 1;
       playQuestionTransition();
       fullRenderFromState();
-      startLocalReveal(msg.question, false);
+      // Whoever runs the game opens buzzing when their reading finishes;
+      // that can become this player at any moment.
+      startLocalReveal(msg.question, false, () => hostStartBuzzWindow());
       return;
     }
     if (msg.type === 'phase') {
@@ -1804,10 +1900,6 @@
       applyGameOverLocal(msg.scores);
       return;
     }
-    if (msg.type === 'hostLeaving') {
-      takeOver();
-      return;
-    }
     if (msg.type === 'settingsState') {
       applySettingsStateLocal(msg);
       // If the settings panel is open right now, refresh what it's showing
@@ -1852,12 +1944,12 @@
     if (game.paused) return;
     if (game.phase !== 'reading' && game.phase !== 'buzzwindow') return;
     if (game.lockedOut.has(myState.myId)) return;
-    if (myState.role === 'host') hostHandleBuzz('HOST');
+    if (myState.role === 'host') hostHandleBuzz(myState.myId);
     else if (client) client.send({ type: 'buzz' });
   }
   function doSubmitAnswer(text) {
     if (game.phase !== 'answering' || game.buzzedPlayerId !== myState.myId) return;
-    if (myState.role === 'host') hostHandleAnswer('HOST', text);
+    if (myState.role === 'host') hostHandleAnswer(myState.myId, text);
     else if (client) client.send({ type: 'submitAnswer', text });
   }
   function doNext() {
@@ -1886,7 +1978,7 @@
     // to correct yet (see fullRenderFromState), and hostOverrideLastGrade()
     // enforces the same restrictions again on the host side for a message
     // sent straight over the wire.
-    if (myState.role === 'host') hostOverrideLastGrade('HOST');
+    if (myState.role === 'host') hostOverrideLastGrade(myState.myId);
     else if (client) client.send({ type: 'override' });
   }
 
@@ -1894,8 +1986,8 @@
   let pendingTypingText = null;
   function sendTypingUpdate(text) {
     if (myState.role === 'host') {
-      game.liveTypingText = text; game.liveTypingFrom = 'HOST';
-      host.broadcast({ type: 'typing', playerId: 'HOST', text });
+      game.liveTypingText = text; game.liveTypingFrom = myState.myId;
+      host.broadcast({ type: 'typing', playerId: myState.myId, text });
     } else if (client) {
       client.send({ type: 'typing', text });
     }
@@ -2214,7 +2306,7 @@
     closeRename();
     if (!name) return;
     saveName(name);
-    if (myState.role === 'host') hostRenamePlayer('HOST', name);
+    if (myState.role === 'host') hostRenamePlayer(myState.myId, name);
     else if (client) client.send({ type: 'rename', name });
   }
 
@@ -2317,14 +2409,11 @@
     });
   }
 
-  // Leaving on purpose (closing the tab, navigating away): say so, so the
-  // room carries on at once instead of waiting to notice. Closing the host's
-  // peer also frees the room's ID for whoever takes over.
+  // Leaving on purpose (closing the tab, navigating away): say goodbye, so
+  // everyone takes this player off at once instead of waiting to notice,
+  // and free the room's code if this player held it.
   window.addEventListener('pagehide', () => {
-    try {
-      if (host) { host.broadcast({ type: 'hostLeaving' }); host.close(); }
-      if (client) client.close();
-    } catch (e) { /* the page is going anyway */ }
+    try { if (mesh) mesh.leave(); } catch (e) { /* the page is going anyway */ }
   });
 
   SBData.load().then(() => {
