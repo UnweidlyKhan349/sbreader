@@ -65,6 +65,14 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
+  // A player who leaves stays on the leaderboard, marked offline, for an hour
+  // (with their score, for if they come back). Whether `entry` ({ leftAt })
+  // should still be shown at time `now`.
+  const OFFLINE_KEEP_MS = 60 * 60 * 1000;
+  function stillOffline(entry, now) {
+    return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
+  }
+
   function rankIn(order, id) {
     const i = order.indexOf(id);
     return i < 0 ? Infinity : i;
@@ -156,5 +164,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);

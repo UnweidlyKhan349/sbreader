@@ -107,3 +107,12 @@ test('messages from a newer term, or from our coordinator, are followed', () => 
   assert.strictEqual(acceptsCoordinator(view, 'c', 3), false);
   for (const t of [undefined, '4', NaN, Infinity]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
 });
+
+test('a player who left shows as offline for an hour', () => {
+  const { stillOffline, OFFLINE_KEEP_MS } = globalThis.SBMpRules;
+  const now = 1_000_000_000;
+  assert.strictEqual(stillOffline({ leftAt: now }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS + 1000 }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS }, now), false);
+  for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
+});
