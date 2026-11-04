@@ -67,7 +67,17 @@
     });
   }
 
+  // The round sliders span the picked tournaments' rounds only.
+  function scopeRoundSliders() {
+    const max = SBData.maxRoundFor(filterState.tournaments);
+    for (const api of [roundSliderApi, soloSettingsRoundSliderApi]) {
+      const moved = api && api.setMax(max);
+      if (moved) filterState.roundRange = moved;
+    }
+  }
+
   function updateMatchCount() {
+    scopeRoundSliders();
     document.getElementById('matchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
   }
 
@@ -176,6 +186,7 @@
   // a change just rebuilds the remaining ("not yet asked") tail of the
   // question queue in place, live, the moment it's made.
   function updateSoloSettingsMatchCount() {
+    scopeRoundSliders();
     document.getElementById('soloSettingsMatchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
   }
 

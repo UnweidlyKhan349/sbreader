@@ -213,6 +213,10 @@
   function render() {
     syncChipVisuals();
     syncTournamentSidebar();
+    if (roundSliderApi) {
+      const moved = roundSliderApi.setMax(SBData.maxRoundFor(state.tournaments));
+      if (moved) state.roundRange = moved;
+    }
     // With no tournament picked, newest tournaments come first; picking
     // tournaments lists them A-Z, as in the picker.
     const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
