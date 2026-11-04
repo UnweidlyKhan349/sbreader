@@ -1648,7 +1648,7 @@
 {"i":99697,"s":"math","f":"SA","qt":"tossup","n":50,"q":"What is the length of the longest diagonal of a unit cube?","a":{"t":"√3"}},
 {"i":99698,"s":"math","f":"SA","qt":"bonus","n":50,"q":"What is the largest integer that cant be written as the sum of 3's and 4's?","a":{"t":"5"}},
 {"i":99699,"s":"math","f":"SA","qt":"bonus","n":51,"q":"What is the derivative of arcsec x?","a":{"t":"1/(|x|√(x^2 − 1))","ac":["1/(x√(x^2 − 1))"]}},
-{"i":99700,"s":"math","f":"MC","qt":"tossup","n":52,"q":"Which of these numbers are transcendental?","c":{"W":"i","X":"root 2","Y":"e to the pi i","Z":"pi"},"a":{"t":"pi","l":"Z"}},
+{"i":99700,"s":"math","f":"MC","qt":"tossup","n":52,"q":"Which of these numbers are transcendental?","c":{"W":"i","X":"√2","Y":"e^(πi)","Z":"π"},"a":{"t":"π","l":"Z"}},
 {"i":99701,"s":"math","f":"SA","qt":"bonus","n":52,"q":"What conic section does this equation create? 25x^2-150x-16y^2-128y+481=0","a":{"t":"HYPERBOLA"}},
 {"i":99702,"s":"math","f":"SA","qt":"tossup","n":53,"q":"Which of the following transformations is a wallpaper group 1 Rotation by 90 degrees 2 Glide Reflection 3 Dilation 4 Reflection","a":{"t":"1,2, and 4"}},
 {"i":99703,"s":"math","f":"SA","qt":"bonus","n":53,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at E. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a":{"t":"√22"}},

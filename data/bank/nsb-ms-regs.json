@@ -7369,7 +7369,7 @@
 {"i":80700,"s":"ess","f":"SA","qt":"bonus","n":19,"q":"Spectral lines are split by what external stimulus in the Zeeman effect?","a":{"t":"MAGNETIC FIELD"}},
 {"i":80701,"s":"phys","f":"SA","qt":"tossup","n":20,"q":"What is a semiconductor device used to amplify and switch electronic signals called?","a":{"t":"TRANSISTOR"}},
 {"i":80702,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"What is the name given to the longest day of the year?","a":{"t":"SUMMER SOLSTICE"}},
-{"i":80703,"s":"math","f":"MC","qt":"tossup","n":21,"q":"An equilateral triangle has a perimeter of 18. What is the height of the triangle?","a":{"t":"3 times the square root of 3","l":"Y"},"c":{"W":"3","X":"3 times the square root of 2","Y":"3 times the square root of 3","Z":"6"}},
+{"i":80703,"s":"math","f":"MC","qt":"tossup","n":21,"q":"An equilateral triangle has a perimeter of 18. What is the height of the triangle?","a":{"t":"3√3","l":"Y"},"c":{"W":"3","X":"3√2","Y":"3√3","Z":"6"}},
 {"i":80704,"s":"math","f":"SA","qt":"bonus","n":21,"q":"A sequence of 10 terms has the property that every term starting with the third is the sum of the previous two terms. If the ninth term is 110 and the seventh term is 42, what is the fifth term?","a":{"t":"16"}},
 {"i":80705,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"Name the part of the plant that produces pollen.","a":{"t":"STAMEN"}},
 {"i":80706,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"What is the genus and species identifier of the domestic dog?","a":{"t":"CANIS LUPUS"}},
@@ -7427,7 +7427,7 @@
 {"i":80756,"s":"bio","f":"MC","qt":"bonus","n":4,"q":"Eukaryotic and prokaryotic cells both contain:","a":{"t":"Cell membrane","l":"Y"},"c":{"W":"Cytoplasmic organelles","X":"Nuclear membrane","Y":"Cell membrane","Z":"Chromosomal proteins"}},
 {"i":80757,"s":"energy","f":"SA","qt":"tossup","n":5,"q":"What are the two gases used to power the first generation fuel cell cars?","a":{"t":"HYDROGEN AND OXYGEN","ac":["H2 AND O2","H AND O"]}},
 {"i":80758,"s":"ess","f":"SA","qt":"bonus","n":5,"q":"To the nearest ten percent, what percent of the sun's energy that hits the Earth is reflected back into space?","a":{"t":"30"}},
-{"i":80759,"s":"math","f":"MC","qt":"tossup","n":6,"q":"What is the distance of the point (2, 3) from the origin?","a":{"t":"Square root of 13","l":"X"},"c":{"W":"Square root of 5","X":"Square root of 13","Y":"5","Z":"13"}},
+{"i":80759,"s":"math","f":"MC","qt":"tossup","n":6,"q":"What is the distance of the point (2, 3) from the origin?","a":{"t":"√13","l":"X"},"c":{"W":"√5","X":"√13","Y":"5","Z":"13"}},
 {"i":80760,"s":"math","f":"SA","qt":"bonus","n":6,"q":"Given the linear function f(x) = 3x + b, if f(-1) = 7, what is f(5)?","a":{"t":"25"}},
 {"i":80761,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"Scientists were able to determine that the outer core of the Earth is a liquid because what seismic waves cannot pass through it?","a":{"t":"SECONDARY WAVES","ac":["S-WAVES"]}},
 {"i":80762,"s":"ess","f":"MC","qt":"bonus","n":7,"q":"Which of the following features is created by a volcano?","a":{"t":"Caldera","l":"X"},"c":{"W":"Fjord","X":"Caldera","Y":"Moraine","Z":"Esker"}},
@@ -11491,7 +11491,7 @@
 {"i":85280,"s":"bio","f":"MC","qt":"tossup","n":11,"q":"Cell membranes are described as fluid mosaic models consisting of proteins embedded in a bilayer of phospholipids. Which of the following components of a plant cell do NOT contain two of these bilayers?","a":{"t":"Endoplasmic reticulum","l":"Y"},"c":{"W":"Chloroplast","X":"Mitochondria","Y":"Endoplasmic reticulum","Z":"Nucleus"}}]},
 {"rl":"Set 9 · Round 12","r":12,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/MS-Sample-Questions/Sample-Set-9/RegionalMS_12A.pdf","q":[
 {"i":85281,"s":"math","f":"SA","qt":"tossup","n":18,"q":"Identify all of the following three logical conclusions that follow from the statement “all A are B”: 1) All B are A; 2) If C is A, then C is also B; 3) If C is not A, then C is not B.","a":{"t":"2"}},
-{"i":85282,"s":"math","f":"MC","qt":"bonus","n":18,"q":"Which of the following points lies inside the circle defined by the equation x^2 + y^2 = 25?","a":{"t":"(4, 2 times square root of 2)","l":"Y"},"c":{"W":"(3, 4)","X":"(4, -3)","Y":"(4, 2 times square root of 2)","Z":"(4, 3 times square root of 2)"}}]},
+{"i":85282,"s":"math","f":"MC","qt":"bonus","n":18,"q":"Which of the following points lies inside the circle defined by the equation x^2 + y^2 = 25?","a":{"t":"(4, 2√2)","l":"Y"},"c":{"W":"(3, 4)","X":"(4, -3)","Y":"(4, 2√2)","Z":"(4, 3√2)"}}]},
 {"rl":"Set 9 · Round 13","r":13,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/MS-Sample-Questions/Sample-Set-9/RegionalMS_13A.pdf","q":[
 {"i":85283,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"What is the primary oxygen-carrying protein found in red blood cells?","a":{"t":"HEMOGLOBIN"}}]},
 {"rl":"Set 9 · Round 14","r":14,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/MS-Sample-Questions/Sample-Set-9/RegionalMS_14A.pdf","q":[
