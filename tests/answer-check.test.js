@@ -287,3 +287,27 @@ test('multi-part keys: roman part labels and a part keyed as letter plus choice'
   assert.ok(!isCorrect(key, 'carbon; W'));
   assert.ok(isCorrect('1) 3; 2) W ((R)-METHYL 3-HYDROXYBUTANOATE)', '3, W'));
 });
+
+test('scientific notation in any common form, and numbers compared whole', () => {
+  for (const typed of ['3.2 * 10^23', '3.2*10^23', '3.2 x 10^23', '3.2x10^23', '3.2e23', '3.2 × 10^23 J']) assert.ok(isCorrect('3.2 × 10^23 J', typed), typed);
+  for (const typed of ['2.3 * 10^23', '3.2 * 10^32', '3.2e32']) assert.ok(!isCorrect('3.2 × 10^23 J', typed), typed);
+  assert.ok(isCorrect('1.6 × 10^-19 C', '1.6e-19'));
+  assert.ok(!isCorrect('1.6 × 10^-19 C', '1.6e19'));
+  // a decimal is one number: its digits can't be reordered
+  assert.ok(!isCorrect('7.2', '2.7'));
+  assert.ok(!isCorrect('4.5 METERS', '5.4'));
+  assert.ok(!isCorrect('12.5 GRAMS', '5.12'));
+  assert.ok(isCorrect('12.5 GRAMS', '12.5'));
+  assert.ok(isCorrect('40,000 VOLTS', '40000'));
+  // a bare number passes for a number and its units, not for more math or a sign word
+  assert.ok(isCorrect('1080 N', '1080'));
+  assert.ok(isCorrect('4 TIMES AS FAST', '4'));
+  assert.ok(!isCorrect('7 times 10^-10', '7'));
+  assert.ok(!isCorrect('20 pi', '20'));
+  assert.ok(!isCorrect('3.9', '3.9 x 10^2'));
+  assert.ok(!isCorrect('-870 JOULES', '870', { accept: ['870 JOULES LESS'] }));
+  assert.ok(isCorrect('-870 JOULES', '870 joules less', { accept: ['870 JOULES LESS'] }));
+  // the same in one part of a multi-part answer
+  assert.ok(isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 3.2 * 10^23'));
+  assert.ok(!isCorrect('I) W; II) 3.2 × 10^23 J', 'W; 2.3 * 10^23'));
+});

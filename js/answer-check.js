@@ -12,6 +12,10 @@
     return String(s)
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
+      // dropped as punctuation below)
+      .replace(/(\d)\s*X\s*(?=10\s*\^)/g, '$1 ')
+      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1$2 10 $3')
       // exponent and subscript markup is ignored, so "x^2" = "x2",
       // "e^(-x)" = "e-x" and "K_sp" = "Ksp"
       .replace(/[\^_]\(([^()]*)\)/g, '$1')
@@ -30,7 +34,11 @@
       // matches the other.
       .replace(/\bSQUARE\s+ROOTS?\s+OF\b/g, ' SQRT ')
       .replace(/\bCUBE\s+ROOTS?\s+OF\b/g, ' CBRT ')
-      .replace(/[^A-Z0-9'\s]/g, ' ') // strip punctuation except apostrophe
+      // a decimal point stays part of its number, so "7.2" is one word and
+      // never matches "2.7" by word order
+      .replace(/(\d)\.(?=\d)/g, '$1\u0001')
+      .replace(/[^A-Z0-9'\s\u0001]/g, ' ') // strip punctuation except apostrophe
+      .replace(/\u0001/g, '.')
       .replace(/\s+/g, ' ')
       .trim()
       // standard abbreviations become the full term, so "ER" and "rough ER"
@@ -306,25 +314,59 @@
   // start with the right number as correct. `extractLeadingNumbers` is used
   // on the answer-key side instead, where trailing descriptor words are
   // expected and fine to ignore.
+  // The numbers in a text as whole values: "4.5" stays 4.5 (normalize()
+  // would split it into 4 and 5), "40,000" is 40000, and scientific notation
+  // in any common form ("3.2 × 10^23", "3.2 x 10^23", "3.2*10^23", "3.2e23",
+  // a bare "10^23") is one number, "3.2E23", with its exponent's sign kept.
+  // Signs on the numbers themselves are left to signConflict().
+  const SCI_RE = /(\d+(?:\.\d+)?|\.\d+)\s*(?:[X×*·∙]|TIMES)\s*10\s*\^\s*\(?\s*([+\-−–]?\s*\d+)\s*\)?/g;
+  function numberTokens(text) {
+    const s = String(text == null ? '' : text).toUpperCase()
+      .replace(/(\d),(?=\d{3}(?!\d))/g, '$1')
+      .replace(SCI_RE, (m, a, b) => ` ${a}E${b.replace(/[−–]/, '-').replace(/\s+/g, '')} `)
+      .replace(/(^|[^\dA-Z.])10\s*\^\s*\(?\s*([+\-−–]?\d+)\s*\)?/g, (m, pre, b) => `${pre} 1E${b.replace(/[−–]/, '-')} `)
+      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1 $2E$3 ');
+    return s.split(/[\s;,()[\]]+/).map((w) => w.replace(/^[+\-−–]+/, '').replace(/[.:!?]+$/, '')).filter(Boolean);
+  }
+  const NUMBER_TOKEN_RE = /^(?:\d+(?:\.\d+)?|\.\d+)(?:E[+\-]?\d+)?$/;
+  const canonNumber = (w) => (w.startsWith('.') ? '0' + w : w);
   function extractPureNumbers(text) {
-    const tokens = normalize(text).split(' ').filter(Boolean);
     const nums = [];
-    for (const t of tokens) {
-      if (/^[0-9]+(?:\.[0-9]+)?$/.test(t)) { nums.push(t); continue; }
-      if (t === 'AND' || t === 'OR') continue;
+    for (const w of numberTokens(text)) {
+      if (NUMBER_TOKEN_RE.test(w)) { nums.push(canonNumber(w)); continue; }
+      if (w === 'AND' || w === 'OR' || w === '&') continue;
       return null;
     }
     return nums.length ? nums : null;
   }
   function extractLeadingNumbers(text) {
-    const tokens = normalize(text).split(' ').filter(Boolean);
     const nums = [];
-    for (const t of tokens) {
-      if (/^[0-9]+(?:\.[0-9]+)?$/.test(t)) { nums.push(t); continue; }
-      if (t === 'AND' || t === 'OR') continue;
+    for (const w of numberTokens(text)) {
+      if (NUMBER_TOKEN_RE.test(w)) { nums.push(canonNumber(w)); continue; }
+      if (w === 'AND' || w === 'OR' || w === '&') continue;
       break;
     }
     return nums;
+  }
+  // Does what follows a key's leading number(s) read as units ("8 FACTORS",
+  // "12 CM BEHIND THE MIRROR", "3.9 kcal/mol", "2 ONLY (8)")? Not when it is
+  // more math ("3 TIMES THE SQUARE ROOT OF 3", "3 SQRT 11") or a word that
+  // carries the sign ("870 JOULES LESS", "273 DEGREES BELOW ZERO"): then a
+  // bare number isn't the whole answer.
+  const SIGN_WORDS = new Set(['LESS', 'BELOW', 'DECREASE', 'DECREASES', 'DECREASED', 'LOSS', 'LOST', 'LOSE', 'LOSES',
+    'DROP', 'DROPS', 'DROPPED', 'LOWER', 'FALL', 'FALLS', 'NEGATIVE', 'MINUS', 'DOWN', 'UNDER', 'DEFICIT', 'REDUCTION']);
+  const MATH_WORDS = new Set(['SQRT', 'CBRT', 'PI', 'OVER', 'PLUS', 'MINUS', 'DIVIDED', 'I']);
+  function unitTail(text) {
+    const words = numberTokens(text);
+    let i = 0;
+    while (i < words.length && (NUMBER_TOKEN_RE.test(words[i]) || ['AND', 'OR', '&'].includes(words[i]))) i++;
+    const tail = words.slice(i);
+    if (!tail.length) return true;
+    if (!/^[A-Z][A-Z0-9'./^*\-]*$/.test(tail[0]) || MATH_WORDS.has(tail[0])) return false;
+    // "1000 TIMES" or "4 TIMES AS FAST" is an answer; "24 TIMES THE
+    // PERMITTIVITY ..." or "2 TIMES 10 TO THE 8TH" is more math
+    if (tail[0] === 'TIMES' && tail.length > 1 && (/^\d|^\.\d/.test(tail[1]) || ['THE', 'SQUARE', 'CUBE', 'PI', 'SQRT', 'A', 'AN'].includes(tail[1]))) return false;
+    return !tail.some((w) => SIGN_WORDS.has(w.replace(/[^A-Z]/g, '')));
   }
   function numsEqualAsSet(a, b) {
     if (!a.length || a.length !== b.length) return false;
@@ -714,8 +756,15 @@
     let best = null;
     const ns = normalize(seg);
     if (!ns) return null;
+    const segNums = extractPureNumbers(seg);
     for (const alt of alts) {
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
+      // a bare number for a part keyed as that number and a unit ("3.2 *
+      // 10^23" for "3.2 × 10^23 J"), as for a single answer
+      if (segNums) {
+        const altNums = extractLeadingNumbers(alt);
+        if (altNums.length && numsEqualAsSet(segNums, altNums) && !signConflict(seg, alt) && unitTail(alt)) return 'exact';
+      }
       const lenient = lenientWordMatch(seg, alt);
       if (lenient === 'exact') return 'exact';
       if (lenient === 'typo') best = betterMatch(best, 'typo');
@@ -1182,12 +1231,12 @@
       const rawPureNums = multi ? null : extractPureNumbers(raw);
       if (rawPureNums) {
         const mainNums = extractLeadingNumbers(ans.text);
-        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums) && !signConflict(raw, ans.text)) {
+        if (mainNums.length && numsEqualAsSet(rawPureNums, mainNums) && !signConflict(raw, ans.text) && unitTail(ans.text)) {
           return { correct: true, matched: 'main', rejected: false };
         }
         for (const acc of accepts) {
           const accNums = extractLeadingNumbers(acc);
-          if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc)) {
+          if (accNums.length && numsEqualAsSet(rawPureNums, accNums) && !signConflict(raw, acc) && unitTail(acc)) {
             return { correct: true, matched: 'accept', rejected: false };
           }
         }
