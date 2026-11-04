@@ -6,52 +6,47 @@
   const ANSWER_MS = 10000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
 
+  // The play page has no separate setup screen: the filters live in the
+  // settings sidebar, the first Next starts a session, and a filter change
+  // mid-session rebuilds the part of the queue not yet asked.
   const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true, bookmarkedOnly: false };
   let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi;
-  // The in-session settings panel (opened mid-game) reuses this exact same
-  // filterState object rather than a separate copy - solo has only one
-  // local source of truth, unlike multiplayer where a settings panel edits
-  // a draft that's broadcast and reconciled across clients. It gets its own
-  // parallel set of chip/select DOM elements below (soloSettings*) so both
-  // the setup screen and the mid-game panel can show/edit the same state.
-  let soloSettingsSubjectItems, soloSettingsQtypeItems, soloSettingsFormatItems, soloSettingsLevelItems, soloSettingsVisualItems, soloSettingsRoundSliderApi;
 
-  function buildChips(container, items, key, labelFn, onToggle) {
+  function buildChips(container, items, key, labelFn) {
     container.innerHTML = '';
     items.forEach((item) => {
-      const chip = document.createElement('div');
+      const chip = document.createElement('button');
+      chip.type = 'button';
       chip.className = 'chip';
       if (item.subjectAttr) chip.dataset.subject = item.subjectAttr;
       chip.textContent = labelFn(item);
       chip.addEventListener('click', () => {
         if (filterState[key].has(item.value)) filterState[key].delete(item.value);
         else filterState[key].add(item.value);
-        chip.classList.toggle('active', filterState[key].has(item.value));
-        updateMatchCount();
-        if (onToggle) onToggle();
+        syncChips(items, key);
+        onFilterChange();
       });
       container.appendChild(chip);
       item._el = chip;
     });
+    syncChips(items, key);
   }
 
-  // Keeps a chip group's active/inactive visuals in sync with filterState -
-  // used to mirror a toggle made in one chip set (setup screen or the
-  // mid-game settings panel) onto the other, since they're two different
-  // sets of DOM elements bound to the same underlying Sets.
-  function resyncChipGroup(items, key) {
+  function syncChips(items, key) {
     if (!items) return;
-    items.forEach((i) => { if (i._el) i._el.classList.toggle('active', filterState[key].has(i.value)); });
+    items.forEach((i) => {
+      const on = filterState[key].has(i.value);
+      i._el.classList.toggle('active', on);
+      i._el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
   }
 
   function getFiltered() {
     if (filterState.bookmarkedOnly) {
       // Bookmarked-practice mode (arrived via the bookmarks page's
-      // "Practice these" button): every bookmarked question should be in
-      // play, regardless of subject/format/round - those filters are for
-      // narrowing down the whole catalog, not for silently dropping some of
-      // someone's own saved questions (e.g. ones tagged "Other", which are
-      // excluded from the default subject selection).
+      // "Practice these" button): every bookmarked question is in play,
+      // whatever the filters say - they're for narrowing the whole bank, not
+      // for silently dropping some of someone's own saved questions.
       return SBData.filterQuestions({ bookmarkedOnly: true });
     }
     return SBData.filterQuestions({
@@ -63,30 +58,45 @@
       levels: filterState.levels,
       visuals: filterState.visuals,
       tournaments: filterState.tournaments,
-      bookmarkedOnly: filterState.bookmarkedOnly,
     });
   }
 
-  // The round sliders span the picked tournaments' rounds only.
-  function scopeRoundSliders() {
-    const max = SBData.maxRoundFor(filterState.tournaments);
-    for (const api of [roundSliderApi, soloSettingsRoundSliderApi]) {
-      const moved = api && api.setMax(max);
-      if (moved) filterState.roundRange = moved;
-    }
+  // The round slider spans the picked tournaments' rounds only.
+  function scopeRoundSlider() {
+    const moved = roundSliderApi && roundSliderApi.setMax(SBData.maxRoundFor(filterState.tournaments));
+    if (moved) filterState.roundRange = moved;
   }
 
   function updateMatchCount() {
-    scopeRoundSliders();
-    document.getElementById('matchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
+    scopeRoundSlider();
+    const n = getFiltered().length;
+    document.getElementById('matchCount').textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your filters`;
   }
 
-  function initSetup() {
+  // Any filter change: refresh the count and, mid-session, rebuild the
+  // not-yet-asked tail of the queue so the change applies from the next
+  // question on, without repeating anything already asked. When the new
+  // filters match nothing new, the session carries on with its old tail.
+  function onFilterChange() {
+    updateMatchCount();
+    if (!sessionActive() || session.bookmarkedMode) return;
+    let pool = getFiltered();
+    if (!pool.length) return;
+    const usedPrefix = session.queue.slice(0, session.index + 1);
+    const askedIds = new Set(usedPrefix.map((q) => q.id));
+    pool = SBData.stratifiedQueue(pool.filter((q) => !askedIds.has(q.id)), (q) => q.subject);
+    session.queue = usedPrefix.concat(pool);
+  }
+
+  function selectAllSubjects() {
+    subjectItems.forEach((i) => filterState.subjects.add(i.value));
+    syncChips(subjectItems, 'subjects');
+  }
+
+  function initSettings() {
     subjectItems = SBData.meta.subjects.map((s) => ({ value: s.key, label: s.label, subjectAttr: s.key }));
-    // Default to every subject selected.
-    subjectItems.forEach((i) => { filterState.subjects.add(i.value); });
-    buildChips(document.getElementById('subjectChips'), subjectItems, 'subjects', (i) => i.label, () => resyncChipGroup(soloSettingsSubjectItems, 'subjects'));
-    subjectItems.forEach((i) => { i._el.classList.toggle('active', filterState.subjects.has(i.value)); });
+    subjectItems.forEach((i) => filterState.subjects.add(i.value)); // every subject to start
+    buildChips(document.getElementById('subjectChips'), subjectItems, 'subjects', (i) => i.label);
 
     const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
     roundSliderApi = SBData.wireRoundRangeSlider({
@@ -95,24 +105,21 @@
       fillEl: document.getElementById('roundSliderFill'),
       labelEl: document.getElementById('roundRangeLabel'),
       maxRound,
-      onChange: (lo, hi) => { filterState.roundRange = [lo, hi]; updateMatchCount(); },
+      onChange: (lo, hi) => { filterState.roundRange = [lo, hi]; onFilterChange(); },
     });
     document.getElementById('includeUnlabeledRounds').addEventListener('change', (e) => {
       filterState.includeUnlabeled = e.target.checked;
-      updateMatchCount();
+      onFilterChange();
     });
 
     qtypeItems = SBData.meta.qtypes.map((q) => ({ value: q, label: QTYPE_LABELS[q] || q }));
-    buildChips(document.getElementById('qtypeChips'), qtypeItems, 'qtypes', (i) => i.label, () => resyncChipGroup(soloSettingsQtypeItems, 'qtypes'));
-
+    buildChips(document.getElementById('qtypeChips'), qtypeItems, 'qtypes', (i) => i.label);
     formatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
-    buildChips(document.getElementById('formatChips'), formatItems, 'formats', (i) => i.label, () => resyncChipGroup(soloSettingsFormatItems, 'formats'));
-
+    buildChips(document.getElementById('formatChips'), formatItems, 'formats', (i) => i.label);
     levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
-    buildChips(document.getElementById('levelChips'), levelItems, 'levels', (i) => i.label, () => resyncChipGroup(soloSettingsLevelItems, 'levels'));
-
+    buildChips(document.getElementById('levelChips'), levelItems, 'levels', (i) => i.label);
     visualItems = SBData.VISUAL_KEYS.map((v) => ({ value: v, label: SBData.VISUAL_LABELS[v] }));
-    buildChips(document.getElementById('visualChips'), visualItems, 'visuals', (i) => i.label, () => resyncChipGroup(soloSettingsVisualItems, 'visuals'));
+    buildChips(document.getElementById('visualChips'), visualItems, 'visuals', (i) => i.label);
 
     const tSelect = document.getElementById('tournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
@@ -123,218 +130,54 @@
     });
     tSelect.addEventListener('change', () => {
       filterState.tournaments = new Set(tSelect.getMultiValues());
-      updateMatchCount();
-      const sSelect = document.getElementById('soloSettingsTournamentSelect');
-      if (sSelect && sSelect.setMultiValues) sSelect.setMultiValues(tSelect.getMultiValues());
+      onFilterChange();
     });
     SBData.enhanceMultiSelect(tSelect);
 
     document.getElementById('clearFiltersBtn').addEventListener('click', () => {
       [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats'], [levelItems, 'levels'], [visualItems, 'visuals']].forEach(([items, key]) => {
         filterState[key].clear();
-        items.forEach((i) => i._el.classList.remove('active'));
+        syncChips(items, key);
       });
-      resyncChipGroup(soloSettingsSubjectItems, 'subjects');
-      resyncChipGroup(soloSettingsQtypeItems, 'qtypes');
-      resyncChipGroup(soloSettingsFormatItems, 'formats');
-      resyncChipGroup(soloSettingsLevelItems, 'levels');
-      resyncChipGroup(soloSettingsVisualItems, 'visuals');
       filterState.tournaments.clear();
       tSelect.setMultiValues([]);
-      const sSelect = document.getElementById('soloSettingsTournamentSelect');
-      if (sSelect && sSelect.setMultiValues) sSelect.setMultiValues([]);
-      filterState.bookmarkedOnly = false;
       if (roundSliderApi) roundSliderApi.reset();
-      if (soloSettingsRoundSliderApi) soloSettingsRoundSliderApi.reset();
       filterState.roundRange = null;
       document.getElementById('includeUnlabeledRounds').checked = true;
-      const sUnlabeled = document.getElementById('soloSettingsIncludeUnlabeledRounds');
-      if (sUnlabeled) sUnlabeled.checked = true;
       filterState.includeUnlabeled = true;
-      updateMatchCount();
+      onFilterChange();
     });
 
     const rateSlider = document.getElementById('rateSlider');
-    const savedRate = parseFloat(localStorage.getItem('sb_rate') || '1');
+    let savedRate = 1;
+    try { savedRate = parseFloat(localStorage.getItem('sb_rate') || '1'); } catch (e) { /* default */ }
     rateSlider.value = isNaN(savedRate) ? 1 : savedRate;
-    document.getElementById('rateValue').textContent = parseFloat(rateSlider.value).toFixed(1) + '×';
-    SBData.wireRangeFill(rateSlider);
+    session.rate = parseFloat(rateSlider.value) || 1;
+    document.getElementById('rateValue').textContent = session.rate.toFixed(1) + '×';
     rateSlider.addEventListener('input', () => {
-      document.getElementById('rateValue').textContent = parseFloat(rateSlider.value).toFixed(1) + '×';
-      try { localStorage.setItem('sb_rate', rateSlider.value); } catch (e) {}
-    });
-
-    document.getElementById('startBtn').addEventListener('click', startSession);
-    updateMatchCount();
-
-    // Arrived from the bookmarks page "Practice these" button — jump straight
-    // in. The <head> boot script already hid the setup screen synchronously
-    // (see solo.html) so it never flashes; if it turns out there's nothing
-    // to practice after all (e.g. every bookmark got filtered out), reveal
-    // the normal setup screen instead of leaving the loading state stuck.
-    if (new URLSearchParams(location.search).get('bookmarked') === '1') {
-      filterState.bookmarkedOnly = true;
-      if (getFiltered().length) startSession();
-      else document.documentElement.classList.remove('sb-boot-hide-setup');
-    }
-  }
-
-  /* ================= IN-SESSION SETTINGS PANEL ================= */
-  // Lets solo mode change its filters and reading speed mid-session,
-  // matching multiplayer's mid-game room-settings panel but simplified for
-  // a single local player: no networking, no broadcast/echo-suppression -
-  // a change just rebuilds the remaining ("not yet asked") tail of the
-  // question queue in place, live, the moment it's made.
-  function updateSoloSettingsMatchCount() {
-    scopeRoundSliders();
-    document.getElementById('soloSettingsMatchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
-  }
-
-  function applySoloSettingsChange() {
-    updateSoloSettingsMatchCount();
-    updateMatchCount();
-    // The settings panel is only ever reachable while a non-bookmarked
-    // session is in progress (see the Settings button's visibility in
-    // startSession()/showSessionDone()), so a live session.queue to rebuild
-    // is guaranteed here - no phase guard needed.
-    let pool = getFiltered();
-    if (pool.length) {
-      const askedIds = new Set(session.queue.slice(0, session.index + 1).map((q) => q.id));
-      pool = SBData.stratifiedQueue(pool.filter((q) => !askedIds.has(q.id)), (q) => q.subject);
-      const usedPrefix = session.queue.slice(0, session.index + 1);
-      session.queue = usedPrefix.concat(pool);
-    }
-    // A silent no-op when the new filters match nothing yet-to-be-asked:
-    // the session just keeps going on its existing (now-stale) tail rather
-    // than being interrupted, same as multiplayer's host-side behavior.
-  }
-
-  function initSoloSettings() {
-    soloSettingsSubjectItems = SBData.meta.subjects.map((s) => ({ value: s.key, label: s.label, subjectAttr: s.key }));
-    buildChips(document.getElementById('soloSettingsSubjectChips'), soloSettingsSubjectItems, 'subjects', (i) => i.label, () => { resyncChipGroup(subjectItems, 'subjects'); applySoloSettingsChange(); });
-    resyncChipGroup(soloSettingsSubjectItems, 'subjects');
-
-    const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
-    soloSettingsRoundSliderApi = SBData.wireRoundRangeSlider({
-      minInput: document.getElementById('soloSettingsRoundMin'),
-      maxInput: document.getElementById('soloSettingsRoundMax'),
-      fillEl: document.getElementById('soloSettingsRoundSliderFill'),
-      labelEl: document.getElementById('soloSettingsRoundRangeLabel'),
-      maxRound,
-      onChange: (lo, hi) => {
-        filterState.roundRange = [lo, hi];
-        if (roundSliderApi) roundSliderApi.setRange(lo, hi);
-        applySoloSettingsChange();
-      },
-    });
-
-    document.getElementById('soloSettingsIncludeUnlabeledRounds').addEventListener('change', (e) => {
-      filterState.includeUnlabeled = e.target.checked;
-      document.getElementById('includeUnlabeledRounds').checked = e.target.checked;
-      applySoloSettingsChange();
-    });
-
-    soloSettingsQtypeItems = SBData.meta.qtypes.map((q) => ({ value: q, label: QTYPE_LABELS[q] || q }));
-    buildChips(document.getElementById('soloSettingsQtypeChips'), soloSettingsQtypeItems, 'qtypes', (i) => i.label, () => { resyncChipGroup(qtypeItems, 'qtypes'); applySoloSettingsChange(); });
-    resyncChipGroup(soloSettingsQtypeItems, 'qtypes');
-
-    soloSettingsFormatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
-    buildChips(document.getElementById('soloSettingsFormatChips'), soloSettingsFormatItems, 'formats', (i) => i.label, () => { resyncChipGroup(formatItems, 'formats'); applySoloSettingsChange(); });
-    resyncChipGroup(soloSettingsFormatItems, 'formats');
-
-    soloSettingsLevelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
-    buildChips(document.getElementById('soloSettingsLevelChips'), soloSettingsLevelItems, 'levels', (i) => i.label, () => { resyncChipGroup(levelItems, 'levels'); applySoloSettingsChange(); });
-    resyncChipGroup(soloSettingsLevelItems, 'levels');
-
-    soloSettingsVisualItems = SBData.VISUAL_KEYS.map((v) => ({ value: v, label: SBData.VISUAL_LABELS[v] }));
-    buildChips(document.getElementById('soloSettingsVisualChips'), soloSettingsVisualItems, 'visuals', (i) => i.label, () => { resyncChipGroup(visualItems, 'visuals'); applySoloSettingsChange(); });
-    resyncChipGroup(soloSettingsVisualItems, 'visuals');
-
-    const sSelect = document.getElementById('soloSettingsTournamentSelect');
-    SBData.meta.tournaments.forEach((t) => {
-      const opt = document.createElement('option');
-      opt.value = t.slug;
-      opt.textContent = `${t.name} (${t.count})`;
-      sSelect.appendChild(opt);
-    });
-    sSelect.addEventListener('change', () => {
-      filterState.tournaments = new Set(sSelect.getMultiValues());
-      const mainSelect = document.getElementById('tournamentSelect');
-      if (mainSelect.setMultiValues) mainSelect.setMultiValues(sSelect.getMultiValues());
-      applySoloSettingsChange();
-    });
-    SBData.enhanceMultiSelect(sSelect);
-
-    document.getElementById('soloSettingsClearBtn').addEventListener('click', () => {
-      [[soloSettingsSubjectItems, 'subjects'], [soloSettingsQtypeItems, 'qtypes'], [soloSettingsFormatItems, 'formats'], [soloSettingsLevelItems, 'levels'], [soloSettingsVisualItems, 'visuals']].forEach(([, key]) => {
-        filterState[key].clear();
-      });
-      resyncChipGroup(subjectItems, 'subjects'); resyncChipGroup(soloSettingsSubjectItems, 'subjects');
-      resyncChipGroup(qtypeItems, 'qtypes'); resyncChipGroup(soloSettingsQtypeItems, 'qtypes');
-      resyncChipGroup(formatItems, 'formats'); resyncChipGroup(soloSettingsFormatItems, 'formats');
-      resyncChipGroup(levelItems, 'levels'); resyncChipGroup(soloSettingsLevelItems, 'levels');
-      resyncChipGroup(visualItems, 'visuals'); resyncChipGroup(soloSettingsVisualItems, 'visuals');
-      filterState.tournaments.clear();
-      sSelect.setMultiValues([]);
-      document.getElementById('tournamentSelect').setMultiValues([]);
-      if (soloSettingsRoundSliderApi) soloSettingsRoundSliderApi.reset();
-      if (roundSliderApi) roundSliderApi.reset();
-      filterState.roundRange = null;
-      document.getElementById('soloSettingsIncludeUnlabeledRounds').checked = true;
-      document.getElementById('includeUnlabeledRounds').checked = true;
-      filterState.includeUnlabeled = true;
-      applySoloSettingsChange();
-    });
-
-    const settingsRateSlider = document.getElementById('soloSettingsRateSlider');
-    SBData.wireRangeFill(settingsRateSlider);
-    settingsRateSlider.addEventListener('input', () => {
-      document.getElementById('soloSettingsRateValue').textContent = parseFloat(settingsRateSlider.value).toFixed(1) + '×';
-      session.rate = parseFloat(settingsRateSlider.value) || 1;
-      try { localStorage.setItem('sb_rate', session.rate); } catch (e) {}
-      // Live-apply to whatever's currently typing itself onto the screen,
-      // not just the next question, so "change speed mid-question" works.
+      session.rate = parseFloat(rateSlider.value) || 1;
+      document.getElementById('rateValue').textContent = session.rate.toFixed(1) + '×';
+      try { localStorage.setItem('sb_rate', rateSlider.value); } catch (e) { /* not saved */ }
+      // Applies to whatever is typing itself onto the screen right now too.
       if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
-      const mainRateSlider = document.getElementById('rateSlider');
-      mainRateSlider.value = settingsRateSlider.value;
-      document.getElementById('rateValue').textContent = parseFloat(mainRateSlider.value).toFixed(1) + '×';
-      if (mainRateSlider.refreshRangeFill) mainRateSlider.refreshRangeFill();
     });
 
-    document.getElementById('soloSettingsCloseBtn').addEventListener('click', closeSettingsPanel);
-    document.getElementById('soloSettingsDoneBtn').addEventListener('click', closeSettingsPanel);
-    document.getElementById('soloSettingsOverlay').addEventListener('click', (e) => {
-      if (e.target.id === 'soloSettingsOverlay') closeSettingsPanel();
-    });
-    document.getElementById('soloSettingsBtn').addEventListener('click', openSettingsPanel);
-
-    updateSoloSettingsMatchCount();
+    updateMatchCount();
   }
 
-  function openSettingsPanel() {
-    // Seed the rate slider's DOM value from the session's actual current
-    // rate before showing the panel (rather than relying on some earlier
-    // 'input' listener to have done it) - avoids ever flashing a stale or
-    // default 1.0x value on first open.
-    const settingsRateSlider = document.getElementById('soloSettingsRateSlider');
-    settingsRateSlider.value = session.rate;
-    document.getElementById('soloSettingsRateValue').textContent = parseFloat(session.rate).toFixed(1) + '×';
-    if (settingsRateSlider.refreshRangeFill) settingsRateSlider.refreshRangeFill();
-    updateSoloSettingsMatchCount();
-    document.getElementById('soloSettingsOverlay').style.display = 'flex';
+  /* ================= SETTINGS SIDEBAR ================= */
+  // On wide screens the sidebar starts open; on narrow ones it sits above the
+  // question and starts closed. The gear button (or S) shows or hides it.
+  const WIDE = window.matchMedia('(min-width: 992px)');
+  function sidebarOpen() {
+    const el = document.getElementById('settings');
+    return WIDE.matches ? !el.classList.contains('collapsed') : el.classList.contains('show');
   }
-  function closeSettingsPanel() {
-    // If every subject got toggled off, leaving nothing that will ever
-    // match, don't let that empty selection persist silently - reset back
-    // to "all subjects" so the panel reopens in a useful state next time
-    // instead of looking broken (0 questions match, no subject chip lit).
-    if (filterState.subjects.size === 0 && soloSettingsSubjectItems && soloSettingsSubjectItems.length) {
-      soloSettingsSubjectItems.forEach((i) => filterState.subjects.add(i.value));
-      resyncChipGroup(soloSettingsSubjectItems, 'subjects');
-      resyncChipGroup(subjectItems, 'subjects');
-      applySoloSettingsChange();
-    }
-    document.getElementById('soloSettingsOverlay').style.display = 'none';
+  function toggleSidebar() {
+    const el = document.getElementById('settings');
+    if (WIDE.matches) el.classList.toggle('collapsed');
+    else el.classList.toggle('show');
+    document.getElementById('settingsBtn').setAttribute('aria-expanded', sidebarOpen() ? 'true' : 'false');
   }
 
   /* ================= GAME STATE ================= */
@@ -346,59 +189,54 @@
     bookmarkedMode: false,
   };
   const runtime = {
-    phase: 'revealing', // revealing | buzzwindow | answering | reveal | done
+    phase: 'idle', // idle | revealing | buzzwindow | answering | reveal | done
     revealCtl: null,
     buzzedDuringReading: false,
     lastOutcome: null,
     timer: null, remainingMs: 0, totalMs: 0, timerKind: null, onExpire: null,
     paused: false,
-    pausedTimerRemaining: null,
   };
+  function sessionActive() { return runtime.phase !== 'idle' && runtime.phase !== 'done'; }
 
   function startSession() {
+    // Every subject switched off would match nothing; start from all of
+    // them instead of refusing.
+    if (!filterState.bookmarkedOnly && filterState.subjects.size === 0) {
+      selectAllSubjects();
+      updateMatchCount();
+    }
     let pool = getFiltered();
-    if (!pool.length) { alert('No questions match your filters.'); return; }
-    // Stratify by subject so every selected subject gets equal turns over
-    // the course of the session, regardless of how many questions exist per
-    // subject - matches multiplayer's queue building.
+    if (!pool.length) {
+      setPill('No questions match your filters. Widen them in the settings and press Next.', 'revealed');
+      return;
+    }
+    // Stratified by subject, so every selected subject gets equal turns
+    // over the session however many questions each has.
     pool = SBData.stratifiedQueue(pool, (q) => q.subject);
 
     session.queue = pool;
     session.index = -1;
     session.correct = 0; session.incorrect = 0; session.skipped = 0;
-    session.rate = parseFloat(document.getElementById('rateSlider').value) || 1;
     session.log = [];
     session.bookmarkedMode = filterState.bookmarkedOnly;
-
-    document.documentElement.classList.remove('sb-boot-hide-setup');
-    document.getElementById('setupScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'block';
-    document.getElementById('questionLog').innerHTML = '';
-    // Filters don't apply in bookmarked-practice mode (see getFiltered()),
-    // so changing them mid-session wouldn't do anything there - only show
-    // the settings button for a normal filtered session.
-    document.getElementById('soloSettingsBtn').style.display = session.bookmarkedMode ? 'none' : 'inline-flex';
+    renderQuestionLog();
     updateCounters();
     nextQuestion();
   }
 
   function updateCounters() {
-    document.getElementById('correctCount').textContent = session.correct;
-    document.getElementById('incorrectCount').textContent = session.incorrect;
-    document.getElementById('totalCount').textContent = session.correct + session.incorrect;
+    const seen = session.correct + session.incorrect;
+    document.getElementById('statline').textContent =
+      `${session.correct} correct / ${session.incorrect} incorrect with ${seen} question${seen === 1 ? '' : 's'} seen` +
+      (session.skipped ? ` (${session.skipped} skipped)` : '');
   }
 
-  function currentQ() { return session.queue[session.index]; }
+  function currentQ() { return session.index >= 0 ? session.queue[session.index] : null; }
 
-  // A small fade/slide-in on the whole question panel each time a new
-  // question comes up, so advancing feels like a deliberate transition
-  // instead of the text just snapping to something new. Re-triggering the
-  // same CSS class doesn't restart its animation on its own - removing the
-  // class, forcing a reflow (reading offsetWidth), then re-adding it is
-  // what makes it replay on every question instead of only the first time.
+  // A short fade-in on the question each time a new one comes up. Removing
+  // the class, forcing a reflow, then re-adding it replays the animation.
   function playQuestionTransition() {
-    const panel = document.querySelector('.question-panel');
-    if (!panel) return;
+    const panel = document.getElementById('questionPanel');
     panel.classList.remove('q-panel-enter');
     void panel.offsetWidth;
     panel.classList.add('q-panel-enter');
@@ -407,17 +245,13 @@
   function nextQuestion() {
     clearRuntimeTimer();
     if (runtime.revealCtl) runtime.revealCtl.stop();
-    runtime.paused = false;
-    document.getElementById('pauseBadge').style.display = 'none';
-    document.getElementById('pauseBtn').textContent = 'Pause (P)';
+    setPaused(false);
 
     session.index++;
     if (session.index >= session.queue.length) {
       if (session.bookmarkedMode) {
-        // Practicing bookmarks loops indefinitely instead of stopping -
-        // re-fetch the live bookmark set (the user may have starred/
-        // unstarred questions mid-session) and keep going for as long as
-        // there's at least one bookmarked question left.
+        // Practicing bookmarks loops instead of stopping, re-reading the
+        // live bookmark set (stars may have changed mid-session).
         const pool = getFiltered();
         if (!pool.length) { showSessionDone(); return; }
         session.queue = SBData.stratifiedQueue(pool, (q2) => q2.subject);
@@ -432,8 +266,8 @@
     runtime.buzzedDuringReading = false;
     runtime.lastOutcome = null;
 
-    // The answer/reveal area can leave the page scrolled down; bring the
-    // new question back into view so it doesn't start partly off-screen.
+    // The answer area can leave the page scrolled down; bring the new
+    // question back into view.
     window.scrollTo(0, 0);
 
     playQuestionTransition();
@@ -441,16 +275,17 @@
     document.getElementById('revealBox').style.display = 'none';
     document.getElementById('answerRow').style.display = 'none';
     document.getElementById('overrideBtn').style.display = 'none';
-    hideTimer();
+    resetTimer();
     setNextButtonMode('skip');
+    setBuzzEnabled(true);
+    document.getElementById('pauseBtn').disabled = false;
+    document.getElementById('bookmarkBtn').disabled = false;
+    document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q);
     updateBookmarkBtn();
     document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => {
       el.classList.remove('reveal-correct');
       el.classList.remove('clickable');
     });
-
-    const buzzBtn = document.getElementById('buzzBtn');
-    buzzBtn.style.display = 'inline-flex';
 
     const qDisplay = document.getElementById('qDisplay');
     const subjectTag = document.getElementById('revealSubjectTag');
@@ -460,9 +295,9 @@
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
     qtypeTag.className = SBData.qtypeTagClass(q);
     const tagSegments = [
-      { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
-      { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
-      { text: SBData.qtypeLabel(q).toUpperCase(), el: qtypeTag },
+      { text: labelFor(q.subject), el: subjectTag },
+      { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
+      { text: SBData.qtypeLabel(q), el: qtypeTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('choicesDisplay');
@@ -489,12 +324,9 @@
 
     reserveRevealHeight(boxSegments);
     runtime.revealCtl = SBReveal.startReveal(tagSegments.concat(boxSegments), session.rate, {
-      // The reveal types out plain text letter by letter - only once a
-      // segment's full text is in place (here, at completion) do we swap
-      // it for the math-rendered HTML (real superscript/subscript for
-      // well-formed "^"/"_" notation), so mid-reveal carets/underscores
-      // just appear as normal typed characters instead of popping into
-      // <sup>/<sub> tags partway through.
+      // The reveal types plain text; once a segment is complete it's swapped
+      // for the math-rendered HTML (real superscripts/subscripts), so carets
+      // and underscores don't pop into <sup>/<sub> partway through.
       onComplete: () => {
         boxSegments.forEach((s) => { s.el.innerHTML = SBData.renderMathHTML(s.text); });
         startBuzzWindow();
@@ -503,11 +335,9 @@
   }
 
   // Reserve the final height of the question+choices area before the reveal
-  // starts, so the buttons below it don't creep downward as the text fills
-  // in letter by letter.
-  // The question text's own box is held at its final height too, so a
-  // visual question's figure (which sits under the text) stays put instead
-  // of sliding down line by line.
+  // starts, so nothing below it creeps downward as the text fills in. The
+  // question text's own box is held at its final height too, so a visual
+  // question's figure (under the text) stays put.
   function reserveRevealHeight(boxSegments) {
     const wrap = document.getElementById('revealMeasureWrap');
     const textEl = boxSegments[0].el;
@@ -521,7 +351,7 @@
   }
 
   function startBuzzWindow() {
-    if (runtime.phase === 'answering' || runtime.phase === 'reveal') return;
+    if (runtime.phase !== 'revealing') return;
     runtime.phase = 'buzzwindow';
     const q = currentQ();
     const ms = q.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
@@ -536,8 +366,8 @@
     clearRuntimeTimer();
     runtime.phase = 'answering';
     hidePill();
-    document.getElementById('buzzBtn').style.display = 'none';
-    setNextButtonMode('hidden');
+    setBuzzEnabled(false);
+    setNextButtonMode('disabled');
     const answerRow = document.getElementById('answerRow');
     answerRow.style.display = 'flex';
     const input = document.getElementById('answerInput');
@@ -562,18 +392,16 @@
   function resolveQuestion(outcome) {
     clearRuntimeTimer();
     // Phase must flip to 'reveal' BEFORE skipToEnd() runs: skipToEnd() can
-    // synchronously fire the reveal's onComplete callback (startBuzzWindow),
-    // and that callback only bails out once the phase says we're past
-    // reading. In the other order, skipping a question mid-reveal leaves a
-    // stray buzz-window timer running that later resolves whatever question
-    // is current by then.
+    // synchronously fire the reveal's onComplete (startBuzzWindow), which
+    // only bails out once the phase says reading is over. In the other
+    // order, skipping mid-reveal leaves a stray buzz timer running that
+    // later resolves whatever question is current by then.
     runtime.phase = 'reveal';
     runtime.lastOutcome = outcome;
+    setPaused(false);
     if (runtime.revealCtl) runtime.revealCtl.skipToEnd();
 
-    // A skip still LOGS as "Skipped" (that's what actually happened to the
-    // question), but counts toward the Incorrect stat - you didn't get it,
-    // same as answering wrong.
+    // A skip LOGS as "Skipped" but counts toward Incorrect: you didn't get it.
     let category;
     if (!outcome.attempted) { category = 'skipped'; session.skipped++; session.incorrect++; }
     else if (outcome.correct) { category = 'correct'; session.correct++; }
@@ -584,10 +412,10 @@
     session.log.unshift({ q, category, userText: outcome.userText || '' });
     renderQuestionLog();
 
-    document.getElementById('buzzBtn').style.display = 'none';
+    setBuzzEnabled(false);
+    document.getElementById('pauseBtn').disabled = true;
     document.getElementById('answerRow').style.display = 'none';
-    document.getElementById('overrideBtn').style.display = outcome.attempted ? 'inline-flex' : 'none';
-    hideTimer();
+    resetTimer();
     setNextButtonMode('next');
     showReveal();
   }
@@ -599,18 +427,29 @@
     let category = 'skipped';
     if (outcome && outcome.attempted) category = outcome.correct ? 'correct' : 'incorrect';
     const badgeText = category === 'correct' ? 'Correct' : category === 'incorrect' ? 'Incorrect' : 'Skipped';
-    let html = `<div class="grade-badge ${category}">${badgeText}</div>`;
+    let html = `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
     if (outcome && outcome.attempted && outcome.userText) {
-      html += `<div class="who-line">You answered: "${escapeHtml(outcome.userText)}"</div>`;
+      html += ` <span class="who-line">You answered: "${escapeHtml(outcome.userText)}"</span>`;
     }
+    html += '</div>';
     if (category === 'incorrect' && outcome.close) {
-      html += '<div class="close-hint">Close. If you meant the answer below, press Q or Override to count it.</div>';
+      html += '<div class="close-hint">Close. If you meant the answer below, press <kbd>q</kbd> or "I was right" to count it.</div>';
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept)}</div>`;
     if (q.answer.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(q.answer.reject.join('; '))}</div>`;
     html += `<div class="src-line">${SBData.sourceLineHTML(q)}</div>`;
     box.innerHTML = html;
     box.style.display = 'block';
+
+    // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
+    const override = document.getElementById('overrideBtn');
+    if (outcome && outcome.attempted) {
+      override.textContent = outcome.correct ? 'I was wrong' : 'I was right';
+      override.style.display = '';
+    } else {
+      override.style.display = 'none';
+    }
+
     if (q.choices && q.answer.letter) {
       const el = document.querySelector(`.choice-box[data-letter="${q.answer.letter}"]`);
       if (el) el.classList.add('reveal-correct');
@@ -637,7 +476,7 @@
 
   function toggleBookmark() {
     const q = currentQ();
-    if (!q) return;
+    if (!q || runtime.phase === 'done') return;
     SBData.bookmarks.toggle(q.id);
     updateBookmarkBtn();
   }
@@ -651,9 +490,8 @@
     btn.title = isBm ? 'Unbookmark (B)' : 'Bookmark (B)';
     syncLogBookmarkStar(q.id, isBm);
   }
-  // Keep a logged question's own star in sync with the main bookmark button,
-  // in case the question is still on screen (its log entry already exists)
-  // when the star gets toggled from up top instead of from the log itself.
+  // Keep a logged question's own star in step with the one up top, in case
+  // the question is still on screen when its star is toggled from there.
   function syncLogBookmarkStar(qId, isBm) {
     document.querySelectorAll('.q-log-entry').forEach((card) => {
       if (card.dataset.qid !== String(qId)) return;
@@ -665,17 +503,21 @@
     });
   }
 
+  // Next skips while a question is being read, goes on once it's answered,
+  // starts a session before there is one, and waits while you answer.
   function setNextButtonMode(mode) {
     const btn = document.getElementById('nextBtn');
-    if (mode === 'skip') { btn.style.display = 'inline-flex'; btn.textContent = 'Skip (N)'; btn.dataset.mode = 'skip'; btn.classList.remove('btn-primary'); btn.classList.add('btn-outline-secondary'); }
-    else if (mode === 'next') { btn.style.display = 'inline-flex'; btn.textContent = 'Next question (N)'; btn.dataset.mode = 'next'; btn.classList.add('btn-primary'); btn.classList.remove('btn-outline-secondary'); }
-    else { btn.style.display = 'none'; btn.dataset.mode = ''; }
+    btn.dataset.mode = mode;
+    btn.disabled = mode === 'disabled';
+    btn.textContent = mode === 'skip' ? 'Skip' : 'Next';
   }
   function handleNextButton() {
     const mode = document.getElementById('nextBtn').dataset.mode;
     if (mode === 'skip') skipQuestion();
     else if (mode === 'next') nextQuestion();
+    else if (mode === 'start') startSession();
   }
+  function setBuzzEnabled(on) { document.getElementById('buzzBtn').disabled = !on; }
 
   function setPill(text, cls) {
     const el = document.getElementById('statusPill');
@@ -690,144 +532,117 @@
   function runTimer(ms, kind, onExpire) {
     clearRuntimeTimer();
     runtime.totalMs = ms; runtime.remainingMs = ms; runtime.timerKind = kind; runtime.onExpire = onExpire;
-    renderTick(ms, ms, kind);
+    renderTick(ms, kind);
     runtime.timer = setInterval(() => {
       if (runtime.paused) return;
       runtime.remainingMs -= 100;
       if (runtime.remainingMs <= 0) {
-        renderTick(0, runtime.totalMs, kind);
+        renderTick(0, kind);
         clearInterval(runtime.timer); runtime.timer = null;
         const fn = runtime.onExpire; runtime.onExpire = null;
         if (fn) fn();
         return;
       }
-      renderTick(runtime.remainingMs, runtime.totalMs, kind);
+      renderTick(runtime.remainingMs, kind);
     }, 100);
   }
   function clearRuntimeTimer() {
     if (runtime.timer) clearInterval(runtime.timer);
     runtime.timer = null; runtime.onExpire = null;
   }
-  function renderTick(remainingMs, totalMs, kind) {
-    const row = document.getElementById('timerRow');
-    row.style.display = 'flex';
-    const fill = document.getElementById('timerFill');
-    fill.className = 'timer-bar-fill' + (kind === 'answer' ? ' answer' : '');
-    fill.style.width = Math.max(0, (remainingMs / totalMs) * 100) + '%';
-    document.getElementById('timerLabel').textContent = (remainingMs / 1000).toFixed(1) + 's';
+  // The big sidebar readout: whole seconds, then tenths in smaller type.
+  function renderTick(remainingMs, kind) {
+    const tenths = Math.max(0, Math.round(remainingMs / 100));
+    document.getElementById('timerFace').textContent = String(Math.floor(tenths / 10));
+    document.getElementById('timerFraction').textContent = '.' + (tenths % 10);
+    document.getElementById('timer').classList.toggle('answering', kind === 'answer');
   }
-  function hideTimer() { document.getElementById('timerRow').style.display = 'none'; }
+  function resetTimer() { renderTick(0, null); }
 
+  function setPaused(on) {
+    runtime.paused = on;
+    document.getElementById('pauseBadge').style.display = on ? '' : 'none';
+    const btn = document.getElementById('pauseBtn');
+    btn.innerHTML = on ? SBIcons.play : SBIcons.pause;
+    btn.setAttribute('aria-label', on ? 'Resume' : 'Pause');
+    btn.title = (on ? 'Resume' : 'Pause') + ' (shortcut: p)';
+  }
   function togglePause() {
-    if (runtime.phase === 'reveal' || runtime.phase === 'done') return;
-    runtime.paused = !runtime.paused;
-    document.getElementById('pauseBadge').style.display = runtime.paused ? 'inline-flex' : 'none';
-    document.getElementById('pauseBtn').textContent = runtime.paused ? 'Resume (P)' : 'Pause (P)';
+    if (runtime.phase !== 'revealing' && runtime.phase !== 'buzzwindow' && runtime.phase !== 'answering') return;
+    setPaused(!runtime.paused);
     if (runtime.revealCtl && runtime.phase === 'revealing') {
       if (runtime.paused) runtime.revealCtl.pause(); else runtime.revealCtl.resume();
     }
-    // the setInterval-based countdown timer already checks runtime.paused each tick
+    // The countdown checks runtime.paused on every tick.
   }
 
   function renderQuestionLog() {
     const el = document.getElementById('questionLog');
     el.innerHTML = '';
-    if (!session.log.length) {
-      el.innerHTML = '<div class="q-log-empty">Questions you\'ve gone through this session will show up here.</div>';
-      return;
-    }
     session.log.forEach((entry) => {
-      el.appendChild(renderLogEntry(entry));
+      const li = document.createElement('li');
+      li.appendChild(renderLogEntry(entry));
+      el.appendChild(li);
     });
   }
 
   function renderLogEntry(entry) {
     const q = entry.q;
-    const card = document.createElement('div');
-    card.className = 'q-log-entry';
-    card.dataset.qid = q.id;
-
-    const meta = SBData.questionMetaRow(q, { grade: entry.category, sourceUrl: q.sourceUrl });
-    // The main bookmark button (up by the question) shows the star for
-    // whichever question is currently displayed, which can be this exact
-    // logged question (its reveal box is still on screen) - keep the two
-    // stars in sync instead of leaving the main one stale.
-    const bmBtn = SBData.bookmarkButton(q.id, () => {
-      const cur = currentQ();
-      if (cur && cur.id === q.id) updateBookmarkBtn();
+    const card = SBData.questionCard(q, {
+      grade: entry.category,
+      note: entry.userText ? `You answered: "${entry.userText}"` : '',
+      // The star up top shows the current question's bookmark, which can be
+      // this logged question; keep it in step.
+      onBookmark: () => {
+        const cur = currentQ();
+        if (cur && cur.id === q.id) updateBookmarkBtn();
+      },
     });
-    bmBtn.style.marginLeft = 'auto';
-    meta.appendChild(bmBtn);
-    card.appendChild(meta);
-
-    SBData.appendQuestionBody(card, q);
-    card.appendChild(SBData.answerBlock(q, null));
-
-    if (entry.userText) {
-      const you = document.createElement('div');
-      you.className = 'small-note';
-      you.style.marginTop = '4px';
-      you.textContent = `You answered: "${entry.userText}"`;
-      card.appendChild(you);
-    }
-
+    card.classList.add('q-log-entry');
     return card;
   }
 
   function showSessionDone() {
     runtime.phase = 'done';
-    // Bookmarked-practice sessions loop indefinitely and end here only when
-    // every bookmark got un-starred mid-session - the "done" box below
-    // already says so, so the status pill above it is redundant there and
-    // was asked to go away; a normal filtered session still gets the pill.
+    clearRuntimeTimer();
     if (session.bookmarkedMode) hidePill();
     else setPill('Session complete', 'revealed');
     document.getElementById('qDisplay').textContent = '';
     document.getElementById('choicesDisplay').style.display = 'none';
-    // reserveRevealHeight() left the measure-wrap's min-height pinned to
-    // the last real question's height (so the buttons below it didn't
-    // creep upward while that question's text was still filling in) -
-    // with no question showing anymore, that just reserves a tall empty
-    // gap above the "session complete" box instead.
+    document.getElementById('qFigures').style.display = 'none';
+    ['revealSubjectTag', 'revealFormatTag', 'revealQtypeTag'].forEach((id) => { document.getElementById(id).textContent = ''; });
+    // reserveRevealHeight() pinned the last question's height; with no
+    // question showing, that would only leave a tall empty gap.
     document.getElementById('revealMeasureWrap').style.minHeight = '';
-    document.getElementById('buzzBtn').style.display = 'none';
+    document.getElementById('qDisplay').style.minHeight = '';
+    document.getElementById('questionInfo').textContent = '';
+    document.getElementById('bookmarkBtn').disabled = true;
     document.getElementById('answerRow').style.display = 'none';
     document.getElementById('overrideBtn').style.display = 'none';
-    document.getElementById('soloSettingsBtn').style.display = 'none';
-    closeSettingsPanel();
-    hideTimer();
-    setNextButtonMode('hidden');
+    setBuzzEnabled(false);
+    document.getElementById('pauseBtn').disabled = true;
+    resetTimer();
+    setNextButtonMode(session.bookmarkedMode ? 'disabled' : 'start');
     const box = document.getElementById('revealBox');
-    // Bookmarked-practice sessions loop indefinitely (see nextQuestion()),
-    // so this only shows if every bookmark got un-starred mid-session -
-    // there's nothing left to "practice again" with, so send them to a
-    // fresh, normal solo-practice setup instead.
+    // Bookmarked practice loops (see nextQuestion()), so it only ends here
+    // when every bookmark got un-starred mid-session.
     const doneMsg = session.bookmarkedMode
-      ? 'Session complete.'
-      : "You've gone through every question that matched your filters.";
-    const leftBtnLabel = session.bookmarkedMode ? 'Practice more' : 'Practice again';
+      ? 'Session complete: there are no bookmarked questions left.'
+      : "You've gone through every question that matched your filters. Change them in the settings and press Next to go again.";
     box.innerHTML = `
       <div class="ans-line">${doneMsg}</div>
       <div class="alt-line">${session.correct} correct · ${session.incorrect} incorrect (${session.skipped} skipped) · ${session.correct + session.incorrect} total</div>
-      <div style="margin-top:14px; display:flex; gap:10px;">
-        <button class="btn btn-primary" id="playAgainBtn">${leftBtnLabel}</button>
-        <a class="btn btn-outline-secondary" href="catalog.html">Browse catalog</a>
+      <div class="mt-3 d-flex gap-2">
+        <button class="btn btn-primary" id="playAgainBtn" type="button">${session.bookmarkedMode ? 'Practice every question' : 'Practice again'}</button>
+        <a class="btn btn-outline-secondary" href="catalog.html">Search the database</a>
       </div>
     `;
     box.style.display = 'block';
     document.getElementById('playAgainBtn').addEventListener('click', () => {
-      if (session.bookmarkedMode) {
-        // Their bookmark set is what's exhausted, not the normal catalog
-        // filters - land on a clean, non-bookmarked setup screen.
-        location.href = 'solo.html';
-        return;
-      }
-      document.getElementById('gameScreen').style.display = 'none';
-      document.getElementById('setupScreen').style.display = 'block';
-      updateMatchCount();
+      if (session.bookmarkedMode) { location.href = 'solo.html'; return; }
+      startSession();
     });
   }
-
 
   function wireGameControls() {
     document.getElementById('buzzBtn').addEventListener('click', buzzIn);
@@ -835,6 +650,7 @@
     document.getElementById('overrideBtn').addEventListener('click', overrideGrading);
     document.getElementById('bookmarkBtn').addEventListener('click', toggleBookmark);
     document.getElementById('pauseBtn').addEventListener('click', togglePause);
+    document.getElementById('settingsBtn').addEventListener('click', toggleSidebar);
     document.getElementById('submitAnswerBtn').addEventListener('click', () => submitAnswer(document.getElementById('answerInput').value));
     document.getElementById('answerInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); submitAnswer(document.getElementById('answerInput').value); }
@@ -847,39 +663,49 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if (document.getElementById('gameScreen').style.display === 'none') return;
-      if (document.getElementById('soloSettingsOverlay').style.display !== 'none') {
-        // While the settings modal is open, the only shortcuts that apply
-        // are Escape (always) and S (unless typing in a field, e.g. the
-        // tournament search box) to close it - every other in-game
-        // shortcut stays disabled so it can't fire behind the modal's back.
-        if (e.key === 'Escape') { closeSettingsPanel(); return; }
-        const settingsTag = (e.target && e.target.tagName) || '';
-        if ((e.key === 's' || e.key === 'S') && settingsTag !== 'INPUT' && settingsTag !== 'TEXTAREA') {
-          closeSettingsPanel();
-        }
-        return;
-      }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       const tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       if (e.code === 'Space') { e.preventDefault(); buzzIn(); return; }
       if (e.key === 'n' || e.key === 'N') { handleNextButton(); return; }
       if (e.key === 'q' || e.key === 'Q') { overrideGrading(); return; }
       if (e.key === 'b' || e.key === 'B') { toggleBookmark(); return; }
       if (e.key === 'p' || e.key === 'P') { togglePause(); return; }
-      // Mirrors the settings button's own visibility - it's hidden during a
-      // bookmarked-questions review session, where mid-session filter
-      // changes don't apply, so the shortcut shouldn't open it either.
-      if ((e.key === 's' || e.key === 'S') && !session.bookmarkedMode) { openSettingsPanel(); return; }
+      if (e.key === 's' || e.key === 'S') { toggleSidebar(); return; }
     });
   }
 
+  // Bookmarked practice (the bookmarks page's "Practice these" button):
+  // the filters don't apply, so the sidebar says what's being practiced
+  // instead, and the session starts at once.
+  function startBookmarkedIfAsked() {
+    if (new URLSearchParams(location.search).get('bookmarked') !== '1') return;
+    filterState.bookmarkedOnly = true;
+    const n = getFiltered().length;
+    if (!n) {
+      filterState.bookmarkedOnly = false;
+      setPill("You haven't bookmarked any questions yet, so this is ordinary practice.", 'revealed');
+      return;
+    }
+    document.getElementById('filterSettings').style.display = 'none';
+    document.getElementById('bookmarkedNote').style.display = '';
+    document.getElementById('bookmarkedNoteText').textContent =
+      `Practicing your ${n.toLocaleString()} bookmarked question${n === 1 ? '' : 's'}, round and round.`;
+    startSession();
+  }
+
+  setPaused(false);
+  document.getElementById('settingsBtn').innerHTML = SBIcons.gear;
+  document.getElementById('settingsBtn').setAttribute('aria-expanded', sidebarOpen() ? 'true' : 'false');
+  setNextButtonMode('disabled');
+
   SBData.load().then(() => {
-    initSetup();
-    initSoloSettings();
+    initSettings();
     wireGameControls();
+    setNextButtonMode('start');
+    updateCounters();
+    startBookmarkedIfAsked();
   }).catch((err) => {
-    document.documentElement.classList.remove('sb-boot-hide-setup');
-    document.getElementById('setupScreen').innerHTML = '<p>Failed to load question data: ' + err.message + '</p>';
+    document.getElementById('qDisplay').textContent = 'Failed to load question data: ' + err.message;
   });
 })();

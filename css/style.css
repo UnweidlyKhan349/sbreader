@@ -77,7 +77,7 @@
 [data-bs-theme=dark] .card, [data-bs-theme=dark] .modal { --bs-card-bg: #222; --bs-modal-bg: #222; }
 [data-bs-theme=dark] .list-group { --bs-list-group-bg: transparent; --bs-list-group-active-bg: #375a7f; --bs-list-group-active-border-color: #375a7f; }
 [data-bs-theme=dark] .pagination { --bs-pagination-active-bg: #375a7f; --bs-pagination-active-border-color: #375a7f; }
-[data-bs-theme=dark] .form-range { --sb-thumb: #375a7f; }
+[data-bs-theme=dark] .form-check-input:checked { background-color: #375a7f; border-color: #375a7f; }
 
 html { scrollbar-gutter: stable; }
 a { text-decoration: none; }
@@ -345,7 +345,32 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .page-jump-input::-webkit-outer-spin-button, .page-jump-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .page-jump-input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 
-/* ---------------- Solo / Multiplayer game screen ---------------- */
+/* ---------------- Play / Multiplayer layout (qbreader's play page) ---------------- */
+/* The timer at the top of the settings sidebar. */
+.timer { font-size: 250%; background: var(--timer-bg); border-radius: var(--bs-border-radius); font-variant-numeric: tabular-nums; line-height: 1.5; }
+.timer .fraction { font-size: 50%; }
+.timer.answering .face, .timer.answering .fraction { color: var(--bs-danger); }
+
+/* The settings sidebar: open beside the question on wide screens (the gear
+   button collapses it), above the question and closed on narrow ones. */
+@media (max-width: 991.98px) {
+  .play-sidebar { display: none; }
+  .play-sidebar.show { display: block; }
+}
+@media (min-width: 992px) {
+  .play-sidebar.collapsed { display: none; }
+}
+.play-sidebar .chip-row { gap: .25rem; }
+.play-sidebar .chip { padding: .125rem .45rem; font-size: .8125rem; }
+
+/* The button bar pinned to the bottom of the screen. */
+.play-buttons { z-index: 1020; }
+.play-buttons .btn svg { display: block; }
+#buttons .btn { min-width: 2.75rem; }
+
+/* Past questions under the current one. */
+.room-history { border-top: .5px solid var(--bs-border-color); }
+
 .game-wrap { max-width: 880px; margin: 0 auto; padding: 26px 20px 80px; }
 .game-wrap.mp-layout { max-width: 1150px; }
 .score-bar {
@@ -373,15 +398,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 .meta-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 
-.question-panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px 26px;
-  min-height: 220px;
-  box-shadow: var(--shadow);
-  position: relative;
-}
+.question-panel { position: relative; min-height: 8rem; }
+.question-panel::after { content: ""; display: table; clear: both; }
 /* Plays once each time a new question comes up (JS re-triggers it by
    removing and re-adding this class - see playQuestionTransition()). Kept
    short and subtle since it fires on every single question. */
@@ -393,7 +411,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 @media (prefers-reduced-motion: reduce) {
   .question-panel.q-panel-enter { animation: none; }
 }
-.question-panel .q-display { font-size: 19px; line-height: 1.6; white-space: pre-wrap; }
+.question-panel .q-display { font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; }
 .question-panel .q-display.mp-waiting-text { color: var(--text-dim); font-size: 16px; font-style: italic; }
 /* Multiplayer lobby's "waiting to start" screen - just one line of text
    and the Start button, so the panel's usual min-height (sized for a full
@@ -402,12 +420,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    dropped instead of leaving a large empty gap above and below that line. */
 .question-panel.mp-lobby-compact { min-height: 0; padding-top: 20px; padding-bottom: 20px; }
 .question-panel.mp-lobby-compact .reveal-tags { display: none; }
-.choices-display { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.choice-box { border: 1px solid var(--border); background: var(--bg-alt); border-radius: 8px; padding: 12px 16px; font-size: 14.5px; line-height: 1.5; }
-.choice-box .letter { color: var(--accent); font-weight: 800; margin-right: 8px; }
-.choice-box.reveal-correct { border-color: var(--good); background: rgba(53,194,129,.12); }
+.choices-display { margin-top: .75rem; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.choice-box { border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius); padding: .5rem .75rem; line-height: 1.5; }
+.choice-box .letter { font-weight: 700; margin-right: .5rem; }
+.choice-box.reveal-correct { border-color: var(--bs-success); background: var(--bs-success-bg-subtle); }
 .choice-box.clickable { cursor: pointer; transition: border-color .12s ease, background .12s ease; }
-.choice-box.clickable:hover { border-color: var(--accent); background: var(--panel-2); }
+.choice-box.clickable:hover { border-color: var(--bs-primary); background: var(--bs-tertiary-bg); }
+@media (max-width: 767.98px) { .choices-display { grid-template-columns: 1fr; } }
 
 .timer-row { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
 .timer-bar-track { flex: 1; height: 10px; border-radius: 6px; background: var(--bg-alt); overflow: hidden; border: 1px solid var(--border); }
@@ -416,8 +435,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .timer-label { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 13px; min-width: 40px; text-align: right; }
 
 .status-pill {
-  display:inline-flex; align-items:center; gap:6px; padding: 4px 12px; border-radius: 999px;
-  font-size: 12.5px; font-weight: 700; background: var(--bg-alt); color: var(--text-dim); margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 6px; padding: .35em .75em; border-radius: var(--bs-border-radius);
+  font-size: .875rem; font-weight: 600; background: var(--bs-tertiary-bg); color: var(--bs-body-color); margin-bottom: .75rem;
 }
 .status-pill.live { color: #fff; background: var(--accent); }
 .status-pill.buzzed { background: var(--warn); color: #212529; }
@@ -427,27 +446,23 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The plain --panel-2 fill barely differed from the page/panel behind it
    (~1.1:1 contrast) - a light border plus a brighter tint and text color
    make the pill actually read as its own shape instead of blending in. */
-.status-pill.revealed { background: rgba(154,167,194,.18); border: 1px solid var(--border); color: var(--text); }
+.status-pill.revealed { background: var(--bs-secondary-bg); border: var(--bs-border-width) solid var(--bs-border-color); }
 
 .answer-input-row { display: flex; gap: 10px; margin-top: 18px; }
 .answer-input-row input { flex: 1; font-size: 16px; padding: 12px 14px; }
 
-.reveal-box {
-  margin-top: 20px; padding: 16px 18px; border-radius: var(--radius);
-  background: var(--bg-alt); border: 1px solid var(--border);
-}
-.reveal-box .grade-badge { margin-bottom: 10px; }
-.reveal-box .ans-line { font-size: 16px; color: var(--good); font-weight: 700; margin-bottom: 6px; }
+.reveal-box { margin-top: .75rem; }
+.reveal-box .ans-line { font-weight: 700; margin-bottom: .25rem; }
 /* "(also accept: ...)" reads as part of the same answer statement, so it
    keeps the exact same color/weight/size as the "Answer: ..." text around
    it (inherit from the parent .ans-line/.a-text) instead of the old
    dimmed/smaller treatment that visually split it off as a lesser aside. */
 .reveal-box .ans-line .also-accept, .a-text .also-accept { color: inherit; font-size: inherit; font-weight: inherit; }
-.reveal-box .alt-line { color: var(--text-dim); font-size: 13px; margin-bottom: 3px; }
-.reveal-box .who-line { color: var(--text-dim); font-size: 13px; margin-bottom: 3px; }
+.reveal-box .alt-line { color: var(--text-dim); font-size: .875rem; margin-bottom: .2rem; }
+.reveal-box .who-line { color: var(--text-dim); font-size: .875rem; }
 /* A wrong answer that was a near miss (a typo, or the key plus extra words). */
-.close-hint { color: var(--warn); font-size: 13px; margin-bottom: 6px; }
-.reveal-box .src-line { color: var(--text-dim); font-size: 12.5px; margin-top: 10px; }
+.close-hint { color: var(--warn); font-size: .875rem; margin-bottom: .25rem; }
+.reveal-box .src-line { color: var(--text-dim); font-size: .875rem; margin-top: .4rem; }
 
 .controls-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
 .shortcut-hint { color: var(--text-dim); font-size: 12px; margin-left: auto; }
@@ -461,19 +476,17 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 
 .q-log { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); }
-.q-log-entry { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
-.q-log-entry .meta-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
-.q-log-entry .q-text { font-size: 14.5px; margin: 6px 0; }
-.q-log-entry .choices { color: var(--text-dim); font-size: 13px; margin: 4px 0; }
-.q-log-entry .a-text { color: var(--good); font-weight: 700; font-size: 13.5px; margin-top: 6px; }
+.q-log-entry:not(.card) { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.q-log-entry:not(.card) .meta-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+.q-log-entry:not(.card) .a-text { font-weight: 700; margin-top: 6px; }
 .q-log-empty { color: var(--text-dim); font-size: 13px; padding: 4px 0; }
 .grade-badge {
-  display: inline-flex; align-items: center; gap: 5px; padding: 3px 11px; border-radius: 999px;
-  font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .3px;
+  display: inline-block; padding: .35em .65em; border-radius: var(--bs-border-radius);
+  font-size: .75em; font-weight: 700; line-height: 1; vertical-align: .1em;
 }
-.grade-badge.correct { background: var(--good); color: #fff; }
-.grade-badge.incorrect { background: var(--bad); color: #fff; }
-.grade-badge.skipped { background: var(--panel-2); color: var(--text-dim); }
+.grade-badge.correct { background: var(--bs-success); color: #fff; }
+.grade-badge.incorrect { background: var(--bs-danger); color: #fff; }
+.grade-badge.skipped { background: var(--bs-secondary-bg); color: var(--bs-secondary-color); }
 
 .mp-layout { display: flex; gap: 22px; align-items: flex-start; }
 .mp-main { flex: 1; min-width: 0; }
@@ -572,7 +585,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .round-range-label { margin-top: .25rem; }
 
 /* ---------------- Reveal tag badges (subject/format/qtype revealed in sequence) ---------------- */
-.reveal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; min-height: 22px; }
+.reveal-tags { display: flex; gap: .375rem; flex-wrap: wrap; margin-bottom: .5rem; min-height: 1.3rem; }
 .reveal-tags .tag:empty { display: none; }
 
 /* ---------------- Multiplayer chat ---------------- */
@@ -624,11 +637,3 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   border: 1px solid rgba(239,90,111,.35); border-radius: 8px; padding: 8px 12px;
   display: inline-block;
 }
-
-/* ---------------- Boot-time "skip the setup screen" state (bookmarks -> solo) ---------------- */
-html.sb-boot-hide-setup #setupScreen { display: none; }
-.boot-loading {
-  display: none; min-height: 50vh; align-items: center; justify-content: center;
-  color: var(--text-dim); font-size: 15px;
-}
-html.sb-boot-hide-setup .boot-loading { display: flex; }
