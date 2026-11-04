@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Set List · SB Reader</title>
+<meta name="description" content="Every Science Bowl tournament in the SB Reader question bank, with its level, date and question count." />
+<link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/set-list.html" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
+<link rel="preload" href="data/meta.json" as="fetch" crossorigin />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <a class="nav-link ms-3 ms-lg-0" href="https://github.com/UnweidlyKhan349/sbreader">GitHub</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl mt-3 mb-5 pb-5">
+  <p class="lead">Set List</p>
+  <p id="setListSummary">Loading…</p>
+  <div class="row g-2 mb-3">
+    <div class="col-md-6">
+      <input type="search" class="form-control" id="setListFilter" placeholder="Filter by name" aria-label="Filter tournaments by name" autocomplete="off" />
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr><th scope="col">Tournament</th><th scope="col">Level</th><th scope="col">Date</th><th scope="col" class="text-end">Questions</th></tr>
+      </thead>
+      <tbody id="setListBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+  (function () {
+    const LEVELS = { hs: 'High School', ms: 'Middle School' };
+    const body = document.getElementById('setListBody');
+    const filter = document.getElementById('setListFilter');
+    let rows = [];
+
+    function monthYear(date) {
+      if (!date) return '';
+      const [y, m] = date.split('-').map(Number);
+      return m ? new Date(y, m - 1, 1).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }) : String(y);
+    }
+    function render() {
+      const q = filter.value.trim().toLowerCase();
+      body.innerHTML = '';
+      rows.filter((t) => !q || t.name.toLowerCase().includes(q)).forEach((t) => {
+        const tr = document.createElement('tr');
+        const name = document.createElement('td');
+        const a = document.createElement('a');
+        a.href = 'catalog.html?tournament=' + encodeURIComponent(t.slug);
+        a.textContent = t.name;
+        name.appendChild(a);
+        const level = document.createElement('td');
+        level.textContent = LEVELS[t.level] || t.level || '';
+        const date = document.createElement('td');
+        date.textContent = monthYear(t.date);
+        const count = document.createElement('td');
+        count.className = 'text-end';
+        count.textContent = t.count.toLocaleString();
+        tr.append(name, level, date, count);
+        body.appendChild(tr);
+      });
+    }
+
+    SBData.loadMeta().then(() => {
+      const meta = SBData.meta;
+      // Newest first; undated sets last, A-Z.
+      rows = meta.tournaments.slice().sort((a, b) => {
+        if (a.date && b.date && a.date !== b.date) return b.date.localeCompare(a.date);
+        if (!!a.date !== !!b.date) return a.date ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      });
+      document.getElementById('setListSummary').textContent =
+        `${rows.length} tournaments and ${meta.totalQuestions.toLocaleString()} questions, newest first. Click a tournament to search its questions. Dates are approximate.`;
+      render();
+    }).catch(() => {
+      document.getElementById('setListSummary').textContent = 'Could not load the question bank. Try refreshing.';
+    });
+    filter.addEventListener('input', render);
+  })();
+</script>
+</body>
+</html>
