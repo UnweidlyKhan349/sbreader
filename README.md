@@ -12,7 +12,7 @@ SB Reader is a free practice site for the **National Science Bowl** (NSB) and ot
 
 Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) on GitHub).
 
-Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host.
+Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, JavaScript framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (saved in `css/vendor/`, not loaded from a CDN) with Light, Night and Auto themes.
 
 **Current question bank: 103,640 questions from 112 tournaments** (56,265 tossups / 47,375 bonuses; 64,482 short answer / 39,158 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
 
@@ -48,29 +48,37 @@ This README covers what the site does, how it's built, the data format, and how 
 
 ## Pages and features
 
+Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordmark, then **Play** (`solo.html`), **Multiplayer**, **Database ▾** (Search = `catalog.html`, Bookmarks, Set List) and **About**, with a theme menu (Light / Night / Auto) and a GitHub link on the right. Below 992 px it folds into a ☰ menu. `js/site.js`, loaded in every page's `<head>`, puts the saved theme (`localStorage` `sb_theme`; Auto follows the system setting) on `<html data-bs-theme>` before the first paint, so a Night page never flashes white, and wires the dropdowns, the ☰ button and the current-page highlight.
+
 ### `index.html` (Home)
-A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. The tagline shows the live question and tournament counts, read from `meta.json` alone. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
+A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer, About), the question database (live question and tournament counts read from `meta.json` alone, with Search, Set List and Bookmarks), the sources, and the code, changelog and licence. Below them a "Did you know?" line picks a fact from the bank (the newest and oldest sets, the middle school sets, the largest set). Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
-### `catalog.html` (Catalog)
+### `about.html` (About) and `set-list.html` (Set List)
+About explains how to play, lists the keyboard shortcuts, sums up how answers are graded, and names the sources and credits. Set List is a table of every tournament in `meta.json` (level, approximate date, question count), newest first, with a filter box; each name opens the catalog filtered to it (`catalog.html?tournament=<slug>`, which takes a comma-separated list too).
+
+### `catalog.html` (Database › Search)
 - Browse and search every question. Search covers question text, answers, and tournament name, with a debounce on input. Each word typed must appear somewhere in those fields, but the words needn't be next to each other or in order (`chloride sodium` finds "sodium chloride", and `aves photosynthesis` finds AVES questions about photosynthesis). Each question's lowercased search text is built once, in small batches while the browser is idle after the page loads, and reused, so a keystroke doesn't lowercase the whole bank again. Matches are highlighted in the results, and exponent markup is ignored, so `7100` finds `7^100`.
-- Filters: subject chips, a dual-handle **round-range slider** that spans only the rounds the picked tournaments have (all 20 with none picked; a range that reached the top keeps reaching it), with an "Include unlabeled" checkbox (27,572 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), **visual questions** (Visual/Text only; selecting neither means both), and a tournament picker. On screens 900px and wider the tournaments are a sticky, searchable checklist in a sidebar beside the results (with a Clear button and a count of how many are picked); on narrower screens it's a searchable multi-select dropdown in the filter panel that lists the selected tournaments first. Both edit the same selection. There's also a "Clear all filters" button.
+- Filters: subject chips, a dual-handle **round-range slider** that spans only the rounds the picked tournaments have (all 20 with none picked; a range that reached the top keeps reaching it), with an "Include unlabeled" checkbox (27,572 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), **visual questions** (Visual/Text only; selecting neither means both), and a tournament picker: a searchable multi-select dropdown that lists the selected tournaments first. The layout follows QB Reader's database page: a query bar with a Search button (typing searches as you go too), the tournament picker and round slider side by side, the filter toggles, and switches for "Include questions with no round number" and **Hide answers** (remembered per device as `sb_hide_answers`; hidden answers sit behind a Show answer link on each card). There's also a "Clear all filters" link.
 - With no tournament picked, results list the newest tournaments first (by each tournament's approximate `date` in `meta.json`), each in packet order; picking tournaments lists them A–Z. Packet order is: by tournament, then round (unlabeled rounds last), then question number, each tossup before its bonus. Filtering to MIT 2023 shows Round 1 from question 1, then Round 2, and so on. NSB Regs, whose rounds are numbered within each set, shows Round 1 of every set before Round 2 (`SBData.sortByPacketOrder`).
-- 40 results per page, with pagination and a jump-to-page input. Changing page keeps the pager where it was on screen.
-- Each card shows subject/type/format tags (a bonus with a figure is tagged **Visual Bonus** instead of Bonus; a tossup with a figure gets a separate **Visual** tag), the question, its figure(s) (click to enlarge), MC choices, the answer line (with inline "also accept"), the tournament, round label and question number ("AVES 2 · DE 4 · Q7"), a link to the original packet (when there is one), and a bookmark star.
+- 40 results per page, with Bootstrap pagination (first, last and nearby pages) and a jump-to-page box. Changing page keeps the pager where it was on screen.
+- Each result is a card (`SBData.questionCard`, shared with the bookmarks page and both play histories): the header has the tournament, round label and question number ("AVES 2 · DE 4 · Q7") and a bookmark star; the body has the question, its figure(s) (click to enlarge), MC choices and the answer line (with inline "also accept"); the footer has the subject/type/format badges (a bonus with a figure is tagged **Visual Bonus** instead of Bonus; a tossup with a figure gets a separate **Visual** badge) and a link to the original packet when there is one.
 
-### `solo.html` (Solo Practice)
-- **Setup screen**: pick subjects, round range, question type, format, level (High School/Middle School), visual questions (Visual/Text only), and tournament(s), plus reading speed. A live "N questions match your filters" count updates as you go.
+### `solo.html` (Play)
+- **Layout**, as on QB Reader's play page: the question on the left; on the right a settings sidebar with a large timer readout (seconds and tenths; red while you answer), the filters (subjects, round range, include unlabeled rounds, question type, format, level, visual questions, tournaments, with a live "N questions match your filters" count) and the reading speed; and a button bar pinned to the bottom of the screen: **Next** (Skip while a question is being read), Pause, the ⚙ settings button, and **Buzz** on the right. Above the question a statline counts correct and incorrect answers and questions seen, and the tournament, round and question number sit on the right with the bookmark star. There's no setup screen: the page opens on this view and the first Next starts a session.
 - **Reveal instead of text-to-speech**: questions and their answer choices type themselves onto the screen (`js/reveal.js`) at an adjustable speed, from 0.5× to 2.5×. At 1.0× that's 21 characters per second. The reveal position is computed from wall-clock time rather than tick counts, so it doesn't fall behind in a backgrounded browser tab. Your speed is saved in `localStorage` (`sb_rate`).
 - **Figures**: a visual question shows its figure (between the question text and the choices) as soon as the question starts (the figure is part of the question, not something revealed letter by letter). The space the question text will take is reserved up front, so the figure doesn't jump as the text types out, and the next question's images are preloaded while you answer this one. Click a figure to open it full-size; `Esc` or a click closes it.
 - **Source link**: once the answer is shown, the line under it names the tournament, round and question number and links to the original packet when there is one. Multiplayer sends the link with the answer, not with the question, so nobody can open the packet early. The session log shows the same link.
 - **Timers**: a 4 s buzz window for tossups and 20 s for bonuses once the reveal finishes, then 10 s to type an answer.
 - **Grading**: automatic (see [Answer grading](#answer-grading)), with a manual **override** if the grader gets it wrong. The score bar tracks Correct, Incorrect, and Total.
 - **Question queue**: built with `SBData.stratifiedQueue`, a round-robin across subjects that keeps cycling. Subjects stay evenly mixed for the whole session even when one subject has far fewer matching questions.
-- **In-session Settings panel** (⚙ / `S`): change reading speed and every filter mid-session. Changes apply live and only rebuild the not-yet-asked part of the queue, so you won't see a question twice. If you turn off every subject and close the panel, it resets to all subjects, so the next time you open it you get a working selection instead of zero matches.
-- Pause/resume, bookmarking, and a "Previous questions" log.
-- **Bookmarked mode**: the bookmarks page's "Practice these" button opens `solo.html?bookmarked=1`, which skips setup and drills only your bookmarks, ignoring subject/format/round filters. An inline `<head>` script hides the setup screen before the first paint so it never flashes.
+- **Changing settings mid-session**: every filter and the reading speed apply live; a filter change only rebuilds the not-yet-asked part of the queue, so you won't see a question twice. If every subject is switched off when you press Next, it starts from all subjects instead.
+- **Settings sidebar**: open beside the question on wide screens; ⚙ or `S` hides and shows it. On screens narrower than 992 px it sits above the question and starts folded, showing only the (smaller) timer until ⚙ opens it.
+- Grading overrides read **I was wrong** (after a Correct) or **I was right** (after an Incorrect). Pause/resume, bookmarking, and the past questions as cards under the current one.
+- **Bookmarked mode**: the bookmarks page's "Practice these" button opens `solo.html?bookmarked=1`, which starts drilling only your bookmarks at once, ignoring the filters; the sidebar says how many bookmarks are in play instead of showing the filters.
 
 ### `multiplayer.html` (Multiplayer)
+- **Lobby page**, as on QB Reader's multiplayer page: one **Your name** box, a room-code box with **Join** and **Create new room** buttons, and the public lobbies as a list. A new room starts with every subject and no other filter; anyone in it changes that from the room settings.
+- **In a room** the layout matches Play: the question on the left, with the room code (click to copy an invite link) above it; a sidebar with the timer, the leaderboard (you highlighted; offline players dimmed and tagged) and the room settings; and the bottom bar with Next / Skip / Start, Pause, ⚙, **Chat** and Buzz. Chat opens a message box above the question history, and the room's messages are listed there.
 - **Create or join a room** with a 5-character code. Codes use an alphabet without look-alike characters (no I/L/O/0/1). The underlying PeerJS peer ID is `sbowl-XXXXX`, but players only ever see and type `XXXXX`. Codes are **uppercased before connecting**, so typing `xfts2` joins `XFTS2`, and a pasted `sbowl-` prefix is handled whatever its case.
 - **Invite links**: clicking the room code (or a lobby's name, which is shown with normal letter spacing, as is "Link copied!") copies a link (`multiplayer.html?room=XXXXX`) that joins the room as soon as it's opened, under the name last used on that device (saved in `localStorage` as `sb_mp_name`, otherwise "Player"). A guest's address bar shows the same link, so reloading rejoins the room.
 - **Public lobbies**: a list at the top of the page of open rooms anyone can join: **All subjects**, plus one for each subject except energy (Math, Physics, Biology, Chemistry, Earth & Space). Each card shows the lobby's question count and how many players are in it, checked when the page opens, every 30 seconds while it's visible, and on ↻ Refresh. A lobby's subject is fixed (hidden in its room settings; Clear all keeps it, and the coordinator enforces it on every settings change); everything else is a normal room setting. Clicking the room name in a lobby copies `multiplayer.html?lobby=<key>`, which joins it directly; guests' address bars show that link too.
@@ -86,16 +94,15 @@ A landing page with cards linking to Catalog, Solo Practice, and Multiplayer. Th
 - **Scoring**: +4 for a correct answer. A wrong answer costs −4 if you buzzed before the question finished revealing, and 0 otherwise. Players can override their own graded answer, except that a wrong answer can't be overridden to correct once someone else has scored the question.
 - Visual questions show their figure to everyone when the question starts (the coordinator preloads the next question's images); the Visual/Text-only choice is a room setting like the other filters.
 - Live scoreboard, live typing preview (other players watch you type, throttled to 150 ms), room chat (last 60 messages), pause, bookmarks, and a question log.
-- **Room settings** (⚙ / `S`) can be edited by anyone in the room. Changes go to the coordinator and are then broadcast to everyone. An echo-suppression guard stops programmatic repaints from bouncing settings back and forth between clients. The "all subjects off → reset to all on close" rule applies here too, and the reset is pushed to the room like any other settings change.
+- **Room settings** sit in the sidebar and can be edited by anyone in the room. Changes go to the coordinator and are then broadcast to everyone, and every player's sidebar repaints to show them. An echo-suppression guard stops those repaints from bouncing settings back and forth between players. If every subject is off when someone presses Next (or hides the settings), the room goes back to all subjects, pushed out like any other change.
 - **Joining mid-game**: every joiner gets a full state sync (including the chat and the question log) and catches up immediately. Duplicate display names are made unique.
 
 ### `bookmarks.html` (Bookmarked questions)
 Lists every bookmarked question as a card, with a "Practice these" button that starts solo bookmarked mode. Bookmarks are stored per device in `localStorage` under `sb_bookmarks_v1`. The page downloads only the tournaments that hold a bookmarked question (`SBData.loadBookmarked()`, using `data/bank/index.json` to find them), not the whole bank.
 
 ### Mobile
-- Below 640 px the nav bar scrolls horizontally with a hidden scrollbar, and the brand text and links shrink. There's no horizontal page overflow on any page.
-- Below 480 px the hero heading shrinks from 34 px to 26 px.
-- Verified with Playwright screenshots at 375 px across all pages and during an active solo session.
+- Below 992 px the navbar folds into a ☰ menu, the play and room sidebars sit above the question with only the timer showing until ⚙ opens them, and the button bar stays pinned to the bottom. There's no horizontal page overflow on any page.
+- Verified with Playwright screenshots at 390 px across all pages, during an active solo session and in a multiplayer room, in both Light and Night.
 
 ---
 
@@ -105,9 +112,9 @@ Shortcuts are ignored while you're typing in a text field (except Enter to submi
 
 While an enlarged figure is open, it takes the keyboard: `Esc` closes it and no game shortcut reaches the page underneath.
 
-**Solo (in session)**: `Space` buzz · `Enter` submit · `N` next/skip · `Q` override grading · `B` bookmark · `P` pause/resume · `S` open settings (not in bookmarked mode) · `Esc` close settings
+**Play**: `N` start / next / skip · `Space` buzz · `Enter` submit · `Q` override grading (I was wrong / right) · `B` bookmark · `P` pause/resume · `S` show/hide the settings sidebar
 
-**Multiplayer (in game)**: `Space` buzz · `Enter` submit · `N` next (after reveal) / skip (while reading) · `P` pause · `Q` override your own grade · `B` bookmark · `S` room settings · `/` focus chat · `Esc` close settings
+**Multiplayer (in a room)**: `Space` buzz · `Enter` submit · `N` start / next (after reveal) / skip (while reading) · `P` pause · `Q` override your own grade · `B` bookmark · `S` show/hide the sidebar · `/` chat (`Esc` closes the chat box)
 
 
 ---
@@ -154,9 +161,11 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 ## Architecture
 
 ```
-index.html  catalog.html  solo.html  multiplayer.html  bookmarks.html
-css/style.css
-img/logo.svg        the logo mark (nav brand); img/icon-*.png are its PWA/home-screen sizes
+index.html  catalog.html  solo.html  multiplayer.html  bookmarks.html  set-list.html  about.html
+css/vendor/bootstrap.min.css   vendored Bootstrap 5.3.8 stylesheet (no Bootstrap JS)
+css/style.css       QB Reader-style overrides (navbar, Night palette, timer) and the parts Bootstrap has no component for
+js/site.js          theme (Light / Night / Auto) and navbar wiring, loaded in every page's <head>
+img/logo.svg        the logo mark; img/icon-*.png are its PWA/home-screen sizes
 favicon.svg  favicon.ico  apple-touch-icon.png  site.webmanifest   tab and home-screen icons
 js/data.js          shared loader, text cleanup, math rendering, question cards, filters, UI widgets, bookmarks
 js/answer-check.js  grading (SBAnswer)
@@ -191,7 +200,7 @@ tests/              node --test suites: grader, multiplayer rules, data shape
 - **Chemical formulas**: after the math pass, `subscriptFormulas` writes the counts in formulas such as `H2SO4`, `Ca(OH)2` and `C6H12O6` as subscripts. A run counts as a formula only when every symbol is an element, no count is 1 or starts with 0, no element repeats back to back, and it isn't a lone element (except a short list of real molecules: `O2`, `N2`, `Cl2`, `S8`, `C60`, …) or one of the bank's look-alikes (`SN2`, `sp3`, `HSP70`, `IC50`, `H3K27`, `P700`, …). An ion written with its charge as a superscript (`H3^+`, `S2^(2-)`) gets its subscript even as a lone element. The stored text isn't changed, and grading ignores the subscripts.
 - **`answerDisplayText(q)`**: for MC questions the choice text wins over `a.t`, so a damaged answer field still displays correctly.
 - **`answerLineHTML()`**: one shared "Answer: X (also accept: Y)" renderer.
-- **Question cards**: `questionMetaRow`, `appendQuestionBody`, `answerBlock` and `bookmarkButton` build the cards in the catalog, the bookmarks page and both session logs. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.
+- **Question cards**: `questionCard` builds the Bootstrap card used in the catalog, the bookmarks page and both play histories, from `appendQuestionBody`, `answerBlock` and `bookmarkButton`. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.
 - **Figures**: `questionFigures(q, opts)` builds the figure strip (lazy-loaded `<img>` with its width/height set so the layout doesn't shift, eager in the live question panel), `openLightbox(src, alt)` shows one full-size, and `preloadImages(q)` warms the next question's images. `expandQuestions` turns a record's `im` into `q.images` (`{src, w, h}`) and sets `q.visual`, which the filter and the tags read: `qtypeLabel(q)` / `qtypeTagClass(q)` give a visual bonus its "Visual Bonus" type tag in the cards and in the solo and multiplayer question panels.
 - **`cleanRoundLabel()`** tidies round labels for display: it strips "Copy of", strips a repeated tournament name, and spaces letters from digits (`DE1` → `DE 1`).
 - Also here: filtering (`filterQuestions`, including the `visuals` set: `visual`/`text`), shuffles (`shuffle`, `stratifiedShuffle`, `stratifiedQueue`), the dual round slider (`wireRoundRangeSlider`), the searchable multi-select (`enhanceMultiSelect`), range-fill styling, and bookmark storage (kept in memory, re-read when another tab changes it).
@@ -295,7 +304,7 @@ Some bonuses (and a few tossups) are about a picture: a diagram, graph, microgra
 - **Where the images come from**: images embedded in the PDF and .docx packets of the user's packet archive (matched to the bank by question text and cropped to the figure; where a packet's image runs off the page, the embedded picture itself was taken instead of a page render); the separate visual-bonus slide decks (MIT 2024/2025, Fall 2023, DAST, CLASH, FE!M, …), rendered slide by slide with LibreOffice and trimmed to the figure; LOST 1's and LOST 2's slide decks from scibowl.live; HSBT 2026's public visual-bonus deck (Google Slides, exported as PDF); figures drawn inline in SBL's packets and in ICSBT 3's public PDFs; the public SMH 2026 Google Docs; and isobowl's structured Trio Online Math Bowl rounds. Figures drawn as vector graphics (LOST 1's reaction schemes and circuit, SBL's geometry diagrams) have no embedded image to extract, so the page region holding the drawing is rendered at 200 dpi instead, which captures vector strokes, text labels and any pictures layered on top together.
 - **Files**: `data/img/<tournament-slug>/<question id>.webp` (`<id>-1.webp`, `<id>-2.webp` … when a question has more than one figure), referenced from the record as `{f, w, h}`. Images are WebP at quality 86, at most 1,400 px on the long side, with transparency flattened onto white so they read in dark mode too; five animated figures stay GIF. Total about 24 MB. They're downloaded only when a question that uses them is shown (lazy-loaded in lists, preloaded one question ahead in solo and multiplayer), so the bank's load time is unchanged.
 - **Display**: figures sit between the question text and the choices, on a white card, capped at 420 px tall (300 px in catalog cards, `min(52vh, 460px)` in the live question panel), and open full-size in a lightbox on click. The card's `width`/`height` attributes reserve the space before the image arrives.
-- **Filter**: a "Visual questions" chip row (Visual / Text only) in the catalog, solo setup, solo settings and multiplayer room settings; selecting neither or both means no filter. It's carried in the multiplayer settings messages like every other filter.
+- **Filter**: a "Visual questions" toggle pair (Visual / Text only) in the catalog, the Play settings and the multiplayer room settings; selecting neither or both means no filter. It's carried in the multiplayer settings messages like every other filter.
 - **Grading** is unchanged: the answer still comes from the record's key and accept list.
 
 ---
@@ -383,7 +392,7 @@ There's no build step, `npm install`, or environment variables. `package.json` o
 
 - Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1280×640, with everything inside the middle band so GitHub's cropped repo card shows it whole), so shared links get a title, summary and picture.
 - `bookmarks.html` and `404.html` are `noindex`: bookmarks live in each visitor's browser, so there's nothing there to index.
-- `sitemap.xml` lists the four public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
+- `sitemap.xml` lists the six public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
 - The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
 - `img/og-image.png` doubles as the repo's social preview: upload it under **Settings → General → Social preview**.
 
