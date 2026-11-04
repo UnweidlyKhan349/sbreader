@@ -132,13 +132,6 @@ sub { top: 0.25em; }
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .btn .icon-svg, .btn svg { vertical-align: -.125em; }
 
-/* Modal-style overlay (lightbox and similar). */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, .5);
-  display: flex; align-items: flex-start; justify-content: center;
-  padding: 40px 16px; overflow-y: auto; z-index: 1055;
-}
-.modal-panel { width: 100%; max-width: 560px; max-height: calc(100vh - 80px); overflow-y: auto; }
 
 /* Text inputs that aren't Bootstrap .form-control yet get its look. */
 input[type="text"]:not(.form-control), input[type="search"]:not(.form-control), textarea:not(.form-control), select:not(.form-select) {
@@ -354,8 +347,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The settings sidebar: open beside the question on wide screens (the gear
    button collapses it), above the question and closed on narrow ones. */
 @media (max-width: 991.98px) {
-  .play-sidebar { display: none; }
-  .play-sidebar.show { display: block; }
+  /* Closed on a phone, the sidebar still shows its timer, smaller. */
+  .play-sidebar:not(.show) > :not(.timer) { display: none !important; }
+  .play-sidebar:not(.show) { margin-bottom: .5rem !important; }
+  .play-sidebar .timer { font-size: 175%; }
 }
 @media (min-width: 992px) {
   .play-sidebar.collapsed { display: none; }
@@ -371,33 +366,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* Past questions under the current one. */
 .room-history { border-top: .5px solid var(--bs-border-color); }
 
-.game-wrap { max-width: 880px; margin: 0 auto; padding: 26px 20px 80px; }
-.game-wrap.mp-layout { max-width: 1150px; }
-.score-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 12px 18px; margin-bottom: 18px; gap: 12px; flex-wrap: wrap;
-}
-.score-bar .score { font-size: 22px; font-weight: 800; }
-.score-bar .score.neg { color: var(--bad); }
-.score-bar .score.pos { color: var(--good); }
-.qcount { color: var(--text-dim); font-size: 13px; }
-
-.stat-group { display: flex; gap: 10px; }
-.stat-pill { display: flex; flex-direction: column; align-items: center; min-width: 56px; }
-.stat-pill .n { font-size: 19px; font-weight: 800; line-height: 1.1; }
-.stat-pill .l { font-size: 10.5px; text-transform: uppercase; letter-spacing: .3px; color: var(--text-dim); }
-.stat-pill.correct .n { color: var(--good); }
-.stat-pill.incorrect .n { color: var(--bad); }
-.stat-pill.total .n { color: var(--text); }
-
-.pause-badge {
-  display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 700;
-  color: var(--warn); background: rgba(232,180,69,.14); padding: 5px 10px; border-radius: 999px;
-}
-
-.meta-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-
 .question-panel { position: relative; min-height: 8rem; }
 .question-panel::after { content: ""; display: table; clear: both; }
 /* Plays once each time a new question comes up (JS re-triggers it by
@@ -412,13 +380,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   .question-panel.q-panel-enter { animation: none; }
 }
 .question-panel .q-display { font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; }
-.question-panel .q-display.mp-waiting-text { color: var(--text-dim); font-size: 16px; font-style: italic; }
+.question-panel .q-display.mp-waiting-text { color: var(--text-dim); font-size: 1rem; }
 /* Multiplayer lobby's "waiting to start" screen - just one line of text
    and the Start button, so the panel's usual min-height (sized for a full
    question + choices) and the tag row's always-reserved space (normally
    there so revealing a question's tags doesn't shift anything) are both
    dropped instead of leaving a large empty gap above and below that line. */
-.question-panel.mp-lobby-compact { min-height: 0; padding-top: 20px; padding-bottom: 20px; }
+.question-panel.mp-lobby-compact { min-height: 0; }
 .question-panel.mp-lobby-compact .reveal-tags { display: none; }
 .choices-display { margin-top: .75rem; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 .choice-box { border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius); padding: .5rem .75rem; line-height: 1.5; }
@@ -427,12 +395,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .choice-box.clickable { cursor: pointer; transition: border-color .12s ease, background .12s ease; }
 .choice-box.clickable:hover { border-color: var(--bs-primary); background: var(--bs-tertiary-bg); }
 @media (max-width: 767.98px) { .choices-display { grid-template-columns: 1fr; } }
-
-.timer-row { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
-.timer-bar-track { flex: 1; height: 10px; border-radius: 6px; background: var(--bg-alt); overflow: hidden; border: 1px solid var(--border); }
-.timer-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); width: 100%; transition: width .1s linear; }
-.timer-bar-fill.answer { background: linear-gradient(90deg, var(--warn), var(--bad)); }
-.timer-label { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 13px; min-width: 40px; text-align: right; }
 
 .status-pill {
   display: inline-flex; align-items: center; gap: 6px; padding: .35em .75em; border-radius: var(--bs-border-radius);
@@ -448,9 +410,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    make the pill actually read as its own shape instead of blending in. */
 .status-pill.revealed { background: var(--bs-secondary-bg); border: var(--bs-border-width) solid var(--bs-border-color); }
 
-.answer-input-row { display: flex; gap: 10px; margin-top: 18px; }
-.answer-input-row input { flex: 1; font-size: 16px; padding: 12px 14px; }
-
 .reveal-box { margin-top: .75rem; }
 .reveal-box .ans-line { font-weight: 700; margin-bottom: .25rem; }
 /* "(also accept: ...)" reads as part of the same answer statement, so it
@@ -464,22 +423,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .close-hint { color: var(--warn); font-size: .875rem; margin-bottom: .25rem; }
 .reveal-box .src-line { color: var(--text-dim); font-size: .875rem; margin-top: .4rem; }
 
-.controls-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
-.shortcut-hint { color: var(--text-dim); font-size: 12px; margin-left: auto; }
-
-.setup-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
-@media (max-width: 820px) { .setup-grid { grid-template-columns: 1fr; } .choices-display { grid-template-columns: 1fr; } }
-
-.slider-row { display: flex; align-items: center; gap: 12px; }
-.slider-row input[type=range] { flex: 1; }
-.slider-value { min-width: 54px; text-align: right; color: var(--text-dim); font-size: 13px; }
-
-
-.q-log { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); }
 .q-log-entry:not(.card) { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
 .q-log-entry:not(.card) .meta-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
 .q-log-entry:not(.card) .a-text { font-weight: 700; margin-top: 6px; }
-.q-log-empty { color: var(--text-dim); font-size: 13px; padding: 4px 0; }
 .grade-badge {
   display: inline-block; padding: .35em .65em; border-radius: var(--bs-border-radius);
   font-size: .75em; font-weight: 700; line-height: 1; vertical-align: .1em;
@@ -488,73 +434,39 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .grade-badge.incorrect { background: var(--bs-danger); color: #fff; }
 .grade-badge.skipped { background: var(--bs-secondary-bg); color: var(--bs-secondary-color); }
 
-.mp-layout { display: flex; gap: 22px; align-items: flex-start; }
-.mp-main { flex: 1; min-width: 0; }
-.mp-sidebar {
-  width: 260px; flex-shrink: 0; background: var(--panel); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px; position: sticky; top: 76px;
-}
-@media (max-width: 900px) {
-  .mp-layout { flex-direction: column; }
-  .mp-sidebar { width: 100%; position: static; }
-}
+/* ---------------- Multiplayer ---------------- */
+.mp-player-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.mp-player-row .name { font-weight: 500; }
+.mp-player-row .pts { font-variant-numeric: tabular-nums; font-weight: 700; }
+.mp-player-row.me { background: rgba(var(--bs-primary-rgb), .08); box-shadow: inset 3px 0 0 rgb(var(--bs-primary-rgb)); }
+.mp-player-row.buzzed { background: var(--bs-warning-bg-subtle); }
+.mp-player-row.answered-correct { background: var(--bs-success-bg-subtle); }
+.mp-player-row.answered-incorrect { background: var(--bs-danger-bg-subtle); }
+.mp-player-row.offline { color: var(--bs-secondary-color); }
 
-.summary-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
-.summary-stat { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; min-width: 110px; text-align:center; }
-.summary-stat .n { font-size: 22px; font-weight: 800; }
-.summary-stat .l { font-size: 11.5px; color: var(--text-dim); text-transform: uppercase; }
-
-.mp-players { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-.mp-player-row {
-  display:flex; align-items:center; justify-content:space-between; gap: 10px;
-  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px;
-}
-.mp-player-row.me { border-color: var(--accent); }
-.mp-player-row .name { font-weight: 700; }
-.mp-player-row .pts { font-variant-numeric: tabular-nums; font-weight: 800; }
-.mp-player-row.buzzed { border-color: var(--warn); background: rgba(232,180,69,.08); }
-.mp-player-row.answered-correct { border-color: var(--good); background: rgba(53,194,129,.1); }
-.mp-player-row.answered-incorrect { border-color: var(--bad); background: rgba(239,90,111,.1); }
-.mp-player-row .badge { font-size: 11px; color: var(--text-dim); }
-.mp-player-row.offline { opacity: .55; border-style: dashed; }
-.mp-player-row.offline .name { font-weight: 600; }
-
+/* The room code (or public lobby's name) above the question: click to copy
+   an invite link. */
+.room-code-strip { display: inline-flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .room-code {
-  font-size: 26px; letter-spacing: 3px; font-weight: 800;
-  background: var(--bg-alt); border: 1px dashed var(--border); border-radius: 10px; padding: 10px 18px;
-  display: inline-block; cursor: pointer; transition: background .15s ease, border-color .15s ease;
+  font-weight: 700; letter-spacing: 2px; cursor: pointer;
+  border: var(--bs-border-width) dashed var(--bs-border-color); border-radius: var(--bs-border-radius);
+  padding: 0 .5rem;
 }
-.room-code:hover { background: rgba(var(--bs-primary-rgb),.1); border-color: var(--accent); }
-.room-code:active { transform: scale(0.985); }
-.room-code.copied { background: rgba(53,194,129,.18); border-color: var(--good); color: var(--good); }
+.room-code:hover { background: rgba(var(--bs-primary-rgb), .1); border-color: var(--bs-primary); }
+.room-code.copied { background: var(--bs-success-bg-subtle); border-color: var(--bs-success); color: var(--bs-success-text-emphasis); }
+/* "Link copied!" and a lobby's name are words, not codes: no code spacing. */
+.room-code.copied, .room-code.is-name { letter-spacing: normal; }
 
-
-/* Multiplayer: public lobby list. */
-.public-panel { margin-bottom: 20px; }
-.public-lobbies { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin-top: 14px; }
-.lobby-card {
-  --lobby-color: var(--accent);
-  display: flex; flex-direction: column; gap: 3px; text-align: left;
-  background: var(--bg-alt); color: var(--text); font: inherit;
-  border: 1px solid var(--border); border-left: 4px solid var(--lobby-color); border-radius: var(--radius);
-  padding: 11px 14px; cursor: pointer; transition: background .15s ease, border-color .15s ease;
-}
-.lobby-card:hover:not(:disabled) { background: var(--panel-2); border-color: var(--lobby-color); }
-.lobby-card:disabled { opacity: .6; cursor: progress; }
+/* Public lobby rows: a coloured edge for the lobby's subject. */
+.lobby-card { --lobby-color: var(--bs-primary); border-left: 4px solid var(--lobby-color) !important; }
 .lobby-card[data-subject="math"] { --lobby-color: var(--math); }
 .lobby-card[data-subject="phys"] { --lobby-color: var(--phys); }
 .lobby-card[data-subject="bio"] { --lobby-color: var(--bio); }
 .lobby-card[data-subject="chem"] { --lobby-color: var(--chem); }
 .lobby-card[data-subject="ess"] { --lobby-color: var(--ess); }
-.lobby-card .lobby-name { font-weight: 700; font-size: 15px; }
-.lobby-card .lobby-sub { color: var(--text-dim); font-size: 12px; }
-.lobby-card .lobby-count { font-size: 12.5px; color: var(--text-dim); margin-top: 4px; }
-.lobby-card .lobby-count.live { color: var(--good); font-weight: 600; }
-.public-name-row { display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
-.public-name-row input { flex: 1; min-width: 0; max-width: 300px; }
-#matchCount, #mpSettingsMatchCount { font-size: 15px; }
-
-
+.lobby-card .lobby-name { font-weight: 500; }
+.lobby-card .lobby-sub { color: var(--bs-secondary-color); font-size: .875rem; }
+.lobby-card:disabled { cursor: progress; }
 
 /* ---------------- Dual-handle range slider (round filter) ---------------- */
 /* All pointer interaction is handled manually by JS on .dual-slider itself
@@ -589,51 +501,36 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .reveal-tags .tag:empty { display: none; }
 
 /* ---------------- Multiplayer chat ---------------- */
-.mp-chat { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
-.mp-chat-log { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
-.mp-chat-msg { font-size: 13px; line-height: 1.4; }
-.mp-chat-msg .who { font-weight: 700; color: var(--accent); margin-right: 4px; }
-.mp-chat-msg.me .who { color: var(--good); }
+.mp-chat-log { max-height: 12rem; overflow-y: auto; }
+.mp-chat-msg { line-height: 1.4; margin-bottom: .2rem; }
+.mp-chat-msg .who { font-weight: 700; margin-right: .25rem; }
+.mp-chat-msg.me .who { color: var(--bs-primary); }
+[data-bs-theme=dark] .mp-chat-msg.me .who { color: var(--bs-link-color); }
 .mp-chat-msg.system { color: var(--text-dim); font-style: italic; }
-.mp-leaderboard-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.mp-rename-row { display: flex; gap: 8px; margin-top: 10px; }
-.mp-rename-row input { flex: 1; min-width: 0; font-size: 13px; padding: 7px 10px; }
-.mp-chat-row { display: flex; gap: 8px; }
-.mp-chat-row input { flex: 1; font-size: 13px; padding: 8px 10px; }
-
-.mp-live-typing { color: var(--text-dim); font-size: 13.5px; font-style: italic; margin-top: 8px; min-height: 18px; }
-
-.room-code-strip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.room-code-strip .room-code { font-size: 16px; padding: 4px 10px; letter-spacing: 2px; }
-/* "Link copied!" and a lobby's name are words, not codes: no code spacing. */
-.room-code-strip .room-code.copied, .room-code-strip .room-code.is-name { letter-spacing: .2px; }
 
 /* ---------------- Multiplayer buzz/typing/result status panel ---------------- */
 .mp-buzz-status {
-  margin-top: 16px; padding: 14px 16px; border-radius: var(--radius);
-  background: rgba(232,180,69,.1); border: 1px solid var(--warn);
+  margin-top: .75rem; padding: .75rem 1rem; border-radius: var(--bs-border-radius);
+  background: var(--bs-warning-bg-subtle); border: var(--bs-border-width) solid var(--bs-warning-border-subtle);
 }
-.mp-buzz-status.graded-correct { background: rgba(53,194,129,.12); border-color: var(--good); }
-.mp-buzz-status.graded-incorrect { background: rgba(239,90,111,.12); border-color: var(--bad); }
-.mp-buzz-who { font-size: 15px; font-weight: 800; }
+.mp-buzz-status.graded-correct { background: var(--bs-success-bg-subtle); border-color: var(--bs-success-border-subtle); }
+.mp-buzz-status.graded-incorrect { background: var(--bs-danger-bg-subtle); border-color: var(--bs-danger-border-subtle); }
+.mp-buzz-who { font-weight: 700; }
 .mp-buzz-who .grade-badge { margin-left: 8px; vertical-align: middle; }
-.mp-buzz-typed { color: var(--text-dim); font-size: 14px; margin-top: 6px; min-height: 18px; }
+.mp-buzz-typed { color: var(--text-dim); margin-top: .25rem; min-height: 1.2rem; }
 .mp-buzz-typed .submitted-text { color: var(--text); font-weight: 700; }
 .mp-buzz-typed .live-typing-name { color: var(--text); font-weight: 700; }
 .mp-buzz-typed .live-typing-text { color: var(--text); font-weight: 700; }
 .mp-buzz-attempts { display: flex; flex-direction: column; gap: 6px; }
 .mp-buzz-attempts.has-status-above { margin-top: 10px; }
-.mp-buzz-attempt-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.mp-buzz-attempt-row { display: flex; align-items: center; gap: .5rem; }
 .mp-buzz-attempt-row ~ .mp-buzz-attempt-row { padding-top: 8px; border-top: 1px solid var(--border); }
 .mp-buzz-attempt-row .name { font-weight: 700; }
 .mp-buzz-attempt-row .text { color: var(--text-dim); }
 .mp-buzz-attempt-row .close-hint { margin: 0 0 0 auto; }
 
-/* ---------------- Reveal measure wrap (reserves height so buttons below don't shift) ---------------- */
-.reveal-measure-wrap { }
-
 .small-note.status-error {
-  color: var(--bad); font-weight: 700; background: rgba(239,90,111,.1);
-  border: 1px solid rgba(239,90,111,.35); border-radius: 8px; padding: 8px 12px;
-  display: inline-block;
+  color: var(--bs-danger-text-emphasis); background: var(--bs-danger-bg-subtle);
+  border: var(--bs-border-width) solid var(--bs-danger-border-subtle); border-radius: var(--bs-border-radius);
+  padding: .5rem .75rem; display: inline-block;
 }

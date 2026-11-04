@@ -9,8 +9,6 @@
   const TYPING_THROTTLE_MS = 150;
   const CHAT_HISTORY = 60;
 
-  const filterState = { subjects: new Set(), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(), tournaments: new Set(), roundRange: null, includeUnlabeled: true };
-  let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi;
   // Snapshot of whatever filters actually produced the room's current queue -
   // kept in sync on room creation and whenever the in-game settings panel is
   // applied, and used to seed that panel each time it's reopened.
@@ -48,19 +46,26 @@
     return pid;
   }
 
-  /* ================= LOBBY SETUP ================= */
+  /* ================= LOBBY ================= */
+  // Filter toggles (the room settings in the sidebar use these).
   function buildChips(container, items, stateObj, key, labelFn, onChange) {
     container.innerHTML = '';
     items.forEach((item) => {
-      const chip = document.createElement('div');
+      const chip = document.createElement('button');
+      chip.type = 'button';
       chip.className = 'chip';
       if (item.subjectAttr) chip.dataset.subject = item.subjectAttr;
       chip.textContent = labelFn(item);
-      chip.classList.toggle('active', stateObj[key].has(item.value));
+      const paint = () => {
+        const on = stateObj[key].has(item.value);
+        chip.classList.toggle('active', on);
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+      };
+      paint();
       chip.addEventListener('click', () => {
         if (stateObj[key].has(item.value)) stateObj[key].delete(item.value);
         else stateObj[key].add(item.value);
-        chip.classList.toggle('active', stateObj[key].has(item.value));
+        paint();
         if (onChange) onChange();
       });
       container.appendChild(chip);
@@ -76,87 +81,28 @@
       tournaments: stateObj.tournaments,
     });
   }
-  function getFiltered() { return filterQuestionsFor(filterState); }
-  function updateMatchCount() {
-    const moved = roundSliderApi && roundSliderApi.setMax(SBData.maxRoundFor(filterState.tournaments));
-    if (moved) filterState.roundRange = moved;
-    document.getElementById('matchCount').textContent = `${getFiltered().length.toLocaleString()} questions match your filters`;
+  // A new room starts with every subject and no other filter; anyone in it
+  // narrows that down from the room settings in the sidebar.
+  function defaultFilters() {
+    return {
+      subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
+      tournaments: new Set(), roundRange: null, includeUnlabeled: true,
+    };
+  }
+  // The name box on the lobby page, used for creating, joining and public
+  // lobbies alike.
+  function typedName() {
+    const typed = document.getElementById('mpNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
+    if (typed) saveName(typed);
+    return typed;
   }
 
   function initLobby() {
-    subjectItems = SBData.meta.subjects.map((s) => ({ value: s.key, label: s.label, subjectAttr: s.key }));
-    // Default to every subject selected.
-    subjectItems.forEach((i) => { filterState.subjects.add(i.value); });
-    buildChips(document.getElementById('subjectChips'), subjectItems, filterState, 'subjects', (i) => i.label, updateMatchCount);
-
-    const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
-    roundSliderApi = SBData.wireRoundRangeSlider({
-      minInput: document.getElementById('roundMin'),
-      maxInput: document.getElementById('roundMax'),
-      fillEl: document.getElementById('roundSliderFill'),
-      labelEl: document.getElementById('roundRangeLabel'),
-      maxRound,
-      onChange: (lo, hi) => { filterState.roundRange = [lo, hi]; updateMatchCount(); },
-    });
-    document.getElementById('includeUnlabeledRounds').addEventListener('change', (e) => {
-      filterState.includeUnlabeled = e.target.checked;
-      updateMatchCount();
-    });
-
-    qtypeItems = SBData.meta.qtypes.map((q) => ({ value: q, label: QTYPE_LABELS[q] || q }));
-    buildChips(document.getElementById('qtypeChips'), qtypeItems, filterState, 'qtypes', (i) => i.label, updateMatchCount);
-    formatItems = SBData.meta.formats.map((f) => ({ value: f, label: FORMAT_LABELS[f] || f }));
-    buildChips(document.getElementById('formatChips'), formatItems, filterState, 'formats', (i) => i.label, updateMatchCount);
-    levelItems = SBData.meta.levels.map((l) => ({ value: l, label: SBData.LEVEL_LABELS[l] || l }));
-    buildChips(document.getElementById('levelChips'), levelItems, filterState, 'levels', (i) => i.label, updateMatchCount);
-    visualItems = SBData.VISUAL_KEYS.map((v) => ({ value: v, label: SBData.VISUAL_LABELS[v] }));
-    buildChips(document.getElementById('visualChips'), visualItems, filterState, 'visuals', (i) => i.label, updateMatchCount);
-
-    const tSelect = document.getElementById('tournamentSelect');
-    SBData.meta.tournaments.forEach((t) => {
-      const opt = document.createElement('option');
-      opt.value = t.slug; opt.textContent = `${t.name} (${t.count})`;
-      tSelect.appendChild(opt);
-    });
-    tSelect.addEventListener('change', () => { filterState.tournaments = new Set(tSelect.getMultiValues()); updateMatchCount(); });
-    SBData.enhanceMultiSelect(tSelect);
-    updateMatchCount();
-
-    document.getElementById('clearFiltersBtn').addEventListener('click', () => {
-      [[subjectItems, 'subjects'], [qtypeItems, 'qtypes'], [formatItems, 'formats'], [levelItems, 'levels'], [visualItems, 'visuals']].forEach(([items, key]) => {
-        filterState[key].clear();
-        items.forEach((i) => i._el.classList.remove('active'));
-      });
-      filterState.tournaments.clear();
-      tSelect.setMultiValues([]);
-      if (roundSliderApi) roundSliderApi.reset();
-      document.getElementById('includeUnlabeledRounds').checked = true;
-      filterState.includeUnlabeled = true;
-      updateMatchCount();
-    });
-
-    const rateSlider = document.getElementById('mpRateSlider');
-    SBData.wireRangeFill(rateSlider);
-    rateSlider.addEventListener('input', () => {
-      document.getElementById('mpRateValue').textContent = parseFloat(rateSlider.value).toFixed(1) + '×';
-    });
-
     const prevName = savedName();
-    if (prevName) {
-      document.getElementById('hostNameInput').value = prevName;
-      document.getElementById('joinNameInput').value = prevName;
-    }
-
+    if (prevName) document.getElementById('mpNameInput').value = prevName;
     document.getElementById('createRoomBtn').addEventListener('click', createRoom);
     document.getElementById('joinRoomBtn').addEventListener('click', joinRoom);
-
-    document.getElementById('hostNameInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); createRoom(); }
-    });
     document.getElementById('joinCodeInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); joinRoom(); }
-    });
-    document.getElementById('joinNameInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); joinRoom(); }
     });
   }
@@ -312,28 +258,26 @@
     // back or an hour passes (SBMpRules.stillOffline, pruneOffline).
     const offline = (game.departed || []).map((d) => ({ id: null, name: d.name, score: d.score, offline: true }));
     game.players.concat(offline).sort((a, b) => b.score - a.score).forEach((p) => {
-      const row = document.createElement('div');
+      const row = document.createElement('li');
       if (p.offline) {
-        row.className = 'mp-player-row offline';
-        row.innerHTML = `<span class="name">${escapeHtml(p.name)}</span> <span class="badge">offline</span> <span class="pts">${p.score}</span>`;
+        row.className = 'list-group-item mp-player-row offline';
+        row.innerHTML = `<span class="name">${escapeHtml(p.name)} <span class="badge text-bg-secondary">offline</span></span><span class="pts">${p.score}</span>`;
         container.appendChild(row);
         return;
       }
       // A graded attempt always wins (correct/incorrect), even though
-      // game.buzzedPlayerId keeps pointing at the last-buzzed player all the
-      // way through the reveal phase (other UI uses that to keep showing who
-      // answered) - otherwise the row would stay stuck yellow forever after
-      // a wrong (or right) answer instead of turning red/green.
+      // game.buzzedPlayerId keeps pointing at the last-buzzed player through
+      // the reveal - otherwise the row would stay yellow after the grade.
       let stateClass = '';
       const attempt = game.attempts.find((a) => a.playerId === p.id);
       if (attempt) {
         stateClass = attempt.correct ? ' answered-correct' : ' answered-incorrect';
       } else if (p.id === game.buzzedPlayerId && game.phase === 'answering') {
-        stateClass = ' buzzed'; // currently buzzed in and typing - not graded yet
+        stateClass = ' buzzed'; // buzzed in and typing, not graded yet
       }
-      row.className = 'mp-player-row' + (p.id === myState.myId ? ' me' : '') + stateClass;
-      const lockedBadge = game.lockedOut.has(p.id) ? '<span class="badge">locked out</span>' : (p.id === game.buzzedPlayerId && game.phase === 'answering' ? '<span class="badge">buzzed!</span>' : '');
-      row.innerHTML = `<span class="name">${escapeHtml(p.name)}${p.id === myState.myId ? ' (you)' : ''}</span> ${lockedBadge} <span class="pts">${p.score}</span>`;
+      row.className = 'list-group-item mp-player-row' + (p.id === myState.myId ? ' me' : '') + stateClass;
+      const badge = game.lockedOut.has(p.id) ? ' <span class="badge text-bg-secondary">locked out</span>' : (p.id === game.buzzedPlayerId && game.phase === 'answering' ? ' <span class="badge text-bg-warning">buzzed!</span>' : '');
+      row.innerHTML = `<span class="name">${escapeHtml(p.name)}${p.id === myState.myId ? ' (you)' : ''}${badge}</span><span class="pts">${p.score}</span>`;
       container.appendChild(row);
     });
   }
@@ -347,60 +291,41 @@
     document.getElementById('mpStatusPill').style.display = 'none';
   }
 
+  // The big sidebar readout: whole seconds, then tenths in smaller type.
   function renderTick(remainingMs, totalMs, kind) {
-    const row = document.getElementById('mpTimerRow');
-    row.style.display = 'flex';
-    const fill = document.getElementById('mpTimerFill');
-    fill.className = 'timer-bar-fill' + (kind === 'answer' ? ' answer' : '');
-    fill.style.width = Math.max(0, (remainingMs / totalMs) * 100) + '%';
-    document.getElementById('mpTimerLabel').textContent = (remainingMs / 1000).toFixed(1) + 's';
+    const tenths = Math.max(0, Math.round(remainingMs / 100));
+    document.getElementById('mpTimerFace').textContent = String(Math.floor(tenths / 10));
+    document.getElementById('mpTimerFraction').textContent = '.' + (tenths % 10);
+    document.getElementById('mpTimer').classList.toggle('answering', kind === 'answer');
   }
-  function hideTimer() { document.getElementById('mpTimerRow').style.display = 'none'; stopClientTickLoop(); game.lastTick = null; }
+  function hideTimer() { renderTick(0, 1, null); stopClientTickLoop(); game.lastTick = null; }
 
   function renderQuestionLog() {
     const el = document.getElementById('mpQuestionLog');
     el.innerHTML = '';
-    if (!game.log.length) {
-      el.innerHTML = '<div class="q-log-empty">Questions the room has gone through will show up here.</div>';
-      return;
-    }
     game.log.forEach((entry) => {
-      el.appendChild(renderLogEntry(entry));
+      const li = document.createElement('li');
+      li.appendChild(renderLogEntry(entry));
+      el.appendChild(li);
     });
   }
 
   function renderLogEntry(entry) {
     const q = entry.question;
-    const card = document.createElement('div');
-    card.className = 'q-log-entry';
-    card.dataset.qid = q.id;
-
     // Clients' question copies carry no answer or packet link, so those come
     // from the reveal.
     const a = entry.answer;
-    const meta = SBData.questionMetaRow(q, { grade: entry.category, sourceUrl: a.sourceUrl });
-    // The main bookmark button (up by the question) shows the star for
-    // whichever question is currently active, which can be this exact
-    // logged question - keep the two stars in sync instead of leaving
-    // the main one stale.
-    const bmBtn = SBData.bookmarkButton(q.id, () => {
-      if (game.question && game.question.id === q.id) updateMpBookmarkBtn();
+    const card = SBData.questionCard(q, {
+      grade: entry.category,
+      answer: { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject, sourceUrl: a.sourceUrl },
+      note: entry.answeredBy ? `${entry.answeredBy} answered: ${entry.userText ? `"${entry.userText}"` : '(blank)'}` : '',
+      // The star up top shows the current question's bookmark, which can be
+      // this logged question; keep it in step.
+      onBookmark: () => {
+        if (game.question && game.question.id === q.id) updateMpBookmarkBtn();
+      },
     });
-    bmBtn.style.marginLeft = 'auto';
-    meta.appendChild(bmBtn);
-    card.appendChild(meta);
-
-    SBData.appendQuestionBody(card, q);
-    card.appendChild(SBData.answerBlock(q, { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject }));
-
-    if (entry.answeredBy) {
-      const who = document.createElement('div');
-      who.className = 'small-note';
-      who.style.marginTop = '4px';
-      who.textContent = `${entry.answeredBy} answered: ${entry.userText ? `"${entry.userText}"` : '(blank)'}`;
-      card.appendChild(who);
-    }
-
+    card.classList.add('q-log-entry');
     return card;
   }
 
@@ -483,9 +408,9 @@
     formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
     qtypeTag.className = SBData.qtypeTagClass(q);
     const tagSegments = [
-      { text: labelFor(q.subject).toUpperCase(), el: subjectTag },
-      { text: (FORMAT_LABELS[q.format] || q.format).toUpperCase(), el: formatTag },
-      { text: SBData.qtypeLabel(q).toUpperCase(), el: qtypeTag },
+      { text: labelFor(q.subject), el: subjectTag },
+      { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
+      { text: SBData.qtypeLabel(q), el: qtypeTag },
     ];
     const boxSegments = [{ text: q.question, el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
@@ -563,71 +488,49 @@
     const pauseBtn = document.getElementById('mpPauseBtn');
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
 
-    if (game.question) {
-      choicesDisplay.style.display = game.question.choices ? 'grid' : 'none';
-    } else {
-      choicesDisplay.style.display = 'none';
-    }
+    choicesDisplay.style.display = game.question && game.question.choices ? 'grid' : 'none';
     document.getElementById('mpQFigures').style.display = game.question && game.question.visual ? '' : 'none';
-    // The lobby's "waiting to start" screen has nothing but a single line
-    // of text and the Start button - the panel's usual min-height (sized
-    // for a full question + choices) and its always-reserved tag-row space
-    // just left a big empty gap above and below that line, so both are
-    // dropped while phase === 'lobby'.
-    const questionPanelEl = document.querySelector('.question-panel');
-    if (questionPanelEl) questionPanelEl.classList.toggle('mp-lobby-compact', game.phase === 'lobby');
+    // The "waiting to start" screen is a single line of text, so the panel's
+    // usual min-height and reserved tag row are dropped while in the lobby.
+    document.getElementById('mpQuestionPanel').classList.toggle('mp-lobby-compact', game.phase === 'lobby');
+    document.getElementById('mpQuestionInfo').textContent = game.question && game.phase !== 'lobby' ? SBData.sourceLabelFor(game.question) : '';
 
     revealBox.style.display = 'none';
     document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => { el.classList.remove('reveal-correct'); el.classList.remove('clickable'); });
     answerRow.style.display = 'none';
-    nextBtn.style.display = 'none';
-    buzzBtn.style.display = 'none';
     overrideBtn.style.display = 'none';
-    document.getElementById('mpBookmarkBtn').style.display = game.question ? 'inline-flex' : 'none';
-    // Don't blindly hide the timer on every re-render - a re-render can be
-    // triggered by something other than a fresh tick (pausing stops the
-    // host from broadcasting further ticks entirely; see hostTogglePause),
-    // and hiding it unconditionally made the whole timer disappear the
-    // moment you paused instead of staying visible at its frozen value.
-    // Redraw the last known tick if we're still in a timer-bearing phase;
-    // otherwise there's genuinely nothing to show.
+    document.getElementById('mpBookmarkBtn').style.display = game.question ? '' : 'none';
+    // A re-render isn't always a fresh tick (pausing stops the ticks), so
+    // redraw the last known tick in a timer-bearing phase rather than
+    // zeroing the timer.
     if (game.lastTick && (game.phase === 'reading' || game.phase === 'buzzwindow' || game.phase === 'answering')) {
       renderTick(game.lastTick.remainingMs, game.lastTick.totalMs, game.lastTick.kind);
     } else {
       hideTimer();
     }
     hidePill();
-    pauseBtn.style.display = (game.phase === 'lobby' || game.phase === 'gameover') ? 'none' : 'inline-flex';
-    pauseBtn.textContent = game.paused ? 'Resume (P)' : 'Pause (P)';
-    document.getElementById('mpPauseBadge').style.display = game.paused ? 'inline-flex' : 'none';
+    pauseBtn.disabled = game.phase === 'lobby' || game.phase === 'gameover';
+    pauseBtn.innerHTML = game.paused ? SBIcons.play : SBIcons.pause;
+    pauseBtn.setAttribute('aria-label', game.paused ? 'Resume' : 'Pause');
+    document.getElementById('mpPauseBadge').style.display = game.paused ? '' : 'none';
 
     const amBuzzed = game.buzzedPlayerId === myState.myId;
     const amLocked = game.lockedOut.has(myState.myId);
+    buzzBtn.disabled = !((game.phase === 'reading' || game.phase === 'buzzwindow') && !amLocked);
+    nextBtn.disabled = game.phase === 'answering' || game.phase === 'gameover';
 
     if (game.phase === 'lobby') {
-      nextBtn.style.display = 'inline-flex';
-      // "(N)" here is the keyboard-shortcut hint, same convention as every
-      // other button label in this game ("Skip (N)", "Next question (N)") -
-      // it's the literal letter N, not a player count.
-      nextBtn.textContent = 'Start (N)';
+      nextBtn.textContent = 'Start';
       nextBtn.dataset.mode = 'next';
-      nextBtn.classList.add('btn-primary'); nextBtn.classList.remove('btn-outline-secondary');
       const qDisplay = document.getElementById('mpQDisplay');
-      qDisplay.textContent = 'Ready when you are — click Start or press N to begin.';
+      qDisplay.textContent = 'Ready when you are: press Start (or n) to begin. Anyone in the room can.';
       qDisplay.classList.add('mp-waiting-text');
-    } else if (game.phase === 'reading') {
-      buzzBtn.style.display = amLocked ? 'none' : 'inline-flex';
-      nextBtn.style.display = 'inline-flex';
-      nextBtn.textContent = 'Skip (N)';
+    } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
+      nextBtn.textContent = 'Skip';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.classList.remove('btn-primary'); nextBtn.classList.add('btn-outline-secondary');
-    } else if (game.phase === 'buzzwindow') {
-      buzzBtn.style.display = amLocked ? 'none' : 'inline-flex';
-      nextBtn.style.display = 'inline-flex';
-      nextBtn.textContent = 'Skip (N)';
-      nextBtn.dataset.mode = 'skip';
-      nextBtn.classList.remove('btn-primary'); nextBtn.classList.add('btn-outline-secondary');
     } else if (game.phase === 'answering') {
+      nextBtn.textContent = 'Next';
+      nextBtn.dataset.mode = '';
       if (amBuzzed) {
         answerRow.style.display = 'flex';
         document.getElementById('mpAnswerInput').value = '';
@@ -637,19 +540,15 @@
         }
       }
     } else if (game.phase === 'reveal') {
-      nextBtn.style.display = 'inline-flex';
-      nextBtn.textContent = 'Next question (N)';
+      nextBtn.textContent = 'Next';
       nextBtn.dataset.mode = 'next';
-      nextBtn.classList.add('btn-primary'); nextBtn.classList.remove('btn-outline-secondary');
-      // Anyone who buzzed and was graded THIS question can override their
-      // own answer - not just whoever happened to be graded last, and not
-      // just the host. Once someone's been overridden to correct, though,
-      // the room has its answer and overriding locks for everyone (see
-      // hostOverrideLastGrade). game.attempts/game.overrideLocked are kept
-      // in sync for host and client alike (see applyGradeLocal / the
-      // 'graded' and 'sync' messages).
+      // Anyone who buzzed and was graded this question can override their
+      // own answer, until someone's been overridden to correct (see
+      // hostOverrideLastGrade, SBMpRules.canOverrideOwn).
       if (SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) {
-        overrideBtn.style.display = 'inline-flex';
+        const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
+        overrideBtn.textContent = mine && mine.correct ? 'I was wrong' : 'I was right';
+        overrideBtn.style.display = '';
       }
       showReveal();
     } else if (game.phase === 'gameover') {
@@ -669,7 +568,7 @@
     // badge here, since renderBuzzStatus has nothing to show in that case.
     let html = '';
     if (!game.lastGrade) {
-      html += `<div class="grade-badge skipped">Skipped</div>`;
+      html += `<div class="mb-1"><span class="grade-badge skipped">Skipped</span></div>`;
     }
     html += `<div class="ans-line">${SBData.answerLineHTML(r.answerText, r.letter, r.accept)}</div>`;
     if (r.reject && r.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(r.reject.join('; '))}</div>`;
@@ -722,7 +621,7 @@
     }
     const log = document.getElementById('mpChatLog');
     if (!log) return;
-    const row = document.createElement('div');
+    const row = document.createElement('li');
     if (entry.system) {
       row.className = 'mp-chat-msg system';
       row.textContent = entry.text;
@@ -733,6 +632,8 @@
     log.appendChild(row);
     while (log.children.length > 200) log.removeChild(log.firstChild);
     log.scrollTop = log.scrollHeight;
+    // Show the chat box the first time anyone says something.
+    if (!entry.system && !entry.local) showChatRow(false);
   }
   function sendChat(text) {
     text = (text || '').trim();
@@ -854,12 +755,8 @@
   function enterGameScreen() {
     stopLobbyProbes();
     document.getElementById('lobbyScreen').style.display = 'none';
-    document.getElementById('mpGameScreen').style.display = 'flex';
-    // Room settings are editable by anyone in the room, not just the host -
-    // shown here (reached by both createRoom() and joinRoom()) so it
-    // appears for every role instead of only ever being revealed by the
-    // host's own room-creation code path.
-    document.getElementById('mpSettingsBtn').style.display = 'inline-flex';
+    document.getElementById('mpGameScreen').style.display = '';
+    document.getElementById('mpButtonBar').style.display = '';
   }
 
   function broadcastLobby() {
@@ -958,6 +855,9 @@
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate,
       });
+      // Someone else changed the room's settings: show it in this player's
+      // sidebar too (the others hear it as a 'settingsState').
+      showSettingsFromState();
       return;
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
@@ -1344,12 +1244,13 @@
   }
   function applyGameOverLocal(scores) {
     document.getElementById('mpGameScreen').style.display = 'none';
+    document.getElementById('mpButtonBar').style.display = 'none';
     document.getElementById('mpSummaryScreen').style.display = 'block';
     const el = document.getElementById('mpFinalScores');
     el.innerHTML = '';
     scores.slice().sort((a, b) => b.score - a.score).forEach((p, i) => {
-      const row = document.createElement('div');
-      row.className = 'mp-player-row';
+      const row = document.createElement('li');
+      row.className = 'list-group-item mp-player-row';
       row.innerHTML = `<span class="name">${i === 0 ? '🏆 ' : ''}${escapeHtml(p.name)}</span><span class="pts">${p.score}</span>`;
       el.appendChild(row);
     });
@@ -1629,6 +1530,7 @@
     myState.myName = name;
     hostPlayers.set(mesh.id, { id: mesh.id, name, score: 0, connId: mesh.id, pid: myState.pid });
     enterRoomAs(roomId, name, lobby);
+    showSettingsFromState();
     broadcastLobby();
     fullRenderFromState();
   }
@@ -1647,12 +1549,13 @@
   }
 
   function createRoom() {
-    const pool = getFiltered();
-    if (!pool.length) { alert('No questions match your filters.'); return; }
-    const typedName = document.getElementById('hostNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
-    if (typedName) saveName(typedName);
-    const rate = parseFloat(document.getElementById('mpRateSlider').value) || 1;
-    const tryCode = (n) => startRoom({ roomId: ROOM_PREFIX + SBPeer.randomRoomCode(), pool, filters: filterState, name: typedName || 'Player', rate })
+    if (myState.role) return;
+    const filters = defaultFilters();
+    const pool = filterQuestionsFor(filters);
+    const name = typedName() || savedName() || 'Player';
+    let rate = 1;
+    try { rate = parseFloat(localStorage.getItem('sb_rate') || '1') || 1; } catch (e) { /* default */ }
+    const tryCode = (n) => startRoom({ roomId: ROOM_PREFIX + SBPeer.randomRoomCode(), pool, filters, name, rate })
       .catch((err) => { if (err && err.type === 'unavailable-id' && n < 3) return tryCode(n + 1); throw err; });
     tryCode(0).catch((err) => {
       alert('Could not start the room.\n\n' + SBPeer.friendlyPeerError(err));
@@ -1669,9 +1572,7 @@
     let codeRaw = document.getElementById('joinCodeInput').value.trim().toUpperCase();
     if (codeRaw.toLowerCase().startsWith(ROOM_PREFIX)) codeRaw = codeRaw.slice(ROOM_PREFIX.length);
     const code = ROOM_PREFIX + codeRaw;
-    const typedName = document.getElementById('joinNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
-    const name = typedName || savedName() || 'Player';
-    if (typedName) saveName(typedName);
+    const name = typedName() || savedName() || 'Player';
     const joinStatusEl = document.getElementById('joinStatus');
     if (!codeRaw) { joinStatusEl.textContent = 'Enter a room code.'; joinStatusEl.classList.remove('status-error'); return; }
     if (myState.role) return;
@@ -1720,9 +1621,7 @@
   function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
   function publicName() {
-    const typed = document.getElementById('publicNameInput').value.trim().slice(0, SBMpRules.LIMITS.name);
-    if (typed) saveName(typed);
-    return typed || savedName() || 'Player';
+    return typedName() || savedName() || 'Player';
   }
 
   async function joinPublicLobby(lobby) {
@@ -1770,13 +1669,13 @@
     lobbyList.forEach((lobby) => {
       const card = document.createElement('button');
       card.type = 'button';
-      card.className = 'lobby-card';
+      card.className = 'list-group-item list-group-item-action d-flex align-items-center gap-2 lobby-card';
       if (lobby.key !== 'all') card.dataset.subject = lobby.key;
       card.disabled = lobbyJoining;
       const { text, live } = lobbyCountText(lobbyCounts.get(lobby.peerId));
       card.innerHTML = `<span class="lobby-name">${escapeHtml(lobbyLabel(lobby))}</span>`
         + `<span class="lobby-sub">${lobby.questionCount.toLocaleString()} questions</span>`
-        + `<span class="lobby-count${live ? ' live' : ''}">${escapeHtml(text)}</span>`;
+        + `<span class="badge rounded-pill ms-auto lobby-count${live ? ' text-bg-success' : ' text-bg-secondary'}">${escapeHtml(text)}</span>`;
       card.addEventListener('click', () => joinPublicLobby(lobby));
       list.appendChild(card);
     });
@@ -1811,8 +1710,6 @@
     lobbyList = SBMpRules.publicLobbies(SBData.meta).map((l) => ({
       ...l, questionCount: SBData.filterQuestions({ subjects: new Set(l.subjects) }).length,
     }));
-    const prevName = savedName();
-    if (prevName) document.getElementById('publicNameInput').value = prevName;
     document.getElementById('publicRefreshBtn').addEventListener('click', refreshLobbyCounts);
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden && lobbyProbeTimer) refreshLobbyCounts();
@@ -1843,7 +1740,7 @@
       game.overrideLocked = !!msg.overrideLocked;
       game.liveTypingText = ''; game.liveTypingFrom = null;
       myState.rate = msg.rate || 1;
-      if (msg.settings) applySettingsStateLocal(msg.settings);
+      if (msg.settings) { applySettingsStateLocal(msg.settings); showSettingsFromState(); }
       const chatLog = document.getElementById('mpChatLog');
       if (chatLog) chatLog.innerHTML = '';
       chatMirror = [];
@@ -1933,20 +1830,9 @@
     }
     if (msg.type === 'settingsState') {
       applySettingsStateLocal(msg);
-      // If the settings panel is open right now, refresh what it's showing
-      // so a change someone else just made (or the room's real settings,
-      // the first time this arrives) doesn't sit stale behind it.
-      if (document.getElementById('mpSettingsOverlay').style.display !== 'none') {
-        midGameFilterState.subjects = new Set(activeFilterState.subjects);
-        midGameFilterState.qtypes = new Set(activeFilterState.qtypes);
-        midGameFilterState.formats = new Set(activeFilterState.formats);
-        midGameFilterState.levels = new Set(activeFilterState.levels);
-        midGameFilterState.visuals = new Set(activeFilterState.visuals || []);
-        midGameFilterState.tournaments = new Set(activeFilterState.tournaments);
-        midGameFilterState.roundRange = activeFilterState.roundRange;
-        midGameFilterState.includeUnlabeled = activeFilterState.includeUnlabeled;
-        refreshSettingsPanelFromState();
-      }
+      // The settings in the sidebar show what the room is using now,
+      // including a change someone else just made.
+      showSettingsFromState();
       return;
     }
   }
@@ -1985,6 +1871,7 @@
   }
   function doNext() {
     if (game.phase !== 'reveal' && game.phase !== 'lobby') return;
+    ensureSomeSubjects();
     if (myState.role === 'host') hostNextQuestion();
     else if (client) client.send({ type: 'next' });
   }
@@ -2125,15 +2012,13 @@
       requestApplySettings();
     });
 
-    document.getElementById('mpSettingsDoneBtn').addEventListener('click', closeSettingsPanel);
-    document.getElementById('mpSettingsCloseBtn').addEventListener('click', closeSettingsPanel);
-    // Click on the dimmed backdrop (not the panel itself) closes the modal.
-    document.getElementById('mpSettingsOverlay').addEventListener('click', (e) => {
-      if (e.target.id === 'mpSettingsOverlay') closeSettingsPanel();
-    });
   }
 
-  function openSettingsPanel() {
+  // The room settings sit in the sidebar the whole time you're in a room.
+  // This paints them from the room's current settings: when you enter, and
+  // whenever the room's settings change (activeFilterState is the live
+  // mirror every player keeps; see applySettingsStateLocal).
+  function showSettingsFromState() {
     // Room settings are editable by anyone in the room, not just the host -
     // activeFilterState is kept as a live mirror of the room's real
     // settings for every role (the host sets it directly; a client fills it
@@ -2189,12 +2074,11 @@
     midGameFilterState.includeUnlabeled = snapshot.includeUnlabeled;
 
     refreshSettingsPanelFromState();
-    document.getElementById('mpSettingsOverlay').style.display = 'flex';
   }
 
   // Repaints every control in the (already-open, or about-to-open) settings
   // panel from midGameFilterState/myState.rate - split out of
-  // openSettingsPanel() so a live 'settingsState' update from someone else
+  // showSettingsFromState() so a live 'settingsState' update from someone else
   // can refresh the panel in place while it's sitting open, instead of only
   // ever being seeded once at open time.
   function refreshSettingsPanelFromState() {
@@ -2237,20 +2121,42 @@
     updateMidGameMatchCount();
   }
 
-  function closeSettingsPanel() {
-    // Same guard as solo practice: if every subject got toggled off, don't
-    // let that empty selection persist for the room - reset back to "all
-    // subjects" (and push that out like any other settings change) so the
-    // panel reopens usefully next time instead of showing 0 matches.
+  // Same guard as solo practice: every subject switched off would match
+  // nothing, so before the next question (or when the settings are hidden)
+  // the room goes back to all subjects, pushed out like any other change.
+  function ensureSomeSubjects() {
     if (midGameFilterState.subjects.size === 0 && midGameSubjectItems && midGameSubjectItems.length) {
       midGameSubjectItems.forEach((i) => {
         midGameFilterState.subjects.add(i.value);
-        if (i._el) i._el.classList.add('active');
+        if (i._el) { i._el.classList.add('active'); i._el.setAttribute('aria-pressed', 'true'); }
       });
       updateMidGameMatchCount();
       requestApplySettings();
     }
-    document.getElementById('mpSettingsOverlay').style.display = 'none';
+  }
+
+  /* ================= SIDEBAR AND CHAT BOX ================= */
+  // Same as Play: the sidebar starts open beside the question on wide
+  // screens and closed above it on narrow ones; the gear (or S) toggles it.
+  const WIDE = window.matchMedia('(min-width: 992px)');
+  function sidebarOpen() {
+    const el = document.getElementById('settings');
+    return WIDE.matches ? !el.classList.contains('collapsed') : el.classList.contains('show');
+  }
+  function toggleSidebar() {
+    const el = document.getElementById('settings');
+    if (WIDE.matches) el.classList.toggle('collapsed');
+    else el.classList.toggle('show');
+    if (!sidebarOpen()) ensureSomeSubjects();
+    document.getElementById('mpSettingsBtn').setAttribute('aria-expanded', sidebarOpen() ? 'true' : 'false');
+  }
+  function showChatRow(focus) {
+    document.getElementById('mpChatRow').style.display = '';
+    if (focus) document.getElementById('mpChatInput').focus();
+  }
+  function hideChatRow() {
+    document.getElementById('mpChatRow').style.display = 'none';
+    document.getElementById('mpChatInput').blur();
   }
 
   // Host-side application of a full set of room settings, wherever they
@@ -2377,8 +2283,15 @@
     document.getElementById('mpOverrideBtn').addEventListener('click', doOverride);
     document.getElementById('mpBookmarkBtn').addEventListener('click', toggleMpBookmark);
     document.getElementById('mpPauseBtn').addEventListener('click', doTogglePause);
-    document.getElementById('mpSettingsBtn').addEventListener('click', openSettingsPanel);
+    document.getElementById('mpSettingsBtn').addEventListener('click', toggleSidebar);
+    document.getElementById('mpSettingsBtn').innerHTML = SBIcons.gear;
+    document.getElementById('mpChatBtn').addEventListener('click', () => {
+      if (document.getElementById('mpChatRow').style.display === 'none') showChatRow(true); else hideChatRow();
+    });
     document.getElementById('mpRoomCodeDisplay').addEventListener('click', copyRoomCode);
+    document.getElementById('mpRoomCodeDisplay').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyRoomCode(); }
+    });
     document.getElementById('mpSubmitBtn').addEventListener('click', () => doSubmitAnswer(document.getElementById('mpAnswerInput').value));
     document.getElementById('mpAnswerInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); doSubmitAnswer(document.getElementById('mpAnswerInput').value); }
@@ -2402,32 +2315,20 @@
         sendChat(input.value);
         input.value = '';
       }
+      if (e.key === 'Escape') { e.preventDefault(); hideChatRow(); }
     });
     document.addEventListener('keydown', (e) => {
       if (document.getElementById('mpGameScreen').style.display === 'none') return;
-      if (document.getElementById('mpSettingsOverlay').style.display !== 'none') {
-        // While the room settings modal is open, the only shortcuts that
-        // apply are Escape (always) and S (unless typing in a field, e.g.
-        // the tournament search box) to close it - every other in-game
-        // shortcut (buzz, next, pause, ...) stays disabled so it can't fire
-        // behind the modal's back, same as before this modal had any
-        // shortcut of its own.
-        if (e.key === 'Escape') { closeSettingsPanel(); return; }
-        const settingsTag = (e.target && e.target.tagName) || '';
-        if ((e.key === 's' || e.key === 'S') && settingsTag !== 'INPUT' && settingsTag !== 'TEXTAREA') {
-          closeSettingsPanel();
-        }
-        return;
-      }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       const tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       if (e.code === 'Space') { e.preventDefault(); doBuzz(); return; }
       if (e.key === 'n' || e.key === 'N') { handleNextBtn(); return; }
       if (e.key === 'p' || e.key === 'P') { doTogglePause(); return; }
       if (e.key === 'q' || e.key === 'Q') { doOverride(); return; }
       if (e.key === 'b' || e.key === 'B') { toggleMpBookmark(); return; }
-      if (e.key === 's' || e.key === 'S') { openSettingsPanel(); return; }
-      if (e.key === '/') { e.preventDefault(); document.getElementById('mpChatInput').focus(); return; }
+      if (e.key === 's' || e.key === 'S') { toggleSidebar(); return; }
+      if (e.key === '/') { e.preventDefault(); showChatRow(true); return; }
     });
     // Safety net for the tab-throttling desync bug: when the tab regains
     // focus, force the reveal to catch up to whatever phase we're actually in.
