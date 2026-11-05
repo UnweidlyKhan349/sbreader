@@ -269,10 +269,15 @@
   // alternates folded inline as "(also accept: ...)" rather than shown as
   // their own separate line - keeps the primary and alternate answers
   // visually tied together instead of reading as two unrelated facts.
-  function answerLineHTML(mainText, letter, acceptList) {
+  // "Answer: X) LITHIUM-ION (also accept: Li-ion) [do not accept: LITHIUM]",
+  // all on one line.
+  function answerLineHTML(mainText, letter, acceptList, rejectList) {
     let s = 'Answer: ' + (letter ? `${letter}) ` : '') + renderMathHTML(mainText);
     if (acceptList && acceptList.length) {
       s += ' <span class="also-accept">(also accept: ' + renderMathHTML(acceptList.join('; ')) + ')</span>';
+    }
+    if (rejectList && rejectList.length) {
+      s += ' <span class="do-not-accept">[do not accept: ' + renderMathHTML(rejectList.join('; ')) + ']</span>';
     }
     return s;
   }
@@ -280,7 +285,7 @@
   SBData.escapeHtml = escapeHtml;
 
   /* ---------------- Question cards (catalog, bookmarks, session logs) ---------------- */
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
+  const QTYPE_LABELS = { tossup: 'Toss-up', bonus: 'Bonus' };
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
   const GRADE_LABELS = { correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' };
   SBData.QTYPE_LABELS = QTYPE_LABELS;
@@ -291,6 +296,15 @@
     const base = QTYPE_LABELS[q.qtype] || q.qtype;
     return isVisualBonus(q) ? 'Visual ' + base : base;
   }
+  // What's read out before a question, as a moderator says it:
+  // "TOSS-UP Physics Short Answer ..." (the kind in semi-bold, the format in
+  // italics), then the question itself.
+  function readoutHTML(q) {
+    const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
+    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i> `
+      + renderMathHTML(q.question);
+  }
+  SBData.readoutHTML = readoutHTML;
   function qtypeTagClass(q) { return 'tag qtype-' + q.qtype + (isVisualBonus(q) ? ' visual' : ''); }
   SBData.qtypeLabel = qtypeLabel;
   SBData.qtypeTagClass = qtypeTagClass;
@@ -404,14 +418,8 @@
     const wrap = document.createElement('div');
     const aText = document.createElement('div');
     aText.className = 'a-text';
-    aText.innerHTML = answerLineHTML(answer.text, answer.letter, answer.accept);
+    aText.innerHTML = answerLineHTML(answer.text, answer.letter, answer.accept, answer.reject);
     wrap.appendChild(aText);
-    if (answer.reject && answer.reject.length) {
-      const rej = document.createElement('div');
-      rej.className = 'small-note';
-      rej.innerHTML = 'Do not accept: ' + renderMathHTML(answer.reject.join('; '));
-      wrap.appendChild(rej);
-    }
     const srcUrl = answer.sourceUrl || q.sourceUrl;
     if (opts && opts.source && isPacketUrl(srcUrl)) {
       const src = document.createElement('div');

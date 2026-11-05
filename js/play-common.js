@@ -61,10 +61,8 @@
     title.setAttribute('role', 'button');
     title.setAttribute('aria-expanded', 'false');
     title.tabIndex = 0;
-    const grade = opts.grade && opts.grade !== 'skipped'
-      ? `<span class="grade-badge ${escapeHtml(opts.grade)} me-2">${escapeHtml({ correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' }[opts.grade] || opts.grade)}</span>`
-      : '';
-    title.innerHTML = grade + (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '');
+    // Just the answer, as on QB Reader (no Correct / Incorrect chip).
+    title.innerHTML = (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '');
     const star = SBData.bookmarkButton(q.id, (on) => {
       // Every card of this question shows the same star.
       if (card.parentElement) repaintStars(card.parentElement, q.id);
@@ -83,14 +81,9 @@
     body.appendChild(hr);
     const ans = document.createElement('div');
     ans.innerHTML = 'ANSWER: ' + (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '')
-      + (a.accept && a.accept.length ? ' <span class="also-accept">(also accept: ' + SBData.renderMathHTML(a.accept.join('; ')) + ')</span>' : '');
+      + (a.accept && a.accept.length ? ' <span class="also-accept">(also accept: ' + SBData.renderMathHTML(a.accept.join('; ')) + ')</span>' : '')
+      + (a.reject && a.reject.length ? ' <span class="do-not-accept">[do not accept: ' + SBData.renderMathHTML(a.reject.join('; ')) + ']</span>' : '');
     body.appendChild(ans);
-    if (a.reject && a.reject.length) {
-      const rej = document.createElement('div');
-      rej.className = 'small-note';
-      rej.innerHTML = 'Do not accept: ' + SBData.renderMathHTML(a.reject.join('; '));
-      body.appendChild(rej);
-    }
     if (opts.note) {
       const note = document.createElement('div');
       note.className = 'small-note mt-1';
@@ -125,6 +118,18 @@
   // Repaints every card's star for one question (it may be starred elsewhere).
   function repaintStars(list, qid) {
     list.querySelectorAll('.history-card').forEach((c) => { if (c.dataset.qid === String(qid) && c.paintStar) c.paintStar(); });
+  }
+
+  /* ---------------- Question label ---------------- */
+  // "AVES 2 RR 3 Q12" above the question. Once the question is over it links
+  // to the packet (underlined, in the text colour) when there is one.
+  function linkQuestionInfo(el, q, url) {
+    const label = SBData.sourceLabelFor(q);
+    if (/^https?:\/\//i.test(url || '')) {
+      el.innerHTML = `<a class="question-info-link" href="${escapeHtml(url)}" target="_blank" rel="noopener" title="Open the packet">${escapeHtml(label)}</a>`;
+    } else {
+      el.textContent = label;
+    }
   }
 
   /* ---------------- Sets and packets ---------------- */
@@ -165,7 +170,7 @@
   }
 
   window.SBPlay = {
-    subjectButtons, historyCard, toggleLatest, starLatest, repaintStars,
+    subjectButtons, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars,
     packetsOf, parsePacketNumbers, loadSettings, saveSettings,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;

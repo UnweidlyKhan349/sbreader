@@ -386,7 +386,7 @@
     const plain = (v) => `<span class="float-end">${escapeHtml(String(v))}</span>`;
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
-      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain(p.celN ? Math.round((100 * p.celSum) / p.celN) + '%' : '-')],
+      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
       ['Online?', plain(p.offline ? 'No' : 'Yes')],
     ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>'
       + (!p.offline && p.id && p.id !== myState.myId ? '<div class="p-2"><button type="button" class="btn btn-warning btn-sm w-100" data-votekick>Vote to kick</button></div>' : '');
@@ -463,7 +463,8 @@
   }
   function finishBuzzLine(playerId, name, correct, userText, close) {
     const li = liveBuzzLine(playerId, name);
-    const cls = correct ? 'badge text-dark bg-success' : 'badge text-light bg-danger';
+    // White text on both (QB Reader uses dark text on the green one).
+    const cls = correct ? 'badge text-white bg-success' : 'badge text-white bg-danger';
     li.querySelector('.badge').className = cls;
     li.querySelector('.live-answer').textContent = userText ? userText : '(blank)';
     const second = document.createElement('span');
@@ -512,18 +513,8 @@
   function buildRevealSegments(q) {
     const qDisplay = document.getElementById('mpQDisplay');
     qDisplay.classList.remove('mp-waiting-text');
-    const subjectTag = document.getElementById('mpRevealSubjectTag');
-    const formatTag = document.getElementById('mpRevealFormatTag');
-    const qtypeTag = document.getElementById('mpRevealQtypeTag');
-    subjectTag.className = 'tag subject-' + q.subject;
-    formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
-    qtypeTag.className = SBData.qtypeTagClass(q);
-    const tagSegments = [
-      { text: labelFor(q.subject), el: subjectTag },
-      { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
-      { text: SBData.qtypeLabel(q), el: qtypeTag },
-    ];
-    const boxSegments = [{ html: SBData.renderMathHTML(q.question), el: qDisplay }];
+    // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -540,7 +531,7 @@
       figures.replaceChildren();
       figures.style.display = 'none';
     }
-    return { tagSegments, boxSegments };
+    return { boxSegments };
   }
 
   // Reserve the final height of the question+choices area before the reveal
@@ -565,19 +556,17 @@
   // player joins mid-question and has nothing to "catch up" on).
   function startLocalReveal(q, instant, onComplete) {
     if (revealCtl) revealCtl.stop();
-    const { tagSegments, boxSegments } = buildRevealSegments(q);
+    const { boxSegments } = buildRevealSegments(q);
     reserveRevealHeight(boxSegments);
     // The question and choices are math-rendered HTML from the start, so
-    // superscripts and subscripts type in already formatted; the tag
-    // segments are plain subject/format/type labels.
+    // superscripts and subscripts type in already formatted.
     if (instant) {
-      tagSegments.forEach((s) => { s.el.textContent = s.text; });
       boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
       revealCtl = null;
       if (onComplete) onComplete();
       return;
     }
-    revealCtl = SBReveal.startReveal(tagSegments.concat(boxSegments), myState.rate, {
+    revealCtl = SBReveal.startReveal(boxSegments, myState.rate, {
       onComplete: () => { if (onComplete) onComplete(); },
     });
     if (game.paused) revealCtl.pause();
@@ -604,7 +593,9 @@
     choicesDisplay.style.display = game.question && game.question.choices ? 'grid' : 'none';
     document.getElementById('mpQFigures').style.display = game.question && game.question.visual ? '' : 'none';
     document.getElementById('mpQuestionPanel').classList.toggle('mp-lobby-compact', game.phase === 'lobby');
-    document.getElementById('mpQuestionInfo').textContent = game.question && game.phase !== 'lobby' ? SBData.sourceLabelFor(game.question) : '';
+    const info = document.getElementById('mpQuestionInfo');
+    if (game.question && game.phase === 'reveal' && game.lastRevealData) SBPlay.linkQuestionInfo(info, game.question, game.lastRevealData.sourceUrl || null);
+    else info.textContent = game.question && game.phase !== 'lobby' ? SBData.sourceLabelFor(game.question) : '';
     document.getElementById('mpTimer').classList.toggle('d-none', !roomSetting('timer', true));
 
     revealBox.style.display = 'none';
@@ -674,10 +665,10 @@
     const r = game.lastRevealData;
     if (!r) { box.style.display = 'none'; return; }
     let html = '';
-    html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(r.answerText, r.letter, r.accept).replace(/^Answer: /, '')}</p>`;
-    if (r.reject && r.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(r.reject.join('; '))}</div>`;
-    html += `<div class="src-line">${SBData.sourceLineHTML(game.question, r.sourceUrl || null)}</div>`;
+    html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(r.answerText, r.letter, r.accept, r.reject).replace(/^Answer: /, '')}</p>`;
     box.innerHTML = html;
+    // Once it's over, the label above the question links to the packet.
+    SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null);
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
     if (game.question.choices && r.letter) {
@@ -966,7 +957,7 @@
       hostBroadcastChat(connId, p ? p.name : 'Player', msg.text);
       return;
     }
-    if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { hostEvent(connId, hostGame.phase === 'lobby' ? 'started the game' : 'started the next question'); hostNextQuestion(); } return; }
+    if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby' && hostGame.phase !== 'gameover') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') { if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question'); hostSkipQuestion(); return; }
     if (msg.type === 'updateSettings') {
@@ -1969,7 +1960,7 @@
   function doNext() {
     if (game.phase !== 'reveal' && game.phase !== 'lobby') return;
     ensureSomeSubjects();
-    if (myState.role === 'host') { hostEvent(myState.myId, game.phase === 'lobby' ? 'started the game' : 'started the next question'); hostNextQuestion(); }
+    if (myState.role === 'host') { if (game.phase === 'lobby') hostEvent(myState.myId, 'started the game'); hostNextQuestion(); }
     else if (client) client.send({ type: 'next' });
   }
   function doSkip() {

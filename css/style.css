@@ -256,11 +256,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .chip[data-subject="ess"] { --chip-color: var(--ess); }
 .chip[data-subject="energy"] { --chip-color: var(--energy); }
 .chip[data-subject="other"] { --chip-color: var(--other); }
-/* Subject chips, toggles and tags are square-cornered and always in their
-   subject's colour. */
-.chip[data-subject] { border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
+/* Subject chips and toggles are always in their subject's colour, with
+   Bootstrap's rounded corners. */
+.chip[data-subject] { border-color: var(--chip-color); color: var(--chip-color); }
 .chip[data-subject].active { color: #fff; }
-.btn-subject, .tag[class*="subject-"] { border-radius: 0; }
 
 /* ---------------- Badges for subject / type / format ---------------- */
 .tag {
@@ -365,13 +364,19 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The button bar pinned to the bottom of the screen. */
 .play-buttons { z-index: 1020; }
 .play-buttons .btn svg { display: block; }
-/* Every button in the bottom bar is the same size, icon buttons included. */
-#buttons .btn { width: 4.5rem; height: 2.375rem; padding-left: 0; padding-right: 0; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+/* The bottom bar as on QB Reader: buttons at their natural width (icon
+   buttons narrow, with Bootstrap Icons' pause-fill and gear), all the same
+   height. */
+#buttons .btn { height: 2.375rem; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
 #buttons .btn.float-end { float: right; }
-@media (max-width: 575.98px) { #buttons .btn { width: 3.85rem; } }
 
 /* Past questions under the current one. */
-.room-history { border-top: .5px solid var(--bs-border-color); }
+/* As on QB Reader: some space, a rule, then the history. */
+.room-history { border-top: .5px solid var(--bs-border-color); margin-top: 1rem; padding-top: .5rem; }
+/* The question label links to the packet once the question is over. */
+.question-info-link { color: inherit; text-decoration: underline; }
+.question-info-link:hover { color: inherit; }
+.do-not-accept { color: inherit; font-weight: inherit; }
 
 .question-panel { position: relative; min-height: 8rem; }
 .question-panel::after { content: ""; display: table; clear: both; }
@@ -394,7 +399,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    there so revealing a question's tags doesn't shift anything) are both
    dropped instead of leaving a large empty gap above and below that line. */
 .question-panel.mp-lobby-compact { min-height: 0; }
-.question-panel.mp-lobby-compact .reveal-tags { display: none; }
 .choices-display { margin-top: .75rem; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 .choice-box { border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius); padding: .5rem .75rem; line-height: 1.5; }
 .choice-box .letter { font-weight: 700; margin-right: .5rem; }
@@ -442,7 +446,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .grade-badge.skipped { background: var(--bs-secondary-bg); color: var(--bs-secondary-color); }
 
 /* ---------------- Multiplayer ---------------- */
-.mp-player-row { text-decoration: none; }
+.mp-player-row { text-decoration: none; color: var(--bs-body-color); }
 .mp-player-row.user-score { background-color: var(--user-score-background); }
 .mp-player-row.buzzed { box-shadow: inset 3px 0 0 var(--bs-warning); }
 .mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
@@ -496,8 +500,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .round-range-label { margin-top: .25rem; }
 
 /* ---------------- Reveal tag badges (subject/format/qtype revealed in sequence) ---------------- */
-.reveal-tags { display: flex; gap: .375rem; flex-wrap: wrap; margin-bottom: .5rem; min-height: 1.3rem; }
-.reveal-tags .tag:empty { display: none; }
 
 .small-note.status-error {
   color: var(--bs-danger-text-emphasis); background: var(--bs-danger-bg-subtle);

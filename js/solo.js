@@ -3,8 +3,7 @@
 // rebuzz / history / set name / timer switches, and finished questions
 // collapsed into cards under the current one (k opens the latest, t stars it).
 (function () {
-  const { FORMAT_LABELS, escapeHtml } = SBData;
-  const labelFor = SBData.subjectLabel;
+  const { escapeHtml } = SBData;
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
@@ -63,7 +62,7 @@
     if (settings.mode === 'starred') {
       el.textContent = '';
       document.getElementById('starredInfo').textContent = n
-        ? `${n.toLocaleString()} starred question${n === 1 ? '' : 's'}, read round and round.`
+        ? ''
         : 'No starred questions yet. Star a question in the history (or press t) or in the Database.';
     } else {
       el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings`;
@@ -230,8 +229,9 @@
     nextQuestion();
   }
 
-  // Average share of the question read at your correct buzzes, e.g. "64%".
-  function celerityText(sum, count) { return count ? Math.round((100 * sum) / count) + '%' : '-'; }
+  // Celerity, as QB Reader shows it: the average share of the question still
+  // unread at your correct buzzes, 0 to 1 (higher = earlier), e.g. "0.805".
+  function celerityText(sum, count) { return (count ? 1 - sum / count : 0).toFixed(3); }
   function updateCounters() {
     const seen = session.correct + session.incorrect;
     document.getElementById('statline').textContent =
@@ -305,18 +305,8 @@
     });
 
     const qDisplay = document.getElementById('qDisplay');
-    const subjectTag = document.getElementById('revealSubjectTag');
-    const formatTag = document.getElementById('revealFormatTag');
-    const qtypeTag = document.getElementById('revealQtypeTag');
-    subjectTag.className = 'tag subject-' + q.subject;
-    formatTag.className = 'tag fmt fmt-' + (q.format || '').toLowerCase();
-    qtypeTag.className = SBData.qtypeTagClass(q);
-    const tagSegments = [
-      { text: labelFor(q.subject), el: subjectTag },
-      { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
-      { text: SBData.qtypeLabel(q), el: qtypeTag },
-    ];
-    const boxSegments = [{ html: SBData.renderMathHTML(q.question), el: qDisplay }];
+    // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
     const choicesDisplay = document.getElementById('choicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -342,7 +332,7 @@
     reserveRevealHeight(boxSegments);
     // The question and choices are given as math-rendered HTML, so
     // superscripts and subscripts type in already formatted.
-    runtime.revealCtl = SBReveal.startReveal(tagSegments.concat(boxSegments), session.rate, {
+    runtime.revealCtl = SBReveal.startReveal(boxSegments, session.rate, {
       onComplete: () => { runtime.readingDone = true; startBuzzWindow(); },
     });
   }
@@ -494,10 +484,10 @@
     if (category === 'incorrect' && outcome.close) {
       html += '<div class="close-hint">Close. If you meant the answer below, press <kbd>q</kbd> or "I was right" to count it.</div>';
     }
-    html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept).replace(/^Answer: /, '')}</p>`;
-    if (q.answer.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(q.answer.reject.join('; '))}</div>`;
-    html += `<div class="src-line">${SBData.sourceLineHTML(q)}</div>`;
+    html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
     box.innerHTML = html;
+    // Once it's over, the label above the question links to the packet.
+    SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
     box.style.display = 'block';
 
     // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
@@ -609,7 +599,6 @@
     document.getElementById('qDisplay').textContent = '';
     document.getElementById('choicesDisplay').style.display = 'none';
     document.getElementById('qFigures').style.display = 'none';
-    ['revealSubjectTag', 'revealFormatTag', 'revealQtypeTag'].forEach((id) => { document.getElementById(id).textContent = ''; });
     document.getElementById('revealMeasureWrap').style.minHeight = '';
     document.getElementById('qDisplay').style.minHeight = '';
     document.getElementById('questionInfo').textContent = '';

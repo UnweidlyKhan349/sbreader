@@ -88,3 +88,9 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Database: a Random button like QB Reader's; "Packet RR 1 |" removed from card headers.
 - Multiplayer: vote kicks with QB Reader's rules; "No public rooms." when the list is empty; no separate "Bob buzzed" line.
 - A skipped question gets no chip.
+- Questions open with what a moderator reads, "**TOSS-UP** Physics *Short Answer*", typed out with the question, instead of subject/type/format chips; "Tossup" is now "Toss-up" everywhere.
+- Celerity is shown as QB Reader does: 0 to 1, higher is earlier ("celerity: 0.805").
+- Once a question is over, its label ("AVES 2 RR 3 Q12") links to the packet; the source line under the answer is gone. "Do not accept" sits on the answer line in brackets.
+- History cards show just the answer (no Correct / Incorrect chip); a rule with space above it separates the current question from the history.
+- Multiplayer: player names in the text colour, white text on the Buzz chip, no "started the next question" line.
+- Subject toggles have rounded corners again; bottom-bar buttons are back to QB Reader's natural widths (same height); Starred mode no longer says "N starred questions, read round and round."
