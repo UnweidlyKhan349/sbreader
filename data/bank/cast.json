@@ -358,24 +358,25 @@
 {"i":5373,"s":"chem","f":"MC","qt":"tossup","n":22,"q":"The synthesis of cubane, a cube of carbon atoms with chemical formula C8H8, starts with Diels-Alder dimerization of 2-bromocyclopentadienone. What is the degree of unsaturation of the final compound?","a":{"t":"7","l":"Z"},"c":{"W":"1","X":"3","Y":"5","Z":"7"},"pg":11},
 {"i":5374,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"One of the final steps in the synthesis of cubane involves the Favorskii rearrangement of a bromoketone intermediate to form cubane carboxylic acid. What is the chemical formula of the bromoketone intermediate?","a":{"t":"C9H7OBr"},"pg":11},
 {"i":5375,"s":"bio","f":"MC","qt":"tossup","n":23,"q":"Which of the following types of tissues can the endoderm NOT give rise to?","a":{"t":"Perineurium","l":"Z"},"c":{"W":"Lamina propria","X":"Muscularis","Y":"Tympanic cavity epithelium","Z":"Perineurium"},"pg":12}]},
-{"rl":"Round 1 (1)","r":1,"q":[
+{"rl":"Round 1 (1)","r":1,"u":"https://drive.google.com/file/d/1lOIKltiRSZAnEKGNwNuZ6plDSCNEPjai/view","q":[
 {"i":70669,"s":"chem","f":"MC","qt":"bonus","n":8,"q":"A reaction is spontaneous at low temperatures and nonspontaneous at high temperatures. Which of the following must be the signs of delta H and delta S, respectively?","a":{"t":"Negative, negative","l":"Z"},"c":{"W":"Positive, positive","X":"Positive, negative","Y":"Negative, positive","Z":"Negative, negative"}},
 {"i":70670,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the sum of the infinite geometric series with second term 4 and third term 2?","a":{"t":"16"}},
-{"i":70671,"s":"chem","f":"MC","qt":"tossup","n":21,"q":"The conversion of carbon-14 to nitrogen-14 is an example of which of the following types of radioactive decay?","a":{"t":"Beta minus","l":"Y"},"c":{"W":"Alpha","X":"Beta plus","Y":"Beta minus","Z":"Gamma"}}]},
-{"rl":"Round 1 (1)","r":1,"u":"https://speriphery.com/query","q":[
+{"i":70671,"s":"chem","f":"MC","qt":"tossup","n":21,"q":"The conversion of carbon-14 to nitrogen-14 is an example of which of the following types of radioactive decay?","a":{"t":"Beta minus","l":"Y"},"c":{"W":"Alpha","X":"Beta plus","Y":"Beta minus","Z":"Gamma"}},
 {"i":73650,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"By name or number, identify all of the following 3 quantities of an inertial frame of reference which are necessarily zero: 1) Acceleration 2) Velocity 3) Total Energy","a":{"t":"1 only"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1Q_pNEHJfjhYDlcM1sV7sxjk6NrjSeVA7/view","q":[
 {"i":70675,"s":"chem","f":"MC","qt":"bonus","n":19,"q":"The half-life of a 2nd order reaction is T for an initial concentration of reactant C. Which of the following represents the half-life of the same reaction with initial concentration C/2?","a":{"t":"2T","l":"Y"},"c":{"W":"T/4","X":"T/2","Y":"2T","Z":"4T"}}]},
 {"rl":"Round 2","r":2,"u":"https://speriphery.com/query","q":[
 {"i":73651,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"Order the following three kinds of plant ground tissue cells from GREATEST to LEAST cell wall thickness: 1) COLLENCHYMA 2) PARENCHYMA 3) SCLERENCHYMA","a":{"t":"3, 1, 2"}}]},
-{"rl":"Round 3","r":3,"q":[
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1BM1H4Cq0iGpTKRkBNnJpIJylILzcFmf9/view","q":[
 {"i":70676,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Which of the following is the average oxygen-oxygen bond order in a molecule of ozone?","a":{"t":"1.5","l":"X"},"c":{"W":"1","X":"1.5","Y":"2","Z":"2.5"}},
 {"i":70677,"s":"math","f":"SA","qt":"bonus","n":14,"q":"If the quadratic x^2 + bx + 9 has 2 non-real solutions, how many integer values of b can there be?","a":{"t":"11"}},
 {"i":70678,"s":"bio","f":"SA","qt":"tossup","n":17,"q":"What kind of blotting deals with post-translational modifications of proteins?","a":{"t":"EASTERN BLOTTING"}},
 {"i":70679,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"A car's position is defined by x(t) = t^3 - 3t^2 + 8t - 9. How fast is the car accelerating at time t = 3?","a":{"t":"12","l":"W"},"c":{"W":"12","X":"15","Y":"17","Z":"20"}}]},
-{"rl":"Round 4","r":4,"q":[
-{"i":70680,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Evaluate the integral from -π/2 to π/2 of sin(|x|).","a":{"t":"2"}},
-{"i":70681,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"What outer region of the solar system is the source of long-source comets?","a":{"t":"OORT CLOUD","ac":["ÖPIK-OORT CLOUD"]}},
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1kXSA134o21vw0KLKoRAFXE6kYW6tPW3T/view","q":[
+{"i":70680,"s":"math","f":"SA","qt":"bonus","n":1,"q":"Evaluate the integral from -π/2 to π/2 of sin(|x|).","a":{"t":"2"}}]},
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/drive/folders/1Kdss_MJHBrtIOfvzkrA7aPzyPtSaa6lr","q":[
+{"i":70681,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"What outer region of the solar system is the source of long-source comets?","a":{"t":"OORT CLOUD","ac":["ÖPIK-OORT CLOUD"]}}]},
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1kXSA134o21vw0KLKoRAFXE6kYW6tPW3T/view","q":[
 {"i":70682,"s":"math","f":"SA","qt":"tossup","n":7,"q":"How many distinct complex roots of the equation x^64 - x^32 = 0 are there?","a":{"t":"33"}},
 {"i":70683,"s":"math","f":"SA","qt":"bonus","n":7,"q":"Centennial High School’s football team has a record of 12-24. After Brandon joins the team, they have a 75% chance of winning. What is the probability that the team will win at least 2 of the next 5 games?","a":{"t":"63/64"}},
 {"i":70685,"s":"phys","f":"SA","qt":"tossup","n":12,"q":"If a particle with mass 1 kg is at the point (0,0) on the xy-plane, moving in the positive x direction with velocity 10 meters per second, and it feels a force with magnitude 5 Newtons in the positive y direction, what will be its position after 10 seconds?","a":{"t":"(100, 250)"}},
@@ -383,15 +384,16 @@
 {"rl":"Round 4","r":4,"u":"https://speriphery.com/query","q":[
 {"i":73652,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following four rocks which are metamorphic: 1) Garnet Schist 2) Slate 3) Diorite 4) Quartzite","a":{"t":"1 and 2 and 4"}},
 {"i":73653,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"Order the following four types of pancreatic hormones from EARLIEST to LATEST discovery of the respective cell which produces them. (it's the Greek alphabet but delta comes before gamma) 1) Somatostatin 2) Amylin 3) Ghrelin 4) Pancreatic polypeptide","a":{"t":"2, 1, 4, 3"}}]},
-{"rl":"Round 5","r":5,"q":[
+{"rl":"Round 5","r":5,"u":"https://drive.google.com/file/d/1cmLKDGigg9zFqfNS_ZDrdOGXCml3UPqK/view","q":[
 {"i":70687,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Calculate the vapor pressure, in torr to 2 significant figures, of a mixture containing 252 g pentane and 1400 g of hexane, given that pentane and hexane have vapor pressures of 420 torr and 40 torr, respectively.","a":{"t":"120"}},
 {"i":70688,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"A parallel-plate capacitor with capacitance C has square plate areas with A. A dielectric with dielectric constant 0.5 is put between the plates, and the side lengths of the plates are doubled. In terms of C, what is the new capacitance of the capacitor?","a":{"t":"2C"}},
 {"i":70689,"s":"energy","f":"SA","qt":"tossup","n":13,"q":"Researchers at Fermilab are building quantum computers. What is the fundamental informational unit used in quantum computers?","a":{"t":"QUBIT"}},
 {"i":70690,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"If a particle has a half-life of 6000 years, if you start with 1 mole of a substance, how much will you have after 9000 years, in moles to 2 significant figures?","a":{"t":"0.35"}}]},
 {"rl":"Round 5","r":5,"u":"https://speriphery.com/query","q":[
-{"i":73654,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which of the following is an example of a prion-caused disease?","a":{"t":"Kuru","l":"W"},"c":{"W":"Kuru","X":"Gastritis","Y":"Achondroplasia","Z":"Boils"}},
+{"i":73654,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which of the following is an example of a prion-caused disease?","a":{"t":"Kuru","l":"W"},"c":{"W":"Kuru","X":"Gastritis","Y":"Achondroplasia","Z":"Boils"}}]},
+{"rl":"Round 5","r":5,"u":"https://drive.google.com/file/d/1cmLKDGigg9zFqfNS_ZDrdOGXCml3UPqK/view","q":[
 {"i":73655,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following solutions will show a positive deviation from Raoult's Law?","a":{"t":"Benzene and acetone","l":"Z"},"c":{"W":"Chloroform and acetone","X":"Water and acetone","Y":"Ethanol and acetone","Z":"Benzene and acetone"}}]},
-{"rl":"Round 6","r":6,"q":[
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/file/d/1DVwm13VSIbhoWrkAlL-_lc0L4yAT6K0S/view","q":[
 {"i":70691,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"A car with mass 2,000 kg is driving up a ramp with a 30° incline. If the car exerts a force of 10,000 N, and it moves a vertical distance of 10 meters high in 2 seconds, what is the power exerted over those 2 seconds, in Watts?","a":{"t":"100,000"}},
 {"i":70692,"s":"math","f":"SA","qt":"bonus","n":5,"q":"The product of the factors of 12^4 can be written as 12^n, where n is a positive integer. What is the value of n?","a":{"t":"90"}},
 {"i":70693,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"Which of the following elements shows two near-equal peaks in mass spectrometry?","a":{"t":"Bromine","l":"Y"},"c":{"W":"Fluorine","X":"Chlorine","Y":"Bromine","Z":"Iodine"}},
@@ -401,25 +403,28 @@
 {"i":70697,"s":"math","f":"SA","qt":"tossup","n":17,"q":"What is the geometric mean of the roots of x^3 - 11x^2 + 34x - 27?","a":{"t":"3"}},
 {"i":70698,"s":"math","f":"SA","qt":"bonus","n":17,"q":"Let r1, r2, r3 be roots of the polynomial x^3 + 5x^2 - 4x + 9. What is the value of 1/r1 + 1/r2 + 1/r3?","a":{"t":"4/9"}},
 {"i":70699,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"Ignoring spin-spin coupling, how many peaks would a H1 NMR spectrum of 2-butanol have?","a":{"t":"6"}}]},
-{"rl":"Round 7","r":7,"q":[
+{"rl":"Round 7","r":7,"u":"https://drive.google.com/file/d/1phb4a0qd6d5udL3OpCc8JDS-GmZBY_3T/view","q":[
 {"i":70700,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"A series RLC circuit has a Q-factor of 5. Using the same resistor, inductor, and capacitor, what would the Q-factor be of a parallel RLC circuit if the resistor has resistance 5 ohms?","a":{"t":"1"}},
 {"i":70702,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"The rotational inertia about the z-axis of a uniform rod of mass M and length L set along the x-axis, with one end on the origin, is ⅓*ML^2. What is the moment of inertia of a rod of mass 3 kg and length 4 meters about an axis parallel to the z-axis passing through the middle of the rod?","a":{"t":"4"}},
 {"i":70703,"s":"math","f":"SA","qt":"bonus","n":16,"q":"How many edges must be removed from K6, the complete graph on six vertices to leave a graph without any copies of K4, the complete graph on four vertices?","a":{"t":"3"}},
 {"i":70704,"s":"ess","f":"MC","qt":"bonus","n":23,"q":"Due to the high penetration of x-rays, the Chandra X- Ray Observatory makes use of which of the following types of mirrors?","a":{"t":"Parabolic","l":"X"},"c":{"W":"Spherical","X":"Parabolic","Y":"Hyperbolic","Z":"Planar"}}]},
-{"rl":"Round 8","r":8,"q":[
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/drive/folders/1Kdss_MJHBrtIOfvzkrA7aPzyPtSaa6lr","q":[
 {"i":70706,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Given a_0 = 69 and a_n satisfies the recurrence a_(n+1) = √(−9 + 6a_n), what is the limit as n approaches infinity of a_n?","a":{"t":"3"}},
-{"i":70707,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"A gas cloud emits light at a frequency of 1.07 × 10^10 Hz. If the light is observed to have a frequency of 1.00 × 10^10 Hz from earth, how far away is the gas cloud, in megaparsecs to 1 significant figure?","a":{"t":"300"}},
+{"i":70707,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"A gas cloud emits light at a frequency of 1.07 × 10^10 Hz. If the light is observed to have a frequency of 1.00 × 10^10 Hz from earth, how far away is the gas cloud, in megaparsecs to 1 significant figure?","a":{"t":"300"}}]},
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1l8qQ1nDMqTZU63fzjyQgo9uWAu--9Aj5/view","q":[
 {"i":70708,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"What chromosome can the mutation causing Prader-Willi Syndrome be located on?","a":{"t":"15"}},
 {"i":70709,"s":"math","f":"SA","qt":"tossup","n":21,"q":"What is the sum from i = 0 to 11 of (-1)^i* (11 choose i)","a":{"t":"0"}},
 {"i":70710,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"A main-sequence star with mass M has luminosity L. If M is quadrupled,what is the new luminosity in terms of L?","a":{"t":"128L"}},
 {"i":70711,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"A main-sequence star with mass M has lifespan T. If M is quadrupled, what is the new lifespan in terms of T to one significant figure?","a":{"t":"0.03T"}},
 {"i":70712,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"What enzyme catalyses the 9th step of glycolysis, where 2-phosphoglycerate is dehydrated to form phosphoenolpyruvate?","a":{"t":"ENOLASE"}}]},
-{"rl":"Round 9","r":9,"q":[
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/file/d/1jcgvJw-wdhDP-6UCtjIgIrIHlNqwn4Sl/view","q":[
 {"i":70714,"s":"bio","f":"SA","qt":"tossup","n":4,"q":"Researchers at Argonne National Laboratory are studying deextinction. What was the first ever species to be made de-extinct through stem cells?","a":{"t":"PYRENEAN IBEX"}},
 {"i":70715,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"Research at Lawrence Livermore National Laboratory are studying the applications of HeLa cells. What new species was proposed to encompass HeLa cells due to their “immortality” and hypertriploid chromosome number?","a":{"t":"HELACYTON GARTLERI"}},
 {"i":70716,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"Researchers at the University of Chicago are researching the creation of carbon-carbon bonds. Reacting a grignard reagent with acetaldehyde will yield what kind of alcohol?","a":{"t":"SECONDARY"}},
-{"i":70717,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What two proteins from a class of transcription-translation negative-feedback loop blue-light receptors regulate circadian rhythms in mammals independent of light?","a":{"t":"CRY1, CRY2"}},
-{"i":70718,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Para-aminoazobenzene has a π-π* transition of 4.8 electronvolts and a n-π* transition of 2.7 electronvolts. What color is it?","a":{"t":"YELLOW"}},
+{"i":70717,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What two proteins from a class of transcription-translation negative-feedback loop blue-light receptors regulate circadian rhythms in mammals independent of light?","a":{"t":"CRY1, CRY2"}}]},
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/drive/folders/1Kdss_MJHBrtIOfvzkrA7aPzyPtSaa6lr","q":[
+{"i":70718,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Para-aminoazobenzene has a π-π* transition of 4.8 electronvolts and a n-π* transition of 2.7 electronvolts. What color is it?","a":{"t":"YELLOW"}}]},
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/file/d/1jcgvJw-wdhDP-6UCtjIgIrIHlNqwn4Sl/view","q":[
 {"i":70719,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Evaluate the curl of the vector field F = x^2 î + (2y − 3y^2) ĵ + z k̂","a":{"t":"(0,0,0)","ac":["ZERO","ZERO VECTOR","NULL","NULL VECTOR","0i+0j+0k"]}},
 {"i":70720,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"Answer the following two questions regarding this histology: 1. Identify what organ this is 2. What is the disease depicted?","a":{"t":"PANCREAS, CHRONIC PANCREATITIS"},"im":[{"f":"cast/70720.webp","w":806,"h":807}]}]},
 {"rl":"Round 9","r":9,"u":"https://speriphery.com/query","q":[

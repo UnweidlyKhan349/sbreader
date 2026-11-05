@@ -325,7 +325,7 @@
 {"rl":"Round 8","r":8,"u":"https://lebot.djiang.xyz/packets/WISC-2021/Round%208.pdf","q":[
 {"i":51642,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Answer the following question using the diagram shown. Circle O has a radius of 15 units and line segment AC measures 20 units. What is the length of line segment AB?","a":{"t":"10 (UNITS)"},"im":[{"f":"wisc-2021/51642.webp","w":553,"h":532}],"pg":6},
 {"i":51643,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Answer the following TWO questions about the depicted diagram. Assume that Jupiter orbits counterclockwise. 1) Each of the regions labelled A, B, and C are in one of the Lagrange points of Jupiter, match each region to the appropriate Lagrange point 2) The objects in regions A and C are analogous to what faintly luminous clouds of dust that are at the corresponding Lagrange points of the Earth Moon system?","a":{"t":"1) A – L5, B – L3, C – L4, 2) KORDYLEWSKI CLOUDS"},"im":[{"f":"wisc-2021/51643.webp","w":880,"h":897}],"pg":10}]},
-{"rl":"Round 1","r":1,"q":[
+{"rl":"Round 1","r":1,"u":"https://drive.google.com/file/d/18hgKlpGP3fvYYRiWrQRg8ehhz0-VCWyO/view","q":[
 {"i":70068,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Object A is dropped off a cliff. Object B is thrown horizontally from the same height with an initial velocity of 4.6 m/s. After 3 seconds, how far apart are the two objects?","a":{"t":"13.8 METERS"}},
 {"i":70070,"s":"ess","f":"MC","qt":"tossup","n":3,"q":"What is the most common gas in the atmosphere of Jupiter?","a":{"t":"Hydrogen","l":"W"},"c":{"W":"Hydrogen","X":"Nitrogen","Y":"Methane","Z":"Ammonia"}},
 {"i":70072,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"Scientists at the Jet Propulsion Biotechnology and Planetary Protection group have been studying microorganisms on earth that may be able to withstand the high salt concentrations on mars. Most such extreme halophiles are members of what domain?","a":{"t":"ARCHAEA"}},
@@ -338,46 +338,48 @@
 {"i":70079,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following is NOT an iron ore?","a":{"t":"Sphalerite","l":"Z"},"c":{"W":"Goethite","X":"Hematite","Y":"Magnetite","Z":"Sphalerite"}}]},
 {"rl":"Round 1","r":1,"u":"https://speriphery.com/query","q":[
 {"i":73692,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following vitamins which are fat-soluble: 1) A 2) D 3) E 4) K","a":{"t":"All"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1LEefGBmkj50lMlEPrSZws1HCXC4fzRQP/view","q":[
 {"i":70081,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"If a ray of light enters air at an angle of 45° to the normal, what is the minimum index of refraction needed for the original medium to reflect the light?","a":{"t":"√2"}},
 {"i":70082,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"How many times more light will a 60 centimeter telescope collect compared to a 5 centimeter telescope?","a":{"t":"144"}},
 {"i":70083,"s":"ess","f":"SA","qt":"bonus","n":3,"q":"Order the following three moon phases from first to last in a lunar month: 1) Full moon; 2) Third quarter; 3) Waxing gibbous.","a":{"t":"3, 1, 2 (WAXING GIBBOUS, FULL MOON, THIRD QUARTER)"}},
 {"i":70084,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"How many milliliters of a 2 molar sodium chloride solution are needed to make 500 milliliters of a 0.25 molar sodium chloride solution?","a":{"t":"62.5","l":"X"},"c":{"W":"50","X":"62.5","Y":"75","Z":"87.5"}},
 {"i":70086,"s":"math","f":"MC","qt":"tossup","n":16,"q":"Which of the following numbers is perfect?","a":{"t":"28","l":"Z"},"c":{"W":"25","X":"26","Y":"27","Z":"28"}},
 {"i":70087,"s":"math","f":"SA","qt":"bonus","n":16,"q":"How many factors does the number 1008 have?","a":{"t":"30"}}]},
-{"rl":"Round 3","r":3,"q":[
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1MQTp7GVgnh0HG11geTk3SK1M3jEzmnJl/view","q":[
 {"i":70090,"s":"chem","f":"SA","qt":"tossup","n":6,"q":"Researchers at Pacific Northwest National Lab have created two prominent software packages that can simulate the electronic structure of molecules. If an observed molecule has a square planar molecular geometry, what is the hybridization of the central atom of this molecule?","a":{"t":"sp^3d^2","ac":["D2SP3"]}},
 {"i":70091,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Researchers at Pacific Northwest National Lab have discovered that ettringite, a mineral found in cement, can be used to contain hazardous, nuclear waste. Ettringite belongs to what class of minerals, which also contains minerals such as anhydrite and gypsum?","a":{"t":"SULFATES"}},
 {"i":70092,"s":"bio","f":"MC","qt":"bonus","n":8,"q":"Which of the following is considered a multiple fruit?","a":{"t":"Pineapples","l":"Y"},"c":{"W":"Peas","X":"Raspberries","Y":"Pineapples","Z":"Lemons"}},
-{"i":70093,"s":"bio","f":"MC","qt":"bonus","n":14,"q":"The genus Rhizopus, commonly known as the bread mold, is a part of which of the following major groups of fungi?","a":{"t":"Zygomycetes","l":"Y"},"c":{"W":"Chytrids","X":"Glomeromycetes","Y":"Zygomycetes","Z":"Ascomycetes"}},
-{"i":70094,"s":"math","f":"SA","qt":"tossup","n":16,"q":"How far is each focus of the ellipse x^2/16 + y^2/25 = 1 located from the center?","a":{"t":"3"}},
+{"i":70093,"s":"bio","f":"MC","qt":"bonus","n":14,"q":"The genus Rhizopus, commonly known as the bread mold, is a part of which of the following major groups of fungi?","a":{"t":"Zygomycetes","l":"Y"},"c":{"W":"Chytrids","X":"Glomeromycetes","Y":"Zygomycetes","Z":"Ascomycetes"}}]},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/drive/folders/1oEMDY28WsyUg2TgvIyABKLYO7URirF1y","q":[
+{"i":70094,"s":"math","f":"SA","qt":"tossup","n":16,"q":"How far is each focus of the ellipse x^2/16 + y^2/25 = 1 located from the center?","a":{"t":"3"}}]},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1MQTp7GVgnh0HG11geTk3SK1M3jEzmnJl/view","q":[
 {"i":70095,"s":"math","f":"MC","qt":"bonus","n":16,"q":"Which of the following statements is incorrect about the hyperbola x^2/25 − y^2/144 = 1?","a":{"t":"One of the asymptotes has slope 5/12.","l":"Y"},"c":{"W":"The length of the transverse axis is 10.","X":"The distance between the foci is 26.","Y":"One of the asymptotes has slope 5/12.","Z":"The absolute distance between a focus and its closest vertex is 8."}}]},
-{"rl":"Round 4","r":4,"q":[
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1jBXsHyz989IDhX7zCK9CJFKxiSUrbw1h/view","q":[
 {"i":70097,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"How many atoms are contained within one unit cell of a crystal with a primitive cubic structure?","a":{"t":"1","l":"W"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
 {"i":70099,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"Order the following four atomic orbitals from lowest to highest energy: 1) 4f; 2) 5d; 3) 6s; 4) 5p.","a":{"t":"4, 3, 1, 2 (5p, 6s, 4f, 5d)"}},
 {"i":70101,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following minerals has the chemical formula Na3AlF6?","a":{"t":"Cryolite","l":"W"},"c":{"W":"Cryolite","X":"Bauxite","Y":"Ilmenite","Z":"Sillimanite"}}]},
 {"rl":"Round 4","r":4,"u":"https://speriphery.com/query","q":[
 {"i":73693,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following four layers of the atmosphere which, as altitude increases, experience a decrease in temperature: 1) Trophosphere 2) Stratosphere 3) Mesosphere 4) Thermosphere","a":{"t":"1 and 3"}}]},
-{"rl":"Round 5","r":5,"q":[
+{"rl":"Round 5","r":5,"u":"https://drive.google.com/file/d/18vfQLoUOcRLw6au_tA4wELm-ZuJ-2Vq-/view","q":[
 {"i":70103,"s":"chem","f":"MC","qt":"bonus","n":5,"q":"The Favorskii rearrangement involves the contraction of a cyclic alpha-halo ketone to form a carboxylic acid. Which of the following organic molecules is a cyclic alpha-halo ketone?","a":{"t":"2-chlorocyclohexanone","l":"Y"},"c":{"W":"3-bromo-2-hexanone","X":"Cyclopentanone","Y":"2-chlorocyclohexanone","Z":"1-bromo-2-chlorocyclohexane"}},
 {"i":70104,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"The researchers at UC Davis plan to use prediction tools to figure out if replanting efforts will be beneficial for regrowth in the areas. After secondary succession, what term refers to the final state of an ecosystem?","a":{"t":"CLIMAX COMMUNITY"}},
 {"i":70105,"s":"phys","f":"MC","qt":"tossup","n":7,"q":"O n a circular loop of a roller coaster, at which point would the normal force exerted by the track onto the car be greatest?","a":{"t":"bottom","l":"Y"},"c":{"W":"top","X":"right","Y":"bottom","Z":"left"}},
 {"i":70108,"s":"math","f":"SA","qt":"bonus","n":16,"q":"What is the area of a regular hexagon with side length 10?","a":{"t":"150√3"}},
 {"i":70109,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"Find the change in internal energy of an ideal gas in the isothermal expansion from 1 to 5 liters against a constant pressure of 2.5 atmospheres?","a":{"t":"0"}}]},
-{"rl":"Round 6","r":6,"q":[
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/file/d/1Q18mAchKKq16ZHA9YxO523rVGKnrcZKx/view","q":[
 {"i":70112,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Which of the following numbers is a factor of 2021?","a":{"t":"43","l":"Z"},"c":{"W":"37","X":"39","Y":"41","Z":"43"}},
 {"i":70113,"s":"math","f":"MC","qt":"tossup","n":10,"q":"The 3D point (2, –3, –5) belongs to what octant?","a":{"t":"Eighth","l":"Z"},"c":{"W":"Second","X":"Fourth","Y":"Sixth","Z":"Eighth"}},
 {"i":70114,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the sum of the coefficients of the polynomial (−5 + 3x)^9?","a":{"t":"−512"}},
 {"i":70116,"s":"bio","f":"MC","qt":"tossup","n":14,"q":"The breathing control centers in the medulla oblongata control the rate and depth of ventilation by directly responding to which of the following variables?","a":{"t":"Cerebrospinal fluid pH","l":"Z"},"c":{"W":"Plasma pCO2","X":"Cerebrospinal fluid pCO2","Y":"Plasma pH","Z":"Cerebrospinal fluid pH"}},
 {"i":70117,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"Identify all of the following three statements which are true of a mixture if the ratio of R to S enantiomers is 1 to 1: 1) It is racemic; 2) It is optically active; 3) The net rotation of plane polarized light after passing through the mixture is 0 degrees.","a":{"t":"1 AND 3"}},
 {"i":70118,"s":"math","f":"MC","qt":"tossup","n":22,"q":"What is the remainder when 52 factorial is divided by 53?","a":{"t":"52","l":"Z"},"c":{"W":"0","X":"1","Y":"22","Z":"52"}}]},
-{"rl":"Round 7","r":7,"q":[
+{"rl":"Round 7","r":7,"u":"https://drive.google.com/file/d/1SNLypbfis5GzxK1AWKwqzIlWFHGiSJ58/view","q":[
 {"i":70120,"s":"math","f":"MC","qt":"tossup","n":4,"q":"What is the limit of cos(x) over x as x approaches 0?","a":{"t":"Does not exist","l":"Z"},"c":{"W":"Infinity","X":"Negative infinity","Y":"Zero","Z":"Does not exist"}},
 {"i":70121,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the area bounded by the curves y = x^2 and x = y^2?","a":{"t":"1/3"}},
 {"i":70122,"s":"math","f":"SA","qt":"tossup","n":10,"q":"How many edges does a tetrahedron have?","a":{"t":"6"}},
 {"i":70123,"s":"math","f":"MC","qt":"bonus","n":10,"q":"A quadratic polynomial of the form x^2 + ax + b has roots m and n. Given that m^2 + n^2 = a – b and that a is a Mersenne prime, what is the minimum value of b?","a":{"t":"6","l":"W"},"c":{"W":"6","X":"8","Y":"10","Z":"12"}},
 {"i":70125,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the slope of the tangent line to the curve y = 2^x at y = 4?","a":{"t":"4LN(2)","ac":["4 NATURAL LOG OF 2"]}}]},
-{"rl":"Round 8","r":8,"q":[
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1ggN8AFJN3hVfNpCTjDmYVtMVkf8mC9li/view","q":[
 {"i":70126,"s":"ess","f":"SA","qt":"bonus","n":3,"q":"The initiating step of the proton-proton chain that occurs within the sun is the fusion of two protons. Name all THREE of the products of this initial step.","a":{"t":"NEUTRINO, POSITRON, AND DEUTERIUM","ac":["NEUTRINO, POSITRON, AND HYDROGEN-2"]}},
 {"i":70127,"s":"math","f":"SA","qt":"bonus","n":4,"q":"The number m is a natural number between 6 and 100, inclusive. Find the number of possible values of m such that x^2 – x – m = 0 has integral roots.","a":{"t":"8"}},
 {"i":70128,"s":"phys","f":"MC","qt":"bonus","n":7,"q":"Which of the following is incorrect about relativity?","a":{"t":"The effective mass of an object can be found by dividing its rest mass by the Lorentz factor.","l":"X"},"c":{"W":"The length of an object in a moving frame is contracted in the direction of motion.","X":"The effective mass of an object can be found by dividing its rest mass by the Lorentz factor.","Y":"In Minkowski space, the spacetime interval between two events is independent of the inertial frame of reference.","Z":"Time dilation increases with the strength of the gravitational field."}},

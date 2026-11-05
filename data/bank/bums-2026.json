@@ -1,43 +1,43 @@
 [
-{"rl":"BUMS DE 1","r":6,"q":[
+{"rl":"BUMS DE 1","r":6,"u":"https://docs.google.com/document/d/1OJupFro3N4mm1iOpmgmtNLSLUsKEm1868P2V4CZbXTQ/edit","q":[
 {"i":43053,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"Identify all of the following 4 atoms which violate the Aufbau principle. 1) Titanium 2) Chromium 3) Copper 4) Zinc","a":{"t":"2, 3"}},
 {"i":43066,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Order the following four planets by increasing density. 1) Mercury 2) Venus 3) Mars 4) Jupiter","a":{"t":"4, 3, 2, 1"}},
 {"i":43068,"s":"math","f":"SA","qt":"tossup","n":15,"q":"By name or number, order the following numbers from lowest to highest. 1) 3^5 2) 4^4 3) 5^3","a":{"t":"3, 1, 2"}},
 {"i":43069,"s":"math","f":"SA","qt":"bonus","n":15,"q":"By name or number, identify which of the following are equal to 0: 1) 56 mod 7 2) The number of primes between 90 and 96 inclusive 3) Floor of -0.4","a":{"t":"1 and 2"}},
 {"i":43072,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"Order the following 3 diatomic molecules by increasing bond enthalpy: 1) N2 2) O2 3) Cl2","a":{"t":"3, 2, 1"}}]},
-{"rl":"BUMS DE 2","r":7,"q":[
+{"rl":"BUMS DE 2","r":7,"u":"https://docs.google.com/document/d/1xq6A1uEzY0kTQApb3zYsqRnfPWN2hvRer3mmxg84dXQ/edit","q":[
 {"i":43082,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"By name or number, identify all of the following compounds that are ionic. 1) H2O 2) HCl 3) ZnBr2","a":{"t":"3"}},
 {"i":43084,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"Convex mirrors always produce which of the following types of images? Real and upright Real and inverted Virtual and upright Virtual and inverted","a":{"t":"Virtual and upright"}}]},
-{"rl":"BUMS DE 3","r":8,"q":[
+{"rl":"BUMS DE 3","r":8,"u":"https://docs.google.com/document/d/1qjcSLyhOAYS4_Y9JpR6UoPKlNh638YVbJaGptOi1eVE/edit","q":[
 {"i":43142,"s":"chem","f":"SA","qt":"tossup","n":12,"q":"By name or number, rank the following 4 intermolecular forces by increasing strength. 1) Ion-dipole 2) Dipole-dipole 3) Hydrogen bonds 4) London dispersion forces","a":{"t":"4, 2, 3, 1"}},
 {"i":43151,"s":"bio","f":"SA","qt":"bonus","n":16,"q":"Huntington's disease is caused by many repeats of which of the following four nucleotides? 1) Adenine 2) Cytosine 3) Guanine 4) Thymine","a":{"t":"1, 2, 3"}},
 {"i":43154,"s":"phys","f":"SA","qt":"tossup","n":18,"q":"By name or number, identify which of the following are fermions. 1) Photon 2) Electron 3) Neutron","a":{"t":"2, 3"}}]},
-{"rl":"BUMS DE 4","r":9,"q":[
+{"rl":"BUMS DE 4","r":9,"u":"https://docs.google.com/document/d/1MlqCexNv0JAc-4Dp2Lu0x-Vtr8EyKdcl-5EdPMkwkhw/edit","q":[
 {"i":43163,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Order the following three acids given their concentrations by increasing pH. 1) 0.1M hydrochloric acid 2) 1M sulfuric acid 3) 0.1M acetic acid","a":{"t":"2, 1, 3"}},
 {"i":43170,"s":"bio","f":"SA","qt":"tossup","n":6,"q":"Select all of the following three taxa that are not phyla. 1) Chordata 2) Brachiopoda 3) Fungi","a":{"t":"3 only"}},
 {"i":43172,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"Select all of the following four acids that are polyprotic. 1) Sulfuric acid 2) Nitric acid 3) Hydrochloric acid 4) Acetic acid","a":{"t":"1 only"}}]},
-{"rl":"BUMS DE 5","r":10,"q":[
+{"rl":"BUMS DE 5","r":10,"u":"https://docs.google.com/document/d/16T9WUTk2uUwkcKhELeOz1FxDbPBu2sFR3UnSc4du59o/edit","q":[
 {"i":43213,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"By name or number, arrange the following four ions in order of increasing polarizability. 1) F^- 2) O^(2-) 3) Cl^- 4) S^(2-)","a":{"t":"1, 2, 3, 4"}},
 {"i":43228,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"Select all of the following four data structures that are linear. 1) Array 2) Stack 3) Map 4) Tree","a":{"t":"1, 2"}}]},
-{"rl":"BUMS DE 6","r":11,"q":[
+{"rl":"BUMS DE 6","r":11,"u":"https://docs.google.com/document/d/1mTJ7y4RPmxZeqcnUcfhp1lJwWwgDFHfAvZUvp2zlWNg/edit","q":[
 {"i":43246,"s":"ess","f":"SA","qt":"tossup","n":4,"q":"The Nancy Grace Roman Space telescope, scheduled to launch in 2026 or 7, is the Hubble Space Telescope's successor. Which of the following electromagnetic regions will this telescope primarily observe? 1) Visible 2) Gamma 3) X-ray 4) Near-Infrared","a":{"t":"Near-Infrared"}},
 {"i":43247,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Which of the following is NOT a variety of microcrystalline quartz? Jasper Chert Agate Amethyst","a":{"t":"Amethyst"}},
 {"i":43258,"s":"math","f":"SA","qt":"tossup","n":10,"q":"By name or number, identify which of the following are platonic solids? 1) Tetrahedron 2) Sphere 3) Dodecahedron 4) Square Pyramid","a":{"t":"1, 3"}},
 {"i":43266,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"The Bekenstein-Hawking Entropy says that the entropy of a black hole is directly proportional to which of its features? Surface Area Volume Temperature Mass","a":{"t":"Surface Area"}},
 {"i":43279,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Which of the following sequences are monotonic across the positive integers? 1) n^2 2) (-n)^e 3) sin(n) 4) tan(n)","a":{"t":"n^2"}}]},
-{"rl":"BUMS DE 7","r":12,"q":[
+{"rl":"BUMS DE 7","r":12,"u":"https://docs.google.com/document/d/1XxUEKIwthwAtxL275SVVkIyjphSCX_bE9iJ9YKFx7Gs/edit","q":[
 {"i":43303,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"By name or number, select all from the following four solutions that make effective buffers. 1) 0.1 moles NH3, 0.1 moles NH4^+ 2) 0.1 moles H2SO4, 0.1 moles SO4^(2-) 3) 0.1 moles NH3, 0.05 moles HCl 4) 0.1 moles HF, 0.1 moles F^-","a":{"t":"1, 3, 4"}},
 {"i":43312,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"What positions does the para prefix denote on the benzene molecule? 1 2 3 4 5 6","a":{"t":"1, 4"}}]},
-{"rl":"BUMS DE 8","r":13,"q":[
+{"rl":"BUMS DE 8","r":13,"u":"https://docs.google.com/document/d/1vZLxuDJCvJwiV5bObfvtHZ1MQ3RIpglUaNsvGH7OrRY/edit","q":[
 {"i":43339,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Identify all of the following conformations that a cyclohexane molecule could exhibit: 1) Chair 2) Twist-Chair 3) Boat 4) Half-Boat","a":{"t":"1 and 3"}},
 {"i":43344,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"Rank the following five operations in order of increasing time complexity: 1) Accessing an element in an array 2) Binary search 3) Linear search 4) Heap Sort 5) Bubble Sort","a":{"t":"1, 2, 3, 4, 5"}}]},
-{"rl":"BUMS RR 2","r":2,"q":[
+{"rl":"BUMS RR 2","r":2,"u":"https://docs.google.com/document/d/10gaGXMlstRLsUf2CMTxBW-Bh4b7s8ESVGZAZBIgyv6g/edit","q":[
 {"i":43413,"s":"bio","f":"SA","qt":"bonus","n":12,"q":"Order the following taxonomic groups from most broad to most specific. 1) Phylum 2) Class 3) Genus 4) Order","a":{"t":"1, 2, 4, 3"}},
 {"i":43427,"s":"phys","f":"SA","qt":"bonus","n":19,"q":"A ball is launched from a cannon at an angle of 30 degrees to the horizontal and lands on the ground 100 meters from the cannon. If another ball is placed in the cannon, which of the following three launch angles would result in the second ball traveling farther than the first once it hits the ground? 1) 29.5 2) 30.5 3) 31.5","a":{"t":"2 and 3"}}]},
-{"rl":"BUMS RR 4","r":4,"q":[
+{"rl":"BUMS RR 4","r":4,"u":"https://docs.google.com/document/d/1NSv2eM7yS2Tn7EPMCZpAkyQBwYurOaLWb-Glo26G5oI/edit","q":[
 {"i":43483,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"By name or number, order the following 4 phases of mitosis in chronological order. 1) Anaphase 2) Metaphase 3) Telophase 4) Prophase","a":{"t":"4, 2, 1, 3"}},
 {"i":43491,"s":"math","f":"SA","qt":"bonus","n":10,"q":"By name or number, order the following 4 number sets from smallest to largest. 1) Real 2) Whole 3) Natural 4) Complex","a":{"t":"3, 2, 1, 4"}}]},
-{"rl":"BUMS RR 5","r":5,"q":[
+{"rl":"BUMS RR 5","r":5,"u":"https://docs.google.com/document/d/1yMI5hUSzTKzGc3UVOJRiXe-2vI436NMnhwy3lWx-Y_0/edit","q":[
 {"i":43525,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"By name or number, choose all of the following that are solutions. 1) Brine 2) Sand 3) Bronze 4) Salt","a":{"t":"1 and 3"}},
 {"i":43539,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Order the following four planets by increasing distance from the Kuiper Belt. 1) Uranus 2) Earth 3) Mercury 4) Jupiter","a":{"t":"1, 4, 2, 3"}}]}
 ]

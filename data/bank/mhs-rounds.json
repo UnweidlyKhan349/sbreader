@@ -797,45 +797,50 @@
 {"i":13805,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"One H atom orbital has three planar or conical nodes, no radial nodes, and is cylindrically symmetric about the z axis. What are the values for the n, l, and m_l quantum numbers respectively?","a":{"t":"4,3,0"},"pg":11},
 {"i":13806,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"Researchers at Lawrence Livermore national lab are looking into the signaling process present when cancer cells propagate throughout the human body. What is the general term for this spread of malignant cancer cells away from the primary cancer site?","a":{"t":"METASTASIS"},"pg":12},
 {"i":13807,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Researchers at Lawrence Livermore national lab are studying the magnetic fields generated in the aftermath of a supernova. The strong magnetic fields from a supernova lead to the emission of what type of radiation, caused by electrons spiraling through a magnetic field?","a":{"t":"SYNCHROTRON RADIATION"},"pg":12}]},
-{"rl":"Copy of MHS Set 2 Round 1","r":1,"q":[
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1TCxhT4CG3SFJOJqdJLqWCiBIdaGx_cWQ/view","q":[
 {"i":69218,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the largest positive integer k, where k^2 is a factor of 8! (factorial)?","a":{"t":"24"}},
 {"i":69220,"s":"ess","f":"SA","qt":"bonus","n":19,"q":"A partially collapsed, submerged, and flat-topped seamount is known as what?","a":{"t":"GUYOT"}},
 {"i":69221,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the distance between the points, (1,2) and (6, -10)?","a":{"t":"13"}},
-{"i":69222,"s":"phys","f":"SA","qt":"tossup","n":21,"q":"Order the following 3 elements in increasing mean-free path assuming constant number densities: 1) Carbon; 2) Nitrogen; 3) Oxygen","a":{"t":"1, 2, 3"}},
-{"i":69230,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Identify all of the following three functions that have an increasing second derivative over its entire domain: 1) e to the negative x; 2) cosine of x squared; 3) The quantity x squared + 1, cubed.","a":{"t":"NONE"}},
-{"i":69244,"s":"math","f":"SA","qt":"bonus","n":15,"q":"The point (3,7) is reflected across the line y = x + 9, and then shifted 2 units to the left. What are the coordinates of the new point?","a":{"t":"(-4, 12)"}},
-{"i":69248,"s":"math","f":"SA","qt":"bonus","n":5,"q":"The point (2, 3) is rotated 60 degrees counterclockwise. What are the new coordinates of this point?","a":{"t":"(1 - 3√3/2, √3/2 + 3/2)"}},
+{"i":69222,"s":"phys","f":"SA","qt":"tossup","n":21,"q":"Order the following 3 elements in increasing mean-free path assuming constant number densities: 1) Carbon; 2) Nitrogen; 3) Oxygen","a":{"t":"1, 2, 3"}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1cfWxl-jIYL_560c8hKbgcWCs5IKDW0lR/view","q":[
+{"i":69230,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Identify all of the following three functions that have an increasing second derivative over its entire domain: 1) e to the negative x; 2) cosine of x squared; 3) The quantity x squared + 1, cubed.","a":{"t":"NONE"}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1UuDM7WnG99Pc05_KcLD41IQ6eaZkTbKc/view","q":[
+{"i":69244,"s":"math","f":"SA","qt":"bonus","n":15,"q":"The point (3,7) is reflected across the line y = x + 9, and then shifted 2 units to the left. What are the coordinates of the new point?","a":{"t":"(-4, 12)"}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1yYreHZwUGEzCXfBPp4MUTOT-zAnzCfGm/view","q":[
+{"i":69248,"s":"math","f":"SA","qt":"bonus","n":5,"q":"The point (2, 3) is rotated 60 degrees counterclockwise. What are the new coordinates of this point?","a":{"t":"(1 - 3√3/2, √3/2 + 3/2)"}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1GsrLKiacucy0RV3D3oOrB_y0WIaslaGh/view","q":[
 {"i":69264,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"If the magnetic vector potential is given by (xyz, xyz, xyz), calculate the magnetic field at (1,2,3).","a":{"t":"(1, -4, 3)"}}]},
-{"rl":"Copy of MHS Set 2 Round 2","r":2,"q":[
-{"i":69269,"s":"ess","f":"MC","qt":"bonus","n":2,"q":"Evaporating Gaseous Globules, also known as, EGGs are protrusions on nebulae that can form which of the following:","a":{"t":"Protostars","l":"W"},"c":{"W":"Protostars","X":"Protoplanetary Disks","Y":"Accretion Rings","Z":"Quasar Jets"}},
+{"rl":"Copy of MHS Set 2 Round 2","r":2,"u":"https://drive.google.com/drive/folders/1XWPPsdbAG6ANmYo6zE3m9G3F0DdWQttb","q":[
+{"i":69269,"s":"ess","f":"MC","qt":"bonus","n":2,"q":"Evaporating Gaseous Globules, also known as, EGGs are protrusions on nebulae that can form which of the following:","a":{"t":"Protostars","l":"W"},"c":{"W":"Protostars","X":"Protoplanetary Disks","Y":"Accretion Rings","Z":"Quasar Jets"}}]},
+{"rl":"Copy of MHS Set 2 Round 2","r":2,"u":"https://drive.google.com/file/d/1lIB6mmaNgqtt6AKw3ez2_2mMI4Dit--1/view","q":[
 {"i":69270,"s":"math","f":"SA","qt":"bonus","n":15,"q":"A theater has n^3 seats in the nth row. If the number of rows is 10, what is the total number of seats in the theater?","a":{"t":"3025"}},
 {"i":69271,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"What type of mimicry is observed when a non-toxic animal mimics another animal who is toxic.","a":{"t":"BATESIAN"}},
 {"i":69272,"s":"ess","f":"MC","qt":"tossup","n":19,"q":"Meant to reduce beach erosion, which of the following man-made structures runs perpendicular to the beachfront?","a":{"t":"Groin","l":"Z"},"c":{"W":"Jetty","X":"Seawall","Y":"Breakwater","Z":"Groin"}}]},
-{"rl":"Copy of MHS Set 2 Round 3","r":3,"q":[
+{"rl":"Copy of MHS Set 2 Round 3","r":3,"u":"https://drive.google.com/file/d/1XsimOWQ0DyVC6An45F_WaUmjlqEkuv3e/view","q":[
 {"i":69273,"s":"bio","f":"SA","qt":"tossup","n":4,"q":"The S in 70s ribosomes represents a non-SI unit for the sedimentation coefficient. What does the S stand for?","a":{"t":"SVEDBERGS"}},
 {"i":69274,"s":"bio","f":"MC","qt":"bonus","n":4,"q":"Which of the following is NOT true of gram-negative bacteria?","a":{"t":"They have 2 rings in their basal body for flagella structure.","l":"X"},"c":{"W":"They do not retain the Crystal Violet stain.","X":"They have 2 rings in their basal body for flagella structure.","Y":"They have a thin amount of peptidoglycan.","Z":"They generally do not form endospores."}},
 {"i":69275,"s":"ess","f":"MC","qt":"bonus","n":7,"q":"The presence of thin, rope-like formations of cooled magma indicate the presence of which of the following magma types?","a":{"t":"Pahoehoe","l":"Z"},"c":{"W":"A’a","X":"Andesitic","Y":"Rhyolitic","Z":"Pahoehoe"}},
 {"i":69277,"s":"math","f":"MC","qt":"bonus","n":10,"q":"For which of the following values of x is the function ln(x) NOT defined?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"0.5","Y":"1","Z":"π"}},
 {"i":69280,"s":"phys","f":"SA","qt":"tossup","n":16,"q":"Identify all of the following colors that have a larger wavelength than orange. 1) Red; 2) Blue; 3) Violet","a":{"t":"1","ac":["RED"]}},
 {"i":69283,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"Identify all of the following 3 compounds that have a non-zero bond order: 1) H2^(+); 2) He2^(2+); 3) B2","a":{"t":"ALL"}}]},
-{"rl":"Copy of MHS Set 2 Round 4","r":4,"q":[
+{"rl":"Copy of MHS Set 2 Round 4","r":4,"u":"https://drive.google.com/file/d/1up3qQWof_hgHWbu1PWAki3TEgkuL6oGR/view","q":[
 {"i":69284,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Identify all of the following quantities that are dimensionless. 1) Reynold’s number; 2) Viscosity; 3) Friction coefficient","a":{"t":"1, 3"}},
 {"i":69286,"s":"chem","f":"MC","qt":"bonus","n":13,"q":"Researchers at Los Alamos national lab are studying metal-ligand bonding in actinides. Which of the following elements is not an actinide?","a":{"t":"Gadolinium","l":"W"},"c":{"W":"Gadolinium","X":"Thorium","Y":"Plutonium","Z":"Nobelium"}},
 {"i":69288,"s":"math","f":"SA","qt":"bonus","n":15,"q":"What is the remainder when 4x^4 - 3x^3 + 17x - 16 is divided by x - 2?","a":{"t":"58"}},
 {"i":69289,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"Order the following 3 atoms from shortest to longest half-life: 1) Tritium; 2) Carbon-14; 3) Uranium-238","a":{"t":"1, 2, 3"}},
 {"i":69290,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"Mannose-6-phosphate is a compound that marks proteins headed for what other cellular organelle?","a":{"t":"LYSOSOME"}}]},
-{"rl":"Copy of MHS Set 2 Round 5","r":5,"q":[
+{"rl":"Copy of MHS Set 2 Round 5","r":5,"u":"https://drive.google.com/file/d/1Cx8easXnQu0poNYzBlMeWjTwM8UBGDIa/view","q":[
 {"i":69291,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"The Stefan-Boltzmann law states that the total intensity of radiation emitted over all wavelengths is equal to the Boltzmann constant times temperature to what power?","a":{"t":"4"}},
 {"i":69292,"s":"bio","f":"SA","qt":"tossup","n":4,"q":"What enzyme is used to phosphorylate fructose-6-phosphate in glycolysis to produce fructose-1,6-bisphosphate.","a":{"t":"PHOSPHOFRUCTOKINASE","ac":["PFK"]}},
 {"i":69293,"s":"chem","f":"MC","qt":"bonus","n":17,"q":"For the reaction: CuCl(s) + I^-(aq) is in equilibrium with CuI(s) + Cl^-(aq), what is the equilibrium constant? Given that the solubility constant for CuCl and CuI is 1.9 × 10^-7, and 5.1 × 10^-12 respectively.","a":{"t":"3.7 × 10^4","l":"Y"},"c":{"W":"8.4 × 10^-2","X":"2.3 × 10^-6","Y":"3.7 × 10^4","Z":"4.4 × 10^14"}},
 {"i":69294,"s":"math","f":"SA","qt":"tossup","n":20,"q":"Given that a polynomial of degree 4 has roots 3 + √23 and 7 - √21, how many positive roots does it have?","a":{"t":"3"}}]},
-{"rl":"Copy of MHS Set 2 Round 6","r":6,"q":[
+{"rl":"Copy of MHS Set 2 Round 6","r":6,"u":"https://drive.google.com/file/d/1A5mtRMjO6kUmSj7D1whbc6JXeytY-ZMo/view","q":[
 {"i":69295,"s":"ess","f":"MC","qt":"bonus","n":12,"q":"Compared to the faster Primary waves, S-waves move at approximately what percent the speed of P-waves?","a":{"t":"60%","l":"Y"},"c":{"W":"20%","X":"40%","Y":"60%","Z":"80%"}},
 {"i":69296,"s":"math","f":"SA","qt":"tossup","n":15,"q":"What is the remainder when the polynomial 4x^4 - 3x^2 + 12x + 16 is divided by x + 1?","a":{"t":"5"}},
 {"i":69298,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the maximum value of the function f(x) = -3x^2 + 12x +17 over its entire domain?","a":{"t":"29"}},
 {"i":69299,"s":"math","f":"SA","qt":"bonus","n":20,"q":"What is the area enclosed by the graphs y = -x^2 + 3x + 2 and y = x + 2?","a":{"t":"4/3"}},
 {"i":69300,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"What equation in enzyme kinetics is derived from the steady-state approximation using the reaction mechanism for an enzyme-substrate reaction?","a":{"t":"MICHAELIS MENTEN EQUATION"}}]},
-{"rl":"Copy of MHS Set 2 Round 9","r":9,"q":[
+{"rl":"Copy of MHS Set 2 Round 9","r":9,"u":"https://drive.google.com/file/d/106jkMj71INyGjLgh2xoRX_SsxvEfqydr/view","q":[
 {"i":69303,"s":"bio","f":"MC","qt":"bonus","n":4,"q":"Which of the following sequences in double-stranded DNA is most likely to be recognized as a cutting site for a restriction enzyme?","a":{"t":"GGCC and CCGG","l":"Y"},"c":{"W":"ACCA and TGGT","X":"AAGG and TTCC","Y":"GGCC and CCGG","Z":"AGTC and TCAG"}},
 {"i":69304,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the area between the curves y = x^4 and y = 2 - 2x - x^2 from x=0 to x=1?","a":{"t":"7/15"}},
 {"i":69305,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"Answer the following 2 questions about polymers: 1) What intermolecular force causes straight chain polymers to have higher melting points than branched polymers; 2) What power of distance is your answer from part A inversely proportional to?","a":{"t":"1) LDF (VAN DER WAALS, INDUCED DIPOLES) 2) -6 OR INVERSE 6"}}]},
@@ -854,11 +859,13 @@
 {"i":13353,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"A thin conducting ring of radius R carries an anti-clockwise current I. How many times as great is the magnetic field R units above the center of the loop as the magnetic field at the center of the loop?","a":{"t":"√2/4"},"pg":1}]},
 {"rl":"Copy of MHS Set 2 Round 17","r":17,"u":"https://lebot.djiang.xyz/packets/MHS%20Rounds/Copy%20of%20MHS%20Set%202%20Round%2017.pdf","q":[
 {"i":13432,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"Which of the following does the phosphoryl-transfer reaction not have a role in?","a":{"t":"Direct repair of alkylated DNA","l":"W"},"c":{"W":"Direct repair of alkylated DNA","X":"Sanger sequencing of DNA","Y":"DNA ligation","Z":"Gene transcription"},"pg":9}]},
-{"rl":"Copy of MHS Set 2 Round 1","r":1,"q":[
-{"i":69225,"s":"math","f":"SA","qt":"bonus","n":15,"q":"For the implicitly defined function y^3 + 2x^2 = 16, what is the value of dy/dx at the point (2,2)?","a":{"t":"−2/3","ac":["-2/3"]}},
-{"i":69235,"s":"math","f":"SA","qt":"tossup","n":10,"q":"What is the coefficient of the x^2y^3 term in the binomial expansion of (3x - 2y)^5?","a":{"t":"−720","ac":["-720"]}},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1AP4bj3ovXmjvl2x4Au-5A5ABMlrn3KCs/view","q":[
+{"i":69225,"s":"math","f":"SA","qt":"bonus","n":15,"q":"For the implicitly defined function y^3 + 2x^2 = 16, what is the value of dy/dx at the point (2,2)?","a":{"t":"−2/3","ac":["-2/3"]}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1-9FsMDhFs3w0YabWB1nJAYM8DdQePeRR/view","q":[
+{"i":69235,"s":"math","f":"SA","qt":"tossup","n":10,"q":"What is the coefficient of the x^2y^3 term in the binomial expansion of (3x - 2y)^5?","a":{"t":"−720","ac":["-720"]}}]},
+{"rl":"Copy of MHS Set 2 Round 1","r":1,"u":"https://drive.google.com/file/d/1UuDM7WnG99Pc05_KcLD41IQ6eaZkTbKc/view","q":[
 {"i":69243,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the average value of the function 3sin(x) + 2 from the interval of 0 to π?","a":{"t":"2 + 6/π"}},
 {"i":69246,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the area enclosed by the polar curve r = 4sin(θ)?","a":{"t":"4π"}}]},
-{"rl":"Copy of MHS Set 2 Round 3","r":3,"q":[
+{"rl":"Copy of MHS Set 2 Round 3","r":3,"u":"https://drive.google.com/file/d/1XsimOWQ0DyVC6An45F_WaUmjlqEkuv3e/view","q":[
 {"i":69281,"s":"math","f":"MC","qt":"tossup","n":20,"q":"What is the value of the second derivative of y(x) = 4x^3 - 6x + 9 at x=3?","a":{"t":"72","l":"Z"},"c":{"W":"24","X":"36","Y":"48","Z":"72"}}]}
 ]

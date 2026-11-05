@@ -388,28 +388,31 @@
 {"i":7394,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"Scientists at Lawrence Berkeley National Lab are studying the mechanisms of asexual reproduction in bees. What type of asexual reproduction utilized by some bee species involves the development of the egg without being fertilized?","a":{"t":"PARTHENOGENESIS"},"pg":7},
 {"i":7395,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Scientists at Princeton Plasma Physics Lab are looking into the history of the moon by studying the craters that formed. These craters were formed during what period where there was an increased surge in debris impact rate?","a":{"t":"LATE HEAVY BOMBARDMENT"},"pg":7},
 {"i":7396,"s":"chem","f":"MC","qt":"bonus","n":14,"q":"Scientists at Los Alamos National Lab are studying types of magnetism. Which of the following is indicated by the presence of paramagnetism in a molecule?","a":{"t":"The molecule possesses unpaired electrons","l":"W"},"c":{"W":"The molecule possesses unpaired electrons","X":"The molecule possesses no unpaired electrons","Y":"The molecule is positively charged","Z":"The molecule is negatively charged"},"pg":7}]},
-{"rl":"DBHSST round 1","r":1,"q":[
+{"rl":"DBHSST round 1","r":1,"u":"https://drive.google.com/file/d/1hsBHbR5IePwMgAgqWOlcI3QYH710kz-d/view","q":[
 {"i":71043,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"Giving your answer in terms of c, what is the speed of light in a material with an index of refraction of 1.25?","a":{"t":"0.8C"}}]},
-{"rl":"DBHSST round 2","r":2,"q":[
+{"rl":"DBHSST round 2","r":2,"u":"https://drive.google.com/file/d/17z8p8T5VdX-QnYZAnqGBUQuNxteGnlO-/view","q":[
 {"i":71044,"s":"ess","f":"SA","qt":"tossup","n":4,"q":"What crater-like volcanic feature typically forms after a volcano erupts and collapses?","a":{"t":"CALDERA"}}]},
-{"rl":"DBHSST round 3","r":3,"q":[
+{"rl":"DBHSST round 3","r":3,"u":"https://drive.google.com/file/d/1Gj9UgDSt3pRb_THL6YU5qU91mH1_1ZcN/view","q":[
 {"i":71047,"s":"phys","f":"SA","qt":"tossup","n":16,"q":"What type of interference, commonly used by noisecancelling headphones, occurs when the resultant wave has a lesser amplitude than either of the interacting waves?","a":{"t":"DESTRUCTIVE"}}]},
-{"rl":"DBHSST round 5","r":5,"q":[
-{"i":71048,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What are the coordinates of the vertices of the hyperbola with equation x^2 over 16 minus y^2 over 25 equals 1?","a":{"t":"(-4, 0), (4, 0)"}},
+{"rl":"DBHSST round 5","r":5,"u":"https://drive.google.com/file/d/1nzO6N_tNl1MYXalIFb9GW6khc3M4oFbj/view","q":[
+{"i":71048,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What are the coordinates of the vertices of the hyperbola with equation x^2 over 16 minus y^2 over 25 equals 1?","a":{"t":"(-4, 0), (4, 0)"}}]},
+{"rl":"DBHSST round 5","r":5,"u":"https://drive.google.com/drive/folders/13GVZwEB73qxjo6r6cUKfdT7FiOHpapDb","q":[
 {"i":71049,"s":"chem","f":"MC","qt":"tossup","n":21,"q":"Which of the following pairs of water-soluble substances will create a buffer solution?","a":{"t":"Carbonic acid and sodium bicarbonate","l":"Y"},"c":{"W":"Sucrose and sulfuric acid","X":"Sodium chloride and nitric acid","Y":"Carbonic acid and sodium bicarbonate","Z":"Ammonium chloride and glucose"}}]},
 {"rl":"DBHSST round 6","r":6,"u":"https://drive.google.com/file/d/1I6hc53PPiF05rUHglrQt_SAX7-AXdRL3/view","q":[
 {"i":71284,"s":"ess","f":"MC","qt":"tossup","n":17,"q":"Scientists at Pacific Northwest National Lab are researching the internal igneous activity of the Laramide orogeny. Orogenesis most often occurs along which of the following types of plate boundaries?","a":{"t":"Convergent","l":"W"},"c":{"W":"Convergent","X":"Divergent","Y":"Transform","Z":"Fault"}}]},
-{"rl":"DBHSST round 7","r":7,"q":[
+{"rl":"DBHSST round 7","r":7,"u":"https://drive.google.com/file/d/1IFZPf5r6rIaBiMLwtfKcMHduD4AjopUX/view","q":[
 {"i":71053,"s":"ess","f":"MC","qt":"bonus","n":9,"q":"In the H-R diagram, in which of the following locations would the helium flash be observed?","a":{"t":"Red giant branch","l":"Z"},"c":{"W":"Hayashi track","X":"Subgiant branch","Y":"Instability strip","Z":"Red giant branch"}},
-{"i":71054,"s":"ess","f":"MC","qt":"bonus","n":19,"q":"Which of the following terms describes the wrinkleridge system commonly found on lunar maria?","a":{"t":"Dorsa","l":"W"},"c":{"W":"Dorsa","X":"Promontoria","Y":"Rilles","Z":"Rupes"}},
+{"i":71054,"s":"ess","f":"MC","qt":"bonus","n":19,"q":"Which of the following terms describes the wrinkleridge system commonly found on lunar maria?","a":{"t":"Dorsa","l":"W"},"c":{"W":"Dorsa","X":"Promontoria","Y":"Rilles","Z":"Rupes"}}]},
+{"rl":"DBHSST round 7","r":7,"u":"https://drive.google.com/drive/folders/13GVZwEB73qxjo6r6cUKfdT7FiOHpapDb","q":[
 {"i":71055,"s":"chem","f":"MC","qt":"bonus","n":21,"q":"Which of the following compounds is considered a straight-chain alkene?","a":{"t":"Propene","l":"Z"},"c":{"W":"Cyclohexane","X":"Toluene","Y":"Acetylene","Z":"Propene"}}]},
-{"rl":"DBHSST round 8","r":8,"q":[
+{"rl":"DBHSST round 8","r":8,"u":"https://drive.google.com/file/d/1gdu4hf2z2k2aqLGquQd27428kVTS8-9r/view","q":[
 {"i":71056,"s":"math","f":"SA","qt":"bonus","n":10,"q":"The midpoint of a line AB on the coordinate plane is (1.5, 2). If the coordinates of A are (3, -4), what is the location of point B?","a":{"t":"(0, 8)"}},
 {"i":71057,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"The K-Pg boundary event marked the end of what period, and the beginning of what period, respectively?","a":{"t":"CRETACEOUS, PALEOGENE"}},
 {"i":71058,"s":"math","f":"SA","qt":"bonus","n":15,"q":"A six-sided die is unfairly weighted such that the probability of rolling a certain number is directly proportional to its square. What is the probability that a multiple of 3 will be rolled on this die?","a":{"t":"45/91"}}]},
 {"rl":"DBHSST round 1","r":1,"u":"https://speriphery.com/query","q":[
 {"i":85423,"s":"phys","f":"SA","qt":"tossup","n":null,"q":"What property of a fluid describes its resistance to flow?","a":{"t":"VISCOSITY"}}]},
+{"rl":"DBHSST round 4","r":4,"u":"https://drive.google.com/file/d/14lgPLNaCgtHgDRQJNeHwoO13mU-y3UuA/view","q":[
+{"i":85426,"s":"math","f":"SA","qt":"bonus","n":null,"q":"The graph of the equation y = x^2 - 4x + 3 is shifted 3 units to the right and 2 units up. What is the vertex of this new graph?","a":{"t":"(5, 1)"}}]},
 {"rl":"DBHSST round 4","r":4,"u":"https://speriphery.com/query","q":[
-{"i":85426,"s":"math","f":"SA","qt":"bonus","n":null,"q":"The graph of the equation y = x^2 - 4x + 3 is shifted 3 units to the right and 2 units up. What is the vertex of this new graph?","a":{"t":"(5, 1)"}},
 {"i":85427,"s":"bio","f":"SA","qt":"tossup","n":null,"q":"What is the name of the gland that is responsible for producing human tears?","a":{"t":"LACHRYMAL GLAND"}}]}
 ]

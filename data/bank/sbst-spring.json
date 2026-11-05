@@ -563,85 +563,89 @@
 {"i":27877,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Bees, yellow jackets, and wasps all share similar coloring due to what form of mimicry?","a":{"t":"MÜLLERIAN MIMICRY"},"pg":11},
 {"i":27878,"s":"ess","f":"MC","qt":"tossup","n":22,"q":"Which of the following minerals is NOT an inosilicate?","a":{"t":"Epidote","l":"Z"},"c":{"W":"Augite","X":"Hornblende","Y":"Enstatite","Z":"Epidote"},"pg":11},
 {"i":27879,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"An unsaturated air parcel with a temperature of 20 °C rises from the surface with a dry adiabatic lapse rate of 7°C/km and a wet adiabatic lapse rate of 5°C/km. Assuming the dew point at the surface is 14°C and the dew point lapse rate is 2°C/km, at what altitude, in meters, will clouds start forming?","a":{"t":"1200 METERS"},"pg":11}]},
-{"rl":"Spring Tournament Round 1","r":1,"q":[
+{"rl":"Spring Tournament Round 1","r":1,"u":"https://drive.google.com/file/d/18LnKU1QH6ANuMBqUIuhnYmb68dePGEkv/view","q":[
 {"i":70266,"s":"math","f":"SA","qt":"tossup","n":10,"q":"The point (4, 2) is reflected across the y-axis and then translated 8 units up. What are the final coordinates of the point?","a":{"t":"(–4, 10)"}},
 {"i":70267,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Connor’s drawer contains 3 green socks, 6 red socks, 9 blue socks, and 2 yellow socks. What is the minimum number of socks Connor needs to pull from his drawer to guarantee that he has at least 1 pair of each color?","a":{"t":"20"}}]},
-{"rl":"Spring Tournament Round 10 EDITED","r":10,"q":[
+{"rl":"Spring Tournament Round 10 EDITED","r":10,"u":"https://drive.google.com/file/d/1hych3aiU8M-BoE1zTKG9SIXa7Y6xnd_Q/view","q":[
 {"i":70269,"s":"math","f":"SA","qt":"bonus","n":5,"q":"The polynomial x^2020 – 1 is divided by x – 1 to yield a new polynomial. What is the sum of the cubes of the roots of this new polynomial?","a":{"t":"–1"}},
 {"i":70270,"s":"math","f":"SA","qt":"tossup","n":17,"q":"What are the normalized barycentric coordinates of the centroid of a triangle ABC with AB = 5, BC = 12, and AC = 13?","a":{"t":"(1/3, 1/3, 1/3)"}},
 {"i":70271,"s":"math","f":"SA","qt":"bonus","n":17,"q":"The roots of x^6 – 729 are mapped on the complex plane and then all of them are connected to make a convex polygon. What is the area of this polygon?","a":{"t":"27√3/2","ac":["27 ROOT 3 OVER 2"]}},
 {"i":70272,"s":"math","f":"SA","qt":"bonus","n":23,"q":"The line y = 20 is reflected over the line y = 3/4x + 6. What is the slope of the resultant line?","a":{"t":"24/7"}}]},
-{"rl":"Spring Tournament Round 11 EDITED","r":11,"q":[
+{"rl":"Spring Tournament Round 11 EDITED","r":11,"u":"https://drive.google.com/file/d/1SLlMcvSREP3hH0hro3y-CMz0vx3You4a/view","q":[
 {"i":70273,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"Answer the following two questions about the image: 1. Letter A points to what layer of the solar atmosphere? 2. What phenomenon can be seen at letter B, caused by rugged topography of the lunar surface?","a":{"t":"1 – CORONA; 2 – BAILY’S BEADS","ac":["DIAMOND RING EFFECT"]}}]},
-{"rl":"Spring Tournament Round 12 EDITED","r":12,"q":[
+{"rl":"Spring Tournament Round 12 EDITED","r":12,"u":"https://drive.google.com/file/d/1ZWOX2gmzG9vb7k8gxiBYlZWE7xLpEF62/view","q":[
 {"i":70274,"s":"math","f":"SA","qt":"bonus","n":2,"q":"The quadratic f(x) has leading coefficient 3 and is tangent to the line y = 2x + 5 at x = 4. What is the sum of the coefficients of f(x)?","a":{"t":"34"}},
 {"i":70275,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"Which of the following solutions to the Einstein- Maxwell field equations corresponds to the gravitational field of a rotating, charged, spherically symmetric massive body?","a":{"t":"Kerr-Newman metric","l":"Z"},"c":{"W":"Schwartzchild metric","X":"Kerr metric","Y":"Reissner-Nordstrom metric","Z":"Kerr-Newman metric"}},
 {"i":70276,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Scientists at Argonne National Lab are studying high-temperature minerals of the Earth’s mantle. One of the most common such minerals, bridgmanite, is a magnesium silicate perovskite with chemical formula MgSiO3. Bridgmanite is a high-temperature mineral of which of the following mineral groups?","a":{"t":"Pyroxene","l":"X"},"c":{"W":"Garnet","X":"Pyroxene","Y":"Amphibole","Z":"Olivine"}},
 {"i":70277,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"An electron has wave function psi of r equals Nr^2 for r is less than or equal to 1, where N is a normalization constant. What is the probability that the particle is found with r is less than 1/2?","a":{"t":"1/128"}},
-{"i":70278,"s":"math","f":"SA","qt":"bonus","n":20,"q":"What is the line integral of f(x, y) = xy – x – y + 1 along the contour defined by the circle x squared plus y squared equals 16 going counterclockwise?","a":{"t":"8π"}}]},
-{"rl":"Spring Tournament Round 12 EDITED","r":12,"u":"https://speriphery.com/query","q":[
+{"i":70278,"s":"math","f":"SA","qt":"bonus","n":20,"q":"What is the line integral of f(x, y) = xy – x – y + 1 along the contour defined by the circle x squared plus y squared equals 16 going counterclockwise?","a":{"t":"8π"}},
 {"i":73625,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"Which law states that the vertical progression of various facies forms as a succession of laterally ordered depositional environments?","a":{"t":"WALTHER’S LAW"}}]},
-{"rl":"Spring Tournament Round 13 EDITED","r":13,"q":[
+{"rl":"Spring Tournament Round 13 EDITED","r":13,"u":"https://drive.google.com/file/d/1WO_oawL1TXzE6Fx3D9-MoGmadNRGknm-/view","q":[
 {"i":70279,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"The Zimmerman–Traxler model is used to predict the stereochemistry of what organic reaction?","a":{"t":"ALDOL REACTION"}},
-{"i":70280,"s":"math","f":"SA","qt":"bonus","n":20,"q":"A monic cubic P(x) has roots of 1, r, and r squared, where r is a positive integer greater than 1. Given that P(3) = –2, at what x value between 1 and r is there a local maximum?","a":{"t":"(7 − √7)/3","ac":["7 MINUS SQUARE ROOT 7 ALL OVER 3"]}}]},
-{"rl":"Spring Tournament Round 13 EDITED","r":13,"u":"https://speriphery.com/query","q":[
+{"i":70280,"s":"math","f":"SA","qt":"bonus","n":20,"q":"A monic cubic P(x) has roots of 1, r, and r squared, where r is a positive integer greater than 1. Given that P(3) = –2, at what x value between 1 and r is there a local maximum?","a":{"t":"(7 − √7)/3","ac":["7 MINUS SQUARE ROOT 7 ALL OVER 3"]}},
 {"i":73626,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"The formation of coastal polynyas is primarily driven by what winds that flow out from the Antarctic interior?","a":{"t":"KATABATIC WINDS"}},
 {"i":73627,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Polynyas are thought to drive the formation of what dense water mass via brine rejection and surface cooling?","a":{"t":"ANTARCTIC BOTTOM WATER","ac":["AABW"]}}]},
-{"rl":"Spring Tournament Round 14 FINAL","r":14,"q":[
+{"rl":"Spring Tournament Round 14 FINAL","r":14,"u":"https://drive.google.com/file/d/1Z-Mwv8C_F_KOFh2vp8kK4wDXo63OvUQ8/view","q":[
 {"i":70282,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"In non-El Nino years, what type of biogenous sediment would dominate deep-sea deposition off the Peruvian coast?","a":{"t":"SILICEOUS OOZE"}},
 {"i":70283,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"The given image represents the Tunica-Corpus model of an apical meristem, indicating direction of growth, relative size, and shape of the three layers. Classify L1, L2, and L3, respectively, as part of either the tunica or the corpus.","a":{"t":"TUNICA, TUNICA, CORPUS"}},
 {"i":70286,"s":"energy","f":"MC","qt":"tossup","n":12,"q":"Chemists at Argonne National Lab are studying the dissolution kinetics of cadmium carbonate films over dolomite crystal surfaces. To study this, they use a special crystallization technique. Which of the following refers to the method of crystallization where thin crystal layers are grown on the surface of a single-crystalline substrate?","a":{"t":"Epitaxy","l":"X"},"c":{"W":"Czochralski method","X":"Epitaxy","Y":"Flux method","Z":"Fractional crystallization"}},
 {"i":70287,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"What effect causes the O-O bond in dioxygen difluoride to be longer than most O-O single bonds?","a":{"t":"HYPERCONJUGATION","ac":["ANOMERIC EFFECT"]}},
 {"i":70288,"s":"math","f":"SA","qt":"tossup","n":19,"q":"Find the Jacobian determinant of the transformation x = 4u – 3 and y = 1 – 6v.","a":{"t":"–24"}},
 {"i":70289,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Beta turns are a type of non-regular secondary structure in proteins containing several large dihedral angles. Which of the standard 20 amino acids is likely to be most common in beta turns?","a":{"t":"GLYCINE"}},
-{"i":70290,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"What is the term given to the effect when an electron-donating group on a neighboring carbon accelerates the rate of an SN2 reaction?","a":{"t":"ANCHIMERIC ASSISTANCE","ac":["NEIGHBORING GROUP PARTICIPATION or NGP"]}}]},
-{"rl":"Spring Tournament Round 14 FINAL","r":14,"u":"https://speriphery.com/query","q":[
+{"i":70290,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"What is the term given to the effect when an electron-donating group on a neighboring carbon accelerates the rate of an SN2 reaction?","a":{"t":"ANCHIMERIC ASSISTANCE","ac":["NEIGHBORING GROUP PARTICIPATION or NGP"]}},
 {"i":73628,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A plastic cube with side length 4 cm and mass 20 grams that floats horizontally in water. If displaced downward, the cube bobs up and down. To two significant digits and in seconds, what is the period of these oscillations?","a":{"t":"0.22"}},
 {"i":73629,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Scientists at Pacific Northwest National Lab are studying the use of molybdenum phosphide as a catalyst for the electrolysis of water. Molybdenum phosphide is a low-cost alternative to what expensive precious metal, used as a catalyst for the electrolysis of water?","a":{"t":"PLATINUM","ac":["Pt"]}}]},
-{"rl":"Spring Tournament Round 2","r":2,"q":[
+{"rl":"Spring Tournament Round 2","r":2,"u":"https://drive.google.com/file/d/1H0GS7rElIWr05rqUOWllNDK-xozd7Uyg/view","q":[
 {"i":70291,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"NO2 is in a gas-phase equilibrium with N2O4. Given that the forward reaction is exothermic, identify all of the following three changes to the system that would shift the reaction to the left: 1) Increasing temperature; 2) Decreasing volume of reaction vessel; 3) Increasing partial pressure of NO2.","a":{"t":"1 AND 2"}},
 {"i":70292,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the y-intercept of the line that is perpendicular to the line –6x + 3y = 18 and passes through the point (4, 9)?","a":{"t":"(0, 11)","ac":["11"]}}]},
-{"rl":"Spring Tournament Round 3","r":3,"q":[
+{"rl":"Spring Tournament Round 3","r":3,"u":"https://drive.google.com/file/d/181n70CrMtyTuPZJE7DcVTf6sOtOb7Pe4/view","q":[
 {"i":70293,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What is the average value of the function f(x) = sin(x) on the interval from x = 0 to x = π?","a":{"t":"2/π"}},
 {"i":70294,"s":"math","f":"SA","qt":"bonus","n":18,"q":"For what positive integers a is it true that (a – 8) divides a?","a":{"t":"4, 6, 7, 9, 10, 12, 16"}}]},
-{"rl":"Spring Tournament Round 4","r":4,"q":[
+{"rl":"Spring Tournament Round 4","r":4,"u":"https://drive.google.com/file/d/1ctqutxucDLR3TV9DM1ZcaRT9u2REzAIY/view","q":[
 {"i":70296,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"A red marble traveling to the right at 3 meters per second collides head-on with a blue marble of identical mass traveling to the left at 5 meters per second. In meters per second, what are the minimum and maximum speeds, respectively, of the red marble after the collision?","a":{"t":"1 AND 5"}}]},
-{"rl":"Spring Tournament Round 5","r":5,"q":[
+{"rl":"Spring Tournament Round 5","r":5,"u":"https://drive.google.com/file/d/1LmEj9wHJoB0pj61vN2nrTXP_4TqU1Jhq/view","q":[
 {"i":70298,"s":"chem","f":"MC","qt":"tossup","n":13,"q":"A sample of water ice at –30 degrees Celsius is heated to the gaseous phase while the temperature of the sample is plotted against the heat supplied to the sample. At 0 degrees Celsius and 100 degrees Celsius, the heating curve is flat. However, the flat region at 100 degrees Celsius is much wider than that at 0 degrees Celsius. Which of the following best accounts for this phenomenon?","a":{"t":"The heat of vaporization for water is greater than the heat of fusion","l":"Z"},"c":{"W":"Liquid water has a greater specific heat capacity than ice","X":"Liquid water has a greater specific heat capacity than water vapor","Y":"The heat of fusion for water is greater than the heat of vaporization","Z":"The heat of vaporization for water is greater than the heat of fusion"}},
 {"i":70299,"s":"math","f":"SA","qt":"tossup","n":17,"q":"What is the derivative with respect to x of f(x) = cosine x tangent x?","a":{"t":"COSINE x"}}]},
-{"rl":"Spring Tournament Round 6 EDITED","r":6,"q":[
+{"rl":"Spring Tournament Round 6 EDITED","r":6,"u":"https://drive.google.com/file/d/1fWhzvm54uB9Um-FUyh6wd3yzU49-RO0q/view","q":[
 {"i":70301,"s":"bio","f":"SA","qt":"tossup","n":5,"q":"In the IP3 DAG pathway, what enzyme is responsible for cleaving the PIP2 molecule to form DAG and IP3?","a":{"t":"PHOSPHOLIPASE C","ac":["PLC"]}},
 {"i":70303,"s":"math","f":"SA","qt":"tossup","n":21,"q":"What is the minimum value of the function f(x) equals e to the x plus e to the –x for all real numbers x?","a":{"t":"2"}},
 {"i":70304,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"PCl5 is an ionic compound in the solid state. According to VSEPR theory, what are the molecular geometries around the cation and anion, respectively, in solid PCl5?","a":{"t":"TETRAHEDRAL, OCTAHEDRAL"}}]},
-{"rl":"Spring Tournament Round 7 FINAL","r":7,"q":[
+{"rl":"Spring Tournament Round 7 FINAL","r":7,"u":"https://drive.google.com/file/d/18tLQSwuz_xXXXWUiNeXerm9HeofJQ2J2/view","q":[
 {"i":70306,"s":"chem","f":"MC","qt":"bonus","n":3,"q":"Which of the following cyclic hydrocarbons experiences the least strain?","a":{"t":"Chair cyclohexane","l":"Y"},"c":{"W":"Cyclobutane","X":"Cyclopentane","Y":"Chair cyclohexane","Z":"Boat cyclohexane"}},
 {"i":70307,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"Giving your answer as a fraction, and assuming no incest, what is the coefficient of relatedness between a human and her second cousin?","a":{"t":"1/32"}},
 {"i":70308,"s":"math","f":"SA","qt":"bonus","n":9,"q":"What is the largest prime factor of the quantity 5^6 + 5^8 + 5^10?","a":{"t":"31"}},
 {"i":70309,"s":"math","f":"SA","qt":"tossup","n":12,"q":"What is the cross product of the two vectors 4i + 6j and i – 3j?","a":{"t":"–18k"}},
 {"i":70310,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"A student is tasked with deciphering the identity of an unknown white solid. When added to water, only a small amount of the solid dissolves, but after an excess of ammonia is bubbled through the solution, the solid turns gray. Which of the following is the likely identity of the solid?","a":{"t":"Mercury I chloride","l":"W"},"c":{"W":"Mercury I chloride","X":"Lead II chloride","Y":"Silver chloride","Z":"Lithium carbonate"}},
 {"i":70312,"s":"chem","f":"MC","qt":"bonus","n":23,"q":"2,3-dichlorobutane is reacted with excess potassium tertbutoxide. Which of the following functional groups will form?","a":{"t":"Conjugated diene","l":"Y"},"c":{"W":"Disubstituted alkene","X":"Cumulated diene","Y":"Conjugated diene","Z":"Unconjugated diene"}}]},
-{"rl":"Spring Tournament Round 8 FINAL","r":8,"q":[
-{"i":70313,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"Rounding your answer to the nearest integer, calculate the phase velocity, in meters per second, of a wave travelling in a lagoon with water depth of 40 centimeters.","a":{"t":"2 METERS PER SECOND"}},
-{"i":70314,"s":"ess","f":"MC","qt":"tossup","n":8,"q":"Which of the following statements about guyot formation is not true?","a":{"t":"Guyots rarely contain coral due to their depth","l":"Z"},"c":{"W":"Guyots are generally volcanic in origin","X":"Guyots subside as they move away from the mid-ocean ridge","Y":"Guyots become flat topped as they are eroded at the sea surface","Z":"Guyots rarely contain coral due to their depth"}},
-{"i":70315,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What are the last two digits of the following expression: 7^77 + 7^7 + 7?","a":{"t":"57"}},
+{"rl":"Spring Tournament Round 8 FINAL","r":8,"u":"https://drive.google.com/file/d/1cd5d5r-NELNwCDftZKD8Fubm36YHUOH5/view","q":[
+{"i":70313,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"Rounding your answer to the nearest integer, calculate the phase velocity, in meters per second, of a wave travelling in a lagoon with water depth of 40 centimeters.","a":{"t":"2 METERS PER SECOND"}}]},
+{"rl":"Spring Tournament Round 8 FINAL","r":8,"u":"https://drive.google.com/drive/folders/1hVHVKod55JAXRHfQ6BC6o9GfFJPUfM1j","q":[
+{"i":70314,"s":"ess","f":"MC","qt":"tossup","n":8,"q":"Which of the following statements about guyot formation is not true?","a":{"t":"Guyots rarely contain coral due to their depth","l":"Z"},"c":{"W":"Guyots are generally volcanic in origin","X":"Guyots subside as they move away from the mid-ocean ridge","Y":"Guyots become flat topped as they are eroded at the sea surface","Z":"Guyots rarely contain coral due to their depth"}}]},
+{"rl":"Spring Tournament Round 8 FINAL","r":8,"u":"https://drive.google.com/file/d/1cd5d5r-NELNwCDftZKD8Fubm36YHUOH5/view","q":[
+{"i":70315,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What are the last two digits of the following expression: 7^77 + 7^7 + 7?","a":{"t":"57"}}]},
+{"rl":"Spring Tournament Round 8 FINAL","r":8,"u":"https://drive.google.com/drive/folders/1hVHVKod55JAXRHfQ6BC6o9GfFJPUfM1j","q":[
 {"i":70316,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"Uniparental disomy will have the most phenotypic effect if it occurs in which of the following?","a":{"t":"CpG islands","l":"Y"},"c":{"W":"Purine rich sequences","X":"Pyrimidine rich sequences","Y":"CpG islands","Z":"TATA box"}},
-{"i":70317,"s":"chem","f":"MC","qt":"tossup","n":17,"q":"Which of the following classes of carbocations is the least stable?","a":{"t":"Vinylic","l":"Y"},"c":{"W":"Allylic","X":"Benzylic","Y":"Vinylic","Z":"Tertiary"}},
+{"i":70317,"s":"chem","f":"MC","qt":"tossup","n":17,"q":"Which of the following classes of carbocations is the least stable?","a":{"t":"Vinylic","l":"Y"},"c":{"W":"Allylic","X":"Benzylic","Y":"Vinylic","Z":"Tertiary"}}]},
+{"rl":"Spring Tournament Round 8 FINAL","r":8,"u":"https://drive.google.com/file/d/1cd5d5r-NELNwCDftZKD8Fubm36YHUOH5/view","q":[
 {"i":70320,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"Urate oxidase is known to form large electron-dense paracrystalline cores. In what eukaryotic organelle is this enzyme most commonly found?","a":{"t":"PEROXISOME"}},
 {"i":70321,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"When t-butyl iodide undergoes a solvolysis reaction with ethanol, which of the following functional groups will most likely be formed by this reaction?","a":{"t":"Ether","l":"Z"},"c":{"W":"Ester","X":"Tertiary alcohol","Y":"Carboxylic acid","Z":"Ether"}}]},
-{"rl":"Spring Tournament Round 9 FINAL","r":9,"q":[
-{"i":70323,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Compute the double integral of xy dx dy on the square domain with x = 0 to x = 8 and y = 0 to y = 8.","a":{"t":"1024"}},
-{"i":70324,"s":"ess","f":"MC","qt":"tossup","n":16,"q":"Minerals like zircon and xenotime precipitate from highly evolved magmas that are rich in incompatible elements. Which of the following is an example of an incompatible element?","a":{"t":"Yttrium","l":"Z"},"c":{"W":"Magnesium","X":"Aluminum","Y":"Fluorine","Z":"Yttrium"}},
+{"rl":"Spring Tournament Round 9 FINAL","r":9,"u":"https://drive.google.com/file/d/1YATE1-4maUiReAB2gGt-KqnKDliKKh2L/view","q":[
+{"i":70323,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Compute the double integral of xy dx dy on the square domain with x = 0 to x = 8 and y = 0 to y = 8.","a":{"t":"1024"}}]},
+{"rl":"Spring Tournament Round 9 FINAL","r":9,"u":"https://drive.google.com/drive/folders/1hVHVKod55JAXRHfQ6BC6o9GfFJPUfM1j","q":[
+{"i":70324,"s":"ess","f":"MC","qt":"tossup","n":16,"q":"Minerals like zircon and xenotime precipitate from highly evolved magmas that are rich in incompatible elements. Which of the following is an example of an incompatible element?","a":{"t":"Yttrium","l":"Z"},"c":{"W":"Magnesium","X":"Aluminum","Y":"Fluorine","Z":"Yttrium"}}]},
+{"rl":"Spring Tournament Round 9 FINAL","r":9,"u":"https://drive.google.com/file/d/1YATE1-4maUiReAB2gGt-KqnKDliKKh2L/view","q":[
 {"i":70325,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the length of the path traced by the function f(t) = (t, 3 cosine t, 3 sine t) from t = 0 to t = 3?","a":{"t":"3√10","ac":["3 SQUARE ROOT OF 10"]}},
 {"i":70327,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Jack rolls some 8-sided dice and sums the result of each die. There are exactly 2003 possible values for that sum. How many dice does Jack have?","a":{"t":"286","l":"Y"},"c":{"W":"284","X":"285","Y":"286","Z":"287"}},
 {"i":70328,"s":"math","f":"SA","qt":"bonus","n":23,"q":"Let A and B be nodes on a complete 12-graph. How many paths start at A, end at B, visit at most 5 distinct nodes including A and B, and never go to the same node twice?","a":{"t":"821"}}]},
 {"rl":"Spring Tournament Round 3","r":3,"u":"https://speriphery.com/query","q":[
-{"i":85467,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Identify of the following four natural numbers, a, for which is it true that (a-8) divides a? 1) 4; 2) 7; 3) 10; 4) 16.","a":{"t":"1, 2, 3, 4"}},
+{"i":85467,"s":"math","f":"SA","qt":"bonus","n":null,"q":"Identify of the following four natural numbers, a, for which is it true that (a-8) divides a? 1) 4; 2) 7; 3) 10; 4) 16.","a":{"t":"1, 2, 3, 4"}}]},
+{"rl":"Spring Tournament Round 3","r":3,"u":"https://drive.google.com/file/d/181n70CrMtyTuPZJE7DcVTf6sOtOb7Pe4/view","q":[
 {"i":85468,"s":"phys","f":"MC","qt":"bonus","n":null,"q":"Which of the following describes the relationship between electric field and radius from the center of a uniformly charged, insulating sphere?","a":{"t":"Linear","l":"W"},"c":{"W":"Linear","X":"Quadratic","Y":"Cubic","Z":"Exponential"}}]},
-{"rl":"Spring Tournament Round 4","r":4,"u":"https://speriphery.com/query","q":[
+{"rl":"Spring Tournament Round 4","r":4,"u":"https://drive.google.com/file/d/1ctqutxucDLR3TV9DM1ZcaRT9u2REzAIY/view","q":[
 {"i":85469,"s":"phys","f":"SA","qt":"tossup","n":null,"q":"A red marble traveling to the right at 3 meters per second collides head-on with a blue marble of identical mass traveling to the left at 5 meters per second. In meters per second, what is the difference between the maximum and minimum speeds of the red marble after the collision?","a":{"t":"4"}}]},
-{"rl":"Spring Tournament Round 5","r":5,"u":"https://speriphery.com/query","q":[
+{"rl":"Spring Tournament Round 5","r":5,"u":"https://drive.google.com/file/d/1LmEj9wHJoB0pj61vN2nrTXP_4TqU1Jhq/view","q":[
 {"i":85470,"s":"ess","f":"SA","qt":"bonus","n":null,"q":"A star with radius R, luminosity L, and flux density F, suddenly shrinks to one-half R. Assuming temperature stays constant, what is the new flux density of the star in terms of F?","a":{"t":"F"}}]},
-{"rl":"Spring Tournament Round 9 FINAL","r":9,"u":"https://speriphery.com/query","q":[
+{"rl":"Spring Tournament Round 9 FINAL","r":9,"u":"https://drive.google.com/file/d/1YATE1-4maUiReAB2gGt-KqnKDliKKh2L/view","q":[
 {"i":85473,"s":"phys","f":"SA","qt":"bonus","n":null,"q":"A block starts sliding down a frictionless 80 centimeter ramp inclined at a 30 degrees angle downwards to the right. What is its speed in meters per second right before reaching the floor?","a":{"t":"2.8"}}]},
 {"rl":"Spring Tournament Round 10 EDITED","r":10,"u":"https://speriphery.com/query","q":[
 {"i":85474,"s":"bio","f":"SA","qt":"bonus","n":null,"q":"Of the following three molecules, which are activators of glycolysis? 1) ATP; 2) ADP; 3) AMP.","a":{"t":"2 AND 3"}}]},
@@ -651,6 +655,6 @@
 {"i":27646,"s":"bio","f":"MC","qt":"bonus","n":20,"q":"Scientists at Sandia National Lab have developed a prototype for a cheaper device to perform magnetoencephalography. Which of the following best describes the function of magnetoencephalography?","a":{"t":"It detects magnetic fields from the electrical signals in the brain","l":"Y"},"c":{"W":"It probes the brain with a magnetic field and measures the rebound","X":"It probes the heart with a magnetic field and measures the rebound","Y":"It detects magnetic fields from the electrical signals in the brain","Z":"It detects magnetic fields from the electrical signals in the heart"},"pg":10}]},
 {"rl":"Spring Tournament Round 7 FINAL","r":7,"u":"https://lebot.djiang.xyz/packets/SBST%20%28Spring%29/Spring%20Tournament%20Round%207%20FINAL.pdf","q":[
 {"i":27774,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Rank the following three degrees of substitution in terms of increasing likelihood of attack in acid-catalyzed epoxide ring opening: 1) Primary; 2) Secondary; 3) Tertiary.","a":{"t":"2,1,3"},"pg":8}]},
-{"rl":"Spring Tournament Round 1","r":1,"q":[
+{"rl":"Spring Tournament Round 1","r":1,"u":"https://drive.google.com/file/d/18LnKU1QH6ANuMBqUIuhnYmb68dePGEkv/view","q":[
 {"i":70268,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Several types of non-Watson-Crick base pairing may occur during translation due to what phenomenon involving genetic code redundancy?","a":{"t":"WOBBLE"}}]}
 ]

@@ -273,22 +273,25 @@
 {"rl":"Round 5","r":5,"u":"https://lebot.djiang.xyz/packets/NWI_2024/Round%205.pdf","q":[
 {"i":45186,"s":"math","f":"SA","qt":"tossup","n":11,"q":"What is the sum of the coefficients of the trinomial expansion of (3a+b+2c)^4?","a":{"t":"1296"},"pg":6},
 {"i":45187,"s":"ess","f":"MC","qt":"bonus","n":15,"q":"In hydrocarbon traps, caprocks are responsible for ensuring that hydrocarbons do not migrate to the surface. Which of the following characteristics of a rock would make for the best possible caprock?","a":{"t":"Low permeability, low porosity","l":"W"},"c":{"W":"Low permeability, low porosity","X":"Low permeability, high porosity","Y":"High permeability, low porosity","Z":"High permeability, high porosity"},"pg":9}]},
-{"rl":"Round 1","r":1,"q":[
+{"rl":"Round 1","r":1,"u":"https://drive.google.com/drive/folders/1hlogtMY7ofWwT90llG0ICDCswBjsPsLl","q":[
 {"i":71019,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Find the equation of the slant asymptote of (x^2 + 4x + 7)/(x + 3).","a":{"t":"y=x+1"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1DmlrKLfTpym8hU7bzMn8vdxs4qwgJmyr/view","q":[
 {"i":71021,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"Expressing your answer as a fraction, what is the total capacitance of capacitors of 2 microfarads, 4 microfarads and 8 microfarads in series, in microfarads?","a":{"t":"8/7"}}]},
-{"rl":"Round 3","r":3,"q":[
-{"i":71024,"s":"bio","f":"MC","qt":"bonus","n":9,"q":"The R0 value of an infectious disease is a measure of which of the following?","a":{"t":"The number of individuals that are infected by contact with an infected person.","l":"X"},"c":{"W":"The proportion of a community that needs to be immune to the disease in order for there to be herd immunity.","X":"The number of individuals that are infected by contact with an infected person.","Y":"The time it would take for an infected population to double its size.","Z":"The incidence of the infectious disease divided by the size of the community."}},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/drive/folders/1hlogtMY7ofWwT90llG0ICDCswBjsPsLl","q":[
+{"i":71024,"s":"bio","f":"MC","qt":"bonus","n":9,"q":"The R0 value of an infectious disease is a measure of which of the following?","a":{"t":"The number of individuals that are infected by contact with an infected person.","l":"X"},"c":{"W":"The proportion of a community that needs to be immune to the disease in order for there to be herd immunity.","X":"The number of individuals that are infected by contact with an infected person.","Y":"The time it would take for an infected population to double its size.","Z":"The incidence of the infectious disease divided by the size of the community."}}]},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1s8m0TARpVsNlqjkvLA-TLfz5y3BZmJ7J/view","q":[
 {"i":71026,"s":"bio","f":"MC","qt":"tossup","n":12,"q":"Which of the following is not a difference between monocots and dicots?","a":{"t":"Monocots usually have net-like veins while dicots usually have parallel veins","l":"Z"},"c":{"W":"Monocots have fibrous roots and dicots have tap roots","X":"Monocot stems typically lack piths while dicot stems have piths","Y":"Monocots have a scattered vascular structure while dicots have a ringed vascular structure","Z":"Monocots usually have net-like veins while dicots usually have parallel veins"}}]},
-{"rl":"Round 4","r":4,"q":[
-{"i":71027,"s":"math","f":"SA","qt":"tossup","n":11,"q":"How many factors does 202^4 have?","a":{"t":"255"}},
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1LN8YsMh3TzZV90EbhlPosp61G5cup8ab/view","q":[
+{"i":71027,"s":"math","f":"SA","qt":"tossup","n":11,"q":"How many factors does 202^4 have?","a":{"t":"255"}}]},
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/drive/folders/1hlogtMY7ofWwT90llG0ICDCswBjsPsLl","q":[
 {"i":71028,"s":"math","f":"SA","qt":"bonus","n":17,"q":"If log_5(2) = 0.43 and log_5(3) = 0.68, find log_12(25), as a fraction in simplest form?","a":{"t":"100/77"}}]},
-{"rl":"Round 5","r":5,"q":[
+{"rl":"Round 5","r":5,"u":"https://drive.google.com/drive/folders/1hlogtMY7ofWwT90llG0ICDCswBjsPsLl","q":[
 {"i":71031,"s":"math","f":"SA","qt":"bonus","n":17,"q":"If y ≥ x/2 + 7 and x ≥ y/2 + 7, find the minimum value of x + y.","a":{"t":"28"}}]},
-{"rl":"Round 6","r":6,"q":[
-{"i":71035,"s":"bio","f":"MC","qt":"bonus","n":6,"q":"The G1 phase of the cell cycle is initiated at which of the following events?","a":{"t":"When cyclin is degraded","l":"Z"},"c":{"W":"The accumulation of a certain concentration of cyclin","X":"The accumulation of a certain concentration of MPF","Y":"When the activity of MPF peaks","Z":"When cyclin is degraded"}},
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/file/d/1ey5KNuEGE-zp6crFHaurV1IgZaZWhSTx/view","q":[
+{"i":71035,"s":"bio","f":"MC","qt":"bonus","n":6,"q":"The G1 phase of the cell cycle is initiated at which of the following events?","a":{"t":"When cyclin is degraded","l":"Z"},"c":{"W":"The accumulation of a certain concentration of cyclin","X":"The accumulation of a certain concentration of MPF","Y":"When the activity of MPF peaks","Z":"When cyclin is degraded"}}]},
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/drive/folders/1hlogtMY7ofWwT90llG0ICDCswBjsPsLl","q":[
 {"i":71036,"s":"math","f":"SA","qt":"tossup","n":11,"q":"If the roots of the quadratic 2x^2 − 9x + 5 are all increased by 3, what is the sum of the coefficients of the old and new quadratic?","a":{"t":"29"}}]},
-{"rl":"Round 7","r":7,"q":[
+{"rl":"Round 7","r":7,"u":"https://drive.google.com/file/d/18kvm3qQVQc9yQZjI1LDO9CHthZWe5kOX/view","q":[
 {"i":71038,"s":"math","f":"MC","qt":"tossup","n":5,"q":"If a circle with equation x^2 + y^2 = 64 has the part in the third quadrant removed, and turned into a cone, which of the following would be its volume?","a":{"t":"24√7 π","l":"X"},"c":{"W":"12√7 π","X":"24√7 π","Y":"36√7 π","Z":"72√7 π"}}]},
 {"rl":"Round 3","r":3,"u":"https://lebot.djiang.xyz/packets/NWI_2024/Round%203.pdf","q":[
 {"i":86998,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"Rank the following 3 ions by increasing degree of deflection in a mass spectrometer: 1) Carbon-12 1+; 2) Carbon-12 2+; 3) Carbon-13 1+.","a":{"t":"3, 1, 2"},"pg":7}]},

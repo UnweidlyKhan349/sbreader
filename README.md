@@ -14,7 +14,7 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and per-device bookmarks) written in plain HTML/CSS/JS, with no backend, build step, JavaScript framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (saved in `css/vendor/`, not loaded from a CDN) with Light, Night and Auto themes.
 
-**Current question bank: 103,640 questions from 112 tournaments** (56,265 tossups / 47,375 bonuses; 64,482 short answer / 39,158 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question.
+**Current question bank: 103,640 questions from 112 tournaments** (56,265 tossups / 47,375 bonuses; 64,482 short answer / 39,158 multiple choice), including **535 visual questions** whose figures (541 images) are shown with the question. Every question links to where it's published, and 59,911 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|
@@ -165,10 +165,13 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 ## Architecture
 
 ```
-index.html  catalog.html  solo.html  multiplayer.html  bookmarks.html  set-list.html  about.html
+index.html  catalog.html  solo.html  multiplayer.html  bookmarks.html  set-list.html  about.html  account.html  stats.html
 css/vendor/bootstrap.min.css   vendored Bootstrap 5.3.8 stylesheet (no Bootstrap JS)
 css/style.css       QB Reader-style overrides (navbar, Night palette, timer) and the parts Bootstrap has no component for
 js/site.js          theme (Light / Night / Auto) and navbar wiring, loaded in every page's <head>
+js/config.js  js/account.js  js/account-core.js   optional accounts (see Accounts); js/account-page.js and js/stats.js run account.html and stats.html
+js/vendor/supabase.min.js   vendored supabase-js, loaded only when accounts are switched on
+supabase/schema.sql the accounts' tables and row-level security
 img/logo.svg        the logo mark; img/icon-*.png are its PWA/home-screen sizes
 favicon.svg  favicon.ico  apple-touch-icon.png  site.webmanifest   tab and home-screen icons
 js/data.js          shared loader, text cleanup, math rendering, question cards, filters, UI widgets, bookmarks
@@ -184,6 +187,8 @@ data/bank/index.json    which tournament each question id is in
 data/source-subjects.json   the subject each question's packet prints (checked by npm test, not loaded by the site)
 data/subject-overrides.json questions deliberately filed under a different subject than their packet prints
 tools/bank.js       converts the bank to and from one flat list of records, for editing
+tools/packet-locations.js   finds each question's page (PDF) or line (GitHub text) in its packet, for the pg field
+tools/link-sweep.js find the published packet (or tournament folder) for questions with no link, in public Drive archives
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape

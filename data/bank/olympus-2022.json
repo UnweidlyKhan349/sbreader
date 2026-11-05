@@ -586,60 +586,77 @@
 {"i":44897,"s":"math","f":"MC","qt":"tossup","n":2,"q":"Which of the following polar numbers has the largest x value in rectangular coordinates?","a":{"t":"(5, π/8)","l":"Z"},"c":{"W":"(5, π/5)","X":"(5, π/6)","Y":"(5, π/7)","Z":"(5, π/8)"},"pg":3}]},
 {"rl":"Olympus_DE8","r":13,"u":"https://lebot.djiang.xyz/packets/Prometheus%202023/Olympus_DE8.pdf","q":[
 {"i":44902,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"Hafnium 178m2 is a candidate for experiments studying induced gamma emission, a controversial process which has the potential for use in nuclear weaponry. This process involves the fluorescent emission of gamma rays from a metastable atomic nucleus. What is the term given to these high-energy metastable states of atomic nuclei?","a":{"t":"Nuclear isomers"},"pg":8}]},
-{"rl":"Olympus_DE1","r":6,"q":[
-{"i":69717,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Use implicit differentiation to solve for dy/dx of x^2 + y^2 = r^2.","a":{"t":"−x/y","l":"W"},"c":{"W":"−x/y","X":"x/y","Y":"−y/x","Z":"y/x"}},
+{"rl":"Olympus_DE1","r":6,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69717,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Use implicit differentiation to solve for dy/dx of x^2 + y^2 = r^2.","a":{"t":"−x/y","l":"W"},"c":{"W":"−x/y","X":"x/y","Y":"−y/x","Z":"y/x"}}]},
+{"rl":"Olympus_DE1","r":6,"u":"https://drive.google.com/file/d/1f2_p8mGvnz5onpIoGfcmmqPpAlnS0pxg/view","q":[
 {"i":69718,"s":"math","f":"MC","qt":"bonus","n":8,"q":"Which of the following pieces of information does the r^2 value convey in the context of statistical models?","a":{"t":"The proportion of variation in the dependent variable that is predictable from the independent variables","l":"W"},"c":{"W":"The proportion of variation in the dependent variable that is predictable from the independent variables","X":"Whether there is any causal relationship between the independent variables and the dependent variable","Y":"Whether the correct regression was used","Z":"Whether the most appropriate set of independent variables was chosen"}},
 {"i":69720,"s":"ess","f":"MC","qt":"bonus","n":16,"q":"What best describes the origin of deepfocus earthquakes found below usual crustal depths?","a":{"t":"Metamorphism of subducted slabs","l":"X"},"c":{"W":"Hydration of down-going subducted plates","X":"Metamorphism of subducted slabs","Y":"Diversion of mantle flow due to subducted slabs","Z":"Lithospheric heating from generation of lithospheric windows"}}]},
-{"rl":"Olympus_DE2","r":7,"q":[
-{"i":69723,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Convert the Cartesian coordinates (4, 4√3) into polar coordinates.","a":{"t":"(8, π/3)"}},
-{"i":69725,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Triangle ABC has side AB with length 8, side AC with length 6√2, and angle A measuring 45 degrees. What is the tangent of angle B?","a":{"t":"3"}},
+{"rl":"Olympus_DE2","r":7,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69723,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Convert the Cartesian coordinates (4, 4√3) into polar coordinates.","a":{"t":"(8, π/3)"}}]},
+{"rl":"Olympus_DE2","r":7,"u":"https://drive.google.com/file/d/1hx-_QN7qCh6IttZ-UneMOezmQ95yfhS_/view","q":[
+{"i":69725,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Triangle ABC has side AB with length 8, side AC with length 6√2, and angle A measuring 45 degrees. What is the tangent of angle B?","a":{"t":"3"}}]},
+{"rl":"Olympus_DE2","r":7,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69726,"s":"phys","f":"SA","qt":"tossup","n":12,"q":"The J/Ψ meson is expected to melt beyond what temperature, the temperature at which all hadronic matter is expected to convert into quark matter?","a":{"t":"Hagedorn temperature"}},
 {"i":69727,"s":"phys","f":"MC","qt":"bonus","n":12,"q":"A cloud of gas has an ideal gas equation given as p = ρRT/m where ρ is the constant density of the cloud and m is the individual mass of each gas molecule. The phase speed in the cloud would then be proportional to what power of temperature?","a":{"t":"1/2","l":"X"},"c":{"W":"-1/2","X":"1/2","Y":"-3/2","Z":"3/2"}},
-{"i":69728,"s":"chem","f":"MC","qt":"bonus","n":15,"q":"The ring-opening reaction of an epoxide with which of the following ions has the lowest equilibrium constant?","a":{"t":"Chloride","l":"X"},"c":{"W":"Methyl","X":"Chloride","Y":"Hydronium","Z":"Hydroxide"}},
+{"i":69728,"s":"chem","f":"MC","qt":"bonus","n":15,"q":"The ring-opening reaction of an epoxide with which of the following ions has the lowest equilibrium constant?","a":{"t":"Chloride","l":"X"},"c":{"W":"Methyl","X":"Chloride","Y":"Hydronium","Z":"Hydroxide"}}]},
+{"rl":"Olympus_DE2","r":7,"u":"https://drive.google.com/file/d/1hx-_QN7qCh6IttZ-UneMOezmQ95yfhS_/view","q":[
 {"i":69729,"s":"math","f":"SA","qt":"bonus","n":20,"q":"What is the second derivative of the function tan(4x)?","a":{"t":"32 sec^2(4x) tan(4x)"}}]},
-{"rl":"Olympus_DE3","r":8,"q":[
-{"i":69730,"s":"math","f":"SA","qt":"tossup","n":2,"q":"How many ordered pairs of non-negative integers (a, b) satisfy 24a! = b!?","a":{"t":"3"}},
-{"i":69731,"s":"math","f":"MC","qt":"bonus","n":14,"q":"Peter wants to solve the integral from 0 to 1 of √(1 − x^2) dx by substituting x = sin(u) and dx = cos(u)du. Which of the following should be the bounds of the new integral?","a":{"t":"0 to π/2","l":"X"},"c":{"W":"0 to π/4","X":"0 to π/2","Y":"0 to π","Z":"0 to 2π"}},
+{"rl":"Olympus_DE3","r":8,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69730,"s":"math","f":"SA","qt":"tossup","n":2,"q":"How many ordered pairs of non-negative integers (a, b) satisfy 24a! = b!?","a":{"t":"3"}}]},
+{"rl":"Olympus_DE3","r":8,"u":"https://drive.google.com/file/d/1ibWMZMeEAG3lNDtfwWwysFMv9c34TIt_/view","q":[
+{"i":69731,"s":"math","f":"MC","qt":"bonus","n":14,"q":"Peter wants to solve the integral from 0 to 1 of √(1 − x^2) dx by substituting x = sin(u) and dx = cos(u)du. Which of the following should be the bounds of the new integral?","a":{"t":"0 to π/2","l":"X"},"c":{"W":"0 to π/4","X":"0 to π/2","Y":"0 to π","Z":"0 to 2π"}}]},
+{"rl":"Olympus_DE3","r":8,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69733,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the value of the sum from n = 0 to infinity of the alternating series (−π)^n/n!?","a":{"t":"e^(−π)"}},
-{"i":69734,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Trapezoid ABCD has point A at (0, 0), point B at (5, 8), point C at (9, 8), and point D at (16, 0). A line passing through the origin intersects CD at point E such that triangle ADE has half of the area of trapezoid ABCD. What is the x-coordinate of point E?","a":{"t":"93/8"}},
+{"i":69734,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Trapezoid ABCD has point A at (0, 0), point B at (5, 8), point C at (9, 8), and point D at (16, 0). A line passing through the origin intersects CD at point E such that triangle ADE has half of the area of trapezoid ABCD. What is the x-coordinate of point E?","a":{"t":"93/8"}}]},
+{"rl":"Olympus_DE3","r":8,"u":"https://drive.google.com/file/d/1ibWMZMeEAG3lNDtfwWwysFMv9c34TIt_/view","q":[
 {"i":69735,"s":"phys","f":"SA","qt":"bonus","n":24,"q":"How many times more likely is a particle to be found in the second state than the first state if a wavefunction of the particle is given by (1/A^2)[(1/2)Ψ_1 + (√3/2)Ψ_2] where 1/A^2 is the normalization constant?","a":{"t":"3"}}]},
-{"rl":"Olympus_DE4","r":9,"q":[
-{"i":69736,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the slant asymptote of the equation y = (x^2 + 3x + 2)/(x − 2)?","a":{"t":"y = x + 5"}},
+{"rl":"Olympus_DE4","r":9,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69736,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the slant asymptote of the equation y = (x^2 + 3x + 2)/(x − 2)?","a":{"t":"y = x + 5"}}]},
+{"rl":"Olympus_DE4","r":9,"u":"https://drive.google.com/file/d/1QYmlMdFwHeweLeymOqbgjKVw-jsfqle-/view","q":[
 {"i":69737,"s":"math","f":"SA","qt":"tossup","n":8,"q":"How many distinct positive divisors does 30^4 have?","a":{"t":"125"}}]},
-{"rl":"Olympus_DE5","r":10,"q":[
-{"i":69738,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the 10th derivative of x times e^x at x = 0?","a":{"t":"10"}},
+{"rl":"Olympus_DE5","r":10,"u":"https://drive.google.com/file/d/1CmJvm5czN3wr9V4p5vyh_XVGE_yvI0UT/view","q":[
+{"i":69738,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the 10th derivative of x times e^x at x = 0?","a":{"t":"10"}}]},
+{"rl":"Olympus_DE5","r":10,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69739,"s":"math","f":"SA","qt":"bonus","n":8,"q":"How many pairs of positive integers (a, b) satisfy a^2 − b^2 = 2023?","a":{"t":"3"}}]},
-{"rl":"Olympus_DE6","r":11,"q":[
+{"rl":"Olympus_DE6","r":11,"u":"https://drive.google.com/file/d/1iMDNavGA9qIbklMJv-_gUZXPNelKLzOf/view","q":[
 {"i":69742,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"Iodobenzene is reacted with magnesium in dimethylformamide at negative 78 Celsius for some time. The reaction is then allowed to warm up to room temperature, and the product is isolated via an acidic workup. What is the preferred IUPAC name of the final major product?","a":{"t":"Benzaldehyde"}},
 {"i":69743,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Solve the following equation for all x between 0 and π/2 inclusive: cos(2x) − 5 cos(x) + 3 = 0.","a":{"t":"π/3"}},
-{"i":69744,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"Which of the following best describes octaazacubane, a hypothetical metastable compound with chemical formula N8?","a":{"t":"Thermodynamically unstable and kinetically stable","l":"Y"},"c":{"W":"Thermodynamically stable and kinetically stable","X":"Thermodynamically stable and kinetically unstable","Y":"Thermodynamically unstable and kinetically stable","Z":"Thermodynamically unstable and kinetically unstable"}},
+{"i":69744,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"Which of the following best describes octaazacubane, a hypothetical metastable compound with chemical formula N8?","a":{"t":"Thermodynamically unstable and kinetically stable","l":"Y"},"c":{"W":"Thermodynamically stable and kinetically stable","X":"Thermodynamically stable and kinetically unstable","Y":"Thermodynamically unstable and kinetically stable","Z":"Thermodynamically unstable and kinetically unstable"}}]},
+{"rl":"Olympus_DE6","r":11,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69745,"s":"math","f":"SA","qt":"tossup","n":14,"q":"What is the value of the positive integer n such that (3 + 4i)/(3 + 4i + n) = 1/2 + (1/4)i?","a":{"t":"5"}}]},
-{"rl":"Olympus_DE7","r":12,"q":[
-{"i":69747,"s":"phys","f":"MC","qt":"tossup","n":12,"q":"In the Lensmaker’s equation, what does the R2 variable represent?","a":{"t":"The radius of curvature of the lens surface farther from the light source","l":"Y"},"c":{"W":"The refractive index of the lens material","X":"The radius of curvature of the lens surface closer to the light source","Y":"The radius of curvature of the lens surface farther from the light source","Z":"The thickness of the lens"}},
+{"rl":"Olympus_DE7","r":12,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69747,"s":"phys","f":"MC","qt":"tossup","n":12,"q":"In the Lensmaker’s equation, what does the R2 variable represent?","a":{"t":"The radius of curvature of the lens surface farther from the light source","l":"Y"},"c":{"W":"The refractive index of the lens material","X":"The radius of curvature of the lens surface closer to the light source","Y":"The radius of curvature of the lens surface farther from the light source","Z":"The thickness of the lens"}}]},
+{"rl":"Olympus_DE7","r":12,"u":"https://drive.google.com/file/d/1KfG1R57MBC9pFY1kgdVrVwKK06Jc5EZv/view","q":[
 {"i":69749,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Given the ordered set {1, 2, 3, 4}, a swap operation is defined as switching the first element with the third element, and a rotate operation rotates the set to the right (with the last term becoming the first term). Identify all of the following 4 permutations of this set that cannot be reached via these operations: 1) {4, 3, 2, 1}; 2) {3, 2, 4, 1}; 3) {2, 1, 3, 4}; 4) {3, 1, 4, 2}.","a":{"t":"2, 3, and 4"}},
 {"i":69750,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"When alpha pyrone, the lactone of cyclopentadienone, is treated with ultraviolet radiation, which of the following reactions occurs to convert the diene into a fused bicyclic system containing two four-membered rings?","a":{"t":"Disrotatory electrocyclization","l":"X"},"c":{"W":"Conrotatory electrocyclization","X":"Disrotatory electrocyclization","Y":"2+2 cycloaddition","Z":"2,2 sigmatropic rearrangement"}},
 {"i":69751,"s":"chem","f":"SA","qt":"bonus","n":21,"q":"Metal-carbonyl complexes are stabilized by a pibackbonding interaction from metal d-orbitals to a C-O pi star orbital. Identify all of the following three d-orbitals that are involved in pi-backbonding in Cr(CO)6: 1) d_xy; 2) d_(x^2 − y^2); 3) d_(z^2).","a":{"t":"1 only"}}]},
-{"rl":"Olympus_DE8","r":13,"q":[
-{"i":69754,"s":"math","f":"SA","qt":"bonus","n":8,"q":"The point (x, y) lies on or above the two lines with equations 5x + 7y = 35 and 6x + 3y = 24. What is the smallest possible value of 5x + 4y?","a":{"t":"25"}},
+{"rl":"Olympus_DE8","r":13,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69754,"s":"math","f":"SA","qt":"bonus","n":8,"q":"The point (x, y) lies on or above the two lines with equations 5x + 7y = 35 and 6x + 3y = 24. What is the smallest possible value of 5x + 4y?","a":{"t":"25"}}]},
+{"rl":"Olympus_DE8","r":13,"u":"https://drive.google.com/file/d/11WHPY5u_T8BtpwCcbjBtvjGBF_6ovhuz/view","q":[
 {"i":69755,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"A peptide is composed of the sequence, from N to C terminus, Alanine-Valine-Lysine-Asparagine-Histidine-Serine-Lysine-Glutamine. How many acetylation sites are present on this peptide?","a":{"t":"3"}}]},
-{"rl":"Olympus_RR1","r":1,"q":[
+{"rl":"Olympus_RR1","r":1,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69758,"s":"math","f":"MC","qt":"bonus","n":20,"q":"Which of the following describes the point (−2, 8) in the function y = x^3 + 6x^2 − 2x − 12?","a":{"t":"Inflection point","l":"Y"},"c":{"W":"Local maximum","X":"Local minimum","Y":"Inflection point","Z":"Saddle point"}}]},
-{"rl":"Olympus_RR2","r":2,"q":[
+{"rl":"Olympus_RR2","r":2,"u":"https://drive.google.com/file/d/1S6lXIYEk218aQPDfIJbputXnS8W28BAi/view","q":[
 {"i":69759,"s":"bio","f":"SA","qt":"bonus","n":5,"q":"Derek is studying amino acids and does phenolchloroform extraction on a solution of amino acids, which separates them by polarity. Identify all of the following three amino acids that would be found in higher concentration in the phenol portion than the chloroform portion: 1) Arginine; 2) Serine; 3) Glutamine","a":{"t":"None"}}]},
-{"rl":"Olympus_RR3","r":3,"q":[
-{"i":69764,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"The face-on-face overlap of two dxy orbitals creates what type of exotic bond?","a":{"t":"Delta bond"}},
+{"rl":"Olympus_RR3","r":3,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69764,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"The face-on-face overlap of two dxy orbitals creates what type of exotic bond?","a":{"t":"Delta bond"}}]},
+{"rl":"Olympus_RR3","r":3,"u":"https://drive.google.com/file/d/1Zafecg9Y247CR7_gAmHxzrIu1lRtjhW3/view","q":[
 {"i":69765,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"A particle’s position on the x-axis is given by the equation x = t^3 − 27t + 4, where t is in seconds. At what values of t is its velocity equal to 0?","a":{"t":"3 and -3"}},
-{"i":69766,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Derek is moving at 0.8c in the y-direction and appears to be 2 meters tall in his frame of reference along the y-direction. To an observer, how tall does Derek appear, in meters?","a":{"t":"1.2 meters"}},
+{"i":69766,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Derek is moving at 0.8c in the y-direction and appears to be 2 meters tall in his frame of reference along the y-direction. To an observer, how tall does Derek appear, in meters?","a":{"t":"1.2 meters"}}]},
+{"rl":"Olympus_RR3","r":3,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
 {"i":69767,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the directrix of the parabola with equation y = 2x^2?","a":{"t":"y = −1/8","ac":["−1/8"]}}]},
-{"rl":"Olympus_RR4","r":4,"q":[
+{"rl":"Olympus_RR4","r":4,"u":"https://drive.google.com/file/d/1Pvtz9VtgEH4u7ic0mRR-6PqgHrQjDg6T/view","q":[
 {"i":69770,"s":"math","f":"MC","qt":"tossup","n":14,"q":"The equation x^2 + y^2 = r^2 is the general equation for describing a circle in a plane. What would be the resulting shape if the circle was projected onto all planes parallel to the original plane?","a":{"t":"Cylinder","l":"X"},"c":{"W":"Cone","X":"Cylinder","Y":"Ellipse","Z":"Sphere"}},
 {"i":69774,"s":"phys","f":"MC","qt":"bonus","n":18,"q":"An aircraft goes supersonic, forming a shockwave. What shape does the shockwave form as it approaches flat ground?","a":{"t":"Hyperbola","l":"Y"},"c":{"W":"Circle","X":"Ellipse","Y":"Hyperbola","Z":"Parabola"}},
 {"i":69775,"s":"math","f":"MC","qt":"bonus","n":20,"q":"The normal distribution is equivalent to a t-distribution with how many degrees of freedom?","a":{"t":"Infinite","l":"Z"},"c":{"W":"0","X":"1","Y":"2","Z":"Infinite"}}]},
-{"rl":"Olympus_RR5","r":5,"q":[
-{"i":69776,"s":"math","f":"MC","qt":"tossup","n":2,"q":"Consider the Fibonacci sequence F defined as F_n = F_(n−1) + F_(n−2). Given that F_k ends with 0, which of the following can NOT be the units digit of F_(k+2)?","a":{"t":"5","l":"X"},"c":{"W":"1","X":"5","Y":"7","Z":"9"}},
+{"rl":"Olympus_RR5","r":5,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69776,"s":"math","f":"MC","qt":"tossup","n":2,"q":"Consider the Fibonacci sequence F defined as F_n = F_(n−1) + F_(n−2). Given that F_k ends with 0, which of the following can NOT be the units digit of F_(k+2)?","a":{"t":"5","l":"X"},"c":{"W":"1","X":"5","Y":"7","Z":"9"}}]},
+{"rl":"Olympus_RR5","r":5,"u":"https://docs.google.com/document/d/1rtes_jYCMPibvalCYCm8gysUcp26r3NrW6Hx2w07fQE/edit","q":[
 {"i":69777,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Which of the following should be the resulting out come of a hypothesis test if the p-value is greater than the originally determined significance level?","a":{"t":"Fail to reject the null hypothesis","l":"Z"},"c":{"W":"Accept the null hypothesis","X":"Fail to accept the null hypothesis","Y":"Reject the null hypothesis","Z":"Fail to reject the null hypothesis"}},
-{"i":69778,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"What term describes the loops of electric current induced within conductors by a changing magnetic field in the conductor or by the relative motion of a conductor in a magnetic field?","a":{"t":"Eddy currents","ac":["Foucault’s currents"]}},
-{"i":69779,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"The pKa of hydrofluoric acid is 3 in aqueous solution. What is the pH of a 0.1 molar solution of potassium fluoride?","a":{"t":"8"}},
+{"i":69778,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"What term describes the loops of electric current induced within conductors by a changing magnetic field in the conductor or by the relative motion of a conductor in a magnetic field?","a":{"t":"Eddy currents","ac":["Foucault’s currents"]}}]},
+{"rl":"Olympus_RR5","r":5,"u":"https://drive.google.com/drive/folders/1C_59S8dXNWHTH5087uxhJ1rmU54aosSw","q":[
+{"i":69779,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"The pKa of hydrofluoric acid is 3 in aqueous solution. What is the pH of a 0.1 molar solution of potassium fluoride?","a":{"t":"8"}}]},
+{"rl":"Olympus_RR5","r":5,"u":"https://docs.google.com/document/d/1rtes_jYCMPibvalCYCm8gysUcp26r3NrW6Hx2w07fQE/edit","q":[
 {"i":69780,"s":"bio","f":"SA","qt":"bonus","n":11,"q":"In the germination of a bean seed, order the following three regions by increasing distance from the root: 1) Cotyledon; 2) Epicotyl; 3) Hypocotyl.","a":{"t":"3, 1, 2"}},
 {"i":69781,"s":"ess","f":"SA","qt":"bonus","n":13,"q":"Nuclear winter is speculated to arise from the injection of which substance, arising from the incomplete combustion of organic molecules from cities and nearby forests, into the stratosphere?","a":{"t":"Black carbon","ac":["Soot"]}},
 {"i":69782,"s":"math","f":"SA","qt":"tossup","n":14,"q":"If f is an injective function, and g is a surjective function, then identify all of the following three properties that the composition g ∘ f will necessarily possess: 1) Injectivity; 2) Surjectivity; 3) Bijectivity.","a":{"t":"None"}},

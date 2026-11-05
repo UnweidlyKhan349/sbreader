@@ -504,7 +504,7 @@
 {"rl":"Copy of SSBT FINALS","r":11,"u":"https://lebot.djiang.xyz/packets/SSBT-2023/Copy%20of%20SSBT%20FINALS.pdf","q":[
 {"i":51644,"s":"phys","f":"MC","qt":"bonus","n":11,"q":"Researchers in the U.S. Department of Energy’s Fermi National Accelerator Laboratory have announced the first successful demonstration of a new technique that improves particle beams. Future particle accelerators could potentially use the method to create better, denser particle beams. Which of the following is a benefit of denser particle beams?","a":{"t":"Increased number of collisions within the beam","l":"Z"},"c":{"W":"Reduced velocity of the particles within the beams","X":"Increased velocity of the particles within the beams","Y":"Reduced number of collisions within the beam","Z":"Increased number of collisions within the beam"},"pg":5},
 {"i":51645,"s":"math","f":"SA","qt":"bonus","n":23,"q":"An airplane travels at a speed of 500 mph with a bearing of 330° at a fixed altitude. The airplane encounters wind with a velocity of 70 mph in the direction N 45° E. What is the velocity of the airplane in the wind in vector notation?","a":{"t":"<-250+35√2,250√3+35√2>"},"pg":11}]},
-{"rl":"Copy of SSBT FINALS 2_","r":12,"q":[
+{"rl":"Copy of SSBT FINALS 2_","r":12,"u":"https://docs.google.com/document/d/1ADrIIs98IrLw-N__CmUDFzb-IWlZ_n_s7kq_OYeuo44/edit","q":[
 {"i":70201,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"The slope of the elastic region of a stress-strain curve best represents what quantity?","a":{"t":"Young’s Modulus"}},
 {"i":70202,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"If a 65-kilogram man climbs from the bottom to the top of a vertical 8-meter pole in 13 seconds. Assuming g to be 10 m/s^2, what is the man’s average power output, in watts?","a":{"t":"400"}},
 {"i":70203,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the greatest prime divisor of 56^2 - 55^2?","a":{"t":"37"}},
@@ -514,59 +514,66 @@
 {"i":70207,"s":"energy","f":"MC","qt":"tossup","n":17,"q":"The two-dimensional material graphene has received extensive attention by researchers at Lawrence Berkeley National Laboratory due to its novel properties which promise breakthroughs in nanotechnology. Which of the following characteristics of graphene were discovered?","a":{"t":"High strength, low toughness","l":"X"},"c":{"W":"Low strength, low toughness","X":"High strength, low toughness","Y":"Low strength, high toughness","Z":"High strength, high toughness"}},
 {"i":70208,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"Peter is studying the use of N-bromosuccinimide, also known as NBS, a common reagent but useful compound for donating a bromine radical in solution. NBS is used as a reagent in what reaction, known to directly compete against the ionic addition of bromine across a pi bond in the presence of diatomic bromine?","a":{"t":"Bromination"}},
 {"i":70209,"s":"energy","f":"SA","qt":"bonus","n":23,"q":"Scientists at Rice University are developing light-activated Hemithioindigo (HTI) molecules that destroy gram-positive bacteria. Similar molecules react to light by undergoing a conformational change, resulting in a drill-like motion. The newly developed molecules instead enhance the generation of what kind of chemical which destroys drug-resistant bacteria along with the biofilms they form?","a":{"t":"REACTIVE OXYGEN SPECIES"}}]},
-{"rl":"Copy of SSBT Playoffs Round 1","r":4,"q":[
+{"rl":"Copy of SSBT Playoffs Round 1","r":4,"u":"https://docs.google.com/document/d/1z3icCuG05JdX6A1jglog9SJh6YyO1qhqe-2u2TRfhlI/edit","q":[
 {"i":70214,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Angle A is one of the non-right angles in a right triangle. If angle A has a cosine of 5/12, then as a fraction, what is the value of the tangent of the other non-right angle?","a":{"t":"5√119/119"}},
 {"i":70215,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Stellar isochrones on a Hertzprung-Russel diagram represent a population of stars with a similar value of what property?","a":{"t":"Age","l":"X"},"c":{"W":"Metallicity","X":"Age","Y":"Temperature","Z":"Luminosity"}},
-{"i":70216,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Consider the reaction in the Haber-Bosch process, N2 + 3H2 → 2NH3. Identify all of the following three changes that would shift the reaction to the right. 1. Addition of NH3, 2. Increase in pressure, 3. Increase in temperature","a":{"t":"2 ONLY","ac":["INCREASE IN PRESSURE"]}},
-{"i":70217,"s":"math","f":"SA","qt":"bonus","n":20,"q":"How many perfect cube divisors does 12^22 have?","a":{"t":"120"}},
+{"i":70216,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Consider the reaction in the Haber-Bosch process, N2 + 3H2 → 2NH3. Identify all of the following three changes that would shift the reaction to the right. 1. Addition of NH3, 2. Increase in pressure, 3. Increase in temperature","a":{"t":"2 ONLY","ac":["INCREASE IN PRESSURE"]}}]},
+{"rl":"Copy of SSBT Playoffs Round 1","r":4,"u":"https://drive.google.com/drive/folders/1mEUXnzCUn5RenMRcyo-tHbMqhjKEyQEq","q":[
+{"i":70217,"s":"math","f":"SA","qt":"bonus","n":20,"q":"How many perfect cube divisors does 12^22 have?","a":{"t":"120"}}]},
+{"rl":"Copy of SSBT Playoffs Round 1","r":4,"u":"https://docs.google.com/document/d/1z3icCuG05JdX6A1jglog9SJh6YyO1qhqe-2u2TRfhlI/edit","q":[
 {"i":70218,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"Alzheimer's disease is mainly caused by the buildup of beta-amyloid plaques and what other general class of proteins?","a":{"t":"TAU PROTEINS"}}]},
-{"rl":"Copy of SSBT Playoffs Round 2","r":5,"q":[
+{"rl":"Copy of SSBT Playoffs Round 2","r":5,"u":"https://docs.google.com/document/d/1ihxVjJawqWhu4SFmJTyyaMtQD1wPBd1ca_Tu6lZoNcE/edit","q":[
 {"i":70219,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the tens digit of 7^100?","a":{"t":"0"}},
 {"i":70220,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"Researchers at Argonne National Lab are studying the Drell-Yan process in protons. In this process, a quark and antiquark annihilate to create a virtual photon, which then forms a muon and an antimuon via what process?","a":{"t":"PAIR PRODUCTION"}},
-{"i":70221,"s":"math","f":"SA","qt":"bonus","n":10,"q":"How many integer values of x satisfy |x^2 - 6| < 10?","a":{"t":"7"}},
-{"i":70222,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"During glycolysis, dihydroxyacetone phosphate undergoes isomerization into what 3 carbon sugar, that is also a product of the Calvin-Benson Cycle?","a":{"t":"G3P","ac":["GLYCERALDEHYDE-3-PHOSPHATE"]}},
+{"i":70221,"s":"math","f":"SA","qt":"bonus","n":10,"q":"How many integer values of x satisfy |x^2 - 6| < 10?","a":{"t":"7"}}]},
+{"rl":"Copy of SSBT Playoffs Round 2","r":5,"u":"https://drive.google.com/drive/folders/1mEUXnzCUn5RenMRcyo-tHbMqhjKEyQEq","q":[
+{"i":70222,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"During glycolysis, dihydroxyacetone phosphate undergoes isomerization into what 3 carbon sugar, that is also a product of the Calvin-Benson Cycle?","a":{"t":"G3P","ac":["GLYCERALDEHYDE-3-PHOSPHATE"]}}]},
+{"rl":"Copy of SSBT Playoffs Round 2","r":5,"u":"https://docs.google.com/document/d/1ihxVjJawqWhu4SFmJTyyaMtQD1wPBd1ca_Tu6lZoNcE/edit","q":[
 {"i":70223,"s":"phys","f":"SA","qt":"bonus","n":14,"q":"A 12-V power source and three resistors are connected in series with R1 = 7 ohms, R2 = 4 ohms, and R3 = 5 ohms. In volts, what is the voltage drop across R2?","a":{"t":"3"}},
 {"i":70225,"s":"math","f":"SA","qt":"tossup","n":22,"q":"How many terms are in the simplified expansion of (x + y)^200?","a":{"t":"201"}},
 {"i":70226,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the sum of all 5-digit numbers in the form of 1357X that are divisible by 6, where X can be any digit?","a":{"t":"27150"}},
 {"i":70227,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"To two significant figures, how many times larger is the rate of effusion of diatomic oxygen than sulfur dioxide?","a":{"t":"1.4"}}]},
-{"rl":"Copy of SSBT Playoffs Round 3","r":6,"q":[
-{"i":70228,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the slope of the tangent line of x^2 - 3x + 1 at x = 5?","a":{"t":"7"}},
+{"rl":"Copy of SSBT Playoffs Round 3","r":6,"u":"https://docs.google.com/document/d/14JtKb1KklY-dKZZZXZohSPox0bKD5IJ44iBkhyNyC3s/edit","q":[
+{"i":70228,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the slope of the tangent line of x^2 - 3x + 1 at x = 5?","a":{"t":"7"}}]},
+{"rl":"Copy of SSBT Playoffs Round 3","r":6,"u":"https://drive.google.com/drive/folders/1mEUXnzCUn5RenMRcyo-tHbMqhjKEyQEq","q":[
 {"i":70229,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"The Ka of carboxylic acid is 1 × 10^-5. If the concentration of the conjugate base is 10 times less than the concentration of carboxylic acid, then what is the pH of the solution?","a":{"t":"4.0"}}]},
-{"rl":"Copy of SSBT Playoffs Round 4","r":7,"q":[
+{"rl":"Copy of SSBT Playoffs Round 4","r":7,"u":"https://docs.google.com/document/d/1DCDnbJ38xa3S4qXbfqS3f7hfbPSNdYi6SsvjMB6FuO8/edit","q":[
 {"i":70230,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What non-coding RNA is crucial in preventing transposons from being incorporated into the genome while also being involved in the formation of heterochromatin?","a":{"t":"piRNA","ac":["PIWI-INTERACTING RNA"]}},
 {"i":70231,"s":"ess","f":"SA","qt":"bonus","n":8,"q":"A gas giant orbits around a 2.0 solar mass star with a semi-major axis of 2 AU and a period of 4 years. To the nearest year, what would the period be if the gas giant had a semi-major axis of 4 AU?","a":{"t":"11"}},
 {"i":70232,"s":"math","f":"SA","qt":"tossup","n":10,"q":"What is the area of an ellipse with semi-major axis 5 and semi-minor axis 3?","a":{"t":"15π"}},
 {"i":70233,"s":"phys","f":"SA","qt":"bonus","n":11,"q":"Researchers at Argonne National Lab are studying dye-sensitized solar cells as a potential alternative to silicon cells. In these solar cells, dye is added to titanium dioxide in order to reduce what quantity, which is represented by the energy difference between the valence shell and the conduction band?","a":{"t":"BAND GAP"}},
 {"i":70234,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"A cylindrical container with a hole at its bottom is half-filled with honey. If an identical container is taken to the Moon with gravitational acceleration g/6 and honey is added until it reaches the brim, by what factor will the speed of the honey leaving through the hole be multiplied?","a":{"t":"√3/3"}}]},
-{"rl":"Copy of SSBT Playoffs Round 5","r":8,"q":[
+{"rl":"Copy of SSBT Playoffs Round 5","r":8,"u":"https://docs.google.com/document/d/1xMCpK8X37BJkb2gIsBy8rOdSNzRhXMOhm5zdBN9ugW0/edit","q":[
 {"i":70235,"s":"math","f":"SA","qt":"bonus","n":8,"q":"How many 7-digit palindromes are there such that at least two adjacent digits are the same?","a":{"t":"2439"}},
 {"i":70237,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following is NOT a characteristic of r-selected species?","a":{"t":"Intensive parental care","l":"Y"},"c":{"W":"Quick reproduction","X":"Low survival rate of newborns","Y":"Intensive parental care","Z":"Large number of offspring per birth"}},
 {"i":70239,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"How many up quarks can be found in an atom of Lithium-6?","a":{"t":"9"}}]},
-{"rl":"Copy of SSBT Playoffs Round 6","r":9,"q":[
+{"rl":"Copy of SSBT Playoffs Round 6","r":9,"u":"https://docs.google.com/document/d/1_ZO44QvkkGfCouQbB_VcGicuj_FbobNPb0TX5mo842w/edit","q":[
 {"i":70240,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What is the name of the conducting-system fibers located within the interventricular septum and propagates action potentials from the AV node to the Purkinje fibers?","a":{"t":"BUNDLE OF HIS"}},
 {"i":70241,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"Rocks from the Cretaceous-Paleogene boundary can be easily identified because they contain relatively high amounts of what element, which is common in asteroids but not on Earth?","a":{"t":"IRIDIUM"}},
 {"i":70242,"s":"math","f":"SA","qt":"bonus","n":9,"q":"A parallelogram has vertices at the coordinates (2, 5), (-1, 3), and (7, 2). What is the sum of the possible x-coordinates of its last vertex?","a":{"t":"8"}},
 {"i":70243,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"How many kilojoules of thermal energy are lost from a 200-gram block of Teflon with a specific heat of 1 kJ/kg°C, to lower the block’s temperature from 84° C to 58° C?","a":{"t":"5.2 kJ"}},
 {"i":70244,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"Researchers are currently studying the Cul2-APPBP2 which catalyzes the breakdown of the PRDM16 protein, a key enzyme in metabolic regulation. These enzymes catalyze the biogenesis of what tissue, known to regulate hunger and body temperature?","a":{"t":"BROWN ADIPOSE TISSUE"}},
 {"i":70245,"s":"math","f":"SA","qt":"bonus","n":15,"q":"A fair 10-sided die with faces numbered from 4 to 13 is rolled to determine the outcome of this match. If the sum of the 9 faces not touching the ground is congruent to 0 mod 3, no one wins; if it’s congruent to 1 mod 3, team A wins; and if it’s congruent to 2 mod 3, team B wins. How many times more likely is team B to win than team A?","a":{"t":"1"}}]},
-{"rl":"Copy of SSBT Playoffs Round 7","r":10,"q":[
+{"rl":"Copy of SSBT Playoffs Round 7","r":10,"u":"https://docs.google.com/document/d/1dIgCOhjnm-W48lsDFOTaIqW_8EJdnoU-POBkl0oPRbI/edit","q":[
 {"i":70246,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which of the following situations would shift the oxygen-hemoglobin dissociation curve right?","a":{"t":"Increasing Temperature","l":"Z"},"c":{"W":"Replacing adult hemoglobin with fetal hemoglobin","X":"Decreasing 2,3-BPG","Y":"Increasing pH","Z":"Increasing Temperature"}},
 {"i":70247,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Identify the following complex, a resonance-stabilized intermediate commonly found during a nucleophilic attack on an aromatic compound.","a":{"t":"Meisenheimer Complex"},"im":[{"f":"ssbt-2023/70247.webp","w":802,"h":266}]},
 {"i":70248,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"X-linked adrenoleukodystrophy, also known as XALD is the inability to oxidize 26:0 fatty acids because of the failure of what cellular organelle?","a":{"t":"Peroxisomes"}}]},
-{"rl":"Copy of SSBT Prelim 1","r":1,"q":[
+{"rl":"Copy of SSBT Prelim 1","r":1,"u":"https://docs.google.com/document/d/1i0iFn28EpUxsKaroTDCfc6myH3lRiwniU0IRX8Ts13c/edit","q":[
 {"i":70250,"s":"math","f":"SA","qt":"tossup","n":5,"q":"If two angles measure 3x+5 and 2x-10 and are supplementary to each other, what is the measure of x in degrees?","a":{"t":"37"}},
-{"i":70251,"s":"math","f":"SA","qt":"bonus","n":5,"q":"If r and s are the roots of the polynomial x^2 - 5x - 15, what is the value of r^2 + s^2?","a":{"t":"55"}},
-{"i":70252,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the pH of a 0.1 molar solution of hydroiodic acid?","a":{"t":"1"}},
+{"i":70251,"s":"math","f":"SA","qt":"bonus","n":5,"q":"If r and s are the roots of the polynomial x^2 - 5x - 15, what is the value of r^2 + s^2?","a":{"t":"55"}}]},
+{"rl":"Copy of SSBT Prelim 1","r":1,"u":"https://drive.google.com/drive/folders/1mEUXnzCUn5RenMRcyo-tHbMqhjKEyQEq","q":[
+{"i":70252,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"What is the pH of a 0.1 molar solution of hydroiodic acid?","a":{"t":"1"}}]},
+{"rl":"Copy of SSBT Prelim 1","r":1,"u":"https://docs.google.com/document/d/1i0iFn28EpUxsKaroTDCfc6myH3lRiwniU0IRX8Ts13c/edit","q":[
 {"i":70253,"s":"bio","f":"MC","qt":"tossup","n":12,"q":"Which of the following is not a requirement for Hardy-Weinberg equilibrium?","a":{"t":"Natural selection","l":"W"},"c":{"W":"Natural selection","X":"Large population","Y":"No mutations","Z":"Random mating"}},
 {"i":70254,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"Researchers at Fermilab are working on the MAGIS-100 in order to extend the amount of time and the distance one atom can stay in two different states, which is possible due to what fundamental quantum principle?","a":{"t":"SUPERPOSITION"}},
 {"i":70255,"s":"phys","f":"SA","qt":"bonus","n":20,"q":"Assuming g is 10 m/s^2, what is the absolute difference in pressure in Pascals between the surface and a point 6 meters below the surface in a fluid with density 500 kg/m^3?","a":{"t":"30000"}},
 {"i":70256,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the probability of flipping a fair two-sided coin five times and getting exactly two heads?","a":{"t":"5/16"}}]},
-{"rl":"Copy of SSBT Prelim 2","r":2,"q":[
+{"rl":"Copy of SSBT Prelim 2","r":2,"u":"https://docs.google.com/document/d/1cKOo63sqB0nNqYj141IJ68RWweNg7ImUGlNhfl_1r0I/edit","q":[
 {"i":70257,"s":"phys","f":"MC","qt":"bonus","n":5,"q":"Answer Researchers at the Critical Materials Institute at Ames National Lab are developing more powerful samarium-cobalt magnets. Samarium-cobalt magnets and similar strong magnets are created by adding rare earth metals to elements that naturally display what form of magnetism?","a":{"t":"Ferromagnetism","l":"Y"},"c":{"W":"Paramagnetism","X":"Diamagnetism","Y":"Ferromagnetism","Z":"Ferrimagnetism"}},
 {"i":70258,"s":"math","f":"MC","qt":"tossup","n":10,"q":"What is the units digit of the number 3^81?","a":{"t":"3","l":"X"},"c":{"W":"1","X":"3","Y":"7","Z":"9"}},
 {"i":70259,"s":"math","f":"SA","qt":"tossup","n":22,"q":"An equilateral triangle has area 9√3 in^2. What is the perimeter of the triangle in inches?","a":{"t":"18"}},
 {"i":70260,"s":"phys","f":"SA","qt":"tossup","n":23,"q":"A 48 gram cube with uniform density and volume 64cm^3 is placed into a pool of water. What percent of the cube will be submerged at equilibrium?","a":{"t":"75%"}}]},
-{"rl":"Copy of SSBT Prelim 3","r":3,"q":[
+{"rl":"Copy of SSBT Prelim 3","r":3,"u":"https://docs.google.com/document/d/1TFoRNr7ThljRC-p7CUT-47Cl97oMndwUXvqyFnxyyvE/edit","q":[
 {"i":70261,"s":"math","f":"MC","qt":"tossup","n":10,"q":"Which of the following equations on the x-y plane has an x-intercept of -5 and a y-intercept of 2?","a":{"t":"5y = 2x + 10","l":"Z"},"c":{"W":"y = 5x + 10","X":"y = 2x + 10","Y":"5y = 3x - 15","Z":"5y = 2x + 10"}},
 {"i":70262,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the coefficient of the x^(4)y^9 term in the expansion of (2x+y)^13?","a":{"t":"11440"}},
 {"i":70263,"s":"ess","f":"SA","qt":"bonus","n":17,"q":"Researchers at Los Alamos National Lab are using heavy-ion collisions to study the extremely dense supranuclear conditions inside neutron stars. These stars are so dense because the pressure from gravity has exceeded what force that normally prevents stars from collapsing?","a":{"t":"NEUTRON DEGENERACY PRESSURE"}},
@@ -577,6 +584,6 @@
 {"i":86788,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Using the diagram above, calculate the inbreeding coefficient of Individual IV-1, assuming that the common ancestor has an inbreeding coefficient of 0","a":{"t":"1/32","ac":["3.125%"]},"im":[{"f":"ssbt-2023/86788.webp","w":806,"h":814}],"pg":10}]},
 {"rl":"Copy of SSBT Playoffs Round 6","r":9,"u":"https://lebot.djiang.xyz/packets/SSBT-2023/Copy%20of%20SSBT%20Playoffs%20Round%206.pdf","q":[
 {"i":86789,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"Using standard IUPAC nomenclature, correctly name the following compound","a":{"t":"METHOXYBENZENE","ac":["1-METHOXYBENZENE"]},"im":[{"f":"ssbt-2023/86789.webp","w":463,"h":377}],"pg":6}]},
-{"rl":"Copy of SSBT FINALS 2_","r":12,"q":[
+{"rl":"Copy of SSBT FINALS 2_","r":12,"u":"https://docs.google.com/document/d/1D3pZfPdwOvTdEGaNMMuqMHbSBeXZ6cvpHDjQDjMECWg/edit","q":[
 {"i":70212,"s":"math","f":"SA","qt":"bonus","n":18,"q":"In how many ways can 12 bananas be distributed to 6 children if exactly two children will have 1 banana and each child must have at least 1 banana?","a":{"t":"150"}}]}
 ]

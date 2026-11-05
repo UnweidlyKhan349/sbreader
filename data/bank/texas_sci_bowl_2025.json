@@ -618,65 +618,83 @@
 {"i":45197,"s":"math","f":"SA","qt":"tossup","n":25,"q":"A point in 3d space has spherical coordinates (2, π/4, π/4). What are its rectangular coordinates?","a":{"t":"(1, 1, √2)"},"pg":16}]},
 {"rl":"Round 12 [DE7]","r":12,"u":"https://lebot.djiang.xyz/packets/texas_sci_bowl_2025/Round%2012%20%5BDE7%5D.pdf","q":[
 {"i":45198,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"In an analogous reaction to cyclic acetal formation, a ketone can be converted to a dithioacetal. Deprotonation of this dithioacetal reverses the electrophilic carbonyl to a nucleophilic thioacyl anion. What term describes this polarity reversal?","a":{"t":"Umpolung"},"pg":12}]},
-{"rl":"Round 1 [RR1]","r":1,"q":[
+{"rl":"Round 1 [RR1]","r":1,"u":"https://drive.google.com/file/d/1ayq90OKblOWwJza4s1XYrcpZhcDFLgav/view","q":[
 {"i":69860,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"Rounding your answer to the nearest whole number, what is the expected number of times the sequence ATTC is found in a 1-kilobase long random DNA strand?","a":{"t":"4"}}]},
-{"rl":"Round 10 [DE5]","r":10,"q":[
+{"rl":"Round 10 [DE5]","r":10,"u":"https://drive.google.com/file/d/1pEKvpAZ9byB-tksqK5l0BLSSwx1d6yB-/view","q":[
 {"i":69861,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"What mineral, commonly found in highpressure low-temperature metamorphic rocks, is responsible for the blue color of blueschist?","a":{"t":"Glaucophane"}},
 {"i":69864,"s":"math","f":"SA","qt":"tossup","n":15,"q":"What is the largest possible value of 4 sin(x) + 5 cos(x)?","a":{"t":"√41"}},
-{"i":69865,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"Krutharth sets up an electric field of (2x + y)î + e^x ĵ Newtons per coulomb in the x-y plane, where x and y are measured in meters. He then places an ideal electric dipole with dipole moment 10î coulomb-meters at the origin. What is the force, in Newtons, felt by the dipole?","a":{"t":"20î + 10ĵ"}},
+{"i":69865,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"Krutharth sets up an electric field of (2x + y)î + e^x ĵ Newtons per coulomb in the x-y plane, where x and y are measured in meters. He then places an ideal electric dipole with dipole moment 10î coulomb-meters at the origin. What is the force, in Newtons, felt by the dipole?","a":{"t":"20î + 10ĵ"}}]},
+{"rl":"Round 10 [DE5]","r":10,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69866,"s":"math","f":"MC","qt":"tossup","n":20,"q":"What is the slope of the intersection chord of the two circles given by the equations x^2 + y^2 + 4x − 6y = 0 and x^2 + y^2 − 4x − 2y = 4?","a":{"t":"2","l":"X"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
 {"i":69867,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Which postulate, proven by Chebyshev, states that for every positive integer n greater than 1, there exists a prime number strictly between n and 2n?","a":{"t":"Bertrand’s Postulate"}}]},
-{"rl":"Round 11 [DE6]","r":11,"q":[
-{"i":69869,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the sum of the roots of the equation 8^x − 6 · 4^x − 3 · 2^x + 4 = 0?","a":{"t":"2"}},
-{"i":69871,"s":"math","f":"MC","qt":"tossup","n":9,"q":"What is the limit of the quantity (1 − cos(x))/sin(x) as x approaches 0?","a":{"t":"0","l":"X"},"c":{"W":"-1","X":"0","Y":"1","Z":"√2"}},
-{"i":69872,"s":"bio","f":"SA","qt":"tossup","n":10,"q":"Research has shown that cultivating endomycorrhizae -forming fungi in soil can inhibit the growth of parasitic plants like Dodder, likely because pathways regulating arbuscular growth can also inhibit the growth of what root-like structure involved in host-toparasite nutrient transfer?","a":{"t":"Haustoria"}},
+{"rl":"Round 11 [DE6]","r":11,"u":"https://drive.google.com/file/d/1P-bFbs9-lQUYs6_xrCNVD9uDh5RnXZPf/view","q":[
+{"i":69869,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the sum of the roots of the equation 8^x − 6 · 4^x − 3 · 2^x + 4 = 0?","a":{"t":"2"}}]},
+{"rl":"Round 11 [DE6]","r":11,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69871,"s":"math","f":"MC","qt":"tossup","n":9,"q":"What is the limit of the quantity (1 − cos(x))/sin(x) as x approaches 0?","a":{"t":"0","l":"X"},"c":{"W":"-1","X":"0","Y":"1","Z":"√2"}}]},
+{"rl":"Round 11 [DE6]","r":11,"u":"https://drive.google.com/file/d/1P-bFbs9-lQUYs6_xrCNVD9uDh5RnXZPf/view","q":[
+{"i":69872,"s":"bio","f":"SA","qt":"tossup","n":10,"q":"Research has shown that cultivating endomycorrhizae -forming fungi in soil can inhibit the growth of parasitic plants like Dodder, likely because pathways regulating arbuscular growth can also inhibit the growth of what root-like structure involved in host-toparasite nutrient transfer?","a":{"t":"Haustoria"}}]},
+{"rl":"Round 11 [DE6]","r":11,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69873,"s":"math","f":"SA","qt":"bonus","n":14,"q":"What is the curvature of the parabola 3x^2 + 4x at its vertex?","a":{"t":"6"}},
 {"i":69877,"s":"math","f":"MC","qt":"tossup","n":19,"q":"A circle is tangent to the parabola x = y^2 − 4y + 6 at two points. If one of these points is (3, 1), what is the sum of the coordinates of the other point?","a":{"t":"6","l":"Z"},"c":{"W":"3","X":"4","Y":"5","Z":"6"}}]},
-{"rl":"Round 12 [DE7]","r":12,"q":[
+{"rl":"Round 12 [DE7]","r":12,"u":"https://drive.google.com/file/d/177o4GlFdGjSmiXf97tjuf3bazCX2snjp/view","q":[
 {"i":69879,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"Ben Lin is studying a standing sound wave in a three-dimensional box with a side length of one meter. He notices that the wavelength in any direction is at least one meter. What is the number of distinct such waves he can generate?","a":{"t":"26"}}]},
-{"rl":"Round 13 [Finals1]","r":13,"q":[
+{"rl":"Round 13 [Finals1]","r":13,"u":"https://drive.google.com/file/d/1WWsuwXAl0GdaqRknogxE0OjGj0GRCWu8/view","q":[
 {"i":69881,"s":"ess","f":"MC","qt":"tossup","n":8,"q":"At depths below 300 km in a Wadati-Benioff zone, which of the following is the primary mechanism thought to be responsible for generating earthquakes?","a":{"t":"Phase transition from olivine to spinel","l":"Z"},"c":{"W":"Dehydration reactions in the subducting slab","X":"Frictional thrusting at the plate interface","Y":"Formation of eclogite from gabbro","Z":"Phase transition from olivine to spinel"}},
 {"i":69882,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"Suzuko created a supercrop by identifying 5 high-fitness mutant corn strains and introducing one of these strains at a time to a population of corn under high selective pressure every four generations. The final population had multiple very-high-fitness individuals exhibiting all 5 mutant traits. However, when Aryan replicated the experiment, introducing the strains in a different order, his final population was genetically identical to wild-type. This implies the presence of what genetic phenomenon in this set of genes?","a":{"t":"Epistasis"}},
 {"i":69883,"s":"math","f":"SA","qt":"tossup","n":12,"q":"What is the largest power of 5 that divides 2^25 +3^25?","a":{"t":"125"}},
 {"i":69884,"s":"math","f":"MC","qt":"bonus","n":12,"q":"How many distinct roots does the polynomial (x − 1)(x^2 − 1)... (x^7 − 1) have?","a":{"t":"18","l":"Z"},"c":{"W":"15","X":"16","Y":"17","Z":"18"}},
 {"i":69885,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Roundup-Ready soybeans are resistant to the glyphosatederived herbicide Roundup because they have a mutant version of the EPSP Synthase gene. This gene is important to what metabolic pathway that can synthesize amino acids like tryptophan?","a":{"t":"Shikimic Acid Pathway","ac":["Shikimate Pathway"]}}]},
-{"rl":"Round 14 [Finals2]","r":14,"q":[
+{"rl":"Round 14 [Finals2]","r":14,"u":"https://drive.google.com/file/d/1eInxcJNpHkpTJ1Y2bUU4URsotxUEnmWs/view","q":[
 {"i":69887,"s":"math","f":"MC","qt":"tossup","n":2,"q":"How many solutions are there to the equation sin(sin(x)) = x?","a":{"t":"1","l":"X"},"c":{"W":"0","X":"1","Y":"2","Z":"Infinity"}},
-{"i":69888,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Let L1, L2, and L3 be three pairwise skew lines with points A1, A2, and A3 on L1, L2, and L3 respectively. Which of the following statements are true: 1) A1, A2, and A3 cannot be collinear 2) A1 and A2 must be distinct 3) Points A1, A2, and A3 cannot all lie on a plane containing L1","a":{"t":"2"}},
+{"i":69888,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Let L1, L2, and L3 be three pairwise skew lines with points A1, A2, and A3 on L1, L2, and L3 respectively. Which of the following statements are true: 1) A1, A2, and A3 cannot be collinear 2) A1 and A2 must be distinct 3) Points A1, A2, and A3 cannot all lie on a plane containing L1","a":{"t":"2"}}]},
+{"rl":"Round 14 [Finals2]","r":14,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69889,"s":"math","f":"SA","qt":"tossup","n":17,"q":"What is the minimum possible value of the expression x^2/4 + 4x/y^3 + 8y^3/x^3, where x and y are positive real numbers?","a":{"t":"6"}},
 {"i":69891,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"What is the angle of rotation associated with C6 symmetry?","a":{"t":"60 degrees"}}]},
-{"rl":"Round 2 [RR2]","r":2,"q":[
+{"rl":"Round 2 [RR2]","r":2,"u":"https://drive.google.com/file/d/1FMZ_tW3u8wHVlwjKZXpZjMXWnWUL-qR7/view","q":[
 {"i":69893,"s":"phys","f":"SA","qt":"bonus","n":20,"q":"An equilateral triangle has a point charge of strength +Q at each vertex. The electrostatic force between any pair of points is F. What is the magnitude of the net force on one point as a result of the other two?","a":{"t":"F√3"}}]},
-{"rl":"Round 3 [RR3]","r":3,"q":[
+{"rl":"Round 3 [RR3]","r":3,"u":"https://drive.google.com/file/d/1EnV4o-35MfUpOnYOBxk2lgXDpnRS-mfw/view","q":[
 {"i":69894,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the constant in the expansion of (x+2/x)^4?","a":{"t":"24"}}]},
-{"rl":"Round 4 [RR4]","r":4,"q":[
+{"rl":"Round 4 [RR4]","r":4,"u":"https://drive.google.com/file/d/1KBtiLl9B8wcf2wT4BKBu_E9tB_nyruQt/view","q":[
 {"i":69896,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"Order the following three processes by increasing CO2 production if one molecule of glucose is inputted at the beginning of cellular respiration: 1) Pyruvate oxidation 2) Glycolysis 3) Krebs cycle","a":{"t":"2, 1, 3"}},
 {"i":69898,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"What is the name of the most stable threedimensional conformation of cyclohexane, characterized by minimal torsional strain?","a":{"t":"Chair"}},
 {"i":69899,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the inverse of the function f(x) = x^2 − 6x + 9 when the domain is non-negative real numbers?","a":{"t":"√x + 3"}},
 {"i":69900,"s":"phys","f":"SA","qt":"bonus","n":14,"q":"Two points with charges +q and +2q are placed a distance d apart. If they are pulled away from each other to make their distance 2d, the work performed is E. If they are instead pushed together to make their distance 0.5d, what is the work performed?","a":{"t":"−2E"}}]},
-{"rl":"Round 5 [RR5]","r":5,"q":[
-{"i":69902,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"For a reaction with the rate law Rate = k[NO]^2[Cl], what is the overall order of the reaction?","a":{"t":"3"}},
+{"rl":"Round 5 [RR5]","r":5,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69902,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"For a reaction with the rate law Rate = k[NO]^2[Cl], what is the overall order of the reaction?","a":{"t":"3"}}]},
+{"rl":"Round 5 [RR5]","r":5,"u":"https://drive.google.com/file/d/1p4ks3RKuIDMClSE0DFzuhzfEVKB9mAgA/view","q":[
 {"i":69903,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"A general traveling wave solution takes the form A cos(ωt − kx − ϕ). Identify all the constants that are determined by initial conditions. 1) A 2) ω 3) ϕ","a":{"t":"1 and 3 only"}}]},
-{"rl":"Round 6 [DE1]","r":6,"q":[
-{"i":69906,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Suppose p, q, and r are the roots to the cubic polynomial x^3 + 5x^2 − x + 7. What is p^2 + q^2 + r^2?","a":{"t":"27"}},
-{"i":69907,"s":"math","f":"SA","qt":"tossup","n":13,"q":"Music is hard to master. Consider the formula S = log_2(T), where S is musician skill and T is time in years. If Dylan’s skill is currently 4, how many more years will it take for him to double his skill?","a":{"t":"240"}},
-{"i":69908,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Let f(x) be the number of factors of x. What is f(f(60^3))?","a":{"t":"10"}},
+{"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/file/d/1grDTIV15ZaqA7eVFKYwGjQEhRE9XKzJ_/view","q":[
+{"i":69906,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Suppose p, q, and r are the roots to the cubic polynomial x^3 + 5x^2 − x + 7. What is p^2 + q^2 + r^2?","a":{"t":"27"}}]},
+{"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69907,"s":"math","f":"SA","qt":"tossup","n":13,"q":"Music is hard to master. Consider the formula S = log_2(T), where S is musician skill and T is time in years. If Dylan’s skill is currently 4, how many more years will it take for him to double his skill?","a":{"t":"240"}}]},
+{"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/file/d/1grDTIV15ZaqA7eVFKYwGjQEhRE9XKzJ_/view","q":[
+{"i":69908,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Let f(x) be the number of factors of x. What is f(f(60^3))?","a":{"t":"10"}}]},
+{"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69911,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Order the following three brain meninges in order from outermost to innermost: 1) Arachnoid mater 2) Pia mater 3) Dura mater","a":{"t":"3, 1, 2"}},
-{"i":69912,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"How many isomers does the compound C2H2Br2 have?","a":{"t":"3"}},
+{"i":69912,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"How many isomers does the compound C2H2Br2 have?","a":{"t":"3"}}]},
+{"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/file/d/1grDTIV15ZaqA7eVFKYwGjQEhRE9XKzJ_/view","q":[
 {"i":69913,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Consider the graph of x/|x|. Which of the following best describes the graph at x = 0?","a":{"t":"Jump Discontinuity","l":"Z"},"c":{"W":"Continuous","X":"Removable Discontinuity","Y":"Infinite Discontinuity","Z":"Jump Discontinuity"}}]},
-{"rl":"Round 7 [DE2]","r":7,"q":[
-{"i":69914,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"In Farads, what is the equivalent capacitance of a circuit that contains a 6-Farad and 3-Farad capacitor in series?","a":{"t":"2"}},
-{"i":69915,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A ball’s velocity on the x-axis can be modeled as v(t) = 2t + 4, where t is in seconds and v is in m/s. If the object is at x = 1 meter at t = 1 second, where is it at t = 5 in meters?","a":{"t":"41"}},
-{"i":69916,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Let S be the set of points (−1, 4), (3, 2), (6, 1), (4, 4), and (4, 0). Let R be the smallest convex region that contains all the points of S. Which point in S is not on the outer boundary of R?","a":{"t":"(3, 2)","l":"X"},"c":{"W":"(−1, 4)","X":"(3, 2)","Y":"(6, 1)","Z":"(4, 4)"}},
-{"i":69918,"s":"math","f":"SA","qt":"tossup","n":19,"q":"Let f(x) be a cubic polynomial. What is the positive difference between the degrees of f(f(f(x))) and (f(x))^3?","a":{"t":"18"}},
-{"i":69919,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"Given the unbalanced equation I^- + MnO4^- → IO^- + MnO2 under basic conditions, what is the coefficient of the iodide ion when balanced with the lowest whole number coefficients?","a":{"t":"3"}},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/file/d/1L5YZy7rnDln-oRjwXIQUDFhnMo1Z5bzC/view","q":[
+{"i":69914,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"In Farads, what is the equivalent capacitance of a circuit that contains a 6-Farad and 3-Farad capacitor in series?","a":{"t":"2"}}]},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69915,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A ball’s velocity on the x-axis can be modeled as v(t) = 2t + 4, where t is in seconds and v is in m/s. If the object is at x = 1 meter at t = 1 second, where is it at t = 5 in meters?","a":{"t":"41"}}]},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/file/d/1L5YZy7rnDln-oRjwXIQUDFhnMo1Z5bzC/view","q":[
+{"i":69916,"s":"math","f":"MC","qt":"tossup","n":4,"q":"Let S be the set of points (−1, 4), (3, 2), (6, 1), (4, 4), and (4, 0). Let R be the smallest convex region that contains all the points of S. Which point in S is not on the outer boundary of R?","a":{"t":"(3, 2)","l":"X"},"c":{"W":"(−1, 4)","X":"(3, 2)","Y":"(6, 1)","Z":"(4, 4)"}}]},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69918,"s":"math","f":"SA","qt":"tossup","n":19,"q":"Let f(x) be a cubic polynomial. What is the positive difference between the degrees of f(f(f(x))) and (f(x))^3?","a":{"t":"18"}}]},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/file/d/1L5YZy7rnDln-oRjwXIQUDFhnMo1Z5bzC/view","q":[
+{"i":69919,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"Given the unbalanced equation I^- + MnO4^- → IO^- + MnO2 under basic conditions, what is the coefficient of the iodide ion when balanced with the lowest whole number coefficients?","a":{"t":"3"}}]},
+{"rl":"Round 7 [DE2]","r":7,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69920,"s":"math","f":"MC","qt":"tossup","n":24,"q":"Which of the following best describes the function f(x) = −x^3 + 2x^2 at x = 1?","a":{"t":"Increasing, concave down","l":"X"},"c":{"W":"Increasing, concave up","X":"Increasing, concave down","Y":"Decreasing, concave up","Z":"Decreasing, concave down"}}]},
-{"rl":"Round 8 [DE3]","r":8,"q":[
-{"i":69921,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"The standard reduction potential of Au^(+) to Au is +1.69 V. The standard reduction potential of Au^(3+) to Au is +1.40 V. To three significant figures, what is the standard reduction potential of Au^(3+) to Au^(+)?","a":{"t":"+1.26 V"}},
-{"i":69922,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Let x be some real number larger than 1. If log_3(x) = x/9, find x.","a":{"t":"27"}},
-{"i":69924,"s":"chem","f":"MC","qt":"bonus","n":13,"q":"The pKa1 and pKa2 values of carbonic acid are approximately 6 and 10 respectively. Which best describes the ratio of bicarbonate to carbonate ions in a buffered solution at pH 7?","a":{"t":"1000 to 1","l":"Z"},"c":{"W":"1 to 1","X":"10 to 1","Y":"100 to 1","Z":"1000 to 1"}},
+{"rl":"Round 8 [DE3]","r":8,"u":"https://drive.google.com/file/d/1OtywICdJhx0yjIY4d1bZzCQCh00F5lr1/view","q":[
+{"i":69921,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"The standard reduction potential of Au^(+) to Au is +1.69 V. The standard reduction potential of Au^(3+) to Au is +1.40 V. To three significant figures, what is the standard reduction potential of Au^(3+) to Au^(+)?","a":{"t":"+1.26 V"}}]},
+{"rl":"Round 8 [DE3]","r":8,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
+{"i":69922,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Let x be some real number larger than 1. If log_3(x) = x/9, find x.","a":{"t":"27"}}]},
+{"rl":"Round 8 [DE3]","r":8,"u":"https://drive.google.com/file/d/1OtywICdJhx0yjIY4d1bZzCQCh00F5lr1/view","q":[
+{"i":69924,"s":"chem","f":"MC","qt":"bonus","n":13,"q":"The pKa1 and pKa2 values of carbonic acid are approximately 6 and 10 respectively. Which best describes the ratio of bicarbonate to carbonate ions in a buffered solution at pH 7?","a":{"t":"1000 to 1","l":"Z"},"c":{"W":"1 to 1","X":"10 to 1","Y":"100 to 1","Z":"1000 to 1"}}]},
+{"rl":"Round 8 [DE3]","r":8,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69925,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Let f(x) be a continuous function with f(1) = 3 and f(3) = 7. Which of the following values must f take on the open interval (1, 3)?","a":{"t":"5","l":"Y"},"c":{"W":"1","X":"3","Y":"5","Z":"7"}}]},
-{"rl":"Round 9 [DE4]","r":9,"q":[
+{"rl":"Round 9 [DE4]","r":9,"u":"https://drive.google.com/file/d/1i5qaqp42RCRhX4gnbpxTylpLHNlr6Zte/view","q":[
 {"i":69927,"s":"bio","f":"MC","qt":"tossup","n":10,"q":"A key step of the urea cycle involves the arginase-catalyzed breakdown of one molecule of arginine into one molecule of ornithine, which is structurally similar to lysine, and how many molecules of urea per molecule of arginine?","a":{"t":"1","l":"Y"},"c":{"W":"0","X":"1/2","Y":"1","Z":"3/2"}}]},
 {"rl":"Round 6 [DE1]","r":6,"u":"https://lebot.djiang.xyz/packets/texas_sci_bowl_2025/Round%206%20%5BDE1%5D.pdf","q":[
 {"i":35376,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"In the cross-section of an ophiolite sequence, which of the following features would typically be found at the highest elevation?","a":{"t":"Pillow lavas","l":"Z"},"c":{"W":"Sheeted dikes","X":"Peridotite","Y":"Layered gabbro","Z":"Pillow lavas"},"pg":12},

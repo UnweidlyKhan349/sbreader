@@ -251,21 +251,22 @@
 {"rl":"NSI2_Finals","r":7,"u":"https://lebot.djiang.xyz/packets/NSI_2024/NSI2_Finals.pdf","q":[
 {"i":45190,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"Which of the following functional group changes would be necessary to convert Chlorophyll A to Chlorophyll B?","a":{"t":"Methyl to Aldehyde","l":"Z"},"c":{"W":"Ketone to Methyl","X":"Methyl to Ketone","Y":"Aldehyde to Methyl","Z":"Methyl to Aldehyde"},"pg":4},
 {"i":45191,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"Researchers at the Very Large Telescope use four telescopes named Antu, Kueyen, Melipal, and Yepun to observe the universe. Given that each of these telescopes has a primary mirror diameter of 8.2 m and disregarding atmospheric distortion, how far apart would two objects 4.6 × 10^5 km away, emitting an average wavelength of 550 nm, have to be from each other in order to be resolved by a single telescope, to the nearest whole meter?","a":{"t":"38 km"},"pg":7}]},
-{"rl":"NSI2_Finals","r":7,"q":[
+{"rl":"NSI2_Finals","r":7,"u":"https://drive.google.com/file/d/1uW-wkJ4hJrfz_aqj6ByDMi8qM6V661YD/view","q":[
 {"i":71060,"s":"math","f":"SA","qt":"tossup","n":5,"q":"If a multivariate function is defined as f(x, y) = 4sin^2(x)cos(y), evaluate ∇f(x, y)","a":{"t":"8sin(x)cos(x)cos(y)i - 4sin^2(x)sin(y)j"}}]},
-{"rl":"NSI2_Quarters","r":5,"q":[
+{"rl":"NSI2_Quarters","r":5,"u":"https://drive.google.com/file/d/11dU-Cbbl1SQkD-KYzGglM5cTZmfn0K5p/view","q":[
 {"i":71062,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"What term describes high-density, gravity-driven winds coming off higher elevations which can open up polynyas in ice shelves?","a":{"t":"KATABATIC WINDS"}}]},
-{"rl":"NSI2_Semis","r":6,"q":[
+{"rl":"NSI2_Semis","r":6,"u":"https://drive.google.com/file/d/1N1VHQ1WxWU0Ns6preQdd8hZZqf7b0p2M/view","q":[
 {"i":71064,"s":"math","f":"SA","qt":"tossup","n":11,"q":"How many digits are there in 2^204?","a":{"t":"62"}},
 {"i":71066,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"How many stereoisomers are possible for the complex [Co(H2O)2(CN)2F2]^(-)?","a":{"t":"6"}},
 {"i":71067,"s":"math","f":"SA","qt":"tossup","n":17,"q":"Identify all of the following series that converge: 1) ∑_(n=1)^∞ ln(n)/n, 2) ∑_(n=1)^∞ n!/e^n, 3) ∑_(n=1)^∞ ((n+3)/(n+4))^n","a":{"t":"NONE"}}]},
-{"rl":"NSI2_RR1","r":1,"q":[
+{"rl":"NSI2_RR1","r":1,"u":"https://drive.google.com/file/d/1tlVYhntO1Maw28uCyY7GEot0tlepb3mP/view","q":[
 {"i":71068,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"The reaction 2NO2⇌N2O4 is an exothermic process taking place in a closed 2L flask. Which of the following changes will shift the equilibrium to the left?","a":{"t":"Increasing the temperature","l":"W"},"c":{"W":"Increasing the temperature","X":"Decreasing the temperature","Y":"Adding more NO2 to the flask","Z":"Increasing the pressure"}}]},
-{"rl":"NSI2_RR2","r":2,"q":[
+{"rl":"NSI2_RR2","r":2,"u":"https://drive.google.com/file/d/1sI1yaT9TL24uQh933JRmhFaz6MTt1bi5/view","q":[
 {"i":71070,"s":"math","f":"SA","qt":"bonus","n":17,"q":"What is the coordinates of the hole of the graph f(x)= (2x^2-18) / (x-3)","a":{"t":"(3, 12)"}}]},
-{"rl":"NSI2_RR3","r":3,"q":[
+{"rl":"NSI2_RR3","r":3,"u":"https://drive.google.com/drive/folders/1KAH631IbDu9Nwo6EhMdSzDPDAj3hTN6B","q":[
 {"i":71071,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is ∑_(n=0)^∞ 3(1/4)^n?","a":{"t":"4"}}]},
-{"rl":"NSI2_SE1","r":4,"q":[
-{"i":71072,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the equation of the slant asymptote of f(x) = (x^3 − x^2 + x + 1)/(x^2 + 3x − 1)?","a":{"t":"y = x-4"}},
+{"rl":"NSI2_SE1","r":4,"u":"https://drive.google.com/drive/folders/1KAH631IbDu9Nwo6EhMdSzDPDAj3hTN6B","q":[
+{"i":71072,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the equation of the slant asymptote of f(x) = (x^3 − x^2 + x + 1)/(x^2 + 3x − 1)?","a":{"t":"y = x-4"}}]},
+{"rl":"NSI2_SE1","r":4,"u":"https://drive.google.com/file/d/1HVkTy3tK96e5RzZj9j2dYkbQdl5KJrJN/view","q":[
 {"i":71075,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What is the value of (√2 + i√2)^3?","a":{"t":"−4√2 + 4√2 i","ac":["-4√2 + 4i√2"]}}]}
 ]

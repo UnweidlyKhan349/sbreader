@@ -590,36 +590,42 @@
 {"i":16234,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Rhombus ABCD has sidelength 13. Which of the following cannot be the area of ABCD?","a":{"t":"170","l":"Z"},"c":{"W":"13","X":"65","Y":"144","Z":"170"},"pg":18}]},
 {"rl":"Round 6","r":6,"u":"https://lebot.djiang.xyz/packets/MIT-2023/Round%206.pdf","q":[
 {"i":51634,"s":"math","f":"MC","qt":"bonus","n":11,"q":"A scientist is numerically computing the integral from 0 to 7 of 5/(1 + e^(−x)). Which of the following Riemann sums of the integral would give the smallest answer?","a":{"t":"Left-handed Riemann sum","l":"W"},"c":{"W":"Left-handed Riemann sum","X":"Right-handed Riemann sum","Y":"Middle Riemann sum","Z":"Trapezoidal sum"},"pg":11}]},
-{"rl":"Round 1","r":1,"q":[
+{"rl":"Round 1","r":1,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70447,"s":"math","f":"MC","qt":"tossup","n":19,"q":"Let f(x) be the cubic function x^3 − 6x^2 + 11x − 6. If two of its roots are 2 and 3, what is the other root?","a":{"t":"1","l":"Y"},"c":{"W":"−2","X":"−1","Y":"1","Z":"2"}}]},
-{"rl":"Round 11","r":11,"q":[
-{"i":70452,"s":"math","f":"SA","qt":"tossup","n":8,"q":"To the nearest whole number, what is the sum of the base-ten logarithm of each of the first seven positive integers?","a":{"t":"4"}},
+{"rl":"Round 11","r":11,"u":"https://drive.google.com/file/d/1Ygo_anqBLUD5QebykDkRdtKZKXR-PJNt/view","q":[
+{"i":70452,"s":"math","f":"SA","qt":"tossup","n":8,"q":"To the nearest whole number, what is the sum of the base-ten logarithm of each of the first seven positive integers?","a":{"t":"4"}}]},
+{"rl":"Round 11","r":11,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70454,"s":"math","f":"MC","qt":"tossup","n":20,"q":"What value does the fraction with numerator x^3 − 27 and denominator x − 3 approach as x approaches 3?","a":{"t":"27","l":"Y"},"c":{"W":"9","X":"18","Y":"27","Z":"36"}}]},
-{"rl":"Round 12","r":12,"q":[
+{"rl":"Round 12","r":12,"u":"https://drive.google.com/file/d/1JzKIZd2V-LCAmBx7i4CWN_ciXu-SUbmu/view","q":[
 {"i":70456,"s":"phys","f":"SA","qt":"tossup","n":16,"q":"Material A has a magnetic susceptibility of −2 and Material B has a magnetic susceptibility of 3. If bricks of both materials are placed in a magnetic field with constant strength everywhere, what is the ratio of the magnitude of the magnetization inside brick A to the magnitude of the magnetization inside brick B?","a":{"t":"1/4"}}]},
-{"rl":"Round 13","r":13,"q":[
+{"rl":"Round 13","r":13,"u":"https://drive.google.com/file/d/1gMXmfmRhmtXTi8JV5ma_WvIYBBazNE1u/view","q":[
 {"i":70460,"s":"chem","f":"MC","qt":"tossup","n":8,"q":"Researchers at the Pentelute lab are investigating arylation of peptides through reaction of hexafluorobenzene with which of the following amino acids?","a":{"t":"Cysteine","l":"Y"},"c":{"W":"Lysine","X":"Alanine","Y":"Cysteine","Z":"Methionine"}},
 {"i":70464,"s":"math","f":"SA","qt":"tossup","n":21,"q":"What is the period of the function defined as f(x) = ⌈x/2⌉ − x/2?","a":{"t":"2"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/11D4i7u5DmuU4X896I2UxgyDJOcYfsELm/view","q":[
 {"i":70468,"s":"phys","f":"SA","qt":"tossup","n":14,"q":"An object’s position as a function of time is given by x(t) = −t^2 + 6t + 3. At what time is the object stationary?","a":{"t":"3","ac":["t = 3"]}}]},
-{"rl":"Round 3","r":3,"q":[
-{"i":70469,"s":"math","f":"SA","qt":"tossup","n":1,"q":"The roots of the function f(x) are −2, 3, and 4. What are the real roots of the function f(x^2)?","a":{"t":"−2, −√3, √3, 2"}},
-{"i":70470,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"Huckel’s rule is used to predict whether a molecule observes what property, which is the stabilization observed from a fully conjugated, closed-shell pi system?","a":{"t":"Aromaticity"}},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1tj5U4DdDobJNtwQTli0rZvmFLaX-pVh-/view","q":[
+{"i":70469,"s":"math","f":"SA","qt":"tossup","n":1,"q":"The roots of the function f(x) are −2, 3, and 4. What are the real roots of the function f(x^2)?","a":{"t":"−2, −√3, √3, 2"}}]},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
+{"i":70470,"s":"chem","f":"SA","qt":"tossup","n":2,"q":"Huckel’s rule is used to predict whether a molecule observes what property, which is the stabilization observed from a fully conjugated, closed-shell pi system?","a":{"t":"Aromaticity"}}]},
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/1tj5U4DdDobJNtwQTli0rZvmFLaX-pVh-/view","q":[
 {"i":70471,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"A loop of wire in placed around the origin of the xy-plane, and a uniform constant magnetic field points in the positive z direction. From the perspective of an observer above the loop, identify all of the following three actions that would induce a counterclockwise current: 1) Rotating the loop around the z axis 2) Rotating the loop around the x axis 3) Shrinking the size of the loop","a":{"t":"2 and 3"}},
 {"i":70472,"s":"chem","f":"SA","qt":"tossup","n":12,"q":"Researchers in the Suess lab at MIT are studying iron-sulfur clusters. Sulfur tends to cluster, and hence its most stable allotrope at STP has how many sulfur atoms?","a":{"t":"8"}}]},
-{"rl":"Round 4","r":4,"q":[
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70475,"s":"math","f":"MC","qt":"tossup","n":17,"q":"x and y satisfy the equation log_12(x+y)+log_12(x−y) = 2. Given that y = 5, what is the value of x?","a":{"t":"13","l":"X"},"c":{"W":"119","X":"13","Y":"√14","Z":"197"}}]},
-{"rl":"Round 6","r":6,"q":[
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70480,"s":"math","f":"SA","qt":"tossup","n":11,"q":"What is the value of x^4 + 1/x^4 given that x + 1/x = 3?","a":{"t":"47"}},
 {"i":70481,"s":"math","f":"SA","qt":"bonus","n":22,"q":"The point (2, 2) is rotated by 60 degrees counterclockwise around the origin. What are the coordinates of the resulting point?","a":{"t":"(1 − √3, 1 + √3)"}}]},
-{"rl":"Round 7","r":7,"q":[
+{"rl":"Round 7","r":7,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70484,"s":"math","f":"SA","qt":"bonus","n":6,"q":"The vector (a, a^2, 2) is orthogonal to the vector (a, a^2, −3). What is the largest possible real value of a?","a":{"t":"√2"}},
 {"i":70486,"s":"math","f":"SA","qt":"tossup","n":10,"q":"For what value of a are the vectors aî + 2ĵ − 9k̂ and 3î − 4k̂ orthogonal?","a":{"t":"−12"}}]},
-{"rl":"Round 8","r":8,"q":[
-{"i":70489,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"Researchers in the Willard group are working on finetuning the properties of organic electronic devices, where these properties are often highly-dependent on what quasiparticle, which is the bound state of an electron and electron hole?","a":{"t":"Excitons"}},
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1KKMXQ5dJlM51k3l2NX9Yn-WAxRyOgtbS/view","q":[
+{"i":70489,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"Researchers in the Willard group are working on finetuning the properties of organic electronic devices, where these properties are often highly-dependent on what quasiparticle, which is the bound state of an electron and electron hole?","a":{"t":"Excitons"}}]},
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70495,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Euler’s totient function counts the number of positive integers up to a given integer N that are relatively prime to N . Which of the following is the largest value that the Euler’s totient function attains over the first one hundred positive integers?","a":{"t":"96","l":"X"},"c":{"W":"95","X":"96","Y":"97","Z":"98"}}]},
-{"rl":"Round 9","r":9,"q":[
-{"i":70496,"s":"math","f":"MC","qt":"tossup","n":1,"q":"What is the coefficient of x^2 y^2 in the expansion of (x + 3y)^4?","a":{"t":"54","l":"Y"},"c":{"W":"6","X":"18","Y":"54","Z":"162"}},
-{"i":70499,"s":"phys","f":"MC","qt":"tossup","n":11,"q":"A conducting wire is placed on the z-axis, and carries a current in the positive z-direction. An electron is placed at position (2, 0, 0) meters and given an initial velocity of (1, 0, 0) meters per second. What is the initial direction of the net force on the electron?","a":{"t":"Negative z direction","l":"X"},"c":{"W":"Positive z direction","X":"Negative z direction","Y":"Positive y direction","Z":"Negative y direction"}},
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
+{"i":70496,"s":"math","f":"MC","qt":"tossup","n":1,"q":"What is the coefficient of x^2 y^2 in the expansion of (x + 3y)^4?","a":{"t":"54","l":"Y"},"c":{"W":"6","X":"18","Y":"54","Z":"162"}}]},
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/file/d/1Gp83FgOpaWIRrDX0_tbVDZrhrDzQtnJb/view","q":[
+{"i":70499,"s":"phys","f":"MC","qt":"tossup","n":11,"q":"A conducting wire is placed on the z-axis, and carries a current in the positive z-direction. An electron is placed at position (2, 0, 0) meters and given an initial velocity of (1, 0, 0) meters per second. What is the initial direction of the net force on the electron?","a":{"t":"Negative z direction","l":"X"},"c":{"W":"Positive z direction","X":"Negative z direction","Y":"Positive y direction","Z":"Negative y direction"}}]},
+{"rl":"Round 9","r":9,"u":"https://drive.google.com/drive/folders/12PbnOBUHXLJNZc-uNrXqGdEZKreGXBth","q":[
 {"i":70501,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What are the coordinates of the point on the line y = 2x − 3 that is closest to the origin?","a":{"t":"(6/5, −3/5)"}}]}
 ]

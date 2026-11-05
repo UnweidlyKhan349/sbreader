@@ -1109,25 +1109,25 @@
 {"i":26580,"s":"chem","f":"SA","qt":"bonus","n":21,"q":"In the conformational analysis of n - butane, it is observed that the majority of the molecules exist in a state where the methyl groups are further apart. What type of strain causes these methyl groups to be further apart?","a":{"t":"STERIC STRAIN"},"pg":15},
 {"i":26581,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"According to the ABC hypothesis, which floral whorl is produced when both A and B genes are inactivated?","a":{"t":"CARPELS"},"pg":15},
 {"i":26582,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"Identify all of the following three statements that are true of an Western blot: 1) It is mainly used to identify post translational modifications; 2) It mainly detects proteins rather than nucleic acids; 3) An SDS-page must be run before the blot is performed.","a":{"t":"2 AND 3"},"pg":15}]},
-{"rl":"Round 11 (Comp)","r":11,"q":[
+{"rl":"Round 11 (Comp)","r":11,"u":"https://drive.google.com/file/d/1lxtzkHmZY_nAnJyDsoYQ0r9etGfQdbSK/view","q":[
 {"i":70141,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"A population of mice varies in their tail length, with shorter tails being advantageous for balance and longer tails being ideal for movement. If the longer-tailed phenotypes and shorter-tailed phenotypes both have higher fitness than intermediate-tailed phenotypes, what type of selection will likely occur?","a":{"t":"DISRUPTIVE"}},
 {"i":70142,"s":"math","f":"MC","qt":"tossup","n":18,"q":"A unit circle in the coordinate plane has the point (5, 12) on its circumference. Which of the following points could NOT also be on the circumference?","a":{"t":"(6, 10)","l":"Z"},"c":{"W":"(4, 11)","X":"(5, 10)","Y":"(5, 14)","Z":"(6, 10)"}}]},
-{"rl":"Round 12","r":12,"q":[
+{"rl":"Round 12","r":12,"u":"https://drive.google.com/file/d/1iDd3i0n20ub-8CxTVyQN2RZV7kRXXEF1/view","q":[
 {"i":70144,"s":"math","f":"SA","qt":"tossup","n":14,"q":"Simplify the expression i^123.","a":{"t":"–i"}},
 {"i":70145,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Jeffrey rolls a fair six-sided die three times. What is the probability that he rolled a 1 at least once?","a":{"t":"91/216"}},
 {"i":70146,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"21 centimeter radiation is produced from a spin-flip transition of an electron between hyperfine levels of which element?","a":{"t":"HYDROGEN"}},
 {"i":70147,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"What is the term for the gill-like lungs that spiders use for respiration?","a":{"t":"BOOK LUNGS"}}]},
-{"rl":"Round14","r":14,"q":[
+{"rl":"Round14","r":14,"u":"https://drive.google.com/file/d/1_mmiMA_3MHnAbMGVgIqaqmm4M_IoDVas/view","q":[
 {"i":70150,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"What term is given to the junction between the infundibulum and the hypothalamus, containing the hypothalamo–hypophyseal portal vessels?","a":{"t":"MEDIAN EMINENCE"}},
 {"i":70151,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"What function is defined as the difference between kinetic and potential energies for a system?","a":{"t":"LAGRANGIAN"}}]},
-{"rl":"Round15","r":15,"q":[
+{"rl":"Round15","r":15,"u":"https://drive.google.com/file/d/1GK9ofhfGbNB16bA1zz1EeyxL36EMWH6U/view","q":[
 {"i":70153,"s":"math","f":"SA","qt":"bonus","n":1,"q":"What is the minimum value of 2^n mod 2020 for any positive integer n?","a":{"t":"2"}},
 {"i":70154,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"In a mid-latitude cyclone, what type of front is formed when the cold front overtakes a warm front?","a":{"t":"OCCLUDED FRONT"}},
 {"i":70155,"s":"ess","f":"MC","qt":"bonus","n":8,"q":"Which of the following most closely approximates the time of the last geomagnetic reversal, in years?","a":{"t":"1,000,000","l":"Z"},"c":{"W":"1,000","X":"10,000","Y":"100,000","Z":"1,000,000"}},
 {"i":70156,"s":"math","f":"SA","qt":"bonus","n":10,"q":"How many positive three-digit integers have a bigger units digit than tens digit?","a":{"t":"405"}},
 {"i":70158,"s":"math","f":"MC","qt":"tossup","n":15,"q":"A group on the integers mod 256 is abelian. Which of the following operations could NOT be the operation associated with this group?","a":{"t":"Subtraction","l":"X"},"c":{"W":"Addition","X":"Subtraction","Y":"Multiplication","Z":"Binary XOR"}},
 {"i":70160,"s":"math","f":"SA","qt":"bonus","n":19,"q":"What is the indefinite integral of the tangent squared of x with respect to x?","a":{"t":"tan(x) – x + C"}}]},
-{"rl":"Round2","r":2,"q":[
+{"rl":"Round2","r":2,"u":"https://drive.google.com/file/d/1D9ZJp2Q_KqzATYDfxYBh7qijChsJVbSN/view","q":[
 {"i":70162,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the distance between the points (8, –4) and (3, 8)?","a":{"t":"13"}},
 {"i":70164,"s":"bio","f":"MC","qt":"tossup","n":7,"q":"Which of the following is NOT needed to perform Sanger sequencing?","a":{"t":"Thermocycler","l":"W"},"c":{"W":"Thermocycler","X":"dNTPs","Y":"ddNTPs","Z":"Primers"}},
 {"i":70165,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"At what two amino acid residues is O-linked glycosylation most likely to occur?","a":{"t":"SERINE AND THREONINE"}},
@@ -1135,8 +1135,9 @@
 {"i":70167,"s":"phys","f":"SA","qt":"tossup","n":19,"q":"An 8-millifarad capacitor and 200-millihenry inductor are connected in series. In radians per second, what is the angular frequency of the resulting LC oscillations?","a":{"t":"25"}},
 {"i":70168,"s":"ess","f":"MC","qt":"bonus","n":20,"q":"Which of the following semi-permanent pressure systems would experience clockwise flow?","a":{"t":"Azores high","l":"Z"},"c":{"W":"South Pacific high","X":"Aleutian low","Y":"Icelandic low","Z":"Azores high"}},
 {"i":70169,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"Hydrogen bromide is added to a solution of 1-butene and then irradiated with ultraviolet light. Identify all of the following three statements that are correct regarding this reaction: 1) The reaction proceeds in an anti-Markovnikov fashion; 2) The major product is an alkyl bromide; 3) The major product is chiral.","a":{"t":"1 AND 2"}}]},
-{"rl":"Round4","r":4,"q":[
-{"i":70170,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"Phycoerythrin is the most common accessory pigment found in what group of protists?","a":{"t":"RED ALGAE"}},
+{"rl":"Round4","r":4,"u":"https://drive.google.com/drive/folders/1jj4sjFkeBmjZAXdjLu9qqkqsszOzMMm7","q":[
+{"i":70170,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"Phycoerythrin is the most common accessory pigment found in what group of protists?","a":{"t":"RED ALGAE"}}]},
+{"rl":"Round4","r":4,"u":"https://drive.google.com/file/d/1lthA--T1DMGUIFWIyxY4Wow9EmkF654I/view","q":[
 {"i":70173,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Tin, diatomic hydrogen, and sodium borohydride are all used in organic chemistry to perform what general type of chemical reaction?","a":{"t":"REDUCTION"}},
 {"i":70174,"s":"ess","f":"MC","qt":"tossup","n":5,"q":"Scientists at SLAC are studying the properties of warm dense matter, an exotic substance formed by the mixing of gases at high temperatures. Which of the following planets is mostly likely to house warm dense matter?","a":{"t":"Jupiter","l":"Z"},"c":{"W":"Mercury","X":"Venus","Y":"Mars","Z":"Jupiter"}},
 {"i":70175,"s":"math","f":"SA","qt":"bonus","n":6,"q":"The set of all positive six-digit integers that have the digits from 1 to 6, inclusive, is arranged in increasing order. What is the 100th element in this sorted set?","a":{"t":"162453"}},
@@ -1144,17 +1145,20 @@
 {"i":70177,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"A student adds a 3-gram sample of silver bromide to 100 milliliters of water at 300 kelvins. He adds sodium bromide and records the new silver ion concentration in the solution. Repeating this process, he constructs a curve plotting the silver ion concentration as a function of the bromide concentration. Identify all of the following three statements regarding this curve that are true: 1) It displays an inverse relationship; 2) Points above the curve correspond to a saturated solution; 3) The curve will be identical at 330 kelvins.","a":{"t":"1 ONLY"}},
 {"i":70178,"s":"math","f":"SA","qt":"tossup","n":10,"q":"If the integral from 0 to 6 of f(x) with respect to x equals 10, and g(x) is equal to 5 + f(2x), what is the integral from 0 to 3 of g(x) with respect to x?","a":{"t":"20"}},
 {"i":70179,"s":"math","f":"SA","qt":"tossup","n":23,"q":"What is the real part of the quantity 3 + 4i squared?","a":{"t":"–7"}}]},
-{"rl":"Round6","r":6,"q":[
+{"rl":"Round6","r":6,"u":"https://drive.google.com/file/d/1pMZzEgf-eT-NFESJHg_h-6aVBNW1QB3Z/view","q":[
 {"i":70181,"s":"math","f":"SA","qt":"bonus","n":3,"q":"Albert pays Bill 10 dollars, and each of them guesses an integer between 1 and 100, inclusive. If the units digits of Albert’s and Bill’s numbers match, then Bill returns 5 dollars to Albert; if Albert’s and Bill’s numbers are identical, Bill pays Albert x more dollars. Given that the expected value of playing this game is 0, what is x?","a":{"t":"950"}},
 {"i":70182,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"In the Lennard-Jones potential, the r^6 term is used to approximate the potential energy of what specific class of intermolecular interactions?","a":{"t":"VAN DER WAALS FORCES","ac":["DISPERSION FORCES"]}},
 {"i":70183,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"A 12-volt battery has a 3-ohm internal resistance. What is the maximum power, in watts, that it can deliver to a light bulb connected in series?","a":{"t":"12"}},
 {"i":70184,"s":"math","f":"SA","qt":"bonus","n":11,"q":"If f(x) = x^3 – 3x^2 + 3x – 9, what is the derivative of the inverse of f at x = 0?","a":{"t":"1/12"}},
 {"i":70185,"s":"math","f":"SA","qt":"tossup","n":13,"q":"If f(x) = 1 over the quantity 1 – x, what is f of f of f of 2020?","a":{"t":"2020"}},
-{"i":70186,"s":"phys","f":"MC","qt":"tossup","n":16,"q":"The position of a particle along the x-axis is described by the function x(t) = 3t^3 – 6t^2 + 18t + 14. Which of the following accurately describes the particle’s motion at time t = 2?","a":{"t":"Moving to the right and speeding up","l":"X"},"c":{"W":"Moving to the left and speeding up","X":"Moving to the right and speeding up","Y":"Moving to the left and slowing down","Z":"Moving to the right and slowing down"}},
-{"i":70187,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"How many Lagrange points are there within a standard two-body system?","a":{"t":"5"}},
-{"i":70188,"s":"ess","f":"MC","qt":"bonus","n":18,"q":"Cross-bedded sandstones with individual beds several meters in height are best indicative of which of the following depositional environments?","a":{"t":"Desert dunes","l":"W"},"c":{"W":"Desert dunes","X":"Deep sea basin","Y":"Tidal flat","Z":"Alpine glacier"}},
+{"i":70186,"s":"phys","f":"MC","qt":"tossup","n":16,"q":"The position of a particle along the x-axis is described by the function x(t) = 3t^3 – 6t^2 + 18t + 14. Which of the following accurately describes the particle’s motion at time t = 2?","a":{"t":"Moving to the right and speeding up","l":"X"},"c":{"W":"Moving to the left and speeding up","X":"Moving to the right and speeding up","Y":"Moving to the left and slowing down","Z":"Moving to the right and slowing down"}}]},
+{"rl":"Round6","r":6,"u":"https://drive.google.com/drive/folders/1jj4sjFkeBmjZAXdjLu9qqkqsszOzMMm7","q":[
+{"i":70187,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"How many Lagrange points are there within a standard two-body system?","a":{"t":"5"}}]},
+{"rl":"Round6","r":6,"u":"https://drive.google.com/file/d/1pMZzEgf-eT-NFESJHg_h-6aVBNW1QB3Z/view","q":[
+{"i":70188,"s":"ess","f":"MC","qt":"bonus","n":18,"q":"Cross-bedded sandstones with individual beds several meters in height are best indicative of which of the following depositional environments?","a":{"t":"Desert dunes","l":"W"},"c":{"W":"Desert dunes","X":"Deep sea basin","Y":"Tidal flat","Z":"Alpine glacier"}}]},
+{"rl":"Round6","r":6,"u":"https://drive.google.com/drive/folders/1jj4sjFkeBmjZAXdjLu9qqkqsszOzMMm7","q":[
 {"i":70189,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"In the Heuring-Bruer reflex, pulmonary stretch receptors within the bronchioles send inputs inhibiting the apneustic center, which is present in which portion of the brainstem?","a":{"t":"PONS"}}]},
-{"rl":"Round7","r":7,"q":[
+{"rl":"Round7","r":7,"u":"https://drive.google.com/file/d/11fq7i8jMA8yq07hv7fChPyGEWiiRYJaz/view","q":[
 {"i":70191,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Evaluate the expression sine of 15 degrees times the cosine of 15 degrees.","a":{"t":"1/4"}},
 {"i":70192,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"How many distinct carbon-oxygen bond lengths exist in an iron(III) complex coordinated by three oxalate ions?","a":{"t":"2"}},
 {"i":70193,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"A volleyball on Earth and a golf ball on the moon are dropped from rest at the same height. Right before they reach the ground, they have the same kinetic energy. Given that the force of gravity on the moon’s surface is one sixth as strong as the force of gravity on the Earth’s surface, what is the ratio of the momentum of the golf ball to that of the volleyball right before they reach the ground?","a":{"t":"√6","ac":["SQUARE ROOT OF 6"]}},
@@ -1164,7 +1168,7 @@
 {"i":70197,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"What quantity is represented by the slope of a heating curve with the x and y axes representing heat absorbed and temperature, respectively?","a":{"t":"INVERSE HEAT CAPACITY","ac":["1 OVER HEAT CAPACITY"]}},
 {"i":70198,"s":"ess","f":"SA","qt":"tossup","n":21,"q":"Identify all of the following depositional environments in which cross-bedding may develop: 1) Aeolian sand dunes; 2) Side bank of a meandering river; 3) Tidal flat.","a":{"t":"ALL"}},
 {"i":70199,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"Which of the following particles does not obey Fermi-Dirac statistics?","a":{"t":"Higgs boson","l":"Z"},"c":{"W":"Muon","X":"Top quark","Y":"Neutron","Z":"Higgs boson"}}]},
-{"rl":"Round9","r":9,"q":[
+{"rl":"Round9","r":9,"u":"https://drive.google.com/file/d/1fO0m-J54VApmS-vEqyoIFTpomYPf-xKw/view","q":[
 {"i":70200,"s":"math","f":"MC","qt":"tossup","n":21,"q":"A polynomial f(x) tends to positive infinity as x tends to infinity and negative infinity as x tends to negative infinity. Which of the following could be the degree of the polynomial?","a":{"t":"15","l":"Y"},"c":{"W":"6","X":"12","Y":"15","Z":"16"}}]},
 {"rl":"Comp Finals 3","r":20,"u":"https://lebot.djiang.xyz/packets/SBL/Comp%20Finals%203.pdf","q":[
 {"i":85896,"s":"chem","f":"SA","qt":"bonus","n":5,"q":"Answer the following 2 questions about free radicals: 1) What radical based oxidant is inert towards secondary alcohols and is 2,2,6,6 tetramethyl on a piperidine ring? 2) What type of spectroscopy would you expect to use to detect a radical species?","a":{"t":"1) TEMPO; 2) EPR","ac":["1) TEMPO; 2) ESR"]},"pg":5}]},
@@ -1281,11 +1285,11 @@
 {"i":26578,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"The transition from the lepton epoch to the photon epoch followed the disappearance of most leptons and antileptons via what mechanism?","a":{"t":"ANNIHILATION"},"pg":13},
 {"i":26583,"s":"phys","f":"MC","qt":"tossup","n":23,"q":"In celestial mechanics, the effective potential is used to convert a two-body problem to a one-body one. It is defined as the sum of the potential energy and what other quantity?","a":{"t":"Angular kinetic energy","l":"Z"},"c":{"W":"Moment of inertia","X":"Reduced mass","Y":"Radial kinetic energy","Z":"Angular kinetic energy"},"pg":16},
 {"i":26584,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Identify all of the following three constituent quarks that may be found in a delta baryon: 1) Up quark; 2) Strange quark; 3) Top quark.","a":{"t":"1 ONLY"},"pg":16}]},
-{"rl":"Round15","r":15,"q":[
+{"rl":"Round15","r":15,"u":"https://drive.google.com/file/d/1GK9ofhfGbNB16bA1zz1EeyxL36EMWH6U/view","q":[
 {"i":70157,"s":"chem","f":"MC","qt":"bonus","n":13,"q":"When H2 forms a side-on complex with a tungsten center, which of the following is most likely to occur?","a":{"t":"The H – H bond strength decreases because tungsten donates electrons into the H – H sigma star orbital","l":"W"},"c":{"W":"The H – H bond strength decreases because tungsten donates electrons into the H – H sigma star orbital","X":"The H – H bond strength increases because tungsten donates electrons into the H – H sigma orbital","Y":"The H – H bond strength decreases because tungsten donates electrons into the H – H pi star orbital","Z":"The H – H bond strength increases because tungsten donates electrons into the H – H pi orbital"}},
 {"i":70159,"s":"phys","f":"SA","qt":"bonus","n":18,"q":"What is the name for devices containing one p – n junction that convert light into electrical current?","a":{"t":"PHOTODIODE"}},
 {"i":70161,"s":"chem","f":"MC","qt":"bonus","n":21,"q":"For which of the following gas-phase reactions is the change in enthalpy the same as the change in internal energy?","a":{"t":"Formation of carbon dioxide and hydrogen gas from water vapor and carbon monoxide","l":"Z"},"c":{"W":"Dissociation of water vapor to form hydrogen and oxygen gas","X":"Formation of ammonia from hydrogen and nitrogen gas","Y":"Hydrogenation of ethene to form ethane","Z":"Formation of carbon dioxide and hydrogen gas from water vapor and carbon monoxide"}}]},
-{"rl":"Round4","r":4,"q":[
+{"rl":"Round4","r":4,"u":"https://drive.google.com/file/d/1lthA--T1DMGUIFWIyxY4Wow9EmkF654I/view","q":[
 {"i":70172,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"When a P-V - T surface is sketched for an ideal gas, what is the mathematical relationship between the two remaining variables along an isotherm on the surface?","a":{"t":"INVERSE","ac":["HYPERBOLIC"]}}]},
 {"rl":"Finals 2 (Standard)","r":2,"u":"https://lebot.djiang.xyz/packets/SBL/Finals%202%20%28Standard%29.pdf","q":[
 {"i":25132,"n":1,"qt":"tossup","q":"10 people are standing in a line. How many ways are there to choose 5 people such that no 2 of them are standing next to each other?","a":{"t":"6"},"s":"math","f":"SA","pg":1},

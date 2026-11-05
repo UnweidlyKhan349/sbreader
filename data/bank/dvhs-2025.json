@@ -115,7 +115,7 @@
 {"i":33180,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Aneeka is making a circuit. She connects 3 2 ohm resistors in series with each other and one 5 ohm resistor in parallel to the first 3 resistors. What is the equivalent resistance of the system as an improper fraction in simplest form?","a":{"t":"30/11 ohms"},"pg":2}]},
 {"rl":"Round 6 Supplemental","r":6,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Round%206%20Supplemental.pdf","q":[
 {"i":33205,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Order the following levels of function from smallest to largest: 1) tissue 2) organ 3) organ system 4) cell","a":{"t":"4,1,2,3"},"pg":1}]},
-{"rl":"Dvhs Round 1","r":1,"q":[
+{"rl":"Dvhs Round 1","r":1,"u":"https://docs.google.com/document/d/1LwsXWk8ljhaXwsMLl30WxO9e-T_KCS5HLGStO9Mm7yg/edit","q":[
 {"i":40823,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following scientists came up with the theory of relativity?","a":{"t":"Einstein","l":"W"},"c":{"W":"Einstein","X":"Newton","Y":"Leibnitz","Z":"Tesla"}},
 {"i":40825,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following elements has the fewest number of protons and is the first element on the periodic table?","a":{"t":"hydrogen","l":"W"},"c":{"W":"hydrogen","X":"helium","Y":"Lithium","Z":"Argon"}},
 {"i":40829,"s":"phys","f":"MC","qt":"tossup","n":4,"q":"Which of the following types of energy does an object contain while in motion?","a":{"t":"kinetic","l":"X"},"c":{"W":"potential","X":"kinetic","Y":"gravitational","Z":"elastic"}},
@@ -130,7 +130,7 @@
 {"i":40863,"s":"bio","f":"MC","qt":"tossup","n":21,"q":"which of the following scientists came up with the law of evolution by natural selection?","a":{"t":"Charles Darwin","l":"Y"},"c":{"W":"James Watson","X":"Gregor Mendel","Y":"Charles Darwin","Z":"Francis Crick"}},
 {"i":40865,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"in which of the following types of alternative energy would you expect electricity to be harvested from water stored behind a dam?","a":{"t":"hydroelectric","l":"Y"},"c":{"W":"wind","X":"solar","Y":"hydroelectric","Z":"nuclear"}},
 {"i":40867,"s":"ess","f":"MC","qt":"tossup","n":23,"q":"which of the following is an instrument used to measure air pressure?","a":{"t":"barometer","l":"Z"},"c":{"W":"anemometer","X":"psychrometer","Y":"thermometer","Z":"barometer"}}]},
-{"rl":"Dvhs Round 2","r":2,"q":[
+{"rl":"Dvhs Round 2","r":2,"u":"https://docs.google.com/document/d/1NzMC6Zcg87Lxt1Am3CoZ9odNE8fDQV3p-ID3aMGY7Vg/edit","q":[
 {"i":40869,"s":"math","f":"MC","qt":"tossup","n":1,"q":"which of the following fractions is the correct difference when 1/4 is subtracted from 1/3?","a":{"t":"1/12","l":"X"},"c":{"W":"1/7","X":"1/12","Y":"7/12","Z":"⅜"}},
 {"i":40872,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"A particle starts at x=0, moves to x=17, and back to x=0. What are its displacement and distance traveled respectively?","a":{"t":"0 and 34"}},
 {"i":40873,"s":"chem","f":"MC","qt":"tossup","n":3,"q":"which of the following elements is the lightest noble gas?","a":{"t":"Helium","l":"X"},"c":{"W":"Argon","X":"Helium","Y":"Xenon","Z":"krypton"}},
@@ -145,7 +145,7 @@
 {"i":40905,"s":"math","f":"SA","qt":"bonus","n":19,"q":"What is the equation in slope intercept form of a line that passes through the points (2,4) and (3,5)?","a":{"t":"y=x+2"}},
 {"i":40907,"s":"phys","f":"SA","qt":"bonus","n":20,"q":"Of the following types of waves identify all that are considered transverse waves: 1) sound 2) electromagnetic 3) P-waves","a":{"t":"2 only"}},
 {"i":40908,"s":"chem","f":"MC","qt":"tossup","n":21,"q":"Which of the following is a chemical change?","a":{"t":"fireworks exploding","l":"Z"},"c":{"W":"cracking an egg","X":"melting ice","Y":"crushing a can","Z":"fireworks exploding"}}]},
-{"rl":"Dvhs Bio Supplemental","r":null,"q":[
+{"rl":"Dvhs Bio Supplemental","r":null,"u":"https://docs.google.com/document/d/19ePHNZmSZGQSnN2zN402zeYX5P6LfFw3OIBaxdmsVrA/edit","q":[
 {"i":40915,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"Soham is one of the highest performing Biology students at Dougherty Valley High School. What part of his brain is he most likely using to obtain high test scores on his exams?","a":{"t":"cerebrum","l":"Y"},"c":{"W":"cerebellum","X":"medulla oblongata","Y":"cerebrum","Z":"gluteus maximus"}},
 {"i":40916,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following phyla contains sea urchin and star fish?","a":{"t":"echinodermata","l":"X"},"c":{"W":"annelida","X":"echinodermata","Y":"porifera","Z":"cnideria"}},
 {"i":40918,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"A person suffering from Hepatitis is most likely experiencing dysfunction of which organ?","a":{"t":"liver","l":"W"},"c":{"W":"liver","X":"kidney","Y":"stomach","Z":"lungs"}},
@@ -157,7 +157,7 @@
 {"i":40925,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"What is the name for the functional unit of skeletal muscle?","a":{"t":"Sarcomere"}},
 {"i":40926,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Endoplasmic Reticulum in a muscle fiber is known by what name?","a":{"t":"Sarcoplasmic Reticulum"}},
 {"i":40927,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following hormones would be responsible for reducing the Ca^(2+) levels in the bloodstream?","a":{"t":"Calcitonin","l":"Y"},"c":{"W":"Thyroxine","X":"Parathyroid Hormone","Y":"Calcitonin","Z":"Follicle Stimulating Hormone"}}]},
-{"rl":"Dvhs Chem Supplemental","r":null,"q":[
+{"rl":"Dvhs Chem Supplemental","r":null,"u":"https://docs.google.com/document/d/1F387A8wlsP8saQJmH7ojeQTB9tvzoMf_U6LudSeJ93A/edit","q":[
 {"i":40930,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Alan has a habit of tasting chemicals in Chemistry class. During a lab, he tastes an unknown substance and finds it to be bitter. The substance nearly slips out of his hand on the way to his mouth. Which of the following substances could Alan have tasted?","a":{"t":"bleach","l":"X"},"c":{"W":"hydrochloric acid","X":"bleach","Y":"vinegar","Z":"pure water"}},
 {"i":40932,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Which of the following substances contains an ionic bond?","a":{"t":"Pb(NO3)2","l":"Y"},"c":{"W":"NO3^-","X":"N2O4","Y":"Pb(NO3)2","Z":"H2O"}},
 {"i":40933,"s":"chem","f":"MC","qt":"bonus","n":20,"q":"Armaan is rubbing his hair with a balloon and notices that his hair starts to stick up. Which of the following is true:","a":{"t":"electrons are transferred from his hair to the balloon","l":"Y"},"c":{"W":"protons are transferred from his hair to the balloon","X":"protons are transferred from the balloon to his hair","Y":"electrons are transferred from his hair to the balloon","Z":"electrons are transferred from the balloon to his hair"}},
@@ -168,12 +168,12 @@
 {"i":40941,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What is the molecular geometry of SF6?","a":{"t":"Octahedral"}},
 {"i":40942,"s":"chem","f":"SA","qt":"tossup","n":20,"q":"Identify all of the following that are considered intermolecular bonds. 1) hydrogen bonding 2) covalent bonding 3) dipole-dipole interactions","a":{"t":"1 and 3"}},
 {"i":40947,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"How many degrees of unsaturation are in Benzene, C6H6?","a":{"t":"4"}}]},
-{"rl":"Dvhs ESS Supplemental","r":null,"q":[
+{"rl":"Dvhs ESS Supplemental","r":null,"u":"https://docs.google.com/document/d/1eRDINPh5tJtzaGSx9-yPx1Id3GqJ18mA2KQMvT1M84k/edit","q":[
 {"i":40948,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Keshav is observing the night sky through a Newtonian telescope. Which of the following would he find if he took the telescope and the eyepiece apart?","a":{"t":"two mirrors and one lens","l":"Z"},"c":{"W":"a lens and a mirror","X":"two mirrors","Y":"two lenses and one mirror","Z":"two mirrors and one lens"}},
 {"i":40950,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following periods contained living dinosaurs?","a":{"t":"Triassic","l":"Y"},"c":{"W":"Pennsylvanian","X":"Mississippian","Y":"Triassic","Z":"Paleogene"}},
 {"i":40952,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following scales is used to measure the magnitude of an Earthquake?","a":{"t":"Richter","l":"Y"},"c":{"W":"Enhanced fujita","X":"Saffir-Simpson","Y":"Richter","Z":"Beaumont"}},
 {"i":40959,"s":"ess","f":"MC","qt":"bonus","n":21,"q":"Which of the following regions near the US experiences diurnal tides?","a":{"t":"Gulf of Mexico","l":"Y"},"c":{"W":"East Coast","X":"West coast","Y":"Gulf of Mexico","Z":"no part of the US"}}]},
-{"rl":"Dvhs Math Supplemental","r":null,"q":[
+{"rl":"Dvhs Math Supplemental","r":null,"u":"https://docs.google.com/document/d/1IU2KGayrQRS80foTFxNzmRerJ_ZXLPaw0mSj6bU7S5k/edit","q":[
 {"i":40966,"s":"math","f":"SA","qt":"tossup","n":23,"q":"The ratio of cats to dogs at a shelter is 3:5. If there are 24 cats, how many dogs are there?","a":{"t":"40"}},
 {"i":40970,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Which of the following is equivalent to the expression 6(2+x)?","a":{"t":"6x+12","l":"X"},"c":{"W":"x+12","X":"6x+12","Y":"6+2x","Z":"8x"}},
 {"i":40972,"s":"math","f":"MC","qt":"tossup","n":23,"q":"Which of the following numbers is prime?","a":{"t":"41","l":"Y"},"c":{"W":"21","X":"39","Y":"41","Z":"51"}},
@@ -183,7 +183,7 @@
 {"i":40977,"s":"math","f":"SA","qt":"bonus","n":23,"q":"A sequence is defined as a_n = 3n^2 − 2n. What is the 8th term of the sequence?","a":{"t":"176"}},
 {"i":40979,"s":"math","f":"MC","qt":"bonus","n":23,"q":"A quadratic function has roots 4 and –2. Which of the following could be the function?","a":{"t":"x^2-2x-8","l":"W"},"c":{"W":"x^2-2x-8","X":"x^2-x-8","Y":"x^2-3x-10","Z":"x^2-5x+8"}},
 {"i":40980,"s":"math","f":"SA","qt":"tossup","n":23,"q":"If 5/x is equal to x/20, what are the possible values for x?","a":{"t":"10 and -10"}}]},
-{"rl":"Dvhs Physics Supplemental","r":null,"q":[
+{"rl":"Dvhs Physics Supplemental","r":null,"u":"https://docs.google.com/document/d/1r6WBp0ZLwZGmVF8INhlhzb_HHN1XlqOjFjlpltH7Slo/edit","q":[
 {"i":40984,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Which law states that for every action there is an equal and opposite reaction?","a":{"t":"Newton’s 3rd Law(of motion)"}},
 {"i":40987,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"A 20 kg object is moving at 3 m/s around a track with radius 18 m. What is the centripetal force the object experiences?","a":{"t":"10 N"}},
 {"i":40988,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Jasper is throwing a football with the intention of maximizing the distance it travels. Neglecting air resistance, at what angle does he need to throw the ball to maximize the range?","a":{"t":"45 degrees"}},
@@ -194,11 +194,11 @@
 {"i":40998,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"How much power is dissipated by a circuit with 6 volts of potential and a resistance of 9 ohms?","a":{"t":"4 Watts"}},
 {"i":41000,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"A 5 N force is applied to one end of a meter stick in the upward direction, while a 3 N force is applied to the other end in the downward direction. Assuming 0.5 meters is the center of mass of the meter stick, what is the magnitude of the net torque on the meter stick?","a":{"t":"4 (because the forces add)"}},
 {"i":41001,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"A ball is rolling down a 30 degree incline. Assuming gravity is the only force acting on the ball and the ball has a mass of 4 kg, what is the magnitude of the force of gravity causing the ball to roll down the incline?","a":{"t":"19.6 N","ac":["20 N"]}}]},
-{"rl":"Dvhs Round 8","r":8,"q":[
+{"rl":"Dvhs Round 8","r":8,"u":"https://docs.google.com/document/d/1CC1ACY7sKzgvUo1-gFnS6D7ACntCdpprC0ws1Xr9b74/edit","q":[
 {"i":41075,"s":"ess","f":"MC","qt":"bonus","n":21,"q":"Which part of the US experiences diurnal tides?","a":{"t":"Gulf of Mexico","l":"Y"},"c":{"W":"East Coast","X":"West coast","Y":"Gulf of Mexico","Z":"no part of the US"}}]},
 {"rl":"DV 2025 Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%202.pdf","q":[
 {"i":45081,"s":"bio","f":"MC","qt":"bonus","n":16,"q":"Which of the following would describe what happens when an animal cell is placed in a hypotonic solution?","a":{"t":"it will burst","l":"Z"},"c":{"W":"it will shrivel","X":"it will plasmolyze","Y":"it will become turgid","Z":"it will burst"},"pg":6}]},
-{"rl":"DV 2025 Round 2","r":2,"q":[
+{"rl":"DV 2025 Round 2","r":2,"u":"https://drive.google.com/drive/folders/1Lhh-LG0yCRYQiQO5dat6eZWUadAxoTWA","q":[
 {"i":71147,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What number is 150% of 20?","a":{"t":"30"}}]},
 {"rl":"Bio Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Bio%20Supplemental.pdf","q":[
 {"i":96108,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following tools is used by scientists to replicate many copies of the same DNA fragment?","c":{"W":"Gel electrophoresis","X":"Sanger sequencing","Y":"Western blotting","Z":"Polymerase chain reaction"},"a":{"t":"Polymerase chain reaction","l":"Z","ac":["PCR"]},"pg":4}]}

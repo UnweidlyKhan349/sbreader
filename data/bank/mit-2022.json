@@ -620,77 +620,91 @@
 {"i":51632,"s":"bio","f":"SA","qt":"tossup","n":4,"q":"Atropine is used as a muscle relaxant because it acts as an antagonist for receptors of which neurotransmitter?","a":{"t":"Acetylcholine"},"pg":2}]},
 {"rl":"Tiebreak_6","r":6,"u":"https://lebot.djiang.xyz/packets/MIT-2022/Tiebreak_6.pdf","q":[
 {"i":51633,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"By name or number, identify all of the following three homonuclear diatomic species that have a higher ionization energy than their neutral parent atom: 1) He2^+ 2) N2^+ 3) F2^+","a":{"t":"2 only"},"pg":1}]},
-{"rl":"Round_1","r":1,"q":[
-{"i":69127,"s":"math","f":"SA","qt":"bonus","n":2,"q":"If log_2 log_3 log_4 x = 0, then what is the value of x?","a":{"t":"64"}},
+{"rl":"Round_1","r":1,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69127,"s":"math","f":"SA","qt":"bonus","n":2,"q":"If log_2 log_3 log_4 x = 0, then what is the value of x?","a":{"t":"64"}}]},
+{"rl":"Round_1","r":1,"u":"https://docs.google.com/document/d/17lR3NUXLMFFkxW6V-RKy-XW8ygv4aUuR35zakf9q3OM/edit","q":[
 {"i":69128,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"The Gehring Lab at MIT is studying gene imprinting in the endosperm, a plant structure that typically has which of the following polyploidys?","a":{"t":"3n","l":"Y"},"c":{"W":"n","X":"2n","Y":"3n","Z":"4n"}},
 {"i":69129,"s":"bio","f":"MC","qt":"tossup","n":4,"q":"Which of the following interactions found in the tertiary structure of proteins is the strongest?","a":{"t":"Disulfide bridges","l":"Y"},"c":{"W":"Van der Waals interactions","X":"Hydrogen bonding","Y":"Disulfide bridges","Z":"Ionic interactions"}},
 {"i":69130,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"Two cylinders are similar with a 1 to 2 ratio; the dimensions of one cylinder are exactly twice the dimensions of the other. Anka pours the same amount of water into each cylinder, and neither overflows. What is the ratio of the water pressure at the bottom of the larger cylinder to the water pressure at the bottom of the smaller cylinder?","a":{"t":"1/4","ac":["0.25"]}},
 {"i":69133,"s":"phys","f":"SA","qt":"bonus","n":11,"q":"Suppose the xy-plane has a uniform, nonzero charge density. What is the ratio of the magnitude of the electric field at z = 3 meters to that at z = 1 meter?","a":{"t":"1"}},
 {"i":69134,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"What taxonomic class does the sand cat, Felis margarita, appear in?","a":{"t":"Mammalia","ac":["Mammals"]}},
-{"i":69135,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Researchers in the Schrock group at MIT have discovered a method of catalytically reducing dinitrogen to ammonia at room temperature and pressure using molybdenum complexes. In the half-reaction for the reduction of dinitrogen to ammonia, how many electrons are transferred per molecule of dinitrogen?","a":{"t":"6"}},
-{"i":69136,"s":"ess","f":"SA","qt":"tossup","n":19,"q":"What type of galaxy does the Faber-Jackson relation apply to, setting the luminosity of the galaxy proportional to the fourth power of the central stellar velocity dispersion?","a":{"t":"Elliptical galaxy"}},
+{"i":69135,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Researchers in the Schrock group at MIT have discovered a method of catalytically reducing dinitrogen to ammonia at room temperature and pressure using molybdenum complexes. In the half-reaction for the reduction of dinitrogen to ammonia, how many electrons are transferred per molecule of dinitrogen?","a":{"t":"6"}}]},
+{"rl":"Round_1","r":1,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69136,"s":"ess","f":"SA","qt":"tossup","n":19,"q":"What type of galaxy does the Faber-Jackson relation apply to, setting the luminosity of the galaxy proportional to the fourth power of the central stellar velocity dispersion?","a":{"t":"Elliptical galaxy"}}]},
+{"rl":"Round_1","r":1,"u":"https://docs.google.com/document/d/17lR3NUXLMFFkxW6V-RKy-XW8ygv4aUuR35zakf9q3OM/edit","q":[
 {"i":69137,"s":"math","f":"MC","qt":"tossup","n":20,"q":"Consider the sequence of 10 numbers where the n-th number represents the number of positive integer factors of n. What is the mode of this sequence?","a":{"t":"2","l":"X"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
 {"i":69138,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"By name or number, rank the following three emissions from a hydrogen atom by increasing wavelength: 1) n = 4 to n = 2 2) n = 4 to n = 1 3) n = 6 to n = 5","a":{"t":"2, 1, 3"}},
 {"i":69140,"s":"bio","f":"MC","qt":"bonus","n":7,"q":"Which of the following conditions is present in Hardy- Weinberg equilibrium?","a":{"t":"Large population","l":"Y"},"c":{"W":"Migration","X":"Nonrandom mating","Y":"Large population","Z":"Random mutations"}}]},
-{"rl":"Round_10","r":10,"q":[
+{"rl":"Round_10","r":10,"u":"https://drive.google.com/file/d/1h5zyXORL91hgQNuTuSoRJBpUkTAO5vqf/view","q":[
 {"i":69141,"s":"math","f":"SA","qt":"tossup","n":22,"q":"In the Taylor series expansion of e^(3x) about x = 0, what is the coefficient of the x^3 term?","a":{"t":"9/2"}},
 {"i":69142,"s":"math","f":"SA","qt":"bonus","n":22,"q":"The non-integer solutions to x^6 = 64 are graphed on the complex plane. What is the area of the convex polygon formed by using the solutions as vertices?","a":{"t":"4√3"}}]},
-{"rl":"Round_11","r":11,"q":[
+{"rl":"Round_11","r":11,"u":"https://drive.google.com/file/d/1cCri4cnn6ozdfywFOUy7yPK9cR0hsbbx/view","q":[
 {"i":69144,"s":"math","f":"MC","qt":"tossup","n":8,"q":"What is the x-value of the vertex of the parabola x = 4y^2 + 16y − 26?","a":{"t":"−42","l":"W"},"c":{"W":"−42","X":"−38","Y":"−34","Z":"−30"}},
-{"i":69145,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Solve the following equation over the real numbers: 4^(x+1) = 9 · 2^x − 2.","a":{"t":"x = −2, 1"}},
+{"i":69145,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Solve the following equation over the real numbers: 4^(x+1) = 9 · 2^x − 2.","a":{"t":"x = −2, 1"}}]},
+{"rl":"Round_11","r":11,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69146,"s":"math","f":"SA","qt":"tossup","n":15,"q":"Suppose f(x) = sin(x) + sin(x + 90°). What is the maximum value of f(x)?","a":{"t":"√2"}}]},
-{"rl":"Round_12","r":12,"q":[
+{"rl":"Round_12","r":12,"u":"https://drive.google.com/file/d/1MbEjgNyxPClSGpNhhJIVBD_Mh07gaohl/view","q":[
 {"i":69147,"s":"math","f":"MC","qt":"bonus","n":4,"q":"A monic degree-100 polynomial satisfies f(x) = x for all integer values of x between 1 and 100 inclusive. What is the value of f(0)?","a":{"t":"100!","l":"Z"},"c":{"W":"2^50","X":"2^100","Y":"(50!)^2","Z":"100!"}},
 {"i":69148,"s":"math","f":"SA","qt":"tossup","n":8,"q":"How many ordered triplets of positive integers (a, b, c) satisfy the equation a + b + c = 21?","a":{"t":"190"}},
-{"i":69149,"s":"math","f":"SA","qt":"bonus","n":8,"q":"How many ordered triplets of positive odd integers (a, b, c) satisfy the equation a + b + c = 21?","a":{"t":"55"}},
+{"i":69149,"s":"math","f":"SA","qt":"bonus","n":8,"q":"How many ordered triplets of positive odd integers (a, b, c) satisfy the equation a + b + c = 21?","a":{"t":"55"}}]},
+{"rl":"Round_12","r":12,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69150,"s":"ess","f":"SA","qt":"tossup","n":13,"q":"What process allows for Strömgren spheres to maintain a constant radius when in equilibrium with ionizing photons?","a":{"t":"Recombination"}},
-{"i":69152,"s":"phys","f":"MC","qt":"bonus","n":18,"q":"Researchers in the Cao group are using Förster resonance energy transfer to study multichromophoric systems. Which of the following best describes the most significant limitation of using this technology?","a":{"t":"It generally observes a low signal-to-noise ratio","l":"Z"},"c":{"W":"The length scale is restrictive because of the rapid decay in force with distance","X":"The donor chromophore must be particularly bright, which is typically difficult to induce","Y":"The acceptor chromophore must be particularly bright, which is typically difficult to induce","Z":"It generally observes a low signal-to-noise ratio"}},
+{"i":69152,"s":"phys","f":"MC","qt":"bonus","n":18,"q":"Researchers in the Cao group are using Förster resonance energy transfer to study multichromophoric systems. Which of the following best describes the most significant limitation of using this technology?","a":{"t":"It generally observes a low signal-to-noise ratio","l":"Z"},"c":{"W":"The length scale is restrictive because of the rapid decay in force with distance","X":"The donor chromophore must be particularly bright, which is typically difficult to induce","Y":"The acceptor chromophore must be particularly bright, which is typically difficult to induce","Z":"It generally observes a low signal-to-noise ratio"}}]},
+{"rl":"Round_12","r":12,"u":"https://drive.google.com/file/d/1MbEjgNyxPClSGpNhhJIVBD_Mh07gaohl/view","q":[
 {"i":69153,"s":"math","f":"SA","qt":"bonus","n":21,"q":"How many values of x satisfy sin x = x/12?","a":{"t":"7"}}]},
-{"rl":"Round_13","r":13,"q":[
+{"rl":"Round_13","r":13,"u":"https://docs.google.com/document/d/1bQc53e1WWyXKfKjKWGCDcm2b2WquGObIHHVEnLVm04k/edit","q":[
 {"i":69156,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"The Boyer Lab at MIT also uses hiPSC-directed differentiation strategies in modeling the human heart. They were able to replicate a fetal disorder in which the right and left atria are connected via what hole?","a":{"t":"Patent foramen ovale","ac":["PFO"]}},
 {"i":69160,"s":"math","f":"SA","qt":"bonus","n":7,"q":"What is the sum of all integer values of x such that x^3 + 8 is the square of a prime?","a":{"t":"1"}},
 {"i":69165,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"Water has a surface tension of approximately 10^(−2) newtons per meter. The Eotvos number is a dimensionless quantity characterizing the ratio of the significance of gravity to that of surface tension in a specific situation, and surface tension appears in the formula raised to the −1. To the nearest power of 10, what is the Eotvos number of a spherical water droplet near the surface of Earth with a radius of 1 millimeter?","a":{"t":"1","ac":["100"]}},
-{"i":69166,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Suppose that f(x, y) is a smooth function with a saddle point at the origin. By name or number, identify all of the following statements which must be true of f at the origin: 1) The gradient of f is zero 2) The second derivatives of f in x and in y have opposite signs 3) f does not have a local maximum at the origin","a":{"t":"1 and 3","ac":["All but 2"]}},
+{"i":69166,"s":"math","f":"SA","qt":"tossup","n":7,"q":"Suppose that f(x, y) is a smooth function with a saddle point at the origin. By name or number, identify all of the following statements which must be true of f at the origin: 1) The gradient of f is zero 2) The second derivatives of f in x and in y have opposite signs 3) f does not have a local maximum at the origin","a":{"t":"1 and 3","ac":["All but 2"]}}]},
+{"rl":"Round_13","r":13,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69167,"s":"math","f":"SA","qt":"bonus","n":19,"q":"How many ways are there to color the cells of a 3 × 3 square grid each red or blue such that no two blue cells touch along an edge or corner?","a":{"t":"33"}}]},
-{"rl":"Round_2","r":2,"q":[
+{"rl":"Round_2","r":2,"u":"https://drive.google.com/file/d/1V_pbcdeiDdDCHgQMWKuTLE95jpwq4NGY/view","q":[
 {"i":69168,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the area bounded by the parabolas y = 4 − x^2 and y = x^2 − 4?","a":{"t":"64/3"}}]},
-{"rl":"Round_3","r":3,"q":[
+{"rl":"Round_3","r":3,"u":"https://drive.google.com/file/d/1yJnMc6JwFYkH5nei2inVwKjJ-8_pwpZ7/view","q":[
 {"i":69169,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"A square loop of wire in the xy-plane has a side length of 2 centimeters and a resistance of 10^(−4) ohms. A uniform magnetic field starts at 0 teslas and increases uniformly over 2 seconds until it reaches a value of 3 teslas in the positive z direction. While the magnetic field is turning on, what is the magnitude of the induced current in the wire in amperes?","a":{"t":"6"}},
 {"i":69170,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"The Davis Lab at MIT is working on coupling pulselabeling with quantitative mass spectrometry, which can detect the synthesis and degradation rates of proteins. Protein degradation is known to be promoted by E3 ligases through the attachment of what molecule?","a":{"t":"Ubiquitin"}},
 {"i":69172,"s":"math","f":"SA","qt":"bonus","n":5,"q":"Let z be the product of (3 + 4i) and (10 − 5i). What is the product of z and its conjugate?","a":{"t":"3125"}},
-{"i":69174,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Let f(x) denote the sum of the largest prime strictly less than x and the smallest prime strictly greater than x. What is the smallest value of x such that f(x) exceeds 200?","a":{"t":"102","l":"Y"},"c":{"W":"100","X":"101","Y":"102","Z":"103"}},
-{"i":69175,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Consider the reactions A ⇌ 2B and B ⇌ C. If the equilibrium constants for these reactions are 0.4 and 0.5, respectively, what is the equilibrium constant for the reaction 4C ⇌ 2A?","a":{"t":"100"}},
+{"i":69174,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Let f(x) denote the sum of the largest prime strictly less than x and the smallest prime strictly greater than x. What is the smallest value of x such that f(x) exceeds 200?","a":{"t":"102","l":"Y"},"c":{"W":"100","X":"101","Y":"102","Z":"103"}}]},
+{"rl":"Round_3","r":3,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69175,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Consider the reactions A ⇌ 2B and B ⇌ C. If the equilibrium constants for these reactions are 0.4 and 0.5, respectively, what is the equilibrium constant for the reaction 4C ⇌ 2A?","a":{"t":"100"}}]},
+{"rl":"Round_3","r":3,"u":"https://drive.google.com/file/d/1yJnMc6JwFYkH5nei2inVwKjJ-8_pwpZ7/view","q":[
 {"i":69176,"s":"phys","f":"MC","qt":"bonus","n":20,"q":"On the x-axis, a negative 2 coulomb charge is placed at x = 2 meters, and a positive 1 coulomb charge is placed at the origin. At how many points on the x-axis can a positive 1 coulomb charge be placed, such that it experiences no net force?","a":{"t":"1","l":"X"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}},
 {"i":69177,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"The pKa of HF is 3.14. To two significant figures and in grams, how much NaF must be added to a 500 milliliter sample of 1 molar hydrofluoric acid to produce a solution buffered at a pH of 4.14?","a":{"t":"210"}}]},
-{"rl":"Round_4","r":4,"q":[
+{"rl":"Round_4","r":4,"u":"https://docs.google.com/document/d/12k6ZQBCpXc4ydqSwMAE2dTYVc8RfFGtpo53Ee8AQz6Y/edit","q":[
 {"i":69181,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the remainder when 5x^5 + 4x^4 + 3x^3 + 2x^2 + x is divided by x − 2?","a":{"t":"258"}}]},
-{"rl":"Round_5","r":5,"q":[
-{"i":69184,"s":"ess","f":"MC","qt":"tossup","n":10,"q":"Which of the following Köppen classification climates would be the most likely to have significant permafrost?","a":{"t":"Dfc","l":"Z"},"c":{"W":"Af","X":"BSk","Y":"Csa","Z":"Dfc"}},
-{"i":69185,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What is the area of the region bounded by the x-axis and the conic with equation y = x^2 − 25?","a":{"t":"500/3"}},
-{"i":69187,"s":"math","f":"MC","qt":"bonus","n":21,"q":"What is the units digit of 3^(3^(3^(3^3)))?","a":{"t":"7","l":"Z"},"c":{"W":"1","X":"3","Y":"5","Z":"7"}},
+{"rl":"Round_5","r":5,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69184,"s":"ess","f":"MC","qt":"tossup","n":10,"q":"Which of the following Köppen classification climates would be the most likely to have significant permafrost?","a":{"t":"Dfc","l":"Z"},"c":{"W":"Af","X":"BSk","Y":"Csa","Z":"Dfc"}}]},
+{"rl":"Round_5","r":5,"u":"https://drive.google.com/file/d/1YhISMQbdDfPZFkM3vB0-tLk7lQKlrmB7/view","q":[
+{"i":69185,"s":"math","f":"SA","qt":"bonus","n":13,"q":"What is the area of the region bounded by the x-axis and the conic with equation y = x^2 − 25?","a":{"t":"500/3"}}]},
+{"rl":"Round_5","r":5,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69187,"s":"math","f":"MC","qt":"bonus","n":21,"q":"What is the units digit of 3^(3^(3^(3^3)))?","a":{"t":"7","l":"Z"},"c":{"W":"1","X":"3","Y":"5","Z":"7"}}]},
+{"rl":"Round_5","r":5,"u":"https://drive.google.com/file/d/1YhISMQbdDfPZFkM3vB0-tLk7lQKlrmB7/view","q":[
 {"i":69188,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"A particle lies on the positive x-axis, and experiences a force of 7i +6k newtons. Which of the following could be the torque about the origin experienced by the particle?","a":{"t":"-5j","l":"X"},"c":{"W":"5j","X":"-5j","Y":"10i +6k","Z":"-10i -6k"}}]},
-{"rl":"Round_7","r":7,"q":[
+{"rl":"Round_7","r":7,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69193,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Researchers in the Knouse Lab at MIT used a newly developed system to search for genes important to hepatocyte viability, and discovered that MHC genes involved with antigen presentation are especially essential. What does the term MHC stand for?","a":{"t":"Major histocompatibility complex"}},
-{"i":69194,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"The Knouse Lab at MIT has recently developed genome-wide CRISPR screening in the mouse liver, which uses lentiviruses encoding one of the necessary components of the CRISPR-Cas9 system. What is this component that is the synthetic combination of crRNA and tracrRNA?","a":{"t":"sgRNA","ac":["Single-guide RNA"]}},
+{"i":69194,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"The Knouse Lab at MIT has recently developed genome-wide CRISPR screening in the mouse liver, which uses lentiviruses encoding one of the necessary components of the CRISPR-Cas9 system. What is this component that is the synthetic combination of crRNA and tracrRNA?","a":{"t":"sgRNA","ac":["Single-guide RNA"]}}]},
+{"rl":"Round_7","r":7,"u":"https://drive.google.com/file/d/1x4vGhUFA5h8OPY3T3lmjCiIsOEo_8hAC/view","q":[
 {"i":69196,"s":"chem","f":"MC","qt":"tossup","n":16,"q":"Given that the three pKa's of H3PO4 are 2, 7, and 12, which of the following is closest to the pH of a 1 molar solution of sodium dihydrogen phosphate?","a":{"t":"4.5","l":"X"},"c":{"W":"2","X":"4.5","Y":"5.5","Z":"7"}},
 {"i":69197,"s":"math","f":"SA","qt":"bonus","n":18,"q":"For what values of a are the vectors 7ai + 3j + 4ak and 2i + 10j − ak orthogonal?","a":{"t":"a = −3/2, 5"}},
 {"i":69198,"s":"math","f":"SA","qt":"bonus","n":19,"q":"x^2 and y are inversely proportional values, and y^4 and z are directly proportional values. If when x = 2 and y = 3, z = 4, what is the value of z when x = 4?","a":{"t":"1/64"}}]},
-{"rl":"Round_8","r":8,"q":[
+{"rl":"Round_8","r":8,"u":"https://drive.google.com/file/d/1ttUgbVqQJrL3Pkz1Tag0Kuq0qJ6Ke2Kb/view","q":[
 {"i":69200,"s":"math","f":"MC","qt":"tossup","n":4,"q":"An ellipse has a semimajor axis of length 10 and a semiminor axis of length 7. To the nearest integer, what is the distance between its two focal points?","a":{"t":"14","l":"Z"},"c":{"W":"11","X":"12","Y":"13","Z":"14"}},
 {"i":69202,"s":"bio","f":"MC","qt":"bonus","n":15,"q":"Which of the following best describes how slowtwitch oxidative skeletal muscle fibers differ from fast-twitch glycolytic skeletal muscle fibers?","a":{"t":"Higher myoglobin content, less sarcoplasmic reticulum","l":"X"},"c":{"W":"Higher myoglobin content, more sarcoplasmic reticulum","X":"Higher myoglobin content, less sarcoplasmic reticulum","Y":"Lower myoglobin content, more sarcoplasmic reticulum","Z":"Lower myoglobin content, less sarcoplasmic content"}}]},
-{"rl":"Round_9","r":9,"q":[
-{"i":69205,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"5-Dehydro-m-xylylene, also known as DMX, is an aromatic organic triradical with three unpaired electrons in three singly occupied molecular orbitals. In the ground state of DMX, one of these electrons has a spin state opposed to the other two, resulting in a low spin state with only one net unopposed spin. Which of the following physical laws is violated by the ground state of DMX?","a":{"t":"Hund’s rule","l":"Y"},"c":{"W":"Aufbau principle","X":"Pauli exclusion principle","Y":"Hund’s rule","Z":"Conservation of angular momentum"}},
+{"rl":"Round_9","r":9,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
+{"i":69205,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"5-Dehydro-m-xylylene, also known as DMX, is an aromatic organic triradical with three unpaired electrons in three singly occupied molecular orbitals. In the ground state of DMX, one of these electrons has a spin state opposed to the other two, resulting in a low spin state with only one net unopposed spin. Which of the following physical laws is violated by the ground state of DMX?","a":{"t":"Hund’s rule","l":"Y"},"c":{"W":"Aufbau principle","X":"Pauli exclusion principle","Y":"Hund’s rule","Z":"Conservation of angular momentum"}}]},
+{"rl":"Round_9","r":9,"u":"https://drive.google.com/file/d/13PcejaX5eHJYzWoLR3YtOZ8V9HxgtOeC/view","q":[
 {"i":69206,"s":"math","f":"MC","qt":"tossup","n":6,"q":"A quadratic polynomial f(x) satisfies f(1) = 5, f(2) = 6, and f(3) = 10. What is the value of f(4)?","a":{"t":"17","l":"W"},"c":{"W":"17","X":"18","Y":"19","Z":"20"}},
 {"i":69207,"s":"math","f":"MC","qt":"tossup","n":12,"q":"For an integer x, how many possible remainders can x^7 − (x − 1)^7 have when divided by 7?","a":{"t":"1","l":"W"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}}]},
-{"rl":"Tiebreak_10","r":10,"q":[
+{"rl":"Tiebreak_10","r":10,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69209,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"The standard reduction potential of Cr^(3+) to chromium metal is −0.7 volts, while the standard reduction potential of Cr^(3+) to Cr^(2+) is −0.4 volts. In volts, what is the standard reduction potential of Cr^(2+) to chromium metal?","a":{"t":"−0.85"}}]},
-{"rl":"Tiebreak_2","r":2,"q":[
+{"rl":"Tiebreak_2","r":2,"u":"https://drive.google.com/file/d/1DSCWz0FeZcfUlH3DiEAGI_p8ejS_2T0K/view","q":[
 {"i":69210,"s":"math","f":"MC","qt":"tossup","n":5,"q":"At which of the following x-values is the curvature of the parabola y = x^2 − 2x + 3 the greatest?","a":{"t":"2","l":"Y"},"c":{"W":"−4","X":"−2","Y":"2","Z":"4"}}]},
-{"rl":"Tiebreak_4","r":4,"q":[
+{"rl":"Tiebreak_4","r":4,"u":"https://drive.google.com/drive/folders/1gh-j4YxBev9mxn0Dab7F6lTSy0FsWiey","q":[
 {"i":69212,"s":"bio","f":"MC","qt":"tossup","n":4,"q":"Evidence that charophyte algaes are the closest living relatives of land plants comes from the fact that both share rosetteshaped structures of certain enzymes. These enzymes synthesize what compound?","a":{"t":"Cellulose","l":"W"},"c":{"W":"Cellulose","X":"Chlorophyll a","Y":"Lignin","Z":"Tubulin"}}]},
-{"rl":"Tiebreak_6","r":6,"q":[
+{"rl":"Tiebreak_6","r":6,"u":"https://drive.google.com/file/d/1HSQdZbOxI5OzlJh0qbGFLzEMJVa7bu0v/view","q":[
 {"i":69215,"s":"math","f":"SA","qt":"tossup","n":5,"q":"What is the eccentricity of the conic with equation y = x^2 − 25?","a":{"t":"1"}}]},
-{"rl":"Tiebreak_8","r":8,"q":[
+{"rl":"Tiebreak_8","r":8,"u":"https://drive.google.com/file/d/1_3UziPEWnrZ_q45_nyPyeETX1otbA3DO/view","q":[
 {"i":69216,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"Catherine is studying the first-order photoisomerization of an alkene by plotting a graph of the logarithm of concentration of reactant against time. Which of the following must be true about Catherine’s graph as temperature is increased?","a":{"t":"The graph slopes further down","l":"X"},"c":{"W":"The graph slopes further up","X":"The graph slopes further down","Y":"The graph’s y-intercept increases","Z":"The graph’s y-intercept decreases"}},
 {"i":69217,"s":"math","f":"SA","qt":"tossup","n":5,"q":"Let p(i) denote the i-th smallest prime, where p(1) = 2. By name or number, identify all of the following that CANNOT be true of p(i+1)−p(i): 1) The difference is odd 2) The difference is four less than the sixth power of an integer 3) The difference is greater than p(i)","a":{"t":"3 only"}}]}
 ]

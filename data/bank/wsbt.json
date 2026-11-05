@@ -429,39 +429,41 @@
 {"i":31218,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"If the height of a cylinder is h, what must its radius be in terms of h so that every axis is a principal axis with its center of mass as the origin?","a":{"t":"√3h/3"},"pg":9},
 {"i":31219,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"Rank the following three bonds by increasing bond dissociation energy; 1) Oxygen sp^2 bonded to hydrogen; 2) Carbon sp^2 bonded to Hydrogen; 3) Carbon sp bonded to Hydrogen;","a":{"t":"2,3,1"},"pg":9},
 {"i":31220,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"Identify all of the following three reactions that proceed via a carbon anion intermediate 1) Williamson's ether synthesis; 2) E2 substitution; 3) Oxymercuration-Demercuration","a":{"t":"NONE"},"pg":9}]},
-{"rl":"Playoff Round 1 WSBT","r":1,"q":[
+{"rl":"Playoff Round 1 WSBT","r":1,"u":"https://drive.google.com/file/d/1duVMFqxGCG1Leb_S8IlvwqPa1f_nBZB-/view","q":[
 {"i":69646,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How much current flows through a circuit composed of 2-ohm, 6-ohm, and another 6-ohm resistor connected in parallel with a 12V battery?","a":{"t":"10 A"}},
 {"i":69650,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"An object traveling under a constant acceleration of 8m/s^2 with an initial velocity of 8m/s. The object travels 60 meters after a certain amount of time. How long, in seconds, is the object in motion?","a":{"t":"3"}},
 {"i":69652,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"What highest-quality grade of coal is hard and shiny due to undergoing the most metamorphism?","a":{"t":"ANTHRACITE Eric"}}]},
-{"rl":"Playoff Round 2 WSBT","r":2,"q":[
+{"rl":"Playoff Round 2 WSBT","r":2,"u":"https://drive.google.com/file/d/1A_SglN6EL1jMqfrqXNl4ffcGidasJ4KY/view","q":[
 {"i":69661,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"The preparation of 1-bromobutane from 1-bromocyclopentene can be catalyzed by what reagent, containing both copper and lithium?","a":{"t":"Gilman’s Reagent"}}]},
-{"rl":"Playoff Round 3 WSBT","r":3,"q":[
+{"rl":"Playoff Round 3 WSBT","r":3,"u":"https://drive.google.com/file/d/1WtZsisz7f1sBdrGXNcESGdFrHUAKugGP/view","q":[
 {"i":69662,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What is the inbreeding coefficient of Individual IV-1 in the pedigree below?","a":{"t":"1/32","ac":["3.125% or .03125"]},"im":[{"f":"wsbt/69662.webp","w":646,"h":610}]},
 {"i":69663,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"What term describes a tidal pattern in which two equal-magnitude high tides occur each day?","a":{"t":"SEMIDIURNAL","rj":["MIXED SEMIDIURNAL"]}},
 {"i":69667,"s":"ess","f":"MC","qt":"bonus","n":20,"q":"What term refers to sources of gravitational waves whose waveforms allow their precise distance to be determined?","a":{"t":"standard sirens","l":"X"},"c":{"W":"standard candles","X":"standard sirens","Y":"standard rulers","Z":"standard repeaters"}}]},
-{"rl":"Playoff Round 4 WSBT","r":4,"q":[
+{"rl":"Playoff Round 4 WSBT","r":4,"u":"https://drive.google.com/file/d/19ioBoSOilG6C3Dbiiphf0IOuWMBbRQjA/view","q":[
 {"i":69671,"s":"ess","f":"MC","qt":"bonus","n":8,"q":"Which of the following most accurately describes horst-graben topography?","a":{"t":"Horsts bounded by two normal faults","l":"W"},"c":{"W":"Horsts bounded by two normal faults","X":"Horsts bounded by two reverse faults","Y":"Horsts bounded by two strike-slip faults","Z":"Horsts bounded by one normal and one reverse fault"}},
 {"i":69675,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"Alice is studying protein-induced membrane curvature. She finds that a variety of membrane proteins which cause membrane curvature contain a shared sequence of amino acids.What is the name of this protein structure, characterized by a conserved sequence of positively charged amino acid residues?","a":{"t":"BAR Domains"}}]},
-{"rl":"Playoff Round 5 WSBT","r":5,"q":[
+{"rl":"Playoff Round 5 WSBT","r":5,"u":"https://drive.google.com/file/d/1qR36Nip3IALWkkS64WGpuus5JV-5Kx8n/view","q":[
 {"i":69683,"s":"bio","f":"SA","qt":"tossup","n":12,"q":"Ames Lab pharmacologists observe that the Wolff-Chaikoff effect leads to a reduction of thyroid hormone synthesis within follicular cells. What ion, when ingested, leads to this effect?","a":{"t":"Iodide"}},
 {"i":69684,"s":"phys","f":"SA","qt":"bonus","n":16,"q":"How much does work is done by the force 3i + 4j - 2k newtons through a displacement of -1i + 2j + 5k meters?","a":{"t":"-5"}},
 {"i":69686,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"Identify the following metals that are substitution-inert. 1) Chromium^(3+) 2) Vanadium^(2+) 3) Mercury^(2+)","a":{"t":"1 AND 2"}}]},
-{"rl":"Playoff Round 6 WSBT","r":6,"q":[
+{"rl":"Playoff Round 6 WSBT","r":6,"u":"https://drive.google.com/file/d/1fRm2V-hOHQfqlj3V3fijElzmM8BmjalX/view","q":[
 {"i":69690,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"How many times greater is the lifetime of a main-sequence star of 4 solar masses than one of 16 solar masses?","a":{"t":"32"}}]},
-{"rl":"Playoff Round 7 WSBT","r":7,"q":[
+{"rl":"Playoff Round 7 WSBT","r":7,"u":"https://drive.google.com/file/d/1AaU6OrO3-iJgkJDr9uVDmexz2FzoxkjJ/view","q":[
 {"i":69695,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"Answer the following two questions about the picture: 1) What is the name for this volcanic formation commonly found in Hawaii? 2) Which of the three classifications of magma most likely produces these formations?","a":{"t":"1) PELE’S HAIR; 2) BASALTIC"},"im":[{"f":"wsbt/69695.webp","w":968,"h":547}]},
 {"i":69696,"s":"math","f":"SA","qt":"tossup","n":21,"q":"If x ≡1 (mod 25) and x ≡ 3 (mod 4), what is the remainder when x is divided by 100?","a":{"t":"51"}}]},
-{"rl":"Playoff Round 8 WSBT","r":8,"q":[
-{"i":69697,"s":"math","f":"SA","qt":"tossup","n":3,"q":"Let f(x) = x − ⌊x⌋, i.e. the fractional part of x. For example, f(5.2) = 0.2. If y = 1 + √2, determine the value of y ⋅ f(y).","a":{"t":"1"}},
+{"rl":"Playoff Round 8 WSBT","r":8,"u":"https://drive.google.com/drive/folders/1Vk-6B-LjX42FS9ATS__629nBje5a6Ynx","q":[
+{"i":69697,"s":"math","f":"SA","qt":"tossup","n":3,"q":"Let f(x) = x − ⌊x⌋, i.e. the fractional part of x. For example, f(5.2) = 0.2. If y = 1 + √2, determine the value of y ⋅ f(y).","a":{"t":"1"}}]},
+{"rl":"Playoff Round 8 WSBT","r":8,"u":"https://drive.google.com/file/d/1d2a1UrP38DtAgWTyoN5uYlOtFu87q35_/view","q":[
 {"i":69700,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"A charged particle of spin ½ is placed in a magnetic field with strength 0.2 T. The resulting oscillation has angular frequency 1 rad/s. If the external magnetic field is doubled, what is the new angular frequency?","a":{"t":"2 rad/s"}},
 {"i":69703,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"Which of the following is NOT true regarding Indole-3-acetic acid or IAA?","a":{"t":"IAA can only enter parenchyma cells through passive transport","l":"X"},"c":{"W":"IAA is the most abundant natural auxin","X":"IAA can only enter parenchyma cells through passive transport","Y":"PIN transport proteins allow for the efflux of deprotonated IAA out of the cell","Z":"IAA is also synthesized by environmental bacteria"}},
 {"i":69705,"s":"math","f":"SA","qt":"bonus","n":21,"q":"Find the exact solution to the equation x^x = 10 in terms of the Lambert W function.","a":{"t":"e^(W(ln(10)))"}}]},
-{"rl":"WSBT FINALS 1","r":9,"q":[
+{"rl":"WSBT FINALS 1","r":9,"u":"https://drive.google.com/file/d/1bHgGLJGDwBSpcJcUqVkjO6_lKoQQS31j/view","q":[
 {"i":69707,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Define a sequence with the following recurrence relation: x_(n+1) = (x_1)^(x_n) for n ≥ 1. For example, x_2 = x_1^(x_1) and x_3 = x_1^(x_1^(x_1)). If x_1 = √2, then evaluate lim_(n→∞) x_n","a":{"t":"2"}},
 {"i":69709,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"What group of conducting-system fibers located within the interventricular septum propagates action potentials from the AV node?","a":{"t":"BUNDLE OF HIS"}},
 {"i":69711,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"What term describes donation of electron density into p-orbitals from neighboring sigma bonds that stabilizes carbocations?","a":{"t":"HYPERCONJUGATION"}}]},
-{"rl":"WSBT FINALS 2","r":10,"q":[
-{"i":69713,"s":"math","f":"SA","qt":"bonus","n":3,"q":"If line segment AB is 10 units long, define the locus of points L as all points P such that ∠APB ≥ 90°. Find the area of L.","a":{"t":"25"}},
+{"rl":"WSBT FINALS 2","r":10,"u":"https://drive.google.com/drive/folders/1Vk-6B-LjX42FS9ATS__629nBje5a6Ynx","q":[
+{"i":69713,"s":"math","f":"SA","qt":"bonus","n":3,"q":"If line segment AB is 10 units long, define the locus of points L as all points P such that ∠APB ≥ 90°. Find the area of L.","a":{"t":"25"}}]},
+{"rl":"WSBT FINALS 2","r":10,"u":"https://drive.google.com/file/d/1DdaBfEjgU5b7vLj-CCpwQzeOMyhZ2XSn/view","q":[
 {"i":69714,"s":"math","f":"SA","qt":"tossup","n":9,"q":"If e_1, e_2, e_3, and e_4 are the identity elements for addition, subtraction, multiplication, and division, then evaluate e_1 e_2 e_3 e_4","a":{"t":"0"}},
 {"i":69715,"s":"math","f":"SA","qt":"bonus","n":21,"q":"For a positive integer n, define f(n) as the sum of the digits of n in base 10. Find the sum of all integers n such that n-f(n)=180.","a":{"t":"1945"}}]},
 {"rl":"Playoff Round 4 WSBT","r":4,"u":"https://lebot.djiang.xyz/packets/WSBT/Playoff%20Round%204%20WSBT.pdf","q":[

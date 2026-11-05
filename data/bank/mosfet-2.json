@@ -502,29 +502,29 @@
 {"i":18958,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"Which of the following measurement scales would be most useful for determining the direct danger posed to humans by an earthquake?","a":{"t":"Modified Mercalli scale","l":"W"},"c":{"W":"Modified Mercalli scale","X":"Moment magnitude scale","Y":"Saffir-Simpson scale","Z":"Fujita scale"},"pg":19},
 {"i":18959,"s":"phys","f":"MC","qt":"tossup","n":23,"q":"An electron is traveling in the positive y-direction through a magnetic field that is oriented in the positive x-direction. What is the direction of the magnetic force on the electron?","a":{"t":"Positive z","l":"X"},"c":{"W":"Negative z","X":"Positive z","Y":"Negative x","Z":"Positive x"},"pg":20},
 {"i":18960,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"What is the efficiency of a Carnot engine with a hot reservoir of 500 kelvin and a cold reservoir of 200 kelvin?","a":{"t":"0.6","ac":["3/5","60%"]},"pg":20}]},
-{"rl":"Round 1","r":1,"q":[
+{"rl":"Round 1","r":1,"u":"https://drive.google.com/file/d/1BR76_QGrRnFtEMshA-cIOfgr4tdxN6oj/view","q":[
 {"i":44301,"s":"math","f":"SA","qt":"bonus","n":8,"q":"At what point do the lines y = 3x - 2 and y = x + 2 intersect when graphed on the coordinate plane?","a":{"t":"(2, 4)"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1FE9yTxsN5aA6looy6yKhrMvGTqt2wNpQ/view","q":[
 {"i":44302,"s":"math","f":"SA","qt":"bonus","n":2,"q":"The point (4, 5) is reflected across the graph of y = 1 and the resulting point is then reflected across the graph of y = x. What are the coordinates of the final point?","a":{"t":"(-3, 4)"}}]},
-{"rl":"Round 3","r":3,"q":[
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/17oRxXz7JISokS2xLjM0YmZ_QDpJaB5yQ/view","q":[
 {"i":44303,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What are the coordinates of the y-intercept of the line that passes through the point (8, 0) and is perpendicular to the line y = -2x + 25?","a":{"t":"(0, -4)","ac":["-4"]}}]},
-{"rl":"Round 6","r":6,"q":[
+{"rl":"Round 6","r":6,"u":"https://drive.google.com/file/d/1Udv-s7yr4KGufFHbDvOm_mc6qhGlH6sn/view","q":[
 {"i":44304,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Shripriya is playing a new version of Science Bowl. She has a 80% chance to get each tossup, which awards 6 points. If she gets the tossup, she receives a bonus that awards 18 points, which she has a 50% chance to answer correctly. If Shripriya plays one pair, what is the expected number of points she will receive?","a":{"t":"12"}}]},
-{"rl":"Round 8","r":8,"q":[
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1aFBYNIOGzcuZIt77aH9HAPpowcQBpTTD/view","q":[
 {"i":44305,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Circle A is translated 2 units to the right and 1 unit down, producing circle B with equation quantity x - 4 squared + quantity y - 2 squared = 12. What are the coordinates of the center of circle A?","a":{"t":"(2, 3)"}}]},
-{"rl":"Round 1","r":1,"q":[
+{"rl":"Round 1","r":1,"u":"https://drive.google.com/file/d/1BR76_QGrRnFtEMshA-cIOfgr4tdxN6oj/view","q":[
 {"i":71101,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"In the reaction between PCl3 and Cl2, the rate law is given by k times the concentration of PCl3 times the concentration of Cl2. What is the overall order of this reaction?","a":{"t":"2"}}]},
-{"rl":"Round 10","r":10,"q":[
+{"rl":"Round 10","r":10,"u":"https://drive.google.com/file/d/1gau_j4hcSvk4T3bOVaGljmHAQvxn2N58/view","q":[
 {"i":71102,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Certain equations such as a^2 + b^2 = c^2 have infinitely many real solutions, but only integer solutions are of interest. What is the adjective which describes these equations?","a":{"t":"Diophantine","l":"Z"},"c":{"W":"Integral","X":"Gaussian","Y":"Euclidean","Z":"Diophantine"}}]},
-{"rl":"Round 2","r":2,"q":[
+{"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1FE9yTxsN5aA6looy6yKhrMvGTqt2wNpQ/view","q":[
 {"i":71103,"s":"math","f":"SA","qt":"tossup","n":20,"q":"Find the product of the roots of the polynomial 2x^2 + 5x + 8.","a":{"t":"4"}}]},
-{"rl":"Round 3","r":3,"q":[
+{"rl":"Round 3","r":3,"u":"https://drive.google.com/file/d/17oRxXz7JISokS2xLjM0YmZ_QDpJaB5yQ/view","q":[
 {"i":71104,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Giving your answer as a number in base-10, what is the sum of the largest 3-digit integer in base 2 and the largest 3 digit integer in base-3?","a":{"t":"33"}}]},
-{"rl":"Round 4","r":4,"q":[
+{"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1YGc2_m5tjVNlyWrCw6XGHPM5NJLYkCei/view","q":[
 {"i":71105,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Which of the following sets of numbers is defined using recursion?","a":{"t":"Fibonacci numbers","l":"X"},"c":{"W":"Prime numbers","X":"Fibonacci numbers","Y":"Perfect squares","Z":"Perfect numbers"}}]},
-{"rl":"Round 7","r":7,"q":[
+{"rl":"Round 7","r":7,"u":"https://drive.google.com/file/d/155pNZ4vQ9rUltwMF1TtEM99E-mc2fM-u/view","q":[
 {"i":71106,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is the derivative with respect to x of the definite integral from 20 to 60 of 50x dx?","a":{"t":"0"}}]},
-{"rl":"Round 8","r":8,"q":[
+{"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1aFBYNIOGzcuZIt77aH9HAPpowcQBpTTD/view","q":[
 {"i":71107,"s":"phys","f":"MC","qt":"tossup","n":11,"q":"Kirchhoff’s Loop Rule, which states that the sum of the voltages around a closed circuit must be zero, is a direct consequence of the conservation of which of the following quantities?","a":{"t":"Energy","l":"X"},"c":{"W":"Charge","X":"Energy","Y":"Momentum","Z":"Angular momentum"}},
 {"i":71108,"s":"ess","f":"MC","qt":"tossup","n":16,"q":"Identifiable by its characteristic sheen, which of the following foliated metamorphic rocks is formed by the metamorphism of shale under intermediate pressures?","a":{"t":"Phyllite","l":"X"},"c":{"W":"Slate","X":"Phyllite","Y":"Gneiss","Z":"Migmatite"}},
 {"i":71109,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"A force with equation F of t = 3t^2 - 4t + 1 acts on a particle from t = 0 to t = 5, where F is in newtons. If the particle has a mass of 10 kilograms, what is the final speed of the particle, in meters per second?","a":{"t":"8"}}]},

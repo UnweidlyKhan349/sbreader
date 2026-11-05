@@ -446,9 +446,9 @@
 {"i":5830,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"Identify all of the following that would increase an enzyme’s activation energy: 1) Making the active site complementary to the substrate instead of the transition state: 2) Increasing temperature from 40 degrees Celsius to 70 degrees Celsius: 3) Decreasing catalyst concentration","a":{"t":"1 AND 3"},"pg":11},
 {"i":5831,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"What is the term for molecules that lack chiral centers but are optically active due to steric hindrance around a rotationally fixed bond?","a":{"t":"ATROPISOMERS"},"pg":12},
 {"i":5832,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"Arrange the following three elements by increasing ionization energy: 1) Gallium; 2) Indium; 3) Thallium.","a":{"t":"2,1,3"},"pg":12}]},
-{"rl":"DAST Round 6","r":6,"q":[
+{"rl":"DAST Round 6","r":6,"u":"https://docs.google.com/document/d/13aG56juRi1-YSuYxNyFzX9zLSFPMiaQ3_NtpsbDUDTk/edit","q":[
 {"i":71144,"s":"bio","f":"SA","qt":"bonus","n":17,"q":"Providing your answers as positive or negative, classify the following three bacteria as being either gram positive or gram negative: 1) Escherichia coli; 2) Chlamydia trachomatis; 3) Yersinia pestis.","a":{"t":"1) NEGATIVE; 2) NEGATIVE; 3) NEGATIVE"}}]},
-{"rl":"DAST Round 7","r":7,"q":[
+{"rl":"DAST Round 7","r":7,"u":"https://docs.google.com/document/d/1GyXw3JYX2jr9vuXnGsCdlHd3ck4GjXxTeV5NTBONrlE/edit","q":[
 {"i":71145,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"Providing your answer as a percentage of V max, what is the velocity of a reaction when the substrate concentration is three times the Michaelis constant?","a":{"t":"75%","rj":["3/4"]}}]},
 {"rl":"DAST Round 8","r":8,"u":"https://lebot.djiang.xyz/packets/DAST1/DAST%20Round%208.pdf","q":[
 {"i":85953,"s":"phys","f":"MC","qt":"tossup","n":5,"q":"Which of the following actions will double the gravitational binding energy of a spherical planet?","a":{"t":"Halving its radius","l":"Z"},"c":{"W":"Doubling its mass","X":"Doubling its radius","Y":"Halving its mass","Z":"Halving its radius"},"pg":3}]},

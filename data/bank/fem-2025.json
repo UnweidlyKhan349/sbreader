@@ -607,16 +607,17 @@
 {"i":53623,"s":"ess","f":"SA","qt":"bonus","n":18,"q":"Answer the following three questions using the spectrum shown: 1) Using the spectrum shown, identify the feature labeled A, which consists of numerous narrow absorption lines between the quasar’s Lyman-α emission and shorter wavelengths. 2) Each line in the erratic line in the spectrum corresponds to what type of structure along the line of sight? 3) The Lyman-α lines appear at different wavelengths because of what cosmological effect?","a":{"t":"1) Lyman-α forest; 2) HI cloud; 3) Doppler effect","ac":["Redshift"]},"im":[{"f":"fem-2025/53623.webp","w":1257,"h":832}]},
 {"i":53624,"s":"math","f":"SA","qt":"bonus","n":19,"q":"What is the arc length from x = 1 to x = 4/3 of the function y = x^(1.5)?","a":{"t":"56/27"}},
 {"i":53625,"s":"math","f":"MC","qt":"tossup","n":24,"q":"For which of the following numbers n is n − 1 a quadratic residue modulo n?","a":{"t":"45","l":"X"},"c":{"W":"23","X":"45","Y":"99","Z":"103"}}]},
-{"rl":"DE2","r":7,"q":[
+{"rl":"DE2","r":7,"u":"https://drive.google.com/file/d/1ENxEanpwqrewEC1TZfDtMDHL_KPVmfAc/view","q":[
 {"i":71092,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"A charged capacitor of capacitance 2F is connected in series with a 3Ω resistor. If the capacitor is then discharged, to the nearest tenth of a second how long does it take for the charge on the capacitor to drop to 50% of its initial value?","a":{"t":"4.2"}}]},
-{"rl":"DE3","r":8,"q":[
-{"i":71094,"s":"phys","f":"MC","qt":"tossup","n":2,"q":"Advaith is standing on a hill with an incline of 40° to the horizontal and throws a ball. At what angle, measured with respect to the incline of the hill and in degrees, should he throw a ball to maximize the distance from him that it lands?","a":{"t":"65","l":"Z"},"c":{"W":"40","X":"45","Y":"50","Z":"65"}},
+{"rl":"DE3","r":8,"u":"https://drive.google.com/file/d/1DLLT-X2dBC2Je2oo8--iF-bcqUee1fuD/view","q":[
+{"i":71094,"s":"phys","f":"MC","qt":"tossup","n":2,"q":"Advaith is standing on a hill with an incline of 40° to the horizontal and throws a ball. At what angle, measured with respect to the incline of the hill and in degrees, should he throw a ball to maximize the distance from him that it lands?","a":{"t":"65","l":"Z"},"c":{"W":"40","X":"45","Y":"50","Z":"65"}}]},
+{"rl":"DE3","r":8,"u":"https://drive.google.com/drive/folders/1pbjCAO25spaXxLma6yZDt5tWcXVRtzgT","q":[
 {"i":71095,"s":"math","f":"SA","qt":"tossup","n":4,"q":"A parallelogram has sides given by the vectors î + 2 ĵ and 3 î + ĵ. What is its area?","a":{"t":"5"}}]},
-{"rl":"DE4","r":9,"q":[
+{"rl":"DE4","r":9,"u":"https://drive.google.com/file/d/1zBvj0oXq359HHsT4hiU629lzp2vBGZ-U/view","q":[
 {"i":71097,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"A small ball of mass 1kg is attached to the end of a 1kg rod of length 2 meters. The rod’s free end is then fixed and the system is swung around the fixed end like a pendulum. To the nearest second, what is the period of this pendulum?","a":{"t":"3s"}}]},
-{"rl":"DE6","r":11,"q":[
+{"rl":"DE6","r":11,"u":"https://drive.google.com/file/d/177tEI9fxebqEqa53iZHjdomiUCMIK9uI/view","q":[
 {"i":71099,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Compute the value of 1^1 + 2^2 + … + 8^8 + 9^9 + 10^10 modulo 8.","a":{"t":"5"}}]},
-{"rl":"RR3","r":3,"q":[
+{"rl":"RR3","r":3,"u":"https://drive.google.com/file/d/1T37vFpKNx7jYSt2wn5rwihRf1XdP0J2w/view","q":[
 {"i":71100,"s":"math","f":"SA","qt":"bonus","n":4,"q":"How many 6-digit numbers are greater than 700,000 and have their digits in strictly descending order?","a":{"t":"203"}}]},
 {"rl":"DE1","r":6,"u":"https://lebot.djiang.xyz/packets/FE%21M-2025/DE1.pdf","q":[
 {"i":85854,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Rutvik fires an alpha particle beam by accelerating particles through a potential difference. If each alpha particle has a final energy of 22 MeV, then in megavolts, through what potential difference were the alpha particles accelerated?","a":{"t":"11"},"pg":18}]},

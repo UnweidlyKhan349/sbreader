@@ -560,44 +560,52 @@
 {"i":51619,"s":"bio","f":"MC","qt":"tossup","n":6,"q":"Apoptosis is a highly regulated cellular process involving several classes of proteins. Which of the following describes the role of Smac in apoptosis?","a":{"t":"It is an anti-IAP that promotes apoptosis","l":"Z"},"c":{"W":"It is an IAP that inhibits apoptosis","X":"It is a BH3-only member of the Bcl2 family that promotes apoptosis","Y":"It is an inhibitor of the endonuclease CAD","Z":"It is an anti-IAP that promotes apoptosis"},"pg":7}]},
 {"rl":"RR2","r":2,"u":"https://lebot.djiang.xyz/packets/ESBOT%202/RR2.pdf","q":[
 {"i":51620,"s":"energy","f":"MC","qt":"bonus","n":9,"q":"Researchers at Lawrence Berkeley National Lab are studying advanced computing methods and how they can solve real world problems. In the system of formal mathematics and logic commonly used today, there does not always exist an algorithm that can analyze another algorithm and correctly answer any yes-or-no question about it. What is the term for this property of a mathematical system?","a":{"t":"Undecidability","l":"Z"},"c":{"W":"Incompleteness","X":"Inconsistency","Y":"Incomputability","Z":"Undecidability"},"pg":6}]},
-{"rl":"DE10","r":10,"q":[
+{"rl":"DE10","r":10,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
 {"i":70918,"s":"math","f":"SA","qt":"bonus","n":7,"q":"Consider an element of the permutation group P5 that maps the sequence 1, 2, 3, 4, 5 to the sequence 4, 5, 3, 2, 1. What is the order of this element?","a":{"t":"4"}},
-{"i":70919,"s":"math","f":"SA","qt":"tossup","n":16,"q":"If M, A, T, and H are positive integers such that M^2 + A^2 = 74 and T^2 + H^2 = 41, what is the value of M + A + T + H?","a":{"t":"21"}},
+{"i":70919,"s":"math","f":"SA","qt":"tossup","n":16,"q":"If M, A, T, and H are positive integers such that M^2 + A^2 = 74 and T^2 + H^2 = 41, what is the value of M + A + T + H?","a":{"t":"21"}}]},
+{"rl":"DE10","r":10,"u":"https://drive.google.com/file/d/1up5WLpWkWl-CY8_Xi1JwsGbVW6qCbQnc/view","q":[
 {"i":70920,"s":"math","f":"SA","qt":"bonus","n":16,"q":"Let a two digit number AB be nice if the sum of the product of the digits and the sum of the digits of the number is equal to the number. What is the sum of all nice numbers?","a":{"t":"531"}}]},
-{"rl":"DE11","r":11,"q":[
+{"rl":"DE11","r":11,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
 {"i":70922,"s":"math","f":"SA","qt":"tossup","n":6,"q":"What is the least positive integer n such that √(2023 · n) is an integer?","a":{"t":"7"}}]},
-{"rl":"DE12","r":12,"q":[
-{"i":70923,"s":"math","f":"MC","qt":"tossup","n":4,"q":"The function f from the integers to the integers satisfies f(x + y) = f(x) + f(y). Which of the following integers is a possible value of f(6)?","a":{"t":"2022","l":"Y"},"c":{"W":"2020","X":"2021","Y":"2022","Z":"2023"}},
+{"rl":"DE12","r":12,"u":"https://drive.google.com/file/d/1lEDZ5JOx8Fa7ZuY3UVZ9v8Ml1UJB-nT0/view","q":[
+{"i":70923,"s":"math","f":"MC","qt":"tossup","n":4,"q":"The function f from the integers to the integers satisfies f(x + y) = f(x) + f(y). Which of the following integers is a possible value of f(6)?","a":{"t":"2022","l":"Y"},"c":{"W":"2020","X":"2021","Y":"2022","Z":"2023"}}]},
+{"rl":"DE12","r":12,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
 {"i":70925,"s":"math","f":"SA","qt":"tossup","n":19,"q":"A 2 x 2 matrix, A, can be diagonalized as PDP^(-1) where P has entries [2 3 1 2] and D has entries [2 0 0 1]. What is the sum of the eigenvalues of the matrix A?","a":{"t":"3"}}]},
-{"rl":"DE13","r":13,"q":[
-{"i":70926,"s":"math","f":"SA","qt":"tossup","n":4,"q":"If the expression sin(x) cos(x) = 2/5, what is the value of (sin(x) + cos(x))^2?","a":{"t":"9/5"}},
+{"rl":"DE13","r":13,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
+{"i":70926,"s":"math","f":"SA","qt":"tossup","n":4,"q":"If the expression sin(x) cos(x) = 2/5, what is the value of (sin(x) + cos(x))^2?","a":{"t":"9/5"}}]},
+{"rl":"DE13","r":13,"u":"https://drive.google.com/file/d/1g1BfTDhPGPNSxUtfMdvdsGktZwccNzio/view","q":[
 {"i":70928,"s":"math","f":"SA","qt":"tossup","n":23,"q":"The inner product of two arbitrary complex numbers w and v is equal to 1 + 2i. What is the inner product of 2v and 2w?","a":{"t":"4 − 8i"}}]},
-{"rl":"DE7","r":7,"q":[
-{"i":70932,"s":"math","f":"SA","qt":"bonus","n":5,"q":"How many positive integers x exist such that 1080/6^x is an integer?","a":{"t":"3"}},
+{"rl":"DE7","r":7,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
+{"i":70932,"s":"math","f":"SA","qt":"bonus","n":5,"q":"How many positive integers x exist such that 1080/6^x is an integer?","a":{"t":"3"}}]},
+{"rl":"DE7","r":7,"u":"https://drive.google.com/file/d/1ieHwb7YaOGY4sXMneHGvCPVmF3EUQZTe/view","q":[
 {"i":70933,"s":"math","f":"SA","qt":"bonus","n":8,"q":"What is the integral from -3π to 4π of 2x − sin(x) dx?","a":{"t":"7π^2 + 2"}}]},
-{"rl":"DE8","r":8,"q":[
-{"i":70936,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Let a, b, and c be the roots of the polynomial x^3 − 7x^2 + 12x + 5. What is 1/a^2 + 1/b^2 + 1/c^2?","a":{"t":"–1"}},
+{"rl":"DE8","r":8,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
+{"i":70936,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Let a, b, and c be the roots of the polynomial x^3 − 7x^2 + 12x + 5. What is 1/a^2 + 1/b^2 + 1/c^2?","a":{"t":"–1"}}]},
+{"rl":"DE8","r":8,"u":"https://drive.google.com/file/d/1Q-bPeal3iED6T3HTmuIPwogUq9PvIVGx/view","q":[
 {"i":70937,"s":"chem","f":"MC","qt":"tossup","n":16,"q":"An SN1 reaction is carried out on a chiral center of a substrate. Which of the following best describes the stereochemical outcome?","a":{"t":"Partial inversion with a preference for inversion of configuration","l":"X"},"c":{"W":"Complete inversion of the stereocenter","X":"Partial inversion with a preference for inversion of configuration","Y":"Partial inversion with a preference for retention of configuration","Z":"Nearly perfectly racemic"}},
 {"i":70938,"s":"math","f":"SA","qt":"tossup","n":19,"q":"Points A, B, C, and D lie on a circle in that order such that AB = 10, BC = 5, CD = 3 and DA = 9. What is the value of AC * BD?","a":{"t":"75"}}]},
-{"rl":"DE9","r":9,"q":[
+{"rl":"DE9","r":9,"u":"https://drive.google.com/file/d/1J0zcESOKvxqZPNkqzBnC-eMts7u4L3lC/view","q":[
 {"i":70940,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"The vibrational temperature of Br2 gas is 463 Kelvin. What is the ratio between the number of degrees of freedom of Br2 gas at 600 Kelvin to the number of degrees of freedom at 100 Kelvin?","a":{"t":"6/5","ac":["1.2"]}}]},
-{"rl":"RR2","r":2,"q":[
+{"rl":"RR2","r":2,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
 {"i":70942,"s":"math","f":"SA","qt":"tossup","n":4,"q":"How many lattice points does the equation x^2 + y^2 = 169 pass through?","a":{"t":"12"}},
-{"i":70943,"s":"math","f":"SA","qt":"tossup","n":8,"q":"The function f(x) = ax^2 + bx + c with b ≠ 0 has at least one real root for all values of c. What is the value of a?","a":{"t":"0"}},
+{"i":70943,"s":"math","f":"SA","qt":"tossup","n":8,"q":"The function f(x) = ax^2 + bx + c with b ≠ 0 has at least one real root for all values of c. What is the value of a?","a":{"t":"0"}}]},
+{"rl":"RR2","r":2,"u":"https://drive.google.com/file/d/1WbIYe8_7C1LEzwpcCfO_EG_gCNQP1knl/view","q":[
 {"i":70944,"s":"math","f":"SA","qt":"bonus","n":8,"q":"What is the integral from 0 to 16/3 of x minus the floor of x dx?","a":{"t":"23/9"}},
 {"i":70945,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"How many sigma and pi bonds exist in one molecule of S8?","a":{"t":"8, 0"}}]},
-{"rl":"RR3","r":3,"q":[
+{"rl":"RR3","r":3,"u":"https://drive.google.com/file/d/10lp8FHPnrFiI0rkiIO_9meEZktHcU3cF/view","q":[
 {"i":70947,"s":"math","f":"SA","qt":"bonus","n":15,"q":"Sphere A has a volume of 36π cubic meters. If the radius of A is increased by 2 meters, by how many square meters does the surface area of A increase by?","a":{"t":"64π"}},
 {"i":70949,"s":"phys","f":"SA","qt":"tossup","n":20,"q":"Two objects with equal mass M experience a gravitational force of G. If the mass of each of the two objects is doubled and the distance between them is tripled, what is the new gravitational force in terms of G?","a":{"t":"4/9 G"}}]},
-{"rl":"RR4","r":4,"q":[
-{"i":70953,"s":"math","f":"MC","qt":"tossup","n":15,"q":"When the expression 81^2 + 81^2 + 81^2 is written in the form (√3)^n, what is n?","a":{"t":"18","l":"Z"},"c":{"W":"9","X":"10","Y":"14","Z":"18"}},
+{"rl":"RR4","r":4,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
+{"i":70953,"s":"math","f":"MC","qt":"tossup","n":15,"q":"When the expression 81^2 + 81^2 + 81^2 is written in the form (√3)^n, what is n?","a":{"t":"18","l":"Z"},"c":{"W":"9","X":"10","Y":"14","Z":"18"}}]},
+{"rl":"RR4","r":4,"u":"https://drive.google.com/file/d/1V8VMtKpwz8Lo-rCLB3Hfa5ghgh4ggzl0/view","q":[
 {"i":70954,"s":"math","f":"SA","qt":"bonus","n":15,"q":"Consider the number F, which is equal to [2 0 2 3 base 4]. How many base 2 numbers T end with the digit 0 and satisfy the inequality 0 < T < F?","a":{"t":"69"}},
 {"i":70955,"s":"math","f":"SA","qt":"bonus","n":18,"q":"Order the integral from 1 to e of the following 3 functions from smallest to largest value: 1) x^x 2) x^e 3) e^x","a":{"t":"1, 2, 3"}},
 {"i":70956,"s":"math","f":"SA","qt":"tossup","n":23,"q":"If the greatest common denominator of two positive numbers a and b is 5 and the least common multiple of a and b is 20, what is the least possible sum of a and b?","a":{"t":"25"}}]},
-{"rl":"RR5","r":5,"q":[
+{"rl":"RR5","r":5,"u":"https://drive.google.com/file/d/1WQy6VAq1jFbgY-6LEgxleKHpq-49cld4/view","q":[
 {"i":70957,"s":"chem","f":"MC","qt":"bonus","n":8,"q":"The compound Hg2Cl2 decomposes into HgCl2 and Hg endothermically. Which of the following best describes the spontaneity of the decomposition reaction?","a":{"t":"Spontaneous at high temperatures","l":"X"},"c":{"W":"Spontaneous at low temperature","X":"Spontaneous at high temperatures","Y":"Always spontaneous","Z":"Never spontaneous"}},
 {"i":70958,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Set A contains 5 elements. How many proper subsets of A are there?","a":{"t":"31"}},
-{"i":70959,"s":"math","f":"MC","qt":"tossup","n":17,"q":"Some matrix A is right multiplied by a 2 by 3 matrix B to produce a 4 by 3 matrix C. Which of the following options could be the dimensions of matrix A?","a":{"t":"4 by 2","l":"Y"},"c":{"W":"3 by 2","X":"2 by 3","Y":"4 by 2","Z":"3 by 3"}},
+{"i":70959,"s":"math","f":"MC","qt":"tossup","n":17,"q":"Some matrix A is right multiplied by a 2 by 3 matrix B to produce a 4 by 3 matrix C. Which of the following options could be the dimensions of matrix A?","a":{"t":"4 by 2","l":"Y"},"c":{"W":"3 by 2","X":"2 by 3","Y":"4 by 2","Z":"3 by 3"}}]},
+{"rl":"RR5","r":5,"u":"https://drive.google.com/drive/folders/1PAsTEqru1GXl_wwheX1GioDrDooCWVeY","q":[
 {"i":70960,"s":"math","f":"MC","qt":"tossup","n":22,"q":"Let f(x) = x^3 − 6x^2 + 9x − 3. What is the value of the product of the values of the three roots of f divided by the sum of the values of the three roots?","a":{"t":"1/2","l":"Y"},"c":{"W":"1/6","X":"1/3","Y":"1/2","Z":"1"}}]},
 {"rl":"DE10","r":10,"u":"https://lebot.djiang.xyz/packets/ESBOT%202/DE10.pdf","q":[
 {"i":85852,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"Which of the following functions could represent reactant concentration as a function of time for a reaction governed by the rate law rate = k√[A]?","a":{"t":"C = (3 − 2t)^2","l":"Y"},"c":{"W":"C = 3e^(−4t)","X":"C = 4/(2t + 5)","Y":"C = (3 − 2t)^2","Z":"C = 1/(3t + 1)^2"},"pg":8}]},

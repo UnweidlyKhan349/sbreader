@@ -526,10 +526,11 @@
 {"i":33789,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"Researchers at the enzyme institute at UW Madison are studying the evolution of enzymes during the early development of the earth. What enzyme is theorized to be one of the first enzymes to exist that is made from RNA?","a":{"t":"RIBOZYMES"},"pg":4},
 {"i":33790,"s":"ess","f":"SA","qt":"tossup","n":16,"q":"Pyroxenes are inosilicates that contain chains of silica tetrahedra. What is the charge of the silicate ion in pyroxenes?","a":{"t":"2-"},"pg":8},
 {"i":33791,"s":"ess","f":"SA","qt":"bonus","n":16,"q":"What moon of Saturn has the highest albedo?","a":{"t":"ENCELADUS","ac":["phoenix"]},"pg":8}]},
-{"rl":"MOSFET Round 1 (done)","r":1,"q":[
+{"rl":"MOSFET Round 1 (done)","r":1,"u":"https://drive.google.com/file/d/1GMtTDTZaKh4G-LRWSMpfvfgqFxNZiqT6/view","q":[
 {"i":69788,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Let vector u = i + 2j and vector v = 3i + j. What is the value of u + v?","a":{"t":"4i + 3j"}},
 {"i":69790,"s":"phys","f":"SA","qt":"tossup","n":13,"q":"3 amps of current flows through a 20-ohm resistor. What is the voltage across the resistor?","a":{"t":"60 VOLTS"}},
-{"i":69791,"s":"math","f":"MC","qt":"bonus","n":16,"q":"How many times does the graph y = (x + 2)^2 (x + 3)^3 cross the line x = 0?","a":{"t":"1","l":"X"},"c":{"W":"0","X":"1","Y":"3","Z":"5"}},
+{"i":69791,"s":"math","f":"MC","qt":"bonus","n":16,"q":"How many times does the graph y = (x + 2)^2 (x + 3)^3 cross the line x = 0?","a":{"t":"1","l":"X"},"c":{"W":"0","X":"1","Y":"3","Z":"5"}}]},
+{"rl":"MOSFET Round 1 (done)","r":1,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
 {"i":69792,"s":"bio","f":"MC","qt":"tossup","n":20,"q":"A medical student who is studying the integumentary system, would most likely be studying which of the following organs?","a":{"t":"Skin","l":"Z"},"c":{"W":"Pancreas","X":"Liver","Y":"Spleen","Z":"Skin"}}]},
 {"rl":"MOSFET Round 1 (done)","r":1,"u":"https://speriphery.com/query","q":[
 {"i":73669,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What common disease that causes fevers is carried by plasmodium, a genus of algae transmitted by mosquitoes?","a":{"t":"MALARIA"}},
@@ -544,66 +545,73 @@
 {"i":73678,"s":"math","f":"SA","qt":"tossup","n":10,"q":"Yuchen rolls a 20-sided die. What is the probability that he rolls a multiple of 6?","a":{"t":"3/20"}},
 {"i":73679,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"A transformer has a secondary winding of 50 turns. It is connected to a 90-volt battery, and 30 volts are passed through the secondary winding. How many turns does the primary winding have?","a":{"t":"150"}},
 {"i":73680,"s":"bio","f":"MC","qt":"tossup","n":12,"q":"Which of the following immunoglobulins is produced for the response against allergens?","a":{"t":"IgE","l":"Y"},"c":{"W":"IgA","X":"IgD","Y":"IgE","Z":"IgG"}}]},
-{"rl":"MOSFET Round 10 (done)","r":10,"q":[
-{"i":69793,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"A 4-kilogram particle has a momentum of 10 kilogram-meters per second. In joules, what is its kinetic energy?","a":{"t":"12.5","l":"X"},"c":{"W":"6.25","X":"12.5","Y":"25","Z":"100"}},
-{"i":69794,"s":"ess","f":"MC","qt":"bonus","n":3,"q":"Which of the following best describes Cordilleran -type mountain building?","a":{"t":"Volcanic island arcs and other pieces of crust accrete onto a continent","l":"Y"},"c":{"W":"Two continental plates collide causing uplift","X":"An oceanic plate subducts beneath a continental plate, forming a chain of volcanic mountains","Y":"Volcanic island arcs and other pieces of crust accrete onto a continent","Z":"An oceanic plate subducts under another oceanic plate creating a chain of volcanic islands"}},
+{"rl":"MOSFET Round 10 (done)","r":10,"u":"https://drive.google.com/file/d/1pe9-EO4Pdfia5dYECoJd6ZNImAy8xXiT/view","q":[
+{"i":69793,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"A 4-kilogram particle has a momentum of 10 kilogram-meters per second. In joules, what is its kinetic energy?","a":{"t":"12.5","l":"X"},"c":{"W":"6.25","X":"12.5","Y":"25","Z":"100"}}]},
+{"rl":"MOSFET Round 10 (done)","r":10,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
+{"i":69794,"s":"ess","f":"MC","qt":"bonus","n":3,"q":"Which of the following best describes Cordilleran -type mountain building?","a":{"t":"Volcanic island arcs and other pieces of crust accrete onto a continent","l":"Y"},"c":{"W":"Two continental plates collide causing uplift","X":"An oceanic plate subducts beneath a continental plate, forming a chain of volcanic mountains","Y":"Volcanic island arcs and other pieces of crust accrete onto a continent","Z":"An oceanic plate subducts under another oceanic plate creating a chain of volcanic islands"}}]},
+{"rl":"MOSFET Round 10 (done)","r":10,"u":"https://drive.google.com/file/d/1pe9-EO4Pdfia5dYECoJd6ZNImAy8xXiT/view","q":[
 {"i":69795,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"A circuit at steady-state contains a 6-volt battery, a 2-ohm resistor, and a 4-henry inductor in series. In joules, how much energy is stored in the inductor?","a":{"t":"18 JOULES"}},
-{"i":69796,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the largest integer value of n such that 3^n divides 100 factorial?","a":{"t":"48"}},
+{"i":69796,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the largest integer value of n such that 3^n divides 100 factorial?","a":{"t":"48"}}]},
+{"rl":"MOSFET Round 10 (done)","r":10,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
 {"i":69797,"s":"phys","f":"SA","qt":"tossup","n":12,"q":"Researchers at the Pierre Auger Observatory at the University of Chicago are studying high energy particles that shower down on Earth. What is the name of these high energy particles that travel near the speed of light and are often composed of protons and atomic nuclei?","a":{"t":"COSMIC RAYS"}}]},
-{"rl":"MOSFET Round 11 (done)","r":11,"q":[
+{"rl":"MOSFET Round 11 (done)","r":11,"u":"https://drive.google.com/file/d/17BAf9n9VXSok3l8WDSPsyL7u0AjCruKL/view","q":[
 {"i":69798,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"In general relativity, what four-dimensional manifold is used to explain relativistic effects and is warped by very massive objects?","a":{"t":"SPACETIME"}},
 {"i":69799,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Find the x-coordinate of the point of inflection of the graph y = x^3 – 5x^2 + 6x + 2.","a":{"t":"5/3"}},
 {"i":69800,"s":"math","f":"MC","qt":"tossup","n":10,"q":"f(x) is a continuous and differentiable function such that f(1) = 4 and f(6) = 5. According to the mean value theorem, which of the following values is guaranteed to be the derivative of f(x) with respect to x for some value of x between 1 and 6?","a":{"t":"0.2","l":"Y"},"c":{"W":"-0.2","X":"0","Y":"0.2","Z":"1"}},
 {"i":69802,"s":"math","f":"SA","qt":"tossup","n":22,"q":"If 2^x = 5, then what is the value of 2^(3x+1)?","a":{"t":"250"}}]},
-{"rl":"MOSFET Round 12 (done)","r":12,"q":[
-{"i":69805,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the definite integral from 0 to 2π of sin(x) – cos(x) with respect to x?","a":{"t":"0"}},
+{"rl":"MOSFET Round 12 (done)","r":12,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
+{"i":69805,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the definite integral from 0 to 2π of sin(x) – cos(x) with respect to x?","a":{"t":"0"}}]},
+{"rl":"MOSFET Round 12 (done)","r":12,"u":"https://drive.google.com/file/d/1uMLQxtgyKYlX9GLCC09AfhQZCeTv75CT/view","q":[
 {"i":69806,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Researchers at Iowa State University are studying the Shine-Dalgarno sequence, a binding site in prokaryotic ribosomes. The 70S prokaryotic ribosome is composed of what two other subunits?","a":{"t":"30S AND 50S"}},
 {"i":69807,"s":"math","f":"MC","qt":"tossup","n":22,"q":"Suppose the number one-six-nine in base b is equal to 400 in base 10. What is the value of b?","a":{"t":"17","l":"X"},"c":{"W":"15","X":"17","Y":"18","Z":"20"}}]},
 {"rl":"MOSFET Round 12 (done)","r":12,"u":"https://speriphery.com/query","q":[
 {"i":73622,"s":"math","f":"SA","qt":"bonus","n":1,"q":"What is the limit as x approaches π/4 of (tan(x)-1)/(x - π/4)?","a":{"t":"2"}}]},
-{"rl":"MOSFET Round 2 (done)","r":2,"q":[
+{"rl":"MOSFET Round 2 (done)","r":2,"u":"https://drive.google.com/file/d/1ifIVEInud1-gvinDAmYbcONLTlRYpus5/view","q":[
 {"i":69810,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"The Mid-Atlantic Ridge, the East Pacific Rise, and the East African Rift are all examples of what type of plate boundary?","a":{"t":"DIVERGENT"}},
 {"i":69811,"s":"math","f":"MC","qt":"tossup","n":16,"q":"Which of the following points is exactly 5 units away from the line x = 3?","a":{"t":"(–2, –8)","l":"W"},"c":{"W":"(–2, –8)","X":"(1, 8)","Y":"(0, 4)","Z":"(3, 4)"}},
 {"i":69814,"s":"chem","f":"MC","qt":"tossup","n":23,"q":"Which of the following atomic subshells fits 2 electrons?","a":{"t":"4s","l":"W"},"c":{"W":"4s","X":"2p","Y":"3d","Z":"5f"}}]},
-{"rl":"MOSFET Round 3 (done)","r":3,"q":[
+{"rl":"MOSFET Round 3 (done)","r":3,"u":"https://drive.google.com/file/d/1N1PXdMdR6jXCKQhbE241NvLfzTDSOsWt/view","q":[
 {"i":69815,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the discriminant of the quadratic x^2 + 4x + 5?","a":{"t":"–4"}},
 {"i":69816,"s":"chem","f":"SA","qt":"bonus","n":5,"q":"If the half-life of a sample of radioactive carbon-14 is 5,700 years, then how many grams of a 200 gram sample of carbon-14 will remain after 11,400 years?","a":{"t":"50"}},
 {"i":69818,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"A 4-kilogram ball traveling at 2 meters per second collides head-on with a 7-kilogram ball, initially at rest. After the collision, the 4-kilogram ball is stationary. What is the final speed of the 7-kilogram ball?","a":{"t":"8/7 METERS PER SECOND"}},
 {"i":69821,"s":"math","f":"SA","qt":"bonus","n":16,"q":"What is the distance between the points (0, 3) and (6, –2)?","a":{"t":"√61","ac":["SQUARE ROOT OF 61"]}},
 {"i":69822,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"What is the value of the angular momentum quantum number of an electron in the 3p orbital?","a":{"t":"1"}},
 {"i":69823,"s":"math","f":"SA","qt":"tossup","n":22,"q":"How many two-digit numbers have two distinct digits?","a":{"t":"81"}}]},
-{"rl":"MOSFET Round 4 (done)","r":4,"q":[
+{"rl":"MOSFET Round 4 (done)","r":4,"u":"https://drive.google.com/file/d/1cmHz1u11UQyVsEG-PjeOFaRpzJRh79yn/view","q":[
 {"i":69825,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"What hair-like projections on a paramecium allows it to move through its environment?","a":{"t":"CILIA"}},
 {"i":69826,"s":"math","f":"MC","qt":"tossup","n":10,"q":"The complex number –3 + 2i lies in which of the following quadrants in the complex plane?","a":{"t":"Second","l":"X"},"c":{"W":"First","X":"Second","Y":"Third","Z":"Fourth"}},
 {"i":69827,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"A one-to-one solution of which of the following would NOT produce an effective buffer?","a":{"t":"Perchloric acid and silver perchlorate","l":"Z"},"c":{"W":"Ammonia and ammonium chloride","X":"Carbonic acid and sodium bicarbonate","Y":"Hydrofluoric acid and potassium fluoride","Z":"Perchloric acid and silver perchlorate"}},
 {"i":69828,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"In a 3-liter container of hydrogen gas at 300 kelvin, the pressure is measured to be 1.2 atmospheres. If the volume of the container is expanded to 5 liters while the temperature stays the same, what would be the new pressure, in atmospheres, of the container?","a":{"t":"0.72"}},
 {"i":69829,"s":"chem","f":"SA","qt":"tossup","n":12,"q":"Researchers at UIUC are using acetone to simulate the water-repellant effects of cicada wings. What property describes substances that repel water?","a":{"t":"HYDROPHOBIC"}}]},
-{"rl":"MOSFET Round 5 (done)","r":5,"q":[
-{"i":69830,"s":"math","f":"SA","qt":"bonus","n":4,"q":"A sequence is defined by a_1 = 1, a_2 = 3, and for n greater than 0, a_(n+2) = 3a_(n+1) – 2a_n. What is the value of a_5?","a":{"t":"31"}},
+{"rl":"MOSFET Round 5 (done)","r":5,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
+{"i":69830,"s":"math","f":"SA","qt":"bonus","n":4,"q":"A sequence is defined by a_1 = 1, a_2 = 3, and for n greater than 0, a_(n+2) = 3a_(n+1) – 2a_n. What is the value of a_5?","a":{"t":"31"}}]},
+{"rl":"MOSFET Round 5 (done)","r":5,"u":"https://drive.google.com/file/d/1IQ8QDzJxPo6aezvqs4RJoDixLGkEHSk5/view","q":[
 {"i":69831,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What quantity equals the area under a curve on a P-V diagram?","a":{"t":"WORK"}},
 {"i":69832,"s":"math","f":"SA","qt":"tossup","n":22,"q":"A point has the coordinates (5, 3). It is reflected across the y-axis and translated 2 units up. What are the coordinates of the new point?","a":{"t":"(–5, 5)"}}]},
-{"rl":"MOSFET Round 6 (done)","r":6,"q":[
+{"rl":"MOSFET Round 6 (done)","r":6,"u":"https://drive.google.com/file/d/1IDtqzCDKPrJPRzQCusdRYIOJdEgXWqP5/view","q":[
 {"i":69834,"s":"phys","f":"MC","qt":"bonus","n":7,"q":"The thermal resistance, or R-value, of an insulating material is a measure of how good of an insulator it is. It is defined as the thickness of a material divided by its thermal conductivity. Based on R-value, which of the following combinations would make for the best insulator?","a":{"t":"Very thick rubber","l":"X"},"c":{"W":"Very thin rubber","X":"Very thick rubber","Y":"Very thin copper","Z":"Very thick copper"}},
 {"i":69835,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"What is the molecular geometry of the compound XeF4?","a":{"t":"Square planar","l":"Z"},"c":{"W":"Tetrahedral","X":"Seesaw","Y":"Trigonal bipyramidal","Z":"Square planar"}},
 {"i":69838,"s":"math","f":"SA","qt":"bonus","n":16,"q":"Sanjay rolls a fair six-sided die twice. What is the probability that the two rolls are different?","a":{"t":"5/6"}},
 {"i":69839,"s":"math","f":"SA","qt":"bonus","n":22,"q":"A triangle has vertices at (1, 2), (5, –2), and (3, 3). What are the coordinates of the centroid of the triangle?","a":{"t":"(3, 1)"}}]},
-{"rl":"MOSFET Round 7 (done)","r":7,"q":[
+{"rl":"MOSFET Round 7 (done)","r":7,"u":"https://drive.google.com/file/d/1cEd94bfNVmgL1US5N24GYVo8QcG_8IR7/view","q":[
 {"i":69840,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"How many joules are in 10 watt-hours?","a":{"t":"36000"}},
 {"i":69841,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"In a population of 100 organisms in Hardy-Weinburg equilibrium, 36 organisms are homozygous recessive for a certain trait. How many organisms are heterozygous for this trait?","a":{"t":"48"}},
 {"i":69842,"s":"math","f":"SA","qt":"tossup","n":10,"q":"What is the second derivative of x^2 – x with respect to x?","a":{"t":"2"}},
 {"i":69843,"s":"phys","f":"SA","qt":"tossup","n":19,"q":"A 150-gram block, which is initially at rest, experiences an impulse of 3 newton-seconds. What is the velocity of the block after the impulse?","a":{"t":"20 METERS PER SECOND"}}]},
-{"rl":"MOSFET Round 8 (done)","r":8,"q":[
+{"rl":"MOSFET Round 8 (done)","r":8,"u":"https://drive.google.com/file/d/150NYwT8gPgVu1uIDnvyE53730KRIXBM2/view","q":[
 {"i":69845,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"The G-string of a violin vibrates at a frequency of 200 hertz. What is the frequency of the 3rd overtone?","a":{"t":"800 HERTZ"}},
 {"i":69846,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A 5-kilogram particle’s position is described by the two equations x(t) = 3t^2 + 2t + 1 and y(t) = 4t^2 + 8t – 6. In newtons, what is the magnitude of the force acting on the particle at t = 1?","a":{"t":"50"}},
 {"i":69848,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"Creutzfeldt-Jakob disease is caused by what type of infectious agent, which can induce the misfolding of proteins?","a":{"t":"PRION"}},
 {"i":69850,"s":"chem","f":"MC","qt":"tossup","n":11,"q":"In the titration curve of NH3 with HCl, which of the following points describes the point at which the concentration of NH3 is equal to the concentration of NH4^(+)?","a":{"t":"Half equivalence point","l":"X"},"c":{"W":"End point","X":"Half equivalence point","Y":"First equivalence point","Z":"Second equivalence point"}},
 {"i":69851,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"Consider the exothermic gaseous phase reaction PCl3(g) + Cl2(g) → PCl5(g) in a container of fixed volume. Identify all of the following four changes that would increase the amount of PCl5 at equilibrium: 1) Increasing the temperature; 2) Adding a catalyst; 3) Adding an inert gas such as N2; 4) Increasing the volume.","a":{"t":"NONE"}}]},
-{"rl":"MOSFET Round 9 (done)","r":9,"q":[
+{"rl":"MOSFET Round 9 (done)","r":9,"u":"https://drive.google.com/file/d/1dM8BxdbeF9Y9a34gDTdH3W_30PJkF6bo/view","q":[
 {"i":69852,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the decimal representation of the base-six numeral two-four-three-five?","a":{"t":"599"}},
 {"i":69853,"s":"math","f":"SA","qt":"tossup","n":10,"q":"A fair six-sided die is rolled 10 times. What is the probability that every roll is different?","a":{"t":"0"}},
 {"i":69854,"s":"chem","f":"SA","qt":"tossup","n":11,"q":"What is the degree of unsaturation of the compound C6H6?","a":{"t":"4"}},
-{"i":69855,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"If the reaction of N2 gas plus 3H2 gas is in equilibrium with 2NH3 gas, then the equilibrium constant of concentration is denoted Kc. Which of the following would be the expression for Kp?","a":{"t":"Kc divided by the quantity RT squared","l":"Y"},"c":{"W":"Kc times the quantity RT squared","X":"Kc","Y":"Kc divided by the quantity RT squared","Z":"Kc divided by the quantity RT cubed"}},
-{"i":69857,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Mice with a mutation of the ob gene were observed to develop obesity. This is because the ob gene codes for what hormone which is produced by adipose tissue, and functions in the regulation of appetite?","a":{"t":"LEPTIN"}},
+{"i":69855,"s":"chem","f":"MC","qt":"bonus","n":11,"q":"If the reaction of N2 gas plus 3H2 gas is in equilibrium with 2NH3 gas, then the equilibrium constant of concentration is denoted Kc. Which of the following would be the expression for Kp?","a":{"t":"Kc divided by the quantity RT squared","l":"Y"},"c":{"W":"Kc times the quantity RT squared","X":"Kc","Y":"Kc divided by the quantity RT squared","Z":"Kc divided by the quantity RT cubed"}}]},
+{"rl":"MOSFET Round 9 (done)","r":9,"u":"https://drive.google.com/drive/folders/1y8sgq6nn4MNJ60AiVlsMi2RSVRhGhkEP","q":[
+{"i":69857,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Mice with a mutation of the ob gene were observed to develop obesity. This is because the ob gene codes for what hormone which is produced by adipose tissue, and functions in the regulation of appetite?","a":{"t":"LEPTIN"}}]},
+{"rl":"MOSFET Round 9 (done)","r":9,"u":"https://drive.google.com/file/d/1dM8BxdbeF9Y9a34gDTdH3W_30PJkF6bo/view","q":[
 {"i":69858,"s":"math","f":"MC","qt":"tossup","n":22,"q":"A piecewise function is defined by f(x) = x + 2 when x is less than or equal to 1, and f(x) = 2x – 1 when x is greater than 1. Which of the following statements best describes the limit as x approaches 1 of f(x)?","a":{"t":"It does not exist","l":"W"},"c":{"W":"It does not exist","X":"It exists and equals 1","Y":"It exists and equals 2","Z":"It exists and equals 3"}},
 {"i":69859,"s":"math","f":"SA","qt":"bonus","n":22,"q":"How many digits are in the base-3 representation of 9 to the 10th power?","a":{"t":"21"}}]},
 {"rl":"MOSFET Round 1 (done)","r":1,"u":"https://speriphery.com/query","q":[

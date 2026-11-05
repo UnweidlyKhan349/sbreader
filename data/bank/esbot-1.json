@@ -524,7 +524,7 @@
 {"i":51614,"s":"ess","f":"MC","qt":"bonus","n":23,"q":"Which of the following best describes a single degenerate progenitor supernova?","a":{"t":"Type 1A supernova involving a white dwarf and a larger star","l":"W"},"c":{"W":"Type 1A supernova involving a white dwarf and a larger star","X":"Type 1B supernova involving a single massive star","Y":"Type 1A supernova involving two white dwarfs","Z":"Type 1B supernova involving a single white dwarf"},"pg":12}]},
 {"rl":"RR 1","r":1,"u":"https://lebot.djiang.xyz/packets/ESBOT%201/RR%201.pdf","q":[
 {"i":51615,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"What plant hormone is responsible for direct immune responses against biotrophic pathogens in plants, and is activated by the removal of a methyl group?","a":{"t":"Salicylic acid","ac":["Methylsalicylic acid"]},"pg":12}]},
-{"rl":"DE 10","r":10,"q":[
+{"rl":"DE 10","r":10,"u":"https://drive.google.com/file/d/15s80UtYXtvyWT3J3ZDL3-yUI17W1YJsX/view","q":[
 {"i":70825,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Find the number of positive integers less than 100 that cannot be expressed as the product of two distinct positive integers greater than 1.","a":{"t":"30"}},
 {"i":70826,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"From first to last, order the following structures based on the sequence in which electric signals pass through them during heart activation? 1) Purkinje Fibers 2) Sinoatrial Node 3) Bundle of His 4) Atrioventricular Node","a":{"t":"2, 4, 3, 1"}},
 {"i":70827,"s":"ess","f":"SA","qt":"tossup","n":12,"q":"Order the following feldspars from lowest to highest melting point. 1) Anorthite 2) Labradorite 3) Albite 4) Orthoclase","a":{"t":"4,3,2,1"}},
@@ -532,7 +532,7 @@
 {"i":70829,"s":"math","f":"SA","qt":"tossup","n":17,"q":"Find the smallest positive integer greater than 1 that is relatively prime to 2, 20, 202, and 2022.","a":{"t":"7"}},
 {"i":70831,"s":"ess","f":"SA","qt":"bonus","n":18,"q":"Order the following four molecules from greatest to least abundance in the atmosphere of Mars. 1) Nitrogen 2) Carbon Dioxide 3) Oxygen 4) Argon","a":{"t":"2, 4, 1, 3"}},
 {"i":70832,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"Order the following four planets in order of increasing density. 1) Jupiter 2) Saturn 3) Uranus 4) Neptune","a":{"t":"2,3,1,4"}}]},
-{"rl":"DE 11","r":11,"q":[
+{"rl":"DE 11","r":11,"u":"https://drive.google.com/file/d/12knBCtNNylUUERdJ8TsvJ6WohV3XKk6H/view","q":[
 {"i":70833,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"Identify all of the following that are diploid I) microspores II) megasporangium III) zygote IV) endosperm","a":{"t":"II, III"}},
 {"i":70835,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Identify all of the following three rock types that are commonly used to make paleoclimate observations: I) Petrified Wood II) Ice III) Travertine","a":{"t":"ALL"}},
 {"i":70836,"s":"ess","f":"SA","qt":"bonus","n":11,"q":"Identify all that are true of the east pacific rise. I) It rifts faster on it’s eastern side II) It rifts faster than subduction occurs at the boundaries of the ring of fire, expanding the pacific ocean basin III) Rifting of the pacific plate can entirely account for the positions of the hawaii-emperor seamount chain","a":{"t":"I only"}},
@@ -540,39 +540,41 @@
 {"i":70838,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"Identify all of the following molecules have a measurable dipole moment in their lowest energy states: I) 1,2-Dichloroethane II) trans-1,3-Dichlorocyclobutane III) trans-1,4-Dichlorocyclohexane IV) 1,3-Dichlorocyclopentane","a":{"t":"2 and 4"}},
 {"i":70839,"s":"bio","f":"SA","qt":"bonus","n":20,"q":"Which of the following enzymes are incorrectly matched with their substrate I) Aromatase – testosterone II) Phospholipase C – phosphatidylinositol III) Separase – cohesin IV) Catalase – hydrogen peroxide","a":{"t":"none"}},
 {"i":70840,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"Rank all of the following 4 sections of the adult spine in increasing order of how many vertebrae they contain? 1) Sacrum 2) Cervical Spine 3) Thoracic Spine 4) Lumbar Spine","a":{"t":"1,4,2,3"}}]},
-{"rl":"DE 12","r":12,"q":[
+{"rl":"DE 12","r":12,"u":"https://drive.google.com/file/d/1gam9g55PzK4Tc9-IQAXFFwQod9FhePgt/view","q":[
 {"i":70842,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"Identify all of the following quantities that are correctly paired with their conjugate quantities: I) Energy and time II) Temperature and heat III) Electric potential and charge density IV) Gravitational potential and mass density","a":{"t":"I, III, and IV"}},
 {"i":70843,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"Which of the following enzymes is incorrectly paired to its role in eukaryotic DNA replication I) DNA polymerase delta: synthesis of the leading strand II) DNA polymerase gamma: synthesis of the lagging strand III) DNA polymerase alpha: initiation of replication IV) DNA polymerase epsilon: replication of mitochondrial DNA","a":{"t":"I, II, IV"}},
 {"i":70844,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Identify all of the following that are true of solar insolation on earth. I) On average, insolation at the top of the atmosphere is higher than at the surface II) On average, insolation received at the ocean surface is lower than insolation received on land. III) For a given region at a given time of year, insolation received on days of colder weather should be lower than insolation received on days of warmer weather.","a":{"t":"I, II"}}]},
-{"rl":"DE 8","r":8,"q":[
+{"rl":"DE 8","r":8,"u":"https://drive.google.com/file/d/1Lkh-PU-3QwfdTFDhK8t2jKHs3BqSroON/view","q":[
 {"i":70846,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Order the following rocks in order from highest to lowest elevation along a stream profile: 1) Breccia 2) Quartz Sandstone 3) Conglomerate 4) Arkose","a":{"t":"1, 3, 4, 2"}},
 {"i":70847,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"Order the following locations on the terrestrial planets in increasing strength of coriolis effect. 1) North Pole of Mercury 2) North Pole of Venus 3) North Pole of Earth 4) North Pole of Mars","a":{"t":"2,1,4,3"}}]},
-{"rl":"DE 9","r":9,"q":[
+{"rl":"DE 9","r":9,"u":"https://drive.google.com/file/d/1fA2vwkaKn3BWD2pLGpvzJ_wshuyPtfyN/view","q":[
 {"i":70848,"s":"chem","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following atoms that have more neutrons than electrons: I) ^17O^(2-) II) ^53Cr^(7+) III) ^29Si^(4-)","a":{"t":"II only"}},
 {"i":70850,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Identify all of the following statements that are true of internal waves: I) Internal waves have higher amplitude than surface waves with the same energy II) Internal waves have lower frequency than surface waves with the same energy III) Internal waves tend to be most pronounced at 30° north.","a":{"t":"I, and II"}},
 {"i":70851,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"Which of the following 4 reagent-catalyst pairs react with benzene to form an acidic compound? I) Chlorine gas – Iron Chloride II) Methyl Chloride – Aluminum Chloride III) Nitric Acid – Sulfuric Acid IV) Sulfur Trioxide – Sulfuric Acid","a":{"t":"IV Only"}},
 {"i":70852,"s":"phys","f":"SA","qt":"bonus","n":9,"q":"Identify all of the following three points that would be in stable equilibrium under the potential function U(x) = 4x^3 - 3x^2 + 1: I) x = -0.5 II) x = 0 III) x = 0.5","a":{"t":"III only"}},
 {"i":70853,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Order the following three satellites of Saturn from least to greatest mass. 1) Mimas 2) Titan 3) Iapetus","a":{"t":"1, 3, 2"}},
 {"i":70855,"s":"math","f":"SA","qt":"tossup","n":21,"q":"Identify all of the following numbers that are not prime. 1) 7,749 2) 33,549 3) 13,625","a":{"t":"All"}}]},
-{"rl":"RR 1","r":1,"q":[
+{"rl":"RR 1","r":1,"u":"https://drive.google.com/file/d/1O_uXSpA41wcAlGVIjs98y1gYucFwB6Ok/view","q":[
 {"i":70856,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"Order the following taxonomic classifications from least to most specific: 1) Chordata 2) Suidae 3) Artiodactyla 4) Sus","a":{"t":"1, 3, 2, 4"}},
 {"i":70857,"s":"chem","f":"SA","qt":"bonus","n":21,"q":"Order the following 4 elements from highest to lowest on the periodic table: 1) Potassium 2) Silicon 3) Barium 4) Indium","a":{"t":"2, 1, 4, 3"}}]},
-{"rl":"RR 2","r":2,"q":[
+{"rl":"RR 2","r":2,"u":"https://drive.google.com/file/d/16BzTTd7VM7kiDGUFv2oGDHHyKvaJIpW3/view","q":[
 {"i":70858,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"Identify all of the following four temperature scales that are absolute temperature scales: I) Rømer II) Rankine III) Kelvin IV) Centigrade","a":{"t":"II and III"}},
-{"i":70859,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"Which process dominates precipitation formation in nimbostratus clouds?","a":{"t":"Collision Coalescence Process"}},
-{"i":70860,"s":"ess","f":"SA","qt":"bonus","n":5,"q":"What is the name of the type of moraine that is formed when two glaciers come together?","a":{"t":"Medial Moraine"}},
+{"i":70859,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"Which process dominates precipitation formation in nimbostratus clouds?","a":{"t":"Collision Coalescence Process"}}]},
+{"rl":"RR 2","r":2,"u":"https://drive.google.com/drive/folders/1VXztUyuVroqyolRnZGCD3GeSff1BDkmn","q":[
+{"i":70860,"s":"ess","f":"SA","qt":"bonus","n":5,"q":"What is the name of the type of moraine that is formed when two glaciers come together?","a":{"t":"Medial Moraine"}}]},
+{"rl":"RR 2","r":2,"u":"https://drive.google.com/file/d/16BzTTd7VM7kiDGUFv2oGDHHyKvaJIpW3/view","q":[
 {"i":70861,"s":"math","f":"SA","qt":"tossup","n":12,"q":"A normal distribution for the height, in inches, of aliens on Planet X shows a mean of 50 inches and a standard deviation of 6 inches. If an alien has a height of 41 inches, what is their z-score according to the normal distribution?","a":{"t":"-1.5"}},
 {"i":70862,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Rohit has 18 feet of fence to enclose an 18 square feet area of his backyard. Given that he must enclose 18 square feet, identify all of the following four shapes of areas in his back yard that he could enclose with the fence he has. I) Circle II) Hexagon III) Square IV) Equilateral Triangle","a":{"t":"I, II and III"}}]},
-{"rl":"RR 3","r":3,"q":[
+{"rl":"RR 3","r":3,"u":"https://drive.google.com/file/d/1yDF1xoxhKPr46r-Tr3BXyPhbiMt2UWjo/view","q":[
 {"i":70863,"s":"math","f":"SA","qt":"tossup","n":16,"q":"What is the value of the expression cos(14π/50)/sin(-11π/50)?","a":{"t":"-1"}},
 {"i":70864,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"A block sits on a track with potential modeled by the function U(x) = 4 + (x - 2)^2. If the block begins at rest and moves from x = -2 to x = 1 under a constant 2 Newton friction force, what is its kinetic energy at x = 1?","a":{"t":"9 J"}}]},
-{"rl":"RR 4","r":4,"q":[
+{"rl":"RR 4","r":4,"u":"https://drive.google.com/file/d/1bKQ6vOOxDZXd8NVjlZ0320efjNh3sQPc/view","q":[
 {"i":70865,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following three major ocean currents that are western boundary currents: I) Gulf Stream II) Kuroshio Current III) Agulhas Current","a":{"t":"ALL"}},
 {"i":70866,"s":"phys","f":"SA","qt":"bonus","n":7,"q":"Identify all of the following three quantities that have a positive value during isothermal expansion: I) Work done by the system II) Change in internal energy III) Heat added to the system","a":{"t":"I and III"}}]},
-{"rl":"RR 5","r":5,"q":[
+{"rl":"RR 5","r":5,"u":"https://drive.google.com/file/d/1S5vNPn38ocLa6_lxTVupb_fKDn8IZaNn/view","q":[
 {"i":70867,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following conditions that would result in a Bohr shift of the hemoglobin-oxygen dissociation curve: I) Increased partial pressure of CO2 II) Increased partial pressure of O2 III) Increased concentration of 2,3 BPG in the blood IV) Increased concentration of lactic acid in the blood","a":{"t":"I, III, IV"}},
 {"i":70868,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Order the following gaseous molecules from highest to lowest velocity at 273 Kelvin: 1) Ammonia 2) Nitrogen 3) Oxygen 4) Carbon monoxide","a":{"t":"1,4,2,3"}}]},
-{"rl":"Seeding Round (1)","r":null,"q":[
+{"rl":"Seeding Round (1)","r":null,"u":"https://drive.google.com/file/d/1wNQ_0U_VMt6pICG9lHAoYjivjro1FwIp/view","q":[
 {"i":70869,"s":"math","f":"SA","qt":"tossup","n":3,"q":"An ellipse has 2 foci at (-3,0) and (3,0) and a point at (0,4) on the ellipse. What is the area of this ellipse?","a":{"t":"20π"}},
 {"i":70870,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"Tatooine orbits 2 AU away from a binary star system with masses of 1 solar mass and 2 solar masses. What is its orbital period to the nearest year?","a":{"t":"5"}}]},
 {"rl":"DE 8","r":8,"u":"https://lebot.djiang.xyz/packets/ESBOT%201/DE%208.pdf","q":[

@@ -587,42 +587,43 @@
 {"i":51625,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"By name or number, order the following three steps in a Western blot in order of occurrence: 1) Blocking with milk 2) Incubation with secondary antibody 3) Ponceau stain","a":{"t":"3, 1, 2"},"pg":10}]},
 {"rl":"round11","r":11,"u":"https://lebot.djiang.xyz/packets/MIT-2021/round11.pdf","q":[
 {"i":51626,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"By name or number, identify all of the following four structures that typically contain older rocks towards their centers: 1) Syncline 2) Anticline 3) Dome 4) Basin","a":{"t":"1 and 3"},"pg":10}]},
-{"rl":"round1","r":1,"q":[
+{"rl":"round1","r":1,"u":"https://drive.google.com/file/d/1--caTV6D9oJ0w-n-ljdM2EYfVjhgBzHA/view","q":[
 {"i":70871,"s":"bio","f":"MC","qt":"tossup","n":6,"q":"The Tannenbaum group at MIT studies nitrogencontaining small molecules such as nitric oxide and their effects on biological systems. Which of the following effects can be caused by nitric oxide?","a":{"t":"Vasodilation of blood vessels","l":"W"},"c":{"W":"Vasodilation of blood vessels","X":"Vasoconstriction of blood vessels","Y":"Extension of blood vessels","Z":"Migration of blood vessels"}},
 {"i":70873,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the value of the expression (1 + 3i)(3 + i)(1 + 5i)(5 + i)?","a":{"t":"−260"}}]},
-{"rl":"round11","r":11,"q":[
+{"rl":"round11","r":11,"u":"https://drive.google.com/file/d/14DBb6LTDsL_xVBEgOxoJ_l2IZu2NX-HH/view","q":[
 {"i":70878,"s":"math","f":"MC","qt":"bonus","n":7,"q":"Which of the following axioms is not an axiom of Zermelo- Fraenkel set theory?","a":{"t":"Axiom of induction","l":"X"},"c":{"W":"Axiom of power set","X":"Axiom of induction","Y":"Axiom of infinity","Z":"Axiom of pairing"}},
 {"i":70881,"s":"math","f":"SA","qt":"bonus","n":22,"q":"What is the derivative in x of the function x^(1/lnx), for positive real x?","a":{"t":"0"}}]},
-{"rl":"round12","r":12,"q":[
+{"rl":"round12","r":12,"u":"https://drive.google.com/file/d/1L0z491MsHBsew6pI3hAm3tpdbemAjvlg/view","q":[
 {"i":70882,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Researchers in the Kavli Institute at MIT are studying X- Ray Fluorescence in accreting Black Holes. In particular, they are looking at what variation of accretion which has characteristic thick disks and extreme radiation pressure?","a":{"t":"Super-Eddington accretion"}},
 {"i":70883,"s":"math","f":"MC","qt":"bonus","n":4,"q":"The solutions to the equation x^4 + x^3 + x + 1 = 0 are graphed on the complex plane. What is the area of the convex polygon bounded by those points?","a":{"t":"3√3/4","l":"Y"},"c":{"W":"√3/4","X":"√3/2","Y":"3√3/4","Z":"√3"}},
 {"i":70884,"s":"math","f":"SA","qt":"tossup","n":21,"q":"What is the transpose of the following matrix product: AT B T C","a":{"t":"C T BA"}}]},
-{"rl":"round13","r":13,"q":[
+{"rl":"round13","r":13,"u":"https://drive.google.com/file/d/1jFPaLLiFX1WR6H8GVtzrffq4oAQFzctM/view","q":[
 {"i":70888,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Suppose that more than half of all n-digit integers contain the digit 7. What is the smallest possible value of the positive integer n?","a":{"t":"7"}}]},
-{"rl":"round2","r":2,"q":[
+{"rl":"round2","r":2,"u":"https://drive.google.com/file/d/1-qpvSLXHX-z69VD7n0lR5YOAN1KbPdMu/view","q":[
 {"i":70890,"s":"bio","f":"MC","qt":"tossup","n":10,"q":"The Lauffenburger group at MIT is studying receptormediated cell signaling. Which of the following molecules is NOT a ligand for a cell surface receptor?","a":{"t":"Cyclic AMP","l":"W"},"c":{"W":"Cyclic AMP","X":"Oxytocin","Y":"Renin","Z":"Gastrin"}},
 {"i":70891,"s":"bio","f":"MC","qt":"bonus","n":10,"q":"The Grodzinsky group at MIT is studying cytokineinduced inflammation. Which of the following cytokines does NOT upregulate the inflammatory pathway?","a":{"t":"Interleukin-1RA","l":"Y"},"c":{"W":"Interleukin-1","X":"Interleukin-6","Y":"Interleukin-1RA","Z":"TNF-alpha"}},
 {"i":70892,"s":"math","f":"SA","qt":"bonus","n":11,"q":"What are all the horizontal and vertical asymptotes of the following function over the real numbers: f(x) = (x^3 − 5x^2 + 4)/(x^2 − 1)","a":{"t":"x = −1"}},
 {"i":70895,"s":"math","f":"SA","qt":"bonus","n":23,"q":"What is the shortest distance between the circle x^2 +y^2 = 4 and the line 3x + 4y = 13?","a":{"t":"3/5"}}]},
-{"rl":"round3","r":3,"q":[
+{"rl":"round3","r":3,"u":"https://drive.google.com/file/d/1snn_IPrX1XWXAkNk3cIcLN_YazfbpnsX/view","q":[
 {"i":70896,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"Magnetite has chemical formula Fe3O4. In one formula unit of magnetite, how many iron II ions are there?","a":{"t":"1"}}]},
-{"rl":"round4","r":4,"q":[
-{"i":70900,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"When BF3 acts as a Lewis acid and accepts an electron pair, which of the following orbitals on BF3 does the electron pair interact with?","a":{"t":"A non-bonding p orbital","l":"Z"},"c":{"W":"A pi bonding orbital","X":"A pi antibonding orbital","Y":"A sigma antibonding orbital","Z":"A non-bonding p orbital"}},
+{"rl":"round4","r":4,"u":"https://drive.google.com/file/d/1QzB-YSbKgyThnKGVViMubuZNbYeN2JeM/view","q":[
+{"i":70900,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"When BF3 acts as a Lewis acid and accepts an electron pair, which of the following orbitals on BF3 does the electron pair interact with?","a":{"t":"A non-bonding p orbital","l":"Z"},"c":{"W":"A pi bonding orbital","X":"A pi antibonding orbital","Y":"A sigma antibonding orbital","Z":"A non-bonding p orbital"}}]},
+{"rl":"round4","r":4,"u":"https://drive.google.com/drive/folders/1xBSlKAc5pkZC5SQmpUpEaEEywifgdMl2","q":[
 {"i":70901,"s":"math","f":"MC","qt":"bonus","n":9,"q":"The repeating decimal 0.444 in base b equals the base-10 fraction 1/2. What is the value of b?","a":{"t":"9","l":"Z"},"c":{"W":"6","X":"7","Y":"8","Z":"9"}}]},
-{"rl":"round5","r":5,"q":[
+{"rl":"round5","r":5,"u":"https://drive.google.com/file/d/107-T-NVEd0Mn8woWz1Wr6LMVpHuPmQh6/view","q":[
 {"i":70902,"s":"math","f":"SA","qt":"bonus","n":7,"q":"In the expansion the polynomial (x + 2y)^4, what is the sum of all the coefficients?","a":{"t":"81"}},
 {"i":70904,"s":"bio","f":"SA","qt":"bonus","n":12,"q":"How many heavy chains does the most common multimeric form of an IgM antibody possess?","a":{"t":"10"}}]},
-{"rl":"round6","r":6,"q":[
+{"rl":"round6","r":6,"u":"https://drive.google.com/file/d/1iBVz0JkJupi8m2I1gci8mxM4I-r3w_ZW/view","q":[
 {"i":70906,"s":"bio","f":"MC","qt":"bonus","n":2,"q":"The Bartel group produced a model for how microRNAs can act cooperatively to enhance gene silencing. Cooperative binding between proteins is often quantified using a Hill Coefficient. What values for a Hill coefficient indicate cooperative binding?","a":{"t":"Greater than 1","l":"Z"},"c":{"W":"Less than 0","X":"Between 0 and 0.5","Y":"Between 0.5 and 1","Z":"Greater than 1"}},
 {"i":70907,"s":"math","f":"MC","qt":"tossup","n":4,"q":"How many real roots does the polynomial x^3 + 7x + 2 have?","a":{"t":"1","l":"X"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}},
 {"i":70908,"s":"math","f":"SA","qt":"bonus","n":4,"q":"What is the average value of the function f(x) = sin^2(x) cos^2(x) on the interval between x = 0 and x = π?","a":{"t":"1/8"}}]},
-{"rl":"round7","r":7,"q":[
+{"rl":"round7","r":7,"u":"https://drive.google.com/file/d/137nVpP1zlNiUzlVhnK3BnhaN3k-so3wz/view","q":[
 {"i":70909,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Giving your answer as a decimal to the nearest tenth, what is the ratio of the rate of effusion of hydrogen gas at 150 kelvin to that of water vapor at 600 kelvin?","a":{"t":"1.5"}},
 {"i":70910,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Which of the following numbers does not divide 3^12 −2^12?","a":{"t":"11","l":"Y"},"c":{"W":"5","X":"7","Y":"11","Z":"13"}},
 {"i":70911,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"If a force is exerted on an object along the positive x-axis, then which of the following could be the torque vector about a pivot that lies on the negative z-axis?","a":{"t":"8ĵ","l":"W"},"c":{"W":"8ĵ","X":"−5ĵ","Y":"4î","Z":"−9î"}}]},
-{"rl":"round8","r":8,"q":[
+{"rl":"round8","r":8,"u":"https://drive.google.com/file/d/11RTwoHn4lcK6jftKp1CjQX66dC9WGGIv/view","q":[
 {"i":70913,"s":"math","f":"SA","qt":"bonus","n":21,"q":"What is the integral of the flux of the vector field xî+y ĵ+z k̂ out of a sphere centered at the origin of radius 2?","a":{"t":"32π"}}]},
-{"rl":"round9","r":9,"q":[
+{"rl":"round9","r":9,"u":"https://drive.google.com/file/d/1GuwmEr9mh_vslNdy42P1BHQOoVSbs9Ne/view","q":[
 {"i":70917,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Find the integral from 0 to π of x cos(x)dx.","a":{"t":"−2"}}]},
 {"rl":"round13","r":13,"u":"https://lebot.djiang.xyz/packets/MIT-2021/round13.pdf","q":[
 {"i":96049,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the integral from negative infinity to infinity of e^(−(x^2 + 8x + 9)) dx.","a":{"t":"e^7 √π","ac":["√π e^7","e^7 · √π"]}}]},

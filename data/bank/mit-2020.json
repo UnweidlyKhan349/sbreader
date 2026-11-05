@@ -581,51 +581,54 @@
 {"i":51621,"s":"math","f":"MC","qt":"bonus","n":6,"q":"Which of the following points is a critical point of the function f(x, y) = x^2 + y^2 + 3x + 6y?","a":{"t":"(−3/2, −3)","l":"Z"},"c":{"W":"(1, 2)","X":"(−1, −2)","Y":"(3/2, 3)","Z":"(−3/2, −3)"},"pg":6}]},
 {"rl":"round11","r":11,"u":"https://lebot.djiang.xyz/packets/MIT-2020/round11.pdf","q":[
 {"i":51622,"s":"math","f":"MC","qt":"tossup","n":13,"q":"What is the largest possible real domain of the following function: f(x) = sin(x)/ln(x)?","a":{"t":"(0, 1) ∪ (1, ∞)","l":"Z"},"c":{"W":"(−∞, ∞)","X":"(0, ∞)","Y":"(1, ∞)","Z":"(0, 1) ∪ (1, ∞)"},"pg":13}]},
-{"rl":"round1","r":1,"q":[
+{"rl":"round1","r":1,"u":"https://drive.google.com/drive/folders/15dr9C2tDSBGW0M-oJDU8qrxg0qpZ22MR","q":[
 {"i":70502,"s":"chem","f":"MC","qt":"tossup","n":6,"q":"You have an unknown acid with pKa of 5. What is the pH of a 0.1 molar solution of this acid?","a":{"t":"3","l":"Y"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
 {"i":70503,"s":"chem","f":"SA","qt":"bonus","n":8,"q":"Researchers in the Jarillo-Herrero group at MIT have discovered that rotating adjacent sheets of graphene in a graphene lattice can change the electronic properties of the lattice. What is the main force that holds graphene sheets together?","a":{"t":"Van der Waals","ac":["London dispersion"]}}]},
-{"rl":"round10","r":10,"q":[
+{"rl":"round10","r":10,"u":"https://drive.google.com/file/d/166naRd_4JYnjLEWvTpkTB6nv4xIW9hQZ/view","q":[
 {"i":70511,"s":"bio","f":"MC","qt":"bonus","n":21,"q":"Transcription factors can often be split into DNAbinding and activation domains. Scientists exploit this fact to study protein interactions in which of the following assays?","a":{"t":"Yeast two-hybrid","l":"Y"},"c":{"W":"ChIP-seq","X":"Proximity ligation","Y":"Yeast two-hybrid","Z":"Phage display"}},
 {"i":70512,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"A particle moving in the xy-plane has Lagrangian L = ẋ^2 + ẏ^2 − αx. By name or number, identify all of the following three quantities that are conserved for this particle: 1) Energy 2) x component of momentum 3) y component of momentum","a":{"t":"1 and 3"}},
 {"i":70513,"s":"math","f":"SA","qt":"tossup","n":23,"q":"Giving your answer in simplest radical form, rationalize the denominator of the following expression: 1/(∛7 − ∛2)","a":{"t":"(∛49 + ∛14 + ∛4)/5"}}]},
-{"rl":"round11","r":11,"q":[
+{"rl":"round11","r":11,"u":"https://drive.google.com/file/d/1j36mPr_pW-NS4rzLdhKE05UXA9ONestJ/view","q":[
 {"i":70515,"s":"chem","f":"MC","qt":"tossup","n":18,"q":"How many nodal planes does the LUMO of hexatriene have?","a":{"t":"4","l":"Y"},"c":{"W":"2","X":"3","Y":"4","Z":"5"}},
 {"i":70516,"s":"chem","f":"SA","qt":"bonus","n":23,"q":"You discover a square planar complex ML4, where M is a transition metal and L is a ligand. You find that the degeneracy of the d orbitals in increasing energy in the complex is 2, 1, 1, 1. Identify all of the following 3 classifications the ligand L can fall under: 1) sigma donor 2) pi donor 3) pi acceptor","a":{"t":"2 only"}}]},
-{"rl":"round12","r":12,"q":[
+{"rl":"round12","r":12,"u":"https://drive.google.com/file/d/1RPaUDc-ieZrNNYIe1nFTyxtgzpDxXMmr/view","q":[
 {"i":70517,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"Researchers in the Reddien group at MIT deployed singlecell RNA sequencing while investigating planarian regeneration. By name or number, identify all of the following four choices that explain why single-cell RNA sequencing in bacteria is more difficult than in mammals: 1) High coverage in RNA contigs 2) Lack of polyadenylated mRNA 3) Scarcity of total RNA 4) Low sensitivity with rRNA","a":{"t":"2 and 3"}},
 {"i":70518,"s":"phys","f":"MC","qt":"bonus","n":7,"q":"Eight charges, each with charge +q, are placed at the corners of a cube. Consider the electric potential V (x, y, z) within this cube. Which of the following best describes the potential at the center of the cube?","a":{"t":"Saddle point","l":"Y"},"c":{"W":"Local minimum","X":"Local maximum","Y":"Saddle point","Z":"Singularity"}},
 {"i":70520,"s":"math","f":"MC","qt":"bonus","n":13,"q":"For four vectors u1, u2, v1, and v2 in the first quadrant of the plane, even if u1 has a smaller slope than v1 and u2 has a smaller slope than v2, it is possible for the vector u1 + u2 to have a larger slope than the vector v1 + v2 . This innocent fact about vectors manifests in what real-world phenomenon?","a":{"t":"Simpson’s paradox","l":"W"},"c":{"W":"Simpson’s paradox","X":"Berkson’s paradox","Y":"Friendship paradox","Z":"Lindley’s paradox"}},
 {"i":70521,"s":"math","f":"SA","qt":"tossup","n":22,"q":"Expressing your answer in hexadecimal, what is the square of the hexadecimal number 23?","a":{"t":"4C9"}}]},
-{"rl":"round13","r":13,"q":[
+{"rl":"round13","r":13,"u":"https://drive.google.com/file/d/1zgqXA-o0fcFnfE2nyZe3uop2MZ2q10Iw/view","q":[
 {"i":70522,"s":"phys","f":"SA","qt":"tossup","n":14,"q":"A rocket travels at speed 0.8c. What is the ratio of its kinetic energy to its rest energy?","a":{"t":"2/3"}},
 {"i":70523,"s":"phys","f":"SA","qt":"bonus","n":14,"q":"Andrew is trying to ice skate through a circular loopde-loop with radius 2 meters. If there is no frictional energy loss in this loop, what is the minimum speed, in meters per second to the nearest integer, that Andrew needs at the beginning of the loop to clear it?","a":{"t":"10 meters per second"}},
-{"i":70524,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"What effect in extended solids analogous to Jahn- Teller distortion states that partially filled bands tend to distort to form one filled band and one empty band?","a":{"t":"Peierls distortion"}},
+{"i":70524,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"What effect in extended solids analogous to Jahn- Teller distortion states that partially filled bands tend to distort to form one filled band and one empty band?","a":{"t":"Peierls distortion"}}]},
+{"rl":"round13","r":13,"u":"https://drive.google.com/drive/folders/15dr9C2tDSBGW0M-oJDU8qrxg0qpZ22MR","q":[
 {"i":70525,"s":"math","f":"SA","qt":"tossup","n":21,"q":"The Banach-Tarski Paradox is a theorem stating that a sphere can be divided into finitely many pieces that can be rearranged to form two spheres of the same size. What somewhat controversial postulate commonly used in set theory is required to prove this theorem?","a":{"t":"Axiom of Choice","ac":["Choice","Well-Ordering Principle"]}},
 {"i":70527,"s":"ess","f":"MC","qt":"tossup","n":23,"q":"The Sunyaev-Zel’dovich effect, which is used by cosmologists to study the cosmic microwave background in galaxy clusters, is a result of which of the following physical phenomena?","a":{"t":"Inverse Compton scattering","l":"Z"},"c":{"W":"Relativistic Doppler effect","X":"Bremsstrahlung","Y":"Cold dark matter","Z":"Inverse Compton scattering"}}]},
-{"rl":"round2","r":2,"q":[
+{"rl":"round2","r":2,"u":"https://drive.google.com/drive/folders/15dr9C2tDSBGW0M-oJDU8qrxg0qpZ22MR","q":[
 {"i":70530,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"Researchers in the Voigt group at MIT are developing novel gene pathways to produce new molecules in bacteria. What is the name for a group of genes in bacteria under the same promoter?","a":{"t":"Operon"}}]},
-{"rl":"round3","r":3,"q":[
+{"rl":"round3","r":3,"u":"https://drive.google.com/file/d/1jh7d8VollnE_YB6psQJjfM7wzzRChsTc/view","q":[
 {"i":70535,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"How many structural isomers are there for the compound C5H12?","a":{"t":"3"}}]},
-{"rl":"round4","r":4,"q":[
+{"rl":"round4","r":4,"u":"https://drive.google.com/file/d/1TfLmUHqDVenJGpTAs1llliqDDKVk_85i/view","q":[
 {"i":70540,"s":"math","f":"SA","qt":"bonus","n":17,"q":"If a and b are positive integers satsisfying ab + 4 = 2a + 5b, how many possible values are there for the ordered pair (a, b)?","a":{"t":"4"}},
 {"i":70541,"s":"math","f":"SA","qt":"bonus","n":20,"q":"How many ordered triples (x, y, z) of positive integers satisfy xyz = 2020?","a":{"t":"54"}}]},
-{"rl":"round5","r":5,"q":[
+{"rl":"round5","r":5,"u":"https://drive.google.com/file/d/1-JagUYOwue32NXz6ei_L4z08LWe0D7LF/view","q":[
 {"i":70542,"s":"phys","f":"MC","qt":"tossup","n":13,"q":"Two point charges, one with charge +4q and one with charge −1q, are positioned on the x-axis such that the former is at the origin and the latter is at +6. At what point on the x-axis can a charge of +2q be placed such that it is subject to zero net force?","a":{"t":"+12","l":"Z"},"c":{"W":"−6","X":"−3","Y":"+4","Z":"+12"}},
 {"i":70543,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"Researchers at MIT are involved in the Mars Oxygen In- Situ Resource Utilization Experiment, or MOXIE, aboard the Perserverance Rover, which explores the feasbility of generating oxygen from the Martian atmosphere. What gas is the most common component of Mars’s atmosphere?","a":{"t":"Carbon dioxide"}}]},
-{"rl":"round7","r":7,"q":[
-{"i":70548,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Given that ammonia has a Kb of 2 × 10^-5, when equal volumes of an 0.4 molar ammonia solution and 0.4 molar HCl solution are reacted, to one significant figure, what is the pH of the resulting solution?","a":{"t":"5"}},
+{"rl":"round7","r":7,"u":"https://drive.google.com/drive/folders/15dr9C2tDSBGW0M-oJDU8qrxg0qpZ22MR","q":[
+{"i":70548,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Given that ammonia has a Kb of 2 × 10^-5, when equal volumes of an 0.4 molar ammonia solution and 0.4 molar HCl solution are reacted, to one significant figure, what is the pH of the resulting solution?","a":{"t":"5"}}]},
+{"rl":"round7","r":7,"u":"https://drive.google.com/file/d/1qAmhNF51m_MF6qLjKgb9rL96a-UlTjbJ/view","q":[
 {"i":70549,"s":"math","f":"SA","qt":"tossup","n":14,"q":"What is the slope of a line with y-intercept of 3 that goes through the point (4, 1)?","a":{"t":"−1/2"}},
 {"i":70550,"s":"bio","f":"MC","qt":"tossup","n":15,"q":"Which of the following animals would exhibit a pulmocutaneous circuit?","a":{"t":"Amphibians","l":"Z"},"c":{"W":"Mammals","X":"Reptiles","Y":"Birds","Z":"Amphibians"}}]},
-{"rl":"round8","r":8,"q":[
+{"rl":"round8","r":8,"u":"https://drive.google.com/drive/folders/15dr9C2tDSBGW0M-oJDU8qrxg0qpZ22MR","q":[
 {"i":70551,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Find the roots of the quartic equation x^4 + 2x^3 + 2x^2 + 2x + 1 = 0.","a":{"t":"−1, i, −i"}},
-{"i":70552,"s":"bio","f":"MC","qt":"tossup","n":4,"q":"Antidepressant medications such as fluoxetine (Prozac) and sertraline (Zoloft) work by which of the following mechanisms?","a":{"t":"Selective serotonin reuptake inhibition","l":"Y"},"c":{"W":"Monoamine oxidase inhibition","X":"N-methyl-D-aspartate receptor antagonism","Y":"Selective serotonin reuptake inhibition","Z":"Serotonin-norepinephrine reuptake inhibition"}},
+{"i":70552,"s":"bio","f":"MC","qt":"tossup","n":4,"q":"Antidepressant medications such as fluoxetine (Prozac) and sertraline (Zoloft) work by which of the following mechanisms?","a":{"t":"Selective serotonin reuptake inhibition","l":"Y"},"c":{"W":"Monoamine oxidase inhibition","X":"N-methyl-D-aspartate receptor antagonism","Y":"Selective serotonin reuptake inhibition","Z":"Serotonin-norepinephrine reuptake inhibition"}}]},
+{"rl":"round8","r":8,"u":"https://drive.google.com/file/d/1QisSQa4_8syc_3gkvSUIDXKkZ0hVi9wQ/view","q":[
 {"i":70554,"s":"math","f":"SA","qt":"tossup","n":10,"q":"What is the limit, as x approaches 0, of cos(x)/(x + 1)?","a":{"t":"1"}}]},
-{"rl":"round9","r":9,"q":[
+{"rl":"round9","r":9,"u":"https://drive.google.com/file/d/1lJWMVaujBzMp-gAB60bof2yZJwP9l8a8/view","q":[
 {"i":70556,"s":"math","f":"SA","qt":"bonus","n":5,"q":"What is the determinant of the following 3 by 3 matrix? [[2, 0, 0], [1, 5, 3], [2, 4, 1]]","a":{"t":"−14"}},
 {"i":70557,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the limit, as x approaches infinity, of 2^x/(3^x − 1)?","a":{"t":"0"}},
 {"i":70558,"s":"math","f":"MC","qt":"bonus","n":22,"q":"Andrew defines a function f(x), where f(x) is equal to the sum of the squares of the numbers 1 to x. For how many values of x in the range from 1 to 20 is f(x) divisible by 7?","a":{"t":"8","l":"Z"},"c":{"W":"5","X":"6","Y":"7","Z":"8"}}]},
 {"rl":"round3","r":3,"u":"https://speriphery.com/query","q":[
 {"i":85336,"s":"ess","f":"SA","qt":"bonus","n":null,"q":"Identify all of the following four minerals which are silicates: 1) Quartz; 2) Dolomite; 3) Gypsum; 4) Talc.","a":{"t":"1, 4"}}]},
-{"rl":"round13","r":13,"u":"https://speriphery.com/query","q":[
+{"rl":"round13","r":13,"u":"https://drive.google.com/file/d/1zgqXA-o0fcFnfE2nyZe3uop2MZ2q10Iw/view","q":[
 {"i":85337,"s":"energy","f":"SA","qt":"bonus","n":null,"q":"Researchers in the Bawendi group at MIT are focusing on quantum dots as next generation fluorescent dyes. Answer the following questions about quantum dots: 1) The energy levels of a quantum dot are proportional to what power of the radius? 2) Quantum dots can be generated by many techniques, including one technique where the pattern is imprinted on a thin surface using light, and then etched. What is this technique known as?","a":{"t":"-2; Photolithography"}}]}
 ]

@@ -495,6 +495,17 @@ The **better-quality** copy wins, not the newer one. The quality score rewards i
 
 Result: **1,357 duplicates removed** (62,976 → 61,619). One more pair was removed by hand (ESBOT 2 inner product, garbled i=8106, whose clean copy uses Unicode italic 𝑤/𝑣/𝑖 the detector didn't match) → **61,618**.
 
+### Source links and packet pages (November 2026)
+<a id="source-links-november-2026"></a>Every question now links to where it's published (bank size unchanged).
+
+- **Questions with no link** (10,280 in 62 tournaments, plus 1,156 that pointed only at `speriphery.com/query`, a search page): `tools/link-sweep.js` crawled the Science Bowl Periphery's public Drive archive (69 tournament folders) and every Drive folder or Google Doc behind a "Packets" link on scibowl.stanford.edu/tournaments: 953 files, read as text (Google Docs exported, PDFs through pdftotext, .docx/.pptx from their XML, extensionless Drive files by their first bytes). Each tournament was matched to the folder holding most of a sample of its questions, so folder names didn't have to match (Fall 2023 is "BSB Fall 2023", NCB 2026 "National ChemBowl", the Earth and Space Scrimmages Stanford's packet hubs), and each question to the file containing its opening; when several files did, the one holding most of its round won.
+  - **9,654** now link to their own packet file (a Drive file or Google Doc), including the whole 2026 Texas Science Bowl Invitational, which had come from the desktop archive and turned out to be public in the Periphery archive.
+  - **693** whose file isn't in either source (a replacement question, a packet the archive lacks, a different printing) link to their tournament's folder: 2026 Texas Science Bowl Invitational (137), Stanford 2026 (65), ICSBT 2 (53), Clements 2025 (48), CLASH 2026 HS (27), Fall 2023 (25), Prometheus 2021 (23), ICSBT 2025 (21), ISBI 2025 (19), Olympus 2022 (18), Texas Sci Bowl 2025 (16), CLASH 2026 MS (15), and a few in other tournaments.
+  - **1,089** keep the speriphery search page, their only public source: speriphery's database rows with no packet behind them, Lexington Biology Bowl 2026 (445), MOOSE 2021 (409), Yale 2026 (92), LADWP 2023 (37), Mosfet1 (17), BASIS Peoria Rounds (16), and a few stragglers.
+  - None is left without a link. A sample of 20 new links all opened.
+- **Dead links**: the five CSUN PDFs behind the Science Bowl Subject Sets 1991–93 (2,401 questions) had moved from `www.csun.edu/science/ref/games/questions/` (now 404) to `www.csun.edu/~vceed002/ref/games/questions/`; the links point there now. A sample of every other link host opened (GitHub answers 403 to this sandbox's proxy, but each sampled file's raw copy loads).
+- **Packet pages** (`pg`): `tools/packet-locations.js` found each question in its PDF or GitHub text file, so its link opens there (`#page=N`, `#LN`). 59,911 questions carry one: 99% of the lebot.djiang.xyz packets, 98% of OSTI's and CSUN's, 97% of the WordPress archive's and of the GitHub text files, 79% of oly.mehvix.com's. Not placed: questions whose opening the PDF's text layer garbles or reorders (scans, two-column layouts, equations as images). A sample of 40 was checked against the page itself; all were right.
+
 ## Project conventions and hard-won lessons
 
 - **Never trust file or folder names.** The FE!M 2025 Drive file "DE1.pdf" was internally "Round 6". The Moose folder held DAST files (its copies were later merged away in the duplicate audit). Lexington's "Round 8.pdf" carried a leftover "[ROUND 3]" header. Always confirm by content.

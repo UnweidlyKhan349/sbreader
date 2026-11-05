@@ -783,73 +783,86 @@
 {"i":44903,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Order the following three bonds in order of increasing average bond dissociation enthalpy: 1) Carbon-hydrogen; 2) Carbon-carbon; 3) Carbon-fluorine.","a":{"t":"2, 1, 3"},"pg":15}]},
 {"rl":"Prometheus_DE2","r":9,"u":"https://lebot.djiang.xyz/packets/Prometheus%202021/Prometheus_DE2.pdf","q":[
 {"i":44904,"s":"math","f":"MC","qt":"tossup","n":20,"q":"What are the polar coordinates of the point (8, 15), with the angle measure to the nearest degree?","a":{"t":"(17, 62)","l":"Z"},"c":{"W":"(17, 28)","X":"(17, 37)","Y":"(17, 53)","Z":"(17, 62)"},"pg":20}]},
-{"rl":"Prometheus_DE1","r":8,"q":[
+{"rl":"Prometheus_DE1","r":8,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69309,"s":"math","f":"MC","qt":"bonus","n":14,"q":"What is the approximation for f(1) using Euler’s method with two equal steps given the initial condition f(0) = 1 and the differential equation dy/dx = 2y + 1?","a":{"t":"5.5","l":"Z"},"c":{"W":"2.5","X":"3.5","Y":"4.5","Z":"5.5"}}]},
-{"rl":"Prometheus_DE2","r":9,"q":[
-{"i":69312,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Let x be the least real number greater than 1 such that cos(x) = cos(x^2), where the arguments are in degrees. What is x rounded to the nearest integer?","a":{"t":"18","l":"Y"},"c":{"W":"9","X":"14","Y":"18","Z":"20"}},
+{"rl":"Prometheus_DE2","r":9,"u":"https://drive.google.com/file/d/1Wl0ghnOhF7EhowKe2XhmJfze3hqfxuy7/view","q":[
+{"i":69312,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Let x be the least real number greater than 1 such that cos(x) = cos(x^2), where the arguments are in degrees. What is x rounded to the nearest integer?","a":{"t":"18","l":"Y"},"c":{"W":"9","X":"14","Y":"18","Z":"20"}}]},
+{"rl":"Prometheus_DE2","r":9,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69313,"s":"math","f":"MC","qt":"bonus","n":8,"q":"The graph with the equation −x^2/4 − y^2 = z − 3 is an example of what three-dimensional shape?","a":{"t":"Elliptic paraboloid","l":"Z"},"c":{"W":"Cone","X":"Ellipsoid","Y":"Hyperboloid","Z":"Elliptic paraboloid"}},
 {"i":69317,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"When a woody plant is injured, parenchymal cells in the heartwood produce outgrowth that partially block xylem vessels. What is the term for this process?","a":{"t":"Tylosis"}}]},
-{"rl":"Prometheus_DE3","r":10,"q":[
+{"rl":"Prometheus_DE3","r":10,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69318,"s":"math","f":"MC","qt":"tossup","n":8,"q":"Given the following two statements: p =⇒ q and q =⇒ r, then what law allows for the conclusion p =⇒ r?","a":{"t":"Syllogism","l":"Y"},"c":{"W":"Contrapositive","X":"Detachment","Y":"Syllogism","Z":"De Morgan’s"}}]},
-{"rl":"Prometheus_DE4","r":11,"q":[
-{"i":69321,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"In the 2021 eruption of Cumbre Vieja, new vents were often preceded by explosions of groundwater heated by rising magma. What type of eruption were these events?","a":{"t":"Phreatic"}},
+{"rl":"Prometheus_DE4","r":11,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69321,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"In the 2021 eruption of Cumbre Vieja, new vents were often preceded by explosions of groundwater heated by rising magma. What type of eruption were these events?","a":{"t":"Phreatic"}}]},
+{"rl":"Prometheus_DE4","r":11,"u":"https://drive.google.com/file/d/11ZujelB9D1BIgm2UdZ3-IISbIUTQZGFj/view","q":[
 {"i":69322,"s":"bio","f":"MC","qt":"tossup","n":5,"q":"Increased sympathetic input to contractile cardiomyocytes would most likely cause which of the following effects?","a":{"t":"Decreased end systolic volume","l":"Y"},"c":{"W":"Increased end systolic volume","X":"Increased end diastolic volume","Y":"Decreased end systolic volume","Z":"Decreased end diastolic volume"}},
 {"i":69323,"s":"math","f":"SA","qt":"tossup","n":8,"q":"Let f(x) be the real polynomial with least degree and leading coefficient 1 that has −1 − 2i as one of its roots. What is f(1)?","a":{"t":"8"}},
 {"i":69325,"s":"phys","f":"SA","qt":"bonus","n":18,"q":"Two spacecraft travel towards each other at 0.9c. To the nearest tenth, in terms of c, what is the difference in speeds that a stationary observer sees the gap between them closing at and the speed one spacecraft sees the other traveling at?","a":{"t":"0.8c"}}]},
-{"rl":"Prometheus_DE5","r":12,"q":[
-{"i":69327,"s":"math","f":"MC","qt":"tossup","n":2,"q":"How many values of theta in the interval 0 < θ < 2π satisfy the equation 1 − 2 sin θ + 5 cos 2θ = 0?","a":{"t":"4","l":"Y"},"c":{"W":"2","X":"3","Y":"4","Z":"5"}},
+{"rl":"Prometheus_DE5","r":12,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69327,"s":"math","f":"MC","qt":"tossup","n":2,"q":"How many values of theta in the interval 0 < θ < 2π satisfy the equation 1 − 2 sin θ + 5 cos 2θ = 0?","a":{"t":"4","l":"Y"},"c":{"W":"2","X":"3","Y":"4","Z":"5"}}]},
+{"rl":"Prometheus_DE5","r":12,"u":"https://drive.google.com/file/d/1OYWNUt-rGWJBgn5RJsmhHmeJqWIVMqho/view","q":[
 {"i":69328,"s":"chem","f":"MC","qt":"tossup","n":3,"q":"An ionic inorganic chloride has the empirical formula MCl2. An atomic force microscopy study of this substance indicates the presense of MCl4^(–) anions. Which the following is the most likely identity of M?","a":{"t":"Gallium","l":"Y"},"c":{"W":"Beryllium","X":"Magnesium","Y":"Gallium","Z":"Tellerium"}},
 {"i":69329,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"Identify all of the following four orbitals in diboron that are predicted to have ungerade symmetry by molecular orbital theory: 1) Sigma 2s bonding; 2) Sigma 2s antibonding; 3) Pi 2p bonding; 4) Pi 2p antibonding.","a":{"t":"2 and 3"}},
 {"i":69330,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"1 mole of an ideal gas expands to occupy e^2 times more volume than initially. If its temperature is constantly 28 Celsius, what is the change in internal energy of the gas in joules to the nearest hundred?","a":{"t":"0"}},
 {"i":69331,"s":"energy","f":"SA","qt":"tossup","n":19,"q":"What type of radiometer is used by reconaissance satellites to track the presence and yield of nuclear tests?","a":{"t":"Bhangmeter"}}]},
-{"rl":"Prometheus_DE6","r":13,"q":[
+{"rl":"Prometheus_DE6","r":13,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69333,"s":"math","f":"MC","qt":"bonus","n":2,"q":"Which of the following surfaces is defined by the equation z = x^2/48 − y^2/144?","a":{"t":"Hyperbolic paraboloid","l":"Z"},"c":{"W":"Hyperboloid of one sheet","X":"Hyperboloid of two sheets","Y":"Elliptic paraboloid","Z":"Hyperbolic paraboloid"}},
-{"i":69334,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"If a sphere of radius R has a density given by ρ(r) = 20r^3, the pressure at its center due to gravity is P0. The radius is then doubled so that a new central pressure of P is achieved. What is the ratio of P0 to P?","a":{"t":"1:256","ac":["256"]}},
+{"i":69334,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"If a sphere of radius R has a density given by ρ(r) = 20r^3, the pressure at its center due to gravity is P0. The radius is then doubled so that a new central pressure of P is achieved. What is the ratio of P0 to P?","a":{"t":"1:256","ac":["256"]}}]},
+{"rl":"Prometheus_DE6","r":13,"u":"https://drive.google.com/file/d/1M49gM2MW-CjGaRK__26S8Dcr0K4BN8iu/view","q":[
 {"i":69335,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Find the area of the region inside the circle r = 8 sin θ.","a":{"t":"16π"}},
 {"i":69336,"s":"math","f":"SA","qt":"bonus","n":14,"q":"Find the maximum value of z = 3x + 2y subject to the constraints x ≥ 0, y ≥ 0, x + 2y ≤ 4, and x − y ≤ 1.","a":{"t":"8"}},
 {"i":69337,"s":"chem","f":"MC","qt":"bonus","n":21,"q":"The boron-hydrogen-boron bond angle in diborane falls in which of the following ranges?","a":{"t":"80 to 100 degrees","l":"X"},"c":{"W":"60 to 80 degrees","X":"80 to 100 degrees","Y":"100 to 120 degrees","Z":"120 to 140 degrees"}}]},
-{"rl":"Prometheus_DE7","r":14,"q":[
+{"rl":"Prometheus_DE7","r":14,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69339,"s":"phys","f":"MC","qt":"bonus","n":6,"q":"The Lagrangian of a one-dimensional system with a single mass m is given by L(x, ẋ, t) = e^(at) m(ẋ^2 − bx^2)/2. Which of the following general examples of physical systems best describes this system?","a":{"t":"Damped harmonic oscillator","l":"X"},"c":{"W":"Simple harmonic oscillator","X":"Damped harmonic oscillator","Y":"Pendulum","Z":"Damped pendulum"}},
-{"i":69340,"s":"math","f":"MC","qt":"tossup","n":8,"q":"The Taylor series for ln (e + x) converges for which of the following intervals?","a":{"t":"(−e, e]","l":"Z"},"c":{"W":"(−e, ∞)","X":"(−e, e)","Y":"[−e, e)","Z":"(−e, e]"}},
+{"i":69340,"s":"math","f":"MC","qt":"tossup","n":8,"q":"The Taylor series for ln (e + x) converges for which of the following intervals?","a":{"t":"(−e, e]","l":"Z"},"c":{"W":"(−e, ∞)","X":"(−e, e)","Y":"[−e, e)","Z":"(−e, e]"}}]},
+{"rl":"Prometheus_DE7","r":14,"u":"https://drive.google.com/file/d/1j-QBrEiJQp6nFmUl8jsCYdOecytS18sG/view","q":[
 {"i":69342,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Which of the following is closest to the value of 100 × e^(1/100)?","a":{"t":"101","l":"X"},"c":{"W":"100","X":"101","Y":"102","Z":"103"}},
 {"i":69343,"s":"math","f":"SA","qt":"tossup","n":20,"q":"How many integer values of x satisfy x^2 < 200π?","a":{"t":"51"}},
 {"i":69344,"s":"phys","f":"MC","qt":"tossup","n":24,"q":"A ball is initially held on an incline at an angle θ to the horizontal with µk = µs = √3/3. Assuming the ball is dropped from the same height in all scenarios, at which of the following angles θ would the ball have the most total energy at the bottom?","a":{"t":"25 degrees","l":"W"},"c":{"W":"25 degrees","X":"35 degrees","Y":"45 degrees","Z":"All angles would have the same energy"}}]},
-{"rl":"Prometheus_DE8","r":15,"q":[
-{"i":69345,"s":"math","f":"SA","qt":"tossup","n":2,"q":"If x^2 + 1/x^2 = 23, what are the possible values of x + 1/x?","a":{"t":"±5","rj":["5"]}},
+{"rl":"Prometheus_DE8","r":15,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69345,"s":"math","f":"SA","qt":"tossup","n":2,"q":"If x^2 + 1/x^2 = 23, what are the possible values of x + 1/x?","a":{"t":"±5","rj":["5"]}}]},
+{"rl":"Prometheus_DE8","r":15,"u":"https://drive.google.com/file/d/1juST4knxhtw2wUcH80d7UCoSrOJXUMhb/view","q":[
 {"i":69346,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the coefficient on the x^6 term in the Maclaurin series expansion of the function f(x) = cosh x?","a":{"t":"1/720"}},
-{"i":69348,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In which of the following cases does lexicalthreshold negative utilitarianism disagree with most other types of negative utilitarianism?","a":{"t":"Torture vs. dust specks","l":"Y"},"c":{"W":"Benevolent world exploder","X":"Happy sadists problem","Y":"Torture vs. dust specks","Z":"Utility monster"}},
-{"i":69349,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"The Ostriker-Vishniac effect can be descibed by what phenomena observed by the different measurements of the cosmic microwave background in different directions?","a":{"t":"Anisotropy"}},
+{"i":69348,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In which of the following cases does lexicalthreshold negative utilitarianism disagree with most other types of negative utilitarianism?","a":{"t":"Torture vs. dust specks","l":"Y"},"c":{"W":"Benevolent world exploder","X":"Happy sadists problem","Y":"Torture vs. dust specks","Z":"Utility monster"}}]},
+{"rl":"Prometheus_DE8","r":15,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69349,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"The Ostriker-Vishniac effect can be descibed by what phenomena observed by the different measurements of the cosmic microwave background in different directions?","a":{"t":"Anisotropy"}}]},
+{"rl":"Prometheus_DE8","r":15,"u":"https://drive.google.com/file/d/1juST4knxhtw2wUcH80d7UCoSrOJXUMhb/view","q":[
 {"i":69350,"s":"phys","f":"MC","qt":"bonus","n":24,"q":"For a given one dimensional potential of the form V (x) = −A · f(x), the number of bound state solutions to the Schrodinger equation increases with the value of A. As A approaches zero, there is one bound state solution, and past some value of A, the number of bound state solutions remains constant. Which of the following best describes the form of the function f(x)?","a":{"t":"f is the sum of delta functions centered at multiple x values","l":"Z"},"c":{"W":"f is a polynomial","X":"f is a step function","Y":"f is a single delta function","Z":"f is the sum of delta functions centered at multiple x values"}}]},
-{"rl":"Prometheus_DE_Finals_1","r":16,"q":[
-{"i":69351,"s":"math","f":"MC","qt":"bonus","n":2,"q":"The Dirichlet function over the interval [0, 1] is defined as follows: f(x) = 1 for all rational numbers, f(x) = 0 for all irrational numbers. Which of the following best describes its properties?","a":{"t":"Bounded","l":"W"},"c":{"W":"Bounded","X":"Continuous","Y":"Bounded and continuous","Z":"Bounded and Riemann integrable"}},
+{"rl":"Prometheus_DE_Finals_1","r":16,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69351,"s":"math","f":"MC","qt":"bonus","n":2,"q":"The Dirichlet function over the interval [0, 1] is defined as follows: f(x) = 1 for all rational numbers, f(x) = 0 for all irrational numbers. Which of the following best describes its properties?","a":{"t":"Bounded","l":"W"},"c":{"W":"Bounded","X":"Continuous","Y":"Bounded and continuous","Z":"Bounded and Riemann integrable"}}]},
+{"rl":"Prometheus_DE_Finals_1","r":16,"u":"https://drive.google.com/file/d/1jqy4KphyhlmUKSpVC9dNkVJbXOhb88Bx/view","q":[
 {"i":69352,"s":"math","f":"MC","qt":"tossup","n":8,"q":"For the function f(x, y) = xy(x − 2)(y + 3) and using the Second Derivative Test, which of the following terms best describes the point (0,0)?","a":{"t":"Saddle point","l":"Z"},"c":{"W":"Local maximum","X":"Local minimum","Y":"Inflection point","Z":"Saddle point"}},
 {"i":69353,"s":"chem","f":"MC","qt":"bonus","n":9,"q":"Acetone is reacted with TiCl4 and treated with zinc metal in THF. Which of the following functional groups would you expect to find in the product?","a":{"t":"Alkene","l":"Y"},"c":{"W":"Alcohol","X":"Carboxylic acid","Y":"Alkene","Z":"Epoxide"}},
 {"i":69354,"s":"math","f":"SA","qt":"tossup","n":14,"q":"Let S_5 denote the symmetric group of degree 5. For which of the following values of n does Sylow’s first theorem guarantee the existence of a subgroup of S_5 with order n? 1) 5; 2) 6; 3) 8; 4) 24.","a":{"t":"1 and 3"}}]},
-{"rl":"Prometheus_DE_Finals_2","r":17,"q":[
+{"rl":"Prometheus_DE_Finals_2","r":17,"u":"https://drive.google.com/file/d/1CM2FUYMcO3cuGG_2gLUdMHzrEznGuJSC/view","q":[
 {"i":69357,"s":"math","f":"SA","qt":"bonus","n":2,"q":"For the system of two differential equations x_1′ = 4x_1 + 2x_2 and x_2′ = 3x_1 − x_2, what are the distinct real eigenvalues?","a":{"t":"5 and -2"}},
 {"i":69358,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"A certain atom is sp^n hybridized, where n is a real number but is not necessarily an integer. If the hybrid sp^n orbitals are separated by an angle of 150 degrees, then to two significant figures, what is n?","a":{"t":"1.2"}}]},
-{"rl":"Prometheus_RR1","r":1,"q":[
+{"rl":"Prometheus_RR1","r":1,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69363,"s":"math","f":"SA","qt":"tossup","n":2,"q":"How many times does the function y = e^sin x intersect the x-axis?","a":{"t":"0"}},
-{"i":69364,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the value of log_300 3 to one significant figure?","a":{"t":"0.2"}},
+{"i":69364,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the value of log_300 3 to one significant figure?","a":{"t":"0.2"}}]},
+{"rl":"Prometheus_RR1","r":1,"u":"https://drive.google.com/file/d/1-vwNnqy-mvsp1cmnX8H7KByx8g8ax8tH/view","q":[
 {"i":69366,"s":"bio","f":"SA","qt":"tossup","n":17,"q":"Which amino acid is the only one to exhibit achirality, since its side chain consists of a single hydrogen atom?","a":{"t":"Glycine"}}]},
-{"rl":"Prometheus_RR2","r":2,"q":[
+{"rl":"Prometheus_RR2","r":2,"u":"https://drive.google.com/file/d/1GUqY2cjNYlfzex2oVdQcm9VIHvx2Lfdt/view","q":[
 {"i":69368,"s":"math","f":"SA","qt":"bonus","n":8,"q":"What is the sum of the solutions to the equation |x^2 − 18x + 61| = 20?","a":{"t":"27"}}]},
-{"rl":"Prometheus_RR3","r":3,"q":[
+{"rl":"Prometheus_RR3","r":3,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69371,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Consider the function f(x) = sin(x) − sec(x) + tan(x). What is the difference in value between f(0) and f(π)?","a":{"t":"2"}},
 {"i":69372,"s":"math","f":"SA","qt":"tossup","n":14,"q":"If (x^2)! ends with at least eight zeroes, what is the lowest possible integer value that x can be?","a":{"t":"6"}},
 {"i":69373,"s":"math","f":"SA","qt":"bonus","n":14,"q":"What is the value of ∑_(n=0)^30 sin^2(3n) if the angle measures are to be taken in degrees?","a":{"t":"15.5"}}]},
-{"rl":"Prometheus_RR4","r":4,"q":[
+{"rl":"Prometheus_RR4","r":4,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69376,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"Rhagoletis pomonella, also known as the apple maggot fly, originally laid eggs in hawthorns to reproduce. However, since the introduction of apples to North America, a distinct form of the flies were seen laying eggs on apples. This is an example of what type of speciation?","a":{"t":"Sympatric"}}]},
-{"rl":"Prometheus_RR5","r":5,"q":[
-{"i":69377,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Evaluate the following definite integral: ∫_(-1)^1 x^3 cos x dx","a":{"t":"0"}},
+{"rl":"Prometheus_RR5","r":5,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
+{"i":69377,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Evaluate the following definite integral: ∫_(-1)^1 x^3 cos x dx","a":{"t":"0"}}]},
+{"rl":"Prometheus_RR5","r":5,"u":"https://drive.google.com/file/d/1Cj44-moKlrMGY8qAOh6sv2kDPBq_gg8G/view","q":[
 {"i":69378,"s":"chem","f":"MC","qt":"bonus","n":3,"q":"In a certain reaction, ∆H is positive and ∆S is negative. Which of the following must be true of the reaction’s ∆G value and its spontaneity, respectively?","a":{"t":"Positive, non-spontaneous","l":"X"},"c":{"W":"Positive, spontaneous","X":"Positive, non-spontaneous","Y":"Negative, spontaneous","Z":"Negative, non-spontaneous"}},
-{"i":69379,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"Which of the following climate changedriven processes would create a change in albedo that results in a negative feedback loop?","a":{"t":"Desertification","l":"W"},"c":{"W":"Desertification","X":"Black carbon deposition","Y":"Melting of sea ice","Z":"Sea level rise"}},
+{"i":69379,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"Which of the following climate changedriven processes would create a change in albedo that results in a negative feedback loop?","a":{"t":"Desertification","l":"W"},"c":{"W":"Desertification","X":"Black carbon deposition","Y":"Melting of sea ice","Z":"Sea level rise"}}]},
+{"rl":"Prometheus_RR5","r":5,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69380,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"What is the term given to mychorrizae which contain hyphae that puncture the cell wall of plant roots, and are enclosed by an infolded plasma membrane?","a":{"t":"Arbuscular mychorrizae"}}]},
-{"rl":"Prometheus_RR6","r":6,"q":[
-{"i":69381,"s":"math","f":"MC","qt":"bonus","n":2,"q":"2^50 is closest to which of the following powers of 10?","a":{"t":"15","l":"X"},"c":{"W":"10","X":"15","Y":"20","Z":"25"}},
+{"rl":"Prometheus_RR6","r":6,"u":"https://drive.google.com/file/d/1u3zgZ0RWJ1VUIrk4dVBO78VwPPaRIlE4/view","q":[
+{"i":69381,"s":"math","f":"MC","qt":"bonus","n":2,"q":"2^50 is closest to which of the following powers of 10?","a":{"t":"15","l":"X"},"c":{"W":"10","X":"15","Y":"20","Z":"25"}}]},
+{"rl":"Prometheus_RR6","r":6,"u":"https://drive.google.com/drive/folders/1hufIfOcNUOlSWIE6rOkR0mda2b3qm0an","q":[
 {"i":69384,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"Identify all of the following three Milankovitch cycles that could change the date of perihelion: 1) Eccentricity; 2) Obliquity; 3) Apsidal precession.","a":{"t":"3 only"}},
 {"i":69385,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"Trypanosoma brucei, the organism which causes sleeping sickness, belongs to what group of flagellated protists, which are named due to the presence of an organelle containing a large mass of DNA?","a":{"t":"Kinetoplastida"}}]},
-{"rl":"Prometheus_RR7","r":7,"q":[
+{"rl":"Prometheus_RR7","r":7,"u":"https://drive.google.com/file/d/1RdwZ97CWrCpZYpBwmi2Ut7uwgcp91MtX/view","q":[
 {"i":69390,"s":"phys","f":"SA","qt":"bonus","n":18,"q":"Incompressible air travels through a tunnel of cross-sectional area 240 square meters at 7 meters per second. What is the new air velocity in the tunnel while a train with cross sectional area of 100 square meters goes through?","a":{"t":"12"}}]},
 {"rl":"Prometheus_RR1","r":1,"u":"https://speriphery.com/query","q":[
 {"i":85475,"s":"ess","f":"MC","qt":"tossup","n":null,"q":"Which of the following is the technical term for the ability of land to reflect light back into space?","a":{"t":"Albedo","l":"Z"},"c":{"W":"Luminosity","X":"Irradiance","Y":"Absorptivity","Z":"Albedo"}}]},
