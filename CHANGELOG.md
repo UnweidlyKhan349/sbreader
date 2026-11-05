@@ -81,3 +81,10 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Database cards are laid out like QB Reader's: "AVES 2 | Physics | Tossup | Multiple Choice" and "Packet RR 1 |" in the header, the question number before the question, the packet in the footer.
 - Multiplayer: clicking a player opens a QB Reader-style popover with their stats; the "All subjects" room is now "General".
 - Home page: removed the "About & Instructions" button and the answer-checker link.
+- Subjects have six distinct colours everywhere (Math purple, Physics pink, Biology green, Chemistry gold, Earth & Space teal, Energy brown), none of them the site's blue or red, and square corners.
+- The label above the question is spaced ("AVES 2 RR 3 Q12"); the one under the answer is slashed ("AVES 2 / RR 3 / Q12 / Source"). Round ranges read "Rounds 1-13".
+- The bottom bar's buttons are all the same size.
+- Celerity (how much of the question was read at your correct buzzes) in Play's statline and the Multiplayer player popover.
+- Database: a Random button like QB Reader's; "Packet RR 1 |" removed from card headers.
+- Multiplayer: vote kicks with QB Reader's rules; "No public rooms." when the list is empty; no separate "Bob buzzed" line.
+- A skipped question gets no chip.

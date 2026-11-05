@@ -135,3 +135,15 @@ test('room settings carry the mode, set, packets and switches, cleaned', () => {
   const d = cleanHostMessage({ type: 'updateSettings', mode: 'weird', setName: 'no-such-set' }, meta);
   assert.deepStrictEqual([d.mode, d.setName, d.rebuzz, d.timer, d.isPublic], ['random', '', false, true, true]);
 });
+
+test('vote kicks: QB Reader threshold, message shape and 30-minute ban', () => {
+  const { votekickThreshold, isKicked, cleanHostMessage, KICK_BAN_MS } = globalThis.SBMpRules;
+  assert.deepStrictEqual([1, 2, 3, 4, 5, 8, 12].map(votekickThreshold), [2, 2, 2, 3, 3, 6, 9]);
+  assert.deepStrictEqual(cleanHostMessage({ type: 'votekick', targetId: 'abc' }), { type: 'votekick', targetId: 'abc' });
+  assert.strictEqual(cleanHostMessage({ type: 'votekick' }), null);
+  const now = Date.now();
+  const kicked = [{ pid: 'p1', at: now - 1000 }, { pid: 'p2', at: now - KICK_BAN_MS - 1 }];
+  assert.strictEqual(isKicked(kicked, 'p1', now), true);
+  assert.strictEqual(isKicked(kicked, 'p2', now), false);
+  assert.strictEqual(isKicked(kicked, null, now), false);
+});

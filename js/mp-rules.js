@@ -107,6 +107,19 @@
     return a < b || (a === b && from < view.coordinatorId);
   }
 
+  // Vote kicks, as on QB Reader: a player who has answered a question
+  // correctly can start one (at most every 90 seconds); it needs three
+  // quarters of the players online, and at least two votes; a kicked
+  // player can't come back for 30 minutes.
+  const VOTEKICK_COOLDOWN_MS = 90 * 1000;
+  const KICK_BAN_MS = 30 * 60 * 1000;
+  function votekickThreshold(online) { return Math.max(Math.floor((online || 0) * 3 / 4), 2); }
+  function isKicked(kicked, pid, now) {
+    if (!pid || !Array.isArray(kicked)) return false;
+    const t = now == null ? Date.now() : now;
+    return kicked.some((k) => k && k.pid === pid && t - k.at < KICK_BAN_MS);
+  }
+
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   function cleanHostMessage(msg, meta) {
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
@@ -117,6 +130,10 @@
       const pid = cleanPid(msg.pid);
       if (pid) out.pid = pid;
       return out;
+    }
+    if (type === 'votekick') {
+      const targetId = str(msg.targetId, 80);
+      return targetId ? { type, targetId } : null;
     }
     if (type === 'rename') {
       const name = str(msg.name, LIMITS.name).trim();
@@ -188,5 +205,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -200,6 +200,9 @@
   const session = {
     queue: [], index: -1,
     correct: 0, incorrect: 0, skipped: 0, points: 0,
+    // Celerity: how much of each question had been read when you buzzed
+    // and got it right, averaged (as a percentage).
+    celeritySum: 0, celerityCount: 0,
     rate: 1,
   };
   const runtime = {
@@ -227,10 +230,12 @@
     nextQuestion();
   }
 
+  // Average share of the question read at your correct buzzes, e.g. "64%".
+  function celerityText(sum, count) { return count ? Math.round((100 * sum) / count) + '%' : '-'; }
   function updateCounters() {
     const seen = session.correct + session.incorrect;
     document.getElementById('statline').textContent =
-      `${session.correct}/${session.incorrect} with ${seen} question${seen === 1 ? '' : 's'} seen (${session.points} pts)`;
+      `${session.correct}/${session.incorrect} with ${seen} question${seen === 1 ? '' : 's'} seen (${session.points} pts, celerity: ${celerityText(session.celeritySum, session.celerityCount)})`;
   }
 
   function currentQ() { return session.index >= 0 ? session.queue[session.index] : null; }
@@ -279,6 +284,7 @@
     runtime.readingDone = false;
     runtime.buzzedDuringReading = false;
     runtime.attempts = [];
+    runtime.buzzFraction = null;
     runtime.lastOutcome = null;
     runtime.buzzwindowLeftMs = null;
 
@@ -372,6 +378,7 @@
     if (runtime.phase !== 'revealing' && runtime.phase !== 'buzzwindow') return;
     if (runtime.paused) return;
     runtime.buzzedDuringReading = runtime.phase === 'revealing';
+    runtime.buzzFraction = runtime.phase === 'revealing' && runtime.revealCtl ? runtime.revealCtl.progress() : 1;
     // Reading pauses (rather than stops) so a rebuzz can carry on from here.
     if (runtime.phase === 'revealing' && runtime.revealCtl) runtime.revealCtl.pause();
     if (runtime.phase === 'buzzwindow' && runtime.timer) runtime.buzzwindowLeftMs = runtime.remainingMs;
@@ -443,7 +450,11 @@
     // A skip counts toward Incorrect (you didn't get it) and is logged as such.
     let category;
     if (!outcome.attempted) { category = 'skipped'; session.skipped++; session.incorrect++; }
-    else if (outcome.correct) { category = 'correct'; session.correct++; }
+    else if (outcome.correct) {
+      category = 'correct'; session.correct++;
+      session.celeritySum += runtime.buzzFraction == null ? 1 : runtime.buzzFraction;
+      session.celerityCount++;
+    }
     else { category = 'incorrect'; session.incorrect++; }
     session.points += pointsFor(outcome);
     updateCounters();
@@ -472,12 +483,14 @@
     const outcome = runtime.lastOutcome;
     let category = 'skipped';
     if (outcome && outcome.attempted) category = outcome.correct ? 'correct' : 'incorrect';
-    const badgeText = category === 'correct' ? 'Correct' : category === 'incorrect' ? 'Incorrect' : 'Skipped';
-    let html = `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
-    if (outcome && outcome.attempted && outcome.userText) {
-      html += ` <span class="who-line">You answered: "${escapeHtml(outcome.userText)}"</span>`;
+    // A skipped question gets no chip, as on QB Reader.
+    let html = '';
+    if (category !== 'skipped') {
+      const badgeText = category === 'correct' ? 'Correct' : 'Incorrect';
+      html += `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
+      if (outcome.userText) html += ` <span class="who-line">You answered: "${escapeHtml(outcome.userText)}"</span>`;
+      html += '</div>';
     }
-    html += '</div>';
     if (category === 'incorrect' && outcome.close) {
       html += '<div class="close-hint">Close. If you meant the answer below, press <kbd>q</kbd> or "I was right" to count it.</div>';
     }
@@ -511,7 +524,9 @@
     if (runtime.phase !== 'reveal' || !runtime.lastOutcome || !runtime.lastOutcome.attempted) return;
     const o = runtime.lastOutcome;
     session.points -= pointsFor(o);
-    if (o.correct) { session.correct--; session.incorrect++; } else { session.incorrect--; session.correct++; }
+    // Celerity follows the override: a correct answer counts toward it.
+    const f = runtime.buzzFraction == null ? 1 : runtime.buzzFraction;
+    if (o.correct) { session.correct--; session.incorrect++; session.celeritySum -= f; session.celerityCount--; } else { session.incorrect--; session.correct++; session.celeritySum += f; session.celerityCount++; }
     o.correct = !o.correct;
     session.points += pointsFor(o);
     updateCounters();

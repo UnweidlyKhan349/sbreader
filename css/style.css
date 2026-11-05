@@ -23,12 +23,14 @@
   --radius: var(--bs-border-radius);
   --shadow: none;
   /* Subject colours (badges, active subject buttons, lobby accents). */
-  --math: #0d6efd;
-  --phys: #6f42c1;
+  /* Subject colours: six distinct hues, none of them the blue of buttons
+     and links or the red of Incorrect. */
+  --math: #6f42c1;
+  --phys: #d63384;
   --bio: #198754;
-  --chem: #c78a00;
-  --ess: #0aa2c0;
-  --energy: #e8590c;
+  --chem: #c99a06;
+  --ess: #0f8b8d;
+  --energy: #8b5e34;
   --other: #6c757d;
   --logo-prefix-color: #0080ff;
   --logo-suffix-color: #000;
@@ -52,12 +54,12 @@
   --bs-link-color-rgb: 110, 168, 254;
   --bs-link-hover-color: #9ec5fe;
   --warn: #e8b445;
-  --math: #2f6fd0;
-  --phys: #7b5cc4;
+  --math: #8c68cd;
+  --phys: #d7559a;
   --bio: #2a8f5f;
-  --chem: #b07d10;
-  --ess: #1a8fa3;
-  --energy: #c8642c;
+  --chem: #b8900f;
+  --ess: #1c9c9e;
+  --energy: #a8754a;
   --other: #6c757d;
   --logo-suffix-color: #fff;
   --navbar-bg: #333;
@@ -254,6 +256,11 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .chip[data-subject="ess"] { --chip-color: var(--ess); }
 .chip[data-subject="energy"] { --chip-color: var(--energy); }
 .chip[data-subject="other"] { --chip-color: var(--other); }
+/* Subject chips, toggles and tags are square-cornered and always in their
+   subject's colour. */
+.chip[data-subject] { border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
+.chip[data-subject].active { color: #fff; }
+.btn-subject, .tag[class*="subject-"] { border-radius: 0; }
 
 /* ---------------- Badges for subject / type / format ---------------- */
 .tag {
@@ -358,7 +365,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The button bar pinned to the bottom of the screen. */
 .play-buttons { z-index: 1020; }
 .play-buttons .btn svg { display: block; }
-#buttons .btn { min-width: 2.75rem; }
+/* Every button in the bottom bar is the same size, icon buttons included. */
+#buttons .btn { width: 4.5rem; height: 2.375rem; padding-left: 0; padding-right: 0; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; }
+#buttons .btn.float-end { float: right; }
+@media (max-width: 575.98px) { #buttons .btn { width: 3.85rem; } }
 
 /* Past questions under the current one. */
 .room-history { border-top: .5px solid var(--bs-border-color); }

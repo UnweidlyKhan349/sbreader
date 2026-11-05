@@ -61,7 +61,7 @@
     title.setAttribute('role', 'button');
     title.setAttribute('aria-expanded', 'false');
     title.tabIndex = 0;
-    const grade = opts.grade
+    const grade = opts.grade && opts.grade !== 'skipped'
       ? `<span class="grade-badge ${escapeHtml(opts.grade)} me-2">${escapeHtml({ correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' }[opts.grade] || opts.grade)}</span>`
       : '';
     title.innerHTML = grade + (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '');
@@ -103,7 +103,7 @@
     const left = [q.tournament, SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
     const slot = [SBData.roundLabelFor(q) ? 'Packet ' + escapeHtml(SBData.roundLabelFor(q)) : '', q.num ? 'Question ' + escapeHtml(q.num) : ''].filter(Boolean).join(' / ');
     footer.innerHTML = `<small class="text-muted">${left}</small>`
-      + `<small class="text-muted float-end">${slot}${/^https?:\/\//.test(src || '') ? ` · <a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source</a>` : ''}</small>`;
+      + `<small class="text-muted float-end">${slot}${/^https?:\/\//.test(src || '') ? ` / <a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source</a>` : ''}</small>`;
     collapse.append(body, footer);
     card.append(header, collapse);
 

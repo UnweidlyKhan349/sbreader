@@ -301,17 +301,17 @@
   function questionMetaRow(q, opts) {
     opts = opts || {};
     const srcLink = isPacketUrl(opts.sourceUrl)
-      ? ` · <a href="${escapeHtml(opts.sourceUrl)}" target="_blank" rel="noopener">Source</a>`
+      ? ` / <a href="${escapeHtml(opts.sourceUrl)}" target="_blank" rel="noopener">Source</a>`
       : '';
     const row = document.createElement('div');
     row.className = 'meta-row';
     row.innerHTML = [
-      opts.grade ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
+      opts.grade && opts.grade !== 'skipped' ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
       `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
       q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}${srcLink}</span>`,
+      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q, ' / '))}${srcLink}</span>`,
     ].join('');
     return row;
   }
@@ -458,8 +458,7 @@
   }
 
   // A question as a Bootstrap card, laid out like QB Reader's database cards:
-  //   header - "AVES 2 | Physics | Tossup | Multiple Choice", then
-  //            "Packet RR 1 |" and the star
+  //   header - "AVES 2 | Physics | Tossup | Multiple Choice" and the star
   //   body   - "1. " and the question, its figures and choices, a rule, the answer
   //   footer - the packet and question number, and the packet link
   // Used by the catalog and the Stats page.
@@ -478,13 +477,13 @@
     card.dataset.qid = q.id;
 
     // As QB Reader's database cards: "Set | Category | Subcategory | ..."
-    // on the left, "Packet N |" and the star on the right, and the
-    // question's number at the start of its text.
+    // on the left, the star on the right, and the question's number at the
+    // start of its text.
     const header = document.createElement('div');
     header.className = 'card-header d-flex justify-content-between align-items-start gap-2';
     const title = document.createElement('b');
     title.className = 'q-card-title';
-    if (opts.grade) {
+    if (opts.grade && opts.grade !== 'skipped') {
       const badge = document.createElement('span');
       badge.className = 'grade-badge me-2 ' + opts.grade;
       badge.textContent = GRADE_LABELS[opts.grade];
@@ -493,16 +492,8 @@
     const parts = [q.tournament, subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
     if (q.visual && !isVisualBonus(q)) parts.push('Visual');
     title.appendChild(document.createTextNode(parts.filter(Boolean).join(' | ')));
-    const right = document.createElement('span');
-    right.className = 'd-flex align-items-center gap-1 text-nowrap';
     const round = SBData.roundLabelFor(q);
-    if (round) {
-      const packet = document.createElement('b');
-      packet.textContent = `Packet ${round} |`;
-      right.appendChild(packet);
-    }
-    right.appendChild(bookmarkButton(q.id, opts.onBookmark));
-    header.append(title, right);
+    header.append(title, bookmarkButton(q.id, opts.onBookmark));
     card.appendChild(header);
 
     const body = document.createElement('div');
@@ -1029,15 +1020,20 @@
     s = s.replace(/([A-Za-z])(\d)/g, '$1 $2').replace(/\s+/g, ' ').trim();
     return s || null;
   }
+  // Some packets are labelled "Set 9 · Round 14"; shown as "Set 9 Round 14",
+  // since the label sits between other parts ("NSB MS Regs Set 9 Round 14 Q5").
   SBData.roundLabelFor = function (q) {
-    return cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+    const l = cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+    return l && l.replace(/\s*·\s*/g, ' ');
   };
-  // Where a question comes from, as shown on its card: tournament, round and
-  // its number in the packet ("AVES 2 · RR 1 · Q15"). Tossup 15 and bonus 15
-  // share the number; the tag row already says which one this is.
-  SBData.sourceLabelFor = function (q) {
+  // Where a question comes from: tournament, round and its number in the
+  // packet. Above the question in Play and Multiplayer it's spaced
+  // ("AVES 2 RR 1 Q15"); under a revealed answer it's slashed
+  // ("AVES 2 / RR 1 / Q15"). Tossup 15 and bonus 15 share the number; the
+  // tag row already says which one this is.
+  SBData.sourceLabelFor = function (q, sep) {
     const roundPart = SBData.roundLabelFor(q);
-    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(' · ');
+    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
   // The source line under a revealed answer in solo and multiplayer: the
@@ -1046,9 +1042,9 @@
   // since their question copy leaves it out until the answer is shown).
   SBData.sourceLineHTML = function (q, url) {
     url = url === undefined ? q.sourceUrl : url;
-    let html = escapeHtml(SBData.sourceLabelFor(q));
+    let html = escapeHtml(SBData.sourceLabelFor(q, ' / '));
     if (isPacketUrl(url)) {
-      html += ` · <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Source</a>`;
+      html += ` / <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Source</a>`;
     }
     return html;
   };
@@ -1144,7 +1140,7 @@
       const pctLo = ((lo - 1) / span) * 100;
       const pctHi = ((hi - 1) / span) * 100;
       if (fillEl) { fillEl.style.left = pctLo + '%'; fillEl.style.width = Math.max(0, pctHi - pctLo) + '%'; }
-      if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}–${hi}`;
+      if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}-${hi}`;
       return [lo, hi];
     }
     function render() {

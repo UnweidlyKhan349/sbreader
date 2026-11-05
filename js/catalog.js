@@ -1,5 +1,6 @@
 (function () {
   const PAGE_SIZE = 40;
+  const RANDOM_COUNT = 20; // questions the Random button shows
   const state = {
     subjects: new Set(),
     qtypes: new Set(),
@@ -12,6 +13,11 @@
     roundRange: null,
     includeUnlabeled: true,
     hideAnswers: readHideAnswers(),
+    // Random (QB Reader's green button): a random handful of the matches,
+    // kept until Search is pressed; changing a filter draws a new handful.
+    random: false,
+    randomPick: null,
+    randomKey: '',
   };
 
   // The "Hide answers" switch is remembered on this device.
@@ -110,8 +116,15 @@
         render();
       };
       searchBox.addEventListener('input', debounce(runSearch, 220));
-      searchBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
-      document.getElementById('searchBtn').addEventListener('click', runSearch);
+      searchBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); state.random = false; runSearch(); } });
+      document.getElementById('searchBtn').addEventListener('click', () => { state.random = false; runSearch(); });
+      document.getElementById('randomBtn').addEventListener('click', () => {
+        state.search = searchBox.value;
+        state.random = true;
+        state.randomPick = null;
+        state.page = 1;
+        render();
+      });
 
       const hideAnswers = document.getElementById('hideAnswers');
       hideAnswers.checked = state.hideAnswers;
@@ -185,13 +198,25 @@
       search: state.search,
     }), { recent: state.tournaments.size === 0 });
 
-    document.getElementById('resultCount').textContent =
-      `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
-
-    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    if (state.page > totalPages) state.page = totalPages;
-    const start = (state.page - 1) * PAGE_SIZE;
-    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+    let pageItems;
+    let totalPages = 1;
+    if (state.random) {
+      const key = [state.search, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      if (!state.randomPick || state.randomKey !== key) {
+        state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
+        state.randomKey = key;
+      }
+      pageItems = state.randomPick;
+      document.getElementById('resultCount').textContent =
+        `${pageItems.length.toLocaleString()} random question${pageItems.length === 1 ? '' : 's'} of the ${filtered.length.toLocaleString()} that match your filters`;
+    } else {
+      document.getElementById('resultCount').textContent =
+        `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
+      totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (state.page > totalPages) state.page = totalPages;
+      const start = (state.page - 1) * PAGE_SIZE;
+      pageItems = filtered.slice(start, start + PAGE_SIZE);
+    }
 
     const resultsEl = document.getElementById('results');
     resultsEl.innerHTML = '';

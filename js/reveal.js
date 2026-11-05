@@ -174,6 +174,8 @@
         finish();
       },
       isDone() { return done; },
+      // How much of the text is showing, 0 to 1 (celerity is measured with it).
+      progress() { return done || !totalChars ? 1 : shownChars / totalChars; },
       isPaused() { return paused; },
       setRate(newRate) {
         // Live speed change mid-reveal: recompute pace from here on, but

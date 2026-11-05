@@ -107,6 +107,7 @@
     });
     document.getElementById('emptyRoomCheckbox').addEventListener('change', (e) => {
       document.querySelectorAll('#roomList .empty-room').forEach((li) => li.classList.toggle('d-none', !e.target.checked));
+      showNoRooms();
     });
   }
 
@@ -123,6 +124,15 @@
       : ` - ${players} player${players === 1 ? '' : 's'} - ${online} online`;
     li.appendChild(document.createTextNode(counts));
     return li;
+  }
+
+  // "No public rooms." when none is showing (empty rooms are hidden unless
+  // "Show empty rooms" is ticked).
+  function showNoRooms() {
+    const none = document.querySelector('#roomList .no-rooms');
+    if (!none) return;
+    const shown = [...document.querySelectorAll('#roomList li:not(.no-rooms)')].some((li) => !li.classList.contains('d-none'));
+    none.classList.toggle('d-none', shown);
   }
 
   // Filled once when the page opens (it doesn't refresh itself).
@@ -150,12 +160,11 @@
       if (r.online === 0) li.classList.add('empty-room', 'd-none');
       list.appendChild(li);
     });
-    if (!rooms.length) {
-      const li = document.createElement('li');
-      li.className = 'list-group-item text-body-secondary';
-      li.textContent = reg ? 'No public rooms yet.' : 'The list of public rooms isn\'t available here. Make one above and share its link.';
-      list.appendChild(li);
-    }
+    const none = document.createElement('li');
+    none.className = 'list-group-item text-body-secondary no-rooms';
+    none.textContent = 'No public rooms.';
+    list.appendChild(none);
+    showNoRooms();
     const activePlayers = reg ? reg.activePlayers : [...probe.values()].reduce((n, c) => n + (c || 0), 0);
     const activeRooms = reg ? reg.activeRooms : [...probe.values()].filter((c) => c > 0).length;
     document.getElementById('activePlayers').textContent = activePlayers.toLocaleString();
@@ -174,6 +183,9 @@
     // Players who've left, with their scores, by pid (host's copy, for
     // whoever takes over).
     departed: [],
+    // Players vote kicked out: [{ pid, at }], kept by everyone so whoever
+    // takes over keeps turning them away for 30 minutes.
+    kicked: [],
     // Last tick actually applied (remainingMs/totalMs/kind), so a re-render
     // triggered by something other than a fresh tick - e.g. toggling pause,
     // which stops the host from broadcasting further ticks while paused -
@@ -314,7 +326,7 @@
   let openStatsFor = null;
   function renderPlayerList(container) {
     container.innerHTML = '';
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, offline: true }));
+    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, offline: true }));
     const everyone = game.players.concat(offline).sort((a, b) => (b.score - a.score) || a.name.localeCompare(b.name));
     everyone.forEach((p) => {
       const key = p.id || 'pid:' + p.pid;
@@ -355,7 +367,7 @@
   function renderPlayerPopover() {
     const item = openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`);
     if (!item || item.classList.contains('d-none') || !item.offsetParent) { closePlayerPopover(); return; }
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, offline: true }));
+    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, offline: true }));
     const p = game.players.concat(offline).find((x) => (x.id || 'pid:' + x.pid) === openStatsFor);
     if (!p) { closePlayerPopover(); return; }
     if (!playerPopover) {
@@ -374,9 +386,12 @@
     const plain = (v) => `<span class="float-end">${escapeHtml(String(v))}</span>`;
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
-      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')],
+      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain(p.celN ? Math.round((100 * p.celSum) / p.celN) + '%' : '-')],
       ['Online?', plain(p.offline ? 'No' : 'Yes')],
-    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
+    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>'
+      + (!p.offline && p.id && p.id !== myState.myId ? '<div class="p-2"><button type="button" class="btn btn-warning btn-sm w-100" data-votekick>Vote to kick</button></div>' : '');
+    const vkBtn = playerPopover.querySelector('[data-votekick]');
+    if (vkBtn) vkBtn.addEventListener('click', () => { requestVotekick(p.id); closePlayerPopover(); });
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
     playerPopover.hidden = false;
@@ -659,7 +674,6 @@
     const r = game.lastRevealData;
     if (!r) { box.style.display = 'none'; return; }
     let html = '';
-    if (!game.lastGrade) html += '<div class="mb-1"><span class="grade-badge skipped">Skipped</span></div>';
     html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(r.answerText, r.letter, r.accept).replace(/^Answer: /, '')}</p>`;
     if (r.reject && r.reject.length) html += `<div class="alt-line">Do not accept: ${SBData.renderMathHTML(r.reject.join('; '))}</div>`;
     html += `<div class="src-line">${SBData.sourceLineHTML(game.question, r.sourceUrl || null)}</div>`;
@@ -787,10 +801,10 @@
   const departedPlayers = new Map();
   function markOffline(p) {
     departedPlayers.delete(p.pid);
-    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, leftAt: Date.now() });
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
   }
-  function hostPlayerLeft(connId) {
+  function hostPlayerLeft(connId, quiet) {
     const p = hostPlayers.get(connId);
     if (!p) return;
     if (hostGame.phase === 'answering' && hostGame.buzzedConnId === connId) {
@@ -802,7 +816,55 @@
       markOffline(p);
     }
     broadcastLobby();
-    hostBroadcastChat('SYSTEM', p.name, 'left the game', true);
+    if (!quiet) hostBroadcastChat('SYSTEM', p.name, 'left the game', true);
+  }
+
+  /* ---------------- Vote kicks (QB Reader's rules, SBMpRules) ---------------- */
+  const votekicks = new Map(); // target id -> { voters: Set, threshold }
+  const lastVotekickBy = new Map(); // voter pid (or id) -> when they last started one
+  function hostVotekick(voterId, targetId) {
+    const voter = hostPlayers.get(voterId);
+    const target = hostPlayers.get(targetId);
+    if (!voter || !target || voterId === targetId) return;
+    const tell = (text) => { if (voterId === myState.myId) logEvent('You', text); else host.sendTo(voterId, { type: 'votekickRefused', text }); };
+    if (!(voter.correct > 0)) { tell('can only vote kick once you\'ve answered a question correctly'); return; }
+    let vk = votekicks.get(targetId);
+    if (!vk) {
+      const key = voter.pid || voterId;
+      const wait = SBMpRules.VOTEKICK_COOLDOWN_MS - (Date.now() - (lastVotekickBy.get(key) || 0));
+      if (wait > 0) { tell(`can start another vote kick in ${Math.ceil(wait / 1000)} seconds`); return; }
+      lastVotekickBy.set(key, Date.now());
+      vk = { voters: new Set([voterId]), threshold: SBMpRules.votekickThreshold(hostPlayers.size) };
+      votekicks.set(targetId, vk);
+      hostEvent(voterId, `started a vote kick against ${target.name}, which needs ${vk.threshold} votes (1/${vk.threshold})`);
+    } else {
+      if (vk.voters.has(voterId)) return;
+      vk.voters.add(voterId);
+      hostEvent(voterId, `voted to kick ${target.name} (${vk.voters.size}/${vk.threshold})`);
+    }
+    if (vk.voters.size >= vk.threshold) hostKick(targetId);
+  }
+  function hostKick(targetId) {
+    const target = hostPlayers.get(targetId);
+    votekicks.delete(targetId);
+    if (!target) return;
+    const now = Date.now();
+    game.kicked = game.kicked.filter((k) => now - k.at < SBMpRules.KICK_BAN_MS);
+    if (target.pid) game.kicked.push({ pid: target.pid, at: now });
+    hostBroadcastChat('SYSTEM', target.name, 'has been vote kicked from this room', true);
+    host.broadcast({ type: 'kicked', playerId: targetId });
+    if (targetId === myState.myId) { broadcastLobby(); leaveKicked(); return; }
+    hostPlayerLeft(targetId, true);
+  }
+  // Whoever is kicked goes back to the lobby, which says so.
+  function leaveKicked() {
+    location.href = `${location.pathname}?kicked=1`;
+  }
+  function requestVotekick(targetId) {
+    const me = game.players.find((p) => p.id === myState.myId);
+    if (!me || !(me.correct > 0)) { logEvent('You', 'can only vote kick once you\'ve answered a question correctly'); return; }
+    if (myState.role === 'host') hostVotekick(myState.myId, targetId);
+    else if (client) client.send({ type: 'votekick', targetId });
   }
 
   function enterGameScreen() {
@@ -812,10 +874,10 @@
   }
 
   function broadcastLobby() {
-    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, pid: p.pid || null }));
+    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, pid: p.pid || null }));
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
-    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, roomCode: myState.roomId });
+    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });
   }
 
   function hostBroadcastChat(fromId, name, text, system) {
@@ -876,12 +938,13 @@
     if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
+      if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
       // A returning player (same pid, not already in the room) gets their
       // score back.
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
       const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
       if (back) departedPlayers.delete(msg.pid);
-      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
+      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
       broadcastLobby();
       hostEvent(connId, 'joined the game');
       // Everything a joiner needs, including the chat and the question log,
@@ -919,6 +982,7 @@
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
     if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
+    if (msg.type === 'votekick') { hostVotekick(connId, msg.targetId); return; }
   }
 
   // Any player can rename themselves mid-game. The name is made unique the
@@ -997,8 +1061,10 @@
     if (revealCtl && !revealCtl.isDone()) revealCtl.pause();
     game.liveTypingText = ''; game.liveTypingFrom = null;
     const p = hostPlayers.get(connId);
-    host.broadcast({ type: 'buzzAccepted', playerId: connId, playerName: p ? p.name : '?' });
-    applyBuzzLocal(connId);
+    // Celerity: how much of the question had been read at this buzz.
+    const celerity = hostGame.buzzedDuringReading && revealCtl ? revealCtl.progress() : 1;
+    host.broadcast({ type: 'buzzAccepted', playerId: connId, playerName: p ? p.name : '?', celerity });
+    applyBuzzLocal(connId, celerity);
     // If the answer timer runs out, submit whatever they'd typed so far
     // instead of forcing a blank - game.liveTypingText tracks their latest
     // known input for exactly this buzzed player throughout the countdown.
@@ -1017,7 +1083,7 @@
     const p = hostPlayers.get(connId);
     let delta = 0;
     if (correct) {
-      delta = 4; if (p) { p.score += 4; p.correct = (p.correct || 0) + 1; }
+      delta = 4; if (p) { p.score += 4; p.correct = (p.correct || 0) + 1; p.celSum = (p.celSum || 0) + celerityNow(); p.celN = (p.celN || 0) + 1; }
     } else {
       delta = hostGame.buzzedDuringReading ? -4 : 0;
       if (p) { p.score += delta; p.incorrect = (p.incorrect || 0) + 1; }
@@ -1029,7 +1095,7 @@
     // determines their incorrect-answer penalty) keyed by connId, not just
     // as "the" last grade - so they can still override THEIR OWN answer
     // later even after someone else has buzzed and been graded too.
-    hostGame.gradesByConn.set(connId, { correct, delta, userText, buzzedDuringReading: hostGame.buzzedDuringReading });
+    hostGame.gradesByConn.set(connId, { correct, delta, userText, buzzedDuringReading: hostGame.buzzedDuringReading, celerity: celerityNow() });
     const scores = [...hostPlayers.values()].map((pp) => ({ id: pp.id, score: pp.score }));
     host.broadcast({ type: 'graded', playerId: connId, correct, delta, userText, scores, close });
     applyGradeLocal(connId, correct, delta, scores, userText, false, undefined, close);
@@ -1084,8 +1150,9 @@
     if (p) p.score -= g.delta;
     const nowCorrect = !g.correct;
     if (p) {
-      if (nowCorrect) { p.correct = (p.correct || 0) + 1; p.incorrect = Math.max(0, (p.incorrect || 0) - 1); }
-      else { p.incorrect = (p.incorrect || 0) + 1; p.correct = Math.max(0, (p.correct || 0) - 1); }
+      const f = g.celerity == null ? 1 : g.celerity;
+      if (nowCorrect) { p.correct = (p.correct || 0) + 1; p.incorrect = Math.max(0, (p.incorrect || 0) - 1); p.celSum = (p.celSum || 0) + f; p.celN = (p.celN || 0) + 1; }
+      else { p.incorrect = (p.incorrect || 0) + 1; p.correct = Math.max(0, (p.correct || 0) - 1); p.celSum = Math.max(0, (p.celSum || 0) - f); p.celN = Math.max(0, (p.celN || 0) - 1); }
     }
     let delta = 0;
     if (nowCorrect) {
@@ -1281,18 +1348,23 @@
     const p = game.players.find((pp) => pp.id === id);
     return p ? p.name : (id === myState.myId ? myState.myName : 'Player');
   }
-  function applyBuzzLocal(playerId) {
+  // The share of the question read at the current buzz (1 once it's all out).
+  function celerityNow() { return typeof game.buzzCelerity === 'number' ? game.buzzCelerity : 1; }
+  function applyBuzzLocal(playerId, celerity) {
+    game.buzzCelerity = typeof celerity === 'number' && celerity >= 0 && celerity <= 1 ? celerity : 1;
     game.buzzedPlayerId = playerId; game.phase = 'answering';
     game.liveTypingText = ''; game.liveTypingFrom = null;
-    // As on QB Reader: "Bob buzzed", then a live line of what they type.
-    logEvent(playerName(playerId), 'buzzed');
+    // A live line with a Buzz chip and what they type (no separate
+    // "Bob buzzed" line: the chip already says so).
     liveBuzzLine(playerId, playerName(playerId));
     fullRenderFromState();
   }
   function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close) {
     scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
     const pl = game.players.find((pp) => pp.id === playerId);
-    if (pl && !isOverride) { if (correct) pl.correct = (pl.correct || 0) + 1; else pl.incorrect = (pl.incorrect || 0) + 1; }
+    if (pl && !isOverride) {
+      if (correct) { pl.correct = (pl.correct || 0) + 1; pl.celSum = (pl.celSum || 0) + celerityNow(); pl.celN = (pl.celN || 0) + 1; } else pl.incorrect = (pl.incorrect || 0) + 1;
+    }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
     if (isOverride) logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
@@ -1477,7 +1549,7 @@
     departedPlayers.clear();
     (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
-      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, connId: p.id, pid: p.pid || null });
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, connId: p.id, pid: p.pid || null });
       else if (p.pid) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
@@ -1534,7 +1606,7 @@
     const pidInUse = pid && [...hostPlayers.values()].some((p) => p.pid === pid);
     const back = pid && !pidInUse ? departedPlayers.get(pid) : null;
     if (back) departedPlayers.delete(pid);
-    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, connId: id, pid: pidInUse ? null : (pid || null) });
+    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
   }
 
   // The coordinator holds the room's code, so newcomers can find the room.
@@ -1740,6 +1812,7 @@
     if (msg.type === 'lobby') {
       game.players = msg.players;
       game.departed = Array.isArray(msg.departed) ? msg.departed : [];
+      if (Array.isArray(msg.kicked)) game.kicked = msg.kicked;
       const me = game.players.find((p) => p.id === myState.myId);
       if (me) myState.myName = me.name;
       renderPlayerList(document.getElementById('mpPlayerList'));
@@ -1805,7 +1878,7 @@
     }
     if (msg.type === 'buzzAccepted') {
       if (revealCtl && !revealCtl.isDone()) revealCtl.pause();
-      applyBuzzLocal(msg.playerId);
+      applyBuzzLocal(msg.playerId, msg.celerity);
       return;
     }
     if (msg.type === 'typing') {
@@ -1815,6 +1888,14 @@
     }
     if (msg.type === 'chat') {
       renderChatAppend(msg.entry);
+      return;
+    }
+    if (msg.type === 'kicked') {
+      if (msg.playerId === myState.myId) leaveKicked();
+      return;
+    }
+    if (msg.type === 'votekickRefused') {
+      if (typeof msg.text === 'string') logEvent('You', msg.text.slice(0, 120));
       return;
     }
     if (msg.type === 'graded') {
@@ -2154,7 +2235,7 @@
     }
     if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
     const maxRound = SBData.maxRoundFor(after.tournaments);
-    const rounds = (r) => (!r || (r[0] <= 1 && r[1] >= maxRound) ? 'all rounds' : `${r[0]}–${r[1]}`);
+    const rounds = (r) => (!r || (r[0] <= 1 && r[1] >= maxRound) ? 'all rounds' : `${r[0]}-${r[1]}`);
     if (rounds(before.roundRange) !== rounds(after.roundRange)) out.push(`changed the rounds to ${rounds(after.roundRange)}`);
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
@@ -2250,6 +2331,10 @@
   function joinFromLink() {
     let params;
     try { params = new URLSearchParams(location.search); } catch (e) { return false; }
+    if (params.get('kicked') === '1') {
+      setJoinStatus('You were vote kicked from that room.', true);
+      history.replaceState(null, '', location.pathname);
+    }
     const lobbyKey = params.get('lobby');
     if (lobbyKey) {
       const lobby = SBMpRules.findPublicLobby(SBData.meta, lobbyKey);
