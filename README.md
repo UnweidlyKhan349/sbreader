@@ -399,7 +399,7 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 
 ## Accounts
 
-Accounts are optional and off until a Supabase project is set up; without one the site works exactly as before (stars and settings stay in the browser) and shows no "Log in". They use [Supabase](https://supabase.com) for sign-up/login (its Auth, email + password) and a small database, called straight from the browser with the vendored `js/vendor/supabase.min.js` (supabase-js 2.115.0), which is only loaded when accounts are switched on.
+Accounts are optional and off until a Supabase project is set up; without one everything else works (stars and settings stay in the browser), and the navbar's "Log in" opens a page saying accounts aren't switched on. They use [Supabase](https://supabase.com) for sign-up/login (its Auth, email + password) and a small database, called straight from the browser with the vendored `js/vendor/supabase.min.js` (supabase-js 2.115.0), which is only loaded when accounts are switched on.
 
 **Setting it up (once):**
 1. Create a free project at supabase.com.
