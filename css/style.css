@@ -448,7 +448,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* The room code (or public lobby's name) above the question: click to copy
    an invite link. */
-.room-code-strip { display: inline-flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.room-code-strip { display: inline-flex; align-items: center; gap: .5rem; flex-wrap: wrap; min-width: 0; }
+.room-code.is-name { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .room-code {
   font-weight: 700; letter-spacing: 2px; cursor: pointer;
   border: var(--bs-border-width) dashed var(--bs-border-color); border-radius: var(--bs-border-radius);

@@ -113,7 +113,8 @@
       e.preventDefault();
       e.stopPropagation();
       const on = SBData.bookmarks.toggle(q.id);
-      paintStar();
+      // Every card of this question shows the same star.
+      if (card.parentElement) repaintStars(card.parentElement, q.id); else paintStar();
       if (opts.onStar) opts.onStar(on);
     });
     card.paintStar = paintStar;

@@ -189,12 +189,12 @@
         <input class="form-control" type="text" id="mpChatInput" placeholder="Chat" maxlength="300" autocomplete="off" aria-label="Chat message" />
         <button class="btn btn-success" id="mpChatSendBtn" type="button">Submit</button>
       </div>
-      <div class="float-row d-flex justify-content-between align-items-start gap-3">
+      <div class="float-row d-flex flex-wrap justify-content-between align-items-start column-gap-3 row-gap-1">
         <span class="room-code-strip">
           <span id="mpRoomLabel">Room</span>
           <span class="room-code is-name" id="mpRoomCodeDisplay" title="Click to copy the room's link" role="button" tabindex="0"></span>
         </span>
-        <span class="ps-5 me-lg-2 text-end">
+        <span class="ms-auto me-lg-2 text-end">
           <span class="badge text-bg-warning me-1" id="mpPauseBadge" style="display:none;">Paused</span>
           <b id="mpQuestionInfo"></b>
         </span>

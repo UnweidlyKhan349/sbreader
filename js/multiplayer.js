@@ -1754,10 +1754,8 @@
       return;
     }
     if (msg.type === 'buzzAccepted') {
-      game.buzzedPlayerId = msg.playerId; game.phase = 'answering';
-      game.liveTypingText = ''; game.liveTypingFrom = null;
       if (revealCtl && !revealCtl.isDone()) revealCtl.pause();
-      fullRenderFromState();
+      applyBuzzLocal(msg.playerId);
       return;
     }
     if (msg.type === 'typing') {
@@ -1882,6 +1880,9 @@
   }
   function doTypingInput(text) {
     if (game.phase !== 'answering' || game.buzzedPlayerId !== myState.myId) return;
+    // Your own live line follows every keystroke.
+    game.liveTypingText = text; game.liveTypingFrom = myState.myId;
+    renderBuzzStatus();
     if (typingThrottled) {
       // Don't drop this keystroke, or what others see can lag behind what
       // was actually typed: bank the latest text and flush it the moment
