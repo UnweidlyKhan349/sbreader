@@ -31,6 +31,9 @@ test('every record has the fields and values the site expects', () => {
     'MC without four choices': (q) => q.f === 'MC' && !(q.c && LETTERS.every((L) => typeof q.c[L] === 'string')),
     'MC without a W/X/Y/Z answer letter': (q) => q.f === 'MC' && !LETTERS.includes(q.a.l),
     'source URL is not https': (q) => q.u != null && !/^https:\/\//.test(q.u),
+    'source URL already has a fragment': (q) => q.u != null && q.u.includes('#'),
+    'packet location (pg) is not a positive whole number': (q) => q.pg != null && !(Number.isInteger(q.pg) && q.pg > 0),
+    'packet location (pg) on a link that has no pages or lines': (q) => q.pg != null && !globalThis.SBData.packetAnchor(q.u, q.pg),
   });
   assert.deepStrictEqual(found, {});
 });
@@ -213,4 +216,17 @@ test('search matches every word in the question, answer or tournament, ignoring 
   // Words needn't be adjacent or in order.
   const apart = SBData.filterQuestions({ search: 'chloride sodium' }).length;
   assert.ok(apart >= SBData.filterQuestions({ search: 'sodium chloride' }).length && apart > 0);
+});
+
+test('a packet location becomes a #page= or #L fragment only on PDF and GitHub links', () => {
+  const { packetAnchor } = globalThis.SBData;
+  assert.strictEqual(packetAnchor('https://lebot.djiang.xyz/packets/AVES-2025/AVES%20DE1.pdf', 4), '#page=4');
+  assert.strictEqual(packetAnchor('https://example.org/round1.PDF?dl=1', 2), '#page=2');
+  assert.strictEqual(packetAnchor('https://github.com/a/b/blob/master/sets/x.txt', 120), '#L120');
+  assert.strictEqual(packetAnchor('https://docs.google.com/document/d/abc/edit', 3), '');
+  assert.strictEqual(packetAnchor('https://isobowl.com/premier/tournaments/icsbt-3?round=1', 3), '');
+  assert.strictEqual(packetAnchor('https://example.org/a.pdf', undefined), '');
+  const { questions } = loadCorpus();
+  const placed = questions.find((q) => /\.pdf#page=\d+$/.test(q.sourceUrl || ''));
+  assert.ok(placed, 'some question links to its page');
 });

@@ -596,11 +596,25 @@
           accept: (q.a.ac || []).map(cleanText),
           reject: (q.a.rj || []).map(cleanText),
         },
-        sourceUrl: p.u,
+        sourceUrl: p.u ? p.u + packetAnchor(p.u, q.pg) : p.u,
       });
     }));
     return out;
   }
+
+  // Where in its packet a question is (`pg`, found by
+  // tools/packet-locations.js), as a fragment for the packet link: the page
+  // of a PDF (browsers' PDF viewers open url#page=N there) or the line of a
+  // GitHub file (#LN). Other links have no such anchor.
+  function packetAnchor(url, pg) {
+    if (!url || !(pg > 0)) return '';
+    const bare = url.split(/[?#]/)[0];
+    const githubBlob = /^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\//.test(url);
+    if (/\.pdf$/i.test(bare) && !githubBlob) return '#page=' + pg;
+    if (githubBlob && /\.(txt|md|round)$/i.test(bare)) return '#L' + pg;
+    return '';
+  }
+  SBData.packetAnchor = packetAnchor;
 
   // bank: [{ slug, packets }] in any order; questions come out in
   // meta.tournaments order (A-Z), each tournament in its file's order.

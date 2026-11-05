@@ -272,6 +272,7 @@ A flat record (a question plus its packet's fields and its tournament):
 | `a` | answer: `t` text, `l` MC letter, `ac` also-accept list, `rj` do-not-accept list |
 | `u` | source packet URL, always `https://` (on 93,463 records) |
 | `im` | figures for a visual question, in order: `[{f, w, h}]`, `f` a path under `data/img/` (`mit-2025/17415.webp`), `w`/`h` its pixel size. Absent on text-only questions. |
+| `pg` | where the question is in its packet: the page of a PDF, or the line of a GitHub text file. The site adds it to the packet link as `#page=N` or `#LN`, so a source link opens the packet there (browsers' built-in PDF viewers honour `#page=`; Safari on iOS opens page 1). Found by `tools/packet-locations.js`; absent when the packet has no pages or lines to point at (Google Docs and Drive, isobowl, scibowldb, GitHub `.doc`/`.docx`/`.pdf`) or the question couldn't be found in it. |
 
 `(rl, n, qt)` is **not** guaranteed unique. Some packets really do contain spare or replacement questions that reuse a number (e.g. NWI 2025 DE5, CLASH "21A/21B", FE!M 2025).
 
