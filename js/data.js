@@ -717,6 +717,19 @@
     return SBData._bookmarkedPromise;
   };
 
+  // Only the tournaments holding the given question ids (the Stats page's
+  // recent answers). Ids that moved when duplicates were merged are
+  // followed to the copy that was kept.
+  SBData.loadIds = function (ids) {
+    if (SBData._readyPromise) return SBData._readyPromise;
+    return Promise.all([SBData.loadMeta(), fetchJson(BANK_DIR + 'index.json')])
+      .then(([meta, index]) => {
+        const aliases = meta.idAliases || {};
+        const slugs = new Set(ids.map((id) => slugForId(index.ids, aliases[id] != null ? aliases[id] : id)));
+        return loadTournaments(meta.tournaments.filter((t) => slugs.has(t.slug)));
+      });
+  };
+
   /* ---------------- Bookmarks (localStorage) ---------------- */
   const BOOKMARK_KEY = 'sb_bookmarks_v1';
 
@@ -767,6 +780,12 @@
     if (changed) writeBookmarks(out);
   }
 
+  // Listeners hear every change as (id, isBookmarked); js/account.js uses
+  // this to mirror bookmarks to a logged-in account.
+  const bookmarkListeners = [];
+  function bookmarkChanged(id, on) {
+    bookmarkListeners.forEach((fn) => { try { fn(id, on); } catch (e) { /* a listener's problem */ } });
+  }
   SBData.bookmarks = {
     getAll() {
       return readBookmarks();
@@ -779,23 +798,34 @@
       if (set.has(id)) set.delete(id);
       else set.add(id);
       writeBookmarks(set);
+      bookmarkChanged(id, set.has(id));
       return set.has(id);
     },
     add(id) {
       const set = readBookmarks();
       set.add(id);
       writeBookmarks(set);
+      bookmarkChanged(id, true);
     },
     remove(id) {
       const set = readBookmarks();
       set.delete(id);
       writeBookmarks(set);
+      bookmarkChanged(id, false);
     },
     clear() {
       writeBookmarks(new Set());
     },
     count() {
       return bookmarkSet().size;
+    },
+    // Replaces the whole set without telling the listeners (an account's
+    // bookmarks arriving at login).
+    replaceAll(ids) {
+      writeBookmarks(new Set(ids));
+    },
+    onChange(fn) {
+      bookmarkListeners.push(fn);
     },
   };
 

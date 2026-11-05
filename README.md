@@ -40,9 +40,10 @@ This README covers what the site does, how it's built, the data format, and how 
 7. [Inclusion and duplicate policy](#inclusion-and-duplicate-policy)
 8. [Text and notation conventions](#text-and-notation-conventions)
 9. [Known limitations and open items](#known-limitations-and-open-items)
-10. [Deploying](#deploying)
-11. [Local development and tests](#local-development-and-tests)
-12. [License](#license)
+10. [Accounts](#accounts)
+11. [Deploying](#deploying)
+12. [Local development and tests](#local-development-and-tests)
+13. [License](#license)
 
 ---
 
@@ -99,6 +100,9 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
 
 ### `bookmarks.html` (Bookmarked questions)
 Lists every bookmarked question as a card, with a "Practice these" button that starts solo bookmarked mode. Bookmarks are stored per device in `localStorage` under `sb_bookmarks_v1`. The page downloads only the tournaments that hold a bookmarked question (`SBData.loadBookmarked()`, using `data/bank/index.json` to find them), not the whole bank.
+
+### `account.html` (Account) and `stats.html` (Stats)
+Optional accounts, like QB Reader's (see [Accounts](#accounts) for setting them up). The navbar shows **Log in**; logged in, your name opens Stats, Account and Log out. The Account page has Log in / Sign up (username, email, password), a password reset by email, and, logged in, changing your username or password, logging out, and deleting your data. The Stats page sums up every question you've answered in Play and Multiplayer while logged in: totals and accuracy by subject, by tossup/bonus, by mode and by tournament, then your last 50 answers as question cards, with a "Reset stats" button.
 
 ### Mobile
 - Below 992 px the navbar folds into a ☰ menu, the play and room sidebars sit above the question with only the timer showing until ⚙ opens them, and the button bar stays pinned to the bottom. There's no horizontal page overflow on any page.
@@ -380,6 +384,23 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 - **Sources not ingested**: isobowl.com tournaments that are live, upcoming or not yet released (re-checked November 4, 2026: Hawaii Science Bowl Tournament and the three ISOBowl Invitational divisions are completed and hold 576–644 questions each, but the rounds endpoint still returns none; North South Science Bowl and Mitosisphere Bio Bowl 2026 list rounds with no questions; BTHS Fall Invitational 3, new on the list, is live; re-check after they're released); sciencebowl.org (login-gated; needs the owner's permission); the NSB National Finals livestream transcripts in GitHub's gstavya/sciencebowl-ai (HS finals 2015–2018 and 2024, MS 2024): they are an LLM's reconstruction of speech, the same 2018 tossups appear twice with different answer choices, and some choices are marked "(incomplete)", so they would be guessed text; Pleasanton Invitational (2022) lists results only. SMH League Cup (January 2025) has no packets online: its "Packets" link on scibowl.stanford.edu opens the MOSFET 2025 public release, already in the bank. Dougherty Valley's 2025 Invitational folder (Rounds 1–2, nine supplementals and a by-topic folder) was matched question by question in November 2026: everything in it is already in Dvhs 2025. Events on that list with no packets posted (East Brunswick Invitational, Equity Northeast Science Bowl, MIT College+ Invitational, PHYS) or still to come (Dougherty Valley MS 2026, MOSFET College+, CREST) are re-checked with the list.
 
 ---
+
+## Accounts
+
+Accounts are optional and off until a Supabase project is set up; without one the site works exactly as before (bookmarks and settings stay in the browser) and shows no "Log in". They use [Supabase](https://supabase.com) for sign-up/login (its Auth, email + password) and a small database, called straight from the browser with the vendored `js/vendor/supabase.min.js` (supabase-js 2.115.0), which is only loaded when accounts are switched on.
+
+**Setting it up (once):**
+1. Create a free project at supabase.com.
+2. In its SQL Editor, run `supabase/schema.sql`. It creates three tables (`bookmarks`, `answers`, `user_settings`) with row-level security, so each account can only read and change its own rows.
+3. Under Authentication → URL Configuration, set the Site URL to the site's address (e.g. `https://unweidlykhan349.github.io/sbreader/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
+4. Put the project URL and anon key (Project Settings → API) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data.
+
+**What an account keeps** (`js/account.js`, with the network-free parts in `js/account-core.js`):
+- **Bookmarks**: every star is mirrored to the account. At login, this browser's bookmarks and the account's are merged (a union, so nothing is lost on either side).
+- **Answers**: each question answered in Play (`solo`) or Multiplayer (`mp`, only your own buzzes; a question you didn't buzz on counts as skipped), with its subject, type, format and tournament, for the Stats page. A grading override updates the answer just recorded.
+- **Settings**: theme, reading speed, multiplayer name and "Hide answers". At login the newer copy wins; after that, changes are pushed as they happen.
+
+Nothing else is stored, and nothing is shared with other players. "Delete my data" on the Account page removes the account's rows (bookmarks in the browser stay).
 
 ## Deploying
 

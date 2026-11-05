@@ -15,7 +15,7 @@
     document.getElementById('practiceBtn').disabled = !n;
   }
 
-  SBData.loadBookmarked().then(() => {
+  function renderAll() {
     const ids = SBData.bookmarks.getAll();
     const results = document.getElementById('results');
     results.innerHTML = '';
@@ -26,6 +26,16 @@
       questions.forEach((q) => results.appendChild(renderCard(q)));
     }
     updateCount();
+  }
+
+  // Logging in merges in the account's bookmarks, which can live in
+  // tournaments this page hasn't loaded yet.
+  window.addEventListener('sb-bookmarks-synced', () => {
+    SBData.loadIds([...SBData.bookmarks.getAll()]).then(renderAll);
+  });
+
+  SBData.loadBookmarked().then(() => {
+    renderAll();
     document.getElementById('practiceBtn').addEventListener('click', () => {
       if (SBData.bookmarks.count()) location.href = 'solo.html?bookmarked=1';
     });

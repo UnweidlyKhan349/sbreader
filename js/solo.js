@@ -406,6 +406,7 @@
 
     const q = currentQ();
     session.log.unshift({ q, category, userText: outcome.userText || '' });
+    if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo');
     renderQuestionLog();
 
     setBuzzEnabled(false);
@@ -466,6 +467,7 @@
     runtime.lastOutcome.correct = !wasCorrect;
     updateCounters();
     if (session.log.length) session.log[0].category = runtime.lastOutcome.correct ? 'correct' : 'incorrect';
+    if (window.SBAccount) SBAccount.updateLastAnswer(runtime.lastOutcome.correct ? 'correct' : 'incorrect');
     showReveal();
     renderQuestionLog();
   }

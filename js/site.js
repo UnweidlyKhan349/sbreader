@@ -67,22 +67,34 @@
     if (active) active.innerHTML = ICONS[theme] || ICONS.auto;
   }
 
-  function wireNavbar() {
-    // Dropdowns: a toggle with data-sb-dropdown opens the .dropdown-menu
-    // beside it; a click elsewhere or Esc closes it.
-    document.querySelectorAll('[data-sb-dropdown]').forEach((toggle) => {
-      const menu = toggle.parentElement.querySelector('.dropdown-menu');
-      if (!menu) return;
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const open = !menu.classList.contains('show');
-        closeAllDropdowns(menu);
-        menu.classList.toggle('show', open);
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
+  // A toggle with data-sb-dropdown opens the .dropdown-menu beside it; a
+  // click elsewhere or Esc closes it.
+  function wireDropdown(toggle) {
+    const menu = toggle.parentElement.querySelector('.dropdown-menu');
+    if (!menu || toggle.dataset.sbWired) return;
+    toggle.dataset.sbWired = '1';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const open = !menu.classList.contains('show');
+      closeAllDropdowns(menu);
+      menu.classList.toggle('show', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+  }
+
+  // Applies and saves a theme chosen elsewhere (an account's settings).
+  function setTheme(theme) {
+    if (!THEMES.includes(theme)) return;
+    try { localStorage.setItem(KEY, theme); } catch (e) { /* not saved */ }
+    apply(theme);
+    markTheme(theme);
+  }
+  window.SBSite = { wireDropdown, setTheme };
+
+  function wireNavbar() {
+    document.querySelectorAll('[data-sb-dropdown]').forEach(wireDropdown);
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.dropdown-menu')) closeAllDropdowns();
     });
