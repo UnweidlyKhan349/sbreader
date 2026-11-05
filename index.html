@@ -120,10 +120,6 @@
       </div>
     </div>
   </div>
-  <h3>Did you know?</h3>
-  <blockquote class="blockquote">
-    <p id="didYouKnow">SB Reader is built from real tournament packets: regionals, nationals and invitationals, plus practice sets written by school teams.</p>
-  </blockquote>
 </div>
 
 <script src="js/data.js"></script>
@@ -133,18 +129,6 @@
     const n = meta.totalQuestions.toLocaleString();
     const t = meta.tournaments.length;
     document.getElementById('tagline').textContent = `A searchable database of ${n} Science Bowl questions from ${t} tournaments, from regionals and nationals to invitationals and school-team practice sets.`;
-    // "Did you know?": a fact read from the bank itself.
-    const dated = meta.tournaments.filter((x) => x.date).sort((a, b) => a.date.localeCompare(b.date));
-    const ms = meta.tournaments.filter((x) => x.level === 'ms');
-    const facts = [];
-    if (dated.length) {
-      const newest = dated[dated.length - 1];
-      facts.push(`The newest set in the bank is ${newest.name}, and the oldest is ${dated[0].name}.`);
-    }
-    if (ms.length) facts.push(`${ms.length} of the ${t} tournaments are middle school sets. Pick "Middle School" under Level to practice only those.`);
-    const biggest = meta.tournaments.slice().sort((a, b) => b.count - a.count)[0];
-    if (biggest) facts.push(`The largest set in the bank is ${biggest.name}, with ${biggest.count.toLocaleString()} questions.`);
-    if (facts.length) document.getElementById('didYouKnow').textContent = facts[Math.floor(Math.random() * facts.length)];
   }).catch(() => {
     document.getElementById('tagline').textContent = 'Could not load the question bank. Try refreshing.';
   });
