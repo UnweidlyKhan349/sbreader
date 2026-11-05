@@ -264,7 +264,7 @@
     el.textContent = lobby ? lobbyLabel(lobby) : myState.roomName;
     el.dataset.code = lobby ? lobby.key : myState.roomName;
     document.getElementById('mpRoomLabel').textContent = 'Room';
-    document.title = `${el.textContent} · Multiplayer · SB Reader`;
+    document.title = `SBReader - Multiplayer - ${el.textContent}`;
   }
 
   // A link to this page that joins the room as soon as it's opened.
@@ -331,23 +331,73 @@
           <span class="me-1">${escapeHtml(p.name)}</span>
           <span class="badge rounded-pill ${p.offline ? 'bg-secondary' : 'bg-success'}">${p.score}</span>
         </div>`;
-      if (openStatsFor === key) {
-        const stats = document.createElement('ul');
-        stats.className = 'list-group list-group-flush mt-2 player-stats';
-        const heard = (p.correct || 0) + (p.incorrect || 0);
-        stats.innerHTML = [
-          ['Points', p.score], ['Correct', p.correct || 0], ['Incorrect', p.incorrect || 0],
-          ['Accuracy', heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-'], ['Status', p.offline ? 'Offline' : 'Online'],
-        ].map(([k, v]) => `<li class="list-group-item d-flex justify-content-between px-0 py-1"><span>${k}</span><span class="badge rounded-pill bg-secondary">${v}</span></li>`).join('');
-        item.appendChild(stats);
-      }
+      item.dataset.key = key;
+      item.setAttribute('aria-haspopup', 'dialog');
       item.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         openStatsFor = openStatsFor === key ? null : key;
-        renderPlayerList(container);
+        renderPlayerPopover();
       });
       container.appendChild(item);
     });
+    renderPlayerPopover();
+  }
+
+  // As on QB Reader: clicking a player opens a popover beside the list with
+  // their name and stats; clicking anywhere else (or Esc) closes it. It's
+  // repainted with the list, so the numbers stay live while it's open.
+  let playerPopover = null;
+  function closePlayerPopover() {
+    openStatsFor = null;
+    if (playerPopover) playerPopover.hidden = true;
+  }
+  function renderPlayerPopover() {
+    const item = openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`);
+    if (!item || item.classList.contains('d-none') || !item.offsetParent) { closePlayerPopover(); return; }
+    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, offline: true }));
+    const p = game.players.concat(offline).find((x) => (x.id || 'pid:' + x.pid) === openStatsFor);
+    if (!p) { closePlayerPopover(); return; }
+    if (!playerPopover) {
+      playerPopover = document.createElement('div');
+      playerPopover.className = 'popover custom-popover';
+      playerPopover.setAttribute('role', 'dialog');
+      playerPopover.innerHTML = '<div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>';
+      playerPopover.addEventListener('click', (e) => e.stopPropagation());
+      document.body.appendChild(playerPopover);
+      document.addEventListener('click', closePlayerPopover);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && openStatsFor) closePlayerPopover(); });
+      window.addEventListener('resize', () => { if (openStatsFor) renderPlayerPopover(); });
+    }
+    const heard = (p.correct || 0) + (p.incorrect || 0);
+    const pill = (v) => `<span class="float-end badge rounded-pill bg-secondary">${escapeHtml(String(v))}</span>`;
+    const plain = (v) => `<span class="float-end">${escapeHtml(String(v))}</span>`;
+    playerPopover.querySelector('.popover-header').textContent = p.name;
+    playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
+      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')],
+      ['Online?', plain(p.offline ? 'No' : 'Yes')],
+    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
+    // Placed to the left of the player, as QB Reader's are; below it when
+    // there's no room on the left (phones).
+    playerPopover.hidden = false;
+    const r = item.getBoundingClientRect();
+    const w = playerPopover.offsetWidth;
+    const h = playerPopover.offsetHeight;
+    const arrow = playerPopover.querySelector('.popover-arrow');
+    const sx = window.scrollX; const sy = window.scrollY;
+    const left = r.left >= w + 16;
+    playerPopover.classList.toggle('bs-popover-start', left);
+    playerPopover.classList.toggle('bs-popover-bottom', !left);
+    if (left) {
+      playerPopover.style.left = (sx + r.left - w - 8) + 'px';
+      playerPopover.style.top = (sy + r.top + r.height / 2 - h / 2) + 'px';
+      arrow.style.left = ''; arrow.style.top = (h / 2 - 8) + 'px';
+    } else {
+      const x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), document.documentElement.clientWidth - w - 8);
+      playerPopover.style.left = (sx + x) + 'px';
+      playerPopover.style.top = (sy + r.bottom + 8) + 'px';
+      arrow.style.top = ''; arrow.style.left = (r.left + r.width / 2 - x - 8) + 'px';
+    }
   }
 
   function setPill(text, cls) {
@@ -1633,7 +1683,7 @@
   let joining = false;
 
   function lobbyLabel(lobby) {
-    return lobby.key === 'all' ? 'All subjects' : labelFor(lobby.key);
+    return lobby.key === 'all' ? 'General' : labelFor(lobby.key);
   }
   function lobbyFilters(lobby) {
     return { ...defaultFilters(true), subjects: new Set(lobby.subjects) };
@@ -1917,7 +1967,7 @@
   let suppressSettingsApplyEcho = false;
 
   // Copies a full set of settings into midGameFilterState in place (the
-  // Categories modal holds on to its subjects Set).
+  // subject toggles hold on to its subjects Set).
   function loadMidGameState(from) {
     const f = copyFilters(from);
     Object.keys(f).forEach((k) => {
@@ -1969,8 +2019,7 @@
   }
   function wireMidGameSettings() {
 
-    categories = SBPlay.categoryModal('mpCategoryModal', SBData.meta.subjects, midGameFilterState.subjects, () => { if (!suppressSettingsApplyEcho) onSettingChange(); });
-    document.getElementById('mpCategoriesBtn').addEventListener('click', () => categories.open());
+    categories = SBPlay.subjectButtons(document.getElementById('mpSubjectButtons'), SBData.meta.subjects, midGameFilterState.subjects, () => { if (!suppressSettingsApplyEcho) onSettingChange(); });
 
     const mode = document.getElementById('mpSetMode');
     mode.addEventListener('change', () => { midGameFilterState.mode = mode.value; showModeControls(); onSettingChange(); mode.blur(); });
@@ -2099,7 +2148,10 @@
     if (before.mode !== after.mode) out.push(`changed the mode to ${after.mode === 'set' ? 'Select by Set Name' : 'Random Questions'}`);
     if (before.setName !== after.setName) { const t = tournamentBySlug(after.setName); out.push(t ? `changed the set to ${t.name}` : 'cleared the set'); }
     if (before.packetNumbers !== after.packetNumbers) out.push(after.packetNumbers ? `changed the packet numbers to ${after.packetNumbers}` : 'cleared the packet numbers');
-    if (!sameSet(before.subjects, after.subjects)) out.push('updated the categories');
+    if (!sameSet(before.subjects, after.subjects)) {
+      const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
+      out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
+    }
     if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
     const maxRound = SBData.maxRoundFor(after.tournaments);
     const rounds = (r) => (!r || (r[0] <= 1 && r[1] >= maxRound) ? 'all rounds' : `${r[0]}–${r[1]}`);

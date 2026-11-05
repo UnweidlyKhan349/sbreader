@@ -428,28 +428,41 @@
   }
 
   // A star that toggles one question's bookmark. onChange(isBookmarked).
+  // QB Reader's star: a link holding Bootstrap Icons' star (outline) or
+  // star-fill. A click stars or unstars the question; `.paint()` repaints it
+  // (another card or tab may have changed it).
   function bookmarkButton(qId, onChange) {
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-sm btn-outline-secondary icon-btn';
-    function paint(isBm) {
-      btn.textContent = isBm ? '★' : '☆';
-      btn.classList.toggle('active', isBm);
-      btn.title = isBm ? 'Unstar' : 'Star';
+    const a = document.createElement('a');
+    a.href = '#';
+    a.className = 'star-question';
+    a.dataset.qid = qId;
+    function paint() {
+      const on = SBData.bookmarks.isBookmarked(qId);
+      const icons = window.SBIcons || {};
+      a.innerHTML = (on ? icons.starFill : icons.star) || (on ? '★' : '☆');
+      a.classList.toggle('selected', on);
+      a.title = on ? 'Unstar' : 'Star';
+      a.setAttribute('aria-label', on ? 'Unstar this question' : 'Star this question');
+      a.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
-    paint(SBData.bookmarks.isBookmarked(qId));
-    btn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(qId);
-      paint(nowBm);
-      if (onChange) onChange(nowBm);
-    };
-    return btn;
+    a.paint = paint;
+    paint();
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const now = SBData.bookmarks.toggle(qId);
+      paint();
+      if (onChange) onChange(now);
+    });
+    return a;
   }
 
-  // A question as a Bootstrap card, laid out like qbreader's database cards:
-  //   header - the tournament, round and question number, and the star
-  //   body   - the question, its figures and choices, a rule, the answer
-  //   footer - subject / type / format badges and the packet link
-  // Used by the catalog, the bookmarks page and the play history.
+  // A question as a Bootstrap card, laid out like QB Reader's database cards:
+  //   header - "AVES 2 | Physics | Tossup | Multiple Choice", then
+  //            "Packet RR 1 |" and the star
+  //   body   - "1. " and the question, its figures and choices, a rule, the answer
+  //   footer - the packet and question number, and the packet link
+  // Used by the catalog and the Stats page.
   // opts: {
   //   grade: 'correct'|'incorrect'|'skipped'  badge before the source label
   //   answer: reveal data for answerBlock (multiplayer; default the question's own)
@@ -464,27 +477,43 @@
     card.className = 'card q-card mb-3';
     card.dataset.qid = q.id;
 
+    // As QB Reader's database cards: "Set | Category | Subcategory | ..."
+    // on the left, "Packet N |" and the star on the right, and the
+    // question's number at the start of its text.
     const header = document.createElement('div');
-    header.className = 'card-header d-flex align-items-center gap-2';
+    header.className = 'card-header d-flex justify-content-between align-items-start gap-2';
     const title = document.createElement('b');
-    title.className = 'q-card-title me-auto';
+    title.className = 'q-card-title';
     if (opts.grade) {
       const badge = document.createElement('span');
       badge.className = 'grade-badge me-2 ' + opts.grade;
       badge.textContent = GRADE_LABELS[opts.grade];
       title.appendChild(badge);
     }
-    title.appendChild(document.createTextNode(SBData.sourceLabelFor(q)));
-    header.appendChild(title);
-    const star = bookmarkButton(q.id, opts.onBookmark);
-    star.classList.remove('btn-outline-secondary', 'btn-sm');
-    star.classList.add('btn-link', 'q-card-star');
-    header.appendChild(star);
+    const parts = [q.tournament, subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
+    if (q.visual && !isVisualBonus(q)) parts.push('Visual');
+    title.appendChild(document.createTextNode(parts.filter(Boolean).join(' | ')));
+    const right = document.createElement('span');
+    right.className = 'd-flex align-items-center gap-1 text-nowrap';
+    const round = SBData.roundLabelFor(q);
+    if (round) {
+      const packet = document.createElement('b');
+      packet.textContent = `Packet ${round} |`;
+      right.appendChild(packet);
+    }
+    right.appendChild(bookmarkButton(q.id, opts.onBookmark));
+    header.append(title, right);
     card.appendChild(header);
 
     const body = document.createElement('div');
     body.className = 'card-body';
     appendQuestionBody(body, q);
+    if (q.num) {
+      const n = document.createElement('span');
+      n.className = 'q-num';
+      n.textContent = q.num + '. ';
+      body.querySelector('.q-text').prepend(n);
+    }
     const hr = document.createElement('hr');
     hr.className = 'my-2';
     body.appendChild(hr);
@@ -510,16 +539,12 @@
     }
     card.appendChild(body);
 
+    // Footer, as QB Reader's: the packet on the left, links on the right.
     const footer = document.createElement('div');
-    footer.className = 'card-footer small d-flex flex-wrap align-items-center gap-1';
+    footer.className = 'card-footer d-flex justify-content-between gap-2';
     const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
-    footer.innerHTML = [
-      `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
-      `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
-      `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
-      q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      isPacketUrl(src) ? `<a class="ms-auto" href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>` : '',
-    ].join('');
+    footer.innerHTML = `<small class="text-muted">${round ? 'Packet ' + escapeHtml(round) : '&nbsp;'}${q.num ? ' / Question ' + escapeHtml(q.num) : ''}</small>`
+      + (isPacketUrl(src) ? `<small><a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a></small>` : '');
     card.appendChild(footer);
     return card;
   }

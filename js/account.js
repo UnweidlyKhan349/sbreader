@@ -84,7 +84,7 @@
     slot.hidden = false;
     if (!user) {
       slot.className = 'nav-item';
-      slot.innerHTML = `<a class="nav-link" href="${pageUrl('account.html')}" id="login-link">Log in</a>`;
+      slot.innerHTML = `<a class="nav-link ms-3 ms-lg-0" href="${pageUrl('account.html')}" id="login-link">Log in</a>`;
       return;
     }
     slot.className = 'nav-item dropdown';

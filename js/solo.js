@@ -1,5 +1,5 @@
 // Play (solo.html), laid out and behaving like QB Reader's play page: a mode
-// (Select by Set Name, Random Questions, Starred Questions), Categories,
+// (Select by Set Name, Random Questions, Starred Questions), subject toggles,
 // rebuzz / history / set name / timer switches, and finished questions
 // collapsed into cards under the current one (k opens the latest, t stars it).
 (function () {
@@ -64,7 +64,7 @@
       el.textContent = '';
       document.getElementById('starredInfo').textContent = n
         ? `${n.toLocaleString()} starred question${n === 1 ? '' : 's'}, read round and round.`
-        : 'No starred questions yet. Star a question with ☆ in the history (or press t) or in the Database.';
+        : 'No starred questions yet. Star a question in the history (or press t) or in the Database.';
     } else {
       el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings`;
     }
@@ -86,7 +86,7 @@
     document.getElementById('setSettings').classList.toggle('d-none', settings.mode !== 'set');
     document.getElementById('randomSettings').classList.toggle('d-none', settings.mode !== 'random');
     document.getElementById('starredSettings').classList.toggle('d-none', settings.mode !== 'starred');
-    document.getElementById('categoriesBtn').disabled = settings.mode === 'starred';
+    if (categories) categories.setDisabled(settings.mode === 'starred');
   }
 
   function describeSet() {
@@ -102,8 +102,7 @@
   function initSettings() {
     const all = SBData.meta.subjects.map((s) => s.key);
     subjects = new Set(Array.isArray(settings.subjects) && settings.subjects.length ? settings.subjects.filter((k) => all.includes(k)) : all);
-    categories = SBPlay.categoryModal('categoryModal', SBData.meta.subjects, subjects, onSettingsChange);
-    document.getElementById('categoriesBtn').addEventListener('click', () => categories.open());
+    categories = SBPlay.subjectButtons(document.getElementById('subjectButtons'), SBData.meta.subjects, subjects, onSettingsChange);
 
     // Mode.
     const params = new URLSearchParams(location.search);
@@ -155,11 +154,6 @@
       el.addEventListener('change', () => { settings[key] = el.checked; el.blur(); applySwitches(); save(); });
     });
     applySwitches();
-
-    document.getElementById('clearStatsBtn').addEventListener('click', () => {
-      session.correct = 0; session.incorrect = 0; session.skipped = 0; session.points = 0;
-      updateCounters();
-    });
 
     const rateSlider = document.getElementById('rateSlider');
     let savedRate = 1;

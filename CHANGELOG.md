@@ -75,3 +75,9 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Multiplayer, as QB Reader's**: the lobby has one room-name box with **Go**, a Make room private checkbox, the built-in rooms and the public rooms as "name - N players - M online", read once on load with no refresh button and no name box. Rooms are named and live at `multiplayer.html?room=<name>`; they can be public or private. In a room: QB Reader's player list (points pills, click for stats) with a Show offline players switch, a username box instead of Rename, and a room history of joins, leaves, settings changes, buzzes (a live Buzz line showing what the player types, then Correct/Incorrect) and chat, which stays on in public rooms. Players are never removed from a room. The room list and rosters use two new Supabase tables (`mp_rooms`, `mp_players`).
 - **New icons**: the favicon, touch icon, PWA icons, logo and link-preview image are now "SB" in QB Reader's blue on white.
 - **Set List, as QB Reader's**: a "Search set names" box and a sortable table with each set's packets, tossups and bonuses (`tools/meta-counts.js`).
+- The navbar shows **Log in** (as QB Reader's does) instead of the GitHub link. Page titles follow QB Reader's pattern: "SBReader - Play", "SBReader - Database - Set List", "SBReader - Multiplayer - <room>".
+- Play and Multiplayer show the subjects as toggles right in the sidebar instead of a Categories button; Clear Stats is gone.
+- Stars use QB Reader's icon (Bootstrap Icons' star / star-fill).
+- Database cards are laid out like QB Reader's: "AVES 2 | Physics | Tossup | Multiple Choice" and "Packet RR 1 |" in the header, the question number before the question, the packet in the footer.
+- Multiplayer: clicking a player opens a QB Reader-style popover with their stats; the "All subjects" room is now "General".
+- Home page: removed the "About & Instructions" button and the answer-checker link.

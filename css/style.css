@@ -323,14 +323,12 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* ---------------- Question cards (SBData.questionCard) ---------------- */
 .q-card .card-header { padding-top: .35rem; padding-bottom: .35rem; }
-.btn.q-card-star { font-size: 1.15rem; line-height: 1; padding: 0 .25rem; border: 0; color: var(--bs-secondary-color); text-decoration: none; }
-.btn.q-card-star:hover, .btn.q-card-star.active { color: var(--warn); }
 .q-card .q-text { margin: 0 0 .25rem; }
 .q-card .choices { margin: .25rem 0; white-space: pre-wrap; }
 .q-card .a-text { font-weight: 700; }
 .q-card .q-figure { max-height: 300px; }
 .q-card .card-footer { color: var(--bs-secondary-color); }
-.q-card .card-footer .tag { font-size: .7rem; }
+.q-card .q-num { font-weight: 400; }
 
 /* Pagination's "Page [n] of N" jump box. */
 .page-jump { width: auto; }
@@ -440,7 +438,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
 .mp-player-row.answered-incorrect { box-shadow: inset 3px 0 0 var(--bs-danger); }
 .mp-player-row.offline { color: var(--bs-secondary-color); }
-.player-stats .list-group-item { background: transparent; }
 :root { --user-score-background: #FFF9C4; }
 [data-bs-theme=dark] { --user-score-background: #4A90E2; }
 .room-history li { margin: .15rem 0; }
@@ -498,9 +495,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   padding: .5rem .75rem; display: inline-block;
 }
 
-/* ---------------- Categories modal (SBPlay.categoryModal) ---------------- */
-/* Each subject is a full-width outline toggle in its own colour, filled when
-   it's on, as QB Reader's category buttons are. */
+/* ---------------- Subject toggles (SBPlay.subjectButtons) ---------------- */
+/* Each subject is an outline toggle in its own colour, filled when it's on,
+   as QB Reader's category buttons are, two to a row in the sidebar. */
+.subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .375rem; }
 .btn-subject {
   --subject: var(--bs-secondary);
   --bs-btn-color: var(--subject); --bs-btn-border-color: var(--subject);
@@ -521,9 +519,14 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .clickable { cursor: pointer; }
 .history-card .card-header-clickable { flex: 1; }
 .history-card .card-header-clickable:hover { text-decoration: underline; }
-.star-question { font-size: 1.1rem; line-height: 1.2; color: var(--bs-secondary-color); text-decoration: none; }
-.star-question:hover { color: var(--warn); text-decoration: none; }
-.star-question.selected { color: var(--warn); }
+.star-question { display: inline-flex; align-items: center; line-height: 1.5; }
+.star-question svg { display: block; }
 .history-card .q-text { margin-bottom: .25rem; }
 .history-card .choices { white-space: pre-wrap; }
 .history-card .q-figure { max-height: 300px; }
+
+/* Player popover (Multiplayer), as QB Reader's: 250 px wide, the stats list
+   edge to edge. */
+.custom-popover { position: absolute; z-index: var(--bs-popover-zindex); width: 250px; max-width: calc(100vw - 16px); --bs-popover-max-width: 100%; --bs-popover-body-padding-x: 0; --bs-popover-body-padding-y: 0; }
+.custom-popover .popover-arrow { position: absolute; }
+.custom-popover .list-group-item { background: transparent; }

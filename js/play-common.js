@@ -1,60 +1,33 @@
 // Pieces Play (solo.html) and Multiplayer share, in QB Reader's style:
-// the Categories modal, the question cards in the history, packet-number
+// the subject toggles, the question cards in the history, packet-number
 // parsing, and settings saved per device.
 (function () {
   const { escapeHtml } = SBData;
-  const STAR_ON = '★';
-  const STAR_OFF = '☆';
 
-  /* ---------------- Categories modal ---------------- */
-  // A "Select Categories" modal with one toggle per subject, each in its
-  // subject's colour, and a "Toggle all" button. `selected` is a Set of
-  // subject keys, edited in place; onChange() runs after every change.
-  // Returns { open(), sync(), setDisabled(bool) }.
-  function categoryModal(id, subjects, selected, onChange) {
-    const el = document.createElement('div');
-    el.className = 'modal';
-    el.id = id;
-    el.tabIndex = -1;
-    el.setAttribute('aria-hidden', 'true');
-    el.innerHTML = `
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title me-2">Select Categories</h5>
-            <button class="btn btn-primary me-1" type="button" data-toggle-all>Toggle all</button>
-            <button type="button" class="btn-close ms-auto" data-sb-dismiss aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <h5 class="text-center">Category</h5>
-            <div data-subjects></div>
-          </div>
-        </div>
-      </div>`;
-    document.body.appendChild(el);
-    const list = el.querySelector('[data-subjects]');
+  /* ---------------- Subjects ---------------- */
+  // One toggle per subject, in its subject's colour, shown right in the
+  // sidebar. `selected` is a Set of subject keys, edited in place;
+  // onChange() runs after every change. Returns { sync(), setDisabled(bool) }.
+  function subjectButtons(container, subjects, selected, onChange) {
+    container.classList.add('subject-grid');
+    container.setAttribute('role', 'group');
+    container.setAttribute('aria-label', 'Subjects');
     let disabled = false;
     const buttons = subjects.map((s) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'btn btn-subject w-100 rounded-0 my-1';
+      b.className = 'btn btn-sm btn-subject';
       b.dataset.subject = s.key;
       b.textContent = s.label;
       b.addEventListener('click', () => {
         if (disabled) return;
         if (selected.has(s.key)) selected.delete(s.key); else selected.add(s.key);
         sync();
+        b.blur();
         onChange();
       });
-      list.appendChild(b);
+      container.appendChild(b);
       return b;
-    });
-    el.querySelector('[data-toggle-all]').addEventListener('click', () => {
-      if (disabled) return;
-      const allOn = subjects.every((s) => selected.has(s.key));
-      subjects.forEach((s) => { if (allOn) selected.delete(s.key); else selected.add(s.key); });
-      sync();
-      onChange();
     });
     function sync() {
       buttons.forEach((b) => {
@@ -63,15 +36,9 @@
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
         b.disabled = disabled;
       });
-      el.querySelector('[data-toggle-all]').disabled = disabled;
     }
     sync();
-    return {
-      open() { SBSite.showModal(el); },
-      sync,
-      setDisabled(on) { disabled = on; sync(); },
-      element: el,
-    };
+    return { sync, setDisabled(on) { disabled = on; sync(); } };
   }
 
   /* ---------------- History cards ---------------- */
@@ -98,25 +65,12 @@
       ? `<span class="grade-badge ${escapeHtml(opts.grade)} me-2">${escapeHtml({ correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' }[opts.grade] || opts.grade)}</span>`
       : '';
     title.innerHTML = grade + (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '');
-    const star = document.createElement('a');
-    star.href = '#';
-    star.className = 'star-question';
-    function paintStar() {
-      const on = SBData.bookmarks.isBookmarked(q.id);
-      star.textContent = on ? STAR_ON : STAR_OFF;
-      star.classList.toggle('selected', on);
-      star.title = on ? 'Unstar (t)' : 'Star (t)';
-      star.setAttribute('aria-label', on ? 'Unstar this question' : 'Star this question');
-    }
-    paintStar();
-    star.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const on = SBData.bookmarks.toggle(q.id);
+    const star = SBData.bookmarkButton(q.id, (on) => {
       // Every card of this question shows the same star.
-      if (card.parentElement) repaintStars(card.parentElement, q.id); else paintStar();
+      if (card.parentElement) repaintStars(card.parentElement, q.id);
       if (opts.onStar) opts.onStar(on);
     });
+    const paintStar = star.paint;
     card.paintStar = paintStar;
     header.append(title, star);
 
@@ -211,7 +165,7 @@
   }
 
   window.SBPlay = {
-    categoryModal, historyCard, toggleLatest, starLatest, repaintStars,
+    subjectButtons, historyCard, toggleLatest, starLatest, repaintStars,
     packetsOf, parsePacketNumbers, loadSettings, saveSettings,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;
