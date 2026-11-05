@@ -70,110 +70,136 @@
   </div>
 </nav>
 
-<!-- ============== LOBBY / CHOOSE MODE ============== -->
+<!-- ============== LOBBY ============== -->
 <div class="container mt-3 mb-4" id="lobbyScreen">
   <p class="lead">Play Science Bowl in real time against other players.</p>
   <p>
-    Everyone can buzz; the first player in locks the rest out until they've answered.
-    Invite friends by sharing your room's link (click the room code once you're in).
-    Rooms don't depend on whoever started them: anyone can leave and the game carries on.
+    You can invite friends to join you by sharing the URL to your room.
+    There are <span id="activePlayers">0</span> active players in <span id="activeRooms">0</span> active rooms.
   </p>
-
-  <div class="row g-2 mb-3">
-    <div class="col-12 col-md-6">
-      <label class="form-label mb-1" for="mpNameInput">Your name</label>
-      <input class="form-control" type="text" id="mpNameInput" placeholder="Player" maxlength="24" autocomplete="nickname" />
+  <p class="mb-0 pb-2">Create/Join a Room:</p>
+  <form id="roomForm">
+    <div class="input-group justify-content-center pb-2">
+      <label class="d-none" for="newRoomName">Room name</label>
+      <input class="form-control" id="newRoomName" type="text" maxlength="32" autocomplete="off" />
+      <button class="btn btn-success" type="submit">Go</button>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="privateRoomCheckbox" type="checkbox" />
+      <label class="form-check-label" for="privateRoomCheckbox">Make room private</label>
+    </div>
+  </form>
+  <p class="small-note mt-2" id="joinStatus"></p>
+  <hr>
+  <p>Try one of these rooms:</p>
+  <ul class="list-group mb-3" id="permanentRoomList"></ul>
+  <div class="d-flex justify-content-between mb-3">
+    <div>Or, check out a public room:</div>
+    <div class="form-check">
+      <input class="form-check-input" id="emptyRoomCheckbox" type="checkbox" />
+      <label class="form-check-label" for="emptyRoomCheckbox">Show empty rooms</label>
     </div>
   </div>
-
-  <p class="mb-1">Create/Join a Room:</p>
-  <div class="input-group mb-1" id="joinPanel">
-    <input class="form-control" type="text" id="joinCodeInput" placeholder="Room code, e.g. AB3XZ" aria-label="Room code" autocomplete="off" />
-    <button class="btn btn-success" type="button" id="joinRoomBtn">Join</button>
-    <button class="btn btn-primary" type="button" id="createRoomBtn">Create new room</button>
-  </div>
-  <p class="small-note" id="joinStatus"></p>
-
-  <div class="d-flex align-items-center justify-content-between mt-4 mb-2">
-    <h5 class="mb-0">Public lobbies</h5>
-    <button class="btn btn-sm btn-outline-secondary" id="publicRefreshBtn" type="button" title="Check how many players are in each lobby">↻ Refresh</button>
-  </div>
-  <p class="small-note mb-2">Open rooms anyone can join: one mixing every subject, and one for each subject except energy. A lobby's subject is fixed; everything else can be changed from the room settings.</p>
-  <div class="list-group" id="publicLobbyList"></div>
-  <p class="small-note mt-2" id="publicStatus"></p>
+  <ul class="list-group mb-5" id="roomList"></ul>
 </div>
 
-<!-- ============== IN-GAME ============== -->
+<!-- ============== ROOM ============== -->
 <div class="container-fluid mt-3 mb-5 pb-5 px-xxl-5" id="mpGameScreen" style="display:none;">
   <div class="row">
-    <div class="col-12 col-lg-3 order-lg-1 mb-4 play-sidebar" id="settings">
+    <div class="col-12 col-lg-3 order-lg-1 mb-5 play-sidebar" id="settings">
       <div class="timer d-block p-1 text-center" id="mpTimer"><span class="face" id="mpTimerFace">0</span><span class="fraction" id="mpTimerFraction">.0</span></div>
       <hr>
-      <div class="d-flex align-items-center justify-content-between mb-1">
-        <span>Players</span>
-        <button class="btn btn-link btn-sm p-0" id="mpRenameBtn" type="button" title="Change your name">✎ Rename</button>
-      </div>
-      <div class="input-group input-group-sm mb-2" id="mpRenameRow" style="display:none;">
-        <input class="form-control" type="text" id="mpRenameInput" maxlength="24" placeholder="Your name" autocomplete="off" aria-label="Your name" />
-        <button class="btn btn-primary" id="mpRenameSaveBtn" type="button">Save</button>
-      </div>
-      <ul class="list-group mp-players" id="mpPlayerList"></ul>
-      <hr>
-      <div class="d-flex justify-content-between align-items-center mb-1">
-        <span>Room settings</span>
-        <button class="btn btn-link btn-sm p-0" id="mpSettingsClearBtn" type="button">Clear all</button>
-      </div>
-      <div class="chip-row mb-2" id="mpSettingsSubjectChips" role="group" aria-label="Subjects"></div>
-      <p class="small-note mb-2" id="mpSettingsSubjectFixed" style="display:none;"></p>
-      <div id="mpSettingsRoundRangeLabel">Rounds 1–17</div>
-      <div class="dual-slider" id="mpSettingsRoundSlider">
-        <div class="track"></div>
-        <div class="range-fill" id="mpSettingsRoundSliderFill"></div>
-        <input type="range" id="mpSettingsRoundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
-        <input type="range" id="mpSettingsRoundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
-      </div>
       <div class="form-check form-switch mb-2">
-        <input class="form-check-input" type="checkbox" role="switch" id="mpSettingsIncludeUnlabeledRounds" checked />
-        <label class="form-check-label" for="mpSettingsIncludeUnlabeledRounds">Include unlabeled rounds</label>
+        <input class="form-check-input" id="toggleOfflinePlayers" type="checkbox" role="switch" />
+        <label class="form-check-label" for="toggleOfflinePlayers">Show offline players</label>
       </div>
-      <div class="chip-row mb-2" id="mpSettingsQtypeChips" role="group" aria-label="Question type"></div>
-      <div class="chip-row mb-2" id="mpSettingsFormatChips" role="group" aria-label="Format"></div>
-      <div class="chip-row mb-2" id="mpSettingsLevelChips" role="group" aria-label="Level"></div>
-      <div class="chip-row mb-2" id="mpSettingsVisualChips" role="group" aria-label="Visual questions"></div>
-      <select id="mpSettingsTournamentSelect" aria-label="Tournaments"></select>
-      <div class="small-note mt-2" id="mpSettingsMatchCount"></div>
-      <label class="form-label mb-0 mt-2" for="mpSettingsRateSlider">Reading speed: <span id="mpSettingsRateValue">1.0×</span></label>
-      <input class="form-range" type="range" id="mpSettingsRateSlider" min="0.5" max="2.5" step="0.1" value="1" />
-      <p class="small-note mb-0">Anyone in the room can change these, and they apply for everyone from the next question.</p>
-      <div class="d-none d-lg-block">
-        <hr>
-        <p class="mb-0">
-          <span class="text-nowrap"><kbd>Space</kbd> = buzz</span><br>
-          <span class="text-nowrap"><kbd>n</kbd> = next / skip (anyone)</span><br>
-          <span class="text-nowrap"><kbd>p</kbd> = pause (anyone)</span><br>
-          <span class="text-nowrap"><kbd>q</kbd> = override your own grade</span><br>
-          <span class="text-nowrap"><kbd>b</kbd> = bookmark</span><br>
-          <span class="text-nowrap"><kbd>/</kbd> = chat</span><br>
-          <span class="text-nowrap"><kbd>s</kbd> = show/hide settings</span>
-        </p>
+      <ul class="list-group" id="mpPlayerList"></ul>
+      <hr>
+      <div class="input-group mb-2">
+        <span class="input-group-text" title="Username" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></svg>
+        </span>
+        <input class="form-control" id="mpUsername" type="text" placeholder="Username" maxlength="24" autocomplete="off" aria-label="Username" />
+      </div>
+      <label class="form-check-label mb-1" for="mpSetMode">Choose a mode:</label>
+      <select class="form-select mb-2" id="mpSetMode">
+        <option value="set">Select by Set Name</option>
+        <option value="random" selected>Random Questions</option>
+      </select>
+      <div class="d-none" id="mpSetSettings">
+        <div class="input-group mb-2">
+          <span class="input-group-text">Set Name</span>
+          <input class="form-control" id="mpSetName" type="text" list="mpSetNameList" autocomplete="off" />
+          <datalist id="mpSetNameList"></datalist>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Packet #</span>
+          <input class="form-control" id="mpPacketNumbers" type="text" placeholder="Packet Numbers" autocomplete="off" />
+        </div>
+        <div class="form-text mb-2" id="mpSetInfo"></div>
+      </div>
+      <div id="mpRandomSettings">
+        <div class="mb-2"><select id="mpSettingsTournamentSelect" aria-label="Tournaments"></select></div>
+        <div id="mpSettingsRoundRangeLabel">Rounds 1–17</div>
+        <div class="dual-slider" id="mpSettingsRoundSlider">
+          <div class="track"></div>
+          <div class="range-fill" id="mpSettingsRoundSliderFill"></div>
+          <input type="range" id="mpSettingsRoundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
+          <input type="range" id="mpSettingsRoundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="text-center mb-2">
+          <button class="btn btn-danger" id="mpCategoriesBtn" type="button">Categories</button>
+        </div>
+        <p class="small-note mb-2 text-center" id="mpSettingsSubjectFixed" style="display:none;"></p>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpTogglePublic" type="checkbox" role="switch" />
+          <label class="form-check-label" for="mpTogglePublic">Public room</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleRebuzz" type="checkbox" role="switch" />
+          <label class="form-check-label" for="mpToggleRebuzz">Allow rebuzzes</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleShowHistory" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleShowHistory">Show question history</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleShowSetName" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleShowSetName">Show set name</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleTimer" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleTimer">Enable timer</label>
+        </div>
+        <div class="mb-2"></div>
+        <label for="mpSettingsRateSlider">Reading speed: <span id="mpSettingsRateValue">1.0×</span><br></label>
+        <input class="form-range" id="mpSettingsRateSlider" type="range" min="0.5" max="2.5" step="0.1" value="1" />
+        <div class="small-note" id="mpSettingsMatchCount"></div>
       </div>
     </div>
 
     <div class="col-12 col-lg-9" id="content">
-      <div class="d-flex justify-content-between align-items-start gap-3">
+      <div class="input-group d-none my-2" id="mpAnswerRow">
+        <input class="form-control" type="text" id="mpAnswerInput" placeholder="Enter answer" autocomplete="off" maxlength="200" aria-label="Your answer" />
+        <button class="btn btn-success" id="mpSubmitBtn" type="button">Submit</button>
+      </div>
+      <div class="input-group d-none my-2" id="mpChatRow">
+        <input class="form-control" type="text" id="mpChatInput" placeholder="Chat" maxlength="300" autocomplete="off" aria-label="Chat message" />
+        <button class="btn btn-success" id="mpChatSendBtn" type="button">Submit</button>
+      </div>
+      <div class="float-row d-flex justify-content-between align-items-start gap-3">
         <span class="room-code-strip">
           <span id="mpRoomLabel">Room</span>
-          <span class="room-code" id="mpRoomCodeDisplay" title="Click to copy an invite link" role="button" tabindex="0">-----</span>
+          <span class="room-code is-name" id="mpRoomCodeDisplay" title="Click to copy the room's link" role="button" tabindex="0"></span>
         </span>
-        <span class="d-flex align-items-center gap-1 text-end">
-          <span class="badge text-bg-warning" id="mpPauseBadge" style="display:none;">Paused</span>
+        <span class="ps-5 me-lg-2 text-end">
+          <span class="badge text-bg-warning me-1" id="mpPauseBadge" style="display:none;">Paused</span>
           <b id="mpQuestionInfo"></b>
-          <button class="btn btn-link q-card-star icon-btn" id="mpBookmarkBtn" type="button" title="Bookmark (B)" style="display:none;">☆</button>
         </span>
       </div>
-      <hr class="mt-2">
-
-      <div class="question-panel" id="mpQuestionPanel">
+      <div class="mt-2 question-panel" id="mpQuestionPanel">
         <div class="status-pill" id="mpStatusPill" style="display:none;"></div>
         <div class="reveal-tags" id="mpRevealTags">
           <span class="tag" id="mpRevealSubjectTag"></span>
@@ -190,42 +216,21 @@
             <div class="choice-box" data-letter="Z"><span class="letter">Z)</span><span class="choice-text" id="mpChoiceTextZ"></span></div>
           </div>
         </div>
-
-        <div class="input-group my-2" id="mpAnswerRow" style="display:none;">
-          <input class="form-control" type="text" id="mpAnswerInput" placeholder="Enter answer" autocomplete="off" aria-label="Your answer" />
-          <button class="btn btn-success" id="mpSubmitBtn" type="button">Submit</button>
-        </div>
-
-        <div class="mp-buzz-status" id="mpBuzzStatus" style="display:none;">
-          <div class="mp-buzz-who" id="mpBuzzWho"></div>
-          <div class="mp-buzz-typed" id="mpBuzzTyped"></div>
-          <div class="mp-buzz-attempts" id="mpBuzzAttempts"></div>
-        </div>
-
-        <button class="btn btn-link float-end p-0 mt-1" id="mpOverrideBtn" type="button" style="display:none;" title="Shortcut: q">Override my grade</button>
-        <div class="reveal-box" id="mpRevealBox" style="display:none;"></div>
       </div>
-
-      <div class="mp-chat mt-3">
-        <div class="input-group mb-2" id="mpChatRow" style="display:none;">
-          <input class="form-control" type="text" id="mpChatInput" placeholder="Say something… (Enter to send, Esc to close)" maxlength="300" autocomplete="off" aria-label="Chat message" />
-          <button class="btn btn-primary" id="mpChatSendBtn" type="button">Send</button>
-        </div>
-        <ul class="list-unstyled mp-chat-log mb-0" id="mpChatLog" aria-live="polite"></ul>
-      </div>
-
-      <ul class="room-history list-unstyled mt-3 pt-3" id="mpQuestionLog"></ul>
+      <a class="mt-1 mt-lg-3 p-0 btn btn-link float-end d-none" id="mpOverrideBtn" title="Shortcut: q">I was wrong</a>
+      <div class="my-1 my-lg-3 reveal-box" id="mpRevealBox" style="display:none;"></div>
+      <ul class="room-history list-unstyled" id="mpHistory"></ul>
     </div>
   </div>
 </div>
 
-<div class="container-fluid py-3 px-xxl-5 position-fixed bottom-0 bg-body play-buttons" id="mpButtonBar" style="display:none;">
+<div class="container-fluid px-xxl-5 position-fixed bottom-0 play-buttons" id="mpButtonBar" style="display:none;">
   <div class="row">
-    <div class="col-12 col-lg-9" id="buttons">
-      <button class="btn btn-primary" id="mpNextBtn" type="button" title="Shortcut: n">Next</button>
-      <button class="btn btn-primary" id="mpPauseBtn" type="button" title="Pause (shortcut: p)" aria-label="Pause"></button>
-      <button class="btn btn-danger" id="mpSettingsBtn" type="button" title="Show/hide settings (shortcut: s)" aria-label="Show or hide settings" aria-controls="settings"></button>
-      <button class="btn btn-secondary" id="mpChatBtn" type="button" title="Chat (shortcut: /)">Chat</button>
+    <div class="col-12 col-lg-9 py-3 bg-body" id="buttons">
+      <button class="btn btn-success" id="mpNextBtn" type="button" title="Shortcut: n or s">Start</button>
+      <button class="btn btn-primary" id="mpPauseBtn" type="button" title="Shortcut: p" aria-label="Pause" disabled></button>
+      <button class="btn btn-info" id="mpChatBtn" type="button" title="Shortcut: enter">Chat</button>
+      <button class="btn btn-danger" id="mpSettingsBtn" type="button" title="Shortcut: e" aria-label="Show or hide settings" aria-controls="settings"></button>
       <button class="btn btn-primary float-end" id="mpBuzzBtn" type="button" title="Shortcut: space" disabled>Buzz</button>
     </div>
   </div>
@@ -244,9 +249,11 @@
 <script src="js/reveal.js"></script>
 <script src="js/peer.js"></script>
 <script src="js/mp-rules.js"></script>
-<script src="js/multiplayer.js"></script>
 <script src="js/config.js"></script>
 <script src="js/account-core.js"></script>
 <script src="js/account.js"></script>
+<script src="js/rooms.js"></script>
+<script src="js/play-common.js"></script>
+<script src="js/multiplayer.js"></script>
 </body>
 </html>

@@ -108,11 +108,30 @@ test('messages from a newer term, or from our coordinator, are followed', () => 
   for (const t of [undefined, '4', NaN, Infinity]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
 });
 
-test('a player who left shows as offline for an hour', () => {
-  const { stillOffline, OFFLINE_KEEP_MS } = globalThis.SBMpRules;
-  const now = 1_000_000_000;
+test('a player who left stays on the list, offline, for good', () => {
+  const { stillOffline } = globalThis.SBMpRules;
+  const now = Date.now();
   assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS + 1000 }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS }, now), false);
+  assert.strictEqual(stillOffline({ leftAt: now - 365 * 24 * 3600 * 1000 }, now), true);
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
+});
+
+test('room names are cleaned to letters, digits and dashes, and give a stable door', () => {
+  const { cleanRoomName, roomPeerId } = globalThis.SBMpRules;
+  assert.strictEqual(cleanRoomName('  Physics Club! '), 'physics-club');
+  assert.strictEqual(cleanRoomName('a--b__c'), 'a-bc');
+  assert.strictEqual(cleanRoomName('x'.repeat(50)).length, 32);
+  assert.strictEqual(cleanRoomName('!!!'), '');
+  assert.strictEqual(roomPeerId('Physics Club'), 'sbowl-room-physics-club');
+  assert.strictEqual(roomPeerId(''), '');
+});
+
+test('room settings carry the mode, set, packets and switches, cleaned', () => {
+  const s = cleanHostMessage({ type: 'updateSettings', mode: 'set', setName: meta.tournaments[0].slug, packetNumbers: '1-3, 5<script>', rebuzz: true, timer: false, isPublic: false }, meta);
+  assert.strictEqual(s.mode, 'set');
+  assert.strictEqual(s.setName, meta.tournaments[0].slug);
+  assert.strictEqual(s.packetNumbers, '1-3, 5');
+  assert.deepStrictEqual([s.rebuzz, s.timer, s.isPublic], [true, false, false]);
+  const d = cleanHostMessage({ type: 'updateSettings', mode: 'weird', setName: 'no-such-set' }, meta);
+  assert.deepStrictEqual([d.mode, d.setName, d.rebuzz, d.timer, d.isPublic], ['random', '', false, true, true]);
 });

@@ -434,14 +434,17 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .grade-badge.skipped { background: var(--bs-secondary-bg); color: var(--bs-secondary-color); }
 
 /* ---------------- Multiplayer ---------------- */
-.mp-player-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-.mp-player-row .name { font-weight: 500; }
-.mp-player-row .pts { font-variant-numeric: tabular-nums; font-weight: 700; }
-.mp-player-row.me { background: rgba(var(--bs-primary-rgb), .08); box-shadow: inset 3px 0 0 rgb(var(--bs-primary-rgb)); }
-.mp-player-row.buzzed { background: var(--bs-warning-bg-subtle); }
-.mp-player-row.answered-correct { background: var(--bs-success-bg-subtle); }
-.mp-player-row.answered-incorrect { background: var(--bs-danger-bg-subtle); }
+.mp-player-row { text-decoration: none; }
+.mp-player-row.user-score { background-color: var(--user-score-background); }
+.mp-player-row.buzzed { box-shadow: inset 3px 0 0 var(--bs-warning); }
+.mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
+.mp-player-row.answered-incorrect { box-shadow: inset 3px 0 0 var(--bs-danger); }
 .mp-player-row.offline { color: var(--bs-secondary-color); }
+.player-stats .list-group-item { background: transparent; }
+:root { --user-score-background: #FFF9C4; }
+[data-bs-theme=dark] { --user-score-background: #4A90E2; }
+.room-history li { margin: .15rem 0; }
+.room-history .event-username { font-weight: 500; }
 
 /* The room code (or public lobby's name) above the question: click to copy
    an invite link. */
@@ -455,17 +458,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .room-code.copied { background: var(--bs-success-bg-subtle); border-color: var(--bs-success); color: var(--bs-success-text-emphasis); }
 /* "Link copied!" and a lobby's name are words, not codes: no code spacing. */
 .room-code.copied, .room-code.is-name { letter-spacing: normal; }
-
-/* Public lobby rows: a coloured edge for the lobby's subject. */
-.lobby-card { --lobby-color: var(--bs-primary); border-left: 4px solid var(--lobby-color) !important; }
-.lobby-card[data-subject="math"] { --lobby-color: var(--math); }
-.lobby-card[data-subject="phys"] { --lobby-color: var(--phys); }
-.lobby-card[data-subject="bio"] { --lobby-color: var(--bio); }
-.lobby-card[data-subject="chem"] { --lobby-color: var(--chem); }
-.lobby-card[data-subject="ess"] { --lobby-color: var(--ess); }
-.lobby-card .lobby-name { font-weight: 500; }
-.lobby-card .lobby-sub { color: var(--bs-secondary-color); font-size: .875rem; }
-.lobby-card:disabled { cursor: progress; }
 
 /* ---------------- Dual-handle range slider (round filter) ---------------- */
 /* All pointer interaction is handled manually by JS on .dual-slider itself
@@ -498,35 +490,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* ---------------- Reveal tag badges (subject/format/qtype revealed in sequence) ---------------- */
 .reveal-tags { display: flex; gap: .375rem; flex-wrap: wrap; margin-bottom: .5rem; min-height: 1.3rem; }
 .reveal-tags .tag:empty { display: none; }
-
-/* ---------------- Multiplayer chat ---------------- */
-.mp-chat-log { max-height: 12rem; overflow-y: auto; }
-.mp-chat-msg { line-height: 1.4; margin-bottom: .2rem; }
-.mp-chat-msg .who { font-weight: 700; margin-right: .25rem; }
-.mp-chat-msg.me .who { color: var(--bs-primary); }
-[data-bs-theme=dark] .mp-chat-msg.me .who { color: var(--bs-link-color); }
-.mp-chat-msg.system { color: var(--text-dim); font-style: italic; }
-
-/* ---------------- Multiplayer buzz/typing/result status panel ---------------- */
-.mp-buzz-status {
-  margin-top: .75rem; padding: .75rem 1rem; border-radius: var(--bs-border-radius);
-  background: var(--bs-warning-bg-subtle); border: var(--bs-border-width) solid var(--bs-warning-border-subtle);
-}
-.mp-buzz-status.graded-correct { background: var(--bs-success-bg-subtle); border-color: var(--bs-success-border-subtle); }
-.mp-buzz-status.graded-incorrect { background: var(--bs-danger-bg-subtle); border-color: var(--bs-danger-border-subtle); }
-.mp-buzz-who { font-weight: 700; }
-.mp-buzz-who .grade-badge { margin-left: 8px; vertical-align: middle; }
-.mp-buzz-typed { color: var(--text-dim); margin-top: .25rem; min-height: 1.2rem; }
-.mp-buzz-typed .submitted-text { color: var(--text); font-weight: 700; }
-.mp-buzz-typed .live-typing-name { color: var(--text); font-weight: 700; }
-.mp-buzz-typed .live-typing-text { color: var(--text); font-weight: 700; }
-.mp-buzz-attempts { display: flex; flex-direction: column; gap: 6px; }
-.mp-buzz-attempts.has-status-above { margin-top: 10px; }
-.mp-buzz-attempt-row { display: flex; align-items: center; gap: .5rem; }
-.mp-buzz-attempt-row ~ .mp-buzz-attempt-row { padding-top: 8px; border-top: 1px solid var(--border); }
-.mp-buzz-attempt-row .name { font-weight: 700; }
-.mp-buzz-attempt-row .text { color: var(--text-dim); }
-.mp-buzz-attempt-row .close-hint { margin: 0 0 0 auto; }
 
 .small-note.status-error {
   color: var(--bs-danger-text-emphasis); background: var(--bs-danger-bg-subtle);

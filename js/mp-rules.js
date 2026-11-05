@@ -68,9 +68,25 @@
   // A player who leaves stays on the leaderboard, marked offline, for an hour
   // (with their score, for if they come back). Whether `entry` ({ leftAt })
   // should still be shown at time `now`.
-  const OFFLINE_KEEP_MS = 60 * 60 * 1000;
+  // Players who leave stay in the room's player list, marked offline, for
+  // good (as on QB Reader): this only checks the entry is well formed.
+  const OFFLINE_KEEP_MS = Infinity;
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
+  }
+
+  // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
+  // is kept to letters, digits and dashes (spaces become dashes), lower
+  // case, at most 32 characters; its PeerJS door is sbowl-room-<name>.
+  const ROOM_PREFIX = 'sbowl-room-';
+  function cleanRoomName(name) {
+    return (typeof name === 'string' ? name : '').toLowerCase().trim()
+      .replace(/\s+/g, '-').replace(/[^a-z0-9-]+/g, '').replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '').slice(0, 32).replace(/-+$/, '');
+  }
+  function roomPeerId(name) {
+    const clean = cleanRoomName(name);
+    return clean ? ROOM_PREFIX + clean : '';
   }
 
   function rankIn(order, id) {
@@ -119,8 +135,16 @@
         const hi = Math.round(clampNumber(msg.roundRange[1], 1, known.maxRound, known.maxRound));
         roundRange = [Math.min(lo, hi), Math.max(lo, hi)];
       }
+      const setName = str(msg.setName, 80);
       return {
         type,
+        // How questions are chosen: random (filters) or a set's packets.
+        mode: msg.mode === 'set' ? 'set' : 'random',
+        setName: known.tournaments.has(setName) ? setName : '',
+        packetNumbers: str(msg.packetNumbers, 60).replace(/[^0-9,\s-]/g, ''),
+        rebuzz: msg.rebuzz === true,
+        timer: msg.timer !== false,
+        isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
         qtypes: knownValues(msg.qtypes, known.qtypes),
         formats: knownValues(msg.formats, known.formats),
@@ -164,5 +188,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
 })(typeof window !== 'undefined' ? window : globalThis);
