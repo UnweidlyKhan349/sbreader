@@ -164,27 +164,34 @@
   // exponent that starts with digits takes only the digits: "x^3y" is x³y,
   // "sp^3d" is sp³d and "^1H" is ¹H (a longer exponent like "e^(2x)" is
   // written with parentheses).
-  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
+  // A bare charge before a state label ("OH^-(aq)") is still a charge, and
+  // "^∞" (a series' upper limit) is raised like a number.
+  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF]|∞|°)|[+\-−](?![A-Za-z0-9(])|[+\-−](?=\((?:aq|s|l|g)\)))/g;
   const MATH_SUB_BARE_RE = /(?<!_)_([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF]))/g;
+  // Plain string escaping (no DOM), so the math renderer also runs under
+  // Node in the tests. Quotes are escaped too, for use inside attributes.
+  const HTML_ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s == null ? '' : s;
-    return d.innerHTML;
+    return (s == null ? '' : String(s)).replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
   }
   // Parenthesized groups can nest ("2^(2^(2^2))", "n^(1/ln(n))"), which a
   // single regex can't match, so they're found by paren counting and the
   // inside is rendered recursively. An unbalanced group is left as text.
+  // LaTeX-style braces ("e^{-x}") are grouped the same way.
+  const GROUP_CLOSE = { '(': ')', '{': '}' };
   function renderParenGroups(s) {
     let out = '';
     let i = 0;
     while (i < s.length) {
       const c = s[i];
-      if ((c === '^' || c === '_') && s[i + 1] === '(' && s[i - 1] !== c) {
+      const openCh = s[i + 1];
+      if ((c === '^' || c === '_') && GROUP_CLOSE[openCh] && s[i - 1] !== c) {
+        const closeCh = GROUP_CLOSE[openCh];
         let depth = 0;
         let j = i + 1;
         for (; j < s.length; j++) {
-          if (s[j] === '(') depth++;
-          else if (s[j] === ')' && --depth === 0) break;
+          if (s[j] === openCh) depth++;
+          else if (s[j] === closeCh && --depth === 0) break;
         }
         if (j < s.length) {
           const tag = c === '^' ? 'sup' : 'sub';

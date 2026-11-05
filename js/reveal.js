@@ -25,13 +25,49 @@
   // fastest rate, without materially increasing CPU use for plain text.
   const TICK_MS = 16;
 
-  // segments: [{ text, el }] - each rendered into el.textContent in sequence,
-  // in proportion to elapsed time. Returns a controller.
+  // Segments can be given as rendered HTML ({ html, el }) instead of plain
+  // text, so math types in already formatted: "3t^2" shows 3, t, then a
+  // raised 2, never a caret. The HTML is the small subset renderMathHTML
+  // produces - text with entities and <sup>/<sub> tags - and is typed by
+  // visible character: a tag takes no time, an entity counts as one.
+  const TOKEN_RE = /<\/?[a-z]+>|&(?:#\d+|#x[0-9a-f]+|[a-z]+);|[\s\S]/gi;
+  function tokens(html) { return html.match(TOKEN_RE) || []; }
+  function isTag(t) { return t.length > 2 && t[0] === '<' && t[t.length - 1] === '>'; }
+  function visibleLength(html) {
+    let n = 0;
+    for (const t of tokens(html)) if (!isTag(t)) n++;
+    return n;
+  }
+  // The first n visible characters of html, with any tags still open
+  // closed again, so the result is always well formed.
+  function visibleTruncate(html, n) {
+    let out = '';
+    let shown = 0;
+    const open = [];
+    for (const t of tokens(html)) {
+      if (isTag(t)) {
+        if (shown >= n && t[1] !== '/') break;
+        out += t;
+        if (t[1] === '/') open.pop(); else open.push(t.slice(1, -1));
+        continue;
+      }
+      if (shown >= n) break;
+      out += t;
+      shown++;
+    }
+    for (let i = open.length - 1; i >= 0; i--) out += `</${open[i]}>`;
+    return out;
+  }
+  function segLength(s) { return s.html != null ? visibleLength(s.html) : s.text.length; }
+
+  // segments: [{ text, el }] or [{ html, el }] - each rendered into el in
+  // sequence, in proportion to elapsed time. Returns a controller.
   function startReveal(segments, rate, callbacks) {
     callbacks = callbacks || {};
     let cps = Math.max(4, BASE_CHARS_PER_SEC * (rate || 1));
     let msPerChar = 1000 / cps;
-    const totalChars = segments.reduce((sum, s) => sum + s.text.length, 0);
+    const lengths = segments.map(segLength);
+    const totalChars = lengths.reduce((sum, n) => sum + n, 0);
     let totalMs = totalChars * msPerChar;
 
     let stopped = false;
@@ -43,7 +79,7 @@
     let tickTimer = null;
     let completeTimer = null;
 
-    segments.forEach((s) => { s.el.textContent = ''; });
+    segments.forEach((s) => { s.el.textContent = ''; s._shown = 0; });
 
     function elapsedMs() {
       if (paused || runStart == null) return elapsedBanked;
@@ -57,9 +93,12 @@
       let remaining = chars;
       for (let i = 0; i < segments.length; i++) {
         const s = segments[i];
-        const n = Math.min(remaining, s.text.length);
-        const next = s.text.slice(0, n);
-        if (s.el.textContent !== next) s.el.textContent = next;
+        const n = Math.min(remaining, lengths[i]);
+        if (s._shown !== n) {
+          s._shown = n;
+          if (s.html != null) s.el.innerHTML = n >= lengths[i] ? s.html : visibleTruncate(s.html, n);
+          else s.el.textContent = s.text.slice(0, n);
+        }
         remaining -= n;
       }
       if (callbacks.onProgress) callbacks.onProgress();
@@ -75,7 +114,10 @@
       if (done) return;
       done = true;
       clearTimers();
-      segments.forEach((s) => { s.el.textContent = s.text; });
+      segments.forEach((s, i) => {
+        if (s.html != null) s.el.innerHTML = s.html; else s.el.textContent = s.text;
+        s._shown = lengths[i];
+      });
       shownChars = totalChars;
       if (callbacks.onComplete) callbacks.onComplete();
     }
@@ -152,5 +194,6 @@
     };
   }
 
-  global.SBReveal = { startReveal };
-})(window);
+  global.SBReveal = { startReveal, visibleTruncate, visibleLength };
+  if (typeof module !== 'undefined' && module.exports) module.exports = global.SBReveal;
+})(typeof window !== 'undefined' ? window : globalThis);

@@ -299,12 +299,12 @@
       { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
       { text: SBData.qtypeLabel(q), el: qtypeTag },
     ];
-    const boxSegments = [{ text: q.question, el: qDisplay }];
+    const boxSegments = [{ html: SBData.renderMathHTML(q.question), el: qDisplay }];
     const choicesDisplay = document.getElementById('choicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
       LETTERS.forEach((L) => {
-        boxSegments.push({ text: q.choices[L] || '', el: document.getElementById('choiceText' + L) });
+        boxSegments.push({ html: SBData.renderMathHTML(q.choices[L] || ''), el: document.getElementById('choiceText' + L) });
       });
     } else {
       choicesDisplay.style.display = 'none';
@@ -324,13 +324,9 @@
 
     reserveRevealHeight(boxSegments);
     runtime.revealCtl = SBReveal.startReveal(tagSegments.concat(boxSegments), session.rate, {
-      // The reveal types plain text; once a segment is complete it's swapped
-      // for the math-rendered HTML (real superscripts/subscripts), so carets
-      // and underscores don't pop into <sup>/<sub> partway through.
-      onComplete: () => {
-        boxSegments.forEach((s) => { s.el.innerHTML = SBData.renderMathHTML(s.text); });
-        startBuzzWindow();
-      },
+      // The question and choices are given as math-rendered HTML, so
+      // superscripts and subscripts type in already formatted.
+      onComplete: () => { startBuzzWindow(); },
     });
   }
 
@@ -343,7 +339,7 @@
     const textEl = boxSegments[0].el;
     wrap.style.minHeight = '';
     textEl.style.minHeight = '';
-    boxSegments.forEach((s) => { s.el.textContent = s.text; });
+    boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
     const h = wrap.scrollHeight;
     wrap.style.minHeight = h + 'px';
     textEl.style.minHeight = textEl.offsetHeight + 'px';

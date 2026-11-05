@@ -412,11 +412,11 @@
       { text: FORMAT_LABELS[q.format] || q.format, el: formatTag },
       { text: SBData.qtypeLabel(q), el: qtypeTag },
     ];
-    const boxSegments = [{ text: q.question, el: qDisplay }];
+    const boxSegments = [{ html: SBData.renderMathHTML(q.question), el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
-      LETTERS.forEach((L) => boxSegments.push({ text: q.choices[L] || '', el: document.getElementById('mpChoiceText' + L) }));
+      LETTERS.forEach((L) => boxSegments.push({ html: SBData.renderMathHTML(q.choices[L] || ''), el: document.getElementById('mpChoiceText' + L) }));
     } else {
       choicesDisplay.style.display = 'none';
     }
@@ -443,7 +443,7 @@
     const textEl = boxSegments[0].el;
     wrap.style.minHeight = '';
     textEl.style.minHeight = '';
-    boxSegments.forEach((s) => { s.el.textContent = s.text; });
+    boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
     const h = wrap.scrollHeight;
     wrap.style.minHeight = h + 'px';
     textEl.style.minHeight = textEl.offsetHeight + 'px';
@@ -456,21 +456,18 @@
     if (revealCtl) revealCtl.stop();
     const { tagSegments, boxSegments } = buildRevealSegments(q);
     reserveRevealHeight(boxSegments);
-    // Only the question/choice segments get math-rendered (real
-    // superscript/subscript for well-formed "^"/"_" notation) - the tag
-    // segments are just uppercase subject/format/qtype labels.
+    // The question and choices are math-rendered HTML from the start, so
+    // superscripts and subscripts type in already formatted; the tag
+    // segments are plain subject/format/type labels.
     if (instant) {
       tagSegments.forEach((s) => { s.el.textContent = s.text; });
-      boxSegments.forEach((s) => { s.el.innerHTML = SBData.renderMathHTML(s.text); });
+      boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
       revealCtl = null;
       if (onComplete) onComplete();
       return;
     }
     revealCtl = SBReveal.startReveal(tagSegments.concat(boxSegments), myState.rate, {
-      onComplete: () => {
-        boxSegments.forEach((s) => { s.el.innerHTML = SBData.renderMathHTML(s.text); });
-        if (onComplete) onComplete();
-      },
+      onComplete: () => { if (onComplete) onComplete(); },
     });
     if (game.paused) revealCtl.pause();
   }
