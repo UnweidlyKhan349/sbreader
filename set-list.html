@@ -58,73 +58,99 @@
 </nav>
 
 <div class="container-xl mt-3 mb-5 pb-5">
-  <p class="lead">Set List</p>
-  <p id="setListSummary">Loading…</p>
-  <div class="row g-2 mb-3">
-    <div class="col-md-6">
-      <input type="search" class="form-control" id="setListFilter" placeholder="Filter by name" aria-label="Filter tournaments by name" autocomplete="off" />
-    </div>
+  <p>View all sets here:</p>
+  <div class="mb-3">
+    <label class="form-label" for="set-name-search">Search set names:</label>
+    <input class="form-control" id="set-name-search" type="text" placeholder="e.g. MIT 2025" autocomplete="off" />
   </div>
-  <div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
-      <thead>
-        <tr><th scope="col">Tournament</th><th scope="col">Level</th><th scope="col">Date</th><th scope="col" class="text-end">Questions</th></tr>
-      </thead>
-      <tbody id="setListBody"></tbody>
-    </table>
-  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="clickable" data-sort="name" aria-sort="none">Set Name <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="level" aria-sort="none">Level <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="date" aria-sort="none">Date <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="packets" aria-sort="none"># of Packets <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="tossups" aria-sort="none"># of Tossups <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="bonuses" aria-sort="none"># of Bonuses <span class="sort-indicator"></span></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider" id="set-metadata-list"></tbody>
+  </table>
+  <div class="d-block mx-auto mt-3 spinner-border" id="spinner" role="status"><span class="d-none">Loading...</span></div>
 </div>
 
 <script src="js/data.js"></script>
 <script>
   (function () {
     const LEVELS = { hs: 'High School', ms: 'Middle School' };
-    const body = document.getElementById('setListBody');
-    const filter = document.getElementById('setListFilter');
+    const body = document.getElementById('set-metadata-list');
+    const search = document.getElementById('set-name-search');
+    const headers = [...document.querySelectorAll('th[data-sort]')];
     let rows = [];
+    let sortKey = null;
+    let sortDir = 1;
 
     function monthYear(date) {
       if (!date) return '';
       const [y, m] = date.split('-').map(Number);
       return m ? new Date(y, m - 1, 1).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }) : String(y);
     }
+    // As on QB Reader: every word typed must appear in the set's name.
+    function matches(t) {
+      const words = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const name = t.name.toLowerCase();
+      return words.every((w) => name.includes(w));
+    }
     function render() {
-      const q = filter.value.trim().toLowerCase();
       body.innerHTML = '';
-      rows.filter((t) => !q || t.name.toLowerCase().includes(q)).forEach((t) => {
-        const tr = document.createElement('tr');
-        const name = document.createElement('td');
+      rows.forEach((t) => {
+        const tr = body.insertRow(-1);
+        tr.classList.toggle('d-none', !matches(t));
         const a = document.createElement('a');
         a.href = 'catalog.html?tournament=' + encodeURIComponent(t.slug);
         a.textContent = t.name;
-        name.appendChild(a);
-        const level = document.createElement('td');
-        level.textContent = LEVELS[t.level] || t.level || '';
-        const date = document.createElement('td');
-        date.textContent = monthYear(t.date);
-        const count = document.createElement('td');
-        count.className = 'text-end';
-        count.textContent = t.count.toLocaleString();
-        tr.append(name, level, date, count);
-        body.appendChild(tr);
+        tr.insertCell(-1).appendChild(a);
+        tr.insertCell(-1).textContent = LEVELS[t.level] || t.level || '';
+        tr.insertCell(-1).textContent = monthYear(t.date);
+        [t.packets, t.tossups, t.bonuses].forEach((n) => { tr.insertCell(-1).textContent = n == null ? '-' : n.toLocaleString(); });
       });
     }
+    function sortBy(key) {
+      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' ? 1 : -1);
+      sortKey = key;
+      rows.sort((a, b) => {
+        const x = a[key] == null ? '' : a[key];
+        const y = b[key] == null ? '' : b[key];
+        const c = typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y));
+        return c * sortDir || a.name.localeCompare(b.name);
+      });
+      headers.forEach((h) => {
+        const on = h.dataset.sort === key;
+        h.setAttribute('aria-sort', on ? (sortDir > 0 ? 'ascending' : 'descending') : 'none');
+        h.querySelector('.sort-indicator').textContent = on ? (sortDir > 0 ? '▲' : '▼') : '';
+      });
+      render();
+    }
+    headers.forEach((h) => h.addEventListener('click', () => sortBy(h.dataset.sort)));
+
+    const initial = new URLSearchParams(location.search).get('q') || '';
+    search.value = initial;
+    search.addEventListener('input', () => {
+      [...body.rows].forEach((tr, i) => tr.classList.toggle('d-none', !matches(rows[i])));
+      const url = new URL(location.href);
+      const q = search.value.trim().replace(/\s+/g, ' ');
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      history.replaceState({}, '', url);
+    });
 
     SBData.loadMeta().then(() => {
-      const meta = SBData.meta;
-      // Newest first; undated sets last, A-Z.
-      rows = meta.tournaments.slice().sort((a, b) => {
-        if (a.date && b.date && a.date !== b.date) return b.date.localeCompare(a.date);
-        if (!!a.date !== !!b.date) return a.date ? -1 : 1;
-        return a.name.localeCompare(b.name);
-      });
-      document.getElementById('setListSummary').textContent =
-        `${rows.length} tournaments and ${meta.totalQuestions.toLocaleString()} questions, newest first. Click a tournament to search its questions. Dates are approximate.`;
-      render();
+      document.getElementById('spinner').classList.add('d-none');
+      rows = SBData.meta.tournaments.slice();
+      sortBy('date');
     }).catch(() => {
-      document.getElementById('setListSummary').textContent = 'Could not load the question bank. Try refreshing.';
+      document.getElementById('spinner').classList.add('d-none');
+      body.innerHTML = '<tr><td colspan="6">Could not load the question bank. Try refreshing.</td></tr>';
     });
-    filter.addEventListener('input', render);
   })();
 </script>
 <script src="js/config.js"></script>

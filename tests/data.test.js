@@ -230,3 +230,12 @@ test('a packet location becomes a #page= or #L fragment only on PDF and GitHub l
   const placed = questions.find((q) => /\.pdf#page=\d+$/.test(q.sourceUrl || ''));
   assert.ok(placed, 'some question links to its page');
 });
+
+test("meta.json's per-set counts (tossups, bonuses, packets) match the bank", () => {
+  const { expectedMeta } = require('../tools/meta-counts.js');
+  const { rawMeta } = loadCorpus();
+  const expected = expectedMeta(rawMeta);
+  const stale = rawMeta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets']
+    .some((k) => t[k] !== expected.tournaments[i][k])).map((t) => t.slug);
+  assert.deepStrictEqual(stale, [], 'run node tools/meta-counts.js');
+});
