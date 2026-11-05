@@ -434,7 +434,7 @@
     function paint(isBm) {
       btn.textContent = isBm ? '★' : '☆';
       btn.classList.toggle('active', isBm);
-      btn.title = isBm ? 'Unbookmark' : 'Bookmark';
+      btn.title = isBm ? 'Unstar' : 'Star';
     }
     paint(SBData.bookmarks.isBookmarked(qId));
     btn.onclick = () => {

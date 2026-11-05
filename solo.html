@@ -46,7 +46,6 @@
           <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="catalog.html">Search</a>
-            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
             <a class="dropdown-item" href="set-list.html">Set List</a>
           </div>
         </div>
@@ -73,17 +72,28 @@
 
 <div class="container-fluid mt-3 mb-5 pb-5 px-xxl-5">
   <div class="row">
-    <!-- Settings sidebar: on the right on wide screens, above the question
-         (and hidden until the gear button opens it) on narrow ones. -->
-    <div class="col-12 col-lg-3 order-lg-1 mb-4 play-sidebar" id="settings">
+    <!-- Settings, as on QB Reader's play page: beside the question on wide
+         screens, above it (folded to just the timer) on narrow ones. -->
+    <div class="col-12 col-lg-3 order-lg-1 mb-5 play-sidebar" id="settings">
       <div class="timer d-block p-1 text-center" id="timer"><span class="face" id="timerFace">0</span><span class="fraction" id="timerFraction">.0</span></div>
       <hr>
-      <div id="filterSettings">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <span>Subjects</span>
-          <button class="btn btn-link btn-sm p-0" id="clearFiltersBtn" type="button">Clear all</button>
-        </div>
-        <div class="chip-row mb-2" id="subjectChips" role="group" aria-label="Subjects"></div>
+      <label class="form-check-label mb-1" for="setMode">Choose a mode:</label>
+      <select class="form-select mb-2" id="setMode">
+        <option value="set">Select by Set Name</option>
+        <option value="random" selected>Random Questions</option>
+        <option value="starred">Starred Questions</option>
+      </select>
+      <div class="d-none" id="setSettings">
+        <input class="form-control" id="setName" type="text" placeholder="Set Name" list="setNameList" autocomplete="off" aria-label="Set name" />
+        <datalist id="setNameList"></datalist>
+        <input class="form-control my-1" id="packetNumbers" type="text" placeholder="Packet Numbers" autocomplete="off" aria-label="Packet numbers, e.g. 1-3, 5" />
+        <div class="form-text mb-2" id="setInfo"></div>
+      </div>
+      <div class="d-none" id="starredSettings">
+        <p class="mb-2" id="starredInfo">Star questions to practice them here.</p>
+      </div>
+      <div id="randomSettings">
+        <div class="mb-2"><select id="tournamentSelect" aria-label="Tournaments"></select></div>
         <div id="roundRangeLabel">Rounds 1–17</div>
         <div class="dual-slider" id="roundSlider">
           <div class="track"></div>
@@ -91,49 +101,57 @@
           <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
           <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
         </div>
-        <div class="form-check form-switch mb-2">
-          <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
-          <label class="form-check-label" for="includeUnlabeledRounds">Include unlabeled rounds</label>
+      </div>
+      <div class="mt-2" id="generalSettings">
+        <div class="text-center mb-2">
+          <button class="btn btn-danger" id="categoriesBtn" type="button">Categories</button>
+          <button class="btn btn-warning" id="clearStatsBtn" type="button">Clear Stats</button>
         </div>
-        <div class="chip-row mb-2" id="qtypeChips" role="group" aria-label="Question type"></div>
-        <div class="chip-row mb-2" id="formatChips" role="group" aria-label="Format"></div>
-        <div class="chip-row mb-2" id="levelChips" role="group" aria-label="Level"></div>
-        <div class="chip-row mb-2" id="visualChips" role="group" aria-label="Visual questions"></div>
-        <select id="tournamentSelect" aria-label="Tournaments"></select>
-        <div class="small-note mt-2" id="matchCount"></div>
-      </div>
-      <div id="bookmarkedNote" style="display:none;">
-        <p class="mb-1" id="bookmarkedNoteText">Practicing your bookmarked questions.</p>
-        <a href="solo.html">Practice every question instead</a>
-      </div>
-      <hr>
-      <label class="form-label mb-0" for="rateSlider">Reading speed: <span id="rateValue">1.0×</span></label>
-      <input class="form-range" type="range" id="rateSlider" min="0.5" max="2.5" step="0.1" value="1" />
-      <div class="d-none d-lg-block">
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleRebuzz" type="checkbox" role="switch" />
+          <label class="form-check-label" for="toggleRebuzz">Allow rebuzzes</label>
+        </div>
         <hr>
-        <p class="mb-0">
-          <span class="text-nowrap"><kbd>Space</kbd> = buzz</span><br>
-          <span class="text-nowrap"><kbd>n</kbd> = next / skip</span><br>
-          <span class="text-nowrap"><kbd>p</kbd> = pause</span><br>
-          <span class="text-nowrap"><kbd>q</kbd> = I was wrong / right</span><br>
-          <span class="text-nowrap"><kbd>b</kbd> = bookmark</span><br>
-          <span class="text-nowrap"><kbd>s</kbd> = show/hide settings</span>
-        </p>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleShowHistory" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleShowHistory">Show question history</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleShowSetName" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleShowSetName">Show set name</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleTimer" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleTimer">Enable timer</label>
+        </div>
+        <div class="mb-2"></div>
+        <label for="rateSlider">Reading speed: <span id="rateValue">1.0×</span><br></label>
+        <input class="form-range" id="rateSlider" type="range" min="0.5" max="2.5" step="0.1" value="1" />
+        <div class="small-note" id="matchCount"></div>
+        <div class="d-none d-lg-block">
+          <hr>
+          <p>
+            <span class="text-nowrap"><kbd>k</kbd> = show/hide last question</span><br>
+            <span class="text-nowrap"><kbd>t</kbd> = star/unstar last question</span><br>
+            <span class="text-nowrap"><kbd>q</kbd> = I was wrong / I was right</span><br>
+          </p>
+        </div>
       </div>
     </div>
 
     <div class="col-12 col-lg-9" id="content">
-      <div class="d-flex justify-content-between align-items-start gap-3">
-        <span id="statline">0 correct / 0 incorrect with 0 questions seen</span>
-        <span class="d-flex align-items-center gap-1 text-end">
-          <span class="badge text-bg-warning" id="pauseBadge" style="display:none;">Paused</span>
+      <div class="input-group d-none my-2" id="answerRow">
+        <input class="form-control" type="text" id="answerInput" placeholder="Enter answer" autocomplete="off" aria-label="Your answer" />
+        <button class="btn btn-success" id="submitAnswerBtn" type="button">Submit</button>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span id="statline">0/0 with 0 questions seen</span>
+        <span class="ps-5 me-lg-2 text-end" id="questionMetadata">
+          <span class="badge text-bg-warning me-1" id="pauseBadge" style="display:none;">Paused</span>
           <b id="questionInfo"></b>
-          <button class="btn btn-link q-card-star icon-btn" id="bookmarkBtn" type="button" title="Bookmark (B)" disabled>☆</button>
         </span>
       </div>
-      <hr class="mt-2">
-
-      <div class="question-panel" id="questionPanel">
+      <div class="mt-2 question-panel" id="questionPanel">
         <div class="status-pill" id="statusPill" style="display:none;"></div>
         <div class="reveal-tags" id="revealTags">
           <span class="tag" id="revealSubjectTag"></span>
@@ -141,7 +159,7 @@
           <span class="tag" id="revealQtypeTag"></span>
         </div>
         <div class="reveal-measure-wrap" id="revealMeasureWrap">
-          <div class="q-display" id="qDisplay"><span class="text-body-secondary" id="idleHint">Pick what to practice in the settings, then press <b>Next</b> (or <kbd>n</kbd>) to start. Questions type themselves onto the screen; press <kbd>Space</kbd> to buzz.</span></div>
+          <div class="q-display" id="qDisplay"></div>
           <div class="q-figures" id="qFigures" style="display:none;"></div>
           <div class="choices-display" id="choicesDisplay" style="display:none;">
             <div class="choice-box" data-letter="W"><span class="letter">W)</span><span class="choice-text" id="choiceTextW"></span></div>
@@ -150,17 +168,10 @@
             <div class="choice-box" data-letter="Z"><span class="letter">Z)</span><span class="choice-text" id="choiceTextZ"></span></div>
           </div>
         </div>
-
-        <div class="input-group my-2" id="answerRow" style="display:none;">
-          <input class="form-control" type="text" id="answerInput" placeholder="Enter answer" autocomplete="off" aria-label="Your answer" />
-          <button class="btn btn-success" id="submitAnswerBtn" type="button">Submit</button>
-        </div>
-
-        <button class="btn btn-link float-end p-0 mt-1" id="overrideBtn" type="button" style="display:none;" title="Shortcut: q">I was wrong</button>
-        <div class="reveal-box" id="revealBox" style="display:none;"></div>
       </div>
-
-      <ul class="room-history list-unstyled mt-3 pt-3" id="questionLog"></ul>
+      <a class="mt-1 mt-lg-3 p-0 btn btn-link float-end d-none" id="overrideBtn" title="Shortcut: q">I was wrong</a>
+      <div class="mt-1 mt-lg-3 reveal-box" id="revealBox" style="display:none;"></div>
+      <ul class="room-history list-unstyled" id="questionLog"></ul>
     </div>
   </div>
 </div>
@@ -169,14 +180,15 @@
   <div class="row">
     <div class="col-12 col-lg-9" id="buttons">
       <button class="btn btn-primary" id="nextBtn" type="button" title="Shortcut: n">Next</button>
-      <button class="btn btn-primary" id="pauseBtn" type="button" title="Pause (shortcut: p)" aria-label="Pause" disabled></button>
-      <button class="btn btn-danger" id="settingsBtn" type="button" title="Show/hide settings (shortcut: s)" aria-label="Show or hide settings" aria-controls="settings"></button>
+      <button class="btn btn-primary" id="pauseBtn" type="button" title="Shortcut: p" aria-label="Pause" disabled></button>
+      <button class="btn btn-danger" id="settingsBtn" type="button" title="Shortcut: e" aria-label="Show or hide settings" aria-controls="settings"></button>
       <button class="btn btn-primary float-end" id="buzzBtn" type="button" title="Shortcut: space" disabled>Buzz</button>
     </div>
   </div>
 </div>
 
 <script src="js/answer-check.js"></script>
+<script src="js/play-common.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/solo.js"></script>
 <script src="js/config.js"></script>

@@ -91,7 +91,48 @@
     apply(theme);
     markTheme(theme);
   }
-  window.SBSite = { wireDropdown, setTheme };
+  // Bootstrap modals without Bootstrap's JS: show/hide with a backdrop;
+  // Esc, the close buttons ([data-sb-dismiss]) and a click outside the
+  // dialog close it.
+  let openModalEl = null;
+  let backdrop = null;
+  function hideModal(el) {
+    el = el || openModalEl;
+    if (!el) return;
+    el.classList.remove('show');
+    el.style.display = 'none';
+    el.setAttribute('aria-hidden', 'true');
+    if (backdrop) { backdrop.remove(); backdrop = null; }
+    document.body.classList.remove('modal-open');
+    openModalEl = null;
+    el.dispatchEvent(new CustomEvent('sb-modal-hidden'));
+  }
+  function showModal(el) {
+    if (openModalEl) hideModal(openModalEl);
+    backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop show';
+    document.body.appendChild(backdrop);
+    el.style.display = 'block';
+    el.removeAttribute('aria-hidden');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('role', 'dialog');
+    el.classList.add('show');
+    document.body.classList.add('modal-open');
+    openModalEl = el;
+    if (!el.dataset.sbModalWired) {
+      el.dataset.sbModalWired = '1';
+      el.addEventListener('click', (e) => {
+        if (e.target === el || e.target.closest('[data-sb-dismiss]')) hideModal(el);
+      });
+    }
+    const focusable = el.querySelector('button, [href], input');
+    if (focusable) focusable.focus();
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
+  }, true);
+
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl };
 
   function wireNavbar() {
     document.querySelectorAll('[data-sb-dropdown]').forEach(wireDropdown);

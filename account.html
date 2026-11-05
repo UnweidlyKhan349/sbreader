@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Account · SB Reader</title>
-<meta name="description" content="Log in to SB Reader to keep your bookmarks, stats and settings on every device." />
+<meta name="description" content="Log in to SB Reader to keep your starred questions, stats and settings on every device." />
 <meta name="robots" content="noindex" />
 <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
@@ -32,7 +32,6 @@
           <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="catalog.html">Search</a>
-            <a class="dropdown-item" href="bookmarks.html">Bookmarks</a>
             <a class="dropdown-item" href="set-list.html">Set List</a>
           </div>
         </div>
@@ -62,12 +61,12 @@
 
   <div id="acctDisabled" hidden>
     <p class="lead">Accounts aren't switched on for this copy of SB Reader.</p>
-    <p>Everything else works without one: bookmarks and settings are saved in this browser.</p>
+    <p>Everything else works without one: starred questions and settings are saved in this browser.</p>
   </div>
 
   <div id="acctLoggedOut" hidden>
     <p class="lead">Log in to SB Reader</p>
-    <p>An account keeps your bookmarks, your stats from Play and Multiplayer, and your settings, on every device you log in on.</p>
+    <p>An account keeps your starred questions, your stats from Play and Multiplayer, and your settings, on every device you log in on.</p>
     <ul class="nav nav-tabs mb-3" role="tablist">
       <li class="nav-item"><button class="nav-link active" type="button" data-acct-tab="login">Log in</button></li>
       <li class="nav-item"><button class="nav-link" type="button" data-acct-tab="signup">Sign up</button></li>
@@ -99,7 +98,7 @@
     <div class="alert" id="acctMsgIn" role="status" hidden></div>
     <p>
       <a class="btn btn-primary" href="stats.html">View your stats</a>
-      <a class="btn btn-outline-primary" href="bookmarks.html">Your bookmarks</a>
+      <a class="btn btn-outline-primary" href="solo.html?mode=starred">Your starred questions</a>
       <button class="btn btn-outline-secondary" type="button" id="logoutBtn">Log out</button>
     </p>
     <div class="card mb-3"><div class="card-body">
@@ -118,7 +117,7 @@
     </div></div>
     <div class="card border-danger"><div class="card-body">
       <h5 class="text-danger">Delete my data</h5>
-      <p>Removes your stats, the bookmarks and settings saved to your account. Bookmarks in this browser stay.</p>
+      <p>Removes your stats, and the starred questions and settings saved to your account. Stars in this browser stay.</p>
       <button class="btn btn-outline-danger" type="button" id="deleteDataBtn">Delete my data</button>
     </div></div>
   </div>

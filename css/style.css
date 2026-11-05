@@ -342,7 +342,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The timer at the top of the settings sidebar. */
 .timer { font-size: 250%; background: var(--timer-bg); border-radius: var(--bs-border-radius); font-variant-numeric: tabular-nums; line-height: 1.5; }
 .timer .fraction { font-size: 50%; }
-.timer.answering .face, .timer.answering .fraction { color: var(--bs-danger); }
 
 /* The settings sidebar: open beside the question on wide screens (the gear
    button collapses it), above the question and closed on narrow ones. */
@@ -534,3 +533,33 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   border: var(--bs-border-width) solid var(--bs-danger-border-subtle); border-radius: var(--bs-border-radius);
   padding: .5rem .75rem; display: inline-block;
 }
+
+/* ---------------- Categories modal (SBPlay.categoryModal) ---------------- */
+/* Each subject is a full-width outline toggle in its own colour, filled when
+   it's on, as QB Reader's category buttons are. */
+.btn-subject {
+  --subject: var(--bs-secondary);
+  --bs-btn-color: var(--subject); --bs-btn-border-color: var(--subject);
+  --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--subject); --bs-btn-hover-border-color: var(--subject);
+  --bs-btn-active-color: #fff; --bs-btn-active-bg: var(--subject); --bs-btn-active-border-color: var(--subject);
+  --bs-btn-disabled-color: var(--subject); --bs-btn-disabled-border-color: var(--subject);
+}
+.btn-subject[data-subject="math"] { --subject: var(--math); }
+.btn-subject[data-subject="phys"] { --subject: var(--phys); }
+.btn-subject[data-subject="bio"] { --subject: var(--bio); }
+.btn-subject[data-subject="chem"] { --subject: var(--chem); }
+.btn-subject[data-subject="ess"] { --subject: var(--ess); }
+.btn-subject[data-subject="energy"] { --subject: var(--energy); }
+.btn-subject[data-subject="other"] { --subject: var(--other); }
+.modal-backdrop.show { opacity: .5; }
+
+/* ---------------- History cards (SBPlay.historyCard) ---------------- */
+.clickable { cursor: pointer; }
+.history-card .card-header-clickable { flex: 1; }
+.history-card .card-header-clickable:hover { text-decoration: underline; }
+.star-question { font-size: 1.1rem; line-height: 1.2; color: var(--bs-secondary-color); text-decoration: none; }
+.star-question:hover { color: var(--warn); text-decoration: none; }
+.star-question.selected { color: var(--warn); }
+.history-card .q-text { margin-bottom: .25rem; }
+.history-card .choices { white-space: pre-wrap; }
+.history-card .q-figure { max-height: 300px; }
