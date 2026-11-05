@@ -344,7 +344,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* ---------------- Play / Multiplayer layout (qbreader's play page) ---------------- */
 /* The timer at the top of the settings sidebar. */
-.timer { font-size: 250%; background: var(--timer-bg); border-radius: var(--bs-border-radius); font-variant-numeric: tabular-nums; line-height: 1.5; }
+.timer { font-size: 250%; background: var(--timer-bg); border-radius: 0; font-variant-numeric: tabular-nums; line-height: 1.5; }
 .timer .fraction { font-size: 50%; }
 
 /* The settings sidebar: open beside the question on wide screens (the gear
@@ -378,7 +378,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .question-info-link:hover { color: inherit; }
 .do-not-accept { color: inherit; font-weight: inherit; }
 
-.question-panel { position: relative; min-height: 8rem; }
+.question-panel { position: relative; }
 .question-panel::after { content: ""; display: table; clear: both; }
 /* Plays once each time a new question comes up (JS re-triggers it by
    removing and re-adding this class - see playQuestionTransition()). Kept
@@ -447,6 +447,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* ---------------- Multiplayer ---------------- */
 .mp-player-row { text-decoration: none; color: var(--bs-body-color); }
+/* The Votekick menu beside a player's name (QB Reader's caret toggle). */
+.mp-player-row .dropdown-toggle { color: inherit; border: 0; line-height: 1; }
+.mp-player-row .dropdown-menu { top: 100%; left: 0; margin-top: .125rem; }
 .mp-player-row.user-score { background-color: var(--user-score-background); }
 .mp-player-row.buzzed { box-shadow: inset 3px 0 0 var(--bs-warning); }
 .mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
@@ -511,20 +514,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* Each subject is an outline toggle in its own colour, filled when it's on,
    as QB Reader's category buttons are, two to a row in the sidebar. */
 .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .375rem; }
-.btn-subject {
-  --subject: var(--bs-secondary);
-  --bs-btn-color: var(--subject); --bs-btn-border-color: var(--subject);
-  --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--subject); --bs-btn-hover-border-color: var(--subject);
-  --bs-btn-active-color: #fff; --bs-btn-active-bg: var(--subject); --bs-btn-active-border-color: var(--subject);
-  --bs-btn-disabled-color: var(--subject); --bs-btn-disabled-border-color: var(--subject);
-}
-.btn-subject[data-subject="math"] { --subject: var(--math); }
-.btn-subject[data-subject="phys"] { --subject: var(--phys); }
-.btn-subject[data-subject="bio"] { --subject: var(--bio); }
-.btn-subject[data-subject="chem"] { --subject: var(--chem); }
-.btn-subject[data-subject="ess"] { --subject: var(--ess); }
-.btn-subject[data-subject="energy"] { --subject: var(--energy); }
-.btn-subject[data-subject="other"] { --subject: var(--other); }
+/* Subject toggles: QB Reader's category boxes (red outline, square corners). */
+.btn-subject { --bs-btn-disabled-color: var(--bs-danger); --bs-btn-disabled-border-color: var(--bs-danger); }
 .modal-backdrop.show { opacity: .5; }
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */

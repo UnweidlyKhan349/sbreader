@@ -3,7 +3,7 @@
 // the Stats page.
 (function (global) {
   // Settings an account carries between devices (localStorage keys).
-  const SETTINGS_KEYS = ['sb_theme', 'sb_rate', 'sb_mp_name', 'sb_hide_answers'];
+  const SETTINGS_KEYS = ['sb_theme', 'sb_reading_speed', 'sb_mp_name', 'sb_hide_answers'];
 
   // Bookmarks are merged as a union at login, so nothing starred on either
   // side is lost. toUpload: this device's that the account lacks.

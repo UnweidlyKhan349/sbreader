@@ -301,7 +301,7 @@
   // italics), then the question itself.
   function readoutHTML(q) {
     const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
-    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i> `
+    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i>\n`
       + renderMathHTML(q.question);
   }
   SBData.readoutHTML = readoutHTML;

@@ -8,8 +8,14 @@
    in meta.json. */
 (function (global) {
   const LIMITS = { name: 24, answer: 200, chat: 300 };
-  const RATE_MIN = 0.5;
-  const RATE_MAX = 2.5;
+  // Reading speed, as on QB Reader: 0 (slowest) to 100, 50 by default.
+  const RATE_MIN = 0;
+  const RATE_MAX = 100;
+  const RATE_DEFAULT = 50;
+  function readingSpeed(v) {
+    const n = typeof v === 'string' && v.trim() === '' ? NaN : Number(v == null ? NaN : v);
+    return isFinite(n) ? Math.round(Math.max(RATE_MIN, Math.min(RATE_MAX, n))) : RATE_DEFAULT;
+  }
 
   function str(v, max) {
     return typeof v === 'string' ? v.slice(0, max) : '';
@@ -170,7 +176,7 @@
         tournaments: knownValues(msg.tournaments, known.tournaments),
         roundRange,
         includeUnlabeled: msg.includeUnlabeled !== false,
-        rate: clampNumber(msg.rate, RATE_MIN, RATE_MAX, 1),
+        rate: readingSpeed(msg.rate),
       };
     }
     return null;
@@ -205,5 +211,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);

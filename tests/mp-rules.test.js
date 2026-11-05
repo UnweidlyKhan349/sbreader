@@ -52,9 +52,11 @@ test('settings are limited to known values and clamped', () => {
   assert.deepStrictEqual(m.tournaments, [meta.tournaments[0].slug]);
   assert.deepStrictEqual(m.roundRange, [1, Math.max(...meta.rounds)]);
   assert.strictEqual(m.includeUnlabeled, true);
-  assert.strictEqual(m.rate, 2.5);
-  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: -5 }, meta).rate, 0.5);
-  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 'fast' }, meta).rate, 1);
+  // Reading speed is QB Reader's 0-100, 50 by default.
+  assert.strictEqual(m.rate, 100);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: -5 }, meta).rate, 0);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 'fast' }, meta).rate, 50);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 0 }, meta).rate, 0);
 });
 
 test('a player can override only their own grade, and only one player scores', () => {

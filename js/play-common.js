@@ -16,7 +16,7 @@
     const buttons = subjects.map((s) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'btn btn-sm btn-subject';
+      b.className = 'btn btn-sm btn-outline-danger rounded-0 btn-subject';
       b.dataset.subject = s.key;
       b.textContent = s.label;
       b.addEventListener('click', () => {

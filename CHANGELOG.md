@@ -94,3 +94,8 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - History cards show just the answer (no Correct / Incorrect chip); a rule with space above it separates the current question from the history.
 - Multiplayer: player names in the text colour, white text on the Buzz chip, no "started the next question" line.
 - Subject toggles have rounded corners again; bottom-bar buttons are back to QB Reader's natural widths (same height); Starred mode no longer says "N starred questions, read round and round."
+- Reading speed works as on QB Reader: 0 to 100 (50 by default), and questions appear word by word with QB Reader's timing, pausing after commas and sentences.
+- The read-out header ("TOSS-UP Physics *Short Answer*") is on its own line above the question.
+- Subject toggles are QB Reader's category boxes: red outline, square corners. The timer has square corners too.
+- Play: no extra space between the question and the answer; the reveal shows "Correct sqrt 137" instead of `Correct You answered: "sqrt 137"`.
+- Multiplayer: the live answer badge reads "Answer" on bonuses ("Buzz" on toss-ups), as on QB Reader; Votekick moved from the player popover into a ▾ menu beside the player's name; the popover counts negs (wrong while the question was being read) apart from other incorrect answers.

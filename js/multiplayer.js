@@ -16,7 +16,7 @@
   // publicLobby: the built-in public room (from SBMpRules.publicLobbies)
   // this is, or null. roomName: the room's name (multiplayer.html?room=).
   // roomId: the room's peer ID. pid: this browser's player ID (see myPid).
-  const myState = { role: null, myId: null, myName: '', rate: 1, publicLobby: null, roomName: '', roomId: null, pid: '' };
+  const myState = { role: null, myId: null, myName: '', rate: 50, publicLobby: null, roomName: '', roomId: null, pid: '' };
 
   // The last name used on this device, prefilled into the name boxes and
   // used when joining straight from an invite link.
@@ -325,32 +325,58 @@
   try { showOffline = localStorage.getItem(OFFLINE_KEY) === '1'; } catch (e) { /* default off */ }
   let openStatsFor = null;
   function renderPlayerList(container) {
+    // Keep a player's Votekick menu open across repaints.
+    const openMenu = container.querySelector('.dropdown-menu.show');
+    const openMenuKey = openMenu ? openMenu.closest('[data-key]').dataset.key : null;
     container.innerHTML = '';
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, offline: true }));
+    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, offline: true }));
     const everyone = game.players.concat(offline).sort((a, b) => (b.score - a.score) || a.name.localeCompare(b.name));
     everyone.forEach((p) => {
       const key = p.id || 'pid:' + p.pid;
-      const item = document.createElement('a');
-      item.href = '#';
-      item.className = 'list-group-item list-group-item-action mp-player-row';
+      const item = document.createElement('div');
+      item.tabIndex = 0;
+      item.setAttribute('role', 'button');
+      item.className = 'list-group-item list-group-item-action clickable mp-player-row';
       if (p.offline) item.classList.add('offline');
       if (p.offline && !showOffline) item.classList.add('d-none');
       if (p.id === myState.myId) item.classList.add('user-score');
       const attempt = !p.offline && game.attempts.find((x) => x.playerId === p.id);
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
       else if (!p.offline && p.id === game.buzzedPlayerId && game.phase === 'answering') item.classList.add('buzzed');
+      // As on QB Reader, other online players get a small menu beside their
+      // name with "Votekick" in it.
+      const canKick = !p.offline && p.id && p.id !== myState.myId;
       item.innerHTML = `<div class="d-flex justify-content-between align-items-center">
-          <span class="me-1">${escapeHtml(p.name)}</span>
+          <div class="d-flex align-items-center">
+            <span class="${canKick ? 'me-2' : 'me-1'}">${escapeHtml(p.name)}</span>
+            ${canKick ? `<div class="dropdown ms-1">
+              <button class="btn btn-default dropdown-toggle py-0 px-1" type="button" data-sb-dropdown aria-label="Actions for ${escapeHtml(p.name)}"></button>
+              <ul class="dropdown-menu"><li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li></ul>
+            </div>` : ''}
+          </div>
           <span class="badge rounded-pill ${p.offline ? 'bg-secondary' : 'bg-success'}">${p.score}</span>
         </div>`;
+      if (canKick) {
+        const toggle = item.querySelector('[data-sb-dropdown]');
+        SBSite.wireDropdown(toggle);
+        toggle.addEventListener('click', () => closePlayerPopover());
+        if (openMenuKey === key) { item.querySelector('.dropdown-menu').classList.add('show'); toggle.setAttribute('aria-expanded', 'true'); }
+        item.querySelector('[data-votekick]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          item.querySelector('.dropdown-menu').classList.remove('show');
+          requestVotekick(p.id);
+        });
+      }
       item.dataset.key = key;
       item.setAttribute('aria-haspopup', 'dialog');
-      item.addEventListener('click', (e) => {
+      const toggleStats = (e) => {
         e.preventDefault();
         e.stopPropagation();
         openStatsFor = openStatsFor === key ? null : key;
         renderPlayerPopover();
-      });
+      };
+      item.addEventListener('click', toggleStats);
+      item.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target === item) toggleStats(e); });
       container.appendChild(item);
     });
     renderPlayerPopover();
@@ -367,7 +393,7 @@
   function renderPlayerPopover() {
     const item = openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`);
     if (!item || item.classList.contains('d-none') || !item.offsetParent) { closePlayerPopover(); return; }
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, offline: true }));
+    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, offline: true }));
     const p = game.players.concat(offline).find((x) => (x.id || 'pid:' + x.pid) === openStatsFor);
     if (!p) { closePlayerPopover(); return; }
     if (!playerPopover) {
@@ -381,17 +407,14 @@
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && openStatsFor) closePlayerPopover(); });
       window.addEventListener('resize', () => { if (openStatsFor) renderPlayerPopover(); });
     }
-    const heard = (p.correct || 0) + (p.incorrect || 0);
+    const heard = (p.correct || 0) + (p.incorrect || 0) + (p.negs || 0);
     const pill = (v) => `<span class="float-end badge rounded-pill bg-secondary">${escapeHtml(String(v))}</span>`;
     const plain = (v) => `<span class="float-end">${escapeHtml(String(v))}</span>`;
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
-      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
+      ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
       ['Online?', plain(p.offline ? 'No' : 'Yes')],
-    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>'
-      + (!p.offline && p.id && p.id !== myState.myId ? '<div class="p-2"><button type="button" class="btn btn-warning btn-sm w-100" data-votekick>Vote to kick</button></div>' : '');
-    const vkBtn = playerPopover.querySelector('[data-votekick]');
-    if (vkBtn) vkBtn.addEventListener('click', () => { requestVotekick(p.id); closePlayerPopover(); });
+    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
     playerPopover.hidden = false;
@@ -448,13 +471,16 @@
     li.appendChild(i);
     historyEl().prepend(li);
   }
-  // The live answer line: [Buzz] Name typed-so-far, then the grade badges.
+  // The live answer line: [Buzz] or [Answer], the name, what they've typed
+  // so far, then the grade badges.
   function liveBuzzLine(playerId, name) {
     let li = document.getElementById('live-buzz');
     if (!li) {
       li = document.createElement('li');
       li.id = 'live-buzz';
-      li.innerHTML = '<span class="badge text-light bg-primary">Buzz</span> <b></b> <span class="live-answer"></span>';
+      // As on QB Reader: "Buzz" on a toss-up, "Answer" on a bonus.
+      const label = game.question && game.question.qtype === 'bonus' ? 'Answer' : 'Buzz';
+      li.innerHTML = `<span class="badge text-light bg-primary">${label}</span> <b></b> <span class="live-answer"></span>`;
       historyEl().prepend(li);
     }
     li.dataset.player = playerId;
@@ -792,7 +818,7 @@
   const departedPlayers = new Map();
   function markOffline(p) {
     departedPlayers.delete(p.pid);
-    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, leftAt: Date.now() });
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
   }
   function hostPlayerLeft(connId, quiet) {
@@ -865,7 +891,7 @@
   }
 
   function broadcastLobby() {
-    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, pid: p.pid || null }));
+    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null }));
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });
@@ -935,7 +961,7 @@
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
       const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
       if (back) departedPlayers.delete(msg.pid);
-      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
+      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
       broadcastLobby();
       hostEvent(connId, 'joined the game');
       // Everything a joiner needs, including the chat and the question log,
@@ -1077,7 +1103,9 @@
       delta = 4; if (p) { p.score += 4; p.correct = (p.correct || 0) + 1; p.celSum = (p.celSum || 0) + celerityNow(); p.celN = (p.celN || 0) + 1; }
     } else {
       delta = hostGame.buzzedDuringReading ? -4 : 0;
-      if (p) { p.score += delta; p.incorrect = (p.incorrect || 0) + 1; }
+      // A wrong answer while the question was still being read is a neg (-4).
+      const kind = delta < 0 ? 'negs' : 'incorrect';
+      if (p) { p.score += delta; p[kind] = (p[kind] || 0) + 1; }
       // With rebuzzes allowed, a wrong answer doesn't lock the player out.
       if (!roomSetting('rebuzz', false)) hostGame.lockedOutIds.add(connId);
     }
@@ -1142,8 +1170,9 @@
     const nowCorrect = !g.correct;
     if (p) {
       const f = g.celerity == null ? 1 : g.celerity;
-      if (nowCorrect) { p.correct = (p.correct || 0) + 1; p.incorrect = Math.max(0, (p.incorrect || 0) - 1); p.celSum = (p.celSum || 0) + f; p.celN = (p.celN || 0) + 1; }
-      else { p.incorrect = (p.incorrect || 0) + 1; p.correct = Math.max(0, (p.correct || 0) - 1); p.celSum = Math.max(0, (p.celSum || 0) - f); p.celN = Math.max(0, (p.celN || 0) - 1); }
+      const wrong = g.buzzedDuringReading ? 'negs' : 'incorrect';
+      if (nowCorrect) { p.correct = (p.correct || 0) + 1; p[wrong] = Math.max(0, (p[wrong] || 0) - 1); p.celSum = (p.celSum || 0) + f; p.celN = (p.celN || 0) + 1; }
+      else { p[wrong] = (p[wrong] || 0) + 1; p.correct = Math.max(0, (p.correct || 0) - 1); p.celSum = Math.max(0, (p.celSum || 0) - f); p.celN = Math.max(0, (p.celN || 0) - 1); }
     }
     let delta = 0;
     if (nowCorrect) {
@@ -1354,7 +1383,7 @@
     scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
     const pl = game.players.find((pp) => pp.id === playerId);
     if (pl && !isOverride) {
-      if (correct) { pl.correct = (pl.correct || 0) + 1; pl.celSum = (pl.celSum || 0) + celerityNow(); pl.celN = (pl.celN || 0) + 1; } else pl.incorrect = (pl.incorrect || 0) + 1;
+      if (correct) { pl.correct = (pl.correct || 0) + 1; pl.celSum = (pl.celSum || 0) + celerityNow(); pl.celN = (pl.celN || 0) + 1; } else if (delta < 0) pl.negs = (pl.negs || 0) + 1; else pl.incorrect = (pl.incorrect || 0) + 1;
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
@@ -1540,7 +1569,7 @@
     departedPlayers.clear();
     (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
-      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, connId: p.id, pid: p.pid || null });
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, connId: p.id, pid: p.pid || null });
       else if (p.pid) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
@@ -1597,7 +1626,7 @@
     const pidInUse = pid && [...hostPlayers.values()].some((p) => p.pid === pid);
     const back = pid && !pidInUse ? departedPlayers.get(pid) : null;
     if (back) departedPlayers.delete(pid);
-    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
+    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
   }
 
   // The coordinator holds the room's code, so newcomers can find the room.
@@ -1683,7 +1712,7 @@
   }
 
   function savedRate() {
-    try { return parseFloat(localStorage.getItem('sb_rate') || '1') || 1; } catch (e) { return 1; }
+    return SBMpRules.readingSpeed((() => { try { return localStorage.getItem('sb_reading_speed'); } catch (e) { return null; } })());
   }
 
   // Opens a new room under `roomId`, with this player first in it.
@@ -1821,7 +1850,7 @@
       game.attempts = msg.attempts || [];
       game.overrideLocked = !!msg.overrideLocked;
       game.liveTypingText = ''; game.liveTypingFrom = null;
-      myState.rate = msg.rate || 1;
+      myState.rate = SBMpRules.readingSpeed(msg.rate);
       if (msg.settings) { applySettingsStateLocal(msg.settings); showSettingsFromState(); }
       // Rebuild the history from the room's chat and question log together,
       // oldest first, so it reads in the order things happened.
@@ -1844,7 +1873,7 @@
       game.liveTypingText = ''; game.liveTypingFrom = null;
       game.lastGrade = null; game.attempts = [];
       game.overrideLocked = false;
-      myState.rate = msg.rate || 1;
+      myState.rate = SBMpRules.readingSpeed(msg.rate);
       playQuestionTransition();
       fullRenderFromState();
       // Whoever runs the game opens buzzing when their reading finishes;
@@ -1938,7 +1967,7 @@
   // of stale or default ones.
   function applySettingsStateLocal(s) {
     activeFilterState = copyFilters(s);
-    myState.rate = s.rate || 1;
+    myState.rate = SBMpRules.readingSpeed(s.rate);
     // Live-apply to whatever's currently typing itself onto the screen, not
     // just the next question, so "change speed mid-question" actually works.
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
@@ -2148,7 +2177,7 @@
 
     const rateSlider = document.getElementById('mpSettingsRateSlider');
     rateSlider.addEventListener('input', () => {
-      document.getElementById('mpSettingsRateValue').textContent = parseFloat(rateSlider.value).toFixed(1) + '×';
+      document.getElementById('mpSettingsRateValue').textContent = String(SBMpRules.readingSpeed(rateSlider.value));
     });
     rateSlider.addEventListener('change', () => { rateSlider.blur(); requestApplySettings(); });
   }
@@ -2172,7 +2201,7 @@
     const f = midGameFilterState;
     const rateSlider = document.getElementById('mpSettingsRateSlider');
     rateSlider.value = myState.rate;
-    document.getElementById('mpSettingsRateValue').textContent = parseFloat(myState.rate).toFixed(1) + '×';
+    document.getElementById('mpSettingsRateValue').textContent = String(myState.rate);
     suppressSettingsApplyEcho = true;
     try {
       document.getElementById('mpSetMode').value = f.mode;
@@ -2231,7 +2260,7 @@
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
-    if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter.toFixed(1)}×`);
+    if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
     return out;
   }
 
@@ -2243,7 +2272,7 @@
     if (myState.publicLobby) values = { ...values, isPublic: true, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
     const rateBefore = myState.rate;
-    myState.rate = values.rate || 1;
+    myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
 
     const next = copyFilters(values);
@@ -2270,7 +2299,7 @@
   function requestApplySettings() {
     if (suppressSettingsApplyEcho) return;
     const f = midGameFilterState;
-    const values = { ...copyFilters(f), rate: parseFloat(document.getElementById('mpSettingsRateSlider').value) || 1 };
+    const values = { ...copyFilters(f), rate: SBMpRules.readingSpeed(document.getElementById('mpSettingsRateSlider').value) };
     if (myState.role === 'host') {
       hostApplySettingsFromValues(values, myState.myId);
     } else if (client) {

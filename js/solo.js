@@ -155,15 +155,16 @@
     applySwitches();
 
     const rateSlider = document.getElementById('rateSlider');
-    let savedRate = 1;
-    try { savedRate = parseFloat(localStorage.getItem('sb_rate') || '1'); } catch (e) { /* default */ }
-    rateSlider.value = isNaN(savedRate) ? 1 : savedRate;
-    session.rate = parseFloat(rateSlider.value) || 1;
-    document.getElementById('rateValue').textContent = session.rate.toFixed(1) + '×';
+    // QB Reader's reading speed: 0 to 100, 50 by default.
+    let savedRate = null;
+    try { savedRate = localStorage.getItem('sb_reading_speed'); } catch (e) { /* default */ }
+    session.rate = SBReveal.normalizeSpeed(savedRate);
+    rateSlider.value = session.rate;
+    document.getElementById('rateValue').textContent = String(session.rate);
     rateSlider.addEventListener('input', () => {
-      session.rate = parseFloat(rateSlider.value) || 1;
-      document.getElementById('rateValue').textContent = session.rate.toFixed(1) + '×';
-      try { localStorage.setItem('sb_rate', rateSlider.value); } catch (e) { /* not saved */ }
+      session.rate = SBReveal.normalizeSpeed(rateSlider.value);
+      document.getElementById('rateValue').textContent = String(session.rate);
+      try { localStorage.setItem('sb_reading_speed', String(session.rate)); } catch (e) { /* not saved */ }
       if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
     });
 
@@ -202,7 +203,7 @@
     // Celerity: how much of each question had been read when you buzzed
     // and got it right, averaged (as a percentage).
     celeritySum: 0, celerityCount: 0,
-    rate: 1,
+    rate: 50,
   };
   const runtime = {
     phase: 'idle', // idle | revealing | buzzwindow | answering | reveal | done
@@ -253,10 +254,7 @@
     const p = runtime.pendingCard;
     if (!p) return;
     runtime.pendingCard = null;
-    const card = SBPlay.historyCard(p.q, {
-      grade: p.category,
-      note: p.userText ? `You answered: "${p.userText}"` : '',
-    });
+    const card = SBPlay.historyCard(p.q, { grade: p.category });
     document.getElementById('questionLog').prepend(card);
   }
 
@@ -478,7 +476,7 @@
     if (category !== 'skipped') {
       const badgeText = category === 'correct' ? 'Correct' : 'Incorrect';
       html += `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
-      if (outcome.userText) html += ` <span class="who-line">You answered: "${escapeHtml(outcome.userText)}"</span>`;
+      if (outcome.userText) html += ` <span class="user-answer">${escapeHtml(outcome.userText)}</span>`;
       html += '</div>';
     }
     if (category === 'incorrect' && outcome.close) {
