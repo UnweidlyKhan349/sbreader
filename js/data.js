@@ -309,7 +309,7 @@
   // alternates folded inline as "(also accept: ...)" rather than shown as
   // their own separate line - keeps the primary and alternate answers
   // visually tied together instead of reading as two unrelated facts.
-  // "Answer: X) LITHIUM-ION (also accept: Li-ion) [do not accept: LITHIUM]",
+  // "Answer: X) LITHIUM-ION (also accept: Li-ion) (do not accept: LITHIUM)",
   // all on one line.
   function answerLineHTML(mainText, letter, acceptList, rejectList) {
     let s = 'Answer: ' + (letter ? `${letter}) ` : '') + renderMathHTML(mainText);
@@ -317,7 +317,7 @@
       s += ' <span class="also-accept">(also accept: ' + renderMathHTML(acceptList.join('; ')) + ')</span>';
     }
     if (rejectList && rejectList.length) {
-      s += ' <span class="do-not-accept">[do not accept: ' + renderMathHTML(rejectList.join('; ')) + ']</span>';
+      s += ' <span class="do-not-accept">(do not accept: ' + renderMathHTML(rejectList.join('; ')) + ')</span>';
     }
     return s;
   }

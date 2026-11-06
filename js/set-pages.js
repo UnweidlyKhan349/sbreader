@@ -34,7 +34,7 @@
     const a = q.answer || {};
     let ans = 'ANSWER: ' + (a.letter ? a.letter + ') ' : '') + SBData.answerDisplayText(q);
     if (a.accept && a.accept.length) ans += ` (also accept: ${a.accept.join('; ')})`;
-    if (a.reject && a.reject.length) ans += ` [do not accept: ${a.reject.join('; ')}]`;
+    if (a.reject && a.reject.length) ans += ` (do not accept: ${a.reject.join('; ')})`;
     lines.push(ans);
     return lines.join('\n');
   }

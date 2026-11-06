@@ -497,6 +497,20 @@
       li.appendChild(hint);
     }
     li.removeAttribute('id');
+    li.dataset.buzzPlayer = playerId;
+    li.dataset.buzzQ = String(game.index);
+  }
+  // An override re-colours that player's line for this question: green and
+  // "Correct", or red and "Incorrect".
+  function recolorBuzzLine(playerId, correct) {
+    const li = [...historyEl().querySelectorAll('li[data-buzz-player]')]
+      .find((x) => x.dataset.buzzPlayer === playerId && x.dataset.buzzQ === String(game.index));
+    if (!li) return;
+    const badges = li.querySelectorAll('.badge');
+    badges.forEach((b) => { b.classList.toggle('bg-success', correct); b.classList.toggle('bg-danger', !correct); });
+    if (badges.length > 1) badges[badges.length - 1].textContent = correct ? 'Correct' : 'Incorrect';
+    const hint = li.querySelector('.close-hint');
+    if (hint && correct) hint.remove();
   }
   // Called when the buzzed player's typing arrives.
   function renderBuzzStatus() {
@@ -1424,7 +1438,7 @@
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
-    if (isOverride) logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
+    if (isOverride) { recolorBuzzLine(playerId, correct); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = !!overrideLocked;
     // Find THIS player's own attempt row to update, rather than assuming an

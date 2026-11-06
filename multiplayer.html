@@ -12,9 +12,9 @@
 <meta property="og:description" content="Join a public Science Bowl lobby, or create or join a room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
 <meta property="og:url" content="https://unweidlykhan349.github.io/sbreader/multiplayer" />
 <meta name="twitter:card" content="summary" />
-<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/site.js"></script>
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css?v=8f8173cb2d" />
+<link rel="stylesheet" href="css/style.css?v=9057082808" />
+<script src="js/site.js?v=dab72d64c7"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js"></script>
+<script src="js/data.js?v=3bc001a8b2"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -143,13 +143,13 @@
           <input type="range" id="mpSettingsRoundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
           <input type="range" id="mpSettingsRoundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
         </div>
-      </div>
-      <div class="mt-2">
-        <div class="mb-2" id="mpSubjectButtons"></div>
-        <div class="form-check form-switch">
+        <div class="form-check form-switch mt-2">
           <input class="form-check-input" id="mpToggleUnlabeled" type="checkbox" role="switch" checked />
           <label class="form-check-label" for="mpToggleUnlabeled">Include questions with no round number</label>
         </div>
+      </div>
+      <div class="mt-2">
+        <div class="mb-2" id="mpSubjectButtons"></div>
         <div class="mb-2" id="mpSettingsMatchCount"></div>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpTogglePublic" type="checkbox" role="switch" />
@@ -236,16 +236,16 @@
   <a class="btn btn-primary" href="multiplayer">Back to the lobby</a>
 </div>
 
-<script src="js/vendor/peerjs.min.js"></script>
-<script src="js/answer-check.js"></script>
-<script src="js/reveal.js"></script>
-<script src="js/peer.js"></script>
-<script src="js/mp-rules.js"></script>
-<script src="js/config.js"></script>
-<script src="js/account-core.js"></script>
-<script src="js/account.js"></script>
-<script src="js/rooms.js"></script>
-<script src="js/play-common.js"></script>
-<script src="js/multiplayer.js"></script>
+<script src="js/vendor/peerjs.min.js?v=376d6b8bc4"></script>
+<script src="js/answer-check.js?v=bde6b87044"></script>
+<script src="js/reveal.js?v=6072c528cf"></script>
+<script src="js/peer.js?v=54b6a89bac"></script>
+<script src="js/mp-rules.js?v=26d795a42f"></script>
+<script src="js/config.js?v=d72942fd70"></script>
+<script src="js/account-core.js?v=7f05d28c3b"></script>
+<script src="js/account.js?v=4250d7998a"></script>
+<script src="js/rooms.js?v=47cff58277"></script>
+<script src="js/play-common.js?v=4545fb797f"></script>
+<script src="js/multiplayer.js?v=50490d139f"></script>
 </body>
 </html>

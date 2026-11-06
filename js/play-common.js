@@ -83,7 +83,7 @@
     const ans = document.createElement('div');
     ans.innerHTML = 'ANSWER: ' + (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '')
       + (a.accept && a.accept.length ? ' <span class="also-accept">(also accept: ' + SBData.renderMathHTML(a.accept.join('; ')) + ')</span>' : '')
-      + (a.reject && a.reject.length ? ' <span class="do-not-accept">[do not accept: ' + SBData.renderMathHTML(a.reject.join('; ')) + ']</span>' : '');
+      + (a.reject && a.reject.length ? ' <span class="do-not-accept">(do not accept: ' + SBData.renderMathHTML(a.reject.join('; ')) + ')</span>' : '');
     body.appendChild(ans);
     if (opts.note) {
       const note = document.createElement('div');

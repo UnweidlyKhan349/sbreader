@@ -129,3 +129,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Removed the link-preview image (`img/og-image.png`) and its Open Graph tags.
 - 404 page copied from QB Reader's (heading and three buttons; without its quiz question).
 - LOST 3 HS/MS checked against the tournament's official packets and slide deck: finals rounds named as printed, questions in their printed slots, links to the packet PDFs, and 36 visual bonuses with figures. Details in [docs/data-history.md](docs/data-history.md#lost-3-official-packets-november-2026).
+- Script and stylesheet links carry a content hash (`?v=…`, from `tools/stamp-assets.js`, checked by `npm test`). Right after a deploy, GitHub Pages' 10-minute cache had paired the new Multiplayer page with the old script, which threw on every settings update (no pause icon, subject rooms unlocked) until the cache expired.
+- Multiplayer: an overridden answer's line turns green ("Correct") or red ("Incorrect"); chat still being typed is grey; the no-round-number switch sits under the round slider. "Do not accept" is shown in parentheses everywhere.
