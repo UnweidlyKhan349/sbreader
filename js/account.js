@@ -24,7 +24,10 @@
 
   const here = document.currentScript ? document.currentScript.src : '';
   const libUrl = here ? here.replace(/account\.js(\?.*)?$/, 'vendor/supabase.min.js') : 'js/vendor/supabase.min.js';
-  // account.html sits beside this page, wherever the site is hosted.
+  // The account pages sit beside this page, wherever the site is hosted.
+  // Links leave off ".html" (GitHub Pages serves /account as account.html);
+  // the confirmation and reset emails still name account.html, the address
+  // in the Supabase project's redirect allowlist.
   function pageUrl(name) { return new URL(name, location.href).href; }
 
   function loadLib() {
@@ -84,14 +87,14 @@
     slot.hidden = false;
     if (!user) {
       slot.className = 'nav-item';
-      slot.innerHTML = `<a class="nav-link ms-3 ms-lg-0" href="${pageUrl('account.html')}" id="login-link">Log in</a>`;
+      slot.innerHTML = `<a class="nav-link" href="${pageUrl('login')}" id="login-link">Log in</a>`;
       return;
     }
     slot.className = 'nav-item dropdown';
     slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
-      + '<div class="dropdown-menu dropdown-menu-end">'
-      + `<a class="dropdown-item" href="${pageUrl('stats.html')}">Stats</a>`
-      + `<a class="dropdown-item" href="${pageUrl('account.html')}">Account</a>`
+      + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
+      + `<a class="dropdown-item" href="${pageUrl('stats')}">Stats</a>`
+      + `<a class="dropdown-item" href="${pageUrl('account')}">Account</a>`
       + '<hr class="dropdown-divider">'
       + '<button class="dropdown-item" type="button" data-sb-logout>Log out</button></div>';
     slot.querySelector('[data-sb-dropdown]').textContent = displayName();

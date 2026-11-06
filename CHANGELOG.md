@@ -112,3 +112,20 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - `bookmarks.html` (the old Bookmarks page) redirects to Play's Starred Questions instead of a 404.
 - Accounts and the Multiplayer room list are switched on: `js/config.js` points at the site's Supabase project.
 - Multiplayer lobby: "There is 1 active player in 1 active room." (singular when it's one).
+- Accounts are back (the removal was reverted). `js/config.js` is empty until the new Supabase project's URL and publishable key go in; the old project was deleted.
+- Accounts point at the new Supabase project.
+- Look matched to QB Reader's measurements: the logo's exact font rule; the theme button 40px tall with its menu aligned to it (Bootstrap's navbar positioning) and icons with a check mark; 16px question text; the round slider's 8px track and 16px handles; full-size subject buttons with no hover fill; the Database's filter chips at button size, with the subject boxes sharing the row equally; QB Reader's sort carets on the Set List; "Showing 40 of 2111 results (0.03 seconds)" in the Database; the About page's layout.
+- Play: opens on Random Questions; no Paused badge (Multiplayer too); the question count sits under the subjects; "No starred questions." (and an alert when there's nothing to play); a searchable packet dropdown for Select by Set Name (Multiplayer too) instead of typed numbers and the list of packets; QB Reader's "You have reached the end of the set" alert; no fade-in or scroll to the top on each question; the header is shown at once so the question starts reading straight away, as on QB Reader.
+- History cards: the answer in bold after its letter, no underline on hover, and Bootstrap's collapse animation for k and clicks.
+- Round slider: pressing a handle grabs that handle (where two overlap, the one on top) and doesn't make it jump; touch drags don't scroll the page.
+- Numbered statements ("1) … 2) … 3) …") each on their own line everywhere a question is shown (`SBData.splitNumberedStatements`).
+- Set List: each set opens a set page listing its packets, and each packet a packet page with all its questions and answers, as on QB Reader (`set.html`, `packet.html`).
+- Log in, Sign up and Forgot password are separate pages copied from QB Reader's (`login.html`, `signup.html`, `forgot-password.html`); the Account page sends logged-out visitors to Log in.
+- Home page: removed "Questions type themselves onto the screen; …".
+- The read-out header is word-timed again.
+- Frequency List (`frequency-list`), as QB Reader's: the most frequent answers per subject, by level and question type, with TXT/CSV downloads; each answer opens a Database search for it (`catalog?answer=…&subject=…`). Linked from the home page (instead of Starred Questions) and the Database menu.
+- Database: subject boxes back in the left half, three equal columns; the intro no longer mentions Starred Questions. About: links to each source, no key chips, and no "each question links back to it".
+- Addresses without `.html` (and the home page as `./`) in every link, the sitemap and the canonical URLs.
+- Removed the link-preview image (`img/og-image.png`) and its Open Graph tags.
+- 404 page copied from QB Reader's (heading and three buttons; without its quiz question).
+- LOST 3 HS/MS checked against the tournament's official packets and slide deck: finals rounds named as printed, questions in their printed slots, links to the packet PDFs, and 36 visual bonuses with figures. Details in [docs/data-history.md](docs/data-history.md#lost-3-official-packets-november-2026).

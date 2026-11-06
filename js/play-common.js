@@ -16,7 +16,7 @@
     const buttons = subjects.map((s) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'btn btn-sm btn-outline-danger rounded-0 btn-subject';
+      b.className = 'btn btn-outline-danger rounded-0 btn-subject';
       b.dataset.subject = s.key;
       b.textContent = s.label;
       b.addEventListener('click', () => {
@@ -61,8 +61,9 @@
     title.setAttribute('role', 'button');
     title.setAttribute('aria-expanded', 'false');
     title.tabIndex = 0;
-    // Just the answer, as on QB Reader (no Correct / Incorrect chip).
-    title.innerHTML = (a.letter ? escapeHtml(a.letter) + ') ' : '') + SBData.renderMathHTML(a.text || '');
+    // Just the answer, as on QB Reader (no Correct / Incorrect chip), in
+    // bold after its letter: "Z) <b>RR Lyrae</b>".
+    title.innerHTML = (a.letter ? escapeHtml(a.letter) + ') ' : '') + '<b>' + SBData.renderMathHTML(a.text || '') + '</b>';
     const star = SBData.bookmarkButton(q.id, (on) => {
       // Every card of this question shows the same star.
       if (card.parentElement) repaintStars(card.parentElement, q.id);
@@ -100,10 +101,36 @@
     collapse.append(body, footer);
     card.append(header, collapse);
 
+    // Opens and closes with Bootstrap's collapse animation (the height
+    // slides over .35s), as QB Reader's cards do.
+    let animating = null;
     function toggle() {
       const open = !collapse.classList.contains('show');
-      collapse.classList.toggle('show', open);
       title.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (animating) { clearTimeout(animating); animating = null; }
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finish = () => {
+        animating = null;
+        collapse.classList.remove('collapsing');
+        collapse.classList.add('collapse');
+        collapse.classList.toggle('show', open);
+        collapse.style.height = '';
+      };
+      if (reduce) { finish(); return; }
+      if (open) {
+        collapse.classList.remove('collapse');
+        collapse.classList.add('collapsing');
+        collapse.style.height = '0px';
+        void collapse.offsetHeight;
+        collapse.style.height = collapse.scrollHeight + 'px';
+      } else {
+        collapse.style.height = collapse.getBoundingClientRect().height + 'px';
+        void collapse.offsetHeight;
+        collapse.classList.remove('collapse', 'show');
+        collapse.classList.add('collapsing');
+        collapse.style.height = '0px';
+      }
+      animating = setTimeout(finish, 350);
     }
     title.addEventListener('click', toggle);
     title.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
@@ -161,6 +188,31 @@
     return [...out].sort((x, y) => x - y);
   }
 
+  // The packet picker for "Select by Set Name": a searchable multi-select
+  // (as the tournament picker), listing the set's packets. Nothing picked
+  // means every packet. The choice is still kept as a "1, 3, 5" string, so
+  // saved settings and multiplayer messages are unchanged. onChange(text).
+  function packetSelect(selectEl, onChange) {
+    SBData.enhanceMultiSelect(selectEl, { noun: 'packet' });
+    selectEl.addEventListener('change', () => {
+      onChange(selectEl.getMultiValues().map(Number).sort((x, y) => x - y).join(', '));
+    });
+    return {
+      // Lists this set's packets and ticks the ones in `text`.
+      setPackets(packets, text) {
+        selectEl.innerHTML = '';
+        packets.forEach((p, i) => {
+          const o = document.createElement('option');
+          o.value = String(i + 1);
+          o.textContent = `${i + 1}. ${p.label}`;
+          selectEl.appendChild(o);
+        });
+        const chosen = (text || '').trim() ? parsePacketNumbers(text, packets.length) : [];
+        selectEl.setMultiValues(chosen.length === packets.length ? [] : chosen.map(String));
+      },
+    };
+  }
+
   /* ---------------- Saved settings ---------------- */
   function loadSettings(key, defaults) {
     try { return { ...defaults, ...JSON.parse(localStorage.getItem(key) || '{}') }; } catch (e) { return { ...defaults }; }
@@ -170,7 +222,7 @@
   }
 
   window.SBPlay = {
-    subjectButtons, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars,
+    subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars,
     packetsOf, parsePacketNumbers, loadSettings, saveSettings,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;

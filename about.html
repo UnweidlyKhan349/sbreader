@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SBReader - About</title>
 <meta name="description" content="What SB Reader is, where its Science Bowl questions come from, keyboard shortcuts, and how answers are graded." />
-<link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/about.html" />
+<link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/about" />
 <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/site.js"></script>
@@ -19,107 +19,102 @@
 <body>
 <nav class="navbar navbar-expand-lg" id="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <a class="navbar-brand ms-1 py-0" id="logo" href="./"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
     <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarContent">
       <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
-        <a class="nav-link" href="solo.html">Play</a>
-        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <a class="nav-link" href="solo">Play</a>
+        <a class="nav-link" href="multiplayer">Multiplayer</a>
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="catalog.html">Search</a>
-            <a class="dropdown-item" href="set-list.html">Set List</a>
+          <a class="nav-link dropdown-toggle" href="catalog" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu" data-bs-popper="static">
+            <a class="dropdown-item" href="catalog">Search</a>
+            <a class="dropdown-item" href="set-list">Set List</a>
+            <a class="dropdown-item" href="frequency-list">Frequency List</a>
           </div>
         </div>
-        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="about">About</a>
       </div>
-      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
-        <div class="nav-item dropdown">
-          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
-            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end">
-            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
-            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
-            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
-          </div>
-        </div>
-        <div class="vr d-none d-lg-flex mx-lg-2"></div>
-        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="account.html" id="login-link">Log in</a></div>
+      <div class="d-flex">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <button id="bd-theme" class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+              <span class="theme-icon-active"></span><span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="static">
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="light"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></svg>Light<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="dark"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>Night<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="auto"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"/></svg>Auto<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
+          </li>
+          <li class="nav-item" id="navAccount"><a class="nav-link" href="login" id="login-link">Log in</a></li>
+        </ul>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="container mt-3 mb-5 pb-5">
-  <p class="lead">About SB Reader</p>
+<div class="container-xl mt-3 mb-5 pb-5">
+  <p class="lead">A text-based Science Bowl packet reader and database created by <a href="https://github.com/UnweidlyKhan349">Henry Lu</a>.</p>
+  <p>Its design and features follow <a href="https://www.qbreader.org/">QB Reader</a>, the quizbowl reader.</p>
   <p>
-    SB Reader is a free practice site for the National Science Bowl and other Science Bowl tournaments, for high school and middle school teams.
-    It has real toss-ups and bonuses in biology, chemistry, physics, math, earth &amp; space science and energy, taken from regional, nationals and invitational packets and from practice sets written by school teams.
-    There's no account and nothing to install; starred questions and settings are saved in your browser.
+    Packets are collected from publicly posted practice packets on <a href="https://scibowl.live/">scibowl.live</a>, tournament packets from <a href="https://scibowl.stanford.edu/">scibowl.stanford.edu</a> and <a href="https://oly.mehvix.com/">oly.mehvix.com</a>, the official NSB regional sample sets from <a href="https://science.osti.gov/wdts/nsb">science.osti.gov</a>, the <a href="https://speriphery.com/">Science Bowl Periphery</a> packet archive and database, released <a href="https://isobowl.com/">ISOBowl</a> Premier packets, and a personal archive.
+    If you notice an issue with a question or its subject, please <a href="https://github.com/UnweidlyKhan349/sbreader/issues/new">open an issue</a>.
   </p>
+  <p>Feel free to contribute to the <a href="https://github.com/UnweidlyKhan349/sbreader">source code on GitHub</a> (MIT License). Changes are listed in the <a href="https://github.com/UnweidlyKhan349/sbreader/blob/main/CHANGELOG.md">changelog</a>.</p>
 
-  <h3 class="mt-4">How to play</h3>
+  <h3>Why SB Reader?</h3>
   <ul>
-    <li><b><a href="solo.html">Play</a></b>: choose a mode in the settings on the right (a set and its packets, random questions, or your starred questions), pick subjects, then press <b>Next</b>. The question appears on screen word by word, at the reading speed you set; press <kbd>Space</kbd> to buzz, type your answer and press <kbd>Enter</kbd>. Toss-ups give you 4 seconds to buzz after the question finishes, bonuses 20, and you then have 10 seconds to answer.</li>
-    <li><b><a href="multiplayer.html">Multiplayer</a></b>: type a room name and press <b>Go</b> (or pick one of the rooms listed), then share the room's URL with friends. Rooms are public unless you make them private, and anyone in a room can change its settings and chat; change your name in the box under the players. The first player to buzz locks everyone else out until they've answered.</li>
-    <li><b><a href="catalog.html">Database</a></b>: search every question by text, answer or tournament, and filter by subject, round, type, format, level and tournament. The <a href="set-list.html">set list</a> shows every tournament in the bank.</li>
-    <li><b>Starred questions</b>: star a question in the Database or in the question history, then choose <b>Starred Questions</b> in Play's mode menu to practice just those.</li>
-    <li><b><a href="account.html">Account</a></b> (optional): log in to keep your starred questions, stats and settings on every device. Without one, everything is saved in your browser.</li>
+    <li>Real toss-ups and bonuses from regional, national and invitational packets, and from practice sets written by school teams.</li>
+    <li>Can filter questions by subject, toss-up/bonus, format, level, tournament and round.</li>
+    <li>Play on your own, or with friends in a multiplayer room.</li>
+    <li>Excellent mobile support.</li>
+    <li>Over 100,000 questions from over 100 sets.</li>
   </ul>
 
-  <h3 class="mt-4">Keyboard shortcuts</h3>
-  <div class="row">
-    <div class="col-md-6">
-      <h5>Play</h5>
-      <p>
-        <kbd>Space</kbd> buzz<br>
-        <kbd>Enter</kbd> submit answer<br>
-        <kbd>N</kbd> or <kbd>S</kbd> next question / skip<br>
-        <kbd>P</kbd> pause / resume<br>
-        <kbd>K</kbd> show / hide the last question<br>
-        <kbd>T</kbd> star / unstar the last question<br>
-        <kbd>Q</kbd> I was wrong / I was right<br>
-        <kbd>E</kbd> show / hide settings
-      </p>
-    </div>
-    <div class="col-md-6">
-      <h5>Multiplayer</h5>
-      <p>
-        <kbd>Space</kbd> buzz<br>
-        <kbd>Enter</kbd> submit an answer, or open the chat<br>
-        <kbd>N</kbd> or <kbd>S</kbd> next question / skip (anyone)<br>
-        <kbd>P</kbd> pause (anyone)<br>
-        <kbd>K</kbd> show / hide the last question<br>
-        <kbd>T</kbd> star / unstar the last question<br>
-        <kbd>Q</kbd> override your own grade<br>
-        <kbd>E</kbd> show / hide settings
-      </p>
-    </div>
-  </div>
-  <p class="small-note">Shortcuts are ignored while you're typing in a text box (except <kbd>Enter</kbd>). While an enlarged figure is open, <kbd>Esc</kbd> closes it.</p>
-
-  <h3 class="mt-4">How answers are graded</h3>
-  <p>Answers are checked automatically, following Science Bowl conventions. If the grader gets one wrong, use <b>I was wrong</b> / <b>I was right</b> (or <kbd>Q</kbd>) to flip it.</p>
+  <h3>How do I play?</h3>
   <ul>
-    <li><b>Multiple choice</b>: give the letter (W, X, Y or Z) or the exact text of the choice.</li>
-    <li><b>Short answer</b>: capitalisation, punctuation and spacing don't matter, and the packet's "accept" and "do not accept" notes are followed.</li>
-    <li><b>Numbers</b>: compared whole, with their sign. Scientific notation can be typed as <code>3.2 x 10^23</code>, <code>3.2*10^23</code> or <code>3.2e23</code>. A decimal matches a fraction in lowest terms with the same value (<code>0.5</code> = <code>1/2</code>), and units may be written out or abbreviated (<code>10 joules</code> = <code>10 J</code>).</li>
-    <li><b>"Identify all" questions</b>: give the item numbers in any form (<code>1 and 3</code>, <code>13</code>, <code>1, 3</code>). Ranking questions must be in the right order.</li>
-    <li><b>Multi-part answers</b>: every part must be given, separated by commas, semicolons or "and".</li>
+    <li><a href="solo">Play</a>: choose a mode and subjects in the settings on the right, then press <b>Next</b>. The question appears word by word; press Space to buzz, type your answer and press Enter. Toss-ups give you 4 seconds to buzz after the question is read, bonuses 20, and you then have 10 seconds to answer.</li>
+    <li><a href="multiplayer">Multiplayer</a>: type a room name and press <b>Go</b>, or pick a room from the list, and share the room's URL with friends. The first player to buzz locks everyone else out until they've answered.</li>
+    <li><a href="catalog">Database</a>: search every question by text, answer or tournament. The <a href="set-list">set list</a> shows every tournament, its packets and their questions.</li>
+    <li>Star a question in the Database or the question history, then choose <b>Starred Questions</b> in Play to practice just those.</li>
   </ul>
 
-  <h3 class="mt-4">Sources</h3>
-  <p>Questions come from publicly posted practice packets on scibowl.live, tournament packets from scibowl.stanford.edu and oly.mehvix.com, the official NSB regional sample sets from science.osti.gov, the Science Bowl Periphery packet archive and database, released ISOBowl Premier packets, and a personal archive. Where a packet is online, each question links back to it.</p>
+  <h3>What does making an account do?</h3>
+  <p>Making an account gives you the following features:</p>
+  <ul>
+    <li>Keeps your starred questions on every device you log in on.</li>
+    <li>Lets you track your toss-up and bonus stats.</li>
+    <li>Keeps your settings (theme, reading speed, multiplayer name).</li>
+  </ul>
+  <p>Without an account, everything works and is saved in your browser.</p>
 
-  <h3 class="mt-4">Credits</h3>
-  <p>
-    Created by Henry Lu (<a href="https://github.com/UnweidlyKhan349">UnweidlyKhan349</a> on GitHub). The design follows <a href="https://www.qbreader.org/">QB Reader</a>, the quizbowl reader.
-    The <a href="https://github.com/UnweidlyKhan349/sbreader">source code</a> is on GitHub under the <a href="https://github.com/UnweidlyKhan349/sbreader/blob/main/LICENSE">MIT License</a>, and changes are listed in the <a href="https://github.com/UnweidlyKhan349/sbreader/blob/main/CHANGELOG.md">changelog</a>.
-  </p>
+  <h3>Does it cost money to create an account?</h3>
+  <p>No. SB Reader is completely free.</p>
+
+  <h3>How are answers graded?</h3>
+  <p>Automatically, following Science Bowl conventions. If the grader gets one wrong, use <b>I was wrong</b> / <b>I was right</b> (or q) to flip it.</p>
+  <ul>
+    <li>Multiple choice: give the letter (W, X, Y or Z) or the exact text of the choice.</li>
+    <li>Short answer: capitalisation, punctuation and spacing don't matter, and the packet's "accept" and "do not accept" notes are followed.</li>
+    <li>Numbers are compared whole, with their sign. Scientific notation can be typed as <code>3.2 x 10^23</code>, <code>3.2*10^23</code> or <code>3.2e23</code>; a decimal matches a fraction in lowest terms with the same value (<code>0.5</code> = <code>1/2</code>); units may be written out or abbreviated (<code>10 joules</code> = <code>10 J</code>).</li>
+    <li>"Identify all" questions: give the item numbers in any form (<code>1 and 3</code>, <code>13</code>, <code>1, 3</code>). Ranking questions must be in the right order.</li>
+    <li>Multi-part answers: every part must be given, separated by commas, semicolons or "and".</li>
+  </ul>
+
+  <h3>What are the keyboard shortcuts?</h3>
+  <ul>
+    <li>Space buzz, Enter submit (in Multiplayer, also open the chat)</li>
+    <li>n or s next question / skip, p pause / resume</li>
+    <li>k show / hide the last question, t star / unstar it</li>
+    <li>q I was wrong / I was right, e show / hide settings</li>
+  </ul>
+  <p>Shortcuts are ignored while you're typing in a text box (except Enter).</p>
 </div>
 <script src="js/config.js"></script>
 <script src="js/account-core.js"></script>

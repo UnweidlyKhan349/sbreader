@@ -9,6 +9,9 @@
     visuals: new Set(),
     tournaments: new Set(),
     search: '',
+    // From a frequency list: only questions whose answer is this one (its
+    // key, SBData.answerKey), until the search box is changed.
+    exactAnswer: '',
     page: 1,
     roundRange: null,
     includeUnlabeled: true,
@@ -110,7 +113,19 @@
       }
 
       const searchBox = document.getElementById('searchBox');
+      // catalog.html?answer=<answer>&subject=<key>[&qtype=][&level=] (the
+      // frequency list's links): that answer's questions.
+      const url = new URLSearchParams(location.search);
+      if (url.get('answer')) {
+        searchBox.value = url.get('answer');
+        state.search = url.get('answer');
+        state.exactAnswer = SBData.answerKey({ answer: { text: url.get('answer') } });
+      }
+      [['subject', 'subjects'], ['qtype', 'qtypes'], ['level', 'levels']].forEach(([param, key]) => {
+        if (url.get(param)) state[key].add(url.get(param));
+      });
       const runSearch = () => {
+        state.exactAnswer = '';
         state.search = searchBox.value;
         state.page = 1;
         render();
@@ -119,6 +134,7 @@
       searchBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); state.random = false; runSearch(); } });
       document.getElementById('searchBtn').addEventListener('click', () => { state.random = false; runSearch(); });
       document.getElementById('randomBtn').addEventListener('click', () => {
+        if (searchBox.value !== state.search) state.exactAnswer = '';
         state.search = searchBox.value;
         state.random = true;
         state.randomPick = null;
@@ -142,6 +158,7 @@
         state.visuals.clear();
         state.tournaments.clear();
         state.search = '';
+        state.exactAnswer = '';
         state.page = 1;
         document.getElementById('searchBox').value = '';
         tSelect.setMultiValues([]);
@@ -184,6 +201,7 @@
       const moved = roundSliderApi.setMax(SBData.maxRoundFor(state.tournaments));
       if (moved) state.roundRange = moved;
     }
+    const started = performance.now();
     // With no tournament picked, newest tournaments come first; picking
     // tournaments lists them A-Z, as in the picker.
     const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
@@ -195,8 +213,8 @@
       levels: state.levels,
       visuals: state.visuals,
       tournaments: state.tournaments,
-      search: state.search,
-    }), { recent: state.tournaments.size === 0 });
+      search: state.exactAnswer ? '' : state.search,
+    }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
@@ -207,16 +225,15 @@
         state.randomKey = key;
       }
       pageItems = state.randomPick;
-      document.getElementById('resultCount').textContent =
-        `${pageItems.length.toLocaleString()} random question${pageItems.length === 1 ? '' : 's'} of the ${filtered.length.toLocaleString()} that match your filters`;
     } else {
-      document.getElementById('resultCount').textContent =
-        `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
       totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
       if (state.page > totalPages) state.page = totalPages;
       const start = (state.page - 1) * PAGE_SIZE;
       pageItems = filtered.slice(start, start + PAGE_SIZE);
     }
+    // As on QB Reader: "Showing 25 of 2111 results (1.59 seconds)".
+    const seconds = ((performance.now() - started) / 1000).toFixed(2);
+    document.getElementById('resultCount').textContent = `Showing ${pageItems.length} of ${filtered.length} results (${seconds} seconds)`;
 
     const resultsEl = document.getElementById('results');
     resultsEl.innerHTML = '';
