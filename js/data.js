@@ -1426,155 +1426,151 @@
   // event on user interaction. opts.noun names the items in the button
   // label ("All tournaments", "3 tournaments selected").
   function enhanceMultiSelect(selectEl, opts) {
+    // QB Reader's checklist dropdown (its Difficulties menu): a split button,
+    // the label on the left and a caret on the right, opening a list of
+    // checkboxes; a ticked row is lavender and bold. Ours adds a search box
+    // and Clear at the top, since a list can run to 100+ tournaments, and
+    // the label says what's picked ("All tournaments", one name, or "3
+    // tournaments selected"). The <select> stays as the value store:
+    // getMultiValues(), setMultiValues(), and a 'change' event on it.
     const noun = (opts && opts.noun) || 'tournament';
     if (!selectEl || selectEl._sbEnhanced) return;
     selectEl._sbEnhanced = true;
     selectEl._sbMultiValues = new Set();
 
-    const originalStyle = selectEl.getAttribute('style') || '';
     const wrap = document.createElement('div');
-    wrap.className = 'custom-select-wrap';
-    if (originalStyle) wrap.setAttribute('style', originalStyle);
+    wrap.className = 'dropdown-checklist btn-group w-100';
     selectEl.parentNode.insertBefore(wrap, selectEl);
-    wrap.appendChild(selectEl);
     selectEl.classList.add('sb-native-select-hidden');
 
-    const trigger = document.createElement('button');
-    trigger.type = 'button';
-    // .form-select gives it the same chevron as the native selects.
-    trigger.className = 'form-select custom-select-trigger';
-    const triggerLabel = document.createElement('span');
-    triggerLabel.className = 'custom-select-trigger-label';
-    trigger.appendChild(triggerLabel);
-    wrap.appendChild(trigger);
+    const labelBtn = document.createElement('button');
+    labelBtn.type = 'button';
+    labelBtn.className = 'btn btn-default text-start w-100 dropdown-checklist-label';
+    labelBtn.setAttribute('aria-haspopup', 'true');
+    labelBtn.setAttribute('aria-expanded', 'false');
+    const caretBtn = document.createElement('button');
+    caretBtn.type = 'button';
+    caretBtn.className = 'btn btn-default dropdown-toggle dropdown-toggle-split';
+    caretBtn.setAttribute('aria-label', `Choose ${noun}s`);
+    const menu = document.createElement('ul');
+    menu.className = 'dropdown-menu dropdown-menu-end checkbox-menu allow-focus';
+    menu.setAttribute('data-bs-popper', 'static');
+    // White in both themes, as QB Reader's is.
+    menu.setAttribute('data-bs-theme', 'light');
+    // The <select> goes last, so Bootstrap's button-group corners still see
+    // the two buttons as the first pair.
+    wrap.append(labelBtn, caretBtn, menu, selectEl);
 
-    const panel = document.createElement('div');
-    panel.className = 'custom-select-panel';
-    panel.style.display = 'none';
-
-    const searchWrap = document.createElement('div');
-    searchWrap.className = 'custom-select-search-wrap custom-select-search-wrap-multi';
+    const tools = document.createElement('li');
+    tools.className = 'checkbox-menu-tools';
     const search = document.createElement('input');
     search.type = 'text';
-    search.className = 'custom-select-search';
+    search.className = 'form-control form-control-sm';
     search.placeholder = 'Search…';
     search.autocomplete = 'off';
-    searchWrap.appendChild(search);
+    search.setAttribute('aria-label', `Search ${noun}s`);
     const clearBtn = document.createElement('button');
     clearBtn.type = 'button';
-    clearBtn.className = 'custom-select-clear-btn';
+    clearBtn.className = 'btn btn-sm btn-link';
     clearBtn.textContent = 'Clear';
-    clearBtn.addEventListener('click', () => {
-      selectEl._sbMultiValues.clear();
-      syncLabel();
-      selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-    searchWrap.appendChild(clearBtn);
-    panel.appendChild(searchWrap);
+    tools.append(search, clearBtn);
+    const empty = document.createElement('li');
+    empty.className = 'checkbox-menu-empty';
+    empty.textContent = 'No matches';
 
-    const optionsList = document.createElement('div');
-    optionsList.className = 'custom-select-options';
-    panel.appendChild(optionsList);
-
-    wrap.appendChild(panel);
-
-    // Selected options are listed first (in their usual order), so what's
-    // picked is visible on opening; the list is rebuilt on each open, and
-    // ticking an option while open leaves it where it is.
+    // Ticked options first (in their usual order), so what's picked shows on
+    // opening; rebuilt on each open, and a row stays put while it's open.
     function buildOptions() {
-      optionsList.innerHTML = '';
+      menu.innerHTML = '';
+      menu.append(tools);
       const all = Array.from(selectEl.options);
       const picked = all.filter((o) => selectEl._sbMultiValues.has(o.value));
       const rest = all.filter((o) => !selectEl._sbMultiValues.has(o.value));
-      [...picked, ...rest].forEach((opt, i) => {
-        const row = document.createElement('div');
-        row.className = 'custom-select-option custom-select-option-multi';
-        row.dataset.value = opt.value;
-        row.dataset.search = opt.textContent.toLowerCase();
-        const check = document.createElement('span');
-        check.className = 'custom-select-option-check';
-        const label = document.createElement('span');
-        label.textContent = opt.textContent;
-        row.appendChild(check);
-        row.appendChild(label);
-        if (selectEl._sbMultiValues.has(opt.value)) row.classList.add('active');
-        if (picked.length && rest.length && i === picked.length - 1) row.classList.add('custom-select-option-last-picked');
-        row.addEventListener('click', () => {
-          if (selectEl._sbMultiValues.has(opt.value)) selectEl._sbMultiValues.delete(opt.value);
-          else selectEl._sbMultiValues.add(opt.value);
-          row.classList.toggle('active', selectEl._sbMultiValues.has(opt.value));
+      [...picked, ...rest].forEach((opt) => {
+        const li = document.createElement('li');
+        li.dataset.value = opt.value;
+        li.dataset.search = opt.textContent.toLowerCase();
+        const label = document.createElement('label');
+        const box = document.createElement('input');
+        box.type = 'checkbox';
+        box.value = opt.value;
+        box.checked = selectEl._sbMultiValues.has(opt.value);
+        li.classList.toggle('active', box.checked);
+        box.addEventListener('change', () => {
+          if (box.checked) selectEl._sbMultiValues.add(opt.value); else selectEl._sbMultiValues.delete(opt.value);
+          li.classList.toggle('active', box.checked);
           syncLabel();
           selectEl.dispatchEvent(new Event('change', { bubbles: true }));
         });
-        optionsList.appendChild(row);
+        label.append(box, document.createTextNode(opt.textContent));
+        li.append(label);
+        menu.append(li);
       });
+      menu.append(empty);
     }
 
     function applySearch() {
       const q = search.value.trim().toLowerCase();
-      let anyVisible = false;
-      Array.from(optionsList.querySelectorAll('.custom-select-option')).forEach((row) => {
-        const match = !q || row.dataset.search.indexOf(q) !== -1;
-        row.style.display = match ? '' : 'none';
-        if (match) anyVisible = true;
+      let any = false;
+      menu.querySelectorAll('li[data-value]').forEach((li) => {
+        const match = !q || li.dataset.search.indexOf(q) !== -1;
+        li.hidden = !match;
+        if (match) any = true;
       });
-      let empty = optionsList.querySelector('.custom-select-empty');
-      if (!anyVisible) {
-        if (!empty) {
-          empty = document.createElement('div');
-          empty.className = 'custom-select-empty';
-          empty.textContent = 'No matches';
-          optionsList.appendChild(empty);
-        }
-      } else if (empty) {
-        empty.remove();
-      }
+      empty.hidden = any;
     }
 
     function syncLabel() {
       const n = selectEl._sbMultiValues.size;
       if (n === 0) {
-        triggerLabel.textContent = `All ${noun}s`;
+        labelBtn.textContent = `All ${noun}s`;
       } else if (n === 1) {
         const [onlyVal] = selectEl._sbMultiValues;
         const opt = Array.from(selectEl.options).find((o) => o.value === onlyVal);
-        triggerLabel.textContent = opt ? opt.textContent : `1 ${noun} selected`;
+        labelBtn.textContent = opt ? opt.textContent : `1 ${noun} selected`;
       } else {
-        triggerLabel.textContent = `${n} ${noun}s selected`;
+        labelBtn.textContent = `${n} ${noun}s selected`;
       }
-      Array.from(optionsList.children).forEach((row) => {
-        if (row.dataset.value !== undefined) row.classList.toggle('active', selectEl._sbMultiValues.has(row.dataset.value));
+      menu.querySelectorAll('li[data-value]').forEach((li) => {
+        const on = selectEl._sbMultiValues.has(li.dataset.value);
+        li.classList.toggle('active', on);
+        const box = li.querySelector('input');
+        if (box) box.checked = on;
       });
     }
 
-    function openPanel() {
+    function isOpen() { return menu.classList.contains('show'); }
+    function openMenu() {
       buildOptions();
       search.value = '';
       applySearch();
-      panel.style.display = 'block';
-      wrap.classList.add('open');
+      menu.classList.add('show');
+      caretBtn.classList.add('show');
+      labelBtn.setAttribute('aria-expanded', 'true');
+      // Opens to the left from the caret, as QB Reader's does; to the right
+      // if there isn't room on the left.
+      menu.classList.remove('dropdown-menu-start-fallback');
+      if (menu.getBoundingClientRect().left < 8) menu.classList.add('dropdown-menu-start-fallback');
       setTimeout(() => search.focus(), 0);
     }
-    function closePanel() {
-      panel.style.display = 'none';
-      wrap.classList.remove('open');
+    function closeMenu() {
+      menu.classList.remove('show');
+      caretBtn.classList.remove('show');
+      labelBtn.setAttribute('aria-expanded', 'false');
     }
-
-    trigger.addEventListener('click', () => {
-      if (panel.style.display === 'none') openPanel(); else closePanel();
-    });
-    document.addEventListener('click', (e) => {
-      if (!wrap.contains(e.target)) closePanel();
-    });
-    trigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePanel();
-    });
+    const toggle = () => { if (isOpen()) closeMenu(); else openMenu(); };
+    labelBtn.addEventListener('click', () => { labelBtn.blur(); toggle(); });
+    caretBtn.addEventListener('click', () => { caretBtn.blur(); toggle(); });
+    // Clicks inside the list keep it open (QB Reader's allow-focus menu).
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) closeMenu(); });
+    wrap.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { closeMenu(); labelBtn.focus(); } });
     search.addEventListener('input', applySearch);
-    search.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closePanel(); trigger.focus(); }
+    clearBtn.addEventListener('click', () => {
+      selectEl._sbMultiValues.clear();
+      syncLabel();
+      selectEl.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
-    buildOptions();
     syncLabel();
     selectEl.getMultiValues = () => Array.from(selectEl._sbMultiValues);
     selectEl.setMultiValues = (values) => {

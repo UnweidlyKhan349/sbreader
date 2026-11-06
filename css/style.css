@@ -173,64 +173,35 @@ input[type="range"]::-webkit-slider-thumb {
 }
 input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; border-radius: 1rem; background: var(--bs-primary); }
 
-/* ---------------- Custom selects (SBData.enhanceSelect / enhanceMultiSelect) ---------------- */
-/* The trigger looks like Bootstrap's .form-select and the panel like a
-   .dropdown-menu, so the searchable selects sit with the rest of the form. */
-.custom-select-wrap { position: relative; }
+/* ---------------- Checklist dropdowns (SBData.enhanceMultiSelect) ---------------- */
 .sb-native-select-hidden { display: none; }
-.custom-select-trigger {
-  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  background-color: var(--bs-body-bg); color: var(--bs-body-color);
-  border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius);
-  padding: .375rem 2.25rem .375rem .75rem; font-size: 1rem; line-height: 1.5; font-family: inherit;
-  cursor: pointer; text-align: left; transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+/* QB Reader's checklist dropdown (its Difficulties menu), copied from its
+   style.css: SBData.enhanceMultiSelect builds it. */
+.btn-default {
+  --bs-btn-color: var(--bs-body-color); --bs-btn-hover-color: var(--bs-body-color); --bs-btn-active-color: var(--bs-body-color);
+  --bs-btn-bg: transparent; --bs-btn-hover-bg: transparent; --bs-btn-active-bg: transparent;
 }
-.custom-select-wrap.open .custom-select-trigger, .custom-select-trigger:focus-visible {
-  border-color: #86b7fe; outline: 0; box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+.dropdown-checklist { --dropdown-checklist-border-color: #ced4da; }
+[data-bs-theme=dark] .dropdown-checklist { --dropdown-checklist-border-color: #6c757d; }
+.dropdown-checklist button { border-color: var(--dropdown-checklist-border-color); --bs-btn-hover-border-color: var(--dropdown-checklist-border-color); }
+.dropdown-checklist-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.checkbox-menu {
+  background-color: #fff !important; color-scheme: light; max-height: min(60vh, 26rem); overflow-y: auto;
+  width: max-content; min-width: 100%; max-width: min(28rem, calc(100vw - 16px));
 }
-.custom-select-trigger-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.custom-select-panel {
-  position: absolute; top: calc(100% + 2px); left: 0; right: 0; z-index: 1000;
-  background: var(--bs-body-bg); border: var(--bs-border-width) solid var(--bs-border-color-translucent);
-  border-radius: var(--bs-border-radius); box-shadow: var(--bs-box-shadow); overflow: hidden;
+.dropdown-menu-end.dropdown-menu-start-fallback[data-bs-popper] { right: auto; left: 0; }
+.checkbox-menu li label {
+  display: block; padding: 3px 10px; clear: both; font-weight: normal; line-height: 1.42857143; color: #333;
+  white-space: normal; margin: 0; transition: background-color .4s ease; cursor: pointer;
 }
-.custom-select-search-wrap { padding: .5rem; border-bottom: var(--bs-border-width) solid var(--bs-border-color); }
-.custom-select-search {
-  width: 100%; background: var(--bs-body-bg); color: var(--bs-body-color);
-  border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius-sm);
-  padding: .375rem .75rem; font-size: 1rem; outline: none; font-family: inherit;
-}
-.custom-select-search:focus { border-color: #86b7fe; box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .25); }
-.custom-select-options { max-height: 260px; overflow-y: auto; padding: .25rem 0; }
-.custom-select-option { padding: .25rem 1rem; font-size: 1rem; cursor: pointer; color: var(--bs-body-color); }
-.custom-select-option:hover { background: var(--bs-tertiary-bg); }
-.custom-select-option.active { background: var(--bs-primary); color: #fff; }
-.custom-select-empty { padding: .5rem 1rem; font-size: .875rem; color: var(--text-dim); text-align: center; }
-
-/* Multi-select: a checkbox per row, and a Clear button beside the search. */
-.custom-select-search-wrap-multi { display: flex; gap: .5rem; }
-.custom-select-search-wrap-multi .custom-select-search { flex: 1; }
-.custom-select-clear-btn {
-  flex-shrink: 0; background: transparent; color: var(--bs-secondary-color);
-  border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius-sm);
-  padding: 0 .6rem; font-size: .8rem; font-family: inherit; cursor: pointer;
-}
-.custom-select-clear-btn:hover { border-color: var(--bs-secondary-color); color: var(--bs-body-color); }
-.custom-select-clear-btn:disabled { opacity: .5; cursor: default; }
-.custom-select-option-multi { display: flex; align-items: center; gap: .5rem; }
-.custom-select-option-multi.active { background: transparent; color: var(--bs-body-color); }
-.custom-select-option-multi.active:hover { background: var(--bs-tertiary-bg); }
-/* Selected options are listed first; a rule separates them from the rest. */
-.custom-select-option-last-picked { margin-bottom: 5px; box-shadow: 0 5px 0 -4px var(--bs-border-color); }
-.custom-select-option-check {
-  width: 1em; height: 1em; flex-shrink: 0; border-radius: .25em;
-  border: var(--bs-border-width) solid var(--bs-border-color); background-color: var(--bs-body-bg);
-}
-.custom-select-option-multi.active .custom-select-option-check {
-  background-color: var(--bs-primary); border-color: var(--bs-primary);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E");
-  background-size: 100%; background-position: center; background-repeat: no-repeat;
-}
+.checkbox-menu li input[type="checkbox"] { margin: 0 5px; top: 2px; position: relative; width: auto; height: auto; vertical-align: baseline; accent-color: auto; }
+.checkbox-menu li.active label { background-color: #cbcbff; font-weight: bold; }
+.checkbox-menu li label:hover, .checkbox-menu li label:focus { background-color: #f5f5f5; }
+.checkbox-menu li.active label:hover, .checkbox-menu li.active label:focus { background-color: #b8b8ff; }
+.checkbox-menu-tools { position: sticky; top: calc(-1 * var(--bs-dropdown-padding-y)); z-index: 1; display: flex; gap: .25rem; padding: .25rem .5rem .375rem; background: #fff; }
+.checkbox-menu-tools .form-control { background: #fff; color: #333; border-color: #ced4da; }
+.checkbox-menu-tools .btn-link { color: #0d6efd; }
+.checkbox-menu-empty { padding: 3px 10px; color: #6c757d; font-size: .875rem; }
 
 /* ---------------- Filter toggles ---------------- */
 /* A .chip is a small outline button that fills in when it's on. Built by

@@ -143,7 +143,11 @@
   function wireNavbar() {
     document.querySelectorAll('[data-sb-dropdown]').forEach(wireDropdown);
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.dropdown-menu')) closeAllDropdowns();
+      if (e.target.closest('.dropdown-menu')) return;
+      // A checklist dropdown (SBData.enhanceMultiSelect) opens its own menu
+      // on this click; leave that one open.
+      const own = e.target.closest('.dropdown-checklist');
+      closeAllDropdowns(own ? own.querySelector('.dropdown-menu') : null);
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeAllDropdowns();
