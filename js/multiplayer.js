@@ -167,8 +167,9 @@
     showNoRooms();
     const activePlayers = reg ? reg.activePlayers : [...probe.values()].reduce((n, c) => n + (c || 0), 0);
     const activeRooms = reg ? reg.activeRooms : [...probe.values()].filter((c) => c > 0).length;
-    document.getElementById('activePlayers').textContent = activePlayers.toLocaleString();
-    document.getElementById('activeRooms').textContent = activeRooms.toLocaleString();
+    // "There is 1 active player in 1 active room." / "There are 3 active players in 2 active rooms."
+    const plural = (n, word) => `${n.toLocaleString()} active ${word}${n === 1 ? '' : 's'}`;
+    document.getElementById('activeSummary').textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
   }
 
   /* ================= SHARED GAME STATE (rendered identically on host & clients) ================= */

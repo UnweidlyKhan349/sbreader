@@ -110,3 +110,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Set List: the table scrolls sideways inside its own box on phones instead of making the whole page scroll; "# of Toss-ups".
 - "Toss-up" spelling in the remaining page text and descriptions; About describes word-by-word reading and subjects.
 - `bookmarks.html` (the old Bookmarks page) redirects to Play's Starred Questions instead of a 404.
+- Accounts and the Multiplayer room list are switched on: `js/config.js` points at the site's Supabase project.
+- Multiplayer lobby: "There is 1 active player in 1 active room." (singular when it's one).
