@@ -386,10 +386,17 @@
   // As on QB Reader: clicking a player opens a popover beside the list with
   // their name and stats; clicking anywhere else (or Esc) closes it. It's
   // repainted with the list, so the numbers stay live while it's open.
+  // It fades in and out, as Bootstrap's popovers do on QB Reader (.fade, then
+  // .show; the 0.15 s opacity transition is Bootstrap's own).
   let playerPopover = null;
+  let popoverHideTimer = null;
+  const POPOVER_FADE_MS = 150;
   function closePlayerPopover() {
     openStatsFor = null;
-    if (playerPopover) playerPopover.hidden = true;
+    if (!playerPopover || playerPopover.hidden) return;
+    playerPopover.classList.remove('show');
+    clearTimeout(popoverHideTimer);
+    popoverHideTimer = setTimeout(() => { if (!openStatsFor) playerPopover.hidden = true; }, POPOVER_FADE_MS);
   }
   function renderPlayerPopover() {
     const item = openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`);
@@ -399,7 +406,8 @@
     if (!p) { closePlayerPopover(); return; }
     if (!playerPopover) {
       playerPopover = document.createElement('div');
-      playerPopover.className = 'popover custom-popover';
+      playerPopover.className = 'popover custom-popover fade';
+      playerPopover.hidden = true;
       playerPopover.setAttribute('role', 'dialog');
       playerPopover.innerHTML = '<div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>';
       playerPopover.addEventListener('click', (e) => e.stopPropagation());
@@ -418,6 +426,8 @@
     ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
+    clearTimeout(popoverHideTimer);
+    const appearing = playerPopover.hidden || !playerPopover.classList.contains('show');
     playerPopover.hidden = false;
     const r = item.getBoundingClientRect();
     const w = playerPopover.offsetWidth;
@@ -436,6 +446,10 @@
       playerPopover.style.left = (sx + x) + 'px';
       playerPopover.style.top = (sy + r.bottom + 8) + 'px';
       arrow.style.top = ''; arrow.style.left = (r.left + r.width / 2 - x - 8) + 'px';
+    }
+    if (appearing) {
+      void playerPopover.offsetWidth; // start from transparent, then fade in
+      playerPopover.classList.add('show');
     }
   }
 
