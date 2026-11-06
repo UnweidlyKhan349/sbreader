@@ -8,6 +8,6 @@
 // With either left empty, everything else works; "Log in" opens a page
 // saying accounts aren't switched on yet.
 window.SB_CONFIG = {
-  supabaseUrl: 'https://ijggzrqirqbsuemyfuqe.supabase.co',
-  supabaseAnonKey: 'sb_publishable_2Xx7SEj4HnhtrLrbkH1Kbg_awEpUvE4',
+  supabaseUrl: '',
+  supabaseAnonKey: '',
 };
