@@ -182,15 +182,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
   background-color: var(--bs-body-bg); color: var(--bs-body-color);
   border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius);
-  padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; font-family: inherit;
+  padding: .375rem 2.25rem .375rem .75rem; font-size: 1rem; line-height: 1.5; font-family: inherit;
   cursor: pointer; text-align: left; transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 .custom-select-wrap.open .custom-select-trigger, .custom-select-trigger:focus-visible {
   border-color: #86b7fe; outline: 0; box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
 }
 .custom-select-trigger-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.custom-select-caret { color: var(--bs-body-color); font-size: .7rem; flex-shrink: 0; transition: transform .15s ease; }
-.custom-select-wrap.open .custom-select-caret { transform: rotate(180deg); }
 .custom-select-panel {
   position: absolute; top: calc(100% + 2px); left: 0; right: 0; z-index: 1000;
   background: var(--bs-body-bg); border: var(--bs-border-width) solid var(--bs-border-color-translucent);

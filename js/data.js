@@ -1441,14 +1441,11 @@
 
     const trigger = document.createElement('button');
     trigger.type = 'button';
-    trigger.className = 'custom-select-trigger';
+    // .form-select gives it the same chevron as the native selects.
+    trigger.className = 'form-select custom-select-trigger';
     const triggerLabel = document.createElement('span');
     triggerLabel.className = 'custom-select-trigger-label';
-    const caret = document.createElement('span');
-    caret.className = 'custom-select-caret';
-    caret.textContent = '▾';
     trigger.appendChild(triggerLabel);
-    trigger.appendChild(caret);
     wrap.appendChild(trigger);
 
     const panel = document.createElement('div');

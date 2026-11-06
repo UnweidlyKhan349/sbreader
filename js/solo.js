@@ -23,6 +23,8 @@
     showSetName: true,
     timer: true,
   });
+  // Every visit starts from all tournaments; the pick isn't carried over.
+  settings.tournaments = [];
   function save() { SBPlay.saveSettings(SETTINGS_KEY, { ...settings, subjects: [...subjects] }); }
   let subjects; // Set of subject keys
   let roundSliderApi;
