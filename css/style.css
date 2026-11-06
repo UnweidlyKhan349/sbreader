@@ -277,7 +277,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .question-panel .q-figures { margin: 16px 0 6px; }
 .question-panel .q-figure { max-height: min(52vh, 460px); }
 .lightbox {
-  position: fixed; inset: 0; z-index: 100;
+  /* Above the navbar (1030), the bottom button bar (1020) and Bootstrap's
+     modals and popovers, so the whole figure shows. */
+  position: fixed; inset: 0; z-index: 2000;
   display: flex; align-items: center; justify-content: center;
   padding: 24px 16px;
   background: rgba(0,0,0,.85);
