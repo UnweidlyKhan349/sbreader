@@ -380,7 +380,6 @@
     runtime.attempts.push({ userText: text, close: !!result.close, early: runtime.buzzedDuringReading });
     if (settings.rebuzz) {
       // Allow rebuzzes: the question carries on where it stopped.
-      setPill(`Incorrect: ${text.trim() ? `"${text.trim()}"` : '(blank)'}. Buzz again or press Next.`, 'incorrect');
       setBuzzEnabled(true);
       setNextButtonMode('skip');
       if (!runtime.readingDone) {
@@ -528,12 +527,6 @@
   }
   function setBuzzEnabled(on) { document.getElementById('buzzBtn').disabled = !on; }
 
-  function setPill(text, cls) {
-    const el = document.getElementById('statusPill');
-    el.textContent = text;
-    el.className = 'status-pill ' + (cls || '');
-    el.style.display = 'inline-flex';
-  }
   function hidePill() { document.getElementById('statusPill').style.display = 'none'; }
 
   function runTimer(ms, kind, onExpire) {
