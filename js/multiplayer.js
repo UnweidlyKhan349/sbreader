@@ -657,16 +657,38 @@
     } else if (game.phase === 'reveal') {
       nextBtn.textContent = 'Next';
       nextBtn.dataset.mode = 'next';
-      // Anyone who buzzed and was graded this question can override their
-      // own answer, until someone's been overridden to correct (see
-      // hostOverrideLastGrade, SBMpRules.canOverrideOwn).
-      if (SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) {
-        const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
-        overrideBtn.textContent = mine && mine.correct ? 'I was wrong' : 'I was right';
-        overrideBtn.classList.remove('d-none');
-      }
       showReveal();
     }
+    renderOverrideLink();
+  }
+
+  // Anyone who buzzed and was graded this question can override their own
+  // answer once it's revealed, until someone's been overridden to correct
+  // (see hostOverrideLastGrade, SBMpRules.canOverrideOwn). The link sits on
+  // the same line as your buzz ("Buzz Henry … Incorrect"), at the right, as
+  // Play puts it beside the grade.
+  function renderOverrideLinkSoon() { setTimeout(renderOverrideLink, 0); }
+  function renderOverrideLink() {
+    const overrideBtn = document.getElementById('mpOverrideBtn');
+    overrideBtn.classList.add('d-none');
+    historyEl().querySelectorAll('.mp-inline-override').forEach((el) => el.remove());
+    if (game.phase !== 'reveal' || !SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) return;
+    const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
+    const label = mine && mine.correct ? 'I was wrong' : 'I was right';
+    const myLine = [...historyEl().querySelectorAll('li[data-buzz-player]')]
+      .find((x) => x.dataset.buzzPlayer === myState.myId && x.dataset.buzzQ === String(game.index));
+    if (!myLine) {
+      overrideBtn.textContent = label;
+      overrideBtn.classList.remove('d-none');
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = '#';
+    link.className = 'btn btn-link p-0 float-end mp-inline-override';
+    link.title = 'Shortcut: q';
+    link.textContent = label;
+    link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
+    myLine.appendChild(link);
   }
 
   // The answer under the question, as QB Reader shows it.
@@ -1438,7 +1460,7 @@
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
-    if (isOverride) { recolorBuzzLine(playerId, correct); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
+    if (isOverride) { recolorBuzzLine(playerId, correct); renderOverrideLinkSoon(); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = !!overrideLocked;
     // Find THIS player's own attempt row to update, rather than assuming an

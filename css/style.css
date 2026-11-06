@@ -448,6 +448,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live { color: var(--bs-secondary-color); }
+.room-history .mp-inline-override { line-height: inherit; vertical-align: baseline; border: 0; }
 
 /* The room code (or public lobby's name) above the question: click to copy
    an invite link. */
