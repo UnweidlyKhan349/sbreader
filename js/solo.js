@@ -463,13 +463,14 @@
     let html = `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
     if (category !== 'skipped') {
       const badgeText = category === 'correct' ? 'Correct' : 'Incorrect';
-      html += `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
+      html += `<div class="mb-1 d-flex align-items-center gap-1 grade-row"><span class="grade-badge ${category}">${badgeText}</span>`;
       if (outcome.userText) html += ` <span class="user-answer">${escapeHtml(outcome.userText)}</span>`;
       html += '</div>';
     }
     if (category === 'incorrect' && outcome.close) {
       html += '<div class="close-hint">Close. If you meant the answer above, press <kbd>q</kbd> or "I was right" to count it.</div>';
     }
+    parkOverride();
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
     SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
@@ -479,6 +480,8 @@
     const override = document.getElementById('overrideBtn');
     if (outcome && outcome.attempted) {
       override.textContent = outcome.correct ? 'I was wrong' : 'I was right';
+      // On the same line as "Correct sqrt 137", at the right.
+      box.querySelector('.grade-row').appendChild(override);
       override.classList.remove('d-none');
     } else {
       override.classList.add('d-none');
@@ -488,6 +491,14 @@
       const el = document.querySelector(`.choice-box[data-letter="${q.answer.letter}"]`);
       if (el) el.classList.add('reveal-correct');
     }
+  }
+
+  // The override link lives in the reveal box's grade row while it shows;
+  // it's moved back out before the box is rebuilt, so it isn't thrown away.
+  function parkOverride() {
+    const override = document.getElementById('overrideBtn');
+    const box = document.getElementById('revealBox');
+    if (box.contains(override)) box.before(override);
   }
 
   function skipQuestion() {
@@ -592,6 +603,7 @@
     resetTimer();
     setNextButtonMode('start');
     const box = document.getElementById('revealBox');
+    parkOverride();
     const msg = settings.mode === 'set' ? 'End of the set.'
       : settings.mode === 'starred' ? 'No starred questions left.'
         : "You've gone through every question that matches your settings.";

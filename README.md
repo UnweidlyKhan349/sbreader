@@ -71,7 +71,7 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
   - **Select by Set Name**: type a tournament (with suggestions) and, optionally, packet numbers (`1-3, 5`; blank means every packet). The questions come in packet order, and the sidebar says how many packets the set has.
   - **Random Questions**: the tournaments picker (none picked means all) and the round slider; questions are dealt round-robin across the chosen subjects (`SBData.stratifiedQueue`), so subjects stay evenly mixed for the whole session.
   - **Starred Questions**: only the questions you've starred, in random order. `solo.html?mode=starred` (the home page's "Starred Questions" button) opens straight into it.
-- **Subjects**: one toggle per subject, right in the sidebar, styled like QB Reader's category boxes (red outline, square corners, filled red when it's on). They apply in Set Name and Random modes and are hidden in Starred mode. Elsewhere (Database chips) each subject keeps its own colour.
+- **Subjects**: one toggle per subject, right in the sidebar, styled like QB Reader's category boxes (red outline, square corners, filled red when it's on). They apply in Set Name and Random modes and are hidden in Starred mode. The Database's subject filters look the same.
 - **Switches**, as in QB Reader (all together under a rule, below the subjects), saved per device (`localStorage` `sb_solo_settings`, with the mode, set and categories):
   - **Allow rebuzzes**: after a wrong answer you can buzz again on the same question (the reading carries on); off, a wrong answer ends it.
   - **Show question history**: the finished questions as cards under the current one.
@@ -84,7 +84,7 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
 - **Answer line**: "ANSWER: LITHIUM-ION (also accept: ...) [do not accept: LITHIUM]", all on one line (in the Database and history cards too).
 - **Source link**: once the question is over, the label above it ("AVES 2 RR 3 Q12") becomes a link to the original packet, underlined but still in the text colour, opened at the question's page when it's a PDF. Multiplayer sends the link with the answer, not with the question, so nobody can open the packet early.
 - **Timers**: a 4 s buzz window for tossups and 20 s for bonuses once the reveal finishes, then 10 s to type an answer. The timer never turns red.
-- **Grading**: automatic (see [Answer grading](#answer-grading)), with a manual override (`Q`: **I was wrong** after a Correct, **I was right** after an Incorrect). +4 for a correct answer; −4 for a wrong buzz before the question has finished, at most once per question.
+- **Grading**: automatic (see [Answer grading](#answer-grading)), with a manual override (`Q`, or the link at the right of the "Correct sqrt 137" line: **I was wrong** after a Correct, **I was right** after an Incorrect). +4 for a correct answer; −4 for a wrong buzz before the question has finished, at most once per question.
 - **Changing settings mid-session**: every setting and the reading speed apply live; a change only rebuilds the not-yet-asked part of the queue, so you won't see a question twice.
 - **Settings sidebar**: open beside the question on wide screens; ⚙ or `E` hides and shows it. On screens narrower than 992 px it sits above the question and starts folded, showing only the (smaller) timer until ⚙ opens it.
 

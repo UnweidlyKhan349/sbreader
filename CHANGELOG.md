@@ -103,3 +103,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - The round slider looks like QB Reader's year-range slider: gray track, no fill, round blue handles flush with the ends.
 - Play: "Allow rebuzzes" sits with the other switches; Starred mode hides the subject tiles; the ANSWER line comes before "Correct sqrt 137".
 - Multiplayer: no "Room <name>" above the question.
+- Database: subject filters are red boxes with square corners, as in Play.
+- Play: "I was wrong" / "I was right" sits on the same line as "Correct sqrt 137".

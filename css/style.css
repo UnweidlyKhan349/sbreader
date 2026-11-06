@@ -234,8 +234,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 }
 
 /* ---------------- Filter toggles ---------------- */
-/* A .chip is a small outline button that fills in when it's on; subjects
-   fill with their own colour. Built by the page scripts. */
+/* A .chip is a small outline button that fills in when it's on. Built by
+   the page scripts. */
 .chip-row { display: flex; flex-wrap: wrap; gap: .375rem; }
 .chip {
   --chip-color: var(--bs-primary);
@@ -249,16 +249,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .chip:hover { border-color: var(--chip-color); color: var(--chip-color); }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
 .chip.active:hover { filter: brightness(.92); color: #fff; }
-.chip[data-subject="math"] { --chip-color: var(--math); }
-.chip[data-subject="phys"] { --chip-color: var(--phys); }
-.chip[data-subject="bio"] { --chip-color: var(--bio); }
-.chip[data-subject="chem"] { --chip-color: var(--chem); }
-.chip[data-subject="ess"] { --chip-color: var(--ess); }
-.chip[data-subject="energy"] { --chip-color: var(--energy); }
-.chip[data-subject="other"] { --chip-color: var(--other); }
-/* Subject chips and toggles are always in their subject's colour, with
-   Bootstrap's rounded corners. */
-.chip[data-subject] { border-color: var(--chip-color); color: var(--chip-color); }
+/* Subject chips are QB Reader's category boxes, as in Play: red outline,
+   square corners, filled red when on. */
+.chip[data-subject] { --chip-color: var(--bs-danger); border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
 .chip[data-subject].active { color: #fff; }
 
 /* ---------------- Badges for subject / type / format ---------------- */
