@@ -27,6 +27,7 @@
   let subjects; // Set of subject keys
   let roundSliderApi;
   let categories;
+  let packetPicker;
 
   /* ================= QUESTIONS FOR THE CURRENT SETTINGS ================= */
   function setTournament() {
@@ -61,9 +62,7 @@
     const el = document.getElementById('matchCount');
     if (settings.mode === 'starred') {
       el.textContent = '';
-      document.getElementById('starredInfo').textContent = n
-        ? ''
-        : 'No starred questions yet. Star a question in the history (or press t) or in the Database.';
+      document.getElementById('starredInfo').textContent = n ? '' : 'No starred questions.';
     } else {
       el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings`;
     }
@@ -95,9 +94,9 @@
     const info = document.getElementById('setInfo');
     const t = setTournament();
     input.classList.toggle('is-invalid', !!settings.setName.trim() && !t);
-    if (!t) { info.textContent = settings.setName.trim() ? 'No set with that name.' : 'Pick a set; packets are read in order.'; return; }
-    const packets = SBPlay.packetsOf(t.slug);
-    info.textContent = `${packets.length} packet${packets.length === 1 ? '' : 's'}: ` + packets.map((p, i) => `${i + 1} ${p.label}`).join(', ');
+    info.textContent = !t && settings.setName.trim() ? 'No set with that name.' : '';
+    // The packet dropdown lists this set's packets.
+    packetPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], settings.packetNumbers);
   }
 
   function initSettings() {
@@ -106,8 +105,10 @@
     categories = SBPlay.subjectButtons(document.getElementById('subjectButtons'), SBData.meta.subjects, subjects, onSettingsChange);
 
     // Mode.
+    // Play always opens on Random Questions (as QB Reader does), unless the
+    // link asks for starred questions.
     const params = new URLSearchParams(location.search);
-    if (params.get('mode') === 'starred' || params.get('bookmarked') === '1') settings.mode = 'starred';
+    settings.mode = params.get('mode') === 'starred' || params.get('bookmarked') === '1' ? 'starred' : 'random';
     const mode = document.getElementById('setMode');
     mode.value = settings.mode;
     mode.addEventListener('change', () => { settings.mode = mode.value; showModeSettings(); onSettingsChange(); mode.blur(); });
@@ -117,11 +118,9 @@
     const list = document.getElementById('setNameList');
     SBData.meta.tournaments.forEach((t) => { const o = document.createElement('option'); o.value = t.name; list.appendChild(o); });
     const setName = document.getElementById('setName');
-    const packetNumbers = document.getElementById('packetNumbers');
     setName.value = settings.setName;
-    packetNumbers.value = settings.packetNumbers;
-    setName.addEventListener('change', () => { settings.setName = setName.value; describeSet(); onSettingsChange(); });
-    packetNumbers.addEventListener('change', () => { settings.packetNumbers = packetNumbers.value; onSettingsChange(); });
+    packetPicker = SBPlay.packetSelect(document.getElementById('packetSelect'), (text) => { settings.packetNumbers = text; onSettingsChange(); });
+    setName.addEventListener('change', () => { settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange(); });
     describeSet();
 
     // Random Questions: tournaments and rounds.
@@ -224,7 +223,8 @@
   function startSession() {
     const pool = buildPool();
     if (!pool.length) {
-      setPill(settings.mode === 'starred' ? 'No starred questions yet.' : settings.mode === 'set' && !setTournament() ? 'Pick a set first.' : 'No questions match your settings.', 'revealed');
+      // As on QB Reader, an alert, and nothing starts.
+      window.alert(settings.mode === 'starred' ? 'No starred questions.' : 'No questions found');
       return;
     }
     session.queue = pool;
@@ -243,13 +243,6 @@
 
   function currentQ() { return session.index >= 0 ? session.queue[session.index] : null; }
 
-  function playQuestionTransition() {
-    const panel = document.getElementById('questionPanel');
-    panel.classList.remove('q-panel-enter');
-    void panel.offsetWidth;
-    panel.classList.add('q-panel-enter');
-  }
-
   // The question just played goes into the history, collapsed, as the next
   // one starts (as on QB Reader).
   function cardPending() {
@@ -261,6 +254,11 @@
   }
 
   function nextQuestion() {
+    if (session.index + 1 >= session.queue.length && settings.mode !== 'starred') {
+      // As on QB Reader: an alert, and the last question stays where it is.
+      window.alert(settings.mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match your settings');
+      return;
+    }
     clearRuntimeTimer();
     if (runtime.revealCtl) runtime.revealCtl.stop();
     setPaused(false);
@@ -268,16 +266,11 @@
 
     session.index++;
     if (session.index >= session.queue.length) {
-      if (settings.mode === 'starred') {
-        // Starred questions loop, re-reading the live set of stars.
-        const pool = buildPool();
-        if (!pool.length) { showSessionDone(); return; }
-        session.queue = pool;
-        session.index = 0;
-      } else {
-        showSessionDone();
-        return;
-      }
+      // Starred questions loop, re-reading the live set of stars.
+      const pool = buildPool();
+      if (!pool.length) { showSessionDone(); return; }
+      session.queue = pool;
+      session.index = 0;
     }
     const q = currentQ();
     runtime.phase = 'revealing';
@@ -288,8 +281,6 @@
     runtime.lastOutcome = null;
     runtime.buzzwindowLeftMs = null;
 
-    window.scrollTo(0, 0);
-    playQuestionTransition();
     hidePill();
     document.getElementById('revealBox').style.display = 'none';
     document.getElementById('answerRow').classList.add('d-none');
@@ -306,7 +297,7 @@
 
     const qDisplay = document.getElementById('qDisplay');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
-    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, instantChars: SBData.readoutHeaderLength(q) }];
     const choicesDisplay = document.getElementById('choicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -576,7 +567,6 @@
 
   function setPaused(on) {
     runtime.paused = on;
-    document.getElementById('pauseBadge').style.display = on ? '' : 'none';
     const btn = document.getElementById('pauseBtn');
     btn.innerHTML = on ? SBIcons.play : SBIcons.pause;
     btn.setAttribute('aria-label', on ? 'Resume' : 'Pause');

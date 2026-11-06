@@ -184,6 +184,7 @@
       const moved = roundSliderApi.setMax(SBData.maxRoundFor(state.tournaments));
       if (moved) state.roundRange = moved;
     }
+    const started = performance.now();
     // With no tournament picked, newest tournaments come first; picking
     // tournaments lists them A-Z, as in the picker.
     const filtered = SBData.sortByPacketOrder(SBData.filterQuestions({
@@ -207,16 +208,15 @@
         state.randomKey = key;
       }
       pageItems = state.randomPick;
-      document.getElementById('resultCount').textContent =
-        `${pageItems.length.toLocaleString()} random question${pageItems.length === 1 ? '' : 's'} of the ${filtered.length.toLocaleString()} that match your filters`;
     } else {
-      document.getElementById('resultCount').textContent =
-        `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
       totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
       if (state.page > totalPages) state.page = totalPages;
       const start = (state.page - 1) * PAGE_SIZE;
       pageItems = filtered.slice(start, start + PAGE_SIZE);
     }
+    // As on QB Reader: "Showing 25 of 2111 results (1.59 seconds)".
+    const seconds = ((performance.now() - started) / 1000).toFixed(2);
+    document.getElementById('resultCount').textContent = `Showing ${pageItems.length} of ${filtered.length} results (${seconds} seconds)`;
 
     const resultsEl = document.getElementById('results');
     resultsEl.innerHTML = '';

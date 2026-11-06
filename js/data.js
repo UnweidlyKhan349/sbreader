@@ -299,11 +299,64 @@
   // What's read out before a question, as a moderator says it:
   // "TOSS-UP Physics Short Answer ..." (the kind in semi-bold, the format in
   // italics), then the question itself.
-  function readoutHTML(q) {
-    const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
-    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i>\n`
-      + renderMathHTML(q.question);
+  // Numbered statements each on their own line:
+  //   "Identify all of the following that are true: 1) A; 2) B; and 3) C"
+  //   -> "Identify all of the following that are true\n1) A\n2) B\n3) C"
+  // A marker is "N)" after a space or punctuation (or at the start) and not
+  // inside parentheses (so "(5,6)", "sin(π/6)" and "O(n^2)" are left alone).
+  // Only runs counting up from 1, at least two long, are split; a list
+  // nested in an item starts its own run. The separator before each marker
+  // (";", ",", "and", or the colon before "1)") goes; "?" and "." stay.
+  function splitNumberedStatements(text) {
+    if (!text || text.indexOf(')') === -1) return text;
+    const markers = [];
+    const re = /(\d{1,2})\)(?=\s)/g;
+    let m;
+    while ((m = re.exec(text))) {
+      const at = m.index;
+      if (at > 0 && !/[\s:;,.?!]/.test(text[at - 1])) continue;
+      let depth = 0;
+      for (let i = 0; i < at; i++) {
+        if (text[i] === '(') depth++;
+        else if (text[i] === ')') depth = Math.max(0, depth - 1);
+      }
+      if (depth > 0) continue;
+      markers.push({ at, n: +m[1] });
+    }
+    const runs = [];
+    let cur = null;
+    markers.forEach((mk) => {
+      if (mk.n === 1) { cur = [mk]; runs.push(cur); } else if (cur && mk.n === cur[cur.length - 1].n + 1) cur.push(mk);
+    });
+    const keep = runs.filter((r) => r.length >= 2).flat().sort((a, b) => a.at - b.at);
+    if (!keep.length) return text;
+    let out = '';
+    let from = 0;
+    keep.forEach((mk) => {
+      let before = text.slice(from, mk.at).replace(/\s+$/, '');
+      before = before.replace(/[\s;,]*\b(?:and|or)$/i, '').replace(/[;,:]$/, '').replace(/\s+$/, '');
+      out += before + (before || out ? '\n' : '');
+      from = mk.at;
+    });
+    return out + text.slice(from);
   }
+  SBData.splitNumberedStatements = splitNumberedStatements;
+  // A question's text as shown: numbered statements on their own lines,
+  // math rendered.
+  function questionTextHTML(q) { return renderMathHTML(splitNumberedStatements(q.question || '')); }
+  SBData.questionTextHTML = questionTextHTML;
+
+  // The header line alone ("TOSS-UP Physics Short Answer" and a newline).
+  function readoutHeaderHTML(q) {
+    const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
+    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i>\n`;
+  }
+  function readoutHTML(q) {
+    return readoutHeaderHTML(q) + questionTextHTML(q);
+  }
+  // How many visible characters the header takes (entities count as one),
+  // for the reveal, which shows the header at once.
+  SBData.readoutHeaderLength = (q) => readoutHeaderHTML(q).replace(/<[^>]+>/g, '').replace(/&(?:#\d+|#x[0-9a-f]+|[a-z]+);/gi, 'x').length;
   SBData.readoutHTML = readoutHTML;
   function qtypeTagClass(q) { return 'tag qtype-' + q.qtype + (isVisualBonus(q) ? ' visual' : ''); }
   SBData.qtypeLabel = qtypeLabel;
@@ -398,7 +451,7 @@
   function appendQuestionBody(card, q) {
     const qText = document.createElement('div');
     qText.className = 'q-text';
-    qText.innerHTML = renderMathHTML(q.question);
+    qText.innerHTML = questionTextHTML(q);
     card.appendChild(qText);
     if (q.visual) card.appendChild(questionFigures(q));
     if (q.choices) {
@@ -700,6 +753,14 @@
         return SBData;
       });
   }
+
+  // Just one tournament's questions (the set and packet pages).
+  SBData.loadSet = function (slug) {
+    return SBData.loadMeta().then((meta) => {
+      const t = meta.tournaments.find((x) => x.slug === slug);
+      return t ? loadTournaments([t]).then(() => t) : null;
+    });
+  };
 
   // The whole bank, for the pages whose filters and search span all of it.
   // The pages call this from <head>, so the downloads start before the rest
@@ -1187,14 +1248,16 @@
     const container = minInput.parentElement;
     function valueFromClientX(clientX) {
       const rect = container.getBoundingClientRect();
-      const pad = 9.5; // half a handle: a handle stops flush with the track's ends
+      const pad = 8; // half a handle: a handle stops flush with the track's ends
       const usable = Math.max(1, rect.width - pad * 2);
       const ratio = Math.min(1, Math.max(0, (clientX - rect.left - pad) / usable));
       return Math.min(maxRound, Math.max(1, Math.round(1 + ratio * (maxRound - 1))));
     }
-    function pickHandle(val, lo, hi) {
-      if (lo === hi) return val < lo ? 'min' : val > hi ? 'max' : 'min';
-      return Math.abs(val - lo) <= Math.abs(val - hi) ? 'min' : 'max';
+    // Where a round's handle is drawn, in client pixels.
+    function xOfValue(v) {
+      const rect = container.getBoundingClientRect();
+      const pad = 8;
+      return rect.left + pad + ((v - 1) / Math.max(1, maxRound - 1)) * Math.max(1, rect.width - pad * 2);
     }
     function setHandleValue(handle, val) {
       if (handle === 'min') minInput.value = Math.min(val, parseInt(maxInput.value, 10));
@@ -1210,17 +1273,42 @@
     // nothing, same as a real slider handle that hasn't been dragged.
     let dragHandle = null;
     let pressVal = null;
+    let grabOffset = 0; // how far from a grabbed handle's centre the press was
+    const HANDLE_R = 8; // half a handle
+    let topHandle = 'max'; // drawn on top where the two overlap
+    function raise(handle) {
+      topHandle = handle;
+      minInput.style.zIndex = handle === 'min' ? '3' : '2';
+      maxInput.style.zIndex = handle === 'min' ? '2' : '3';
+    }
+    // A press on a handle grabs that handle (by where it's drawn, so the one
+    // under the pointer is the one that moves, as on QB Reader) and doesn't
+    // move it until the pointer does. A press on the bare track moves the
+    // nearer handle there.
     container.addEventListener('pointerdown', (e) => {
-      const val = valueFromClientX(e.clientX);
       const lo = parseInt(minInput.value, 10);
       const hi = parseInt(maxInput.value, 10);
-      pressVal = val;
-      if (lo === hi && val === lo) {
+      const dLo = Math.abs(e.clientX - xOfValue(lo));
+      const dHi = Math.abs(e.clientX - xOfValue(hi));
+      grabOffset = 0;
+      if (lo === hi && dLo <= HANDLE_R) {
+        // Both handles are here: the drag's direction decides.
         dragHandle = 'pending';
+        grabOffset = e.clientX - xOfValue(lo);
+        pressVal = lo;
+      } else if (Math.min(dLo, dHi) <= HANDLE_R) {
+        // Inside one handle, that one; inside both (they overlap when close),
+        // the one drawn on top, as with real handle elements.
+        if (dLo <= HANDLE_R && dHi <= HANDLE_R) dragHandle = topHandle;
+        else dragHandle = dLo <= HANDLE_R ? 'min' : 'max';
+        grabOffset = e.clientX - xOfValue(dragHandle === 'min' ? lo : hi);
+        pressVal = dragHandle === 'min' ? lo : hi;
+        raise(dragHandle);
       } else {
-        dragHandle = pickHandle(val, lo, hi);
-        minInput.style.zIndex = dragHandle === 'min' ? '3' : '2';
-        maxInput.style.zIndex = dragHandle === 'min' ? '2' : '3';
+        const val = valueFromClientX(e.clientX);
+        dragHandle = dLo <= dHi ? 'min' : 'max';
+        pressVal = val;
+        raise(dragHandle);
         setHandleValue(dragHandle, val);
         render();
       }
@@ -1229,12 +1317,11 @@
     });
     container.addEventListener('pointermove', (e) => {
       if (!dragHandle) return;
-      const val = valueFromClientX(e.clientX);
+      const val = valueFromClientX(e.clientX - grabOffset);
       if (dragHandle === 'pending') {
         if (val === pressVal) return; // no directional movement yet
         dragHandle = val > pressVal ? 'max' : 'min';
-        minInput.style.zIndex = dragHandle === 'min' ? '3' : '2';
-        maxInput.style.zIndex = dragHandle === 'min' ? '2' : '3';
+        raise(dragHandle);
       }
       setHandleValue(dragHandle, val);
       render();

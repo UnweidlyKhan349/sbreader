@@ -44,26 +44,30 @@
         <a class="nav-link" href="multiplayer.html">Multiplayer</a>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" data-bs-popper="static">
             <a class="dropdown-item" href="catalog.html">Search</a>
             <a class="dropdown-item" href="set-list.html">Set List</a>
           </div>
         </div>
         <a class="nav-link" href="about.html">About</a>
       </div>
-      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
-        <div class="nav-item dropdown">
-          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
-            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end">
-            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
-            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
-            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
-          </div>
-        </div>
-        <div class="vr d-none d-lg-flex mx-lg-2"></div>
-        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="account.html" id="login-link">Log in</a></div>
+      <div class="d-flex">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <button id="bd-theme" class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+              <span class="theme-icon-active"></span><span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="static">
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="light"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></svg>Light<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="dark"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>Night<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-sb-theme-value="auto"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="me-2"><path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"/></svg>Auto<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="ms-auto d-none theme-check"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/></svg></button>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
+          </li>
+          <li class="nav-item" id="navAccount"><a class="nav-link" href="login.html" id="login-link">Log in</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -85,7 +89,7 @@
       <div class="d-none" id="setSettings">
         <input class="form-control" id="setName" type="text" placeholder="Set Name" list="setNameList" autocomplete="off" aria-label="Set name" />
         <datalist id="setNameList"></datalist>
-        <input class="form-control my-1" id="packetNumbers" type="text" placeholder="Packet Numbers" autocomplete="off" aria-label="Packet numbers, e.g. 1-3, 5" />
+        <div class="my-1"><select id="packetSelect" aria-label="Packets"></select></div>
         <div class="form-text mb-2" id="setInfo"></div>
       </div>
       <div class="d-none" id="starredSettings">
@@ -103,6 +107,7 @@
       </div>
       <div class="mt-2" id="generalSettings">
         <div class="mb-2" id="subjectButtons"></div>
+        <div class="mb-2" id="matchCount"></div>
         <hr>
         <div class="form-check form-switch">
           <input class="form-check-input" id="toggleRebuzz" type="checkbox" role="switch" />
@@ -123,7 +128,6 @@
         <div class="mb-2"></div>
         <label for="rateSlider">Reading speed: <span id="rateValue">50</span><br></label>
         <input class="form-range" id="rateSlider" type="range" min="0" max="100" step="5" value="50" />
-        <div class="small-note" id="matchCount"></div>
         <div class="d-none d-lg-block">
           <hr>
           <p>
@@ -143,7 +147,6 @@
       <div class="d-flex justify-content-between">
         <span id="statline">0/0 with 0 questions seen</span>
         <span class="ps-5 me-lg-2 text-end" id="questionMetadata">
-          <span class="badge text-bg-warning me-1" id="pauseBadge" style="display:none;">Paused</span>
           <b id="questionInfo"></b>
         </span>
       </div>

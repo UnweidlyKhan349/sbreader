@@ -239,3 +239,18 @@ test("meta.json's per-set counts (tossups, bonuses, packets) match the bank", ()
     .some((k) => t[k] !== expected.tournaments[i][k])).map((t) => t.slug);
   assert.deepStrictEqual(stale, [], 'run node tools/meta-counts.js');
 });
+
+test('numbered statements go on their own lines, and parenthesised numbers are left alone', () => {
+  const f = SBData.splitNumberedStatements;
+  assert.strictEqual(f('identify all of the following statements that are true: 1) pi donor ligands decrease delta nought; 2) pi acceptor ligands do not affect delta nought; 3) the inner d orbitals are affected'),
+    'identify all of the following statements that are true\n1) pi donor ligands decrease delta nought\n2) pi acceptor ligands do not affect delta nought\n3) the inner d orbitals are affected');
+  assert.strictEqual(f('Which would increase it? 1) A 2) B, and 3) C.'), 'Which would increase it?\n1) A\n2) B\n3) C.');
+  assert.strictEqual(f('Rank: 1) sin(π/6) + 1; 2) e^3/2'), 'Rank\n1) sin(π/6) + 1\n2) e^3/2');
+  assert.strictEqual(f('The point (5,6) moves: 1) up; 2) down'), 'The point (5,6) moves\n1) up\n2) down');
+  assert.strictEqual(f('Runtime O(n^2) here. 1) X 2) Y'), 'Runtime O(n^2) here.\n1) X\n2) Y');
+  assert.strictEqual(f('Two parts: 1) Name it? 2) Order these: 1) a 2) b'), 'Two parts\n1) Name it?\n2) Order these\n1) a\n2) b');
+  // A lone "1)" or numbers in parentheses aren't a list.
+  assert.strictEqual(f('Only one 1) here'), 'Only one 1) here');
+  assert.strictEqual(f('Points (1, 2) and (3, 4)'), 'Points (1, 2) and (3, 4)');
+  assert.ok(SBData.questionTextHTML({ question: 'Name: 1) x^2; 2) y' }).includes('\n1) x<sup>2</sup>\n2) y'));
+});

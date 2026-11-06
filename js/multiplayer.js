@@ -541,7 +541,7 @@
     const qDisplay = document.getElementById('mpQDisplay');
     qDisplay.classList.remove('mp-waiting-text');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
-    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, instantChars: SBData.readoutHeaderLength(q) }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -622,7 +622,6 @@
     pauseBtn.disabled = game.phase === 'lobby' || game.phase === 'gameover' || game.phase === 'reveal';
     pauseBtn.innerHTML = game.paused ? SBIcons.play : SBIcons.pause;
     pauseBtn.setAttribute('aria-label', game.paused ? 'Resume' : 'Pause');
-    document.getElementById('mpPauseBadge').style.display = game.paused ? '' : 'none';
 
     const amBuzzed = game.buzzedPlayerId === myState.myId;
     const amLocked = game.lockedOut.has(myState.myId);
@@ -1313,20 +1312,6 @@
   }
 
   /* ---- host applies its own broadcasts to its local render state (host is also a player) ---- */
-  // A small fade/slide-in on the whole question panel each time a new
-  // question comes up (same treatment as solo practice) - shared by both
-  // the host and clients since both funnel through applyQuestionLocal
-  // below. Re-triggering the same CSS class doesn't restart its animation
-  // on its own - removing the class, forcing a reflow (reading
-  // offsetWidth), then re-adding it is what makes it replay every time.
-  function playQuestionTransition() {
-    const panel = document.querySelector('.question-panel');
-    if (!panel) return;
-    panel.classList.remove('q-panel-enter');
-    void panel.offsetWidth;
-    panel.classList.add('q-panel-enter');
-  }
-
   function applyQuestionLocal(index, total, sanitized) {
     game.index = index; game.total = total; game.question = sanitized;
     game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
@@ -1337,7 +1322,6 @@
     // without the player having to click away from chat first.
     const chatInput = document.getElementById('mpChatInput');
     if (chatInput && document.activeElement === chatInput) chatInput.blur();
-    playQuestionTransition();
     fullRenderFromState();
   }
   function applyPhaseLocal(phase, lockedOut) {
@@ -1859,7 +1843,6 @@
       game.lastGrade = null; game.attempts = [];
       game.overrideLocked = false;
       myState.rate = SBMpRules.readingSpeed(msg.rate);
-      playQuestionTransition();
       fullRenderFromState();
       // Whoever runs the game opens buzzing when their reading finishes;
       // that can become this player at any moment.
@@ -2045,6 +2028,7 @@
   // applied there (hostApplySettingsFromValues) and sent back to everyone.
   const midGameFilterState = copyFilters({ subjects: [] });
   let midGameRoundSliderApi = null;
+  let mpPacketPicker = null;
   let categories = null;
   let midGameSettingsWired = false;
   // Set while the controls are repainted FROM the room's settings, so that
@@ -2073,14 +2057,9 @@
     if (moved) midGameFilterState.roundRange = moved;
     const n = queueFor(midGameFilterState).length;
     document.getElementById('mpSettingsMatchCount').textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match the room's settings`;
-    const info = document.getElementById('mpSetInfo');
+    // The packet dropdown lists the chosen set's packets.
     const t = tournamentBySlug(midGameFilterState.setName);
-    if (t) {
-      const packets = SBPlay.packetsOf(t.slug);
-      info.textContent = `${packets.length} packet${packets.length === 1 ? '' : 's'}: ` + packets.map((pk, i) => `${i + 1} ${pk.label}`).join(', ');
-    } else {
-      info.textContent = 'Pick a set; its packets are read in order.';
-    }
+    if (mpPacketPicker) mpPacketPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], midGameFilterState.packetNumbers);
   }
   function onSettingChange() {
     updateMidGameMatchCount();
@@ -2116,10 +2095,10 @@
       const t = tournamentByName(setName.value);
       setName.classList.toggle('is-invalid', !!setName.value.trim() && !t);
       midGameFilterState.setName = t ? t.slug : '';
+      midGameFilterState.packetNumbers = '';
       onSettingChange();
     });
-    const packets = document.getElementById('mpPacketNumbers');
-    packets.addEventListener('change', () => { midGameFilterState.packetNumbers = packets.value.replace(/[^0-9,\s-]/g, ''); onSettingChange(); });
+    mpPacketPicker = SBPlay.packetSelect(document.getElementById('mpPacketSelect'), (text) => { midGameFilterState.packetNumbers = text; onSettingChange(); });
 
     const tSelect = document.getElementById('mpSettingsTournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
@@ -2194,8 +2173,7 @@
       const t = tournamentBySlug(f.setName);
       const setName = document.getElementById('mpSetName');
       if (document.activeElement !== setName) { setName.value = t ? t.name : ''; setName.classList.remove('is-invalid'); }
-      const packets = document.getElementById('mpPacketNumbers');
-      if (document.activeElement !== packets) packets.value = f.packetNumbers;
+      if (mpPacketPicker) mpPacketPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], f.packetNumbers);
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(f.tournaments));
       if (midGameRoundSliderApi && f.roundRange) midGameRoundSliderApi.setRange(f.roundRange[0], f.roundRange[1]);
       document.getElementById('mpTogglePublic').checked = f.isPublic;

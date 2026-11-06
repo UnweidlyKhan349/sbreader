@@ -84,12 +84,12 @@
     slot.hidden = false;
     if (!user) {
       slot.className = 'nav-item';
-      slot.innerHTML = `<a class="nav-link ms-3 ms-lg-0" href="${pageUrl('account.html')}" id="login-link">Log in</a>`;
+      slot.innerHTML = `<a class="nav-link" href="${pageUrl('login.html')}" id="login-link">Log in</a>`;
       return;
     }
     slot.className = 'nav-item dropdown';
     slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
-      + '<div class="dropdown-menu dropdown-menu-end">'
+      + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
       + `<a class="dropdown-item" href="${pageUrl('stats.html')}">Stats</a>`
       + `<a class="dropdown-item" href="${pageUrl('account.html')}">Account</a>`
       + '<hr class="dropdown-divider">'

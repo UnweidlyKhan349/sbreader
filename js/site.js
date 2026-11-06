@@ -65,6 +65,9 @@
       const on = btn.getAttribute('data-sb-theme-value') === theme;
       btn.classList.toggle('active', on);
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      // A check mark beside the chosen theme, as on QB Reader.
+      const check = btn.querySelector('.theme-check');
+      if (check) check.classList.toggle('d-none', !on);
     });
     const active = document.querySelector('.theme-icon-active');
     if (active) active.innerHTML = ICONS[theme] || ICONS.auto;
@@ -170,7 +173,9 @@
     markTheme(storedTheme());
 
     // Highlight the link for the current page (and its dropdown parent).
-    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    let page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    // A set's and a packet's pages belong to the Set List.
+    if (page === 'set.html' || page === 'packet.html') page = 'set-list.html';
     document.querySelectorAll('#navbar-navigation a[href]').forEach((link) => {
       const href = (link.getAttribute('href') || '').split('?')[0].toLowerCase();
       if (href !== page) return;

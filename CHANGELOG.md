@@ -113,3 +113,12 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Accounts and the Multiplayer room list are switched on: `js/config.js` points at the site's Supabase project.
 - Multiplayer lobby: "There is 1 active player in 1 active room." (singular when it's one).
 - Accounts are back (the removal was reverted). `js/config.js` is empty until the new Supabase project's URL and publishable key go in; the old project was deleted.
+- Accounts point at the new Supabase project.
+- Look matched to QB Reader's measurements: the logo's exact font rule; the theme button 40px tall with its menu aligned to it (Bootstrap's navbar positioning) and icons with a check mark; 16px question text; the round slider's 8px track and 16px handles; full-size subject buttons with no hover fill; the Database's filter chips at button size, with the subject boxes sharing the row equally; QB Reader's sort carets on the Set List; "Showing 40 of 2111 results (0.03 seconds)" in the Database; the About page's layout.
+- Play: opens on Random Questions; no Paused badge (Multiplayer too); the question count sits under the subjects; "No starred questions." (and an alert when there's nothing to play); a searchable packet dropdown for Select by Set Name (Multiplayer too) instead of typed numbers and the list of packets; QB Reader's "You have reached the end of the set" alert; no fade-in or scroll to the top on each question; the header is shown at once so the question starts reading straight away, as on QB Reader.
+- History cards: the answer in bold after its letter, no underline on hover, and Bootstrap's collapse animation for k and clicks.
+- Round slider: pressing a handle grabs that handle (where two overlap, the one on top) and doesn't make it jump; touch drags don't scroll the page.
+- Numbered statements ("1) … 2) … 3) …") each on their own line everywhere a question is shown (`SBData.splitNumberedStatements`).
+- Set List: each set opens a set page listing its packets, and each packet a packet page with all its questions and answers, as on QB Reader (`set.html`, `packet.html`).
+- Log in, Sign up and Forgot password are separate pages copied from QB Reader's (`login.html`, `signup.html`, `forgot-password.html`); the Account page sends logged-out visitors to Log in.
+- Home page: removed "Questions type themselves onto the screen; …".

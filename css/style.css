@@ -109,13 +109,14 @@ sub { top: 0.25em; }
   --bs-navbar-toggler-border-color: rgba(255, 255, 255, .25);
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-#logo { font-family: Inter, "Source Sans Pro", system-ui, sans-serif; font-size: 1.5rem; font-weight: bold; }
+/* QB Reader's exact logo rule (its fallback is plain sans-serif). */
+#logo { font-family: Inter, 'Source Sans Pro', sans-serif; font-size: 1.5rem; font-weight: bold; }
 .logo-prefix { color: var(--logo-prefix-color); }
 .logo-suffix { color: var(--logo-suffix-color); }
 #navbar .dropdown-item.active, #navbar .dropdown-item:active { color: var(--bs-dropdown-link-active-color); }
-#navbar .vr { align-self: stretch; min-height: 1.5em; }
-#bd-theme { border: 0; }
-#bd-theme .theme-icon-active { display: inline-flex; }
+/* The theme icon stands in for QB Reader's icon-font glyph, which is a
+   full line (1.5em) tall, so the button is the same 40px high. */
+#bd-theme .theme-icon-active { display: inline-flex; align-items: center; height: 1.5em; }
 
 /* ---------------- Shared bits ---------------- */
 .small-note { color: var(--text-dim); font-size: .875rem; }
@@ -199,11 +200,11 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .custom-select-search {
   width: 100%; background: var(--bs-body-bg); color: var(--bs-body-color);
   border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius-sm);
-  padding: .25rem .5rem; font-size: .875rem; outline: none; font-family: inherit;
+  padding: .375rem .75rem; font-size: 1rem; outline: none; font-family: inherit;
 }
 .custom-select-search:focus { border-color: #86b7fe; box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .25); }
 .custom-select-options { max-height: 260px; overflow-y: auto; padding: .25rem 0; }
-.custom-select-option { padding: .25rem 1rem; font-size: .95rem; cursor: pointer; color: var(--bs-body-color); }
+.custom-select-option { padding: .25rem 1rem; font-size: 1rem; cursor: pointer; color: var(--bs-body-color); }
 .custom-select-option:hover { background: var(--bs-tertiary-bg); }
 .custom-select-option.active { background: var(--bs-primary); color: #fff; }
 .custom-select-empty { padding: .5rem 1rem; font-size: .875rem; color: var(--text-dim); text-align: center; }
@@ -240,13 +241,17 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .chip {
   --chip-color: var(--bs-primary);
   display: inline-flex; align-items: center;
-  padding: .25rem .5rem; font-size: .875rem; line-height: 1.5; font-weight: 400;
-  border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius-sm);
+  padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; font-weight: 400;
+  border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius);
   background: transparent; color: var(--bs-body-color);
   cursor: pointer; user-select: none;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 .chip:hover { border-color: var(--chip-color); color: var(--chip-color); }
+/* The Database's subject boxes share the row equally. */
+#subjectChips { display: grid; grid-template-columns: repeat(6, 1fr); gap: .375rem; }
+#subjectChips .chip { justify-content: center; text-align: center; }
+@media (max-width: 575.98px) { #subjectChips { grid-template-columns: repeat(3, 1fr); } }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
 .chip.active:hover { filter: brightness(.92); color: #fff; }
 /* Subject chips are QB Reader's category boxes, as in Play: red outline,
@@ -309,7 +314,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 }
 .lightbox-close { position: absolute; top: 14px; right: 14px; }
 
-.filter-checkbox-label { font-size: .9rem; }
+.filter-checkbox-label { font-size: 1rem; }
 
 .filter-chip-groups { column-gap: 1rem; row-gap: .375rem; }
 .btn-link { text-decoration: none; }
@@ -323,6 +328,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* ---------------- Question cards (SBData.questionCard) ---------------- */
 .q-card .card-header { padding-top: .35rem; padding-bottom: .35rem; }
 .q-card .q-text { margin: 0 0 .25rem; }
+/* Numbered statements are on their own lines (SBData.splitNumberedStatements). */
+.q-text { white-space: pre-line; }
 .q-card .choices { margin: .25rem 0; white-space: pre-wrap; }
 .q-card .a-text { font-weight: 700; }
 .q-card .q-figure { max-height: 300px; }
@@ -373,18 +380,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 .question-panel { position: relative; }
 .question-panel::after { content: ""; display: table; clear: both; }
-/* Plays once each time a new question comes up (JS re-triggers it by
-   removing and re-adding this class - see playQuestionTransition()). Kept
-   short and subtle since it fires on every single question. */
-.question-panel.q-panel-enter { animation: qPanelEnter 0.32s ease-out; }
-@keyframes qPanelEnter {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .question-panel.q-panel-enter { animation: none; }
-}
-.question-panel .q-display { font-size: 1.1rem; line-height: 1.6; white-space: pre-wrap; }
+/* 16px text, as QB Reader's question. */
+.question-panel .q-display { font-size: 1rem; line-height: 1.5; white-space: pre-wrap; }
 .question-panel .q-display.mp-waiting-text { color: var(--text-dim); font-size: 1rem; }
 /* Multiplayer lobby's "waiting to start" screen - just one line of text
    and the Start button, so the panel's usual min-height (sized for a full
@@ -477,23 +474,23 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* Looks like QB Reader's year-range slider: a plain gray 8px track the full
    width, no fill between the handles, and two blue round handles (1.2em)
    that stop flush with the track's ends. */
-.dual-slider { position: relative; height: 30px; margin-top: 4px; cursor: pointer; }
+.dual-slider { position: relative; height: 24px; cursor: pointer; touch-action: none; }
 .dual-slider .track { position: absolute; top: 50%; left: 0; right: 0; height: 8px; margin-top: -4px; background: var(--bs-secondary-bg); border-radius: 8px; }
 .dual-slider .range-fill { display: none; }
 .dual-slider input[type="range"] {
-  position: absolute; top: 0; left: 0; width: 100%; height: 30px; margin: 0;
+  position: absolute; top: 0; left: 0; width: 100%; height: 24px; margin: 0;
   background: transparent; border: none; outline: none; border-radius: 0;
   pointer-events: none; -webkit-appearance: none; appearance: none;
 }
-.dual-slider input[type="range"]::-webkit-slider-runnable-track { background: transparent; height: 30px; border-radius: 0; }
-.dual-slider input[type="range"]::-moz-range-track { background: transparent; height: 30px; border: none; border-radius: 0; }
+.dual-slider input[type="range"]::-webkit-slider-runnable-track { background: transparent; height: 24px; border-radius: 0; }
+.dual-slider input[type="range"]::-moz-range-track { background: transparent; height: 24px; border: none; border-radius: 0; }
 .dual-slider input[type="range"]::-webkit-slider-thumb {
   pointer-events: none; -webkit-appearance: none; appearance: none;
-  width: 19px; height: 19px; border-radius: 50%; margin-top: 5.5px;
+  width: 16px; height: 16px; border-radius: 50%; margin-top: 4px;
   background: var(--bs-primary); border: 0; cursor: pointer;
 }
 .dual-slider input[type="range"]::-moz-range-thumb {
-  pointer-events: none; width: 19px; height: 19px; border-radius: 50%;
+  pointer-events: none; width: 16px; height: 16px; border-radius: 50%;
   background: var(--bs-primary); border: 0; cursor: pointer;
 }
 .round-range-label { margin-top: .25rem; }
@@ -511,13 +508,16 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    as QB Reader's category buttons are, two to a row in the sidebar. */
 .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .375rem; }
 /* Subject toggles: QB Reader's category boxes (red outline, square corners). */
-.btn-subject { --bs-btn-disabled-color: var(--bs-danger); --bs-btn-disabled-border-color: var(--bs-danger); }
+.btn-subject {
+  --bs-btn-disabled-color: var(--bs-danger); --bs-btn-disabled-border-color: var(--bs-danger);
+  /* No fill on hover: only clicking turns a subject on or off. */
+  --bs-btn-hover-bg: transparent; --bs-btn-hover-color: var(--bs-danger); --bs-btn-hover-border-color: var(--bs-danger);
+}
 .modal-backdrop.show { opacity: .5; }
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */
 .clickable { cursor: pointer; }
 .history-card .card-header-clickable { flex: 1; }
-.history-card .card-header-clickable:hover { text-decoration: underline; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }
 .history-card .q-text { margin-bottom: .25rem; }
@@ -534,3 +534,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    only appears once its text starts, and everything below moves down as
    the question fills in. */
 .choice-box:has(> .choice-text:empty) { display: none; }
+
+/* Set List sort carets sit on the text's baseline, like Bootstrap Icons. */
+.sort-indicator svg { vertical-align: -.125em; }
+
+/* Set and packet pages (set.html, packet.html), as QB Reader's. */
+#setPage .float-row { overflow: auto; }
+.packet-question .q-text { margin: 0; }
