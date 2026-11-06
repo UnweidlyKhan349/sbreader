@@ -122,3 +122,9 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Set List: each set opens a set page listing its packets, and each packet a packet page with all its questions and answers, as on QB Reader (`set.html`, `packet.html`).
 - Log in, Sign up and Forgot password are separate pages copied from QB Reader's (`login.html`, `signup.html`, `forgot-password.html`); the Account page sends logged-out visitors to Log in.
 - Home page: removed "Questions type themselves onto the screen; …".
+- The read-out header is word-timed again.
+- Frequency List (`frequency-list`), as QB Reader's: the most frequent answers per subject, by level and question type, with TXT/CSV downloads; each answer opens a Database search for it (`catalog?answer=…&subject=…`). Linked from the home page (instead of Starred Questions) and the Database menu.
+- Database: subject boxes back in the left half, three equal columns; the intro no longer mentions Starred Questions. About: links to each source, no key chips, and no "each question links back to it".
+- Addresses without `.html` (and the home page as `./`) in every link, the sitemap and the canonical URLs.
+- Removed the link-preview image (`img/og-image.png`) and its Open Graph tags.
+- 404 page copied from QB Reader's (heading and three buttons; without its quiz question).

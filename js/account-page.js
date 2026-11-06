@@ -44,7 +44,7 @@
   function render(user) {
     if (!SBAccount.enabled) { show('acctDisabled'); return; }
     // Logged out: the account page is the log in page.
-    if (!user) { location.replace('login.html'); return; }
+    if (!user) { location.replace('login'); return; }
     show('acctLoggedIn');
     $('acctName').textContent = SBAccount.displayName(user);
     $('acctEmail').textContent = user.email || '';

@@ -11,7 +11,7 @@
   const subject = params.get('subject');
 
   function renderIndex() {
-    const items = SBData.meta.subjects.map((s) => `<li class="list-group-item"><a href="frequency-list.html?subject=${encodeURIComponent(s.key)}">${escapeHtml(s.label)}</a></li>`).join('');
+    const items = SBData.meta.subjects.map((s) => `<li class="list-group-item"><a href="frequency-list?subject=${encodeURIComponent(s.key)}">${escapeHtml(s.label)}</a></li>`).join('');
     root.innerHTML = '<p class="lead">Choose a link below to view the frequency list for that subject.</p>'
       + `<ul class="text-center list-group list-group-horizontal-md">${items}</ul>`;
   }
@@ -23,7 +23,7 @@
     root.innerHTML = `
       <div class="d-flex justify-content-between mb-3">
         <div class="lead">The <span id="limit">50</span> most frequent answers in ${escapeHtml(s.label)} <span id="question-type">questions</span>:</div>
-        <div><a href="frequency-list.html">Back to all frequency lists</a></div>
+        <div><a href="frequency-list">Back to all frequency lists</a></div>
       </div>
       <p><b>Download this page:</b><a class="ms-2 clickable" id="download-txt" role="button" tabindex="0">TXT</a><a class="ms-2 clickable" id="download-csv" role="button" tabindex="0">CSV</a></p>
       <form class="row" id="form">
@@ -73,7 +73,7 @@
         const search = new URLSearchParams({ answer, subject: s.key });
         if (state.qtype !== 'all') search.set('qtype', state.qtype);
         if (state.level !== 'all') search.set('level', state.level);
-        a.href = 'catalog.html?' + search;
+        a.href = 'catalog?' + search;
         a.innerHTML = SBData.renderMathHTML(answer);
         tr.insertCell().appendChild(a);
         tr.insertCell().textContent = count;
@@ -101,7 +101,7 @@
 
   (subject ? SBData.load() : SBData.loadMeta()).then(() => {
     const s = subject && SBData.meta.subjects.find((x) => x.key === subject);
-    if (subject && !s) { root.innerHTML = '<p>No such subject. <a href="frequency-list.html">Back to all frequency lists</a></p>'; return; }
+    if (subject && !s) { root.innerHTML = '<p>No such subject. <a href="frequency-list">Back to all frequency lists</a></p>'; return; }
     if (s) renderList(s); else renderIndex();
   }).catch(() => { root.innerHTML = '<p>Could not load the question bank. Try refreshing.</p>'; });
 })();

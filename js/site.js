@@ -173,12 +173,14 @@
     markTheme(storedTheme());
 
     // Highlight the link for the current page (and its dropdown parent).
-    let page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    // Pages are linked without ".html" ("solo", "./" for the home page);
+    // either form of the address counts.
+    const bare = (p) => { p = (p || '').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\.html$/, ''); return p === '' || p === '.' || p === 'index' ? 'index' : p; };
+    let page = bare(location.pathname);
     // A set's and a packet's pages belong to the Set List.
-    if (page === 'set.html' || page === 'packet.html') page = 'set-list.html';
+    if (page === 'set' || page === 'packet') page = 'set-list';
     document.querySelectorAll('#navbar-navigation a[href]').forEach((link) => {
-      const href = (link.getAttribute('href') || '').split('?')[0].toLowerCase();
-      if (href !== page) return;
+      if (bare(link.getAttribute('href')) !== page) return;
       link.classList.add('active');
       link.setAttribute('aria-current', 'page');
       const dropdown = link.closest('.dropdown');

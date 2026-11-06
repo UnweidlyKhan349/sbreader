@@ -6,8 +6,6 @@
 
 **[Open SB Reader →](https://unweidlykhan349.github.io/sbreader/)**
 
-[![SB Reader: free Science Bowl practice from real tournament packets](img/og-image.png)](https://unweidlykhan349.github.io/sbreader/)
-
 SB Reader is a free practice site for the **National Science Bowl** (NSB) and other Science Bowl tournaments, for high school and middle school teams. It has over 100,000 real tossups and bonuses in biology, chemistry, physics, math, earth & space science and energy, taken from regional, nationals and invitational packets (MIT, Stanford, Yale and many more) and from practice sets written by school teams. Search them in the catalog, drill alone with a buzzer and automatic grading, or play against friends in an online multiplayer room. No account or install needed.
 
 Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) on GitHub).
@@ -429,11 +427,11 @@ There's no build step, `npm install`, or environment variables. `package.json` o
 
 ### Search engines and link previews
 
-- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1280×640, with everything inside the middle band so GitHub's cropped repo card shows it whole), so shared links get a title, summary and picture.
+- Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags (title and summary; there's no preview image), so shared links get a title and summary.
+- **Addresses have no `.html`**: every link is `solo`, `catalog?tournament=…`, `set?set=…` and so on, and the home page is `./`. GitHub Pages serves `/sbreader/solo` from `solo.html`, so both forms work; the navbar highlights the current page either way. The one exception is the account emails, which send people to `account.html`, the address in the Supabase project's redirect allowlist.
 - `account.html`, `stats.html` and `404.html` are `noindex`: there's nothing on them to index.
-- `sitemap.xml` lists the six public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
+- `sitemap.xml` lists the six public pages (without `.html`). A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
 - The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
-- `img/og-image.png` doubles as the repo's social preview: upload it under **Settings → General → Social preview**.
 
 ## Local development and tests
 

@@ -8,10 +8,10 @@
   const slug = params.get('set') || '';
   const root = document.getElementById('setPage');
   function fail(text) {
-    root.innerHTML = `<p>${escapeHtml(text)}</p><p><a href="set-list.html">Back to all sets</a></p>`;
+    root.innerHTML = `<p>${escapeHtml(text)}</p><p><a href="set-list">Back to all sets</a></p>`;
   }
   function heading(html) {
-    return `<div class="float-row mb-3"><span class="float-start">${html}</span><a class="float-end" href="set-list.html">Back to all sets</a></div>`;
+    return `<div class="float-row mb-3"><span class="float-start">${html}</span><a class="float-end" href="set-list">Back to all sets</a></div>`;
   }
 
   function renderSet(t, packets) {
@@ -19,7 +19,7 @@
     const rows = packets.map((p, i) => {
       const tu = p.questions.filter((q) => q.qtype === 'tossup').length;
       const b = p.questions.length - tu;
-      return `<tr><td>${i + 1}</td><td><a href="packet.html?set=${encodeURIComponent(t.slug)}&amp;packet=${i + 1}">${escapeHtml(p.label)}</a></td><td>${tu}</td><td>${b}</td></tr>`;
+      return `<tr><td>${i + 1}</td><td><a href="packet?set=${encodeURIComponent(t.slug)}&amp;packet=${i + 1}">${escapeHtml(p.label)}</a></td><td>${tu}</td><td>${b}</td></tr>`;
     }).join('');
     root.innerHTML = heading(`View ${escapeHtml(t.name)} here:`)
       + '<div class="table-responsive"><table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">Packet Name</th><th scope="col"># of Toss-ups</th><th scope="col"># of Bonuses</th></tr></thead>'
@@ -53,7 +53,7 @@
       id: q.id, number: q.num, type: q.qtype, subject: q.subject, format: q.format, question: q.question,
       choices: q.choices || undefined, answer: q.answer, source: q.sourceUrl || undefined,
     })), null, 2);
-    let html = heading(`Packet ${n} (${escapeHtml(p.label)}) of <a href="set.html?set=${encodeURIComponent(t.slug)}">${escapeHtml(t.name)}</a>:`)
+    let html = heading(`Packet ${n} (${escapeHtml(p.label)}) of <a href="set?set=${encodeURIComponent(t.slug)}">${escapeHtml(t.name)}</a>:`)
       + `<p><b>Download packet:</b>${downloadLink(txt, file + '.txt', 'text/plain', 'TXT')}${downloadLink(json, file + '.json', 'application/json', 'JSON')}</p>`;
     root.innerHTML = html;
     p.questions.forEach((q, i) => {

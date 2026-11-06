@@ -26,10 +26,10 @@
   // Where to go after logging in: the page you came from on this site,
   // unless that was one of these pages; otherwise the home page.
   function goBack() {
-    let to = 'index.html';
+    let to = './';
     try {
       const ref = document.referrer ? new URL(document.referrer) : null;
-      if (ref && ref.origin === location.origin && !/(login|signup|forgot-password)\.html$/.test(ref.pathname)) to = ref.href;
+      if (ref && ref.origin === location.origin && !/(login|signup|forgot-password)(\.html)?$/.test(ref.pathname)) to = ref.href;
     } catch (e) { /* home page */ }
     location.replace(to);
   }
@@ -65,5 +65,5 @@
     return;
   }
   // Already logged in: nothing to do here.
-  SBAccount.ready.then(() => { if (SBAccount.user() && form.id !== 'forgotForm') location.replace('account.html'); });
+  SBAccount.ready.then(() => { if (SBAccount.user() && form.id !== 'forgotForm') location.replace('account'); });
 })();
