@@ -128,3 +128,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Addresses without `.html` (and the home page as `./`) in every link, the sitemap and the canonical URLs.
 - Removed the link-preview image (`img/og-image.png`) and its Open Graph tags.
 - 404 page copied from QB Reader's (heading and three buttons; without its quiz question).
+- LOST 3 HS/MS checked against the tournament's official packets and slide deck: finals rounds named as printed, questions in their printed slots, links to the packet PDFs, and 36 visual bonuses with figures. Details in [docs/data-history.md](docs/data-history.md#lost-3-official-packets-november-2026).

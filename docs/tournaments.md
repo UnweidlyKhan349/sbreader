@@ -55,8 +55,8 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Lexscibowl 2021 | 17 |  | hs |
 | LOST 1 | 648 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
-| LOST 3 HS | 556 |  | hs |
-| LOST 3 MS | 455 |  | ms |
+| LOST 3 HS | 569 | 18 | hs |
+| LOST 3 MS | 488 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
 | Mira Loma Question Database | 16,560 |  | hs |
@@ -73,6 +73,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | MOSFET 2024 | 602 |  | hs |
 | Mosfet1 | 587 |  | hs |
 | National Chemistry Bowl Fall 2026 | 424 |  | hs |
+| National Ocean Sciences Bowl | 561 |  | hs |
 | NCB 2026 | 287 |  | hs |
 | NESB | 999 |  | hs |
 | NNHS Rounds 2020-21 | 778 |  | hs |
@@ -116,4 +117,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (112)** | **103,640** | **535** | |
+| **Total (113)** | **104,247** | **571** | |
