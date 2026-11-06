@@ -187,7 +187,9 @@
         <button class="btn btn-success" id="mpChatSendBtn" type="button">Submit</button>
       </div>
       <div class="float-row d-flex flex-wrap justify-content-between align-items-start column-gap-3 row-gap-1">
-        <span class="room-code-strip">
+        <!-- Hidden, as QB Reader shows no room name here (the page title and
+             the address bar have it); kept for the copy-link code. -->
+        <span class="room-code-strip d-none">
           <span id="mpRoomLabel">Room</span>
           <span class="room-code is-name" id="mpRoomCodeDisplay" title="Click to copy the room's link" role="button" tabindex="0"></span>
         </span>

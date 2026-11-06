@@ -85,7 +85,9 @@
     document.getElementById('setSettings').classList.toggle('d-none', settings.mode !== 'set');
     document.getElementById('randomSettings').classList.toggle('d-none', settings.mode !== 'random');
     document.getElementById('starredSettings').classList.toggle('d-none', settings.mode !== 'starred');
-    if (categories) categories.setDisabled(settings.mode === 'starred');
+    // Starred mode plays your starred questions whatever their subject, so
+    // the subject tiles are hidden there.
+    document.getElementById('subjectButtons').classList.toggle('d-none', settings.mode === 'starred');
   }
 
   function describeSet() {
@@ -327,26 +329,11 @@
     }
     SBData.preloadImages(session.queue[session.index + 1]);
 
-    reserveRevealHeight(boxSegments);
     // The question and choices are given as math-rendered HTML, so
     // superscripts and subscripts type in already formatted.
     runtime.revealCtl = SBReveal.startReveal(boxSegments, session.rate, {
       onComplete: () => { runtime.readingDone = true; startBuzzWindow(); },
     });
-  }
-
-  // Reserve the final height of the question and choices before the reveal,
-  // so nothing below creeps down as the text fills in.
-  function reserveRevealHeight(boxSegments) {
-    const wrap = document.getElementById('revealMeasureWrap');
-    const textEl = boxSegments[0].el;
-    wrap.style.minHeight = '';
-    textEl.style.minHeight = '';
-    boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
-    const h = wrap.scrollHeight;
-    wrap.style.minHeight = h + 'px';
-    textEl.style.minHeight = textEl.offsetHeight + 'px';
-    boxSegments.forEach((s) => { s.el.textContent = ''; });
   }
 
   // After the question is read: the buzz window (4 s for a tossup, 20 s for a
@@ -471,8 +458,9 @@
     const outcome = runtime.lastOutcome;
     let category = 'skipped';
     if (outcome && outcome.attempted) category = outcome.correct ? 'correct' : 'incorrect';
-    // A skipped question gets no chip, as on QB Reader.
-    let html = '';
+    // The answer line first, then how you did: "Correct sqrt 137" (a
+    // skipped question gets no chip, as on QB Reader).
+    let html = `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
     if (category !== 'skipped') {
       const badgeText = category === 'correct' ? 'Correct' : 'Incorrect';
       html += `<div class="mb-1"><span class="grade-badge ${category}">${badgeText}</span>`;
@@ -480,9 +468,8 @@
       html += '</div>';
     }
     if (category === 'incorrect' && outcome.close) {
-      html += '<div class="close-hint">Close. If you meant the answer below, press <kbd>q</kbd> or "I was right" to count it.</div>';
+      html += '<div class="close-hint">Close. If you meant the answer above, press <kbd>q</kbd> or "I was right" to count it.</div>';
     }
-    html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
     SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
@@ -597,8 +584,6 @@
     document.getElementById('qDisplay').textContent = '';
     document.getElementById('choicesDisplay').style.display = 'none';
     document.getElementById('qFigures').style.display = 'none';
-    document.getElementById('revealMeasureWrap').style.minHeight = '';
-    document.getElementById('qDisplay').style.minHeight = '';
     document.getElementById('questionInfo').textContent = '';
     document.getElementById('answerRow').classList.add('d-none');
     document.getElementById('overrideBtn').classList.add('d-none');

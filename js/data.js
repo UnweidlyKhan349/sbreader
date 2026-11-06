@@ -1187,7 +1187,7 @@
     const container = minInput.parentElement;
     function valueFromClientX(clientX) {
       const rect = container.getBoundingClientRect();
-      const pad = 8; // matches .track's left/right inset
+      const pad = 9.5; // half a handle: a handle stops flush with the track's ends
       const usable = Math.max(1, rect.width - pad * 2);
       const ratio = Math.min(1, Math.max(0, (clientX - rect.left - pad) / usable));
       return Math.min(maxRound, Math.max(1, Math.round(1 + ratio * (maxRound - 1))));

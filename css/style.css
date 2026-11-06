@@ -481,9 +481,12 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    (including their thumbs), so a press anywhere on the track always reaches
    the container and can pick up + drag the nearest handle in one motion,
    in either direction, even when both handles are tied at the same point. */
+/* Looks like QB Reader's year-range slider: a plain gray 8px track the full
+   width, no fill between the handles, and two blue round handles (1.2em)
+   that stop flush with the track's ends. */
 .dual-slider { position: relative; height: 30px; margin-top: 4px; cursor: pointer; }
-.dual-slider .track { position: absolute; top: 50%; left: 8px; right: 8px; height: 8px; margin-top: -4px; background: var(--bs-secondary-bg); border-radius: 8px; }
-.dual-slider .range-fill { position: absolute; top: 50%; height: 8px; margin-top: -4px; background: rgba(var(--bs-primary-rgb), .35); border-radius: 8px; }
+.dual-slider .track { position: absolute; top: 50%; left: 0; right: 0; height: 8px; margin-top: -4px; background: var(--bs-secondary-bg); border-radius: 8px; }
+.dual-slider .range-fill { display: none; }
 .dual-slider input[type="range"] {
   position: absolute; top: 0; left: 0; width: 100%; height: 30px; margin: 0;
   background: transparent; border: none; outline: none; border-radius: 0;
@@ -493,12 +496,12 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .dual-slider input[type="range"]::-moz-range-track { background: transparent; height: 30px; border: none; border-radius: 0; }
 .dual-slider input[type="range"]::-webkit-slider-thumb {
   pointer-events: none; -webkit-appearance: none; appearance: none;
-  width: 16px; height: 16px; border-radius: 50%; margin-top: 7px;
-  background: var(--accent); border: 0; cursor: pointer;
+  width: 19px; height: 19px; border-radius: 50%; margin-top: 5.5px;
+  background: var(--bs-primary); border: 0; cursor: pointer;
 }
 .dual-slider input[type="range"]::-moz-range-thumb {
-  pointer-events: none; width: 16px; height: 16px; border-radius: 50%;
-  background: var(--accent); border: 0; cursor: pointer;
+  pointer-events: none; width: 19px; height: 19px; border-radius: 50%;
+  background: var(--bs-primary); border: 0; cursor: pointer;
 }
 .round-range-label { margin-top: .25rem; }
 
@@ -533,3 +536,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .custom-popover { position: absolute; z-index: var(--bs-popover-zindex); width: 250px; max-width: calc(100vw - 16px); --bs-popover-max-width: 100%; --bs-popover-body-padding-x: 0; --bs-popover-body-padding-y: 0; }
 .custom-popover .popover-arrow { position: absolute; }
 .custom-popover .list-group-item { background: transparent; }
+
+/* As on QB Reader nothing is reserved for text still to come: a choice box
+   only appears once its text starts, and everything below moves down as
+   the question fills in. */
+.choice-box:has(> .choice-text:empty) { display: none; }

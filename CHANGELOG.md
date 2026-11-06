@@ -99,3 +99,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Subject toggles are QB Reader's category boxes: red outline, square corners. The timer has square corners too.
 - Play: no extra space between the question and the answer; the reveal shows "Correct sqrt 137" instead of `Correct You answered: "sqrt 137"`.
 - Multiplayer: the live answer badge reads "Answer" on bonuses ("Buzz" on toss-ups), as on QB Reader; Votekick moved from the player popover into a ▾ menu beside the player's name; the popover counts negs (wrong while the question was being read) apart from other incorrect answers.
+- No space is reserved for the question before it's read: the page grows as it types, as on QB Reader (a figure still shows from the start; answer choices appear as their text starts).
+- The round slider looks like QB Reader's year-range slider: gray track, no fill, round blue handles flush with the ends.
+- Play: "Allow rebuzzes" sits with the other switches; Starred mode hides the subject tiles; the ANSWER line comes before "Correct sqrt 137".
+- Multiplayer: no "Room <name>" above the question.

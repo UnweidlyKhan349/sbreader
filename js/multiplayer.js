@@ -560,30 +560,11 @@
     return { boxSegments };
   }
 
-  // Reserve the final height of the question+choices area before the reveal
-  // starts, so the buttons below it don't creep downward as the text fills
-  // in letter by letter.
-  // The question text's own box is held at its final height too, so a
-  // visual question's figure (which sits under the text) stays put instead
-  // of sliding down line by line.
-  function reserveRevealHeight(boxSegments) {
-    const wrap = document.getElementById('mpRevealMeasureWrap');
-    const textEl = boxSegments[0].el;
-    wrap.style.minHeight = '';
-    textEl.style.minHeight = '';
-    boxSegments.forEach((s) => { s.el.innerHTML = s.html; });
-    const h = wrap.scrollHeight;
-    wrap.style.minHeight = h + 'px';
-    textEl.style.minHeight = textEl.offsetHeight + 'px';
-    boxSegments.forEach((s) => { s.el.textContent = ''; });
-  }
-
   // instant=true renders the full text immediately with no animation (used when a
   // player joins mid-question and has nothing to "catch up" on).
   function startLocalReveal(q, instant, onComplete) {
     if (revealCtl) revealCtl.stop();
     const { boxSegments } = buildRevealSegments(q);
-    reserveRevealHeight(boxSegments);
     // The question and choices are math-rendered HTML from the start, so
     // superscripts and subscripts type in already formatted.
     if (instant) {
