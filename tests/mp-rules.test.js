@@ -52,9 +52,11 @@ test('settings are limited to known values and clamped', () => {
   assert.deepStrictEqual(m.tournaments, [meta.tournaments[0].slug]);
   assert.deepStrictEqual(m.roundRange, [1, Math.max(...meta.rounds)]);
   assert.strictEqual(m.includeUnlabeled, true);
-  assert.strictEqual(m.rate, 2.5);
-  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: -5 }, meta).rate, 0.5);
-  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 'fast' }, meta).rate, 1);
+  // Reading speed is QB Reader's 0-100, 50 by default.
+  assert.strictEqual(m.rate, 100);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: -5 }, meta).rate, 0);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 'fast' }, meta).rate, 50);
+  assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 0 }, meta).rate, 0);
 });
 
 test('a player can override only their own grade, and only one player scores', () => {
@@ -108,11 +110,42 @@ test('messages from a newer term, or from our coordinator, are followed', () => 
   for (const t of [undefined, '4', NaN, Infinity]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
 });
 
-test('a player who left shows as offline for an hour', () => {
-  const { stillOffline, OFFLINE_KEEP_MS } = globalThis.SBMpRules;
-  const now = 1_000_000_000;
+test('a player who left stays on the list, offline, for good', () => {
+  const { stillOffline } = globalThis.SBMpRules;
+  const now = Date.now();
   assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS + 1000 }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - OFFLINE_KEEP_MS }, now), false);
+  assert.strictEqual(stillOffline({ leftAt: now - 365 * 24 * 3600 * 1000 }, now), true);
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
+});
+
+test('room names are cleaned to letters, digits and dashes, and give a stable door', () => {
+  const { cleanRoomName, roomPeerId } = globalThis.SBMpRules;
+  assert.strictEqual(cleanRoomName('  Physics Club! '), 'physics-club');
+  assert.strictEqual(cleanRoomName('a--b__c'), 'a-bc');
+  assert.strictEqual(cleanRoomName('x'.repeat(50)).length, 32);
+  assert.strictEqual(cleanRoomName('!!!'), '');
+  assert.strictEqual(roomPeerId('Physics Club'), 'sbowl-room-physics-club');
+  assert.strictEqual(roomPeerId(''), '');
+});
+
+test('room settings carry the mode, set, packets and switches, cleaned', () => {
+  const s = cleanHostMessage({ type: 'updateSettings', mode: 'set', setName: meta.tournaments[0].slug, packetNumbers: '1-3, 5<script>', rebuzz: true, timer: false, isPublic: false }, meta);
+  assert.strictEqual(s.mode, 'set');
+  assert.strictEqual(s.setName, meta.tournaments[0].slug);
+  assert.strictEqual(s.packetNumbers, '1-3, 5');
+  assert.deepStrictEqual([s.rebuzz, s.timer, s.isPublic], [true, false, false]);
+  const d = cleanHostMessage({ type: 'updateSettings', mode: 'weird', setName: 'no-such-set' }, meta);
+  assert.deepStrictEqual([d.mode, d.setName, d.rebuzz, d.timer, d.isPublic], ['random', '', false, true, true]);
+});
+
+test('vote kicks: QB Reader threshold, message shape and 30-minute ban', () => {
+  const { votekickThreshold, isKicked, cleanHostMessage, KICK_BAN_MS } = globalThis.SBMpRules;
+  assert.deepStrictEqual([1, 2, 3, 4, 5, 8, 12].map(votekickThreshold), [2, 2, 2, 3, 3, 6, 9]);
+  assert.deepStrictEqual(cleanHostMessage({ type: 'votekick', targetId: 'abc' }), { type: 'votekick', targetId: 'abc' });
+  assert.strictEqual(cleanHostMessage({ type: 'votekick' }), null);
+  const now = Date.now();
+  const kicked = [{ pid: 'p1', at: now - 1000 }, { pid: 'p2', at: now - KICK_BAN_MS - 1 }];
+  assert.strictEqual(isKicked(kicked, 'p1', now), true);
+  assert.strictEqual(isKicked(kicked, 'p2', now), false);
+  assert.strictEqual(isKicked(kicked, null, now), false);
 });

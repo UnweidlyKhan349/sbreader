@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="sb-bg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="32" y2="32">
-      <stop offset="0" stop-color="#5b8cff"/>
-      <stop offset="1" stop-color="#7c5cff"/>
-    </linearGradient>
-  </defs>
-  <rect width="32" height="32" rx="7" fill="url(#sb-bg)"/>
-  <ellipse cx="16" cy="17" rx="14" ry="5" transform="rotate(-20 16 17)" fill="none" stroke="#fff" stroke-width="2.25" stroke-opacity="0.6"/>
-  <g stroke="url(#sb-bg)" stroke-width="2" paint-order="stroke" stroke-linejoin="round">
-    <path d="M9.5 18a6.5 6.5 0 0 1 13 0z" fill="#ff5c72"/>
-    <rect x="6" y="18.5" width="20" height="5.5" rx="1.5" fill="#fff"/>
-  </g>
-  <circle cx="25.6" cy="10.4" r="3" fill="#fff"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g fill="#0080ff" transform="translate(0.96,24.41) scale(0.01130,-0.01130)"><path transform="translate(0,0)" d="M681 -22C1043 -22 1256 153 1256 424C1256 674 1062 802 811 860L676 893C550 923 438 970 438 1081C438 1181 526 1253 682 1253C835 1253 930 1184 941 1065H1236C1231 1327 1015 1510 685 1510C361 1510 125 1330 125 1061C125 844 276 717 528 656L692 615C854 575 949 528 949 426C949 313 841 236 678 236C513 236 392 311 382 462H85C94 145 323 -22 681 -22Z"/><path transform="translate(1301,0)" d="M135 0H764C1100 0 1276 175 1276 411C1276 632 1118 764 950 772V787C1103 821 1218 930 1218 1107C1218 1330 1053 1490 726 1490H135ZM440 251V655H712C865 655 962 565 962 440C962 327 883 251 704 251ZM440 864V1241H687C830 1241 909 1167 909 1058C909 938 812 864 681 864Z"/></g></svg>

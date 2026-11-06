@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SBReader - Database - Set List</title>
+<meta name="description" content="Every Science Bowl tournament in the SB Reader question bank, with its level, date and question count." />
+<link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/set-list.html" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
+<link rel="preload" href="data/meta.json" as="fetch" crossorigin />
+<link rel="icon" href="favicon.ico" sizes="32x32" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="account.html" id="login-link">Log in</a></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container-xl mt-3 mb-5 pb-5">
+  <p>View all sets here:</p>
+  <div class="mb-3">
+    <label class="form-label" for="set-name-search">Search set names:</label>
+    <input class="form-control" id="set-name-search" type="text" placeholder="e.g. MIT 2025" autocomplete="off" />
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="clickable" data-sort="name" aria-sort="none">Set Name <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="level" aria-sort="none">Level <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="date" aria-sort="none">Date <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="packets" aria-sort="none"># of Packets <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="tossups" aria-sort="none"># of Tossups <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="bonuses" aria-sort="none"># of Bonuses <span class="sort-indicator"></span></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider" id="set-metadata-list"></tbody>
+  </table>
+  <div class="d-block mx-auto mt-3 spinner-border" id="spinner" role="status"><span class="d-none">Loading...</span></div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+  (function () {
+    const LEVELS = { hs: 'High School', ms: 'Middle School' };
+    const body = document.getElementById('set-metadata-list');
+    const search = document.getElementById('set-name-search');
+    const headers = [...document.querySelectorAll('th[data-sort]')];
+    let rows = [];
+    let sortKey = null;
+    let sortDir = 1;
+
+    function monthYear(date) {
+      if (!date) return '';
+      const [y, m] = date.split('-').map(Number);
+      return m ? new Date(y, m - 1, 1).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }) : String(y);
+    }
+    // As on QB Reader: every word typed must appear in the set's name.
+    function matches(t) {
+      const words = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const name = t.name.toLowerCase();
+      return words.every((w) => name.includes(w));
+    }
+    function render() {
+      body.innerHTML = '';
+      rows.forEach((t) => {
+        const tr = body.insertRow(-1);
+        tr.classList.toggle('d-none', !matches(t));
+        const a = document.createElement('a');
+        a.href = 'catalog.html?tournament=' + encodeURIComponent(t.slug);
+        a.textContent = t.name;
+        tr.insertCell(-1).appendChild(a);
+        tr.insertCell(-1).textContent = LEVELS[t.level] || t.level || '';
+        tr.insertCell(-1).textContent = monthYear(t.date);
+        [t.packets, t.tossups, t.bonuses].forEach((n) => { tr.insertCell(-1).textContent = n == null ? '-' : n.toLocaleString(); });
+      });
+    }
+    function sortBy(key) {
+      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' ? 1 : -1);
+      sortKey = key;
+      rows.sort((a, b) => {
+        const x = a[key] == null ? '' : a[key];
+        const y = b[key] == null ? '' : b[key];
+        const c = typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y));
+        return c * sortDir || a.name.localeCompare(b.name);
+      });
+      headers.forEach((h) => {
+        const on = h.dataset.sort === key;
+        h.setAttribute('aria-sort', on ? (sortDir > 0 ? 'ascending' : 'descending') : 'none');
+        h.querySelector('.sort-indicator').textContent = on ? (sortDir > 0 ? '▲' : '▼') : '';
+      });
+      render();
+    }
+    headers.forEach((h) => h.addEventListener('click', () => sortBy(h.dataset.sort)));
+
+    const initial = new URLSearchParams(location.search).get('q') || '';
+    search.value = initial;
+    search.addEventListener('input', () => {
+      [...body.rows].forEach((tr, i) => tr.classList.toggle('d-none', !matches(rows[i])));
+      const url = new URL(location.href);
+      const q = search.value.trim().replace(/\s+/g, ' ');
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      history.replaceState({}, '', url);
+    });
+
+    SBData.loadMeta().then(() => {
+      document.getElementById('spinner').classList.add('d-none');
+      rows = SBData.meta.tournaments.slice();
+      sortBy('date');
+    }).catch(() => {
+      document.getElementById('spinner').classList.add('d-none');
+      body.innerHTML = '<tr><td colspan="6">Could not load the question bank. Try refreshing.</td></tr>';
+    });
+  })();
+</script>
+<script src="js/config.js"></script>
+<script src="js/account-core.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>

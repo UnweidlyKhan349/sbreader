@@ -91,8 +91,7 @@
 {"i":52735,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"An ice cream truck accelerates from rest with constant acceleration. Which of the following graphs would best represent the truck’s position versus time?","a":{"t":"A parabolic curve opening upward","l":"Z"},"c":{"W":"A horizontal line","X":"A straight line sloping upward","Y":"A sine wave","Z":"A parabolic curve opening upward"}},
 {"i":52736,"s":"phys","f":"MC","qt":"bonus","n":22,"q":"A 12-volt battery is connected in series with two resistors: one of 4 ohms and one of 8 ohms. What is the voltage drop across the 8-ohm resistor?","a":{"t":"8 volts","l":"Z"},"c":{"W":"12 volts","X":"1 volt","Y":"4 volts","Z":"8 volts"}},
 {"i":52737,"s":"math","f":"SA","qt":"tossup","n":23,"q":"Compute the prime factorization of 6767.","a":{"t":"67 × 101"}},
-{"i":52738,"s":"math","f":"SA","qt":"bonus","n":23,"q":"How many factors does the number 677 have?","a":{"t":"2 (its prime lol)"}}]},
-{"rl":"RR2","r":2,"u":"https://speriphery.com/query","q":[
+{"i":52738,"s":"math","f":"SA","qt":"bonus","n":23,"q":"How many factors does the number 677 have?","a":{"t":"2 (its prime lol)"}},
 {"i":74090,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"Which of the following describes the function of a catalyst?","a":{"t":"It provides an alternate pathway with a lower activation energy","l":"Y"},"c":{"W":"It provides the same reaction pathway with a lower activation energy","X":"It provides an alternate pathway with a higher activation energy","Y":"It provides an alternate pathway with a lower activation energy","Z":"It provides the same reaction pathway with a higher activation energy"}}]},
 {"rl":"RR3","r":3,"u":"https://docs.google.com/document/d/1NVRNr-nRXVQW6AefNX6r7MeJBYF2Tjc5p6SzFgllOz0/edit","q":[
 {"i":52739,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What is the term for the class of steroid hormones responsible for increased lipolysis and beta-oxidation in response to stress?","a":{"t":"glucocorticoids"}},
@@ -374,11 +373,10 @@
 {"i":53008,"s":"phys","f":"SA","qt":"tossup","n":22,"q":"Identify all of the following 4 statements that are true regarding Carnot engines operating between two thermal reservoirs: 1) Increasing the temperature of the hot reservoir increases maximum efficiency 2) Efficiency depends only on the working substance type 3) Operating in reverse acts as a refrigerator 4) Leaving the hot reservoir unchanged while the cold reservoir is halved exactly doubles the efficiency","a":{"t":"1 & 3"}},
 {"i":53009,"s":"phys","f":"SA","qt":"bonus","n":22,"q":"Rounded to the nearest tenth, what is the approximate de Broglie wavelength, in nanometers, of an electron accelerated from rest through a potential difference of 150 volts?","a":{"t":"0.1 nm"}},
 {"i":53010,"s":"math","f":"SA","qt":"tossup","n":23,"q":"Philip enters a 4-digit number into his trusty 4-function calculator and performs the following procedure repeatedly: multiplies the number by 121, hits the square root key twice. He repeats this until the result stabilizes on his calculator display (which shows 10 digits). What is the closest integer to the stabilized result?","a":{"t":"5"}},
-{"i":53011,"s":"math","f":"SA","qt":"bonus","n":23,"q":"Compute the shortest distance between the graph of x^2+y^2=1 and y=√(45-6x)","a":{"t":"5"}}]},
-{"rl":"RR5d","r":5,"u":"https://speriphery.com/query","q":[
+{"i":53011,"s":"math","f":"SA","qt":"bonus","n":23,"q":"Compute the shortest distance between the graph of x^2+y^2=1 and y=√(45-6x)","a":{"t":"5"}},
 {"i":74521,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"One of the most common protocols for RNA extraction involves use of the TRIzol reagent. In this protocol, TRIzol serves which of the following functions?","a":{"t":"Lysing of the sample cells","l":"Z"},"c":{"W":"Elution of the RNA pellet","X":"Isolation of RNA in the aqueous phase","Y":"Denaturation of DNA","Z":"Lysing of the sample cells"}}]},
-{"rl":"RR4","r":4,"u":"https://speriphery.com/query","q":[
+{"rl":"RR4","r":4,"u":"https://docs.google.com/document/d/1NVRNr-nRXVQW6AefNX6r7MeJBYF2Tjc5p6SzFgllOz0/edit","q":[
 {"i":85443,"s":"chem","f":"SA","qt":"bonus","n":null,"q":"What is the FULL electron configuration of an atom of Rubidium in the ground state?","a":{"t":"1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^10 4p^6 5s^1"}}]},
-{"rl":"RR5d","r":5,"u":"https://speriphery.com/query","q":[
+{"rl":"RR5d","r":5,"u":"https://docs.google.com/document/d/1NVRNr-nRXVQW6AefNX6r7MeJBYF2Tjc5p6SzFgllOz0/edit","q":[
 {"i":85451,"s":"ess","f":"SA","qt":"bonus","n":null,"q":"A researcher flies with a pilot to study how temperature changes with altitude. As the plane passes through the troposphere, lower stratosphere, and finally upper stratosphere, match the following three options to how the temperature in each layer changes: 1) Increases; 2) Decreases; 3) Remains Constant.","a":{"t":"2, 3, 1"}}]}
 ]

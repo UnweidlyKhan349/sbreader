@@ -164,27 +164,34 @@
   // exponent that starts with digits takes only the digits: "x^3y" is x³y,
   // "sp^3d" is sp³d and "^1H" is ¹H (a longer exponent like "e^(2x)" is
   // written with parentheses).
-  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF])|[+\-−](?![A-Za-z0-9(]))/g;
+  // A bare charge before a state label ("OH^-(aq)") is still a charge, and
+  // "^∞" (a series' upper limit) is raised like a number.
+  const MATH_SUP_BARE_RE = /(?<!\^)\^([+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[\u0370-\u03FF]|∞|°)|[+\-−](?![A-Za-z0-9(])|[+\-−](?=\((?:aq|s|l|g)\)))/g;
   const MATH_SUB_BARE_RE = /(?<!_)_([+\-−]?(?:[A-Za-z0-9]+|[\u0370-\u03FF]))/g;
+  // Plain string escaping (no DOM), so the math renderer also runs under
+  // Node in the tests. Quotes are escaped too, for use inside attributes.
+  const HTML_ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function escapeHtml(s) {
-    const d = document.createElement('div');
-    d.textContent = s == null ? '' : s;
-    return d.innerHTML;
+    return (s == null ? '' : String(s)).replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
   }
   // Parenthesized groups can nest ("2^(2^(2^2))", "n^(1/ln(n))"), which a
   // single regex can't match, so they're found by paren counting and the
   // inside is rendered recursively. An unbalanced group is left as text.
+  // LaTeX-style braces ("e^{-x}") are grouped the same way.
+  const GROUP_CLOSE = { '(': ')', '{': '}' };
   function renderParenGroups(s) {
     let out = '';
     let i = 0;
     while (i < s.length) {
       const c = s[i];
-      if ((c === '^' || c === '_') && s[i + 1] === '(' && s[i - 1] !== c) {
+      const openCh = s[i + 1];
+      if ((c === '^' || c === '_') && GROUP_CLOSE[openCh] && s[i - 1] !== c) {
+        const closeCh = GROUP_CLOSE[openCh];
         let depth = 0;
         let j = i + 1;
         for (; j < s.length; j++) {
-          if (s[j] === '(') depth++;
-          else if (s[j] === ')' && --depth === 0) break;
+          if (s[j] === openCh) depth++;
+          else if (s[j] === closeCh && --depth === 0) break;
         }
         if (j < s.length) {
           const tag = c === '^' ? 'sup' : 'sub';
@@ -262,10 +269,15 @@
   // alternates folded inline as "(also accept: ...)" rather than shown as
   // their own separate line - keeps the primary and alternate answers
   // visually tied together instead of reading as two unrelated facts.
-  function answerLineHTML(mainText, letter, acceptList) {
+  // "Answer: X) LITHIUM-ION (also accept: Li-ion) [do not accept: LITHIUM]",
+  // all on one line.
+  function answerLineHTML(mainText, letter, acceptList, rejectList) {
     let s = 'Answer: ' + (letter ? `${letter}) ` : '') + renderMathHTML(mainText);
     if (acceptList && acceptList.length) {
       s += ' <span class="also-accept">(also accept: ' + renderMathHTML(acceptList.join('; ')) + ')</span>';
+    }
+    if (rejectList && rejectList.length) {
+      s += ' <span class="do-not-accept">[do not accept: ' + renderMathHTML(rejectList.join('; ')) + ']</span>';
     }
     return s;
   }
@@ -273,7 +285,7 @@
   SBData.escapeHtml = escapeHtml;
 
   /* ---------------- Question cards (catalog, bookmarks, session logs) ---------------- */
-  const QTYPE_LABELS = { tossup: 'Tossup', bonus: 'Bonus' };
+  const QTYPE_LABELS = { tossup: 'Toss-up', bonus: 'Bonus' };
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
   const GRADE_LABELS = { correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' };
   SBData.QTYPE_LABELS = QTYPE_LABELS;
@@ -284,6 +296,15 @@
     const base = QTYPE_LABELS[q.qtype] || q.qtype;
     return isVisualBonus(q) ? 'Visual ' + base : base;
   }
+  // What's read out before a question, as a moderator says it:
+  // "TOSS-UP Physics Short Answer ..." (the kind in semi-bold, the format in
+  // italics), then the question itself.
+  function readoutHTML(q) {
+    const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
+    return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i>\n`
+      + renderMathHTML(q.question);
+  }
+  SBData.readoutHTML = readoutHTML;
   function qtypeTagClass(q) { return 'tag qtype-' + q.qtype + (isVisualBonus(q) ? ' visual' : ''); }
   SBData.qtypeLabel = qtypeLabel;
   SBData.qtypeTagClass = qtypeTagClass;
@@ -294,17 +315,17 @@
   function questionMetaRow(q, opts) {
     opts = opts || {};
     const srcLink = isPacketUrl(opts.sourceUrl)
-      ? ` · <a href="${escapeHtml(opts.sourceUrl)}" target="_blank" rel="noopener">Source</a>`
+      ? ` / <a href="${escapeHtml(opts.sourceUrl)}" target="_blank" rel="noopener">Source</a>`
       : '';
     const row = document.createElement('div');
     row.className = 'meta-row';
     row.innerHTML = [
-      opts.grade ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
+      opts.grade && opts.grade !== 'skipped' ? `<span class="grade-badge ${opts.grade}">${GRADE_LABELS[opts.grade]}</span>` : '',
       `<span class="tag subject-${escapeHtml(q.subject)}">${escapeHtml(subjectLabel(q.subject))}</span>`,
       `<span class="${escapeHtml(qtypeTagClass(q))}">${escapeHtml(qtypeLabel(q))}</span>`,
       `<span class="tag fmt fmt-${escapeHtml((q.format || '').toLowerCase())}">${escapeHtml(FORMAT_LABELS[q.format] || q.format)}</span>`,
       q.visual && !isVisualBonus(q) ? '<span class="tag visual">Visual</span>' : '',
-      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q))}${srcLink}</span>`,
+      `<span class="small-note">${escapeHtml(SBData.sourceLabelFor(q, ' / '))}${srcLink}</span>`,
     ].join('');
     return row;
   }
@@ -344,7 +365,7 @@
     img.src = src;
     img.alt = alt || '';
     const close = document.createElement('button');
-    close.className = 'btn small lightbox-close';
+    close.className = 'btn btn-sm btn-light lightbox-close';
     close.textContent = '✕';
     close.setAttribute('aria-label', 'Close');
     box.appendChild(img);
@@ -397,14 +418,8 @@
     const wrap = document.createElement('div');
     const aText = document.createElement('div');
     aText.className = 'a-text';
-    aText.innerHTML = answerLineHTML(answer.text, answer.letter, answer.accept);
+    aText.innerHTML = answerLineHTML(answer.text, answer.letter, answer.accept, answer.reject);
     wrap.appendChild(aText);
-    if (answer.reject && answer.reject.length) {
-      const rej = document.createElement('div');
-      rej.className = 'small-note';
-      rej.innerHTML = 'Do not accept: ' + renderMathHTML(answer.reject.join('; '));
-      wrap.appendChild(rej);
-    }
     const srcUrl = answer.sourceUrl || q.sourceUrl;
     if (opts && opts.source && isPacketUrl(srcUrl)) {
       const src = document.createElement('div');
@@ -421,23 +436,119 @@
   }
 
   // A star that toggles one question's bookmark. onChange(isBookmarked).
+  // QB Reader's star: a link holding Bootstrap Icons' star (outline) or
+  // star-fill. A click stars or unstars the question; `.paint()` repaints it
+  // (another card or tab may have changed it).
   function bookmarkButton(qId, onChange) {
-    const btn = document.createElement('button');
-    btn.className = 'btn small icon-btn';
-    function paint(isBm) {
-      btn.textContent = isBm ? '★' : '☆';
-      btn.classList.toggle('active', isBm);
-      btn.title = isBm ? 'Unbookmark' : 'Bookmark';
+    const a = document.createElement('a');
+    a.href = '#';
+    a.className = 'star-question';
+    a.dataset.qid = qId;
+    function paint() {
+      const on = SBData.bookmarks.isBookmarked(qId);
+      const icons = window.SBIcons || {};
+      a.innerHTML = (on ? icons.starFill : icons.star) || (on ? '★' : '☆');
+      a.classList.toggle('selected', on);
+      a.title = on ? 'Unstar' : 'Star';
+      a.setAttribute('aria-label', on ? 'Unstar this question' : 'Star this question');
+      a.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
-    paint(SBData.bookmarks.isBookmarked(qId));
-    btn.onclick = () => {
-      const nowBm = SBData.bookmarks.toggle(qId);
-      paint(nowBm);
-      if (onChange) onChange(nowBm);
-    };
-    return btn;
+    a.paint = paint;
+    paint();
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const now = SBData.bookmarks.toggle(qId);
+      paint();
+      if (onChange) onChange(now);
+    });
+    return a;
   }
 
+  // A question as a Bootstrap card, laid out like QB Reader's database cards:
+  //   header - "AVES 2 | Physics | Tossup | Multiple Choice" and the star
+  //   body   - "1. " and the question, its figures and choices, a rule, the answer
+  //   footer - the packet and question number, and the packet link
+  // Used by the catalog and the Stats page.
+  // opts: {
+  //   grade: 'correct'|'incorrect'|'skipped'  badge before the source label
+  //   answer: reveal data for answerBlock (multiplayer; default the question's own)
+  //   sourceUrl: packet link (default the question's own)
+  //   hideAnswer: start with the answer hidden behind a "Show answer" link
+  //   note: an extra line under the answer ("You answered: ...")
+  //   onBookmark(isBookmarked)
+  // }
+  function questionCard(q, opts) {
+    opts = opts || {};
+    const card = document.createElement('div');
+    card.className = 'card q-card mb-3';
+    card.dataset.qid = q.id;
+
+    // As QB Reader's database cards: "Set | Category | Subcategory | ..."
+    // on the left, the star on the right, and the question's number at the
+    // start of its text.
+    const header = document.createElement('div');
+    header.className = 'card-header d-flex justify-content-between align-items-start gap-2';
+    const title = document.createElement('b');
+    title.className = 'q-card-title';
+    if (opts.grade && opts.grade !== 'skipped') {
+      const badge = document.createElement('span');
+      badge.className = 'grade-badge me-2 ' + opts.grade;
+      badge.textContent = GRADE_LABELS[opts.grade];
+      title.appendChild(badge);
+    }
+    const parts = [q.tournament, subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
+    if (q.visual && !isVisualBonus(q)) parts.push('Visual');
+    title.appendChild(document.createTextNode(parts.filter(Boolean).join(' | ')));
+    const round = SBData.roundLabelFor(q);
+    header.append(title, bookmarkButton(q.id, opts.onBookmark));
+    card.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    appendQuestionBody(body, q);
+    if (q.num) {
+      const n = document.createElement('span');
+      n.className = 'q-num';
+      n.textContent = q.num + '. ';
+      body.querySelector('.q-text').prepend(n);
+    }
+    const hr = document.createElement('hr');
+    hr.className = 'my-2';
+    body.appendChild(hr);
+    const answerWrap = answerBlock(q, opts.answer || null);
+    if (opts.hideAnswer) {
+      answerWrap.style.display = 'none';
+      const show = document.createElement('button');
+      show.type = 'button';
+      show.className = 'btn btn-link p-0 show-answer-btn';
+      show.textContent = 'Show answer';
+      show.addEventListener('click', () => {
+        answerWrap.style.display = '';
+        show.remove();
+      });
+      body.appendChild(show);
+    }
+    body.appendChild(answerWrap);
+    if (opts.note) {
+      const note = document.createElement('div');
+      note.className = 'small-note mt-1';
+      note.textContent = opts.note;
+      body.appendChild(note);
+    }
+    card.appendChild(body);
+
+    // Footer, as QB Reader's: the packet on the left, links on the right.
+    const footer = document.createElement('div');
+    footer.className = 'card-footer d-flex justify-content-between gap-2';
+    const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
+    footer.innerHTML = `<small class="text-muted">${round ? 'Packet ' + escapeHtml(round) : '&nbsp;'}${q.num ? ' / Question ' + escapeHtml(q.num) : ''}</small>`
+      + (isPacketUrl(src) ? `<small><a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a></small>` : '');
+    card.appendChild(footer);
+    return card;
+  }
+
+  SBData.questionCard = questionCard;
   SBData.questionMetaRow = questionMetaRow;
   SBData.appendQuestionBody = appendQuestionBody;
   SBData.questionFigures = questionFigures;
@@ -509,11 +620,25 @@
           accept: (q.a.ac || []).map(cleanText),
           reject: (q.a.rj || []).map(cleanText),
         },
-        sourceUrl: p.u,
+        sourceUrl: p.u ? p.u + packetAnchor(p.u, q.pg) : p.u,
       });
     }));
     return out;
   }
+
+  // Where in its packet a question is (`pg`, found by
+  // tools/packet-locations.js), as a fragment for the packet link: the page
+  // of a PDF (browsers' PDF viewers open url#page=N there) or the line of a
+  // GitHub file (#LN). Other links have no such anchor.
+  function packetAnchor(url, pg) {
+    if (!url || !(pg > 0)) return '';
+    const bare = url.split(/[?#]/)[0];
+    const githubBlob = /^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\//.test(url);
+    if (/\.pdf$/i.test(bare) && !githubBlob) return '#page=' + pg;
+    if (githubBlob && /\.(txt|md|round)$/i.test(bare)) return '#L' + pg;
+    return '';
+  }
+  SBData.packetAnchor = packetAnchor;
 
   // bank: [{ slug, packets }] in any order; questions come out in
   // meta.tournaments order (A-Z), each tournament in its file's order.
@@ -616,6 +741,19 @@
     return SBData._bookmarkedPromise;
   };
 
+  // Only the tournaments holding the given question ids (the Stats page's
+  // recent answers). Ids that moved when duplicates were merged are
+  // followed to the copy that was kept.
+  SBData.loadIds = function (ids) {
+    if (SBData._readyPromise) return SBData._readyPromise;
+    return Promise.all([SBData.loadMeta(), fetchJson(BANK_DIR + 'index.json')])
+      .then(([meta, index]) => {
+        const aliases = meta.idAliases || {};
+        const slugs = new Set(ids.map((id) => slugForId(index.ids, aliases[id] != null ? aliases[id] : id)));
+        return loadTournaments(meta.tournaments.filter((t) => slugs.has(t.slug)));
+      });
+  };
+
   /* ---------------- Bookmarks (localStorage) ---------------- */
   const BOOKMARK_KEY = 'sb_bookmarks_v1';
 
@@ -666,6 +804,12 @@
     if (changed) writeBookmarks(out);
   }
 
+  // Listeners hear every change as (id, isBookmarked); js/account.js uses
+  // this to mirror bookmarks to a logged-in account.
+  const bookmarkListeners = [];
+  function bookmarkChanged(id, on) {
+    bookmarkListeners.forEach((fn) => { try { fn(id, on); } catch (e) { /* a listener's problem */ } });
+  }
   SBData.bookmarks = {
     getAll() {
       return readBookmarks();
@@ -678,23 +822,34 @@
       if (set.has(id)) set.delete(id);
       else set.add(id);
       writeBookmarks(set);
+      bookmarkChanged(id, set.has(id));
       return set.has(id);
     },
     add(id) {
       const set = readBookmarks();
       set.add(id);
       writeBookmarks(set);
+      bookmarkChanged(id, true);
     },
     remove(id) {
       const set = readBookmarks();
       set.delete(id);
       writeBookmarks(set);
+      bookmarkChanged(id, false);
     },
     clear() {
       writeBookmarks(new Set());
     },
     count() {
       return bookmarkSet().size;
+    },
+    // Replaces the whole set without telling the listeners (an account's
+    // bookmarks arriving at login).
+    replaceAll(ids) {
+      writeBookmarks(new Set(ids));
+    },
+    onChange(fn) {
+      bookmarkListeners.push(fn);
     },
   };
 
@@ -873,15 +1028,20 @@
     s = s.replace(/([A-Za-z])(\d)/g, '$1 $2').replace(/\s+/g, ' ').trim();
     return s || null;
   }
+  // Some packets are labelled "Set 9 · Round 14"; shown as "Set 9 Round 14",
+  // since the label sits between other parts ("NSB MS Regs Set 9 Round 14 Q5").
   SBData.roundLabelFor = function (q) {
-    return cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+    const l = cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
+    return l && l.replace(/\s*·\s*/g, ' ');
   };
-  // Where a question comes from, as shown on its card: tournament, round and
-  // its number in the packet ("AVES 2 · RR 1 · Q15"). Tossup 15 and bonus 15
-  // share the number; the tag row already says which one this is.
-  SBData.sourceLabelFor = function (q) {
+  // Where a question comes from: tournament, round and its number in the
+  // packet. Above the question in Play and Multiplayer it's spaced
+  // ("AVES 2 RR 1 Q15"); under a revealed answer it's slashed
+  // ("AVES 2 / RR 1 / Q15"). Tossup 15 and bonus 15 share the number; the
+  // tag row already says which one this is.
+  SBData.sourceLabelFor = function (q, sep) {
     const roundPart = SBData.roundLabelFor(q);
-    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(' · ');
+    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
   // The source line under a revealed answer in solo and multiplayer: the
@@ -890,9 +1050,9 @@
   // since their question copy leaves it out until the answer is shown).
   SBData.sourceLineHTML = function (q, url) {
     url = url === undefined ? q.sourceUrl : url;
-    let html = escapeHtml(SBData.sourceLabelFor(q));
+    let html = escapeHtml(SBData.sourceLabelFor(q, ' / '));
     if (isPacketUrl(url)) {
-      html += ` · <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Source</a>`;
+      html += ` / <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Source</a>`;
     }
     return html;
   };
@@ -988,7 +1148,7 @@
       const pctLo = ((lo - 1) / span) * 100;
       const pctHi = ((hi - 1) / span) * 100;
       if (fillEl) { fillEl.style.left = pctLo + '%'; fillEl.style.width = Math.max(0, pctHi - pctLo) + '%'; }
-      if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}–${hi}`;
+      if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}-${hi}`;
       return [lo, hi];
     }
     function render() {
@@ -1027,7 +1187,7 @@
     const container = minInput.parentElement;
     function valueFromClientX(clientX) {
       const rect = container.getBoundingClientRect();
-      const pad = 8; // matches .track's left/right inset
+      const pad = 9.5; // half a handle: a handle stops flush with the track's ends
       const usable = Math.max(1, rect.width - pad * 2);
       const ratio = Math.min(1, Math.max(0, (clientX - rect.left - pad) / usable));
       return Math.min(maxRound, Math.max(1, Math.round(1 + ratio * (maxRound - 1))));

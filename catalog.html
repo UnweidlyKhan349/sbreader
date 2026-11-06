@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Science Bowl Question Catalog – Search 100,000+ Questions · SB Reader</title>
+<title>SBReader - Database</title>
 <meta name="description" content="Search and filter 100,000+ Science Bowl tossups and bonuses by subject, tournament, round, level and format. Biology, chemistry, physics, math, earth &amp; space and energy questions from real packets." />
 <link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/catalog.html" />
 <meta property="og:type" content="website" />
@@ -16,109 +16,118 @@
 <meta property="og:image:height" content="640" />
 <meta property="og:image:alt" content="SB Reader: free Science Bowl practice from real tournament packets" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
 <script src="js/data.js"></script>
 <script>SBData.load();</script>
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="index.html">Home</a>
-  <a class="navlink active" href="catalog.html">Catalog</a>
-  <a class="navlink" href="solo.html">Solo Practice</a>
-  <a class="navlink" href="multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="account.html" id="login-link">Log in</a></div>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="container catalog-container">
-<div class="catalog-layout">
-  <!-- Tournament picker as a sidebar on wide screens; below 900px it's
-       hidden and the dropdown in the filter panel is used instead. Both
-       drive the same selection (catalog.js). -->
-  <aside class="tournament-sidebar" id="tournamentSidebar" aria-label="Tournaments">
-    <div class="ts-head">
-      <span class="field-label" style="margin:0;">Tournaments</span>
-      <button type="button" class="custom-select-clear-btn" id="tsClearBtn">Clear</button>
+<div class="container-xl mt-3 mb-5">
+  <p class="lead">Search the database that powers SB Reader.</p>
+  <p>
+    Every word you type must appear somewhere in a question, its answer or its tournament name, in any order.
+    Star a question to practice it later in <a href="solo.html?mode=starred">Starred Questions</a>; the <a href="set-list.html">set list</a> shows every tournament.
+  </p>
+
+  <div class="input-group mb-2">
+    <input type="search" class="form-control" id="searchBox" placeholder="Query" aria-label="Search question text, answers, or tournament" autocomplete="off" />
+    <button class="btn btn-info" type="button" id="searchBtn">Search</button>
+    <button class="btn btn-success" type="button" id="randomBtn">Random</button>
+  </div>
+  <div class="row g-2 mb-2">
+    <div class="col-12 col-md-6" id="tournamentFilterCell">
+      <select id="tournamentSelect" aria-label="Tournaments"></select>
     </div>
-    <input type="search" class="custom-select-search" id="tsSearch" placeholder="Search tournaments…" autocomplete="off" aria-label="Search tournaments" />
-    <div class="ts-summary" id="tsSummary">All tournaments</div>
-    <div class="ts-list" id="tsList"></div>
-  </aside>
-
-  <div class="catalog-main">
-  <h1>Catalog</h1>
-  <p class="subtitle" id="resultCount">Loading…</p>
-
-  <div class="panel" style="margin-bottom:20px;">
-    <div style="margin-bottom:16px;">
-      <span class="field-label">Search</span>
-      <input type="search" id="searchBox" placeholder="Search question text, answers, or tournament…" style="width:100%; max-width: 520px;" />
-    </div>
-
-    <div class="grid-filters">
-      <div>
-        <span class="field-label">Subject</span>
-        <div class="chip-row" id="subjectChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Round</span>
-        <div class="dual-slider" id="roundSlider">
+    <div class="col-12 col-md-6">
+      <div class="d-flex align-items-center gap-2 h-100 px-1">
+        <span class="text-nowrap" id="roundRangeLabel">Rounds 1-17</span>
+        <div class="dual-slider flex-grow-1" id="roundSlider">
           <div class="track"></div>
           <div class="range-fill" id="roundSliderFill"></div>
-          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" />
-          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" />
+          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
+          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
         </div>
-        <div class="round-range-label" id="roundRangeLabel">Rounds 1–17</div>
-        <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:6px;">
-          <input type="checkbox" id="includeUnlabeledRounds" checked /> Include unlabeled
-        </label>
-      </div>
-      <div>
-        <span class="field-label">Question type</span>
-        <div class="chip-row" id="qtypeChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Format</span>
-        <div class="chip-row" id="formatChips"></div>
       </div>
     </div>
-
-    <div class="grid-filters" style="margin-top:16px;">
-      <div>
-        <span class="field-label">Level</span>
-        <div class="chip-row" id="levelChips"></div>
-      </div>
-      <div>
-        <span class="field-label">Visual questions</span>
-        <div class="chip-row" id="visualChips"></div>
-      </div>
-      <div id="tournamentFilterCell">
-        <span class="field-label">Tournament</span>
-        <select id="tournamentSelect" style="width:100%;"></select>
-      </div>
-      <div style="align-self: end; display:flex; gap:8px;">
-        <button class="btn ghost" id="clearFilters">Clear all filters</button>
+  </div>
+  <div class="row g-2 mb-2 filter-groups">
+    <div class="col-12 col-lg-6"><div class="chip-row" id="subjectChips" role="group" aria-label="Subjects"></div></div>
+    <div class="col-12 col-lg-6">
+      <div class="d-flex flex-wrap filter-chip-groups">
+        <div class="chip-row" id="qtypeChips" role="group" aria-label="Question type"></div>
+        <div class="chip-row" id="formatChips" role="group" aria-label="Format"></div>
+        <div class="chip-row" id="levelChips" role="group" aria-label="Level"></div>
+        <div class="chip-row" id="visualChips" role="group" aria-label="Visual questions"></div>
       </div>
     </div>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
+    <label class="form-check-label" for="includeUnlabeledRounds">Include questions with no round number</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="hideAnswers" />
+    <label class="form-check-label" for="hideAnswers">Hide answers</label>
+  </div>
+  <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mb-3">
+    <span class="fw-bold" id="resultCount">Loading…</span>
+    <button class="btn btn-link p-0 ms-auto" type="button" id="clearFilters">Clear all filters</button>
   </div>
 
   <div id="results"></div>
-  <div class="pagination" id="pagination"></div>
-  </div>
-</div>
-</div>
+  <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
 <script src="js/catalog.js"></script>
+<script src="js/config.js"></script>
+<script src="js/account-core.js"></script>
+<script src="js/account.js"></script>
 </body>
 </html>

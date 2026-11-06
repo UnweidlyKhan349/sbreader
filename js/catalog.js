@@ -1,5 +1,6 @@
 (function () {
   const PAGE_SIZE = 40;
+  const RANDOM_COUNT = 20; // questions the Random button shows
   const state = {
     subjects: new Set(),
     qtypes: new Set(),
@@ -11,7 +12,21 @@
     page: 1,
     roundRange: null,
     includeUnlabeled: true,
+    hideAnswers: readHideAnswers(),
+    // Random (QB Reader's green button): a random handful of the matches,
+    // kept until Search is pressed; changing a filter draws a new handful.
+    random: false,
+    randomPick: null,
+    randomKey: '',
   };
+
+  // The "Hide answers" switch is remembered on this device.
+  function readHideAnswers() {
+    try { return localStorage.getItem('sb_hide_answers') === '1'; } catch (e) { return false; }
+  }
+  function saveHideAnswers(on) {
+    try { localStorage.setItem('sb_hide_answers', on ? '1' : '0'); } catch (e) { /* not saved */ }
+  }
 
   const { QTYPE_LABELS, FORMAT_LABELS, escapeHtml } = SBData;
   const labelFor = SBData.subjectLabel;
@@ -84,13 +99,40 @@
         render();
       });
       SBData.enhanceMultiSelect(tSelect);
-      buildTournamentSidebar(tSelect);
 
-      document.getElementById('searchBox').addEventListener('input', debounce((e) => {
-        state.search = e.target.value;
+      // catalog.html?tournament=<slug>[,<slug>] (the set list's links)
+      // opens with those tournaments picked.
+      const wanted = (new URLSearchParams(location.search).get('tournament') || '')
+        .split(',').map((x) => x.trim()).filter((slug) => SBData.meta.tournaments.some((t) => t.slug === slug));
+      if (wanted.length) {
+        state.tournaments = new Set(wanted);
+        tSelect.setMultiValues(wanted);
+      }
+
+      const searchBox = document.getElementById('searchBox');
+      const runSearch = () => {
+        state.search = searchBox.value;
         state.page = 1;
         render();
-      }, 220));
+      };
+      searchBox.addEventListener('input', debounce(runSearch, 220));
+      searchBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); state.random = false; runSearch(); } });
+      document.getElementById('searchBtn').addEventListener('click', () => { state.random = false; runSearch(); });
+      document.getElementById('randomBtn').addEventListener('click', () => {
+        state.search = searchBox.value;
+        state.random = true;
+        state.randomPick = null;
+        state.page = 1;
+        render();
+      });
+
+      const hideAnswers = document.getElementById('hideAnswers');
+      hideAnswers.checked = state.hideAnswers;
+      hideAnswers.addEventListener('change', () => {
+        state.hideAnswers = hideAnswers.checked;
+        saveHideAnswers(state.hideAnswers);
+        render();
+      });
 
       document.getElementById('clearFilters').addEventListener('click', () => {
         state.subjects.clear();
@@ -103,8 +145,6 @@
         state.page = 1;
         document.getElementById('searchBox').value = '';
         tSelect.setMultiValues([]);
-        document.getElementById('tsSearch').value = '';
-        filterTournamentSidebar();
         if (roundSliderApi) roundSliderApi.reset();
         document.getElementById('includeUnlabeledRounds').checked = true;
         state.includeUnlabeled = true;
@@ -116,78 +156,6 @@
     }).catch((err) => {
       document.getElementById('resultCount').textContent = 'Failed to load question data: ' + err.message;
     });
-  }
-
-  // The sidebar list of tournaments shown on wide screens (CSS hides it
-  // below 900px, where the dropdown in the filter panel is shown instead).
-  // Both edit state.tournaments; render() keeps the two in step.
-  let tsRows = [];
-  function buildTournamentSidebar(tSelect) {
-    const list = document.getElementById('tsList');
-    list.innerHTML = '';
-    tsRows = SBData.meta.tournaments.map((t) => {
-      const row = document.createElement('button');
-      row.type = 'button';
-      row.className = 'ts-row';
-      row.dataset.search = t.name.toLowerCase();
-      row.setAttribute('aria-pressed', 'false');
-      const check = document.createElement('span');
-      check.className = 'custom-select-option-check';
-      const name = document.createElement('span');
-      name.className = 'ts-name';
-      name.textContent = t.name;
-      const count = document.createElement('span');
-      count.className = 'ts-count';
-      count.textContent = t.count.toLocaleString();
-      row.append(check, name, count);
-      row.addEventListener('click', () => {
-        if (state.tournaments.has(t.slug)) state.tournaments.delete(t.slug);
-        else state.tournaments.add(t.slug);
-        tSelect.setMultiValues([...state.tournaments]);
-        state.page = 1;
-        render();
-      });
-      list.appendChild(row);
-      return { row, slug: t.slug };
-    });
-    const empty = document.createElement('div');
-    empty.className = 'custom-select-empty';
-    empty.id = 'tsEmpty';
-    empty.textContent = 'No matches';
-    empty.style.display = 'none';
-    list.appendChild(empty);
-
-    document.getElementById('tsSearch').addEventListener('input', filterTournamentSidebar);
-    document.getElementById('tsClearBtn').addEventListener('click', () => {
-      if (!state.tournaments.size) return;
-      state.tournaments.clear();
-      tSelect.setMultiValues([]);
-      state.page = 1;
-      render();
-    });
-  }
-
-  function filterTournamentSidebar() {
-    const q = document.getElementById('tsSearch').value.trim().toLowerCase();
-    let any = false;
-    tsRows.forEach(({ row }) => {
-      const match = !q || row.dataset.search.indexOf(q) !== -1;
-      row.style.display = match ? '' : 'none';
-      if (match) any = true;
-    });
-    document.getElementById('tsEmpty').style.display = any ? 'none' : '';
-  }
-
-  function syncTournamentSidebar() {
-    tsRows.forEach(({ row, slug }) => {
-      const on = state.tournaments.has(slug);
-      row.classList.toggle('active', on);
-      row.setAttribute('aria-pressed', on ? 'true' : 'false');
-    });
-    const n = state.tournaments.size;
-    document.getElementById('tsSummary').textContent =
-      n === 0 ? 'All tournaments' : `${n} selected`;
-    document.getElementById('tsClearBtn').disabled = n === 0;
   }
 
   function debounce(fn, ms) {
@@ -212,7 +180,6 @@
 
   function render() {
     syncChipVisuals();
-    syncTournamentSidebar();
     if (roundSliderApi) {
       const moved = roundSliderApi.setMax(SBData.maxRoundFor(state.tournaments));
       if (moved) state.roundRange = moved;
@@ -231,13 +198,25 @@
       search: state.search,
     }), { recent: state.tournaments.size === 0 });
 
-    document.getElementById('resultCount').textContent =
-      `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
-
-    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    if (state.page > totalPages) state.page = totalPages;
-    const start = (state.page - 1) * PAGE_SIZE;
-    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+    let pageItems;
+    let totalPages = 1;
+    if (state.random) {
+      const key = [state.search, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      if (!state.randomPick || state.randomKey !== key) {
+        state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
+        state.randomKey = key;
+      }
+      pageItems = state.randomPick;
+      document.getElementById('resultCount').textContent =
+        `${pageItems.length.toLocaleString()} random question${pageItems.length === 1 ? '' : 's'} of the ${filtered.length.toLocaleString()} that match your filters`;
+    } else {
+      document.getElementById('resultCount').textContent =
+        `${filtered.length.toLocaleString()} question${filtered.length === 1 ? '' : 's'} match your filters`;
+      totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (state.page > totalPages) state.page = totalPages;
+      const start = (state.page - 1) * PAGE_SIZE;
+      pageItems = filtered.slice(start, start + PAGE_SIZE);
+    }
 
     const resultsEl = document.getElementById('results');
     resultsEl.innerHTML = '';
@@ -258,33 +237,62 @@
     const before = el.getBoundingClientRect().top;
     state.page = n;
     render();
-    // The page scrolls inside #pageScroll, not the window.
-    const scroller = document.getElementById('pageScroll') || document.scrollingElement;
-    scroller.scrollTop += el.getBoundingClientRect().top - before;
+    window.scrollBy(0, el.getBoundingClientRect().top - before);
   }
 
+  // Bootstrap pagination: Prev, the first and last pages, a few pages
+  // around the current one, Next, and a box to jump to any page.
   function renderPagination(totalPages) {
     const el = document.getElementById('pagination');
     el.innerHTML = '';
     if (totalPages <= 1) return;
-    const prev = document.createElement('button');
-    prev.className = 'btn small';
-    prev.textContent = '← Prev';
-    prev.disabled = state.page <= 1;
-    prev.onclick = () => goToPage(state.page - 1);
-    el.appendChild(prev);
+    const wrap = document.createElement('div');
+    wrap.className = 'd-flex flex-wrap justify-content-center align-items-center gap-2';
+    const ul = document.createElement('ul');
+    ul.className = 'pagination mb-0 flex-wrap';
 
-    const span = document.createElement('span');
-    span.textContent = 'Page';
-    el.appendChild(span);
+    function item(label, page, { active = false, disabled = false, aria } = {}) {
+      const li = document.createElement('li');
+      li.className = 'page-item' + (active ? ' active' : '') + (disabled ? ' disabled' : '');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'page-link';
+      btn.textContent = label;
+      if (aria) btn.setAttribute('aria-label', aria);
+      if (active) btn.setAttribute('aria-current', 'page');
+      if (disabled || active) btn.disabled = true;
+      else btn.addEventListener('click', () => goToPage(page));
+      li.appendChild(btn);
+      ul.appendChild(li);
+    }
 
+    item('«', state.page - 1, { disabled: state.page <= 1, aria: 'Previous page' });
+    const pages = new Set([1, totalPages]);
+    for (let n = state.page - 2; n <= state.page + 2; n++) if (n >= 1 && n <= totalPages) pages.add(n);
+    let last = 0;
+    [...pages].sort((x, y) => x - y).forEach((n) => {
+      if (n - last > 1) item('…', 0, { disabled: true });
+      item(String(n), n, { active: n === state.page });
+      last = n;
+    });
+    item('»', state.page + 1, { disabled: state.page >= totalPages, aria: 'Next page' });
+    wrap.appendChild(ul);
+
+    const jump = document.createElement('div');
+    jump.className = 'input-group input-group-sm page-jump';
+    const label = document.createElement('span');
+    label.className = 'input-group-text';
+    label.textContent = 'Page';
     const pageInput = document.createElement('input');
     pageInput.type = 'number';
-    pageInput.className = 'page-jump-input';
+    pageInput.className = 'form-control page-jump-input';
     pageInput.min = '1';
     pageInput.max = String(totalPages);
     pageInput.value = String(state.page);
     pageInput.setAttribute('aria-label', `Page number, 1 to ${totalPages}`);
+    const of = document.createElement('span');
+    of.className = 'input-group-text';
+    of.textContent = `of ${totalPages}`;
     function jumpToInput() {
       let n = parseInt(pageInput.value, 10);
       if (!Number.isFinite(n)) n = state.page;
@@ -299,45 +307,13 @@
       if (e.key === 'Enter') { e.preventDefault(); jumpToInput(); pageInput.blur(); }
     });
     pageInput.addEventListener('blur', jumpToInput);
-    el.appendChild(pageInput);
-
-    const ofSpan = document.createElement('span');
-    ofSpan.textContent = `of ${totalPages}`;
-    el.appendChild(ofSpan);
-
-    const next = document.createElement('button');
-    next.className = 'btn small';
-    next.textContent = 'Next →';
-    next.disabled = state.page >= totalPages;
-    next.onclick = () => goToPage(state.page + 1);
-    el.appendChild(next);
+    jump.append(label, pageInput, of);
+    wrap.appendChild(jump);
+    el.appendChild(wrap);
   }
 
   function renderCard(q) {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.appendChild(SBData.questionMetaRow(q));
-    SBData.appendQuestionBody(card, q);
-
-    const answerWrap = SBData.answerBlock(q, null, { source: true });
-    answerWrap.style.display = 'none';
-    card.appendChild(answerWrap);
-
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'btn small';
-    toggleBtn.textContent = 'Show answer';
-    toggleBtn.onclick = () => {
-      const showing = answerWrap.style.display !== 'none';
-      answerWrap.style.display = showing ? 'none' : 'block';
-      toggleBtn.textContent = showing ? 'Show answer' : 'Hide answer';
-    };
-    actions.appendChild(toggleBtn);
-    actions.appendChild(SBData.bookmarkButton(q.id));
-
-    card.appendChild(actions);
+    const card = SBData.questionCard(q, { hideAnswer: state.hideAnswers });
     highlightMatches(card, state.search);
     return card;
   }
@@ -350,7 +326,7 @@
     const words = SBData.searchWords(term);
     if (!words.length) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: (n) => (n.parentElement.closest('button, .actions')
+      acceptNode: (n) => (n.parentElement.closest('button')
         ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
     });
     const nodes = [];

@@ -8,8 +8,14 @@
    in meta.json. */
 (function (global) {
   const LIMITS = { name: 24, answer: 200, chat: 300 };
-  const RATE_MIN = 0.5;
-  const RATE_MAX = 2.5;
+  // Reading speed, as on QB Reader: 0 (slowest) to 100, 50 by default.
+  const RATE_MIN = 0;
+  const RATE_MAX = 100;
+  const RATE_DEFAULT = 50;
+  function readingSpeed(v) {
+    const n = typeof v === 'string' && v.trim() === '' ? NaN : Number(v == null ? NaN : v);
+    return isFinite(n) ? Math.round(Math.max(RATE_MIN, Math.min(RATE_MAX, n))) : RATE_DEFAULT;
+  }
 
   function str(v, max) {
     return typeof v === 'string' ? v.slice(0, max) : '';
@@ -68,9 +74,25 @@
   // A player who leaves stays on the leaderboard, marked offline, for an hour
   // (with their score, for if they come back). Whether `entry` ({ leftAt })
   // should still be shown at time `now`.
-  const OFFLINE_KEEP_MS = 60 * 60 * 1000;
+  // Players who leave stay in the room's player list, marked offline, for
+  // good (as on QB Reader): this only checks the entry is well formed.
+  const OFFLINE_KEEP_MS = Infinity;
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
+  }
+
+  // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
+  // is kept to letters, digits and dashes (spaces become dashes), lower
+  // case, at most 32 characters; its PeerJS door is sbowl-room-<name>.
+  const ROOM_PREFIX = 'sbowl-room-';
+  function cleanRoomName(name) {
+    return (typeof name === 'string' ? name : '').toLowerCase().trim()
+      .replace(/\s+/g, '-').replace(/[^a-z0-9-]+/g, '').replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '').slice(0, 32).replace(/-+$/, '');
+  }
+  function roomPeerId(name) {
+    const clean = cleanRoomName(name);
+    return clean ? ROOM_PREFIX + clean : '';
   }
 
   function rankIn(order, id) {
@@ -91,6 +113,19 @@
     return a < b || (a === b && from < view.coordinatorId);
   }
 
+  // Vote kicks, as on QB Reader: a player who has answered a question
+  // correctly can start one (at most every 90 seconds); it needs three
+  // quarters of the players online, and at least two votes; a kicked
+  // player can't come back for 30 minutes.
+  const VOTEKICK_COOLDOWN_MS = 90 * 1000;
+  const KICK_BAN_MS = 30 * 60 * 1000;
+  function votekickThreshold(online) { return Math.max(Math.floor((online || 0) * 3 / 4), 2); }
+  function isKicked(kicked, pid, now) {
+    if (!pid || !Array.isArray(kicked)) return false;
+    const t = now == null ? Date.now() : now;
+    return kicked.some((k) => k && k.pid === pid && t - k.at < KICK_BAN_MS);
+  }
+
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   function cleanHostMessage(msg, meta) {
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
@@ -101,6 +136,10 @@
       const pid = cleanPid(msg.pid);
       if (pid) out.pid = pid;
       return out;
+    }
+    if (type === 'votekick') {
+      const targetId = str(msg.targetId, 80);
+      return targetId ? { type, targetId } : null;
     }
     if (type === 'rename') {
       const name = str(msg.name, LIMITS.name).trim();
@@ -119,8 +158,16 @@
         const hi = Math.round(clampNumber(msg.roundRange[1], 1, known.maxRound, known.maxRound));
         roundRange = [Math.min(lo, hi), Math.max(lo, hi)];
       }
+      const setName = str(msg.setName, 80);
       return {
         type,
+        // How questions are chosen: random (filters) or a set's packets.
+        mode: msg.mode === 'set' ? 'set' : 'random',
+        setName: known.tournaments.has(setName) ? setName : '',
+        packetNumbers: str(msg.packetNumbers, 60).replace(/[^0-9,\s-]/g, ''),
+        rebuzz: msg.rebuzz === true,
+        timer: msg.timer !== false,
+        isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
         qtypes: knownValues(msg.qtypes, known.qtypes),
         formats: knownValues(msg.formats, known.formats),
@@ -129,7 +176,7 @@
         tournaments: knownValues(msg.tournaments, known.tournaments),
         roundRange,
         includeUnlabeled: msg.includeUnlabeled !== false,
-        rate: clampNumber(msg.rate, RATE_MIN, RATE_MAX, 1),
+        rate: readingSpeed(msg.rate),
       };
     }
     return null;
@@ -164,5 +211,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX };
+  global.SBMpRules = { votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);

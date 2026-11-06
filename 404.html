@@ -3,30 +3,58 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Page not found · SB Reader</title>
+<title>SBReader - Page Not Found</title>
 <meta name="robots" content="noindex" />
 <!-- GitHub Pages serves this file for any missing path, at whatever depth,
      so every link here is absolute. -->
+<link rel="stylesheet" href="/sbreader/css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="/sbreader/css/style.css" />
+<script src="/sbreader/js/site.js"></script>
 <link rel="icon" href="/sbreader/favicon.ico" sizes="32x32" />
 <link rel="icon" href="/sbreader/favicon.svg" type="image/svg+xml" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="/sbreader/img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="/sbreader/">Home</a>
-  <a class="navlink" href="/sbreader/catalog.html">Catalog</a>
-  <a class="navlink" href="/sbreader/solo.html">Solo Practice</a>
-  <a class="navlink" href="/sbreader/multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink" href="/sbreader/bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="/sbreader/"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="/sbreader/solo.html">Play</a>
+        <a class="nav-link" href="/sbreader/multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/sbreader/catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/sbreader/catalog.html">Search</a>
+            <a class="dropdown-item" href="/sbreader/set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="/sbreader/about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="/sbreader/account.html" id="login-link">Log in</a></div>
+      </div>
+    </div>
+  </div>
 </nav>
-<div class="hero">
-  <h1>Page not found</h1>
-  <p class="subtitle">That page doesn't exist. Try the <a href="/sbreader/catalog.html">question catalog</a> or head back <a href="/sbreader/">home</a>.</p>
-</div>
+<div class="container-xl mt-3 mb-5">
+  <p class="lead">Page not found.</p>
+  <p>That page doesn't exist. Try <a href="/sbreader/catalog.html">searching the database</a>, <a href="/sbreader/solo.html">playing some questions</a>, or head back <a href="/sbreader/">home</a>.</p>
 </div>
 </body>
 </html>

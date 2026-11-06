@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Solo Science Bowl Practice – Buzzer Trainer · SB Reader</title>
+<title>SBReader - Play</title>
 <meta name="description" content="Drill Science Bowl questions on your own: questions reveal on screen at your pace, buzz in with Space, type your answer and get graded instantly with real tossup and bonus timers." />
 <link rel="canonical" href="https://unweidlykhan349.github.io/sbreader/solo.html" />
 <meta property="og:type" content="website" />
@@ -16,215 +16,174 @@
 <meta property="og:image:height" content="640" />
 <meta property="og:image:alt" content="SB Reader: free Science Bowl practice from real tournament packets" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="js/site.js"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="theme-color" content="#0f1420" />
+<meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
 <script src="js/data.js"></script>
 <script>SBData.load();</script>
-<script>
-  // Arriving from the bookmarks page's "Practice these" button jumps
-  // straight into a session - hide the setup/options screen before it ever
-  // paints (rather than letting it flash briefly while data loads and
-  // js/solo.js decides to skip it), by deciding this synchronously in
-  // <head>, before the body below is parsed and shown.
-  if (new URLSearchParams(location.search).get('bookmarked') === '1') {
-    document.documentElement.classList.add('sb-boot-hide-setup');
-  }
-</script>
 </head>
 <body>
-<div id="pageScroll">
-<nav class="nav">
-  <div class="brand"><img class="logo" src="img/logo.svg" alt="" width="24" height="24" /> SB Reader</div>
-  <a class="navlink" href="index.html">Home</a>
-  <a class="navlink" href="catalog.html">Catalog</a>
-  <a class="navlink active" href="solo.html">Solo Practice</a>
-  <a class="navlink" href="multiplayer.html">Multiplayer</a>
-  <div class="spacer"></div>
-  <a class="navlink" href="bookmarks.html">Bookmarked questions</a>
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-1 py-0" id="logo" href="index.html"><span class="logo-prefix">SB</span><span class="logo-suffix">Reader</span></a>
+    <button class="navbar-toggler" type="button" data-sb-collapse="navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-navigation">
+        <a class="nav-link" href="solo.html">Play</a>
+        <a class="nav-link" href="multiplayer.html">Multiplayer</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-sb-dropdown>Database</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="catalog.html">Search</a>
+            <a class="dropdown-item" href="set-list.html">Set List</a>
+          </div>
+        </div>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <div class="navbar-nav flex-row align-items-lg-center mb-2 mb-lg-0">
+        <div class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" id="bd-theme" data-sb-dropdown aria-haspopup="menu" aria-label="Toggle theme">
+            <span class="theme-icon-active"></span><span class="d-lg-none ms-2">Toggle theme</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <button type="button" class="dropdown-item" data-sb-theme-value="light">Light</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="dark">Night</button>
+            <button type="button" class="dropdown-item" data-sb-theme-value="auto">Auto</button>
+          </div>
+        </div>
+        <div class="vr d-none d-lg-flex mx-lg-2"></div>
+        <div class="nav-item" id="navAccount"><a class="nav-link ms-3 ms-lg-0" href="account.html" id="login-link">Log in</a></div>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<div class="boot-loading" id="bootLoading">Loading your bookmarked questions…</div>
-
-<!-- ============== SETUP SCREEN ============== -->
-<div class="container" id="setupScreen">
-  <h1>Solo Practice</h1>
-  <p class="subtitle">Pick what you want to drill, then start. Questions and answer choices reveal themselves on screen — buzz in with <kbd>Space</kbd> whenever you're ready.</p>
-
-  <div class="setup-grid">
-    <div class="panel">
-      <div class="filter-head">
-        <div class="section-title" style="margin:0;">Subject</div>
-        <div class="filter-actions">
-          <button class="btn small ghost" id="clearFiltersBtn">Clear all</button>
+<div class="container-fluid mt-3 mb-5 pb-5 px-xxl-5">
+  <div class="row">
+    <!-- Settings, as on QB Reader's play page: beside the question on wide
+         screens, above it (folded to just the timer) on narrow ones. -->
+    <div class="col-12 col-lg-3 order-lg-1 mb-5 play-sidebar" id="settings">
+      <div class="timer d-block p-1 text-center" id="timer"><span class="face" id="timerFace">0</span><span class="fraction" id="timerFraction">.0</span></div>
+      <hr>
+      <label class="form-check-label mb-1" for="setMode">Choose a mode:</label>
+      <select class="form-select mb-2" id="setMode">
+        <option value="set">Select by Set Name</option>
+        <option value="random" selected>Random Questions</option>
+        <option value="starred">Starred Questions</option>
+      </select>
+      <div class="d-none" id="setSettings">
+        <input class="form-control" id="setName" type="text" placeholder="Set Name" list="setNameList" autocomplete="off" aria-label="Set name" />
+        <datalist id="setNameList"></datalist>
+        <input class="form-control my-1" id="packetNumbers" type="text" placeholder="Packet Numbers" autocomplete="off" aria-label="Packet numbers, e.g. 1-3, 5" />
+        <div class="form-text mb-2" id="setInfo"></div>
+      </div>
+      <div class="d-none" id="starredSettings">
+        <p class="mb-2" id="starredInfo">Star questions to practice them here.</p>
+      </div>
+      <div id="randomSettings">
+        <div class="mb-2"><select id="tournamentSelect" aria-label="Tournaments"></select></div>
+        <div id="roundRangeLabel">Rounds 1-17</div>
+        <div class="dual-slider" id="roundSlider">
+          <div class="track"></div>
+          <div class="range-fill" id="roundSliderFill"></div>
+          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
+          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
         </div>
       </div>
-      <div class="chip-row" id="subjectChips"></div>
-
-      <div class="section-title">Round</div>
-      <div class="dual-slider" id="roundSlider">
-        <div class="track"></div>
-        <div class="range-fill" id="roundSliderFill"></div>
-        <input type="range" id="roundMin" min="1" max="17" value="1" step="1" />
-        <input type="range" id="roundMax" min="1" max="17" value="17" step="1" />
-      </div>
-      <div class="round-range-label" id="roundRangeLabel">Rounds 1–17</div>
-      <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:8px;">
-        <input type="checkbox" id="includeUnlabeledRounds" checked /> Include unlabeled rounds
-      </label>
-
-      <div class="section-title">Question type</div>
-      <div class="chip-row" id="qtypeChips"></div>
-
-      <div class="section-title">Format</div>
-      <div class="chip-row" id="formatChips"></div>
-
-      <div class="section-title">Level</div>
-      <div class="chip-row" id="levelChips"></div>
-
-      <div class="section-title">Visual questions</div>
-      <div class="chip-row" id="visualChips"></div>
-
-      <div class="section-title">Tournament</div>
-      <select id="tournamentSelect" style="width:100%; max-width: 420px;"></select>
-    </div>
-
-    <div class="panel">
-      <div class="section-title" style="margin-top:0;">Reading speed</div>
-      <div class="slider-row">
-        <input type="range" id="rateSlider" min="0.5" max="2.5" step="0.1" value="1" />
-        <span class="slider-value" id="rateValue">1.0×</span>
-      </div>
-      <p class="small-note">Questions type themselves onto the screen instead of being read aloud — this controls how fast.</p>
-
-      <div style="margin-top:22px;">
-        <button class="btn primary" id="startBtn" style="width:100%; justify-content:center; font-size:15px; padding:12px;">Start practice</button>
-        <p class="small-note" id="matchCount" style="margin-top:10px;"></p>
+      <div class="mt-2" id="generalSettings">
+        <div class="mb-2" id="subjectButtons"></div>
+        <hr>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleRebuzz" type="checkbox" role="switch" />
+          <label class="form-check-label" for="toggleRebuzz">Allow rebuzzes</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleShowHistory" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleShowHistory">Show question history</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleShowSetName" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleShowSetName">Show set name</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="toggleTimer" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="toggleTimer">Enable timer</label>
+        </div>
+        <div class="mb-2"></div>
+        <label for="rateSlider">Reading speed: <span id="rateValue">50</span><br></label>
+        <input class="form-range" id="rateSlider" type="range" min="0" max="100" step="5" value="50" />
+        <div class="small-note" id="matchCount"></div>
+        <div class="d-none d-lg-block">
+          <hr>
+          <p>
+            <span class="text-nowrap"><kbd>k</kbd> = show/hide last question</span><br>
+            <span class="text-nowrap"><kbd>t</kbd> = star/unstar last question</span><br>
+            <span class="text-nowrap"><kbd>q</kbd> = I was wrong / I was right</span><br>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="section-title">Shortcuts</div>
-  <div class="panel small-note">
-    <kbd>Space</kbd> buzz in &nbsp;·&nbsp; <kbd>Enter</kbd> submit answer &nbsp;·&nbsp; <kbd>N</kbd> next / skip &nbsp;·&nbsp;
-    <kbd>Q</kbd> override grading &nbsp;·&nbsp; <kbd>B</kbd> bookmark &nbsp;·&nbsp; <kbd>P</kbd> pause
-  </div>
-</div>
-
-<!-- ============== IN-SESSION SETTINGS ============== -->
-<div class="modal-overlay" id="soloSettingsOverlay" style="display:none;">
-  <div class="panel modal-panel">
-    <div class="filter-head">
-      <h2 style="margin:0;">Settings</h2>
-      <button class="btn small ghost" id="soloSettingsCloseBtn">✕</button>
-    </div>
-    <div class="section-title" style="margin-top:0;">Reading speed</div>
-    <div class="slider-row">
-      <input type="range" id="soloSettingsRateSlider" min="0.5" max="2.5" step="0.1" value="1" />
-      <span class="slider-value" id="soloSettingsRateValue">1.0×</span>
-    </div>
-    <div class="filter-head" style="margin-top:18px;">
-      <div class="section-title" style="margin:0;">Subject</div>
-      <div class="filter-actions">
-        <button class="btn small ghost" id="soloSettingsClearBtn">Clear all</button>
+    <div class="col-12 col-lg-9" id="content">
+      <div class="input-group d-none my-2" id="answerRow">
+        <input class="form-control" type="text" id="answerInput" placeholder="Enter answer" autocomplete="off" aria-label="Your answer" />
+        <button class="btn btn-success" id="submitAnswerBtn" type="button">Submit</button>
       </div>
-    </div>
-    <div class="chip-row" id="soloSettingsSubjectChips"></div>
-    <div class="section-title">Round</div>
-    <div class="dual-slider" id="soloSettingsRoundSlider">
-      <div class="track"></div>
-      <div class="range-fill" id="soloSettingsRoundSliderFill"></div>
-      <input type="range" id="soloSettingsRoundMin" min="1" max="17" value="1" step="1" />
-      <input type="range" id="soloSettingsRoundMax" min="1" max="17" value="17" step="1" />
-    </div>
-    <div class="round-range-label" id="soloSettingsRoundRangeLabel">Rounds 1–17</div>
-    <label class="filter-checkbox-label" style="display:flex; align-items:center; gap:8px; cursor:pointer; margin-top:8px;">
-      <input type="checkbox" id="soloSettingsIncludeUnlabeledRounds" checked /> Include unlabeled rounds
-    </label>
-    <div class="section-title">Question type</div>
-    <div class="chip-row" id="soloSettingsQtypeChips"></div>
-    <div class="section-title">Format</div>
-    <div class="chip-row" id="soloSettingsFormatChips"></div>
-    <div class="section-title">Level</div>
-    <div class="chip-row" id="soloSettingsLevelChips"></div>
-    <div class="section-title">Visual questions</div>
-    <div class="chip-row" id="soloSettingsVisualChips"></div>
-    <div class="section-title">Tournament</div>
-    <select id="soloSettingsTournamentSelect" style="width:100%; max-width:420px;"></select>
-    <p class="small-note" id="soloSettingsMatchCount" style="margin-top:10px;"></p>
-    <div style="margin-top:18px; display:flex; gap:10px;">
-      <button class="btn primary" id="soloSettingsDoneBtn">Done</button>
+      <div class="d-flex justify-content-between">
+        <span id="statline">0/0 with 0 questions seen</span>
+        <span class="ps-5 me-lg-2 text-end" id="questionMetadata">
+          <span class="badge text-bg-warning me-1" id="pauseBadge" style="display:none;">Paused</span>
+          <b id="questionInfo"></b>
+        </span>
+      </div>
+      <div class="mt-2 question-panel" id="questionPanel">
+        <div class="status-pill" id="statusPill" style="display:none;"></div>
+        <div class="reveal-measure-wrap" id="revealMeasureWrap">
+          <div class="q-display" id="qDisplay"></div>
+          <div class="q-figures" id="qFigures" style="display:none;"></div>
+          <div class="choices-display" id="choicesDisplay" style="display:none;">
+            <div class="choice-box" data-letter="W"><span class="letter">W)</span><span class="choice-text" id="choiceTextW"></span></div>
+            <div class="choice-box" data-letter="X"><span class="letter">X)</span><span class="choice-text" id="choiceTextX"></span></div>
+            <div class="choice-box" data-letter="Y"><span class="letter">Y)</span><span class="choice-text" id="choiceTextY"></span></div>
+            <div class="choice-box" data-letter="Z"><span class="letter">Z)</span><span class="choice-text" id="choiceTextZ"></span></div>
+          </div>
+        </div>
+      </div>
+      <a class="p-0 btn btn-link ms-auto d-none" id="overrideBtn" title="Shortcut: q">I was wrong</a>
+      <div class="mt-1 mt-lg-3 reveal-box" id="revealBox" style="display:none;"></div>
+      <ul class="room-history list-unstyled" id="questionLog"></ul>
     </div>
   </div>
 </div>
 
-<!-- ============== GAME SCREEN ============== -->
-<div class="game-wrap" id="gameScreen" style="display:none;">
-  <div class="score-bar">
-    <div class="stat-group">
-      <div class="stat-pill correct"><span class="n" id="correctCount">0</span><span class="l">Correct</span></div>
-      <div class="stat-pill incorrect"><span class="n" id="incorrectCount">0</span><span class="l">Incorrect</span></div>
-      <div class="stat-pill total"><span class="n" id="totalCount">0</span><span class="l">Total</span></div>
-    </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-      <span class="pause-badge" id="pauseBadge" style="display:none;">⏸ Paused</span>
-      <button class="btn small" id="pauseBtn">Pause (P)</button>
-      <button class="btn small settings-btn" id="soloSettingsBtn" style="display:none;">⚙ Settings (S)</button>
+<div class="container-fluid py-3 px-xxl-5 position-fixed bottom-0 bg-body play-buttons">
+  <div class="row">
+    <div class="col-12 col-lg-9" id="buttons">
+      <button class="btn btn-primary" id="nextBtn" type="button" title="Shortcut: n">Next</button>
+      <button class="btn btn-primary" id="pauseBtn" type="button" title="Shortcut: p" aria-label="Pause" disabled></button>
+      <button class="btn btn-danger" id="settingsBtn" type="button" title="Shortcut: e" aria-label="Show or hide settings" aria-controls="settings"></button>
+      <button class="btn btn-primary float-end" id="buzzBtn" type="button" title="Shortcut: space" disabled>Buzz</button>
     </div>
   </div>
-
-  <div class="question-panel">
-    <div class="status-pill" id="statusPill" style="display:none;"></div>
-    <div class="reveal-tags" id="revealTags">
-      <span class="tag" id="revealSubjectTag"></span>
-      <span class="tag" id="revealFormatTag"></span>
-      <span class="tag" id="revealQtypeTag"></span>
-    </div>
-    <div class="reveal-measure-wrap" id="revealMeasureWrap">
-      <div class="q-display" id="qDisplay"></div>
-      <div class="q-figures" id="qFigures" style="display:none;"></div>
-      <div class="choices-display" id="choicesDisplay" style="display:none;">
-        <div class="choice-box" data-letter="W"><span class="letter">W)</span><span class="choice-text" id="choiceTextW"></span></div>
-        <div class="choice-box" data-letter="X"><span class="letter">X)</span><span class="choice-text" id="choiceTextX"></span></div>
-        <div class="choice-box" data-letter="Y"><span class="letter">Y)</span><span class="choice-text" id="choiceTextY"></span></div>
-        <div class="choice-box" data-letter="Z"><span class="letter">Z)</span><span class="choice-text" id="choiceTextZ"></span></div>
-      </div>
-    </div>
-
-    <div class="timer-row" id="timerRow" style="display:none;">
-      <div class="timer-bar-track"><div class="timer-bar-fill" id="timerFill"></div></div>
-      <div class="timer-label" id="timerLabel">4.0s</div>
-    </div>
-
-    <div class="answer-input-row" id="answerRow" style="display:none;">
-      <input type="text" id="answerInput" placeholder="Type your answer and press Enter…" autocomplete="off" />
-      <button class="btn primary" id="submitAnswerBtn">Submit</button>
-    </div>
-
-    <div class="reveal-box" id="revealBox" style="display:none;"></div>
-
-    <div class="controls-row">
-      <button class="btn icon-btn" id="bookmarkBtn" title="Bookmark (B)">☆</button>
-      <button class="btn primary" id="buzzBtn" style="display:none;">Buzz in (Space)</button>
-      <button class="btn" id="nextBtn">Skip (N)</button>
-      <button class="btn ghost" id="overrideBtn" style="display:none;">↺ Override (Q)</button>
-      <span class="shortcut-hint">Space buzz · N next/skip · Q override · B bookmark · P pause</span>
-    </div>
-  </div>
-
-  <div class="section-title">Previous questions</div>
-  <div class="q-log" id="questionLog"></div>
-</div>
 </div>
 
 <script src="js/answer-check.js"></script>
+<script src="js/play-common.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/solo.js"></script>
+<script src="js/config.js"></script>
+<script src="js/account-core.js"></script>
+<script src="js/account.js"></script>
 </body>
 </html>
