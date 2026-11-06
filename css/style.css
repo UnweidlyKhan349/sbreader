@@ -250,6 +250,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    a row (six in a row would wrap "Earth & Space"). */
 #subjectChips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .375rem; }
 #subjectChips .chip { justify-content: center; text-align: center; white-space: nowrap; }
+/* The other filters fill the right half: a 2 x 2 grid of pairs, each chip
+   stretched to share its cell. One pair per row where two won't fit: on
+   phones, and from 992 px (when they move beside the subjects) to 1199 px. */
+.filter-chip-groups { display: grid; grid-template-columns: 1fr; gap: .375rem 1rem; }
+@media (min-width: 576px) and (max-width: 991.98px), (min-width: 1200px) { .filter-chip-groups { grid-template-columns: 1fr 1fr; } }
+.filter-chip-groups .chip-row { flex-wrap: nowrap; }
+.filter-chip-groups .chip { flex: 1 1 0; justify-content: center; text-align: center; white-space: nowrap; }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
 .chip.active:hover { filter: brightness(.92); color: #fff; }
 /* Subject chips are QB Reader's category boxes, as in Play: red outline,
