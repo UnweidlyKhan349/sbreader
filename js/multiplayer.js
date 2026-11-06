@@ -167,8 +167,9 @@
     showNoRooms();
     const activePlayers = reg ? reg.activePlayers : [...probe.values()].reduce((n, c) => n + (c || 0), 0);
     const activeRooms = reg ? reg.activeRooms : [...probe.values()].filter((c) => c > 0).length;
-    document.getElementById('activePlayers').textContent = activePlayers.toLocaleString();
-    document.getElementById('activeRooms').textContent = activeRooms.toLocaleString();
+    // "There is 1 active player in 1 active room." / "There are 3 active players in 2 active rooms."
+    const plural = (n, word) => `${n.toLocaleString()} active ${word}${n === 1 ? '' : 's'}`;
+    document.getElementById('activeSummary').textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
   }
 
   /* ================= SHARED GAME STATE (rendered identically on host & clients) ================= */
@@ -1684,7 +1685,7 @@
     SBRooms.heartbeat(roomKey(), {
       isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
       isPermanent: !!myState.publicLobby,
-    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0 }).catch(() => {});
+    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
   }
   function startHeartbeat() {
     if (heartbeatTimer) clearInterval(heartbeatTimer);
@@ -1716,13 +1717,16 @@
     hostChat.length = 0;
     activeFilterState = copyFilters(filters);
     myState.myName = name;
-    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, connId: mesh.id, pid: myState.pid };
+    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid };
     // As on QB Reader, a room keeps its players after they leave: anyone the
     // room list has seen here comes back as offline, with their score.
     const roster = await SBRooms.roster(lobby ? SBRooms.key('', lobby.key) : myState.roomName).catch(() => []);
     roster.forEach((r) => {
-      if (r.pid === myState.pid) { me.score = r.score || 0; me.correct = r.correct || 0; me.incorrect = r.incorrect || 0; return; }
-      departedPlayers.set(r.pid, { pid: r.pid, name: r.username, score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, leftAt: Date.parse(r.last_seen) || Date.now() });
+      // Negs and celerity come back too (they're 0 on a project whose
+      // schema predates them).
+      const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0 };
+      if (r.pid === myState.pid) { Object.assign(me, stats); return; }
+      departedPlayers.set(r.pid, { pid: r.pid, name: r.username, ...stats, leftAt: Date.parse(r.last_seen) || Date.now() });
     });
     hostPlayers.set(mesh.id, me);
     enterRoomAs(roomId, name, lobby);

@@ -61,6 +61,7 @@
     <label class="form-label" for="set-name-search">Search set names:</label>
     <input class="form-control" id="set-name-search" type="text" placeholder="e.g. MIT 2025" autocomplete="off" />
   </div>
+  <div class="table-responsive">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -68,12 +69,13 @@
         <th scope="col" class="clickable" data-sort="level" aria-sort="none">Level <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="date" aria-sort="none">Date <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="packets" aria-sort="none"># of Packets <span class="sort-indicator"></span></th>
-        <th scope="col" class="clickable" data-sort="tossups" aria-sort="none"># of Tossups <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="tossups" aria-sort="none"># of Toss-ups <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="bonuses" aria-sort="none"># of Bonuses <span class="sort-indicator"></span></th>
       </tr>
     </thead>
     <tbody class="table-group-divider" id="set-metadata-list"></tbody>
   </table>
+  </div>
   <div class="d-block mx-auto mt-3 spinner-border" id="spinner" role="status"><span class="d-none">Loading...</span></div>
 </div>
 
