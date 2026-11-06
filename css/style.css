@@ -339,10 +339,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* The button bar pinned to the bottom of the screen. */
 .play-buttons { z-index: 1020; }
-/* Multiplayer's bar spans the page; only its buttons column takes clicks, so
-   the sidebar beside it stays clickable. */
-#mpButtonBar, #mpButtonBar > .row { pointer-events: none; }
-#mpButtonBar #buttons { pointer-events: auto; }
+/* The bottom bar spans the page, but only its buttons column is painted and
+   takes clicks, so the sidebar beside it stays visible and clickable. */
+.play-buttons, .play-buttons > .row { pointer-events: none; }
+.play-buttons #buttons { pointer-events: auto; }
 .play-buttons .btn svg { display: block; }
 /* The bottom bar as on QB Reader: buttons at their natural width (icon
    buttons narrow, with Bootstrap Icons' pause-fill and gear), all the same
