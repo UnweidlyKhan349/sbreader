@@ -361,6 +361,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* The button bar pinned to the bottom of the screen. */
 .play-buttons { z-index: 1020; }
+/* Multiplayer's bar spans the page; only its buttons column takes clicks, so
+   the sidebar beside it stays clickable. */
+#mpButtonBar, #mpButtonBar > .row { pointer-events: none; }
+#mpButtonBar #buttons { pointer-events: auto; }
 .play-buttons .btn svg { display: block; }
 /* The bottom bar as on QB Reader: buttons at their natural width (icon
    buttons narrow, with Bootstrap Icons' pause-fill and gear), all the same
@@ -434,7 +438,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .mp-player-row.offline { color: var(--bs-secondary-color); }
 :root { --user-score-background: #FFF9C4; }
 [data-bs-theme=dark] { --user-score-background: #4A90E2; }
-.room-history li { margin: .15rem 0; }
 .room-history .event-username { font-weight: 500; }
 
 /* The room code (or public lobby's name) above the question: click to copy
@@ -500,6 +503,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   /* No fill on hover: only clicking turns a subject on or off. */
   --bs-btn-hover-bg: transparent; --bs-btn-hover-color: var(--bs-danger); --bs-btn-hover-border-color: var(--bs-danger);
 }
+.btn-subject:disabled.active { opacity: 1; background-color: var(--bs-danger); border-color: var(--bs-danger); color: #fff; }
 .modal-backdrop.show { opacity: .5; }
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */

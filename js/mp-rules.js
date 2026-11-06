@@ -127,6 +127,9 @@
   }
 
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
+  // A chat message's ID ties its live, still-being-typed copy to the sent one.
+  function cleanChatId(v) { return typeof v === 'string' && /^[a-z0-9]{4,16}$/.test(v) ? v : null; }
+
   function cleanHostMessage(msg, meta) {
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
     const { type } = msg;
@@ -148,7 +151,9 @@
     if (type === 'submitAnswer' || type === 'typing') return { type, text: str(msg.text, LIMITS.answer) };
     if (type === 'chatSend') {
       const text = str(msg.text, LIMITS.chat).trim();
-      return text ? { type, text } : null;
+      if (!text) return null;
+      const cid = cleanChatId(msg.cid);
+      return cid ? { type, text, cid } : { type, text };
     }
     if (type === 'updateSettings') {
       const known = settingsFromMeta(meta);
@@ -196,13 +201,14 @@
   // Public lobbies: rooms with a fixed, well-known code that anyone can join
   // from the lobby list. There's no server to keep them open: the first
   // player in opens one, and like any room it lasts as long as anyone is in
-  // it. One lobby covers every subject, and each subject but energy has its
-  // own.
+  // it. General lets the room pick its subjects and starts with every
+  // subject but Energy; each subject but Energy also has its own room, fixed
+  // to that subject.
   const PUBLIC_PREFIX = 'sbowl-pub-';
   const NO_PUBLIC_LOBBY = new Set(['energy']);
   function publicLobbies(meta) {
     const keys = (meta.subjects || []).map((s) => (typeof s === 'string' ? s : s.key));
-    return [{ key: 'all', subjects: keys }].concat(
+    return [{ key: 'all', subjects: keys.filter((k) => !NO_PUBLIC_LOBBY.has(k)) }].concat(
       keys.filter((k) => !NO_PUBLIC_LOBBY.has(k)).map((k) => ({ key: k, subjects: [k] }))
     ).map((l) => ({ ...l, peerId: PUBLIC_PREFIX + l.key }));
   }
@@ -211,5 +217,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);

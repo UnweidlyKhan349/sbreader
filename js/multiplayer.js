@@ -685,6 +685,19 @@
       while (chatMirror.length > CHAT_HISTORY) chatMirror.shift();
     }
     if (entry.system) { logEvent(entry.name || '', entry.text); return; }
+    if (entry.cid) {
+      finishedChats.add(entry.cid);
+      // The message was shown while it was typed: it becomes the sent one
+      // where it stands.
+      const live = liveChatEls.get(entry.from);
+      if (live && live.dataset.cid === entry.cid) {
+        liveChatEls.delete(entry.from);
+        live.classList.remove('chat-live');
+        live.firstChild.textContent = entry.name;
+        live.lastChild.textContent = ' ' + entry.text;
+        return;
+      }
+    }
     const li = document.createElement('li');
     li.className = 'chat-message';
     const b = document.createElement('b');
@@ -694,12 +707,80 @@
   }
   function sendChat(text) {
     text = (text || '').trim();
+    const cid = myChatId;
+    endLiveChat(!text);
     if (!text) return;
     if (myState.role === 'host') {
       const me = hostPlayers.get(myState.myId);
-      hostBroadcastChat(myState.myId, me ? me.name : myState.myName, text);
+      hostBroadcastChat(myState.myId, me ? me.name : myState.myName, text, false, cid);
     } else if (client) {
-      client.send({ type: 'chatSend', text });
+      client.send({ type: 'chatSend', text, cid });
+    }
+  }
+
+  /* Live chat, as on QB Reader: everyone sees a message in the room's
+     history while it's being typed. Each message has an ID (cid); the typed
+     copy goes straight to every player, and the sent one, from whoever runs
+     the game, replaces it where it stands. */
+  const liveChatEls = new Map(); // player ID -> their live <li>
+  const finishedChats = new Set(); // cids already sent, so a late live copy is dropped
+  let myChatId = null;
+  let liveChatTimer = null;
+  let liveChatPending = null;
+  function newChatId() { return Math.random().toString(36).slice(2, 12).replace(/[^a-z0-9]/g, '') || 'c0000'; }
+  function chatNameFor(id) {
+    const p = game.players.find((x) => x.id === id);
+    if (p) return p.name;
+    const m = memberInfo.get(id);
+    return m ? m.name : (id === myState.myId ? myState.myName : 'Player');
+  }
+  function renderLiveChat(playerId, cid, text) {
+    if (finishedChats.has(cid)) return;
+    let li = liveChatEls.get(playerId);
+    if (!text) {
+      if (li && li.dataset.cid === cid) { li.remove(); liveChatEls.delete(playerId); }
+      return;
+    }
+    if (!li || li.dataset.cid !== cid) {
+      if (li) li.remove();
+      li = document.createElement('li');
+      li.className = 'chat-message chat-live';
+      li.dataset.cid = cid;
+      li.append(document.createElement('b'), document.createTextNode(''));
+      historyEl().prepend(li);
+      liveChatEls.set(playerId, li);
+    }
+    li.firstChild.textContent = chatNameFor(playerId);
+    li.lastChild.textContent = ' ' + text;
+  }
+  function broadcastLiveChat(cid, text) {
+    if (mesh) mesh.broadcast({ type: 'chatLive', cid, text: text.slice(0, SBMpRules.LIMITS.chat) });
+  }
+  function onChatTyping(text) {
+    if (!myChatId) myChatId = newChatId();
+    renderLiveChat(myState.myId, myChatId, text);
+    liveChatPending = text;
+    if (liveChatTimer) return;
+    const flush = () => {
+      liveChatTimer = null;
+      if (liveChatPending === null || !myChatId) return;
+      broadcastLiveChat(myChatId, liveChatPending);
+      liveChatPending = null;
+      liveChatTimer = setTimeout(flush, TYPING_THROTTLE_MS);
+    };
+    flush();
+  }
+  // Sent (the sent copy replaces the live one) or dropped (it's removed).
+  function endLiveChat(dropped) {
+    clearTimeout(liveChatTimer);
+    liveChatTimer = null;
+    liveChatPending = null;
+    const cid = myChatId;
+    myChatId = null;
+    if (!cid) return;
+    if (dropped) {
+      renderLiveChat(myState.myId, cid, '');
+      broadcastLiveChat(cid, '');
     }
   }
   // A system line for the whole room, from whoever runs the game.
@@ -867,9 +948,10 @@
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });
   }
 
-  function hostBroadcastChat(fromId, name, text, system) {
+  function hostBroadcastChat(fromId, name, text, system, cid) {
     const entry = { from: fromId, name, text: text.slice(0, SBMpRules.LIMITS.chat), ts: Date.now() };
     if (system) entry.system = true;
+    if (cid) entry.cid = cid;
     hostChat.push(entry);
     while (hostChat.length > CHAT_HISTORY) hostChat.shift();
     if (host) host.broadcast({ type: 'chat', entry });
@@ -950,7 +1032,7 @@
     }
     if (msg.type === 'chatSend') {
       const p = hostPlayers.get(connId);
-      hostBroadcastChat(connId, p ? p.name : 'Player', msg.text);
+      hostBroadcastChat(connId, p ? p.name : 'Player', msg.text, false, msg.cid);
       return;
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
@@ -1458,6 +1540,8 @@
       mesh = SBPeer.makeMesh({
         onMessage: onMeshMessage,
         onLeave: onMemberLeft,
+        // As QB Reader does when its connection to the room drops.
+        onDisconnect: () => { if (myState.role) window.alert('Disconnected from server'); },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
     }
@@ -1466,6 +1550,12 @@
 
   function onMeshMessage(from, data) {
     if (!data || typeof data !== 'object' || typeof data.type !== 'string') return;
+    if (data.type === 'chatLive') {
+      // Straight from the player typing it, not through the game's runner.
+      const cid = SBMpRules.cleanChatId(data.cid);
+      if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
+      return;
+    }
     if (data.type === 'join') {
       const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
       if (!msg) return;
@@ -1498,6 +1588,8 @@
 
   function onMemberLeft(id) {
     memberInfo.delete(id);
+    const live = liveChatEls.get(id);
+    if (live) { live.remove(); liveChatEls.delete(id); }
     if (!mesh || !myState.role) return;
     if (myState.role === 'host') {
       hostPlayerLeft(id);
@@ -1923,10 +2015,11 @@
   // is just every other client's read-only copy, kept fresh so their own
   // settings panel always seeds from the room's real current values instead
   // of stale or default ones.
-  // A built-in public room always uses its own subjects (General: every
-  // subject, Energy included), whatever settings the room carried over.
+  // A one-subject public room always uses its subject, whatever settings the
+  // room carried over. General's subjects are the room's to pick.
+  function fixedSubjectLobby() { return !!myState.publicLobby && myState.publicLobby.key !== 'all'; }
   function withLobbySubjects(f) {
-    if (myState.publicLobby) f.subjects = new Set(myState.publicLobby.subjects);
+    if (fixedSubjectLobby()) f.subjects = new Set(myState.publicLobby.subjects);
     return f;
   }
 
@@ -2116,7 +2209,7 @@
     });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleTimer', 'timer']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -2179,10 +2272,9 @@
       // A built-in public room keeps its subject and stays public.
       const lobby = myState.publicLobby;
       document.getElementById('mpTogglePublic').disabled = !!lobby;
-      const fixed = document.getElementById('mpSettingsSubjectFixed');
-      fixed.style.display = lobby && lobby.key !== 'all' ? '' : 'none';
-      if (lobby) fixed.textContent = `${lobbyLabel(lobby)} only in this room.`;
-      categories.setDisabled(!!lobby && lobby.key !== 'all');
+      // A one-subject room shows its subject switched on, and can't change it.
+      categories.setDisabled(fixedSubjectLobby());
+      document.getElementById('mpToggleUnlabeled').checked = f.includeUnlabeled !== false;
       categories.sync();
     } finally {
       suppressSettingsApplyEcho = false;
@@ -2195,7 +2287,7 @@
   // question the room goes back to all subjects, sent out like any change.
   function ensureSomeSubjects() {
     if (midGameFilterState.subjects.size === 0) {
-      SBData.meta.subjects.forEach((x) => midGameFilterState.subjects.add(x.key));
+      (myState.publicLobby ? myState.publicLobby.subjects : SBData.meta.subjects.map((x) => x.key)).forEach((k) => midGameFilterState.subjects.add(k));
       if (categories) categories.sync();
       updateMidGameMatchCount();
       requestApplySettings();
@@ -2214,9 +2306,6 @@
       out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
     }
     if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
-    const maxRound = SBData.maxRoundFor(after.tournaments);
-    const rounds = (r) => (!r || (r[0] <= 1 && r[1] >= maxRound) ? 'all rounds' : `${r[0]}-${r[1]}`);
-    if (rounds(before.roundRange) !== rounds(after.roundRange)) out.push(`changed the rounds to ${rounds(after.roundRange)}`);
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
@@ -2229,7 +2318,8 @@
   // not-yet-asked part is rebuilt (unless nothing would match).
   function hostApplySettingsFromValues(values, byConnId) {
     // A built-in public room keeps its subject and stays public.
-    if (myState.publicLobby) values = { ...values, isPublic: true, subjects: new Set(myState.publicLobby.subjects) };
+    if (myState.publicLobby) values = { ...values, isPublic: true };
+    if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
@@ -2288,6 +2378,7 @@
     document.getElementById('mpChatInput').focus();
   }
   function hideChatRow() {
+    endLiveChat(true);
     document.getElementById('mpChatRow').classList.add('d-none');
     document.getElementById('mpChatInput').value = '';
     document.getElementById('mpChatInput').blur();
@@ -2362,6 +2453,7 @@
       hideChatRow();
     };
     document.getElementById('mpChatSendBtn').addEventListener('click', sendFromBox);
+    document.getElementById('mpChatInput').addEventListener('input', (e) => onChatTyping(e.target.value));
     document.getElementById('mpChatInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); sendFromBox(); }
       if (e.key === 'Escape') { e.preventDefault(); hideChatRow(); }

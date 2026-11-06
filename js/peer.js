@@ -113,7 +113,11 @@
   const DOOR_HOLD_MS = 15000;
   const BYE = '__bye';
 
-  function makeMesh({ onMessage, onJoin, onLeave, doorInfo }) {
+  // How long the connection service may stay unreachable before the player
+  // is told they've been disconnected (it usually comes back within seconds).
+  const LOST_AFTER_MS = 8000;
+
+  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect }) {
     const conns = new Map();
     let self;
     let door = null;
@@ -135,9 +139,20 @@
       });
     }), CONNECT_TIMEOUT_MS, 'Timed out reaching the connection service. Check your internet connection and try again.');
     ready.catch(() => {});
+    // Disconnected: the browser went offline, or the connection service has
+    // been unreachable for a while with no other player still connected.
+    // Told once (onDisconnect), never after leaving on purpose.
+    let lostTold = false;
+    function checkLost() {
+      if (lostTold || self.destroyed || !onDisconnect) return;
+      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      if (offline || (self.disconnected && conns.size === 0)) { lostTold = true; onDisconnect(); }
+    }
     self.on('disconnected', () => {
       setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
+      setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
     });
+    if (typeof window !== 'undefined') window.addEventListener('offline', () => checkLost());
 
     function adopt(conn) {
       const id = conn.peer;
@@ -151,6 +166,7 @@
         if (conns.get(id) !== conn) return; // replaced by a newer link
         conns.delete(id);
         if (onLeave) onLeave(id, !!graceful);
+        if (!graceful && conns.size === 0) setTimeout(checkLost, LOST_AFTER_MS);
       };
       const heard = watchConn(conn, () => drop(false));
       conn.on('data', (data) => {
