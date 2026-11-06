@@ -409,7 +409,7 @@ Accounts are optional and off until a Supabase project is set up; without one ev
 1. Create a free project at supabase.com.
 2. In its SQL Editor, run `supabase/schema.sql`. It creates three account tables (`bookmarks`, `answers`, `user_settings`) with row-level security, so each account can only read and change its own rows, and the two multiplayer registry tables (`mp_rooms`, `mp_players`), which anyone may read and write: they hold only room names, player names and practice scores, and they're what the Multiplayer page lists public rooms and player counts from.
 3. Under Authentication → URL Configuration, set the Site URL to the site's address (e.g. `https://unweidlykhan349.github.io/sbreader/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
-4. Put the project URL and anon key (Project Settings → API) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data.
+4. Put the Project URL (the **Connect** button at the top of the dashboard, or Project Settings → Data API; it looks like `https://<project-ref>.supabase.co`) and the publishable key (Project Settings → API Keys, `sb_publishable_…`; a legacy anon key works too) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data. Never use the secret key.
 
 **What an account keeps** (`js/account.js`, with the network-free parts in `js/account-core.js`):
 - **Starred questions**: every star is mirrored to the account (the table is still called `bookmarks`). At login, this browser's stars and the account's are merged (a union, so nothing is lost on either side).
