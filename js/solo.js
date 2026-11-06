@@ -18,6 +18,7 @@
     subjects: null, // null = every subject
     tournaments: [],
     roundRange: null,
+    includeUnlabeled: true,
     rebuzz: false,
     showHistory: true,
     showSetName: true,
@@ -55,7 +56,7 @@
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
-      includeUnlabeled: true,
+      includeUnlabeled: settings.includeUnlabeled !== false,
     }), (q) => q.subject);
   }
 
@@ -148,6 +149,9 @@
       onChange: (lo, hi) => { settings.roundRange = [lo, hi]; onSettingsChange(); },
     });
     if (settings.roundRange) roundSliderApi.setRange(settings.roundRange[0], settings.roundRange[1]);
+    const unlabeled = document.getElementById('toggleUnlabeled');
+    unlabeled.checked = settings.includeUnlabeled !== false;
+    unlabeled.addEventListener('change', () => { settings.includeUnlabeled = unlabeled.checked; unlabeled.blur(); onSettingsChange(); });
     scopeRounds();
 
     // Switches.
@@ -188,6 +192,8 @@
     categories.sync();
     settings.packetNumbers = '';
     describeSet();
+    settings.includeUnlabeled = true;
+    document.getElementById('toggleUnlabeled').checked = true;
     roundSliderApi.reset(); // reports the full range, which saves and recounts
     settings.roundRange = null;
     onSettingsChange();
