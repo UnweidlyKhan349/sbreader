@@ -3,7 +3,9 @@
    lobby-list probe (probeRooms). */
 (function (global) {
   // Google's public STUN servers, which let players find a direct route to
-  // each other. There's no TURN relay.
+  // each other. There's no TURN relay; when two players can't reach each
+  // other directly (a phone on mobile data and a computer on home Wi-Fi, say),
+  // their messages go through the room's relay channel instead (see makeMesh).
   const ICE_CONFIG = {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
@@ -108,8 +110,23 @@
        releaseDoor(), holdsDoor()
        send(id, data), broadcast(data), isUp(id), memberIds()
        connectTo(id)      (re)connects to one player
-       leave()            tells everyone, then closes everything */
+       leave()            tells everyone, then closes everything
+
+     The relay: when the site has a Supabase project, every player in a room
+     also joins a Realtime channel named after it. A direct (WebRTC) link is
+     always tried first; if it hasn't opened after a few seconds - the two
+     players' networks won't let them connect directly - that pair talks
+     through the channel instead, with the same messages. The door works the
+     same way: a newcomer who can't reach the door directly asks on the
+     channel, and the door's holder answers there. */
   const MESH_CONNECT_MS = 10000;
+  // A direct link not open by then gets the relay as well; the first to open
+  // carries the pair's messages.
+  const RELAY_AFTER_MS = 3500;
+  const RELAY_WAIT_MS = 8000;
+  // Timer ticks go out ten times a second; each player's timer runs on its
+  // own between them, so over the relay two a second (and the final 0) do.
+  const RELAY_TICK_MS = 500;
   const DOOR_HOLD_MS = 15000;
   const BYE = '__bye';
 
@@ -154,9 +171,128 @@
     });
     if (typeof window !== 'undefined') window.addEventListener('offline', () => checkLost());
 
+    /* ----- The relay channel (see above) ----- */
+    const relay = { roomId: null, ch: null, opening: null, waits: new Map(), lastTick: new Map() };
+    function relayClient() {
+      const acct = typeof window !== 'undefined' && window.SBAccount;
+      if (!acct || !acct.enabled) return Promise.resolve(null);
+      return acct.ready.catch(() => null);
+    }
+    // Joins the room's channel (once per room); resolves the channel, or null
+    // when there's no project or it can't be reached.
+    function openRelay(roomId) {
+      if (relay.roomId === roomId && relay.opening) return relay.opening;
+      closeRelay();
+      relay.roomId = roomId;
+      relay.opening = Promise.all([ready, relayClient()]).then(([, c]) => {
+        if (!c || relay.roomId !== roomId) return null;
+        return new Promise((resolve) => {
+          const ch = c.channel('sbreader-room:' + roomId, { config: { broadcast: { self: false }, presence: { key: self.id } } });
+          ch.on('broadcast', { event: 'm' }, ({ payload }) => onRelay(payload));
+          ch.on('presence', { event: 'leave' }, ({ key }) => {
+            const conn = conns.get(key);
+            if (conn && conn.relay) conn.remoteClosed();
+          });
+          let settled = false;
+          const done = (v) => { if (!settled) { settled = true; resolve(v); } };
+          ch.subscribe((status) => {
+            if (status === 'SUBSCRIBED') { relay.ch = ch; ch.track({ at: Date.now() }).catch(() => {}); done(ch); }
+            else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') done(null);
+          });
+          setTimeout(() => done(null), RELAY_WAIT_MS);
+        });
+      }).catch(() => null);
+      return relay.opening;
+    }
+    function closeRelay() {
+      const ch = relay.ch;
+      relay.ch = null; relay.opening = null; relay.roomId = null;
+      if (ch) { try { ch.untrack(); ch.unsubscribe(); } catch (e) { /* gone */ } }
+    }
+    function relaySend(to, k, d) {
+      if (!relay.ch) return false;
+      relay.ch.send({ type: 'broadcast', event: 'm', payload: { from: self.id, to, k, d } }).catch(() => {});
+      return true;
+    }
+    // A link to one player over the channel, shaped like a PeerJS connection
+    // (peer, open, send, close, on) so the rest of the mesh treats it alike.
+    function relayConn(peer) {
+      const handlers = {};
+      const conn = {
+        relay: true, peer, open: true,
+        on(evt, fn) { (handlers[evt] = handlers[evt] || []).push(fn); return conn; },
+        emit(evt, ...a) { (handlers[evt] || []).slice().forEach((fn) => fn(...a)); },
+        send(data) {
+          if (!conn.open) return;
+          if (data && data.type === 'tick' && data.remainingMs > 0) {
+            const now = Date.now();
+            if (now - (relay.lastTick.get(peer) || 0) < RELAY_TICK_MS) return;
+            relay.lastTick.set(peer, now);
+          }
+          relaySend([peer], 'd', data);
+        },
+        close() { if (!conn.open) return; conn.open = false; relaySend([peer], 'close'); conn.emit('close'); },
+        remoteClosed() { if (!conn.open) return; conn.open = false; conn.emit('close'); },
+      };
+      return conn;
+    }
+    function onRelay(p) {
+      if (!p || typeof p.from !== 'string' || p.from === self.id) return;
+      const toMe = p.to === '*' || (Array.isArray(p.to) && p.to.includes(self.id));
+      if (!toMe) return;
+      const existing = conns.get(p.from);
+      if (p.k === 'hello') {
+        // A newcomer who couldn't reach the door directly.
+        if (door && door.open) {
+          const info = doorInfo ? doorInfo() : {};
+          relaySend([p.from], 'members', { members: [self.id, ...conns.keys()], ...info });
+        }
+        return;
+      }
+      if (p.k === 'members') { const w = relay.waits.get('door'); if (w) w(p.d); return; }
+      if (p.k === 'open') {
+        // Someone who couldn't reach this player directly: the pair links over
+        // the channel (replacing any half-open direct link, so both ends agree).
+        if (!existing || !existing.relay || !existing.open) adopt(relayConn(p.from));
+        relaySend([p.from], 'opened');
+        return;
+      }
+      if (p.k === 'opened') {
+        const w = relay.waits.get(p.from);
+        if (w) w();
+        return;
+      }
+      if (p.k === 'close') { if (existing && existing.relay) existing.remoteClosed(); return; }
+      if (p.k === 'd') {
+        let conn = existing;
+        if (!conn || !conn.relay || !conn.open) {
+          // They're talking over the channel, so this end does too.
+          conn = relayConn(p.from);
+          adopt(conn);
+        }
+        conn.emit('data', p.d);
+      }
+    }
+    // Links to one player over the channel; resolves once they've answered.
+    function relayLink(id) {
+      return new Promise((resolve, reject) => {
+        if (!relay.ch) { reject(new Error('No relay.')); return; }
+        const timer = setTimeout(() => { relay.waits.delete(id); reject(Object.assign(new Error('Could not reach a player.'), { isTimeout: true })); }, RELAY_WAIT_MS);
+        relay.waits.set(id, () => {
+          clearTimeout(timer); relay.waits.delete(id);
+          const cur = conns.get(id);
+          if (!cur || !cur.relay || !cur.open) adopt(relayConn(id));
+          resolve(id);
+        });
+        relaySend([id], 'open');
+      });
+    }
+
     function adopt(conn) {
       const id = conn.peer;
       const old = conns.get(id);
+      // A pair already talking over the relay stays there.
+      if (old && old.relay && old.open && !conn.relay) { try { conn.close(); } catch (e) { /* unused */ } return; }
       conns.set(id, conn);
       if (old && old !== conn) { try { old.close(); } catch (e) { /* replaced */ } }
       let gone = false;
@@ -182,7 +318,7 @@
       conn.on('open', () => adopt(conn));
     });
 
-    function connectTo(id) {
+    function connectDirect(id) {
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
         pending.set(id, reject);
         const conn = self.connect(id, { reliable: true });
@@ -190,8 +326,55 @@
         conn.on('error', (err) => { pending.delete(id); reject(err); });
       }), MESH_CONNECT_MS, 'Could not reach a player.').finally(() => pending.delete(id)));
     }
+    // Direct first; the relay too if that hasn't opened in a few seconds.
+    function connectTo(id) {
+      const direct = connectDirect(id);
+      if (!relay.opening) return direct;
+      return new Promise((resolve, reject) => {
+        let left = 2; let lastErr = null; let won = false;
+        const win = (v) => { if (!won) { won = true; resolve(v); } };
+        const lose = (err) => { lastErr = err; if (--left === 0 && !won) reject(lastErr); };
+        direct.then(win, lose);
+        const timer = setTimeout(() => {
+          relay.opening.then((ch) => (ch && !won ? relayLink(id) : Promise.reject(lastErr || new Error('No relay.')))).then(win, lose);
+        }, RELAY_AFTER_MS);
+        direct.then(() => clearTimeout(timer), () => {});
+      });
+    }
 
     function join(roomId) {
+      openRelay(roomId);
+      const relayedKnocks = new WeakSet();
+      const relayed = (info) => relayedKnocks.has(info);
+      const viaRelay = () => new Promise((resolve, reject) => {
+        relay.opening.then((ch) => {
+          if (!ch) { reject(new Error('No relay.')); return; }
+          const timer = setTimeout(() => { relay.waits.delete('door'); reject(Object.assign(new Error('Could not connect.'), { isTimeout: true })); }, RELAY_WAIT_MS);
+          relay.waits.set('door', (info) => { clearTimeout(timer); relay.waits.delete('door'); if (info && typeof info === 'object') relayedKnocks.add(info); resolve(info); });
+          relaySend('*', 'hello');
+        });
+      });
+      const direct = knockDirect(roomId);
+      // The door answers directly within a second or two when it can; after
+      // that, ask on the channel too. Nobody holding the door at all
+      // ('peer-unavailable') isn't a reason to ask: the room is empty.
+      const knock = new Promise((resolve, reject) => {
+        let left = 2; let lastErr = null; let won = false;
+        const win = (v) => { if (!won) { won = true; resolve(v); } };
+        const lose = (err) => { lastErr = lastErr || err; if (--left === 0 && !won) reject(lastErr); };
+        direct.then(win, (err) => { lastErr = err; if (err && err.type === 'peer-unavailable') { won = true; reject(err); return; } lose(err); });
+        setTimeout(() => { if (!won) viaRelay().then(win, lose); else lose(null); }, RELAY_AFTER_MS);
+      });
+      return knock.then((info) => {
+        const others = info.members.filter((id) => typeof id === 'string' && id !== self.id);
+        // Answered on the channel: this network can't reach the room directly,
+        // so link over the channel straight away (direct only if that fails).
+        const link = (id) => (relayed(info) ? relayLink(id).catch(() => connectTo(id)) : connectTo(id));
+        return Promise.allSettled(others.map(link)).then(() => ({ ...info, members: others.filter((id) => conns.has(id)) }));
+      });
+    }
+
+    function knockDirect(roomId) {
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
         pending.set(roomId, reject);
         const conn = self.connect(roomId, { reliable: true });
@@ -204,14 +387,11 @@
           resolve(data);
         });
       }), CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
-        .finally(() => pending.delete(roomId)))
-        .then((info) => {
-          const others = info.members.filter((id) => typeof id === 'string' && id !== self.id);
-          return Promise.allSettled(others.map(connectTo)).then(() => ({ ...info, members: others.filter((id) => conns.has(id)) }));
-        });
+        .finally(() => pending.delete(roomId)));
     }
 
     function claimDoor(roomId) {
+      openRelay(roomId);
       if (door && !door.destroyed && door.id === roomId) return Promise.resolve(roomId);
       releaseDoor();
       let d;
@@ -247,11 +427,14 @@
       holdsDoor: () => !!(door && door.open),
       send(id, data) { const c = conns.get(id); if (c && c.open) c.send(data); },
       broadcast(data) { for (const c of conns.values()) { if (c.open) c.send(data); } },
+      // Whether anyone in the room is reached through the relay (for the UI).
+      relayed: () => [...conns.values()].some((c) => c.relay && c.open),
       isUp: (id) => conns.has(id),
       memberIds: () => [...conns.keys()],
       leave() {
         for (const c of conns.values()) { try { if (c.open) c.send({ type: BYE }); } catch (e) { /* going */ } }
         releaseDoor();
+        setTimeout(closeRelay, 300); // let the goodbyes out first
         try { self.destroy(); } catch (e) { /* gone */ }
       },
     };
