@@ -434,7 +434,6 @@
     session.points += pointsFor(outcome);
     updateCounters();
     runtime.pendingCard = { q, category, userText: outcome.userText || '' };
-    if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo');
 
     setBuzzEnabled(false);
     hidePill();
@@ -517,7 +516,6 @@
     session.points += pointsFor(o);
     updateCounters();
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
-    if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect');
     showReveal();
   }
 

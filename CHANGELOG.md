@@ -112,3 +112,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - `bookmarks.html` (the old Bookmarks page) redirects to Play's Starred Questions instead of a 404.
 - Accounts and the Multiplayer room list are switched on: `js/config.js` points at the site's Supabase project.
 - Multiplayer lobby: "There is 1 active player in 1 active room." (singular when it's one).
+- **Accounts removed.** No Log in, Account or Stats pages; starred questions and settings stay in the browser, as before accounts. The Supabase project was deleted, so `js/config.js` is empty again: Multiplayer runs without it and the lobby shows the built-in rooms. The room list code stays (`js/rooms.js` makes its own connection; `schema.sql` keeps just `mp_rooms` and `mp_players`), so a new project can switch the public room list back on.

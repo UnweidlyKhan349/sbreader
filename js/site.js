@@ -87,13 +87,6 @@
     });
   }
 
-  // Applies and saves a theme chosen elsewhere (an account's settings).
-  function setTheme(theme) {
-    if (!THEMES.includes(theme)) return;
-    try { localStorage.setItem(KEY, theme); } catch (e) { /* not saved */ }
-    apply(theme);
-    markTheme(theme);
-  }
   // Bootstrap modals without Bootstrap's JS: show/hide with a backdrop;
   // Esc, the close buttons ([data-sb-dismiss]) and a click outside the
   // dialog close it.
@@ -135,7 +128,7 @@
     if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
   }, true);
 
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl };
+  window.SBSite = { wireDropdown, showModal, hideModal, modalOpen: () => !!openModalEl };
 
   function wireNavbar() {
     document.querySelectorAll('[data-sb-dropdown]').forEach(wireDropdown);

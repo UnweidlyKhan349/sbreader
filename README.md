@@ -40,7 +40,7 @@ This README covers what the site does, how it's built, the data format, and how 
 7. [Inclusion and duplicate policy](#inclusion-and-duplicate-policy)
 8. [Text and notation conventions](#text-and-notation-conventions)
 9. [Known limitations and open items](#known-limitations-and-open-items)
-10. [Accounts](#accounts)
+10. [Room list (Supabase)](#room-list-supabase)
 11. [Deploying](#deploying)
 12. [Local development and tests](#local-development-and-tests)
 13. [License](#license)
@@ -49,7 +49,7 @@ This README covers what the site does, how it's built, the data format, and how 
 
 ## Pages and features
 
-Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordmark, then **Play** (`solo.html`), **Multiplayer**, **Database ▾** (Search = `catalog.html`, Set List) and **About**, with a theme menu (Light / Night / Auto) and **Log in** on the right (your name, once logged in). Below 992 px it folds into a ☰ menu. `js/site.js`, loaded in every page's `<head>`, puts the saved theme (`localStorage` `sb_theme`; Auto follows the system setting) on `<html data-bs-theme>` before the first paint, so a Night page never flashes white, and wires the dropdowns, the ☰ button and the current-page highlight.
+Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordmark, then **Play** (`solo.html`), **Multiplayer**, **Database ▾** (Search = `catalog.html`, Set List) and **About**, with a theme menu (Light / Night / Auto) on the right. There are no accounts. Below 992 px it folds into a ☰ menu. `js/site.js`, loaded in every page's `<head>`, puts the saved theme (`localStorage` `sb_theme`; Auto follows the system setting) on `<html data-bs-theme>` before the first paint, so a Night page never flashes white, and wires the dropdowns, the ☰ button and the current-page highlight.
 
 ### `index.html` (Home)
 A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer), the question database (live question and tournament counts read from `meta.json` alone, with Search and Set List), the sources, and the code, changelog and licence. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
@@ -62,7 +62,7 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
 - Filters: subject chips, a dual-handle **round-range slider** that spans only the rounds the picked tournaments have (all 20 with none picked; a range that reached the top keeps reaching it), with an "Include unlabeled" checkbox (27,572 questions have no round number), question type (Tossup/Bonus), format (Short Answer/Multiple Choice), level (High School/Middle School), **visual questions** (Visual/Text only; selecting neither means both), and a tournament picker: a searchable multi-select dropdown that lists the selected tournaments first. The layout follows QB Reader's database page: a query bar with a **Search** button (typing searches as you go too) and a green **Random** button, as on QB Reader, which shows 20 random questions from those matching the filters (no pages; changing a filter draws a new 20, Search goes back to the full list), the tournament picker and round slider side by side, the filter toggles, and switches for "Include questions with no round number" and **Hide answers** (remembered per device as `sb_hide_answers`; hidden answers sit behind a Show answer link on each card). There's also a "Clear all filters" link.
 - With no tournament picked, results list the newest tournaments first (by each tournament's approximate `date` in `meta.json`), each in packet order; picking tournaments lists them A–Z. Packet order is: by tournament, then round (unlabeled rounds last), then question number, each tossup before its bonus. Filtering to MIT 2023 shows Round 1 from question 1, then Round 2, and so on. NSB Regs, whose rounds are numbered within each set, shows Round 1 of every set before Round 2 (`SBData.sortByPacketOrder`).
 - 40 results per page, with Bootstrap pagination (first, last and nearby pages) and a jump-to-page box. Changing page scrolls back up to the first result, as on QB Reader.
-- Each result is a card (`SBData.questionCard`, shared with the Stats page), laid out like QB Reader's: the header reads "AVES 2 | Physics | Tossup | Multiple Choice" on the left (a visual tossup adds "| Visual"; a bonus with a figure is a "Visual Bonus") and the star (Bootstrap Icons' star, filled once starred) on the right; the body starts with the question's number ("12. ...") and has the question, its figure(s) (click to enlarge), MC choices and the answer line (with inline "also accept"); the footer has the packet and question number and a link to the original packet when there is one.
+- Each result is a card (`SBData.questionCard`), laid out like QB Reader's: the header reads "AVES 2 | Physics | Tossup | Multiple Choice" on the left (a visual tossup adds "| Visual"; a bonus with a figure is a "Visual Bonus") and the star (Bootstrap Icons' star, filled once starred) on the right; the body starts with the question's number ("12. ...") and has the question, its figure(s) (click to enlarge), MC choices and the answer line (with inline "also accept"); the footer has the packet and question number and a link to the original packet when there is one.
 
 ### `solo.html` (Play)
 - **Layout**, as on QB Reader's play page: the question on the left; on the right a settings sidebar with a large timer readout (seconds and tenths), the question settings, the switches and the reading speed; and a button bar pinned to the bottom of the screen: **Next** (Skip while a question is being read), Pause, the ⚙ settings button, and **Buzz** on the right, at their natural widths and all the same height, as on QB Reader (the icons are Bootstrap Icons' pause-fill and gear). Above the question a statline reads "3/1 with 6 questions seen (8 pts, celerity: 0.805)", with the tournament, round and question number on the right, separated by spaces ("Olympus 2022 RR 1 Q19"). There's no setup screen and no instructions to read first: the page opens on this view and the first Next starts a session.
@@ -77,7 +77,7 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
   - **Show question history**: the finished questions as cards under the current one.
   - **Show set name**: the tournament, round and question number above the question.
   - **Enable timer**: off, nothing is timed: no buzz window and no answer countdown.
-- **Question history**: each finished question becomes a collapsed card when the next one starts, as in QB Reader: the header is just the answer (no Correct / Incorrect chip) and a star; click it, or press `K` for the newest, to open the question, its answer line and the packet link. `T` stars or unstars the newest; stars sync to your account when you're logged in.
+- **Question history**: each finished question becomes a collapsed card when the next one starts, as in QB Reader: the header is just the answer (no Correct / Incorrect chip) and a star; click it, or press `K` for the newest, to open the question, its answer line and the packet link. `T` stars or unstars the newest; stars are saved in your browser.
 - **Reveal instead of text-to-speech**: questions and their answer choices appear on screen word by word (`js/reveal.js`), timed with QB Reader's formula: after each word the reveal waits (ln(word length) + 1, plus 2.5 at the end of a sentence or 1.5 after a comma) × 0.9 × (140 − reading speed) ms. The reading speed runs from 0 to 100 in steps of 5, 50 by default, as on QB Reader. Math and formulas type as they'll look (superscripts and subscripts are there from the first character). The reveal position is computed from wall-clock time rather than tick counts, so it doesn't fall behind in a backgrounded browser tab.
 - **Figures**: a visual question shows its figure (between the question text and the choices) as soon as the question starts. As on QB Reader, no space is reserved for text still to come: the page grows as the question types out (the figure moves down with it, and each answer choice appears when its text starts), and the next question's images are preloaded while you answer this one. Click a figure to open it full-size; `Esc` or a click closes it.
 - **Celerity**, as QB Reader shows it: how much of the question was still unread when you buzzed, averaged over your correct answers, from 0 to 1 ("celerity: 0.805"; higher is earlier). A buzz after the question has finished counts as 0. It follows overrides.
@@ -92,7 +92,7 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
 - **Lobby page**, as on QB Reader's: "You can invite friends to join you by sharing the URL to your room. There are N active players in M active rooms." Under it, **Create/Join a Room** with one name box (a random name like `quantum-wombat` as the placeholder) and **Go**, which joins that room or opens it if nobody's in it, and a **Make room private** checkbox. Then "Try one of these rooms": the built-in rooms (General, Math, Physics, Biology, Chemistry, Earth & Space), and "Or, check out a public room": every public room as "name - 12 players - 3 online", with a **Show empty rooms** checkbox. The list is read once when the page opens; there's no refresh button and the page doesn't update itself. There's no name box: you get a random name, which you change inside the room.
 - **Room links**: a room is just its URL, `multiplayer.html?room=<name>` (lowercase letters, digits and dashes, up to 32), or `?lobby=<key>` for a built-in room. Opening it joins the room. As on QB Reader, the room's name isn't shown above the question; it's in the page title and the address bar, and you share the room by sharing that URL.
 - **Public and private**: a room made with "Make room private" (`&private=true`) isn't listed. Anyone in a room can switch **Public room** in its settings. Built-in rooms are always public.
-- **Room list and player counts** come from two tables in the optional Supabase project (`mp_rooms`, `mp_players`; see [Accounts](#accounts)). Every player in a room writes a heartbeat every 30 s (and on each settings change) with their name, score, correct, incorrect and neg counts, and celerity; "online" means seen in the last 90 s. "Players" counts everyone who has ever been in the room, because, as on QB Reader, **players are never removed from a room**: after they leave they're kept with their score, offline, and come back as themselves (score and all) when they rejoin from the same browser. Without Supabase the built-in rooms still work and show their online count (asked of the room directly). When no public room is showing, the list just says "No public rooms."
+- **Room list and player counts** come from two tables in the optional Supabase project (`mp_rooms`, `mp_players`; see [Room list (Supabase)](#room-list-supabase)). Every player in a room writes a heartbeat every 30 s (and on each settings change) with their name, score, correct, incorrect and neg counts, and celerity; "online" means seen in the last 90 s. "Players" counts everyone who has ever been in the room, because, as on QB Reader, **players are never removed from a room**: after they leave they're kept with their score, offline, and come back as themselves (score and all) when they rejoin from the same browser. Without Supabase the built-in rooms still work and show their online count (asked of the room directly). When no public room is showing, the list just says "No public rooms."
 - **In a room** the layout matches Play: the question on the left; a sidebar with the timer, **Show offline players**, the players, your username, and the room settings; and the bottom bar with Start / Next / Skip, Pause, **Chat**, ⚙ and Buzz.
 - **Players**, as in QB Reader: one row per player (names in the text colour) with their points in a pill (green when online), yours highlighted; offline players are hidden unless "Show offline players" is on. Click a player to open a popover beside the list, as on QB Reader, with their name, points, correct answers, incorrect answers, negs (wrong answers given while the question was still being read, which cost 4 points), accuracy, celerity (0 to 1) and whether they're online; click anywhere else or press Esc to close it. Beside every other online player's name, a small ▾ menu holds **Votekick**, as on QB Reader.
 - **Vote kicks**, with QB Reader's rules: only a player who has answered a question correctly can start one (at most once every 90 seconds); it passes with three quarters of the players online, and never fewer than two votes. Starting it, each vote and the kick are logged in the room history ("Alice started a vote kick against Carol, which needs 2 votes (1/2)"). The kicked player is sent back to the lobby ("You were vote kicked from that room.") and turned away if they try to come back within 30 minutes (by their player ID; every player keeps the list, so it survives the coordinator leaving).
@@ -108,9 +108,6 @@ About explains how to play, lists the keyboard shortcuts, sums up how answers ar
   - **Limits**: every pair of players needs a direct connection, and there's no TURN relay, so on networks that block direct connections a newcomer may reach some players but not others.
 - Visual questions show their figure to everyone when the question starts (the coordinator preloads the next question's images).
 - **Joining mid-game**: every joiner gets a full state sync (including the chat and the history) and catches up immediately.
-
-### `account.html` (Account) and `stats.html` (Stats)
-Optional accounts, like QB Reader's (see [Accounts](#accounts) for setting them up). The navbar shows **Log in**; logged in, your name opens Stats, Account and Log out. The Account page has Log in / Sign up (username, email, password), a password reset by email, and, logged in, changing your username or password, logging out, and deleting your data. The Stats page sums up every question you've answered in Play and Multiplayer while logged in: totals and accuracy by subject, by tossup/bonus, by mode and by tournament, then your last 50 answers as question cards, with a "Reset stats" button.
 
 ### Mobile
 - Below 992 px the navbar folds into a ☰ menu, the play and room sidebars sit above the question with only the timer showing until ⚙ opens them, and the button bar stays pinned to the bottom. There's no horizontal page overflow on any page.
@@ -173,13 +170,13 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 ## Architecture
 
 ```
-index.html  catalog.html  solo.html  multiplayer.html  set-list.html  about.html  account.html  stats.html
+index.html  catalog.html  solo.html  multiplayer.html  set-list.html  about.html  bookmarks.html (redirect)
 css/vendor/bootstrap.min.css   vendored Bootstrap 5.3.8 stylesheet (no Bootstrap JS)
 css/style.css       QB Reader-style overrides (navbar, Night palette, timer) and the parts Bootstrap has no component for
 js/site.js          theme (Light / Night / Auto) and navbar wiring, loaded in every page's <head>
-js/config.js  js/account.js  js/account-core.js   optional accounts (see Accounts); js/account-page.js and js/stats.js run account.html and stats.html
-js/vendor/supabase.min.js   vendored supabase-js, loaded only when accounts are switched on
-supabase/schema.sql the accounts' tables and row-level security
+js/config.js  js/rooms.js  the Multiplayer room list's Supabase project and its client
+js/vendor/supabase.min.js   vendored supabase-js, loaded only on the Multiplayer page
+supabase/schema.sql the room list's two tables
 img/logo.svg        the logo mark; img/icon-*.png are its PWA/home-screen sizes
 favicon.svg  favicon.ico  apple-touch-icon.png  site.webmanifest   tab and home-screen icons
 js/data.js          shared loader, text cleanup, math rendering, question cards, filters, UI widgets, starred questions (SBData.bookmarks)
@@ -207,7 +204,7 @@ tests/              node --test suites: grader, multiplayer rules, data shape
 ```
 
 ### `js/data.js` (`window.SBData`)
-- **`SBData.loadMeta()`** fetches only `meta.json`; **`SBData.load()`** fetches it and then every tournament file in parallel, expanding each into the app's question shape (`expandTournament`) as it arrives, so that work overlaps the downloads still running. **`SBData.loadBookmarked()`** and **`SBData.loadIds(ids)`** do the same for just the tournaments holding the given questions (the Stats page uses `loadIds`). The catalog, solo and multiplayer pages include `data.js` in `<head>` and call `SBData.load()` there, so the downloads start before the rest of the page has loaded; `meta.json` is preloaded with `<link rel="preload">`. Expansion skips the text-cleanup regexes for the roughly 95% of strings that contain none of the characters they act on. `normalizeMeta` fixes up `meta` in one place so every page benefits:
+- **`SBData.loadMeta()`** fetches only `meta.json`; **`SBData.load()`** fetches it and then every tournament file in parallel, expanding each into the app's question shape (`expandTournament`) as it arrives, so that work overlaps the downloads still running. The catalog, solo and multiplayer pages include `data.js` in `<head>` and call `SBData.load()` there, so the downloads start before the rest of the page has loaded; `meta.json` is preloaded with `<link rel="preload">`. Expansion skips the text-cleanup regexes for the roughly 95% of strings that contain none of the characters they act on. `normalizeMeta` fixes up `meta` in one place so every page benefits:
   - `meta.subjects`, a flat array of keys, is expanded to `{key, label}` objects. This fixed a long-standing bug where subject chips rendered **with no text** on every page.
   - Subjects are reordered to **Math, Physics, Biology, Chemistry, Earth & Space, Energy**. (`meta.json` stores them alphabetically, a leftover of how the Python scripts built it.)
   - Question types are reordered so **Toss-up always comes before Bonus** (the label is "Toss-up").
@@ -220,7 +217,7 @@ tests/              node --test suites: grader, multiplayer rules, data shape
 - **Chemical formulas**: after the math pass, `subscriptFormulas` writes the counts in formulas such as `H2SO4`, `Ca(OH)2` and `C6H12O6` as subscripts. A run counts as a formula only when every symbol is an element, no count is 1 or starts with 0, no element repeats back to back, and it isn't a lone element (except a short list of real molecules: `O2`, `N2`, `Cl2`, `S8`, `C60`, …) or one of the bank's look-alikes (`SN2`, `sp3`, `HSP70`, `IC50`, `H3K27`, `P700`, …). An ion written with its charge as a superscript (`H3^+`, `S2^(2-)`) gets its subscript even as a lone element. The stored text isn't changed, and grading ignores the subscripts.
 - **`answerDisplayText(q)`**: for MC questions the choice text wins over `a.t`, so a damaged answer field still displays correctly.
 - **`answerLineHTML()`**: one shared "Answer: X (also accept: Y)" renderer.
-- **Question cards**: `questionCard` builds the Bootstrap card used in the catalog and the Stats page, from `appendQuestionBody`, `answerBlock` and `bookmarkButton`. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.
+- **Question cards**: `questionCard` builds the Bootstrap card used in the catalog, from `appendQuestionBody`, `answerBlock` and `bookmarkButton`. `escapeHtml`, `QTYPE_LABELS` and `FORMAT_LABELS` are shared from here too.
 - **Figures**: `questionFigures(q, opts)` builds the figure strip (lazy-loaded `<img>` with its width/height set so the layout doesn't shift, eager in the live question panel), `openLightbox(src, alt)` shows one full-size, and `preloadImages(q)` warms the next question's images. `expandQuestions` turns a record's `im` into `q.images` (`{src, w, h}`) and sets `q.visual`, which the filter and the tags read: `qtypeLabel(q)` / `qtypeTagClass(q)` give a visual bonus its "Visual Bonus" type tag in the cards and in the solo and multiplayer question panels.
 - **`cleanRoundLabel()`** tidies round labels for display: it strips "Copy of", strips a repeated tournament name, and spaces letters from digits (`DE1` → `DE 1`).
 - Also here: filtering (`filterQuestions`, including the `visuals` set: `visual`/`text`), shuffles (`shuffle`, `stratifiedShuffle`, `stratifiedQueue`), the dual round slider (`wireRoundRangeSlider`), the searchable multi-select (`enhanceMultiSelect`), range-fill styling, and starred-question storage (`SBData.bookmarks`, kept in memory, re-read when another tab changes it).
@@ -239,7 +236,7 @@ PeerJS only closes a connection once ICE reaches `failed`, which can take a long
 ## Data format
 
 ### `data/bank/` (the question bank)
-One JSON file per tournament, `data/bank/<slug>.json` (112 files, about 29 MB raw and 8.7 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank; the Stats page loads only the ones it needs.
+One JSON file per tournament, `data/bank/<slug>.json` (112 files, about 29 MB raw and 8.7 MB gzipped in all; GitHub Pages serves them gzipped and over HTTP/2, so they download in parallel). The catalog, solo and multiplayer pages load every file, because their filters and search span the whole bank.
 
 Each file is an array of **packets**. A packet holds the fields its questions share, and the questions themselves under `q`:
 
@@ -401,22 +398,14 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 
 ---
 
-## Accounts
+## Room list (Supabase)
 
-Accounts are optional and off until a Supabase project is set up; without one everything else works (stars and settings stay in the browser), and the navbar's "Log in" opens a page saying accounts aren't switched on. They use [Supabase](https://supabase.com) for sign-up/login (its Auth, email + password) and a small database, called straight from the browser with the vendored `js/vendor/supabase.min.js` (supabase-js 2.115.0), which is only loaded when accounts are switched on.
+There are no accounts: starred questions and settings stay in your browser. The one thing that uses a server is Multiplayer's room list, kept in a small [Supabase](https://supabase.com) project (`js/config.js` names it; `js/rooms.js` talks to it with the vendored `js/vendor/supabase.min.js`, supabase-js 2.115.0, loaded only on the Multiplayer page). It holds room names, whether each is public, and each room's player names and practice scores, so the lobby can list public rooms with "N players - M online" and a room keeps its players after everyone leaves. Games themselves run browser to browser. Without a project configured (the current setting: `js/config.js` is empty), Multiplayer still works and the lobby shows only the built-in rooms with their online counts; filling in a project turns the public room list back on.
 
 **Setting it up (once):**
 1. Create a free project at supabase.com.
-2. In its SQL Editor, run `supabase/schema.sql`. It creates three account tables (`bookmarks`, `answers`, `user_settings`) with row-level security, so each account can only read and change its own rows, and the two multiplayer registry tables (`mp_rooms`, `mp_players`), which anyone may read and write: they hold only room names, player names and practice scores, and they're what the Multiplayer page lists public rooms and player counts from.
-3. Under Authentication → URL Configuration, set the Site URL to the site's address (e.g. `https://unweidlykhan349.github.io/sbreader/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
-4. Put the Project URL (the **Connect** button at the top of the dashboard, or Project Settings → Data API; it looks like `https://<project-ref>.supabase.co`) and the publishable key (Project Settings → API Keys, `sb_publishable_…`; a legacy anon key works too) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data. Never use the secret key.
-
-**What an account keeps** (`js/account.js`, with the network-free parts in `js/account-core.js`):
-- **Starred questions**: every star is mirrored to the account (the table is still called `bookmarks`). At login, this browser's stars and the account's are merged (a union, so nothing is lost on either side).
-- **Answers**: each question answered in Play (`solo`) or Multiplayer (`mp`, only your own buzzes; a question you didn't buzz on counts as skipped), with its subject, type, format and tournament, for the Stats page. A grading override updates the answer just recorded.
-- **Settings**: theme, reading speed, multiplayer name and "Hide answers". At login the newer copy wins; after that, changes are pushed as they happen.
-
-Nothing else is stored with the account, and nothing of it is shared with other players. "Delete my data" on the Account page removes the account's rows (stars in the browser stay). The multiplayer registry isn't tied to accounts: it holds the name you play under in each room and your score there.
+2. In its SQL Editor, run `supabase/schema.sql`. It creates `mp_rooms` and `mp_players`, which anyone may read and write; checks keep each row small and well formed.
+3. Put the Project URL (the **Connect** button at the top of the dashboard, or Project Settings → Data API; it looks like `https://<project-ref>.supabase.co`) and the publishable key (Project Settings → API Keys, `sb_publishable_…`; a legacy anon key works too) in `js/config.js`. Both are meant to be public. Never use the secret key.
 
 ## Deploying
 
@@ -429,7 +418,7 @@ There's no build step, `npm install`, or environment variables. `package.json` o
 ### Search engines and link previews
 
 - Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags pointing at `img/og-image.png` (1280×640, with everything inside the middle band so GitHub's cropped repo card shows it whole), so shared links get a title, summary and picture.
-- `account.html`, `stats.html` and `404.html` are `noindex`: there's nothing on them to index.
+- `404.html` and `bookmarks.html` (a redirect) are `noindex`: there's nothing on them to index.
 - `sitemap.xml` lists the six public pages. A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
 - The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
 - `img/og-image.png` doubles as the repo's social preview: upload it under **Settings → General → Social preview**.

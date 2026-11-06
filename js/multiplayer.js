@@ -1385,24 +1385,9 @@
     }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderBuzzStatus();
-    // Your own answers go to your account's stats.
-    if (playerId === myState.myId && game.question && window.SBAccount) {
-      if (isOverride) SBAccount.updateLastAnswer(correct ? 'correct' : 'incorrect');
-      else recordMyAnswer(correct ? 'correct' : 'incorrect');
-    }
-  }
-  // Once per question: what you did with it, for your account's stats. A
-  // question you never buzzed on counts as skipped when it's revealed.
-  let statsRecordedFor = null;
-  function recordMyAnswer(result) {
-    const key = game.question.id + ':' + game.index;
-    if (statsRecordedFor === key) return;
-    statsRecordedFor = key;
-    SBAccount.recordAnswer(game.question, result, 'mp');
   }
   function applyRevealLocal(revealData) {
     game.phase = 'reveal'; game.lastRevealData = revealData;
-    if (game.question && window.SBAccount && !game.attempts.some((a) => a.playerId === myState.myId)) recordMyAnswer('skipped');
     fullRenderFromState();
   }
   function applyTickLocal(remainingMs, totalMs, kind) {

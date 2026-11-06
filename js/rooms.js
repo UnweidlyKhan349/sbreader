@@ -1,14 +1,35 @@
-// The multiplayer room list, kept in the Supabase project's mp_rooms and
-// mp_players tables (supabase/schema.sql) when accounts are set up. Games
-// run browser to browser; this only lets the lobby page list rooms with
-// "N players - M online", keeps a room's players and scores after everyone
-// has left, and marks rooms public or private. Without a project every call
-// resolves to nothing and the lobby falls back to the built-in rooms.
+// The multiplayer room list, kept in a Supabase project's mp_rooms and
+// mp_players tables (supabase/schema.sql; the project is named in
+// js/config.js). Games run browser to browser; this only lets the lobby
+// page list rooms with "N players - M online", keeps a room's players and
+// scores after everyone has left, and marks rooms public or private. There
+// are no accounts: the tables are open to anyone, and only hold room names,
+// player names and practice scores. Without a project every call resolves
+// to nothing and the lobby falls back to the built-in rooms.
 (function () {
   const ONLINE_MS = 90 * 1000; // seen this recently = online
+  const cfg = window.SB_CONFIG || {};
+  const here = document.currentScript ? document.currentScript.src : '';
+  const libUrl = here ? here.replace(/rooms\.js(\?.*)?$/, 'vendor/supabase.min.js') : 'js/vendor/supabase.min.js';
+  let clientPromise = null;
+  // The Supabase client, made on first use (the library is only loaded
+  // when a project is set up).
   function client() {
-    if (!window.SBAccount || !SBAccount.enabled) return Promise.resolve(null);
-    return SBAccount.ready.catch(() => null);
+    if (!(cfg.supabaseUrl && cfg.supabaseAnonKey)) return Promise.resolve(null);
+    if (!clientPromise) {
+      clientPromise = new Promise((resolve, reject) => {
+        if (window.supabase && window.supabase.createClient) { resolve(); return; }
+        const s = document.createElement('script');
+        s.src = libUrl;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Could not load the room list library.'));
+        document.head.appendChild(s);
+      }).then(() => window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
+        // No logins: nothing to keep between visits.
+        auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      })).catch((e) => { console.warn(e); return null; });
+    }
+    return clientPromise;
   }
   // Registry key for a room: its cleaned name, or "pub-<key>" for a
   // built-in public room.
