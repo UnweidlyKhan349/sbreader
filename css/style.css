@@ -424,7 +424,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* The Votekick menu beside a player's name (QB Reader's caret toggle). */
 .mp-player-row .dropdown-toggle { color: inherit; border: 0; line-height: 1; }
 .mp-player-row .dropdown-menu { top: 100%; left: 0; margin-top: .125rem; }
-.mp-player-row.user-score { background-color: var(--user-score-background); }
+.mp-player-row.user-score,
+.mp-player-row.user-score:hover, .mp-player-row.user-score:focus, .mp-player-row.user-score:active {
+  background-color: var(--user-score-background); color: var(--bs-body-color);
+}
 .mp-player-row.buzzed { box-shadow: inset 3px 0 0 var(--bs-warning); }
 .mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
 .mp-player-row.answered-incorrect { box-shadow: inset 3px 0 0 var(--bs-danger); }

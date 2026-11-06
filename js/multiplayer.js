@@ -1533,6 +1533,7 @@
     hostChat.push(...chatMirror);
 
     // The questions still to come: the room's settings, minus what's been asked.
+    if (activeFilterState) withLobbySubjects(activeFilterState);
     const filters = activeFilterState || lobbyFilters(myState.publicLobby || { subjects: SBData.meta.subjects.map((x) => x.key) });
     if (!activeFilterState) activeFilterState = copyFilters(filters);
     const asked = new Set(game.log.map((e) => e.question && e.question.id));
@@ -1922,8 +1923,15 @@
   // is just every other client's read-only copy, kept fresh so their own
   // settings panel always seeds from the room's real current values instead
   // of stale or default ones.
+  // A built-in public room always uses its own subjects (General: every
+  // subject, Energy included), whatever settings the room carried over.
+  function withLobbySubjects(f) {
+    if (myState.publicLobby) f.subjects = new Set(myState.publicLobby.subjects);
+    return f;
+  }
+
   function applySettingsStateLocal(s) {
-    activeFilterState = copyFilters(s);
+    activeFilterState = withLobbySubjects(copyFilters(s));
     myState.rate = SBMpRules.readingSpeed(s.rate);
     // Live-apply to whatever's currently typing itself onto the screen, not
     // just the next question, so "change speed mid-question" actually works.
