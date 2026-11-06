@@ -39,11 +39,16 @@
     };
   }
 
+  const BASE_COLS = 'pid, username, score, correct, incorrect, last_seen';
+  const STAT_COLS = 'negs, cel_sum, cel_n';
   // A room's players as last reported, for a room starting up again.
   async function roster(roomKey) {
     const c = await client();
     if (!c) return [];
-    const { data, error } = await c.from('mp_players').select('pid, username, score, correct, incorrect, last_seen').eq('room', roomKey);
+    let { data, error } = await c.from('mp_players').select(`${BASE_COLS}, ${STAT_COLS}`).eq('room', roomKey);
+    // A project set up before negs and celerity were saved has no such
+    // columns; read what it has.
+    if (error) ({ data, error } = await c.from('mp_players').select(BASE_COLS).eq('room', roomKey));
     return error ? [] : (data || []);
   }
 
@@ -54,10 +59,14 @@
     if (!c || !roomKey || !me || !me.pid) return;
     const now = new Date().toISOString();
     await c.from('mp_rooms').upsert({ name: roomKey, is_public: !!isPublic, is_permanent: !!isPermanent, updated_at: now }, { onConflict: 'name' });
-    await c.from('mp_players').upsert({
+    const row = {
       room: roomKey, pid: me.pid, username: me.name.slice(0, 24) || 'Player',
       score: me.score | 0, correct: me.correct | 0, incorrect: me.incorrect | 0, last_seen: now,
-    }, { onConflict: 'room,pid' });
+    };
+    const stats = { negs: me.negs | 0, cel_sum: Math.max(0, Number(me.celSum) || 0), cel_n: me.celN | 0 };
+    const { error } = await c.from('mp_players').upsert({ ...row, ...stats }, { onConflict: 'room,pid' });
+    // Without the newer columns (an older schema), save the rest.
+    if (error) await c.from('mp_players').upsert(row, { onConflict: 'room,pid' });
   }
 
   window.SBRooms = { list, roster, heartbeat, key, ONLINE_MS };

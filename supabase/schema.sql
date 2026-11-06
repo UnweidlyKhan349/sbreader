@@ -70,9 +70,18 @@ create table if not exists public.mp_players (
   score integer not null default 0 check (score between -100000 and 100000),
   correct integer not null default 0 check (correct between 0 and 100000),
   incorrect integer not null default 0 check (incorrect between 0 and 100000),
+  negs integer not null default 0 check (negs between 0 and 100000),
+  cel_sum real not null default 0 check (cel_sum between 0 and 100000),
+  cel_n integer not null default 0 check (cel_n between 0 and 100000),
   last_seen timestamptz not null default now(),
   primary key (room, pid)
 );
+-- Added November 2026 (negs, and celerity as a sum and count): a project
+-- set up from an earlier copy of this file gets the columns when it's run
+-- again.
+alter table public.mp_players add column if not exists negs integer not null default 0 check (negs between 0 and 100000);
+alter table public.mp_players add column if not exists cel_sum real not null default 0 check (cel_sum between 0 and 100000);
+alter table public.mp_players add column if not exists cel_n integer not null default 0 check (cel_n between 0 and 100000);
 create index if not exists mp_players_last_seen on public.mp_players (last_seen desc);
 
 alter table public.mp_rooms enable row level security;

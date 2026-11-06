@@ -105,3 +105,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer: no "Room <name>" above the question.
 - Database: subject filters are red boxes with square corners, as in Play.
 - Play: "I was wrong" / "I was right" sits on the same line as "Correct sqrt 137".
+- Multiplayer: negs and celerity are saved to the room registry (`mp_players.negs`, `cel_sum`, `cel_n`) and come back when a room restarts; a project on the older schema keeps working without them.
