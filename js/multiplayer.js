@@ -439,14 +439,6 @@
     }
   }
 
-  function setPill(text, cls) {
-    const el = document.getElementById('mpStatusPill');
-    el.textContent = text; el.className = 'status-pill ' + (cls || '');
-    el.style.display = 'inline-flex';
-  }
-  function hidePill() {
-    document.getElementById('mpStatusPill').style.display = 'none';
-  }
 
   // The big sidebar readout: whole seconds, then tenths in smaller type.
   function renderTick(remainingMs) {
@@ -618,7 +610,6 @@
     } else {
       hideTimer();
     }
-    hidePill();
     pauseBtn.disabled = game.phase === 'lobby' || game.phase === 'gameover' || game.phase === 'reveal';
     pauseBtn.innerHTML = game.paused ? SBIcons.play : SBIcons.pause;
     pauseBtn.setAttribute('aria-label', game.paused ? 'Resume' : 'Pause');
@@ -661,8 +652,6 @@
         overrideBtn.classList.remove('d-none');
       }
       showReveal();
-    } else if (game.phase === 'gameover') {
-      setPill('Game over', 'revealed');
     }
   }
 

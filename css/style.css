@@ -397,20 +397,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .choice-box.clickable:hover { border-color: var(--bs-primary); background: var(--bs-tertiary-bg); }
 @media (max-width: 767.98px) { .choices-display { grid-template-columns: 1fr; } }
 
-.status-pill {
-  display: inline-flex; align-items: center; gap: 6px; padding: .35em .75em; border-radius: var(--bs-border-radius);
-  font-size: .875rem; font-weight: 600; background: var(--bs-tertiary-bg); color: var(--bs-body-color); margin-bottom: .75rem;
-}
-.status-pill.live { color: #fff; background: var(--accent); }
-.status-pill.buzzed { background: var(--warn); color: #212529; }
-.status-pill.answering { background: var(--accent-2); color: #fff; }
-.status-pill.correct { background: var(--good); color: #fff; }
-.status-pill.incorrect { background: var(--bad); color: #fff; }
-/* The plain --panel-2 fill barely differed from the page/panel behind it
-   (~1.1:1 contrast) - a light border plus a brighter tint and text color
-   make the pill actually read as its own shape instead of blending in. */
-.status-pill.revealed { background: var(--bs-secondary-bg); border: var(--bs-border-width) solid var(--bs-border-color); }
-
 .reveal-box { margin-top: .75rem; }
 .reveal-box .ans-line { font-weight: 700; margin-bottom: .25rem; }
 /* "(also accept: ...)" reads as part of the same answer statement, so it

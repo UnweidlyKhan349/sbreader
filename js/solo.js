@@ -281,7 +281,6 @@
     runtime.lastOutcome = null;
     runtime.buzzwindowLeftMs = null;
 
-    hidePill();
     document.getElementById('revealBox').style.display = 'none';
     document.getElementById('answerRow').classList.add('d-none');
     document.getElementById('overrideBtn').classList.add('d-none');
@@ -350,7 +349,6 @@
     if (runtime.phase === 'buzzwindow' && runtime.timer) runtime.buzzwindowLeftMs = runtime.remainingMs;
     clearRuntimeTimer();
     runtime.phase = 'answering';
-    hidePill();
     setBuzzEnabled(false);
     setNextButtonMode('disabled');
     const answerRow = document.getElementById('answerRow');
@@ -427,7 +425,6 @@
     if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo');
 
     setBuzzEnabled(false);
-    hidePill();
     document.getElementById('pauseBtn').disabled = true;
     document.getElementById('answerRow').classList.add('d-none');
     resetTimer();
@@ -527,7 +524,6 @@
   }
   function setBuzzEnabled(on) { document.getElementById('buzzBtn').disabled = !on; }
 
-  function hidePill() { document.getElementById('statusPill').style.display = 'none'; }
 
   function runTimer(ms, kind, onExpire) {
     clearRuntimeTimer();
@@ -587,9 +583,10 @@
     setNextButtonMode('start');
     const box = document.getElementById('revealBox');
     parkOverride();
+    // Starred mode just stops when the starred questions run out.
+    if (settings.mode === 'starred') { box.innerHTML = ''; box.style.display = 'none'; return; }
     const msg = settings.mode === 'set' ? 'End of the set.'
-      : settings.mode === 'starred' ? 'No starred questions left.'
-        : "You've gone through every question that matches your settings.";
+      : "You've gone through every question that matches your settings.";
     box.innerHTML = `<p class="mb-1">${msg} Press Next to start again.</p>`
       + `<div class="alt-line">${session.correct} correct · ${session.incorrect} incorrect (${session.skipped} skipped)</div>`;
     box.style.display = 'block';
