@@ -106,3 +106,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Database: subject filters are red boxes with square corners, as in Play.
 - Play: "I was wrong" / "I was right" sits on the same line as "Correct sqrt 137".
 - Multiplayer: negs and celerity are saved to the room registry (`mp_players.negs`, `cel_sum`, `cel_n`) and come back when a room restarts; a project on the older schema keeps working without them.
+- Database: changing page scrolls back up to the first result, as on QB Reader (it used to leave you at the bottom of the new page).
+- Set List: the table scrolls sideways inside its own box on phones instead of making the whole page scroll; "# of Toss-ups".
+- "Toss-up" spelling in the remaining page text and descriptions; About describes word-by-word reading and subjects.
+- `bookmarks.html` (the old Bookmarks page) redirects to Play's Starred Questions instead of a 404.

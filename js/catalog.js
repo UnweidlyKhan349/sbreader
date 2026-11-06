@@ -229,15 +229,13 @@
     renderPagination(totalPages);
   }
 
-  // Changes page from the pager under the results. The new page is usually
-  // a different height, so the window is scrolled to keep the pager where it
-  // was on screen: Prev/Next can be clicked again without hunting for it.
+  // Changes page from the pager under the results and, as on QB Reader,
+  // scrolls back up to the first result (just under the result count).
   function goToPage(n) {
-    const el = document.getElementById('pagination');
-    const before = el.getBoundingClientRect().top;
     state.page = n;
     render();
-    window.scrollBy(0, el.getBoundingClientRect().top - before);
+    const top = document.getElementById('resultCount').getBoundingClientRect().top + window.scrollY - 100;
+    if (window.scrollY > top) window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
   // Bootstrap pagination: Prev, the first and last pages, a few pages
