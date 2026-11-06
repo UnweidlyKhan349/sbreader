@@ -222,6 +222,10 @@
     const el = document.getElementById('settings');
     if (WIDE.matches) el.classList.toggle('collapsed'); else el.classList.toggle('show');
   }
+  // On a phone, as on QB Reader, a new question closes the settings.
+  function hideSettingsOnPhone() {
+    if (!WIDE.matches) document.getElementById('settings').classList.remove('show');
+  }
 
   /* ================= GAME STATE ================= */
   const session = {
@@ -289,6 +293,7 @@
     if (runtime.revealCtl) runtime.revealCtl.stop();
     setPaused(false);
     cardPending();
+    hideSettingsOnPhone();
 
     session.index++;
     if (session.index >= session.queue.length) {

@@ -1435,6 +1435,7 @@
 
   /* ---- host applies its own broadcasts to its local render state (host is also a player) ---- */
   function applyQuestionLocal(index, total, sanitized) {
+    hideSettingsOnPhone();
     game.index = index; game.total = total; game.question = sanitized;
     game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
     game.lastGrade = null; game.attempts = [];
@@ -1970,6 +1971,7 @@
       return;
     }
     if (msg.type === 'question') {
+      hideSettingsOnPhone();
       game.index = msg.index; game.total = msg.total; game.question = msg.question;
       game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
       game.liveTypingText = ''; game.liveTypingFrom = null;
@@ -2449,6 +2451,10 @@
   function toggleSidebar() {
     const el = document.getElementById('settings');
     if (WIDE.matches) el.classList.toggle('collapsed'); else el.classList.toggle('show');
+  }
+  // On a phone, as on QB Reader, a new question closes the settings.
+  function hideSettingsOnPhone() {
+    if (!window.matchMedia('(min-width: 992px)').matches) document.getElementById('settings').classList.remove('show');
   }
   function showChatRow() {
     const row = document.getElementById('mpChatRow');
