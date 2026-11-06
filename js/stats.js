@@ -38,7 +38,7 @@
     $('statsBody').hidden = false;
     let rows;
     try { rows = await SBAccount.fetchAnswers(); } catch (err) {
-      $('statsSummary').textContent = 'Could not load your stats: ' + err.message;
+      $('statsSummary').textContent = 'Could not load your stats: ' + SBAccount.friendlyError(err);
       return;
     }
     const s = SBAccountCore.aggregateStats(rows);
@@ -67,7 +67,7 @@
 
   $('resetStatsBtn').addEventListener('click', async () => {
     if (!confirm('Delete every answer in your stats? This can\'t be undone.')) return;
-    try { await SBAccount.resetStats(); render(SBAccount.user()); } catch (err) { alert(err.message); }
+    try { await SBAccount.resetStats(); render(SBAccount.user()); } catch (err) { alert(SBAccount.friendlyError(err)); }
   });
   SBAccount.onChange((u) => render(u));
   SBAccount.ready.then(() => render(SBAccount.user()));

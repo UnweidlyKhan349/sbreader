@@ -59,7 +59,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 3 MS | 488 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
-| Mira Loma Question Database | 16,560 |  | hs |
+| Mira Loma Question Database | 16,559 |  | hs |
 | MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -117,4 +117,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (113)** | **104,247** | **571** | |
+| **Total (113)** | **104,246** | **571** | |

@@ -12,7 +12,7 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and starred questions kept per device) written in plain HTML/CSS/JS, with no backend, build step, JavaScript framework, or server-side code, so it can be deployed straight to GitHub Pages or any static host. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (saved in `css/vendor/`, not loaded from a CDN) with Light, Night and Auto themes.
 
-**Current question bank: 104,247 questions from 113 tournaments** (56,559 tossups / 47,688 bonuses; 64,791 short answer / 39,456 multiple choice), including **571 visual questions** whose figures (577 images) are shown with the question. Every question links to where it's published, and 60,472 of those links open the packet at the question's page or line.
+**Current question bank: 104,246 questions from 113 tournaments** (56,559 tossups / 47,687 bonuses; 64,789 short answer / 39,457 multiple choice), including **571 visual questions** whose figures (577 images) are shown with the question. Every question links to where it's published, and 60,472 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|

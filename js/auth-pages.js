@@ -53,7 +53,7 @@
         message('If that email has an account, a link to reset the password is on its way.', 'success');
       }
     } catch (err) {
-      message(err.message || String(err), 'danger');
+      message(SBAccount.friendlyError(err), 'danger');
     } finally {
       busy(false);
     }

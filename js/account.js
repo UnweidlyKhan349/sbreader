@@ -262,7 +262,19 @@
     }
   }
 
+  // The browser's own network errors ("Failed to fetch", "NetworkError when
+  // attempting to fetch resource.", "Load failed") mean the account service
+  // couldn't be reached; anything else is the service's own message.
+  function friendlyError(err) {
+    const text = (err && err.message) || String(err);
+    if (/failed to fetch|networkerror|load failed|network request failed/i.test(text)) {
+      return "Couldn't reach the account service. Check your internet connection and try again.";
+    }
+    return text;
+  }
+
   window.SBAccount = {
+    friendlyError,
     enabled,
     ready,
     user: () => user,

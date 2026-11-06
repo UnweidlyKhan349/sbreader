@@ -18,7 +18,7 @@
       const form = e.target;
       busy(form, true);
       try { await fn(); } catch (err) {
-        message($('acctMsgIn'), err.message || String(err), 'danger');
+        message($('acctMsgIn'), SBAccount.friendlyError(err), 'danger');
       } finally { busy(form, false); }
     });
   }
@@ -38,7 +38,7 @@
     try {
       await SBAccount.deleteMyData();
       message($('acctMsgIn'), 'Your data was deleted.', 'success');
-    } catch (err) { message($('acctMsgIn'), err.message, 'danger'); }
+    } catch (err) { message($('acctMsgIn'), SBAccount.friendlyError(err), 'danger'); }
   });
 
   function render(user) {

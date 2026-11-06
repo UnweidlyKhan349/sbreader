@@ -332,3 +332,15 @@ test('short answer: a unit may be written out or abbreviated; multiple choice st
   for (const typed of ['W', '10 joules', 'W) 10 joules']) assert.ok(checkAnswer(mc, typed).correct, typed);
   for (const typed of ['10 J', '10 joule']) assert.ok(!checkAnswer(mc, typed).correct, typed);
 });
+
+test('roman numerals and digits match after a stage, type or complex name', () => {
+  const q = (t, extra) => ({ answer: { text: t }, question: '', format: 'SA', ...extra });
+  assert.strictEqual(checkAnswer(q('MEIOSIS II'), 'meiosis 2').correct, true);
+  assert.strictEqual(checkAnswer(q('ANAPHASE I'), 'anaphase 1').correct, true);
+  assert.strictEqual(checkAnswer(q('PHOTOSYSTEM 2'), 'photosystem II').correct, true);
+  assert.strictEqual(checkAnswer(q('TYPE IA'), 'type 1a').correct, true);
+  assert.strictEqual(checkAnswer(q('COMPLEX III'), 'complex 3').correct, true);
+  // Still different numbers, and a bare numeral isn't touched.
+  assert.strictEqual(checkAnswer(q('MEIOSIS II'), 'meiosis 1').correct, false);
+  assert.strictEqual(checkAnswer(q('ANAPHASE I'), 'anaphase 2').correct, false);
+});

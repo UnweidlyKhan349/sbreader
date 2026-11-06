@@ -312,7 +312,7 @@
   // "Answer: X) LITHIUM-ION (also accept: Li-ion) (do not accept: LITHIUM)",
   // all on one line.
   function answerLineHTML(mainText, letter, acceptList, rejectList) {
-    let s = 'Answer: ' + (letter ? `${letter}) ` : '') + renderMathHTML(mainText);
+    let s = 'Answer: ' + (letter ? `${escapeHtml(letter)}) ` : '') + renderMathHTML(mainText);
     if (acceptList && acceptList.length) {
       s += ' <span class="also-accept">(also accept: ' + renderMathHTML(acceptList.join('; ')) + ')</span>';
     }
@@ -427,11 +427,14 @@
   function questionFigures(q, opts) {
     const wrap = document.createElement('div');
     wrap.className = 'q-figures';
-    (q.images || []).forEach((im, k) => {
+    // Only the site's own figures: in Multiplayer the question arrives from
+    // another player's browser, which shouldn't be able to load other images.
+    const own = (q.images || []).filter((im) => im && typeof im.src === 'string' && im.src.startsWith(IMG_DIR) && !im.src.includes('..'));
+    own.forEach((im, k) => {
       const img = document.createElement('img');
       img.src = im.src;
       if (im.w && im.h) { img.width = im.w; img.height = im.h; }
-      img.alt = q.images.length > 1 ? `Figure ${k + 1} for this question` : 'Figure for this question';
+      img.alt = own.length > 1 ? `Figure ${k + 1} for this question` : 'Figure for this question';
       img.loading = opts && opts.eager ? 'eager' : 'lazy';
       img.decoding = 'async';
       img.className = 'q-figure';

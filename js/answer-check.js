@@ -44,8 +44,14 @@
       // standard abbreviations become the full term, so "ER" and "rough ER"
       // match "endoplasmic reticulum" and "rough endoplasmic reticulum" (and
       // the full term still gets the usual typo tolerance)
-      .replace(ABBREVIATION_RE, (m) => ABBREVIATIONS[m]);
+      .replace(ABBREVIATION_RE, (m) => ABBREVIATIONS[m])
+      // A numbered stage, type or complex reads the same with a roman numeral
+      // or a digit: "meiosis 2" = "MEIOSIS II", "anaphase 1" = "ANAPHASE I",
+      // "type 1a" = "TYPE IA", "photosystem 2" = "PHOTOSYSTEM II".
+      .replace(NUMBERED_RE, (m, word, roman, suffix) => `${word} ${ROMAN[roman]}${suffix}`);
   }
+  const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 };
+  const NUMBERED_RE = /\b(MEIOSIS|MITOSIS|PROPHASE|PROMETAPHASE|METAPHASE|ANAPHASE|TELOPHASE|PHOTOSYSTEM|COMPLEX|CLASS|TYPE|STAGE|PHASE|GENERATION|POPULATION|GROUP|PERIOD|LEVEL|GRADE) (VIII|VII|VI|IV|V|III|II|I)([ABCP]?)\b/g;
   const ABBREVIATIONS = {
     ER: 'ENDOPLASMIC RETICULUM',
     RER: 'ROUGH ENDOPLASMIC RETICULUM',

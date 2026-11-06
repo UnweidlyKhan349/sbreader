@@ -355,7 +355,7 @@
               <ul class="dropdown-menu"><li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li></ul>
             </div>` : ''}
           </div>
-          <span class="badge rounded-pill ${p.offline ? 'bg-secondary' : 'bg-success'}">${p.score}</span>
+          <span class="badge rounded-pill ${p.offline ? 'bg-secondary' : 'bg-success'}">${Number(p.score) || 0}</span>
         </div>`;
       if (canKick) {
         const toggle = item.querySelector('[data-sb-dropdown]');
@@ -1524,7 +1524,7 @@
     scores.slice().sort((a, b) => b.score - a.score).forEach((p, i) => {
       const row = document.createElement('li');
       row.className = 'list-group-item mp-player-row';
-      row.innerHTML = `<span class="name">${i === 0 ? '🏆 ' : ''}${escapeHtml(p.name)}</span><span class="pts">${p.score}</span>`;
+      row.innerHTML = `<span class="name">${i === 0 ? '🏆 ' : ''}${escapeHtml(p.name)}</span><span class="pts">${Number(p.score) || 0}</span>`;
       el.appendChild(row);
     });
   }
@@ -2581,6 +2581,8 @@
     wireGameControls();
     if (!joinFromLink()) renderRoomLists();
   }).catch((err) => {
-    document.getElementById('lobbyScreen').innerHTML = '<p>Failed to load question data: ' + err.message + '</p>';
+    const msg = document.createElement('p');
+    msg.textContent = 'Failed to load question data: ' + err.message;
+    document.getElementById('lobbyScreen').replaceChildren(msg);
   });
 })();
