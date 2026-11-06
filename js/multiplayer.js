@@ -1277,7 +1277,8 @@
     const updated = { ...g, correct: nowCorrect, delta };
     hostGame.gradesByConn.set(requesterConnId, updated);
     hostGame.lastGrade = { connId: requesterConnId, correct: nowCorrect, delta, userText: g.userText };
-    if (nowCorrect) hostGame.overrideLocked = true;
+    // Changed to correct: locked for everyone else. Taken back: unlocked.
+    hostGame.overrideLocked = nowCorrect ? requesterConnId : false;
     game.overrideLocked = hostGame.overrideLocked;
     const scores = [...hostPlayers.values()].map((pp) => ({ id: pp.id, score: pp.score }));
     host.broadcast({ type: 'graded', playerId: requesterConnId, correct: nowCorrect, delta, userText: g.userText, scores, override: true, overrideLocked: hostGame.overrideLocked });
@@ -1462,7 +1463,7 @@
     game.lastGrade = { playerId, correct, userText };
     if (isOverride) { recolorBuzzLine(playerId, correct); renderOverrideLinkSoon(); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
-    if (overrideLocked !== undefined) game.overrideLocked = !!overrideLocked;
+    if (overrideLocked !== undefined) game.overrideLocked = overrideLocked || false;
     // Find THIS player's own attempt row to update, rather than assuming an
     // override always targets whichever attempt happens to be last in the
     // list - a player who buzzed earlier (not last) can now override their
@@ -1684,7 +1685,7 @@
       buzzwindowRemainingMs: typeof eng.buzzwindowRemainingMs === 'number' ? eng.buzzwindowRemainingMs : null,
       lockedOutIds: new Set(game.lockedOut),
       gradesByConn: new Map(Array.isArray(eng.grades) ? eng.grades : []),
-      overrideLocked: !!game.overrideLocked,
+      overrideLocked: game.overrideLocked || false,
       paused: !!game.paused,
       lastGrade: game.lastGrade ? { connId: game.lastGrade.playerId, correct: game.lastGrade.correct, delta: 0, userText: game.lastGrade.userText } : null,
     });
@@ -1935,7 +1936,7 @@
       game.lastRevealData = msg.lastRevealData || null;
       game.lastGrade = msg.lastGrade || null;
       game.attempts = msg.attempts || [];
-      game.overrideLocked = !!msg.overrideLocked;
+      game.overrideLocked = msg.overrideLocked || false;
       game.liveTypingText = ''; game.liveTypingFrom = null;
       myState.rate = SBMpRules.readingSpeed(msg.rate);
       if (msg.settings) { applySettingsStateLocal(msg.settings); showSettingsFromState(); }

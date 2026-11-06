@@ -188,11 +188,14 @@
   }
 
   // Whether a player may flip their own grade on the current question:
-  // they were graded, nobody has overridden to correct yet, and - for a
-  // wrong answer - nobody else was already graded correct (two players
+  // they were graded, nobody else has been overridden to correct, and - for
+  // a wrong answer - nobody else was already graded correct (two players
   // can't both score on one question). attempts: [{ playerId, correct }].
+  // overrideLocked is the ID of the player overridden to correct (false if
+  // none): only they may still take it back ("I was wrong"). A bare `true`
+  // locks everyone.
   function canOverrideOwn(attempts, playerId, overrideLocked) {
-    if (overrideLocked) return false;
+    if (overrideLocked && overrideLocked !== playerId) return false;
     const mine = attempts.find((a) => a.playerId === playerId);
     if (!mine) return false;
     return mine.correct || !attempts.some((a) => a.playerId !== playerId && a.correct);

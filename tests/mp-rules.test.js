@@ -66,6 +66,10 @@ test('a player can override only their own grade, and only one player scores', (
   assert.strictEqual(canOverrideOwn(wrongThenRight, 'C', false), false);
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', false), true);
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', true), false);
+  // Whoever was overridden to correct can take it back; nobody else can override.
+  const overridden = [{ playerId: 'A', correct: true }, { playerId: 'B', correct: false }];
+  assert.strictEqual(canOverrideOwn(overridden, 'A', 'A'), true);
+  assert.strictEqual(canOverrideOwn(overridden, 'B', 'A'), false);
 });
 
 test('General starts with every subject but energy, and each subject but energy has a lobby', () => {
