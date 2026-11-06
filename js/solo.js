@@ -89,6 +89,7 @@
     // Starred mode plays your starred questions whatever their subject, so
     // the subject tiles are hidden there.
     document.getElementById('subjectButtons').classList.toggle('d-none', settings.mode === 'starred');
+    document.getElementById('clearFilters').classList.toggle('d-none', settings.mode === 'starred');
   }
 
   function describeSet() {
@@ -124,6 +125,7 @@
     packetPicker = SBPlay.packetSelect(document.getElementById('packetSelect'), (text) => { settings.packetNumbers = text; onSettingsChange(); });
     setName.addEventListener('change', () => { settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange(); });
     describeSet();
+    document.getElementById('clearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearFilters(); });
 
     // Random Questions: tournaments and rounds.
     const tSelect = document.getElementById('tournamentSelect');
@@ -175,6 +177,22 @@
   }
 
   // The round slider spans the picked tournaments' rounds only.
+  // Clear all filters: every tournament, every round, every subject, and
+  // (choosing by set) all of the set's packets. The mode and set stay.
+  function clearFilters() {
+    settings.tournaments = [];
+    document.getElementById('tournamentSelect').setMultiValues([]);
+    scopeRounds();
+    subjects.clear();
+    SBData.meta.subjects.forEach((s) => subjects.add(s.key));
+    categories.sync();
+    settings.packetNumbers = '';
+    describeSet();
+    roundSliderApi.reset(); // reports the full range, which saves and recounts
+    settings.roundRange = null;
+    onSettingsChange();
+  }
+
   function scopeRounds() {
     const moved = roundSliderApi && roundSliderApi.setMax(SBData.maxRoundFor(new Set(settings.tournaments)));
     if (moved) settings.roundRange = moved;
@@ -457,7 +475,7 @@
       html += '</div>';
     }
     if (category === 'incorrect' && outcome.close) {
-      html += '<div class="close-hint">Close. If you meant the answer above, press <kbd>q</kbd> or "I was right" to count it.</div>';
+      html += '<div class="close-hint">Close. If you meant the answer above, press "I was right" to count it.</div>';
     }
     parkOverride();
     box.innerHTML = html;

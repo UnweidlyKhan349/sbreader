@@ -507,7 +507,7 @@
     if (!correct && close) {
       const hint = document.createElement('span');
       hint.className = 'close-hint ms-2';
-      hint.textContent = playerId === myState.myId ? 'Close: press q if you meant the answer.' : 'Close';
+      hint.textContent = playerId === myState.myId ? 'Close. If you meant the answer above, press "I was right" to count it.' : 'Close';
       li.appendChild(hint);
     }
     li.removeAttribute('id');
@@ -2207,6 +2207,31 @@
     requestApplySettings();
   }
 
+  // Clear all filters: every tournament, round and subject (General: back to
+  // its default; a one-subject room keeps its subject), questions with no
+  // round number included, and all of a set's packets; sent as one change.
+  function clearRoomFilters() {
+    const f = midGameFilterState;
+    suppressSettingsApplyEcho = true;
+    try {
+      f.tournaments = new Set();
+      document.getElementById('mpSettingsTournamentSelect').setMultiValues([]);
+      if (!fixedSubjectLobby()) {
+        f.subjects.clear();
+        (myState.publicLobby ? myState.publicLobby.subjects : SBData.meta.subjects.map((x) => x.key)).forEach((k) => f.subjects.add(k));
+        if (categories) categories.sync();
+      }
+      f.includeUnlabeled = true;
+      document.getElementById('mpToggleUnlabeled').checked = true;
+      f.packetNumbers = '';
+      if (midGameRoundSliderApi) { midGameRoundSliderApi.setMax(SBData.maxRoundFor(f.tournaments)); midGameRoundSliderApi.reset(); }
+      f.roundRange = null;
+    } finally {
+      suppressSettingsApplyEcho = false;
+    }
+    onSettingChange();
+  }
+
   // This player's own view (not shared): history, set name, offline players.
   const VIEW_KEY = 'sb_mp_view';
   const view = SBPlay.loadSettings(VIEW_KEY, { showHistory: true, showSetName: true });
@@ -2258,6 +2283,8 @@
       maxRound,
       onChange: (lo, hi) => { midGameFilterState.roundRange = [lo, hi]; onSettingChange(); },
     });
+
+    document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
 
     // Room switches (shared).
     [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
