@@ -248,10 +248,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 .chip:hover { border-color: var(--chip-color); color: var(--chip-color); }
-/* The Database's subject boxes share the row equally. */
-#subjectChips { display: grid; grid-template-columns: repeat(6, 1fr); gap: .375rem; }
-#subjectChips .chip { justify-content: center; text-align: center; }
-@media (max-width: 575.98px) { #subjectChips { grid-template-columns: repeat(3, 1fr); } }
+/* The Database's subject boxes fill the left half in equal widths, three to
+   a row (six in a row would wrap "Earth & Space"). */
+#subjectChips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .375rem; }
+#subjectChips .chip { justify-content: center; text-align: center; white-space: nowrap; }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
 .chip.active:hover { filter: brightness(.92); color: #fff; }
 /* Subject chips are QB Reader's category boxes, as in Play: red outline,

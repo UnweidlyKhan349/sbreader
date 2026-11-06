@@ -265,6 +265,46 @@
   }
   SBData.answerDisplayText = answerDisplayText;
 
+  // Frequency lists, as QB Reader builds them: an answer's main part (what
+  // comes before any "(" or "["), and a key that groups its spellings
+  // (case, hyphens and spacing ignored). Number-only and "identify all"
+  // answers ("2", "1 AND 3", "ALL", "NONE"), and numbers with a unit, get
+  // no key: they'd top every
+  // list without saying anything.
+  function answerHead(q) {
+    const t = String(answerDisplayText(q) || '').split(/[([]/)[0];
+    return t.replace(/\s+/g, ' ').trim().replace(/[.;,:]+$/, '').trim();
+  }
+  function answerKey(q) {
+    const head = answerHead(q);
+    const key = head.toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!key || !/[a-z]/.test(key.replace(/\b(and|only|or|all|none|of|the|above|both)\b/g, ''))) return '';
+    if (/^(all|none|both|neither)\b/.test(key)) return '';
+    // A number, perhaps with a unit ("4 JOULES", "-3.72°C"), isn't a topic.
+    if (/^[−+-]?\d[\d.,\s]*(?:[×x*]\s*10\^?[−-]?\d+)?(?:\s*[^\s-]\S{0,11})?$/.test(head)) return '';
+    return key;
+  }
+  SBData.answerHead = answerHead;
+  SBData.answerKey = answerKey;
+  // [{ answer, count }], most frequent first (ties A-Z), at most `limit`.
+  SBData.frequencyList = function (questions, limit) {
+    const groups = new Map();
+    questions.forEach((q) => {
+      const key = answerKey(q);
+      if (!key) return;
+      let g = groups.get(key);
+      if (!g) { g = { count: 0, forms: new Map() }; groups.set(key, g); }
+      g.count++;
+      const head = answerHead(q);
+      g.forms.set(head, (g.forms.get(head) || 0) + 1);
+    });
+    // Each answer is shown in its most common spelling.
+    return [...groups.values()].map((g) => ({
+      answer: [...g.forms].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0],
+      count: g.count,
+    })).sort((a, b) => b.count - a.count || a.answer.localeCompare(b.answer)).slice(0, limit || undefined);
+  };
+
   // Builds the "Answer: ..." line's inner HTML, with any accept-list
   // alternates folded inline as "(also accept: ...)" rather than shown as
   // their own separate line - keeps the primary and alternate answers
@@ -354,9 +394,7 @@
   function readoutHTML(q) {
     return readoutHeaderHTML(q) + questionTextHTML(q);
   }
-  // How many visible characters the header takes (entities count as one),
-  // for the reveal, which shows the header at once.
-  SBData.readoutHeaderLength = (q) => readoutHeaderHTML(q).replace(/<[^>]+>/g, '').replace(/&(?:#\d+|#x[0-9a-f]+|[a-z]+);/gi, 'x').length;
+
   SBData.readoutHTML = readoutHTML;
   function qtypeTagClass(q) { return 'tag qtype-' + q.qtype + (isVisualBonus(q) ? ' visual' : ''); }
   SBData.qtypeLabel = qtypeLabel;

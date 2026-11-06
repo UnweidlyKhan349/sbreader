@@ -9,6 +9,9 @@
     visuals: new Set(),
     tournaments: new Set(),
     search: '',
+    // From a frequency list: only questions whose answer is this one (its
+    // key, SBData.answerKey), until the search box is changed.
+    exactAnswer: '',
     page: 1,
     roundRange: null,
     includeUnlabeled: true,
@@ -110,7 +113,19 @@
       }
 
       const searchBox = document.getElementById('searchBox');
+      // catalog.html?answer=<answer>&subject=<key>[&qtype=][&level=] (the
+      // frequency list's links): that answer's questions.
+      const url = new URLSearchParams(location.search);
+      if (url.get('answer')) {
+        searchBox.value = url.get('answer');
+        state.search = url.get('answer');
+        state.exactAnswer = SBData.answerKey({ answer: { text: url.get('answer') } });
+      }
+      [['subject', 'subjects'], ['qtype', 'qtypes'], ['level', 'levels']].forEach(([param, key]) => {
+        if (url.get(param)) state[key].add(url.get(param));
+      });
       const runSearch = () => {
+        state.exactAnswer = '';
         state.search = searchBox.value;
         state.page = 1;
         render();
@@ -119,6 +134,7 @@
       searchBox.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); state.random = false; runSearch(); } });
       document.getElementById('searchBtn').addEventListener('click', () => { state.random = false; runSearch(); });
       document.getElementById('randomBtn').addEventListener('click', () => {
+        if (searchBox.value !== state.search) state.exactAnswer = '';
         state.search = searchBox.value;
         state.random = true;
         state.randomPick = null;
@@ -142,6 +158,7 @@
         state.visuals.clear();
         state.tournaments.clear();
         state.search = '';
+        state.exactAnswer = '';
         state.page = 1;
         document.getElementById('searchBox').value = '';
         tSelect.setMultiValues([]);
@@ -196,8 +213,8 @@
       levels: state.levels,
       visuals: state.visuals,
       tournaments: state.tournaments,
-      search: state.search,
-    }), { recent: state.tournaments.size === 0 });
+      search: state.exactAnswer ? '' : state.search,
+    }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;

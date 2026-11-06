@@ -541,7 +541,7 @@
     const qDisplay = document.getElementById('mpQDisplay');
     qDisplay.classList.remove('mp-waiting-text');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
-    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, instantChars: SBData.readoutHeaderLength(q) }];
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';

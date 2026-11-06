@@ -92,10 +92,6 @@
       const re = /\S+/g;
       let m;
       while ((m = re.exec(text))) {
-        // The first `instantChars` characters (the "TOSS-UP Physics Short
-        // Answer" header) show at once and take no reading time, so the
-        // question itself starts reading straight away, as on QB Reader.
-        if (s.instantChars && m.index < s.instantChars) { words.push({ end: base + m.index + m[0].length, at: 0 }); continue; }
         words.push({ end: base + m.index + m[0].length, at: t });
         t += wordUnits(m[0]);
       }
@@ -113,8 +109,6 @@
     const lengths = segments.map(segLength);
     const totalChars = lengths.reduce((sum, n) => sum + n, 0);
     const { words, totalUnits } = schedule(segments);
-    // The header shown at once doesn't count towards how much has been read.
-    const instantTotal = segments.length ? Math.min(lengths[0], segments[0].instantChars || 0) : 0;
 
     let stopped = false;
     let done = false;
@@ -230,10 +224,7 @@
       isDone() { return done; },
       // How much of the text is showing, 0 to 1 (celerity is 1 minus this,
       // as on QB Reader).
-      progress() {
-        const readable = totalChars - instantTotal;
-        return done || readable <= 0 ? 1 : Math.max(0, shownChars - instantTotal) / readable;
-      },
+      progress() { return done || !totalChars ? 1 : shownChars / totalChars; },
       isPaused() { return paused; },
       // A new reading speed mid-question: what's shown stays put and only
       // the rest reads faster or slower (progress is kept in units).
