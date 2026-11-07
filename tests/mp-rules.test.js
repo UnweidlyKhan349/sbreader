@@ -121,8 +121,7 @@ test('a player who left stays on the list, offline, for good', () => {
   const { stillOffline } = globalThis.SBMpRules;
   const now = Date.now();
   assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 23 * 3600 * 1000 }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 25 * 3600 * 1000 }, now), false);
+  assert.strictEqual(stillOffline({ leftAt: now - 365 * 24 * 3600 * 1000 }, now), true);
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
 });
 

@@ -1021,9 +1021,6 @@
 
   function broadcastLobby() {
     game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null }));
-    // Offline players are dropped a day after they left.
-    const now = Date.now();
-    departedPlayers.forEach((d, pid) => { if (!SBMpRules.stillOffline(d, now)) departedPlayers.delete(pid); });
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });

@@ -6,7 +6,6 @@
 // resolves to nothing and the lobby falls back to the built-in rooms.
 (function () {
   const ONLINE_MS = 90 * 1000; // seen this recently = online
-  const KEEP_MS = 24 * 60 * 60 * 1000; // not seen for a day = gone from the room
   function client() {
     if (!window.SBAccount || !SBAccount.enabled) return Promise.resolve(null);
     return SBAccount.ready.catch(() => null);
@@ -27,7 +26,6 @@
     const now = Date.now();
     const counts = new Map();
     (players || []).forEach((p) => {
-      if (!(now - Date.parse(p.last_seen) < KEEP_MS)) return;
       const t = counts.get(p.room) || { players: 0, online: 0 };
       t.players++;
       if (now - Date.parse(p.last_seen) < ONLINE_MS) t.online++;
@@ -51,8 +49,7 @@
     // A project set up before negs and celerity were saved has no such
     // columns; read what it has.
     if (error) ({ data, error } = await c.from('mp_players').select(BASE_COLS).eq('room', roomKey));
-    const now = Date.now();
-    return error ? [] : (data || []).filter((p) => now - Date.parse(p.last_seen) < KEEP_MS);
+    return error ? [] : (data || []);
   }
 
   // This player is in the room: called on joining and every 30 seconds
