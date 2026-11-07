@@ -1,10 +1,10 @@
 # SB Reader: free Science Bowl practice questions, buzzer trainer and multiplayer
 
-[![Live site](https://img.shields.io/badge/live%20site-unweidlykhan349.github.io%2Fsbreader-5b8cff)](https://unweidlykhan349.github.io/sbreader/)
+[![Live site](https://img.shields.io/badge/live%20site-sbreader.github.io-5b8cff)](https://sbreader.github.io/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-35c281)](LICENSE)
 [![CI](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml/badge.svg)](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml)
 
-**[Open SB Reader →](https://unweidlykhan349.github.io/sbreader/)**
+**[Open SB Reader →](https://sbreader.github.io/)**
 
 SB Reader is a free practice site for the **National Science Bowl** (NSB) and other Science Bowl tournaments, for high school and middle school teams. It has over 100,000 real tossups and bonuses in biology, chemistry, physics, math, earth & space science and energy, taken from regional, nationals and invitational packets (MIT, Stanford, Yale and many more) and from practice sets written by school teams. Search them in the catalog, drill alone with a buzzer and automatic grading, or play against friends in an online multiplayer room. No account or install needed.
 
@@ -205,6 +205,7 @@ tools/stamp-assets.js   stamps each page's script and stylesheet links with a ha
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
+.github/workflows/deploy.yml  on every push to main, runs the tests and copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
 ```
 
 ### `js/data.js` (`window.SBData`)
@@ -409,7 +410,7 @@ Accounts are optional and off until a Supabase project is set up; without one ev
 **Setting it up (once):**
 1. Create a free project at supabase.com.
 2. In its SQL Editor, run `supabase/schema.sql`. It creates three account tables (`bookmarks`, `answers`, `user_settings`) with row-level security, so each account can only read and change its own rows, and the two multiplayer registry tables (`mp_rooms`, `mp_players`), which anyone may read and write: they hold only room names, player names and practice scores, and they're what the Multiplayer page lists public rooms and player counts from.
-3. Under Authentication → URL Configuration, set the Site URL to the site's address (e.g. `https://unweidlykhan349.github.io/sbreader/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
+3. Under Authentication → URL Configuration, set the Site URL to the site's address (`https://sbreader.github.io/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
 4. Put the Project URL (the **Connect** button at the top of the dashboard, or Project Settings → Data API; it looks like `https://<project-ref>.supabase.co`) and the publishable key (Project Settings → API Keys, `sb_publishable_…`; a legacy anon key works too) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data. Never use the secret key.
 
 **What an account keeps** (`js/account.js`, with the network-free parts in `js/account-core.js`):
@@ -421,19 +422,35 @@ Nothing else is stored with the account, and nothing of it is shared with other 
 
 ## Deploying
 
-1. Put the contents of this folder at the root of a GitHub repo.
-2. Push, then go to **Settings → Pages → Deploy from a branch**, choose `main`, and pick `/ (root)`.
-3. The site will be live at `https://<you>.github.io/<repo>/`.
+The official site is **https://sbreader.github.io/**. It used to be `https://unweidlykhan349.github.io/sbreader/`.
+
+The code lives and is worked on here, in `UnweidlyKhan349/sbreader`. A `<name>.github.io` address can only be served by a repo of the account called `<name>`, so the site itself is served from a copy, the `sbreader` organization's `sbreader.github.io` repo:
+
+```
+UnweidlyKhan349/sbreader      ← push here
+        │  .github/workflows/deploy.yml, on every push to main
+        ▼
+sbreader/sbreader.github.io   ← copy only, served at https://sbreader.github.io/
+```
+
+The workflow runs the tests, copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
+
+Setting it up (done once; listed in case it has to be redone):
+1. Create the `sbreader` organization (Free plan) and in it an empty **public** repo named `sbreader.github.io`.
+2. Make a deploy key: `ssh-keygen -t ed25519 -N "" -C "sbreader deploy" -f sbreader_deploy`. Add `sbreader_deploy.pub` to `sbreader/sbreader.github.io` under Settings → Deploy keys, with **Allow write access**. Add the private key `sbreader_deploy` to `UnweidlyKhan349/sbreader` under Settings → Secrets and variables → Actions, named `SBREADER_DEPLOY_KEY`. Then delete both files.
+3. After the first deploy, turn on Pages in `sbreader/sbreader.github.io` (Deploy from a branch, `main`, `/ (root)`).
 
 There's no build step, `npm install`, or environment variables. `package.json` only defines `npm test` and has no dependencies.
+
+The site sits at the domain root, so `404.html` (served for any missing address, at any depth) uses root-relative links (`/css/style.css`, `/solo`). Every other page uses relative ones and would work under any path.
 
 ### Search engines and link previews
 
 - Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags (title and summary; there's no preview image), so shared links get a title and summary.
-- **Addresses have no `.html`**: every link is `solo`, `catalog?tournament=…`, `set?set=…` and so on, and the home page is `./`. GitHub Pages serves `/sbreader/solo` from `solo.html`, so both forms work; the navbar highlights the current page either way. The one exception is the account emails, which send people to `account.html`, the address in the Supabase project's redirect allowlist.
+- **Addresses have no `.html`**: every link is `solo`, `catalog?tournament=…`, `set?set=…` and so on, and the home page is `./`. GitHub Pages serves `/solo` from `solo.html`, so both forms work; the navbar highlights the current page either way. The one exception is the account emails, which send people to `account.html`, the address in the Supabase project's redirect allowlist.
 - `account.html`, `stats.html` and `404.html` are `noindex`: there's nothing on them to index.
-- `sitemap.xml` lists the six public pages (without `.html`). A project site's `robots.txt` isn't read (crawlers only look at the domain root), so submit `https://unweidlykhan349.github.io/sbreader/sitemap.xml` in Google Search Console and Bing Webmaster Tools instead.
-- The canonical, Open Graph and sitemap URLs, and the absolute paths in `404.html`, name `https://unweidlykhan349.github.io/sbreader/`. A fork, a renamed repo or a custom domain needs them changed (`grep -rn "unweidlykhan349.github.io\|/sbreader/" *.html sitemap.xml`).
+- `sitemap.xml` lists the six public pages (without `.html`). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.github.io/sitemap.xml`, in Google Search Console and Bing Webmaster Tools.
+- The canonical, Open Graph, sitemap and `robots.txt` URLs name `https://sbreader.github.io/`, and `404.html` links from the domain root. A fork or a move to another address needs them changed (`grep -rn "sbreader.github.io" *.html sitemap.xml robots.txt`); hosting under a path such as `/<repo>/` also needs `404.html`'s links prefixed with it.
 
 ## Local development and tests
 
