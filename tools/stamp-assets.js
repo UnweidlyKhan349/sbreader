@@ -18,8 +18,8 @@ const path = require('path');
 const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
-// src="js/x.js", href="css/style.css", or the same under /sbreader/ (404.html).
-const REF_RE = /\b(src|href)="((?:\/sbreader\/)?((?:js|css)\/[^"?#]+\.(?:js|css)))(?:\?v=[^"]*)?"/g;
+// src="js/x.js", href="css/style.css", or the same from the site root, /js/x.js (404.html).
+const REF_RE = /\b(src|href)="(\/?((?:js|css)\/[^"?#]+\.(?:js|css)))(?:\?v=[^"]*)?"/g;
 
 function hashOf(rel) {
   const file = path.join(ROOT, rel);

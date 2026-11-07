@@ -17,7 +17,7 @@ test('script and stylesheet stamps match the files (run node tools/stamp-assets.
 test('every local script and stylesheet link is stamped', () => {
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
-    const bare = html.match(/\b(?:src|href)="(?:\/sbreader\/)?(?:js|css)\/[^"?#]+\.(?:js|css)"/g) || [];
+    const bare = html.match(/\b(?:src|href)="\/?(?:js|css)\/[^"?#]+\.(?:js|css)"/g) || [];
     assert.deepStrictEqual(bare, [], path.basename(file));
   }
 });

@@ -1,0 +1,44 @@
+# Publishes the site to https://sbreader.github.io/.
+#
+# The code stays in UnweidlyKhan349/sbreader; a <name>.github.io address can
+# only be served by a repo of the account called <name>, so every push to
+# main is tested and then copied to sbreader/sbreader.github.io, which serves
+# it with GitHub Pages (Deploy from a branch: main, / (root)).
+#
+# Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
+# has write access to sbreader/sbreader.github.io (see README, Deploying).
+name: Deploy to sbreader.github.io
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push replaces a deploy still waiting.
+concurrency:
+  group: deploy-sbreader-github-io
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tests
+        run: node --test tests/*.test.js
+      - name: Copy the site files
+        run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
+      - name: Push to sbreader/sbreader.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
+          external_repository: sbreader/sbreader.github.io
+          publish_branch: main
+          publish_dir: ${{ runner.temp }}/site
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898299+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Deploy UnweidlyKhan349/sbreader@${{ github.sha }}
