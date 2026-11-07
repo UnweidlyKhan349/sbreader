@@ -17,18 +17,30 @@
     try {
       const v = localStorage.getItem(KEY);
       if (THEMES.includes(v)) return v;
-    } catch (e) { /* storage blocked: fall through to auto */ }
-    return 'auto';
+    } catch (e) { /* storage blocked: fall through to the default */ }
+    // A first visit (nothing saved) starts in Light, as QB Reader does;
+    // Auto and Night stay a click away.
+    return 'light';
   }
   function resolved(theme) {
     if (theme === 'auto') return darkQuery && darkQuery.matches ? 'dark' : 'light';
     return theme;
   }
   function apply(theme) {
-    document.documentElement.setAttribute('data-bs-theme', resolved(theme));
+    const t = resolved(theme);
+    document.documentElement.setAttribute('data-bs-theme', t);
+    // The browser's bar colour (phones) follows the page's theme, not the
+    // device's: the theme-color tags lose their media query and take the
+    // navbar colour of the theme in use.
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
+      m.removeAttribute('media');
+      m.setAttribute('content', t === 'dark' ? '#333333' : '#dfebfb');
+    });
   }
 
   apply(storedTheme());
+  // Again once the page is parsed: the theme-color tags come after this script.
+  document.addEventListener('DOMContentLoaded', () => apply(storedTheme()));
   if (darkQuery) {
     const onChange = () => { if (storedTheme() === 'auto') apply('auto'); };
     if (darkQuery.addEventListener) darkQuery.addEventListener('change', onChange);

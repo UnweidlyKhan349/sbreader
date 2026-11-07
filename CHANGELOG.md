@@ -140,3 +140,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - History cards show the answer bold and underlined. On multiple-choice questions the rule under the question no longer sits lower while the stem is read.
 - Play draws its sidebar from meta.json at once and enables Next when the question bank arrives; the Multiplayer lobby shows at once and waits for the bank only on entering a room. Room-list and roster requests to Supabase are time-limited.
 - Grading: numbers written as words match their digits (zero to twenty).
+- A first visit starts in Light (it followed the device's setting); Auto and Night are still in the theme menu and remembered once picked. The browser bar colour on phones follows the page's theme.
