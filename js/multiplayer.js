@@ -2611,7 +2611,12 @@
       const tag = (e.target && e.target.tagName) || '';
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       switch ((e.key || '').toLowerCase()) {
-        case ' ': e.preventDefault(); doBuzz(); return;
+        case ' ':
+          // Nothing focused (a history card, its star) acts on this Space too.
+          e.preventDefault();
+          if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
+          doBuzz();
+          return;
         case 'n': case 's': handleNextBtn(); return;
         case 'p': doTogglePause(); return;
         case 'e': toggleSidebar(); return;

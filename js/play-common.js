@@ -138,8 +138,11 @@
       }
       animating = setTimeout(finish, 350);
     }
-    title.addEventListener('click', toggle);
-    title.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    // A click doesn't leave the header focused, and only Enter toggles it from
+    // the keyboard: Space is Buzz on the pages with these cards, and a card
+    // that kept focus used to open as well when Space buzzed.
+    title.addEventListener('click', () => { toggle(); title.blur(); });
+    title.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); toggle(); } });
     card.toggleOpen = toggle;
     return card;
   }
