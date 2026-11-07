@@ -63,7 +63,8 @@
     title.tabIndex = 0;
     // Just the answer, as on QB Reader (no Correct / Incorrect chip), in
     // bold after its letter: "Z) <b>RR Lyrae</b>".
-    title.innerHTML = (a.letter ? escapeHtml(a.letter) + ') ' : '') + '<b>' + SBData.renderMathHTML(a.text || '') + '</b>';
+    // The answer bold and underlined, as QB Reader's answerlines are.
+    title.innerHTML = (a.letter ? escapeHtml(a.letter) + ') ' : '') + '<b><u>' + SBData.renderMathHTML(a.text || '') + '</u></b>';
     const star = SBData.bookmarkButton(q.id, (on) => {
       // Every card of this question shows the same star.
       if (card.parentElement) repaintStars(card.parentElement, q.id);
@@ -103,9 +104,14 @@
 
     // Opens and closes with Bootstrap's collapse animation (the height
     // slides over .35s), as QB Reader's cards do.
+    // Whether it's open or opening is tracked here: the .show class only
+    // lands when the animation ends, so a second click mid-slide would
+    // otherwise read the card as still closed and open it again.
     let animating = null;
+    let isOpen = false;
     function toggle() {
-      const open = !collapse.classList.contains('show');
+      const open = !isOpen;
+      isOpen = open;
       title.setAttribute('aria-expanded', open ? 'true' : 'false');
       if (animating) { clearTimeout(animating); animating = null; }
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

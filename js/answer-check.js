@@ -48,8 +48,14 @@
       // A numbered stage, type or complex reads the same with a roman numeral
       // or a digit: "meiosis 2" = "MEIOSIS II", "anaphase 1" = "ANAPHASE I",
       // "type 1a" = "TYPE IA", "photosystem 2" = "PHOTOSYSTEM II".
-      .replace(NUMBERED_RE, (m, word, roman, suffix) => `${word} ${ROMAN[roman]}${suffix}`);
+      .replace(NUMBERED_RE, (m, word, roman, suffix) => `${word} ${ROMAN[roman]}${suffix}`)
+      // A number written as a word reads the same as its digits, either way
+      // round: "0" = "ZERO", "three" = "3".
+      .replace(SPELLED_NUMBER_RE, (m) => String(SPELLED_NUMBERS.indexOf(m)));
   }
+  const SPELLED_NUMBERS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN',
+    'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN', 'TWENTY'];
+  const SPELLED_NUMBER_RE = new RegExp('\\b(?:' + SPELLED_NUMBERS.join('|') + ')\\b', 'g');
   const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 };
   const NUMBERED_RE = /\b(MEIOSIS|MITOSIS|PROPHASE|PROMETAPHASE|METAPHASE|ANAPHASE|TELOPHASE|PHOTOSYSTEM|COMPLEX|CLASS|TYPE|STAGE|PHASE|GENERATION|POPULATION|GROUP|PERIOD|LEVEL|GRADE) (VIII|VII|VI|IV|V|III|II|I)([ABCP]?)\b/g;
   const ABBREVIATIONS = {

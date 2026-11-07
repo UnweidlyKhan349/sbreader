@@ -420,7 +420,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 [data-bs-theme=dark] { --user-score-background: #4A90E2; }
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
-.room-history .chat-live { color: var(--bs-secondary-color); }
+.room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
 .room-history .mp-inline-override { line-height: inherit; vertical-align: baseline; border: 0; }
 
 /* The room code (or public lobby's name) above the question: click to copy
@@ -508,6 +508,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    only appears once its text starts, and everything below moves down as
    the question fills in. */
 .choice-box:has(> .choice-text:empty) { display: none; }
+/* No room for the choices until the first one is read out, so the rule under
+   the question sits as close as QB Reader's while the stem is read. */
+.choices-display:not(:has(.choice-text:not(:empty))) { margin-top: 0; }
 
 /* Set List sort carets sit on the text's baseline, like Bootstrap Icons. */
 .sort-indicator svg { vertical-align: -.125em; }

@@ -136,10 +136,20 @@
   }
 
   // Filled once when the page opens (it doesn't refresh itself).
+  // A promise that gives up after `ms` with `fallback`, so a slow room list
+  // or roster never holds up the lobby or entering a room.
+  function within(promise, ms, fallback) {
+    return Promise.race([promise.catch(() => fallback), new Promise((r) => setTimeout(() => r(fallback), ms))]);
+  }
+
   async function renderRoomLists() {
     const permanent = document.getElementById('permanentRoomList');
     const list = document.getElementById('roomList');
-    const reg = await SBRooms.list().catch(() => null);
+    // The built-in rooms show straight away; their counts follow.
+    if (!permanent.children.length) {
+      lobbyList.forEach((lobby) => permanent.appendChild(roomItem(`${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`, lobbyLabel(lobby), null, null)));
+    }
+    const reg = await within(SBRooms.list(), 6000, null);
     let probe = null;
     if (!reg) {
       // No room list: count the built-in rooms by asking each one.
@@ -150,7 +160,7 @@
     lobbyList.forEach((lobby) => {
       const r = byName.get(SBRooms.key('', lobby.key));
       const online = reg ? (r ? r.online : 0) : (probe.get(lobby.peerId) || 0);
-      permanent.appendChild(roomItem(`${location.pathname}?lobby=${encodeURIComponent(lobby.key)}`, lobbyLabel(lobby), reg ? (r ? r.players : 0) : null, online));
+      permanent.appendChild(roomItem(`${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`, lobbyLabel(lobby), reg ? (r ? r.players : 0) : null, online));
     });
     list.innerHTML = '';
     const rooms = reg ? reg.rooms.filter((r) => r.is_public && !r.is_permanent) : [];
@@ -282,7 +292,7 @@
 
   // A link to this page that joins the room as soon as it's opened.
   function inviteLink() {
-    if (myState.publicLobby) return `${location.origin}${location.pathname}?lobby=${encodeURIComponent(myState.publicLobby.key)}`;
+    if (myState.publicLobby) return `${location.origin}${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(myState.publicLobby))}`;
     return `${location.origin}${location.pathname}?room=${encodeURIComponent(myState.roomName)}`;
   }
 
@@ -326,6 +336,11 @@
   try { showOffline = localStorage.getItem(OFFLINE_KEY) === '1'; } catch (e) { /* default off */ }
   let openStatsFor = null;
   function renderPlayerList(container) {
+    // Your name as the room has it ("Henry 2" when another Henry got there
+    // first) goes in the username box, unless you're typing in it.
+    const meNow = game.players.find((p) => p.id === myState.myId);
+    const nameBox = document.getElementById('mpUsername');
+    if (meNow && nameBox && document.activeElement !== nameBox && nameBox.value !== meNow.name) nameBox.value = meNow.name;
     // Keep a player's Votekick menu open across repaints.
     const openMenu = container.querySelector('.dropdown-menu.show');
     const openMenuKey = openMenu ? openMenu.closest('[data-key]').dataset.key : null;
@@ -743,8 +758,10 @@
       if (live && live.dataset.cid === entry.cid) {
         liveChatEls.delete(entry.from);
         live.classList.remove('chat-live');
-        live.firstChild.textContent = entry.name;
-        live.lastChild.textContent = ' ' + entry.text;
+        live.querySelector('b').textContent = entry.name;
+        const text = live.querySelector('.live-chat-text');
+        text.textContent = entry.text;
+        text.classList.remove('text-muted');
         return;
       }
     }
@@ -784,10 +801,13 @@
     const m = memberInfo.get(id);
     return m ? m.name : (id === myState.myId ? myState.myName : 'Player');
   }
+  // As on QB Reader: the line appears as soon as the chat box opens (the name
+  // and nothing yet), the text follows in grey as it's typed, and it turns
+  // normal once sent. `text` null removes the line (the box was closed).
   function renderLiveChat(playerId, cid, text) {
     if (finishedChats.has(cid)) return;
     let li = liveChatEls.get(playerId);
-    if (!text) {
+    if (text === null) {
       if (li && li.dataset.cid === cid) { li.remove(); liveChatEls.delete(playerId); }
       return;
     }
@@ -796,15 +816,23 @@
       li = document.createElement('li');
       li.className = 'chat-message chat-live';
       li.dataset.cid = cid;
-      li.append(document.createElement('b'), document.createTextNode(''));
+      const span = document.createElement('span');
+      span.className = 'live-chat-text text-muted';
+      li.append(document.createElement('b'), document.createTextNode(' '), span);
       historyEl().prepend(li);
       liveChatEls.set(playerId, li);
     }
-    li.firstChild.textContent = chatNameFor(playerId);
-    li.lastChild.textContent = ' ' + text;
+    li.querySelector('b').textContent = chatNameFor(playerId);
+    li.querySelector('.live-chat-text').textContent = text;
   }
   function broadcastLiveChat(cid, text) {
-    if (mesh) mesh.broadcast({ type: 'chatLive', cid, text: text.slice(0, SBMpRules.LIMITS.chat) });
+    if (mesh) mesh.broadcast({ type: 'chatLive', cid, text: text === null ? null : text.slice(0, SBMpRules.LIMITS.chat) });
+  }
+  // The chat box opened: everyone sees your (still empty) line.
+  function startLiveChat() {
+    if (!myChatId) myChatId = newChatId();
+    renderLiveChat(myState.myId, myChatId, '');
+    broadcastLiveChat(myChatId, '');
   }
   function onChatTyping(text) {
     if (!myChatId) myChatId = newChatId();
@@ -829,8 +857,8 @@
     myChatId = null;
     if (!cid) return;
     if (dropped) {
-      renderLiveChat(myState.myId, cid, '');
-      broadcastLiveChat(cid, '');
+      renderLiveChat(myState.myId, cid, null);
+      broadcastLiveChat(cid, null);
     }
   }
   // A system line for the whole room, from whoever runs the game.
@@ -993,6 +1021,9 @@
 
   function broadcastLobby() {
     game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null }));
+    // Offline players are dropped a day after they left.
+    const now = Date.now();
+    departedPlayers.forEach((d, pid) => { if (!SBMpRules.stillOffline(d, now)) departedPlayers.delete(pid); });
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });
@@ -1023,9 +1054,11 @@
       rate: myState.rate,
     };
   }
-  function broadcastSettingsState() {
+  // `by` and `seq` say whose change this is and which of theirs (see
+  // requestApplySettings).
+  function broadcastSettingsState(by, seq) {
     if (!host || !activeFilterState) return;
-    host.broadcast({ type: 'settingsState', ...settingsStatePayload() });
+    host.broadcast({ type: 'settingsState', ...settingsStatePayload(), by: by || null, seq: seq || 0 });
   }
 
   function sendSyncTo(connId) {
@@ -1086,13 +1119,14 @@
       return;
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
+    if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby' && hostGame.phase !== 'gameover') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') { if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question'); hostSkipQuestion(); return; }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
         mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
-        roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate,
+        roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
       // Someone else changed the room's settings: show it in this player's
       // sidebar too (the others hear it as a 'settingsState').
@@ -1605,7 +1639,8 @@
     if (data.type === 'chatLive') {
       // Straight from the player typing it, not through the game's runner.
       const cid = SBMpRules.cleanChatId(data.cid);
-      if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
+      if (cid && data.text === null) renderLiveChat(from, cid, null);
+      else if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
       return;
     }
     if (data.type === 'join') {
@@ -1838,7 +1873,7 @@
     const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid };
     // As on QB Reader, a room keeps its players after they leave: anyone the
     // room list has seen here comes back as offline, with their score.
-    const roster = await SBRooms.roster(lobby ? SBRooms.key('', lobby.key) : myState.roomName).catch(() => []);
+    const roster = await within(SBRooms.roster(lobby ? SBRooms.key('', lobby.key) : myState.roomName), 4000, []);
     roster.forEach((r) => {
       // Negs and celerity come back too (they're 0 on a project whose
       // schema predates them).
@@ -1893,6 +1928,10 @@
   async function enterRoomByDoor({ peerId, label, lobby, filters }) {
     if (joining || myState.role) return;
     joining = true;
+    if (!SBData.questions) {
+      setJoinStatus(`Loading questions…`);
+      try { await SBData.load(); } catch (err) { joining = false; setJoinStatus(`Couldn't load the questions: ${err.message}`, true); return; }
+    }
     const name = myName();
     let lastErr = null;
     for (let attempt = 0; attempt < ROOM_ATTEMPTS; attempt++) {
@@ -2053,6 +2092,8 @@
     }
     if (msg.type === 'settingsState') {
       applySettingsStateLocal(msg);
+      // An echo of an older change of ours: newer ones are on their way.
+      if (msg.by === myState.myId && typeof msg.seq === 'number' && msg.seq < settingsSeq) return;
       // The settings in the sidebar show what the room is using now,
       // including a change someone else just made.
       showSettingsFromState();
@@ -2209,6 +2250,19 @@
     requestApplySettings();
   }
 
+  // "Henry changed the rounds to 6-20", once the round slider is let go (the
+  // range itself goes out quietly while it's dragged).
+  function announceRounds() {
+    if (myState.role === 'host') hostAnnounceRounds(myState.myId);
+    else if (client) client.send({ type: 'announceRounds' });
+  }
+  function hostAnnounceRounds(connId) {
+    if (myState.role !== 'host' || !activeFilterState) return;
+    const max = SBData.maxRoundFor(activeFilterState.tournaments);
+    const r = activeFilterState.roundRange || [1, max];
+    hostEvent(connId, `changed the rounds to ${Math.max(1, r[0])}-${Math.min(r[1], max)}`);
+  }
+
   // Clear all filters: every tournament, round and subject (General: back to
   // its default; a one-subject room keeps its subject), questions with no
   // round number included, and all of a set's packets; sent as one change.
@@ -2284,6 +2338,8 @@
       labelEl: document.getElementById('mpSettingsRoundRangeLabel'),
       maxRound,
       onChange: (lo, hi) => { midGameFilterState.roundRange = [lo, hi]; onSettingChange(); },
+      // The room hears about it once, when the handle is let go.
+      onCommit: () => { if (!suppressSettingsApplyEcho) announceRounds(); },
     });
 
     document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
@@ -2419,13 +2475,18 @@
       activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, timer: next.timer, isPublic: next.isPublic };
     }
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
-    broadcastSettingsState();
+    broadcastSettingsState(byConnId, values.seq);
     showSettingsFromState();
     beat();
   }
 
   // Sends the sidebar's settings to whoever runs the game (or applies them,
   // if that's this player).
+  // Each change this player sends is numbered. The room echoes every change
+  // back; an echo of an older change of ours (we've clicked again since) must
+  // not repaint the sidebar, or a quick second click would seem undone and
+  // the next click would act on the wrong state.
+  let settingsSeq = 0;
   function requestApplySettings() {
     if (suppressSettingsApplyEcho) return;
     const f = midGameFilterState;
@@ -2433,8 +2494,9 @@
     if (myState.role === 'host') {
       hostApplySettingsFromValues(values, myState.myId);
     } else if (client) {
+      settingsSeq++;
       client.send({
-        type: 'updateSettings',
+        type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
         rebuzz: values.rebuzz, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
@@ -2460,6 +2522,7 @@
     const row = document.getElementById('mpChatRow');
     row.classList.remove('d-none');
     document.getElementById('mpChatInput').focus();
+    startLiveChat();
   }
   function hideChatRow() {
     endLiveChat(true);
@@ -2580,7 +2643,10 @@
     try { if (mesh) mesh.leave(); } catch (e) { /* the page is going anyway */ }
   });
 
-  SBData.load().then(() => {
+  // The lobby needs only meta.json, so it shows at once; the question bank
+  // (SBData.load, started from <head>) keeps downloading and is waited for
+  // only on entering a room.
+  SBData.loadMeta().then(() => {
     myState.pid = myPid();
     initPublicLobbies();
     initLobby();

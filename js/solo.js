@@ -61,8 +61,10 @@
   }
 
   function updateMatchCount() {
-    const n = buildPool().length;
     const el = document.getElementById('matchCount');
+    // The sidebar shows before the question bank has arrived.
+    if (!SBData.questions) { el.textContent = 'Loading questions…'; return; }
+    const n = buildPool().length;
     if (settings.mode === 'starred') {
       el.textContent = '';
       document.getElementById('starredInfo').textContent = n ? '' : 'No starred questions.';
@@ -100,7 +102,7 @@
     input.classList.toggle('is-invalid', !!settings.setName.trim() && !t);
     info.textContent = !t && settings.setName.trim() ? 'No set with that name.' : '';
     // The packet dropdown lists this set's packets.
-    packetPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], settings.packetNumbers);
+    packetPicker.setPackets(t && SBData.questions ? SBPlay.packetsOf(t.slug) : [], settings.packetNumbers);
   }
 
   function initSettings() {
@@ -666,9 +668,16 @@
   setNextButtonMode('disabled');
   updateCounters();
 
-  SBData.load().then(() => {
+  // The sidebar needs only meta.json (76 KB), so it's drawn at once; Next
+  // waits for the question bank (SBData.load, started from <head>).
+  const metaReady = SBData.loadMeta().then(() => {
     initSettings();
     wireGameControls();
+  });
+  Promise.all([metaReady, SBData.load()]).then(() => {
+    describeSet();
+    scopeRounds();
+    updateMatchCount();
     setNextButtonMode('start');
     // Arriving for starred questions (e.g. an old bookmarks link) starts at once.
     const p = new URLSearchParams(location.search);

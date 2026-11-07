@@ -1236,7 +1236,9 @@
   /* ---------------- Shared dual-handle round-range slider wiring ---------------- */
   // opts: { minInput, maxInput, fillEl, labelEl, maxRound, onChange(lo, hi) }
   SBData.wireRoundRangeSlider = function (opts) {
-    const { minInput, maxInput, fillEl, labelEl, onChange } = opts;
+    // onCommit(lo, hi): once a change is finished - the handle let go, or a
+    // keyboard step - and only if the range moved.
+    const { minInput, maxInput, fillEl, labelEl, onChange, onCommit } = opts;
     let maxRound = opts.maxRound;
     minInput.min = maxInput.min = 1;
     minInput.max = maxInput.max = maxRound;
@@ -1271,6 +1273,18 @@
     }
     minInput.addEventListener('input', onMinInput);
     maxInput.addEventListener('input', onMaxInput);
+    let committed = null;
+    let dragStart = null;
+    function commit(from) {
+      const now = [parseInt(minInput.value, 10), parseInt(maxInput.value, 10)];
+      const base = from || committed;
+      if (base && base[0] === now[0] && base[1] === now[1]) return;
+      committed = now;
+      if (onCommit) onCommit(now[0], now[1]);
+    }
+    // Keyboard changes fire 'change' as each step is done.
+    minInput.addEventListener('change', commit);
+    maxInput.addEventListener('change', commit);
 
     // The two <input type=range> handles are stacked exactly on top of each
     // other, and both are entirely pointer-events:none (see .dual-slider
@@ -1329,6 +1343,9 @@
     container.addEventListener('pointerdown', (e) => {
       const lo = parseInt(minInput.value, 10);
       const hi = parseInt(maxInput.value, 10);
+      // Where this drag started: it counts as a change only if the range
+      // differs when it's let go (updates arriving mid-drag don't move this).
+      dragStart = [lo, hi];
       const dLo = Math.abs(e.clientX - xOfValue(lo));
       const dHi = Math.abs(e.clientX - xOfValue(hi));
       grabOffset = 0;
@@ -1371,15 +1388,23 @@
       if (!dragHandle) return;
       dragHandle = null;
       if (container.hasPointerCapture(e.pointerId)) container.releasePointerCapture(e.pointerId);
+      const start = dragStart;
+      dragStart = null;
+      commit(start); // let go: the change is done
     }
     container.addEventListener('pointerup', endDrag);
     container.addEventListener('pointercancel', endDrag);
 
     render();
+    // Set from code (a saved range, another player's change): the new
+    // starting point for onCommit, not a change of this player's.
+    const settle = () => { committed = [parseInt(minInput.value, 10), parseInt(maxInput.value, 10)]; };
+    minInput.addEventListener('change', () => { dragStart = null; });
+    settle();
     return {
-      reset() { minInput.value = 1; maxInput.value = maxRound; render(); },
+      reset() { minInput.value = 1; maxInput.value = maxRound; render(); settle(); },
       getRange() { return [parseInt(minInput.value, 10), parseInt(maxInput.value, 10)]; },
-      setRange(lo, hi) { minInput.value = lo; maxInput.value = hi; render(); },
+      setRange(lo, hi) { minInput.value = lo; maxInput.value = hi; render(); settle(); },
       // Rescales the slider to the rounds the current tournaments have. A
       // range that reached the old top keeps reaching the top; otherwise it's
       // clamped. Doesn't call onChange: returns the new [lo, hi] when anything
@@ -1395,7 +1420,9 @@
         minInput.max = maxInput.max = n;
         minInput.value = newLo;
         maxInput.value = newHi;
-        return draw();
+        const moved = draw();
+        settle();
+        return moved;
       },
     };
   };

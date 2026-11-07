@@ -81,6 +81,9 @@ test('General starts with every subject but energy, and each subject but energy 
   for (const l of lobbies.slice(1)) assert.deepStrictEqual(l.subjects, [l.key]);
   assert.strictEqual(new Set(lobbies.map((l) => l.peerId)).size, lobbies.length);
   assert.strictEqual(findPublicLobby(meta, ' BIO ').key, 'bio');
+  assert.strictEqual(findPublicLobby(meta, 'general').key, 'all');
+  assert.strictEqual(findPublicLobby(meta, 'all').key, 'all');
+  assert.strictEqual(globalThis.SBMpRules.lobbySlug(lobbies[0]), 'general');
   assert.strictEqual(findPublicLobby(meta, 'energy'), null);
   assert.strictEqual(findPublicLobby(meta, null), null);
 });
@@ -118,7 +121,8 @@ test('a player who left stays on the list, offline, for good', () => {
   const { stillOffline } = globalThis.SBMpRules;
   const now = Date.now();
   assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 365 * 24 * 3600 * 1000 }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - 23 * 3600 * 1000 }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - 25 * 3600 * 1000 }, now), false);
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
 });
 

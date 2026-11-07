@@ -344,3 +344,13 @@ test('roman numerals and digits match after a stage, type or complex name', () =
   assert.strictEqual(checkAnswer(q('MEIOSIS II'), 'meiosis 1').correct, false);
   assert.strictEqual(checkAnswer(q('ANAPHASE I'), 'anaphase 2').correct, false);
 });
+
+test('numbers written as words match their digits', () => {
+  const q = (t) => ({ answer: { text: t }, question: '', format: 'SA' });
+  assert.strictEqual(checkAnswer(q('ZERO'), '0').correct, true);
+  assert.strictEqual(checkAnswer(q('0'), 'zero').correct, true);
+  assert.strictEqual(checkAnswer(q('THREE'), '3').correct, true);
+  assert.strictEqual(checkAnswer(q('12 PROTONS'), 'twelve protons').correct, true);
+  assert.strictEqual(checkAnswer(q('ZERO'), '1').correct, false);
+  assert.strictEqual(checkAnswer(q('TWO'), 'three').correct, false);
+});

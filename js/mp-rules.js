@@ -43,7 +43,9 @@
     };
   }
 
-  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override']);
+  // announceRounds: the sender let go of the round slider; the room says what
+  // the rounds are now (from its own settings, not the message).
+  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'announceRounds']);
 
   // A player's ID for the life of their browser, sent with 'join' so a
   // player who drops out and comes back gets their score back. Not a secret: it only ever guards a practice score.
@@ -71,12 +73,10 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
-  // A player who leaves stays on the leaderboard, marked offline, for an hour
-  // (with their score, for if they come back). Whether `entry` ({ leftAt })
-  // should still be shown at time `now`.
-  // Players who leave stay in the room's player list, marked offline, for
-  // good (as on QB Reader): this only checks the entry is well formed.
-  const OFFLINE_KEEP_MS = Infinity;
+  // A player who leaves stays in the room's player list, marked offline and
+  // with their score, for a day. Whether `entry` ({ leftAt }) should still be
+  // shown at time `now`.
+  const OFFLINE_KEEP_MS = 24 * 60 * 60 * 1000;
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
   }
@@ -182,6 +182,9 @@
         roundRange,
         includeUnlabeled: msg.includeUnlabeled !== false,
         rate: readingSpeed(msg.rate),
+        // The sender's count of its own changes, echoed back so it can tell
+        // a stale echo from its latest change.
+        seq: Number.isSafeInteger(msg.seq) && msg.seq >= 0 ? msg.seq : 0,
       };
     }
     return null;
@@ -215,10 +218,14 @@
       keys.filter((k) => !NO_PUBLIC_LOBBY.has(k)).map((k) => ({ key: k, subjects: [k] }))
     ).map((l) => ({ ...l, peerId: PUBLIC_PREFIX + l.key }));
   }
+  // A lobby's name in links: "general" for General (key 'all', which its door
+  // and room-list entry keep), the subject key for the others.
+  function lobbySlug(lobby) { return lobby.key === 'all' ? 'general' : lobby.key; }
   function findPublicLobby(meta, key) {
-    const k = typeof key === 'string' ? key.trim().toLowerCase() : '';
+    let k = typeof key === 'string' ? key.trim().toLowerCase() : '';
+    if (k === 'general') k = 'all'; // ?lobby=general (and old ?lobby=all links)
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);
