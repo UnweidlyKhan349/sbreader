@@ -251,9 +251,9 @@ Setting it up (once):
 1. In the Cloudflare dashboard, open **Realtime → TURN Server** (also listed as Calls → TURN) and create a TURN key. Note its **Key ID** and **API token** (shown once).
 2. Install the Supabase CLI and link the project: `npx supabase login`, then `npx supabase link --project-ref <project-ref>` (the `<project-ref>` part of the project URL in `js/config.js`).
 3. Store the key as the function's secrets: `npx supabase secrets set CLOUDFLARE_TURN_KEY_ID=<key id> CLOUDFLARE_TURN_KEY_API_TOKEN=<api token>`.
-4. Deploy it: `npx supabase functions deploy turn-credentials`.
+4. Deploy it: `npx supabase functions deploy turn-credentials --no-verify-jwt` (also set in `supabase/config.toml`). The site's publishable key isn't a JWT, so with JWT verification on, every request is refused. If you create the function in the dashboard instead, turn **Verify JWT with legacy secret** off in its settings.
 
-Check it by opening `https://<project-ref>.supabase.co/functions/v1/turn-credentials` with the header `Authorization: Bearer <publishable key>`: it should answer `{"iceServers":[…]}` with `turn:` addresses. The key never reaches browsers; anyone who can load the site can get the short-lived logins, which is how TURN works on public sites. Cloudflare's dashboard shows the traffic used.
+Check it by opening `https://<project-ref>.supabase.co/functions/v1/turn-credentials` in a browser: it should answer `{"iceServers":[…]}` with `turn:` addresses. The key never reaches browsers; anyone who can load the site can get the short-lived logins, which is how TURN works on public sites. Cloudflare's dashboard shows the traffic used.
 
 ## Data format
 

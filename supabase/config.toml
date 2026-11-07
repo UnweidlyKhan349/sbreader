@@ -1,0 +1,7 @@
+# Only the settings the site's Edge Function needs; `supabase functions
+# deploy` reads this. The site signs requests with a publishable key
+# (sb_publishable_...), which isn't a JWT, so the gateway's JWT check would
+# turn every request away. The function hands out short-lived TURN logins
+# to anyone who loads the site, as a public site's TURN service must.
+[functions.turn-credentials]
+verify_jwt = false
