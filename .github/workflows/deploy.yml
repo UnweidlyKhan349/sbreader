@@ -5,8 +5,10 @@
 # main is tested and then copied to sbreader/sbreader.github.io, which serves
 # it with GitHub Pages (Deploy from a branch: main, / (root)).
 #
-# Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
-# has write access to sbreader/sbreader.github.io (see README, Deploying).
+# Needs the secret SBREADER_DEPLOY_KEY: the whole private half of a deploy key,
+# with no passphrase, whose public half is a deploy key with write access on
+# sbreader/sbreader.github.io (see README, Deploying). The "Check the deploy
+# key" step says what's wrong with it, if anything.
 name: Deploy to sbreader.github.io
 
 on:
@@ -31,14 +33,22 @@ jobs:
         run: node --test tests/*.test.js
       - name: Copy the site files
         run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
+      - name: Check the deploy key
+        env:
+          DEPLOY_KEY: ${{ secrets.SBREADER_DEPLOY_KEY }}
+        run: tools/deploy-key-check.sh "$RUNNER_TEMP/deploy_key"
       - name: Push to sbreader/sbreader.github.io
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
-          external_repository: sbreader/sbreader.github.io
-          publish_branch: main
-          publish_dir: ${{ runner.temp }}/site
-          force_orphan: true
-          user_name: github-actions[bot]
-          user_email: 41898299+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Deploy UnweidlyKhan349/sbreader@${{ github.sha }}
+        working-directory: ${{ runner.temp }}/site
+        run: |
+          set -euo pipefail
+          # GitHub's published SSH host key, so the push can't go to anyone else.
+          echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > "$RUNNER_TEMP/known_hosts"
+          export GIT_SSH_COMMAND="ssh -i $RUNNER_TEMP/deploy_key -o IdentitiesOnly=yes -o UserKnownHostsFile=$RUNNER_TEMP/known_hosts -o StrictHostKeyChecking=yes"
+          touch .nojekyll   # serve every file as is; no Jekyll build
+          git init -q -b main
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898299+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -q -m "Deploy UnweidlyKhan349/sbreader@$GITHUB_SHA"
+          # One commit each time, replacing the last, so the copy's history stays small.
+          git push --force git@github.com:sbreader/sbreader.github.io.git main

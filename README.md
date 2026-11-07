@@ -202,6 +202,7 @@ tools/meta-counts.js refreshes each tournament's question, tossup, bonus and pac
 tools/link-sweep.js find the published packet (or tournament folder) for questions with no link, in public Drive archives
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 tools/stamp-assets.js   stamps each page's script and stylesheet links with a hash of the file (js/x.js?v=…), so a deploy never pairs a new page with a cached old script; run it after changing any .js or .css (npm test checks)
+tools/deploy-key-check.sh  used by the deploy workflow: checks the SBREADER_DEPLOY_KEY secret is a usable private key and says plainly what's wrong if not
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
 tests/              node --test suites: grader, multiplayer rules, data shape
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
@@ -433,11 +434,16 @@ UnweidlyKhan349/sbreader      ← push here
 sbreader/sbreader.github.io   ← copy only, served at https://sbreader.github.io/
 ```
 
-The workflow runs the tests, copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
+The workflow runs the tests, copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`, plus a `.nojekyll` so the files are served as they are) and force-pushes it to the copy's `main` branch as a single commit, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
 
 Setting it up (done once; listed in case it has to be redone):
 1. Create the `sbreader` organization (Free plan) and in it an empty **public** repo named `sbreader.github.io`.
-2. Make a deploy key: `ssh-keygen -t ed25519 -N "" -C "sbreader deploy" -f sbreader_deploy`. Add `sbreader_deploy.pub` to `sbreader/sbreader.github.io` under Settings → Deploy keys, with **Allow write access**. Add the private key `sbreader_deploy` to `UnweidlyKhan349/sbreader` under Settings → Secrets and variables → Actions, named `SBREADER_DEPLOY_KEY`. Then delete both files.
+2. Make a deploy key: run `ssh-keygen -t ed25519 -C sbreader-deploy -f sbreader_deploy` and press Enter at both passphrase prompts. The key must have **no passphrase**, because Actions can't type one; this form works the same in every shell, which `-N ""` doesn't (Windows PowerShell 5 drops the empty argument).
+   - Add the public half, `sbreader_deploy.pub` (one line starting `ssh-ed25519`), to `sbreader/sbreader.github.io` under Settings → Deploy keys, with **Allow write access**.
+   - Add the private half, `sbreader_deploy` (no `.pub`), to `UnweidlyKhan349/sbreader` under Settings → Secrets and variables → Actions, as `SBREADER_DEPLOY_KEY`. Paste the whole file, from `-----BEGIN OPENSSH PRIVATE KEY-----` to `-----END OPENSSH PRIVATE KEY-----`, line breaks included (`cat sbreader_deploy`, or open it in a text editor; on a Mac `pbcopy < sbreader_deploy` copies it).
+   - Then delete both files. To replace the key later, make a new one and replace both halves.
+
+   The workflow's **Check the deploy key** step (`tools/deploy-key-check.sh`) says plainly what's wrong if the secret isn't a usable key (the public half pasted, cut off, line breaks lost, or a passphrase) and, when it is usable, prints its fingerprint to compare with the one under Deploy keys.
 3. After the first deploy, turn on Pages in `sbreader/sbreader.github.io` (Deploy from a branch, `main`, `/ (root)`).
 
 There's no build step, `npm install`, or environment variables. `package.json` only defines `npm test` and has no dependencies.
