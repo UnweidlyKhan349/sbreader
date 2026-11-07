@@ -155,3 +155,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - The Select by Set Name packet list drops the "1. 2. 3." numbering.
 - Multiple-choice W/X/Y/Z choices sit one per line in question cards; numbered statements written as "1.", "(1)" or roman "I." / "I)" now go on their own lines as "1)" lists already did (a run must count up from 1).
 - Browser tests: one runs the Multiplayer relay against the real Supabase project (`SB_E2E_OFFLINE=1` skips it), one checks the update-after-redeploy flow, one the history card footer and line breaks.
+- Multiplayer: a player who joins mid-question no longer gets the whole question at once. The room's coordinator sends how far the reading has got, and the newcomer reads on from that point in step with everyone else (paused if someone is answering), so they can't buzz on text the others haven't heard.

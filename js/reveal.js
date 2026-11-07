@@ -102,7 +102,7 @@
 
   // segments: [{ text, el }] or [{ html, el }] - each rendered into el in
   // sequence, word by word. speed: QB Reader's reading speed, 0 to 100.
-  // Returns a controller.
+  // callbacks: { onComplete, onProgress, startUnits }. Returns a controller.
   function startReveal(segments, speed, callbacks) {
     callbacks = callbacks || {};
     let msUnit = msPerUnit(speed);
@@ -186,9 +186,14 @@
       tickTimer = setTimeout(tick, TICK_MS);
     }
 
-    if (segments.length && words.length) {
+    // startUnits: start part-way through (a player joining a room mid-
+    // question picks up where the room's reading is).
+    unitsBanked = Math.max(0, Number(callbacks.startUnits) || 0);
+    if (segments.length && words.length && unitsBanked >= totalUnits) {
+      finish();
+    } else if (segments.length && words.length) {
       runStart = Date.now();
-      applyProgress(charsAt(0));
+      applyProgress(charsAt(unitsBanked));
       tickTimer = setTimeout(tick, TICK_MS);
       scheduleCompletion();
     } else {
@@ -226,6 +231,9 @@
       // as on QB Reader).
       progress() { return done || !totalChars ? 1 : shownChars / totalChars; },
       isPaused() { return paused; },
+      // How far the reading has got, in timing units (pass it back as
+      // startUnits to resume another reveal of the same text there).
+      units() { return done ? totalUnits : elapsedUnits(); },
       // A new reading speed mid-question: what's shown stays put and only
       // the rest reads faster or slower (progress is kept in units).
       setRate(newSpeed) {

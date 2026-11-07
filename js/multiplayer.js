@@ -598,9 +598,10 @@
     return { boxSegments };
   }
 
-  // instant=true renders the full text immediately with no animation (used when a
-  // player joins mid-question and has nothing to "catch up" on).
-  function startLocalReveal(q, instant, onComplete) {
+  // instant=true renders the full text immediately with no animation (a
+  // player joining after the reading is over). startUnits starts the reading
+  // part-way through (a player joining mid-question, at the room's point).
+  function startLocalReveal(q, instant, onComplete, startUnits) {
     if (revealCtl) revealCtl.stop();
     const { boxSegments } = buildRevealSegments(q);
     // The question and choices are math-rendered HTML from the start, so
@@ -613,6 +614,7 @@
     }
     revealCtl = SBReveal.startReveal(boxSegments, myState.rate, {
       onComplete: () => { if (onComplete) onComplete(); },
+      startUnits: startUnits || 0,
     });
     if (game.paused) revealCtl.pause();
   }
@@ -1079,6 +1081,9 @@
       attempts: game.attempts,
       overrideLocked: hostGame.overrideLocked,
       chat: hostChat.slice(-CHAT_HISTORY),
+      // How much of the question the room has read, so a newcomer reads on
+      // from there instead of seeing it all (and can't buzz on unread text).
+      readUnits: revealCtl && !revealCtl.isDone() && (hostGame.phase === 'reading' || hostGame.phase === 'answering') ? revealCtl.units() : null,
     });
   }
 
@@ -2009,7 +2014,15 @@
       if (msg.scores) {
         msg.scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
       }
-      if (game.question) startLocalReveal(game.question, true);
+      const midRead = game.question && (game.phase === 'reading' || game.phase === 'answering')
+        && typeof msg.readUnits === 'number' && isFinite(msg.readUnits) && msg.readUnits >= 0;
+      if (midRead) {
+        // Read on from where the room is; whoever runs the game opens
+        // buzzing when their reading finishes, as on a 'question'.
+        startLocalReveal(game.question, false, () => hostStartBuzzWindow(), msg.readUnits);
+        // Someone is answering mid-question: the reading waits for them.
+        if (game.phase === 'answering' && revealCtl) revealCtl.pause();
+      } else if (game.question) startLocalReveal(game.question, true);
       fullRenderFromState();
       return;
     }

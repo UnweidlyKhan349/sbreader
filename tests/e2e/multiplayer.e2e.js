@@ -127,6 +127,26 @@ test('players whose direct links are blocked meet through the Supabase relay', {
   await ctx.close();
 });
 
+test('a player who joins mid-question reads on from where the room is, not the whole question', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  // Slowest reading, so the question is still being read when B arrives.
+  await a.evaluate(() => { const el = document.getElementById('mpSettingsRateSlider'); if (el) { el.value = el.min || 0; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); } });
+  await a.waitForTimeout(500);
+  await a.locator('#mpNextBtn').click();
+  await a.waitForTimeout(2000);
+  const b = await joinRoom(ctx, server.url, r);
+  const shown = (p) => p.evaluate(() => document.getElementById('mpQDisplay').textContent.length);
+  const [la, lb] = [await shown(a), await shown(b)];
+  assert.ok(lb > 0, 'the newcomer sees what has been read');
+  assert.ok(Math.abs(la - lb) < 40, `both read the same part (${la} vs ${lb})`);
+  await b.waitForTimeout(1500);
+  // Still growing, so it wasn't shown whole on arrival.
+  assert.ok(await shown(b) > lb, 'and the reading goes on');
+  await ctx.close();
+});
+
 test('General starts with every subject but Energy; a subject room is locked', async () => {
   const ctx = await newContext(browser);
   const page = await (async () => { const p = await ctx.newPage(); await p.goto(server.url + 'multiplayer?lobby=general', { waitUntil: 'networkidle' }); await p.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 }); return p; })();
