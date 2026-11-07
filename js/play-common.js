@@ -47,6 +47,16 @@
   // a star on the right; the question, its answer line and the packet link
   // sit underneath, collapsed; the footer names the set, subject and slot.
   // opts: { grade, answer: { text, letter, accept, reject, sourceUrl }, note, onStar(isStarred) }
+  // Round names as players say them: "Round Robin 3" / "rr 3" -> "RR 3",
+  // "Double Elimination 2" / "de 2" -> "DE 2"; other packet names as written.
+  function shortRound(label) {
+    return String(label)
+      .replace(/\bround[\s-]*robin\b/gi, 'RR')
+      .replace(/\bdouble[\s-]*elimination\b/gi, 'DE')
+      .replace(/\b(rr|de|se)(?=\s*\d)/gi, (m) => m.toUpperCase())
+      .replace(/\bfinals?\b/gi, (m) => m[0].toUpperCase() + m.slice(1).toLowerCase());
+  }
+
   function historyCard(q, opts) {
     opts = opts || {};
     const a = opts.answer || { text: SBData.answerDisplayText(q), letter: q.answer && q.answer.letter, accept: q.answer && q.answer.accept, reject: q.answer && q.answer.reject };
@@ -95,11 +105,11 @@
     const footer = document.createElement('div');
     footer.className = 'card-footer';
     const src = a.sourceUrl || q.sourceUrl;
-    // "MIT 2020 Packet Round 7 / Question 6 / Math / Toss-up" on the left,
+    // "MIT 2020 / RR 3 / Question 6 / Math / Toss-up" (or the packet's own
+    // name, "2016 Question Exchange / Aug 11 Albany / ...") on the left,
     // "Source packet | Report" on the right.
     const round = SBData.roundLabelFor(q);
-    const where = [q.tournament, round ? 'Packet ' + round : ''].filter(Boolean).join(' ');
-    const left = [where, q.num ? 'Question ' + q.num : '', SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
+    const left = [q.tournament, round ? shortRound(round) : '', q.num ? 'Question ' + q.num : '', SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
     footer.innerHTML = `<small class="text-muted">${left}</small><small class="text-muted float-end card-footer-links"></small>`;
     const links = footer.querySelector('.float-end');
     if (/^https?:\/\//.test(src || '')) links.innerHTML = `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>`;

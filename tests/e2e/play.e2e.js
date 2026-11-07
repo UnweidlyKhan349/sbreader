@@ -73,7 +73,7 @@ test('Clear all filters puts tournaments, rounds and subjects back', async () =>
   await ctx.close();
 });
 
-test('history cards: the footer reads "Set Packet / Question / Subject / Type", links "Source packet | Report", one choice or item per line', async () => {
+test('history cards: the footer reads "Set / RR 3 / Question / Subject / Type", links "Source packet | Report", one choice or item per line', async () => {
   const { ctx, page } = await freshPlay();
   const r = await page.evaluate(async () => {
     await SBData.load();
@@ -84,12 +84,14 @@ test('history cards: the footer reads "Set Packet / Question / Subject / Type", 
     return {
       left: card.querySelector('.card-footer .text-muted').textContent,
       right: card.querySelector('.card-footer .float-end').textContent,
-      expected: `${mc.tournament} Packet ${SBData.roundLabelFor(mc)} / Question ${mc.num} / ${SBData.subjectLabel(mc.subject)} / ${SBData.qtypeLabel(mc)}`,
+      expected: `${mc.tournament} / ${SBData.roundLabelFor(mc)} / Question ${mc.num} / ${SBData.subjectLabel(mc.subject)} / ${SBData.qtypeLabel(mc)}`,
+      rr: (() => { const q = Object.assign({}, mc, { roundLabel: 'Round Robin 3', tournament: 'MIT 2020' }); return SBPlay.historyCard(q).querySelector('.card-footer .text-muted').textContent; })(),
       choiceBreaks: card.querySelectorAll('.card-body br').length,
       listText: listCard.querySelector('.q-text, .card-body').innerText,
     };
   });
   assert.strictEqual(r.left, r.expected);
+  assert.match(r.rr, /^MIT 2020 \/ RR 3 \/ Question /);
   assert.match(r.right, /^Source packet \| Report/);
   assert.ok(r.choiceBreaks >= 3, 'W, X, Y, Z on their own lines');
   assert.match(r.listText, /\n1\. .*\n2\. /);
