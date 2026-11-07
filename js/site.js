@@ -143,8 +143,10 @@
         if (e.target === el || e.target.closest('[data-sb-dismiss]')) hideModal(el);
       });
     }
-    const focusable = el.querySelector('button, [href], input');
-    if (focusable) focusable.focus();
+    // As Bootstrap (and QB Reader) do: focus the dialog itself, not its
+    // first button, so the close × doesn't open with a focus ring.
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+    el.focus({ preventScroll: true });
   }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }

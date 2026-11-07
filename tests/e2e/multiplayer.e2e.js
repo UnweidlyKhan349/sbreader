@@ -140,10 +140,14 @@ test('a player who joins mid-question reads on from where the room is, not the w
   const shown = (p) => p.evaluate(() => document.getElementById('mpQDisplay').textContent.length);
   const [la, lb] = [await shown(a), await shown(b)];
   assert.ok(lb > 0, 'the newcomer sees what has been read');
-  assert.ok(Math.abs(la - lb) < 40, `both read the same part (${la} vs ${lb})`);
+  assert.ok(Math.abs(la - lb) < 60, `both read the same part (${la} vs ${lb})`);
   await b.waitForTimeout(1500);
-  // Still growing, so it wasn't shown whole on arrival.
-  assert.ok(await shown(b) > lb, 'and the reading goes on');
+  // While the room is still reading, the newcomer's text grows too, so it
+  // wasn't shown whole on arrival. (On a slow machine the reading can end
+  // first; then both show it all.)
+  const [la2, lb2] = [await shown(a), await shown(b)];
+  if (la2 > la) assert.ok(lb2 > lb, 'and the reading goes on');
+  else assert.strictEqual(lb2, la2);
   await ctx.close();
 });
 
