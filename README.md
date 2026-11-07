@@ -245,7 +245,7 @@ PeerJS only closes a connection once ICE reaches `failed`, which can take a long
 
 ### Multiplayer relay (TURN)
 
-Players connect directly when their networks allow it, and through the room's Supabase Realtime channel when they don't (see Relay under Multiplayer). A TURN server is the standard, sturdier fix for networks that block direct connections, and the site uses one when it's set up: `supabase/functions/turn-credentials` is a Supabase Edge Function that turns a Cloudflare TURN key into logins that expire after a day, and `js/peer.js` asks it for them before the first connection (waiting at most 3 seconds, once per tab). Without the function, nothing changes. Cloudflare's TURN service is free up to 1,000 GB a month.
+Players connect directly when their networks allow it, and through the room's Supabase Realtime channel when they don't (see Relay under Multiplayer). A direct (WebRTC) link needs each browser to reach the other's address; STUN only tells a browser its public address, which isn't enough behind most phone networks (carrier-grade NAT), strict school or office firewalls, and symmetric NATs. A TURN server sits in between and forwards the encrypted traffic for those pairs. A TURN server is the standard, sturdier fix for networks that block direct connections, and the site uses one when it's set up: `supabase/functions/turn-credentials` is a Supabase Edge Function that turns a Cloudflare TURN key into logins that expire after a day, and `js/peer.js` asks it for them before the first connection (waiting at most 3 seconds, once per tab). Without the function, nothing changes. Cloudflare's TURN service is free up to 1,000 GB a month.
 
 Setting it up (once):
 1. In the Cloudflare dashboard, open **Realtime → TURN Server** (also listed as Calls → TURN) and create a TURN key. Note its **Key ID** and **API token** (shown once).
@@ -488,10 +488,14 @@ The deploy also runs `tools/build-pages.js`, which writes a real HTML page for e
 
 A service worker (`sw.js`, registered by `js/site.js`) keeps the site's files in the browser, so a repeat visit doesn't download the 29 MB bank again and Play works offline once it has loaded:
 - A file whose address has a content stamp (`?v=…`) can't change at that address, so it's served from the cache. That covers the scripts and stylesheets (stamped by `tools/stamp-assets.js`) and every bank file: `meta.json` holds each file's stamp (`v` per tournament, and `bankIndex`), written by `tools/meta-counts.js`, and the site fetches `data/bank/<slug>.json?v=<stamp>`. A new stamp replaces the old copy.
-- Pages, `meta.json` and figures are fetched from the network first, with the cache only as the offline fallback, so they're never stale.
+- Pages, `meta.json`, `version.json` and figures are fetched from the network first (revalidated with the server, so the browser's own 10-minute cache can't return a page from before a deploy), with the cache only as the offline fallback.
 - Other sites (Supabase, PeerJS) aren't touched.
 
 After any change to `data/bank/`, run `node tools/meta-counts.js` (as before); `npm test` fails if a stamp is out of date. To switch the worker off for everyone, replace `sw.js` with one that unregisters itself and deletes its caches.
+
+### Updates after a redeploy
+
+Every deploy runs `tools/stamp-version.js`, which writes `version.json` (the commit's SHA) and puts the same value in every page as `<meta name="sb-version">`. `js/site.js` fetches `version.json` (never from a cache) when a page loads, when its tab comes back into view, and every five minutes. If the site is newer than the page, the page reloads, and the service worker fetches its own new copy. During a Play session or while you're in a Multiplayer room (or typing, or with a dialog open), it shows "A new version of SB Reader is out. Reload" instead and reloads once the game is idle. It reloads at most once per version per tab, so a page that comes back old can't loop. A copy served without the meta tag (local development) never checks.
 
 ### Search engines and link previews
 
@@ -517,7 +521,7 @@ The tests, which CI also runs on every push and pull request:
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.
 
-**Browser tests** (`tests/e2e/`, about two minutes; CI runs them in a second job): Play (buzzing, grading, the override, history cards and their shortcuts, Space with a focused card, Clear all filters), Multiplayer with two simulated players (joining, settings kept in sync with and without network lag, overrides, the live chat line, the rounds message, General's and the subject rooms' subjects) and every page at desktop and phone widths. PeerJS is replaced by `tests/e2e/fake-peer.js`, which links the players' tabs through a BroadcastChannel (it can also add lag, or block direct links), Supabase is blocked so nothing reaches the real project, and the service worker is off.
+**Browser tests** (`tests/e2e/`, about two minutes; CI runs them in a second job): Play (buzzing, grading, the override, history cards and their shortcuts, Space with a focused card, Clear all filters), Multiplayer with two simulated players (joining, settings kept in sync with and without network lag, overrides, the live chat line, the rounds message, General's and the subject rooms' subjects) and every page at desktop and phone widths. PeerJS is replaced by `tests/e2e/fake-peer.js`, which links the players' tabs through a BroadcastChannel (it can also add lag, or block direct links), and the service worker is off. Supabase is blocked except in one test, which blocks direct links and checks two players meet and stay in sync through the real project's Realtime relay (a broadcast channel; a private room code writes no table rows). Set `SB_E2E_OFFLINE=1` to skip it without a network. Further tests cover the update-after-redeploy check and the history card footer.
 
 ```bash
 npm install --no-save playwright@1.63.0 && npx playwright install chromium   # once

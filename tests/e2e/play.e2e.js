@@ -72,3 +72,26 @@ test('Clear all filters puts tournaments, rounds and subjects back', async () =>
   assert.strictEqual(await page.locator('#matchCount').innerText(), all);
   await ctx.close();
 });
+
+test('history cards: the footer reads "Set Packet / Question / Subject / Type", links "Source packet | Report", one choice or item per line', async () => {
+  const { ctx, page } = await freshPlay();
+  const r = await page.evaluate(async () => {
+    await SBData.load();
+    const mc = SBData.questions.find((q) => q.choices && q.choices.W && q.num && SBData.roundLabelFor(q) && /^https?:/.test(q.sourceUrl || ''));
+    const list = SBData.questions.find((q) => /: 1\. \S.* 2\. \S/.test(q.question || ''));
+    const card = SBPlay.historyCard(mc);
+    const listCard = SBPlay.historyCard(list);
+    return {
+      left: card.querySelector('.card-footer .text-muted').textContent,
+      right: card.querySelector('.card-footer .float-end').textContent,
+      expected: `${mc.tournament} Packet ${SBData.roundLabelFor(mc)} / Question ${mc.num} / ${SBData.subjectLabel(mc.subject)} / ${SBData.qtypeLabel(mc)}`,
+      choiceBreaks: card.querySelectorAll('.card-body br').length,
+      listText: listCard.querySelector('.q-text, .card-body').innerText,
+    };
+  });
+  assert.strictEqual(r.left, r.expected);
+  assert.match(r.right, /^Source packet \| Report/);
+  assert.ok(r.choiceBreaks >= 3, 'W, X, Y, Z on their own lines');
+  assert.match(r.listText, /\n1\. .*\n2\. /);
+  await ctx.close();
+});

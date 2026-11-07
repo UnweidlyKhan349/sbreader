@@ -150,3 +150,8 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **TURN relay**: `supabase/functions/turn-credentials` hands Multiplayer short-lived Cloudflare TURN logins when deployed (README, Multiplayer relay); without it nothing changes.
 - **Set and packet pages for search engines**: the deploy builds `/sets/<slug>/` and `/sets/<slug>/<n>` for every set and packet, with the questions in the HTML, and a sitemap listing them.
 - **Browser tests** in `tests/e2e/` (Play, Multiplayer with simulated players, every page), run by CI.
+- **Updates after a redeploy**: each deploy writes `version.json` and stamps its version into every page (`tools/stamp-version.js`); open tabs check it on load, on returning to the tab and every five minutes, and reload (or, mid-game, show a Reload bar). The service worker revalidates pages with the server.
+- History card footers read "MIT 2020 Packet Round 7 / Question 6 / Math / Toss-up" on the left and "Source packet | Report" on the right; Database cards use "Source packet | Report" too.
+- The Select by Set Name packet list drops the "1. 2. 3." numbering.
+- Multiple-choice W/X/Y/Z choices sit one per line in question cards; numbered statements written as "1.", "(1)" or roman "I." / "I)" now go on their own lines as "1)" lists already did (a run must count up from 1).
+- Browser tests: one runs the Multiplayer relay against the real Supabase project (`SB_E2E_OFFLINE=1` skips it), one checks the update-after-redeploy flow, one the history card footer and line breaks.

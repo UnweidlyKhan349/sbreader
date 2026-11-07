@@ -255,6 +255,18 @@ test('numbered statements go on their own lines, and parenthesised numbers are l
   assert.ok(SBData.questionTextHTML({ question: 'Name: 1) x^2; 2) y' }).includes('\n1) x<sup>2</sup>\n2) y'));
 });
 
+test('"1.", "(1)" and roman "I." / "I)" lists split too; stray ones and decimals do not', () => {
+  const f = SBData.splitNumberedStatements;
+  assert.strictEqual(f('Order these: 1. Siltstone 2. Breccia 3. Sandstone'), 'Order these\n1. Siltstone\n2. Breccia\n3. Sandstone');
+  assert.strictEqual(f('Rank (1) alpha, (2) beta, (3) gamma'), 'Rank\n(1) alpha\n(2) beta\n(3) gamma');
+  assert.strictEqual(f('Which are true? I. A; II. B; III. C'), 'Which are true?\nI. A\nII. B\nIII. C');
+  assert.strictEqual(f('Name all: I) a II) b IV) skipped'), 'Name all\nI) a\nII) b IV) skipped');
+  assert.strictEqual(f('It moves at 1.5 m/s. 2. Then'), 'It moves at 1.5 m/s. 2. Then');
+  assert.strictEqual(f('World War I. It ended.'), 'World War I. It ended.');
+  // "X)" is a choice letter, never roman ten.
+  assert.strictEqual(f('W) a X) b Y) c'), 'W) a X) b Y) c');
+});
+
 test('meta.json stamps each bank file with its contents (node tools/meta-counts.js)', () => {
   const { fileStamp } = require('../tools/meta-counts.js');
   const meta = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'meta.json'), 'utf8'));

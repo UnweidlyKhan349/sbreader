@@ -1,7 +1,7 @@
 // Shared pieces for the browser tests (npm run test:e2e): a static server
 // that resolves addresses as GitHub Pages does, and browser contexts with
-// PeerJS replaced by tests/e2e/fake-peer.js, Supabase blocked (nothing is
-// written to the real project) and the service worker off.
+// PeerJS replaced by tests/e2e/fake-peer.js, Supabase blocked unless a test
+// asks for it (nothing is written to the real project) and the service worker off.
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -32,10 +32,11 @@ function startServer(root = ROOT) {
 
 const FAKE_PEER = fs.readFileSync(path.join(__dirname, 'fake-peer.js'), 'utf8');
 
-// opts: { lagMs, noDirect, viewport }
+// opts: { lagMs, noDirect, viewport, liveSupabase }. liveSupabase leaves the
+// real Supabase project reachable (the relay test), everything else blocks it.
 async function newContext(browser, opts = {}) {
   const ctx = await browser.newContext({ viewport: opts.viewport || { width: 1300, height: 900 }, serviceWorkers: 'block' });
-  await ctx.route(/supabase\.co/, (r) => r.abort());
+  if (!opts.liveSupabase) await ctx.route(/supabase\.co/, (r) => r.abort());
   await ctx.route(/peerjs\.min\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: FAKE_PEER }));
   if (opts.lagMs || opts.noDirect) {
     await ctx.addInitScript(({ lag, noDirect }) => { window.__LAG_MS = lag || 0; window.__NO_DIRECT = !!noDirect; }, { lag: opts.lagMs, noDirect: opts.noDirect });

@@ -17,6 +17,8 @@
   // this is, or null. roomName: the room's name (multiplayer.html?room=).
   // roomId: the room's peer ID. pid: this browser's player ID (see myPid).
   const myState = { role: null, myId: null, myName: '', rate: 50, publicLobby: null, roomName: '', roomId: null, pid: '' };
+  // A new site version waits (as a Reload bar) while you're in a room.
+  if (window.SBSite && SBSite.setBusy) SBSite.setBusy(() => !!myState.roomId);
 
   // The last name used on this device, prefilled into the name boxes and
   // used when joining straight from an invite link.

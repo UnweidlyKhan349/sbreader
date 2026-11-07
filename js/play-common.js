@@ -95,11 +95,18 @@
     const footer = document.createElement('div');
     footer.className = 'card-footer';
     const src = a.sourceUrl || q.sourceUrl;
-    const left = [q.tournament, SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
-    const slot = [SBData.roundLabelFor(q) ? 'Packet ' + escapeHtml(SBData.roundLabelFor(q)) : '', q.num ? 'Question ' + escapeHtml(q.num) : ''].filter(Boolean).join(' / ');
-    footer.innerHTML = `<small class="text-muted">${left}</small>`
-      + `<small class="text-muted float-end">${slot}${/^https?:\/\//.test(src || '') ? ` / <a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source</a>` : ''}</small>`;
-    if (window.SBReports) footer.querySelector('.float-end').append(' / ', SBReports.link(q));
+    // "MIT 2020 Packet Round 7 / Question 6 / Math / Toss-up" on the left,
+    // "Source packet | Report" on the right.
+    const round = SBData.roundLabelFor(q);
+    const where = [q.tournament, round ? 'Packet ' + round : ''].filter(Boolean).join(' ');
+    const left = [where, q.num ? 'Question ' + q.num : '', SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
+    footer.innerHTML = `<small class="text-muted">${left}</small><small class="text-muted float-end card-footer-links"></small>`;
+    const links = footer.querySelector('.float-end');
+    if (/^https?:\/\//.test(src || '')) links.innerHTML = `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>`;
+    if (window.SBReports) {
+      if (links.childNodes.length) links.append(' | ');
+      links.append(SBReports.link(q));
+    }
     collapse.append(body, footer);
     card.append(header, collapse);
 
@@ -214,7 +221,7 @@
         packets.forEach((p, i) => {
           const o = document.createElement('option');
           o.value = String(i + 1);
-          o.textContent = `${i + 1}. ${p.label}`;
+          o.textContent = p.label;
           selectEl.appendChild(o);
         });
         const chosen = (text || '').trim() ? parsePacketNumbers(text, packets.length) : [];

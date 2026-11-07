@@ -98,15 +98,32 @@ test('the room hears about a round change once, when the slider is let go', asyn
 });
 
 test('a newcomer whose direct links are blocked gets a status, not a frozen page', async () => {
-  // The relay needs Supabase, which these tests block, so the newcomer can't
+  // The relay needs Supabase, which this test blocks, so the newcomer can't
   // get in; this checks the attempt shows its progress and fails cleanly.
-  // (The relay itself was checked by hand against the real project.)
+  // (The next test runs the relay against the real project.)
   const ctx = await newContext(browser, { noDirect: true });
   const r = room();
   await joinRoom(ctx, server.url, r);
   const g = await ctx.newPage(); g.on('dialog', (d) => d.dismiss());
   await g.goto(`${server.url}multiplayer?room=${r}`, { waitUntil: 'networkidle' });
   await g.waitForFunction(() => /Couldn't open|Connecting|Still connecting/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 20000 });
+  await ctx.close();
+});
+
+test('players whose direct links are blocked meet through the Supabase relay', { skip: process.env.SB_E2E_OFFLINE ? 'SB_E2E_OFFLINE is set' : false }, async () => {
+  // Real Supabase Realtime (a broadcast channel; no table rows for a
+  // private room code). Set SB_E2E_OFFLINE=1 to skip without a network.
+  const ctx = await newContext(browser, { noDirect: true, liveSupabase: true });
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  const names = (p) => p.$$eval('.mp-player-row:not(.offline)', (xs) => xs.length);
+  await a.waitForFunction(() => document.querySelectorAll('.mp-player-row:not(.offline)').length >= 2, null, { timeout: 30000 });
+  assert.ok(await names(b) >= 2, 'the newcomer sees both players');
+  // A settings change crosses the relay.
+  const before = await subjectOn(b, 'math');
+  await a.click('#mpSubjectButtons .btn-subject[data-subject="math"]');
+  await b.waitForFunction((was) => document.querySelector('#mpSubjectButtons .btn-subject[data-subject="math"]').classList.contains('active') !== was, before, { timeout: 15000 });
   await ctx.close();
 });
 

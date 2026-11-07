@@ -518,3 +518,15 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* Set and packet pages (set.html, packet.html), as QB Reader's. */
 #setPage .float-row { overflow: auto; }
 .packet-question .q-text { margin: 0; }
+
+/* "A new version of SB Reader is out. Reload" (js/site.js), under the navbar. */
+.sb-update-bar {
+  position: fixed;
+  top: 4.25rem;
+  right: 1rem;
+  left: 1rem;
+  z-index: 1080;
+  max-width: 26rem;
+  margin-left: auto;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}

@@ -7,9 +7,10 @@
      file, from meta.json `v`) can't change at that address, so it's served
      from the cache and only fetched the first time. When a new stamp
      arrives, the older copies of that file are deleted.
-   - Everything else of ours (pages, data/meta.json, figures) is fetched from
-     the network first, so it's always current, and the cached copy is used
-     only when the network fails (offline).
+   - Everything else of ours (pages, data/meta.json, figures, version.json)
+     is fetched from the network first, revalidated with the server, so it's
+     always current, and the cached copy is used only when the network fails
+     (offline).
    - Other sites (Supabase, PeerJS, fonts) aren't touched.
 
    To switch it off for everyone, replace this file with one that calls
@@ -49,7 +50,10 @@ async function cacheFirst(request, url) {
 async function networkFirst(request) {
   const cache = await caches.open(CACHE);
   try {
-    const res = await fetch(request);
+    // no-cache: ask the server every time (a cheap 304 when unchanged), so
+    // the browser's own 10-minute cache can't hand back a page from before
+    // a deploy.
+    const res = await fetch(request, { cache: 'no-cache' });
     if (res.ok && res.type === 'basic') cache.put(request, res.clone());
     return res;
   } catch (err) {

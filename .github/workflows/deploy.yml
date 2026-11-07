@@ -33,6 +33,8 @@ jobs:
         run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
       - name: Build a page for every set and packet, and the full sitemap
         run: node tools/build-pages.js "$RUNNER_TEMP/site"
+      - name: Stamp this deploy's version, so open tabs pick it up
+        run: node tools/stamp-version.js "$RUNNER_TEMP/site" "${{ github.sha }}"
       - name: Push to sbreader/sbreader.github.io
         uses: peaceiris/actions-gh-pages@v4
         with:

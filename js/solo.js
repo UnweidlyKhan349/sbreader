@@ -249,6 +249,8 @@
     paused: false,
   };
   function sessionActive() { return runtime.phase !== 'idle' && runtime.phase !== 'done'; }
+  // A new site version waits (as a Reload bar) while a session is going.
+  if (window.SBSite && SBSite.setBusy) SBSite.setBusy(sessionActive);
 
   function startSession() {
     const pool = buildPool();

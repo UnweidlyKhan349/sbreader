@@ -150,7 +150,12 @@
     if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
   }, true);
 
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl };
+  // Pages that hold a game in progress say so (setBusy), so a new version
+  // waits for a quiet moment instead of reloading mid-question.
+  let busyFn = () => false;
+  function setBusy(fn) { busyFn = fn; }
+
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, setBusy };
 
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
@@ -160,6 +165,73 @@
     window.addEventListener('load', () => {
       navigator.serviceWorker.register(new URL('../sw.js', siteScript).href, { scope: new URL('../', siteScript).href }).catch(() => {});
     });
+  }
+
+  // Updates after a redeploy. Each deploy writes version.json and stamps
+  // its commit into every page (<meta name="sb-version">; see
+  // tools/stamp-version.js). When the two differ, this page is older than
+  // the site: it reloads, or, during a game (setBusy) or while you're typing,
+  // shows a "Reload" bar and reloads once the game is idle. Checked on load,
+  // when the tab comes back into view, and every five minutes. Pages without
+  // the meta tag (a local copy) never check.
+  const pageVersion = (document.querySelector('meta[name="sb-version"]') || {}).content;
+  if (siteScript && pageVersion && window.fetch) {
+    const versionUrl = new URL('../version.json', siteScript).href;
+    let latest = null;
+    let bar = null;
+    const typing = () => {
+      const el = document.activeElement;
+      return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) && !!el.value;
+    };
+    const reload = () => {
+      // Once per version per tab, so a page that stays old can't loop.
+      try {
+        if (sessionStorage.getItem('sb_reloaded_for') === latest) return false;
+        sessionStorage.setItem('sb_reloaded_for', latest);
+      } catch (e) { /* storage off: reload anyway */ }
+      location.reload();
+      return true;
+    };
+    const showBar = () => {
+      if (bar) return;
+      bar = document.createElement('div');
+      bar.className = 'alert alert-info d-flex align-items-center gap-2 mb-0 sb-update-bar';
+      bar.setAttribute('role', 'status');
+      bar.innerHTML = '<span>A new version of SB Reader is out.</span>';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-sm btn-primary ms-auto';
+      btn.textContent = 'Reload';
+      btn.addEventListener('click', () => { try { sessionStorage.removeItem('sb_reloaded_for'); } catch (e) { /* */ } reload(); });
+      bar.appendChild(btn);
+      document.body.appendChild(bar);
+    };
+    const apply = () => {
+      if (!latest || latest === pageVersion) return;
+      let busy = false;
+      try { busy = !!busyFn(); } catch (e) { busy = false; }
+      if (busy || typing() || openModalEl) showBar();
+      else if (!reload()) showBar();
+    };
+    const check = async () => {
+      try {
+        const res = await fetch(versionUrl, { cache: 'no-store' });
+        if (!res.ok) return;
+        const v = String((await res.json()).version || '');
+        if (!v || v === pageVersion) return;
+        latest = v;
+        // Fetch the new service worker too, so it drops the old files.
+        if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
+          navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
+        }
+        apply();
+      } catch (e) { /* offline: try again later */ }
+    };
+    window.addEventListener('load', check);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
+    setInterval(check, 5 * 60 * 1000);
+    // A game that ends with an update waiting reloads then.
+    setInterval(() => { if (latest && latest !== pageVersion) { let b = true; try { b = !!busyFn(); } catch (e) { /* */ } if (!b && !typing() && !openModalEl && document.visibilityState === 'visible') reload(); } }, 3000);
   }
 
   function wireNavbar() {

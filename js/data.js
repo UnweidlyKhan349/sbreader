@@ -342,37 +342,56 @@
   // Numbered statements each on their own line:
   //   "Identify all of the following that are true: 1) A; 2) B; and 3) C"
   //   -> "Identify all of the following that are true\n1) A\n2) B\n3) C"
-  // A marker is "N)" after a space or punctuation (or at the start) and not
-  // inside parentheses (so "(5,6)", "sin(π/6)" and "O(n^2)" are left alone).
-  // Only runs counting up from 1, at least two long, are split; a list
-  // nested in an item starts its own run. The separator before each marker
-  // (";", ",", "and", or the colon before "1)") goes; "?" and "." stay.
-  function splitNumberedStatements(text) {
-    if (!text || text.indexOf(')') === -1) return text;
-    const markers = [];
-    const re = /(\d{1,2})\)(?=\s)/g;
-    let m;
-    while ((m = re.exec(text))) {
-      const at = m.index;
-      if (at > 0 && !/[\s:;,.?!]/.test(text[at - 1])) continue;
-      let depth = 0;
-      for (let i = 0; i < at; i++) {
-        if (text[i] === '(') depth++;
-        else if (text[i] === ')') depth = Math.max(0, depth - 1);
-      }
-      if (depth > 0) continue;
-      markers.push({ at, n: +m[1] });
+  // Markers can be "1)", "1.", "(1)", or roman "I)" / "I." (I to VIII; never
+  // "X)", a choice letter). A marker comes after a space or punctuation (or
+  // at the start) and not inside parentheses (so "(5,6)", "sin(π/6)" and
+  // "O(n^2)" are left alone); "1." needs a space after it, so "1.5" isn't one.
+  // Only runs of one style counting up from 1, at least two long, are split;
+  // a list nested in an item starts its own run. The separator before each
+  // marker (";", ",", "and", or the colon before the first) goes; "?" and "."
+  // stay.
+  const ROMAN_VALUES = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 };
+  const MARKER_STYLES = [
+    { kind: 'paren', re: /(\d{1,2})\)(?=\s)/g, n: (m) => +m[1] },
+    { kind: 'dot', re: /(\d{1,2})\.(?=\s)/g, n: (m) => +m[1] },
+    { kind: 'wrapped', re: /\((\d{1,2})\)(?=\s)/g, n: (m) => +m[1], wrapped: true },
+    { kind: 'roman-paren', re: /\b(VIII|VII|VI|IV|V|III|II|I)\)(?=\s)/g, n: (m) => ROMAN_VALUES[m[1]] },
+    { kind: 'roman-dot', re: /\b(VIII|VII|VI|IV|V|III|II|I)\.(?=\s)/g, n: (m) => ROMAN_VALUES[m[1]] },
+  ];
+  function parenDepth(text, at) {
+    let depth = 0;
+    for (let i = 0; i < at; i++) {
+      if (text[i] === '(') depth++;
+      else if (text[i] === ')') depth = Math.max(0, depth - 1);
     }
-    const runs = [];
-    let cur = null;
-    markers.forEach((mk) => {
-      if (mk.n === 1) { cur = [mk]; runs.push(cur); } else if (cur && mk.n === cur[cur.length - 1].n + 1) cur.push(mk);
+    return depth;
+  }
+  function splitNumberedStatements(text) {
+    if (!text || !/[).]/.test(text)) return text;
+    const keep = [];
+    MARKER_STYLES.forEach((style) => {
+      const markers = [];
+      style.re.lastIndex = 0;
+      let m;
+      while ((m = style.re.exec(text))) {
+        const at = m.index;
+        if (at > 0 && !/[\s:;,.?!]/.test(text[at - 1])) continue;
+        if (parenDepth(text, at) > 0) continue;
+        markers.push({ at, n: style.n(m) });
+      }
+      const runs = [];
+      let cur = null;
+      markers.forEach((mk) => {
+        if (mk.n === 1) { cur = [mk]; runs.push(cur); } else if (cur && mk.n === cur[cur.length - 1].n + 1) cur.push(mk);
+      });
+      runs.filter((r) => r.length >= 2).forEach((r) => keep.push(...r));
     });
-    const keep = runs.filter((r) => r.length >= 2).flat().sort((a, b) => a.at - b.at);
     if (!keep.length) return text;
+    keep.sort((a, b) => a.at - b.at);
     let out = '';
     let from = 0;
     keep.forEach((mk) => {
+      if (mk.at < from) return; // overlaps a marker already used
       let before = text.slice(from, mk.at).replace(/\s+$/, '');
       before = before.replace(/[\s;,]*\b(?:and|or)$/i, '').replace(/[;,:]$/, '').replace(/\s+$/, '');
       out += before + (before || out ? '\n' : '');
@@ -498,7 +517,8 @@
     if (q.choices) {
       const ch = document.createElement('div');
       ch.className = 'choices';
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].map((L) => `${L}) ${renderMathHTML(q.choices[L])}`).join('   ');
+      // One choice per line, as the question reads them.
+      ch.innerHTML = ['W', 'X', 'Y', 'Z'].filter((L) => q.choices[L]).map((L) => `${L}) ${renderMathHTML(q.choices[L])}`).join('<br>');
       card.appendChild(ch);
     }
   }
@@ -640,7 +660,7 @@
       + `<small class="card-footer-links">${isPacketUrl(src) ? `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>` : ''}</small>`;
     if (window.SBReports) {
       const links = footer.querySelector('.card-footer-links');
-      if (links.childNodes.length) links.append(' / ');
+      if (links.childNodes.length) links.append(' | ');
       links.append(SBReports.link(q));
     }
     card.appendChild(footer);
