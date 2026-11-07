@@ -254,3 +254,10 @@ test('numbered statements go on their own lines, and parenthesised numbers are l
   assert.strictEqual(f('Points (1, 2) and (3, 4)'), 'Points (1, 2) and (3, 4)');
   assert.ok(SBData.questionTextHTML({ question: 'Name: 1) x^2; 2) y' }).includes('\n1) x<sup>2</sup>\n2) y'));
 });
+
+test('meta.json stamps each bank file with its contents (node tools/meta-counts.js)', () => {
+  const { fileStamp } = require('../tools/meta-counts.js');
+  const meta = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'meta.json'), 'utf8'));
+  assert.strictEqual(meta.bankIndex, fileStamp('data/bank/index.json'));
+  for (const t of meta.tournaments) assert.strictEqual(t.v, fileStamp(`data/bank/${t.slug}.json`), t.slug);
+});

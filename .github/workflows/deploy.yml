@@ -31,6 +31,8 @@ jobs:
         run: node --test tests/*.test.js
       - name: Copy the site files
         run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
+      - name: Build a page for every set and packet, and the full sitemap
+        run: node tools/build-pages.js "$RUNNER_TEMP/site"
       - name: Push to sbreader/sbreader.github.io
         uses: peaceiris/actions-gh-pages@v4
         with:

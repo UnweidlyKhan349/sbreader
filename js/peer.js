@@ -13,6 +13,37 @@
     ],
   };
 
+  // TURN: when the site's Supabase project has the turn-credentials Edge
+  // Function (supabase/functions/turn-credentials, README "Multiplayer relay
+  // (TURN)"), its short-lived Cloudflare TURN logins are added to the list
+  // above, so players whose networks block a direct connection get a proper
+  // relay. Asked once per tab (kept for an hour) and never waited on for
+  // more than ~3 s; without it, connections work as before.
+  const TURN_FN = 'turn-credentials';
+  const TURN_KEY = 'sb_turn_servers';
+  let icePromise = null;
+  function addTurn(servers) {
+    if (!Array.isArray(servers)) return;
+    servers.filter((s) => s && s.urls).forEach((s) => ICE_CONFIG.iceServers.push(s));
+  }
+  function prepareIce() {
+    if (icePromise) return icePromise;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(TURN_KEY) || 'null');
+      if (saved && saved.until > Date.now()) { addTurn(saved.servers); icePromise = Promise.resolve(true); return icePromise; }
+    } catch (e) { /* not saved */ }
+    const acct = typeof window !== 'undefined' && window.SBAccount;
+    if (!acct || !acct.enabled) { icePromise = Promise.resolve(false); return icePromise; }
+    const ask = acct.ready.then((c) => c.functions.invoke(TURN_FN, { method: 'GET' })).then(({ data, error }) => {
+      if (error || !data || !Array.isArray(data.iceServers) || !data.iceServers.length) return false;
+      addTurn(data.iceServers);
+      try { sessionStorage.setItem(TURN_KEY, JSON.stringify({ servers: data.iceServers, until: Date.now() + 60 * 60 * 1000 })); } catch (e) { /* not saved */ }
+      return true;
+    }).catch(() => false);
+    icePromise = Promise.race([ask, new Promise((r) => setTimeout(() => r(false), 3000))]);
+    return icePromise;
+  }
+
   // How long we let a connection attempt hang before giving up and
   // surfacing a clear error, instead of leaving the UI stuck on
   // "Connecting..." forever with no feedback.
@@ -500,5 +531,5 @@
     });
   }
 
-  global.SBPeer = { makeMesh, probeRooms, randomRoomCode, friendlyPeerError };
+  global.SBPeer = { prepareIce, makeMesh, probeRooms, randomRoomCode, friendlyPeerError };
 })(window);

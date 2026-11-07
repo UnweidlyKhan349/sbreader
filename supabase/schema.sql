@@ -100,3 +100,44 @@ drop policy if exists "anyone adds a player" on public.mp_players;
 create policy "anyone adds a player" on public.mp_players for insert with check (true);
 drop policy if exists "anyone updates a player" on public.mp_players;
 create policy "anyone updates a player" on public.mp_players for update using (true) with check (true);
+
+-- ---------------------------------------------------------------------------
+-- Problem reports and "I was right" clicks (added November 2026).
+-- Anyone can add a row (logged in or not); nobody can read them through the
+-- site: read them in the dashboard (Table Editor, or the queries in the
+-- README's "Reports" section). Running this file again is safe.
+
+create table if not exists public.question_reports (
+  id bigint generated always as identity primary key,
+  question_id integer not null check (question_id > 0),
+  reason text not null check (reason in ('answer', 'question', 'figure', 'subject', 'other')),
+  note text check (char_length(note) <= 500),
+  page text check (char_length(page) <= 40),
+  user_id uuid references auth.users (id) on delete set null default auth.uid(),
+  created_at timestamptz not null default now()
+);
+create index if not exists question_reports_question on public.question_reports (question_id);
+
+-- A player overrode a wrong grade to correct: what they typed and the key.
+-- An answer that keeps showing up here belongs in the accept list.
+create table if not exists public.answer_overrides (
+  id bigint generated always as identity primary key,
+  question_id integer not null check (question_id > 0),
+  typed text not null check (char_length(typed) between 1 and 200),
+  answer_key text check (char_length(answer_key) <= 300),
+  mode text not null check (mode in ('solo', 'mp')),
+  user_id uuid references auth.users (id) on delete set null default auth.uid(),
+  created_at timestamptz not null default now()
+);
+create index if not exists answer_overrides_question on public.answer_overrides (question_id);
+
+alter table public.question_reports enable row level security;
+alter table public.answer_overrides enable row level security;
+
+-- Insert only, and only as yourself (or as nobody, logged out).
+drop policy if exists "anyone reports" on public.question_reports;
+create policy "anyone reports" on public.question_reports
+  for insert with check (user_id is null or user_id = auth.uid());
+drop policy if exists "anyone logs an override" on public.answer_overrides;
+create policy "anyone logs an override" on public.answer_overrides
+  for insert with check (user_id is null or user_id = auth.uid());

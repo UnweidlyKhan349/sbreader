@@ -202,8 +202,13 @@ tools/meta-counts.js refreshes each tournament's question, tossup, bonus and pac
 tools/link-sweep.js find the published packet (or tournament folder) for questions with no link, in public Drive archives
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 tools/stamp-assets.js   stamps each page's script and stylesheet links with a hash of the file (js/x.js?v=…), so a deploy never pairs a new page with a cached old script; run it after changing any .js or .css (npm test checks)
+tools/build-pages.js    builds a static page for every set and packet, and the full sitemap (run by the deploy)
+sw.js               the service worker: caches the bank and the site's files (see Caching)
+js/reports.js       the Report link and form on question cards, and the "I was right" log
+supabase/functions/turn-credentials   Edge Function handing out Cloudflare TURN logins (see Multiplayer relay)
 data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, about 24 MB, loaded only when shown)
-tests/              node --test suites: grader, multiplayer rules, data shape
+tests/              node --test suites: grader, multiplayer rules, data shape, page building
+tests/e2e/          browser tests (Playwright): Play, Multiplayer with simulated players, every page
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
 .github/workflows/deploy.yml  on every push to main, runs the tests and copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
 ```
@@ -237,6 +242,18 @@ Connections use Google's public STUN servers, with no TURN relay; players who ca
 PeerJS only closes a connection once ICE reaches `failed`, which can take a long time after the other tab is closed. So `peer.js` also treats a connection whose ICE state stays `disconnected` for 3 s as gone (the browser's own consent checks drive that, unaffected by timer throttling). As a fallback, each side pings every 5 s and drops a connection that has been silent for 75 s, longer than a hidden tab's slowest timers. The pings stay inside `peer.js` and never reach the game code. A player whose page closes says goodbye (`__bye`) first, so the others take them off at once instead of waiting for these checks. A peer that loses the broker (but not its players) reconnects to it, so the door stays findable.
 
 ---
+
+### Multiplayer relay (TURN)
+
+Players connect directly when their networks allow it, and through the room's Supabase Realtime channel when they don't (see Relay under Multiplayer). A TURN server is the standard, sturdier fix for networks that block direct connections, and the site uses one when it's set up: `supabase/functions/turn-credentials` is a Supabase Edge Function that turns a Cloudflare TURN key into logins that expire after a day, and `js/peer.js` asks it for them before the first connection (waiting at most 3 seconds, once per tab). Without the function, nothing changes. Cloudflare's TURN service is free up to 1,000 GB a month.
+
+Setting it up (once):
+1. In the Cloudflare dashboard, open **Realtime → TURN Server** (also listed as Calls → TURN) and create a TURN key. Note its **Key ID** and **API token** (shown once).
+2. Install the Supabase CLI and link the project: `npx supabase login`, then `npx supabase link --project-ref <project-ref>` (the `<project-ref>` part of the project URL in `js/config.js`).
+3. Store the key as the function's secrets: `npx supabase secrets set CLOUDFLARE_TURN_KEY_ID=<key id> CLOUDFLARE_TURN_KEY_API_TOKEN=<api token>`.
+4. Deploy it: `npx supabase functions deploy turn-credentials`.
+
+Check it by opening `https://<project-ref>.supabase.co/functions/v1/turn-credentials` with the header `Authorization: Bearer <publishable key>`: it should answer `{"iceServers":[…]}` with `turn:` addresses. The key never reaches browsers; anyone who can load the site can get the short-lived logins, which is how TURN works on public sites. Cloudflare's dashboard shows the traffic used.
 
 ## Data format
 
@@ -420,6 +437,25 @@ Accounts are optional and off until a Supabase project is set up; without one ev
 
 Nothing else is stored with the account, and nothing of it is shared with other players. "Delete my data" on the Account page removes the account's rows (stars in the browser stay). The multiplayer registry isn't tied to accounts: it holds the name you play under in each room and your score there.
 
+### Reports and "I was right"
+
+Every question card (Database results, the Play and Multiplayer history, packet pages) has a **Report** link: a short form (the answer is wrong, the question is garbled, a figure is missing, the subject or source is wrong, or something else, plus an optional note) that saves a row to `question_reports`. Separately, whenever a player overrides a wrong grade to correct, what they typed and the key go to `answer_overrides`: an answer that keeps appearing there belongs in the question's accept list. Both work logged in or out (`js/reports.js`); anyone can add a row and nobody can read them through the site.
+
+To switch them on, run `supabase/schema.sql` again (it's safe to re-run; the two tables are at the end). Then read them in the dashboard's Table Editor, or in the SQL Editor:
+
+```sql
+-- Newest reports, with how many each question has had
+select question_id, reason, note, page, created_at,
+       count(*) over (partition by question_id) as reports_for_question
+from question_reports order by created_at desc limit 100;
+
+-- Answers players most often overrode to correct
+select question_id, lower(typed) as typed, answer_key, count(*) as times
+from answer_overrides group by 1, 2, 3 order by times desc limit 100;
+```
+
+To fix a reported question, find its tournament from its id in `data/bank/index.json` (or search its text in the Database), correct it in `data/bank/` (see [Data format](#data-format)), and delete the rows once dealt with.
+
 ## Deploying
 
 The official site is **https://sbreader.github.io/**. It used to be `https://unweidlykhan349.github.io/sbreader/`.
@@ -440,16 +476,29 @@ Setting it up (done once; listed in case it has to be redone):
 2. Make a deploy key: `ssh-keygen -t ed25519 -N "" -C "sbreader deploy" -f sbreader_deploy`. Add `sbreader_deploy.pub` to `sbreader/sbreader.github.io` under Settings → Deploy keys, with **Allow write access**. Add the private key `sbreader_deploy` to `UnweidlyKhan349/sbreader` under Settings → Secrets and variables → Actions, named `SBREADER_DEPLOY_KEY`. Then delete both files.
 3. After the first deploy, turn on Pages in `sbreader/sbreader.github.io` (Deploy from a branch, `main`, `/ (root)`).
 
-There's no build step, `npm install`, or environment variables. `package.json` only defines `npm test` and has no dependencies.
+The site itself has no build step, `npm install`, or environment variables; the deploy adds the set and packet pages (below). `package.json` only defines the test commands and has no dependencies.
 
 The site sits at the domain root, so `404.html` (served for any missing address, at any depth) uses root-relative links (`/css/style.css`, `/solo`). Every other page uses relative ones and would work under any path.
+
+### The set and packet pages
+
+The deploy also runs `tools/build-pages.js`, which writes a real HTML page for every set (`/sets/<slug>/`) and every packet (`/sets/<slug>/<n>`), about 2,600 in all, with the questions and answers in the HTML, so search engines can find individual tournaments and questions. Each is `set.html` / `packet.html` with the content filled in, a `<base href="/">` and `data-set` / `data-packet` on `#setPage`; `js/set-pages.js` then redraws it in the browser with the interactive parts (downloads, Report links, enlarging figures). The dynamic `set?set=…` and `packet?set=…&packet=…` pages still work, and name the static page as their canonical address. The deploy also replaces `sitemap.xml` with one that adds every set and packet. The pages aren't in the repository: build them locally with `node tools/build-pages.js <folder>` after copying the site there.
+
+### Caching (`sw.js`)
+
+A service worker (`sw.js`, registered by `js/site.js`) keeps the site's files in the browser, so a repeat visit doesn't download the 29 MB bank again and Play works offline once it has loaded:
+- A file whose address has a content stamp (`?v=…`) can't change at that address, so it's served from the cache. That covers the scripts and stylesheets (stamped by `tools/stamp-assets.js`) and every bank file: `meta.json` holds each file's stamp (`v` per tournament, and `bankIndex`), written by `tools/meta-counts.js`, and the site fetches `data/bank/<slug>.json?v=<stamp>`. A new stamp replaces the old copy.
+- Pages, `meta.json` and figures are fetched from the network first, with the cache only as the offline fallback, so they're never stale.
+- Other sites (Supabase, PeerJS) aren't touched.
+
+After any change to `data/bank/`, run `node tools/meta-counts.js` (as before); `npm test` fails if a stamp is out of date. To switch the worker off for everyone, replace `sw.js` with one that unregisters itself and deletes its caches.
 
 ### Search engines and link previews
 
 - Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags (title and summary; there's no preview image), so shared links get a title and summary.
 - **Addresses have no `.html`**: every link is `solo`, `catalog?tournament=…`, `set?set=…` and so on, and the home page is `./`. GitHub Pages serves `/solo` from `solo.html`, so both forms work; the navbar highlights the current page either way. The one exception is the account emails, which send people to `account.html`, the address in the Supabase project's redirect allowlist.
 - `account.html`, `stats.html` and `404.html` are `noindex`: there's nothing on them to index.
-- `sitemap.xml` lists the six public pages (without `.html`). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.github.io/sitemap.xml`, in Google Search Console and Bing Webmaster Tools.
+- `sitemap.xml` lists the public pages (without `.html`); the deployed copy also lists every set and packet page (see above). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.github.io/sitemap.xml`, in Google Search Console and Bing Webmaster Tools.
 - The canonical, Open Graph, sitemap and `robots.txt` URLs name `https://sbreader.github.io/`, and `404.html` links from the domain root. A fork or a move to another address needs them changed (`grep -rn "sbreader.github.io" *.html sitemap.xml robots.txt`); hosting under a path such as `/<repo>/` also needs `404.html`'s links prefixed with it.
 
 ## Local development and tests
@@ -467,6 +516,13 @@ The tests, which CI also runs on every push and pull request:
 - `tests/data.test.js`: every record has the fields and values the site expects, ids are unique, `meta.json` counts match the bank, `data/bank/` has one file per tournament and each is byte for byte what `tools/bank.js pack` writes, `index.json` maps every id (and every alias target) to its own tournament, every question's subject matches the subject its packet prints or is a listed override (see [Placement](#text-and-notation-conventions)), every image a record names exists under `data/img/` and every file there is used, the Visual filter splits the bank into visual and text-only questions with nothing left over, packet order matches a direct collator sort, and search returns the same matches as checking each word against each field separately. Run it after any data change.
 
 `answer-check.js`, `data.js` and `mp-rules.js` attach to `globalThis` outside the browser, so tests `require` them directly.
+
+**Browser tests** (`tests/e2e/`, about two minutes; CI runs them in a second job): Play (buzzing, grading, the override, history cards and their shortcuts, Space with a focused card, Clear all filters), Multiplayer with two simulated players (joining, settings kept in sync with and without network lag, overrides, the live chat line, the rounds message, General's and the subject rooms' subjects) and every page at desktop and phone widths. PeerJS is replaced by `tests/e2e/fake-peer.js`, which links the players' tabs through a BroadcastChannel (it can also add lag, or block direct links), Supabase is blocked so nothing reaches the real project, and the service worker is off.
+
+```bash
+npm install --no-save playwright@1.63.0 && npx playwright install chromium   # once
+npm run test:e2e
+```
 
 ## License
 

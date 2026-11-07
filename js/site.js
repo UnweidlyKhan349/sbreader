@@ -152,6 +152,16 @@
 
   window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl };
 
+  // The service worker (sw.js, beside the pages) keeps the question bank and
+  // the site's files cached for repeat visits; see sw.js. It sits next to
+  // js/, so its address comes from this script's own.
+  const siteScript = document.currentScript && document.currentScript.src;
+  if (siteScript && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(new URL('../sw.js', siteScript).href, { scope: new URL('../', siteScript).href }).catch(() => {});
+    });
+  }
+
   function wireNavbar() {
     document.querySelectorAll('[data-sb-dropdown]').forEach(wireDropdown);
     document.addEventListener('click', (e) => {

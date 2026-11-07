@@ -536,6 +536,7 @@
     updateCounters();
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
     if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect');
+    if (o.correct && window.SBReports) SBReports.logOverride(currentQ(), o.userText, 'solo');
     showReveal();
   }
 

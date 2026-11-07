@@ -99,6 +99,7 @@
     const slot = [SBData.roundLabelFor(q) ? 'Packet ' + escapeHtml(SBData.roundLabelFor(q)) : '', q.num ? 'Question ' + escapeHtml(q.num) : ''].filter(Boolean).join(' / ');
     footer.innerHTML = `<small class="text-muted">${left}</small>`
       + `<small class="text-muted float-end">${slot}${/^https?:\/\//.test(src || '') ? ` / <a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source</a>` : ''}</small>`;
+    if (window.SBReports) footer.querySelector('.float-end').append(' / ', SBReports.link(q));
     collapse.append(body, footer);
     card.append(header, collapse);
 

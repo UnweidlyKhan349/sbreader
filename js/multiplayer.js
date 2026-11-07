@@ -1507,6 +1507,9 @@
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
     game.lastGrade = { playerId, correct, userText };
+    if (isOverride && correct && playerId === myState.myId && window.SBReports && game.question) {
+      SBReports.logOverride(SBData.byId.get(game.question.id), userText, 'mp');
+    }
     if (isOverride) { recolorBuzzLine(playerId, correct); renderOverrideLinkSoon(); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = overrideLocked || false;
@@ -1618,7 +1621,9 @@
     return SBMpRules.coordinatorOrder(game.players.map((p) => p.id), [...memberInfo.keys(), mesh ? mesh.id : null].filter(Boolean));
   }
 
-  function openMesh() {
+  async function openMesh() {
+    // TURN servers, when the site has them, before the first connection.
+    if (!mesh && SBPeer.prepareIce) await SBPeer.prepareIce();
     if (!mesh) {
       mesh = SBPeer.makeMesh({
         onMessage: onMeshMessage,

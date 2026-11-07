@@ -6,6 +6,7 @@
      node tools/meta-counts.js --check    exit 1 if anything is out of date */
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
 const META = path.join(ROOT, 'data', 'meta.json');
@@ -26,11 +27,20 @@ function countsFor(packets) {
   return out;
 }
 
+// A stamp of a bank file's contents. The site fetches <slug>.json?v=<stamp>,
+// so a browser's cached copy (js/sw.js keeps them) is only reused while the
+// file is unchanged.
+function fileStamp(rel) {
+  const file = path.join(ROOT, rel);
+  return fs.existsSync(file) ? crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex').slice(0, 10) : '';
+}
+
 function expectedMeta(meta) {
   const bank = new Map(readBank(meta).map((b) => [b.slug, b.packets]));
   return {
     ...meta,
-    tournaments: meta.tournaments.map((t) => ({ ...t, ...countsFor(bank.get(t.slug) || []) })),
+    bankIndex: fileStamp('data/bank/index.json'),
+    tournaments: meta.tournaments.map((t) => ({ ...t, ...countsFor(bank.get(t.slug) || []), v: fileStamp(`data/bank/${t.slug}.json`) })),
   };
 }
 
@@ -43,13 +53,14 @@ function pyJson(v) {
   return JSON.stringify(v);
 }
 
-module.exports = { countsFor, expectedMeta, pyJson };
+module.exports = { countsFor, expectedMeta, fileStamp, pyJson };
 
 if (require.main === module) {
   const text = fs.readFileSync(META, 'utf8');
   const meta = JSON.parse(text);
   const next = expectedMeta(meta);
-  const stale = meta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets'].some((k) => t[k] !== next.tournaments[i][k]));
+  const stale = meta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets', 'v'].some((k) => t[k] !== next.tournaments[i][k]));
+  if (meta.bankIndex !== next.bankIndex) stale.push({ slug: 'index.json' });
   if (process.argv.includes('--check')) {
     if (stale.length) { console.error('Out of date:', stale.map((t) => t.slug).join(', ')); process.exit(1); }
     console.log('meta.json counts are up to date.');

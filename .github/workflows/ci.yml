@@ -13,6 +13,19 @@ jobs:
         with:
           node-version: 22
       - name: Syntax check
-        run: for f in js/*.js tests/*.js tools/*.js; do node --check "$f"; done
+        run: for f in js/*.js tests/*.js tests/e2e/*.js tools/*.js sw.js; do node --check "$f"; done
       - name: Tests (grader, multiplayer rules, data shape)
         run: node --test tests/*.test.js
+
+  # Play, Multiplayer (two simulated players) and every page, in Chromium.
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright and Chromium
+        run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
+      - name: Browser tests
+        run: npm run test:e2e

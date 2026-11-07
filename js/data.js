@@ -637,7 +637,12 @@
     footer.className = 'card-footer d-flex justify-content-between gap-2';
     const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
     footer.innerHTML = `<small class="text-muted">${round ? 'Packet ' + escapeHtml(round) : '&nbsp;'}${q.num ? ' / Question ' + escapeHtml(q.num) : ''}</small>`
-      + (isPacketUrl(src) ? `<small><a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a></small>` : '');
+      + `<small class="card-footer-links">${isPacketUrl(src) ? `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>` : ''}</small>`;
+    if (window.SBReports) {
+      const links = footer.querySelector('.card-footer-links');
+      if (links.childNodes.length) links.append(' / ');
+      links.append(SBReports.link(q));
+    }
     card.appendChild(footer);
     return card;
   }
@@ -779,15 +784,19 @@
     return SBData._metaPromise;
   };
 
+  // A tournament's file, with the stamp of its contents (meta.json `v`, from
+  // tools/meta-counts.js) so a cached copy is only used while it's current.
+  function bankUrl(t) { return BANK_DIR + t.slug + '.json' + (t.v ? '?v=' + t.v : ''); }
+  function indexUrl() { const v = SBData.meta && SBData.meta.bankIndex; return BANK_DIR + 'index.json' + (v ? '?v=' + v : ''); }
   SBData.bankUrls = function (meta) {
-    return meta.tournaments.map((t) => BANK_DIR + t.slug + '.json');
+    return meta.tournaments.map(bankUrl);
   };
 
   // Downloads the given tournaments' files in parallel, expanding each one as
   // it arrives so the work overlaps the downloads still in flight.
   function loadTournaments(tournaments) {
     return Promise.all(tournaments.map((t) =>
-      fetchJson(BANK_DIR + t.slug + '.json').then((packets) => expandTournament(t, packets))))
+      fetchJson(bankUrl(t)).then((packets) => expandTournament(t, packets))))
       .then((parts) => {
         SBData.questions = [].concat(...parts);
         SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
@@ -834,7 +843,7 @@
   SBData.loadBookmarked = function () {
     if (SBData._readyPromise) return SBData._readyPromise;
     if (SBData._bookmarkedPromise) return SBData._bookmarkedPromise;
-    SBData._bookmarkedPromise = Promise.all([SBData.loadMeta(), fetchJson(BANK_DIR + 'index.json')])
+    SBData._bookmarkedPromise = SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl())]))
       .then(([meta, index]) => {
         migrateBookmarks(meta.idAliases);
         const slugs = new Set([...bookmarkSet()].map((id) => slugForId(index.ids, id)));
@@ -848,7 +857,7 @@
   // followed to the copy that was kept.
   SBData.loadIds = function (ids) {
     if (SBData._readyPromise) return SBData._readyPromise;
-    return Promise.all([SBData.loadMeta(), fetchJson(BANK_DIR + 'index.json')])
+    return SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl())]))
       .then(([meta, index]) => {
         const aliases = meta.idAliases || {};
         const slugs = new Set(ids.map((id) => slugForId(index.ids, aliases[id] != null ? aliases[id] : id)));
