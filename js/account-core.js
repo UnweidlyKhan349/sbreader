@@ -5,12 +5,30 @@
   // Settings an account carries between devices (localStorage keys).
   const SETTINGS_KEYS = ['sb_theme', 'sb_reading_speed', 'sb_mp_name', 'sb_hide_answers'];
 
-  // Bookmarks are merged as a union at login, so nothing starred on either
-  // side is lost. toUpload: this device's that the account lacks.
-  function mergeBookmarks(local, remote) {
-    const remoteSet = new Set(remote);
-    const all = new Set([...remote, ...local]);
-    return { all: [...all], toUpload: [...new Set(local)].filter((id) => !remoteSet.has(id)) };
+  // Bookmarks are merged at login against `base`, the set both sides agreed
+  // on at the last sync on this device: a star removed on either side since
+  // then stays removed, and one added on either side is kept. With no base
+  // (this device's first sync for the account) it's a union, so nothing
+  // starred on either side is lost.
+  //   all: the merged set; toUpload / toDelete: the account's changes.
+  function mergeBookmarks(local, remote, base) {
+    const L = new Set(local), R = new Set(remote);
+    let all;
+    if (!base) all = new Set([...R, ...L]);
+    else {
+      const B = new Set(base);
+      all = new Set();
+      for (const id of new Set([...L, ...R])) {
+        const removedHere = B.has(id) && !L.has(id);
+        const removedThere = B.has(id) && !R.has(id);
+        if (!removedHere && !removedThere) all.add(id);
+      }
+    }
+    return {
+      all: [...all],
+      toUpload: [...all].filter((id) => !R.has(id)),
+      toDelete: [...R].filter((id) => !all.has(id)),
+    };
   }
 
   // The newer side wins, whole: { data, from: 'local'|'remote' }.

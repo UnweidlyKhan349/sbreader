@@ -19,7 +19,7 @@
   let client = null;
   let user = null;
   let syncedFor = null;
-  let lastAnswerId = null;
+  let lastAttempt = null; // the most recent recordAnswer() handle
   const listeners = [];
 
   const here = document.currentScript ? document.currentScript.src : '';
@@ -28,7 +28,10 @@
   // Links leave off ".html" (GitHub Pages serves /account as account.html);
   // the confirmation and reset emails still name account.html, the address
   // in the Supabase project's redirect allowlist.
-  function pageUrl(name) { return new URL(name, location.href).href; }
+  // Resolved from this script's own address (js/account.js, one level
+  // below the site root), so the generated /sets/<slug>/<n> pages link to
+  // /account, not /sets/<slug>/account.
+  function pageUrl(name) { return new URL('../' + name, here || document.baseURI).href; }
 
   function loadLib() {
     if (window.supabase && window.supabase.createClient) return Promise.resolve();
@@ -124,18 +127,43 @@
     try { localStorage.setItem(SETTINGS_STAMP, iso); } catch (e) { /* not saved */ }
   }
 
+  // The bookmarks this device and the account agreed on at the last sync,
+  // per account (see mergeBookmarks).
+  function baseKey() { return user ? 'sb_bookmarks_synced_' + user.id : null; }
+  function readBase() {
+    try { const v = baseKey() && localStorage.getItem(baseKey()); return v ? JSON.parse(v) : null; } catch (e) { return null; }
+  }
+  function writeBase(ids) {
+    try { if (baseKey()) localStorage.setItem(baseKey(), JSON.stringify([...ids])); } catch (e) { /* not saved */ }
+  }
+  function updateBase(id, on) {
+    const base = readBase();
+    if (!base) return;
+    const set = new Set(base);
+    if (on) set.add(id); else set.delete(id);
+    writeBase(set);
+  }
+
   async function syncOnLogin() {
     if (!client || !user) return;
-    // Bookmarks: union of both sides.
+    // Bookmarks: merged against what both sides held at this device's last
+    // sync, so a removal on either side sticks (see mergeBookmarks).
     if (window.SBData && window.SBData.bookmarks) {
       const { data, error } = await client.from('bookmarks').select('question_id');
       if (!error) {
         const local = [...window.SBData.bookmarks.getAll()];
-        const merged = core.mergeBookmarks(local, (data || []).map((r) => r.question_id));
+        const merged = core.mergeBookmarks(local, (data || []).map((r) => r.question_id), readBase());
+        let ok = true;
         if (merged.toUpload.length) {
-          await client.from('bookmarks').upsert(merged.toUpload.map((id) => ({ question_id: id })), { onConflict: 'user_id,question_id' });
+          const r = await client.from('bookmarks').upsert(merged.toUpload.map((id) => ({ question_id: id })), { onConflict: 'user_id,question_id' });
+          if (r.error) ok = false;
+        }
+        if (merged.toDelete.length) {
+          const r = await client.from('bookmarks').delete().in('question_id', merged.toDelete);
+          if (r.error) ok = false;
         }
         window.SBData.bookmarks.replaceAll(merged.all);
+        if (ok) writeBase(merged.all);
         window.dispatchEvent(new CustomEvent('sb-bookmarks-synced'));
       }
     }
@@ -147,27 +175,43 @@
       writeLocalSettings(pick.data);
       setLocalStamp(remote.updated_at);
     } else {
-      await pushSettings();
+      settingsDirty = true;
+      await pushSettings().catch(() => {}); // retried by the watcher
     }
     lastSettings = JSON.stringify(readLocalSettings());
   }
 
+  // Pushes this browser's settings. The stamp is when they last changed here
+  // (set by the watcher below), not when they were pushed, so a change made
+  // while logged out still beats an older copy in the account. Throws if the
+  // save failed, so the watcher keeps it pending and tries again.
   async function pushSettings() {
     if (!client || !user) return;
-    const now = new Date().toISOString();
-    setLocalStamp(now);
-    await client.from('user_settings').upsert({ data: readLocalSettings(), updated_at: now }, { onConflict: 'user_id' });
+    const stamp = localStamp() || new Date().toISOString();
+    const { error } = await client.from('user_settings').upsert({ data: readLocalSettings(), updated_at: stamp }, { onConflict: 'user_id' });
+    if (error) throw error;
+    settingsDirty = false;
   }
 
   // Settings are written by several pages' own code; rather than hook each
-  // of them, the set is compared every few seconds and pushed when it moves.
+  // of them, the set is compared every few seconds. A change is stamped with
+  // its time (logged in or not) and, when logged in, pushed; a failed push
+  // stays pending and is retried every 15 seconds.
   let lastSettings = null;
+  let settingsDirty = false;
+  let lastPushTry = 0;
   if (enabled) {
     setInterval(() => {
-      if (!user) return;
       const now = JSON.stringify(readLocalSettings());
-      if (lastSettings !== null && now !== lastSettings) pushSettings().catch(() => {});
+      if (lastSettings !== null && now !== lastSettings) {
+        setLocalStamp(new Date().toISOString());
+        settingsDirty = true;
+        lastPushTry = 0;
+      }
       lastSettings = now;
+      if (!user || !settingsDirty || Date.now() - lastPushTry < 15000) return;
+      lastPushTry = Date.now();
+      pushSettings().catch((e) => console.warn('Settings not saved to your account yet:', e.message || e));
     }, 3000);
   }
 
@@ -178,7 +222,10 @@
       const q = on
         ? client.from('bookmarks').upsert({ question_id: id }, { onConflict: 'user_id,question_id' })
         : client.from('bookmarks').delete().eq('question_id', id);
-      q.then(({ error }) => { if (error) console.warn('Bookmark not saved to your account:', error.message); });
+      q.then(({ error }) => {
+        if (error) console.warn('Bookmark not saved to your account:', error.message);
+        else updateBase(id, on);
+      });
     });
   }
   if (enabled) watchBookmarks();
@@ -226,21 +273,39 @@
   }
 
   /* ---------------- Answers and stats ---------------- */
+  // Each recorded answer gets its own handle: its row id arrives with the
+  // insert, and a later change (an override, or a correct rebuzz in
+  // Multiplayer) waits for that insert and updates that row, whatever order
+  // inserts finish in.
   function recordAnswer(q, result, mode) {
-    lastAnswerId = null;
-    if (!client || !user || !q) return;
-    client.from('answers').insert({
+    if (!client || !user || !q) { lastAttempt = null; return null; }
+    const insert = client.from('answers').insert({
       question_id: q.id, mode, result,
       subject: q.subject || null, qtype: q.qtype || null, format: q.format || null, tournament: q.tournament || null,
     }).select('id').single().then(({ data, error }) => {
-      if (error) { console.warn('Answer not saved to your stats:', error.message); return; }
-      lastAnswerId = data.id;
-    });
+      if (error) { console.warn('Answer not saved to your stats:', error.message); return null; }
+      return data.id;
+    }, () => null);
+    let chain = insert;
+    const attempt = {
+      result,
+      update(newResult) {
+        attempt.result = newResult;
+        chain = chain.then(() => insert).then((id) => {
+          if (id == null || attempt.result !== newResult) return;
+          return client.from('answers').update({ result: newResult }).eq('id', id).then(({ error }) => {
+            if (error) console.warn('Answer change not saved to your stats:', error.message);
+          });
+        });
+        return chain;
+      },
+    };
+    lastAttempt = attempt;
+    return attempt;
   }
   // A grading override changes the answer just recorded.
   function updateLastAnswer(result) {
-    if (!client || !user || lastAnswerId == null) return;
-    client.from('answers').update({ result }).eq('id', lastAnswerId).then(() => {});
+    if (lastAttempt) lastAttempt.update(result);
   }
   async function fetchAnswers(limit) {
     const c = await needClient();
@@ -260,6 +325,15 @@
       const { error } = await c.from(table).delete().eq('user_id', user.id);
       if (error) throw error;
     }
+    // This browser's copy of the account's stars goes too, or the next login
+    // would upload them again. (Theme and reading speed stay: they're this
+    // browser's own settings, and the site needs them.)
+    if (window.SBData && window.SBData.bookmarks) {
+      window.SBData.bookmarks.replaceAll([]);
+      window.dispatchEvent(new CustomEvent('sb-bookmarks-synced'));
+    }
+    writeBase([]);
+    lastAttempt = null;
   }
 
   // The browser's own network errors ("Failed to fetch", "NetworkError when

@@ -58,6 +58,16 @@ test('a wrong answer can be overridden, and taken back, on the buzz line', async
   assert.strictEqual(await badges(a), 'red red');
   await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
   assert.strictEqual(await badges(a), 'green green');
+  // The counters follow the override too, on the other player's screen.
+  const statsOf = async (p, name) => {
+    await p.locator('.mp-player-row:visible', { hasText: name }).first().locator('span', { hasText: name }).first().click();
+    await p.waitForTimeout(400);
+    return p.$$eval('.popover-body li', (lis) => Object.fromEntries(lis.map((li) => [li.children[0].textContent, li.children[1].textContent])));
+  };
+  const gName = await g.evaluate(() => document.getElementById('mpUsername').value);
+  const st = await statsOf(a, gName);
+  assert.deepStrictEqual([st.Correct, st.Negs, st.Incorrect], ['1', '0', '0']);
+  await a.keyboard.press('Escape');
   assert.strictEqual(await g.locator('#mpHistory .mp-inline-override').innerText(), 'I was wrong');
   await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
   assert.strictEqual(await badges(a), 'red red');

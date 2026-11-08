@@ -1256,8 +1256,9 @@
     // later even after someone else has buzzed and been graded too.
     hostGame.gradesByConn.set(connId, { correct, delta, userText, buzzedDuringReading: hostGame.buzzedDuringReading, celerity: celerityNow() });
     const scores = [...hostPlayers.values()].map((pp) => ({ id: pp.id, score: pp.score }));
-    host.broadcast({ type: 'graded', playerId: connId, correct, delta, userText, scores, close });
-    applyGradeLocal(connId, correct, delta, scores, userText, false, undefined, close);
+    const counts = countsOf(p);
+    host.broadcast({ type: 'graded', playerId: connId, correct, delta, userText, scores, close, counts });
+    applyGradeLocal(connId, correct, delta, scores, userText, false, undefined, close, counts);
 
     if (correct) {
       hostReveal();
@@ -1298,6 +1299,14 @@
     }
   }
 
+  // A player's answer counters as the coordinator has them, sent with every
+  // grade so each screen (and whoever takes over the room) copies them
+  // instead of counting on its own; an override then corrects them too.
+  function countsOf(p) {
+    if (!p) return null;
+    return { correct: p.correct || 0, incorrect: p.incorrect || 0, negs: p.negs || 0, celSum: p.celSum || 0, celN: p.celN || 0 };
+  }
+
   function hostOverrideLastGrade(requesterConnId) {
     // Players can only override their OWN answer (see canOverrideOwn). The
     // button/shortcut only shows when that's allowed, but a message straight
@@ -1333,8 +1342,9 @@
     hostGame.overrideLocked = nowCorrect ? requesterConnId : false;
     game.overrideLocked = hostGame.overrideLocked;
     const scores = [...hostPlayers.values()].map((pp) => ({ id: pp.id, score: pp.score }));
-    host.broadcast({ type: 'graded', playerId: requesterConnId, correct: nowCorrect, delta, userText: g.userText, scores, override: true, overrideLocked: hostGame.overrideLocked });
-    applyGradeLocal(requesterConnId, nowCorrect, delta, scores, g.userText, true, hostGame.overrideLocked);
+    const counts = countsOf(p);
+    host.broadcast({ type: 'graded', playerId: requesterConnId, correct: nowCorrect, delta, userText: g.userText, scores, override: true, overrideLocked: hostGame.overrideLocked, counts });
+    applyGradeLocal(requesterConnId, nowCorrect, delta, scores, g.userText, true, hostGame.overrideLocked, undefined, counts);
     if (game.log.length) game.log[0].category = nowCorrect ? 'correct' : 'incorrect';
     host.broadcast({ type: 'logUpdate', log: game.log });
     if (nowCorrect && hostGame.phase !== 'reveal') hostReveal();
@@ -1506,10 +1516,15 @@
     liveBuzzLine(playerId, playerName(playerId));
     fullRenderFromState();
   }
-  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close) {
+  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close, counts) {
     scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
     const pl = game.players.find((pp) => pp.id === playerId);
-    if (pl && !isOverride) {
+    const cleanCounts = counts && typeof counts === 'object'
+      && ['correct', 'incorrect', 'negs', 'celSum', 'celN'].every((k) => typeof counts[k] === 'number' && isFinite(counts[k]) && counts[k] >= 0);
+    if (pl && cleanCounts) {
+      ['correct', 'incorrect', 'negs', 'celSum', 'celN'].forEach((k) => { pl[k] = counts[k]; });
+    } else if (pl && !isOverride) {
+      // (From a coordinator running an older copy, which sends no counters.)
       if (correct) { pl.correct = (pl.correct || 0) + 1; pl.celSum = (pl.celSum || 0) + celerityNow(); pl.celN = (pl.celN || 0) + 1; } else if (delta < 0) pl.negs = (pl.negs || 0) + 1; else pl.incorrect = (pl.incorrect || 0) + 1;
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
@@ -1535,18 +1550,25 @@
     renderBuzzStatus();
     // Your own answers go to your account's stats.
     if (playerId === myState.myId && game.question && window.SBAccount) {
-      if (isOverride) SBAccount.updateLastAnswer(correct ? 'correct' : 'incorrect');
-      else recordMyAnswer(correct ? 'correct' : 'incorrect');
+      recordMyAnswer(correct ? 'correct' : 'incorrect', isOverride);
     }
   }
-  // Once per question: what you did with it, for your account's stats. A
-  // question you never buzzed on counts as skipped when it's revealed.
+  // One row per question in your account's stats, for how the question
+  // ended for you: a wrong answer then a correct rebuzz ends correct, and an
+  // override changes it either way. A question you never buzzed on counts as
+  // skipped when it's revealed.
   let statsRecordedFor = null;
-  function recordMyAnswer(result) {
+  let statsAttempt = null;
+  function recordMyAnswer(result, isOverride) {
     const key = game.question.id + ':' + game.index;
-    if (statsRecordedFor === key) return;
+    if (statsRecordedFor === key) {
+      if (!statsAttempt || statsAttempt.result === result) return;
+      // Later attempts only improve it; an override can go either way.
+      if (isOverride || result === 'correct') statsAttempt.update(result);
+      return;
+    }
     statsRecordedFor = key;
-    SBAccount.recordAnswer(game.question, result, 'mp');
+    statsAttempt = SBAccount.recordAnswer(game.question, result, 'mp');
   }
   function applyRevealLocal(revealData) {
     game.phase = 'reveal'; game.lastRevealData = revealData;
@@ -2078,7 +2100,7 @@
       return;
     }
     if (msg.type === 'graded') {
-      applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close);
+      applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close, msg.counts);
       if (game.phase === 'reveal') showReveal();
       return;
     }

@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const { mergeBookmarks, pickSettings, aggregateStats, SETTINGS_KEYS } = require('../js/account-core.js');
 
-test('logging in keeps every bookmark from both sides and uploads only the new ones', () => {
+test('a first login on a device keeps every bookmark from both sides and uploads only the new ones', () => {
   const m = mergeBookmarks([1, 2, 3], [3, 4]);
   assert.deepStrictEqual(m.all.sort(), [1, 2, 3, 4]);
   assert.deepStrictEqual(m.toUpload.sort(), [1, 2]);
@@ -36,4 +36,15 @@ test('stats add up by subject, type, tournament and mode', () => {
   assert.strictEqual(s.byQtype[0].key, 'tossup');
   assert.strictEqual(s.byMode.find((x) => x.key === 'solo').total, 3);
   assert.deepStrictEqual(aggregateStats([]).accuracy, 0);
+});
+
+test('with a last-synced copy, removals on either side stick and additions on either side are kept', () => {
+  // Last sync: {1, 2, 3}. Since then this device removed 2 and added 4; the
+  // account removed 3 and gained 5.
+  const m = mergeBookmarks([1, 3, 4], [1, 2, 5], [1, 2, 3]);
+  assert.deepStrictEqual(m.all.sort(), [1, 4, 5]);
+  assert.deepStrictEqual(m.toUpload.sort(), [4]);
+  assert.deepStrictEqual(m.toDelete.sort(), [2]);
+  // After "Delete my data" (base and local both empty) nothing comes back.
+  assert.deepStrictEqual(mergeBookmarks([], [], []).all, []);
 });
