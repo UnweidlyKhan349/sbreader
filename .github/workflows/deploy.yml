@@ -2,8 +2,10 @@
 #
 # The code stays in UnweidlyKhan349/sbreader; a <name>.github.io address can
 # only be served by a repo of the account called <name>, so every push to
-# main is tested (unit and browser tests) and then copied to sbreader/sbreader.github.io, which serves
-# it with GitHub Pages (Deploy from a branch: main, / (root)).
+# main is copied to sbreader/sbreader.github.io, which serves
+# it with GitHub Pages (Deploy from a branch: main, / (root)). The deploy
+# runs the unit tests first but doesn't wait for the browser tests, which
+# run separately in ci.yml.
 #
 # Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
 # has write access to sbreader/sbreader.github.io (see README, Deploying).
@@ -20,25 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # The browser tests (as in ci.yml) must pass before anything is published.
-  # The one test that needs the live Supabase project is skipped here, so an
-  # outage there can't hold up a deploy; ci.yml still runs it.
-  browser:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install Playwright and Chromium
-        run: npm install --no-save playwright@1.63.0 && npx playwright install --with-deps chromium
-      - name: Browser tests
-        run: npm run test:e2e
-        env:
-          SB_E2E_OFFLINE: '1'
-
   deploy:
-    needs: browser
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -176,3 +176,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Play and Multiplayer: the set name box losing focus no longer clears the packets just picked.
 - Browser tests run in about a minute instead of three (files in parallel, no fixed pause after joining a room); four duplicate or trivial ones removed.
 - The question label names the toss-up or bonus ("Prometheus 2021 RR 3 Bonus 19"); in Select by Set Name it also gives the packet's size ("BASED 2025 Round Robin 1 Toss-up 10 of 24").
+- Deploys no longer wait for the browser tests (they still run in CI); the unit tests still run first.
