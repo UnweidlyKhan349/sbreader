@@ -501,7 +501,73 @@
   function signConflict(a, b) {
     const la = String(a).match(LEADING_NUMBER_RE), lb = String(b).match(LEADING_NUMBER_RE);
     if (la && lb && signOf(la) !== signOf(lb)) return true;
-    return termSignConflict(a, b);
+    return termSignConflict(a, b) || operatorConflict(a, b);
+  }
+
+  // ---- Operators, inequalities and charges ----
+  // normalize() drops symbols, so "OH^-" and "OH^+", "y=x+3/2" and
+  // "y=x-3/2", "x < 17/15" and "x > 17/15", or "a*b" and "a/b" would read
+  // the same. Each side's symbols are collected, and the two conflict when
+  // one has a symbol whose opposite the other has instead (+ against -,
+  // * against /), or both state a comparison and the comparisons differ
+  // (<, >, ≤, ≥, =, ≠). An answer that leaves the symbols out ("OH" for
+  // "OH^-") isn't contradicting the key, so it's judged as before.
+  // A dash glued between two letters ("alpha-helix", "beta-plus") or a
+  // letter and a digit ("G-2", "A-1") is a hyphen or a label, unless the
+  // answer has other math in it ("y=x-3/2", "ΔG = ΔH-TΔS").
+  function operatorsOf(raw) {
+    const str = String(raw == null ? '' : raw)
+      .replace(/<=|=</g, '≤').replace(/>=|=>/g, '≥').replace(/!=|=\/=|<>/g, '≠')
+      .replace(/[\u2212\u2013\u2010\u2014]/g, '-').replace(/[×·∙]/g, '*').replace(/÷/g, '/');
+    const mathy = /[=<>≤≥≠^+*/()]/.test(str);
+    const ops = new Map();
+    const add = (c) => ops.set(c, (ops.get(c) || 0) + 1);
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i];
+      if (c === '-') {
+        const prev = str[i - 1] || ' ', next = str[i + 1] || ' ';
+        if (/[A-Za-z]/.test(prev) && /[A-Za-z]/.test(next) && !mathy) continue;
+        if (/[A-Za-z]/.test(prev) && /\d/.test(next) && !mathy) continue;
+        if (/\d/.test(prev) && /\d/.test(next) && !mathy) continue; // a range, "20-21"
+        add('-');
+      } else if ('+*/<>≤≥=≠'.includes(c)) {
+        add(c);
+      }
+    }
+    return ops;
+  }
+  function operatorConflict(a, b) {
+    const oa = operatorsOf(a), ob = operatorsOf(b);
+    if (!oa.size || !ob.size) return false;
+    // One side has more of a symbol and the other more of its opposite: a
+    // sign, charge or operation was swapped ("x^2-1/3x^4" for "x^2+1/3x^4").
+    // A symbol simply missing on one side ("1/(i hbar)" for "1/(i*hbar)")
+    // isn't a swap.
+    const d = (c) => (oa.get(c) || 0) - (ob.get(c) || 0);
+    if (d('+') * d('-') < 0 || d('*') * d('/') < 0) return true;
+    // One inequality on each side: compare them as "low < high", so
+    // "17/15 > x" agrees with "x < 17/15" and disagrees with "x > 17/15".
+    const ia = inequalityOf(a), ib = inequalityOf(b);
+    if (ia && ib) {
+      if (ia.strict !== ib.strict) return true;
+      return ia.lo !== ia.hi && ia.lo === ib.hi && ia.hi === ib.lo;
+    }
+    const cmp = (o) => ['<', '>', '≤', '≥', '=', '≠'].filter((x) => o.has(x)).filter((x, _, all) => !(x === '=' && all.length > 1)).join('');
+    // ("=" next to another comparison is part of it, so it's left out.)
+    const ca = cmp(oa), cb = cmp(ob);
+    if (ia || ib) return false; // "x < 3" against "3 > x or so": leave it to the rest
+    return !!ca && !!cb && ca !== cb;
+  }
+  function inequalityOf(raw) {
+    const str = String(raw == null ? '' : raw).replace(/<=|=</g, '≤').replace(/>=|=>/g, '≥');
+    const ops = str.match(/[<>≤≥]/g);
+    if (!ops || ops.length !== 1) return null;
+    const [left, right] = str.split(/[<>≤≥]/);
+    const L = normalize(left), R = normalize(right);
+    if (!L || !R) return null;
+    const op = ops[0];
+    const less = op === '<' || op === '≤';
+    return { strict: op === '<' || op === '>', lo: less ? L : R, hi: less ? R : L };
   }
 
   // A bare decimal against a key of "FRACTION UNIT-WORD(S)" or the reverse,
@@ -1418,7 +1484,20 @@
     }
     return out;
   }
+  // The last word on any match: an answer whose operators, comparison or
+  // charges contradict the key and every accept (see operatorConflict) is
+  // wrong, however it matched (unit rewriting, word order, typo tolerance
+  // and the part-by-part checks all compare text with the symbols gone).
   function checkAnswer(question, userInput) {
+    const result = checkAnswerInner(question, userInput);
+    if (!result.correct || !question.answer || question.format === 'MC') return result;
+    // Only the forms that write symbols count: "NITRATE AND SODIUM" says
+    // nothing about "NO3^(+)".
+    const keys = [question.answer.text, ...(question.answer.accept || [])].filter((k) => k && operatorsOf(k).size);
+    if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return { correct: false, matched: null, rejected: false };
+    return result;
+  }
+  function checkAnswerInner(question, userInput) {
     const first = gradeAnswer(question, userInput);
     if (first.correct || question.format === 'MC' || !question.answer) return first;
     const ans = question.answer;

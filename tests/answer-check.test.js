@@ -354,3 +354,38 @@ test('numbers written as words match their digits', () => {
   assert.strictEqual(checkAnswer(q('ZERO'), '1').correct, false);
   assert.strictEqual(checkAnswer(q('TWO'), 'three').correct, false);
 });
+
+test('a swapped sign, charge, operation or inequality is wrong', () => {
+  for (const [key, typed] of [
+    ['OH^-', 'OH^+'], ['y=x+3/2', 'y=x-3/2'], ['x < 17/15', 'x > 17/15'], ['a/b', 'a*b'],
+    ['Fe^(2+)', 'Fe 2-'], ['x ≤ 3', 'x < 3'], ['4C/3', '4C*3'], ['ΔG = ΔH-TΔS', 'ΔG = ΔH+TΔS'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  // Accepts with the sides swapped still read the right way round.
+  assert.ok(!isCorrect('x < 17/15', 'x > 17/15', { accept: ['17/15 > x'] }));
+  assert.ok(isCorrect('x < 17/15', '17/15 > x'));
+  // Leaving symbols out, or writing them another way, isn't a contradiction.
+  for (const [key, typed] of [
+    ['OH^-', 'OH'], ['Fe^(2+)', 'Fe2+'], ['3.2 × 10^23', '3.2*10^23'], ['x ≤ 3', 'x <= 3'],
+    ['ALPHA-HELIX', 'alpha helix'], ['1/(i*hbar)', '1/(i hbar)'], ['e^(-x)', 'e^-x'], ['NA^+ AND K^+', 'na+ and k+'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+});
+
+test('across the corpus, flipping one sign, charge, operation or inequality in a key makes it wrong', () => {
+  // Checking each key against itself can't catch an answer that's accepted
+  // when it shouldn't be; this mutates every key that has a symbol. The
+  // listed exceptions are multi-part keys whose accepted alternates are
+  // written too differently to compare symbol by symbol, and an HTML-tag key.
+  const KNOWN = new Set([50124, 82508, 86932, 87677]);
+  const FLIP = { '+': '-', '-': '+', '<': '>', '>': '<', '*': '/', '/': '*' };
+  const still = [];
+  for (const q of loadCorpus().questions) {
+    if (q.format === 'MC' || !q.answer || !q.answer.text) continue;
+    const k = q.answer.text;
+    const m = k.match(/\^\(?\d*[+\-]|[<>]|=[^=]*?[+\-*/]|\d\s*[*/]\s*[A-Za-z(]|[A-Za-z)]\s*[*/]\s*[A-Za-z(\d]/);
+    if (!m) continue;
+    const i = m[0][0] === '=' ? m.index + 1 + m[0].slice(1).search(/[+\-*/]/) : m.index + m[0].search(/[+\-<>*/]/);
+    const typed = k.slice(0, i) + FLIP[k[i]] + k.slice(i + 1);
+    if (typed !== k && checkAnswer(q, typed).correct && !KNOWN.has(q.id)) still.push(`${q.id}: ${typed} for ${k}`);
+  }
+  assert.deepStrictEqual(still, []);
+});
