@@ -121,9 +121,12 @@ test('a newcomer whose direct links are blocked gets a status, not a frozen page
 });
 
 test('players whose direct links are blocked meet through the Supabase relay', { skip: process.env.SB_E2E_OFFLINE ? 'SB_E2E_OFFLINE is set' : false }, async () => {
-  // Real Supabase Realtime (a broadcast channel; no table rows for a
-  // private room code). Set SB_E2E_OFFLINE=1 to skip without a network.
+  // Real Supabase Realtime (a broadcast channel). Set SB_E2E_OFFLINE=1 to
+  // skip without a network.
   const ctx = await newContext(browser, { noDirect: true, liveSupabase: true });
+  // Only the Realtime relay is real: the database calls (the room list's
+  // heartbeats) are blocked, so the test leaves no rooms or players behind.
+  await ctx.route(/supabase\.co\/(rest|functions)\//, (r) => r.abort());
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
   const b = await joinRoom(ctx, server.url, r);

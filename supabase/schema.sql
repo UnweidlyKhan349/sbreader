@@ -54,8 +54,8 @@ create policy "own settings" on public.user_settings
 -- these two tables only let the lobby page list rooms with their player
 -- counts ("12 players - 3 online"), keep a room's players (and scores) after
 -- everyone has left, and tell public rooms from private ones. Players don't
--- need an account, so anyone may read and write them; the checks keep each
--- row small and well formed.
+-- need an account; see "Who may change what" below for how rows are
+-- protected. The checks keep each row small and well formed.
 create table if not exists public.mp_rooms (
   name text primary key check (name ~ '^[a-z0-9-]{1,32}$' or name ~ '^pub-[a-z]{1,16}$'),
   is_public boolean not null default true,
@@ -87,19 +87,90 @@ create index if not exists mp_players_last_seen on public.mp_players (last_seen 
 alter table public.mp_rooms enable row level security;
 alter table public.mp_players enable row level security;
 
-drop policy if exists "anyone reads rooms" on public.mp_rooms;
-create policy "anyone reads rooms" on public.mp_rooms for select using (true);
-drop policy if exists "anyone lists a room" on public.mp_rooms;
-create policy "anyone lists a room" on public.mp_rooms for insert with check (true);
-drop policy if exists "anyone updates a room" on public.mp_rooms;
-create policy "anyone updates a room" on public.mp_rooms for update using (true) with check (true);
+-- Who may change what (rewritten November 2026). Players have no account,
+-- so ownership is a secret each browser keeps (localStorage sb_mp_secret):
+-- a player row stores a hash of its browser's secret and only that secret
+-- can update it; a room stores its creator's, and only the creator can make
+-- it public or private. The tables can't be read or written directly any
+-- more; the site calls the three functions below, which:
+--   mp_list()        lists public rooms (never private ones) with counts
+--   mp_roster(room)  a room's players, by its exact name (no secrets)
+--   mp_heartbeat(..) adds or updates this browser's own row; the server
+--                    sets last_seen, and a room's "permanent" flag follows
+--                    its name (only the built-in pub-* rooms are)
+alter table public.mp_rooms add column if not exists owner_hash text;
+alter table public.mp_players add column if not exists secret_hash text;
 
+drop policy if exists "anyone reads rooms" on public.mp_rooms;
+drop policy if exists "anyone lists a room" on public.mp_rooms;
+drop policy if exists "anyone updates a room" on public.mp_rooms;
 drop policy if exists "anyone reads players" on public.mp_players;
-create policy "anyone reads players" on public.mp_players for select using (true);
 drop policy if exists "anyone adds a player" on public.mp_players;
-create policy "anyone adds a player" on public.mp_players for insert with check (true);
 drop policy if exists "anyone updates a player" on public.mp_players;
-create policy "anyone updates a player" on public.mp_players for update using (true) with check (true);
+-- (With row-level security on and no policies, nobody gets at the rows
+-- except through the functions.)
+revoke all on public.mp_rooms, public.mp_players from anon, authenticated;
+
+create or replace function public.mp_list()
+returns table (name text, is_public boolean, is_permanent boolean, players integer, online integer)
+language sql stable security definer set search_path = public as $$
+  select r.name, r.is_public, r.is_permanent,
+         count(p.pid)::integer,
+         count(p.pid) filter (where p.last_seen > now() - interval '90 seconds')::integer
+  from mp_rooms r left join mp_players p on p.room = r.name
+  where r.is_public
+  group by r.name, r.is_public, r.is_permanent;
+$$;
+
+create or replace function public.mp_roster(p_room text)
+returns table (pid text, username text, score integer, correct integer, incorrect integer,
+               negs integer, cel_sum real, cel_n integer, last_seen timestamptz)
+language sql stable security definer set search_path = public as $$
+  select pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen
+  from mp_players where room = p_room;
+$$;
+
+create or replace function public.mp_heartbeat(
+  p_room text, p_is_public boolean, p_pid text, p_secret text, p_username text,
+  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer)
+returns boolean
+language plpgsql security definer set search_path = public as $$
+declare
+  h text;
+  existing text;
+begin
+  if p_secret is null or char_length(p_secret) not between 16 and 128 then
+    raise exception 'bad secret';
+  end if;
+  h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
+  -- The room: created by the first player to report it; only that player
+  -- can change whether it's listed. Built-in rooms are always public.
+  insert into mp_rooms (name, is_public, is_permanent, owner_hash, updated_at)
+  values (p_room, p_is_public or p_room like 'pub-%', p_room like 'pub-%', h, now())
+  on conflict (name) do update set
+    is_public = case when mp_rooms.owner_hash = h and mp_rooms.name not like 'pub-%'
+                     then excluded.is_public else mp_rooms.is_public end,
+    owner_hash = coalesce(mp_rooms.owner_hash, excluded.owner_hash),
+    updated_at = now();
+  -- The player: this browser's own row only.
+  select secret_hash into existing from mp_players where room = p_room and pid = p_pid;
+  if found and existing is not null and existing <> h then
+    return false;
+  end if;
+  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash)
+  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h)
+  on conflict (room, pid) do update set
+    username = excluded.username, score = excluded.score, correct = excluded.correct,
+    incorrect = excluded.incorrect, negs = excluded.negs, cel_sum = excluded.cel_sum,
+    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash;
+  return true;
+end;
+$$;
+
+revoke all on function public.mp_list(), public.mp_roster(text),
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
+grant execute on function public.mp_list(), public.mp_roster(text),
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Problem reports and "I was right" clicks (added November 2026).
