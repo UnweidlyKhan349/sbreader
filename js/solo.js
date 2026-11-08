@@ -220,7 +220,12 @@
   const WIDE = window.matchMedia('(min-width: 992px)');
   function toggleSidebar() {
     const el = document.getElementById('settings');
-    if (WIDE.matches) el.classList.toggle('collapsed'); else el.classList.toggle('show');
+    if (WIDE.matches) {
+      // As on QB Reader, the question and the button bar widen into the
+      // space the sidebar leaves.
+      el.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed', el.classList.contains('collapsed'));
+    } else el.classList.toggle('show');
   }
   // On a phone, as on QB Reader, a new question closes the settings.
   function hideSettingsOnPhone() {

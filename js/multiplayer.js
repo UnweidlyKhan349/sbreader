@@ -17,6 +17,14 @@
   // this is, or null. roomName: the room's name (multiplayer.html?room=).
   // roomId: the room's peer ID. pid: this browser's player ID (see myPid).
   const myState = { role: null, myId: null, myName: '', rate: 50, publicLobby: null, roomName: '', roomId: null, pid: '' };
+  // The lobby's room list is asked for at once, before anything else loads
+  // (a link straight into a room skips it).
+  const linkedToRoom = /[?&](room|lobby)=/.test(location.search);
+  if (!linkedToRoom && window.SBRooms) SBRooms.list();
+  // The question bank (SBData.load, started from <head>) is only needed to
+  // pick questions, so entering a room doesn't wait for it; whoever runs the
+  // game waits for it before the first question.
+  function bankLoaded() { return !!SBData.questions; }
   // A new site version waits (as a Reload bar) while you're in a room.
   if (window.SBSite && SBSite.setBusy) SBSite.setBusy(() => !!myState.roomId);
 
@@ -86,7 +94,7 @@
   // A new room's settings: every subject, random questions, timer on.
   function defaultFilters(isPublic) {
     return {
-      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, timer: true, isPublic: isPublic !== false,
+      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, controlled: false, timer: true, isPublic: isPublic !== false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
       tournaments: new Set(), roundRange: null, includeUnlabeled: true,
     };
@@ -105,12 +113,30 @@
       const name = SBMpRules.cleanRoomName(input.value) || input.placeholder;
       const params = new URLSearchParams({ room: name });
       if (document.getElementById('privateRoomCheckbox').checked) params.set('private', 'true');
-      location.href = `${location.pathname}?${params}`;
+      if (document.getElementById('controlledRoomCheckbox').checked) params.set('controlled', 'true');
+      goToRoom(`${location.pathname}?${params}`);
     });
+    // A room in the lists opens on this page, without loading it again (the
+    // connection and the questions already on their way carry over). A
+    // middle click or ctrl-click still opens a new tab.
+    ['permanentRoomList', 'roomList'].forEach((id) => document.getElementById(id).addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      goToRoom(a.href);
+    }));
+    // Back (or forward) from a room: the page as that address has it.
+    window.addEventListener('popstate', () => location.reload());
     document.getElementById('emptyRoomCheckbox').addEventListener('change', (e) => {
       document.querySelectorAll('#roomList .empty-room').forEach((li) => li.classList.toggle('d-none', !e.target.checked));
       showNoRooms();
     });
+  }
+
+  function goToRoom(href) {
+    if (joining || myState.role) return;
+    try { history.pushState(null, '', href); } catch (e) { location.href = href; return; }
+    if (!joinFromLink()) location.reload();
   }
 
   function roomItem(href, label, players, online, labelIsName) {
@@ -144,32 +170,45 @@
     return Promise.race([promise.catch(() => fallback), new Promise((r) => setTimeout(() => r(fallback), ms))]);
   }
 
+  // The last list this browser saw is drawn at once, then the current one
+  // (usually within half a second) replaces it.
   async function renderRoomLists() {
-    const permanent = document.getElementById('permanentRoomList');
-    const list = document.getElementById('roomList');
-    // The built-in rooms show straight away; their counts follow.
-    if (!permanent.children.length) {
-      lobbyList.forEach((lobby) => permanent.appendChild(roomItem(`${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`, lobbyLabel(lobby), null, null)));
-    }
-    const reg = await within(SBRooms.list(), 6000, null);
+    const fresh = within(SBRooms.list(), 6000, null);
+    const cached = SBRooms.cachedList ? SBRooms.cachedList() : null;
+    paintRoomLists(cached, null);
+    const reg = await fresh;
     let probe = null;
     if (!reg) {
       // No room list: count the built-in rooms by asking each one.
       probe = await SBPeer.probeRooms(lobbyList.map((l) => l.peerId)).catch(() => new Map());
     }
+    paintRoomLists(reg, probe);
+  }
+
+  // reg: SBRooms.list()'s answer; probe: the built-in rooms' counts asked
+  // directly. Neither yet: the built-in rooms, without counts.
+  function paintRoomLists(reg, probe) {
+    const permanent = document.getElementById('permanentRoomList');
+    const list = document.getElementById('roomList');
+    const counted = !!(reg || probe);
     const byName = new Map((reg ? reg.rooms : []).map((r) => [r.name, r]));
     permanent.innerHTML = '';
     lobbyList.forEach((lobby) => {
+      const href = `${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`;
+      if (!counted) { permanent.appendChild(roomItem(href, lobbyLabel(lobby), null, null)); return; }
       const r = byName.get(SBRooms.key('', lobby.key));
       const online = reg ? (r ? r.online : 0) : (probe.get(lobby.peerId) || 0);
-      permanent.appendChild(roomItem(`${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`, lobbyLabel(lobby), reg ? (r ? r.players : 0) : null, online));
+      permanent.appendChild(roomItem(href, lobbyLabel(lobby), reg ? (r ? r.players : 0) : null, online));
     });
+    if (!counted) return;
     list.innerHTML = '';
     const rooms = reg ? reg.rooms.filter((r) => r.is_public && !r.is_permanent) : [];
     rooms.sort((a, b) => (b.online - a.online) || (b.players - a.players));
+    const showEmpty = document.getElementById('emptyRoomCheckbox').checked;
     rooms.forEach((r) => {
       const li = roomItem(`${location.pathname}?room=${encodeURIComponent(r.name)}`, r.name, r.players, r.online, true);
-      if (r.online === 0) li.classList.add('empty-room', 'd-none');
+      if (r.online === 0) li.classList.add('empty-room');
+      if (r.online === 0 && !showEmpty) li.classList.add('d-none');
       list.appendChild(li);
     });
     const none = document.createElement('li');
@@ -199,6 +238,14 @@
     // Players vote kicked out: [{ pid, at }], kept by everyone so whoever
     // takes over keeps turning them away for 30 minutes.
     kicked: [],
+    // The room's owner (a named room's creator, as on QB Reader): the public
+    // half of their signing key (see ownerKeys), or null for a room without
+    // one (the built-in rooms). The owner's row has `owner` set and a crown.
+    ownerKey: null,
+    // Players the owner banned (pids, for good) and muted (mute keys: they
+    // can't chat). Kept by everyone, like `kicked`.
+    banned: [],
+    muted: [],
     // Last tick actually applied (remainingMs/totalMs/kind), so a re-render
     // triggered by something other than a fresh tick - e.g. toggling pause,
     // which stops the host from broadcasting further ticks while paused -
@@ -337,6 +384,18 @@
   let showOffline = false;
   try { showOffline = localStorage.getItem(OFFLINE_KEY) === '1'; } catch (e) { /* default off */ }
   let openStatsFor = null;
+  // The players who've left, as rows for the leaderboard.
+  function offlineRows() {
+    return (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
+  }
+  // Whether this player is the room's owner, as the room has it.
+  function amOwner() {
+    const me = game.players.find((p) => p.id === myState.myId);
+    return !!(me && me.owner);
+  }
+  // Mutes are by player ID (pid), or by connection for a player without one.
+  function muteKey(p) { return p && (p.pid || (p.id ? 'id:' + p.id : null)); }
+  function isMuted(p) { const k = muteKey(p); return !!k && (game.muted || []).includes(k); }
   function renderPlayerList(container) {
     // Your name as the room has it ("Henry 2" when another Henry got there
     // first) goes in the username box, unless you're typing in it.
@@ -347,7 +406,7 @@
     const openMenu = container.querySelector('.dropdown-menu.show');
     const openMenuKey = openMenu ? openMenu.closest('[data-key]').dataset.key : null;
     container.innerHTML = '';
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, offline: true }));
+    const offline = offlineRows();
     const everyone = game.players.concat(offline).sort((a, b) => (b.score - a.score) || a.name.localeCompare(b.name));
     everyone.forEach((p) => {
       const key = p.id || 'pid:' + p.pid;
@@ -362,27 +421,43 @@
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
       else if (!p.offline && p.id === game.buzzedPlayerId && game.phase === 'answering') item.classList.add('buzzed');
       // As on QB Reader, other online players get a small menu beside their
-      // name with "Votekick" in it.
-      const canKick = !p.offline && p.id && p.id !== myState.myId;
+      // name with "Votekick" in it; the room's owner also gets Mute and Ban
+      // there (and Ban for offline players). The owner has a crown.
+      const others = p.id !== myState.myId;
+      const canKick = !p.offline && p.id && others;
+      const ownerTools = amOwner() && others && !p.owner && (p.offline ? !!p.pid : !!p.id);
+      const menu = [];
+      if (canKick) menu.push('<li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li>');
+      if (ownerTools && !p.offline) menu.push(`<li><button type="button" class="dropdown-item" data-mute>${isMuted(p) ? 'Unmute' : 'Mute'}</button></li>`);
+      if (ownerTools) menu.push('<li><button type="button" class="dropdown-item text-danger" data-ban title="Remove this player from the room for good">Ban</button></li>');
       item.innerHTML = `<div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <span class="${canKick ? 'me-2' : 'me-1'}">${escapeHtml(p.name)}</span>
-            ${canKick ? `<div class="dropdown ms-1">
+            <span class="${menu.length ? 'me-2' : 'me-1'}">${p.owner ? '<span class="mp-crown" title="Room owner" aria-label="Room owner">&#128081;</span>' : ''}${escapeHtml(p.name)}${isMuted(p) ? '<span class="mp-muted" title="Muted by the room owner" aria-label="muted">&#128263;</span>' : ''}</span>
+            ${menu.length ? `<div class="dropdown ms-1">
               <button class="btn btn-default dropdown-toggle py-0 px-1" type="button" data-sb-dropdown aria-label="Actions for ${escapeHtml(p.name)}"></button>
-              <ul class="dropdown-menu"><li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li></ul>
+              <ul class="dropdown-menu">${menu.join('')}</ul>
             </div>` : ''}
           </div>
           <span class="badge rounded-pill ${p.offline ? 'bg-secondary' : 'bg-success'}">${Number(p.score) || 0}</span>
         </div>`;
-      if (canKick) {
+      if (menu.length) {
         const toggle = item.querySelector('[data-sb-dropdown]');
         SBSite.wireDropdown(toggle);
         toggle.addEventListener('click', () => closePlayerPopover());
         if (openMenuKey === key) { item.querySelector('.dropdown-menu').classList.add('show'); toggle.setAttribute('aria-expanded', 'true'); }
-        item.querySelector('[data-votekick]').addEventListener('click', (e) => {
-          e.stopPropagation();
-          item.querySelector('.dropdown-menu').classList.remove('show');
-          requestVotekick(p.id);
+        const act = (sel, fn) => {
+          const b = item.querySelector(sel);
+          if (!b) return;
+          b.addEventListener('click', (e) => {
+            e.stopPropagation();
+            item.querySelector('.dropdown-menu').classList.remove('show');
+            fn();
+          });
+        };
+        act('[data-votekick]', () => requestVotekick(p.id));
+        act('[data-mute]', () => requestOwnerAction(isMuted(p) ? 'unmute' : 'mute', p));
+        act('[data-ban]', () => {
+          if (window.confirm(`Ban ${p.name} from this room? They won't be able to come back.`)) requestOwnerAction('ban', p);
         });
       }
       item.dataset.key = key;
@@ -418,7 +493,7 @@
   function renderPlayerPopover() {
     const item = openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`);
     if (!item || item.classList.contains('d-none') || !item.offsetParent) { closePlayerPopover(); return; }
-    const offline = (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, offline: true }));
+    const offline = offlineRows();
     const p = game.players.concat(offline).find((x) => (x.id || 'pid:' + x.pid) === openStatsFor);
     if (!p) { closePlayerPopover(); return; }
     if (!playerPopover) {
@@ -440,7 +515,7 @@
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
       ['Online?', plain(p.offline ? 'No' : 'Yes')],
-    ].map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
+    ].concat(p.owner ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
     clearTimeout(popoverHideTimer);
@@ -664,7 +739,8 @@
     const amBuzzed = game.buzzedPlayerId === myState.myId;
     const amLocked = game.lockedOut.has(myState.myId);
     buzzBtn.disabled = !((game.phase === 'reading' || game.phase === 'buzzwindow') && !amLocked);
-    nextBtn.disabled = game.phase === 'answering' || game.phase === 'gameover';
+    nextBtn.disabled = game.phase === 'answering' || game.phase === 'gameover'
+      || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip(null));
     // As on QB Reader, the first button is a green Start before the game.
     nextBtn.classList.toggle('btn-success', game.phase === 'lobby');
     nextBtn.classList.toggle('btn-primary', game.phase !== 'lobby');
@@ -676,8 +752,10 @@
     } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
       nextBtn.textContent = 'Skip';
       nextBtn.dataset.mode = 'skip';
+      nextBtn.title = canSkip(null) ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
     } else if (game.phase === 'answering') {
       nextBtn.textContent = 'Next';
+      nextBtn.title = 'Shortcut: n or s';
       nextBtn.dataset.mode = '';
       if (amBuzzed) {
         answerRow.classList.remove('d-none');
@@ -689,6 +767,7 @@
       }
     } else if (game.phase === 'reveal') {
       nextBtn.textContent = 'Next';
+      nextBtn.title = 'Shortcut: n or s';
       nextBtn.dataset.mode = 'next';
       showReveal();
     }
@@ -776,8 +855,10 @@
     li.append(b, document.createTextNode(' ' + entry.text));
     historyEl().prepend(li);
   }
+  function amMuted() { return isMuted(game.players.find((p) => p.id === myState.myId)); }
   function sendChat(text) {
     text = (text || '').trim();
+    if (amMuted()) { endLiveChat(true); if (text) logEvent('You', 'are muted in this room'); return; }
     const cid = myChatId;
     endLiveChat(!text);
     if (!text) return;
@@ -830,7 +911,7 @@
     li.querySelector('.live-chat-text').textContent = text;
   }
   function broadcastLiveChat(cid, text) {
-    if (mesh) mesh.broadcast({ type: 'chatLive', cid, text: text === null ? null : text.slice(0, SBMpRules.LIMITS.chat) });
+    if (mesh && !amMuted()) mesh.broadcast({ type: 'chatLive', cid, text: text === null ? null : text.slice(0, SBMpRules.LIMITS.chat) });
   }
   // The chat box opened: everyone sees your (still empty) line.
   function startLiveChat() {
@@ -918,7 +999,7 @@
   function copyFilters(f) {
     return {
       mode: f.mode === 'set' ? 'set' : 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
-      rebuzz: !!f.rebuzz, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -951,7 +1032,7 @@
   const departedPlayers = new Map();
   function markOffline(p) {
     departedPlayers.delete(p.pid);
-    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, leftAt: Date.now() });
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, owner: !!p.owner, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
   }
   function hostPlayerLeft(connId, quiet) {
@@ -1006,15 +1087,170 @@
     if (targetId === myState.myId) { broadcastLobby(); leaveKicked(); return; }
     hostPlayerLeft(targetId, true);
   }
-  // Whoever is kicked goes back to the lobby, which says so.
-  function leaveKicked() {
-    location.href = `${location.pathname}?kicked=1`;
+  // Whoever is kicked (or banned) goes back to the lobby, which says so.
+  function leaveKicked(banned) {
+    location.href = `${location.pathname}?${banned ? 'banned' : 'kicked'}=1`;
   }
   function requestVotekick(targetId) {
     const me = game.players.find((p) => p.id === myState.myId);
     if (!me || !(me.correct > 0)) { logEvent('You', 'can only vote kick once you\'ve answered a question correctly'); return; }
     if (myState.role === 'host') hostVotekick(myState.myId, targetId);
     else if (client) client.send({ type: 'votekick', targetId });
+  }
+
+  /* ---------------- The room's owner ----------------
+     A named room belongs to the browser that created it, as on QB Reader:
+     the owner has a crown, can mute and ban players, and can make the room
+     "controlled", where only they change the settings. The built-in rooms
+     have no owner.
+
+     There's no server to vouch for anyone, so the owner proves who they are
+     with a signing key (ECDSA P-256, WebCrypto) that only their browser
+     holds (localStorage sb_mp_owner_key). The room keeps the key's public
+     half (game.ownerKey, and in the room list, so it outlasts the room); on
+     joining, the owner signs "<room>|<their connection ID>|<time>", which
+     whoever runs the game checks. The signature names the sender's own
+     connection and is good for a minute, so it can't be reused by anyone
+     else. */
+  const OWNER_KEY_STORE = 'sb_mp_owner_key';
+  const ECDSA = { name: 'ECDSA', namedCurve: 'P-256' };
+  const SIGN = { name: 'ECDSA', hash: 'SHA-256' };
+  const PROOF_MAX_AGE_MS = 60 * 1000;
+  let ownerKeyPromise = null;
+  // This browser's key: { pub: 'x.y' (base64url), priv: CryptoKey }, or
+  // null without WebCrypto. create: make one if there's none yet.
+  function myOwnerKey(create) {
+    const subtle = window.crypto && crypto.subtle;
+    if (!subtle) return Promise.resolve(null);
+    if (ownerKeyPromise) return ownerKeyPromise.then((k) => (k || !create ? k : (ownerKeyPromise = makeOwnerKey())));
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(OWNER_KEY_STORE) || 'null'); } catch (e) { /* none */ }
+    if (saved && saved.x && saved.y && saved.d) {
+      ownerKeyPromise = subtle.importKey('jwk', { kty: 'EC', crv: 'P-256', x: saved.x, y: saved.y, d: saved.d, ext: true }, ECDSA, false, ['sign'])
+        .then((priv) => ({ pub: `${saved.x}.${saved.y}`, priv }))
+        .catch(() => null);
+      return myOwnerKey(create);
+    }
+    if (!create) return Promise.resolve(null);
+    ownerKeyPromise = makeOwnerKey();
+    return ownerKeyPromise;
+  }
+  function makeOwnerKey() {
+    const subtle = crypto.subtle;
+    return subtle.generateKey(ECDSA, true, ['sign', 'verify']).then(async (pair) => {
+      const jwk = await subtle.exportKey('jwk', pair.privateKey);
+      try { localStorage.setItem(OWNER_KEY_STORE, JSON.stringify({ x: jwk.x, y: jwk.y, d: jwk.d })); } catch (e) { /* this visit only */ }
+      return { pub: `${jwk.x}.${jwk.y}`, priv: pair.privateKey };
+    }).catch(() => null);
+  }
+  function b64url(buf) {
+    return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function unb64url(str) {
+    const bin = atob(str.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((str.length + 3) % 4));
+    return Uint8Array.from(bin, (c) => c.charCodeAt(0));
+  }
+  // What the owner sends with 'join', when this browser holds the room's
+  // key (or any key: whoever runs the game compares it with the room's).
+  async function ownerProof() {
+    const k = await myOwnerKey(false);
+    if (!k || !mesh || !mesh.id) return null;
+    const ts = Date.now();
+    const text = `${roomKey()}|${mesh.id}|${ts}`;
+    try {
+      const sig = await crypto.subtle.sign(SIGN, k.priv, new TextEncoder().encode(text));
+      return { key: k.pub, ts, sig: b64url(sig) };
+    } catch (e) { return null; }
+  }
+  async function verifyOwnerProof(proof, fromId) {
+    if (!game.ownerKey || !proof || proof.key !== game.ownerKey || !window.crypto || !crypto.subtle) return false;
+    if (Math.abs(Date.now() - proof.ts) > PROOF_MAX_AGE_MS) return false;
+    const [x, y] = game.ownerKey.split('.');
+    try {
+      const pub = await crypto.subtle.importKey('jwk', { kty: 'EC', crv: 'P-256', x, y, ext: true }, ECDSA, false, ['verify']);
+      return await crypto.subtle.verify(SIGN, pub, unb64url(proof.sig), new TextEncoder().encode(`${roomKey()}|${fromId}|${proof.ts}`));
+    } catch (e) { return false; }
+  }
+
+  // The owner's tools, from the player menu: mute, unmute or ban `target`
+  // (a leaderboard row: online with an id, or offline with a pid).
+  function requestOwnerAction(action, target) {
+    const targetId = target.offline ? null : target.id;
+    const targetPid = target.pid || null;
+    if (myState.role === 'host') hostOwnerAction(myState.myId, action, targetId, targetPid);
+    else if (client) client.send({ type: 'ownerAction', action, targetId, targetPid });
+  }
+  function hostOwnerAction(connId, action, targetId, targetPid) {
+    const by = hostPlayers.get(connId);
+    if (!by || !by.owner) return;
+    const online = targetId ? hostPlayers.get(targetId) : null;
+    const offline = !online && targetPid ? departedPlayers.get(targetPid) : null;
+    const target = online || offline;
+    if (!target || target.owner || targetId === connId) return;
+    if (action === 'mute' || action === 'unmute') {
+      const k = muteKey(target);
+      if (!k) return;
+      game.muted = game.muted.filter((x) => x !== k);
+      if (action === 'mute') game.muted.push(k);
+      broadcastLobby();
+      hostBroadcastChat('SYSTEM', target.name, action === 'mute' ? 'was muted by the room owner' : 'was unmuted by the room owner', true);
+      return;
+    }
+    if (action !== 'ban') return;
+    if (target.pid && !game.banned.includes(target.pid)) game.banned = game.banned.concat(target.pid).slice(-500);
+    hostBroadcastChat('SYSTEM', target.name, 'was banned by the room owner', true);
+    if (online) {
+      host.broadcast({ type: 'kicked', playerId: targetId, banned: true });
+      if (targetId === myState.myId) { if (target.pid) departedPlayers.delete(target.pid); hostPlayers.delete(targetId); broadcastLobby(); leaveKicked(true); return; }
+      hostPlayerLeft(targetId, true);
+    }
+    // A banned player is taken off the leaderboard too.
+    if (target.pid) departedPlayers.delete(target.pid);
+    broadcastLobby();
+  }
+
+  // Skips, as on QB Reader's "Allow skips": with it off, nobody can skip a
+  // question while it's read or open for buzzing, except the room's owner,
+  // and anyone once the reading is over in a room with no timer (where
+  // nothing else would end the question).
+  function canSkip(connId) {
+    if (roomSetting('skip', true)) return true;
+    const p = connId ? hostPlayers.get(connId) : game.players.find((x) => x.id === myState.myId);
+    if (p && p.owner) return true;
+    return game.phase === 'buzzwindow' && !roomSetting('timer', true);
+  }
+
+  // The owner's browser keeps the room's record (owner key, bans and the
+  // controlled switch) in the room list, so the room comes back the same
+  // after everyone has left. Only the browser that created the room can
+  // change it there; for anyone else saveRoom just answers false.
+  let savedRecord = '';
+  function saveRoomRecord() {
+    if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
+    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
+    const text = JSON.stringify(rec);
+    if (text === savedRecord) return;
+    savedRecord = text;
+    SBRooms.saveRoom(roomKey(), rec).catch(() => {});
+  }
+
+  // Whatever depends on who owns the room: the controlled-room lock on the
+  // settings, the controlled switch, the record in the room list.
+  function refreshOwnerControls() {
+    const owner = amOwner();
+    const controlled = !!roomSetting('controlled', false);
+    const locked = controlled && !owner;
+    const fieldset = document.getElementById('mpRoomSettings');
+    if (fieldset) fieldset.disabled = locked;
+    document.getElementById('mpControlledNote').classList.toggle('d-none', !locked);
+    // The switch is there in rooms with an owner, and only the owner can use it.
+    document.getElementById('mpControlledRow').classList.toggle('d-none', !game.ownerKey);
+    const sw = document.getElementById('mpToggleControlled');
+    sw.checked = controlled;
+    sw.disabled = !owner;
+    // Skip follows "Allow skips" and who's the owner.
+    if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip(null);
+    saveRoomRecord();
   }
 
   function enterGameScreen() {
@@ -1024,10 +1260,11 @@
   }
 
   function broadcastLobby() {
-    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null }));
+    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null, owner: !!p.owner }));
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
-    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, roomCode: myState.roomId });
+    refreshOwnerControls();
+    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, muted: game.muted, roomCode: myState.roomId });
   }
 
   function hostBroadcastChat(fromId, name, text, system, cid) {
@@ -1049,7 +1286,7 @@
     const f = activeFilterState;
     return {
       mode: f.mode || 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
-      rebuzz: !!f.rebuzz, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1095,6 +1332,7 @@
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
       if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
+      if (msg.pid && game.banned.includes(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true }); return; }
       // A returning player (same pid, not already in the room) gets their
       // score back.
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
@@ -1103,6 +1341,13 @@
       hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
       broadcastLobby();
       hostEvent(connId, 'joined the game');
+      // The room's owner, coming back: their signature says so.
+      if (msg.owner) verifyOwnerProof(msg.owner, connId).then((ok) => {
+        const p = hostPlayers.get(connId);
+        if (!ok || !p || myState.role !== 'host') return;
+        p.owner = true;
+        broadcastLobby();
+      });
       // Everything a joiner needs, including the chat and the question log,
       // whether or not the game has started.
       if (hostGame.phase !== 'gameover') sendSyncTo(connId);
@@ -1119,16 +1364,22 @@
     }
     if (msg.type === 'chatSend') {
       const p = hostPlayers.get(connId);
+      if (isMuted(p)) { host.sendTo(connId, { type: 'notice', text: 'are muted in this room' }); return; }
       hostBroadcastChat(connId, p ? p.name : 'Player', msg.text, false, msg.cid);
       return;
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby' && hostGame.phase !== 'gameover') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
-    if (msg.type === 'skip') { if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question'); hostSkipQuestion(); return; }
+    if (msg.type === 'skip') {
+      if (!canSkip(connId)) { host.sendTo(connId, { type: 'notice', text: 'can\'t skip: skipping is turned off in this room' }); return; }
+      if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question');
+      hostSkipQuestion();
+      return;
+    }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, timer: msg.timer, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, controlled: msg.controlled, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -1140,6 +1391,7 @@
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
     if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
     if (msg.type === 'votekick') { hostVotekick(connId, msg.targetId); return; }
+    if (msg.type === 'ownerAction') { hostOwnerAction(connId, msg.action, msg.targetId, msg.targetPid); return; }
   }
 
   // Any player can rename themselves mid-game. The name is made unique the
@@ -1157,6 +1409,19 @@
   }
 
   function hostNextQuestion() {
+    // The first question waits for the question bank, if it's still loading.
+    if (!bankLoaded()) {
+      if (hostGame.waitingForBank) return;
+      hostGame.waitingForBank = true;
+      setMatchCountText('Loading questions…');
+      SBData.load().then(() => {
+        hostGame.waitingForBank = false;
+        onBankLoaded();
+        if (myState.role === 'host' && (hostGame.phase === 'lobby' || hostGame.phase === 'reveal')) hostNextQuestion();
+      }).catch((err) => { hostGame.waitingForBank = false; setMatchCountText(`Couldn't load the questions: ${err.message}`); });
+      return;
+    }
+    if (hostGame.index < 0 && !hostGame.queue.length) onBankLoaded();
     clearHostTimer();
     hostGame.index++;
     hostGame.buzzedConnId = null;
@@ -1650,9 +1915,10 @@
     return SBMpRules.coordinatorOrder(game.players.map((p) => p.id), [...memberInfo.keys(), mesh ? mesh.id : null].filter(Boolean));
   }
 
-  async function openMesh() {
-    // TURN servers, when the site has them, before the first connection.
-    if (!mesh && SBPeer.prepareIce) await SBPeer.prepareIce();
+  // This player's connection: made once, as early as there's reason to (the
+  // lobby makes it ahead of time, so a room opens without waiting for it).
+  // Its TURN logins are asked for alongside (see SBPeer.makeMesh).
+  function openMesh() {
     if (!mesh) {
       mesh = SBPeer.makeMesh({
         onMessage: onMeshMessage,
@@ -1668,7 +1934,9 @@
   function onMeshMessage(from, data) {
     if (!data || typeof data !== 'object' || typeof data.type !== 'string') return;
     if (data.type === 'chatLive') {
-      // Straight from the player typing it, not through the game's runner.
+      // Straight from the player typing it, not through the game's runner
+      // (and not shown at all from a muted player).
+      if (isMuted(game.players.find((p) => p.id === from))) return;
       const cid = SBMpRules.cleanChatId(data.cid);
       if (cid && data.text === null) renderLiveChat(from, cid, null);
       else if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
@@ -1715,8 +1983,12 @@
     }
     if (id !== coordinatorId) return;
     const next = SBMpRules.pickCoordinator(memberOrder().filter((x) => x !== id), isUp);
-    if (!next || next === mesh.id) takeOver();
-    else coordinatorId = next; // they take over; their first message has a newer term
+    if (!next || next === mesh.id) {
+      // Running the game needs the question bank; a player who has only
+      // just come in may still be loading it.
+      if (bankLoaded()) takeOver();
+      else SBData.load().then(() => { if (myState.role === 'client' && coordinatorId === id) takeOver(); }).catch(() => {});
+    } else coordinatorId = next; // they take over; their first message has a newer term
   }
 
   // Carry on the room from this player's own copy, exactly where it stands.
@@ -1734,7 +2006,7 @@
     departedPlayers.clear();
     (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
-      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, connId: p.id, pid: p.pid || null });
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, connId: p.id, pid: p.pid || null, owner: !!p.owner });
       else if (p.pid) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
@@ -1828,7 +2100,7 @@
   }
   function rejoinRoom(info) {
     followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : term);
-    mesh.broadcast({ type: 'join', name: myState.myName, pid: myState.pid });
+    sendJoin(myState.myName);
   }
 
   // A player who leaves while answering just stops answering: no penalty,
@@ -1858,6 +2130,7 @@
     // can be shared as is.
     try { history.replaceState(null, '', inviteLink()); } catch (e) { /* e.g. file:// */ }
     startHeartbeat();
+    SBData.load().then(onBankLoaded).catch((err) => setMatchCountText(`Couldn't load the questions: ${err.message}`));
   }
 
   // Tells the room list (when there is one) that this player is here, with
@@ -1873,7 +2146,7 @@
   }
   function startHeartbeat() {
     if (heartbeatTimer) clearInterval(heartbeatTimer);
-    setTimeout(beat, 1500);
+    setTimeout(beat, 300);
     heartbeatTimer = setInterval(beat, 30 * 1000);
   }
 
@@ -1881,11 +2154,10 @@
     return SBMpRules.readingSpeed((() => { try { return localStorage.getItem('sb_reading_speed'); } catch (e) { return null; } })());
   }
 
-  // Opens a new room under `roomId`, with this player first in it.
-  // Rejects with 'unavailable-id' if that code is taken.
-  async function startRoom({ roomId, filters, name, rate, lobby }) {
-    await openMesh();
-    await mesh.claimDoor(roomId);
+  // Opens the room under `roomId`, with this player first in it, once this
+  // player holds its door (enterRoomByDoor). `info` is what the room list
+  // keeps about it (SBRooms.roomInfo), or null.
+  async function startRoom({ roomId, filters, name, rate, lobby, info }) {
     term = 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
@@ -1893,19 +2165,45 @@
     client = null;
     myState.rate = rate;
     resetHostGame();
-    hostGame.queue = queueFor(filters);
-    game.total = hostGame.queue.length;
     game.log = [];
     hostPlayers.clear();
     departedPlayers.clear();
     hostChat.length = 0;
     activeFilterState = copyFilters(filters);
+    // A room the list knows keeps whether it's listed (not what a link says).
+    if (!lobby && info && info.exists && typeof info.isPublic === 'boolean') activeFilterState.isPublic = info.isPublic;
+    // The questions, if the bank is here already; otherwise once it is
+    // (onBankLoaded), and the first question waits for it.
+    hostGame.queue = bankLoaded() ? queueFor(activeFilterState) : [];
+    game.total = hostGame.queue.length;
     myState.myName = name;
-    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid };
+    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid, owner: false };
+
+    // The owner (named rooms only): the one the room list has, or this
+    // player, for a room that's new (or, with no room list, one starting up).
+    game.ownerKey = null; game.banned = []; game.muted = [];
+    if (!lobby) {
+      if (info && info.ownerKey) game.ownerKey = info.ownerKey;
+      else if (!info || info.legacy || !info.exists) {
+        const k = await myOwnerKey(true);
+        if (k) game.ownerKey = k.pub;
+      } else {
+        // A room from before room owners: its creator's browser can claim it.
+        const k = await myOwnerKey(true);
+        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned, controlled: false }), 3000, null)) game.ownerKey = k.pub;
+      }
+      if (info && !info.legacy) game.banned = (info.banned || []).slice();
+      const mine = await myOwnerKey(false);
+      me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
+      activeFilterState.controlled = !!game.ownerKey && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
+    } else {
+      activeFilterState.controlled = false;
+    }
+
     // As on QB Reader, a room keeps its players after they leave: anyone the
     // room list has seen here comes back as offline, with their score.
-    const roster = await within(SBRooms.roster(lobby ? SBRooms.key('', lobby.key) : myState.roomName), 4000, []);
-    roster.forEach((r) => {
+    ((info && info.players) || []).forEach((r) => {
+      if (!r || !SBMpRules.cleanPid(r.pid) || game.banned.includes(r.pid)) return;
       // Negs and celerity come back too (they're 0 on a project whose
       // schema predates them).
       const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0 };
@@ -1919,17 +2217,34 @@
     fullRenderFromState();
   }
 
-  // Joins the room behind `roomId` through its door.
+  // Joins the room behind `roomId` through its door. Needs no questions:
+  // the room sends what's on screen.
   async function joinExisting(roomId, name, lobby) {
-    await openMesh();
     const info = await mesh.join(roomId);
     if (!info.coordinator || !isUp(info.coordinator)) {
       throw new Error('Could not connect to the players in that room. Try again, or try a different network.');
     }
     followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : 0);
     enterRoomAs(roomId, name, lobby);
-    mesh.broadcast({ type: 'join', name, pid: myState.pid });
+    await sendJoin(name);
     fullRenderFromState();
+  }
+  // Tells the room who this is (and, for its owner, proves it).
+  async function sendJoin(name) {
+    const owner = await ownerProof();
+    const msg = { type: 'join', name, pid: myState.pid };
+    if (owner) msg.owner = owner;
+    mesh.broadcast(msg);
+  }
+
+  // The questions arrived after the room opened: the queue (for whoever
+  // runs the game) and the sidebar's count catch up.
+  function onBankLoaded() {
+    if (myState.role === 'host' && hostGame.index < 0 && activeFilterState && !hostGame.queue.length) {
+      hostGame.queue = queueFor(activeFilterState);
+      game.total = hostGame.queue.length;
+    }
+    if (midGameSettingsWired) updateMidGameMatchCount();
   }
 
   /* ================= ENTERING A ROOM ================= */
@@ -1939,6 +2254,11 @@
   // this browser joins them instead. A failed join usually means the holder
   // just left (or the broker hasn't noticed yet), so it goes round again
   // after a short, random wait.
+  //
+  // Everything that can happen at once does: this player's own connection,
+  // the claim on the door, the room's record from the room list and the
+  // question bank all start together, and joining someone else's room
+  // waits for none of the last two.
   const ROOM_ATTEMPTS = 4;
   let lobbyList = [];
   let joining = false;
@@ -1956,45 +2276,93 @@
   }
   function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
-  async function enterRoomByDoor({ peerId, label, lobby, filters }) {
+  // While connecting, the room is already on screen, saying so.
+  function showConnecting(text) {
+    enterGameScreen();
+    document.getElementById('mpUsername').value = myName();
+    const q = document.getElementById('mpQDisplay');
+    q.classList.add('mp-waiting-text');
+    q.textContent = text;
+    ['mpNextBtn', 'mpBuzzBtn', 'mpPauseBtn'].forEach((id) => { document.getElementById(id).disabled = true; });
+  }
+  // Couldn't get in: back to the lobby, with the reason.
+  function backToLobby(text) {
+    myState.publicLobby = null;
+    myState.roomName = '';
+    document.documentElement.classList.remove('mp-direct');
+    document.getElementById('mpGameScreen').style.display = 'none';
+    document.getElementById('mpButtonBar').style.display = 'none';
+    document.getElementById('lobbyScreen').style.display = '';
+    document.getElementById('mpQDisplay').textContent = '';
+    document.title = 'SBReader - Multiplayer';
+    try { history.replaceState(null, '', location.pathname); } catch (e) { /* e.g. file:// */ }
+    setJoinStatus(text, true);
+    if (!lobbyRendered) { lobbyRendered = true; renderRoomLists(); }
+  }
+
+  async function enterRoomByDoor({ peerId, label, lobby, filters, key }) {
     if (joining || myState.role) return;
     joining = true;
-    if (!SBData.questions) {
-      setJoinStatus(`Loading questions…`);
-      try { await SBData.load(); } catch (err) { joining = false; setJoinStatus(`Couldn't load the questions: ${err.message}`, true); return; }
-    }
+    setJoinStatus('');
+    showConnecting(`Connecting to ${label}…`);
+    document.title = `SBReader - Multiplayer - ${label}`;
+    const infoP = within(SBRooms.roomInfo(key), 4000, null);
     const name = myName();
     let lastErr = null;
+    openMesh().catch(() => {});
     for (let attempt = 0; attempt < ROOM_ATTEMPTS; attempt++) {
-      setJoinStatus(attempt ? `Still connecting to ${label}…` : `Connecting to ${label}…`);
-      try {
-        await startRoom({ roomId: peerId, filters, name, rate: savedRate(), lobby });
-        setJoinStatus('');
-        return;
-      } catch (err) {
-        lastErr = err;
-        if (!err || err.type !== 'unavailable-id') break;
+      if (attempt) showConnecting(`Still connecting to ${label}…`);
+      const [door, self] = await Promise.allSettled([mesh.claimDoor(peerId), mesh.ready]);
+      if (self.status === 'rejected') {
+        // The connection service couldn't be reached: start afresh next time.
+        try { mesh.leave(); } catch (e) { /* never opened */ }
+        mesh = null;
+        lastErr = self.reason;
+        break;
       }
+      if (door.status === 'fulfilled') {
+        // Nobody's here: this player opens the room.
+        const info = await infoP;
+        if (info && info.banned && info.banned.includes(myState.pid)) {
+          mesh.releaseDoor();
+          joining = false;
+          backToLobby('You were banned from that room by its owner.');
+          return;
+        }
+        try {
+          await startRoom({ roomId: peerId, filters, name, rate: savedRate(), lobby, info });
+          joining = false;
+          return;
+        } catch (err) {
+          mesh.releaseDoor();
+          lastErr = err;
+          break;
+        }
+      }
+      lastErr = door.reason;
+      if (!lastErr || lastErr.type !== 'unavailable-id') break;
       try {
         await joinExisting(peerId, name, lobby);
-        setJoinStatus('');
+        joining = false;
         return;
       } catch (err) {
         lastErr = err;
         if (!err || !(err.type === 'peer-unavailable' || err.isTimeout)) break;
       }
-      await sleep(800 + Math.random() * 1600);
+      await sleep(500 + Math.random() * 1000);
     }
     joining = false;
-    setJoinStatus(`Couldn't open ${label}. ${SBPeer.friendlyPeerError(lastErr)}`, true);
+    backToLobby(`Couldn't open ${label}. ${SBPeer.friendlyPeerError(lastErr)}`);
   }
   function joinPublicLobby(lobby) {
-    return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby) });
+    myState.publicLobby = lobby;
+    return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
-  // A named room: opened public unless the link says private=true.
-  function joinNamedRoom(name, isPrivate) {
+  // A named room: opened public unless the link says private=true, and
+  // controlled when it says controlled=true (for a new room).
+  function joinNamedRoom(name, isPrivate, isControlled) {
     myState.roomName = name;
-    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: defaultFilters(!isPrivate) });
+    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate), controlled: !!isControlled }, key: name });
   }
 
   function initPublicLobbies() {
@@ -2006,9 +2374,13 @@
       game.players = msg.players;
       game.departed = Array.isArray(msg.departed) ? msg.departed : [];
       if (Array.isArray(msg.kicked)) game.kicked = msg.kicked;
+      if ('ownerKey' in msg) game.ownerKey = typeof msg.ownerKey === 'string' ? msg.ownerKey : null;
+      if (Array.isArray(msg.banned)) game.banned = msg.banned.filter((x) => typeof x === 'string');
+      if (Array.isArray(msg.muted)) game.muted = msg.muted.filter((x) => typeof x === 'string');
       const me = game.players.find((p) => p.id === myState.myId);
       if (me) myState.myName = me.name;
       renderPlayerList(document.getElementById('mpPlayerList'));
+      refreshOwnerControls();
       return;
     }
     if (msg.type === 'sync') {
@@ -2092,10 +2464,10 @@
       return;
     }
     if (msg.type === 'kicked') {
-      if (msg.playerId === myState.myId) leaveKicked();
+      if (msg.playerId === myState.myId) leaveKicked(!!msg.banned);
       return;
     }
-    if (msg.type === 'votekickRefused') {
+    if (msg.type === 'votekickRefused' || msg.type === 'notice') {
       if (typeof msg.text === 'string') logEvent('You', msg.text.slice(0, 120));
       return;
     }
@@ -2185,6 +2557,7 @@
   }
   function doSkip() {
     if (game.phase !== 'reading' && game.phase !== 'buzzwindow') return;
+    if (!canSkip(null)) { logEvent('You', 'can\'t skip: skipping is turned off in this room'); return; }
     if (myState.role === 'host') { hostEvent(myState.myId, 'skipped the question'); hostSkipQuestion(); }
     else if (client) client.send({ type: 'skip' });
   }
@@ -2275,11 +2648,14 @@
     return n ? SBData.meta.tournaments.find((t) => t.name.toLowerCase() === n || t.slug === n) || null : null;
   }
 
+  function setMatchCountText(text) { document.getElementById('mpSettingsMatchCount').textContent = text; }
   function updateMidGameMatchCount() {
     const moved = midGameRoundSliderApi && midGameRoundSliderApi.setMax(SBData.maxRoundFor(midGameFilterState.tournaments));
     if (moved) midGameFilterState.roundRange = moved;
+    // Until the question bank is here, there's nothing to count yet.
+    if (!bankLoaded()) { setMatchCountText('Loading questions…'); return; }
     const n = queueFor(midGameFilterState).length;
-    document.getElementById('mpSettingsMatchCount').textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match the room's settings`;
+    setMatchCountText(`${n.toLocaleString()} question${n === 1 ? '' : 's'} match the room's settings`);
     // The packet dropdown lists the chosen set's packets.
     const t = tournamentBySlug(midGameFilterState.setName);
     if (mpPacketPicker) mpPacketPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], midGameFilterState.packetNumbers);
@@ -2384,7 +2760,7 @@
     document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -2438,11 +2814,12 @@
       const t = tournamentBySlug(f.setName);
       const setName = document.getElementById('mpSetName');
       if (document.activeElement !== setName) { setName.value = t ? t.name : ''; setName.classList.remove('is-invalid'); }
-      if (mpPacketPicker) mpPacketPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], f.packetNumbers);
+      if (mpPacketPicker) mpPacketPicker.setPackets(t && bankLoaded() ? SBPlay.packetsOf(t.slug) : [], f.packetNumbers);
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(f.tournaments));
       if (midGameRoundSliderApi && f.roundRange) midGameRoundSliderApi.setRange(f.roundRange[0], f.roundRange[1]);
       document.getElementById('mpTogglePublic').checked = f.isPublic;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;
+      document.getElementById('mpToggleSkip').checked = f.skip !== false;
       document.getElementById('mpToggleTimer').checked = f.timer;
       // A built-in public room keeps its subject and stays public.
       const lobby = myState.publicLobby;
@@ -2455,6 +2832,7 @@
       suppressSettingsApplyEcho = false;
     }
     updateMidGameMatchCount();
+    refreshOwnerControls();
     fullRenderFromState();
   }
 
@@ -2482,6 +2860,8 @@
     }
     if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
+    if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
+    if (before.controlled !== after.controlled) out.push(after.controlled ? 'made the room controlled (only the owner can change the settings)' : 'made the room uncontrolled');
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
     if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
@@ -2496,13 +2876,31 @@
     if (myState.publicLobby) values = { ...values, isPublic: true };
     if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
+    // A controlled room's settings are its owner's to change, and so is the
+    // switch itself; a room without an owner can't be controlled.
+    const sender = hostPlayers.get(byConnId || myState.myId);
+    const byOwner = !!(sender && sender.owner);
+    if (before.controlled && !byOwner) {
+      const text = 'can\'t change the settings: only the room owner can in a controlled room';
+      if ((byConnId || myState.myId) === myState.myId) logEvent('You', text);
+      else host.sendTo(byConnId, { type: 'notice', text });
+      // Everyone's sidebar shows the room's settings again.
+      broadcastSettingsState(null, 0);
+      showSettingsFromState();
+      return;
+    }
+    values = { ...values, controlled: byOwner ? !!values.controlled && !!game.ownerKey : before.controlled };
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
 
     const next = copyFilters(values);
-    let pool = queueFor(next);
-    if (pool.length) {
+    let pool = bankLoaded() ? queueFor(next) : [];
+    if (!bankLoaded()) {
+      // The questions aren't here yet: take the settings as they are, and
+      // the queue is made from them once they arrive (onBankLoaded).
+      activeFilterState = next;
+    } else if (pool.length) {
       const askedIds = new Set(hostGame.queue.slice(0, hostGame.index + 1).map((q) => q.id));
       pool = pool.filter((q) => !askedIds.has(q.id));
       hostGame.queue = hostGame.queue.slice(0, hostGame.index + 1).concat(pool);
@@ -2511,7 +2909,7 @@
     } else {
       // Nothing matches yet (someone is still choosing): keep the questions
       // as they are, but the switches still take effect.
-      activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, timer: next.timer, isPublic: next.isPublic };
+      activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, skip: next.skip, controlled: next.controlled, timer: next.timer, isPublic: next.isPublic };
     }
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
     broadcastSettingsState(byConnId, values.seq);
@@ -2537,7 +2935,7 @@
       client.send({
         type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
-        rebuzz: values.rebuzz, timer: values.timer, isPublic: values.isPublic,
+        rebuzz: values.rebuzz, skip: values.skip, controlled: values.controlled, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
         tournaments: [...values.tournaments], roundRange: values.roundRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
@@ -2551,7 +2949,12 @@
   const WIDE = window.matchMedia('(min-width: 992px)');
   function toggleSidebar() {
     const el = document.getElementById('settings');
-    if (WIDE.matches) el.classList.toggle('collapsed'); else el.classList.toggle('show');
+    if (WIDE.matches) {
+      // As on QB Reader, the question and the button bar widen into the
+      // space the sidebar leaves.
+      el.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed', el.classList.contains('collapsed'));
+    } else el.classList.toggle('show');
   }
   // On a phone, as on QB Reader, a new question closes the settings.
   function hideSettingsOnPhone() {
@@ -2588,20 +2991,20 @@
   function joinFromLink() {
     let params;
     try { params = new URLSearchParams(location.search); } catch (e) { return false; }
-    if (params.get('kicked') === '1') {
-      setJoinStatus('You were vote kicked from that room.', true);
+    if (params.get('kicked') === '1' || params.get('banned') === '1') {
+      setJoinStatus(params.get('banned') === '1' ? 'You were banned from that room by its owner.' : 'You were vote kicked from that room.', true);
       history.replaceState(null, '', location.pathname);
     }
     const lobbyKey = params.get('lobby');
     if (lobbyKey) {
       const lobby = SBMpRules.findPublicLobby(SBData.meta, lobbyKey);
-      if (!lobby) { setJoinStatus('That room doesn’t exist. Pick one below.', true); return false; }
+      if (!lobby) { document.documentElement.classList.remove('mp-direct'); setJoinStatus('That room doesn’t exist. Pick one below.', true); return false; }
       joinPublicLobby(lobbyList.find((l) => l.key === lobby.key) || lobby);
       return true;
     }
     const name = SBMpRules.cleanRoomName(params.get('room') || '');
-    if (!name) return false;
-    joinNamedRoom(name, params.get('private') === 'true');
+    if (!name) { document.documentElement.classList.remove('mp-direct'); return false; }
+    joinNamedRoom(name, params.get('private') === 'true', params.get('controlled') === 'true');
     return true;
   }
 
@@ -2690,13 +3093,22 @@
   // The lobby needs only meta.json, so it shows at once; the question bank
   // (SBData.load, started from <head>) keeps downloading and is waited for
   // only on entering a room.
+  let lobbyRendered = false;
   SBData.loadMeta().then(() => {
     myState.pid = myPid();
     initPublicLobbies();
     initLobby();
     wireGameControls();
-    if (!joinFromLink()) renderRoomLists();
+    if (!joinFromLink()) {
+      lobbyRendered = true;
+      renderRoomLists();
+      // Get ready to play while the lobby is read: the TURN logins and this
+      // player's connection, so picking a room only has the room to reach.
+      const soon = window.requestIdleCallback || ((fn) => setTimeout(fn, 300));
+      soon(() => { if (!myState.role) openMesh().catch(() => {}); });
+    }
   }).catch((err) => {
+    document.documentElement.classList.remove('mp-direct');
     const msg = document.createElement('p');
     msg.textContent = 'Failed to load question data: ' + err.message;
     document.getElementById('lobbyScreen').replaceChildren(msg);

@@ -92,8 +92,10 @@
       item.appendChild(ans);
       const meta = document.createElement('div');
       const tags = [SBData.subjectLabel(q.subject), SBData.qtypeLabel(q), SBData.FORMAT_LABELS[q.format] || q.format].filter(Boolean).map(escapeHtml).join(' / ');
-      meta.innerHTML = `&lt;${tags}&gt;` + (/^https?:\/\//.test(q.sourceUrl || '') ? ` <a href="${escapeHtml(q.sourceUrl)}" target="_blank" rel="noopener">Source packet</a>` : '');
-      if (window.SBReports) meta.append(' ', SBReports.link(q));
+      const hasSource = /^https?:\/\//.test(q.sourceUrl || '');
+      meta.innerHTML = `&lt;${tags}&gt;` + (hasSource ? ` <a href="${escapeHtml(q.sourceUrl)}" target="_blank" rel="noopener">Source packet</a>` : '');
+      // "Source packet | Report", as the history cards have it.
+      if (window.SBReports) meta.append(hasSource ? ' | ' : ' ', SBReports.link(q));
       item.appendChild(meta);
       root.appendChild(item);
       if (i < p.questions.length - 1) root.appendChild(document.createElement('hr'));

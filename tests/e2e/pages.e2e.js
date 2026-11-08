@@ -73,3 +73,14 @@ test('the Database filters work from the keyboard and say whether they are on', 
   await page.waitForFunction(() => document.querySelector('#subjectChips button.chip').getAttribute('aria-pressed') === 'false');
   await ctx.close();
 });
+
+test('a packet page links "Source packet | Report" under each question', async () => {
+  const ctx = await newContext(browser);
+  const page = await ctx.newPage();
+  await page.goto(server.url + 'packet?set=ncb-fall-2026&packet=2', { waitUntil: 'networkidle' });
+  await page.waitForSelector('.packet-question', { timeout: 30000 });
+  const lines = await page.$$eval('.packet-question > div:last-child', (ds) => ds.map((d) => d.textContent));
+  assert.ok(lines.length > 0);
+  for (const line of lines) assert.match(line, /Source packet \| Report$/);
+  await ctx.close();
+});

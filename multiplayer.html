@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://sbreader.github.io/multiplayer" />
 <meta name="twitter:card" content="summary" />
 <link rel="stylesheet" href="css/vendor/bootstrap.min.css?v=8f8173cb2d" />
-<link rel="stylesheet" href="css/style.css?v=3d85d0ae98" />
+<link rel="stylesheet" href="css/style.css?v=d1fbd95d29" />
 <script src="js/site.js?v=c051c4bc7f"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
@@ -26,6 +26,13 @@
      downloading at once, while the rest of the page loads. -->
 <script src="js/data.js?v=080e6d48df"></script>
 <script>SBData.load();</script>
+<!-- A link straight into a room (?room= or ?lobby=) shows the room at once,
+     with "Connecting…", instead of the lobby first. -->
+<script>if (/[?&](room|lobby)=/.test(location.search)) document.documentElement.classList.add('mp-direct');</script>
+<!-- Multiplayer's other servers: the room list (Supabase) and the
+     connection service (PeerJS), reached sooner with the connections open. -->
+<link rel="preconnect" href="https://jvgshmtoinzgegfwwjah.supabase.co" crossorigin />
+<link rel="preconnect" href="https://0.peerjs.com" crossorigin />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg" id="navbar">
@@ -88,6 +95,10 @@
       <input class="form-check-input" id="privateRoomCheckbox" type="checkbox" />
       <label class="form-check-label" for="privateRoomCheckbox">Make room private</label>
     </div>
+    <div class="form-check">
+      <input class="form-check-input" id="controlledRoomCheckbox" type="checkbox" />
+      <label class="form-check-label" for="controlledRoomCheckbox">Make room controlled</label>
+    </div>
   </form>
   <p class="small-note mt-2" id="joinStatus"></p>
   <hr>
@@ -121,6 +132,8 @@
         </span>
         <input class="form-control" id="mpUsername" type="text" placeholder="Username" maxlength="24" autocomplete="off" aria-label="Username" />
       </div>
+      <p class="small text-body-secondary mb-2 d-none" id="mpControlledNote">This is a controlled room: only its owner (&#128081;) can change the settings.</p>
+      <fieldset id="mpRoomSettings">
       <label class="form-check-label mb-1" for="mpSetMode">Choose a mode:</label>
       <select class="form-select mb-2" id="mpSetMode">
         <option value="set">Select by Set Name</option>
@@ -157,17 +170,17 @@
           <input class="form-check-input" id="mpTogglePublic" type="checkbox" role="switch" />
           <label class="form-check-label" for="mpTogglePublic">Public room</label>
         </div>
+        <div class="form-check form-switch d-none" id="mpControlledRow">
+          <input class="form-check-input" id="mpToggleControlled" type="checkbox" role="switch" />
+          <label class="form-check-label" for="mpToggleControlled" title="Only the room's owner can change the settings">Controlled room</label>
+        </div>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpToggleRebuzz" type="checkbox" role="switch" />
           <label class="form-check-label" for="mpToggleRebuzz">Allow rebuzzes</label>
         </div>
         <div class="form-check form-switch">
-          <input class="form-check-input" id="mpToggleShowHistory" type="checkbox" role="switch" checked />
-          <label class="form-check-label" for="mpToggleShowHistory">Show question history</label>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" id="mpToggleShowSetName" type="checkbox" role="switch" checked />
-          <label class="form-check-label" for="mpToggleShowSetName">Show set name</label>
+          <input class="form-check-input" id="mpToggleSkip" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleSkip">Allow skips</label>
         </div>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpToggleTimer" type="checkbox" role="switch" checked />
@@ -176,6 +189,17 @@
         <div class="mb-2"></div>
         <label for="mpSettingsRateSlider">Reading speed: <span id="mpSettingsRateValue">50</span><br></label>
         <input class="form-range" id="mpSettingsRateSlider" type="range" min="0" max="100" step="5" value="50" />
+      </div>
+      </fieldset>
+      <div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleShowHistory" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleShowHistory">Show question history</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" id="mpToggleShowSetName" type="checkbox" role="switch" checked />
+          <label class="form-check-label" for="mpToggleShowSetName">Show set name</label>
+        </div>
         <div class="d-none d-lg-block">
           <hr>
           <p class="mb-0">
@@ -254,14 +278,14 @@
 <script src="js/vendor/peerjs.min.js?v=376d6b8bc4"></script>
 <script src="js/answer-check.js?v=1030a38014"></script>
 <script src="js/reveal.js?v=521ef128b7"></script>
-<script src="js/peer.js?v=1bef5910f5"></script>
-<script src="js/mp-rules.js?v=cffb5cdebe"></script>
+<script src="js/peer.js?v=8eca107f30"></script>
+<script src="js/mp-rules.js?v=df5c9a635d"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=5fa454813f"></script>
 <script src="js/account.js?v=09bdc850e7"></script>
 <script src="js/reports.js?v=18c81011cd"></script>
-<script src="js/rooms.js?v=f467a41789"></script>
+<script src="js/rooms.js?v=aecc36384a"></script>
 <script src="js/play-common.js?v=56595eb4d2"></script>
-<script src="js/multiplayer.js?v=a5225d67a7"></script>
+<script src="js/multiplayer.js?v=36fbb4200b"></script>
 </body>
 </html>
