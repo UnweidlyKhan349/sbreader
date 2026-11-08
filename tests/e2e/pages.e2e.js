@@ -10,10 +10,11 @@ let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
 test.after(async () => { await browser.close(); await server.close(); });
 
+// Both widths, every page, four pages at a time.
 for (const width of [1300, 390]) {
   test(`every page loads cleanly at ${width} px`, async () => {
     const ctx = await newContext(browser, { viewport: { width, height: 800 } });
-    for (const path of PAGES) {
+    const check = async (path) => {
       const page = await ctx.newPage();
       const problems = [];
       page.on('pageerror', (e) => problems.push(e.message));
@@ -25,7 +26,9 @@ for (const width of [1300, 390]) {
       assert.deepStrictEqual(problems, [], path);
       assert.strictEqual(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${path} scrolls sideways`);
       await page.close();
-    }
+    };
+    const queue = PAGES.slice();
+    await Promise.all(Array.from({ length: 4 }, async () => { while (queue.length) await check(queue.shift()); }));
     await ctx.close();
   });
 }

@@ -124,7 +124,12 @@
     const setName = document.getElementById('setName');
     setName.value = settings.setName;
     packetPicker = SBPlay.packetSelect(document.getElementById('packetSelect'), (text) => { settings.packetNumbers = text; onSettingsChange(); });
-    setName.addEventListener('change', () => { settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange(); });
+    setName.addEventListener('change', () => {
+      // The same set again (the box losing focus after a packet was picked,
+      // say) keeps its packets.
+      if (setName.value === settings.setName) return;
+      settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange();
+    });
     describeSet();
     document.getElementById('clearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearFilters(); });
 
@@ -220,7 +225,12 @@
   const WIDE = window.matchMedia('(min-width: 992px)');
   function toggleSidebar() {
     const el = document.getElementById('settings');
-    if (WIDE.matches) el.classList.toggle('collapsed'); else el.classList.toggle('show');
+    if (WIDE.matches) {
+      // As on QB Reader, the question and the button bar widen into the
+      // space the sidebar leaves.
+      el.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed', el.classList.contains('collapsed'));
+    } else el.classList.toggle('show');
   }
   // On a phone, as on QB Reader, a new question closes the settings.
   function hideSettingsOnPhone() {

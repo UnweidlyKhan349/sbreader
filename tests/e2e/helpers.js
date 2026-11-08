@@ -32,12 +32,45 @@ function startServer(root = ROOT) {
 
 const FAKE_PEER = fs.readFileSync(path.join(__dirname, 'fake-peer.js'), 'utf8');
 
+// The libraries the pages load from the jsDelivr CDN (Bootstrap, PeerJS,
+// supabase-js) are fetched once per test run, with retries, and handed to
+// every page from memory, so a slow or briefly unreachable CDN can't time a
+// test out. The bytes are the CDN's own, so the pages' integrity checks pass.
+const cdnFiles = new Map();
+async function fetchCdn(url) {
+  let lastErr;
+  for (let i = 0; i < 4; i++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(20000) });
+      if (res.ok) return { body: Buffer.from(await res.arrayBuffer()), contentType: res.headers.get('content-type') || 'text/plain' };
+      lastErr = new Error(`${url}: HTTP ${res.status}`);
+    } catch (err) { lastErr = err; }
+    await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+  }
+  throw lastErr;
+}
+async function routeCdn(ctx) {
+  await ctx.route(/^https:\/\/cdn\.jsdelivr\.net\//, async (route) => {
+    const url = route.request().url();
+    if (!cdnFiles.has(url)) cdnFiles.set(url, fetchCdn(url).catch((err) => { cdnFiles.delete(url); throw err; }));
+    try {
+      const { body, contentType } = await cdnFiles.get(url);
+      await route.fulfill({ status: 200, body, contentType, headers: { 'access-control-allow-origin': '*' } });
+    } catch (err) { await route.abort(); }
+  });
+}
+
 // opts: { lagMs, noDirect, viewport, liveSupabase }. liveSupabase leaves the
 // real Supabase project reachable (the relay test), everything else blocks it.
 async function newContext(browser, opts = {}) {
   const ctx = await browser.newContext({ viewport: opts.viewport || { width: 1300, height: 900 }, serviceWorkers: 'block' });
+  await routeCdn(ctx);
   if (!opts.liveSupabase) await ctx.route(/supabase\.co/, (r) => r.abort());
-  await ctx.route(/peerjs\.min\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: FAKE_PEER }));
+  // The real PeerJS comes from the CDN with an integrity hash, so another
+  // file can't stand in for it: the fake is put in place before the page's
+  // scripts run, and the real one isn't loaded.
+  await ctx.addInitScript(FAKE_PEER);
+  await ctx.route(/peerjs\.min\.js/, (r) => r.abort());
   if (opts.lagMs || opts.noDirect) {
     await ctx.addInitScript(({ lag, noDirect }) => { window.__LAG_MS = lag || 0; window.__NO_DIRECT = !!noDirect; }, { lag: opts.lagMs, noDirect: opts.noDirect });
   }
@@ -58,8 +91,10 @@ async function openPage(ctx, url) {
 async function joinRoom(ctx, base, room) {
   const page = await openPage(ctx, `${base}multiplayer?room=${room}`);
   await page.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 });
-  await page.waitForTimeout(1200);
+  // In: this player is on the leaderboard and the room has said so.
+  await page.waitForFunction(() => document.querySelector('.mp-player-row.user-score') && /joined the game/.test(document.getElementById('mpHistory').textContent), null, { timeout: 40000 });
+  await page.waitForTimeout(200);
   return page;
 }
 
-module.exports = { chromium, startServer, newContext, openPage, joinRoom, ROOT };
+module.exports = { chromium, startServer, newContext, openPage, joinRoom, routeCdn, ROOT };

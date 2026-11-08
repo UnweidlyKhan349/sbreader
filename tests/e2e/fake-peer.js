@@ -15,8 +15,18 @@
     close() { if (!this.open) return; this.open = false; bc.postMessage({ t: 'close', cid: this.cid, to: this.peer }); this.emit('close'); }
   }
   const asks = new Map();
+  // IDs this tab is still claiming: id -> { at, q }. As on the real broker,
+  // only one of two claims on an ID can succeed, however close together:
+  // the earlier claim (then the smaller q) answers the later one's question.
+  const claiming = new Map();
+  const earlier = (a, b) => a.at < b.at || (a.at === b.at && a.q < b.q);
   bc.onmessage = ({ data: m }) => {
-    if (m.t === 'whohas') { if (local.has(m.id) && !local.get(m.id).destroyed) bc.postMessage({ t: 'ihave', id: m.id, q: m.q }); return; }
+    if (m.t === 'whohas') {
+      const mine = claiming.get(m.id);
+      const held = (local.has(m.id) && !local.get(m.id).destroyed) || (mine && m.at != null && earlier(mine, m));
+      if (held) bc.postMessage({ t: 'ihave', id: m.id, q: m.q });
+      return;
+    }
     if (window.__NO_DIRECT && m.t === 'connect') return; // NAT: direct links never open
     if (m.t === 'ihave') { const a = asks.get(m.q); if (a) a(); return; }
     if (m.t === 'connect') {
@@ -35,10 +45,14 @@
       const explicit = typeof id === 'string';
       this.id = explicit ? id : 'p' + Math.random().toString(36).slice(2, 10);
       const q = Math.random().toString(36).slice(2);
+      const at = Date.now();
       let taken = false; asks.set(q, () => { taken = true; });
-      bc.postMessage({ t: 'whohas', id: this.id, q });
+      claiming.set(this.id, { at, q });
+      this.claimQ = q;
+      bc.postMessage({ t: 'whohas', id: this.id, q, at });
       setTimeout(() => {
         asks.delete(q);
+        if (claiming.get(this.id) && claiming.get(this.id).q === q) claiming.delete(this.id);
         if (taken) { this.emit('error', { type: 'unavailable-id', message: 'ID "' + this.id + '" is taken' }); return; }
         local.set(this.id, this); this.open = true; this.emit('open', this.id);
       }, 150);
@@ -58,7 +72,11 @@
       setTimeout(() => { if (!c.accepted) this.emit('error', { type: 'peer-unavailable', message: 'Could not connect to peer ' + to }); }, 400);
       return c;
     }
-    destroy() { this.destroyed = true; local.delete(this.id); }
+    destroy() {
+      this.destroyed = true;
+      if (local.get(this.id) === this) local.delete(this.id);
+      if (claiming.get(this.id) && claiming.get(this.id).q === this.claimQ) claiming.delete(this.id);
+    }
     reconnect() {} disconnect() {}
   };
 })();

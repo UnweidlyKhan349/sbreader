@@ -73,9 +73,11 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
-  // Players who leave stay in the room's player list, marked offline, for
-  // good (as on QB Reader): this only checks the entry is well formed.
-  const OFFLINE_KEEP_MS = Infinity;
+  // Players who leave stay in the room's player list, marked offline, with
+  // their score, for a day; then they're taken off (the room list deletes
+  // their saved row after a day too). This checks the entry is well formed
+  // and recent enough.
+  const OFFLINE_KEEP_MS = 24 * 60 * 60 * 1000;
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
   }
@@ -145,6 +147,20 @@
     return kicked.some((k) => k && k.pid === pid && t - k.at < KICK_BAN_MS);
   }
 
+  // A room owner's proof, sent with 'join' (see the room owner section of
+  // js/multiplayer.js): their public key ("x.y", base64url), the time, and
+  // a signature, which whoever runs the game checks.
+  const B64URL = /^[A-Za-z0-9_-]+$/;
+  function cleanOwnerProof(v) {
+    if (!v || typeof v !== 'object') return null;
+    const key = typeof v.key === 'string' && v.key.length <= 200 && /^[A-Za-z0-9_-]{20,100}\.[A-Za-z0-9_-]{20,100}$/.test(v.key) ? v.key : '';
+    const sig = typeof v.sig === 'string' && v.sig.length <= 200 && B64URL.test(v.sig) ? v.sig : '';
+    const ts = typeof v.ts === 'number' && Number.isFinite(v.ts) ? v.ts : NaN;
+    return key && sig && Number.isFinite(ts) ? { key, ts, sig } : null;
+  }
+  // What a room's owner can do to another player.
+  const OWNER_ACTIONS = new Set(['mute', 'unmute', 'ban']);
+
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   // A chat message's ID ties its live, still-being-typed copy to the sent one.
   function cleanChatId(v) { return typeof v === 'string' && /^[a-z0-9]{4,16}$/.test(v) ? v : null; }
@@ -157,7 +173,16 @@
       const out = { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
       const pid = cleanPid(msg.pid);
       if (pid) out.pid = pid;
+      const owner = cleanOwnerProof(msg.owner);
+      if (owner) out.owner = owner;
       return out;
+    }
+    if (type === 'ownerAction') {
+      if (!OWNER_ACTIONS.has(msg.action)) return null;
+      const targetId = str(msg.targetId, 80);
+      const targetPid = cleanPid(msg.targetPid);
+      if (!targetId && !targetPid) return null;
+      return { type, action: msg.action, targetId: targetId || null, targetPid: targetPid || null };
     }
     if (type === 'votekick') {
       const targetId = str(msg.targetId, 80);
@@ -190,6 +215,10 @@
         setName: known.tournaments.has(setName) ? setName : '',
         packetNumbers: str(msg.packetNumbers, 60).replace(/[^0-9,\s-]/g, ''),
         rebuzz: msg.rebuzz === true,
+        // Allow skips (on unless turned off), and a controlled room (only
+        // its owner changes the settings; the coordinator checks who asked).
+        skip: msg.skip !== false,
+        controlled: msg.controlled === true,
         timer: msg.timer !== false,
         isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
@@ -246,5 +275,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);

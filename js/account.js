@@ -23,7 +23,12 @@
   const listeners = [];
 
   const here = document.currentScript ? document.currentScript.src : '';
-  const libUrl = here ? here.replace(/account\.js(\?.*)?$/, 'vendor/supabase.min.js') : 'js/vendor/supabase.min.js';
+  // supabase-js from the jsDelivr CDN, at a fixed version, checked against
+  // its hash (Subresource Integrity) so a changed file is refused.
+  const LIB = {
+    url: 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js',
+    integrity: 'sha384-CLZeq1dk8+Uzrs7TVvBUdlFoV5F0DMqgRoeHa8g5wJcuPe5SkVfEvdxB0ZuzlnBQ',
+  };
   // The account pages sit beside this page, wherever the site is hosted.
   // Links leave off ".html" (GitHub Pages serves /account as account.html);
   // the confirmation and reset emails still name account.html, the address
@@ -37,7 +42,9 @@
     if (window.supabase && window.supabase.createClient) return Promise.resolve();
     return new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = libUrl;
+      s.src = LIB.url;
+      s.integrity = LIB.integrity;
+      s.crossOrigin = 'anonymous';
       s.onload = resolve;
       s.onerror = () => reject(new Error('Could not load the account library.'));
       document.head.appendChild(s);

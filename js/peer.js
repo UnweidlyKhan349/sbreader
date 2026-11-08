@@ -17,32 +17,47 @@
   // Function (supabase/functions/turn-credentials, README "Multiplayer relay
   // (TURN)"), its short-lived Cloudflare TURN logins are added to the list
   // above, so players whose networks block a direct connection get a proper
-  // relay. Asked once per tab (kept for an hour) and never waited on for
-  // more than ~3 s; without it, connections work as before.
+  // relay. They're fetched straight from the function (not through the
+  // Supabase library, which takes a moment to load) and kept in this browser
+  // for 12 hours (they last 24), so usually they're already here. Nothing
+  // waits on them for long: connections read the list when they're made, so
+  // logins that arrive later still serve every connection after that.
   const TURN_FN = 'turn-credentials';
   const TURN_KEY = 'sb_turn_servers';
+  const TURN_KEEP_MS = 12 * 60 * 60 * 1000;
   let icePromise = null;
   function addTurn(servers) {
     if (!Array.isArray(servers)) return;
     servers.filter((s) => s && s.urls).forEach((s) => ICE_CONFIG.iceServers.push(s));
   }
+  function savedTurn() {
+    for (const store of ['localStorage', 'sessionStorage']) {
+      try {
+        const saved = JSON.parse(window[store].getItem(TURN_KEY) || 'null');
+        if (saved && saved.until > Date.now() && Array.isArray(saved.servers)) return saved.servers;
+      } catch (e) { /* not saved */ }
+    }
+    return null;
+  }
   function prepareIce() {
     if (icePromise) return icePromise;
-    try {
-      const saved = JSON.parse(sessionStorage.getItem(TURN_KEY) || 'null');
-      if (saved && saved.until > Date.now()) { addTurn(saved.servers); icePromise = Promise.resolve(true); return icePromise; }
-    } catch (e) { /* not saved */ }
-    const acct = typeof window !== 'undefined' && window.SBAccount;
-    if (!acct || !acct.enabled) { icePromise = Promise.resolve(false); return icePromise; }
-    const ask = acct.ready.then((c) => c.functions.invoke(TURN_FN, { method: 'GET' })).then(({ data, error }) => {
-      if (error || !data || !Array.isArray(data.iceServers) || !data.iceServers.length) return false;
-      addTurn(data.iceServers);
-      try { sessionStorage.setItem(TURN_KEY, JSON.stringify({ servers: data.iceServers, until: Date.now() + 60 * 60 * 1000 })); } catch (e) { /* not saved */ }
-      return true;
-    }).catch(() => false);
+    const saved = savedTurn();
+    if (saved) { addTurn(saved); icePromise = Promise.resolve(true); return icePromise; }
+    const cfg = (typeof window !== 'undefined' && window.SB_CONFIG) || {};
+    if (!cfg.supabaseUrl || !cfg.supabaseAnonKey || typeof fetch !== 'function') { icePromise = Promise.resolve(false); return icePromise; }
+    const ask = fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/functions/v1/${TURN_FN}`, { headers: { apikey: cfg.supabaseAnonKey } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data || !Array.isArray(data.iceServers) || !data.iceServers.length) return false;
+        addTurn(data.iceServers);
+        try { localStorage.setItem(TURN_KEY, JSON.stringify({ servers: data.iceServers, until: Date.now() + TURN_KEEP_MS })); } catch (e) { /* not saved */ }
+        return true;
+      }).catch(() => false);
     icePromise = Promise.race([ask, new Promise((r) => setTimeout(() => r(false), 3000))]);
     return icePromise;
   }
+  // The longest a new connection waits for the TURN logins on a first visit.
+  const ICE_WAIT_MS = 1500;
 
   // How long we let a connection attempt hang before giving up and
   // surfacing a clear error, instead of leaving the UI stuck on
@@ -178,7 +193,10 @@
       failure.catch(() => {});
       return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, memberIds: () => [], connectTo: () => failure, leave() {} };
     }
-    const ready = withTimeout(new Promise((resolve, reject) => {
+    // Open on the connection service, and (in parallel, briefly) the TURN
+    // logins, before the first connection to anyone.
+    const iceWait = Promise.race([prepareIce(), new Promise((r) => setTimeout(r, ICE_WAIT_MS))]);
+    const opened = withTimeout(new Promise((resolve, reject) => {
       self.on('open', resolve);
       self.on('error', (err) => {
         const m = err && err.type === 'peer-unavailable' && /peer (\S+)/.exec(err.message || '');
@@ -186,6 +204,7 @@
         reject(err);
       });
     }), CONNECT_TIMEOUT_MS, 'Timed out reaching the connection service. Check your internet connection and try again.');
+    const ready = Promise.all([opened, iceWait]).then(([id]) => id);
     ready.catch(() => {});
     // Disconnected: the browser went offline, or the connection service has
     // been unreachable for a while with no other player still connected.

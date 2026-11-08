@@ -1,8 +1,9 @@
 // Multiplayer with two simulated players (tests/e2e/fake-peer.js): joining,
 // settings in sync (also with network lag, where a stale echo used to undo
 // quick clicks), overrides, the live chat line, the rounds message on
-// letting go of the slider, the relay when direct links are blocked, and
-// General's default subjects.
+// letting go of the slider, the relay when direct links are blocked, a
+// newcomer reading on mid-question, and the coordinator leaving. Room owners
+// and the room's flow are in multiplayer-rooms.e2e.js (run alongside).
 const test = require('node:test');
 const assert = require('node:assert');
 const { chromium, startServer, newContext, joinRoom } = require('./helpers');
@@ -107,19 +108,6 @@ test('the room hears about a round change once, when the slider is let go', asyn
   await ctx.close();
 });
 
-test('a newcomer whose direct links are blocked gets a status, not a frozen page', async () => {
-  // The relay needs Supabase, which this test blocks, so the newcomer can't
-  // get in; this checks the attempt shows its progress and fails cleanly.
-  // (The next test runs the relay against the real project.)
-  const ctx = await newContext(browser, { noDirect: true });
-  const r = room();
-  await joinRoom(ctx, server.url, r);
-  const g = await ctx.newPage(); g.on('dialog', (d) => d.dismiss());
-  await g.goto(`${server.url}multiplayer?room=${r}`, { waitUntil: 'networkidle' });
-  await g.waitForFunction(() => /Couldn't open|Connecting|Still connecting/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 20000 });
-  await ctx.close();
-});
-
 test('players whose direct links are blocked meet through the Supabase relay', { skip: process.env.SB_E2E_OFFLINE ? 'SB_E2E_OFFLINE is set' : false }, async () => {
   // Real Supabase Realtime (a broadcast channel). Set SB_E2E_OFFLINE=1 to
   // skip without a network.
@@ -177,17 +165,5 @@ test('when the coordinator leaves, the others agree on a new one and play on', a
   await b.waitForTimeout(2500);
   assert.ok(await q(b) > 0, 'the new coordinator started a question');
   assert.ok(await q(c) > 0, 'and the other player follows it');
-  await ctx.close();
-});
-
-test('General starts with every subject but Energy; a subject room is locked', async () => {
-  const ctx = await newContext(browser);
-  const page = await (async () => { const p = await ctx.newPage(); await p.goto(server.url + 'multiplayer?lobby=general', { waitUntil: 'networkidle' }); await p.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 }); return p; })();
-  assert.strictEqual(await subjectOn(page, 'energy'), false);
-  assert.strictEqual(await subjectOn(page, 'bio'), true);
-  const bio = await ctx.newPage(); await bio.goto(server.url + 'multiplayer?lobby=bio', { waitUntil: 'networkidle' });
-  await bio.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 });
-  assert.ok(await bio.locator('#mpSubjectButtons .btn-subject[data-subject="math"]').isDisabled());
-  assert.strictEqual(await subjectOn(bio, 'bio'), true);
   await ctx.close();
 });

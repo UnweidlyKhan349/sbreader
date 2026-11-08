@@ -83,6 +83,7 @@ alter table public.mp_players add column if not exists negs integer not null def
 alter table public.mp_players add column if not exists cel_sum real not null default 0 check (cel_sum between 0 and 100000);
 alter table public.mp_players add column if not exists cel_n integer not null default 0 check (cel_n between 0 and 100000);
 create index if not exists mp_players_last_seen on public.mp_players (last_seen desc);
+create index if not exists mp_rooms_updated_at on public.mp_rooms (updated_at);
 
 alter table public.mp_rooms enable row level security;
 alter table public.mp_players enable row level security;
@@ -143,6 +144,14 @@ begin
     raise exception 'bad secret';
   end if;
   h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
+  -- Rooms nobody has been in for 30 days are deleted, with their players
+  -- (added November 2026). The built-in pub-* rooms are kept. It runs on
+  -- every heartbeat; with the index on updated_at it costs next to nothing
+  -- when there's nothing to delete.
+  delete from mp_rooms where not is_permanent and updated_at < now() - interval '30 days';
+  -- And players who haven't been seen for a day, in every room (the site
+  -- takes offline players off the leaderboard after a day too).
+  delete from mp_players where last_seen < now() - interval '1 day';
   -- The room: created by the first player to report it; only that player
   -- can change whether it's listed. Built-in rooms are always public.
   insert into mp_rooms (name, is_public, is_permanent, owner_hash, updated_at)
@@ -171,6 +180,72 @@ revoke all on function public.mp_list(), public.mp_roster(text),
   public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
 grant execute on function public.mp_list(), public.mp_roster(text),
   public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
+
+-- Room owners (added November 2026). A named room's owner is the browser
+-- that created it, as on QB Reader: it shows a crown, can mute and ban
+-- players, and can make the room "controlled" (only the owner changes the
+-- settings). The owner proves who they are to the other players by signing
+-- with a key only their browser holds; owner_key is its public half. These
+-- columns keep a room's owner, bans and controlled switch after everyone has
+-- left, so the room comes back the same.
+--   mp_room(room)        the room's listing, owner key, bans, controlled
+--                        switch and players, in one call (null: no such room)
+--   mp_set_room(..)      the creator's browser (owner_hash) records its key,
+--                        bans and controlled switch; creates the room if new
+alter table public.mp_rooms add column if not exists owner_key text check (char_length(owner_key) <= 200);
+alter table public.mp_rooms add column if not exists banned text[] not null default '{}' check (cardinality(banned) <= 500);
+alter table public.mp_rooms add column if not exists controlled boolean not null default false;
+
+create or replace function public.mp_room(p_room text)
+returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object(
+    'is_public', r.is_public, 'owner_key', r.owner_key, 'banned', to_jsonb(r.banned), 'controlled', r.controlled,
+    'players', coalesce((select jsonb_agg(jsonb_build_object(
+        'pid', p.pid, 'username', p.username, 'score', p.score, 'correct', p.correct, 'incorrect', p.incorrect,
+        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'last_seen', p.last_seen))
+      from mp_players p where p.room = r.name), '[]'::jsonb))
+  from mp_rooms r where r.name = p_room;
+$$;
+
+create or replace function public.mp_set_room(
+  p_room text, p_secret text, p_is_public boolean, p_owner_key text, p_banned text[], p_controlled boolean)
+returns boolean
+language plpgsql security definer set search_path = public as $$
+declare
+  h text;
+  n integer;
+begin
+  if p_secret is null or char_length(p_secret) not between 16 and 128 then
+    raise exception 'bad secret';
+  end if;
+  if p_room like 'pub-%' then
+    return false; -- the built-in rooms have no owner
+  end if;
+  if p_owner_key is not null and p_owner_key !~ '^[A-Za-z0-9_-]{20,100}\.[A-Za-z0-9_-]{20,100}$' then
+    raise exception 'bad owner key';
+  end if;
+  if exists (select 1 from unnest(coalesce(p_banned, '{}')) b where b !~ '^[A-Za-z0-9_-]{8,40}$') then
+    raise exception 'bad ban list';
+  end if;
+  h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
+  insert into mp_rooms (name, is_public, is_permanent, owner_hash, owner_key, banned, controlled, updated_at)
+  values (p_room, coalesce(p_is_public, true), false, h, p_owner_key,
+          coalesce(p_banned[1:500], '{}'), coalesce(p_controlled, false), now())
+  on conflict (name) do update set
+    -- The key is set once; after that only the bans and the switch change.
+    owner_key = coalesce(mp_rooms.owner_key, excluded.owner_key),
+    owner_hash = coalesce(mp_rooms.owner_hash, excluded.owner_hash),
+    banned = excluded.banned,
+    controlled = excluded.controlled
+  where mp_rooms.owner_hash is null or mp_rooms.owner_hash = h;
+  get diagnostics n = row_count;
+  return n > 0;
+end;
+$$;
+
+revoke all on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[], boolean) from public;
+grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[], boolean) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Problem reports and "I was right" clicks (added November 2026).
