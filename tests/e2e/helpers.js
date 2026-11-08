@@ -91,7 +91,9 @@ async function openPage(ctx, url) {
 async function joinRoom(ctx, base, room) {
   const page = await openPage(ctx, `${base}multiplayer?room=${room}`);
   await page.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 });
-  await page.waitForTimeout(1200);
+  // In: this player is on the leaderboard and the room has said so.
+  await page.waitForFunction(() => document.querySelector('.mp-player-row.user-score') && /joined the game/.test(document.getElementById('mpHistory').textContent), null, { timeout: 40000 });
+  await page.waitForTimeout(200);
   return page;
 }
 

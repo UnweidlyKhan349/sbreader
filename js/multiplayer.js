@@ -325,7 +325,7 @@
     return {
       id: q.id, tournament: q.tournament, roundLabel: q.roundLabel, round: q.round, num: q.num,
       subject: q.subject, format: q.format, qtype: q.qtype, level: q.level, question: q.question,
-      visual: q.visual, images: q.images,
+      visual: q.visual, images: q.images, packetSize: q.packetSize,
       choices: q.choices ? { W: q.choices.W, X: q.choices.X, Y: q.choices.Y, Z: q.choices.Z } : null,
     };
   }
@@ -733,14 +733,14 @@
     } else {
       hideTimer();
     }
-    pauseBtn.disabled = game.phase === 'lobby' || game.phase === 'gameover' || game.phase === 'reveal';
+    pauseBtn.disabled = game.phase === 'lobby' || game.phase === 'reveal';
     pauseBtn.innerHTML = game.paused ? SBIcons.play : SBIcons.pause;
     pauseBtn.setAttribute('aria-label', game.paused ? 'Resume' : 'Pause');
 
     const amBuzzed = game.buzzedPlayerId === myState.myId;
     const amLocked = game.lockedOut.has(myState.myId);
     buzzBtn.disabled = !((game.phase === 'reading' || game.phase === 'buzzwindow') && !amLocked);
-    nextBtn.disabled = game.phase === 'answering' || game.phase === 'gameover'
+    nextBtn.disabled = game.phase === 'answering'
       || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip(null));
     // As on QB Reader, the first button is a green Start before the game.
     nextBtn.classList.toggle('btn-success', game.phase === 'lobby');
@@ -1358,7 +1358,7 @@
       });
       // Everything a joiner needs, including the chat and the question log,
       // whether or not the game has started.
-      if (hostGame.phase !== 'gameover') sendSyncTo(connId);
+      sendSyncTo(connId);
       return;
     }
     if (msg.type === 'buzz') { hostHandleBuzz(connId); return; }
@@ -1378,7 +1378,7 @@
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
-    if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby' && hostGame.phase !== 'gameover') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
+    if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') {
       if (!canSkip(connId)) { host.sendTo(connId, { type: 'notice', text: 'can\'t skip: skipping is turned off in this room' }); return; }
       if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question');
@@ -1444,11 +1444,17 @@
     game.liveTypingText = ''; game.liveTypingFrom = null;
 
     if (hostGame.index >= hostGame.queue.length) {
-      hostGame.phase = 'gameover';
-      const scores = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score }))
-        .concat([...departedPlayers.values()].map((d) => ({ id: null, name: `${d.name} (offline)`, score: d.score })));
-      host.broadcast({ type: 'gameover', scores });
-      applyGameOverLocal(scores);
+      // As on QB Reader: everyone is told they've reached the end and stays
+      // in the room, back before the first question; Start (n) begins the
+      // set (or the room's questions) again from the top.
+      hostGame.phase = 'lobby';
+      hostGame.index = -1;
+      hostGame.queue = [];
+      hostGame.queueStale = true;
+      hostGame.currentFull = null;
+      const mode = roomSetting('mode', 'random');
+      host.broadcast({ type: 'endOfQuestions', mode });
+      applyEndOfQuestionsLocal(mode);
       return;
     }
     const full = hostGame.queue[hostGame.index];
@@ -1713,7 +1719,7 @@
   }
 
   function hostTogglePause() {
-    if (hostGame.phase === 'lobby' || hostGame.phase === 'gameover') return;
+    if (hostGame.phase === 'lobby') return;
     hostGame.paused = !hostGame.paused;
     game.paused = hostGame.paused;
     // Send the pause/resume flag itself before the tick below, so by the
@@ -1852,18 +1858,15 @@
     game.lastTick = { remainingMs, totalMs, kind };
     renderTick(remainingMs, totalMs, kind);
   }
-  function applyGameOverLocal(scores) {
-    document.getElementById('mpGameScreen').style.display = 'none';
-    document.getElementById('mpButtonBar').style.display = 'none';
-    document.getElementById('mpSummaryScreen').style.display = 'block';
-    const el = document.getElementById('mpFinalScores');
-    el.innerHTML = '';
-    scores.slice().sort((a, b) => b.score - a.score).forEach((p, i) => {
-      const row = document.createElement('li');
-      row.className = 'list-group-item mp-player-row';
-      row.innerHTML = `<span class="name">${i === 0 ? '🏆 ' : ''}${escapeHtml(p.name)}</span><span class="pts">${Number(p.score) || 0}</span>`;
-      el.appendChild(row);
-    });
+  // The questions ran out: back to before the first question, with the
+  // same alert Play gives (after the screen has been redrawn).
+  function applyEndOfQuestionsLocal(mode) {
+    if (revealCtl) { revealCtl.stop(); revealCtl = null; }
+    stopClientTickLoop();
+    Object.assign(game, { phase: 'lobby', question: null, index: -1, buzzedPlayerId: null, lockedOut: new Set(), lastGrade: null, attempts: [], overrideLocked: false, lastRevealData: null, paused: false, lastTick: null });
+    fullRenderFromState();
+    const text = mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match the room\'s settings';
+    setTimeout(() => window.alert(text), 50);
   }
 
   /* ================= THE ROOM ================= */
@@ -2032,7 +2035,7 @@
     const all = queueFor(filters);
     const fresh = all.filter((q) => !asked.has(q.id));
     const tail = fresh.length ? fresh : all;
-    const playing = cur && game.phase !== 'lobby' && game.phase !== 'gameover';
+    const playing = cur && game.phase !== 'lobby';
     const eng = followerEngine || {};
     clearHostTimer();
     Object.assign(hostGame, {
@@ -2511,8 +2514,8 @@
       fullRenderFromState();
       return;
     }
-    if (msg.type === 'gameover') {
-      applyGameOverLocal(msg.scores);
+    if (msg.type === 'endOfQuestions') {
+      applyEndOfQuestionsLocal(msg.mode === 'set' ? 'set' : 'random');
       return;
     }
     if (msg.type === 'settingsState') {
@@ -2581,7 +2584,7 @@
     else doNext();
   }
   function doTogglePause() {
-    if (game.phase === 'lobby' || game.phase === 'gameover' || game.phase === 'reveal') return;
+    if (game.phase === 'lobby' || game.phase === 'reveal') return;
     if (myState.role === 'host') { hostEvent(myState.myId, game.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); }
     else if (client) client.send({ type: 'togglePause' });
   }
@@ -2759,6 +2762,9 @@
     setName.addEventListener('change', () => {
       const t = tournamentByName(setName.value);
       setName.classList.toggle('is-invalid', !!setName.value.trim() && !t);
+      // The same set again (the box losing focus after a packet was picked,
+      // say) keeps its packets.
+      if ((t ? t.slug : '') === midGameFilterState.setName) return;
       midGameFilterState.setName = t ? t.slug : '';
       midGameFilterState.packetNumbers = '';
       onSettingChange();

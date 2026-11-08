@@ -175,7 +175,7 @@
   }
 
   /* ---------------- Question label ---------------- */
-  // "AVES 2 RR 3 Q12" above the question. Once the question is over it links
+  // "AVES 2 RR 3 Question 12 of 25" above the question. Once the question is over it links
   // to the packet (underlined, in the text colour) when there is one.
   function linkQuestionInfo(el, q, url) {
     const label = SBData.sourceLabelFor(q);

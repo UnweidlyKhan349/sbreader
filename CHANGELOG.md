@@ -171,3 +171,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer: whoever opens a room sees their own "joined the game", as everyone joining later does.
 - Multiplayer: changing the room's subjects, tournaments or rounds no longer lags: the "questions match" count is one cached filter, and the room's questions are only re-picked when the next question is due (it used to filter and shuffle the whole bank up to four times per click).
 - Bootstrap, PeerJS and supabase-js load from the jsDelivr CDN (fixed versions, integrity-checked, cached by the service worker) instead of copies in the repo.
+- Play and Multiplayer: the label above the question names its number out of the packet's ("BASED 2025 Round Robin 1 Question 10 of 24", not "Q10").
+- Multiplayer: at the end of the questions (a set's packets, or everything matching the room's settings) everyone gets Play's alert ("You have reached the end of the set") and stays in the room, back before the first question; Start plays it again. The game-over page is gone.
+- Play and Multiplayer: the set name box losing focus no longer clears the packets just picked.
+- Browser tests run in about a minute instead of three (files in parallel, no fixed pause after joining a room); four duplicate or trivial ones removed.

@@ -742,6 +742,23 @@
         sourceUrl: p.u ? p.u + packetAnchor(p.u, q.pg) : p.u,
       });
     }));
+    // How many questions each packet has, for "Question 10 of 24": its
+    // highest question number (some sets number tossups and bonuses in one
+    // run, so a count of either would be wrong). Only questions in a named
+    // round have one; a set with no rounds isn't a packet.
+    // (The cleaned round label is worked out once per packet, not per question.)
+    const labels = new Map();
+    const labelOf = (q) => {
+      const raw = `${q.roundLabel}|${q.round}`;
+      if (!labels.has(raw)) labels.set(raw, SBData.roundLabelFor(q));
+      return labels.get(raw);
+    };
+    const most = new Map();
+    out.forEach((q) => {
+      const round = q.num > 0 && labelOf(q);
+      if (round) most.set(round, Math.max(most.get(round) || 0, q.num));
+    });
+    out.forEach((q) => { if (q.num > 0) { const n = most.get(labelOf(q)); if (n) q.packetSize = n; } });
     return out;
   }
 
@@ -1166,13 +1183,15 @@
     return l && l.replace(/\s*·\s*/g, ' ');
   };
   // Where a question comes from: tournament, round and its number in the
-  // packet. Above the question in Play and Multiplayer it's spaced
-  // ("AVES 2 RR 1 Q15"); under a revealed answer it's slashed
-  // ("AVES 2 / RR 1 / Q15"). Tossup 15 and bonus 15 share the number; the
-  // tag row already says which one this is.
+  // packet, out of the packet's questions. Above the question in Play and
+  // Multiplayer it's spaced ("BASED 2025 Round Robin 1 Question 10 of 24");
+  // under a revealed answer it's slashed ("BASED 2025 / Round Robin 1 /
+  // Question 10 of 24"). Tossup 10 and bonus 10 share the number; the tag
+  // row already says which one this is.
   SBData.sourceLabelFor = function (q, sep) {
     const roundPart = SBData.roundLabelFor(q);
-    return [q.tournament, roundPart, q.num ? 'Q' + q.num : null].filter(Boolean).join(sep || ' ');
+    const num = q.num ? `Question ${q.num}${q.packetSize >= q.num ? ` of ${q.packetSize}` : ''}` : null;
+    return [q.tournament, roundPart, num].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
   // The source line under a revealed answer in solo and multiplayer: the

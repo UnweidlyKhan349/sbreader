@@ -124,7 +124,12 @@
     const setName = document.getElementById('setName');
     setName.value = settings.setName;
     packetPicker = SBPlay.packetSelect(document.getElementById('packetSelect'), (text) => { settings.packetNumbers = text; onSettingsChange(); });
-    setName.addEventListener('change', () => { settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange(); });
+    setName.addEventListener('change', () => {
+      // The same set again (the box losing focus after a packet was picked,
+      // say) keeps its packets.
+      if (setName.value === settings.setName) return;
+      settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange();
+    });
     describeSet();
     document.getElementById('clearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearFilters(); });
 
