@@ -210,7 +210,7 @@ data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, 
 tests/              node --test suites: grader, multiplayer rules, data shape, page building
 tests/e2e/          browser tests (Playwright): Play, Multiplayer with simulated players, every page
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
-.github/workflows/deploy.yml  on every push to main, runs the tests and copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
+.github/workflows/deploy.yml  on every push to main, runs the unit tests and copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
 ```
 
 ### `js/data.js` (`window.SBData`)
@@ -469,7 +469,7 @@ UnweidlyKhan349/sbreader      ← push here
 sbreader/sbreader.github.io   ← copy only, served at https://sbreader.github.io/
 ```
 
-The workflow runs the tests, copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
+The workflow runs the unit tests (not the browser tests, which run separately in CI and don't hold up a deploy), copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
 
 Setting it up (done once; listed in case it has to be redone):
 1. Create the `sbreader` organization (Free plan) and in it an empty **public** repo named `sbreader.github.io`.
