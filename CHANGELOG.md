@@ -185,3 +185,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer, with the timer off: a question that has been read in full ends with Next, not logged as a skip; switching the timer on starts the buzz countdown, and off stops it.
 - Play and Multiplayer: once a question is answered, a Report link sits to the right of "I was right" / "I was wrong" ("I was right | Report").
 - Multiplayer: "No public rooms." (and the first room showing after hidden empty rooms) keeps its top border and rounded corners.
+- Play and Multiplayer: a skipped question (and, in Multiplayer, one you didn't answer) shows Report at the right of the answer line.

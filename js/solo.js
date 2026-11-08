@@ -538,6 +538,8 @@
       }
     } else {
       override.classList.add('d-none');
+      // A skipped question: Report at the right of the answer line.
+      if (window.SBReports) box.querySelector('.ans-line').prepend(SBPlay.answerReportLink(q));
     }
 
     if (q.choices && q.answer.letter) {

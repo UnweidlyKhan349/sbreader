@@ -797,7 +797,16 @@
     const overrideBtn = document.getElementById('mpOverrideBtn');
     overrideBtn.classList.add('d-none');
     historyEl().querySelectorAll('.mp-inline-override-wrap').forEach((el) => el.remove());
-    if (game.phase !== 'reveal' || !SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) return;
+    document.querySelectorAll('#mpRevealBox .answer-report').forEach((el) => el.remove());
+    if (game.phase !== 'reveal') return;
+    const q = game.question && ((SBData.byId && SBData.byId.get(game.question.id)) || game.question);
+    if (!SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) {
+      // No override for you (you didn't buzz, or the question was skipped):
+      // Report goes at the right of the answer line.
+      const ans = document.querySelector('#mpRevealBox .ans-line');
+      if (ans && window.SBReports && q) ans.prepend(SBPlay.answerReportLink(q));
+      return;
+    }
     const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
     const label = mine && mine.correct ? 'I was wrong' : 'I was right';
     const myLine = [...historyEl().querySelectorAll('li[data-buzz-player]')]
@@ -817,7 +826,6 @@
     link.textContent = label;
     link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
     wrap.appendChild(link);
-    const q = game.question && ((SBData.byId && SBData.byId.get(game.question.id)) || game.question);
     if (window.SBReports && q) wrap.append(' | ', SBReports.link(q));
     myLine.appendChild(wrap);
   }
@@ -2520,7 +2528,7 @@
     }
     if (msg.type === 'graded') {
       applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close, msg.counts);
-      if (game.phase === 'reveal') showReveal();
+      if (game.phase === 'reveal') { showReveal(); renderOverrideLink(); }
       return;
     }
     if (msg.type === 'reveal') {

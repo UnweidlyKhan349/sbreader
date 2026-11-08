@@ -249,8 +249,17 @@
     try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) { /* not saved */ }
   }
 
+  // "Report" floated to the right of a revealed answer line, for a question
+  // with no "I was right" link to sit beside (a skipped one, or in
+  // Multiplayer one you didn't answer). Needs reports.js.
+  function answerReportLink(q) {
+    const a = SBReports.link(q);
+    a.classList.add('answer-report', 'float-end', 'ms-2', 'fw-normal');
+    return a;
+  }
+
   window.SBPlay = {
-    subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars,
+    subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars, answerReportLink,
     packetsOf, parsePacketNumbers, loadSettings, saveSettings,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;
