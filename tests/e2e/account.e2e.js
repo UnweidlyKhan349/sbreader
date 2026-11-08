@@ -6,7 +6,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
-const { chromium, startServer, ROOT } = require('./helpers');
+const { chromium, startServer, routeCdn, ROOT } = require('./helpers');
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
@@ -15,6 +15,7 @@ test.after(async () => { await browser.close(); await server.close(); });
 const FAKE = fs.readFileSync(path.join(__dirname, 'fake-supabase.js'), 'utf8');
 async function signedIn(url, init) {
   const ctx = await browser.newContext({ serviceWorkers: 'block' });
+  await routeCdn(ctx);
   if (init) await ctx.addInitScript(init.fn, init.arg);
   await ctx.addInitScript(FAKE);
   await ctx.route(/supabase-js@[^/]+\/dist\/umd\/supabase\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: '/* stub: window.supabase is the fake */' }));
@@ -88,6 +89,7 @@ test('a star removed on another device stays removed when this device logs in wi
 
 test('account links on a generated packet page point at the site root', async () => {
   const ctx = await browser.newContext({ serviceWorkers: 'block' });
+  await routeCdn(ctx);
   await ctx.addInitScript(() => { window.__signedOut = true; });
   await ctx.addInitScript(FAKE);
   await ctx.route(/supabase-js@[^/]+\/dist\/umd\/supabase\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
