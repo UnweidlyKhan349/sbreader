@@ -389,3 +389,29 @@ test('across the corpus, flipping one sign, charge, operation or inequality in a
   }
   assert.deepStrictEqual(still, []);
 });
+
+// A long answer to a many-part key used to try every way of cutting its
+// words into the parts (hundreds of thousands of cuts), freezing the page
+// for seconds to minutes - and, in Multiplayer, the whole room, since
+// whoever runs the game grades everyone. Every key in the bank must grade
+// a 24-word answer quickly, and long answers still grade right.
+test('long answers to many-part keys grade quickly', () => {
+  const { raw } = loadCorpus();
+  const keys = raw.filter((q) => q.f !== 'MC' && ((q.a.t || '').split(/,|\band\b/i).length >= 7 || (q.a.t || '').split(';').length >= 5));
+  assert.ok(keys.length > 50);
+  const noise = Array.from({ length: 24 }, (_, i) => 'word' + i).join(' ');
+  let slowest = 0;
+  for (const q of keys) {
+    const question = { question: q.q, format: 'SA', choices: null, answer: { text: q.a.t, letter: null, accept: q.a.ac || [], reject: q.a.rj || [] } };
+    const start = Date.now();
+    checkAnswer(question, noise);
+    slowest = Math.max(slowest, Date.now() - start);
+  }
+  assert.ok(slowest < 1500, `slowest took ${slowest} ms`);
+  const gases = 'HELIUM; NEON; ARGON; KRYPTON; XENON; RADON';
+  assert.ok(isCorrect(gases, 'helium neon argon krypton xenon radon'));
+  assert.ok(isCorrect(gases, 'the noble gases are helium neon argon krypton xenon radon') === false);
+  const start = Date.now();
+  grade(gases, 'i think it is helium and then maybe neon or argon krypton xenon and radon but not sure at all really');
+  assert.ok(Date.now() - start < 1500);
+});

@@ -1010,7 +1010,12 @@
   // tournaments go newest first instead (by the date in meta.json, then
   // A-Z), each still in packet order. Each order is computed once and
   // reused, since sorting 80k questions on every keystroke would lag.
-  const packetRanks = {};
+  // The ranks belong to one list of questions: a page or tool that swaps in
+  // another (loadSet, loadIds, tools/build-pages.js one tournament at a
+  // time) gets them worked out again, or every question of the new list
+  // would be unranked and keep the bank's file order.
+  let packetRanks = {};
+  let packetRanksFor = null;
   const qtypeRank = (t) => (QTYPE_ORDER.indexOf(t) + 1 || QTYPE_ORDER.length + 1);
   // Ranks the distinct values of a string field with the collator, so the
   // big sort below compares integers instead of calling the collator about
@@ -1054,6 +1059,7 @@
   }
   SBData.sortByPacketOrder = function (list, opts) {
     const key = opts && opts.recent ? 'recent' : 'az';
+    if (packetRanksFor !== SBData.questions) { packetRanks = {}; packetRanksFor = SBData.questions; }
     const packetRank = packetRanks[key] || (packetRanks[key] = buildPacketRank(key === 'recent'));
     // Every question has its own rank, so drop each into its slot instead of
     // sorting (linear time; this runs on every filter change and keystroke).
@@ -1248,37 +1254,24 @@
   }
   SBData.stratifiedShuffle = stratifiedShuffle;
 
-  // True round-robin-with-cycling version: guarantees every selected group
-  // gets equal turns across the WHOLE returned array, not just until the
-  // smallest group's own supply runs dry. plain stratifiedShuffle() above
-  // lets a group drop out of rotation once it's exhausted, so if e.g. Math
-  // only has 16 questions after filtering and Physics has hundreds, the
-  // back half of the result is 100% Physics. Here, a group that runs
-  // out mid-way is reshuffled and keeps taking its turn (repeating its own
-  // questions) instead of dropping out, so the ratio between subjects stays
-  // even for the entire length requested. length defaults to arr.length so
-  // the "total questions" callers display doesn't change.
-  function stratifiedQueue(arr, keyFn, length) {
+  // Every item once, dealt round-robin across the groups (subjects): each
+  // round takes one item from every group still holding some, in a fresh
+  // random order, so the groups stay evenly mixed until the smaller ones
+  // run out. Nothing repeats: an earlier version refilled a group that ran
+  // out, so with 10 Math stars and 1 Biology star the Biology question came
+  // up five times and half the stars never did.
+  function stratifiedQueue(arr, keyFn) {
     const groups = new Map();
     arr.forEach((item) => {
       const k = keyFn(item);
       if (!groups.has(k)) groups.set(k, []);
       groups.get(k).push(item);
     });
-    const keys = Array.from(groups.keys());
-    if (!keys.length) return [];
-    const targetLength = length == null ? arr.length : length;
-    const bags = new Map();
-    keys.forEach((k) => bags.set(k, []));
-    let order = shuffle(keys);
-    let pos = 0;
+    const bags = [...groups.values()].map(shuffle);
     const result = [];
-    while (result.length < targetLength) {
-      if (pos >= order.length) { order = shuffle(keys); pos = 0; }
-      const k = order[pos++];
-      let bag = bags.get(k);
-      if (!bag.length) { bag = shuffle(groups.get(k)); bags.set(k, bag); }
-      result.push(bag.pop());
+    while (bags.length) {
+      for (const bag of shuffle(bags)) result.push(bag.pop());
+      for (let i = bags.length - 1; i >= 0; i--) if (!bags[i].length) bags.splice(i, 1);
     }
     return result;
   }
@@ -1481,12 +1474,15 @@
   // The highest numbered round among the given tournament slugs (all
   // tournaments when none are picked, or when the picked ones have no
   // numbered rounds), so the round slider only spans rounds that exist.
+  // Worked out once per list of questions (see packetRanks).
   let maxRoundBySlug = null;
+  let maxRoundFor = null;
   SBData.maxRoundFor = function (slugs) {
     const globalMax = Math.max(1, ...(SBData.meta && SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
     const list = slugs ? [...slugs] : [];
     if (!list.length || !SBData.questions) return globalMax;
-    if (!maxRoundBySlug) {
+    if (!maxRoundBySlug || maxRoundFor !== SBData.questions) {
+      maxRoundFor = SBData.questions;
       maxRoundBySlug = new Map();
       for (const q of SBData.questions) {
         if (q.round == null) continue;

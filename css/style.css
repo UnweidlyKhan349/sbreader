@@ -541,6 +541,7 @@ html.mp-direct #lobbyScreen { display: none !important; }
 /* A controlled room's settings, for everyone but its owner. */
 #mpRoomSettings:disabled { opacity: .6; }
 /* The room owner's crown before their name, as on QB Reader. */
-.mp-crown { margin-right: .25rem; }
+/* QB Reader's crown (an inline SVG) before the room owner's name. */
+.mp-crown { flex-shrink: 0; }
 /* A player the owner has muted. */
 .mp-muted { margin-left: .25rem; opacity: .7; }

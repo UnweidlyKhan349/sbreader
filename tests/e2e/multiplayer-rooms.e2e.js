@@ -48,17 +48,20 @@ async function ownerMenu(owner, name, action) {
   await row.locator(`[data-${action}]`).click();
 }
 
+// Owners count only in private rooms, as on QB Reader.
+const privateRoom = (r) => `${r}&private=true`;
+
 test('the room\'s creator has a crown; a controlled room\'s settings are theirs alone', async () => {
   const ctx = await newContext(browser);
   const r = room();
-  const a = await joinRoom(ctx, server.url, r);
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
   const g = await strangerIn(ctx, server.url, r);
   const aName = await myName(a);
   assert.deepStrictEqual(await crowned(g), [aName], 'only the creator is crowned, on everyone\'s list');
   assert.strictEqual(await g.locator('#mpToggleControlled').isDisabled(), true, 'only the owner has the controlled switch');
   await a.locator('#mpToggleControlled').check();
   await g.waitForFunction(() => document.getElementById('mpRoomSettings').disabled, null, { timeout: 10000 });
-  assert.ok(await g.locator('#mpControlledNote').isVisible());
+  assert.strictEqual(await a.locator('#mpTogglePublic').isDisabled(), true, 'a controlled room stays private');
   // A change sent anyway (the controls forced back on) is refused and undone.
   const before = await subjectOn(a, 'chem');
   await g.evaluate(() => { document.getElementById('mpRoomSettings').disabled = false; });
@@ -76,7 +79,7 @@ test('the room\'s creator has a crown; a controlled room\'s settings are theirs 
 test('with Allow skips off, only the owner can skip', async () => {
   const ctx = await newContext(browser);
   const r = room();
-  const a = await joinRoom(ctx, server.url, r);
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
   const g = await strangerIn(ctx, server.url, r);
   await a.locator('#mpToggleSkip').uncheck();
   await g.waitForFunction(() => !document.getElementById('mpToggleSkip').checked, null, { timeout: 10000 });
@@ -88,6 +91,7 @@ test('with Allow skips off, only the owner can skip', async () => {
   await g.keyboard.press('s');
   await g.waitForTimeout(600);
   assert.notStrictEqual(await a.evaluate(() => document.getElementById('mpNextBtn').textContent), 'Next', 's did nothing for the other player');
+  assert.ok(!/can.t skip/.test(await g.locator('#mpHistory').innerText()), 'no message about it');
   await a.locator('#mpNextBtn').click();
   await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next', null, { timeout: 10000 });
   await ctx.close();
@@ -96,7 +100,7 @@ test('with Allow skips off, only the owner can skip', async () => {
 test('the owner can mute and ban; a banned player stays out', async () => {
   const ctx = await newContext(browser);
   const r = room();
-  const a = await joinRoom(ctx, server.url, r);
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
   const g = await strangerIn(ctx, server.url, r);
   const gName = await myName(g);
   const gPid = await g.evaluate(() => localStorage.getItem('sb_mp_pid'));
@@ -122,7 +126,7 @@ test('the owner can mute and ban; a banned player stays out', async () => {
 test('the owner gets the crown back on returning, from whoever runs the room by then', async () => {
   const ctx = await newContext(browser);
   const r = room();
-  const a = await joinRoom(ctx, server.url, r);
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
   const aName = await myName(a);
   const g = await strangerIn(ctx, server.url, r);
   await a.close(); // g carries the room on
@@ -131,6 +135,57 @@ test('the owner gets the crown back on returning, from whoever runs the room by 
   await back.goto(`${server.url}multiplayer?room=${r}`, { waitUntil: 'networkidle' });
   await g.waitForFunction(() => document.querySelector('.mp-player-row:not(.offline) .mp-crown'), null, { timeout: 20000 });
   assert.deepStrictEqual(await crowned(g), [aName]);
+  await ctx.close();
+});
+
+test('a public room has no owner: no crown, owner tools or controlled switch', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await strangerIn(ctx, server.url, r);
+  const gName = await myName(g);
+  assert.deepStrictEqual(await crowned(g), []);
+  assert.deepStrictEqual(await crowned(a), []);
+  const row = a.locator('.mp-player-row', { hasText: gName }).first();
+  await row.locator('[data-sb-dropdown]').click();
+  assert.strictEqual(await row.locator('[data-ban], [data-mute]').count(), 0, 'no Mute or Ban');
+  assert.strictEqual(await row.locator('[data-votekick]').count(), 1, 'Votekick is still there');
+  assert.strictEqual(await a.locator('#mpToggleControlled').isDisabled(), true, 'a public room can\'t be controlled');
+  // Made private, the creator is the owner again.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await g.waitForFunction(() => document.querySelector('.mp-player-row:not(.offline) .mp-crown'), null, { timeout: 10000 });
+  assert.deepStrictEqual(await crowned(g), [await myName(a)]);
+  assert.strictEqual(await a.locator('#mpToggleControlled').isDisabled(), false);
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('with the timer off, a question that has been read waits for Next, which isn\'t a skip; the timer on starts the countdown', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await strangerIn(ctx, server.url, r);
+  await a.evaluate(() => { const s = document.getElementById('mpSettingsRateSlider'); s.value = 100; s.dispatchEvent(new Event('change')); });
+  await a.locator('label[for=mpToggleTimer]').click();
+  await g.waitForFunction(() => !document.getElementById('mpToggleTimer').checked, null, { timeout: 10000 });
+  await a.locator('#mpNextBtn').click();
+  // Read in full: the button says Next, and nothing ends the question.
+  await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next' && !document.getElementById('mpRevealBox').offsetParent, null, { timeout: 60000 });
+  await g.waitForTimeout(1500);
+  assert.strictEqual(await g.locator('#mpRevealBox').isVisible(), false, 'still open for buzzing');
+  // The timer back on: the buzz countdown runs, and the answer shows when it ends.
+  await g.locator('label[for=mpToggleTimer]').click();
+  await a.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Skip', null, { timeout: 10000 });
+  await a.waitForFunction(() => document.getElementById('mpRevealBox').offsetParent, null, { timeout: 30000 });
+  // Off again for the next question, which Next ends without "skipped".
+  await g.locator('label[for=mpToggleTimer]').click();
+  await a.waitForFunction(() => !document.getElementById('mpToggleTimer').checked, null, { timeout: 10000 });
+  await a.locator('#mpNextBtn').click();
+  await a.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next' && !document.getElementById('mpRevealBox').offsetParent, null, { timeout: 60000 });
+  await a.locator('#mpNextBtn').click();
+  await g.waitForFunction(() => document.getElementById('mpRevealBox').offsetParent, null, { timeout: 10000 });
+  assert.ok(!/skipped the question/.test(await g.locator('#mpHistory').innerText()), 'not logged as a skip');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
 

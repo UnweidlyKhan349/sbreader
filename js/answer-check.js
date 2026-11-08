@@ -939,50 +939,111 @@
     return { n: items.length, alts, floating: [], ordered: listIsOrdered(question), noSlash: true };
   }
 
-  // Candidate ways to cut a typed answer into exactly n pieces: first by the
-  // separators a student would use (";", ",", "and", "then", ...), then - for
-  // "first quarter full moon" with no separator at all - every way of cutting
-  // the words into n consecutive runs (a connecting "and"/"then" at a cut is
-  // dropped).
-  function* segmentations(raw, n, noSlash) {
+  // Cutting a typed answer into pieces, one per part. First by the
+  // separators a student would use (";", ",", "and", "then", ...):
+  // separatorCuts. Then, for "first quarter full moon" with no separator at
+  // all, any cut of the words into consecutive runs (a connecting
+  // "and"/"then"/"or" at a cut is dropped): bestWordCut. Those cuts are
+  // searched, not listed one by one: 24 words make hundreds of thousands of
+  // cuts, and listing them froze the page for seconds to minutes on a long
+  // answer to a five- or six-part key (and, in Multiplayer, froze the whole
+  // room, since whoever runs the game grades everyone's answers).
+  function separatorCuts(raw, n, noSlash) {
     const seps = [/\s*(?:;|\s\|\s)\s*/, /\s*(?:[;,]|\s\|\s)\s*/,
       noSlash ? /\s*(?:[;,&]|\s\|\s|\band\b|\bthen\b)\s*/i : /\s*(?:[;,&/]|\s\|\s|\band\b|\bthen\b)\s*/i];
     const seen = new Set();
+    const out = [];
     for (const re of seps) {
       const segs = raw.split(re).map((s) => s.trim().replace(/^(?:and|then)\s+/i, '')).filter(Boolean);
       const key = segs.join('\u0000');
-      if (segs.length === n && !seen.has(key)) { seen.add(key); yield segs; }
+      if (segs.length === n && !seen.has(key)) { seen.add(key); out.push(segs); }
     }
-    // raw words, not normalize()d ones, so a sign or decimal point survives
-    // (a lone "−" before a number is kept as part of the next word)
-    const words = raw.replace(/(^|[\s,;([])([-\u2212\u2013\u2010])\s+(?=\d)/g, '$1$2')
+    return out;
+  }
+  // The typed words, not normalize()d ones, so a sign or decimal point
+  // survives (a lone "−" before a number is kept as part of the next word).
+  function typedWords(raw) {
+    return raw.replace(/(^|[\s,;([])([-\u2212\u2013\u2010])\s+(?=\d)/g, '$1$2')
       .split(/[\s;,|]+/).filter((w) => normalize(w));
-    if (words.length < n || words.length > 24) return;
-    const JOIN = new Set(['AND', 'THEN', 'OR']);
-    const cuts = [];
-    function* rec(start, left) {
-      if (left === 1) {
-        const segs = [];
-        let prev = 0;
-        for (const c of [...cuts, words.length]) {
-          let chunk = words.slice(prev, c);
-          while (chunk.length && JOIN.has(normalize(chunk[0]))) chunk = chunk.slice(1);
-          while (chunk.length && JOIN.has(normalize(chunk[chunk.length - 1]))) chunk = chunk.slice(0, -1);
-          if (!chunk.length) return;
-          segs.push(chunk.join(' '));
-          prev = c;
+  }
+  const MAX_CUT_WORDS = 24;
+  // A ceiling on the search's steps, so no answer can take long to grade.
+  // Real answers use a few thousand at most.
+  const WORD_CUT_STEPS = 200000;
+  const JOIN_WORDS = new Set(['AND', 'THEN', 'OR']);
+  function bitCount(x) { let n = 0; for (; x; x &= x - 1) n++; return n; }
+  // The best way to cut `words` into `pieces` consecutive runs, each matched
+  // to a different one of `parts` parts: rankOf(runText, part) is 0 (no
+  // match) to 3 (exact). In order, run i goes to part i; otherwise any part
+  // may take any run. Returns the best cut's weakest rank, 0 when none works.
+  // It's a dynamic program over (words used, parts used) that only visits
+  // states some cut can reach, and each run's match is worked out once.
+  function bestWordCut(words, pieces, parts, ordered, rankOf) {
+    const W = words.length;
+    if (W < pieces || W > MAX_CUT_WORDS || (!ordered && parts > 30)) return 0;
+    const join = words.map((w) => JOIN_WORDS.has(normalize(w)));
+    const runText = (i, j) => {
+      while (i < j && join[i]) i++;
+      while (j > i && join[j - 1]) j--;
+      return i < j ? words.slice(i, j).join(' ') : null;
+    };
+    // at[i]: parts used (a count in order, else a bit set) -> best weakest rank
+    const at = Array.from({ length: W + 1 }, () => new Map());
+    at[0].set(0, 3);
+    let steps = WORD_CUT_STEPS;
+    for (let i = 0; i < W; i++) {
+      for (const [used, v] of at[i]) {
+        const n = ordered ? used : bitCount(used);
+        if (n === pieces) continue;
+        const last = W - (pieces - n - 1);
+        for (let j = i + 1; j <= last; j++) {
+          const text = runText(i, j);
+          if (text === null) continue;
+          for (let k = ordered ? n : 0; k < (ordered ? Math.min(n + 1, parts) : parts); k++) {
+            if (!ordered && (used & (1 << k))) continue;
+            if (--steps < 0) return 0;
+            const r = rankOf(text, k);
+            if (!r) continue;
+            const next = ordered ? n + 1 : used | (1 << k);
+            const nv = Math.min(v, r);
+            if ((at[j].get(next) || 0) < nv) at[j].set(next, nv);
+          }
         }
-        segs.wordCut = true;
-        yield segs;
-        return;
-      }
-      for (let c = start + 1; c <= words.length - left + 1; c++) {
-        cuts.push(c);
-        yield* rec(c, left - 1);
-        cuts.pop();
       }
     }
-    yield* rec(0, n);
+    let best = 0;
+    for (const [used, v] of at[W]) if ((ordered ? used : bitCount(used)) === pieces) best = Math.max(best, v);
+    return best;
+  }
+  // Gives each of `count` pieces a different one of `parts` parts (piece i
+  // to part i, in order): the best assignment's weakest rank, 0 if none.
+  // rankAt(piece, part) is 0 to 3.
+  function assignPieces(count, parts, ordered, rankAt) {
+    if (ordered) {
+      if (count !== parts) return 0;
+      let weakest = 3;
+      for (let i = 0; i < count && weakest; i++) weakest = Math.min(weakest, rankAt(i, i));
+      return weakest;
+    }
+    if (count > parts || parts > 30) return 0;
+    let states = new Map([[0, 3]]);
+    for (let i = 0; i < count && states.size; i++) {
+      const next = new Map();
+      for (const [used, v] of states) {
+        for (let k = 0; k < parts; k++) {
+          if (used & (1 << k)) continue;
+          const r = rankAt(i, k);
+          if (!r) continue;
+          const key = used | (1 << k);
+          const nv = Math.min(v, r);
+          if ((next.get(key) || 0) < nv) next.set(key, nv);
+        }
+      }
+      states = next;
+    }
+    let best = 0;
+    for (const v of states.values()) best = Math.max(best, v);
+    return best;
   }
 
   // Builds the per-part alternate lists for a multi-part question, and splits
@@ -1025,35 +1086,31 @@
     return { n, alts, floating, ordered, wholeAccepts, notes };
   }
 
-  // Matches n typed segments to the n parts. Returns the best assignment's
-  // weakest part match ('exact' | 'fuzzy' | 'typo') or null. A floating
-  // fragment can fill in for any one part, but never for a part whose own
-  // text it doesn't match when it IS another part's answer - so
-  // "copper; copper" can't pass "ZINC; COPPER" through an ACCEPT of "COPPER".
-  function matchSegments(segs, spec) {
-    const { n, alts, floating, ordered } = spec;
-    const table = segs.map((seg) => alts.map((a, k) => {
-      const m = segMatch(seg, a, segs.wordCut);
-      if (m === 'exact') return m;
-      const usable = floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact'));
-      return betterMatch(segMatch(seg, usable), m);
-    }));
-    let best = null;
-    const used = new Array(n).fill(false);
-    function go(i, weakest) {
-      if (best === 'exact') return;
-      if (i === n) { best = betterMatch(best, weakest); return; }
-      for (let k = 0; k < n; k++) {
-        if (used[k] || (ordered && k !== i)) continue;
-        const m = table[i][k];
-        if (!m) continue;
-        used[k] = true;
-        go(i + 1, MATCH_RANK[m] < MATCH_RANK[weakest] ? m : weakest);
-        used[k] = false;
+  // How well a typed piece matches part k of a multi-part spec, 0 to 3
+  // (see MATCH_RANK), worked out once per piece. A floating fragment can
+  // fill in for any one part, but never for a part whose own text it doesn't
+  // match when it IS another part's answer - so "copper; copper" can't pass
+  // "ZINC; COPPER" through an ACCEPT of "COPPER".
+  const RANK_NAME = [null, 'typo', 'fuzzy', 'exact'];
+  function partRanker(spec) {
+    const { alts, floating } = spec;
+    const usable = new Map();
+    const usableFor = (k) => {
+      if (!usable.has(k)) usable.set(k, floating.filter((f) => !alts.some((b, j) => j !== k && segMatch(f, b) === 'exact')));
+      return usable.get(k);
+    };
+    const memo = new Map();
+    return (seg, k, wordCut) => {
+      const key = (wordCut ? 'w' : 's') + k + '\u0000' + seg;
+      let r = memo.get(key);
+      if (r === undefined) {
+        let m = segMatch(seg, alts[k], wordCut);
+        if (m !== 'exact' && floating.length) m = betterMatch(segMatch(seg, usableFor(k)), m);
+        r = MATCH_RANK[m] || 0;
+        memo.set(key, r);
       }
-    }
-    go(0, 'exact');
-    return best;
+      return r;
+    };
   }
 
   // "Name any N of these" keys: "ANY TWO OF: EARTH, TITAN, PLUTO",
@@ -1088,36 +1145,36 @@
   }
   // Every typed item names a different listed one, and there are at least n.
   function checkAnyOf(raw, spec) {
-    const tries = [raw.split(/\s*(?:[;,]|\band\b|\bor\b|&)\s*/i).map((s) => s.trim()).filter(Boolean)];
-    for (const segs of segmentations(raw, spec.n, true)) tries.push(segs);
+    const parts = spec.alts.length;
+    const memo = new Map();
+    const ok = (seg, k, wordCut) => {
+      const key = (wordCut ? 'w' : 's') + k + '\u0000' + seg;
+      if (!memo.has(key)) {
+        const m = segMatch(seg, spec.alts[k], wordCut);
+        memo.set(key, m === 'exact' || m === 'fuzzy' ? 1 : 0);
+      }
+      return memo.get(key);
+    };
+    const tries = [raw.split(/\s*(?:[;,]|\band\b|\bor\b|&)\s*/i).map((s) => s.trim()).filter(Boolean)]
+      .concat(separatorCuts(raw, spec.n, true));
     for (const segs of tries) {
-      if (segs.length < spec.n || segs.length > spec.alts.length) continue;
-      const used = new Array(spec.alts.length).fill(false);
-      const go = (i) => {
-        if (i === segs.length) return true;
-        for (let k = 0; k < spec.alts.length; k++) {
-          if (used[k]) continue;
-          const m = segMatch(segs[i], spec.alts[k], segs.wordCut);
-          if (m !== 'exact' && m !== 'fuzzy') continue;
-          used[k] = true;
-          if (go(i + 1)) return true;
-          used[k] = false;
-        }
-        return false;
-      };
-      if (go(0)) return true;
+      if (segs.length < spec.n || segs.length > parts) continue;
+      if (assignPieces(segs.length, parts, false, (i, k) => ok(segs[i], k, false))) return true;
     }
-    return false;
+    return bestWordCut(typedWords(raw), spec.n, parts, false, (text, k) => ok(text, k, true)) > 0;
   }
 
+  // A multi-part (or list) key, part by part: the best cut's weakest part
+  // match ('exact' | 'fuzzy' | 'typo') or null.
   function checkMultiPart(raw, spec) {
-    let best = null;
-    for (const segs of segmentations(raw, spec.n, spec.noSlash)) {
-      const m = matchSegments(segs, spec);
-      if (m === 'exact') return m;
-      best = betterMatch(best, m);
+    const rank = partRanker(spec);
+    let best = 0;
+    for (const segs of separatorCuts(raw, spec.n, spec.noSlash)) {
+      best = Math.max(best, assignPieces(segs.length, spec.n, spec.ordered, (i, k) => rank(segs[i], k, false)));
+      if (best === 3) return 'exact';
     }
-    return best;
+    best = Math.max(best, bestWordCut(typedWords(raw), spec.n, spec.n, spec.ordered, (text, k) => rank(text, k, true)));
+    return RANK_NAME[best];
   }
 
   // A key and the alternates written inside it. Splits on ACCEPT and on a

@@ -282,3 +282,18 @@ test('the label names the toss-up or bonus, and the packet size only when asked'
   assert.strictEqual(SBData.sourceLabelFor(q, ' ', { ofPacket: true }), 'BASED 2025 Round Robin 1 Bonus 10 of 24');
   assert.strictEqual(SBData.sourceLabelFor(q, ' / '), 'BASED 2025 / Round Robin 1 / Bonus 10');
 });
+
+// Play's queues (Random and Starred): subjects dealt in turn, every question
+// once, however unevenly the subjects are filled.
+test('stratifiedQueue deals each question once, subjects mixed', () => {
+  const { SBData } = globalThis;
+  const items = [...Array(10).keys()].map((i) => ({ id: i, s: 'math' })).concat([{ id: 99, s: 'bio' }, { id: 98, s: 'chem' }]);
+  for (let run = 0; run < 50; run++) {
+    const q = SBData.stratifiedQueue(items, (x) => x.s);
+    assert.strictEqual(q.length, items.length);
+    assert.strictEqual(new Set(q.map((x) => x.id)).size, items.length, 'no repeats');
+    // The first round has one of each subject.
+    assert.deepStrictEqual(new Set(q.slice(0, 3).map((x) => x.s)), new Set(['math', 'bio', 'chem']));
+  }
+  assert.deepStrictEqual(SBData.stratifiedQueue([], (x) => x.s), []);
+});
