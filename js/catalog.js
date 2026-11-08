@@ -37,8 +37,12 @@
   function buildChips(container, items, key, labelFn) {
     container.innerHTML = '';
     items.forEach((item) => {
-      const chip = document.createElement('div');
+      // A real button (Tab, Enter and Space work, and screen readers hear
+      // "toggle button, pressed"), styled as a chip.
+      const chip = document.createElement('button');
+      chip.type = 'button';
       chip.className = 'chip';
+      chip.setAttribute('aria-pressed', 'false');
       if (item.subjectAttr) chip.dataset.subject = item.subjectAttr;
       chip.textContent = labelFn(item);
       chip.addEventListener('click', () => {
@@ -191,7 +195,7 @@
       [levelItems, state.levels],
       [visualItems, state.visuals],
     ].forEach(([items, set]) => {
-      items.forEach((i) => i._el.classList.toggle('active', set.has(i.value)));
+      items.forEach((i) => { i._el.classList.toggle('active', set.has(i.value)); i._el.setAttribute('aria-pressed', String(set.has(i.value))); });
     });
   }
 

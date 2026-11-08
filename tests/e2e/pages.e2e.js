@@ -58,3 +58,18 @@ test('a page older than the deployed version reloads once, then offers a Reload 
   assert.strictEqual(await page.evaluate(() => sessionStorage.getItem('sb_reloaded_for')), 'new');
   await ctx.close();
 });
+
+test('the Database filters work from the keyboard and say whether they are on', async () => {
+  const ctx = await newContext(browser);
+  const page = await ctx.newPage();
+  await page.goto(server.url + 'catalog', { waitUntil: 'load' });
+  await page.waitForSelector('#subjectChips button.chip', { timeout: 60000 });
+  const chip = page.locator('#subjectChips button.chip').first();
+  assert.strictEqual(await chip.getAttribute('aria-pressed'), 'false');
+  await chip.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => document.querySelector('#subjectChips button.chip').getAttribute('aria-pressed') === 'true');
+  await page.keyboard.press('Space');
+  await page.waitForFunction(() => document.querySelector('#subjectChips button.chip').getAttribute('aria-pressed') === 'false');
+  await ctx.close();
+});
