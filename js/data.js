@@ -1182,15 +1182,18 @@
     const l = cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
     return l && l.replace(/\s*·\s*/g, ' ');
   };
-  // Where a question comes from: tournament, round and its number in the
-  // packet, out of the packet's questions. Above the question in Play and
-  // Multiplayer it's spaced ("BASED 2025 Round Robin 1 Question 10 of 24");
-  // under a revealed answer it's slashed ("BASED 2025 / Round Robin 1 /
-  // Question 10 of 24"). Tossup 10 and bonus 10 share the number; the tag
-  // row already says which one this is.
-  SBData.sourceLabelFor = function (q, sep) {
+  // Where a question comes from: tournament, round, and which toss-up or
+  // bonus of the packet it is. Above the question in Play and Multiplayer
+  // it's spaced ("Prometheus 2021 RR 3 Bonus 19"); under a revealed answer
+  // it's slashed ("Prometheus 2021 / RR 3 / Bonus 19"). Toss-up 10 and
+  // bonus 10 share the number. opts.ofPacket adds the packet's size
+  // ("BASED 2025 Round Robin 1 Toss-up 10 of 24"), shown when reading a set
+  // packet by packet.
+  SBData.sourceLabelFor = function (q, sep, opts) {
     const roundPart = SBData.roundLabelFor(q);
-    const num = q.num ? `Question ${q.num}${q.packetSize >= q.num ? ` of ${q.packetSize}` : ''}` : null;
+    const kind = QTYPE_LABELS[q.qtype] || 'Question';
+    const total = opts && opts.ofPacket && q.packetSize >= q.num ? ` of ${q.packetSize}` : '';
+    const num = q.num ? `${kind} ${q.num}${total}` : null;
     return [q.tournament, roundPart, num].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }

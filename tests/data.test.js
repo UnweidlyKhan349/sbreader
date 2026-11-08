@@ -273,3 +273,12 @@ test('meta.json stamps each bank file with its contents (node tools/meta-counts.
   assert.strictEqual(meta.bankIndex, fileStamp('data/bank/index.json'));
   for (const t of meta.tournaments) assert.strictEqual(t.v, fileStamp(`data/bank/${t.slug}.json`), t.slug);
 });
+
+test('the label names the toss-up or bonus, and the packet size only when asked', () => {
+  const SBData = globalThis.SBData;
+  const { questions } = loadCorpus();
+  const q = questions.find((x) => x.tSlug === 'based-2025' && x.qtype === 'bonus' && x.num === 10 && /Round Robin 1$/.test(SBData.roundLabelFor(x) || ''));
+  assert.strictEqual(SBData.sourceLabelFor(q), 'BASED 2025 Round Robin 1 Bonus 10');
+  assert.strictEqual(SBData.sourceLabelFor(q, ' ', { ofPacket: true }), 'BASED 2025 Round Robin 1 Bonus 10 of 24');
+  assert.strictEqual(SBData.sourceLabelFor(q, ' / '), 'BASED 2025 / Round Robin 1 / Bonus 10');
+});
