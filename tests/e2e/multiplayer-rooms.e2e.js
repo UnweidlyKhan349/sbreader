@@ -193,6 +193,6 @@ test('at the end of a set everyone is told so and stays in the room; Start plays
   // Start plays the set again from its first question.
   await a.locator('#mpNextBtn').click();
   await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Skip', null, { timeout: 10000 });
-  assert.match(await g.locator('#mpQuestionInfo').innerText(), /^BUMS 2026 .*Question \d+ of \d+$/);
+  assert.match(await g.locator('#mpQuestionInfo').innerText(), /^BUMS 2026 .*(Toss-up|Bonus) \d+ of \d+$/);
   await ctx.close();
 });

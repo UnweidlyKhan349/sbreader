@@ -1182,15 +1182,15 @@
     const l = cleanRoundLabel(q.tournament, q.roundLabel) || (q.round ? 'Round ' + q.round : null);
     return l && l.replace(/\s*·\s*/g, ' ');
   };
-  // Where a question comes from: tournament, round and its number in the
-  // packet, out of the packet's questions. Above the question in Play and
-  // Multiplayer it's spaced ("BASED 2025 Round Robin 1 Question 10 of 24");
-  // under a revealed answer it's slashed ("BASED 2025 / Round Robin 1 /
-  // Question 10 of 24"). Tossup 10 and bonus 10 share the number; the tag
-  // row already says which one this is.
+  // Where a question comes from: tournament, round, and which toss-up or
+  // bonus of the packet it is. Above the question in Play and Multiplayer
+  // it's spaced ("BASED 2025 Round Robin 1 Toss-up 10 of 24"); under a
+  // revealed answer it's slashed ("BASED 2025 / Round Robin 1 / Bonus 10 of
+  // 24"). Toss-up 10 and bonus 10 share the number.
   SBData.sourceLabelFor = function (q, sep) {
     const roundPart = SBData.roundLabelFor(q);
-    const num = q.num ? `Question ${q.num}${q.packetSize >= q.num ? ` of ${q.packetSize}` : ''}` : null;
+    const kind = QTYPE_LABELS[q.qtype] || 'Question';
+    const num = q.num ? `${kind} ${q.num}${q.packetSize >= q.num ? ` of ${q.packetSize}` : ''}` : null;
     return [q.tournament, roundPart, num].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
