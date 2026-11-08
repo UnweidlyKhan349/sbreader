@@ -105,16 +105,29 @@ test('the longest-standing player still connected runs the game', () => {
   assert.strictEqual(pickCoordinator(order, () => false), null);
 });
 
-test('messages from a newer term, or from our coordinator, are followed', () => {
+test('a takeover is followed only from a member, by a small step, and from the right player', () => {
   const { acceptsCoordinator } = globalThis.SBMpRules;
-  const view = { term: 3, coordinatorId: 'b', order: ['a', 'b', 'c'] };
+  const gone = (id) => id !== 'b';
+  const view = { term: 3, coordinatorId: 'b', order: ['a', 'b', 'c'], isUp: () => true };
   assert.strictEqual(acceptsCoordinator(view, 'b', 3), true);
-  assert.strictEqual(acceptsCoordinator(view, 'c', 4), true);
+  // Our coordinator is still here: only the next in line ('a') may take over.
+  assert.strictEqual(acceptsCoordinator(view, 'a', 4), true);
+  assert.strictEqual(acceptsCoordinator(view, 'c', 4), false);
+  // It has gone: any member may.
+  assert.strictEqual(acceptsCoordinator({ ...view, isUp: gone }, 'c', 4), true);
+  // Not a member, or a term far ahead: no, whatever the coordinator's state.
+  assert.strictEqual(acceptsCoordinator({ ...view, isUp: gone }, 'mallory', 4), false);
+  assert.strictEqual(acceptsCoordinator({ ...view, isUp: gone }, 'c', 999), false);
   assert.strictEqual(acceptsCoordinator(view, 'a', 2), false);
   // Same term, two coordinators: the earlier one in the order wins.
   assert.strictEqual(acceptsCoordinator(view, 'a', 3), true);
   assert.strictEqual(acceptsCoordinator(view, 'c', 3), false);
-  for (const t of [undefined, '4', NaN, Infinity]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
+  for (const t of [undefined, '4', NaN, Infinity, -1]) assert.strictEqual(acceptsCoordinator(view, 'c', t), false);
+  // Just joined, no coordinator yet: the first member to speak is followed.
+  assert.strictEqual(acceptsCoordinator({ term: 0, coordinatorId: null, order: [] }, 'x', 7), true);
+  // Ours left and we named 'a' as next: its first message has a newer term.
+  assert.strictEqual(acceptsCoordinator({ ...view, coordinatorId: 'a' }, 'a', 4), true);
+  assert.strictEqual(acceptsCoordinator({ ...view, coordinatorId: 'a' }, 'a', 99), false);
 });
 
 test('a player who left stays on the list, offline, for good', () => {

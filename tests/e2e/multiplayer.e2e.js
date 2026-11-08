@@ -161,6 +161,22 @@ test('a player who joins mid-question reads on from where the room is, not the w
   await ctx.close();
 });
 
+test('when the coordinator leaves, the others agree on a new one and play on', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  const c = await joinRoom(ctx, server.url, r);
+  await a.close(); // the first player, who opened the room, coordinates
+  await b.waitForTimeout(4000);
+  await b.locator('#mpNextBtn').click();
+  const q = (p) => p.evaluate(() => document.getElementById('mpQDisplay').textContent.length);
+  await b.waitForTimeout(2500);
+  assert.ok(await q(b) > 0, 'the new coordinator started a question');
+  assert.ok(await q(c) > 0, 'and the other player follows it');
+  await ctx.close();
+});
+
 test('General starts with every subject but Energy; a subject room is locked', async () => {
   const ctx = await newContext(browser);
   const page = await (async () => { const p = await ctx.newPage(); await p.goto(server.url + 'multiplayer?lobby=general', { waitUntil: 'networkidle' }); await p.waitForSelector('#mpSubjectButtons .btn-subject', { state: 'attached', timeout: 40000 }); return p; })();

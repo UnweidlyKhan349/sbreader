@@ -1683,7 +1683,7 @@
     }
     if ('term' in data) {
       // From a coordinator: follow it, or ignore it (see acceptsCoordinator).
-      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder() }, from, data.term)) return;
+      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder(), isUp }, from, data.term)) return;
       if (from !== coordinatorId || data.term !== term) followCoordinator(from, data.term);
       if (data.eng) followerEngine = data.eng;
       handleClientMessage(data);

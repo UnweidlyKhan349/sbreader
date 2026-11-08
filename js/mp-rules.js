@@ -99,16 +99,36 @@
     return i < 0 ? Infinity : i;
   }
   // Every message from a coordinator is stamped with its term, which goes up
-  // by one each time a new player takes over. Follow a message when its term
-  // is newer than ours, or it's our coordinator's; if two players took over
-  // in the same term, the one earlier in the order wins.
-  // view: { term, coordinatorId, order }
+  // by one each time a new player takes over. Follow a message when it's our
+  // coordinator's (same term), or when it's a legitimate takeover:
+  //   - the sender is a member of the room (in `order`),
+  //   - the term is newer, but by at most MAX_TERM_STEP (a takeover adds
+  //     one; a few in quick succession can add a little more), and
+  //   - our coordinator has gone (isUp says so), or the sender is the one
+  //     the room would pick next without it (the first player still up in
+  //     the order, the same rule onMemberLeft uses).
+  // So a larger number alone doesn't make anyone the coordinator. If two
+  // players took over in the same term, the one earlier in the order wins.
+  // Before we have a coordinator (just joined, when nobody is a member yet
+  // to us), the first player to speak with a term is followed; once we've
+  // named the next coordinator ourselves (ours left), its newer term is.
+  // view: { term, coordinatorId, order, isUp(id) }
+  const MAX_TERM_STEP = 3;
   function acceptsCoordinator(view, from, term) {
-    if (typeof term !== 'number' || !Number.isFinite(term)) return false;
-    if (term !== view.term) return term > view.term;
-    if (from === view.coordinatorId) return true;
-    const a = rankIn(view.order, from);
-    const b = rankIn(view.order, view.coordinatorId);
+    if (typeof term !== 'number' || !Number.isFinite(term) || term < 0) return false;
+    const order = view.order || [];
+    if (view.coordinatorId == null) return true;
+    if (from === view.coordinatorId) return term >= view.term && term - view.term <= MAX_TERM_STEP;
+    if (!order.includes(from)) return false;
+    if (term > view.term) {
+      if (term - view.term > MAX_TERM_STEP) return false;
+      const isUp = typeof view.isUp === 'function' ? view.isUp : () => true;
+      if (!isUp(view.coordinatorId)) return true;
+      return pickCoordinator(order.filter((id) => id !== view.coordinatorId), isUp) === from;
+    }
+    if (term < view.term) return false;
+    const a = rankIn(order, from);
+    const b = rankIn(order, view.coordinatorId);
     return a < b || (a === b && from < view.coordinatorId);
   }
 
@@ -226,5 +246,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);
