@@ -390,13 +390,21 @@
     return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
   }
   // Whether this player is the room's owner, as the room has it.
+  // As on QB Reader, a room's owner counts only while the room is private:
+  // in a public room nobody has a crown, mutes, bans or controls the
+  // settings (the built-in rooms are always public).
+  function roomIsPrivate() { return !myState.publicLobby && roomSetting('isPublic', true) === false; }
+  function isOwner(p) { return !!(p && p.owner) && roomIsPrivate(); }
+  // QB Reader's crown.
+  const CROWN = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="crown-icon mp-crown me-1" viewBox="0 0 24 24" role="img" aria-label="Room owner"><path fill="#F5C518" stroke="#B8860B" stroke-width="1" stroke-linejoin="round" d="M2 8l4.5 3L12 4l5.5 7L22 8l-2 11H4L2 8z"/></svg>';
   function amOwner() {
     const me = game.players.find((p) => p.id === myState.myId);
     return !!(me && me.owner);
   }
   // Mutes are by player ID (pid), or by connection for a player without one.
   function muteKey(p) { return p && (p.pid || (p.id ? 'id:' + p.id : null)); }
-  function isMuted(p) { const k = muteKey(p); return !!k && (game.muted || []).includes(k); }
+  // Mutes are the owner's, so they hold only while the room is private.
+  function isMuted(p) { const k = muteKey(p); return !!k && roomIsPrivate() && (game.muted || []).includes(k); }
   function renderPlayerList(container) {
     // Your name as the room has it ("Henry 2" when another Henry got there
     // first) goes in the username box, unless you're typing in it.
@@ -422,18 +430,19 @@
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
       else if (!p.offline && p.id === game.buzzedPlayerId && game.phase === 'answering') item.classList.add('buzzed');
       // As on QB Reader, other online players get a small menu beside their
-      // name with "Votekick" in it; the room's owner also gets Mute and Ban
-      // there (and Ban for offline players). The owner has a crown.
+      // name with "Votekick" in it; in a private room its owner also gets
+      // Mute and Ban there (and Ban for offline players), has a crown, and
+      // can't be vote kicked.
       const others = p.id !== myState.myId;
-      const canKick = !p.offline && p.id && others;
-      const ownerTools = amOwner() && others && !p.owner && (p.offline ? !!p.pid : !!p.id);
+      const canKick = !p.offline && p.id && others && !isOwner(p);
+      const ownerTools = amOwner() && roomIsPrivate() && others && !p.owner && (p.offline ? !!p.pid : !!p.id);
       const menu = [];
       if (canKick) menu.push('<li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li>');
       if (ownerTools && !p.offline) menu.push(`<li><button type="button" class="dropdown-item" data-mute>${isMuted(p) ? 'Unmute' : 'Mute'}</button></li>`);
       if (ownerTools) menu.push('<li><button type="button" class="dropdown-item text-danger" data-ban title="Remove this player from the room for good">Ban</button></li>');
       item.innerHTML = `<div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <span class="${menu.length ? 'me-2' : 'me-1'}">${p.owner ? '<span class="mp-crown" title="Room owner" aria-label="Room owner">&#128081;</span>' : ''}${escapeHtml(p.name)}${isMuted(p) ? '<span class="mp-muted" title="Muted by the room owner" aria-label="muted">&#128263;</span>' : ''}</span>
+            <span class="${menu.length ? 'me-2' : 'me-1'}">${isOwner(p) ? CROWN : ''}${escapeHtml(p.name)}${isMuted(p) ? '<span class="mp-muted" title="Muted by the room owner" aria-label="muted">&#128263;</span>' : ''}</span>
             ${menu.length ? `<div class="dropdown ms-1">
               <button class="btn btn-default dropdown-toggle py-0 px-1" type="button" data-sb-dropdown aria-label="Actions for ${escapeHtml(p.name)}"></button>
               <ul class="dropdown-menu">${menu.join('')}</ul>
@@ -516,7 +525,7 @@
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
       ['Online?', plain(p.offline ? 'No' : 'Yes')],
-    ].concat(p.owner ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
+    ].concat(isOwner(p) ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
     clearTimeout(popoverHideTimer);
@@ -754,7 +763,7 @@
       nextBtn.dataset.mode = 'next';
       document.getElementById('mpQDisplay').textContent = '';
     } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
-      nextBtn.textContent = 'Skip';
+      nextBtn.textContent = isRealSkip() ? 'Skip' : 'Next';
       nextBtn.dataset.mode = 'skip';
       nextBtn.title = canSkip(null) ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
     } else if (game.phase === 'answering') {
@@ -1066,7 +1075,7 @@
   function hostVotekick(voterId, targetId) {
     const voter = hostPlayers.get(voterId);
     const target = hostPlayers.get(targetId);
-    if (!voter || !target || voterId === targetId) return;
+    if (!voter || !target || voterId === targetId || isOwner(target)) return;
     const tell = (text) => { if (voterId === myState.myId) logEvent('You', text); else host.sendTo(voterId, { type: 'votekickRefused', text }); };
     if (!(voter.correct > 0)) { tell('can only vote kick once you\'ve answered a question correctly'); return; }
     let vk = votekicks.get(targetId);
@@ -1192,7 +1201,7 @@
   }
   function hostOwnerAction(connId, action, targetId, targetPid) {
     const by = hostPlayers.get(connId);
-    if (!by || !by.owner) return;
+    if (!isOwner(by)) return;
     const online = targetId ? hostPlayers.get(targetId) : null;
     const offline = !online && targetPid ? departedPlayers.get(targetPid) : null;
     const target = online || offline;
@@ -1223,10 +1232,16 @@
   // question while it's read or open for buzzing, except the room's owner,
   // and anyone once the reading is over in a room with no timer (where
   // nothing else would end the question).
+  // Moving on is a skip while the question is being read, or open for
+  // buzzing on the clock. With the timer off, a question that has been read
+  // in full waits for Next: that's the end of it, not a skip.
+  function isRealSkip() {
+    return game.phase === 'reading' || (game.phase === 'buzzwindow' && roomSetting('timer', true));
+  }
   function canSkip(connId) {
     if (roomSetting('skip', true)) return true;
     const p = connId ? hostPlayers.get(connId) : game.players.find((x) => x.id === myState.myId);
-    if (p && p.owner) return true;
+    if (isOwner(p)) return true;
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
@@ -1245,19 +1260,22 @@
   }
 
   // Whatever depends on who owns the room: the controlled-room lock on the
-  // settings, the controlled switch, the record in the room list.
+  // settings, the controlled and public switches, the record in the room
+  // list. As on QB Reader, a room is never both public and controlled.
   function refreshOwnerControls() {
     const owner = amOwner();
-    const controlled = !!roomSetting('controlled', false);
+    const controlled = !!roomSetting('controlled', false) && roomIsPrivate();
     const locked = controlled && !owner;
     const fieldset = document.getElementById('mpRoomSettings');
     if (fieldset) fieldset.disabled = locked;
-    document.getElementById('mpControlledNote').classList.toggle('d-none', !locked);
-    // The switch is there in rooms with an owner, and only the owner can use it.
+    // The switch is there in rooms with an owner; only the owner can use
+    // it, and only while the room is private.
     document.getElementById('mpControlledRow').classList.toggle('d-none', !game.ownerKey);
     const sw = document.getElementById('mpToggleControlled');
     sw.checked = controlled;
-    sw.disabled = !owner;
+    sw.disabled = !owner || !roomIsPrivate();
+    // A controlled room stays private until it's made uncontrolled.
+    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
     // Skip follows "Allow skips" and who's the owner.
     if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip(null);
     saveRoomRecord();
@@ -1383,8 +1401,8 @@
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') {
-      if (!canSkip(connId)) { host.sendTo(connId, { type: 'notice', text: 'can\'t skip: skipping is turned off in this room' }); return; }
-      if (hostGame.phase === 'reading' || hostGame.phase === 'buzzwindow') hostEvent(connId, 'skipped the question');
+      if (!canSkip(connId)) return;
+      if (isRealSkip()) hostEvent(connId, 'skipped the question');
       hostSkipQuestion();
       return;
     }
@@ -2215,7 +2233,9 @@
       if (info && !info.legacy) game.banned = (info.banned || []).slice();
       const mine = await myOwnerKey(false);
       me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
-      activeFilterState.controlled = !!game.ownerKey && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
+      // Only a private room can be controlled (as on QB Reader).
+      activeFilterState.controlled = !!game.ownerKey && activeFilterState.isPublic === false
+        && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
     } else {
       activeFilterState.controlled = false;
     }
@@ -2379,10 +2399,11 @@
     return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
   // A named room: opened public unless the link says private=true, and
-  // controlled when it says controlled=true (for a new room).
+  // controlled when it says controlled=true (for a new room). As on QB
+  // Reader, a controlled room is private too.
   function joinNamedRoom(name, isPrivate, isControlled) {
     myState.roomName = name;
-    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate), controlled: !!isControlled }, key: name });
+    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate && !isControlled), controlled: !!isControlled }, key: name });
   }
 
   function initPublicLobbies() {
@@ -2577,8 +2598,8 @@
   }
   function doSkip() {
     if (game.phase !== 'reading' && game.phase !== 'buzzwindow') return;
-    if (!canSkip(null)) { logEvent('You', 'can\'t skip: skipping is turned off in this room'); return; }
-    if (myState.role === 'host') { hostEvent(myState.myId, 'skipped the question'); hostSkipQuestion(); }
+    if (!canSkip(null)) return;
+    if (myState.role === 'host') { if (isRealSkip()) hostEvent(myState.myId, 'skipped the question'); hostSkipQuestion(); }
     else if (client) client.send({ type: 'skip' });
   }
   function handleNextBtn() {
@@ -2914,10 +2935,14 @@
     if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
     // A controlled room's settings are its owner's to change, and so is the
-    // switch itself; a room without an owner can't be controlled.
+    // switch itself; a room without an owner can't be controlled. As on QB
+    // Reader, only a private room can be (or have) an owner's: a public room
+    // is never controlled, and a controlled one stays private until it's made
+    // uncontrolled.
     const sender = hostPlayers.get(byConnId || myState.myId);
     const byOwner = !!(sender && sender.owner);
-    if (before.controlled && !byOwner) {
+    const wasControlled = before.controlled && before.isPublic === false;
+    if (wasControlled && !byOwner) {
       const text = 'can\'t change the settings: only the room owner can in a controlled room';
       if ((byConnId || myState.myId) === myState.myId) logEvent('You', text);
       else host.sendTo(byConnId, { type: 'notice', text });
@@ -2926,7 +2951,9 @@
       showSettingsFromState();
       return;
     }
-    values = { ...values, controlled: byOwner ? !!values.controlled && !!game.ownerKey : before.controlled };
+    if (wasControlled && values.controlled) values = { ...values, isPublic: false };
+    const mayControl = byOwner && !!game.ownerKey && before.isPublic === false && values.isPublic === false;
+    values = { ...values, controlled: mayControl && !!values.controlled };
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
@@ -2948,6 +2975,21 @@
       activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, skip: next.skip, controlled: next.controlled, timer: next.timer, isPublic: next.isPublic };
     }
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
+    // The timer switched during the buzz window: on, the countdown starts
+    // (a full one: the question has been read); off, it stops, and the
+    // question waits for Next.
+    if (before.timer !== activeFilterState.timer && hostGame.phase === 'buzzwindow' && hostGame.currentFull) {
+      if (activeFilterState.timer) {
+        if (!hostGame.timer) {
+          const full = hostGame.currentFull.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
+          hostRunTimer(full, 'buzz', () => hostReveal());
+        }
+      } else if (hostGame.timer) {
+        clearHostTimer();
+        host.broadcast({ type: 'tick', remainingMs: 0, totalMs: hostGame.totalMs, kind: 'buzz' });
+        applyTickLocal(0, hostGame.totalMs, 'buzz');
+      }
+    }
     broadcastSettingsState(byConnId, values.seq);
     showSettingsFromState();
     beatSoon();

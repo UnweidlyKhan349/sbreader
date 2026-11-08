@@ -36,13 +36,10 @@
     if (!name) return null;
     return SBData.meta.tournaments.find((t) => t.name.toLowerCase() === name || t.slug === name) || null;
   }
-  // The questions to read, in order: the chosen packets of the chosen set
-  // (packet order), the starred questions, or random questions matching the
-  // filters (mixed evenly across subjects).
-  function buildPool() {
-    if (settings.mode === 'starred') {
-      return SBData.stratifiedQueue(SBData.filterQuestions({ bookmarkedOnly: true }), (q) => q.subject);
-    }
+  // The questions the settings match, in no particular order (random and
+  // starred), or in reading order (a set's chosen packets).
+  function matchingQuestions() {
+    if (settings.mode === 'starred') return SBData.filterQuestions({ bookmarkedOnly: true });
     if (settings.mode === 'set') {
       const t = setTournament();
       if (!t) return [];
@@ -50,19 +47,26 @@
       const chosen = SBPlay.parsePacketNumbers(settings.packetNumbers, packets.length);
       return [].concat(...chosen.map((n) => packets[n - 1].questions)).filter((q) => subjects.has(q.subject));
     }
-    return SBData.stratifiedQueue(SBData.filterQuestions({
+    return SBData.filterQuestions({
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
       includeUnlabeled: settings.includeUnlabeled !== false,
-    }), (q) => q.subject);
+    });
+  }
+  // The questions to read, in order: the chosen packets of the chosen set
+  // (packet order), or the starred questions or random questions matching
+  // the filters, mixed evenly across subjects.
+  function buildPool(matches) {
+    const qs = matches || matchingQuestions();
+    return settings.mode === 'set' ? qs : SBData.stratifiedQueue(qs, (q) => q.subject);
   }
 
-  function updateMatchCount() {
+  function updateMatchCount(matches) {
     const el = document.getElementById('matchCount');
     // The sidebar shows before the question bank has arrived.
     if (!SBData.questions) { el.textContent = 'Loading questions…'; return; }
-    const n = buildPool().length;
+    const n = (matches || matchingQuestions()).length;
     if (settings.mode === 'starred') {
       el.textContent = '';
       document.getElementById('starredInfo').textContent = n ? '' : 'No starred questions.';
@@ -72,11 +76,18 @@
   }
 
   // A settings change applies from the next question: the not-yet-asked part
-  // of the queue is rebuilt (without anything already asked).
+  // of the queue is rebuilt then (without anything already asked). Only the
+  // count is worked out now: a dragged slider changes the settings many
+  // times a second, and filtering and shuffling the whole bank twice on each
+  // made the sidebar lag.
   function onSettingsChange() {
     save();
-    updateMatchCount();
-    if (!sessionActive()) return;
+    if (!SBData.questions) { updateMatchCount(); return; }
+    updateMatchCount(matchingQuestions());
+    if (sessionActive()) session.queueStale = true;
+  }
+  function rebuildQueue() {
+    session.queueStale = false;
     const asked = new Set(session.queue.slice(0, session.index + 1).map((q) => q.id));
     const rest = buildPool().filter((q) => !asked.has(q.id));
     session.queue = session.queue.slice(0, session.index + 1).concat(rest);
@@ -240,6 +251,8 @@
   /* ================= GAME STATE ================= */
   const session = {
     queue: [], index: -1,
+    // The settings changed since the queue was made (see onSettingsChange).
+    queueStale: false,
     correct: 0, incorrect: 0, skipped: 0, points: 0,
     // Celerity: how much of each question had been read when you buzzed
     // and got it right, averaged (as a percentage).
@@ -271,6 +284,7 @@
     }
     session.queue = pool;
     session.index = -1;
+    session.queueStale = false;
     nextQuestion();
   }
 
@@ -296,6 +310,7 @@
   }
 
   function nextQuestion() {
+    if (session.queueStale) rebuildQueue();
     if (session.index + 1 >= session.queue.length && settings.mode !== 'starred') {
       // As on QB Reader: an alert, and the last question stays where it is.
       window.alert(settings.mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match your settings');
@@ -573,9 +588,17 @@
     clearRuntimeTimer();
     runtime.totalMs = ms; runtime.remainingMs = ms; runtime.timerKind = kind; runtime.onExpire = onExpire;
     renderTick(ms);
+    // Counts the time that has really passed since the last firing, not a
+    // fixed 100 ms: a background tab fires intervals as rarely as once a
+    // second, which made the countdown run up to ten times slow there.
+    // While paused, the time passing isn't counted.
+    let last = Date.now();
     runtime.timer = setInterval(() => {
+      const now = Date.now();
+      const passed = now - last;
+      last = now;
       if (runtime.paused) return;
-      runtime.remainingMs -= 100;
+      runtime.remainingMs -= passed;
       if (runtime.remainingMs <= 0) {
         renderTick(0);
         clearInterval(runtime.timer); runtime.timer = null;
