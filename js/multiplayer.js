@@ -796,7 +796,7 @@
   function renderOverrideLink() {
     const overrideBtn = document.getElementById('mpOverrideBtn');
     overrideBtn.classList.add('d-none');
-    historyEl().querySelectorAll('.mp-inline-override').forEach((el) => el.remove());
+    historyEl().querySelectorAll('.mp-inline-override-wrap').forEach((el) => el.remove());
     if (game.phase !== 'reveal' || !SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) return;
     const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
     const label = mine && mine.correct ? 'I was wrong' : 'I was right';
@@ -807,13 +807,19 @@
       overrideBtn.classList.remove('d-none');
       return;
     }
+    // "I was right | Report", together at the right.
+    const wrap = document.createElement('span');
+    wrap.className = 'float-end mp-inline-override-wrap';
     const link = document.createElement('a');
     link.href = '#';
-    link.className = 'btn btn-link p-0 float-end mp-inline-override';
+    link.className = 'btn btn-link p-0 mp-inline-override';
     link.title = 'Shortcut: q';
     link.textContent = label;
     link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
-    myLine.appendChild(link);
+    wrap.appendChild(link);
+    const q = game.question && ((SBData.byId && SBData.byId.get(game.question.id)) || game.question);
+    if (window.SBReports && q) wrap.append(' | ', SBReports.link(q));
+    myLine.appendChild(wrap);
   }
 
   // The answer under the question, as QB Reader shows it.

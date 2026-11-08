@@ -426,6 +426,20 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
 .room-history .mp-inline-override { line-height: inherit; vertical-align: baseline; border: 0; }
+/* Hidden rooms (empty ones, or "No public rooms." while there are rooms)
+   are still in the list, so Bootstrap's sibling rule takes the top border
+   and corners off whichever item shows first. Put them back on the first
+   and last items that show. */
+#roomList > .list-group-item:not(.d-none) {
+  border-top-width: var(--bs-list-group-border-width);
+  border-top-left-radius: inherit; border-top-right-radius: inherit;
+}
+#roomList > .list-group-item:not(.d-none) ~ .list-group-item:not(.d-none) {
+  border-top-width: 0; border-top-left-radius: 0; border-top-right-radius: 0;
+}
+#roomList > .list-group-item:not(.d-none):not(:has(~ .list-group-item:not(.d-none))) {
+  border-bottom-left-radius: inherit; border-bottom-right-radius: inherit;
+}
 
 /* The room code (or public lobby's name) above the question: click to copy
    an invite link. */

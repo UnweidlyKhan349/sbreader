@@ -183,3 +183,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Play: the timer counts real time in a background tab, and changing a setting (dragging the round slider especially) no longer filters and shuffles the whole bank twice on every move.
 - Multiplayer: as on QB Reader, a room's owner counts only while the room is private (crown, Mute, Ban, controlled rooms and skipping with Allow skips off); the owner's crown is QB Reader's; a room is never both public and controlled. The "controlled room" note and the "can't skip" message are gone.
 - Multiplayer, with the timer off: a question that has been read in full ends with Next, not logged as a skip; switching the timer on starts the buzz countdown, and off stops it.
+- Play and Multiplayer: once a question is answered, a Report link sits to the right of "I was right" / "I was wrong" ("I was right | Report").
+- Multiplayer: "No public rooms." (and the first room showing after hidden empty rooms) keeps its top border and rounded corners.

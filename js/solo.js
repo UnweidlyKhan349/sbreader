@@ -526,8 +526,16 @@
     if (outcome && outcome.attempted) {
       override.textContent = outcome.correct ? 'I was wrong' : 'I was right';
       // On the same line as "Correct sqrt 137", at the right.
-      box.querySelector('.grade-row').appendChild(override);
+      const row = box.querySelector('.grade-row');
+      row.appendChild(override);
       override.classList.remove('d-none');
+      // "I was right | Report"
+      if (window.SBReports) {
+        const sep = document.createElement('span');
+        sep.className = 'text-body-secondary';
+        sep.textContent = '|';
+        row.append(sep, SBReports.link(q));
+      }
     } else {
       override.classList.add('d-none');
     }
