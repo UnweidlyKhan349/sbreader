@@ -167,3 +167,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer: room owners (the creator of a named room) have a crown, and can mute and ban players and make the room controlled (only the owner changes the settings), as on QB Reader. New **Allow skips** switch. Re-run `supabase/schema.sql` so owners, bans and the controlled switch outlast an empty room.
 - Play and Multiplayer: hiding the settings widens the question and the buttons, as on QB Reader.
 - Packet pages: "Source packet | Report", as on the history cards.
+- Multiplayer: offline players are taken off a room's leaderboard a day after they leave, and rooms nobody has been in for 30 days are deleted from the room list (re-run `supabase/schema.sql`).
+- Multiplayer: whoever opens a room sees their own "joined the game", as everyone joining later does.
+- Multiplayer: changing the room's subjects, tournaments or rounds no longer lags: the "questions match" count is one cached filter, and the room's questions are only re-picked when the next question is due (it used to filter and shuffle the whole bank up to four times per click).
+- Bootstrap, PeerJS and supabase-js load from the jsDelivr CDN (fixed versions, integrity-checked, cached by the service worker) instead of copies in the repo.

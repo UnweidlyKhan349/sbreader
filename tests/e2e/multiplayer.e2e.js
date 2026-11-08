@@ -292,11 +292,11 @@ test('the owner can mute and ban; a banned player stays out', async () => {
   assert.match(await g.locator('#mpHistory').innerText(), /are muted in this room/);
   await a.evaluate(() => { window.confirm = () => true; });
   await ownerMenu(a, gName, 'ban');
-  await g.waitForFunction(() => /banned from that room/.test(document.getElementById('joinStatus').textContent), null, { timeout: 15000 });
+  await g.waitForFunction(() => /banned from that room/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 15000 });
   await a.waitForFunction((n) => ![...document.querySelectorAll('.mp-player-row')].some((x) => x.textContent.includes(n)), gName, { timeout: 10000 });
   // Back with the same player ID: turned away.
   const again = await stranger(ctx, server.url, r, gPid);
-  await again.waitForFunction(() => /banned from that room/.test(document.getElementById('joinStatus').textContent), null, { timeout: 20000 });
+  await again.waitForFunction(() => /banned from that room/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 20000 });
   assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
@@ -344,5 +344,18 @@ test('hiding the settings widens the question, as on QB Reader', async () => {
   assert.ok(after > before * 1.25, `${before} -> ${after}`);
   await a.locator('#mpSettingsBtn').click();
   assert.ok(Math.abs(await width() - before) < 2);
+  await ctx.close();
+});
+
+test('whoever opens a room, and whoever joins it, sees their own "joined the game"', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const aName = await myName(a);
+  await a.waitForFunction((n) => document.getElementById('mpHistory').innerText.includes(`${n} joined the game`), aName, { timeout: 10000 });
+  const g = await strangerIn(ctx, server.url, r);
+  const gName = await myName(g);
+  await g.waitForFunction((n) => document.getElementById('mpHistory').innerText.includes(`${n} joined the game`), gName, { timeout: 10000 });
+  await a.waitForFunction((n) => document.getElementById('mpHistory').innerText.includes(`${n} joined the game`), gName, { timeout: 10000 });
   await ctx.close();
 });

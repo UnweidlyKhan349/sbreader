@@ -11,7 +11,10 @@
      is fetched from the network first, revalidated with the server, so it's
      always current, and the cached copy is used only when the network fails
      (offline).
-   - Other sites (Supabase, PeerJS, fonts) aren't touched.
+   - The libraries from the jsDelivr CDN (Bootstrap, PeerJS, supabase-js)
+     have their exact version in the address, so they're cached the same
+     way, and Play still works offline.
+   - Other sites (Supabase, the PeerJS broker) aren't touched.
 
    To switch it off for everyone, replace this file with one that calls
    self.registration.unregister() and clears the caches. */
@@ -26,12 +29,17 @@ self.addEventListener('activate', (event) => {
 });
 
 function stamped(url) { return url.searchParams.has('v'); }
+// A library at a fixed version on the CDN: /npm/<name>@1.2.3/...
+const CDN = 'https://cdn.jsdelivr.net';
+function pinnedCdn(url) { return url.origin === CDN && /^\/npm\/(@[^/]+\/)?[^/@]+@\d+\.\d+\.\d+\//.test(url.pathname); }
 
 // Drops the cached copies of this file under other stamps.
+// (For a CDN library, the same file at another version.)
+function unversioned(u) { return u.origin + (u.origin === CDN ? u.pathname.replace(/@\d+\.\d+\.\d+\//, '/') : u.pathname); }
 async function dropOlder(cache, url) {
   for (const req of await cache.keys()) {
     const u = new URL(req.url);
-    if (u.pathname === url.pathname && u.search !== url.search) await cache.delete(req);
+    if (unversioned(u) === unversioned(url) && u.href !== url.href) await cache.delete(req);
   }
 }
 
@@ -40,7 +48,7 @@ async function cacheFirst(request, url) {
   const hit = await cache.match(request);
   if (hit) return hit;
   const res = await fetch(request);
-  if (res.ok && res.type === 'basic') {
+  if (res.ok && (res.type === 'basic' || res.type === 'cors')) {
     await cache.put(request, res.clone());
     dropOlder(cache, url);
   }
@@ -67,6 +75,7 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
+  if (pinnedCdn(url)) { event.respondWith(cacheFirst(request, url)); return; }
   if (url.origin !== self.location.origin) return;
   // Only this site's own files (the worker's folder and below).
   const scope = new URL(self.registration.scope);

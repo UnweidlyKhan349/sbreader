@@ -130,11 +130,12 @@ test('a takeover is followed only from a member, by a small step, and from the r
   assert.strictEqual(acceptsCoordinator({ ...view, coordinatorId: 'a' }, 'a', 99), false);
 });
 
-test('a player who left stays on the list, offline, for good', () => {
+test('a player who left stays on the list, offline, for a day', () => {
   const { stillOffline } = globalThis.SBMpRules;
   const now = Date.now();
   assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 365 * 24 * 3600 * 1000 }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - 23 * 3600 * 1000 }, now), true);
+  assert.strictEqual(stillOffline({ leftAt: now - 25 * 3600 * 1000 }, now), false);
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
 });
 

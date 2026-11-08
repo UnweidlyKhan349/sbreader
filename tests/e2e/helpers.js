@@ -37,7 +37,11 @@ const FAKE_PEER = fs.readFileSync(path.join(__dirname, 'fake-peer.js'), 'utf8');
 async function newContext(browser, opts = {}) {
   const ctx = await browser.newContext({ viewport: opts.viewport || { width: 1300, height: 900 }, serviceWorkers: 'block' });
   if (!opts.liveSupabase) await ctx.route(/supabase\.co/, (r) => r.abort());
-  await ctx.route(/peerjs\.min\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: FAKE_PEER }));
+  // The real PeerJS comes from the CDN with an integrity hash, so another
+  // file can't stand in for it: the fake is put in place before the page's
+  // scripts run, and the real one isn't loaded.
+  await ctx.addInitScript(FAKE_PEER);
+  await ctx.route(/peerjs\.min\.js/, (r) => r.abort());
   if (opts.lagMs || opts.noDirect) {
     await ctx.addInitScript(({ lag, noDirect }) => { window.__LAG_MS = lag || 0; window.__NO_DIRECT = !!noDirect; }, { lag: opts.lagMs, noDirect: opts.noDirect });
   }

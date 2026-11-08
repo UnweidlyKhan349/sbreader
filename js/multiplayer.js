@@ -386,7 +386,8 @@
   let openStatsFor = null;
   // The players who've left, as rows for the leaderboard.
   function offlineRows() {
-    return (game.departed || []).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
+    const now = Date.now();
+    return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
   }
   // Whether this player is the room's owner, as the room has it.
   function amOwner() {
@@ -1008,7 +1009,7 @@
   function resetHostGame() {
     clearHostTimer();
     Object.assign(hostGame, {
-      queue: [], index: -1, phase: 'lobby',
+      queue: [], index: -1, phase: 'lobby', queueStale: false,
       buzzedConnId: null, buzzedDuringReading: false, anyAttempt: false,
       lockedOutIds: new Set(), remainingMs: 0, totalMs: 0, timerKind: null,
       timerAnchorAt: null, timerRemainingAtAnchor: 0,
@@ -1034,6 +1035,12 @@
     departedPlayers.delete(p.pid);
     departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, owner: !!p.owner, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
+  }
+  // Offline players are taken off the leaderboard a day after they left
+  // (SBMpRules.OFFLINE_KEEP_MS).
+  function pruneDeparted() {
+    const now = Date.now();
+    departedPlayers.forEach((d, pid) => { if (!SBMpRules.stillOffline(d, now)) departedPlayers.delete(pid); });
   }
   function hostPlayerLeft(connId, quiet) {
     const p = hostPlayers.get(connId);
@@ -1261,6 +1268,7 @@
 
   function broadcastLobby() {
     game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null, owner: !!p.owner }));
+    pruneDeparted();
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     refreshOwnerControls();
@@ -1421,7 +1429,7 @@
       }).catch((err) => { hostGame.waitingForBank = false; setMatchCountText(`Couldn't load the questions: ${err.message}`); });
       return;
     }
-    if (hostGame.index < 0 && !hostGame.queue.length) onBankLoaded();
+    if (hostGame.queueStale || (hostGame.index < 0 && !hostGame.queue.length)) rebuildQueue();
     clearHostTimer();
     hostGame.index++;
     hostGame.buzzedConnId = null;
@@ -2029,6 +2037,7 @@
     clearHostTimer();
     Object.assign(hostGame, {
       queue: playing ? [cur].concat(tail) : tail,
+      queueStale: false,
       index: playing ? 0 : -1,
       phase: playing ? game.phase : 'lobby',
       currentFull: playing ? cur : null,
@@ -2144,6 +2153,10 @@
       isPermanent: !!myState.publicLobby,
     }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
   }
+  // After a settings change (a dragged slider makes many): one heartbeat,
+  // a second after the last.
+  let beatTimer = null;
+  function beatSoon() { clearTimeout(beatTimer); beatTimer = setTimeout(beat, 1000); }
   function startHeartbeat() {
     if (heartbeatTimer) clearInterval(heartbeatTimer);
     setTimeout(beat, 300);
@@ -2172,9 +2185,10 @@
     activeFilterState = copyFilters(filters);
     // A room the list knows keeps whether it's listed (not what a link says).
     if (!lobby && info && info.exists && typeof info.isPublic === 'boolean') activeFilterState.isPublic = info.isPublic;
-    // The questions, if the bank is here already; otherwise once it is
-    // (onBankLoaded), and the first question waits for it.
-    hostGame.queue = bankLoaded() ? queueFor(activeFilterState) : [];
+    // The questions are picked when the game starts (rebuildQueue), which
+    // waits for the question bank if it's still loading.
+    hostGame.queue = [];
+    hostGame.queueStale = true;
     game.total = hostGame.queue.length;
     myState.myName = name;
     const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid, owner: false };
@@ -2208,12 +2222,15 @@
       // schema predates them).
       const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0 };
       if (r.pid === myState.pid) { Object.assign(me, stats); return; }
-      departedPlayers.set(r.pid, { pid: r.pid, name: r.username, ...stats, leftAt: Date.parse(r.last_seen) || Date.now() });
+      const entry = { pid: r.pid, name: r.username, ...stats, leftAt: Date.parse(r.last_seen) || Date.now() };
+      if (SBMpRules.stillOffline(entry, Date.now())) departedPlayers.set(r.pid, entry);
     });
     hostPlayers.set(mesh.id, me);
     enterRoomAs(roomId, name, lobby);
     showSettingsFromState();
     broadcastLobby();
+    // The room's first line, as for everyone who comes in after.
+    hostEvent(mesh.id, 'joined the game');
     fullRenderFromState();
   }
 
@@ -2240,10 +2257,7 @@
   // The questions arrived after the room opened: the queue (for whoever
   // runs the game) and the sidebar's count catch up.
   function onBankLoaded() {
-    if (myState.role === 'host' && hostGame.index < 0 && activeFilterState && !hostGame.queue.length) {
-      hostGame.queue = queueFor(activeFilterState);
-      game.total = hostGame.queue.length;
-    }
+    if (myState.role === 'host' && hostGame.index < 0) hostGame.queueStale = true;
     if (midGameSettingsWired) updateMidGameMatchCount();
   }
 
@@ -2649,12 +2663,26 @@
   }
 
   function setMatchCountText(text) { document.getElementById('mpSettingsMatchCount').textContent = text; }
+  // How many questions a set of settings matches: a plain filter (no
+  // shuffling), and the last answer is kept, since one change asks several
+  // times (this player's click, the room's echo, the repaint).
+  const countCache = { key: null, n: 0 };
+  function countFor(v) {
+    const key = JSON.stringify([v.mode, v.setName, v.packetNumbers, [...v.subjects].sort(), [...(v.tournaments || [])].sort(), v.roundRange, v.includeUnlabeled !== false]);
+    if (countCache.key === key) return countCache.n;
+    const n = v.mode === 'set' ? queueFor(v).length : SBData.filterQuestions({
+      subjects: v.subjects, roundRange: v.roundRange, includeUnlabeled: v.includeUnlabeled !== false, tournaments: v.tournaments,
+    }).length;
+    countCache.key = key;
+    countCache.n = n;
+    return n;
+  }
   function updateMidGameMatchCount() {
     const moved = midGameRoundSliderApi && midGameRoundSliderApi.setMax(SBData.maxRoundFor(midGameFilterState.tournaments));
     if (moved) midGameFilterState.roundRange = moved;
     // Until the question bank is here, there's nothing to count yet.
     if (!bankLoaded()) { setMatchCountText('Loading questions…'); return; }
-    const n = queueFor(midGameFilterState).length;
+    const n = countFor(midGameFilterState);
     setMatchCountText(`${n.toLocaleString()} question${n === 1 ? '' : 's'} match the room's settings`);
     // The packet dropdown lists the chosen set's packets.
     const t = tournamentBySlug(midGameFilterState.setName);
@@ -2895,17 +2923,16 @@
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
 
     const next = copyFilters(values);
-    let pool = bankLoaded() ? queueFor(next) : [];
     if (!bankLoaded()) {
       // The questions aren't here yet: take the settings as they are, and
       // the queue is made from them once they arrive (onBankLoaded).
       activeFilterState = next;
-    } else if (pool.length) {
-      const askedIds = new Set(hostGame.queue.slice(0, hostGame.index + 1).map((q) => q.id));
-      pool = pool.filter((q) => !askedIds.has(q.id));
-      hostGame.queue = hostGame.queue.slice(0, hostGame.index + 1).concat(pool);
-      game.total = hostGame.queue.length;
+    } else if (countFor(next) > 0) {
+      // The questions still to come are made from these settings when the
+      // next question is due (rebuildQueue), not on every click: shuffling
+      // the whole bank each time made the sidebar lag.
       activeFilterState = next;
+      hostGame.queueStale = true;
     } else {
       // Nothing matches yet (someone is still choosing): keep the questions
       // as they are, but the switches still take effect.
@@ -2914,7 +2941,18 @@
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
     broadcastSettingsState(byConnId, values.seq);
     showSettingsFromState();
-    beat();
+    beatSoon();
+  }
+
+  // The not-yet-asked part of the queue, from the room's current settings
+  // (after they've changed; see hostApplySettingsFromValues).
+  function rebuildQueue() {
+    hostGame.queueStale = false;
+    if (!bankLoaded() || !activeFilterState) return;
+    const done = hostGame.queue.slice(0, hostGame.index + 1);
+    const asked = new Set(done.map((q) => q.id));
+    hostGame.queue = done.concat(queueFor(activeFilterState).filter((q) => !asked.has(q.id)));
+    game.total = hostGame.queue.length;
   }
 
   // Sends the sidebar's settings to whoever runs the game (or applies them,

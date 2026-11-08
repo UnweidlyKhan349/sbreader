@@ -83,6 +83,7 @@ alter table public.mp_players add column if not exists negs integer not null def
 alter table public.mp_players add column if not exists cel_sum real not null default 0 check (cel_sum between 0 and 100000);
 alter table public.mp_players add column if not exists cel_n integer not null default 0 check (cel_n between 0 and 100000);
 create index if not exists mp_players_last_seen on public.mp_players (last_seen desc);
+create index if not exists mp_rooms_updated_at on public.mp_rooms (updated_at);
 
 alter table public.mp_rooms enable row level security;
 alter table public.mp_players enable row level security;
@@ -143,6 +144,14 @@ begin
     raise exception 'bad secret';
   end if;
   h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
+  -- Rooms nobody has been in for 30 days are deleted, with their players
+  -- (added November 2026). The built-in pub-* rooms are kept. It runs on
+  -- every heartbeat; with the index on updated_at it costs next to nothing
+  -- when there's nothing to delete.
+  delete from mp_rooms where not is_permanent and updated_at < now() - interval '30 days';
+  -- And players who haven't been seen for a day, in every room (the site
+  -- takes offline players off the leaderboard after a day too).
+  delete from mp_players where last_seen < now() - interval '1 day';
   -- The room: created by the first player to report it; only that player
   -- can change whether it's listed. Built-in rooms are always public.
   insert into mp_rooms (name, is_public, is_permanent, owner_hash, updated_at)

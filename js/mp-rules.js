@@ -73,9 +73,11 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
-  // Players who leave stay in the room's player list, marked offline, for
-  // good (as on QB Reader): this only checks the entry is well formed.
-  const OFFLINE_KEEP_MS = Infinity;
+  // Players who leave stay in the room's player list, marked offline, with
+  // their score, for a day; then they're taken off (the room list deletes
+  // their saved row after a day too). This checks the entry is well formed
+  // and recent enough.
+  const OFFLINE_KEEP_MS = 24 * 60 * 60 * 1000;
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
   }
