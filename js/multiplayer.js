@@ -701,6 +701,9 @@
     return activeFilterState && activeFilterState[key] !== undefined ? activeFilterState[key] : fallback;
   }
 
+  // "Toss-up 10 of 24" when the room reads a set; "Toss-up 10" otherwise.
+  function labelOpts() { return { ofPacket: roomSetting('mode', 'random') === 'set' }; }
+
   function fullRenderFromState() {
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderQuestionLog();
@@ -717,8 +720,8 @@
     document.getElementById('mpQFigures').style.display = game.question && game.question.visual ? '' : 'none';
     document.getElementById('mpQuestionPanel').classList.toggle('mp-lobby-compact', game.phase === 'lobby');
     const info = document.getElementById('mpQuestionInfo');
-    if (game.question && game.phase === 'reveal' && game.lastRevealData) SBPlay.linkQuestionInfo(info, game.question, game.lastRevealData.sourceUrl || null);
-    else info.textContent = game.question && game.phase !== 'lobby' ? SBData.sourceLabelFor(game.question) : '';
+    if (game.question && game.phase === 'reveal' && game.lastRevealData) SBPlay.linkQuestionInfo(info, game.question, game.lastRevealData.sourceUrl || null, labelOpts());
+    else info.textContent = game.question && game.phase !== 'lobby' ? SBData.sourceLabelFor(game.question, ' ', labelOpts()) : '';
     document.getElementById('mpTimer').classList.toggle('d-none', !roomSetting('timer', true));
 
     revealBox.style.display = 'none';
@@ -813,7 +816,7 @@
     html += `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(r.answerText, r.letter, r.accept, r.reject).replace(/^Answer: /, '')}</p>`;
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
-    SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null);
+    SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null, labelOpts());
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
     if (game.question.choices && r.letter) {

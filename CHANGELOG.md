@@ -175,4 +175,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer: at the end of the questions (a set's packets, or everything matching the room's settings) everyone gets Play's alert ("You have reached the end of the set") and stays in the room, back before the first question; Start plays it again. The game-over page is gone.
 - Play and Multiplayer: the set name box losing focus no longer clears the packets just picked.
 - Browser tests run in about a minute instead of three (files in parallel, no fixed pause after joining a room); four duplicate or trivial ones removed.
-- The question label names the toss-up or bonus: "BASED 2025 Round Robin 1 Toss-up 10 of 24" / "Bonus 10 of 24".
+- The question label names the toss-up or bonus ("Prometheus 2021 RR 3 Bonus 19"); in Select by Set Name it also gives the packet's size ("BASED 2025 Round Robin 1 Toss-up 10 of 24").

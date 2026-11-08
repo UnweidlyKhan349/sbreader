@@ -331,7 +331,7 @@
     setNextButtonMode('skip');
     setBuzzEnabled(true);
     document.getElementById('pauseBtn').disabled = false;
-    document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q);
+    document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q, ' ', { ofPacket: settings.mode === 'set' });
     document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => {
       el.classList.remove('reveal-correct');
       el.classList.remove('clickable');
@@ -503,7 +503,7 @@
     parkOverride();
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
-    SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
+    SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl, { ofPacket: settings.mode === 'set' });
     box.style.display = 'block';
 
     // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
