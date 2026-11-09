@@ -88,13 +88,25 @@
       <select id="tournamentSelect" aria-label="Tournaments"></select>
     </div>
     <div class="col-12 col-md-6">
-      <div class="d-flex align-items-center gap-2 h-100 px-1">
-        <span class="text-nowrap" id="roundRangeLabel">Rounds 1-17</span>
-        <div class="dual-slider flex-grow-1" id="roundSlider">
-          <div class="track"></div>
-          <div class="range-fill" id="roundSliderFill"></div>
-          <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
-          <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
+      <!-- The round slider, and the year slider to its right. -->
+      <div class="d-flex flex-wrap flex-sm-nowrap align-items-center column-gap-3 row-gap-2 h-100 px-1">
+        <div class="d-flex align-items-center gap-2 flex-grow-1 w-100">
+          <span class="text-nowrap" id="roundRangeLabel">Rounds 1-17</span>
+          <div class="dual-slider flex-grow-1" id="roundSlider">
+            <div class="track"></div>
+            <div class="range-fill" id="roundSliderFill"></div>
+            <input type="range" id="roundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
+            <input type="range" id="roundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1 w-100">
+          <span class="text-nowrap" id="yearRangeLabel">Years</span>
+          <div class="dual-slider flex-grow-1" id="yearSlider">
+            <div class="track"></div>
+            <div class="range-fill" id="yearSliderFill"></div>
+            <input type="range" id="yearMin" step="1" aria-label="Earliest year" />
+            <input type="range" id="yearMax" step="1" aria-label="Latest year" />
+          </div>
         </div>
       </div>
     </div>
@@ -131,7 +143,7 @@
   <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
-<script src="js/catalog.js?v=ec775ea883"></script>
+<script src="js/catalog.js?v=debd7fd5e8"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=5fa454813f"></script>
 <script src="js/account.js?v=f08deae102"></script>

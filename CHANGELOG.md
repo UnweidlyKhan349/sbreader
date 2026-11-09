@@ -211,3 +211,9 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - About: each keyboard shortcut is on its own line.
 - The tournament dropdowns say how many tournaments there are when all of them are chosen (or none, which means all): "All tournaments (113)".
 - Database: the All text / Question / Answer select and the Min Year / Max Year boxes are gone; searches look at the question, answer and tournament name, with Ignore word order as before. (Play and Multiplayer keep their year range.)
+- Database: a **Years** slider to the right of the round slider (under it on a phone).
+- Play and Multiplayer: the year range slider moved under the round slider; in Play, **Allow rebuzzes** comes before Type to answer.
+- Frequency lists: the TXT/CSV downloads and the level, limit and question type pickers are back.
+- Log in and sign up: the eye button turns into a crossed-out eye while the password shows, and back, as on QB Reader.
+- Multiplayer, Select by Set Name: with the set name still blank, a subject switched off no longer switches itself back on (the room kept its old filters whenever the settings matched no questions; it now takes them, and keeps its questions until a change matches some).
+- Multiplayer: "Dev started a vote kick against Henry (1/2)" (no "which needs 2 votes").

@@ -1106,7 +1106,7 @@
       lastVotekickBy.set(key, Date.now());
       vk = { voters: new Set([voterId]), threshold: SBMpRules.votekickThreshold(hostPlayers.size) };
       votekicks.set(targetId, vk);
-      hostEvent(voterId, `started a vote kick against ${target.name}, which needs ${vk.threshold} votes (1/${vk.threshold})`);
+      hostEvent(voterId, `started a vote kick against ${target.name} (1/${vk.threshold})`);
     } else {
       if (vk.voters.has(voterId)) return;
       vk.voters.add(voterId);
@@ -3058,9 +3058,12 @@
       activeFilterState = next;
       hostGame.queueStale = true;
     } else {
-      // Nothing matches yet (someone is still choosing): keep the questions
-      // as they are, but the switches still take effect.
-      activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, skip: next.skip, controlled: next.controlled, timer: next.timer, isPublic: next.isPublic };
+      // Nothing matches yet (someone is still choosing, say a set name not
+      // typed yet): the room takes the settings as they are, subjects
+      // included, but the questions still to come stay as they were until a
+      // change matches some. (Keeping the old filters here undid every
+      // subject click while the set name was blank.)
+      activeFilterState = next;
     }
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
     // The timer switched during the buzz window: on, the countdown starts

@@ -148,19 +148,19 @@
       </div>
       <div id="mpRandomSettings">
         <div class="mb-2"><select id="mpSettingsTournamentSelect" aria-label="Tournaments"></select></div>
-        <div id="mpSettingsYearRangeLabel">Year range</div>
-        <div class="dual-slider mb-2" id="mpSettingsYearSlider">
-          <div class="track"></div>
-          <div class="range-fill" id="mpSettingsYearSliderFill"></div>
-          <input type="range" id="mpSettingsYearMin" step="1" aria-label="Earliest year" />
-          <input type="range" id="mpSettingsYearMax" step="1" aria-label="Latest year" />
-        </div>
         <div id="mpSettingsRoundRangeLabel">Rounds 1-17</div>
         <div class="dual-slider" id="mpSettingsRoundSlider">
           <div class="track"></div>
           <div class="range-fill" id="mpSettingsRoundSliderFill"></div>
           <input type="range" id="mpSettingsRoundMin" min="1" max="17" value="1" step="1" aria-label="Lowest round" />
           <input type="range" id="mpSettingsRoundMax" min="1" max="17" value="17" step="1" aria-label="Highest round" />
+        </div>
+        <div class="mt-2" id="mpSettingsYearRangeLabel">Year range</div>
+        <div class="dual-slider" id="mpSettingsYearSlider">
+          <div class="track"></div>
+          <div class="range-fill" id="mpSettingsYearSliderFill"></div>
+          <input type="range" id="mpSettingsYearMin" step="1" aria-label="Earliest year" />
+          <input type="range" id="mpSettingsYearMax" step="1" aria-label="Latest year" />
         </div>
         <div class="form-check form-switch mt-2">
           <input class="form-check-input" id="mpToggleUnlabeled" type="checkbox" role="switch" checked />
@@ -286,6 +286,6 @@
 <script src="js/question-stats.js?v=dd0e3a179d"></script>
 <script src="js/rooms.js?v=d9eb269320"></script>
 <script src="js/play-common.js?v=ce2fd98739"></script>
-<script src="js/multiplayer.js?v=b656465c7c"></script>
+<script src="js/multiplayer.js?v=cbf92d5e58"></script>
 </body>
 </html>

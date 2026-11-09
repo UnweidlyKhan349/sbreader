@@ -60,6 +60,58 @@ test('Database: ignore word order (on by default); no search-in select or year b
   await ctx.close();
 });
 
+test('Database: a year slider to the right of the rounds narrows the results', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'catalog');
+  await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
+  const all = await results(page);
+  const box = async (sel) => page.locator(sel).boundingBox();
+  const [rounds, years] = [await box('#roundSlider'), await box('#yearSlider')];
+  assert.ok(years.x > rounds.x + rounds.width - 1 && Math.abs(years.y - rounds.y) < 5, 'beside the round slider, on its right');
+  assert.match(await page.locator('#yearRangeLabel').innerText(), /^Years \d{4}-\d{4}$/);
+  await page.evaluate(() => { const el = document.getElementById('yearMin'); el.value = 2025; el.dispatchEvent(new Event('input', { bubbles: true })); });
+  await page.waitForTimeout(300);
+  const some = await results(page);
+  assert.ok(some > 0 && some < all);
+  await page.locator('#clearFilters').click();
+  assert.strictEqual(await results(page), all);
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
+
+test('Login: the eye shows the password and turns into a crossed-out eye, which hides it again', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'login');
+  await page.fill('#loginPassword', 'secret123');
+  const btn = page.locator('[data-toggle-password]');
+  const icon = () => btn.innerHTML();
+  const eye = await icon();
+  await btn.click();
+  assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'text');
+  assert.strictEqual(await btn.getAttribute('aria-label'), 'Hide password');
+  assert.notStrictEqual(await icon(), eye, 'the icon changes');
+  await btn.click();
+  assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'password');
+  assert.strictEqual(await icon(), eye, 'and changes back');
+  await ctx.close();
+});
+
+test('Multiplayer, Select by Set Name with no set yet: subjects can still be switched off', async () => {
+  const ctx = await newContext(browser);
+  const r = 'e2e' + Math.random().toString(36).slice(2, 8);
+  const a = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  await a.selectOption('#mpSetMode', 'set');
+  await b.waitForFunction(() => document.getElementById('mpSetMode').value === 'set', null, { timeout: 10000 });
+  await a.locator('#mpSubjectButtons .btn-subject[data-subject="math"]').click();
+  await a.waitForTimeout(800);
+  const mathOn = (p) => p.evaluate(() => document.querySelector('#mpSubjectButtons .btn-subject[data-subject="math"]').classList.contains('active'));
+  assert.strictEqual(await mathOn(a), false, 'it stays off');
+  await b.waitForFunction(() => !document.querySelector('#mpSubjectButtons .btn-subject[data-subject="math"]').classList.contains('active'), null, { timeout: 10000 });
+  assert.deepStrictEqual([...a.errors, ...b.errors], []);
+  await ctx.close();
+});
+
 test('Database cards: the title (with round and question) links the source; Stats | Report beside the answer; no footer; stats from everyone', async () => {
   const { ctx } = await statsContext({ heard: 10, correct: 6, incorrect: 1, negs: 2, unanswered: 1, cel_sum: 3, cel_n: 6 });
   const page = await openPage(ctx, server.url + 'catalog');
@@ -108,6 +160,8 @@ test('Play: with Type to answer off, Buzz becomes Reveal, the answer counts as r
   assert.ok(['incorrect', 'neg'].includes(plays[0].p_result), plays[0].p_result);
   assert.strictEqual(plays[0].p_mode, 'solo');
   assert.strictEqual(await page.locator('#toggleShowHistory').count(), 0, 'Show question history is gone');
+  const switches = await page.$$eval('#generalSettings .form-switch input', (xs) => xs.map((x) => x.id));
+  assert.deepStrictEqual(switches.slice(0, 2), ['toggleRebuzz', 'toggleTypeToAnswer'], 'Allow rebuzzes comes first');
   assert.strictEqual(await page.locator('#toggleShowSetName').count(), 0, 'Show set name is gone');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
@@ -120,6 +174,8 @@ test('Play: the year range narrows the questions', async () => {
   const count = () => page.locator('#matchCount').innerText().then((t) => parseInt(t.replace(/,/g, ''), 10));
   const all = await count();
   assert.match(await page.locator('#yearRangeLabel').innerText(), /^Year range: \d{4} - \d{4}$/);
+  const below = async (a, b) => (await page.locator(a).boundingBox()).y > (await page.locator(b).boundingBox()).y;
+  assert.ok(await below('#yearSlider', '#roundSlider'), 'the year slider is under the round slider');
   await page.evaluate(() => { const el = document.getElementById('yearMin'); el.value = 2025; el.dispatchEvent(new Event('input', { bubbles: true })); });
   await page.waitForTimeout(300);
   assert.ok(await count() < all);
@@ -148,7 +204,7 @@ test('Multiplayer: a year range set by one player reaches the room, which hears 
   await ctx.close();
 });
 
-test('Set and packet pages link their sources; packet questions have no tag line; frequency lists have no downloads or pickers', async () => {
+test('Set and packet pages link their sources; packet questions have no tag line; frequency lists keep their downloads and pickers', async () => {
   const ctx = await newContext(browser);
   const set = await openPage(ctx, server.url + 'set?set=ncb-fall-2026');
   await set.waitForSelector('.set-source', { timeout: 30000 });
@@ -161,9 +217,11 @@ test('Set and packet pages link their sources; packet questions have no tag line
   assert.doesNotMatch(text, /Download packet|<Physics|Report/);
   const freq = await openPage(ctx, server.url + 'frequency-list?subject=bio');
   await freq.waitForSelector('#frequency-list tr', { timeout: 30000 });
-  assert.strictEqual(await freq.locator('select').count(), 0);
-  assert.doesNotMatch(await freq.locator('#freqPage').innerText(), /Download this page|Choose a/);
+  assert.deepStrictEqual(await freq.locator('select').evaluateAll((xs) => xs.map((x) => x.id)), ['level-select', 'limit-select', 'question-type-select']);
+  assert.match(await freq.locator('#freqPage').innerText(), /Download this page:\s*TXT\s*CSV/);
   assert.strictEqual(await freq.locator('#frequency-list tr').count(), 50);
+  await freq.selectOption('#limit-select', '25');
+  assert.strictEqual(await freq.locator('#frequency-list tr').count(), 25);
   assert.deepStrictEqual([...set.errors, ...packet.errors, ...freq.errors], []);
   await ctx.close();
 });
