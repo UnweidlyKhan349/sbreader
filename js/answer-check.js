@@ -1711,16 +1711,14 @@
     ['KILOELECTRON VOLTS?|KILOELECTRONVOLTS?', 'KEV'], ['MEGAELECTRON VOLTS?|MEGAELECTRONVOLTS?', 'MEV'],
     ['ELECTRON VOLTS?|ELECTRONVOLTS?|ELECTRON-VOLTS?', 'EV'],
     ['KILOWATT[ -]HOURS?', 'KWH'], ['LIGHT[ -]YEARS?', 'LY'], ['ASTRONOMICAL UNITS?', 'AU'],
-    // milli and mega share a capital symbol here (MW, MV, MJ); checkAnswer
-    // tells them apart afterwards (see unitPrefixConflict)
-    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?|MILLIJOULES?', 'MJ'], ['JOULES?', 'J'],
+    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?', 'MJ'], ['JOULES?', 'J'],
     ['KILONEWTONS?', 'KN'], ['NEWTONS?', 'N'],
-    ['KILOWATTS?', 'KW'], ['MEGAWATTS?|MILLIWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
-    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?|MEGAVOLTS?', 'MV'], ['VOLTS?', 'V'],
+    ['KILOWATTS?', 'KW'], ['MEGAWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
+    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?', 'MV'], ['VOLTS?', 'V'],
     ['MILLIAMPERES?|MILLIAMPS?', 'MA'], ['AMPERES?|AMPS?', 'A'],
     ['OHMS?|Ω', 'OHM'], ['COULOMBS?', 'C'], ['FARADS?', 'F'], ['HENRIES|HENRYS?', 'H'], ['TESLAS?', 'T'],
     ['KILOHERTZ', 'KHZ'], ['MEGAHERTZ', 'MHZ'], ['GIGAHERTZ', 'GHZ'], ['HERTZ', 'HZ'],
-    ['KILOPASCALS?', 'KPA'], ['MEGAPASCALS?', 'MPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
+    ['KILOPASCALS?', 'KPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
     ['KELVINS?', 'K'], ['DEGC', 'DEGC'], ['DEGF', 'DEGF'], ['DEGREES?|°', 'DEG'],
     ['KILOMETERS?|KILOMETRES?', 'KM'], ['CENTIMETERS?|CENTIMETRES?', 'CM'], ['MILLIMETERS?|MILLIMETRES?', 'MM'],
     ['NANOMETERS?|NANOMETRES?', 'NM'], ['METERS?|METRES?', 'M'],
@@ -1774,90 +1772,17 @@
     }
     return out;
   }
-  // ---- Case-sensitive unit prefixes ----
-  // Grading compares text uppercased, which folds milli (m) into mega (M) and
-  // pico (p) into peta (P): "5 mW" would pass for "5 MW", a billionfold
-  // difference. So the prefix of each such unit after a number is read on
-  // its own: from a spelled-out word in any case ("megawatts"), or from the
-  // symbol's case when that answer is written in mixed case ("5 mW"). A key
-  // typed all in capitals (much of the bank: "25 MM", "-80 MV") says nothing
-  // by its case, so its question decides ("in megawatts", "to the nearest
-  // 10 mV") or, failing that, either prefix passes; so does a typed answer
-  // with no lowercase letters ("5 MW") or none in capitals ("5 mw").
-  const PREFIXES = { m: 'MILLI', M: 'MEGA', p: 'PICO', P: 'PETA' };
-  const PREFIX_UNITS = [
-    ['W', 'WATTS?'], ['J', 'JOULES?'], ['V', 'VOLTS?'], ['A', 'AMPS?|AMPERES?'], ['Hz', 'HERTZ'],
-    ['Pa', 'PASCALS?'], ['g', 'GRAMS?'], ['m', 'METERS?|METRES?'], ['s', 'SECONDS?'], ['L', 'LITERS?|LITRES?'],
-    ['eV', 'ELECTRON[ -]?VOLTS?'], ['N', 'NEWTONS?'], ['C', 'COULOMBS?'], ['F', 'FARADS?'],
-    ['H', 'HENRYS?|HENRIES'], ['T', 'TESLAS?'], ['mol', 'MOLES?'], ['K', 'KELVINS?'],
-  ];
-  const PREFIX_SYMBOL = '([mMpP])(' + PREFIX_UNITS.map(([s]) => s).join('|') + ')(?![A-Za-z])';
-  const PREFIX_WORD = '(MILLI|MEGA|PICO|PETA)[ -]?(' + PREFIX_UNITS.map(([, w]) => w).join('|') + ')\\b';
-  const PREFIX_WORD_RE = new RegExp('\\b' + PREFIX_WORD, 'gi');
-  // after a number: a symbol (groups 1-2, in any case) or a word (3-4)
-  const PREFIXED_UNIT_RE = new RegExp('\\d\\s*(?:' + PREFIX_SYMBOL + '|' + PREFIX_WORD + ')', 'gi');
-  // a symbol in a question, in its own case, after a number or "in"/"of"
-  const QUESTION_SYMBOL_RE = new RegExp('(?:\\d\\s*|\\b(?:in|of)\\s+)' + PREFIX_SYMBOL, 'g');
-  function unitBase(text) {
-    const up = text.toUpperCase();
-    const hit = PREFIX_UNITS.find(([sym, word]) => sym.toUpperCase() === up || new RegExp('^(?:' + word + ')$').test(up));
-    return hit ? hit[0] : null;
-  }
-  // [{ base, prefix }] for each prefixed unit after a number, in order;
-  // prefix is null when it can't be told.
-  function prefixedUnits(text, cased) {
-    const s = String(text == null ? '' : text);
-    const out = [];
-    for (const m of s.matchAll(PREFIXED_UNIT_RE)) {
-      if (m[1]) {
-        // read in its own case, the symbol must still be a unit ("Pa" is
-        // pascals, not peta-"a")
-        if (cased && !PREFIX_UNITS.some(([u]) => u === m[2])) continue;
-        out.push({ base: unitBase(m[2]), prefix: cased ? PREFIXES[m[1]] : null });
-      } else {
-        out.push({ base: unitBase(m[4]), prefix: m[3].toUpperCase() });
-      }
-    }
-    return out;
-  }
-  // What a question says a capitals-only key's prefix is: one prefix named
-  // with that unit, spelled out or as a mixed-case symbol.
-  function prefixFromQuestion(questionText, base) {
-    const q = String(questionText || '');
-    const found = new Set();
-    for (const m of q.matchAll(PREFIX_WORD_RE)) if (unitBase(m[2]) === base) found.add(m[1].toUpperCase());
-    if (/[a-z]/.test(q)) {
-      for (const m of q.matchAll(QUESTION_SYMBOL_RE)) if (m[2] === base) found.add(PREFIXES[m[1]]);
-    }
-    return found.size === 1 ? [...found][0] : null;
-  }
-  function unitPrefixConflict(typed, key, questionText) {
-    const casedText = (t) => /[a-z]/.test(t) && /[A-Z]/.test(t);
-    const tu = prefixedUnits(typed, casedText(String(typed)));
-    if (!tu.length) return false;
-    const keyCased = /[a-z]/.test(String(key));
-    const ku = prefixedUnits(key, keyCased).map((u) => (u.prefix || !u.base ? u : { ...u, prefix: prefixFromQuestion(questionText, u.base) }));
-    if (tu.length !== ku.length) return false;
-    return tu.some((t, i) => t.base && t.base === ku[i].base && t.prefix && ku[i].prefix && t.prefix !== ku[i].prefix);
-  }
-
   // The last word on any match: an answer whose operators, comparison or
-  // charges contradict the key and every accept (see operatorConflict), or
-  // whose unit prefixes do (see unitPrefixConflict), is wrong, however it
-  // matched (unit rewriting, word order, typo tolerance and the part-by-part
-  // checks all compare text with the symbols and case gone).
+  // charges contradict the key and every accept (see operatorConflict) is
+  // wrong, however it matched (unit rewriting, word order, typo tolerance
+  // and the part-by-part checks all compare text with the symbols gone).
   function checkAnswer(question, userInput) {
     const result = checkAnswerInner(question, userInput);
     if (!result.correct || !question.answer || question.format === 'MC') return result;
-    const wrong = { correct: false, matched: null, rejected: false };
-    const all = [question.answer.text, ...(question.answer.accept || [])].filter(Boolean);
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says
     // nothing about "NO3^(+)".
-    const keys = all.filter((k) => operatorsOf(k).size);
-    if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return wrong;
-    // Likewise only the forms with a prefixed unit: "5 MW" or "5 megawatts".
-    const unitKeys = all.filter((k) => prefixedUnits(k, false).length);
-    if (unitKeys.length && unitKeys.every((k) => unitPrefixConflict(userInput, k, question.question))) return wrong;
+    const keys = [question.answer.text, ...(question.answer.accept || [])].filter((k) => k && operatorsOf(k).size);
+    if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return { correct: false, matched: null, rejected: false };
     return result;
   }
   function checkAnswerInner(question, userInput) {

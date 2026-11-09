@@ -413,22 +413,6 @@ test('a math answer is only matched out of order when it is the same expression'
   assert.ok(isCorrect('SATURN AND JUPITER', 'jupiter saturn'));
 });
 
-test('unit prefixes keep their case: milli is not mega', () => {
-  const q = (question) => ({ question });
-  for (const [key, typed, extra] of [
-    ['5 mW', '5 MW, I think'], ['5 mW', '5 megawatts'], ['5 MeV', '5 meV'], ['3 pm', '3 Pm'],
-    // a key in capitals: the question names the prefix
-    ['5 MW', '5 mW', q('What is the output, in megawatts?')], ['-80 MV', '-80 megavolts', q('To the nearest 10 mV, what is it?')],
-  ]) assert.ok(!isCorrect(key, typed, extra), `${typed} for ${key}`);
-  for (const [key, typed, extra] of [
-    ['5 mW', '5 mW'], ['5 mW', '5 milliwatts'], ['5 MW', '5 megawatts'], ['2 mmol', '2 mmol'], ['5 kPa', '5 kPa'],
-    ['5 MW', '5 MW', q('What is the output, in megawatts?')], ['-80 MV', '-80 mV', q('To the nearest 10 mV, what is it?')],
-    // capitals say nothing by their case: typed in capitals, or a key in
-    // capitals whose question doesn't say
-    ['5 mW', '5 MW'], ['25 MM', '25 mm'], ['8 PM', '8 pm'], ['5 MW', '5 mw', q('in megawatts?')],
-  ]) assert.ok(isCorrect(key, typed, extra), `${typed} for ${key}`);
-});
-
 test('across the corpus, flipping one sign, charge, operation or inequality in a key makes it wrong', () => {
   // Checking each key against itself can't catch an answer that's accepted
   // when it shouldn't be; this mutates every key that has a symbol. The

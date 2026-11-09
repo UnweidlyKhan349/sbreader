@@ -132,8 +132,6 @@
         </span>
         <input class="form-control" id="mpUsername" type="text" placeholder="Username" maxlength="24" autocomplete="off" aria-label="Username" />
       </div>
-      <p class="small-note mb-2 d-none" id="mpPermanentNote">This is a permanent room. Some settings have been restricted.</p>
-      <p class="small-note mb-2 d-none" id="mpControlledNote">This is a controlled room. Some settings can only be edited by the creator.</p>
       <fieldset id="mpRoomSettings">
       <label class="form-check-label mb-1" for="mpSetMode">Choose a mode:</label>
       <select class="form-select mb-2" id="mpSetMode">
@@ -194,6 +192,11 @@
         <div class="mb-2"></div>
         <label for="mpSettingsRateSlider">Reading speed: <span id="mpSettingsRateValue">50</span><br></label>
         <input class="form-range" id="mpSettingsRateSlider" type="range" min="0" max="100" step="5" value="50" />
+        <!-- as on QB Reader: under the reading speed, italic and muted -->
+        <p class="mb-1 text-body-secondary">
+          <i class="d-none" id="mpPermanentNote">This is a permanent room. Some settings have been restricted.</i>
+          <i class="d-none" id="mpControlledNote">This is a controlled room. Some settings can only be edited by the creator.</i>
+        </p>
       </div>
       </fieldset>
       <div>
@@ -273,7 +276,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" integrity="sha384-nlUQ8ZqCbvStErob+biJNzSgltf6urV3VGqhfIfzhmg9RXmpeRm76ELw0pYnKlTR" crossorigin="anonymous"></script>
-<script src="js/answer-check.js?v=525200671c"></script>
+<script src="js/answer-check.js?v=bd65137de1"></script>
 <script src="js/reveal.js?v=521ef128b7"></script>
 <script src="js/peer.js?v=8eca107f30"></script>
 <script src="js/mp-rules.js?v=74e869c565"></script>
