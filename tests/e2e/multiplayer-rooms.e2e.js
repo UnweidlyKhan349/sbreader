@@ -76,7 +76,7 @@ test('the room\'s creator has a crown; a controlled room\'s settings are theirs 
   await ctx.close();
 });
 
-test('with Allow skips off, only the owner can skip', async () => {
+test('with Allow skips off, nobody can skip, the owner included', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, privateRoom(r));
@@ -85,15 +85,41 @@ test('with Allow skips off, only the owner can skip', async () => {
   await g.waitForFunction(() => !document.getElementById('mpToggleSkip').checked, null, { timeout: 10000 });
   await a.locator('#mpNextBtn').click();
   await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Skip', null, { timeout: 15000 });
+  await a.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Skip', null, { timeout: 15000 });
   assert.strictEqual(await g.locator('#mpNextBtn').isDisabled(), true, 'others can\'t skip');
-  assert.strictEqual(await a.locator('#mpNextBtn').isDisabled(), false, 'the owner can');
-  await g.locator('body').click({ position: { x: 400, y: 300 } });
-  await g.keyboard.press('s');
+  assert.strictEqual(await a.locator('#mpNextBtn').isDisabled(), true, 'nor can the owner');
+  for (const p of [g, a]) {
+    await p.locator('body').click({ position: { x: 400, y: 300 } });
+    await p.keyboard.press('s');
+  }
   await g.waitForTimeout(600);
-  assert.notStrictEqual(await a.evaluate(() => document.getElementById('mpNextBtn').textContent), 'Next', 's did nothing for the other player');
+  for (const p of [a, g]) assert.strictEqual(await p.evaluate(() => document.getElementById('mpNextBtn').textContent), 'Skip', 's did nothing');
+  assert.ok(!/skipped the question/.test(await g.locator('#mpHistory').innerText()), 'nothing was skipped');
   assert.ok(!/can.t skip/.test(await g.locator('#mpHistory').innerText()), 'no message about it');
+  await ctx.close();
+});
+
+test('with rebuzzes off, a wrong answer locks the owner out too', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
+  const g = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await a.locator('#mpToggleRebuzz').isChecked(), false, 'rebuzzes are off by default');
   await a.locator('#mpNextBtn').click();
-  await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next', null, { timeout: 10000 });
+  await a.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 15000 });
+  await a.locator('#mpBuzzBtn').click();
+  await a.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 10000 });
+  await a.locator('#mpAnswerInput').fill('zzzz not it');
+  await a.keyboard.press('Enter');
+  await g.waitForFunction(() => /Incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  await a.waitForTimeout(400);
+  assert.strictEqual(await a.locator('#mpBuzzBtn').isDisabled(), true, 'the owner can\'t buzz again');
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.keyboard.press(' ');
+  await a.waitForTimeout(600);
+  assert.ok(await a.locator('#mpAnswerRow').evaluate((x) => x.classList.contains('d-none')), 'space didn\'t buzz either');
+  assert.strictEqual(await g.locator('#mpBuzzBtn').isDisabled(), false, 'the other player still can');
+  assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
 

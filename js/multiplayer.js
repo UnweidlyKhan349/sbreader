@@ -766,7 +766,7 @@
     const amLocked = game.lockedOut.has(myState.myId);
     buzzBtn.disabled = !((game.phase === 'reading' || game.phase === 'buzzwindow') && !amLocked);
     nextBtn.disabled = game.phase === 'answering'
-      || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip(null));
+      || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip());
     // As on QB Reader, the first button is a green Start before the game.
     nextBtn.classList.toggle('btn-success', game.phase === 'lobby');
     nextBtn.classList.toggle('btn-primary', game.phase !== 'lobby');
@@ -778,7 +778,7 @@
     } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
       nextBtn.textContent = isRealSkip() ? 'Skip' : 'Next';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.title = canSkip(null) ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
+      nextBtn.title = canSkip() ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
     } else if (game.phase === 'answering') {
       nextBtn.textContent = 'Next';
       nextBtn.title = 'Shortcut: n or s';
@@ -1247,20 +1247,18 @@
     broadcastLobby();
   }
 
-  // Skips, as on QB Reader's "Allow skips": with it off, nobody can skip a
-  // question while it's read or open for buzzing, except the room's owner,
-  // and anyone once the reading is over in a room with no timer (where
-  // nothing else would end the question).
+  // Skips: with "Allow skips" off, nobody can skip a question while it's
+  // read or open for buzzing, the room's owner included. Only once the
+  // reading is over in a room with no timer (where nothing else would end
+  // the question) can anyone move on.
   // Moving on is a skip while the question is being read, or open for
   // buzzing on the clock. With the timer off, a question that has been read
   // in full waits for Next: that's the end of it, not a skip.
   function isRealSkip() {
     return game.phase === 'reading' || (game.phase === 'buzzwindow' && roomSetting('timer', true));
   }
-  function canSkip(connId) {
+  function canSkip() {
     if (roomSetting('skip', true)) return true;
-    const p = connId ? hostPlayers.get(connId) : game.players.find((x) => x.id === myState.myId);
-    if (isOwner(p)) return true;
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
@@ -1318,8 +1316,8 @@
     sw.disabled = !owner || !roomIsPrivate();
     // A controlled room stays private until it's made uncontrolled.
     document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
-    // Skip follows "Allow skips" and who's the owner.
-    if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip(null);
+    // Skip follows "Allow skips".
+    if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
   }
 
@@ -1444,7 +1442,7 @@
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') {
-      if (!canSkip(connId)) return;
+      if (!canSkip()) return;
       if (isRealSkip()) hostEvent(connId, 'skipped the question');
       hostSkipQuestion();
       return;
@@ -2644,7 +2642,7 @@
   }
   function doSkip() {
     if (game.phase !== 'reading' && game.phase !== 'buzzwindow') return;
-    if (!canSkip(null)) return;
+    if (!canSkip()) return;
     if (myState.role === 'host') { if (isRealSkip()) hostEvent(myState.myId, 'skipped the question'); hostSkipQuestion(); }
     else if (client) client.send({ type: 'skip' });
   }
