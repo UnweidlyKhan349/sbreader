@@ -132,6 +132,8 @@
         </span>
         <input class="form-control" id="mpUsername" type="text" placeholder="Username" maxlength="24" autocomplete="off" aria-label="Username" />
       </div>
+      <p class="small-note mb-2 d-none" id="mpPermanentNote">This is a permanent room. Some settings have been restricted.</p>
+      <p class="small-note mb-2 d-none" id="mpControlledNote">This is a controlled room. Some settings can only be edited by the creator.</p>
       <fieldset id="mpRoomSettings">
       <label class="form-check-label mb-1" for="mpSetMode">Choose a mode:</label>
       <select class="form-select mb-2" id="mpSetMode">
@@ -163,7 +165,11 @@
       <div class="mt-2">
         <div class="mb-2" id="mpSubjectButtons"></div>
         <div class="mb-1" id="mpSettingsMatchCount"></div>
-        <button class="btn btn-link p-0" id="mpClearFilters" type="button">Clear all filters</button>
+        <div class="d-flex align-items-baseline">
+          <button class="btn btn-link p-0" id="mpClearFilters" type="button">Clear all filters</button>
+          <!-- a link, not a button, so a controlled room's locked settings don't lock it too -->
+          <a class="ms-auto" href="#" id="mpClearStats" role="button">Clear stats</a>
+        </div>
         <hr>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpTogglePublic" type="checkbox" role="switch" />
@@ -270,13 +276,13 @@
 <script src="js/answer-check.js?v=525200671c"></script>
 <script src="js/reveal.js?v=521ef128b7"></script>
 <script src="js/peer.js?v=8eca107f30"></script>
-<script src="js/mp-rules.js?v=d40222d0e7"></script>
+<script src="js/mp-rules.js?v=74e869c565"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=5fa454813f"></script>
 <script src="js/account.js?v=f08deae102"></script>
 <script src="js/reports.js?v=18c81011cd"></script>
 <script src="js/rooms.js?v=d9eb269320"></script>
 <script src="js/play-common.js?v=bf69450d95"></script>
-<script src="js/multiplayer.js?v=d851db5d34"></script>
+<script src="js/multiplayer.js?v=7c3809ebbc"></script>
 </body>
 </html>

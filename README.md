@@ -52,7 +52,9 @@ Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordma
 ### `index.html` (Home)
 A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer), the question database (live question and tournament counts read from `meta.json` alone, with Search and Set List), the sources, and the code, changelog and licence. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
-### `about.html` (About) and `set-list.html` (Set List)
+### `about.html` (About), `tips.html` (Tips & Instructions) and `set-list.html` (Set List)
+Tips & Instructions follows QB Reader's: a lead line, then short lists under Getting Started, Playing, Answering, Searching the Database, Multiplayer, Accounts & Progress, Keyboard Shortcuts, and Help & Community. The home page's Question Reader card and the About page link to it.
+
 About is laid out like QB Reader's: a lead line, where the packets come from, then questions as headings (Why SB Reader?, How do I play?, What does making an account do?, Does it cost money?, How are answers graded?, What are the keyboard shortcuts?). Set List follows QB Reader's: a "Search set names" box (every word must appear in the name; kept in the URL as `?q=`) over a table of every tournament with its level, approximate date and number of packets, tossups and bonuses, newest first; click a column heading to sort by it, again to reverse (QB Reader's filled carets mark the sorted column). The counts are stored per tournament in `meta.json` (`count`, `tossups`, `bonuses`, `packets`) and refreshed with `node tools/meta-counts.js`; a test checks they match the bank. As on QB Reader, each name opens the set's page (`set.html?set=<slug>`): "View <set> here:", Back to all sets, and a table of its packets (#, name, toss-ups, bonuses). Each packet opens `packet.html?set=<slug>&packet=N`: every question in the packet in reading order ("1. **TOSS-UP** Physics *Short Answer*", the question, its choices and figure), its ANSWER line, and "<Physics / Toss-up / Short Answer> Source packet", with TXT and JSON downloads of the packet. These pages load only that tournament's file (`SBData.loadSet`). The catalog still takes `catalog.html?tournament=<slug>`.
 
 ### `catalog.html` (Database › Search)
@@ -175,7 +177,7 @@ So `128 π` = `128 pi`, `cube root of 35` = `cbrt 35` = `cbrt(35)`, and `square 
 ## Architecture
 
 ```
-index.html  catalog.html  solo.html  multiplayer.html  set-list.html  about.html  account.html  stats.html
+index.html  catalog.html  solo.html  multiplayer.html  set-list.html  about.html  tips.html  account.html  stats.html
 Bootstrap 5.3.8 (stylesheet only), PeerJS 1.5.4 and supabase-js 2.115.0 come from the jsDelivr CDN at fixed versions, with integrity hashes (supabase-js is loaded only when accounts are switched on); sw.js caches them like the site's own files
 css/style.css       QB Reader-style overrides (navbar, Night palette, timer) and the parts Bootstrap has no component for
 js/site.js          theme (Light / Night / Auto) and navbar wiring, loaded in every page's <head>

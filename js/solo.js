@@ -143,6 +143,7 @@
     });
     describeSet();
     document.getElementById('clearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearFilters(); });
+    document.getElementById('clearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearStats(); });
 
     // Random Questions: tournaments and rounds.
     const tSelect = document.getElementById('tournamentSelect');
@@ -295,6 +296,16 @@
     const seen = session.correct + session.incorrect;
     document.getElementById('statline').textContent =
       `${session.correct}/${session.incorrect} with ${seen} question${seen === 1 ? '' : 's'} seen (${session.points} pts, celerity: ${celerityText(session.celeritySum, session.celerityCount)})`;
+  }
+
+  // Clear stats, as on QB Reader: the session's counts, points and celerity
+  // start again from zero; the questions and the history stay.
+  function clearStats() {
+    Object.assign(session, { correct: 0, incorrect: 0, skipped: 0, points: 0, celeritySum: 0, celerityCount: 0 });
+    // The answer on screen was counted before the clear: overriding it now
+    // changes its grade, not the fresh counts.
+    if (runtime.lastOutcome) runtime.lastOutcome.uncounted = true;
+    updateCounters();
   }
 
   function currentQ() { return session.index >= 0 ? session.queue[session.index] : null; }
@@ -558,12 +569,14 @@
   function overrideGrading() {
     if (runtime.phase !== 'reveal' || !runtime.lastOutcome || !runtime.lastOutcome.attempted) return;
     const o = runtime.lastOutcome;
-    session.points -= pointsFor(o);
-    // Celerity follows the override: a correct answer counts toward it.
-    const f = runtime.buzzFraction == null ? 1 : runtime.buzzFraction;
-    if (o.correct) { session.correct--; session.incorrect++; session.celeritySum -= f; session.celerityCount--; } else { session.incorrect--; session.correct++; session.celeritySum += f; session.celerityCount++; }
+    if (!o.uncounted) {
+      session.points -= pointsFor(o);
+      // Celerity follows the override: a correct answer counts toward it.
+      const f = runtime.buzzFraction == null ? 1 : runtime.buzzFraction;
+      if (o.correct) { session.correct--; session.incorrect++; session.celeritySum -= f; session.celerityCount--; } else { session.incorrect--; session.correct++; session.celeritySum += f; session.celerityCount++; }
+    }
     o.correct = !o.correct;
-    session.points += pointsFor(o);
+    if (!o.uncounted) session.points += pointsFor(o);
     updateCounters();
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
     if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect');

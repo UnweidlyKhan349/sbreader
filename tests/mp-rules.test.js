@@ -30,6 +30,8 @@ test('a rename needs a non-blank name, cut to length', () => {
 
 test('extra fields on simple messages are dropped', () => {
   assert.deepStrictEqual(cleanHostMessage({ type: 'buzz', playerId: 'HOST' }, meta), { type: 'buzz' });
+  // Clear stats clears only the sender's own: a named player is dropped.
+  assert.deepStrictEqual(cleanHostMessage({ type: 'clearStats', playerId: 'someone-else' }, meta), { type: 'clearStats' });
 });
 
 test('settings are limited to known values and clamped', () => {

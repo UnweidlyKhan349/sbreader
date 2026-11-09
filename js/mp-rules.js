@@ -45,7 +45,7 @@
 
   // announceRounds: the sender let go of the round slider; the room says what
   // the rounds are now (from its own settings, not the message).
-  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'announceRounds']);
+  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'announceRounds', 'clearStats']);
 
   // A player's ID for the life of their browser, sent with 'join' so a
   // player who drops out and comes back gets their score back. Not a secret: it only ever guards a practice score.

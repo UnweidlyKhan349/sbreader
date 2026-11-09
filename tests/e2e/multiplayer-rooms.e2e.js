@@ -3,7 +3,7 @@
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
-const { chromium, startServer, newContext, joinRoom } = require('./helpers');
+const { chromium, startServer, newContext, joinRoom, openPage } = require('./helpers');
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
@@ -59,8 +59,15 @@ test('the room\'s creator has a crown; a controlled room\'s settings are theirs 
   const aName = await myName(a);
   assert.deepStrictEqual(await crowned(g), [aName], 'only the creator is crowned, on everyone\'s list');
   assert.strictEqual(await g.locator('#mpToggleControlled').isDisabled(), true, 'only the owner has the controlled switch');
+  const note = (p, id) => p.locator('#' + id).isVisible();
+  assert.strictEqual(await note(g, 'mpControlledNote'), false, 'no note before the room is controlled');
   await a.locator('#mpToggleControlled').check();
   await g.waitForFunction(() => document.getElementById('mpRoomSettings').disabled, null, { timeout: 10000 });
+  for (const p of [a, g]) {
+    assert.strictEqual(await note(p, 'mpControlledNote'), true, 'everyone is told the room is controlled');
+    assert.strictEqual(await note(p, 'mpPermanentNote'), false, 'and it isn\'t a permanent room');
+  }
+  assert.match(await g.locator('#mpControlledNote').innerText(), /^This is a controlled room\. Some settings can only be edited by the creator\.$/);
   assert.strictEqual(await a.locator('#mpTogglePublic').isDisabled(), true, 'a controlled room stays private');
   // A change sent anyway (the controls forced back on) is refused and undone.
   const before = await subjectOn(a, 'chem');
@@ -120,6 +127,45 @@ test('with rebuzzes off, a wrong answer locks the owner out too', async () => {
   assert.ok(await a.locator('#mpAnswerRow').evaluate((x) => x.classList.contains('d-none')), 'space didn\'t buzz either');
   assert.strictEqual(await g.locator('#mpBuzzBtn').isDisabled(), false, 'the other player still can');
   assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});
+
+test('a permanent room says some settings are restricted', async () => {
+  const ctx = await newContext(browser);
+  const a = await openPage(ctx, `${server.url}multiplayer?lobby=bio`);
+  await a.waitForFunction(() => document.getElementById('mpPermanentNote') && !document.getElementById('mpPermanentNote').classList.contains('d-none'), null, { timeout: 40000 });
+  assert.strictEqual(await a.locator('#mpPermanentNote').innerText(), 'This is a permanent room. Some settings have been restricted.');
+  assert.strictEqual(await a.locator('#mpControlledNote').isVisible(), false);
+  assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});
+
+test('Clear stats zeroes your own score for the room, also in a controlled room', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
+  const g = await strangerIn(ctx, server.url, r);
+  const gName = await myName(g);
+  await a.locator('#mpToggleControlled').check();
+  await g.waitForFunction(() => document.getElementById('mpRoomSettings').disabled, null, { timeout: 10000 });
+  // A wrong buzz while the question is read: -4.
+  await a.locator('#mpNextBtn').click();
+  await g.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 15000 });
+  await g.locator('#mpBuzzBtn').click();
+  await g.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 10000 });
+  await g.locator('#mpAnswerInput').fill('zzzz not it');
+  await g.keyboard.press('Enter');
+  const score = (p, name) => p.evaluate((n) => {
+    const row = [...document.querySelectorAll('.mp-player-row')].find((x) => x.textContent.includes(n));
+    return row ? Number(row.querySelector('.badge').textContent) : NaN;
+  }, name);
+  await a.waitForFunction((n) => [...document.querySelectorAll('.mp-player-row')].some((x) => x.textContent.includes(n) && x.querySelector('.badge').textContent === '-4'), gName, { timeout: 10000 });
+  await g.locator('#mpClearStats').click();
+  await a.waitForFunction(() => /cleared their stats/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  await g.waitForTimeout(300);
+  assert.strictEqual(await score(a, gName), 0, 'the score is back to zero for everyone');
+  assert.strictEqual(await score(g, gName), 0);
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
 

@@ -1316,6 +1316,9 @@
     sw.disabled = !owner || !roomIsPrivate();
     // A controlled room stays private until it's made uncontrolled.
     document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
+    // As on QB Reader, a note says why some settings can't be changed.
+    document.getElementById('mpPermanentNote').classList.toggle('d-none', !myState.publicLobby);
+    document.getElementById('mpControlledNote').classList.toggle('d-none', !controlled);
     // Skip follows "Allow skips".
     if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
@@ -1460,6 +1463,7 @@
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
     if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
+    if (msg.type === 'clearStats') { hostClearStats(connId); return; }
     if (msg.type === 'votekick') { hostVotekick(connId, msg.targetId); return; }
     if (msg.type === 'ownerAction') { hostOwnerAction(connId, msg.action, msg.targetId, msg.targetPid); return; }
   }
@@ -1476,6 +1480,16 @@
     if (connId === myState.myId) myState.myName = name;
     broadcastLobby();
     hostBroadcastChat('SYSTEM', old, `changed their username to ${name}`, true);
+  }
+
+  // Clear stats, as on QB Reader: a player's own score and counts go back to
+  // zero, and the room is told.
+  function hostClearStats(connId) {
+    const p = hostPlayers.get(connId);
+    if (!p) return;
+    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0 });
+    broadcastLobby();
+    hostEvent(connId, 'cleared their stats');
   }
 
   function hostNextQuestion() {
@@ -2860,6 +2874,7 @@
     });
 
     document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
+    document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
     [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
@@ -3104,6 +3119,11 @@
     document.getElementById('mpChatRow').classList.add('d-none');
     document.getElementById('mpChatInput').value = '';
     document.getElementById('mpChatInput').blur();
+  }
+
+  function doClearStats() {
+    if (myState.role === 'host') hostClearStats(myState.myId);
+    else if (client) client.send({ type: 'clearStats' });
   }
 
   /* ================= YOUR NAME ================= */

@@ -1,6 +1,6 @@
 // Play in a real browser: reading, buzzing, grading and the override, the
 // history cards (k, t, quick double clicks), Space buzzing without opening a
-// focused card, and Clear all filters.
+// focused card, Clear all filters, and Clear stats.
 const test = require('node:test');
 const assert = require('node:assert');
 const { chromium, startServer, newContext, openPage } = require('./helpers');
@@ -59,6 +59,25 @@ test('Space buzzes without toggling a card that was clicked earlier', async () =
   assert.ok(await page.locator('#answerRow').isVisible(), 'Space buzzed');
   assert.ok(await card.locator('.card-container').evaluate((x) => x.classList.contains('show')), 'the card stayed open');
   assert.strictEqual(await page.evaluate(() => JSON.parse(localStorage.getItem('sb_bookmarks_v1') || '[]').length), 1, 'the star stayed on');
+  await ctx.close();
+});
+
+test('Clear stats starts the counts again; overriding the answer already shown leaves them at zero', async () => {
+  const { ctx, page } = await freshPlay();
+  const stats = () => page.locator('#statline').innerText();
+  await page.locator('#nextBtn').click();
+  await page.waitForTimeout(600);
+  await page.keyboard.press(' ');
+  await page.keyboard.type('definitely not the answer');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(600);
+  assert.match(await stats(), /^0\/1 with 1 question seen/);
+  await page.locator('#clearStats').click();
+  assert.strictEqual(await stats(), '0/0 with 0 questions seen (0 pts, celerity: 0.000)');
+  await page.locator('#overrideBtn').click();
+  assert.match(await page.locator('#revealBox').innerText(), /Correct/);
+  assert.strictEqual(await stats(), '0/0 with 0 questions seen (0 pts, celerity: 0.000)');
+  assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });
 
