@@ -151,22 +151,46 @@
     writeBase(set);
   }
 
+  // Every bookmark in the account, or null if any page failed. The server
+  // hands back at most a set number of rows per request (1,000 by default),
+  // and a cut-off list would read as bookmarks deleted elsewhere, so the
+  // rows are read in pages, in question order, until a page comes back
+  // empty (a page shorter than asked for isn't the end: the server's own
+  // limit may be lower).
+  const BOOKMARK_PAGE = 1000;
+  async function fetchAllBookmarks() {
+    const ids = [];
+    let after = null;
+    for (let page = 0; page < 1000; page++) {
+      let q = client.from('bookmarks').select('question_id').order('question_id', { ascending: true }).limit(BOOKMARK_PAGE);
+      if (after !== null) q = q.gt('question_id', after);
+      const { data, error } = await q;
+      if (error || !Array.isArray(data)) return null;
+      if (!data.length) return ids;
+      data.forEach((r) => ids.push(r.question_id));
+      after = data[data.length - 1].question_id;
+    }
+    return null;
+  }
+
   async function syncOnLogin() {
     if (!client || !user) return;
     // Bookmarks: merged against what both sides held at this device's last
-    // sync, so a removal on either side sticks (see mergeBookmarks).
+    // sync, so a removal on either side sticks (see mergeBookmarks). Only a
+    // complete list is merged; without one, nothing is changed this time.
     if (window.SBData && window.SBData.bookmarks) {
-      const { data, error } = await client.from('bookmarks').select('question_id');
-      if (!error) {
+      const remote = await fetchAllBookmarks();
+      if (remote) {
         const local = [...window.SBData.bookmarks.getAll()];
-        const merged = core.mergeBookmarks(local, (data || []).map((r) => r.question_id), readBase());
+        const merged = core.mergeBookmarks(local, remote, readBase());
         let ok = true;
         if (merged.toUpload.length) {
           const r = await client.from('bookmarks').upsert(merged.toUpload.map((id) => ({ question_id: id })), { onConflict: 'user_id,question_id' });
           if (r.error) ok = false;
         }
-        if (merged.toDelete.length) {
-          const r = await client.from('bookmarks').delete().in('question_id', merged.toDelete);
+        // (In batches, so a long list doesn't make too long an address.)
+        for (let i = 0; i < merged.toDelete.length; i += 200) {
+          const r = await client.from('bookmarks').delete().in('question_id', merged.toDelete.slice(i, i + 200));
           if (r.error) ok = false;
         }
         window.SBData.bookmarks.replaceAll(merged.all);

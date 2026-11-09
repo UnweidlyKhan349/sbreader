@@ -87,6 +87,24 @@ test('a star removed on another device stays removed when this device logs in wi
   await ctx.close();
 });
 
+test('more bookmarks than the server returns at once are all read, and none is taken for deleted', async () => {
+  // 1,001 stars on both sides and at the last sync; the server hands back
+  // at most 300 rows a request (less than the site asks for).
+  const seed = () => {
+    const ids = Array.from({ length: 1001 }, (_, i) => i + 1);
+    window.__MAX_ROWS = 300;
+    localStorage.setItem('sb_bookmarks_synced_user-1', JSON.stringify(ids));
+    window.__db = { answers: [], user_settings: [], bookmarks: ids.map((id) => ({ user_id: 'user-1', question_id: id })) };
+  };
+  const { ctx, page } = await signedIn('account', { fn: (s) => { eval(s)(); }, arg: `(${seed})` });
+  await page.evaluate(() => { SBData.bookmarks.replaceAll(Array.from({ length: 1001 }, (_, i) => i + 1)); });
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForTimeout(1200);
+  const r = await page.evaluate(() => ({ local: SBData.bookmarks.getAll().size ?? [...SBData.bookmarks.getAll()].length, remote: __db.bookmarks.length, has1001: [...SBData.bookmarks.getAll()].includes(1001) }));
+  assert.deepStrictEqual(r, { local: 1001, remote: 1001, has1001: true });
+  await ctx.close();
+});
+
 test('account links on a generated packet page point at the site root', async () => {
   const ctx = await browser.newContext({ serviceWorkers: 'block' });
   await routeCdn(ctx);

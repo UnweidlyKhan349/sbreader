@@ -232,6 +232,11 @@
     // panel and the answer box. Reset to null at the start of each question.
     lastGrade: null, log: [], paused: false,
     lastRevealData: null, liveTypingText: '', liveTypingFrom: null,
+    // IDs of every question asked since the room last started from the top,
+    // kept by everyone, so whoever takes over (and any rebuild of the queue
+    // after a settings change) never asks one again. Cleared only at the end
+    // of the questions, when Start begins again.
+    asked: [],
     // Players who've left, with their scores, by pid (host's copy, for
     // whoever takes over).
     departed: [],
@@ -796,17 +801,14 @@
   function renderOverrideLink() {
     const overrideBtn = document.getElementById('mpOverrideBtn');
     overrideBtn.classList.add('d-none');
-    historyEl().querySelectorAll('.mp-inline-override-wrap').forEach((el) => el.remove());
+    historyEl().querySelectorAll('.mp-inline-override').forEach((el) => el.remove());
     document.querySelectorAll('#mpRevealBox .answer-report').forEach((el) => el.remove());
     if (game.phase !== 'reveal') return;
+    // Report at the right of the answer line, for everyone.
     const q = game.question && ((SBData.byId && SBData.byId.get(game.question.id)) || game.question);
-    if (!SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) {
-      // No override for you (you didn't buzz, or the question was skipped):
-      // Report goes at the right of the answer line.
-      const ans = document.querySelector('#mpRevealBox .ans-line');
-      if (ans && window.SBReports && q) ans.prepend(SBPlay.answerReportLink(q));
-      return;
-    }
+    const ans = document.querySelector('#mpRevealBox .ans-line');
+    if (ans && window.SBReports && q) ans.prepend(SBPlay.answerReportLink(q));
+    if (!SBMpRules.canOverrideOwn(game.attempts, myState.myId, game.overrideLocked)) return;
     const mine = game.attempts.filter((x) => x.playerId === myState.myId).pop();
     const label = mine && mine.correct ? 'I was wrong' : 'I was right';
     const myLine = [...historyEl().querySelectorAll('li[data-buzz-player]')]
@@ -816,18 +818,13 @@
       overrideBtn.classList.remove('d-none');
       return;
     }
-    // "I was right | Report", together at the right.
-    const wrap = document.createElement('span');
-    wrap.className = 'float-end mp-inline-override-wrap';
     const link = document.createElement('a');
     link.href = '#';
-    link.className = 'btn btn-link p-0 mp-inline-override';
+    link.className = 'btn btn-link p-0 float-end mp-inline-override';
     link.title = 'Shortcut: q';
     link.textContent = label;
     link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
-    wrap.appendChild(link);
-    if (window.SBReports && q) wrap.append(' | ', SBReports.link(q));
-    myLine.appendChild(wrap);
+    myLine.appendChild(link);
   }
 
   // The answer under the question, as QB Reader shows it.
@@ -1353,6 +1350,7 @@
       lockedOut: [...hostGame.lockedOutIds],
       scores: [...hostPlayers.values()].map((p) => ({ id: p.id, score: p.score })),
       log: game.log,
+      asked: game.asked,
       paused: hostGame.paused,
       rate: myState.rate,
       settings: activeFilterState ? settingsStatePayload() : null,
@@ -1799,6 +1797,7 @@
   function applyQuestionLocal(index, total, sanitized) {
     hideSettingsOnPhone();
     game.index = index; game.total = total; game.question = sanitized;
+    if (sanitized && sanitized.id != null && !game.asked.includes(sanitized.id)) game.asked.push(sanitized.id);
     game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
     game.lastGrade = null; game.attempts = [];
     game.overrideLocked = false;
@@ -1898,7 +1897,7 @@
   function applyEndOfQuestionsLocal(mode) {
     if (revealCtl) { revealCtl.stop(); revealCtl = null; }
     stopClientTickLoop();
-    Object.assign(game, { phase: 'lobby', question: null, index: -1, buzzedPlayerId: null, lockedOut: new Set(), lastGrade: null, attempts: [], overrideLocked: false, lastRevealData: null, paused: false, lastTick: null });
+    Object.assign(game, { phase: 'lobby', question: null, index: -1, buzzedPlayerId: null, lockedOut: new Set(), lastGrade: null, attempts: [], overrideLocked: false, lastRevealData: null, paused: false, lastTick: null, asked: [] });
     fullRenderFromState();
     const text = mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match the room\'s settings';
     setTimeout(() => window.alert(text), 50);
@@ -2064,12 +2063,12 @@
     if (activeFilterState) withLobbySubjects(activeFilterState);
     const filters = activeFilterState || lobbyFilters(myState.publicLobby || { subjects: SBData.meta.subjects.map((x) => x.key) });
     if (!activeFilterState) activeFilterState = copyFilters(filters);
-    const asked = new Set(game.log.map((e) => e.question && e.question.id));
+    const asked = new Set(game.asked);
     const cur = game.question && SBData.byId.get(game.question.id);
     if (cur) asked.add(cur.id);
-    const all = queueFor(filters);
-    const fresh = all.filter((q) => !asked.has(q.id));
-    const tail = fresh.length ? fresh : all;
+    // Nothing left is nothing left: the room reaches the end of the
+    // questions, as it would have, and starts again only with Start.
+    const tail = queueFor(filters).filter((q) => !asked.has(q.id));
     const playing = cur && game.phase !== 'lobby';
     const eng = followerEngine || {};
     clearHostTimer();
@@ -2217,6 +2216,7 @@
     myState.rate = rate;
     resetHostGame();
     game.log = [];
+    game.asked = [];
     hostPlayers.clear();
     departedPlayers.clear();
     hostChat.length = 0;
@@ -2445,6 +2445,8 @@
       game.lockedOut = new Set(msg.lockedOut || []);
       game.paused = msg.paused;
       game.log = msg.log || [];
+      // (A player on an older copy sends no list: what the log shows.)
+      game.asked = Array.isArray(msg.asked) ? msg.asked.slice() : game.log.map((e) => e.question && e.question.id).filter((x) => x != null);
       game.lastRevealData = msg.lastRevealData || null;
       game.lastGrade = msg.lastGrade || null;
       game.attempts = msg.attempts || [];
@@ -2478,6 +2480,7 @@
     if (msg.type === 'question') {
       hideSettingsOnPhone();
       game.index = msg.index; game.total = msg.total; game.question = msg.question;
+      if (msg.question && msg.question.id != null && !game.asked.includes(msg.question.id)) game.asked.push(msg.question.id);
       game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
       game.liveTypingText = ''; game.liveTypingFrom = null;
       game.lastGrade = null; game.attempts = [];
@@ -3015,7 +3018,7 @@
     hostGame.queueStale = false;
     if (!bankLoaded() || !activeFilterState) return;
     const done = hostGame.queue.slice(0, hostGame.index + 1);
-    const asked = new Set(done.map((q) => q.id));
+    const asked = new Set([...game.asked, ...done.map((q) => q.id)]);
     hostGame.queue = done.concat(queueFor(activeFilterState).filter((q) => !asked.has(q.id)));
     game.total = hostGame.queue.length;
   }

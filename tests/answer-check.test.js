@@ -370,6 +370,18 @@ test('a swapped sign, charge, operation or inequality is wrong', () => {
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
 });
 
+test('the same symbols in other places, or the operands in another order, are wrong', () => {
+  for (const [key, typed] of [
+    ['x+y-z', 'x-y+z'], ['a/b', 'b/a'], ['-cos(x) + C', '+cos(x) - C'],
+    ['x^2-1/3x^4 + 2/45x^6', 'x^2+1/3x^4 - 2/45x^6'], ['x^2', '2^x'], ['x+y-z', 'x+z-y'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  // Rearranging terms or factors the way algebra allows is still right.
+  for (const [key, typed] of [
+    ['x+y-z', '-z+y+x'], ['-cos(x) + C', 'C - cos(x)'], ['a*b', 'b*a'], ['y=x+3', 'x+3=y'],
+    ['(x+1)^2', '(1+x)^2'], ['2x+1', '1+2x'], ['x-y+1', '-(y-x)+1'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+});
+
 test('across the corpus, flipping one sign, charge, operation or inequality in a key makes it wrong', () => {
   // Checking each key against itself can't catch an answer that's accepted
   // when it shouldn't be; this mutates every key that has a symbol. The

@@ -85,11 +85,14 @@
   // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
   // is kept to letters, digits and dashes (spaces become dashes), lower
   // case, at most 32 characters; its PeerJS door is sbowl-room-<name>.
+  // "pub-" is the built-in rooms' prefix in the room list ("pub-all" is
+  // General), so a name can't start with it: "pub-all" becomes "all".
   const ROOM_PREFIX = 'sbowl-room-';
   function cleanRoomName(name) {
     return (typeof name === 'string' ? name : '').toLowerCase().trim()
       .replace(/\s+/g, '-').replace(/[^a-z0-9-]+/g, '').replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '').slice(0, 32).replace(/-+$/, '');
+      .replace(/^-+|-+$/g, '').replace(/^(?:pub(?:-|$))+/, '').replace(/^-+/, '')
+      .slice(0, 32).replace(/-+$/, '');
   }
   function roomPeerId(name) {
     const clean = cleanRoomName(name);

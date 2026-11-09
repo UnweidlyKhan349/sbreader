@@ -43,29 +43,46 @@ async function dropOlder(cache, url) {
   }
 }
 
-async function cacheFirst(request, url) {
-  const cache = await caches.open(CACHE);
-  const hit = await cache.match(request);
+// The cache is a convenience: when it can't be opened, read or written (the
+// storage is full, or the browser won't keep anything), the file is still
+// fetched and handed back as if there were no worker.
+async function openCache() {
+  try { return await caches.open(CACHE); } catch (err) { return null; }
+}
+async function cached(cache, request, opts) {
+  if (!cache) return null;
+  try { return (await cache.match(request, opts)) || null; } catch (err) { return null; }
+}
+// Keeps a copy without holding up the response; the worker stays alive
+// until it's written (or has failed, which is ignored).
+function keep(event, cache, request, res, then) {
+  if (!cache) return;
+  const done = cache.put(request, res).then(then).catch(() => {});
+  if (event) event.waitUntil(done);
+}
+
+async function cacheFirst(event, request, url) {
+  const cache = await openCache();
+  const hit = await cached(cache, request);
   if (hit) return hit;
   const res = await fetch(request);
   if (res.ok && (res.type === 'basic' || res.type === 'cors')) {
-    await cache.put(request, res.clone());
-    dropOlder(cache, url);
+    keep(event, cache, request, res.clone(), () => dropOlder(cache, url));
   }
   return res;
 }
 
-async function networkFirst(request) {
-  const cache = await caches.open(CACHE);
+async function networkFirst(event, request) {
+  const cache = await openCache();
   try {
     // no-cache: ask the server every time (a cheap 304 when unchanged), so
     // the browser's own 10-minute cache can't hand back a page from before
     // a deploy.
     const res = await fetch(request, { cache: 'no-cache' });
-    if (res.ok && res.type === 'basic') cache.put(request, res.clone());
+    if (res.ok && res.type === 'basic') keep(event, cache, request, res.clone());
     return res;
   } catch (err) {
-    const hit = await cache.match(request, { ignoreSearch: request.mode === 'navigate' });
+    const hit = await cached(cache, request, { ignoreSearch: request.mode === 'navigate' });
     if (hit) return hit;
     throw err;
   }
@@ -75,11 +92,11 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (pinnedCdn(url)) { event.respondWith(cacheFirst(request, url)); return; }
+  if (pinnedCdn(url)) { event.respondWith(cacheFirst(event, request, url)); return; }
   if (url.origin !== self.location.origin) return;
   // Only this site's own files (the worker's folder and below).
   const scope = new URL(self.registration.scope);
   if (!url.pathname.startsWith(scope.pathname)) return;
   if (url.pathname.endsWith('/sw.js')) return;
-  event.respondWith(stamped(url) ? cacheFirst(request, url) : networkFirst(request));
+  event.respondWith(stamped(url) ? cacheFirst(event, request, url) : networkFirst(event, request));
 });

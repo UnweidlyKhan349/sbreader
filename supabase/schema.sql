@@ -131,6 +131,23 @@ language sql stable security definer set search_path = public as $$
   from mp_players where room = p_room;
 $$;
 
+-- The built-in rooms, by name (General and one per subject but Energy; see
+-- publicLobbies in js/mp-rules.js, and add a row here with a new subject).
+-- Only these are public and permanent; other "pub-" names are refused (the
+-- site never makes one: SBMpRules.cleanRoomName drops the prefix), so a
+-- named room can't share a built-in room's record.
+create or replace function public.mp_is_builtin(p_room text)
+returns boolean
+language sql immutable set search_path = public as $$
+  select p_room in ('pub-all', 'pub-bio', 'pub-chem', 'pub-ess', 'pub-math', 'pub-phys');
+$$;
+
+-- Records from before the allowlist: a named "pub-..." room isn't a
+-- built-in one.
+delete from public.mp_rooms where name like 'pub-%' and not public.mp_is_builtin(name);
+update public.mp_rooms set is_permanent = public.mp_is_builtin(name), is_public = is_public or public.mp_is_builtin(name)
+  where is_permanent <> public.mp_is_builtin(name);
+
 create or replace function public.mp_heartbeat(
   p_room text, p_is_public boolean, p_pid text, p_secret text, p_username text,
   p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer)
@@ -142,6 +159,9 @@ declare
 begin
   if p_secret is null or char_length(p_secret) not between 16 and 128 then
     raise exception 'bad secret';
+  end if;
+  if p_room like 'pub-%' and not mp_is_builtin(p_room) then
+    raise exception 'reserved room name';
   end if;
   h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
   -- Rooms nobody has been in for 30 days are deleted, with their players
@@ -155,9 +175,9 @@ begin
   -- The room: created by the first player to report it; only that player
   -- can change whether it's listed. Built-in rooms are always public.
   insert into mp_rooms (name, is_public, is_permanent, owner_hash, updated_at)
-  values (p_room, p_is_public or p_room like 'pub-%', p_room like 'pub-%', h, now())
+  values (p_room, p_is_public or mp_is_builtin(p_room), mp_is_builtin(p_room), h, now())
   on conflict (name) do update set
-    is_public = case when mp_rooms.owner_hash = h and mp_rooms.name not like 'pub-%'
+    is_public = case when mp_rooms.owner_hash = h and not mp_is_builtin(mp_rooms.name)
                      then excluded.is_public else mp_rooms.is_public end,
     owner_hash = coalesce(mp_rooms.owner_hash, excluded.owner_hash),
     updated_at = now();
@@ -220,7 +240,7 @@ begin
     raise exception 'bad secret';
   end if;
   if p_room like 'pub-%' then
-    return false; -- the built-in rooms have no owner
+    return false; -- the built-in rooms have no owner, and no other room is named pub-*
   end if;
   if p_owner_key is not null and p_owner_key !~ '^[A-Za-z0-9_-]{20,100}\.[A-Za-z0-9_-]{20,100}$' then
     raise exception 'bad owner key';

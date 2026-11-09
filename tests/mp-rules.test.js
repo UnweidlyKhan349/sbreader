@@ -145,6 +145,12 @@ test('room names are cleaned to letters, digits and dashes, and give a stable do
   assert.strictEqual(cleanRoomName('a--b__c'), 'a-bc');
   assert.strictEqual(cleanRoomName('x'.repeat(50)).length, 32);
   assert.strictEqual(cleanRoomName('!!!'), '');
+  // "pub-" belongs to the built-in rooms' records ("pub-all" is General's).
+  assert.strictEqual(cleanRoomName('pub-all'), 'all');
+  assert.strictEqual(cleanRoomName('PUB pub-math'), 'math');
+  assert.strictEqual(cleanRoomName('pub'), '');
+  assert.strictEqual(cleanRoomName('public-room'), 'public-room');
+  assert.strictEqual(cleanRoomName('pubquiz'), 'pubquiz');
   assert.strictEqual(roomPeerId('Physics Club'), 'sbowl-room-physics-club');
   assert.strictEqual(roomPeerId(''), '');
 });

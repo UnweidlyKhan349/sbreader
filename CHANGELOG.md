@@ -186,3 +186,11 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Play and Multiplayer: once a question is answered, a Report link sits to the right of "I was right" / "I was wrong" ("I was right | Report").
 - Multiplayer: "No public rooms." (and the first room showing after hidden empty rooms) keeps its top border and rounded corners.
 - Play and Multiplayer: a skipped question (and, in Multiplayer, one you didn't answer) shows Report at the right of the answer line.
+- Play and Multiplayer: Report sits at the right of the answer line for every revealed question, no longer beside "I was right".
+- Grading: an expression with the same numbers and letters in another arrangement is wrong ("x-y+z" for "x+y-z", "b/a" for "a/b", "+cos(x) - C" for "-cos(x) + C"); rearranging the way algebra allows ("-z+y+x", "C - cos(x)") is still right.
+- Play: "I was wrong" on an answer buzzed in before the question finished takes −4 (it had given 0).
+- Multiplayer: whoever takes over a room keeps the list of questions already asked, so a settings change afterwards can't bring one back, and a room that has run out of questions reaches the end instead of starting over by itself.
+- Multiplayer: a room's name can't start with "pub-" (the built-in rooms' prefix in the room list; "pub-all" becomes "all"), and the database treats only the built-in rooms as public and permanent (run `supabase/schema.sql` again).
+- Offline cache: a file that downloads fine but can't be cached (storage full) still loads.
+- Accounts: stars are read from the account in pages at login, so with more than 1,000 none is taken for deleted.
+- A new version of the site shows an alert, then reloads (waiting until a game is idle), in place of the Reload bar.

@@ -539,6 +539,9 @@
   function operatorConflict(a, b) {
     const oa = operatorsOf(a), ob = operatorsOf(b);
     if (!oa.size || !ob.size) return false;
+    // Same numbers and letters, arranged into a different expression:
+    // "x-y+z" for "x+y-z", "b/a" for "a/b" (counting symbols can't see it).
+    if (expressionConflict(a, b)) return true;
     // One side has more of a symbol and the other more of its opposite: a
     // sign, charge or operation was swapped ("x^2-1/3x^4" for "x^2+1/3x^4").
     // A symbol simply missing on one side ("1/(i hbar)" for "1/(i*hbar)")
@@ -557,6 +560,153 @@
     const ca = cmp(oa), cb = cmp(ob);
     if (ia || ib) return false; // "x < 3" against "3 > x or so": leave it to the rest
     return !!ca && !!cb && ca !== cb;
+  }
+  // ---- Expressions compared by structure ----
+  // A plain algebraic expression (numbers, letters, + - * / ^, brackets,
+  // functions such as cos(x), and implicit multiplication as in "1/3x^4")
+  // is parsed and written out in one canonical form: sums as a sorted list
+  // of signed terms, products as sorted factors over sorted factors. So
+  // "y+x" meets "x+y" and "1-x" meets "-x+1", while "x-y+z" (for "x+y-z")
+  // and "b/a" (for "a/b") don't. Anything else (words, units, "√", commas,
+  // charges like "OH^-") doesn't parse, and is left to the other checks.
+  const EXPR_FUNCS = new Set(['SIN', 'COS', 'TAN', 'SEC', 'CSC', 'COT', 'ARCSIN', 'ARCCOS', 'ARCTAN',
+    'SINH', 'COSH', 'TANH', 'LN', 'LOG', 'EXP', 'SQRT', 'ABS']);
+  // Longer names that are symbols, not words.
+  const EXPR_NAMES = new Set(['PI', 'HBAR', 'ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA',
+    'SIGMA', 'OMEGA', 'PHI', 'PSI', 'RHO', 'TAU', 'ETA', 'ZETA', 'KAPPA', 'CHI', 'NU', 'MU', 'XI']);
+  function exprTokens(raw) {
+    const s = String(raw == null ? '' : raw).toUpperCase()
+      .replace(/[−–‐—]/g, '-').replace(/[×·∙]/g, '*').replace(/÷/g, '/')
+      .replace(/[[{]/g, '(').replace(/[\]}]/g, ')');
+    const re = /\s*(?:(\d+(?:\.\d*)?|\.\d+)|([A-Zα-ωΑ-Ωπ](?:[A-Zα-ωΑ-Ωπ]|_[A-Z0-9]+)*)|([-+*/^()=]))/y;
+    const out = [];
+    let i = 0;
+    while (i < s.length) {
+      if (/^\s+$/.test(s.slice(i))) break;
+      re.lastIndex = i;
+      const m = re.exec(s);
+      if (!m) return null;
+      if (m[1]) out.push({ t: 'num', v: m[1].replace(/^0+(?=\d)/, '').replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '') || '0' });
+      else if (m[2]) out.push({ t: 'id', v: m[2] });
+      else out.push({ t: m[3] });
+      i = re.lastIndex;
+    }
+    return out;
+  }
+  function parseExpression(raw) {
+    const toks = exprTokens(raw);
+    if (!toks || !toks.length) return null;
+    let p = 0;
+    const peek = () => toks[p] && toks[p].t;
+    const startsAtom = () => ['num', 'id', '('].includes(peek());
+    function sum() {
+      let n = product();
+      while (peek() === '+' || peek() === '-') { const op = toks[p++].t; n = { t: op === '+' ? 'add' : 'sub', a: n, b: product() }; }
+      return n;
+    }
+    function product() {
+      let n = unary();
+      for (;;) {
+        if (peek() === '*' || peek() === '/') { const op = toks[p++].t; n = { t: op === '*' ? 'mul' : 'div', a: n, b: unary() }; }
+        else if (startsAtom()) n = { t: 'mul', a: n, b: power() };
+        else return n;
+      }
+    }
+    function unary() {
+      if (peek() === '-') { p++; return { t: 'neg', x: unary() }; }
+      if (peek() === '+') { p++; return unary(); }
+      return power();
+    }
+    function power() {
+      const base = atom();
+      if (peek() === '^') {
+        p++;
+        // "^+", "^-" are charges ("W^+ BOSON", "OH^-"), not exponents.
+        if (peek() === '+' || peek() === '-') throw new Error('charge');
+        return { t: 'pow', a: base, b: unary() };
+      }
+      return base;
+    }
+    function atom() {
+      const tok = toks[p++];
+      if (!tok) throw new Error('end');
+      if (tok.t === 'num') return { t: 'leaf', v: tok.v };
+      if (tok.t === 'id') {
+        if (EXPR_FUNCS.has(tok.v) && peek() === '(') { p++; const arg = sum(); if (toks[p++]?.t !== ')') throw new Error(')'); return { t: 'fn', name: tok.v, x: arg }; }
+        // A word ("BOSON", "ION") means this isn't a bare expression.
+        if (/^[A-Z]{3,}$/.test(tok.v) && !EXPR_FUNCS.has(tok.v) && !EXPR_NAMES.has(tok.v)) throw new Error('word');
+        return { t: 'leaf', v: tok.v };
+      }
+      if (tok.t === '(') { const n = sum(); if (toks[p++]?.t !== ')') throw new Error(')'); return n; }
+      throw new Error('token');
+    }
+    try {
+      const sides = [sum()];
+      while (peek() === '=') { p++; sides.push(sum()); }
+      return p === toks.length ? sides : null;
+    } catch (e) { return null; }
+  }
+  // { sign, str } for a node, with sums and products in canonical order.
+  function canonSum(node) {
+    const terms = [];
+    (function walk(n, s) {
+      if (n.t === 'add') { walk(n.a, s); walk(n.b, s); }
+      else if (n.t === 'sub') { walk(n.a, s); walk(n.b, -s); }
+      else if (n.t === 'neg') walk(n.x, -s);
+      else { const f = canonProduct(n); terms.push({ s: s * f.sign, str: f.str }); }
+    })(node, 1);
+    if (terms.length === 1) return { sign: terms[0].s, str: terms[0].str };
+    terms.sort((x, y) => (x.str < y.str ? -1 : x.str > y.str ? 1 : x.s - y.s));
+    // "-(b-a)" and "(a-b)" are one thing: the first term carries the sign.
+    const sign = terms[0].s;
+    return { sign, str: '(' + terms.map((x) => (x.s * sign > 0 ? '+' : '-') + x.str).join('') + ')' };
+  }
+  function canonProduct(node) {
+    const num = [], den = [];
+    let sign = 1;
+    (function walk(n, top, bottom) {
+      if (n.t === 'mul') { walk(n.a, top, bottom); walk(n.b, top, bottom); }
+      else if (n.t === 'div') { walk(n.a, top, bottom); walk(n.b, bottom, top); }
+      else if (n.t === 'neg') { sign = -sign; walk(n.x, top, bottom); }
+      else { const f = canonAtom(n); sign *= f.sign; top.push(f.str); }
+    })(node, num, den);
+    if (num.length === 1 && !den.length) return { sign, str: num[0] };
+    num.sort(); den.sort();
+    return { sign, str: '[' + num.join('*') + (den.length ? '/' + den.join('*') : '') + ']' };
+  }
+  function canonAtom(n) {
+    if (n.t === 'leaf') return { sign: 1, str: n.v };
+    if (n.t === 'fn') { const x = canonSum(n.x); return { sign: 1, str: n.name + '(' + (x.sign < 0 ? '-' : '') + x.str + ')' }; }
+    if (n.t === 'pow') {
+      const b = canonSum(n.a), e = canonSum(n.b);
+      return { sign: 1, str: '{' + (b.sign < 0 ? '-' : '') + b.str + '}^{' + (e.sign < 0 ? '-' : '') + e.str + '}' };
+    }
+    return canonSum(n); // a bracketed sum or product
+  }
+  function exprLeaves(sides) {
+    const out = [];
+    const walk = (n) => {
+      if (!n) return;
+      if (n.t === 'leaf') out.push(n.v);
+      else if (n.t === 'fn') { out.push(n.name + '('); walk(n.x); }
+      else { walk(n.a); walk(n.b); walk(n.x); }
+    };
+    sides.forEach(walk);
+    return out.sort().join(' ');
+  }
+  // An equation's sides in either order ("y=x+1" is "x+1=y").
+  function canonExpression(sides) {
+    return sides.map((s) => { const c = canonSum(s); return (c.sign < 0 ? '-' : '+') + c.str; }).sort().join('=');
+  }
+  // Both sides parse, use exactly the same numbers and letters, and still
+  // come out as different expressions. Different numbers or letters ("x^2"
+  // against "x2", "0.5x" against "x/2") are another kind of difference, left
+  // to the rest of the grader.
+  function expressionConflict(a, b) {
+    const ea = parseExpression(a), eb = parseExpression(b);
+    if (!ea || !eb || ea.length !== eb.length) return false;
+    if (exprLeaves(ea) !== exprLeaves(eb)) return false;
+    return canonExpression(ea) !== canonExpression(eb);
   }
   function inequalityOf(raw) {
     const str = String(raw == null ? '' : raw).replace(/<=|=</g, '≤').replace(/>=|=>/g, '≥');

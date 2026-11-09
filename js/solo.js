@@ -462,7 +462,9 @@
     const q = currentQ();
     const last = runtime.attempts[runtime.attempts.length - 1];
     const outcome = win
-      ? { attempted: true, correct: true, userText: win.userText }
+      // `early`: the winning buzz came before the question finished, so an
+      // "I was wrong" makes it an interrupt (−4).
+      ? { attempted: true, correct: true, userText: win.userText, early: runtime.buzzedDuringReading }
       : runtime.attempts.length
         ? { attempted: true, correct: false, userText: last.userText, close: last.close }
         : { attempted: false };
@@ -494,7 +496,7 @@
   // the question finished (an interrupt), at most once per question.
   function pointsFor(outcome) {
     if (outcome.correct) return 4;
-    return runtime.attempts.some((a) => a.early) ? -4 : 0;
+    return outcome.early || runtime.attempts.some((a) => a.early) ? -4 : 0;
   }
 
   function showReveal() {
@@ -526,21 +528,13 @@
     if (outcome && outcome.attempted) {
       override.textContent = outcome.correct ? 'I was wrong' : 'I was right';
       // On the same line as "Correct sqrt 137", at the right.
-      const row = box.querySelector('.grade-row');
-      row.appendChild(override);
+      box.querySelector('.grade-row').appendChild(override);
       override.classList.remove('d-none');
-      // "I was right | Report"
-      if (window.SBReports) {
-        const sep = document.createElement('span');
-        sep.className = 'text-body-secondary';
-        sep.textContent = '|';
-        row.append(sep, SBReports.link(q));
-      }
     } else {
       override.classList.add('d-none');
-      // A skipped question: Report at the right of the answer line.
-      if (window.SBReports) box.querySelector('.ans-line').prepend(SBPlay.answerReportLink(q));
     }
+    // Report at the right of the answer line, answered or skipped.
+    if (window.SBReports) box.querySelector('.ans-line').prepend(SBPlay.answerReportLink(q));
 
     if (q.choices && q.answer.letter) {
       const el = document.querySelector(`.choice-box[data-letter="${q.answer.letter}"]`);
