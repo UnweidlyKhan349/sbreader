@@ -156,14 +156,18 @@
   // The room's creator records its owner key, bans and controlled switch
   // (creating the room's entry if it's new). Resolves true when saved, false
   // when this browser didn't create the room, null when there's no project
-  // or it predates room owners.
+  // or it predates room owners; rejects when the save failed for now (no
+  // connection, a server error), so the caller can try again.
   async function saveRoom(roomKey, { isPublic, ownerKey, banned, controlled }) {
     if (!enabled || !roomKey) return null;
     const r = await rpc('mp_set_room', {
       p_room: roomKey, p_secret: mySecret(), p_is_public: isPublic !== false, p_owner_key: ownerKey || null,
       p_banned: (banned || []).slice(0, 500), p_controlled: !!controlled,
     });
-    if (r.error) return null;
+    if (r.error) {
+      if (r.error.missing) return null;
+      throw new Error(r.error.message || 'The room list could not be saved.');
+    }
     return r.data === true;
   }
 

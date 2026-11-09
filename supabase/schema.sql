@@ -307,3 +307,49 @@ create policy "anyone reports" on public.question_reports
 drop policy if exists "anyone logs an override" on public.answer_overrides;
 create policy "anyone logs an override" on public.answer_overrides
   for insert with check (user_id is null or user_id = auth.uid());
+
+-- ---------------------------------------------------------------------------
+-- Community question stats (added November 2026), as on QB Reader: every
+-- play of a question (in Play, and your own buzzes in Multiplayer), with or
+-- without an account, for the Stats link on question cards. Nobody reads or
+-- writes the table directly: question_play adds a row and question_stats
+-- sums one question's rows. No account is stored with a play. Running this
+-- file again is safe.
+
+create table if not exists public.question_plays (
+  id bigint generated always as identity primary key,
+  question_id integer not null check (question_id > 0),
+  qtype text not null check (qtype in ('tossup', 'bonus')),
+  result text not null check (result in ('correct', 'incorrect', 'neg', 'unanswered')),
+  celerity real check (celerity between 0 and 1),
+  mode text not null check (mode in ('solo', 'mp')),
+  created_at timestamptz not null default now()
+);
+create index if not exists question_plays_question on public.question_plays (question_id);
+alter table public.question_plays enable row level security;
+revoke all on public.question_plays from anon, authenticated;
+
+create or replace function public.question_play(p_question_id integer, p_qtype text, p_result text, p_celerity real, p_mode text)
+returns void
+language sql security definer set search_path = public as $$
+  insert into question_plays (question_id, qtype, result, celerity, mode)
+  values (p_question_id, p_qtype, p_result, case when p_result = 'correct' then p_celerity end, p_mode);
+$$;
+
+create or replace function public.question_stats(p_question_id integer)
+returns table (heard integer, correct integer, incorrect integer, negs integer, unanswered integer, cel_sum real, cel_n integer)
+language sql stable security definer set search_path = public as $$
+  select count(*)::integer,
+         count(*) filter (where result = 'correct')::integer,
+         count(*) filter (where result = 'incorrect')::integer,
+         count(*) filter (where result = 'neg')::integer,
+         count(*) filter (where result = 'unanswered')::integer,
+         coalesce(sum(celerity) filter (where result = 'correct' and celerity is not null), 0)::real,
+         count(celerity) filter (where result = 'correct')::integer
+  from question_plays where question_id = p_question_id;
+$$;
+
+revoke all on function public.question_play(integer, text, text, real, text) from public;
+revoke all on function public.question_stats(integer) from public;
+grant execute on function public.question_play(integer, text, text, real, text) to anon, authenticated;
+grant execute on function public.question_stats(integer) to anon, authenticated;

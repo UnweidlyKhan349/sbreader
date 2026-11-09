@@ -87,6 +87,7 @@
     return SBData.stratifiedQueue(SBData.filterQuestions({
       subjects: values.subjects,
       roundRange: values.roundRange,
+      yearRange: values.yearRange,
       includeUnlabeled: values.includeUnlabeled !== false,
       tournaments: values.tournaments,
     }), (q) => q.subject);
@@ -96,7 +97,7 @@
     return {
       mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, controlled: false, timer: true, isPublic: isPublic !== false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
-      tournaments: new Set(), roundRange: null, includeUnlabeled: true,
+      tournaments: new Set(), roundRange: null, yearRange: null, includeUnlabeled: true,
     };
   }
 
@@ -709,6 +710,14 @@
     if (game.paused) revealCtl.pause();
   }
 
+  // The reading runs only while the question is being read and the room
+  // isn't paused. Someone answering holds it too, so lifting a pause during
+  // an answer mustn't read on and show the others more of the question.
+  function syncRevealToState() {
+    if (!revealCtl || revealCtl.isDone()) return;
+    if (game.phase === 'reading' && !game.paused) revealCtl.resume(); else revealCtl.pause();
+  }
+
   // The room's switches as they stand (activeFilterState mirrors them for
   // every player).
   function roomSetting(key, fallback) {
@@ -758,7 +767,7 @@
     const amLocked = game.lockedOut.has(myState.myId);
     buzzBtn.disabled = !((game.phase === 'reading' || game.phase === 'buzzwindow') && !amLocked);
     nextBtn.disabled = game.phase === 'answering'
-      || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip(null));
+      || ((game.phase === 'reading' || game.phase === 'buzzwindow') && !canSkip());
     // As on QB Reader, the first button is a green Start before the game.
     nextBtn.classList.toggle('btn-success', game.phase === 'lobby');
     nextBtn.classList.toggle('btn-primary', game.phase !== 'lobby');
@@ -770,7 +779,7 @@
     } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
       nextBtn.textContent = isRealSkip() ? 'Skip' : 'Next';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.title = canSkip(null) ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
+      nextBtn.title = canSkip() ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
     } else if (game.phase === 'answering') {
       nextBtn.textContent = 'Next';
       nextBtn.title = 'Shortcut: n or s';
@@ -1025,7 +1034,7 @@
       mode: f.mode === 'set' ? 'set' : 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
-      tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, includeUnlabeled: f.includeUnlabeled !== false,
+      tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
   }
 
@@ -1097,7 +1106,7 @@
       lastVotekickBy.set(key, Date.now());
       vk = { voters: new Set([voterId]), threshold: SBMpRules.votekickThreshold(hostPlayers.size) };
       votekicks.set(targetId, vk);
-      hostEvent(voterId, `started a vote kick against ${target.name}, which needs ${vk.threshold} votes (1/${vk.threshold})`);
+      hostEvent(voterId, `started a vote kick against ${target.name} (1/${vk.threshold})`);
     } else {
       if (vk.voters.has(voterId)) return;
       vk.voters.add(voterId);
@@ -1239,20 +1248,18 @@
     broadcastLobby();
   }
 
-  // Skips, as on QB Reader's "Allow skips": with it off, nobody can skip a
-  // question while it's read or open for buzzing, except the room's owner,
-  // and anyone once the reading is over in a room with no timer (where
-  // nothing else would end the question).
+  // Skips: with "Allow skips" off, nobody can skip a question while it's
+  // read or open for buzzing, the room's owner included. Only once the
+  // reading is over in a room with no timer (where nothing else would end
+  // the question) can anyone move on.
   // Moving on is a skip while the question is being read, or open for
   // buzzing on the clock. With the timer off, a question that has been read
   // in full waits for Next: that's the end of it, not a skip.
   function isRealSkip() {
     return game.phase === 'reading' || (game.phase === 'buzzwindow' && roomSetting('timer', true));
   }
-  function canSkip(connId) {
+  function canSkip() {
     if (roomSetting('skip', true)) return true;
-    const p = connId ? hostPlayers.get(connId) : game.players.find((x) => x.id === myState.myId);
-    if (isOwner(p)) return true;
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
@@ -1260,14 +1267,37 @@
   // controlled switch) in the room list, so the room comes back the same
   // after everyone has left. Only the browser that created the room can
   // change it there; for anyone else saveRoom just answers false.
-  let savedRecord = '';
+  // A record counts as saved only once the room list says so. A save that
+  // failed for now (saveRoom rejects: no connection, a server error) is
+  // tried again, sooner then later, until it goes through or the record
+  // changes. One save is out at a time, so an older save's answer never
+  // marks a newer record as saved; a change made meanwhile is sent when
+  // it's back.
+  let settledRecord = '';
+  let savingRecord = null;
+  let recordRetry = null;
+  let recordRetryMs = 0;
+  const RECORD_RETRY_MAX_MS = 60000;
   function saveRoomRecord() {
     if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
+    const key = roomKey();
     const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
-    const text = JSON.stringify(rec);
-    if (text === savedRecord) return;
-    savedRecord = text;
-    SBRooms.saveRoom(roomKey(), rec).catch(() => {});
+    const text = key + '\u0000' + JSON.stringify(rec);
+    if (text === settledRecord || savingRecord !== null) return;
+    clearTimeout(recordRetry); recordRetry = null;
+    savingRecord = text;
+    SBRooms.saveRoom(key, rec).then(() => {
+      // Saved (true), or nothing a retry would change: this browser didn't
+      // create the room (false), or there's no room list for it (null).
+      savingRecord = null;
+      settledRecord = text;
+      recordRetryMs = 0;
+      saveRoomRecord();
+    }, () => {
+      savingRecord = null;
+      recordRetryMs = Math.min(RECORD_RETRY_MAX_MS, recordRetryMs ? recordRetryMs * 2 : 2000);
+      recordRetry = setTimeout(() => { recordRetry = null; saveRoomRecord(); }, recordRetryMs);
+    });
   }
 
   // Whatever depends on who owns the room: the controlled-room lock on the
@@ -1287,8 +1317,11 @@
     sw.disabled = !owner || !roomIsPrivate();
     // A controlled room stays private until it's made uncontrolled.
     document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
-    // Skip follows "Allow skips" and who's the owner.
-    if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip(null);
+    // As on QB Reader, a note says why some settings can't be changed.
+    document.getElementById('mpPermanentNote').classList.toggle('d-none', !myState.publicLobby);
+    document.getElementById('mpControlledNote').classList.toggle('d-none', !controlled);
+    // Skip follows "Allow skips".
+    if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
   }
 
@@ -1328,7 +1361,7 @@
       mode: f.mode || 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
-      tournaments: [...f.tournaments], roundRange: f.roundRange, includeUnlabeled: f.includeUnlabeled,
+      tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
     };
   }
@@ -1411,9 +1444,10 @@
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
+    if (msg.type === 'announceYears') { hostAnnounceYears(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') {
-      if (!canSkip(connId)) return;
+      if (!canSkip()) return;
       if (isRealSkip()) hostEvent(connId, 'skipped the question');
       hostSkipQuestion();
       return;
@@ -1422,7 +1456,7 @@
       hostApplySettingsFromValues({
         mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, controlled: msg.controlled, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
-        roundRange: msg.roundRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
+        roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
       // Someone else changed the room's settings: show it in this player's
       // sidebar too (the others hear it as a 'settingsState').
@@ -1431,6 +1465,7 @@
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
     if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
+    if (msg.type === 'clearStats') { hostClearStats(connId); return; }
     if (msg.type === 'votekick') { hostVotekick(connId, msg.targetId); return; }
     if (msg.type === 'ownerAction') { hostOwnerAction(connId, msg.action, msg.targetId, msg.targetPid); return; }
   }
@@ -1447,6 +1482,16 @@
     if (connId === myState.myId) myState.myName = name;
     broadcastLobby();
     hostBroadcastChat('SYSTEM', old, `changed their username to ${name}`, true);
+  }
+
+  // Clear stats, as on QB Reader: a player's own score and counts go back to
+  // zero, and the room is told.
+  function hostClearStats(connId) {
+    const p = hostPlayers.get(connId);
+    if (!p) return;
+    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0 });
+    broadcastLobby();
+    hostEvent(connId, 'cleared their stats');
   }
 
   function hostNextQuestion() {
@@ -1590,7 +1635,7 @@
       hostGame.phase = 'reading';
       host.broadcast({ type: 'phase', phase: 'reading', lockedOut: [...hostGame.lockedOutIds] });
       applyPhaseLocal('reading', [...hostGame.lockedOutIds]);
-      revealCtl.resume();
+      syncRevealToState();
     } else {
       hostGame.phase = 'buzzwindow';
       host.broadcast({ type: 'phase', phase: 'buzzwindow', lockedOut: [...hostGame.lockedOutIds] });
@@ -1779,9 +1824,7 @@
       host.broadcast({ type: 'tick', remainingMs: hostGame.remainingMs, totalMs: hostGame.totalMs, kind: hostGame.timerKind });
       applyTickLocal(hostGame.remainingMs, hostGame.totalMs, hostGame.timerKind);
     }
-    if (revealCtl && hostGame.phase === 'reading') {
-      if (hostGame.paused) revealCtl.pause(); else revealCtl.resume();
-    }
+    syncRevealToState();
     fullRenderFromState();
   }
 
@@ -1795,6 +1838,7 @@
 
   /* ---- host applies its own broadcasts to its local render state (host is also a player) ---- */
   function applyQuestionLocal(index, total, sanitized) {
+    if (window.SBQuestionStats) SBQuestionStats.flush(); // the last question's play is final
     hideSettingsOnPhone();
     game.index = index; game.total = total; game.question = sanitized;
     if (sanitized && sanitized.id != null && !game.asked.includes(sanitized.id)) game.asked.push(sanitized.id);
@@ -1865,6 +1909,10 @@
     if (playerId === myState.myId && game.question && window.SBAccount) {
       recordMyAnswer(correct ? 'correct' : 'incorrect', isOverride);
     }
+    // And to the question's community stats (a −4 is an interrupt).
+    if (playerId === myState.myId && game.question && window.SBQuestionStats) {
+      SBQuestionStats.track(game.question, 'mp', correct ? 'correct' : (delta < 0 ? 'neg' : 'incorrect'), correct ? 1 - celerityNow() : null, game.index);
+    }
   }
   // One row per question in your account's stats, for how the question
   // ended for you: a wrong answer then a correct rebuzz ends correct, and an
@@ -1884,6 +1932,12 @@
     statsAttempt = SBAccount.recordAnswer(game.question, result, 'mp');
   }
   function applyRevealLocal(revealData) {
+    // A question read in full that nobody got, and you didn't buzz on: no
+    // answer from you, for its community stats.
+    if (game.question && window.SBQuestionStats && game.phase === 'buzzwindow'
+        && !game.attempts.some((a) => a.playerId === myState.myId || a.correct)) {
+      SBQuestionStats.track(game.question, 'mp', 'unanswered', null, game.index);
+    }
     game.phase = 'reveal'; game.lastRevealData = revealData;
     if (game.question && window.SBAccount && !game.attempts.some((a) => a.playerId === myState.myId)) recordMyAnswer('skipped');
     fullRenderFromState();
@@ -2478,6 +2532,7 @@
       return;
     }
     if (msg.type === 'question') {
+      if (window.SBQuestionStats) SBQuestionStats.flush(); // the last question's play is final
       hideSettingsOnPhone();
       game.index = msg.index; game.total = msg.total; game.question = msg.question;
       if (msg.question && msg.question.id != null && !game.asked.includes(msg.question.id)) game.asked.push(msg.question.id);
@@ -2497,7 +2552,7 @@
       if (msg.lockedOut) game.lockedOut = new Set(msg.lockedOut);
       game.buzzedPlayerId = null;
       if (msg.phase === 'reading') {
-        if (revealCtl && revealCtl.isPaused()) revealCtl.resume();
+        syncRevealToState();
       } else if (revealCtl && !revealCtl.isDone()) {
         // The reading window is over one way or another — make sure the full
         // text is showing, regardless of any local animation drift (this is
@@ -2550,7 +2605,7 @@
     }
     if (msg.type === 'pauseState') {
       game.paused = msg.paused;
-      if (revealCtl) { if (game.paused) revealCtl.pause(); else revealCtl.resume(); }
+      syncRevealToState();
       setClientTickPaused(game.paused);
       fullRenderFromState();
       return;
@@ -2615,7 +2670,7 @@
   }
   function doSkip() {
     if (game.phase !== 'reading' && game.phase !== 'buzzwindow') return;
-    if (!canSkip(null)) return;
+    if (!canSkip()) return;
     if (myState.role === 'host') { if (isRealSkip()) hostEvent(myState.myId, 'skipped the question'); hostSkipQuestion(); }
     else if (client) client.send({ type: 'skip' });
   }
@@ -2682,6 +2737,7 @@
   // applied there (hostApplySettingsFromValues) and sent back to everyone.
   const midGameFilterState = copyFilters({ subjects: [] });
   let midGameRoundSliderApi = null;
+  let midGameYearSliderApi = null;
   let mpPacketPicker = null;
   let categories = null;
   let midGameSettingsWired = false;
@@ -2712,10 +2768,10 @@
   // times (this player's click, the room's echo, the repaint).
   const countCache = { key: null, n: 0 };
   function countFor(v) {
-    const key = JSON.stringify([v.mode, v.setName, v.packetNumbers, [...v.subjects].sort(), [...(v.tournaments || [])].sort(), v.roundRange, v.includeUnlabeled !== false]);
+    const key = JSON.stringify([v.mode, v.setName, v.packetNumbers, [...v.subjects].sort(), [...(v.tournaments || [])].sort(), v.roundRange, v.yearRange, v.includeUnlabeled !== false]);
     if (countCache.key === key) return countCache.n;
     const n = v.mode === 'set' ? queueFor(v).length : SBData.filterQuestions({
-      subjects: v.subjects, roundRange: v.roundRange, includeUnlabeled: v.includeUnlabeled !== false, tournaments: v.tournaments,
+      subjects: v.subjects, roundRange: v.roundRange, yearRange: v.yearRange, includeUnlabeled: v.includeUnlabeled !== false, tournaments: v.tournaments,
     }).length;
     countCache.key = key;
     countCache.n = n;
@@ -2750,7 +2806,19 @@
     hostEvent(connId, `changed the rounds to ${Math.max(1, r[0])}-${Math.min(r[1], max)}`);
   }
 
-  // Clear all filters: every tournament, round and subject (General: back to
+  // "Henry changed the years to 2015-2026", the same way, from the year slider.
+  function announceYears() {
+    if (myState.role === 'host') hostAnnounceYears(myState.myId);
+    else if (client) client.send({ type: 'announceYears' });
+  }
+  function hostAnnounceYears(connId) {
+    if (myState.role !== 'host' || !activeFilterState) return;
+    const [first, last] = SBData.yearSpan();
+    const r = activeFilterState.yearRange || [first, last];
+    hostEvent(connId, r[0] === r[1] ? `changed the years to ${r[0]}` : `changed the years to ${r[0]}-${r[1]}`);
+  }
+
+  // Clear all filters: every tournament, year, round and subject (General: back to
   // its default; a one-subject room keeps its subject), questions with no
   // round number included, and all of a set's packets; sent as one change.
   function clearRoomFilters() {
@@ -2769,19 +2837,14 @@
       f.packetNumbers = '';
       if (midGameRoundSliderApi) { midGameRoundSliderApi.setMax(SBData.maxRoundFor(f.tournaments)); midGameRoundSliderApi.reset(); }
       f.roundRange = null;
+      if (midGameYearSliderApi) midGameYearSliderApi.reset();
+      f.yearRange = null;
     } finally {
       suppressSettingsApplyEcho = false;
     }
     onSettingChange();
   }
 
-  // This player's own view (not shared): history, set name, offline players.
-  const VIEW_KEY = 'sb_mp_view';
-  const view = SBPlay.loadSettings(VIEW_KEY, { showHistory: true, showSetName: true });
-  function applyView() {
-    historyEl().classList.toggle('d-none', !view.showHistory);
-    document.getElementById('mpQuestionInfo').classList.toggle('d-none', !view.showSetName);
-  }
 
   function initMidGameSettings() {
     if (midGameSettingsWired) return;
@@ -2831,19 +2894,27 @@
       // The room hears about it once, when the handle is let go.
       onCommit: () => { if (!suppressSettingsApplyEcho) announceRounds(); },
     });
+    // Year range, as on QB Reader: the tournaments' years.
+    const [firstYear, lastYear] = SBData.yearSpan();
+    midGameYearSliderApi = SBData.wireRoundRangeSlider({
+      minInput: document.getElementById('mpSettingsYearMin'),
+      maxInput: document.getElementById('mpSettingsYearMax'),
+      fillEl: document.getElementById('mpSettingsYearSliderFill'),
+      labelEl: document.getElementById('mpSettingsYearRangeLabel'),
+      min: firstYear,
+      maxRound: lastYear,
+      label: SBPlay.yearLabel,
+      onChange: (lo, hi) => { midGameFilterState.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; onSettingChange(); },
+      onCommit: () => { if (!suppressSettingsApplyEcho) announceYears(); },
+    });
 
     document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
+    document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
     [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
-    });
-    // View switches (yours only).
-    [['mpToggleShowHistory', 'showHistory'], ['mpToggleShowSetName', 'showSetName']].forEach(([id, key]) => {
-      const el = document.getElementById(id);
-      el.checked = !!view[key];
-      el.addEventListener('change', () => { view[key] = el.checked; el.blur(); SBPlay.saveSettings(VIEW_KEY, view); applyView(); });
     });
     const offline = document.getElementById('toggleOfflinePlayers');
     offline.checked = showOffline;
@@ -2853,7 +2924,6 @@
       try { localStorage.setItem(OFFLINE_KEY, showOffline ? '1' : '0'); } catch (e) { /* not saved */ }
       renderPlayerList(document.getElementById('mpPlayerList'));
     });
-    applyView();
 
     const rateSlider = document.getElementById('mpSettingsRateSlider');
     rateSlider.addEventListener('input', () => {
@@ -2892,6 +2962,7 @@
       if (mpPacketPicker) mpPacketPicker.setPackets(t && bankLoaded() ? SBPlay.packetsOf(t.slug) : [], f.packetNumbers);
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(f.tournaments));
       if (midGameRoundSliderApi && f.roundRange) midGameRoundSliderApi.setRange(f.roundRange[0], f.roundRange[1]);
+      if (midGameYearSliderApi) { const ys = SBData.yearSpan(); const yr = f.yearRange || ys; midGameYearSliderApi.setRange(yr[0], yr[1]); }
       document.getElementById('mpTogglePublic').checked = f.isPublic;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;
       document.getElementById('mpToggleSkip').checked = f.skip !== false;
@@ -2987,9 +3058,12 @@
       activeFilterState = next;
       hostGame.queueStale = true;
     } else {
-      // Nothing matches yet (someone is still choosing): keep the questions
-      // as they are, but the switches still take effect.
-      activeFilterState = { ...before, mode: next.mode, setName: next.setName, packetNumbers: next.packetNumbers, rebuzz: next.rebuzz, skip: next.skip, controlled: next.controlled, timer: next.timer, isPublic: next.isPublic };
+      // Nothing matches yet (someone is still choosing, say a set name not
+      // typed yet): the room takes the settings as they are, subjects
+      // included, but the questions still to come stay as they were until a
+      // change matches some. (Keeping the old filters here undid every
+      // subject click while the set name was blank.)
+      activeFilterState = next;
     }
     describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
     // The timer switched during the buzz window: on, the countdown starts
@@ -3043,7 +3117,7 @@
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
         rebuzz: values.rebuzz, skip: values.skip, controlled: values.controlled, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
-        tournaments: [...values.tournaments], roundRange: values.roundRange, includeUnlabeled: values.includeUnlabeled,
+        tournaments: [...values.tournaments], roundRange: values.roundRange, yearRange: values.yearRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
       });
     }
@@ -3077,6 +3151,11 @@
     document.getElementById('mpChatRow').classList.add('d-none');
     document.getElementById('mpChatInput').value = '';
     document.getElementById('mpChatInput').blur();
+  }
+
+  function doClearStats() {
+    if (myState.role === 'host') hostClearStats(myState.myId);
+    else if (client) client.send({ type: 'clearStats' });
   }
 
   /* ================= YOUR NAME ================= */
@@ -3182,7 +3261,8 @@
     // focus, force the reveal to catch up to whatever phase we're actually in.
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
-      if (game.phase !== 'reading' && game.phase !== 'lobby' && revealCtl && !revealCtl.isDone()) {
+      // (Not while someone answers: the reading waits there, mid-question.)
+      if (game.phase !== 'reading' && game.phase !== 'answering' && game.phase !== 'lobby' && revealCtl && !revealCtl.isDone()) {
         revealCtl.skipToEnd();
       }
       fullRenderFromState();

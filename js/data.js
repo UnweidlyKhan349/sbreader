@@ -611,10 +611,17 @@
       badge.textContent = GRADE_LABELS[opts.grade];
       title.appendChild(badge);
     }
-    const parts = [q.tournament, subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
+    // "AVES 2025 | RR 1 | Question 7 | Biology | Tossup | Short Answer",
+    // bold and underlined, linking to the source packet when there is one.
+    const parts = [q.tournament, SBData.roundLabelFor(q), q.num ? 'Question ' + q.num : '',
+      subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
     if (q.visual && !isVisualBonus(q)) parts.push('Visual');
-    title.appendChild(document.createTextNode(parts.filter(Boolean).join(' | ')));
-    const round = SBData.roundLabelFor(q);
+    const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
+    const titleText = isPacketUrl(src) ? document.createElement('a') : document.createElement('span');
+    titleText.className = 'q-card-title-text';
+    titleText.textContent = parts.filter(Boolean).join(' | ');
+    if (isPacketUrl(src)) { titleText.href = src; titleText.target = '_blank'; titleText.rel = 'noopener'; titleText.title = 'Source packet'; }
+    title.appendChild(titleText);
     header.append(title, bookmarkButton(q.id, opts.onBookmark));
     card.appendChild(header);
 
@@ -631,6 +638,18 @@
     hr.className = 'my-2';
     body.appendChild(hr);
     const answerWrap = answerBlock(q, opts.answer || null);
+    answerWrap.classList.add('flex-grow-1');
+    // The answer on the left, "Stats | Report" on its right.
+    const answerRow = document.createElement('div');
+    answerRow.className = 'd-flex justify-content-between align-items-start gap-2 q-card-answer-row';
+    const links = document.createElement('small');
+    links.className = 'q-card-links text-nowrap ms-auto';
+    if (window.SBQuestionStats) links.append(SBQuestionStats.link(q));
+    if (window.SBReports) {
+      if (links.childNodes.length) links.append(' | ');
+      links.append(SBReports.link(q));
+    }
+    answerRow.append(answerWrap, links);
     if (opts.hideAnswer) {
       answerWrap.style.display = 'none';
       const show = document.createElement('button');
@@ -641,9 +660,9 @@
         answerWrap.style.display = '';
         show.remove();
       });
-      body.appendChild(show);
+      answerRow.prepend(show);
     }
-    body.appendChild(answerWrap);
+    body.appendChild(answerRow);
     if (opts.note) {
       const note = document.createElement('div');
       note.className = 'small-note mt-1';
@@ -651,19 +670,6 @@
       body.appendChild(note);
     }
     card.appendChild(body);
-
-    // Footer, as QB Reader's: the packet on the left, links on the right.
-    const footer = document.createElement('div');
-    footer.className = 'card-footer d-flex justify-content-between gap-2';
-    const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
-    footer.innerHTML = `<small class="text-muted">${round ? 'Packet ' + escapeHtml(round) : '&nbsp;'}${q.num ? ' / Question ' + escapeHtml(q.num) : ''}</small>`
-      + `<small class="card-footer-links">${isPacketUrl(src) ? `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>` : ''}</small>`;
-    if (window.SBReports) {
-      const links = footer.querySelector('.card-footer-links');
-      if (links.childNodes.length) links.append(' | ');
-      links.append(SBReports.link(q));
-    }
-    card.appendChild(footer);
     return card;
   }
 
@@ -719,6 +725,8 @@
         id: q.i,
         tournament: t.name,
         tSlug: t.slug,
+        // The tournament's year, for the year range filter (as on QB Reader).
+        year: t.date ? parseInt(String(t.date).slice(0, 4), 10) || null : null,
         level,
         round: p.r,
         roundLabel: p.rl,
@@ -1073,7 +1081,8 @@
   };
 
   /* ---------------- Filtering ---------------- */
-  // opts: { subjects, roundRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, visuals, bookmarkedOnly, search }
+  // opts: { subjects, roundRange:[min,max], yearRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, visuals, bookmarkedOnly,
+  //         search, ignoreWordOrder (default true) }
   // each of subjects/tournaments/formats/qtypes/levels/visuals is either null/empty (= all) or a Set/array of allowed values
   // (visuals holds 'visual' and/or 'text')
   SBData.filterQuestions = function (opts) {
@@ -1086,8 +1095,9 @@
     const visuals = toSetOrNull(opts.visuals);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
-    const words = SBData.searchWords(opts.search);
+    const matchesSearch = SBData.searchMatcher(opts.search, opts.ignoreWordOrder);
     const roundRange = opts.roundRange || null; // [min, max] inclusive
+    const yearRange = opts.yearRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
 
     let out = SBData.questions.filter((q) => {
@@ -1096,6 +1106,7 @@
         if (q.round == null) { if (!includeUnlabeled) return false; }
         else if (q.round < roundRange[0] || q.round > roundRange[1]) return false;
       }
+      if (yearRange && (q.year == null || q.year < yearRange[0] || q.year > yearRange[1])) return false;
       if (tournaments && !tournaments.has(q.tSlug)) return false;
       if (formats && !formats.has(q.format)) return false;
       if (qtypes && !qtypes.has(q.qtype)) return false;
@@ -1105,13 +1116,31 @@
       return true;
     });
 
-    if (words.length) {
-      out = out.filter((q) => {
-        const text = searchText(q);
-        return words.every((w) => text.includes(w));
-      });
-    }
+    if (matchesSearch) out = out.filter(matchesSearch);
     return out;
+  };
+
+  // The years the bank's tournaments span, [first, last].
+  SBData.yearSpan = function () {
+    const ys = ((SBData.meta && SBData.meta.tournaments) || []).map((t) => parseInt(String(t.date || '').slice(0, 4), 10)).filter((y) => y > 0);
+    return ys.length ? [Math.min(...ys), Math.max(...ys)] : [2000, new Date().getFullYear()];
+  };
+
+  // A search of the question, answer and tournament name, as on QB Reader's
+  // database: the words may come in any order (each must appear somewhere),
+  // or, with ignoreWordOrder false, must appear together as typed. Always
+  // case-insensitive. Null when there's nothing to search for.
+  SBData.searchMatcher = function (search, ignoreWordOrder) {
+    if (ignoreWordOrder === false) {
+      const phrase = SBData.searchPhrase(search);
+      return phrase ? (q) => searchText(q).includes(phrase) : null;
+    }
+    const words = SBData.searchWords(search);
+    return words.length ? (q) => { const text = searchText(q); return words.every((w) => text.includes(w)); } : null;
+  };
+  // The query as one lowercased phrase, its spacing evened out.
+  SBData.searchPhrase = function (search) {
+    return (search || '').toLowerCase().replace(/\s+/g, ' ').trim();
   };
 
   // A search is a list of words, each of which must appear somewhere in the
@@ -1127,12 +1156,13 @@
   // and kept, so later keystrokes don't lowercase the whole bank again. The
   // NUL separators keep a match from running across two fields, since a
   // search word can't contain one.
+  // Spacing is evened out, so a phrase search isn't thrown by a line break.
   const searchTexts = new WeakMap();
   const unmarkExponents = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
   function searchText(q) {
     let text = searchTexts.get(q);
     if (text === undefined) {
-      const fields = [q.question, q.answer.text, q.tournament].map((f) => (f || '').toLowerCase());
+      const fields = [q.question, q.answer.text, q.tournament].map((f) => (f || '').toLowerCase().replace(/\s+/g, ' '));
       text = fields.join('\0');
       const plain = fields.map(unmarkExponents).join('\0');
       if (plain !== text) text += '\0' + plain;
@@ -1203,6 +1233,66 @@
     return [q.tournament, roundPart, num].filter(Boolean).join(sep || ' ');
   };
   function isPacketUrl(u) { return /^https?:\/\//i.test(u || ''); }
+
+  // ---- Where a whole tournament comes from ----
+  // Packets link their own source; the set page also links the tournament's
+  // packets as a whole, worked out from those links: a Google Drive folder a
+  // packet already points to, or the place most of its links point into: a
+  // tournament's ISOBowl page (its rounds' address without ?round=), the
+  // NSB's sample-question pages, a GitHub repository, a database the
+  // questions came from, or a folder that lists its files. meta.json's `source` on a tournament overrides this. Null
+  // when the packets only live as separate files (then each packet's own
+  // link is listed instead).
+  const LISTED_FOLDER_HOSTS = new Set(['www.csun.edu']);
+  SBData.packetSourceUrl = function (packet) {
+    const counts = new Map();
+    (packet.questions || []).forEach((q) => { if (isPacketUrl(q.sourceUrl)) counts.set(q.sourceUrl, (counts.get(q.sourceUrl) || 0) + 1); });
+    let best = null;
+    counts.forEach((n, u) => { if (!best || n > counts.get(best)) best = u; });
+    return best;
+  };
+  SBData.tournamentSourceUrl = function (t, packets) {
+    if (t && isPacketUrl(t.source)) return t.source;
+    const urls = [];
+    (packets || []).forEach((p) => (p.questions || []).forEach((q) => { if (isPacketUrl(q.sourceUrl)) urls.push(q.sourceUrl); }));
+    if (!urls.length) return null;
+    const parsed = urls.map((u) => { try { return new URL(u); } catch (e) { return null; } }).filter(Boolean);
+    // The place most of the links (70% or more) point into.
+    const all = (fn) => {
+      const counts = new Map();
+      parsed.forEach((u) => { const k = fn(u); if (k) counts.set(k, (counts.get(k) || 0) + 1); });
+      let best = null;
+      counts.forEach((n, k) => { if (!best || n > counts.get(best)) best = k; });
+      return best && counts.get(best) >= 0.7 * parsed.length ? best : null;
+    };
+    const folder = parsed.find((u) => u.hostname === 'drive.google.com' && /^\/drive\/(?:u\/\d+\/)?folders\//.test(u.pathname));
+    if (folder) return folder.origin + folder.pathname;
+    const iso = all((u) => (u.hostname.endsWith('isobowl.com') && /^\/premier\/tournaments\/[^/]+\/?$/.test(u.pathname) ? u.origin + u.pathname.replace(/\/$/, '') : null));
+    if (iso) return iso;
+    const nsb = all((u) => { const m = u.hostname === 'science.osti.gov' && u.pathname.match(/\/(HS|MS)-Sample-Questions\//i); return m ? `https://science.osti.gov/wdts/nsb/Regional-Competitions/Resources/${m[1].toUpperCase()}-Sample-Questions` : null; });
+    if (nsb) return nsb;
+    const repo = all((u) => { const m = u.hostname === 'github.com' && u.pathname.match(/^\/([^/]+)\/([^/]+)/); return m ? `https://github.com/${m[1]}/${m[2]}` : null; });
+    if (repo) return repo;
+    const db = all((u) => (['scibowldb.com', 'speriphery.com'].includes(u.hostname) ? u.origin + (u.hostname === 'speriphery.com' ? u.pathname : '/') : null));
+    if (db) return db;
+    const dir = all((u) => (LISTED_FOLDER_HOSTS.has(u.hostname) ? u.origin + u.pathname.replace(/[^/]*$/, '') : null));
+    return dir || null;
+  };
+  // The line under a packet page's heading: its source packet.
+  SBData.packetSourceHTML = function (packet) {
+    const u = SBData.packetSourceUrl(packet);
+    return u ? `<p class="set-source"><a href="${escapeHtml(u)}" target="_blank" rel="noopener">Source packet</a></p>` : '';
+  };
+  // The line under a set page's heading: "Source packets" (the whole
+  // tournament), or failing that "Source packets: 1 2 3 …" (each packet's).
+  SBData.tournamentSourceHTML = function (t, packets) {
+    const link = (u, text) => `<a href="${escapeHtml(u)}" target="_blank" rel="noopener">${text}</a>`;
+    const whole = SBData.tournamentSourceUrl(t, packets);
+    if (whole) return `<p class="set-source">${link(whole, 'Source packets')}</p>`;
+    const each = (packets || []).map((p, i) => [i + 1, SBData.packetSourceUrl(p)]).filter(([, u]) => u);
+    if (!each.length) return '';
+    return `<p class="set-source">Source packets: ${each.map(([n, u]) => link(u, String(n))).join(' ')}</p>`;
+  };
   // The source line under a revealed answer in solo and multiplayer: the
   // label, plus a link to the original packet when there is one. `url`
   // defaults to the question's own (multiplayer clients pass the reveal's,
@@ -1283,20 +1373,24 @@
     // onCommit(lo, hi): once a change is finished - the handle let go, or a
     // keyboard step - and only if the range moved.
     const { minInput, maxInput, fillEl, labelEl, onChange, onCommit } = opts;
+    // Rounds start at 1; the year slider passes its first year as `min` and
+    // its own `label`.
+    const lowest = opts.min || 1;
+    const label = opts.label || ((lo, hi) => (lo === hi ? `Round ${lo}` : `Rounds ${lo}-${hi}`));
     let maxRound = opts.maxRound;
-    minInput.min = maxInput.min = 1;
+    minInput.min = maxInput.min = lowest;
     minInput.max = maxInput.max = maxRound;
-    minInput.value = 1;
+    minInput.value = lowest;
     maxInput.value = maxRound;
 
     function draw() {
       const lo = parseInt(minInput.value, 10);
       const hi = parseInt(maxInput.value, 10);
-      const span = Math.max(1, maxRound - 1);
-      const pctLo = ((lo - 1) / span) * 100;
-      const pctHi = ((hi - 1) / span) * 100;
+      const span = Math.max(1, maxRound - lowest);
+      const pctLo = ((lo - lowest) / span) * 100;
+      const pctHi = ((hi - lowest) / span) * 100;
       if (fillEl) { fillEl.style.left = pctLo + '%'; fillEl.style.width = Math.max(0, pctHi - pctLo) + '%'; }
-      if (labelEl) labelEl.textContent = lo === hi ? `Round ${lo}` : `Rounds ${lo}-${hi}`;
+      if (labelEl) labelEl.textContent = label(lo, hi);
       return [lo, hi];
     }
     function render() {
@@ -1350,13 +1444,13 @@
       const pad = 8; // half a handle: a handle stops flush with the track's ends
       const usable = Math.max(1, rect.width - pad * 2);
       const ratio = Math.min(1, Math.max(0, (clientX - rect.left - pad) / usable));
-      return Math.min(maxRound, Math.max(1, Math.round(1 + ratio * (maxRound - 1))));
+      return Math.min(maxRound, Math.max(lowest, Math.round(lowest + ratio * (maxRound - lowest))));
     }
     // Where a round's handle is drawn, in client pixels.
     function xOfValue(v) {
       const rect = container.getBoundingClientRect();
       const pad = 8;
-      return rect.left + pad + ((v - 1) / Math.max(1, maxRound - 1)) * Math.max(1, rect.width - pad * 2);
+      return rect.left + pad + ((v - lowest) / Math.max(1, maxRound - lowest)) * Math.max(1, rect.width - pad * 2);
     }
     function setHandleValue(handle, val) {
       if (handle === 'min') minInput.value = Math.min(val, parseInt(maxInput.value, 10));
@@ -1446,7 +1540,7 @@
     minInput.addEventListener('change', () => { dragStart = null; });
     settle();
     return {
-      reset() { minInput.value = 1; maxInput.value = maxRound; render(); settle(); },
+      reset() { minInput.value = lowest; maxInput.value = maxRound; render(); settle(); },
       getRange() { return [parseInt(minInput.value, 10), parseInt(maxInput.value, 10)]; },
       setRange(lo, hi) { minInput.value = lo; maxInput.value = hi; render(); settle(); },
       // Rescales the slider to the rounds the current tournaments have. A
@@ -1599,8 +1693,12 @@
 
     function syncLabel() {
       const n = selectEl._sbMultiValues.size;
-      if (n === 0) {
-        labelBtn.textContent = `All ${noun}s`;
+      // All of them, picked or not (none picked means all): "All tournaments
+      // (113)", with how many there are (none yet, as with no set's packets:
+      // just "All packets").
+      const total = selectEl.options.length;
+      if (n === 0 || n === total) {
+        labelBtn.textContent = total ? `All ${noun}s (${total})` : `All ${noun}s`;
       } else if (n === 1) {
         const [onlyVal] = selectEl._sbMultiValues;
         const opt = Array.from(selectEl.options).find((o) => o.value === onlyVal);

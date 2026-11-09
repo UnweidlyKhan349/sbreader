@@ -30,6 +30,8 @@ test('a rename needs a non-blank name, cut to length', () => {
 
 test('extra fields on simple messages are dropped', () => {
   assert.deepStrictEqual(cleanHostMessage({ type: 'buzz', playerId: 'HOST' }, meta), { type: 'buzz' });
+  // Clear stats clears only the sender's own: a named player is dropped.
+  assert.deepStrictEqual(cleanHostMessage({ type: 'clearStats', playerId: 'someone-else' }, meta), { type: 'clearStats' });
 });
 
 test('settings are limited to known values and clamped', () => {
@@ -175,4 +177,16 @@ test('vote kicks: QB Reader threshold, message shape and 30-minute ban', () => {
   assert.strictEqual(isKicked(kicked, 'p1', now), true);
   assert.strictEqual(isKicked(kicked, 'p2', now), false);
   assert.strictEqual(isKicked(kicked, null, now), false);
+});
+
+test('a room\'s year range stays within the bank\'s years; the whole span means every year', () => {
+  const ys = meta.tournaments.map((t) => parseInt(String(t.date).slice(0, 4), 10));
+  const [first, last] = [Math.min(...ys), Math.max(...ys)];
+  const year = (yearRange) => cleanHostMessage({ type: 'updateSettings', yearRange }, meta).yearRange;
+  assert.deepStrictEqual(year([2015, 2020]), [2015, 2020]);
+  assert.deepStrictEqual(year([2020, 2015]), [2015, 2020], 'swapped ends are put in order');
+  assert.deepStrictEqual(year([1000, 2020]), [first, 2020], 'clamped to the first year');
+  assert.strictEqual(year([first, last]), null);
+  assert.strictEqual(year('2015-2020'), null);
+  assert.deepStrictEqual(cleanHostMessage({ type: 'announceYears', yearRange: [1, 2] }, meta), { type: 'announceYears' });
 });

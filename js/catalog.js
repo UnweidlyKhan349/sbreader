@@ -9,6 +9,10 @@
     visuals: new Set(),
     tournaments: new Set(),
     search: '',
+    // Whether the words may come in any order, as on QB Reader's database.
+    ignoreWordOrder: true,
+    // [first, last] years, or null for every year.
+    yearRange: null,
     // From a frequency list: only questions whose answer is this one (its
     // key, SBData.answerKey), until the search box is changed.
     exactAnswer: '',
@@ -56,7 +60,7 @@
     });
   }
 
-  let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi;
+  let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi, yearSliderApi;
 
   function init() {
     SBData.load().then(() => {
@@ -86,6 +90,18 @@
         labelEl: document.getElementById('roundRangeLabel'),
         maxRound,
         onChange: (lo, hi) => { state.roundRange = [lo, hi]; state.page = 1; render(); },
+      });
+      // Years, to the right of the rounds: the tournaments' years.
+      const [firstYear, lastYear] = SBData.yearSpan();
+      yearSliderApi = SBData.wireRoundRangeSlider({
+        minInput: document.getElementById('yearMin'),
+        maxInput: document.getElementById('yearMax'),
+        fillEl: document.getElementById('yearSliderFill'),
+        labelEl: document.getElementById('yearRangeLabel'),
+        min: firstYear,
+        maxRound: lastYear,
+        label: (lo, hi) => (lo === hi ? `Year ${lo}` : `Years ${lo}-${hi}`),
+        onChange: (lo, hi) => { state.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; state.page = 1; render(); },
       });
       document.getElementById('includeUnlabeledRounds').addEventListener('change', (e) => {
         state.includeUnlabeled = e.target.checked;
@@ -146,6 +162,9 @@
         render();
       });
 
+      const ignoreOrder = document.getElementById('ignoreWordOrder');
+      ignoreOrder.addEventListener('change', () => { state.ignoreWordOrder = ignoreOrder.checked; state.page = 1; render(); });
+
       const hideAnswers = document.getElementById('hideAnswers');
       hideAnswers.checked = state.hideAnswers;
       hideAnswers.addEventListener('change', () => {
@@ -164,9 +183,13 @@
         state.search = '';
         state.exactAnswer = '';
         state.page = 1;
+        state.ignoreWordOrder = true;
         document.getElementById('searchBox').value = '';
+        ignoreOrder.checked = true;
         tSelect.setMultiValues([]);
         if (roundSliderApi) roundSliderApi.reset();
+        if (yearSliderApi) yearSliderApi.reset();
+        state.yearRange = null;
         document.getElementById('includeUnlabeledRounds').checked = true;
         state.includeUnlabeled = true;
         render();
@@ -217,13 +240,15 @@
       levels: state.levels,
       visuals: state.visuals,
       tournaments: state.tournaments,
+      yearRange: state.yearRange,
       search: state.exactAnswer ? '' : state.search,
+      ignoreWordOrder: state.ignoreWordOrder,
     }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
     if (state.random) {
-      const key = [state.search, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      const key = [state.search, state.ignoreWordOrder, state.yearRange, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
       if (!state.randomPick || state.randomKey !== key) {
         state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
         state.randomKey = key;
@@ -333,16 +358,18 @@
 
   function renderCard(q) {
     const card = SBData.questionCard(q, { hideAnswer: state.hideAnswers });
-    highlightMatches(card, state.search);
+    // A phrase is marked as a whole when word order counts.
+    const terms = state.ignoreWordOrder ? SBData.searchWords(state.search) : [SBData.searchPhrase(state.search)].filter(Boolean);
+    highlightMatches(card, terms);
     return card;
   }
 
-  // Wraps every case-insensitive occurrence of each search word in a <mark>.
+  // Wraps every case-insensitive occurrence of each search term (a word, or
+  // the whole phrase) in a <mark>.
   // Works on the rendered DOM's text nodes rather than the HTML string, so
   // the <sup>/<sub> math markup and escaped characters stay intact. Buttons
   // are skipped (their labels aren't searched).
-  function highlightMatches(root, term) {
-    const words = SBData.searchWords(term);
+  function highlightMatches(root, words) {
     if (!words.length) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: (n) => (n.parentElement.closest('button')

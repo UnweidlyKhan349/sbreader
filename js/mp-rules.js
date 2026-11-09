@@ -40,12 +40,18 @@
       visuals: new Set(['visual', 'text']),
       tournaments: new Set((meta.tournaments || []).map((t) => t.slug)),
       maxRound: Math.max(1, ...rounds),
+      years: yearsOf(meta),
     };
+  }
+  // The first and last of the tournaments' years.
+  function yearsOf(meta) {
+    const ys = (meta.tournaments || []).map((t) => parseInt(String(t.date || '').slice(0, 4), 10)).filter((y) => y > 0);
+    return ys.length ? [Math.min(...ys), Math.max(...ys)] : null;
   }
 
   // announceRounds: the sender let go of the round slider; the room says what
   // the rounds are now (from its own settings, not the message).
-  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'announceRounds']);
+  const NO_FIELDS = new Set(['buzz', 'next', 'togglePause', 'skip', 'override', 'announceRounds', 'announceYears', 'clearStats']);
 
   // A player's ID for the life of their browser, sent with 'join' so a
   // player who drops out and comes back gets their score back. Not a secret: it only ever guards a practice score.
@@ -210,6 +216,15 @@
         const hi = Math.round(clampNumber(msg.roundRange[1], 1, known.maxRound, known.maxRound));
         roundRange = [Math.min(lo, hi), Math.max(lo, hi)];
       }
+      // A year range within the bank's years; the whole span means no limit.
+      let yearRange = null;
+      if (known.years && Array.isArray(msg.yearRange) && msg.yearRange.length === 2) {
+        const [first, last] = known.years;
+        const lo = Math.round(clampNumber(msg.yearRange[0], first, last, first));
+        const hi = Math.round(clampNumber(msg.yearRange[1], first, last, last));
+        yearRange = [Math.min(lo, hi), Math.max(lo, hi)];
+        if (yearRange[0] === first && yearRange[1] === last) yearRange = null;
+      }
       const setName = str(msg.setName, 80);
       return {
         type,
@@ -231,6 +246,7 @@
         visuals: knownValues(msg.visuals, known.visuals),
         tournaments: knownValues(msg.tournaments, known.tournaments),
         roundRange,
+        yearRange,
         includeUnlabeled: msg.includeUnlabeled !== false,
         rate: readingSpeed(msg.rate),
         // The sender's count of its own changes, echoed back so it can tell

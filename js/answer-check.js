@@ -499,6 +499,8 @@
     return mags(ta) === mags(tb) && signed(ta) !== signed(tb);
   }
   function signConflict(a, b) {
+    const parts = partSignConflict(a, b);
+    if (parts !== null) return parts;
     const la = String(a).match(LEADING_NUMBER_RE), lb = String(b).match(LEADING_NUMBER_RE);
     if (la && lb && signOf(la) !== signOf(lb)) return true;
     return termSignConflict(a, b) || operatorConflict(a, b);
@@ -536,7 +538,25 @@
     }
     return ops;
   }
+  // Labelled parts ("1) +, 2) –, 3) -") are compared part by part: counting
+  // symbols over the whole answer can't tell "1) -, 2) -, 3) +" from it, and
+  // would read the "-" that ends part 2 of "1) + 2) - 3) -" as the sign of
+  // the 3. Null when the two don't label the same parts.
+  function labelledParts(raw) {
+    const str = String(raw == null ? '' : raw);
+    const marks = itemMarkers(str);
+    if (marks.length < 2 || marks.some((m, i) => m.num !== i + 1)) return null;
+    return marks.map((m, i) => str.slice(m.end, i + 1 < marks.length ? marks[i + 1].index : str.length)
+      .replace(/^[\s:]+/, '').replace(/[\s,;.]+$/, ''));
+  }
+  function partSignConflict(a, b) {
+    const pa = labelledParts(a), pb = labelledParts(b);
+    if (!pa || !pb || pa.length !== pb.length) return null;
+    return pa.some((x, i) => signConflict(x, pb[i]));
+  }
   function operatorConflict(a, b) {
+    const parts = partSignConflict(a, b);
+    if (parts !== null) return parts;
     const oa = operatorsOf(a), ob = operatorsOf(b);
     if (!oa.size || !ob.size) return false;
     // Same numbers and letters, arranged into a different expression:
@@ -563,11 +583,13 @@
   }
   // ---- Expressions compared by structure ----
   // A plain algebraic expression (numbers, letters, + - * / ^, brackets,
-  // functions such as cos(x), and implicit multiplication as in "1/3x^4")
-  // is parsed and written out in one canonical form: sums as a sorted list
-  // of signed terms, products as sorted factors over sorted factors. So
-  // "y+x" meets "x+y" and "1-x" meets "-x+1", while "x-y+z" (for "x+y-z")
-  // and "b/a" (for "a/b") don't. Anything else (words, units, "√", commas,
+  // functions such as cos(x), radicals √x, absolute values |x|, signed
+  // exponents as in "x^-2", and implicit multiplication as in "1/3x^4") is
+  // parsed and written
+  // out in one canonical form: sums as a sorted list of signed terms,
+  // products as sorted factors over sorted factors. So "y+x" meets "x+y" and
+  // "1-x" meets "-x+1", while "x-y+z" (for "x+y-z"), "b/a" (for "a/b") and
+  // "y^-2+x" (for "x^-2+y") don't. Anything else (words, units, commas,
   // charges like "OH^-") doesn't parse, and is left to the other checks.
   const EXPR_FUNCS = new Set(['SIN', 'COS', 'TAN', 'SEC', 'CSC', 'COT', 'ARCSIN', 'ARCCOS', 'ARCTAN',
     'SINH', 'COSH', 'TANH', 'LN', 'LOG', 'EXP', 'SQRT', 'ABS']);
@@ -576,9 +598,9 @@
     'SIGMA', 'OMEGA', 'PHI', 'PSI', 'RHO', 'TAU', 'ETA', 'ZETA', 'KAPPA', 'CHI', 'NU', 'MU', 'XI']);
   function exprTokens(raw) {
     const s = String(raw == null ? '' : raw).toUpperCase()
-      .replace(/[−–‐—]/g, '-').replace(/[×·∙]/g, '*').replace(/÷/g, '/')
+      .replace(/[−–‐—]/g, '-').replace(/[×·∙⋅]/g, '*').replace(/÷/g, '/')
       .replace(/[[{]/g, '(').replace(/[\]}]/g, ')');
-    const re = /\s*(?:(\d+(?:\.\d*)?|\.\d+)|([A-Zα-ωΑ-Ωπ](?:[A-Zα-ωΑ-Ωπ]|_[A-Z0-9]+)*)|([-+*/^()=]))/y;
+    const re = /\s*(?:(\d+(?:\.\d*)?|\.\d+)|([A-Zα-ωΑ-Ωπ](?:[A-Zα-ωΑ-Ωπ]|_[A-Z0-9]+)*)|([-+*/^()=|√∛]))/y;
     const out = [];
     let i = 0;
     while (i < s.length) {
@@ -597,8 +619,11 @@
     const toks = exprTokens(raw);
     if (!toks || !toks.length) return null;
     let p = 0;
+    // Inside |...| a "|" closes the bar; outside one it opens a new one
+    // ("2|x|" is 2 times |x|).
+    let bars = 0;
     const peek = () => toks[p] && toks[p].t;
-    const startsAtom = () => ['num', 'id', '('].includes(peek());
+    const startsAtom = () => ['num', 'id', '(', '√', '∛'].includes(peek()) || (peek() === '|' && !bars);
     function sum() {
       let n = product();
       while (peek() === '+' || peek() === '-') { const op = toks[p++].t; n = { t: op === '+' ? 'add' : 'sub', a: n, b: product() }; }
@@ -621,8 +646,10 @@
       const base = atom();
       if (peek() === '^') {
         p++;
-        // "^+", "^-" are charges ("W^+ BOSON", "OH^-"), not exponents.
-        if (peek() === '+' || peek() === '-') throw new Error('charge');
+        // A sign after "^" is a signed exponent when an operand follows it
+        // ("x^-2", "e^-x"), and a charge when nothing does ("OH^-", "Na^+ +
+        // Cl^-"), which doesn't parse. "W^+ BOSON" fails on the word.
+        if ((peek() === '+' || peek() === '-') && !['num', 'id', '(', '|', '√', '∛'].includes(toks[p + 1] && toks[p + 1].t)) throw new Error('charge');
         return { t: 'pow', a: base, b: unary() };
       }
       return base;
@@ -638,6 +665,15 @@
         return { t: 'leaf', v: tok.v };
       }
       if (tok.t === '(') { const n = sum(); if (toks[p++]?.t !== ')') throw new Error(')'); return n; }
+      // a radical takes the operand right after it: "√2/2" is (√2)/2
+      if (tok.t === '√' || tok.t === '∛') return { t: 'fn', name: tok.t === '√' ? 'SQRT' : 'CBRT', x: atom() };
+      if (tok.t === '|' && !bars) {
+        bars++;
+        const n = sum();
+        bars--;
+        if (toks[p++]?.t !== '|') throw new Error('|');
+        return { t: 'fn', name: 'ABS', x: n };
+      }
       throw new Error('token');
     }
     try {
@@ -707,6 +743,45 @@
     if (!ea || !eb || ea.length !== eb.length) return false;
     if (exprLeaves(ea) !== exprLeaves(eb)) return false;
     return canonExpression(ea) !== canonExpression(eb);
+  }
+  // A formula rather than words: it has math symbols, and every word in it is
+  // a variable, function or named constant ("x^-2 + √y", "-ln|cos x| + C").
+  // A hyphenated name ("alpha-helix") has no math symbols (see operatorsOf).
+  const MATH_WORDS_OK = new Set([...EXPR_FUNCS, ...EXPR_NAMES, 'CBRT']);
+  function isMathAnswer(raw) {
+    const str = String(raw == null ? '' : raw);
+    if (!operatorsOf(str).size && !/[√∛|^]/.test(str)) return false;
+    return !(str.toUpperCase().match(/[A-Z]{3,}/g) || []).some((w) => !MATH_WORDS_OK.has(w));
+  }
+  // A reaction's sides, each a sorted list of its species: "N2 + 3H2 →
+  // 2NH3" is [["3H2", "N2"], ["2NH3"]]. A "+" after "^" or before nothing
+  // but another "+" or the end is a charge ("H^+ + OH^-", "Na+ + Cl-").
+  const ARROW_RE = /\s*(?:→|⟶|⇌|⇄|<=>|<->|->|=>)\s*/;
+  function reactionSides(raw) {
+    const sides = String(raw == null ? '' : raw).split(ARROW_RE);
+    if (sides.length !== 2) return null;
+    return sides.map((side) => {
+      const species = [];
+      let depth = 0, cur = '';
+      for (let i = 0; i < side.length; i++) {
+        const ch = side[i];
+        if ('([{'.includes(ch)) depth++;
+        else if (')]}'.includes(ch)) depth = Math.max(0, depth - 1);
+        const next = side.slice(i + 1).trim()[0];
+        if (ch === '+' && !depth && side[i - 1] !== '^' && next && next !== '+') { species.push(cur); cur = ''; continue; }
+        cur += ch;
+      }
+      species.push(cur);
+      return species.map((x) => compact(x)).filter(Boolean).sort();
+    });
+  }
+  function sameMath(a, b) {
+    const ra = reactionSides(a), rb = reactionSides(b);
+    if (ra || rb) return !!ra && !!rb && ra.every((side, i) => side.join(' + ') === rb[i].join(' + '));
+    const ea = parseExpression(a), eb = parseExpression(b);
+    if (ea && eb) return ea.length === eb.length && canonExpression(ea) === canonExpression(eb);
+    const ia = inequalityOf(a), ib = inequalityOf(b);
+    return !!ia && !!ib && ia.strict === ib.strict && ia.lo === ib.lo && ia.hi === ib.hi;
   }
   function inequalityOf(raw) {
     const str = String(raw == null ? '' : raw).replace(/<=|=</g, '≤').replace(/>=|=>/g, '≥');
@@ -881,6 +956,12 @@
     const wa = tokenize(a);
     const wb = tokenize(b);
     if (!wa.length || wa.length !== wb.length) return null;
+    // In math, order is meaning ("x^-2 √y" isn't "y^-2 √x"), and the
+    // symbols are gone from these words, so a math answer is only matched
+    // in another order when the expressions or inequalities are shown to be
+    // the same ("-z+y+x" for "x+y-z", "17/15 > x" for "x < 17/15"), and
+    // never with typos.
+    if (isMathAnswer(a) || isMathAnswer(b)) return wa.join(' ') === wb.join(' ') || sameMath(a, b) ? 'exact' : null;
     const usedB = new Array(wb.length).fill(false);
     let typo = false;
     for (const w of wa) {

@@ -256,9 +256,12 @@
     return a;
   }
 
+  // The year slider's label, as on QB Reader: "Year range: 2010 - 2026".
+  function yearLabel(lo, hi) { return `Year range: ${lo} - ${hi}`; }
+
   window.SBPlay = {
     subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars, answerReportLink,
-    packetsOf, parsePacketNumbers, loadSettings, saveSettings,
+    packetsOf, parsePacketNumbers, loadSettings, saveSettings, yearLabel,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;
 })();

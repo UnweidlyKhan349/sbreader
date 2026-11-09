@@ -382,6 +382,37 @@ test('the same symbols in other places, or the operands in another order, are wr
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
 });
 
+test('signed exponents, absolute values and labelled parts keep their signs', () => {
+  for (const [key, typed] of [
+    ['x^-2+y', 'y^-2+x'], ['e^-x + 1', 'e^x + 1'], ['-ln(|cos(x)|) + C', '+ln(|cos(x)|) - C'],
+    ['|x-1|', '|1+x|'], ['1) +, 2) –, 3) -', '1) -, 2) -, 3) +'], ['1) +, 2) –, 3) -', '1) + 2) + 3) -'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['x^-2+y', 'y+x^-2'], ['x^-2+y', 'x^(-2)+y'], ['-ln(|cos(x)|) + C', 'C - ln(|cos(x)|)'], ['|x-1|', '|-1+x|'],
+    ['1) +, 2) –, 3) -', '1) +, 2) -, 3) -'], ['1) +, 2) –, 3) -', '1) + 2) - 3) -'], ['OH^-', 'OH'], ['Na^+ + Cl^-', 'Na^+ + Cl^-'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // The bank's own questions.
+  const { questions } = loadCorpus();
+  const byId = (id) => questions.find((x) => x.id === id);
+  assert.strictEqual(checkAnswer(byId(39752), '+ln(|cos(x)|) - C').correct, false);
+  assert.strictEqual(checkAnswer(byId(39752), '-ln(|cos(x)|) + C').correct, true);
+  assert.strictEqual(checkAnswer(byId(52944), '1) -, 2) -, 3) +').correct, false);
+  assert.strictEqual(checkAnswer(byId(52944), '1) +, 2) -, 3) -').correct, true);
+});
+
+test('a math answer is only matched out of order when it is the same expression', () => {
+  for (const [key, typed] of [
+    ['x^-2 + √y', 'y^-2 + √x'], ['2 − √3', '√3 − 2'], ['-√3/3', '√3/3'], ['(1 + √5)/2', '1 + √5/2'], ['√(3/2)', '√3/2'],
+    ['N2 + 3H2 →2NH3', '2NH3 → N2 + 3H2'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['x^-2 + √y', 'x^-2 + √y'], ['1 + √3', '√3 + 1'], ['6√3 + 8π', '8π + 6√3'], ['(1 + √5)/2', '(√5 + 1)/2'],
+    ['N2 + 3H2 →2NH3', '3H2 + N2 → 2NH3'], ['2SO2(g) + O2(g) ⇌ 2SO3(g)', 'O2(g) + 2SO2(g) ⇌ 2SO3(g)'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // ordinary words still match in any order
+  assert.ok(isCorrect('SATURN AND JUPITER', 'jupiter saturn'));
+});
+
 test('across the corpus, flipping one sign, charge, operation or inequality in a key makes it wrong', () => {
   // Checking each key against itself can't catch an answer that's accepted
   // when it shouldn't be; this mutates every key that has a symbol. The

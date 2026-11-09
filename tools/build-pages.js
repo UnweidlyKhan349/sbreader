@@ -37,6 +37,7 @@ function setBody(t, packets) {
     return `<tr><td>${i + 1}</td><td><a href="sets/${encodeURIComponent(t.slug)}/${i + 1}">${escapeHtml(p.label)}</a></td><td>${tu}</td><td>${b}</td></tr>`;
   }).join('');
   return heading(`View ${escapeHtml(t.name)} here:`)
+    + SBData.tournamentSourceHTML(t, packets)
     + '<div class="table-responsive"><table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">Packet Name</th><th scope="col"># of Toss-ups</th><th scope="col"># of Bonuses</th></tr></thead>'
     + `<tbody class="table-group-divider">${rows}</tbody></table></div>`;
 }
@@ -47,16 +48,15 @@ function figures(q) {
 }
 
 function packetBody(t, p, n) {
-  let html = heading(`Packet ${n} (${escapeHtml(p.label)}) of <a href="sets/${encodeURIComponent(t.slug)}/">${escapeHtml(t.name)}</a>:`);
+  let html = heading(`Packet ${n} (${escapeHtml(p.label)}) of <a href="sets/${encodeURIComponent(t.slug)}/">${escapeHtml(t.name)}</a>:`)
+    + SBData.packetSourceHTML(p);
   html += p.questions.map((q, i) => {
     const a = q.answer || {};
-    const tags = [SBData.subjectLabel(q.subject), SBData.qtypeLabel(q), SBData.FORMAT_LABELS[q.format] || q.format].filter(Boolean).map(escapeHtml).join(' / ');
     return '<div class="packet-question">'
       + `<div class="q-text">${escapeHtml(String(q.num || i + 1))}. ${SBData.readoutHTML(q)}</div>`
       + (q.visual ? figures(q) : '')
       + (q.choices ? `<div>${['W', 'X', 'Y', 'Z'].filter((L) => q.choices[L]).map((L) => `${L}) ${SBData.renderMathHTML(q.choices[L])}`).join('<br>')}</div>` : '')
       + `<div>ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), a.letter, a.accept, a.reject).replace(/^Answer: /, '')}</div>`
-      + `<div>&lt;${tags}&gt;${/^https?:\/\//.test(q.sourceUrl || '') ? ` <a href="${escapeHtml(q.sourceUrl)}" target="_blank" rel="noopener">Source packet</a>` : ''}</div>`
       + '</div>';
   }).join('<hr>');
   return html;
