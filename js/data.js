@@ -611,13 +611,11 @@
       badge.textContent = GRADE_LABELS[opts.grade];
       title.appendChild(badge);
     }
-    // "AVES 2025 | Biology | Tossup | Short Answer | RR 1 / Question 7",
+    // "AVES 2025 | RR 1 | Question 7 | Biology | Tossup | Short Answer",
     // bold and underlined, linking to the source packet when there is one.
-    const parts = [q.tournament, subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
+    const parts = [q.tournament, SBData.roundLabelFor(q), q.num ? 'Question ' + q.num : '',
+      subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
     if (q.visual && !isVisualBonus(q)) parts.push('Visual');
-    const round = SBData.roundLabelFor(q);
-    const where = [round, q.num ? 'Question ' + q.num : ''].filter(Boolean).join(' / ');
-    if (where) parts.push(where);
     const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
     const titleText = isPacketUrl(src) ? document.createElement('a') : document.createElement('span');
     titleText.className = 'q-card-title-text';

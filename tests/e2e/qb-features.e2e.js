@@ -76,7 +76,8 @@ test('Database cards: the title (with round and question) links the source; Stat
   await page.waitForFunction(() => document.querySelector('#results .q-card'), null, { timeout: 60000 });
   const card = page.locator('#results .q-card').first();
   const title = card.locator('.q-card-title a.q-card-title-text');
-  assert.match(await title.innerText(), / \| (?:[^|]+ \/ )?Question \d+$/);
+  // "Set | RR 2 | Question 13 | Chemistry | Toss-up | Multiple Choice"
+  assert.match(await title.innerText(), /^[^|]+ \| (?:[^|]+ \| )?Question \d+ \| [^|]+ \| [^|]+ \| [^|]+/);
   assert.doesNotMatch(await title.innerText(), /Packet/);
   assert.match(await title.getAttribute('href'), /^https?:\/\//);
   assert.strictEqual(await card.locator('.card-footer').count(), 0, 'no footer');
