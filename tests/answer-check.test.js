@@ -382,6 +382,53 @@ test('the same symbols in other places, or the operands in another order, are wr
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
 });
 
+test('signed exponents, absolute values and labelled parts keep their signs', () => {
+  for (const [key, typed] of [
+    ['x^-2+y', 'y^-2+x'], ['e^-x + 1', 'e^x + 1'], ['-ln(|cos(x)|) + C', '+ln(|cos(x)|) - C'],
+    ['|x-1|', '|1+x|'], ['1) +, 2) –, 3) -', '1) -, 2) -, 3) +'], ['1) +, 2) –, 3) -', '1) + 2) + 3) -'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['x^-2+y', 'y+x^-2'], ['x^-2+y', 'x^(-2)+y'], ['-ln(|cos(x)|) + C', 'C - ln(|cos(x)|)'], ['|x-1|', '|-1+x|'],
+    ['1) +, 2) –, 3) -', '1) +, 2) -, 3) -'], ['1) +, 2) –, 3) -', '1) + 2) - 3) -'], ['OH^-', 'OH'], ['Na^+ + Cl^-', 'Na^+ + Cl^-'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // The bank's own questions.
+  const { questions } = loadCorpus();
+  const byId = (id) => questions.find((x) => x.id === id);
+  assert.strictEqual(checkAnswer(byId(39752), '+ln(|cos(x)|) - C').correct, false);
+  assert.strictEqual(checkAnswer(byId(39752), '-ln(|cos(x)|) + C').correct, true);
+  assert.strictEqual(checkAnswer(byId(52944), '1) -, 2) -, 3) +').correct, false);
+  assert.strictEqual(checkAnswer(byId(52944), '1) +, 2) -, 3) -').correct, true);
+});
+
+test('a math answer is only matched out of order when it is the same expression', () => {
+  for (const [key, typed] of [
+    ['x^-2 + √y', 'y^-2 + √x'], ['2 − √3', '√3 − 2'], ['-√3/3', '√3/3'], ['(1 + √5)/2', '1 + √5/2'], ['√(3/2)', '√3/2'],
+    ['N2 + 3H2 →2NH3', '2NH3 → N2 + 3H2'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['x^-2 + √y', 'x^-2 + √y'], ['1 + √3', '√3 + 1'], ['6√3 + 8π', '8π + 6√3'], ['(1 + √5)/2', '(√5 + 1)/2'],
+    ['N2 + 3H2 →2NH3', '3H2 + N2 → 2NH3'], ['2SO2(g) + O2(g) ⇌ 2SO3(g)', 'O2(g) + 2SO2(g) ⇌ 2SO3(g)'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // ordinary words still match in any order
+  assert.ok(isCorrect('SATURN AND JUPITER', 'jupiter saturn'));
+});
+
+test('unit prefixes keep their case: milli is not mega', () => {
+  const q = (question) => ({ question });
+  for (const [key, typed, extra] of [
+    ['5 mW', '5 MW, I think'], ['5 mW', '5 megawatts'], ['5 MeV', '5 meV'], ['3 pm', '3 Pm'],
+    // a key in capitals: the question names the prefix
+    ['5 MW', '5 mW', q('What is the output, in megawatts?')], ['-80 MV', '-80 megavolts', q('To the nearest 10 mV, what is it?')],
+  ]) assert.ok(!isCorrect(key, typed, extra), `${typed} for ${key}`);
+  for (const [key, typed, extra] of [
+    ['5 mW', '5 mW'], ['5 mW', '5 milliwatts'], ['5 MW', '5 megawatts'], ['2 mmol', '2 mmol'], ['5 kPa', '5 kPa'],
+    ['5 MW', '5 MW', q('What is the output, in megawatts?')], ['-80 MV', '-80 mV', q('To the nearest 10 mV, what is it?')],
+    // capitals say nothing by their case: typed in capitals, or a key in
+    // capitals whose question doesn't say
+    ['5 mW', '5 MW'], ['25 MM', '25 mm'], ['8 PM', '8 pm'], ['5 MW', '5 mw', q('in megawatts?')],
+  ]) assert.ok(isCorrect(key, typed, extra), `${typed} for ${key}`);
+});
+
 test('across the corpus, flipping one sign, charge, operation or inequality in a key makes it wrong', () => {
   // Checking each key against itself can't catch an answer that's accepted
   // when it shouldn't be; this mutates every key that has a symbol. The

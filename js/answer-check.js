@@ -499,6 +499,8 @@
     return mags(ta) === mags(tb) && signed(ta) !== signed(tb);
   }
   function signConflict(a, b) {
+    const parts = partSignConflict(a, b);
+    if (parts !== null) return parts;
     const la = String(a).match(LEADING_NUMBER_RE), lb = String(b).match(LEADING_NUMBER_RE);
     if (la && lb && signOf(la) !== signOf(lb)) return true;
     return termSignConflict(a, b) || operatorConflict(a, b);
@@ -536,7 +538,25 @@
     }
     return ops;
   }
+  // Labelled parts ("1) +, 2) –, 3) -") are compared part by part: counting
+  // symbols over the whole answer can't tell "1) -, 2) -, 3) +" from it, and
+  // would read the "-" that ends part 2 of "1) + 2) - 3) -" as the sign of
+  // the 3. Null when the two don't label the same parts.
+  function labelledParts(raw) {
+    const str = String(raw == null ? '' : raw);
+    const marks = itemMarkers(str);
+    if (marks.length < 2 || marks.some((m, i) => m.num !== i + 1)) return null;
+    return marks.map((m, i) => str.slice(m.end, i + 1 < marks.length ? marks[i + 1].index : str.length)
+      .replace(/^[\s:]+/, '').replace(/[\s,;.]+$/, ''));
+  }
+  function partSignConflict(a, b) {
+    const pa = labelledParts(a), pb = labelledParts(b);
+    if (!pa || !pb || pa.length !== pb.length) return null;
+    return pa.some((x, i) => signConflict(x, pb[i]));
+  }
   function operatorConflict(a, b) {
+    const parts = partSignConflict(a, b);
+    if (parts !== null) return parts;
     const oa = operatorsOf(a), ob = operatorsOf(b);
     if (!oa.size || !ob.size) return false;
     // Same numbers and letters, arranged into a different expression:
@@ -563,11 +583,13 @@
   }
   // ---- Expressions compared by structure ----
   // A plain algebraic expression (numbers, letters, + - * / ^, brackets,
-  // functions such as cos(x), and implicit multiplication as in "1/3x^4")
-  // is parsed and written out in one canonical form: sums as a sorted list
-  // of signed terms, products as sorted factors over sorted factors. So
-  // "y+x" meets "x+y" and "1-x" meets "-x+1", while "x-y+z" (for "x+y-z")
-  // and "b/a" (for "a/b") don't. Anything else (words, units, "√", commas,
+  // functions such as cos(x), radicals √x, absolute values |x|, signed
+  // exponents as in "x^-2", and implicit multiplication as in "1/3x^4") is
+  // parsed and written
+  // out in one canonical form: sums as a sorted list of signed terms,
+  // products as sorted factors over sorted factors. So "y+x" meets "x+y" and
+  // "1-x" meets "-x+1", while "x-y+z" (for "x+y-z"), "b/a" (for "a/b") and
+  // "y^-2+x" (for "x^-2+y") don't. Anything else (words, units, commas,
   // charges like "OH^-") doesn't parse, and is left to the other checks.
   const EXPR_FUNCS = new Set(['SIN', 'COS', 'TAN', 'SEC', 'CSC', 'COT', 'ARCSIN', 'ARCCOS', 'ARCTAN',
     'SINH', 'COSH', 'TANH', 'LN', 'LOG', 'EXP', 'SQRT', 'ABS']);
@@ -576,9 +598,9 @@
     'SIGMA', 'OMEGA', 'PHI', 'PSI', 'RHO', 'TAU', 'ETA', 'ZETA', 'KAPPA', 'CHI', 'NU', 'MU', 'XI']);
   function exprTokens(raw) {
     const s = String(raw == null ? '' : raw).toUpperCase()
-      .replace(/[−–‐—]/g, '-').replace(/[×·∙]/g, '*').replace(/÷/g, '/')
+      .replace(/[−–‐—]/g, '-').replace(/[×·∙⋅]/g, '*').replace(/÷/g, '/')
       .replace(/[[{]/g, '(').replace(/[\]}]/g, ')');
-    const re = /\s*(?:(\d+(?:\.\d*)?|\.\d+)|([A-Zα-ωΑ-Ωπ](?:[A-Zα-ωΑ-Ωπ]|_[A-Z0-9]+)*)|([-+*/^()=]))/y;
+    const re = /\s*(?:(\d+(?:\.\d*)?|\.\d+)|([A-Zα-ωΑ-Ωπ](?:[A-Zα-ωΑ-Ωπ]|_[A-Z0-9]+)*)|([-+*/^()=|√∛]))/y;
     const out = [];
     let i = 0;
     while (i < s.length) {
@@ -597,8 +619,11 @@
     const toks = exprTokens(raw);
     if (!toks || !toks.length) return null;
     let p = 0;
+    // Inside |...| a "|" closes the bar; outside one it opens a new one
+    // ("2|x|" is 2 times |x|).
+    let bars = 0;
     const peek = () => toks[p] && toks[p].t;
-    const startsAtom = () => ['num', 'id', '('].includes(peek());
+    const startsAtom = () => ['num', 'id', '(', '√', '∛'].includes(peek()) || (peek() === '|' && !bars);
     function sum() {
       let n = product();
       while (peek() === '+' || peek() === '-') { const op = toks[p++].t; n = { t: op === '+' ? 'add' : 'sub', a: n, b: product() }; }
@@ -621,8 +646,10 @@
       const base = atom();
       if (peek() === '^') {
         p++;
-        // "^+", "^-" are charges ("W^+ BOSON", "OH^-"), not exponents.
-        if (peek() === '+' || peek() === '-') throw new Error('charge');
+        // A sign after "^" is a signed exponent when an operand follows it
+        // ("x^-2", "e^-x"), and a charge when nothing does ("OH^-", "Na^+ +
+        // Cl^-"), which doesn't parse. "W^+ BOSON" fails on the word.
+        if ((peek() === '+' || peek() === '-') && !['num', 'id', '(', '|', '√', '∛'].includes(toks[p + 1] && toks[p + 1].t)) throw new Error('charge');
         return { t: 'pow', a: base, b: unary() };
       }
       return base;
@@ -638,6 +665,15 @@
         return { t: 'leaf', v: tok.v };
       }
       if (tok.t === '(') { const n = sum(); if (toks[p++]?.t !== ')') throw new Error(')'); return n; }
+      // a radical takes the operand right after it: "√2/2" is (√2)/2
+      if (tok.t === '√' || tok.t === '∛') return { t: 'fn', name: tok.t === '√' ? 'SQRT' : 'CBRT', x: atom() };
+      if (tok.t === '|' && !bars) {
+        bars++;
+        const n = sum();
+        bars--;
+        if (toks[p++]?.t !== '|') throw new Error('|');
+        return { t: 'fn', name: 'ABS', x: n };
+      }
       throw new Error('token');
     }
     try {
@@ -707,6 +743,45 @@
     if (!ea || !eb || ea.length !== eb.length) return false;
     if (exprLeaves(ea) !== exprLeaves(eb)) return false;
     return canonExpression(ea) !== canonExpression(eb);
+  }
+  // A formula rather than words: it has math symbols, and every word in it is
+  // a variable, function or named constant ("x^-2 + √y", "-ln|cos x| + C").
+  // A hyphenated name ("alpha-helix") has no math symbols (see operatorsOf).
+  const MATH_WORDS_OK = new Set([...EXPR_FUNCS, ...EXPR_NAMES, 'CBRT']);
+  function isMathAnswer(raw) {
+    const str = String(raw == null ? '' : raw);
+    if (!operatorsOf(str).size && !/[√∛|^]/.test(str)) return false;
+    return !(str.toUpperCase().match(/[A-Z]{3,}/g) || []).some((w) => !MATH_WORDS_OK.has(w));
+  }
+  // A reaction's sides, each a sorted list of its species: "N2 + 3H2 →
+  // 2NH3" is [["3H2", "N2"], ["2NH3"]]. A "+" after "^" or before nothing
+  // but another "+" or the end is a charge ("H^+ + OH^-", "Na+ + Cl-").
+  const ARROW_RE = /\s*(?:→|⟶|⇌|⇄|<=>|<->|->|=>)\s*/;
+  function reactionSides(raw) {
+    const sides = String(raw == null ? '' : raw).split(ARROW_RE);
+    if (sides.length !== 2) return null;
+    return sides.map((side) => {
+      const species = [];
+      let depth = 0, cur = '';
+      for (let i = 0; i < side.length; i++) {
+        const ch = side[i];
+        if ('([{'.includes(ch)) depth++;
+        else if (')]}'.includes(ch)) depth = Math.max(0, depth - 1);
+        const next = side.slice(i + 1).trim()[0];
+        if (ch === '+' && !depth && side[i - 1] !== '^' && next && next !== '+') { species.push(cur); cur = ''; continue; }
+        cur += ch;
+      }
+      species.push(cur);
+      return species.map((x) => compact(x)).filter(Boolean).sort();
+    });
+  }
+  function sameMath(a, b) {
+    const ra = reactionSides(a), rb = reactionSides(b);
+    if (ra || rb) return !!ra && !!rb && ra.every((side, i) => side.join(' + ') === rb[i].join(' + '));
+    const ea = parseExpression(a), eb = parseExpression(b);
+    if (ea && eb) return ea.length === eb.length && canonExpression(ea) === canonExpression(eb);
+    const ia = inequalityOf(a), ib = inequalityOf(b);
+    return !!ia && !!ib && ia.strict === ib.strict && ia.lo === ib.lo && ia.hi === ib.hi;
   }
   function inequalityOf(raw) {
     const str = String(raw == null ? '' : raw).replace(/<=|=</g, '≤').replace(/>=|=>/g, '≥');
@@ -881,6 +956,12 @@
     const wa = tokenize(a);
     const wb = tokenize(b);
     if (!wa.length || wa.length !== wb.length) return null;
+    // In math, order is meaning ("x^-2 √y" isn't "y^-2 √x"), and the
+    // symbols are gone from these words, so a math answer is only matched
+    // in another order when the expressions or inequalities are shown to be
+    // the same ("-z+y+x" for "x+y-z", "17/15 > x" for "x < 17/15"), and
+    // never with typos.
+    if (isMathAnswer(a) || isMathAnswer(b)) return wa.join(' ') === wb.join(' ') || sameMath(a, b) ? 'exact' : null;
     const usedB = new Array(wb.length).fill(false);
     let typo = false;
     for (const w of wa) {
@@ -1630,14 +1711,16 @@
     ['KILOELECTRON VOLTS?|KILOELECTRONVOLTS?', 'KEV'], ['MEGAELECTRON VOLTS?|MEGAELECTRONVOLTS?', 'MEV'],
     ['ELECTRON VOLTS?|ELECTRONVOLTS?|ELECTRON-VOLTS?', 'EV'],
     ['KILOWATT[ -]HOURS?', 'KWH'], ['LIGHT[ -]YEARS?', 'LY'], ['ASTRONOMICAL UNITS?', 'AU'],
-    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?', 'MJ'], ['JOULES?', 'J'],
+    // milli and mega share a capital symbol here (MW, MV, MJ); checkAnswer
+    // tells them apart afterwards (see unitPrefixConflict)
+    ['KILOJOULES?', 'KJ'], ['MEGAJOULES?|MILLIJOULES?', 'MJ'], ['JOULES?', 'J'],
     ['KILONEWTONS?', 'KN'], ['NEWTONS?', 'N'],
-    ['KILOWATTS?', 'KW'], ['MEGAWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
-    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?', 'MV'], ['VOLTS?', 'V'],
+    ['KILOWATTS?', 'KW'], ['MEGAWATTS?|MILLIWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
+    ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?|MEGAVOLTS?', 'MV'], ['VOLTS?', 'V'],
     ['MILLIAMPERES?|MILLIAMPS?', 'MA'], ['AMPERES?|AMPS?', 'A'],
     ['OHMS?|Ω', 'OHM'], ['COULOMBS?', 'C'], ['FARADS?', 'F'], ['HENRIES|HENRYS?', 'H'], ['TESLAS?', 'T'],
     ['KILOHERTZ', 'KHZ'], ['MEGAHERTZ', 'MHZ'], ['GIGAHERTZ', 'GHZ'], ['HERTZ', 'HZ'],
-    ['KILOPASCALS?', 'KPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
+    ['KILOPASCALS?', 'KPA'], ['MEGAPASCALS?', 'MPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
     ['KELVINS?', 'K'], ['DEGC', 'DEGC'], ['DEGF', 'DEGF'], ['DEGREES?|°', 'DEG'],
     ['KILOMETERS?|KILOMETRES?', 'KM'], ['CENTIMETERS?|CENTIMETRES?', 'CM'], ['MILLIMETERS?|MILLIMETRES?', 'MM'],
     ['NANOMETERS?|NANOMETRES?', 'NM'], ['METERS?|METRES?', 'M'],
@@ -1691,17 +1774,90 @@
     }
     return out;
   }
+  // ---- Case-sensitive unit prefixes ----
+  // Grading compares text uppercased, which folds milli (m) into mega (M) and
+  // pico (p) into peta (P): "5 mW" would pass for "5 MW", a billionfold
+  // difference. So the prefix of each such unit after a number is read on
+  // its own: from a spelled-out word in any case ("megawatts"), or from the
+  // symbol's case when that answer is written in mixed case ("5 mW"). A key
+  // typed all in capitals (much of the bank: "25 MM", "-80 MV") says nothing
+  // by its case, so its question decides ("in megawatts", "to the nearest
+  // 10 mV") or, failing that, either prefix passes; so does a typed answer
+  // with no lowercase letters ("5 MW") or none in capitals ("5 mw").
+  const PREFIXES = { m: 'MILLI', M: 'MEGA', p: 'PICO', P: 'PETA' };
+  const PREFIX_UNITS = [
+    ['W', 'WATTS?'], ['J', 'JOULES?'], ['V', 'VOLTS?'], ['A', 'AMPS?|AMPERES?'], ['Hz', 'HERTZ'],
+    ['Pa', 'PASCALS?'], ['g', 'GRAMS?'], ['m', 'METERS?|METRES?'], ['s', 'SECONDS?'], ['L', 'LITERS?|LITRES?'],
+    ['eV', 'ELECTRON[ -]?VOLTS?'], ['N', 'NEWTONS?'], ['C', 'COULOMBS?'], ['F', 'FARADS?'],
+    ['H', 'HENRYS?|HENRIES'], ['T', 'TESLAS?'], ['mol', 'MOLES?'], ['K', 'KELVINS?'],
+  ];
+  const PREFIX_SYMBOL = '([mMpP])(' + PREFIX_UNITS.map(([s]) => s).join('|') + ')(?![A-Za-z])';
+  const PREFIX_WORD = '(MILLI|MEGA|PICO|PETA)[ -]?(' + PREFIX_UNITS.map(([, w]) => w).join('|') + ')\\b';
+  const PREFIX_WORD_RE = new RegExp('\\b' + PREFIX_WORD, 'gi');
+  // after a number: a symbol (groups 1-2, in any case) or a word (3-4)
+  const PREFIXED_UNIT_RE = new RegExp('\\d\\s*(?:' + PREFIX_SYMBOL + '|' + PREFIX_WORD + ')', 'gi');
+  // a symbol in a question, in its own case, after a number or "in"/"of"
+  const QUESTION_SYMBOL_RE = new RegExp('(?:\\d\\s*|\\b(?:in|of)\\s+)' + PREFIX_SYMBOL, 'g');
+  function unitBase(text) {
+    const up = text.toUpperCase();
+    const hit = PREFIX_UNITS.find(([sym, word]) => sym.toUpperCase() === up || new RegExp('^(?:' + word + ')$').test(up));
+    return hit ? hit[0] : null;
+  }
+  // [{ base, prefix }] for each prefixed unit after a number, in order;
+  // prefix is null when it can't be told.
+  function prefixedUnits(text, cased) {
+    const s = String(text == null ? '' : text);
+    const out = [];
+    for (const m of s.matchAll(PREFIXED_UNIT_RE)) {
+      if (m[1]) {
+        // read in its own case, the symbol must still be a unit ("Pa" is
+        // pascals, not peta-"a")
+        if (cased && !PREFIX_UNITS.some(([u]) => u === m[2])) continue;
+        out.push({ base: unitBase(m[2]), prefix: cased ? PREFIXES[m[1]] : null });
+      } else {
+        out.push({ base: unitBase(m[4]), prefix: m[3].toUpperCase() });
+      }
+    }
+    return out;
+  }
+  // What a question says a capitals-only key's prefix is: one prefix named
+  // with that unit, spelled out or as a mixed-case symbol.
+  function prefixFromQuestion(questionText, base) {
+    const q = String(questionText || '');
+    const found = new Set();
+    for (const m of q.matchAll(PREFIX_WORD_RE)) if (unitBase(m[2]) === base) found.add(m[1].toUpperCase());
+    if (/[a-z]/.test(q)) {
+      for (const m of q.matchAll(QUESTION_SYMBOL_RE)) if (m[2] === base) found.add(PREFIXES[m[1]]);
+    }
+    return found.size === 1 ? [...found][0] : null;
+  }
+  function unitPrefixConflict(typed, key, questionText) {
+    const casedText = (t) => /[a-z]/.test(t) && /[A-Z]/.test(t);
+    const tu = prefixedUnits(typed, casedText(String(typed)));
+    if (!tu.length) return false;
+    const keyCased = /[a-z]/.test(String(key));
+    const ku = prefixedUnits(key, keyCased).map((u) => (u.prefix || !u.base ? u : { ...u, prefix: prefixFromQuestion(questionText, u.base) }));
+    if (tu.length !== ku.length) return false;
+    return tu.some((t, i) => t.base && t.base === ku[i].base && t.prefix && ku[i].prefix && t.prefix !== ku[i].prefix);
+  }
+
   // The last word on any match: an answer whose operators, comparison or
-  // charges contradict the key and every accept (see operatorConflict) is
-  // wrong, however it matched (unit rewriting, word order, typo tolerance
-  // and the part-by-part checks all compare text with the symbols gone).
+  // charges contradict the key and every accept (see operatorConflict), or
+  // whose unit prefixes do (see unitPrefixConflict), is wrong, however it
+  // matched (unit rewriting, word order, typo tolerance and the part-by-part
+  // checks all compare text with the symbols and case gone).
   function checkAnswer(question, userInput) {
     const result = checkAnswerInner(question, userInput);
     if (!result.correct || !question.answer || question.format === 'MC') return result;
+    const wrong = { correct: false, matched: null, rejected: false };
+    const all = [question.answer.text, ...(question.answer.accept || [])].filter(Boolean);
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says
     // nothing about "NO3^(+)".
-    const keys = [question.answer.text, ...(question.answer.accept || [])].filter((k) => k && operatorsOf(k).size);
-    if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return { correct: false, matched: null, rejected: false };
+    const keys = all.filter((k) => operatorsOf(k).size);
+    if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return wrong;
+    // Likewise only the forms with a prefixed unit: "5 MW" or "5 megawatts".
+    const unitKeys = all.filter((k) => prefixedUnits(k, false).length);
+    if (unitKeys.length && unitKeys.every((k) => unitPrefixConflict(userInput, k, question.question))) return wrong;
     return result;
   }
   function checkAnswerInner(question, userInput) {

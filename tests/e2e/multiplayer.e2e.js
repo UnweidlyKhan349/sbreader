@@ -152,6 +152,34 @@ test('a player who joins mid-question reads on from where the room is, not the w
   await ctx.close();
 });
 
+test('pausing and resuming while someone answers doesn\'t read on for anyone', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  await a.evaluate(() => { const el = document.getElementById('mpSettingsRateSlider'); if (el) { el.value = el.min || 0; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); } });
+  await a.waitForTimeout(500);
+  await a.locator('#mpNextBtn').click();
+  await b.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled && document.getElementById('mpQDisplay').textContent.length > 0, null, { timeout: 10000 });
+  await b.waitForTimeout(800);
+  await b.locator('#mpBuzzBtn').click();
+  await b.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 10000 });
+  await a.waitForTimeout(500);
+  const shown = (p) => p.evaluate(() => document.getElementById('mpQDisplay').textContent.length);
+  const before = [await shown(a), await shown(b)];
+  // Each player pauses and resumes once, so both the coordinator's and the
+  // other player's handling of the pause are exercised.
+  for (const p of [a, b]) {
+    await p.locator('#mpPauseBtn').click(); await p.waitForTimeout(300);
+    await p.locator('#mpPauseBtn').click(); await p.waitForTimeout(300);
+  }
+  await a.waitForTimeout(1500);
+  const after = [await shown(a), await shown(b)];
+  assert.deepStrictEqual(after, before, 'the question stays where the buzz stopped it');
+  assert.deepStrictEqual(a.errors, []); assert.deepStrictEqual(b.errors, []);
+  await ctx.close();
+});
+
 test('when the coordinator leaves, the others agree on a new one and play on', async () => {
   const ctx = await newContext(browser);
   const r = room();

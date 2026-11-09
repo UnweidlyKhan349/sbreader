@@ -709,6 +709,14 @@
     if (game.paused) revealCtl.pause();
   }
 
+  // The reading runs only while the question is being read and the room
+  // isn't paused. Someone answering holds it too, so lifting a pause during
+  // an answer mustn't read on and show the others more of the question.
+  function syncRevealToState() {
+    if (!revealCtl || revealCtl.isDone()) return;
+    if (game.phase === 'reading' && !game.paused) revealCtl.resume(); else revealCtl.pause();
+  }
+
   // The room's switches as they stand (activeFilterState mirrors them for
   // every player).
   function roomSetting(key, fallback) {
@@ -1260,14 +1268,37 @@
   // controlled switch) in the room list, so the room comes back the same
   // after everyone has left. Only the browser that created the room can
   // change it there; for anyone else saveRoom just answers false.
-  let savedRecord = '';
+  // A record counts as saved only once the room list says so. A save that
+  // failed for now (saveRoom rejects: no connection, a server error) is
+  // tried again, sooner then later, until it goes through or the record
+  // changes. One save is out at a time, so an older save's answer never
+  // marks a newer record as saved; a change made meanwhile is sent when
+  // it's back.
+  let settledRecord = '';
+  let savingRecord = null;
+  let recordRetry = null;
+  let recordRetryMs = 0;
+  const RECORD_RETRY_MAX_MS = 60000;
   function saveRoomRecord() {
     if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
+    const key = roomKey();
     const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
-    const text = JSON.stringify(rec);
-    if (text === savedRecord) return;
-    savedRecord = text;
-    SBRooms.saveRoom(roomKey(), rec).catch(() => {});
+    const text = key + '\u0000' + JSON.stringify(rec);
+    if (text === settledRecord || savingRecord !== null) return;
+    clearTimeout(recordRetry); recordRetry = null;
+    savingRecord = text;
+    SBRooms.saveRoom(key, rec).then(() => {
+      // Saved (true), or nothing a retry would change: this browser didn't
+      // create the room (false), or there's no room list for it (null).
+      savingRecord = null;
+      settledRecord = text;
+      recordRetryMs = 0;
+      saveRoomRecord();
+    }, () => {
+      savingRecord = null;
+      recordRetryMs = Math.min(RECORD_RETRY_MAX_MS, recordRetryMs ? recordRetryMs * 2 : 2000);
+      recordRetry = setTimeout(() => { recordRetry = null; saveRoomRecord(); }, recordRetryMs);
+    });
   }
 
   // Whatever depends on who owns the room: the controlled-room lock on the
@@ -1590,7 +1621,7 @@
       hostGame.phase = 'reading';
       host.broadcast({ type: 'phase', phase: 'reading', lockedOut: [...hostGame.lockedOutIds] });
       applyPhaseLocal('reading', [...hostGame.lockedOutIds]);
-      revealCtl.resume();
+      syncRevealToState();
     } else {
       hostGame.phase = 'buzzwindow';
       host.broadcast({ type: 'phase', phase: 'buzzwindow', lockedOut: [...hostGame.lockedOutIds] });
@@ -1779,9 +1810,7 @@
       host.broadcast({ type: 'tick', remainingMs: hostGame.remainingMs, totalMs: hostGame.totalMs, kind: hostGame.timerKind });
       applyTickLocal(hostGame.remainingMs, hostGame.totalMs, hostGame.timerKind);
     }
-    if (revealCtl && hostGame.phase === 'reading') {
-      if (hostGame.paused) revealCtl.pause(); else revealCtl.resume();
-    }
+    syncRevealToState();
     fullRenderFromState();
   }
 
@@ -2497,7 +2526,7 @@
       if (msg.lockedOut) game.lockedOut = new Set(msg.lockedOut);
       game.buzzedPlayerId = null;
       if (msg.phase === 'reading') {
-        if (revealCtl && revealCtl.isPaused()) revealCtl.resume();
+        syncRevealToState();
       } else if (revealCtl && !revealCtl.isDone()) {
         // The reading window is over one way or another — make sure the full
         // text is showing, regardless of any local animation drift (this is
@@ -2550,7 +2579,7 @@
     }
     if (msg.type === 'pauseState') {
       game.paused = msg.paused;
-      if (revealCtl) { if (game.paused) revealCtl.pause(); else revealCtl.resume(); }
+      syncRevealToState();
       setClientTickPaused(game.paused);
       fullRenderFromState();
       return;
@@ -3182,7 +3211,8 @@
     // focus, force the reveal to catch up to whatever phase we're actually in.
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
-      if (game.phase !== 'reading' && game.phase !== 'lobby' && revealCtl && !revealCtl.isDone()) {
+      // (Not while someone answers: the reading waits there, mid-question.)
+      if (game.phase !== 'reading' && game.phase !== 'answering' && game.phase !== 'lobby' && revealCtl && !revealCtl.isDone()) {
         revealCtl.skipToEnd();
       }
       fullRenderFromState();

@@ -97,6 +97,33 @@ test('with Allow skips off, only the owner can skip', async () => {
   await ctx.close();
 });
 
+test('a room record that failed to save is saved again, until it goes through', async () => {
+  // The room list answers its first save with a server error, then saves.
+  // Everything else bound for Supabase is turned away, as in the other tests.
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const saves = [];
+  await ctx.route(/supabase\.co/, (route) => {
+    if (!/\/rpc\/mp_set_room/.test(route.request().url())) return route.abort();
+    saves.push(route.request().postDataJSON());
+    if (saves.length === 1) return route.fulfill({ status: 500, contentType: 'application/json', body: '{"message":"down"}' });
+    return route.fulfill({ status: 200, contentType: 'application/json', body: 'true' });
+  });
+  const r = room();
+  const a = await joinRoom(ctx, server.url, privateRoom(r));
+  await a.waitForFunction(() => document.getElementById('mpControlledRow') && !document.getElementById('mpControlledRow').classList.contains('d-none'), null, { timeout: 15000 });
+  const deadline = Date.now() + 15000;
+  while (saves.length < 2 && Date.now() < deadline) await a.waitForTimeout(250);
+  assert.ok(saves.length >= 2, `the failed save was tried again (${saves.length} saves)`);
+  assert.deepStrictEqual(saves[1], saves[0], 'with the same record');
+  // Once it's saved, an unchanged record isn't sent again.
+  const settled = saves.length;
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.waitForTimeout(5000);
+  assert.strictEqual(saves.length, settled);
+  assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});
+
 test('the owner can mute and ban; a banned player stays out', async () => {
   const ctx = await newContext(browser);
   const r = room();
