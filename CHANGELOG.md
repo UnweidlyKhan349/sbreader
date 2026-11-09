@@ -210,3 +210,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Removed: Show question history and Show set name (Play and Multiplayer; both always show), and the frequency lists' TXT/CSV downloads and level, limit and question type pickers (each list is the subject's 50 most frequent answers).
 - About: each keyboard shortcut is on its own line.
 - The tournament dropdowns say how many tournaments there are when all of them are chosen (or none, which means all): "All tournaments (113)".
+- Database: the All text / Question / Answer select and the Min Year / Max Year boxes are gone; searches look at the question, answer and tournament name, with Ignore word order as before. (Play and Multiplayer keep their year range.)

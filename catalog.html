@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=ad20bfc32c"></script>
+<script src="js/data.js?v=bda9dab111"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -73,7 +73,7 @@
 <div class="container-xl mt-3 mb-5">
   <p class="lead">Search the database that powers SB Reader.</p>
   <p>
-    Search all text (the question, its answer and its tournament name), the question only, or the answer only.
+    Searches look at each question, its answer and its tournament name.
     With <b>Ignore word order</b> on, every word you type must appear, in any order; off, the words must appear together as typed.
     Searches never depend on capital letters. The <a href="set-list">set list</a> shows every tournament.
   </p>
@@ -98,17 +98,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row g-2 mb-2">
-    <div class="col-12 col-md-4">
-      <select class="form-select" id="searchType" aria-label="Search in">
-        <option value="all" selected>All text</option>
-        <option value="question">Question</option>
-        <option value="answer">Answer</option>
-      </select>
-    </div>
-    <div class="col-6 col-md-4"><input class="form-control" type="number" inputmode="numeric" id="minYear" placeholder="Min Year" aria-label="Min Year" /></div>
-    <div class="col-6 col-md-4"><input class="form-control" type="number" inputmode="numeric" id="maxYear" placeholder="Max Year" aria-label="Max Year" /></div>
   </div>
   <div class="row g-2 mb-2 filter-groups">
     <div class="col-12 col-lg-6"><div class="chip-row" id="subjectChips" role="group" aria-label="Subjects"></div></div>
@@ -142,7 +131,7 @@
   <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
-<script src="js/catalog.js?v=a972a7eab2"></script>
+<script src="js/catalog.js?v=ec775ea883"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=5fa454813f"></script>
 <script src="js/account.js?v=f08deae102"></script>

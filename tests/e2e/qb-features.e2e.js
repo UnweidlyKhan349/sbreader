@@ -1,5 +1,5 @@
-// Features from QB Reader (November 2026): the Database's search controls
-// and year boxes, its cards (title linking the source, Stats | Report on the
+// Features from QB Reader (November 2026): the Database's Ignore word order,
+// its cards (title linking the source, Stats | Report on the
 // answer line, no footer), community question stats (the Supabase functions
 // answered here), self-graded Play ("Type to answer" off) and the year range,
 // the set and packet pages' source links, the plainer frequency lists, and a
@@ -27,12 +27,12 @@ async function statsContext(stats) {
 }
 const results = (page) => page.locator('#resultCount').innerText().then((t) => parseInt(t.replace(/^Showing \d+ of /, ''), 10));
 
-test('Database: all text / question / answer, ignore word order (on by default), year boxes', async () => {
+test('Database: ignore word order (on by default); no search-in select or year boxes', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'catalog');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
-  assert.strictEqual(await page.locator('#searchType').inputValue(), 'all');
+  assert.strictEqual(await page.locator('#searchType, #minYear, #maxYear').count(), 0);
   // The tournament picker says how many there are, with none or all picked.
   const tLabel = () => page.locator('#tournamentFilterCell .dropdown-checklist-label').innerText();
   const total = await page.evaluate(() => document.getElementById('tournamentSelect').options.length);
@@ -52,20 +52,10 @@ test('Database: all text / question / answer, ignore word order (on by default),
   await page.waitForTimeout(400);
   const phrase = await results(page);
   assert.ok(phrase > 0 && phrase <= anyOrder, `${phrase} as a phrase, ${anyOrder} in any order`);
-  await page.selectOption('#searchType', 'answer');
-  await page.waitForTimeout(400);
-  const inAnswers = await results(page);
-  assert.ok(inAnswers > 0 && inAnswers < phrase);
-  // Only the answer lines are marked.
-  assert.strictEqual(await page.locator('#results .q-text mark').count(), 0);
-  assert.ok(await page.locator('#results .a-text mark').count() > 0);
-  await page.fill('#minYear', '2025');
-  await page.fill('#maxYear', '2026');
-  await page.waitForTimeout(600);
-  assert.ok(await results(page) < inAnswers, 'the years narrow it');
+  // The phrase is marked as a whole.
+  assert.match(await page.locator('#results mark').first().innerText(), /^sodium chloride$/i);
   await page.locator('#clearFilters').click();
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
-  assert.strictEqual(await page.locator('#minYear').inputValue(), '');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });

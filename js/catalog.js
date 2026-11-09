@@ -9,13 +9,8 @@
     visuals: new Set(),
     tournaments: new Set(),
     search: '',
-    // Where to search (all text, question, answer) and whether the words
-    // may come in any order, as on QB Reader's database.
-    searchType: 'all',
+    // Whether the words may come in any order, as on QB Reader's database.
     ignoreWordOrder: true,
-    // [min, max] years, either end null for open.
-    minYear: null,
-    maxYear: null,
     // From a frequency list: only questions whose answer is this one (its
     // key, SBData.answerKey), until the search box is changed.
     exactAnswer: '',
@@ -153,21 +148,8 @@
         render();
       });
 
-      const searchType = document.getElementById('searchType');
-      searchType.addEventListener('change', () => { state.searchType = searchType.value; state.page = 1; render(); });
       const ignoreOrder = document.getElementById('ignoreWordOrder');
       ignoreOrder.addEventListener('change', () => { state.ignoreWordOrder = ignoreOrder.checked; state.page = 1; render(); });
-      const [firstYear, lastYear] = SBData.yearSpan();
-      ['minYear', 'maxYear'].forEach((key) => {
-        const box = document.getElementById(key);
-        box.min = firstYear; box.max = lastYear;
-        box.addEventListener('input', debounce(() => {
-          const y = parseInt(box.value, 10);
-          state[key] = Number.isFinite(y) ? y : null;
-          state.page = 1;
-          render();
-        }, 220));
-      });
 
       const hideAnswers = document.getElementById('hideAnswers');
       hideAnswers.checked = state.hideAnswers;
@@ -187,14 +169,9 @@
         state.search = '';
         state.exactAnswer = '';
         state.page = 1;
-        state.searchType = 'all';
         state.ignoreWordOrder = true;
-        state.minYear = state.maxYear = null;
         document.getElementById('searchBox').value = '';
-        searchType.value = 'all';
         ignoreOrder.checked = true;
-        document.getElementById('minYear').value = '';
-        document.getElementById('maxYear').value = '';
         tSelect.setMultiValues([]);
         if (roundSliderApi) roundSliderApi.reset();
         document.getElementById('includeUnlabeledRounds').checked = true;
@@ -229,15 +206,6 @@
     });
   }
 
-  // Min Year / Max Year, either left empty for no limit (and swapped if
-  // typed the wrong way round).
-  function yearRange() {
-    if (state.minYear == null && state.maxYear == null) return null;
-    const lo = state.minYear == null ? -Infinity : state.minYear;
-    const hi = state.maxYear == null ? Infinity : state.maxYear;
-    return [Math.min(lo, hi), Math.max(lo, hi)];
-  }
-
   function render() {
     syncChipVisuals();
     if (roundSliderApi) {
@@ -256,16 +224,14 @@
       levels: state.levels,
       visuals: state.visuals,
       tournaments: state.tournaments,
-      yearRange: yearRange(),
       search: state.exactAnswer ? '' : state.search,
-      searchType: state.searchType,
       ignoreWordOrder: state.ignoreWordOrder,
     }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
     if (state.random) {
-      const key = [state.search, state.searchType, state.ignoreWordOrder, state.minYear, state.maxYear, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      const key = [state.search, state.ignoreWordOrder, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
       if (!state.randomPick || state.randomKey !== key) {
         state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
         state.randomKey = key;
@@ -375,11 +341,9 @@
 
   function renderCard(q) {
     const card = SBData.questionCard(q, { hideAnswer: state.hideAnswers });
-    // Marked only where the search looked: the question (and its choices),
-    // the answer, or everywhere; a phrase as a whole when word order counts.
-    const where = { all: [card], question: [...card.querySelectorAll('.q-text, .choices')], answer: [...card.querySelectorAll('.a-text')] }[state.searchType] || [card];
+    // A phrase is marked as a whole when word order counts.
     const terms = state.ignoreWordOrder ? SBData.searchWords(state.search) : [SBData.searchPhrase(state.search)].filter(Boolean);
-    where.forEach((root) => highlightMatches(root, terms));
+    highlightMatches(card, terms);
     return card;
   }
 

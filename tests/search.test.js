@@ -1,5 +1,5 @@
 // The Database's search (SBData.searchMatcher, used by filterQuestions):
-// where it looks, word order, and capital letters; the year range; and the
+// word order and capital letters; the year range (Play and Multiplayer); and the
 // set pages' source links (SBData.tournamentSourceUrl).
 const test = require('node:test');
 const assert = require('node:assert');
@@ -13,19 +13,16 @@ globalThis.window = globalThis;
 require('../js/play-common.js');
 
 const q = (question, answer, tournament) => ({ question, answer: { text: answer }, tournament });
-const match = (item, search, type, ignoreOrder) => SBData.searchMatcher(search, type, ignoreOrder)(item);
+const match = (item, search, ignoreOrder) => SBData.searchMatcher(search, ignoreOrder)(item);
 
-test('all text, question or answer; any word order or the phrase; never case-sensitive', () => {
+test('question, answer and tournament; any word order or the phrase; never case-sensitive', () => {
   const item = q('Table salt is mostly which compound?', 'Sodium Chloride', 'MIT 2024');
-  assert.ok(match(item, 'chloride sodium', 'all', true), 'words in any order');
-  assert.ok(!match(item, 'chloride sodium', 'all', false), 'the phrase must be as typed');
-  assert.ok(match(item, 'SODIUM   chloride', 'all', false), 'capitals and spacing never matter');
-  assert.ok(match(item, 'mit sodium', 'all', true), 'all text includes the tournament');
-  assert.ok(!match(item, 'mit sodium', 'question', true), 'question only');
-  assert.ok(match(item, 'table salt', 'question', false));
-  assert.ok(!match(item, 'table', 'answer', true), 'answer only');
-  assert.ok(match(item, 'Chloride', 'answer', true));
-  assert.strictEqual(SBData.searchMatcher('   ', 'all', true), null, 'nothing to search for');
+  assert.ok(match(item, 'chloride sodium', true), 'words in any order');
+  assert.ok(!match(item, 'chloride sodium', false), 'the phrase must be as typed');
+  assert.ok(match(item, 'SODIUM   chloride', false), 'capitals and spacing never matter');
+  assert.ok(match(item, 'mit sodium', true), 'the tournament counts too');
+  assert.ok(match(item, 'table salt', false), 'and the question');
+  assert.strictEqual(SBData.searchMatcher('   ', true), null, 'nothing to search for');
 });
 
 test('the year range keeps only the tournaments of those years', () => {
