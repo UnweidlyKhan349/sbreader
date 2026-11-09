@@ -33,6 +33,13 @@ test('Database: all text / question / answer, ignore word order (on by default),
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
   assert.strictEqual(await page.locator('#searchType').inputValue(), 'all');
+  // The tournament picker says how many there are, with none or all picked.
+  const tLabel = () => page.locator('#tournamentFilterCell .dropdown-checklist-label').innerText();
+  const total = await page.evaluate(() => document.getElementById('tournamentSelect').options.length);
+  assert.strictEqual(await tLabel(), `All tournaments (${total})`);
+  await page.evaluate(() => { const sel = document.getElementById('tournamentSelect'); sel.setMultiValues([...sel.options].map((o) => o.value)); });
+  assert.strictEqual(await tLabel(), `All tournaments (${total})`);
+  await page.evaluate(() => document.getElementById('tournamentSelect').setMultiValues([]));
   await page.fill('#searchBox', 'CHLORIDE sodium');
   await page.keyboard.press('Enter');
   await page.waitForTimeout(500);

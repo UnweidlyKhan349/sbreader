@@ -209,3 +209,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Set pages link the whole tournament's source packets under "View … here:" (or each packet's, when they're separate files); packet pages link their source packet in place of the TXT/JSON downloads, and the "<Physics / Toss-up / Short Answer> Source packet | Report" line under each question is gone.
 - Removed: Show question history and Show set name (Play and Multiplayer; both always show), and the frequency lists' TXT/CSV downloads and level, limit and question type pickers (each list is the subject's 50 most frequent answers).
 - About: each keyboard shortcut is on its own line.
+- The tournament dropdowns say how many tournaments there are when all of them are chosen (or none, which means all): "All tournaments (113)".

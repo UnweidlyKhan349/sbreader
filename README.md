@@ -12,7 +12,7 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and starred questions kept per device) written in plain HTML/CSS/JS, with no build step, JavaScript framework or server of its own to run, so it can be deployed straight to GitHub Pages or any static host. The optional extras use a [Supabase](https://supabase.com) project: accounts, the Multiplayer room list and relay, and question reports, through the database schema in `supabase/schema.sql`, plus one small Edge Function that hands out TURN logins for Multiplayer (`supabase/functions/turn-credentials`). Without a project everything else still works. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (from the jsDelivr CDN at a fixed version, with an integrity hash) with Light, Night and Auto themes.
 
-**Current question bank: 104,246 questions from 113 tournaments** (56,559 tossups / 47,687 bonuses; 64,789 short answer / 39,457 multiple choice), including **571 visual questions** whose figures (577 images) are shown with the question. Every question links to where it's published, and 60,472 of those links open the packet at the question's page or line.
+**Current question bank: 104,234 questions from 113 tournaments** (56,555 tossups / 47,679 bonuses; 64,784 short answer / 39,450 multiple choice), including **571 visual questions** whose figures (577 images) are shown with the question. Every question links to where it's published, and 60,472 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|

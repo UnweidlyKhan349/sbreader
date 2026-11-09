@@ -1706,8 +1706,12 @@
 
     function syncLabel() {
       const n = selectEl._sbMultiValues.size;
-      if (n === 0) {
-        labelBtn.textContent = `All ${noun}s`;
+      // All of them, picked or not (none picked means all): "All tournaments
+      // (113)", with how many there are (none yet, as with no set's packets:
+      // just "All packets").
+      const total = selectEl.options.length;
+      if (n === 0 || n === total) {
+        labelBtn.textContent = total ? `All ${noun}s (${total})` : `All ${noun}s`;
       } else if (n === 1) {
         const [onlyVal] = selectEl._sbMultiValues;
         const opt = Array.from(selectEl.options).find((o) => o.value === onlyVal);
