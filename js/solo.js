@@ -1,6 +1,6 @@
 // Play (solo.html), laid out and behaving like QB Reader's play page: a mode
 // (Select by Set Name, Random Questions, Starred Questions), subject toggles,
-// rebuzz / history / set name / timer switches, and finished questions
+// type-to-answer / rebuzz / timer switches, and finished questions
 // collapsed into cards under the current one (k opens the latest, t stars it).
 (function () {
   const { escapeHtml } = SBData;
@@ -18,15 +18,19 @@
     subjects: null, // null = every subject
     tournaments: [],
     roundRange: null,
+    // [first, last] years, or null for every year.
+    yearRange: null,
     includeUnlabeled: true,
+    // Off, as QB Reader's "Type to answer": you buzz, reveal the answer and
+    // grade yourself (counted right; "I was wrong" flips it).
+    typeToAnswer: true,
     rebuzz: false,
-    showHistory: true,
-    showSetName: true,
     timer: true,
   });
   function save() { SBPlay.saveSettings(SETTINGS_KEY, { ...settings, subjects: [...subjects] }); }
   let subjects; // Set of subject keys
   let roundSliderApi;
+  let yearSliderApi;
   let categories;
   let packetPicker;
 
@@ -51,6 +55,7 @@
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
+      yearRange: settings.yearRange,
       includeUnlabeled: settings.includeUnlabeled !== false,
     });
   }
@@ -166,13 +171,26 @@
       onChange: (lo, hi) => { settings.roundRange = [lo, hi]; onSettingsChange(); },
     });
     if (settings.roundRange) roundSliderApi.setRange(settings.roundRange[0], settings.roundRange[1]);
+    // Year range, as on QB Reader: the tournaments' years.
+    const [firstYear, lastYear] = SBData.yearSpan();
+    yearSliderApi = SBData.wireRoundRangeSlider({
+      minInput: document.getElementById('yearMin'),
+      maxInput: document.getElementById('yearMax'),
+      fillEl: document.getElementById('yearSliderFill'),
+      labelEl: document.getElementById('yearRangeLabel'),
+      min: firstYear,
+      maxRound: lastYear,
+      label: SBPlay.yearLabel,
+      onChange: (lo, hi) => { settings.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; onSettingsChange(); },
+    });
+    if (settings.yearRange) yearSliderApi.setRange(Math.max(firstYear, settings.yearRange[0]), Math.min(lastYear, settings.yearRange[1]));
     const unlabeled = document.getElementById('toggleUnlabeled');
     unlabeled.checked = settings.includeUnlabeled !== false;
     unlabeled.addEventListener('change', () => { settings.includeUnlabeled = unlabeled.checked; unlabeled.blur(); onSettingsChange(); });
     scopeRounds();
 
     // Switches.
-    const switches = { toggleRebuzz: 'rebuzz', toggleShowHistory: 'showHistory', toggleShowSetName: 'showSetName', toggleTimer: 'timer' };
+    const switches = { toggleTypeToAnswer: 'typeToAnswer', toggleRebuzz: 'rebuzz', toggleTimer: 'timer' };
     Object.entries(switches).forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.checked = !!settings[key];
@@ -213,6 +231,8 @@
     document.getElementById('toggleUnlabeled').checked = true;
     roundSliderApi.reset(); // reports the full range, which saves and recounts
     settings.roundRange = null;
+    yearSliderApi.reset();
+    settings.yearRange = null;
     onSettingsChange();
   }
 
@@ -221,10 +241,8 @@
     if (moved) settings.roundRange = moved;
   }
 
-  // Show question history, Show set name, Enable timer.
+  // Enable timer.
   function applySwitches() {
-    document.getElementById('questionLog').classList.toggle('d-none', !settings.showHistory);
-    document.getElementById('questionInfo').classList.toggle('d-none', !settings.showSetName);
     document.getElementById('timer').classList.toggle('d-none', !settings.timer);
     // Turning the timer off mid-countdown stops it; turning it on starts the
     // buzz window again if the question has finished reading.
@@ -321,6 +339,8 @@
   }
 
   function nextQuestion() {
+    // The last question's play is final now: off to its community stats.
+    if (window.SBQuestionStats) SBQuestionStats.flush();
     if (session.queueStale) rebuildQueue();
     if (session.index + 1 >= session.queue.length && settings.mode !== 'starred') {
       // As on QB Reader: an alert, and the last question stays where it is.
@@ -409,6 +429,8 @@
   }
 
   function buzzIn() {
+    // Self-graded (Type to answer off): the second press is Reveal.
+    if (runtime.phase === 'answering' && runtime.selfGraded) { selfReveal(); return; }
     if (runtime.phase !== 'revealing' && runtime.phase !== 'buzzwindow') return;
     if (runtime.paused) return;
     runtime.buzzedDuringReading = runtime.phase === 'revealing';
@@ -418,6 +440,17 @@
     if (runtime.phase === 'buzzwindow' && runtime.timer) runtime.buzzwindowLeftMs = runtime.remainingMs;
     clearRuntimeTimer();
     runtime.phase = 'answering';
+    // (Kept for this buzz, whatever the switch does meanwhile.)
+    runtime.selfGraded = !settings.typeToAnswer;
+    if (runtime.selfGraded) {
+      // As on QB Reader: Buzz turns into Reveal while the answer clock runs;
+      // revealing (or running out of time) shows the answer.
+      setNextButtonMode('disabled');
+      setBuzzLabel('Reveal');
+      setBuzzEnabled(true);
+      if (settings.timer) runTimer(ANSWER_MS, 'answer', selfReveal);
+      return;
+    }
     setBuzzEnabled(false);
     setNextButtonMode('disabled');
     const answerRow = document.getElementById('answerRow');
@@ -432,6 +465,15 @@
     }
     if (settings.timer) runTimer(ANSWER_MS, 'answer', () => submitAnswer(document.getElementById('answerInput').value));
   }
+
+  // Self-graded: the answer is shown and the buzz counts as right, unless
+  // you then say "I was wrong" (q).
+  function selfReveal() {
+    if (runtime.phase !== 'answering' || !runtime.selfGraded) return;
+    clearRuntimeTimer();
+    resolveQuestion({ correct: true, userText: '' });
+  }
+  function setBuzzLabel(text) { document.getElementById('buzzBtn').textContent = text; }
 
   function submitAnswer(text) {
     if (runtime.phase !== 'answering') return;
@@ -494,13 +536,29 @@
     updateCounters();
     runtime.pendingCard = { q, category, userText: outcome.userText || '' };
     if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo');
+    // For the question's community stats: how it went (a question skipped
+    // before it was read through wasn't heard, so it isn't counted).
+    if (window.SBQuestionStats && (outcome.attempted || runtime.readingDone)) {
+      SBQuestionStats.track(q, 'solo', playResult(outcome), celerityOf(outcome));
+    }
 
     setBuzzEnabled(false);
+    setBuzzLabel('Buzz');
     document.getElementById('pauseBtn').disabled = true;
     document.getElementById('answerRow').classList.add('d-none');
     resetTimer();
     setNextButtonMode('next');
     showReveal();
+  }
+
+  // A finished question as the community stats count it.
+  function playResult(outcome) {
+    if (!outcome.attempted) return 'unanswered';
+    if (outcome.correct) return 'correct';
+    return pointsFor(outcome) < 0 ? 'neg' : 'incorrect';
+  }
+  function celerityOf(outcome) {
+    return outcome.correct ? 1 - (runtime.buzzFraction == null ? 1 : runtime.buzzFraction) : null;
   }
 
   // Science Bowl scoring: +4 right; −4 for a wrong answer buzzed in before
@@ -579,6 +637,7 @@
     if (!o.uncounted) session.points += pointsFor(o);
     updateCounters();
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
+    if (window.SBQuestionStats) SBQuestionStats.update(currentQ(), playResult(o), celerityOf(o));
     if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect');
     if (o.correct && window.SBReports) SBReports.logOverride(currentQ(), o.userText, 'solo');
     showReveal();

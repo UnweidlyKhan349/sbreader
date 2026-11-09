@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://sbreader.github.io/catalog" />
 <meta name="twitter:card" content="summary" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<link rel="stylesheet" href="css/style.css?v=fe6dbd69a3" />
+<link rel="stylesheet" href="css/style.css?v=cb4a58d573" />
 <script src="js/site.js?v=24064b35bf"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=52cfef20c1"></script>
+<script src="js/data.js?v=029cea9541"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -73,8 +73,9 @@
 <div class="container-xl mt-3 mb-5">
   <p class="lead">Search the database that powers SB Reader.</p>
   <p>
-    Every word you type must appear somewhere in a question, its answer or its tournament name, in any order.
-    The <a href="set-list">set list</a> shows every tournament.
+    Search all text (the question, its answer and its tournament name), the question only, or the answer only.
+    With <b>Ignore word order</b> on, every word you type must appear, in any order; off, the words must appear together as typed.
+    Searches never depend on capital letters. The <a href="set-list">set list</a> shows every tournament.
   </p>
 
   <div class="input-group mb-2">
@@ -98,6 +99,17 @@
       </div>
     </div>
   </div>
+  <div class="row g-2 mb-2">
+    <div class="col-12 col-md-4">
+      <select class="form-select" id="searchType" aria-label="Search in">
+        <option value="all" selected>All text</option>
+        <option value="question">Question</option>
+        <option value="answer">Answer</option>
+      </select>
+    </div>
+    <div class="col-6 col-md-4"><input class="form-control" type="number" inputmode="numeric" id="minYear" placeholder="Min Year" aria-label="Min Year" /></div>
+    <div class="col-6 col-md-4"><input class="form-control" type="number" inputmode="numeric" id="maxYear" placeholder="Max Year" aria-label="Max Year" /></div>
+  </div>
   <div class="row g-2 mb-2 filter-groups">
     <div class="col-12 col-lg-6"><div class="chip-row" id="subjectChips" role="group" aria-label="Subjects"></div></div>
     <div class="col-12 col-lg-6">
@@ -108,6 +120,10 @@
         <div class="chip-row" id="visualChips" role="group" aria-label="Visual questions"></div>
       </div>
     </div>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="ignoreWordOrder" checked />
+    <label class="form-check-label" for="ignoreWordOrder">Ignore word order</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
@@ -126,10 +142,11 @@
   <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
-<script src="js/catalog.js?v=409d65fed4"></script>
+<script src="js/catalog.js?v=a972a7eab2"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=5fa454813f"></script>
 <script src="js/account.js?v=f08deae102"></script>
 <script src="js/reports.js?v=18c81011cd"></script>
+<script src="js/question-stats.js?v=dd0e3a179d"></script>
 </body>
 </html>

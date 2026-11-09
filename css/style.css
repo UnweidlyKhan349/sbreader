@@ -313,6 +313,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .q-card .a-text { font-weight: 700; }
 .q-card .q-figure { max-height: 300px; }
 .q-card .card-footer { color: var(--bs-secondary-color); }
+/* The title: bold and underlined, a link to the source packet. */
+.q-card .q-card-title-text { font-weight: 700; text-decoration: underline; color: inherit; }
+.q-card a.q-card-title-text:hover { color: var(--bs-link-hover-color); }
+.q-card .q-card-links { padding-top: .1rem; }
 .q-card .q-num { font-weight: 400; }
 
 /* Pagination's "Page [n] of N" jump box. */
