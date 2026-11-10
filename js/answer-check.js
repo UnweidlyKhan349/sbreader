@@ -87,6 +87,19 @@
   // not a list item.
   const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s|:(?=\s))/g;
   const COLON_LABEL_RE = /\b(?:rows?|columns?|cols?|steps?|stages?|phases?|parts?|rounds?|sets?|levels?|questions?|problems?)\s*$/i;
+  // Some packets label the items with Roman numerals instead ("I. Gravity
+  // II. Normal force III. Friction", keyed "I ONLY" or "I AND III"). They
+  // count the same way, as items 1, 2, 3, ..., when the stem has no run of
+  // arabic ones; the labels are capitals (a lower-case "i." is more likely
+  // the end of a sentence), and stop at IX ("X)" is a choice letter).
+  const ROMAN_ITEM_RE = /(?:^|[\s;,:])(IX|IV|V?I{1,3}|V)(?:\)|\.\s|:(?=\s))/g;
+  const ROMAN_VALUE = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9 };
+  // How many of the markers continue a 1, 2, 3, ... run.
+  function markerRun(markers) {
+    let want = 1;
+    for (const m of markers) { if (m.num === want) want++; }
+    return want - 1;
+  }
   function itemMarkers(questionText) {
     const markers = [];
     for (const m of questionText.matchAll(ITEM_MARKER_RE)) {
@@ -94,7 +107,22 @@
       if (m[0].endsWith(':') && COLON_LABEL_RE.test(questionText.slice(Math.max(0, m.index - 20), end - 2))) continue;
       markers.push({ num: parseInt(m[1], 10), index: m.index, end });
     }
-    return markers;
+    if (markerRun(markers) >= 2) return markers;
+    const roman = [];
+    for (const m of questionText.matchAll(ROMAN_ITEM_RE)) {
+      roman.push({ num: ROMAN_VALUE[m[1]], index: m.index, end: m.index + m[0].length });
+    }
+    return markerRun(roman) >= 2 ? roman : markers;
+  }
+  // An answer given in Roman numerals ("III ONLY", "I AND III", "ii, iii")
+  // as its item numbers ("3 ONLY", "1 AND 3", "2, 3"): every word must be a
+  // numeral from I to IX or a list word, so "IV FLUIDS" or "VITAMIN K" is
+  // left alone. `up` is already normalized (capitals, no punctuation).
+  const LIST_WORDS = new Set(['AND', 'OR', 'ONLY', 'THEN']);
+  function romanItemsToDigits(up) {
+    const words = up.split(/[\s,]+/).filter(Boolean);
+    if (!words.some((w) => ROMAN_VALUE[w]) || !words.every((w) => ROMAN_VALUE[w] || LIST_WORDS.has(w))) return up;
+    return up.replace(/[A-Z]+/g, (w) => (ROMAN_VALUE[w] ? String(ROMAN_VALUE[w]) : w));
   }
   function detectItemCount(questionText) {
     if (!questionText) return null;
@@ -141,7 +169,7 @@
   // (TACHOCLINE, …)", "1. INFLATION 3. RECOMBINATION 2. REIONIZATION").
   function canonicalizeRanked(raw, itemCount, typed) {
     if (!itemCount) return null;
-    const up = normalize(raw);
+    const up = romanItemsToDigits(normalize(raw));
     if (!up) return null;
     if (typed && !/^[1-9]+$/.test(up) && !/^[1-9](?:\s+(?:(?:AND|THEN)\s+)?[1-9])*$/.test(up)) return null;
     const all = (up.match(/[1-9]/g) || []).map(Number);
@@ -156,7 +184,7 @@
   // Returns null if it doesn't look like a list-style answer.
   function canonicalizeList(raw, itemCount) {
     if (!itemCount) return null;
-    const up = normalize(raw);
+    const up = romanItemsToDigits(normalize(raw));
     if (!up) return null;
 
     if (/^ALL( OF THE ABOVE| THREE| FOUR| FIVE| SIX)?$/.test(up)) {

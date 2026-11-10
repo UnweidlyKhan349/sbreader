@@ -458,3 +458,28 @@ test('long answers to many-part keys grade quickly', () => {
   grade(gases, 'i think it is helium and then maybe neon or argon krypton xenon and radon but not sure at all really');
   assert.ok(Date.now() - start < 1500);
 });
+
+test('items labelled with Roman numerals take numbers or numerals: "3" for "III ONLY"', () => {
+  const stem = 'Identify ALL of the following statements that are true regarding photoperiodism: I. Day neutral plants also display it II. It is controlled by auxin III. Long day plants flower in summer';
+  const q = (t) => ({ answer: { text: t, accept: [], reject: [] }, question: stem, format: 'SA' });
+  const ok = (key, typed) => assert.ok(checkAnswer(q(key), typed).correct, `${typed} for ${key}`);
+  const no = (key, typed) => assert.ok(!checkAnswer(q(key), typed).correct, `${typed} for ${key}`);
+  assert.strictEqual(globalThis.SBAnswer.detectItemCount(stem), 3);
+  for (const typed of ['3', 'iii', 'III', '3 only', 'iii only', 'only 3', 'three']) ok('III ONLY', typed);
+  for (const typed of ['2', 'ii', '1 and 3', 'i and iii', '13', 'all', 'none']) no('III ONLY', typed);
+  for (const typed of ['1 and 3', '1, 3', '13', 'i, iii', 'iii and i', '3 1']) ok('I AND III', typed);
+  for (const typed of ['1', '3', 'i', '123', 'ii and iii']) no('I AND III', typed);
+  for (const typed of ['all', '123', 'i, ii, iii', '1 2 3']) ok('I, II, AND III', typed);
+  ok('II', '2');
+  // A key in numbers takes numerals too.
+  const arabic = { answer: { text: '3 ONLY', accept: [], reject: [] }, question: 'Identify all of the following that are noble gases: 1) Oxygen 2) Nitrogen 3) Neon', format: 'SA' };
+  assert.ok(checkAnswer(arabic, 'iii').correct);
+  assert.ok(!checkAnswer(arabic, 'ii').correct);
+  // A stem numbered 1, 2, 3 is read by its numbers, whatever Roman numerals it mentions.
+  assert.strictEqual(globalThis.SBAnswer.detectItemCount('Which are in group I? 1) Na 2) Mg 3) K'), 3);
+  // Words that only look like numerals aren't item numbers.
+  assert.strictEqual(globalThis.SBAnswer.canonicalizeList('IV FLUIDS', 4), null);
+  assert.strictEqual(globalThis.SBAnswer.canonicalizeList('VITAMIN D', 4), null);
+  // One "I." alone (a sentence ending in "I") isn't a list.
+  assert.strictEqual(globalThis.SBAnswer.detectItemCount('What is the charge of an ion of group I. Give a number.'), null);
+});

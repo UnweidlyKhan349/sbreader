@@ -236,3 +236,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Confirmations are dialogs on the page, not browser popups: **Reset stats** and **Delete my data** (Edit profile) and **Ban** (a room's owner, in Multiplayer), each with Cancel and a red button named for what it does.
 - Reporting a question no longer ends in a browser alert: the form says "Thanks! Your report was sent." and closes itself a moment later, as it did before November 7.
 - The `q` shortcut for **I was wrong** / **I was right** is back in Play and Multiplayer.
+- Grading: items labelled with Roman numerals ("I. … II. … III. …", about 780 questions) count as numbered items, so `3`, `iii` or `3 only` is right for `III ONLY`, `1 and 3` or `13` for `I AND III`, and `all` for `I, II AND III`; a key written in numbers takes numerals too (`iii` for `3 ONLY`).
