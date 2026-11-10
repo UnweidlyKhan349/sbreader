@@ -1082,7 +1082,7 @@
 
   /* ---------------- Filtering ---------------- */
   // opts: { subjects, roundRange:[min,max], yearRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, visuals, bookmarkedOnly,
-  //         search, ignoreWordOrder (default true) }
+  //         search, ignoreWordOrder (default true), searchType: 'all' | 'question' | 'answer' }
   // each of subjects/tournaments/formats/qtypes/levels/visuals is either null/empty (= all) or a Set/array of allowed values
   // (visuals holds 'visual' and/or 'text')
   SBData.filterQuestions = function (opts) {
@@ -1095,7 +1095,7 @@
     const visuals = toSetOrNull(opts.visuals);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
-    const matchesSearch = SBData.searchMatcher(opts.search, opts.ignoreWordOrder);
+    const matchesSearch = SBData.searchMatcher(opts.search, opts.ignoreWordOrder, opts.searchType);
     const roundRange = opts.roundRange || null; // [min, max] inclusive
     const yearRange = opts.yearRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
@@ -1126,17 +1126,21 @@
     return ys.length ? [Math.min(...ys), Math.max(...ys)] : [2000, new Date().getFullYear()];
   };
 
-  // A search of the question, answer and tournament name, as on QB Reader's
-  // database: the words may come in any order (each must appear somewhere),
-  // or, with ignoreWordOrder false, must appear together as typed. Always
-  // case-insensitive. Null when there's nothing to search for.
-  SBData.searchMatcher = function (search, ignoreWordOrder) {
+  // A search, as on QB Reader's database: where to look (all text: the
+  // question, the answer and the tournament name; the question text only;
+  // or the answer text only), and whether the words may
+  // come in any order (each must appear somewhere) or, with ignoreWordOrder
+  // false, must appear together as typed. Always case-insensitive. Null when
+  // there's nothing to search for.
+  SBData.SEARCH_TYPES = ['all', 'question', 'answer'];
+  SBData.searchMatcher = function (search, ignoreWordOrder, searchType) {
+    const type = SBData.SEARCH_TYPES.includes(searchType) ? searchType : 'all';
     if (ignoreWordOrder === false) {
       const phrase = SBData.searchPhrase(search);
-      return phrase ? (q) => searchText(q).includes(phrase) : null;
+      return phrase ? (q) => searchText(q, type).includes(phrase) : null;
     }
     const words = SBData.searchWords(search);
-    return words.length ? (q) => { const text = searchText(q); return words.every((w) => text.includes(w)); } : null;
+    return words.length ? (q) => { const text = searchText(q, type); return words.every((w) => text.includes(w)); } : null;
   };
   // The query as one lowercased phrase, its spacing evened out.
   SBData.searchPhrase = function (search) {
@@ -1159,14 +1163,23 @@
   // Spacing is evened out, so a phrase search isn't thrown by a line break.
   const searchTexts = new WeakMap();
   const unmarkExponents = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
-  function searchText(q) {
-    let text = searchTexts.get(q);
+  // Each scope is built the first time it's searched and kept.
+  const SEARCH_FIELDS = {
+    all: (q) => [q.question, q.answer.text, q.tournament],
+    question: (q) => [q.question],
+    answer: (q) => [q.answer.text],
+  };
+  function searchText(q, type) {
+    type = type || 'all';
+    let texts = searchTexts.get(q);
+    if (!texts) { texts = {}; searchTexts.set(q, texts); }
+    let text = texts[type];
     if (text === undefined) {
-      const fields = [q.question, q.answer.text, q.tournament].map((f) => (f || '').toLowerCase().replace(/\s+/g, ' '));
+      const fields = SEARCH_FIELDS[type](q).map((f) => (f || '').toLowerCase().replace(/\s+/g, ' '));
       text = fields.join('\0');
       const plain = fields.map(unmarkExponents).join('\0');
       if (plain !== text) text += '\0' + plain;
-      searchTexts.set(q, text);
+      texts[type] = text;
     }
     return text;
   }
