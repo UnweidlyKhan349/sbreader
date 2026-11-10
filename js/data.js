@@ -508,17 +508,59 @@
 
   // Question text, its figures if it's a visual question, then the MC
   // choices if there are any.
-  function appendQuestionBody(card, q) {
+  // Where a buzz fell in a question, as QB Reader's Best Buzz marks it: the
+  // question's text and choices as HTML with "(#)" after the last word that
+  // was showing. `read` is how much had been read at the buzz, 0 to 1 (1
+  // minus the celerity): the share of the characters Play and Multiplayer
+  // type out, header line and choices included (js/reveal.js), so the mark
+  // is found by laying the question out the same way. Needs SBReveal;
+  // without it, or without a usable `read`, nothing is marked.
+  const BUZZ_MARK = ' <span class="buzz-marker" title="Where you buzzed">(#)</span> ';
+  function buzzMarked(q, read) {
+    const text = questionTextHTML(q);
+    const letters = q.choices ? ['W', 'X', 'Y', 'Z'] : [];
+    const choices = {};
+    letters.forEach((L) => { choices[L] = renderMathHTML(q.choices[L] || ''); });
+    const out = { text, choices };
+    const R = global.SBReveal;
+    if (!R || !R.insertAtVisible || typeof read !== 'number' || !(read >= 0 && read <= 1)) return out;
+    // The same segments the question is read from: header and question
+    // together, then each choice.
+    const header = R.visibleLength(readoutHeaderHTML(q));
+    const segs = [{ html: readoutHeaderHTML(q) + text }, ...letters.map((L) => ({ html: choices[L] }))];
+    const lengths = segs.map((s) => R.visibleLength(s.html));
+    const total = lengths.reduce((a, b) => a + b, 0);
+    if (!total) return out;
+    // A buzz always falls at the end of a word; the saved celerity is
+    // rounded, so take the word end nearest to it.
+    const target = read * total;
+    let at = 0;
+    R.schedule(segs).words.forEach((w) => { if (Math.abs(w.end - target) < Math.abs(at - target)) at = w.end; });
+    // Which segment that is, and how far into it.
+    let i = 0;
+    while (i < segs.length - 1 && at > lengths[i]) { at -= lengths[i]; i++; }
+    // (An empty choice can't hold it: back to the last text before it.)
+    while (i > 0 && !lengths[i]) { i--; at = lengths[i]; }
+    if (i === 0) out.text = R.insertAtVisible(text, Math.max(0, at - header), BUZZ_MARK);
+    else out.choices[letters[i - 1]] = R.insertAtVisible(choices[letters[i - 1]], at, BUZZ_MARK);
+    return out;
+  }
+  SBData.buzzMarked = buzzMarked;
+
+  // opts.buzzAt: how much of the question had been read at a buzz to mark
+  // in the text (see buzzMarked).
+  function appendQuestionBody(card, q, opts) {
+    const marked = buzzMarked(q, opts && opts.buzzAt);
     const qText = document.createElement('div');
     qText.className = 'q-text';
-    qText.innerHTML = questionTextHTML(q);
+    qText.innerHTML = marked.text;
     card.appendChild(qText);
     if (q.visual) card.appendChild(questionFigures(q));
     if (q.choices) {
       const ch = document.createElement('div');
       ch.className = 'choices';
       // One choice per line, as the question reads them.
-      ch.innerHTML = ['W', 'X', 'Y', 'Z'].filter((L) => q.choices[L]).map((L) => `${L}) ${renderMathHTML(q.choices[L])}`).join('<br>');
+      ch.innerHTML = ['W', 'X', 'Y', 'Z'].filter((L) => q.choices[L]).map((L) => `${L}) ${marked.choices[L]}`).join('<br>');
       card.appendChild(ch);
     }
   }
@@ -590,6 +632,7 @@
   //   sourceUrl: packet link (default the question's own)
   //   hideAnswer: start with the answer hidden behind a "Show answer" link
   //   note: an extra line under the answer ("You answered: ...")
+  //   buzzAt: how much had been read at a buzz to mark with "(#)" (0 to 1)
   //   onBookmark(isBookmarked)
   // }
   function questionCard(q, opts) {
@@ -627,7 +670,7 @@
 
     const body = document.createElement('div');
     body.className = 'card-body';
-    appendQuestionBody(body, q);
+    appendQuestionBody(body, q, { buzzAt: opts.buzzAt });
     if (q.num) {
       const n = document.createElement('span');
       n.className = 'q-num';

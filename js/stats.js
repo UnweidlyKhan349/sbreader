@@ -137,11 +137,19 @@
           d.textContent = `${k}: ${v}`;
           info.appendChild(d);
         });
+        if (q && window.SBReveal) {
+          const key = document.createElement('div');
+          key.className = 'text-body-secondary small mt-1';
+          key.innerHTML = '<span class="buzz-marker">(#)</span> marks where you buzzed.';
+          info.appendChild(key);
+        }
         box.appendChild(info);
       }
       if (!q) return;
       const where = r.mode === 'mp' ? 'Multiplayer' : 'Play';
       box.appendChild(SBData.questionCard(q, {
+        // Best Buzz marks where you buzzed, as QB Reader does.
+        buzzAt: best ? 1 - r.celerity : undefined,
         grade: best ? null : (r.outcome === 'correct' ? 'correct' : r.outcome === 'dead' ? 'skipped' : 'incorrect'),
         note: best ? '' : `${RESULT[r.outcome]} (${r.points > 0 ? '+' : ''}${r.points}) in ${where}, ${new Date(r.created_at).toLocaleString()}`,
       }));

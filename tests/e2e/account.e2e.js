@@ -282,3 +282,30 @@ test('the account page welcomes you, and the profile and password forms save', a
   assert.deepStrictEqual(await page.evaluate(() => window.__authUpdates), [{ password: 'new-password-1' }]);
   await ctx.close();
 });
+
+test('Best Buzz marks where you buzzed in the question', async () => {
+  // A real multiple-choice tossup, buzzed on with 60% of it still to read.
+  const q = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', 'lost-3-ms.json'), 'utf8'))[0].q.find((x) => x.qt === 'tossup' && x.c);
+  const seed = (id) => {
+    window.__db = { user_settings: [], bookmarks: [], answers: [
+      { id: 1, user_id: 'user-1', question_id: id, result: 'correct', points: 4, celerity: 0.6, subject: 'phys', qtype: 'tossup', format: 'MC', tournament: 'LOST 3 MS', mode: 'solo', created_at: new Date(2026, 10, 1, 12).toISOString() },
+    ] };
+  };
+  const { ctx, page } = await signedIn('stats', { fn: ({ s, id }) => { eval(s)(id); }, arg: { s: `(${seed})`, id: q.i } });
+  await page.click('#best-buzz-tab');
+  await page.waitForSelector('#best-buzz .q-card .buzz-marker');
+  assert.strictEqual(await page.locator('#best-buzz .q-card .buzz-marker').count(), 1);
+  // The mark is part-way through: text on both sides of it, in the card's body.
+  const around = await page.evaluate(() => {
+    const body = document.querySelector('#best-buzz .q-card .card-body');
+    const all = body.querySelector('.q-text').textContent + ' ' + (body.querySelector('.choices') || { textContent: '' }).textContent;
+    const [before, after] = all.split('(#)');
+    return { before: before.trim().length, after: after.trim().length };
+  });
+  assert.ok(around.before > 10 && around.after > 10, JSON.stringify(around));
+  // Recent answers aren't marked.
+  await page.click('#recent-tab');
+  await page.waitForSelector('#recent .q-card');
+  assert.strictEqual(await page.locator('#recent .buzz-marker').count(), 0);
+  await ctx.close();
+});
