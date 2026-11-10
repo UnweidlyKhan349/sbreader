@@ -13,7 +13,7 @@ globalThis.window = globalThis;
 require('../js/play-common.js');
 
 const q = (question, answer, tournament) => ({ question, answer: { text: answer }, tournament });
-const match = (item, search, ignoreOrder) => SBData.searchMatcher(search, ignoreOrder)(item);
+const match = (item, search, ignoreOrder, type) => SBData.searchMatcher(search, ignoreOrder, type)(item);
 
 test('question, answer and tournament; any word order or the phrase; never case-sensitive', () => {
   const item = q('Table salt is mostly which compound?', 'Sodium Chloride', 'MIT 2024');
@@ -23,6 +23,17 @@ test('question, answer and tournament; any word order or the phrase; never case-
   assert.ok(match(item, 'mit sodium', true), 'the tournament counts too');
   assert.ok(match(item, 'table salt', false), 'and the question');
   assert.strictEqual(SBData.searchMatcher('   ', true), null, 'nothing to search for');
+});
+
+test('all text, question text only or answer text only', () => {
+  const item = q('Which salt is in seawater?', 'Sodium chloride', 'MIT 2024');
+  assert.ok(match(item, 'mit seawater', true, 'all'));
+  assert.ok(!match(item, 'mit seawater', true, 'question'), 'the tournament isn\'t the question');
+  assert.ok(match(item, 'salt seawater', true, 'question'));
+  assert.ok(!match(item, 'sodium', true, 'question'), 'nor is the answer');
+  assert.ok(match(item, 'sodium chloride', false, 'answer'));
+  assert.ok(!match(item, 'seawater', true, 'answer'), 'the question isn\'t the answer');
+  assert.ok(match(item, 'sodium seawater', true, 'all'));
 });
 
 test('the year range keeps only the tournaments of those years', () => {
