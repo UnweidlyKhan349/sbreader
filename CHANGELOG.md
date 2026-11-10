@@ -231,3 +231,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Set and packet pages: **Source packet** links to the packet itself, without a question's page (`#page=5`).
 - Signing up with an email that already has an account now says so, with links to log in or reset the password, instead of "Check your email" for an email that never comes. Forgot password says "A link to reset your password has been sent to (your email)".
 - Google tag (Tag Manager container `GTM-MHDN9VXB`, for Google Analytics) added at the top of every page's `<head>`.
+- A new version of the site no longer shows an alert or reloads the page: an open tab carries on as it is and gets the update when it's refreshed or next opened.

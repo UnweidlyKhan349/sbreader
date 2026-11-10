@@ -152,12 +152,7 @@
     if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
   }, true);
 
-  // Pages that hold a game in progress say so (setBusy), so a new version
-  // waits for a quiet moment instead of reloading mid-question.
-  let busyFn = () => false;
-  function setBusy(fn) { busyFn = fn; }
-
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, setBusy };
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl };
 
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
@@ -172,54 +167,31 @@
   // Updates after a redeploy. Each deploy writes version.json and stamps
   // its commit into every page (<meta name="sb-version">; see
   // tools/stamp-version.js). When the two differ, this page is older than
-  // the site: an alert says so and the page reloads. During a game
-  // (setBusy), while you're typing or with a dialog open, it waits for the
-  // game to go idle first (an alert freezes the page, which mid-question
-  // would stall the game). Checked on load, when the tab comes back into
-  // view, and every five minutes. Pages without the meta tag (a local copy)
-  // never check.
+  // the site. Nothing is shown and the page is never reloaded for you: it
+  // carries on as it is, and the new version arrives when you refresh or
+  // next open the site. The one thing done meanwhile is fetching the new
+  // service worker, so that refresh gets the new files and not cached old
+  // ones. Checked on load, when the tab comes back into view, and every
+  // five minutes. Pages without the meta tag (a local copy) never check.
   const pageVersion = (document.querySelector('meta[name="sb-version"]') || {}).content;
   if (siteScript && pageVersion && window.fetch) {
     const versionUrl = new URL('../version.json', siteScript).href;
-    let latest = null;
-    const typing = () => {
-      const el = document.activeElement;
-      return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) && !!el.value;
-    };
-    const reload = () => {
-      // Once per version per tab, so a page that stays old can't loop.
-      try {
-        if (sessionStorage.getItem('sb_reloaded_for') === latest) return;
-        sessionStorage.setItem('sb_reloaded_for', latest);
-      } catch (e) { /* storage off: reload anyway */ }
-      window.alert('A new version of SB Reader is out. The page will reload to get it.');
-      location.reload();
-    };
-    const idle = () => {
-      let busy = true;
-      try { busy = !!busyFn(); } catch (e) { busy = false; }
-      return !busy && !typing() && !openModalEl && document.visibilityState === 'visible';
-    };
-    const apply = () => { if (latest && latest !== pageVersion && idle()) reload(); };
+    let seen = pageVersion;
     const check = async () => {
       try {
         const res = await fetch(versionUrl, { cache: 'no-store' });
         if (!res.ok) return;
         const v = String((await res.json()).version || '');
-        if (!v || v === pageVersion) return;
-        latest = v;
-        // Fetch the new service worker too, so it drops the old files.
+        if (!v || v === seen) return;
+        seen = v;
         if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
           navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
         }
-        apply();
       } catch (e) { /* offline: try again later */ }
     };
     window.addEventListener('load', check);
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
     setInterval(check, 5 * 60 * 1000);
-    // A game that ends with an update waiting reloads then.
-    setInterval(apply, 3000);
   }
 
   function wireNavbar() {

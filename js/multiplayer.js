@@ -25,8 +25,6 @@
   // pick questions, so entering a room doesn't wait for it; whoever runs the
   // game waits for it before the first question.
   function bankLoaded() { return !!SBData.questions; }
-  // A new site version waits (as a Reload bar) while you're in a room.
-  if (window.SBSite && SBSite.setBusy) SBSite.setBusy(() => !!myState.roomId);
 
   // The last name used on this device, prefilled into the name boxes and
   // used when joining straight from an invite link.
