@@ -1,25 +1,15 @@
-// stars.html: your starred tossups (or, with ?type=bonus, starred bonuses),
-// as QB Reader's starred pages: a card per question with its star (click to
-// unstar), 20 to a page, Clear Starred Tossups behind a confirmation, and
+// stars.html: your starred questions, tossups and bonuses together, as QB
+// Reader's starred pages: a card per question with its star (click to
+// unstar), 20 to a page, Clear Starred Questions behind a confirmation, and
 // the list as a TXT, CSV or JSON file. Stars live in this browser and, when
 // you're logged in, in your account (js/account.js keeps the two in step),
 // so the page works logged out too.
 (function () {
   const $ = (id) => document.getElementById(id);
-  const type = new URLSearchParams(location.search).get('type') === 'bonus' ? 'bonus' : 'tossup';
-  const NOUN = type === 'bonus' ? 'Bonuses' : 'Tossups';
+  const typeOf = (q) => (q.qtype === 'bonus' ? 'bonus' : 'tossup');
   const PAGE_SIZE = 20;
   let questions = [];
   let page = 1;
-
-  document.title = `SBReader - User - Starred ${NOUN}`;
-  $('clear-starred').textContent = $('clear-starred-title').textContent = `Clear Starred ${NOUN}`;
-  $('clear-starred-text').textContent = `Unstar all of your starred ${NOUN.toLowerCase()}? This action cannot be undone.`;
-  document.querySelectorAll('#userNav a').forEach((a) => {
-    const on = a.dataset.type === type;
-    a.classList.toggle('active', on);
-    if (on) a.setAttribute('aria-current', 'page');
-  });
 
   function renderPagination(totalPages) {
     const el = $('question-pagination');
@@ -61,10 +51,10 @@
     list.innerHTML = '';
     const count = $('starred-count');
     count.hidden = !questions.length;
-    count.textContent = `${questions.length.toLocaleString()} starred ${(questions.length === 1 ? NOUN.replace(/e?s$/, '') : NOUN).toLowerCase()}`;
+    count.textContent = `${questions.length.toLocaleString()} starred question${questions.length === 1 ? '' : 's'}`;
     $('clear-starred').disabled = !questions.length;
     if (!questions.length) {
-      list.innerHTML = `<p class="text-body-secondary">You have no starred ${NOUN.toLowerCase()}.</p>`;
+      list.innerHTML = '<p class="text-body-secondary">You have no starred questions.</p>';
     }
     // As on QB Reader, an unstarred question stays on the page (its star
     // empty, so a slip can be undone) until the page is loaded again.
@@ -72,7 +62,7 @@
     renderPagination(totalPages);
   }
 
-  // The starred questions of this type, in packet order, newest sets first.
+  // The starred questions, in packet order, newest sets first.
   async function load() {
     const ids = [...SBData.bookmarks.getAll()];
     try {
@@ -86,7 +76,7 @@
     questions = [];
     ids.forEach((id) => {
       const q = ids.length ? (SBData.byId.get(id) || SBData.byId.get(aliases[id])) : null;
-      if (!q || seen.has(q.id) || (q.qtype === 'bonus' ? 'bonus' : 'tossup') !== type) return;
+      if (!q || seen.has(q.id)) return;
       seen.add(q.id);
       questions.push(q);
     });
@@ -104,7 +94,7 @@
     render(1);
   });
 
-  /* ---------------- Downloads: the starred questions of this type ---------------- */
+  /* ---------------- Downloads ---------------- */
   function download(name, text, mime) {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([text], { type: mime + ';charset=utf-8' }));
@@ -121,7 +111,7 @@
   function asText(list) {
     return list.map((q) => [
       [q.tournament, round(q), q.num ? 'Question ' + q.num : ''].filter(Boolean).join(' | '),
-      `${type === 'bonus' ? 'BONUS' : 'TOSS-UP'} ${SBData.subjectLabel(q.subject)} ${SBData.FORMAT_LABELS[q.format] || q.format || ''}`.trim(),
+      `${typeOf(q) === 'bonus' ? 'BONUS' : 'TOSS-UP'} ${SBData.subjectLabel(q.subject)} ${SBData.FORMAT_LABELS[q.format] || q.format || ''}`.trim(),
       q.question, ...choiceLines(q),
       'ANSWER: ' + answerText(q)
         + (q.answer.accept.length ? ` (also accept: ${q.answer.accept.join('; ')})` : '')
@@ -131,17 +121,17 @@
   const cell = (v) => { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
   function asCsv(list) {
     const header = ['id', 'set', 'level', 'round', 'number', 'subject', 'type', 'format', 'question', 'W', 'X', 'Y', 'Z', 'answer', 'also_accept', 'do_not_accept', 'source'];
-    const lines = list.map((q) => [q.id, q.tournament, q.level, round(q), q.num, q.subject, type, q.format, q.question,
+    const lines = list.map((q) => [q.id, q.tournament, q.level, round(q), q.num, q.subject, typeOf(q), q.format, q.question,
       ...['W', 'X', 'Y', 'Z'].map((k) => (q.choices ? q.choices[k] : '')), answerText(q), q.answer.accept.join('; '), q.answer.reject.join('; '), q.sourceUrl || ''].map(cell).join(','));
     return [header.join(','), ...lines].join('\n') + '\n';
   }
   function asJson(list) {
-    return JSON.stringify({ [type === 'bonus' ? 'bonuses' : 'tossups']: list.map((q) => ({
-      id: q.id, set: q.tournament, level: q.level, round: round(q), number: q.num, subject: q.subject, type, format: q.format,
+    return JSON.stringify({ questions: list.map((q) => ({
+      id: q.id, set: q.tournament, level: q.level, round: round(q), number: q.num, subject: q.subject, type: typeOf(q), format: q.format,
       question: q.question, choices: q.choices, answer: q.answer, source: q.sourceUrl || null,
     })) }, null, 2) + '\n';
   }
-  const file = `starred-${NOUN.toLowerCase()}`;
+  const file = 'starred-questions';
   [['txt', asText, 'text/plain'], ['csv', asCsv, 'text/csv'], ['json', asJson, 'application/json']].forEach(([ext, make, mime]) => {
     const link = $('download-questions-' + ext);
     const go = () => download(`${file}.${ext}`, make(still()), mime);

@@ -1,15 +1,11 @@
-// graphs.html: the account's tossup (or, with ?type=bonus, bonus) stats
-// plotted by day, as QB Reader's graphs pages, with Chart.js: questions
-// heard and how they went, points per question, the share answered right
-// and the share missed, and (tossups) celerity. "Show cumulative view" adds
-// the counts up over time; days with fewer than 5 questions are left out
-// unless that switch is turned off.
+// graphs.html: the account's stats plotted by day, as QB Reader's graphs
+// pages, with Chart.js: questions heard and how they went, points per
+// question, the share answered right and the share missed, and celerity.
+// "Show cumulative view" adds the counts up over time; days with fewer than
+// 5 questions are left out unless that switch is turned off.
 (function () {
   const $ = (id) => document.getElementById(id);
   const core = window.SBAccountCore;
-  const bonus = SBUserStats.type === 'bonus';
-  document.title = `SBReader - User - ${bonus ? 'Bonus' : 'Tossup'} Stats - Graph`;
-  if (bonus) $('celerity-row').hidden = true;
   if (!window.Chart) {
     $('graphNote').textContent = 'Could not load the charts. Check your connection and refresh.';
     $('graphNote').hidden = false;
@@ -22,6 +18,9 @@
   // A day ("2026-11-09") as a point in time: local noon.
   const timeOf = (day) => { const [y, m, d] = day.split('-').map(Number); return new Date(y, m - 1, d, 12).getTime(); };
   const dateLabel = (ms) => new Date(ms).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  // On the axis: "Nov 9" (the year is in the tooltip).
+  const tickLabel = (ms) => new Date(ms).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const phone = window.innerWidth < 576;
   const DAY = 24 * 60 * 60 * 1000;
 
   function makeChart(id, y) {
@@ -30,16 +29,17 @@
       data: { datasets: [] },
       options: {
         animation: false,
-        // Taller on a phone, where a 2:1 chart leaves little under its legend.
-        aspectRatio: window.innerWidth < 576 ? 1.25 : 2,
+        // The chart fills its box (.chart-box sets the height), so it stays
+        // a readable size on a phone, where a 2:1 chart would be a sliver.
+        maintainAspectRatio: false,
         scales: {
           x: {
             type: 'linear',
-            ticks: { maxTicksLimit: 8, callback: (v) => dateLabel(v) },
+            ticks: { maxTicksLimit: phone ? 4 : 6, maxRotation: 0, callback: (v) => tickLabel(v) },
           },
           y: y || { beginAtZero: true, ticks: { precision: 0 } },
         },
-        plugins: { tooltip: { callbacks: { title: (items) => (items.length ? dateLabel(items[0].parsed.x) : '') } } },
+        plugins: { legend: { labels: { boxWidth: phone ? 10 : 24, padding: phone ? 6 : 10 } }, tooltip: { callbacks: { title: (items) => (items.length ? dateLabel(items[0].parsed.x) : '') } } },
       },
     });
   }
@@ -47,7 +47,7 @@
     count: makeChart('question-count'),
     ppq: makeChart('ppq', { min: -4, max: 4 }),
     result: makeChart('result-per-question', { min: 0, max: 100 }),
-    celerity: bonus ? null : makeChart('celerity', { min: 0, max: 1 }),
+    celerity: makeChart('celerity', { min: 0, max: 1 }),
   };
 
   // Text and grid colours follow the page's theme.
@@ -81,7 +81,7 @@
     if (!days.length) {
       note.textContent = played
         ? 'No day has 5 or more questions yet. Turn off "Exclude days with fewer than 5 data points" to see them all.'
-        : `No ${bonus ? 'bonuses' : 'tossups'} to plot yet. Questions you answer in Play and Multiplayer while logged in show up here.`;
+        : `Nothing to plot yet. Questions you answer in Play and Multiplayer while logged in show up here.`;
     }
     const xs = days.map((d) => timeOf(d.key));
     const cumulative = $('cumulative').checked;
@@ -97,7 +97,7 @@
       line('Dead', COLORS.dead, counts((d) => d.dead)),
       line('Negs', COLORS.neg, counts((d) => d.negs)),
     ];
-    charts.ppq.data.datasets = [line(bonus ? 'Points per Bonus' : 'Points per TU', COLORS.total, days.map((d) => d.ppq))];
+    charts.ppq.data.datasets = [line('Points per Question', COLORS.total, days.map((d) => d.ppq))];
     charts.result.data.datasets = [
       line('Correct Percentage', COLORS.total, days.map((d) => 100 * d.fours / d.count)),
       line('Neg or Dead Percentage', COLORS.right, days.map((d) => 100 * (d.negs + d.dead) / d.count)),

@@ -1300,9 +1300,15 @@
   // when the packets only live as separate files (then each packet's own
   // link is listed instead).
   const LISTED_FOLDER_HOSTS = new Set(['www.csun.edu']);
+  // A packet's link is to the packet as a whole: a question's own place in
+  // it (#page=5 of a PDF, #L120 of a GitHub file; see packetAnchor) is left off.
   SBData.packetSourceUrl = function (packet) {
     const counts = new Map();
-    (packet.questions || []).forEach((q) => { if (isPacketUrl(q.sourceUrl)) counts.set(q.sourceUrl, (counts.get(q.sourceUrl) || 0) + 1); });
+    (packet.questions || []).forEach((q) => {
+      if (!isPacketUrl(q.sourceUrl)) return;
+      const u = q.sourceUrl.replace(/#(?:page=|L)\d+$/, '');
+      counts.set(u, (counts.get(u) || 0) + 1);
+    });
     let best = null;
     counts.forEach((n, u) => { if (!best || n > counts.get(best)) best = u; });
     return best;

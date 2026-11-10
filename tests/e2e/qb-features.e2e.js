@@ -74,14 +74,14 @@ test('Database: ignore word order (on by default); all text / question only / an
   await ctx.close();
 });
 
-test('Database: a year slider to the right of the rounds narrows the results', async () => {
+test('Database: a year slider, before the rounds, narrows the results', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'catalog');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   const all = await results(page);
   const box = async (sel) => page.locator(sel).boundingBox();
   const [rounds, years] = [await box('#roundSlider'), await box('#yearSlider')];
-  assert.ok(years.x > rounds.x + rounds.width - 1 && Math.abs(years.y - rounds.y) < 5, 'beside the round slider, on its right');
+  assert.ok(rounds.x > years.x + years.width - 1 && Math.abs(years.y - rounds.y) < 5, 'beside the round slider, on its left');
   assert.match(await page.locator('#yearRangeLabel').innerText(), /^Years \d{4}-\d{4}$/);
   await page.evaluate(() => { const el = document.getElementById('yearMin'); el.value = 2025; el.dispatchEvent(new Event('input', { bubbles: true })); });
   await page.waitForTimeout(300);
@@ -189,7 +189,7 @@ test('Play: the year range narrows the questions', async () => {
   const all = await count();
   assert.match(await page.locator('#yearRangeLabel').innerText(), /^Year range: \d{4} - \d{4}$/);
   const below = async (a, b) => (await page.locator(a).boundingBox()).y > (await page.locator(b).boundingBox()).y;
-  assert.ok(await below('#yearSlider', '#roundSlider'), 'the year slider is under the round slider');
+  assert.ok(await below('#roundSlider', '#yearSlider'), 'the year slider is above the round slider');
   await page.evaluate(() => { const el = document.getElementById('yearMin'); el.value = 2025; el.dispatchEvent(new Event('input', { bubbles: true })); });
   await page.waitForTimeout(300);
   assert.ok(await count() < all);

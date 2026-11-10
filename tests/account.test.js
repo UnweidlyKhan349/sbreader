@@ -50,6 +50,9 @@ test('tossup stats: questions heard, 4s, 0s, -4s, celerity over right answers, p
 test('stats filters: type, mode, set, level and dates', () => {
   const n = (f) => core.filterAnswers(ROWS, f).length;
   assert.strictEqual(n({ qtype: 'bonus' }), 1);
+  assert.strictEqual(n({ tossups: false }), 1);
+  assert.strictEqual(n({ bonuses: false }), 7);
+  assert.strictEqual(n({ tossups: false, bonuses: false }), 0);
   assert.strictEqual(n({ qtype: 'tossup', mp: false }), 6);
   assert.strictEqual(n({ qtype: 'tossup', solo: false }), 1);
   assert.strictEqual(n({ qtype: 'tossup', solo: false, mp: false }), 0);

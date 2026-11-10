@@ -140,16 +140,23 @@ const seedStats = () => {
 const withStats = (url) => signedIn(url, { fn: (s) => { eval(s)(); }, arg: `(${seedStats})` });
 const cells = (page, sel) => page.$$eval(sel, (els) => els.map((e) => e.textContent.trim()));
 
-test('tossup stats: a line per subject and a Total, filters, sorting, and bonuses on their own page', async () => {
+test('stats: a line per subject and a Total for tossups and bonuses together, filters, sorting', async () => {
   const { ctx, page } = await withStats('stats');
   await page.waitForSelector('#subject-stats tbody tr');
-  assert.deepStrictEqual(await cells(page, '#subject-stats thead th'), ['Subject', 'TUH', '4', '0', '-4', 'Celerity', 'Points', 'PPTU']);
-  assert.deepStrictEqual(await cells(page, '#subject-stats tbody tr:nth-child(1) > *'), ['Biology', '3', '1', '1', '0', '0.200', '4', '1.33']);
+  assert.deepStrictEqual(await cells(page, '#subject-stats thead th'), ['Subject', 'Heard', '4', '0', '-4', 'Celerity', 'Points', 'PPQ']);
+  assert.deepStrictEqual(await cells(page, '#subject-stats tbody tr:nth-child(1) > *'), ['Biology', '4', '2', '1', '0', '0.550', '8', '2.00']);
   assert.deepStrictEqual(await cells(page, '#subject-stats tbody tr:nth-child(2) > *'), ['Physics', '2', '1', '0', '1', '0.800', '0', '0.00']);
+  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '6', '3', '1', '1', '0.633', '8', '1.33']);
+  // Tossups alone, then bonuses alone.
+  await page.uncheck('#include-bonuses');
   assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '5', '2', '1', '1', '0.500', '4', '0.80']);
+  await page.check('#include-bonuses');
+  await page.uncheck('#include-tossups');
+  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '1', '1', '0', '0', '0.900', '4', '4.00']);
+  await page.check('#include-tossups');
   // Singleplayer only: the multiplayer neg goes.
   await page.uncheck('#include-multiplayer');
-  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '4', '2', '1', '0', '0.500', '8', '2.00']);
+  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '5', '3', '1', '0', '0.633', '12', '2.40']);
   await page.check('#include-multiplayer');
   // One set, by name.
   await page.fill('#set-name', 'MIT 2023');
@@ -167,19 +174,19 @@ test('tossup stats: a line per subject and a Total, filters, sorting, and bonuse
   assert.deepStrictEqual(await cells(page, '#set-stats tbody th'), ['MIT 2023', 'LOST 3 MS']);
   // Best Buzz: the right answer with the highest celerity.
   await page.click('#best-buzz-tab');
-  await page.waitForFunction(() => /Celerity: 0\.800/.test(document.getElementById('best-buzz').textContent));
-  // The CSV holds every tossup.
+  await page.waitForFunction(() => /Celerity: 0\.900/.test(document.getElementById('best-buzz').textContent));
+  // The CSV holds every answer.
   const [file] = await Promise.all([page.waitForEvent('download'), page.click('#download-stats-csv')]);
-  assert.strictEqual(file.suggestedFilename(), 'tossup-stats.csv');
+  assert.strictEqual(file.suggestedFilename(), 'stats.csv');
   const csv = fs.readFileSync(await file.path(), 'utf8').trim().split('\n');
-  assert.strictEqual(csv.length, 6);
-  assert.match(csv[1], /,105,LOST 3 MS,ms,bio,tossup,SA,false,correct,0\.2,4$/);
+  assert.strictEqual(csv.length, 7);
+  assert.match(csv[1], /,106,LOST 3 MS,ms,bio,bonus,SA,false,correct,0\.9,4$/);
 
+  // An old link to the bonus stats opens with only bonuses switched on.
   await page.goto(server.url + 'stats?type=bonus', { waitUntil: 'load' });
   await page.waitForSelector('#subject-stats tbody tr');
-  assert.deepStrictEqual(await cells(page, '#subject-stats thead th'), ['Subject', 'BH', '4', '0', '-4', 'Points', 'PPB']);
-  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '1', '1', '0', '0', '4', '4.00']);
-  assert.strictEqual(await page.isVisible('#best-buzz-tab'), false);
+  assert.strictEqual(await page.isChecked('#include-tossups'), false);
+  assert.deepStrictEqual(await cells(page, '#subject-stats tfoot th'), ['Total', '1', '1', '0', '0', '0.900', '4', '4.00']);
   await ctx.close();
 });
 
@@ -189,14 +196,21 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   assert.match(await page.textContent('#graphNote'), /No day has 5 or more questions/);
   await page.uncheck('#filter');
   const points = () => page.evaluate(() => Chart.getChart('question-count').data.datasets.map((d) => [d.label, d.data.map((p) => p.y)]));
-  assert.deepStrictEqual(await points(), [['Total', [2, 2, 1]], ['4s', [1, 0, 1]], ['0s', [0, 1, 0]], ['Dead', [0, 1, 0]], ['Negs', [1, 0, 0]]]);
+  assert.deepStrictEqual(await points(), [['Total', [2, 2, 2]], ['4s', [1, 0, 2]], ['0s', [0, 1, 0]], ['Dead', [0, 1, 0]], ['Negs', [1, 0, 0]]]);
   await page.check('#cumulative');
-  assert.deepStrictEqual((await points())[0], ['Total', [2, 4, 5]]);
+  assert.deepStrictEqual((await points())[0], ['Total', [2, 4, 6]]);
   assert.deepStrictEqual(await page.evaluate(() => Chart.getChart('ppq').data.datasets[0].data.map((p) => p.y)), [0, 0, 4]);
-  assert.strictEqual(await page.isVisible('#celerity'), true);
-  await page.goto(server.url + 'graphs?type=bonus', { waitUntil: 'load' });
+  // Tossups alone: the bonus leaves the third day.
+  await page.uncheck('#include-bonuses');
+  assert.deepStrictEqual((await points())[0], ['Total', [2, 4, 5]]);
+  // Every chart is a modest height, on a phone too.
+  const heights = () => page.$$eval('.chart-box', (els) => els.map((e) => Math.round(e.getBoundingClientRect().height)));
+  assert.deepStrictEqual(await heights(), [280, 280, 280, 280]);
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.reload({ waitUntil: 'load' });
   await page.waitForFunction(() => !document.getElementById('statsBody').hidden);
-  assert.strictEqual(await page.isVisible('#celerity'), false);
+  assert.deepStrictEqual(await heights(), [220, 220, 220, 220]);
+  assert.strictEqual(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
   await ctx.close();
 });
 
@@ -222,30 +236,27 @@ test('answers are saved with their points and celerity, and without on a project
   await old.ctx.close();
 });
 
-test('starred tossups and bonuses are listed apart, and Clear unstars only the type shown', async () => {
+test('starred tossups and bonuses are listed together, and Clear unstars them all', async () => {
   // Two tossups and a bonus from one packet.
   const packet = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', 'lost-3-ms.json'), 'utf8'))[0].q;
   const tossups = packet.filter((q) => q.qt === 'tossup').slice(0, 2).map((q) => q.i);
   const bonus = packet.find((q) => q.qt === 'bonus').i;
-  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [...tossups, bonus] });
+  const all = [...tossups, bonus].sort((a, b) => a - b);
+  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: all });
   await page.waitForSelector('#question-list .q-card');
-  assert.strictEqual(await page.locator('#question-list .q-card').count(), 2);
-  assert.strictEqual(await page.textContent('#clear-starred'), 'Clear Starred Tossups');
+  assert.strictEqual(await page.locator('#question-list .q-card').count(), 3);
+  assert.strictEqual(await page.textContent('#clear-starred'), 'Clear Starred Questions');
   const [file] = await Promise.all([page.waitForEvent('download'), page.click('#download-questions-json')]);
-  assert.strictEqual(file.suggestedFilename(), 'starred-tossups.json');
-  assert.deepStrictEqual(JSON.parse(fs.readFileSync(await file.path(), 'utf8')).tossups.map((q) => q.id).sort(), tossups.slice().sort());
+  assert.strictEqual(file.suggestedFilename(), 'starred-questions.json');
+  const saved = JSON.parse(fs.readFileSync(await file.path(), 'utf8')).questions;
+  assert.deepStrictEqual(saved.map((q) => q.id).sort((a, b) => a - b), all);
+  assert.deepStrictEqual(saved.map((q) => q.type).sort(), ['bonus', 'tossup', 'tossup']);
   await page.click('#clear-starred');
   await page.click('#confirm');
-  await page.waitForFunction(() => /You have no starred tossups/.test(document.getElementById('question-list').textContent));
+  await page.waitForFunction(() => /You have no starred questions/.test(document.getElementById('question-list').textContent));
   await page.waitForTimeout(300);
-  assert.deepStrictEqual(await page.evaluate(() => ({ local: [...SBData.bookmarks.getAll()], remote: __db.bookmarks.map((b) => b.question_id) })), { local: [bonus], remote: [bonus] });
+  assert.deepStrictEqual(await page.evaluate(() => ({ local: [...SBData.bookmarks.getAll()], remote: __db.bookmarks.map((b) => b.question_id) })), { local: [], remote: [] });
   await ctx.close();
-  // (A new browser: the stand-in account doesn't outlast a page.)
-  const b = await signedIn('stars?type=bonus', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [tossups[0], bonus] });
-  await b.page.waitForSelector('#question-list .q-card');
-  assert.strictEqual(await b.page.locator('#question-list .q-card').count(), 1);
-  assert.strictEqual(await b.page.textContent('#clear-starred'), 'Clear Starred Bonuses');
-  await b.ctx.close();
 });
 
 test('the account page welcomes you, and the profile and password forms save', async () => {
@@ -253,7 +264,7 @@ test('the account page welcomes you, and the profile and password forms save', a
   await page.waitForSelector('#acctLoggedIn:not([hidden])');
   assert.strictEqual((await page.textContent('#acctLoggedIn .display-5')).trim(), 'Welcome, Tester!');
   assert.strictEqual(await page.textContent('#email-verified'), 'Email verified');
-  assert.deepStrictEqual(await page.$$eval('#acctLoggedIn .card a', (as) => as.map((a) => a.getAttribute('href'))), ['stats', 'stats?type=bonus', 'graphs', 'graphs?type=bonus', 'stars', 'stars?type=bonus']);
+  assert.deepStrictEqual(await page.$$eval('#acctLoggedIn .card a', (as) => as.map((a) => a.getAttribute('href'))), ['stats', 'graphs', 'stars']);
 
   await page.click('a[href="edit-profile"]');
   await page.waitForSelector('#profile-form');
@@ -307,5 +318,32 @@ test('Best Buzz marks where you buzzed in the question', async () => {
   await page.click('#recent-tab');
   await page.waitForSelector('#recent .q-card');
   assert.strictEqual(await page.locator('#recent .buzz-marker').count(), 0);
+  await ctx.close();
+});
+
+test('signing up with an email that already has an account says so; a reset says the link was sent', async () => {
+  const ctx = await browser.newContext({ serviceWorkers: 'block' });
+  await routeCdn(ctx);
+  await ctx.addInitScript(() => { window.__signedOut = true; });
+  await ctx.addInitScript(FAKE);
+  await ctx.route(/supabase-js@[^/]+\/dist\/umd\/supabase\.js/, (r) => r.fulfill({ contentType: 'text/javascript', body: '' }));
+  await ctx.route(/supabase\.co/, (r) => r.abort());
+  const page = await ctx.newPage();
+  await page.goto(server.url + 'signup', { waitUntil: 'load' });
+  await page.fill('#signupName', 'Dup');
+  await page.fill('#signupEmail', 'taken@example.com');
+  await page.fill('#signupPassword', 'long-enough-1');
+  await page.click('#signupForm button[type=submit]');
+  await page.waitForFunction(() => /already has an account/.test(document.getElementById('authMsg').textContent));
+  assert.deepStrictEqual(await page.$$eval('#authMsg a', (as) => as.map((a) => a.getAttribute('href'))), ['login', 'forgot-password']);
+  // A new email still gets "check your email".
+  await page.fill('#signupEmail', 'new@example.com');
+  await page.click('#signupForm button[type=submit]');
+  await page.waitForFunction(() => /Check your email for a link to confirm/.test(document.getElementById('authMsg').textContent));
+
+  await page.goto(server.url + 'forgot-password', { waitUntil: 'load' });
+  await page.fill('#forgotEmail', 'someone@example.com');
+  await page.click('#forgotForm button[type=submit]');
+  await page.waitForFunction(() => /A link to reset your password has been sent to someone@example\.com/.test(document.getElementById('authMsg').textContent));
   await ctx.close();
 });

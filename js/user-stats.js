@@ -1,25 +1,26 @@
 // Shared by stats.html and graphs.html, as on QB Reader's user stats pages:
-// which type the page shows (?type=bonus; tossups otherwise), the account's
-// answers, and the filter form above the tables and charts (levels, set
-// name, multiplayer / singleplayer, start and end date).
+// the account's answers and the filter form above the tables and charts
+// (levels, set name, tossups / bonuses, multiplayer / singleplayer, start
+// and end date). Tossups and bonuses are on one page, since Science Bowl
+// scores them alike here; the two switches show either alone. (An old
+// link's ?type=bonus or ?type=tossup opens with just that type on.)
 //
-//   SBUserStats.type            'tossup' | 'bonus'
 //   SBUserStats.init(onData)    onData(rows, all) runs with the filtered
-//                               answers of this type (and all of this type)
-//                               once they've loaded and on every filter change
+//                               answers (and all of them) once they've
+//                               loaded and on every filter change
 (function () {
   const $ = (id) => document.getElementById(id);
   const core = window.SBAccountCore;
-  const type = new URLSearchParams(location.search).get('type') === 'bonus' ? 'bonus' : 'tossup';
-  const page = /graphs/.test(location.pathname) ? 'graphs' : /stars/.test(location.pathname) ? 'stars' : 'stats';
-  let all = null; // every answer of this type, normalized
+  const preset = new URLSearchParams(location.search).get('type');
+  const page = /graphs/.test(location.pathname) ? 'graphs' : 'stats';
+  let all = null; // every answer, normalized
   let onData = null;
   let setNames = [];
 
   // The links across the top: this page's is the active one.
   function markNav() {
     document.querySelectorAll('#userNav a').forEach((a) => {
-      const on = a.dataset.page === page && a.dataset.type === type;
+      const on = a.dataset.page === page;
       a.classList.toggle('active', on);
       if (on) a.setAttribute('aria-current', 'page');
     });
@@ -28,7 +29,8 @@
   function filters() {
     const levels = $('levels');
     return {
-      qtype: type,
+      tossups: $('include-tossups').checked,
+      bonuses: $('include-bonuses').checked,
       levels: levels.getMultiValues ? levels.getMultiValues() : [],
       set: $('set-name').classList.contains('is-invalid') ? '' : $('set-name').value,
       mp: $('include-multiplayer').checked,
@@ -65,7 +67,7 @@
       setNames = tournaments.map((t) => t.name.toLowerCase());
       $('set-list').innerHTML = '';
       tournaments.forEach((t) => { const o = document.createElement('option'); o.value = t.name; $('set-list').appendChild(o); });
-      all = rows.map((r) => core.normalizeAnswer({ ...r, level: levelOf.get(r.tournament) || null })).filter((r) => r.qtype === type);
+      all = rows.map((r) => core.normalizeAnswer({ ...r, level: levelOf.get(r.tournament) || null }));
       $('statsError').hidden = true;
       checkSetName();
       apply();
@@ -78,10 +80,12 @@
   function init(fn) {
     onData = fn;
     markNav();
+    if (preset === 'bonus') $('include-tossups').checked = false;
+    if (preset === 'tossup') $('include-bonuses').checked = false;
     SBData.enhanceMultiSelect($('levels'), { noun: 'level' });
     $('form').addEventListener('submit', (e) => { e.preventDefault(); checkSetName(); apply(); });
     $('set-name').addEventListener('change', () => { checkSetName(); apply(); });
-    ['levels', 'include-multiplayer', 'include-singleplayer', 'start-date', 'end-date'].forEach((id) => $(id).addEventListener('change', apply));
+    ['levels', 'include-tossups', 'include-bonuses', 'include-multiplayer', 'include-singleplayer', 'start-date', 'end-date'].forEach((id) => $(id).addEventListener('change', apply));
     let shownFor;
     const show = (u) => {
       const id = u ? u.id : null;
@@ -104,5 +108,5 @@
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
 
-  window.SBUserStats = { type, init, apply, markNav, download, all: () => all || [] };
+  window.SBUserStats = { init, apply, markNav, download, all: () => all || [] };
 })();

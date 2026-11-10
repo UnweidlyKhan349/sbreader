@@ -60,8 +60,9 @@
     return { ...r, qtype: r.qtype === 'bonus' ? 'bonus' : 'tossup', points, outcome, celerity, day: dayKey(r.created_at) };
   }
 
-  // f: { qtype, solo, mp, set, levels, start, end }: the question type, which
-  // modes count (both unless switched off), one tournament by name, the
+  // f: { qtype, tossups, bonuses, solo, mp, set, levels, start, end }: one
+  // question type, or tossups / bonuses switched off; which modes count
+  // (both unless switched off), one tournament by name, the
   // levels (none means all), and the first and last day (YYYY-MM-DD).
   function filterAnswers(rows, f) {
     f = f || {};
@@ -69,6 +70,8 @@
     const levels = f.levels && f.levels.length ? new Set(f.levels) : null;
     return rows.filter((r) => {
       if (f.qtype && r.qtype !== f.qtype) return false;
+      if (f.tossups === false && r.qtype !== 'bonus') return false;
+      if (f.bonuses === false && r.qtype === 'bonus') return false;
       if (f.solo === false && r.mode !== 'mp') return false;
       if (f.mp === false && r.mode === 'mp') return false;
       if (set && String(r.tournament || '').toLowerCase() !== set) return false;
