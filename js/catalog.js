@@ -9,7 +9,9 @@
     visuals: new Set(),
     tournaments: new Set(),
     search: '',
-    // Whether the words may come in any order, as on QB Reader's database.
+    // Where to search (all text, question only, answer only) and whether the
+    // words may come in any order, as on QB Reader's database.
+    searchType: 'all',
     ignoreWordOrder: true,
     // [first, last] years, or null for every year.
     yearRange: null,
@@ -162,6 +164,8 @@
         render();
       });
 
+      const typeRadios = [...document.querySelectorAll('input[name="searchType"]')];
+      typeRadios.forEach((r) => r.addEventListener('change', () => { if (r.checked) { state.searchType = r.value; state.page = 1; render(); } }));
       const ignoreOrder = document.getElementById('ignoreWordOrder');
       ignoreOrder.addEventListener('change', () => { state.ignoreWordOrder = ignoreOrder.checked; state.page = 1; render(); });
 
@@ -184,6 +188,8 @@
         state.exactAnswer = '';
         state.page = 1;
         state.ignoreWordOrder = true;
+        state.searchType = 'all';
+        typeRadios.forEach((r) => { r.checked = r.value === 'all'; });
         document.getElementById('searchBox').value = '';
         ignoreOrder.checked = true;
         tSelect.setMultiValues([]);
@@ -242,13 +248,14 @@
       tournaments: state.tournaments,
       yearRange: state.yearRange,
       search: state.exactAnswer ? '' : state.search,
+      searchType: state.searchType,
       ignoreWordOrder: state.ignoreWordOrder,
     }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
     if (state.random) {
-      const key = [state.search, state.ignoreWordOrder, state.yearRange, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      const key = [state.search, state.searchType, state.ignoreWordOrder, state.yearRange, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
       if (!state.randomPick || state.randomKey !== key) {
         state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
         state.randomKey = key;
@@ -358,9 +365,11 @@
 
   function renderCard(q) {
     const card = SBData.questionCard(q, { hideAnswer: state.hideAnswers });
-    // A phrase is marked as a whole when word order counts.
+    // Marked only where the search looked (the question text, or the
+    // answer); a phrase as a whole when word order counts.
+    const where = { question: [...card.querySelectorAll('.q-text')], answer: [...card.querySelectorAll('.a-text')] }[state.searchType] || [card];
     const terms = state.ignoreWordOrder ? SBData.searchWords(state.search) : [SBData.searchPhrase(state.search)].filter(Boolean);
-    highlightMatches(card, terms);
+    where.forEach((root) => highlightMatches(root, terms));
     return card;
   }
 

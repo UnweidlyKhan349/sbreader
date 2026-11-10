@@ -220,3 +220,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Tips & Instructions looks like QB Reader's: cards two to a row (Getting Started, Searching the Database, Accounts & Progress, Help & Community, Multiplayer); the home page's button to it is blue.
 - About looks like QB Reader's: the same opening paragraphs and question headings (making an account, confirming your email, trouble in a room, requesting a set, a copy of all the questions, the packet list), with grading and the shortcuts kept.
 - Tips: the chat key reads (enter), as plain text.
+- Database: **All text / Question only / Answer only** radio buttons under the filters choose where to search: everything, the question text, or the answer text.

@@ -27,12 +27,12 @@ async function statsContext(stats) {
 }
 const results = (page) => page.locator('#resultCount').innerText().then((t) => parseInt(t.replace(/^Showing \d+ of /, ''), 10));
 
-test('Database: ignore word order (on by default); no search-in select or year boxes', async () => {
+test('Database: ignore word order (on by default); all text / question only / answer only as radio buttons', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'catalog');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
-  assert.strictEqual(await page.locator('#searchType, #minYear, #maxYear').count(), 0);
+  assert.strictEqual(await page.locator('select#searchType, #minYear, #maxYear').count(), 0, 'no dropdown or year boxes');
   // The tournament picker says how many there are, with none or all picked.
   const tLabel = () => page.locator('#tournamentFilterCell .dropdown-checklist-label').innerText();
   const total = await page.evaluate(() => document.getElementById('tournamentSelect').options.length);
@@ -54,8 +54,22 @@ test('Database: ignore word order (on by default); no search-in select or year b
   assert.ok(phrase > 0 && phrase <= anyOrder, `${phrase} as a phrase, ${anyOrder} in any order`);
   // The phrase is marked as a whole.
   assert.match(await page.locator('#results mark').first().innerText(), /^sodium chloride$/i);
+  // All text / Question only / Answer only, as radio buttons under the filters.
+  assert.deepStrictEqual(await page.locator('#searchType input[type=radio]').evaluateAll((xs) => xs.map((x) => [x.value, x.checked])),
+    [['all', true], ['question', false], ['answer', false]]);
+  const allText = await results(page);
+  await page.locator('#searchTypeAnswer').check();
+  await page.waitForTimeout(400);
+  const inAnswers = await results(page);
+  assert.ok(inAnswers > 0 && inAnswers < allText, `${inAnswers} in answers, ${allText} in all text`);
+  assert.strictEqual(await page.locator('#results .q-text mark').count(), 0, 'only answer lines are marked');
+  assert.ok(await page.locator('#results .a-text mark').count() > 0);
+  await page.locator('#searchTypeQuestion').check();
+  await page.waitForTimeout(400);
+  assert.strictEqual(await page.locator('#results .a-text mark').count(), 0, 'only questions are marked');
   await page.locator('#clearFilters').click();
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
+  assert.strictEqual(await page.locator('#searchTypeAll').isChecked(), true);
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });

@@ -551,3 +551,7 @@ html.mp-direct #lobbyScreen { display: none !important; }
 .mp-crown { flex-shrink: 0; }
 /* A player the owner has muted. */
 .mp-muted { margin-left: .25rem; opacity: .7; }
+/* Database: All text / Question only / Answer only stay on one row on a
+   phone (a flex row, so no whitespace between them adds width). */
+#searchType { display: flex; flex-wrap: wrap; column-gap: .75rem; }
+#searchType .form-check-inline { margin-right: 0; }
