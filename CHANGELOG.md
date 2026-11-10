@@ -217,3 +217,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Log in and sign up: the eye button turns into a crossed-out eye while the password shows, and back, as on QB Reader.
 - Multiplayer, Select by Set Name: with the set name still blank, a subject switched off no longer switches itself back on (the room kept its old filters whenever the settings matched no questions; it now takes them, and keeps its questions until a change matches some).
 - Multiplayer: "Dev started a vote kick against Henry (1/2)" (no "which needs 2 votes").
+- Tips & Instructions looks like QB Reader's: cards two to a row (Getting Started, Searching the Database, Accounts & Progress, Help & Community, Multiplayer); the home page's button to it is blue.
