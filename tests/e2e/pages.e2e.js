@@ -42,27 +42,33 @@ test('an unknown address gets the 404 page', async () => {
   await ctx.close();
 });
 
-test('a page older than the deployed version alerts, then reloads, once', async () => {
+test('a page older than the deployed version shows no alert and is not reloaded; a refresh gets the new one', async () => {
   // As a deploy leaves it: the page says it's "old" (tools/stamp-version.js)
   // while version.json already says "new".
   const ctx = await newContext(browser);
+  let served = 'old';
   await ctx.route(/\/about$/, async (r) => {
     const res = await r.fetch();
-    const body = (await res.text()).replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n<meta name="sb-version" content="old" />');
+    const body = (await res.text()).replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n<meta name="sb-version" content="${served}" />`);
     await r.fulfill({ response: res, body });
   });
-  await ctx.route(/\/version\.json/, (r) => r.fulfill({ contentType: 'application/json', body: '{"version":"new"}' }));
+  let checks = 0;
+  await ctx.route(/\/version\.json/, (r) => { checks++; r.fulfill({ contentType: 'application/json', body: '{"version":"new"}' }); });
   const page = await ctx.newPage();
   let loads = 0;
-  const alerts = [];
+  const dialogs = [];
   page.on('load', () => { loads++; });
-  page.on('dialog', (d) => { alerts.push(d.type() + ': ' + d.message()); d.accept(); });
+  page.on('dialog', (d) => { dialogs.push(d.type() + ': ' + d.message()); d.accept(); });
   await page.goto(server.url + 'about', { waitUntil: 'networkidle' });
-  await page.waitForFunction(() => sessionStorage.getItem('sb_reloaded_for') === 'new', null, { timeout: 15000 });
-  await page.waitForTimeout(4000); // past a check of the 3-second loop: no second alert
-  assert.strictEqual(loads, 2, 'reloaded exactly once');
-  assert.deepStrictEqual(alerts, ['alert: A new version of SB Reader is out. The page will reload to get it.']);
-  assert.strictEqual(await page.evaluate(() => sessionStorage.getItem('sb_reloaded_for')), 'new');
+  await page.waitForTimeout(4000);
+  assert.ok(checks >= 1, 'the page asked which version is deployed');
+  assert.strictEqual(loads, 1, 'not reloaded');
+  assert.deepStrictEqual(dialogs, []);
+  // Refreshing is what brings the new version.
+  served = 'new';
+  await page.reload({ waitUntil: 'networkidle' });
+  assert.strictEqual(await page.getAttribute('meta[name="sb-version"]', 'content'), 'new');
+  assert.deepStrictEqual(dialogs, []);
   await ctx.close();
 });
 

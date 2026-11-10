@@ -25,8 +25,6 @@
   // pick questions, so entering a room doesn't wait for it; whoever runs the
   // game waits for it before the first question.
   function bankLoaded() { return !!SBData.questions; }
-  // A new site version waits (as a Reload bar) while you're in a room.
-  if (window.SBSite && SBSite.setBusy) SBSite.setBusy(() => !!myState.roomId);
 
   // The last name used on this device, prefilled into the name boxes and
   // used when joining straight from an invite link.
@@ -473,7 +471,8 @@
         act('[data-votekick]', () => requestVotekick(p.id));
         act('[data-mute]', () => requestOwnerAction(isMuted(p) ? 'unmute' : 'mute', p));
         act('[data-ban]', () => {
-          if (window.confirm(`Ban ${p.name} from this room? They won't be able to come back.`)) requestOwnerAction('ban', p);
+          SBSite.confirm(`Ban ${p.name} from this room? They won't be able to come back.`, { title: 'Ban player', ok: 'Ban', danger: true })
+            .then((yes) => { if (yes) requestOwnerAction('ban', p); });
         });
       }
       item.dataset.key = key;
@@ -2022,8 +2021,9 @@
       mesh = SBPeer.makeMesh({
         onMessage: onMeshMessage,
         onLeave: onMemberLeft,
-        // As QB Reader does when its connection to the room drops.
-        onDisconnect: () => { if (myState.role) window.alert('Disconnected from server'); },
+        // As QB Reader does when its connection to the room drops: a
+        // message in a dialog on the page, with an OK button.
+        onDisconnect: () => { if (myState.role) SBSite.alert('Disconnected from server'); },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
     }

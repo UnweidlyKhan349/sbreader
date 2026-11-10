@@ -511,7 +511,7 @@ After any change to `data/bank/`, run `node tools/meta-counts.js` (as before); `
 
 ### Updates after a redeploy
 
-Every deploy runs `tools/stamp-version.js`, which writes `version.json` (the commit's SHA) and puts the same value in every page as `<meta name="sb-version">`. `js/site.js` fetches `version.json` (never from a cache) when a page loads, when its tab comes back into view, and every five minutes. If the site is newer than the page, an alert says "A new version of SB Reader is out. The page will reload to get it." and the page reloads; the service worker fetches its own new copy. During a Play session or while you're in a Multiplayer room (or typing, or with a dialog open), it waits until the game is idle, since an alert freezes the page and would stall a question. It reloads at most once per version per tab, so a page that comes back old can't loop. A copy served without the meta tag (local development) never checks.
+Every deploy runs `tools/stamp-version.js`, which writes `version.json` (the commit's SHA) and puts the same value in every page as `<meta name="sb-version">`. `js/site.js` fetches `version.json` (never from a cache) when a page loads, when its tab comes back into view, and every five minutes. If the site is newer than the page, nothing is shown and the page is not reloaded: it carries on as it is, and you get the new version when you refresh or next open the site. The only thing done meanwhile is having the service worker fetch its own new copy, so that refresh gets the new files. A copy served without the meta tag (local development) never checks.
 
 ### Search engines and link previews
 

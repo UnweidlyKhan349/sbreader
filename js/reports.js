@@ -88,9 +88,9 @@
       return;
     }
     sent.add(q.id);
-    // As on QB Reader: a browser alert, and the form closes once it's OK'd.
-    window.alert('Question has been reported.');
-    SBSite.hideModal(modal);
+    // A thank-you in the form itself, which then closes on its own.
+    status('Thanks! Your report was sent.', 'success');
+    setTimeout(() => { if (current === q) SBSite.hideModal(modal); }, 1200);
   }
 
   // A "Report" link for a card footer.

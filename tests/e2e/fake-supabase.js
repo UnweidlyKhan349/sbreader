@@ -9,7 +9,7 @@
   const user = { id: 'user-1', email: 't@example.com', email_confirmed_at: '2026-11-01T00:00:00Z', user_metadata: { username: 'Tester' } };
   const later = (ms, v) => new Promise((r) => setTimeout(() => r(v), ms));
   function query(table) {
-    const rows = () => db[table];
+    const rows = () => (db[table] = db[table] || []);
     let filter = () => true;
     let action = { kind: 'select' };
     let sort = null;

@@ -140,7 +140,8 @@
     if (!el.dataset.sbModalWired) {
       el.dataset.sbModalWired = '1';
       el.addEventListener('click', (e) => {
-        if (e.target === el || e.target.closest('[data-sb-dismiss]')) hideModal(el);
+        // (A [data-sb-static] dialog closes only by its own buttons.)
+        if ((e.target === el && !el.hasAttribute('data-sb-static')) || e.target.closest('[data-sb-dismiss]')) hideModal(el);
       });
     }
     // As Bootstrap (and QB Reader) do: focus the dialog itself, not its
@@ -149,15 +150,70 @@
     el.focus({ preventScroll: true });
   }
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
+    if (e.key === 'Escape' && openModalEl && !openModalEl.hasAttribute('data-sb-static')) { e.stopPropagation(); hideModal(openModalEl); }
   }, true);
 
-  // Pages that hold a game in progress say so (setBusy), so a new version
-  // waits for a quiet moment instead of reloading mid-question.
-  let busyFn = () => false;
-  function setBusy(fn) { busyFn = fn; }
+  // A message in a dialog on the page, as QB Reader's alert modal: centred,
+  // the text and an OK button, closed only by OK (or Enter / Space on it;
+  // not Esc or a click outside). Unlike window.alert it doesn't freeze the
+  // page. onClose runs when it's dismissed.
+  let alertEl = null;
+  function showAlert(text, onClose) {
+    if (!alertEl) {
+      alertEl = document.createElement('div');
+      alertEl.className = 'modal';
+      alertEl.id = 'alert-modal';
+      alertEl.tabIndex = -1;
+      alertEl.setAttribute('data-sb-static', '');
+      alertEl.setAttribute('aria-labelledby', 'alert-modal-text');
+      alertEl.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">'
+        + '<div class="modal-body"><p id="alert-modal-text" class="mb-0"></p></div>'
+        + '<div class="modal-footer"><button class="btn btn-primary" id="alert-modal-close" data-sb-dismiss type="button">OK</button></div>'
+        + '</div></div>';
+      document.body.appendChild(alertEl);
+    }
+    alertEl.querySelector('#alert-modal-text').textContent = text;
+    if (onClose) alertEl.addEventListener('sb-modal-hidden', () => onClose(), { once: true });
+    showModal(alertEl);
+    alertEl.querySelector('#alert-modal-close').focus({ preventScroll: true });
+  }
 
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, setBusy };
+  // A question in a dialog on the page, in place of window.confirm: the
+  // text, Cancel, and a button named for what it does. Resolves true when
+  // that button is pressed, false for Cancel, Esc or a click outside.
+  // opts: { title, ok (the button's label; "OK"), danger (a red button) }
+  let confirmEl = null;
+  function showConfirm(text, opts) {
+    opts = opts || {};
+    if (!confirmEl) {
+      confirmEl = document.createElement('div');
+      confirmEl.className = 'modal';
+      confirmEl.id = 'confirm-modal';
+      confirmEl.tabIndex = -1;
+      confirmEl.setAttribute('aria-labelledby', 'confirm-modal-title');
+      confirmEl.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">'
+        + '<div class="modal-header"><h5 class="modal-title" id="confirm-modal-title"></h5>'
+        + '<button type="button" class="btn-close" data-sb-dismiss aria-label="Close"></button></div>'
+        + '<div class="modal-body"><p id="confirm-modal-text" class="mb-0"></p></div>'
+        + '<div class="modal-footer"><button class="btn btn-secondary" id="confirm-modal-cancel" data-sb-dismiss type="button">Cancel</button>'
+        + '<button class="btn" id="confirm-modal-ok" type="button"></button></div>'
+        + '</div></div>';
+      document.body.appendChild(confirmEl);
+    }
+    confirmEl.querySelector('#confirm-modal-title').textContent = opts.title || 'Are you sure?';
+    confirmEl.querySelector('#confirm-modal-text').textContent = text;
+    const ok = confirmEl.querySelector('#confirm-modal-ok');
+    ok.textContent = opts.ok || 'OK';
+    ok.className = 'btn ' + (opts.danger ? 'btn-danger' : 'btn-primary');
+    return new Promise((resolve) => {
+      let yes = false;
+      ok.onclick = () => { yes = true; hideModal(confirmEl); };
+      confirmEl.addEventListener('sb-modal-hidden', () => resolve(yes), { once: true });
+      showModal(confirmEl);
+    });
+  }
+
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, alert: showAlert, confirm: showConfirm };
 
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
@@ -172,54 +228,31 @@
   // Updates after a redeploy. Each deploy writes version.json and stamps
   // its commit into every page (<meta name="sb-version">; see
   // tools/stamp-version.js). When the two differ, this page is older than
-  // the site: an alert says so and the page reloads. During a game
-  // (setBusy), while you're typing or with a dialog open, it waits for the
-  // game to go idle first (an alert freezes the page, which mid-question
-  // would stall the game). Checked on load, when the tab comes back into
-  // view, and every five minutes. Pages without the meta tag (a local copy)
-  // never check.
+  // the site. Nothing is shown and the page is never reloaded for you: it
+  // carries on as it is, and the new version arrives when you refresh or
+  // next open the site. The one thing done meanwhile is fetching the new
+  // service worker, so that refresh gets the new files and not cached old
+  // ones. Checked on load, when the tab comes back into view, and every
+  // five minutes. Pages without the meta tag (a local copy) never check.
   const pageVersion = (document.querySelector('meta[name="sb-version"]') || {}).content;
   if (siteScript && pageVersion && window.fetch) {
     const versionUrl = new URL('../version.json', siteScript).href;
-    let latest = null;
-    const typing = () => {
-      const el = document.activeElement;
-      return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) && !!el.value;
-    };
-    const reload = () => {
-      // Once per version per tab, so a page that stays old can't loop.
-      try {
-        if (sessionStorage.getItem('sb_reloaded_for') === latest) return;
-        sessionStorage.setItem('sb_reloaded_for', latest);
-      } catch (e) { /* storage off: reload anyway */ }
-      window.alert('A new version of SB Reader is out. The page will reload to get it.');
-      location.reload();
-    };
-    const idle = () => {
-      let busy = true;
-      try { busy = !!busyFn(); } catch (e) { busy = false; }
-      return !busy && !typing() && !openModalEl && document.visibilityState === 'visible';
-    };
-    const apply = () => { if (latest && latest !== pageVersion && idle()) reload(); };
+    let seen = pageVersion;
     const check = async () => {
       try {
         const res = await fetch(versionUrl, { cache: 'no-store' });
         if (!res.ok) return;
         const v = String((await res.json()).version || '');
-        if (!v || v === pageVersion) return;
-        latest = v;
-        // Fetch the new service worker too, so it drops the old files.
+        if (!v || v === seen) return;
+        seen = v;
         if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
           navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
         }
-        apply();
       } catch (e) { /* offline: try again later */ }
     };
     window.addEventListener('load', check);
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
     setInterval(check, 5 * 60 * 1000);
-    // A game that ends with an update waiting reloads then.
-    setInterval(apply, 3000);
   }
 
   function wireNavbar() {

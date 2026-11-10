@@ -195,3 +195,22 @@ test('when the coordinator leaves, the others agree on a new one and play on', a
   assert.ok(await q(c) > 0, 'and the other player follows it');
   await ctx.close();
 });
+
+test('losing the connection shows "Disconnected from server" in a dialog on the page, not a browser alert', async () => {
+  const ctx = await newContext(browser);
+  const page = await joinRoom(ctx, server.url, room());
+  const dialogs = [];
+  page.on('dialog', (d) => dialogs.push(d.message()));
+  await ctx.setOffline(true);
+  await page.evaluate(() => window.dispatchEvent(new Event('offline')));
+  await page.waitForSelector('#alert-modal.show');
+  assert.strictEqual(await page.textContent('#alert-modal-text'), 'Disconnected from server');
+  // Only OK closes it: not Esc, not a click outside.
+  await page.keyboard.press('Escape');
+  await page.mouse.click(5, 5);
+  assert.strictEqual(await page.isVisible('#alert-modal'), true);
+  await page.click('#alert-modal-close');
+  await page.waitForSelector('#alert-modal', { state: 'hidden' });
+  assert.deepStrictEqual(dialogs, []);
+  await ctx.close();
+});

@@ -211,8 +211,16 @@ test('the owner can mute and ban; a banned player stays out', async () => {
   await a.waitForTimeout(800);
   assert.ok(!/hello there/.test(await a.locator('#mpHistory').innerText()), 'a muted player\'s chat doesn\'t reach the room');
   assert.match(await g.locator('#mpHistory').innerText(), /are muted in this room/);
-  await a.evaluate(() => { window.confirm = () => true; });
+  // Ban asks first, in a dialog on the page: Cancel leaves the player in.
   await ownerMenu(a, gName, 'ban');
+  await a.waitForSelector('#confirm-modal.show');
+  assert.match(await a.textContent('#confirm-modal-text'), /^Ban .+ from this room\? They won't be able to come back\.$/);
+  await a.click('#confirm-modal-cancel');
+  await a.waitForSelector('#confirm-modal', { state: 'hidden' });
+  await a.waitForTimeout(500);
+  assert.ok(await a.locator('.mp-player-row', { hasText: gName }).count(), 'still in the room after Cancel');
+  await ownerMenu(a, gName, 'ban');
+  await a.click('#confirm-modal-ok');
   await g.waitForFunction(() => /banned from that room/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 15000 });
   await a.waitForFunction((n) => ![...document.querySelectorAll('.mp-player-row')].some((x) => x.textContent.includes(n)), gName, { timeout: 10000 });
   // Back with the same player ID: turned away.
