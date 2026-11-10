@@ -471,7 +471,8 @@
         act('[data-votekick]', () => requestVotekick(p.id));
         act('[data-mute]', () => requestOwnerAction(isMuted(p) ? 'unmute' : 'mute', p));
         act('[data-ban]', () => {
-          if (window.confirm(`Ban ${p.name} from this room? They won't be able to come back.`)) requestOwnerAction('ban', p);
+          SBSite.confirm(`Ban ${p.name} from this room? They won't be able to come back.`, { title: 'Ban player', ok: 'Ban', danger: true })
+            .then((yes) => { if (yes) requestOwnerAction('ban', p); });
         });
       }
       item.dataset.key = key;

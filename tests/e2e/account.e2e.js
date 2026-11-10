@@ -347,3 +347,45 @@ test('signing up with an email that already has an account says so; a reset says
   await page.waitForFunction(() => /A link to reset your password has been sent to someone@example\.com/.test(document.getElementById('authMsg').textContent));
   await ctx.close();
 });
+
+test('Reset stats asks in a dialog on the page: Cancel keeps the answers, the red button deletes them', async () => {
+  const { ctx, page } = await withStats('edit-profile');
+  const popups = [];
+  page.on('dialog', (d) => { popups.push(d.message()); d.dismiss(); });
+  await page.waitForSelector('#acctLoggedIn:not([hidden])');
+  await page.click('#resetStatsBtn');
+  await page.waitForSelector('#confirm-modal.show');
+  assert.strictEqual(await page.textContent('#confirm-modal-text'), "Delete every answer in your stats? This can't be undone.");
+  assert.strictEqual(await page.textContent('#confirm-modal-ok'), 'Reset stats');
+  await page.click('#confirm-modal-cancel');
+  await page.waitForSelector('#confirm-modal', { state: 'hidden' });
+  assert.strictEqual(await page.evaluate(() => __db.answers.length), 6);
+  // Esc cancels too.
+  await page.click('#resetStatsBtn');
+  await page.waitForSelector('#confirm-modal.show');
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#confirm-modal', { state: 'hidden' });
+  assert.strictEqual(await page.evaluate(() => __db.answers.length), 6);
+  await page.click('#resetStatsBtn');
+  await page.click('#confirm-modal-ok');
+  await page.waitForFunction(() => /Your stats were reset/.test(document.getElementById('acctMsgIn').textContent));
+  assert.strictEqual(await page.evaluate(() => __db.answers.length), 0);
+  assert.deepStrictEqual(popups, [], 'no browser popups');
+  await ctx.close();
+});
+
+test('reporting a question thanks you in the form, which then closes, with no browser alert', async () => {
+  const q = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', 'lost-3-ms.json'), 'utf8'))[0].q[0].i;
+  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [q] });
+  const popups = [];
+  page.on('dialog', (d) => { popups.push(d.message()); d.dismiss(); });
+  await page.waitForSelector('#question-list .q-card');
+  await page.click('#question-list .q-card .q-card-links a:text("Report")');
+  await page.waitForSelector('#reportForm');
+  await page.click('#reportSend');
+  await page.waitForFunction(() => /Thanks! Your report was sent\./.test(document.getElementById('reportStatus').textContent));
+  await page.waitForSelector('#reportForm', { state: 'hidden', timeout: 5000 });
+  assert.deepStrictEqual(await page.evaluate(() => __db.question_reports.map((r) => r.question_id)), [q]);
+  assert.deepStrictEqual(popups, []);
+  await ctx.close();
+});

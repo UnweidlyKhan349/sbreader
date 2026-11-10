@@ -63,13 +63,13 @@
   });
   if ($('resetStatsBtn')) {
     $('resetStatsBtn').addEventListener('click', async () => {
-      if (!confirm('Delete every answer in your stats? This can\'t be undone.')) return;
+      if (!await SBSite.confirm('Delete every answer in your stats? This can\'t be undone.', { title: 'Reset stats', ok: 'Reset stats', danger: true })) return;
       try { await SBAccount.resetStats(); message('Your stats were reset.', 'success'); } catch (err) { message(SBAccount.friendlyError(err), 'danger'); }
     });
   }
   if ($('deleteDataBtn')) {
     $('deleteDataBtn').addEventListener('click', async () => {
-      if (!confirm('Delete your stats and the starred questions and settings saved to your account? This can\'t be undone.')) return;
+      if (!await SBSite.confirm('Delete your stats and the starred questions and settings saved to your account? This can\'t be undone.', { title: 'Delete my data', ok: 'Delete my data', danger: true })) return;
       try { await SBAccount.deleteMyData(); message('Your data was deleted.', 'success'); } catch (err) { message(SBAccount.friendlyError(err), 'danger'); }
     });
   }

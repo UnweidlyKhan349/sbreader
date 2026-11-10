@@ -233,3 +233,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Google tag (Tag Manager container `GTM-MHDN9VXB`, for Google Analytics) added at the top of every page's `<head>`.
 - A new version of the site no longer shows an alert or reloads the page: an open tab carries on as it is and gets the update when it's refreshed or next opened.
 - Multiplayer: "Disconnected from server" is a dialog on the page with an OK button, as on QB Reader, not a browser alert.
+- Confirmations are dialogs on the page, not browser popups: **Reset stats** and **Delete my data** (Edit profile) and **Ban** (a room's owner, in Multiplayer), each with Cancel and a red button named for what it does.
+- Reporting a question no longer ends in a browser alert: the form says "Thanks! Your report was sent." and closes itself a moment later, as it did before November 7.

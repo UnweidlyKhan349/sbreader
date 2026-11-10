@@ -178,7 +178,42 @@
     alertEl.querySelector('#alert-modal-close').focus({ preventScroll: true });
   }
 
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, alert: showAlert };
+  // A question in a dialog on the page, in place of window.confirm: the
+  // text, Cancel, and a button named for what it does. Resolves true when
+  // that button is pressed, false for Cancel, Esc or a click outside.
+  // opts: { title, ok (the button's label; "OK"), danger (a red button) }
+  let confirmEl = null;
+  function showConfirm(text, opts) {
+    opts = opts || {};
+    if (!confirmEl) {
+      confirmEl = document.createElement('div');
+      confirmEl.className = 'modal';
+      confirmEl.id = 'confirm-modal';
+      confirmEl.tabIndex = -1;
+      confirmEl.setAttribute('aria-labelledby', 'confirm-modal-title');
+      confirmEl.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">'
+        + '<div class="modal-header"><h5 class="modal-title" id="confirm-modal-title"></h5>'
+        + '<button type="button" class="btn-close" data-sb-dismiss aria-label="Close"></button></div>'
+        + '<div class="modal-body"><p id="confirm-modal-text" class="mb-0"></p></div>'
+        + '<div class="modal-footer"><button class="btn btn-secondary" id="confirm-modal-cancel" data-sb-dismiss type="button">Cancel</button>'
+        + '<button class="btn" id="confirm-modal-ok" type="button"></button></div>'
+        + '</div></div>';
+      document.body.appendChild(confirmEl);
+    }
+    confirmEl.querySelector('#confirm-modal-title').textContent = opts.title || 'Are you sure?';
+    confirmEl.querySelector('#confirm-modal-text').textContent = text;
+    const ok = confirmEl.querySelector('#confirm-modal-ok');
+    ok.textContent = opts.ok || 'OK';
+    ok.className = 'btn ' + (opts.danger ? 'btn-danger' : 'btn-primary');
+    return new Promise((resolve) => {
+      let yes = false;
+      ok.onclick = () => { yes = true; hideModal(confirmEl); };
+      confirmEl.addEventListener('sb-modal-hidden', () => resolve(yes), { once: true });
+      showModal(confirmEl);
+    });
+  }
+
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, alert: showAlert, confirm: showConfirm };
 
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
