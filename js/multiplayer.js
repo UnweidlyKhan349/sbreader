@@ -2020,8 +2020,9 @@
       mesh = SBPeer.makeMesh({
         onMessage: onMeshMessage,
         onLeave: onMemberLeft,
-        // As QB Reader does when its connection to the room drops.
-        onDisconnect: () => { if (myState.role) window.alert('Disconnected from server'); },
+        // As QB Reader does when its connection to the room drops: a
+        // message in a dialog on the page, with an OK button.
+        onDisconnect: () => { if (myState.role) SBSite.alert('Disconnected from server'); },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
     }
