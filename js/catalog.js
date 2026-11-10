@@ -1,6 +1,6 @@
 (function () {
   const PAGE_SIZE = 40;
-  const RANDOM_COUNT = 20; // questions the Random button shows
+  const RANDOM_COUNT = 40; // questions the Random button shows
   const state = {
     subjects: new Set(),
     qtypes: new Set(),

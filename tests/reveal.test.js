@@ -67,3 +67,51 @@ test('the reveal shows whole words, across segments and tags', () => {
   // A tag with attributes is a tag, not visible text.
   assert.strictEqual(visibleTruncate(html, 3), '<span class="fw-semibold">TOS</span>');
 });
+
+// Best Buzz marks where a buzz fell: the mark has to sit exactly after the
+// text the question had typed out at that moment.
+const { insertAtVisible } = require('../js/reveal.js');
+const { loadCorpus } = require('./helpers');
+
+test('insertAtVisible puts the mark after n visible characters, outside a tag that closes there', () => {
+  assert.strictEqual(insertAtVisible('ab cd', 2, '#'), 'ab# cd');
+  assert.strictEqual(insertAtVisible('x<sup>2</sup> y', 2, '#'), 'x<sup>2</sup># y');
+  assert.strictEqual(insertAtVisible('a &lt; b', 3, '#'), 'a &lt;# b');
+  assert.strictEqual(insertAtVisible('ab', 0, '#'), '#ab');
+  assert.strictEqual(insertAtVisible('ab', 2, '#'), 'ab#');
+});
+
+test('the buzz mark sits right after what had been read, for every word of a sample of real questions', () => {
+  const SBData = globalThis.SBData;
+  const plain = (html) => html.replace(/<span class="buzz-marker"[^>]*>\(#\)<\/span>/, '\u0001').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const { questions } = loadCorpus();
+  let checked = 0;
+  for (let i = 0; i < questions.length; i += 211) {
+    const q = questions[i];
+    const letters = q.choices ? ['W', 'X', 'Y', 'Z'] : [];
+    const header = visibleLength(SBData.readoutHTML(q)) - visibleLength(SBData.questionTextHTML(q));
+    const segs = [{ html: SBData.readoutHTML(q) }, ...letters.map((L) => ({ html: SBData.renderMathHTML(q.choices[L] || '') }))];
+    const lengths = segs.map((s) => visibleLength(s.html));
+    const total = lengths.reduce((a, b) => a + b, 0);
+    // (The saved celerity has three decimals: enough to tell words apart
+    // in all but the very longest questions.)
+    if (total > 900) continue;
+    for (const w of schedule(segs).words) {
+      if (w.end <= header) continue; // still in the "TOSS-UP Physics Short Answer" line
+      // What the reveal shows at this word, without the header line.
+      let left = w.end;
+      const shown = segs.map((s, k) => { const n = Math.min(left, lengths[k]); left -= n; return visibleTruncate(s.html, n); });
+      const expected = plain(shown.join(' ')).slice(plain(visibleTruncate(segs[0].html, header)).length).trim();
+      const read = 1 - Math.round((1 - w.end / total) * 1000) / 1000; // as saved: celerity to three decimals
+      const m = SBData.buzzMarked(q, read);
+      const got = plain([m.text, ...letters.map((L) => m.choices[L])].join(' '));
+      assert.strictEqual((got.match(/\u0001/g) || []).length, 1, `question ${q.id}: one mark`);
+      assert.strictEqual(got.split('\u0001')[0].trim(), expected, `question ${q.id} at character ${w.end}`);
+      checked++;
+    }
+  }
+  assert.ok(checked > 5000, `${checked} buzz points checked`);
+  // Nothing to mark without a buzz point.
+  const q = questions[0];
+  assert.strictEqual(SBData.buzzMarked(q, undefined).text, SBData.questionTextHTML(q));
+});

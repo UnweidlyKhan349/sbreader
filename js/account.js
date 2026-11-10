@@ -105,10 +105,9 @@
     slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
       + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
       + `<a class="dropdown-item" href="${pageUrl('account')}">Account</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stats')}">Tossup Stats</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stats?type=bonus')}">Bonus Stats</a>`
+      + `<a class="dropdown-item" href="${pageUrl('stats')}">Stats</a>`
       + `<a class="dropdown-item" href="${pageUrl('graphs')}">Graphs</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stars')}">Stars</a>`
+      + `<a class="dropdown-item" href="${pageUrl('stars')}">Starred Questions</a>`
       + '<hr class="dropdown-divider">'
       + '<button class="dropdown-item" type="button" data-sb-logout>Log out</button></div>';
     slot.querySelector('[data-sb-dropdown]').textContent = displayName();

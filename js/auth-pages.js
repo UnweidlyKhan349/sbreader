@@ -54,11 +54,21 @@
       } else if (form.id === 'signupForm') {
         if ($('signupPassword').value.length < 8) throw new Error('Your password must be at least 8 characters.');
         const res = await SBAccount.signUp($('signupEmail').value.trim(), $('signupPassword').value, $('signupName').value.trim());
-        if (res && res.session) goBack();
+        // An email that already has an account: the account service answers
+        // as if it had signed up (a user with no identities, no session) and
+        // sends nothing, so "check your email" would leave you waiting for a
+        // link that never comes.
+        const taken = res && res.user && Array.isArray(res.user.identities) && res.user.identities.length === 0;
+        if (taken) {
+          msg.innerHTML = 'That email already has an account. <a href="login" class="alert-link">Log in</a>, or <a href="forgot-password" class="alert-link">reset your password</a> if you\'ve forgotten it.';
+          msg.className = 'alert alert-warning';
+          msg.hidden = false;
+        } else if (res && res.session) goBack();
         else message('Check your email for a link to confirm your account, then log in.', 'success');
       } else if (form.id === 'forgotForm') {
-        await SBAccount.resetPassword($('forgotEmail').value.trim());
-        message('If that email has an account, a link to reset the password is on its way.', 'success');
+        const email = $('forgotEmail').value.trim();
+        await SBAccount.resetPassword(email);
+        message(`A link to reset your password has been sent to ${email}. Check your inbox (and your spam folder).`, 'success');
       }
     } catch (err) {
       message(SBAccount.friendlyError(err), 'danger');

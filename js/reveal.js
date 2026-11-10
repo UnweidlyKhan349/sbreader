@@ -68,6 +68,21 @@
     for (let i = open.length - 1; i >= 0; i--) out += `</${open[i]}>`;
     return out;
   }
+  // html with `extra` put in after its first n visible characters (after
+  // any tags that close there, so a mark never lands inside a superscript
+  // that has just ended).
+  function insertAtVisible(html, n, extra) {
+    let out = '';
+    let shown = 0;
+    let placed = false;
+    for (const t of tokens(html)) {
+      const closing = isTag(t) && t[1] === '/';
+      if (!placed && shown >= n && !closing) { out += extra; placed = true; }
+      out += t;
+      if (!isTag(t)) shown++;
+    }
+    return placed ? out : out + extra;
+  }
   function segLength(s) { return s.html != null ? visibleLength(s.html) : s.text.length; }
   // A segment's visible text, one character per visible character (an
   // entity stands in as one non-space character).
@@ -249,6 +264,6 @@
     };
   }
 
-  global.SBReveal = { startReveal, visibleTruncate, visibleLength, msPerUnit, wordUnits, schedule, normalizeSpeed, DEFAULT_SPEED };
+  global.SBReveal = { startReveal, visibleTruncate, visibleLength, insertAtVisible, msPerUnit, wordUnits, schedule, normalizeSpeed, DEFAULT_SPEED };
   if (typeof module !== 'undefined' && module.exports) module.exports = global.SBReveal;
 })(typeof window !== 'undefined' ? window : globalThis);

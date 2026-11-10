@@ -1,29 +1,26 @@
-// stats.html: the logged-in account's tossup stats (or bonus stats, with
-// ?type=bonus), laid out as QB Reader's: the filter form (js/user-stats.js),
-// a CSV download, and tabs of tables by subject, format, level and set, each
-// with a Total row and columns that sort when clicked. Science Bowl scoring
-// in place of quizbowl's: 4 for a right answer, 0 for a wrong one, -4 for a
-// wrong interrupt. Tossups add Best Buzz; Recent lists the latest answers.
+// stats.html: the logged-in account's stats, laid out as QB Reader's tossup
+// and bonus stats pages, with both on one page: the filter form
+// (js/user-stats.js), a CSV download, and tabs of tables by subject, format,
+// level and set, each with a Total row and columns that sort when clicked.
+// Science Bowl scoring in place of quizbowl's: 4 for a right answer, 0 for
+// a wrong one, -4 for a wrong interrupt. Best Buzz is your earliest right
+// answer; Recent lists the latest answers.
 (function () {
   const $ = (id) => document.getElementById(id);
   const core = window.SBAccountCore;
-  const bonus = SBUserStats.type === 'bonus';
-  const HEARD = bonus ? 'BH' : 'TUH';
-  const PER = bonus ? 'PPB' : 'PPTU';
   // Bootstrap Icons' caret-up-fill and caret-down-fill, as the Set List's.
   const CARET_UP = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/></svg>';
   const CARET_DOWN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>';
 
-  // Columns: [heading, value, text, hover title]. Bonuses have no celerity
-  // column, as on QB Reader.
+  // Columns: [heading, value, text, hover title].
   const COLUMNS = [
-    [HEARD, (t) => t.count, null, bonus ? 'Bonuses heard' : 'Tossups heard'],
+    ['Heard', (t) => t.count, null, 'Questions heard'],
     ['4', (t) => t.fours, null, 'Right answers (+4)'],
     ['0', (t) => t.zeros, null, 'Wrong answers that cost nothing'],
     ['-4', (t) => t.negs, null, 'Wrong interrupts (-4)'],
-    ...(bonus ? [] : [['Celerity', (t) => t.celerity, (t) => t.celerity.toFixed(3), 'How much of the question was still unread when you buzzed, averaged over your right answers (0 to 1)']]),
+    ['Celerity', (t) => t.celerity, (t) => t.celerity.toFixed(3), 'How much of the question was still unread when you buzzed, averaged over your right answers (0 to 1)'],
     ['Points', (t) => t.points, null, ''],
-    [PER, (t) => t.ppq, (t) => t.ppq.toFixed(2), bonus ? 'Points per bonus' : 'Points per tossup'],
+    ['PPQ', (t) => t.ppq, (t) => t.ppq.toFixed(2), 'Points per question'],
   ];
   const TABLES = {
     subject: { keyOf: (r) => r.subject, label: (k) => SBData.subjectLabel(k) },
@@ -137,11 +134,19 @@
           d.textContent = `${k}: ${v}`;
           info.appendChild(d);
         });
+        if (q && window.SBReveal) {
+          const key = document.createElement('div');
+          key.className = 'text-body-secondary small mt-1';
+          key.innerHTML = '<span class="buzz-marker">(#)</span> marks where you buzzed.';
+          info.appendChild(key);
+        }
         box.appendChild(info);
       }
       if (!q) return;
       const where = r.mode === 'mp' ? 'Multiplayer' : 'Play';
       box.appendChild(SBData.questionCard(q, {
+        // Best Buzz marks where you buzzed, as QB Reader does.
+        buzzAt: best ? 1 - r.celerity : undefined,
         grade: best ? null : (r.outcome === 'correct' ? 'correct' : r.outcome === 'dead' ? 'skipped' : 'incorrect'),
         note: best ? '' : `${RESULT[r.outcome]} (${r.points > 0 ? '+' : ''}${r.points}) in ${where}, ${new Date(r.created_at).toLocaleString()}`,
       }));
@@ -174,15 +179,12 @@
     openTab(next);
     next.focus();
   });
-  // Bonuses have no buzz to rank.
-  if (bonus) $('best-buzz-tab-item').hidden = true;
-  document.title = `SBReader - User - ${bonus ? 'Bonus' : 'Tossup'} Stats`;
   openTab(tabs[0]);
 
   /* ---------------- CSV ---------------- */
-  // Every answer of this type, whatever the filters say, as on QB Reader.
+  // Every answer, whatever the filters say, as on QB Reader.
   const csv = $('download-stats-csv');
-  const saveCsv = () => SBUserStats.download(`${SBUserStats.type}-stats.csv`, core.answersCsv(SBUserStats.all()), 'text/csv');
+  const saveCsv = () => SBUserStats.download('stats.csv', core.answersCsv(SBUserStats.all()), 'text/csv');
   csv.addEventListener('click', saveCsv);
   csv.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); saveCsv(); } });
 

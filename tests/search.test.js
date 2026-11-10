@@ -57,3 +57,15 @@ test('a set page links its whole tournament where the packets point to one place
   // Every tournament has one or the other.
   for (const x of SBData.meta.tournaments) assert.ok(SBData.tournamentSourceHTML(x, SBPlay.packetsOf(x.slug)), x.slug);
 });
+
+test('a packet page\'s Source packet link is to the packet, without a question\'s page or line', () => {
+  const SBData = globalThis.SBData;
+  const packet = { questions: [
+    { sourceUrl: 'https://example.org/p/round3.pdf#page=5' },
+    { sourceUrl: 'https://example.org/p/round3.pdf#page=6' },
+    { sourceUrl: 'https://example.org/p/other.pdf#page=1' },
+  ] };
+  assert.strictEqual(SBData.packetSourceUrl(packet), 'https://example.org/p/round3.pdf');
+  assert.strictEqual(SBData.packetSourceUrl({ questions: [{ sourceUrl: 'https://github.com/a/b/blob/main/r1.txt#L120' }] }), 'https://github.com/a/b/blob/main/r1.txt');
+  assert.match(SBData.packetSourceHTML(packet), /href="https:\/\/example\.org\/p\/round3\.pdf"/);
+});

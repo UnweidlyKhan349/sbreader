@@ -467,7 +467,7 @@
   }
 
   // Self-graded: the answer is shown and the buzz counts as right, unless
-  // you then say "I was wrong" (q).
+  // you then click "I was wrong".
   function selfReveal() {
     if (runtime.phase !== 'answering' || !runtime.selfGraded) return;
     clearRuntimeTimer();
@@ -761,7 +761,8 @@
     });
 
     // QB Reader's keys: space buzz, n/s next, p pause, e settings, k show/hide
-    // the last question, t star/unstar it; plus q for I was wrong/right.
+    // the last question, t star/unstar it. (I was wrong / I was right is a
+    // link, with no key: q was too easy to hit by accident.)
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (window.SBSite && SBSite.modalOpen()) return;
@@ -780,7 +781,6 @@
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(log); return;
         case 't': SBPlay.starLatest(log); return;
-        case 'q': overrideGrading(); return;
         default:
       }
     });

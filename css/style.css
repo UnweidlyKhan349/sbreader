@@ -566,3 +566,9 @@ html.mp-direct #lobbyScreen { display: none !important; }
 .stats-table td, .stats-table tfoot th { font-variant-numeric: tabular-nums; }
 #form input[type=date] { color-scheme: light; }
 [data-bs-theme=dark] #form input[type=date] { color-scheme: dark; }
+/* Best Buzz: "(#)" where you buzzed, highlighted as QB Reader's. */
+.buzz-marker { background-color: var(--bs-highlight-bg, #fff3cd); color: var(--bs-highlight-color, inherit); font-weight: 600; padding: 0 .15em; border-radius: .2em; }
+/* Graphs: each chart fills a box of a set height, two to a row on a wide
+   screen and one, shorter, on a phone. */
+.chart-box { position: relative; height: 280px; }
+@media (max-width: 575.98px) { .chart-box { height: 220px; } }

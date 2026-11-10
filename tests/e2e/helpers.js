@@ -50,6 +50,8 @@ async function fetchCdn(url) {
   throw lastErr;
 }
 async function routeCdn(ctx) {
+  // The Google tag is left out of test runs: nothing is sent to Analytics.
+  await ctx.route(/googletagmanager\.com|google-analytics\.com/, (r) => r.abort());
   await ctx.route(/^https:\/\/cdn\.jsdelivr\.net\//, async (route) => {
     const url = route.request().url();
     if (!cdnFiles.has(url)) cdnFiles.set(url, fetchCdn(url).catch((err) => { cdnFiles.delete(url); throw err; }));

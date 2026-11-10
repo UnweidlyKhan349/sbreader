@@ -66,6 +66,11 @@
         getSession: async () => ({ data: { session: window.__signedOut ? null : { user } } }),
         onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } }),
         signOut: async () => ({ error: null }),
+        // As Supabase with email confirmation on: no session, and for an
+        // email that already has an account ("taken@...") a user with no
+        // identities and no error.
+        signUp: async ({ email }) => ({ data: { user: { id: 'new', email, identities: /^taken@/.test(email) ? [] : [{ id: 'i' }] }, session: null }, error: null }),
+        resetPasswordForEmail: async () => ({ data: {}, error: null }),
         // The account's password is "old-password" (the Edit password page).
         signInWithPassword: async ({ password }) => (password === 'old-password' ? { data: { user }, error: null } : { data: null, error: new Error('Invalid login credentials') }),
         updateUser: async (patch) => {

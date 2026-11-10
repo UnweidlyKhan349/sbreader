@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (Google Analytics, through Tag Manager): first thing in <head>, on every page. -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MHDN9VXB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SBReader - User - Stats</title>
-<meta name="description" content="Your SB Reader stats: questions heard, points, celerity and points per question by subject, format, level and set." />
+<meta name="description" content="Your SB Reader stats: tossups and bonuses heard, points, celerity and points per question by subject, format, level and set." />
 <meta name="robots" content="noindex" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<link rel="stylesheet" href="css/style.css?v=3548894ed9" />
+<link rel="stylesheet" href="css/style.css?v=b6c7add815" />
 <script src="js/site.js?v=24064b35bf"></script>
 <link rel="icon" href="favicon.ico" sizes="32x32" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -15,7 +22,7 @@
 <link rel="manifest" href="site.webmanifest" />
 <meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
-<script src="js/data.js?v=f76a46c01b"></script>
+<script src="js/data.js?v=c283333004"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg" id="navbar">
@@ -68,10 +75,8 @@
   </div>
   <div id="statsBody" hidden>
     <ul class="nav nav-underline user-nav mb-3" id="userNav">
-      <li class="nav-item"><a class="nav-link" href="stats" data-page="stats" data-type="tossup">Tossup Stats</a></li>
-      <li class="nav-item"><a class="nav-link" href="stats?type=bonus" data-page="stats" data-type="bonus">Bonus Stats</a></li>
-      <li class="nav-item"><a class="nav-link" href="graphs" data-page="graphs" data-type="tossup">Tossup Graphs</a></li>
-      <li class="nav-item"><a class="nav-link" href="graphs?type=bonus" data-page="graphs" data-type="bonus">Bonus Graphs</a></li>
+      <li class="nav-item"><a class="nav-link" href="stats" data-page="stats">Stats</a></li>
+      <li class="nav-item"><a class="nav-link" href="graphs" data-page="graphs">Graphs</a></li>
     </ul>
     <form class="mb-3" id="form">
       <div class="row">
@@ -91,6 +96,14 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-6">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="include-tossups" checked />
+            <label class="form-check-label" for="include-tossups">Include tossups</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="include-bonuses" checked />
+            <label class="form-check-label" for="include-bonuses">Include bonuses</label>
+          </div>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="include-multiplayer" checked />
             <label class="form-check-label" for="include-multiplayer">Include multiplayer stats</label>
@@ -130,7 +143,7 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="set-tab" data-tab="set-tab-pane" type="button" role="tab" aria-controls="set-tab-pane" aria-selected="false">Set <span class="d-none d-md-inline">Stats</span></button>
       </li>
-      <li class="nav-item" role="presentation" id="best-buzz-tab-item">
+      <li class="nav-item" role="presentation">
         <button class="nav-link" id="best-buzz-tab" data-tab="best-buzz-tab-pane" type="button" role="tab" aria-controls="best-buzz-tab-pane" aria-selected="false">Best Buzz</button>
       </li>
       <li class="nav-item" role="presentation">
@@ -177,10 +190,11 @@
 </div>
 
 <script src="js/config.js?v=d72942fd70"></script>
-<script src="js/account-core.js?v=cfd526c4b4"></script>
-<script src="js/account.js?v=bcef104835"></script>
+<script src="js/account-core.js?v=fb96918069"></script>
+<script src="js/account.js?v=5d9f0b76ec"></script>
+<script src="js/reveal.js?v=496607392a"></script>
 <script src="js/question-stats.js?v=dd0e3a179d"></script>
-<script src="js/user-stats.js?v=55d3ce88ec"></script>
-<script src="js/stats.js?v=cef1aed31a"></script>
+<script src="js/user-stats.js?v=68b2dd2406"></script>
+<script src="js/stats.js?v=8221dc7466"></script>
 </body>
 </html>
