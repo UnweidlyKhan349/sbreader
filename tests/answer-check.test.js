@@ -511,21 +511,32 @@ test('"all" said another way: "all" for "ALL OF THEM", "all of them" for "ALL"',
   no('1: RIGHT; 2: LEFT; 3: LEFT', 'all', three);
 });
 
-test('a named law, effect or experiment by its name alone: "michelson-morley" for "MICHELSON-MORLEY EXPERIMENT"', () => {
+test('a law, effect or experiment named after someone by the name alone: "michelson-morley", but not "rock" for ROCK CYCLE', () => {
   for (const [key, typed] of [
     ['MICHELSON-MORLEY EXPERIMENT', 'michelson-morley'], ['MICHELSON-MORLEY EXPERIMENT', 'michaelson-morley'],
     ['Michelson Morley experiment', 'morley michelson'],
-    ['DOPPLER EFFECT', 'doppler'], ['THE GREENHOUSE EFFECT', 'greenhouse'], ['KREBS CYCLE', 'krebs'],
+    ['DOPPLER EFFECT', 'doppler'], ['THE DOPPLER EFFECT', 'doppler'], ['KREBS CYCLE', 'krebs'], ['HALL EFFECT', 'hall'],
     ["HOOKE'S LAW", "hooke's"], ["HOOKE'S LAW", 'hookes'], ["HOOKE'S LAW", 'hooke'], ["HESS'S LAW", 'hess'],
     ['PAULI EXCLUSION PRINCIPLE', 'pauli exclusion'], ['PYTHAGOREAN THEOREM', 'pythagorean'], ['NERNST EQUATION', 'nernst'],
     ["HUND'S RULE", 'hunds'], ['HABER-BOSCH PROCESS', 'haber bosch'], ["NEWTON'S FIRST LAW", "newton's first"],
     ["TORRICELLI'S THEOREM (OR LAW)", 'torricelli'],
     ['DOPPLER EFFECT; RED SHIFT', 'doppler, red shift'],
+    // a name with more words to it, a possessive not on the list, and accented names typed plain
+    ['QUANTUM HALL EFFECT', 'quantum hall'], ['MILLIKAN OIL DROP EXPERIMENT', 'millikan oil drop'], ["ORE'S THEOREM", 'ores'],
+    ['SCHRÖDINGER EQUATION', 'schrodinger'], ['HÜCKEL’S RULE', 'huckels'], ["LE CHÂTELIER'S PRINCIPLE", 'le chatelier'],
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // Accents don't matter anywhere.
+  assert.ok(isCorrect('SCHRÖDINGER EQUATION', 'schrodinger equation'));
+  assert.ok(isCorrect('MOSSBAUER EFFECT', 'mössbauer effect'));
   // The name itself still has to be all there, and right.
   for (const [key, typed] of [
     ['MICHELSON-MORLEY EXPERIMENT', 'michelson'], ['MICHELSON-MORLEY EXPERIMENT', 'experiment'],
-    ['PAULI EXCLUSION PRINCIPLE', 'pauli'], ['KREBS CYCLE', 'calvin'],
+    ['PAULI EXCLUSION PRINCIPLE', 'pauli'], ['PAULI EXCLUSION PRINCIPLE', 'exclusion'], ['KREBS CYCLE', 'calvin'],
+    // only a name stands alone: after an ordinary word, the last word is half the answer
+    ['ROCK CYCLE', 'rock'], ['SKIN EFFECT', 'skin'], ['CELL CYCLE', 'cell'], ['CARBON CYCLE', 'carbon'], ['GREENHOUSE EFFECT', 'greenhouse'],
+    ['PHOTOELECTRIC EFFECT', 'photoelectric'], ['CONTACT PROCESS', 'contact'], ['FOUNDER EFFECT', 'founder'], ['IDEAL GAS LAW', 'ideal gas'],
+    ['DOUBLE SLIT EXPERIMENT', 'double slit'], ['OCTET RULE', 'octet'], ['UNCERTAINTY PRINCIPLE', 'uncertainty'], ['CHAIN RULE', 'chain'],
+    ['CNO CYCLE', 'cno'], ["THE OBSERVER'S EFFECT", "observer's"], ['SKIN EFFECT; RED SHIFT', 'skin, red shift'],
     // other last words aren't dropped, nor is one inside the key
     ['CARBON DIOXIDE', 'carbon'], ['WHITE DWARF', 'white'], ['LAW OF CONSERVATION OF MASS', 'conservation of mass'],
     ['FIRST LAW OF THERMODYNAMICS', 'first'],
