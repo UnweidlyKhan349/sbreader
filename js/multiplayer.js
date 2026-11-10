@@ -829,6 +829,7 @@
     const link = document.createElement('a');
     link.href = '#';
     link.className = 'btn btn-link p-0 float-end mp-inline-override';
+    link.title = 'Shortcut: q';
     link.textContent = label;
     link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
     myLine.appendChild(link);
@@ -3233,8 +3234,7 @@
       if (e.key === 'Escape') { e.preventDefault(); hideChatRow(); }
     });
     // QB Reader's keys: space buzz, n/s next, p pause, e settings, enter
-    // chat, k show/hide the last question, t star/unstar it. (I was wrong /
-    // I was right is a link, with no key.)
+    // chat, k show/hide the last question, t star/unstar it; q override.
     document.addEventListener('keydown', (e) => {
       if (document.getElementById('mpGameScreen').style.display === 'none') return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -3253,6 +3253,7 @@
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(historyEl()); return;
         case 't': SBPlay.starLatest(historyEl()); return;
+        case 'q': doOverride(); return;
         case 'enter': case '/': e.preventDefault(); showChatRow(); return;
         default:
       }

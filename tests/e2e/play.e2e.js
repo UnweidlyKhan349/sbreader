@@ -116,3 +116,25 @@ test('history cards: the footer reads "Set / RR 3 / Question / Subject / Type", 
   assert.match(r.listText, /\n1\. .*\n2\. /);
   await ctx.close();
 });
+
+test('q is listed among the shortcuts, and flips I was wrong / I was right in Play', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'solo');
+  assert.match(await page.locator('body').innerText(), /q = I was wrong \/ I was right/);
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.keyboard.press('n');
+  await page.waitForTimeout(600);
+  await page.keyboard.press('Space');
+  await page.waitForSelector('#answerInput:visible');
+  await page.keyboard.type('zzzz not the answer');
+  await page.keyboard.press('Enter');
+  const stat = () => page.locator('#statline').innerText();
+  await page.waitForFunction(() => /^0\/1 /.test(document.getElementById('statline').innerText));
+  await page.locator('body').click({ position: { x: 5, y: 300 } });
+  await page.keyboard.press('q');
+  await page.waitForFunction(() => /^1\/0 /.test(document.getElementById('statline').innerText));
+  await page.keyboard.press('q');
+  await page.waitForFunction(() => /^0\/1 /.test(document.getElementById('statline').innerText));
+  assert.match(await stat(), /^0\/1 with 1 question seen/);
+  await ctx.close();
+});
