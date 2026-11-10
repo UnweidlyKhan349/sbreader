@@ -551,3 +551,14 @@ html.mp-direct #lobbyScreen { display: none !important; }
 .mp-crown { flex-shrink: 0; }
 /* A player the owner has muted. */
 .mp-muted { margin-left: .25rem; opacity: .7; }
+
+/* ---------------- Account pages (stats, graphs, stars), as QB Reader's ---------------- */
+/* The links between the stats, graphs and starred pages. */
+.user-nav { --bs-nav-underline-gap: 1.25rem; }
+.user-nav .nav-link { padding-top: .25rem; padding-bottom: .25rem; }
+/* Stats tables: the numbers line up, and a heading sorts when clicked. */
+.stats-table th, .stats-table td { white-space: nowrap; }
+.stats-table thead th { user-select: none; }
+.stats-table td, .stats-table tfoot th { font-variant-numeric: tabular-nums; }
+#form input[type=date] { color-scheme: light; }
+[data-bs-theme=dark] #form input[type=date] { color-scheme: dark; }

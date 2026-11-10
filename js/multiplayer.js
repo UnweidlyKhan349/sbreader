@@ -1907,7 +1907,7 @@
     renderBuzzStatus();
     // Your own answers go to your account's stats.
     if (playerId === myState.myId && game.question && window.SBAccount) {
-      recordMyAnswer(correct ? 'correct' : 'incorrect', isOverride);
+      recordMyAnswer(correct ? 'correct' : 'incorrect', isOverride, { points: correct ? 4 : (delta < 0 ? -4 : 0), celerity: 1 - celerityNow() });
     }
     // And to the question's community stats (a −4 is an interrupt).
     if (playerId === myState.myId && game.question && window.SBQuestionStats) {
@@ -1920,16 +1920,17 @@
   // skipped when it's revealed.
   let statsRecordedFor = null;
   let statsAttempt = null;
-  function recordMyAnswer(result, isOverride) {
+  // extra: the points and celerity saved with it (see SBAccount.recordAnswer).
+  function recordMyAnswer(result, isOverride, extra) {
     const key = game.question.id + ':' + game.index;
     if (statsRecordedFor === key) {
       if (!statsAttempt || statsAttempt.result === result) return;
       // Later attempts only improve it; an override can go either way.
-      if (isOverride || result === 'correct') statsAttempt.update(result);
+      if (isOverride || result === 'correct') statsAttempt.update(result, extra);
       return;
     }
     statsRecordedFor = key;
-    statsAttempt = SBAccount.recordAnswer(game.question, result, 'mp');
+    statsAttempt = SBAccount.recordAnswer(game.question, result, 'mp', extra);
   }
   function applyRevealLocal(revealData) {
     // A question read in full that nobody got, and you didn't buzz on: no
@@ -1939,7 +1940,7 @@
       SBQuestionStats.track(game.question, 'mp', 'unanswered', null, game.index);
     }
     game.phase = 'reveal'; game.lastRevealData = revealData;
-    if (game.question && window.SBAccount && !game.attempts.some((a) => a.playerId === myState.myId)) recordMyAnswer('skipped');
+    if (game.question && window.SBAccount && !game.attempts.some((a) => a.playerId === myState.myId)) recordMyAnswer('skipped', false, { points: 0, celerity: null });
     fullRenderFromState();
   }
   function applyTickLocal(remainingMs, totalMs, kind) {

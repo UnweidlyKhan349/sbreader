@@ -535,7 +535,7 @@
     session.points += pointsFor(outcome);
     updateCounters();
     runtime.pendingCard = { q, category, userText: outcome.userText || '' };
-    if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo');
+    if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo', accountExtra(outcome));
     // For the question's community stats: how it went (a question skipped
     // before it was read through wasn't heard, so it isn't counted).
     if (window.SBQuestionStats && (outcome.attempted || runtime.readingDone)) {
@@ -559,6 +559,14 @@
   }
   function celerityOf(outcome) {
     return outcome.correct ? 1 - (runtime.buzzFraction == null ? 1 : runtime.buzzFraction) : null;
+  }
+  // For your account's stats: the points, and where you buzzed (right or
+  // wrong; nothing for a question you didn't buzz on).
+  function accountExtra(outcome) {
+    return {
+      points: pointsFor(outcome),
+      celerity: outcome.attempted ? 1 - (runtime.buzzFraction == null ? 1 : runtime.buzzFraction) : null,
+    };
   }
 
   // Science Bowl scoring: +4 right; −4 for a wrong answer buzzed in before
@@ -638,7 +646,7 @@
     updateCounters();
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
     if (window.SBQuestionStats) SBQuestionStats.update(currentQ(), playResult(o), celerityOf(o));
-    if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect');
+    if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect', accountExtra(o));
     if (o.correct && window.SBReports) SBReports.logOverride(currentQ(), o.userText, 'solo');
     showReveal();
   }

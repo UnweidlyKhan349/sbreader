@@ -7,7 +7,8 @@
 // account keeps:
 //   - bookmarks: every star mirrored to the account; at login this
 //     device's and the account's are merged (nothing is lost on either side)
-//   - answers: each question answered in Play or Multiplayer, for Stats
+//   - answers: each question answered in Play or Multiplayer, with its
+//     points and celerity, for the stats and graphs pages
 //   - settings: theme, reading speed, multiplayer name and "hide answers";
 //     at login the newer copy wins, and changes are pushed as they happen
 (function () {
@@ -89,8 +90,8 @@
   });
 
   /* ---------------- Navbar ---------------- */
-  // A "Log in" link, or your name with Stats / Account / Log out, in the
-  // navbar's #navAccount slot.
+  // A "Log in" link, or your name with the account pages and Log out, in
+  // the navbar's #navAccount slot.
   function renderNav() {
     const slot = document.getElementById('navAccount');
     if (!slot || !enabled) return;
@@ -103,8 +104,11 @@
     slot.className = 'nav-item dropdown';
     slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
       + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
-      + `<a class="dropdown-item" href="${pageUrl('stats')}">Stats</a>`
       + `<a class="dropdown-item" href="${pageUrl('account')}">Account</a>`
+      + `<a class="dropdown-item" href="${pageUrl('stats')}">Tossup Stats</a>`
+      + `<a class="dropdown-item" href="${pageUrl('stats?type=bonus')}">Bonus Stats</a>`
+      + `<a class="dropdown-item" href="${pageUrl('graphs')}">Graphs</a>`
+      + `<a class="dropdown-item" href="${pageUrl('stars')}">Stars</a>`
       + '<hr class="dropdown-divider">'
       + '<button class="dropdown-item" type="button" data-sb-logout>Log out</button></div>';
     slot.querySelector('[data-sb-dropdown]').textContent = displayName();
@@ -302,29 +306,84 @@
     if (error) throw error;
     setUser(data.user);
   }
+  // Edit profile: the username, and the email when it changed. A new email
+  // takes effect once the link sent to it is clicked; returns whether one
+  // was sent.
+  async function updateProfile(username, email) {
+    const c = await needClient();
+    const patch = { data: { username } };
+    const emailChanged = !!email && !!user && email.toLowerCase() !== (user.email || '').toLowerCase();
+    if (emailChanged) patch.email = email;
+    const { data, error } = await c.auth.updateUser(patch, { emailRedirectTo: pageUrl('account.html') });
+    if (error) throw error;
+    setUser(data.user);
+    return { emailChanged };
+  }
+  // Edit password asks for the current one: checked by logging in with it.
+  async function checkPassword(password) {
+    const c = await needClient();
+    if (!user || !user.email) throw new Error('Log in first.');
+    const { error } = await c.auth.signInWithPassword({ email: user.email, password });
+    if (error) throw new Error('Your current password is incorrect.');
+  }
+  function emailVerified(u) {
+    u = u || user;
+    return !!(u && (u.email_confirmed_at || u.confirmed_at));
+  }
+  async function resendVerification() {
+    const c = await needClient();
+    const { error } = await c.auth.resend({ type: 'signup', email: user.email, options: { emailRedirectTo: pageUrl('account.html') } });
+    if (error) throw error;
+  }
 
   /* ---------------- Answers and stats ---------------- */
   // Each recorded answer gets its own handle: its row id arrives with the
   // insert, and a later change (an override, or a correct rebuzz in
   // Multiplayer) waits for that insert and updates that row, whatever order
   // inserts finish in.
-  function recordAnswer(q, result, mode) {
+  //   extra: { points, celerity }: what the answer scored (4, 0 or -4) and
+  //   the share of the question still unread at the buzz (0-1; none for a
+  //   question you didn't buzz on).
+  // A project whose answers table predates those two columns (see
+  // supabase/schema.sql) refuses them; the answer is then saved without.
+  let extraColumns = true;
+  function extraFields(extra) {
+    if (!extraColumns || !extra) return {};
+    const c = extra.celerity;
+    return {
+      points: typeof extra.points === 'number' ? extra.points : null,
+      celerity: typeof c === 'number' && c >= 0 && c <= 1 ? Math.round(c * 1000) / 1000 : null,
+    };
+  }
+  function missingColumn(error) {
+    return !!error && (error.code === 'PGRST204' || error.code === '42703' || /column/i.test(error.message || ''));
+  }
+  // Runs write(fields); if the new columns are refused, once more without.
+  function withExtra(extra, write) {
+    return write(extraFields(extra)).then((res) => {
+      if (extraColumns && extra && missingColumn(res.error)) { extraColumns = false; return write({}); }
+      return res;
+    });
+  }
+  function recordAnswer(q, result, mode, extra) {
     if (!client || !user || !q) { lastAttempt = null; return null; }
-    const insert = client.from('answers').insert({
+    const insert = withExtra(extra, (fields) => client.from('answers').insert({
       question_id: q.id, mode, result,
       subject: q.subject || null, qtype: q.qtype || null, format: q.format || null, tournament: q.tournament || null,
-    }).select('id').single().then(({ data, error }) => {
+      ...fields,
+    }).select('id').single()).then(({ data, error }) => {
       if (error) { console.warn('Answer not saved to your stats:', error.message); return null; }
       return data.id;
     }, () => null);
     let chain = insert;
     const attempt = {
       result,
-      update(newResult) {
+      update(newResult, newExtra) {
         attempt.result = newResult;
+        const turn = attempt.turn = (attempt.turn || 0) + 1;
         chain = chain.then(() => insert).then((id) => {
-          if (id == null || attempt.result !== newResult) return;
-          return client.from('answers').update({ result: newResult }).eq('id', id).then(({ error }) => {
+          if (id == null || attempt.turn !== turn) return;
+          return withExtra(newExtra, (fields) => client.from('answers').update({ result: newResult, ...fields }).eq('id', id)).then(({ error }) => {
             if (error) console.warn('Answer change not saved to your stats:', error.message);
           });
         });
@@ -335,15 +394,29 @@
     return attempt;
   }
   // A grading override changes the answer just recorded.
-  function updateLastAnswer(result) {
-    if (lastAttempt) lastAttempt.update(result);
+  function updateLastAnswer(result, extra) {
+    if (lastAttempt) lastAttempt.update(result, extra);
   }
+  // Every answer in the account, newest first. The server hands back at most
+  // a set number of rows per request (1,000 by default), so they're read in
+  // pages until one comes back empty; `limit` stops early.
+  const ANSWER_PAGE = 1000;
   async function fetchAnswers(limit) {
     const c = await needClient();
     if (!user) return [];
-    const { data, error } = await c.from('answers').select('*').order('created_at', { ascending: false }).limit(limit || 10000);
-    if (error) throw error;
-    return data || [];
+    const max = limit || 100000;
+    const rows = [];
+    let before = null;
+    while (rows.length < max) {
+      let q = c.from('answers').select('*').order('id', { ascending: false }).limit(Math.min(ANSWER_PAGE, max - rows.length));
+      if (before !== null) q = q.lt('id', before);
+      const { data, error } = await q;
+      if (error) throw error;
+      if (!data || !data.length) break;
+      data.forEach((r) => rows.push(r));
+      before = data[data.length - 1].id;
+    }
+    return rows;
   }
   async function resetStats() {
     const c = await needClient();
@@ -386,6 +459,7 @@
     displayName,
     onChange(fn) { listeners.push(fn); },
     signUp, signIn, signOut, resetPassword, updatePassword, updateUsername,
+    updateProfile, checkPassword, emailVerified, resendVerification, pageUrl,
     recordAnswer, updateLastAnswer, fetchAnswers, resetStats, deleteMyData,
   };
 
