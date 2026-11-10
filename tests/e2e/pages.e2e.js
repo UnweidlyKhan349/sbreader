@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const { chromium, startServer, newContext } = require('./helpers');
 
-const PAGES = ['', 'about', 'tips', 'solo', 'multiplayer', 'catalog', 'catalog?answer=mitochondria', 'set-list', 'set?set=lost-3-hs', 'packet?set=lost-3-ms&packet=10', 'frequency-list', 'frequency-list?subject=bio', 'login', 'signup', 'forgot-password', 'account', 'stats'];
+const PAGES = ['', 'about', 'tips', 'solo', 'multiplayer', 'catalog', 'catalog?answer=mitochondria', 'set-list', 'set?set=lost-3-hs', 'packet?set=lost-3-ms&packet=10', 'frequency-list', 'frequency-list?subject=bio', 'login', 'signup', 'forgot-password', 'account', 'stats', 'stats?type=bonus', 'graphs', 'graphs?type=bonus', 'stars', 'stars?type=bonus', 'edit-profile', 'edit-password'];
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });

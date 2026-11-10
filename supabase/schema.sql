@@ -26,6 +26,15 @@ create table if not exists public.answers (
   created_at timestamptz not null default now()
 );
 create index if not exists answers_user_created on public.answers (user_id, created_at desc);
+-- Added November 2026, for the Tossup Stats / Bonus Stats and Graphs pages:
+-- what the answer scored (4, 0 or -4; a wrong interrupt is result
+-- 'incorrect' with -4 points) and its celerity, the share of the question
+-- still unread at the buzz. A project set up from an earlier copy of this
+-- file gets the columns when it's run again; until then answers are saved
+-- without them (earlier answers count as 4 for a right answer and 0
+-- otherwise, with no celerity).
+alter table public.answers add column if not exists points smallint check (points between -4 and 4);
+alter table public.answers add column if not exists celerity real check (celerity between 0 and 1);
 
 create table if not exists public.user_settings (
   user_id uuid primary key references auth.users (id) on delete cascade default auth.uid(),

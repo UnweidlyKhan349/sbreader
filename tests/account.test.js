@@ -1,8 +1,9 @@
 // The account logic that doesn't need a network: merging bookmarks at
-// login, which settings win, and the Stats page's numbers.
+// login, which settings win, and the stats pages' numbers.
 const test = require('node:test');
 const assert = require('node:assert');
-const { mergeBookmarks, pickSettings, aggregateStats, SETTINGS_KEYS } = require('../js/account-core.js');
+const core = require('../js/account-core.js');
+const { mergeBookmarks, pickSettings, SETTINGS_KEYS } = core;
 
 test('a first login on a device keeps every bookmark from both sides and uploads only the new ones', () => {
   const m = mergeBookmarks([1, 2, 3], [3, 4]);
@@ -20,22 +21,56 @@ test('the newer copy of the settings wins', () => {
   assert.ok(SETTINGS_KEYS.includes('sb_theme') && SETTINGS_KEYS.includes('sb_reading_speed'));
 });
 
-test('stats add up by subject, type, tournament and mode', () => {
-  const rows = [
-    { result: 'correct', subject: 'phys', qtype: 'tossup', tournament: 'MIT 2023', mode: 'solo' },
-    { result: 'incorrect', subject: 'phys', qtype: 'bonus', tournament: 'MIT 2023', mode: 'mp' },
-    { result: 'skipped', subject: 'bio', qtype: 'tossup', tournament: 'AVES 2', mode: 'solo' },
-    { result: 'correct', subject: 'bio', qtype: 'tossup', tournament: 'AVES 2', mode: 'solo' },
-  ];
-  const s = aggregateStats(rows);
-  assert.strictEqual(s.total, 4);
-  assert.strictEqual(s.correct, 2);
-  assert.strictEqual(s.accuracy, 50);
-  const phys = s.bySubject.find((x) => x.key === 'phys');
-  assert.deepStrictEqual([phys.total, phys.correct, phys.incorrect, phys.skipped, phys.accuracy], [2, 1, 1, 0, 50]);
-  assert.strictEqual(s.byQtype[0].key, 'tossup');
-  assert.strictEqual(s.byMode.find((x) => x.key === 'solo').total, 3);
-  assert.deepStrictEqual(aggregateStats([]).accuracy, 0);
+const at = (day, h) => new Date(2026, 10, day, h || 12).toISOString();
+const ROWS = [
+  { question_id: 1, result: 'correct', points: 4, celerity: 0.8, subject: 'phys', qtype: 'tossup', format: 'SA', tournament: 'MIT 2023', level: 'hs', mode: 'solo', created_at: at(1) },
+  { question_id: 2, result: 'incorrect', points: -4, celerity: 0.5, subject: 'phys', qtype: 'tossup', format: 'MC', tournament: 'MIT 2023', level: 'hs', mode: 'mp', created_at: at(1, 13) },
+  { question_id: 3, result: 'incorrect', points: 0, celerity: 0, subject: 'bio', qtype: 'tossup', format: 'SA', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(2) },
+  { question_id: 4, result: 'skipped', points: 0, subject: 'bio', qtype: 'tossup', format: 'SA', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(2, 13) },
+  { question_id: 5, result: 'correct', points: 4, celerity: 0.2, subject: 'bio', qtype: 'tossup', format: 'SA', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(3) },
+  { question_id: 6, result: 'correct', points: 4, celerity: 0.9, subject: 'bio', qtype: 'bonus', format: 'SA', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(3, 13) },
+  // Saved before points and celerity were stored.
+  { question_id: 7, result: 'correct', subject: 'math', qtype: 'tossup', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(3, 14) },
+  { question_id: 8, result: 'incorrect', subject: 'math', qtype: 'tossup', tournament: 'AVES 2', level: 'ms', mode: 'solo', created_at: at(3, 15) },
+].map(core.normalizeAnswer);
+
+test('tossup stats: questions heard, 4s, 0s, -4s, celerity over right answers, points and points per tossup', () => {
+  const tossups = core.filterAnswers(ROWS, { qtype: 'tossup' });
+  const t = core.totalStats(tossups);
+  assert.deepStrictEqual([t.count, t.fours, t.zeros, t.negs, t.dead, t.points], [7, 3, 2, 1, 1, 8]);
+  assert.strictEqual(t.celerity, 0.5); // (0.8 + 0.2) / 2: the old row has no celerity
+  assert.strictEqual(+t.ppq.toFixed(4), +(8 / 7).toFixed(4));
+  const bySubject = core.groupStats(tossups, (r) => r.subject);
+  assert.deepStrictEqual(bySubject.map((g) => [g.key, g.count, g.points]), [['bio', 3, 4], ['math', 2, 4], ['phys', 2, 0]]);
+  const phys = bySubject.find((g) => g.key === 'phys');
+  assert.deepStrictEqual([phys.fours, phys.negs, phys.celerity, phys.buzzpoint], [1, 1, 0.8, 0.65]);
+  assert.strictEqual(core.totalStats([]).ppq, 0);
+});
+
+test('stats filters: type, mode, set, level and dates', () => {
+  const n = (f) => core.filterAnswers(ROWS, f).length;
+  assert.strictEqual(n({ qtype: 'bonus' }), 1);
+  assert.strictEqual(n({ qtype: 'tossup', mp: false }), 6);
+  assert.strictEqual(n({ qtype: 'tossup', solo: false }), 1);
+  assert.strictEqual(n({ qtype: 'tossup', solo: false, mp: false }), 0);
+  assert.strictEqual(n({ set: 'mit 2023' }), 2);
+  assert.strictEqual(n({ levels: ['ms'] }), 6);
+  assert.strictEqual(n({ levels: [] }), 8);
+  assert.strictEqual(n({ start: '2026-11-02' }), 6);
+  assert.strictEqual(n({ start: '2026-11-02', end: '2026-11-02' }), 2);
+});
+
+test('best buzz is the right answer with the highest celerity', () => {
+  assert.strictEqual(core.bestBuzz(core.filterAnswers(ROWS, { qtype: 'tossup' })).question_id, 1);
+  assert.strictEqual(core.bestBuzz(ROWS.filter((r) => r.outcome !== 'correct')), null);
+});
+
+test('daily stats are in date order, and the CSV has one line per answer', () => {
+  const days = core.dailyStats(core.filterAnswers(ROWS, { qtype: 'tossup' }));
+  assert.deepStrictEqual(days.map((d) => [d.key, d.count, d.points]), [['2026-11-01', 2, 0], ['2026-11-02', 2, 0], ['2026-11-03', 3, 8]]);
+  const csv = core.answersCsv([{ ...ROWS[1], tournament: 'A, "B"' }]).trim().split('\n');
+  assert.strictEqual(csv[0], 'created,question_id,set,level,subject,type,format,multiplayer,result,celerity,points');
+  assert.match(csv[1], /,2,"A, ""B""",hs,phys,tossup,MC,true,neg,0\.5,-4$/);
 });
 
 test('with a last-synced copy, removals on either side stick and additions on either side are kept', () => {
