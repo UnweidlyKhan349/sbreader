@@ -483,3 +483,109 @@ test('items labelled with Roman numerals take numbers or numerals: "3" for "III 
   // One "I." alone (a sentence ending in "I") isn't a list.
   assert.strictEqual(globalThis.SBAnswer.detectItemCount('What is the charge of an ion of group I. Give a number.'), null);
 });
+
+test('"all" said another way: "all" for "ALL OF THEM", "all of them" for "ALL"', () => {
+  const three = 'Identify all of the following three that are true: 1) a; 2) b; 3) c';
+  const four = 'Identify all of the following four that are true: 1) a; 2) b; 3) c; 4) d';
+  const plain = 'Identify all of the following three gases that are noble: helium, neon, argon';
+  const ok = (key, typed, question) => assert.ok(isCorrect(key, typed, { question }), `${typed} for ${key}`);
+  const no = (key, typed, question) => assert.ok(!isCorrect(key, typed, { question }), `${typed} for ${key}`);
+  for (const key of ['ALL', 'ALL OF THEM', 'All of the above', 'ALL THREE', '1, 2, AND 3']) {
+    for (const typed of ['all', 'all of them', 'all three', 'all 3', 'all of the above', 'all of these', 'every one', '123']) ok(key, typed, three);
+    for (const typed of ['all four', 'none', '1 and 2']) no(key, typed, three);
+  }
+  for (const key of ['ALL', 'ALL OF THEM', 'ALL 4', 'ALL (1, 2, 3, 4)']) {
+    for (const typed of ['all', 'all of them', 'all four', '1234']) ok(key, typed, four);
+    no(key, 'all three', four);
+  }
+  // Items that aren't numbered: the stem's "following three" is the count.
+  for (const key of ['ALL', 'ALL OF THEM']) {
+    for (const typed of ['all', 'all of them', 'all three', 'all of the above']) ok(key, typed, plain);
+    no(key, 'all four', plain);
+  }
+  // Not every key with "all" in it, and not for a key that isn't all of them.
+  no('1 AND 2', 'all', three);
+  no('ALL BUT 2', 'all', three);
+  no('ALL REAL NUMBERS', 'all');
+  no('ALL', 'all real numbers');
+  no('1: RIGHT; 2: LEFT; 3: LEFT', 'all', three);
+});
+
+test('a named law, effect or experiment by its name alone: "michelson-morley" for "MICHELSON-MORLEY EXPERIMENT"', () => {
+  for (const [key, typed] of [
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson-morley'], ['MICHELSON-MORLEY EXPERIMENT', 'michaelson-morley'],
+    ['Michelson Morley experiment', 'morley michelson'],
+    ['DOPPLER EFFECT', 'doppler'], ['THE GREENHOUSE EFFECT', 'greenhouse'], ['KREBS CYCLE', 'krebs'],
+    ["HOOKE'S LAW", "hooke's"], ["HOOKE'S LAW", 'hookes'], ["HOOKE'S LAW", 'hooke'], ["HESS'S LAW", 'hess'],
+    ['PAULI EXCLUSION PRINCIPLE', 'pauli exclusion'], ['PYTHAGOREAN THEOREM', 'pythagorean'], ['NERNST EQUATION', 'nernst'],
+    ["HUND'S RULE", 'hunds'], ['HABER-BOSCH PROCESS', 'haber bosch'], ["NEWTON'S FIRST LAW", "newton's first"],
+    ["TORRICELLI'S THEOREM (OR LAW)", 'torricelli'],
+    ['DOPPLER EFFECT; RED SHIFT', 'doppler, red shift'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // The name itself still has to be all there, and right.
+  for (const [key, typed] of [
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson'], ['MICHELSON-MORLEY EXPERIMENT', 'experiment'],
+    ['PAULI EXCLUSION PRINCIPLE', 'pauli'], ['KREBS CYCLE', 'calvin'],
+    // other last words aren't dropped, nor is one inside the key
+    ['CARBON DIOXIDE', 'carbon'], ['WHITE DWARF', 'white'], ['LAW OF CONSERVATION OF MASS', 'conservation of mass'],
+    ['FIRST LAW OF THERMODYNAMICS', 'first'],
+    // a number and its unit isn't a name; nor is a single letter
+    ['2 METERS PER CYCLE', '2 meters per'], ['S PROCESS', 's'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  // A typo in the name is close, as anywhere else; a rejected name stays rejected.
+  assert.strictEqual(grade('MICHELSON-MORLEY EXPERIMENT', 'mickelson morley').close, true);
+  assert.ok(!isCorrect('DOPPLER EFFECT', 'doppler', { reject: ['DOPPLER'] }));
+});
+
+test('British and American spellings and possessives are the same word', () => {
+  for (const [key, typed] of [
+    ['SULFUR', 'sulphur'], ['COLOR', 'colour'], ['HEMOGLOBIN', 'haemoglobin'], ['ALUMINUM', 'aluminium'],
+    ['CENTIMETER', 'centimetre'], ['FIBER', 'fibre'], ['ESTROGEN', 'oestrogen'], ['IONIZATION ENERGY', 'ionisation energy'],
+    ['HOMOLOG', 'homologue'], ['ETHER', 'aether'], ['MICHELSON', 'michaelson'],
+    ["HOOKE'S LAW", 'hookes law'], ["HOOKE'S LAW", 'hooke law'], ["EARTH'S CORE", 'earth core'], ["HUYGENS' PRINCIPLE", 'huygens principle'],
+  ]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+    assert.ok(isCorrect(typed.toUpperCase(), key.toLowerCase()), `${key} for ${typed}`);
+  }
+  // Short words, where the same swap is another word, and real differences stay apart.
+  for (const [key, typed] of [['LESS', 'loess'], ['LOESS', 'less'], ['AEROBIC', 'anaerobic'], ['ALKANE', 'alkene'], ['FE', 'foe']]) {
+    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+});
+
+test('"the other one" is the one item left in an ordering the question lists', () => {
+  const waves = 'Arrange the following 3 types of seismic waves from the FIRST to arrive at a seismic recording station to the LAST from a given earthquake: S-wave; L-wave; P-wave';
+  const key = 'P-WAVE; S-WAVE; L-WAVE';
+  for (const typed of ['p wave s wave other one', 'p wave, s wave, the other one', 'p-wave; s-wave; the last one', 'p wave s wave other',
+    'p wave, s wave, the remaining one', 'p wave other one l wave', 'other one s wave l wave']) {
+    assert.ok(isCorrect(key, typed, { question: waves }), typed);
+  }
+  // The rest must be right and in place, and only one item can be left.
+  for (const typed of ['s wave p wave other one', 'p wave other one', 'other one other one l wave', 'other one', 'the other one and the last one and l wave']) {
+    assert.ok(!isCorrect(key, typed, { question: waves }), typed);
+  }
+  // Not when the question doesn't list the things (it would be a guess) ...
+  assert.ok(!isCorrect(key, 'p wave s wave other one', { question: 'Name the three types of seismic waves in order of arrival.' }));
+  // ... or isn't an ordering (the other one of four isn't one thing).
+  assert.ok(!isCorrect('HELIUM; NEON', 'helium and the other one', { question: 'Which two of the following four are noble gases: helium, oxygen, neon, iron' }));
+  // Numbered items, by number or by name; and a comma-list key.
+  const rank = 'Rank the following three from smallest to largest: 1) Sun; 2) Moon; 3) Earth';
+  for (const typed of ['2, 3, other one', '2 3 the last one', 'moon, earth, the other one', '2, other one, 1']) assert.ok(isCorrect('2, 3, 1', typed, { question: rank }), typed);
+  for (const typed of ['3, 2, other one', 'other one', '2, other one']) assert.ok(!isCorrect('2, 3, 1', typed, { question: rank }), typed);
+  assert.ok(isCorrect('LEAD, PHOSPHORUS, HYDROGEN, CALCIUM', 'lead, phosphorus, hydrogen, the other one',
+    { question: 'Organize the following elements from oldest date of discovery, to most recent: Calcium, Phosphorus, Hydrogen, Lead' }));
+});
+
+test('a key that listed synonyms takes each one: "bog" for BOG (also accept QUAGMIRE, MIRE)', () => {
+  const { questions } = loadCorpus();
+  const byId = new Map(questions.map((q) => [q.id, q]));
+  const bog = byId.get(115053);
+  assert.strictEqual(bog.answer.text, 'BOG');
+  assert.deepStrictEqual(bog.answer.accept, ['QUAGMIRE', 'MIRE']);
+  for (const typed of ['bog', 'quagmire', 'mire']) assert.ok(checkAnswer(bog, typed).correct, typed);
+  for (const [id, typed] of [[98657, 'stapes'], [98657, 'stirrup'], [104564, 'coenzyme q'], [98777, 'concave'], [114551, 'ram'], [114238, 'pluto']]) {
+    assert.ok(checkAnswer(byId.get(id), typed).correct, `${typed} for question ${id}`);
+  }
+  // The ordering the "other one" report came from.
+  assert.ok(checkAnswer(byId.get(75346), 'p wave s wave other one').correct);
+});

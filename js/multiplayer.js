@@ -614,7 +614,7 @@
     if (!correct && close) {
       const hint = document.createElement('span');
       hint.className = 'close-hint ms-2';
-      hint.textContent = playerId === myState.myId ? 'Close. If you meant the answer above, press "I was right" to count it.' : 'Close';
+      hint.textContent = 'Close';
       li.appendChild(hint);
     }
     li.removeAttribute('id');
@@ -652,7 +652,6 @@
     const card = SBPlay.historyCard(entry.question, {
       grade: entry.category,
       answer: { text: a.answerText, letter: a.letter, accept: a.accept, reject: a.reject, sourceUrl: a.sourceUrl },
-      note: entry.answeredBy ? `${entry.answeredBy} answered: ${entry.userText ? `"${entry.userText}"` : '(blank)'}` : '',
     });
     historyEl().prepend(card);
   }
@@ -752,8 +751,10 @@
     overrideBtn.classList.add('d-none');
     // A re-render isn't always a fresh tick (pausing stops the ticks), so
     // redraw the last known tick in a timer-bearing phase rather than
-    // zeroing the timer.
-    if (game.lastTick && (game.phase === 'reading' || game.phase === 'buzzwindow' || game.phase === 'answering')) {
+    // zeroing the timer. Nothing counts down while the question is read, so
+    // the timer is at 0 there (also when reading picks up again after a
+    // wrong interrupt).
+    if (game.lastTick && (game.phase === 'buzzwindow' || game.phase === 'answering')) {
       renderTick(game.lastTick.remainingMs);
     } else {
       hideTimer();
@@ -773,15 +774,16 @@
 
     if (game.phase === 'lobby') {
       nextBtn.textContent = 'Start';
+      nextBtn.title = 'Shortcut: n';
       nextBtn.dataset.mode = 'next';
       document.getElementById('mpQDisplay').textContent = '';
     } else if (game.phase === 'reading' || game.phase === 'buzzwindow') {
       nextBtn.textContent = isRealSkip() ? 'Skip' : 'Next';
       nextBtn.dataset.mode = 'skip';
-      nextBtn.title = canSkip() ? 'Shortcut: n or s' : 'Skipping is turned off in this room';
+      nextBtn.title = !canSkip() ? 'Skipping is turned off in this room' : isRealSkip() ? 'Shortcut: s' : 'Shortcut: n or s';
     } else if (game.phase === 'answering') {
       nextBtn.textContent = 'Next';
-      nextBtn.title = 'Shortcut: n or s';
+      nextBtn.title = 'Shortcut: n';
       nextBtn.dataset.mode = '';
       if (amBuzzed) {
         answerRow.classList.remove('d-none');
@@ -793,7 +795,7 @@
       }
     } else if (game.phase === 'reveal') {
       nextBtn.textContent = 'Next';
-      nextBtn.title = 'Shortcut: n or s';
+      nextBtn.title = 'Shortcut: n';
       nextBtn.dataset.mode = 'next';
       showReveal();
     }
@@ -1593,6 +1595,9 @@
   }
 
   function hostApplyGrade(connId, correct, userText, close) {
+    // The answer clock stops here however the grade came about (the answer
+    // itself, time running out, or the player leaving mid-answer).
+    clearHostTimer();
     const p = hostPlayers.get(connId);
     let delta = 0;
     if (correct) {
@@ -1884,6 +1889,11 @@
       if (correct) { pl.correct = (pl.correct || 0) + 1; pl.celSum = (pl.celSum || 0) + celerityNow(); pl.celN = (pl.celN || 0) + 1; } else if (delta < 0) pl.negs = (pl.negs || 0) + 1; else pl.incorrect = (pl.incorrect || 0) + 1;
     }
     if (!correct && !roomSetting('rebuzz', false)) game.lockedOut.add(playerId);
+    // The answer clock is over once the answer is graded: back to 0, not
+    // stopped on (or still counting down from) what was left of it while
+    // the question reads on after a wrong interrupt. A buzz window that
+    // picks up again sends its own tick after this.
+    if (!isOverride) hideTimer();
     game.lastGrade = { playerId, correct, userText };
     if (isOverride && correct && playerId === myState.myId && window.SBReports && game.question) {
       SBReports.logOverride(SBData.byId.get(game.question.id), userText, 'mp');
@@ -2680,6 +2690,14 @@
     if (mode === 'skip') doSkip();
     else doNext();
   }
+  // On the keyboard, n starts the game or goes on to the next question and
+  // never skips one that isn't over; s only skips. With the timer off, a
+  // question read in full waits for the button (which says Next there), so
+  // either key ends it.
+  function nextKey() {
+    if (game.phase === 'buzzwindow' && !isRealSkip()) doSkip();
+    else doNext();
+  }
   function doTogglePause() {
     if (game.phase === 'lobby' || game.phase === 'reveal') return;
     if (myState.role === 'host') { hostEvent(myState.myId, game.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); }
@@ -3233,7 +3251,7 @@
       if (e.key === 'Enter') { e.preventDefault(); sendFromBox(); }
       if (e.key === 'Escape') { e.preventDefault(); hideChatRow(); }
     });
-    // QB Reader's keys: space buzz, n/s next, p pause, e settings, enter
+    // The keys: space buzz, n next, s skip, p pause, e settings, enter
     // chat, k show/hide the last question, t star/unstar it; q override.
     document.addEventListener('keydown', (e) => {
       if (document.getElementById('mpGameScreen').style.display === 'none') return;
@@ -3248,7 +3266,8 @@
           if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
           doBuzz();
           return;
-        case 'n': case 's': handleNextBtn(); return;
+        case 'n': nextKey(); return;
+        case 's': doSkip(); return;
         case 'p': doTogglePause(); return;
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(historyEl()); return;

@@ -179,6 +179,23 @@
     return digits.join('');
   }
 
+  // "ALL", "ALL OF THEM", "ALL THREE", "ALL OF THE ABOVE", "ALL 4 OF THESE",
+  // "EVERY ONE": every listed item, however it's said. Returns { n }, the
+  // count the phrase names (null when it names none), or null when `up`
+  // (already normalized, so "THREE" reads "3") is something else.
+  const ALL_RE = /^(?:ALL(?: OF)?(?: THE)?(?: (\d))?(?: OF)?(?: THE)?(?: (?:ABOVE|THEM|THESE|THOSE|FOLLOWING|ITEMS|OPTIONS|CHOICES|STATEMENTS|ANSWERS))?|EVERY 1(?: OF (?:THEM|THESE|THE ABOVE))?|EVERYTHING)$/;
+  function allPhrase(up) {
+    const m = up.match(ALL_RE);
+    return m ? { n: m[1] ? parseInt(m[1], 10) : null } : null;
+  }
+  // How many things a stem says it lists: "the following three", "these 4".
+  function statedCount(questionText) {
+    const m = normalize(questionText).match(/\b(?:FOLLOWING|THESE|THOSE) (\d)\b/);
+    return m ? parseInt(m[1], 10) : null;
+  }
+  // A key without a note in brackets at its end: "ALL (1, 2, 3)" -> "ALL".
+  function withoutEndNote(key) { return String(key).replace(/\s*\([^()]*\)\s*$/, ''); }
+
   // Try to interpret a string as a "list of item numbers" answer, e.g.
   // "1 AND 3", "1, 3", "13", "ALL", "3 ONLY", "NONE" -> canonical sorted-digit string like "13".
   // Returns null if it doesn't look like a list-style answer.
@@ -187,9 +204,9 @@
     const up = romanItemsToDigits(normalize(raw));
     if (!up) return null;
 
-    if (/^ALL( OF THE ABOVE| THREE| FOUR| FIVE| SIX)?$/.test(up)) {
-      return digitsToCanonical(range(1, itemCount));
-    }
+    // "all three" of four listed items names the wrong count
+    const all = allPhrase(up);
+    if (all) return all.n == null || all.n === itemCount ? digitsToCanonical(range(1, itemCount)) : null;
     if (/^NONE( OF THE ABOVE)?$/.test(up)) {
       return '0';
     }
@@ -974,9 +991,35 @@
     return INFLECTION_PAIRS.some(([x, y]) => (ta === x && tb === y) || (ta === y && tb === x));
   }
 
+  // One word written two ways. A possessive counts with or without its
+  // ending (HOOKE'S / HOOKES / HOOKE), and so do the British and American
+  // spellings of a longer word: AE and OE for E (HAEMOGLOBIN, AETHER,
+  // OESTROGEN, and so MICHAELSON for MICHELSON), -OUR for -OR (COLOUR),
+  // -ISE/-YSE for -IZE/-YZE, -OGUE for -OG (ANALOGUE), SULPH- for SULF-,
+  // ALUMINIUM, and -RE for -ER (METRE). Short words are left alone, where
+  // the same swap makes another word (LOESS / LESS, TOURS / TORS).
+  function spellingKey(w) {
+    let s = w.replace(/'S?$/, '').replace(/'/g, '');
+    if (s.length >= 6) {
+      s = s.replace(/ALUMINIUM/, 'ALUMINUM').replace(/SULPH/, 'SULF')
+        .replace(/AE|OE/g, 'E')
+        .replace(/OUR(S|ED|ING|AL|LESS|FUL)?$/, 'OR$1')
+        .replace(/([IY])S(E[DSR]?|ING|ATIONS?)$/, '$1Z$2')
+        .replace(/OGUE(S?)$/, 'OG$1');
+    }
+    if (s.length >= 5) s = s.replace(/([^AEIOU])RE(S?)$/, '$1ER$2');
+    return s;
+  }
+  function sameWord(a, b) {
+    if (a === b || inflectionOnly(a, b)) return true;
+    const ka = spellingKey(a), kb = spellingKey(b);
+    return ka.length >= 2 && (ka === kb || inflectionOnly(ka, kb));
+  }
+
   // Pairs up each word in `a` with a not-yet-used word in `b`, in any order.
   // Returns 'exact' when every word matches exactly (only the order, stop
-  // words or singular/plural differ), 'typo' when some pair is only within its length's
+  // words, singular/plural or the spelling variants of sameWord differ),
+  // 'typo' when some pair is only within its length's
   // typo tolerance, or null. Requires the same word count on both sides, so
   // incomplete or padded answers never get here.
   function lenientWordMatch(a, b) {
@@ -997,7 +1040,7 @@
       let bestDist = Infinity;
       for (let j = 0; j < wb.length; j++) {
         if (usedB[j]) continue;
-        if (w === wb[j] || inflectionOnly(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
+        if (sameWord(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
         const tol = typoTolerance(Math.max(w.length, wb[j].length));
         if (!tol || contrastingWords(w, wb[j])) continue;
         const d = levenshtein(w, wb[j]);
@@ -1059,6 +1102,9 @@
     // GLYCOSYLASE", "W ((R)-METHYL 3-HYDROXYBUTANOATE)") takes either one
     const choice = noNum.match(/^([WXYZ])\)\s*(\S.*)$/) || noNum.match(/^([WXYZ])\s+\((.+)\)\s*$/);
     if (choice) out.push(choice[1], choice[2]);
+    // a named law, effect, ... by its name alone ("DOPPLER EFFECT" -> "DOPPLER")
+    const name = withoutKindWord(noNum);
+    if (name) out.push(name);
     for (const v of out.slice()) {
       if (/\(/.test(v)) {
         out.push(v.replace(/\([^)]*\)/g, ' '));
@@ -1472,6 +1518,60 @@
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
+  // A named law, effect, experiment, ... is answered by its name alone:
+  // "Michelson-Morley" for "MICHELSON-MORLEY EXPERIMENT", "Doppler" for
+  // "DOPPLER EFFECT", "Hooke's" for "HOOKE'S LAW", "Krebs" for "KREBS
+  // CYCLE". Returns the key without that last word, or null. The name must
+  // be words (not "2 METERS PER CYCLE") of three letters or more in all.
+  const KIND_WORD_RE = /^(.*\S)[\s-]+(?:EXPERIMENT|EFFECT|LAW|PRINCIPLE|THEOREM|EQUATION|RULE|PROCESS|CYCLE)S?\s*$/i;
+  function withoutKindWord(key) {
+    const m = String(key).match(KIND_WORD_RE);
+    if (!m || /\d/.test(m[1])) return null;
+    const name = m[1].replace(/^\s*THE\s+/i, '');
+    return tokenize(name).join('').replace(/'/g, '').length >= 3 ? name : null;
+  }
+
+  // "The other one", "the last one", "the remaining one": what a player says
+  // for the one thing left when every other one has been named. Returns the
+  // answer around the phrase when it's there exactly once.
+  const OTHER_ONE_RE = /\b(?:the\s+)?(?:(?:other|last|remaining|final|left\s?over)\s+(?:one|1)|other|one\s+left)\b/gi;
+  function otherOneSlot(raw) {
+    const found = [...raw.matchAll(OTHER_ONE_RE)];
+    if (found.length !== 1) return null;
+    const m = found[0];
+    return (fill) => `${raw.slice(0, m.index)} ${fill} ${raw.slice(m.index + m[0].length)}`.trim();
+  }
+  // Only where it can't be a guess: the question is an ordering of things it
+  // lists itself, so the key holds every one of them and "the other one" is
+  // whichever the rest of the answer leaves. Each part of the key is tried
+  // in the phrase's place, and the usual check decides (a part named twice,
+  // or in the wrong place, still fails).
+  function partsListedInQuestion(spec, questionText) {
+    const nq = ` ${normalize(questionText)} `;
+    return spec.alts.every((alts) => alts.some((a) => { const na = normalize(a); return na && nq.includes(` ${na} `); }));
+  }
+  function checkWithOtherOne(raw, spec, question) {
+    const fill = otherOneSlot(raw);
+    if (!fill || spec.n < 2 || !isRankingQuestion(question.question) || !partsListedInQuestion(spec, question.question)) return null;
+    let best = null;
+    for (let k = 0; k < spec.n && best !== 'exact'; k++) best = betterMatch(best, checkMultiPart(fill(spec.alts[k][0]), spec));
+    return best;
+  }
+  // The same for a ranking of numbered items ("3, 1, the other one", or the
+  // item names): the digits of the full ordering, or null.
+  function rankedWithOtherOne(raw, itemCount, itemTexts) {
+    const fill = otherOneSlot(raw);
+    if (!fill) return null;
+    const complete = (c) => c && c.length === itemCount && new Set(c).size === itemCount;
+    for (let d = 1; d <= itemCount; d++) {
+      const byNumber = canonicalizeRanked(fill(String(d)), itemCount, true);
+      if (complete(byNumber)) return byNumber;
+      const nums = itemTexts ? resolveTermsToNumbers(fill(`, ${itemTexts[d - 1]}, `).replace(/^[\s,]+|[\s,]+$/g, '').replace(/\s*,[\s,]*/g, ', '), itemTexts) : null;
+      if (nums && complete(nums.join(''))) return nums.join('');
+    }
+    return null;
+  }
+
   /**
    * Grade a free-typed answer against a question.
    * Returns { correct, matched: 'main'|'accept'|'lenient'|'fuzzy'|null, rejected, close? }
@@ -1564,6 +1664,22 @@
       }
     }
 
+    // ---- "All" said another way: "all" for "ALL OF THEM", "all of them"
+    // or "all of the above" for "ALL", with or without numbered items. A
+    // count ("all three") must be the count the key or the stem gives. ----
+    const typedAll = allPhrase(normalize(raw));
+    if (typedAll) {
+      const listed = itemCount || statedCount(question.question);
+      for (const k of [ans.text, ...accepts].flatMap(multi ? (x) => [x] : keyVariants)) {
+        const keyAll = allPhrase(normalize(withoutEndNote(k)));
+        if (!keyAll) continue;
+        const count = keyAll.n != null ? keyAll.n : listed;
+        if (typedAll.n == null || count == null || typedAll.n === count) {
+          return { correct: true, matched: k === ans.text ? 'main' : 'accept', rejected: false };
+        }
+      }
+    }
+
     // ---- List-style answers ("1 and 2", "all", "3 only", "312" ranking,
     // the item names themselves, or "all but <item>") ----
     if (itemCount) {
@@ -1579,6 +1695,8 @@
         const distinct = itemTexts && new Set(itemTexts.map((s) => normalize(s))).size === itemTexts.length;
         const nums = distinct ? resolveTermsToNumbers(raw, itemTexts) : null;
         if (nums && nums.length === itemCount && new Set(nums).size === itemCount) userCanon = nums.join('');
+        // ... or with "the other one" for the one item left
+        if (userCanon === null) userCanon = rankedWithOtherOne(raw, itemCount, distinct ? itemTexts : null);
       }
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
@@ -1599,7 +1717,9 @@
         // answers each item in turn; it isn't a choice of items, so its
         // numbers mustn't be read as one ("all" or "123" would pass). Those
         // keys are left to the multi-part checks below.
-        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null : canonFn(k, itemCount));
+        // (A note in brackets at the key's end isn't part of it: "ALL (1, 2, 3)".)
+        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null
+          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount));
         const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
@@ -1691,7 +1811,8 @@
 
     // ---- Multi-part: every part given, each matched on its own ----
     if (multi) {
-      const m = checkMultiPart(raw, multi);
+      let m = checkMultiPart(raw, multi);
+      if (m !== 'exact') m = betterMatch(m, checkWithOtherOne(raw, multi, question));
       if (m === 'exact' || m === 'fuzzy') return { correct: true, matched: m === 'exact' ? 'main' : 'fuzzy', rejected: false };
       if (m === 'typo') close = true;
     }
@@ -1707,7 +1828,8 @@
     // ("respectively", "order the following") only in its order.
     const list = multi ? null : listSpec(question);
     if (list) {
-      const m = checkMultiPart(raw, list);
+      let m = checkMultiPart(raw, list);
+      if (m !== 'exact') m = betterMatch(m, checkWithOtherOne(raw, list, question));
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
     }
@@ -1719,6 +1841,20 @@
         : lenientWordMatch(raw, key);
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
+    }
+
+    // ---- A named law, effect, experiment, ... by its name alone ----
+    // ("michelson-morley" for "MICHELSON-MORLEY EXPERIMENT"; see
+    // withoutKindWord). A typo in the name is close, as anywhere else.
+    if (!multi) {
+      for (const key of keys) {
+        const name = withoutKindWord(key);
+        if (!name) continue;
+        if (normEqual(raw, name) || compactEqual(raw, name)) return { correct: true, matched: 'lenient', rejected: false };
+        const m = lenientWordMatch(raw, name);
+        if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
+        if (m) close = true;
+      }
     }
 
     // ---- Typed answer contains the whole key plus more: close ----

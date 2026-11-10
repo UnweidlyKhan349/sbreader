@@ -1,7 +1,7 @@
 [
 {"rl":"DE1","r":4,"u":"https://lebot.djiang.xyz/packets/ICSBT-2025/DE1.pdf","q":[
 {"i":9831,"s":"chem","f":"MC","qt":"tossup","n":1,"q":"A container is divided into two compartments, A and B, by a membrane permeable to only water. Adding which of the following to compartment A would lead to the greatest decrease in its solute potential?","a":{"t":"2.0 molar MgCl2","l":"X"},"c":{"W":"1.5 molar NaCl","X":"2.0 molar MgCl2","Y":"3.5 molar C6H12O6","Z":"1.0 molar Al2(SO4)3"},"pg":1},
-{"i":9832,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What molecular biology technique uses fluorescent nucleic acid probes that hybridize to their complementary sequences?","a":{"t":"FISH, fluorescence in situ hybridization"},"pg":1},
+{"i":9832,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"What molecular biology technique uses fluorescent nucleic acid probes that hybridize to their complementary sequences?","a":{"t":"FISH","ac":["fluorescence in situ hybridization"]},"pg":1},
 {"i":9833,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Which one of Euclid’s original postulates, when not used, leads to non-euclidean geometries?","a":{"t":"Parallel Postulate","ac":["Euclid’s 5th Postulate"]},"pg":1},
 {"i":9834,"s":"math","f":"SA","qt":"bonus","n":2,"q":"Find the hundreds digit of 11 to the power of 2024.","a":{"t":"8"},"pg":1},
 {"i":9835,"s":"ess","f":"SA","qt":"tossup","n":4,"q":"What is the term for a geologic structure where the strata have a uniform dip in the same direction and approximately the same angle?","a":{"t":"Monocline"},"pg":2},
@@ -49,7 +49,7 @@
 {"i":9879,"s":"math","f":"SA","qt":"bonus","n":8,"q":"The number 12 factorial has 792 factors. How many odd factors are there in 12 factorial?","a":{"t":"72"},"pg":5},
 {"i":9880,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"What is the most common industrial process used to produce elemental nickel?","a":{"t":"Mond Process"},"pg":6},
 {"i":9881,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"What is the only known transition metal to have zero valence s electrons in its ground state?","a":{"t":"Palladium"},"pg":6},
-{"i":9882,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What enzyme in the eicosanoid pathway produces prostaglandins from arachidonic acid?","a":{"t":"Cyclooxygenase, COX"},"pg":6},
+{"i":9882,"s":"bio","f":"SA","qt":"tossup","n":11,"q":"What enzyme in the eicosanoid pathway produces prostaglandins from arachidonic acid?","a":{"t":"Cyclooxygenase","ac":["COX"]},"pg":6},
 {"i":9883,"s":"bio","f":"MC","qt":"bonus","n":11,"q":"In aerobic respiration, what is the primary function of cytochrome c in the electron transport chain?","a":{"t":"Transfers electrons from Complex III to Complex IV","l":"X"},"c":{"W":"Transfers electrons from Complex I to Complex III","X":"Transfers electrons from Complex III to Complex IV","Y":"Pumps protons into the mitochondrial matrix","Z":"Generates ATP by directly phosphorylating ADP"},"pg":6},
 {"i":9884,"s":"math","f":"SA","qt":"tossup","n":13,"q":"How many unique intersections are there between the diagonals of a convex pentagon assuming no 3 diagonals intersect at a single point?","a":{"t":"5"},"pg":8},
 {"i":9885,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Consider a sequence of positive numbers defined by the relation 16a_(n+1)^2 + 6a_n a_(n+1) − a_n^2 = 0. If a_0 = 1, what is the sum from n = 0 to infinity of a_n?","a":{"t":"8/7"},"pg":8},
@@ -97,7 +97,7 @@
 {"i":9926,"s":"chem","f":"SA","qt":"bonus","n":16,"q":"Rank the following three species in order of increasing molar Gibbs free energies of formation. 1) Ethane 2) Propane 3) Ethene","a":{"t":"2,1,3"},"pg":8},
 {"i":9927,"s":"ess","f":"MC","qt":"tossup","n":17,"q":"The ergosphere around a black hole is characterized by which of the following phenomena?","a":{"t":"Frame dragging","l":"W"},"c":{"W":"Frame dragging","X":"Hawking radiation","Y":"Synchrotron radiation","Z":"Urca process"},"pg":9},
 {"i":9928,"s":"ess","f":"SA","qt":"bonus","n":17,"q":"By name or number, order the following 4 epochs of the early Universe in chronological order: 1) Photon epoch; 2) Quark epoch; 3) Planck epoch 4) Electroweak epoch","a":{"t":"3 4 2 1"},"pg":9},
-{"i":9929,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"2-Mercaptoethanol is commonly used in SDS-PAGE to break what type of interaction?","a":{"t":"Disulfide, disulfide bridge, SS-bridge"},"pg":9},
+{"i":9929,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"2-Mercaptoethanol is commonly used in SDS-PAGE to break what type of interaction?","a":{"t":"Disulfide","ac":["disulfide bridge","SS-bridge"]},"pg":9},
 {"i":9930,"s":"bio","f":"MC","qt":"bonus","n":18,"q":"Acorn worms belong to what phylum whose members have gill slits and a dorsal nerve cord?","a":{"t":"Hemichordata","l":"Z"},"c":{"W":"Echinodermata","X":"Acoela","Y":"Ophiuroidea","Z":"Hemichordata"},"pg":9},
 {"i":9931,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"In the xylem, pits connect neighboring tracheids to allow water to migrate laterally. Identify all of the following three polymers that can be found composing these pits: 1) Cellulose; 2) Lignin; 3) Suberin.","a":{"t":"1 only"},"pg":11},
 {"i":9932,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Identify all of the following 3 cells that you would expect to find in fibrocartilage: 1) fibroblasts, 2) chondroblasts, 3) chondrocytes","a":{"t":"1 and 3"},"pg":11},

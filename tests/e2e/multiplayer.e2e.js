@@ -214,3 +214,45 @@ test('losing the connection shows "Disconnected from server" in a dialog on the 
   assert.deepStrictEqual(dialogs, []);
   await ctx.close();
 });
+
+test('n starts and goes on but never skips; s only skips; the timer is at 0 after a wrong interrupt; cards carry no "answered" line', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  const label = (p) => p.evaluate(() => document.getElementById('mpNextBtn').textContent);
+  const press = async (p, k) => { await p.locator('body').click({ position: { x: 400, y: 300 } }); await p.keyboard.press(k); await p.waitForTimeout(700); };
+  const timer = (p) => p.evaluate(() => document.getElementById('mpTimerFace').textContent + document.getElementById('mpTimerFraction').textContent);
+  await press(a, 's');
+  assert.strictEqual(await label(a), 'Start', 's does not start the game');
+  await press(a, 'n');
+  assert.strictEqual(await label(a), 'Skip', 'n starts');
+  await press(g, 'n');
+  assert.strictEqual(await label(a), 'Skip', 'n does not skip a question being read');
+  assert.ok(!/skipped the question/.test(await a.locator('#mpHistory').innerText()));
+  // A wrong interrupt: the question reads on for the other player, timer at 0.
+  await press(g, ' ');
+  await g.waitForSelector('#mpAnswerInput:visible');
+  await g.waitForTimeout(600);
+  for (const p of [a, g]) assert.match(await timer(p), /^[89]\.\d$/, 'the answer clock is running');
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter');
+  await a.waitForTimeout(700);
+  assert.strictEqual(await label(a), 'Skip', 'the question reads on');
+  for (const p of [a, g]) assert.strictEqual(await timer(p), '0.0');
+  await press(a, 's');
+  assert.strictEqual(await label(a), 'Next', 's skips');
+  const info = await a.locator('#mpQuestionInfo').innerText();
+  await press(a, 's');
+  assert.strictEqual(await a.locator('#mpQuestionInfo').innerText(), info, 's does not start the next question');
+  assert.strictEqual(await a.locator('#mpHistory .history-card').count(), 0);
+  await press(a, 'n');
+  assert.strictEqual(await label(a), 'Skip', 'n goes on once the question is over');
+  // The finished question's card: the buzz line above it says who answered what.
+  for (const p of [a, g]) {
+    await p.waitForSelector('#mpHistory .history-card', { state: 'attached', timeout: 10000 });
+    assert.ok(!/answered:/.test(await p.locator('#mpHistory .history-card').first().evaluate((c) => c.textContent)));
+    assert.match(await p.locator('#mpHistory').innerText(), /zzzz/);
+  }
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});

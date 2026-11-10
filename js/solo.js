@@ -340,7 +340,21 @@
     // The last question's play is final now: off to its community stats.
     if (window.SBQuestionStats) SBQuestionStats.flush();
     if (session.queueStale) rebuildQueue();
-    if (session.index + 1 >= session.queue.length && settings.mode !== 'starred') {
+    if (settings.mode === 'starred') {
+      // Starred questions loop, and a question unstarred since the queue was
+      // made isn't read: on to the next one that still has its star, starting
+      // over from the live set of stars at the end. With none left, an
+      // alert, and the last question stays where it is.
+      let next = session.index + 1;
+      while (next < session.queue.length && !SBData.bookmarks.isBookmarked(session.queue[next].id)) next++;
+      if (next >= session.queue.length) {
+        const pool = buildPool();
+        if (!pool.length) { window.alert('No starred questions.'); return; }
+        session.queue = pool;
+        next = 0;
+      }
+      session.index = next - 1;
+    } else if (session.index + 1 >= session.queue.length) {
       // As on QB Reader: an alert, and the last question stays where it is.
       window.alert(settings.mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match your settings');
       return;
@@ -352,13 +366,6 @@
     hideSettingsOnPhone();
 
     session.index++;
-    if (session.index >= session.queue.length) {
-      // Starred questions loop, re-reading the live set of stars.
-      const pool = buildPool();
-      if (!pool.length) { showSessionDone(); return; }
-      session.queue = pool;
-      session.index = 0;
-    }
     const q = currentQ();
     runtime.phase = 'revealing';
     runtime.readingDone = false;
@@ -476,6 +483,9 @@
   function submitAnswer(text) {
     if (runtime.phase !== 'answering') return;
     clearRuntimeTimer();
+    // The answer clock is over: back to 0, not stopped on what was left of
+    // it while the question reads on after a wrong interrupt.
+    resetTimer();
     const q = currentQ();
     const result = text.trim() ? SBAnswer.checkAnswer(q, text) : { correct: false };
     document.getElementById('answerRow').classList.add('d-none');
@@ -590,7 +600,7 @@
       html += '</div>';
     }
     if (category === 'incorrect' && outcome.close) {
-      html += '<div class="close-hint">Close. If you meant the answer above, press "I was right" to count it.</div>';
+      html += '<div class="close-hint">Close</div>';
     }
     parkOverride();
     box.innerHTML = html;
@@ -649,18 +659,27 @@
     showReveal();
   }
 
-  // Next skips while a question is being read, goes on once it's answered,
-  // starts a session before there is one, and waits while you answer.
+  // The button skips while a question is being read, goes on once it's
+  // answered, starts a session before there is one, and waits while you
+  // answer. On the keyboard the two are separate keys: n starts or goes on
+  // (never a skip, so it does nothing until the question is over), and s
+  // only skips.
   function setNextButtonMode(mode) {
     const btn = document.getElementById('nextBtn');
     btn.dataset.mode = mode;
     btn.disabled = mode === 'disabled';
     btn.textContent = mode === 'skip' ? 'Skip' : 'Next';
+    btn.title = mode === 'skip' ? 'Shortcut: s' : 'Shortcut: n';
   }
   function handleNextButton() {
     const mode = document.getElementById('nextBtn').dataset.mode;
     if (mode === 'skip') skipQuestion();
     else if (mode === 'next') nextQuestion();
+    else if (mode === 'start') startSession();
+  }
+  function nextKey() {
+    const mode = document.getElementById('nextBtn').dataset.mode;
+    if (mode === 'next') nextQuestion();
     else if (mode === 'start') startSession();
   }
   function setBuzzEnabled(on) { document.getElementById('buzzBtn').disabled = !on; }
@@ -717,30 +736,6 @@
     }
   }
 
-  function showSessionDone() {
-    runtime.phase = 'done';
-    clearRuntimeTimer();
-    document.getElementById('qDisplay').textContent = '';
-    document.getElementById('choicesDisplay').style.display = 'none';
-    document.getElementById('qFigures').style.display = 'none';
-    document.getElementById('questionInfo').textContent = '';
-    document.getElementById('answerRow').classList.add('d-none');
-    document.getElementById('overrideBtn').classList.add('d-none');
-    setBuzzEnabled(false);
-    document.getElementById('pauseBtn').disabled = true;
-    resetTimer();
-    setNextButtonMode('start');
-    const box = document.getElementById('revealBox');
-    parkOverride();
-    // Starred mode just stops when the starred questions run out.
-    if (settings.mode === 'starred') { box.innerHTML = ''; box.style.display = 'none'; return; }
-    const msg = settings.mode === 'set' ? 'End of the set.'
-      : "You've gone through every question that matches your settings.";
-    box.innerHTML = `<p class="mb-1">${msg} Press Next to start again.</p>`
-      + `<div class="alt-line">${session.correct} correct · ${session.incorrect} incorrect (${session.skipped} skipped)</div>`;
-    box.style.display = 'block';
-  }
-
   function wireGameControls() {
     document.getElementById('buzzBtn').addEventListener('click', function () { this.blur(); buzzIn(); });
     document.getElementById('nextBtn').addEventListener('click', function () { this.blur(); handleNextButton(); });
@@ -758,7 +753,7 @@
       });
     });
 
-    // QB Reader's keys: space buzz, n/s next, p pause, e settings, k show/hide
+    // The keys: space buzz, n next, s skip, p pause, e settings, k show/hide
     // the last question, t star/unstar it; plus q for I was wrong/right.
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
@@ -773,7 +768,8 @@
           if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
           buzzIn();
           return;
-        case 'n': case 's': handleNextButton(); return;
+        case 'n': nextKey(); return;
+        case 's': skipQuestion(); return;
         case 'p': togglePause(); return;
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(log); return;
