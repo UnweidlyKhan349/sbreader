@@ -662,7 +662,7 @@
 {"rl":"Round 5 [RR5]","r":5,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[
 {"i":69902,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"For a reaction with the rate law Rate = k[NO]^2[Cl], what is the overall order of the reaction?","a":{"t":"3"}}]},
 {"rl":"Round 5 [RR5]","r":5,"u":"https://drive.google.com/file/d/1p4ks3RKuIDMClSE0DFzuhzfEVKB9mAgA/view","q":[
-{"i":69903,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"A general traveling wave solution takes the form A cos(ωt − kx − ϕ). Identify all the constants that are determined by initial conditions. 1) A 2) ω 3) ϕ","a":{"t":"1 and 3 only"}}]},
+{"i":69903,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"A general traveling wave solution takes the form A cos(ωt − kx − φ). Identify all the constants that are determined by initial conditions. 1) A 2) ω 3) φ","a":{"t":"1 and 3 only"}}]},
 {"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/file/d/1grDTIV15ZaqA7eVFKYwGjQEhRE9XKzJ_/view","q":[
 {"i":69906,"s":"math","f":"SA","qt":"bonus","n":8,"q":"Suppose p, q, and r are the roots to the cubic polynomial x^3 + 5x^2 − x + 7. What is p^2 + q^2 + r^2?","a":{"t":"27"}}]},
 {"rl":"Round 6 [DE1]","r":6,"u":"https://drive.google.com/drive/folders/1dOEqQJPtWBgRzAYo-7Cz28gFCe_LZolo","q":[

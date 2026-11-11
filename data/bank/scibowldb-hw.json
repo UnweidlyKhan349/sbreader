@@ -882,7 +882,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6824","q":[
 {"i":93461,"s":"phys","f":"SA","qt":"bonus","n":183,"q":"What is the effect that produces light when chemical bonds are broken in a material, often by stretching, rubbing, or crushing?","a":{"t":"TRIBOLUMINESCENCE"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6825","q":[
-{"i":93462,"s":"phys","f":"SA","qt":"tossup","n":184,"q":"A 5 µF capacitor is connected in series to a resistor 200 kΩ, and then connected to a voltage source of 3 Volts. What is the time constant of the charging circuit?","a":{"t":"1 SECOND","ac":["1"]}}]},
+{"i":93462,"s":"phys","f":"SA","qt":"tossup","n":184,"q":"A 5 μF capacitor is connected in series to a resistor 200 kΩ, and then connected to a voltage source of 3 Volts. What is the time constant of the charging circuit?","a":{"t":"1 SECOND","ac":["1"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6825","q":[
 {"i":93463,"s":"phys","f":"SA","qt":"bonus","n":185,"q":"In a simple circuit with a voltage source of 12 V, a resistor of 1 kΩ, and an inductor of 2 H is connected in series, what is the instantaneous current at time 0 s?","a":{"t":"0 AMPERES","ac":["0","ZERO"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6826","q":[
@@ -894,7 +894,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6828","q":[
 {"i":93467,"s":"phys","f":"SA","qt":"tossup","n":189,"q":"A loaded mousetrap stores 50 Joules of energy. As it is released, it is used to power the horizontal movement of a small 4 kilogram car. Once the mousetrap has unwound completely, how fast is the car moving?","a":{"t":"5 METERS PER SECOND","ac":["5"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6828","q":[
-{"i":93468,"s":"phys","f":"SA","qt":"bonus","n":190,"q":"In the same situation, if the potential energy of the mousetrap doubles, by what factor does the final speed increase?","a":{"t":"√2","ac":["√2","1.41","SQUARE ROOT OF 2"]}}]},
+{"i":93468,"s":"phys","f":"SA","qt":"bonus","n":190,"q":"In the same situation, if the potential energy of the mousetrap doubles, by what factor does the final speed increase?","a":{"t":"√2","ac":["1.41","SQUARE ROOT OF 2"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6829","q":[
 {"i":93469,"s":"phys","f":"MC","qt":"tossup","n":191,"q":"How much work is done by a constant force of 6 Newtons pointing north on an object as the object moves 3 meters east?","c":{"W":"0 Joules","X":"0.5 Joules","Y":"2 Joules","Z":"4 Joules"},"a":{"t":"0 Joules","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6829","q":[
@@ -1880,7 +1880,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7083","q":[
 {"i":93937,"s":"phys","f":"MC","qt":"tossup","n":682,"q":"A projectile is launched from the ground straight up into the air. At what time is the power exerted by gravity the greatest? Air resistance may be neglected.","c":{"W":"just as the projectile is launched","X":"as the projectile reaches its maximum height","Y":"half-way through the projectile's ascent","Z":"just before the projectile hits the ground"},"a":{"t":"just before the projectile hits the ground","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7083","q":[
-{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)","ac":["V√(2H/G)"]}}]},
+{"i":93938,"s":"phys","f":"SA","qt":"bonus","n":683,"q":"An object is pushed horizontally from a cliff with initial velocity v. If the cliff has height h and the gravitational acceleration is g, how far from the base of the cliff does the object land? Air resistance may be neglected.","a":{"t":"v√(2h/g)"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7084","q":[
 {"i":93939,"s":"phys","f":"SA","qt":"tossup","n":684,"q":"What small device largely replaced vacuum tubes in their roles as signal amplifiers?","a":{"t":"TRANSISTOR"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7084","q":[
@@ -3092,7 +3092,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7401","q":[
 {"i":96373,"s":"phys","f":"SA","qt":"tossup","n":1288,"q":"What is the effect prevalent in a superconductor which is responsible for the expulsion of a magnetic field?","a":{"t":"MEISSNER EFFECT"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7401","q":[
-{"i":94518,"s":"phys","f":"MC","qt":"bonus","n":1289,"q":"What is the force per meter of length between two wires separated by one meter and each carrying 5 amperes of current?","c":{"W":"2.5 µN","X":"5 µN","Y":"25 µN","Z":"50 µN"},"a":{"t":"5 µN","l":"X"}}]},
+{"i":94518,"s":"phys","f":"MC","qt":"bonus","n":1289,"q":"What is the force per meter of length between two wires separated by one meter and each carrying 5 amperes of current?","c":{"W":"2.5 μN","X":"5 μN","Y":"25 μN","Z":"50 μN"},"a":{"t":"5 μN","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7402","q":[
 {"i":94519,"s":"phys","f":"MC","qt":"tossup","n":1290,"q":"Which of the following elementary particles has a positive charge?","c":{"W":"Tau","X":"Top Quark","Y":"Strange Quark","Z":"Gluon"},"a":{"t":"Top Quark","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7402","q":[

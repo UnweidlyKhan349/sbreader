@@ -13,8 +13,12 @@
       // accents are dropped, so "schrodinger" is "SCHRÖDINGER" and "huckel"
       // "HÜCKEL" (the accented letter used to be cut out as punctuation)
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      // one-character fractions are typed with a slash: "½" is "1/2", "2½" is "2 1/2"
+      .replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f])
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // a times sign typed as the letter x between numbers: "67 x 101", "2x2x3"
+      .replace(/(\d)\s*X\s*(?=[\d√(])/g, '$1 ')
       // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
       // dropped as punctuation below)
       .replace(/(\d)\s*X\s*(?=10\s*\^)/g, '$1 ')
@@ -31,6 +35,10 @@
       // silently never match and the symbol would just get stripped as
       // punctuation below instead of becoming "PI".
       .replace(/[πΠ]/g, ' PI ') // so a typed "pi" matches a displayed "π" and vice versa
+      // the other Greek letters, ħ and ∞ are typed by name too: "omega" for
+      // "ω", "delta H" for "ΔH", "hbar", "infinity" (the text is in capitals
+      // by now, so "ω" is "Ω"; a name can't tell Δ from δ, as when spoken)
+      .replace(GREEK_RE, (c) => ' ' + GREEK_NAMES[c] + ' ')
       // spelled-out "square/cube root of X" (however the packet phrased the
       // answer key) collapses to the same "SQRT X"/"CBRT X" form a student
       // typing the shorthand would produce, so either way of writing it
@@ -40,8 +48,14 @@
       // a decimal point stays part of its number, so "7.2" is one word and
       // never matches "2.7" by word order
       .replace(/(\d)\.(?=\d)/g, '$1\u0001')
-      .replace(/[^A-Z0-9'\s\u0001]/g, ' ') // strip punctuation except apostrophe
+      // a fraction standing by itself stays one word too, so "1/2" is never
+      // the list "1, 2" (it used to pass for a key of "1 AND 2", and "1 and
+      // 2" for a key of "1/2"); a slash inside a longer expression
+      // ("x^2/2", "(a + b)/2") is punctuation as before
+      .replace(/(^|[\s,;(=])(\d+)\s*\/\s*(\d+)(?=$|[\s,;)])/g, '$1$2\u0002$3')
+      .replace(/[^A-Z0-9'\s\u0001\u0002]/g, ' ') // strip punctuation except apostrophe
       .replace(/\u0001/g, '.')
+      .replace(/\u0002/g, '/')
       .replace(/\s+/g, ' ')
       .trim()
       // standard abbreviations become the full term, so "ER" and "rough ER"
@@ -56,6 +70,16 @@
       // round: "0" = "ZERO", "three" = "3".
       .replace(SPELLED_NUMBER_RE, (m) => String(SPELLED_NUMBERS.indexOf(m)));
   }
+  const VULGAR = { '½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
+    '⅙': '1/6', '⅚': '5/6', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8' };
+  const VULGAR_RE = new RegExp('(\\d)?([' + Object.keys(VULGAR).join('') + '])', 'g');
+  const GREEK_NAMES = { Α: 'ALPHA', Β: 'BETA', Γ: 'GAMMA', Δ: 'DELTA', Ε: 'EPSILON', Ζ: 'ZETA', Η: 'ETA', Θ: 'THETA', Ι: 'IOTA', Κ: 'KAPPA',
+    Λ: 'LAMBDA', Μ: 'MU', Ν: 'NU', Ξ: 'XI', Ρ: 'RHO', Σ: 'SIGMA', Τ: 'TAU', Υ: 'UPSILON', Φ: 'PHI', Χ: 'CHI', Ψ: 'PSI', Ω: 'OMEGA',
+    ℏ: 'HBAR', Ħ: 'HBAR', '∞': 'INFINITY' };
+  const GREEK_RE = new RegExp('[' + Object.keys(GREEK_NAMES).join('') + ']', 'g');
+  // (Without the g flag, for .test(), which a g flag makes remember where it stopped.)
+  const GREEK_TEST = new RegExp(GREEK_RE.source);
+  const VULGAR_TEST = new RegExp('[' + Object.keys(VULGAR).join('') + ']');
   const SPELLED_NUMBERS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN',
     'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN', 'TWENTY'];
   const SPELLED_NUMBER_RE = new RegExp('\\b(?:' + SPELLED_NUMBERS.join('|') + ')\\b', 'g');
@@ -860,7 +884,12 @@
     if (signConflict(a, b)) return false;
     const pa = pureNumber(a), pb = pureNumber(b);
     if (pa && pb) return sameValue(pa, pb);
-    return normalize(a) === normalize(b) || leadingValueEqual(a, b);
+    const na = normalize(a), nb = normalize(b);
+    if (na === nb || leadingValueEqual(a, b)) return true;
+    // A Greek letter becomes its name with spaces around it, a typed name
+    // has only the spaces that were typed ("Rω^2" is "R OMEGA 2", "R
+    // omega^2" is "R OMEGA2"): with one in the answer, spacing doesn't count.
+    return GREEK_TEST.test((String(a) + String(b)).toUpperCase()) && na.length > 0 && na.replace(/ /g, '') === nb.replace(/ /g, '');
   }
   // Only whitespace is dropped (punctuation is kept, so "1.5" never meets
   // "15"), and only for answers containing a letter, since spacing is
@@ -1149,7 +1178,8 @@
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
       // a bare number for a part keyed as that number and a unit ("3.2 *
       // 10^23" for "3.2 × 10^23 J"), as for a single answer
-      if (segNums) {
+      // (never against a part still carrying its label: "1" isn't "1) HALITE")
+      if (segNums && !/^\s*\(?(?:[1-9]|IX|IV|V?I{1,3}|V)\s*[):]\s/.test(alt)) {
         const altNums = extractLeadingNumbers(alt);
         if (altNums.length && numsEqualAsSet(segNums, altNums) && !signConflict(seg, alt) && unitTail(alt)) return 'exact';
       }
@@ -1995,7 +2025,16 @@
   // charges contradict the key and every accept (see operatorConflict) is
   // wrong, however it matched (unit rewriting, word order, typo tolerance
   // and the part-by-part checks all compare text with the symbols gone).
+  // One-character fractions written out ("½" -> "1/2", "2½" -> "2 1/2") in
+  // the typed answer and the key, so the number checks, which read the text
+  // as written, see a fraction they know.
+  const slashFractions = (t) => (t == null ? t : String(t).replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f]));
   function checkAnswer(question, userInput) {
+    if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join(''))) {
+      const a = question.answer;
+      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
+      userInput = slashFractions(userInput);
+    }
     const result = checkAnswerInner(question, userInput);
     if (!result.correct || !question.answer || question.format === 'MC') return result;
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says

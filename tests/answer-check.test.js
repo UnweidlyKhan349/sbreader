@@ -600,3 +600,37 @@ test('a key that listed synonyms takes each one: "bog" for BOG (also accept QUAG
   // The ordering the "other one" report came from.
   assert.ok(checkAnswer(byId.get(75346), 'p wave s wave other one').correct);
 });
+
+test('what a keyboard has: slash fractions, Greek letters by name, x for a times sign', () => {
+  for (const [key, typed] of [
+    ['½', '1/2'], ['½', '0.5'], ['1/2', '½'], ['2½', '2 1/2'], ['5 ⅔', '5 2/3'], ['¼ F', '1/4 F'], ['⅔mr^2', '2/3 mr^2'], ['½ OHM', '1/2 ohm'],
+    ['sin θ', 'sin theta'], ['Rω^2', 'R omega^2'], ['ΔH', 'delta H'], ['2 sec θ', '2 sec theta'], ['λ/2', 'lambda/2'], ['ℏ/2', 'hbar/2'],
+    ['(-∞, -4)', '(-infinity, -4)'], ['σ BOND', 'sigma bond'], ['α PARTICLE', 'alpha particle'], ['μ', 'mu'],
+    ['67 × 101', '67 x 101'], ['2×2×3', '2x2x3'], ['50 × √3', '50 x √3'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // The symbol is part of the answer: it used to be dropped, so these passed.
+  for (const [key, typed] of [['sin θ', 'sin'], ['5 ⅔', '5'], ['½ OHM', 'ohm'], ['ρ = 6', '= 6'], ['(-∞, -4)', '-4)'], ['ΔH', 'h'], ['4x', '4']]) {
+    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  // A fraction is one number, never a list of two.
+  const list = { question: 'Identify all of the following three that are true: 1) a; 2) b; 3) c' };
+  assert.ok(!isCorrect('1/2', '1 and 2'));
+  assert.ok(!isCorrect('1/2', '1, 2'));
+  assert.ok(!isCorrect('½', '1 2'));
+  assert.ok(!isCorrect('1 AND 2', '1/2', list));
+  assert.ok(isCorrect('1 AND 2', '1, 2', list));
+  assert.ok(isCorrect('1 / 2', '1/2'));
+  // A slash inside a longer expression is still just punctuation.
+  assert.ok(isCorrect('x^2/2', '(x^2)/2'));
+  assert.ok(isCorrect('(a + b)/2', '(a+b) / 2'));
+  assert.ok(isCorrect('(1/2)mv^2', '1/2 mv^2'));
+});
+
+test('part numbers alone are not the parts: "1, 2" for "1) HALITE; 2) LISTRIC FAULT"', () => {
+  const key = '1) HALITE; 2) LISTRIC FAULT';
+  for (const typed of ['1, 2', '1/2', '1; 2', '1 and 2']) assert.ok(!isCorrect(key, typed), typed);
+  for (const typed of ['halite, listric fault', '1) halite 2) listric fault', 'halite; listric fault']) assert.ok(isCorrect(key, typed), typed);
+  // Parts that are numbers still take the bare numbers.
+  assert.ok(isCorrect('1) 5 METERS; 2) 7 SECONDS', '5, 7'));
+  assert.ok(isCorrect('1) 5; 2) 7', '5, 7'));
+});

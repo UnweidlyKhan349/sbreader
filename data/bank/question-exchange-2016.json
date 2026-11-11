@@ -434,7 +434,7 @@
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4695","q":[
 {"i":95220,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"What is the spin number of a gauge boson?","a":{"t":"1"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4696","q":[
-{"i":95221,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following kinematics formulas is derived using the chain rule?","c":{"W":"x(t) = 1/2at^2 + v_0 t + c_0","X":"v_f^2 = v_i^2 + 2a∆x","Y":"Distance is a scalar & displacement is a vector","Z":"a = (dv)/dt"},"a":{"t":"v_f^2 = v_i^2 + 2a∆x","l":"X"}}]},
+{"i":95221,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following kinematics formulas is derived using the chain rule?","c":{"W":"x(t) = 1/2at^2 + v_0 t + c_0","X":"v_f^2 = v_i^2 + 2aΔx","Y":"Distance is a scalar & displacement is a vector","Z":"a = (dv)/dt"},"a":{"t":"v_f^2 = v_i^2 + 2aΔx","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/bonus/4696","q":[
 {"i":95222,"s":"phys","f":"MC","qt":"bonus","n":2,"q":"You do 10J work on a block by applying a force 20N in a direction 30° from the vertical. Assuming that no other forces are acting on the block, how far did you move it in the horizontal direction?","c":{"W":"½ m","X":"1 m","Y":"2 m","Z":"5 m"},"a":{"t":"1 m","l":"X"}}]},
 {"rl":"Aug 25 · Proof","r":null,"u":"https://scibowldb.com/tossup/4697","q":[
@@ -754,7 +754,7 @@
 {"rl":"Jun 30 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4785","q":[
 {"i":95367,"s":"chem","f":"SA","qt":"tossup","n":6,"q":"A compound with two -OH groups is called a","a":{"t":"Diol"}}]},
 {"rl":"Jun 30 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4785","q":[
-{"i":96140,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"According to valence bond theory, what is the hybridization of the central atom of xenon tetrafluoride?","a":{"t":"sp^3d^2","ac":["sp^3d^2"]}}]},
+{"i":96140,"s":"chem","f":"SA","qt":"bonus","n":7,"q":"According to valence bond theory, what is the hybridization of the central atom of xenon tetrafluoride?","a":{"t":"sp^3d^2"}}]},
 {"rl":"Jun 30 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4786","q":[
 {"i":95368,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"A certain stick measures two meters in a frame of reference that is motionless with respect to the stick. What is the length of the stick as measured by an observer in a reference frame moving at six-tenths the speed of light in the direction that the stick points?","c":{"W":"2 meters","X":"1.5 meters","Y":"1.6 meters","Z":"2.5 meters"},"a":{"t":"1.6 meters","l":"Y"}}]},
 {"rl":"Jun 30 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4786","q":[
@@ -898,7 +898,7 @@
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4825","q":[
 {"i":95432,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What is the largest square number that has five digits?","a":{"t":"99856"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4826","q":[
-{"i":96147,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"What is the term for the rate of change of acceleration?","a":{"t":"jerk","ac":["jolt","surge","or lurch"]}}]},
+{"i":96147,"s":"phys","f":"SA","qt":"tossup","n":11,"q":"What is the term for the rate of change of acceleration?","a":{"t":"jerk","ac":["jolt","surge","lurch"]}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4826","q":[
 {"i":95433,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"If the gravitational acceleration on the surface of Earth is 10 m/s^2, what is the gravitational acceleration on the surface of a planet with the same density as Earth, but twice the volume, to the nearest m/s^2? Assume both planets are spherical with uniform density.","a":{"t":"13","ac":["13 M/S^2"]}}]},
 {"rl":"Sep 1 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4827","q":[
@@ -1518,7 +1518,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4997","q":[
 {"i":96197,"s":"chem","f":"SA","qt":"tossup","n":64,"q":"If the electronegativity difference in the bonding atoms is between 0.4 and 1.7, what type of bond is formed?","a":{"t":"polar covalent"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4997","q":[
-{"i":96198,"s":"chem","f":"SA","qt":"bonus","n":65,"q":"what is the formula for potassium perchlorate?","a":{"t":"KClO4"}}]},
+{"i":96198,"s":"chem","f":"SA","qt":"bonus","n":65,"q":"What is the formula for potassium perchlorate?","a":{"t":"KClO4"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4998","q":[
 {"i":96199,"s":"chem","f":"SA","qt":"bonus","n":66,"q":"Gypsum is calcium sulfate hydrated with two water molecules. Gypsum is what percent water by weight? (atomic mass of calcium = 40; sulfur = 32 and oxygen = 16.)","a":{"t":"21"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4999","q":[
@@ -1972,7 +1972,7 @@
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5121","q":[
 {"i":95868,"s":"energy","f":"SA","qt":"tossup","n":13,"q":"As of 2016, from what country did the US import the most coal?","a":{"t":"COLOMBIA"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5121","q":[
-{"i":95869,"s":"energy","f":"SA","qt":"bonus","n":14,"q":"Rank the 2015 coal production of these states from lowest to highest: Wyoming, West Virginia, Illinois, Pennsylvania.","a":{"t":"Pennsylvania, Illinois, West Virginia, Wyoming."}}]},
+{"i":95869,"s":"energy","f":"SA","qt":"bonus","n":14,"q":"Rank the 2015 coal production of these states from lowest to highest: Wyoming, West Virginia, Illinois, Pennsylvania.","a":{"t":"Pennsylvania, Illinois, West Virginia, Wyoming"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5122","q":[
 {"i":95870,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Oil, coal, and natural gas supply what percent of energy used in the US?","c":{"W":"10","X":"35","Y":"55","Z":"90"},"a":{"t":"90","l":"Z"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5122","q":[
@@ -2184,7 +2184,7 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5181","q":[
 {"i":95965,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"Resistor 1 has twice the resistance of resistor 2. They are connected in parallel to a battery. The ratio of the thermal energy generation rate in 1 to that in 2 is:","a":{"t":"1:2"}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5182","q":[
-{"i":95966,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the equivalent capacitance in microfarads of two capacitors connected in series, one with a capacitance of 4 microFarads and the other with a capacitance of 2 microFarads?","a":{"t":"4/3","ac":["4/3 MICROFARADS","1.33 MICROFARADS"]}}]},
+{"i":95966,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the equivalent capacitance in microfarads of two capacitors connected in series, one with a capacitance of 4 microfarads and the other with a capacitance of 2 microfarads?","a":{"t":"4/3","ac":["4/3 MICROFARADS","1.33 MICROFARADS"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5182","q":[
 {"i":95967,"s":"phys","f":"SA","qt":"bonus","n":8,"q":"What is the approximate capacitance, in farads, between two parallel plates of area 10 cm^2 separated by 1 meter in vacuum? Give your answer in scientific notation to two significant figures.","a":{"t":"8.9 × 10^-15","ac":["8.9 × 10^-15 F"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5183","q":[
