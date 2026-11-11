@@ -4,7 +4,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 
 | Tournament | Questions | Visual | Level |
 |---|---|---|---|
-| 2016 Question Exchange | 1,183 |  | hs |
+| 2016 Question Exchange | 1,180 |  | hs |
 | 2026 Texas Science Bowl Invitational | 645 |  | hs |
 | AVES 2 | 580 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
@@ -22,10 +22,10 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | CLASH 2026 HS | 714 | 30 | hs |
 | CLASH 2026 MS | 429 | 10 | ms |
 | Clements 2025 | 505 |  | hs |
-| CSBL | 656 | 6 | hs |
+| CSBL | 655 | 6 | hs |
 | CSUB | 1,647 |  | hs |
 | CUT 2026 | 625 |  | hs |
-| DASONI 2 | 646 | 27 | hs |
+| DASONI 2 | 645 | 27 | hs |
 | Dasoni Comp1 | 420 |  | hs |
 | Dasoni Standard1 | 509 |  | ms |
 | DAST 2 | 13 |  | hs |
@@ -37,21 +37,21 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Earth and Space Scrimmage 2024 | 250 |  | hs |
 | Earth and Space Scrimmage 2025 | 341 |  | hs |
 | ESBOT 1 | 562 |  | hs |
-| ESBOT 2 | 593 | 30 | hs |
-| Evan Zhong Study Sets | 168 |  | hs |
+| ESBOT 2 | 591 | 30 | hs |
+| Evan Zhong Study Sets | 160 |  | hs |
 | Fall 2023 | 642 | 22 | hs |
 | FE!M 2025 | 600 | 5 | hs |
 | GWHS Rounds | 760 |  | hs |
 | HSBT 2026 | 644 | 27 | hs |
 | ICSBT 2 | 543 | 5 | hs |
 | ICSBT 2025 | 458 |  | hs |
-| ICSBT 3 | 519 | 10 | hs |
+| ICSBT 3 | 518 | 10 | hs |
 | IGNIS 2022 | 720 |  | hs |
 | ISBI 2025 | 335 |  | hs |
 | ISBL 2024 | 291 |  | hs |
 | LADWP 2023 | 37 |  | hs |
 | Lexington Biology Bowl 2026 | 445 |  | hs |
-| Lexington HS 2020-21 | 779 |  | hs |
+| Lexington HS 2020-21 | 778 |  | hs |
 | Lexscibowl 2021 | 17 |  | hs |
 | LOST 1 | 648 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
@@ -59,7 +59,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 3 MS | 488 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
-| Mira Loma Question Database | 16,553 |  | hs |
+| Mira Loma Question Database | 16,507 |  | hs |
 | MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -73,14 +73,14 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | MOSFET 2024 | 602 |  | hs |
 | Mosfet1 | 587 |  | hs |
 | National Chemistry Bowl Fall 2026 | 424 |  | hs |
-| National Ocean Sciences Bowl | 549 |  | hs |
+| National Ocean Sciences Bowl | 509 |  | hs |
 | NCB 2026 | 287 |  | hs |
-| NESB | 999 |  | hs |
+| NESB | 998 |  | hs |
 | NNHS Rounds 2020-21 | 778 |  | hs |
-| NSB MS Regs | 11,448 |  | ms |
-| NSB Nationals 2005 | 789 |  | hs |
+| NSB MS Regs | 11,443 |  | ms |
+| NSB Nationals 2005 | 788 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
-| NSB Regs | 12,038 |  | hs |
+| NSB Regs | 12,037 |  | hs |
 | NSBA1 | 723 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
@@ -93,19 +93,19 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Pohaku 2024 | 322 |  | hs |
 | Prometheus 2021 | 819 |  | hs |
 | Random | 783 |  | hs |
-| Random Stuff | 356 |  | hs |
+| Random Stuff | 355 |  | hs |
 | SBL | 1,242 | 44 | hs |
 | SBST | 643 |  | hs |
-| SBST (Spring) | 615 |  | hs |
+| SBST (Spring) | 614 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
-| ScibowlDB HW | 2,082 |  | hs |
-| Science Bowl Subject Sets 1991–93 | 3,292 |  | hs |
+| ScibowlDB HW | 2,077 |  | hs |
+| Science Bowl Subject Sets 1991–93 | 3,288 |  | hs |
 | SMH 2025 | 512 | 11 | hs |
 | SMH 2026 | 618 | 17 | hs |
 | SSBT 2023 | 552 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
-| Stuyvesant Question Bank | 2,415 |  | hs |
+| Stuyvesant Question Bank | 2,399 |  | hs |
 | Summer 2019 | 137 |  | hs |
 | Texas Sci Bowl 2025 | 649 |  | hs |
 | THUMB 2025 | 206 |  | hs |
@@ -117,4 +117,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (113)** | **104,227** | **571** | |
+| **Total (113)** | **104,089** | **567** | |
