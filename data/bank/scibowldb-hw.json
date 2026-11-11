@@ -454,7 +454,7 @@
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6640","q":[
 {"i":93256,"s":"math","f":"SA","qt":"bonus","n":56,"q":"Simplify the following, giving your answer in simplest radical form: the ninth root of x to the sixth power","a":{"t":"∛(x^2)","ac":["x^(2/3)","CUBE ROOT OF x^2"]}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6641","q":[
-{"i":96316,"s":"math","f":"SA","qt":"bonus","n":57,"q":"Solve the following equation for all real values of x: x^2 - 2x - 8 = 0","a":{"t":"4 Or -2"}}]},
+{"i":96316,"s":"math","f":"SA","qt":"bonus","n":57,"q":"Solve the following equation for all real values of x: x^2 - 2x - 8 = 0","a":{"t":"4 AND -2"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6643","q":[
 {"i":93257,"s":"math","f":"SA","qt":"bonus","n":58,"q":"Find the integral of 3sin(x) + 5cos(x) dx","a":{"t":"-3cos(x) + 5sin(x) + C"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6652","q":[
@@ -1008,7 +1008,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6857","q":[
 {"i":93519,"s":"phys","f":"MC","qt":"bonus","n":246,"q":"The rest mass energy of an electron is about","c":{"W":"0.5 eV","X":"0.5 keV","Y":"0.5 MeV","Z":"0.5 GeV"},"a":{"t":"0.5 MeV","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6858","q":[
-{"i":93520,"s":"phys","f":"MC","qt":"tossup","n":247,"q":"Two perfect cubes are dropped from a short height h above the Earth with zero initial velocity. Their centers of masses are a short distance d apart from one another when they are dropped. When the cubes reach the ground, the distance between their centers of masses will be","c":{"W":"exactly d","X":"slightly greater than d","Y":"slightly less than d","Z":"infinite; the cubes will never reach the Earth."},"a":{"t":"slightly less than d","l":"Y"}}]},
+{"i":93520,"s":"phys","f":"MC","qt":"tossup","n":247,"q":"Two perfect cubes are dropped from a short height h above the Earth with zero initial velocity. Their centers of masses are a short distance d apart from one another when they are dropped. When the cubes reach the ground, the distance between their centers of masses will be","c":{"W":"exactly d","X":"slightly greater than d","Y":"slightly less than d","Z":"infinite; the cubes will never reach the Earth"},"a":{"t":"slightly less than d","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6858","q":[
 {"i":93521,"s":"phys","f":"MC","qt":"bonus","n":248,"q":"Bremsstrahlung radiation in a plasma is most closely the opposite of which of the following?","c":{"W":"Bound-bound absorption","X":"Bound-free absorption","Y":"Free-bound absorption","Z":"Free-free absorption"},"a":{"t":"Free-free absorption","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6859","q":[
@@ -1046,7 +1046,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6867","q":[
 {"i":93538,"s":"phys","f":"MC","qt":"tossup","n":265,"q":"A charged particle enters a uniform magnetic field at a right angle to the field. The work done by the field is:","c":{"W":"proportional to the charge and the field strength","X":"proportional to the velocity and the charge","Y":"proportional to the velocity and the field strength","Z":"zero"},"a":{"t":"zero","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6867","q":[
-{"i":93539,"s":"phys","f":"SA","qt":"bonus","n":266,"q":"The rare-earth neodymium magnet, which is one of the strongest types of permanent magnets, is made from an alloy of neodymium. Name one of the two other elements that are used in these magnets.","a":{"t":"IRON OR BORON","ac":["IRON","BORON"]}}]},
+{"i":93539,"s":"phys","f":"SA","qt":"bonus","n":266,"q":"The rare-earth neodymium magnet, which is one of the strongest types of permanent magnets, is made from an alloy of neodymium. Name one of the two other elements that are used in these magnets.","a":{"t":"IRON","ac":["BORON"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6868","q":[
 {"i":93540,"s":"phys","f":"MC","qt":"tossup","n":267,"q":"Which of the following is one of Kirchhoff’s circuit laws?","c":{"W":"the power consumed by a resistor is equal to the current through it times the voltage drop across it","X":"the voltage drop across a resistor is equal to the current through it times its resistance","Y":"the charge on a capacitor is equal to its capacitance times the voltage across it","Z":"the sum of the voltage differences around a closed loop must equal zero"},"a":{"t":"the sum of the voltage differences around a closed loop must equal zero","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6868","q":[
@@ -1429,10 +1429,6 @@
 {"i":93721,"s":"phys","f":"SA","qt":"tossup","n":456,"q":"\"A hot solid object produces light with a continuous spectrum,\" is one of what physicist’s three laws of spectroscopy?","a":{"t":"GUSTAV KIRCHHOFF","ac":["KIRCHHOFF"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6966","q":[
 {"i":93722,"s":"phys","f":"SA","qt":"bonus","n":457,"q":"Kirchhoff's Junction Rule is equivalent to a statement of what conservation law?","a":{"t":"CONSERVATION OF CHARGE","ac":["THE LAW OF CONSERVATION OF ELECTRIC CHARGE","CHARGE CONSERVATION"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6967","q":[
-{"i":93723,"s":"phys","f":"SA","qt":"tossup","n":458,"q":"The Sun is a white star. Why does it appear yellow when seen from the Earth?","a":{"t":"RAYLEIGH SCATTERING REMOVES THE SHORTER (BLUE) WAVELENGTHS FROM ITS DIRECT LIGHT","ac":["RAYLEIGH SCATTERING","BLUE LIGHT IS SCATTERED"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6967","q":[
-{"i":93724,"s":"phys","f":"SA","qt":"bonus","n":459,"q":"Why does the Sun appear red as it grows closer to the horizon?","a":{"t":"ITS LIGHT CROSSES MORE AIR, SO MORE OF THE SHORTER WAVELENGTHS ARE SCATTERED AWAY","ac":["RAYLEIGH SCATTERING","MORE RAYLEIGH SCATTERING","MORE ATMOSPHERE SCATTERS THE SHORTER WAVELENGTHS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6968","q":[
 {"i":93725,"s":"phys","f":"SA","qt":"tossup","n":460,"q":"Who was awarded the first Nobel Prize in Physics, for his discovery of X-rays?","a":{"t":"WILHELM RÖNTGEN","ac":["ROENTGEN","RÖNTGEN","WILHELM CONRAD ROENTGEN"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6968","q":[
@@ -1529,8 +1525,6 @@
 {"i":93770,"s":"phys","f":"MC","qt":"tossup","n":506,"q":"Fluorine-18, a radioactive isotope used as a tracer in PET scans, decays through","c":{"W":"beta minus decay","X":"beta plus decay","Y":"alpha decay","Z":"random fissioning"},"a":{"t":"beta plus decay","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6993","q":[
 {"i":93771,"s":"phys","f":"SA","qt":"bonus","n":507,"q":"A particle has mass 1 kg. To within two orders of magnitude, what is its Compton wavelength?","a":{"t":"10^-42 METERS","ac":["2.2 × 10^-42 METERS","10^-42"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6994","q":[
-{"i":93772,"s":"phys","f":"SA","qt":"tossup","n":508,"q":"Time travel to the past is believed to be impossible because of the existence of temporal paradoxes. Describe the most famous of these paradoxes, the grandfather paradox.","a":{"t":"IF A MAN WENT BACK IN TIME AND ACCIDENTALLY (OR NOT) KILLED HIS GRANDFATHER BEFORE MEETING HIS GRANDMOTHER, THEN HE WOULD HAVE NEVER BEEN CONCEIVED AND WOULD HAVE NEVER BEEN ABLE TO GO BACK IN TIME AND KILL HIS GRANDFATHER","ac":["A TIME TRAVELER WHO KILLS HIS GRANDFATHER WOULD NEVER BE BORN, SO COULD NOT GO BACK TO KILL HIM"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6994","q":[
 {"i":93773,"s":"phys","f":"SA","qt":"bonus","n":509,"q":"Which principle states that all the changes made by the time traveler are already included in history, and would not cause time paradoxes?","a":{"t":"NOVIKOV SELF-CONSISTENCY PRINCIPLE"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6995","q":[
@@ -1636,7 +1630,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7020","q":[
 {"i":93823,"s":"phys","f":"MC","qt":"tossup","n":560,"q":"A Foucault pendulum rotates throughout the day as it spins because of the rotation of the Earth. How long would it take a Foucault pendulum to rotate once if it were located at the equator?","c":{"W":"12 hours","X":"24 hours","Y":"48 hours","Z":"it would never make a complete revolution"},"a":{"t":"it would never make a complete revolution","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7020","q":[
-{"i":93824,"s":"phys","f":"SA","qt":"bonus","n":561,"q":"In the 17th century, mathematicians tried to find a curve that would allow an object traveling along the curve to reach the bottom point in the shortest amount of time. What is one of the two names for this curve?","a":{"t":"CYCLOID OR BRACHISTOCHRONE","ac":["CYCLOID","BRACHISTOCHRONE"]}}]},
+{"i":93824,"s":"phys","f":"SA","qt":"bonus","n":561,"q":"In the 17th century, mathematicians tried to find a curve that would allow an object traveling along the curve to reach the bottom point in the shortest amount of time. What is one of the two names for this curve?","a":{"t":"CYCLOID","ac":["BRACHISTOCHRONE"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7021","q":[
 {"i":93825,"s":"phys","f":"MC","qt":"tossup","n":562,"q":"Which two quarks are the most massive?","c":{"W":"top and bottom","X":"strange and charm","Y":"up and down","Z":"they are all the same"},"a":{"t":"top and bottom","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7021","q":[
@@ -1848,7 +1842,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7075","q":[
 {"i":96347,"s":"phys","f":"SA","qt":"tossup","n":666,"q":"Which fundamental force is not explained by the Standard Model?","a":{"t":"GRAVITY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7075","q":[
-{"i":93922,"s":"phys","f":"SA","qt":"bonus","n":667,"q":"This device is used to detect charged particles, which create a visible track as they move through it. A magnetic field is aligned perpendicular to the plane of the device so that positively charged particles curve one way and negatively charged particles curve in the opposite direction. What is it?","a":{"t":"CLOUD CHAMBER OR BUBBLE CHAMBER","ac":["CLOUD CHAMBER","BUBBLE CHAMBER"]}}]},
+{"i":93922,"s":"phys","f":"SA","qt":"bonus","n":667,"q":"This device is used to detect charged particles, which create a visible track as they move through it. A magnetic field is aligned perpendicular to the plane of the device so that positively charged particles curve one way and negatively charged particles curve in the opposite direction. What is it?","a":{"t":"CLOUD CHAMBER","ac":["BUBBLE CHAMBER"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7076","q":[
 {"i":93923,"s":"phys","f":"SA","qt":"tossup","n":668,"q":"Given that the charge of an electron is 1.6 × 10^-19 Coulombs, what is the equivalent in Joules of 1 electron volt, expressed in standard scientific notation?","a":{"t":"1.6 × 10^-19 JOULES","ac":["1.6 × 10^-19"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7076","q":[
@@ -2207,8 +2201,6 @@
 {"i":94093,"s":"phys","f":"SA","qt":"bonus","n":845,"q":"What SI unit of activity is named after the scientist who discovered radioactivity in uranium?","a":{"t":"BECQUEREL"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7169","q":[
 {"i":94094,"s":"phys","f":"SA","qt":"tossup","n":846,"q":"The heat of fusion for water is 334 kJ / kg. How much energy, in Joules, is required to melt a 10g ice cube at the freezing point?","a":{"t":"3340 JOULES","ac":["3340"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7169","q":[
-{"i":96355,"s":"phys","f":"SA","qt":"bonus","n":847,"q":"State the Zeroth Law of Thermodynamics.","a":{"t":"IF TWO SYSTEMS ARE EACH IN THERMAL EQUILIBRIUM WITH A THIRD, THEY ARE IN THERMAL EQUILIBRIUM WITH EACH OTHER","ac":["SYSTEMS IN THERMAL EQUILIBRIUM WITH A THIRD SYSTEM ARE IN THERMAL EQUILIBRIUM WITH EACH OTHER"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7170","q":[
 {"i":94095,"s":"phys","f":"MC","qt":"tossup","n":848,"q":"Ole Roemer was the first to successfully estimate the speed of light using which of Jupiter's moons?","c":{"W":"Europa","X":"Callisto","Y":"Io","Z":"Ganymede"},"a":{"t":"Io","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7170","q":[
@@ -2896,7 +2888,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7350","q":[
 {"i":94426,"s":"phys","f":"MC","qt":"tossup","n":1190,"q":"The angular frequency of a vibrating spring undergoing simple harmonic motion is doubled when:","c":{"W":"Its mass is doubled","X":"Its spring constant is doubled","Y":"Its mass is quadrupled","Z":"Its spring constant is quadrupled"},"a":{"t":"Its spring constant is quadrupled","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7351","q":[
-{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass.","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
+{"i":94427,"s":"phys","f":"MC","qt":"tossup","n":1191,"q":"The mass of an object increases as it slowly reaches relativistic velocity. Its increase in mass comes from","c":{"W":"Potential energy being converted into mass by E = mc^2","X":"Nuclear binding energy","Y":"The decrease in pressure on the mass","Z":"Kinetic energy being converted into mass by E = mc^2"},"a":{"t":"Kinetic energy being converted into mass by E = mc^2","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7351","q":[
 {"i":94428,"s":"phys","f":"MC","qt":"bonus","n":1192,"q":"Which of the following laws state that when a perfect polarizer is placed in a polarized beam of light, the intensity, I, of the light that passes through is given by I = I_initial cos^2θ?","c":{"W":"Land's Law","X":"Faraday's Law","Y":"Charles' Law","Z":"Malus' Law"},"a":{"t":"Malus' Law","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7352","q":[
@@ -3667,8 +3659,6 @@
 {"i":94778,"s":"phys","f":"MC","qt":"tossup","n":1575,"q":"How long does it take a ball of mass 5Kg to drop from rest a distance of 100 m?","c":{"W":"2.3 sec","X":"3.4 sec","Y":"4.5 sec","Z":"5.6 sec"},"a":{"t":"4.5 sec","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7559","q":[
 {"i":94779,"s":"phys","f":"SA","qt":"bonus","n":1576,"q":"A rock is whirled horizontally by a string of length 4 m that has a tension of 5N. The rock has a mass of 5Kg. What is its period of revolution?","a":{"t":"4π SECONDS","ac":["4π","12.6 SECONDS"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7560","q":[
-{"i":94780,"s":"phys","f":"SA","qt":"tossup","n":1577,"q":"How are the amplitudes of the electric field and the magnetic field in light related?","a":{"t":"THE ELECTRIC FIELD AMPLITUDE IS c TIMES THE MAGNETIC FIELD AMPLITUDE","ac":["E = cB","E/B = c"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7560","q":[
 {"i":94781,"s":"phys","f":"MC","qt":"bonus","n":1578,"q":"A light wave enters a medium and travels at a speed v. How is v related to c, the speed of light in a vacuum?","c":{"W":"v = c","X":"v > c","Y":"v < c","Z":"v = 0"},"a":{"t":"v < c","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7561","q":[

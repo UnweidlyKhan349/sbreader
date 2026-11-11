@@ -255,8 +255,6 @@
 {"i":95136,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"What is the term used to refer to the topmost layer of a thermally stratified lake that lies above the thermocline?","a":{"t":"Epilimnion"}}]},
 {"rl":"Aug 11 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4646","q":[
 {"i":95137,"s":"ess","f":"SA","qt":"bonus","n":10,"q":"What is the term for lakes whose waters mix at least once every year?","a":{"t":"Holomictic"}}]},
-{"rl":"Aug 11 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4647","q":[
-{"i":95138,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What is the difference between the reactor vessels of pressurized water reactor and a boiling water reactor?","a":{"t":"The water boils in the reactor vessel of a boiling water reactor while it doesn’t boil in the pressurized water reactor (the hot water generates steam in a steam vessel).","ac":["IN A BOILING WATER REACTOR THE WATER BOILS IN THE REACTOR VESSEL"]}}]},
 {"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/tossup/4648","q":[
 {"i":95139,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"The interval of time from one vernal equinox to the next is known as a","c":{"W":"sidereal year","X":"tropical year","Y":"solar year","Z":"stellar year"},"a":{"t":"tropical year","l":"X"}}]},
 {"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/bonus/4648","q":[
@@ -360,7 +358,7 @@
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4673","q":[
 {"i":95186,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the integral of cos(x) dx from 1/4 π to 0?","a":{"t":"-√2/2","ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4674","q":[
-{"i":95187,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Categorize the following molecules according to the arrangement of electron pairs geometry: carbon dioxide, dihydrogen monoxide, and methane.","a":{"t":"CARBON DIOXIDE IS LINEAR, DIHYDROGEN MONOXIDE IS TETRAHEDRAL, METHANE IS TETRAHEDRAL"}}]},
+{"i":95187,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Categorize the following molecules according to the arrangement of electron pairs geometry: carbon dioxide, dihydrogen monoxide, and methane.","a":{"t":"LINEAR; TETRAHEDRAL; TETRAHEDRAL"}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4675","q":[
 {"i":95188,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"Astronomers were very ecstatic when LIGO announced its discovery of these types of waves on February 11, 2016. What are these special waves called?","a":{"t":"GRAVITATIONAL WAVES"}}]},
 {"rl":"Aug 25 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4675","q":[
@@ -570,7 +568,7 @@
 {"rl":"Jul 14 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4733","q":[
 {"i":95282,"s":"phys","f":"SA","qt":"bonus","n":2,"q":"Which particle (that subsequently decays into an electron and an electron neutrino) does a down quark emit to decay into an up quark?","a":{"t":"W− BOSON","ac":["W−","W MINUS BOSON"]}}]},
 {"rl":"Jul 14 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4734","q":[
-{"i":95283,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the hyperbolic cosine function cosh(x) expressed in terms of e?","a":{"t":"(e^(x) + e^(-x))/2 or (e^(2x) + 1)/(2e^x)"}}]},
+{"i":95283,"s":"math","f":"SA","qt":"tossup","n":3,"q":"What is the hyperbolic cosine function cosh(x) expressed in terms of e?","a":{"t":"(e^(x) + e^(-x))/2","ac":["(e^(2x) + 1)/(2e^x)"]}}]},
 {"rl":"Jul 14 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4734","q":[
 {"i":95284,"s":"math","f":"MC","qt":"bonus","n":4,"q":"What is the derivative of the inverse secant function arcsec(x)?","c":{"W":"1/√(1-x^2)","X":"-1/(1+x^2)","Y":"1/(|x|√(x^2-1))","Z":"-1/(√(x^2+1))"},"a":{"t":"1/(|x|√(x^2-1))","l":"Y"}}]},
 {"rl":"Jul 14 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4735","q":[
@@ -633,8 +631,6 @@
 {"i":95308,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"The sign of the free energy change for spontaneous reactions is:","a":{"t":"Negative"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4752","q":[
 {"i":95309,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"What is the end fate in the life cycle of a star two times the mass of the Sun?","a":{"t":"WHITE DWARF"}}]},
-{"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4752","q":[
-{"i":95310,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Why is it that no black dwarfs are expected to exist in the universe yet?","a":{"t":"THE UNIVERSE IS NOT OLD ENOUGH FOR ANY WHITE DWARF TO HAVE COOLED THAT FAR","ac":["WHITE DWARFS TAKE LONGER THAN THE AGE OF THE UNIVERSE TO COOL"]}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4753","q":[
 {"i":95311,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Which of the following cell structures are made up of the 9 + 2 pattern of microtubules. This means 9 doublets of microtubules. 1) Cilia 2) Centriole 3) Flagella","a":{"t":"1 and 3"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4753","q":[
@@ -706,7 +702,7 @@
 {"rl":"Jun 16 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4771","q":[
 {"i":95344,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"During the Industrial Revolution, soot from factories darkened the trees around London, the habitats of peppered moths. What type of natural selection did these moths undergo?","c":{"W":"stabilizing selection","X":"one-sided selection","Y":"directional selection","Z":"diversifying selection"},"a":{"t":"directional selection","l":"Y"}}]},
 {"rl":"Jun 16 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4771","q":[
-{"i":95345,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"Due to a freak storm on the island of Java, the Javan Rhinoceros population decreased severely. The number of Javan rhinos rebounded quickly due to conservation efforts, but the new population had decreased genetic variation. What is the name of the phenomenon these rhinos experienced?","a":{"t":"Genetic Bottleneck","ac":["Population Bottleneck or Bottleneck Effect"]}}]},
+{"i":95345,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"Due to a freak storm on the island of Java, the Javan Rhinoceros population decreased severely. The number of Javan rhinos rebounded quickly due to conservation efforts, but the new population had decreased genetic variation. What is the name of the phenomenon these rhinos experienced?","a":{"t":"Genetic Bottleneck","ac":["Population Bottleneck","Bottleneck Effect"]}}]},
 {"rl":"Jun 16 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4772","q":[
 {"i":95346,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"The Planck law for radiation was developed to resolve what paradox in previous models for the radiation of energy from black bodies at small wavelengths?","a":{"t":"THE ULTRAVIOLET CATASTROPHE","ac":["RAYLEIGH-JEANS CATASTROPHE"]}}]},
 {"rl":"Jun 16 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4773","q":[
@@ -938,7 +934,7 @@
 {"rl":"Sep 1 · RM","r":null,"u":"https://scibowldb.com/tossup/4837","q":[
 {"i":95448,"s":"bio","f":"SA","qt":"tossup","n":7,"q":"What is the long branching structure in fungi that is responsible for vegetative growth?","a":{"t":"Hyphae"}}]},
 {"rl":"Sep 1 · RM","r":null,"u":"https://scibowldb.com/bonus/4837","q":[
-{"i":96151,"s":"bio","f":"MC","qt":"bonus","n":8,"q":"Which of the following best describes the function of kinetochores?","c":{"W":"An RNA structure that helps smooth tensions on the spindle fiber","X":"A collection of RNA that help with the creation of the cleavage furrow","Y":"A protein structure that helps smooth tensions on the spindle fiber","Z":"A protein structure on chromatids used to pull sister chromatids apart."},"a":{"t":"A protein structure on chromatids used to pull sister chromatids apart.","l":"Z"}}]},
+{"i":96151,"s":"bio","f":"MC","qt":"bonus","n":8,"q":"Which of the following best describes the function of kinetochores?","c":{"W":"An RNA structure that helps smooth tensions on the spindle fiber","X":"A collection of RNA that help with the creation of the cleavage furrow","Y":"A protein structure that helps smooth tensions on the spindle fiber","Z":"A protein structure on chromatids used to pull sister chromatids apart"},"a":{"t":"A protein structure on chromatids used to pull sister chromatids apart","l":"Z"}}]},
 {"rl":"Sep 1 · RM","r":null,"u":"https://scibowldb.com/tossup/4838","q":[
 {"i":95449,"s":"energy","f":"SA","qt":"tossup","n":9,"q":"What is the name for the intermediate gas in the production of methanol and ammonia?","a":{"t":"Syngas","ac":["Synthesis Gas"]}}]},
 {"rl":"Sep 1 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4839","q":[
@@ -1060,9 +1056,9 @@
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4872","q":[
 {"i":95499,"s":"math","f":"SA","qt":"bonus","n":8,"q":"What is the integral with respect to x of -sin(x) + 1/x?","a":{"t":"cos(x) + ln|x| + C","ac":["cos(x) + ln(x) + C"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4873","q":[
-{"i":95500,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following options explains the inheritance pattern of Huntington's disease, and why this pattern occurs?","c":{"W":"Only passed on through the mother, since mitochondrial genes are found in the egg","X":"Only passed on through the mother, since the Y chromosome does not have a copy of the responsible gene.","Y":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence.","Z":"Becomes more severe over successive generations, since misfolded proteins are passed on through the egg cell."},"a":{"t":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence.","l":"Y"}}]},
+{"i":95500,"s":"bio","f":"MC","qt":"tossup","n":9,"q":"Which of the following options explains the inheritance pattern of Huntington's disease, and why this pattern occurs?","c":{"W":"Only passed on through the mother, since mitochondrial genes are found in the egg","X":"Only passed on through the mother, since the Y chromosome does not have a copy of the responsible gene","Y":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence","Z":"Becomes more severe over successive generations, since misfolded proteins are passed on through the egg cell"},"a":{"t":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence","l":"Y"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4873","q":[
-{"i":95501,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"What is the name for mobile genetic elements, famously able to affect kernel color in maize, that were discovered by Barbara McClintock?","a":{"t":"Transposons or transposable elements"}}]},
+{"i":95501,"s":"bio","f":"SA","qt":"bonus","n":10,"q":"What is the name for mobile genetic elements, famously able to affect kernel color in maize, that were discovered by Barbara McClintock?","a":{"t":"Transposons","ac":["transposable elements"]}}]},
 {"rl":"Sep 8 · Albany","r":null,"u":"https://scibowldb.com/bonus/4874","q":[
 {"i":95502,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Which type of leukocyte is the most common in human blood?","a":{"t":"NEUTROPHILS","ac":["NEUTROPHIL"]}}]},
 {"rl":"Sep 8 · Albany","r":null,"u":"https://scibowldb.com/tossup/4875","q":[
@@ -1136,7 +1132,7 @@
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4893","q":[
 {"i":95531,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What term refers to the amount of genetic material passed on to the next generation not only by the individual, but by family members as well?","c":{"W":"Relative fitness","X":"Inclusive fitness","Y":"Adaptation coefficient","Z":"Evolution score"},"a":{"t":"Inclusive fitness","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4893","q":[
-{"i":95532,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"You have to decide if it makes biological sense to save one of your relatives. If you do not save them, their chance of dying is 100%. If you save them, they are guaranteed to survive. You have a 50% chance of dying if you make an attempt to save them. You can produce one more offspring, while your relative can produce two. What is the minimum coefficient of relatedness required for it to make sense to save your relative?","a":{"t":"25% or 0.25"}}]},
+{"i":95532,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"You have to decide if it makes biological sense to save one of your relatives. If you do not save them, their chance of dying is 100%. If you save them, they are guaranteed to survive. You have a 50% chance of dying if you make an attempt to save them. You can produce one more offspring, while your relative can produce two. What is the minimum coefficient of relatedness required for it to make sense to save your relative?","a":{"t":"25%","ac":["0.25"]}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4894","q":[
 {"i":95533,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"What US state is home to the world’s largest geothermal field?","c":{"W":"Texas","X":"Arizona","Y":"California","Z":"Hawaii"},"a":{"t":"California","l":"Y"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4894","q":[
@@ -1296,7 +1292,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4937","q":[
 {"i":95600,"s":"bio","f":"MC","qt":"tossup","n":51,"q":"If a cell has 46 chromosomes at the beginning of mitosis, then at anaphase there would be a total of","c":{"W":"23 chromatids","X":"23 chromosomes","Y":"46 chromosomes","Z":"92 chromosomes"},"a":{"t":"92 chromosomes","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4937","q":[
-{"i":95601,"s":"bio","f":"MC","qt":"bonus","n":52,"q":"All of the following statements are true EXCEPT:","c":{"W":"spindle fibers are composed largely of microtubules.","X":"centrioles consist of nine triplets of microtubules arranged in a circle.","Y":"all eukaryotic cells have centrioles","Z":"many of the microtubules in a spindle apparatus attach to kinetochores of chromosomes"},"a":{"t":"all eukaryotic cells have centrioles","l":"Y"}}]},
+{"i":95601,"s":"bio","f":"MC","qt":"bonus","n":52,"q":"All of the following statements are true EXCEPT:","c":{"W":"spindle fibers are composed largely of microtubules","X":"centrioles consist of nine triplets of microtubules arranged in a circle","Y":"all eukaryotic cells have centrioles","Z":"many of the microtubules in a spindle apparatus attach to kinetochores of chromosomes"},"a":{"t":"all eukaryotic cells have centrioles","l":"Y"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4938","q":[
 {"i":95602,"s":"bio","f":"MC","qt":"tossup","n":53,"q":"The inheritance of skin color in humans is an example of which of the following?","c":{"W":"pleiotropy","X":"codominance","Y":"epistasis","Z":"polygenic inheritance"},"a":{"t":"polygenic inheritance","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4938","q":[
@@ -1348,7 +1344,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4950","q":[
 {"i":95625,"s":"bio","f":"MC","qt":"tossup","n":77,"q":"The general term for a depression in a bone is","c":{"W":"fossa","X":"canal or meatus","Y":"facet","Z":"foramen"},"a":{"t":"fossa","l":"W"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4950","q":[
-{"i":95626,"s":"bio","f":"MC","qt":"bonus","n":78,"q":"The suture that separates the parietal bones from the occipital bone is the...","c":{"W":"coronal suture","X":"lambdoid suture","Y":"sagittal suture.","Z":"squamous suture."},"a":{"t":"lambdoid suture","l":"X"}}]},
+{"i":95626,"s":"bio","f":"MC","qt":"bonus","n":78,"q":"The suture that separates the parietal bones from the occipital bone is the...","c":{"W":"coronal suture","X":"lambdoid suture","Y":"sagittal suture","Z":"squamous suture"},"a":{"t":"lambdoid suture","l":"X"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4951","q":[
 {"i":95627,"s":"bio","f":"MC","qt":"tossup","n":79,"q":"In living cells, chemical processes, such as synthesis, all require the action of","c":{"W":"specialized antibiotics","X":"hormones","Y":"salts","Z":"biological catalysts"},"a":{"t":"biological catalysts","l":"Z"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4951","q":[
@@ -1376,7 +1372,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4957","q":[
 {"i":95639,"s":"bio","f":"MC","qt":"tossup","n":91,"q":"Which of the following genetic diseases is not matched correctly with the type of inheritance it has?","c":{"W":"Hemophilia: X-linked recessive","X":"PKU; Autosomal dominant","Y":"Sickle cell anemia; Autosomal recessive","Z":"Rett Syndrome; X-linked dominant"},"a":{"t":"PKU; Autosomal dominant","l":"X"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4957","q":[
-{"i":95640,"s":"bio","f":"SA","qt":"bonus","n":92,"q":"What are the names for the two processes that, respectively, inhibit and promote gene expression by regulating access to a chromosome?","a":{"t":"METHYLATION AND ACETYLATION (IN THAT ORDER)","ac":["METHYLATION; ACETYLATION"]}}]},
+{"i":95640,"s":"bio","f":"SA","qt":"bonus","n":92,"q":"What are the names for the two processes that, respectively, inhibit and promote gene expression by regulating access to a chromosome?","a":{"t":"METHYLATION AND ACETYLATION","ac":["METHYLATION; ACETYLATION","in that order"]}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4958","q":[
 {"i":95641,"s":"bio","f":"MC","qt":"tossup","n":93,"q":"Where might a proteasome be found?","c":{"W":"Nucleus","X":"Plasma membrane","Y":"Extracellular Matrix","Z":"Lysosome"},"a":{"t":"Nucleus","l":"W"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4958","q":[
@@ -1460,13 +1456,13 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4979","q":[
 {"i":95674,"s":"chem","f":"MC","qt":"bonus","n":35,"q":"A catalyst will NOT","c":{"W":"increase the forward reaction rate","X":"shift the equilibrium to favor the products","Y":"alter the reaction pathway","Z":"increase the speed at which equilibrium will be achieved"},"a":{"t":"shift the equilibrium to favor the products","l":"X"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4980","q":[
-{"i":95675,"s":"chem","f":"MC","qt":"tossup","n":36,"q":"The evaporation of any liquid is expected to have","c":{"W":"a positive delta H and a negative delta S","X":"a negative delta H and a negative delta S","Y":"a positive delta H and a positive delta S","Z":"a positive delta H and a negative delta S"},"a":{"t":"a positive delta H and a positive delta S","l":"Y"}}]},
+{"i":95675,"s":"chem","f":"MC","qt":"tossup","n":36,"q":"The evaporation of any liquid is expected to have","c":{"W":"a positive delta H and a negative delta S","X":"a negative delta H and a negative delta S","Y":"a positive delta H and a positive delta S","Z":"a negative delta H and a positive delta S"},"a":{"t":"a positive delta H and a positive delta S","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4980","q":[
-{"i":96186,"s":"chem","f":"MC","qt":"bonus","n":37,"q":"Which of the following is most likely to be true?","c":{"W":"Combustion of organic compounds has a negative delta H","X":"A positive delta G indicates a thermodynamically favorable reaction.","Y":"A positive delta S always means that the reaction is thermodynamically favored.","Z":"A thermodynamically favored reaction always goes to completion."},"a":{"t":"Combustion of organic compounds has a negative delta H","l":"W"}}]},
+{"i":96186,"s":"chem","f":"MC","qt":"bonus","n":37,"q":"Which of the following is most likely to be true?","c":{"W":"Combustion of organic compounds has a negative delta H","X":"A positive delta G indicates a thermodynamically favorable reaction","Y":"A positive delta S always means that the reaction is thermodynamically favored","Z":"A thermodynamically favored reaction always goes to completion"},"a":{"t":"Combustion of organic compounds has a negative delta H","l":"W"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4981","q":[
 {"i":95676,"s":"chem","f":"MC","qt":"tossup","n":38,"q":"Which of the following pairs of constants are NOT mathematically related to each other?","c":{"W":"Equilibrium constant and Gibbs free energy","X":"Rate constant and activation energy","Y":"Standard cell voltage and equilibrium constant","Z":"Standard cell voltage and rate constant"},"a":{"t":"Standard cell voltage and rate constant","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/4981","q":[
-{"i":96187,"s":"chem","f":"MC","qt":"bonus","n":39,"q":"Which of the following is FALSE?","c":{"W":"Reduction involves a gain of electrons","X":"Batteries are galvanic cells","Y":"A thermodynamically favored reaction always has a positive E","Z":"Electrolysis reactions always produce a gas at at least one electrode."},"a":{"t":"Electrolysis reactions always produce a gas at at least one electrode.","l":"Z"}}]},
+{"i":96187,"s":"chem","f":"MC","qt":"bonus","n":39,"q":"Which of the following is FALSE?","c":{"W":"Reduction involves a gain of electrons","X":"Batteries are galvanic cells","Y":"A thermodynamically favored reaction always has a positive E","Z":"Electrolysis reactions always produce a gas at at least one electrode"},"a":{"t":"Electrolysis reactions always produce a gas at at least one electrode","l":"Z"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4982","q":[
 {"i":95677,"s":"chem","f":"MC","qt":"tossup","n":40,"q":"For compounds with the same number of carbon atoms, the compound with the lowest boiling point is expected to be","c":{"W":"a ketone","X":"an amine","Y":"an ether","Z":"an alcohol"},"a":{"t":"an ether","l":"Y"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/4983","q":[
@@ -1562,7 +1558,7 @@
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5009","q":[
 {"i":95707,"s":"chem","f":"SA","qt":"tossup","n":86,"q":"How many nodes does a 3p orbital have?","a":{"t":"2"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5009","q":[
-{"i":95708,"s":"chem","f":"SA","qt":"bonus","n":87,"q":"Name any amino acid that contains a phenyl group.","a":{"t":"PHENYLALANINE OR TYROSINE","ac":["PHENYLALANINE","TYROSINE"]}}]},
+{"i":95708,"s":"chem","f":"SA","qt":"bonus","n":87,"q":"Name any amino acid that contains a phenyl group.","a":{"t":"PHENYLALANINE","ac":["TYROSINE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5010","q":[
 {"i":95709,"s":"chem","f":"SA","qt":"tossup","n":88,"q":"If the molar mass of neon is 20 grams and the molar mass of argon is 40 grams, to the nearest tenth, what is the ratio of the rates of effusion of neon to argon?","a":{"t":"1.4"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5010","q":[
@@ -1849,8 +1845,6 @@
 {"i":95813,"s":"ess","f":"MC","qt":"bonus","n":73,"q":"Sunspots are characterized by","c":{"W":"High magnetic field flux, and cooler temperature","X":"High magnetic field flux, and hotter temperature","Y":"Low magnetic field flux, and cooler temperature","Z":"Low magnetic field flux, and hotter temperature"},"a":{"t":"High magnetic field flux, and cooler temperature","l":"W"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5088","q":[
 {"i":95814,"s":"ess","f":"MC","qt":"tossup","n":74,"q":"Sunspots and other solar activity tend to follow a cycle lasting about how long?","c":{"W":"1 year","X":"11 years","Y":"23 years","Z":"57 years"},"a":{"t":"11 years","l":"X"}}]},
-{"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5088","q":[
-{"i":95815,"s":"ess","f":"SA","qt":"bonus","n":75,"q":"What does the Schwarzschild radius of a body represent?","a":{"t":"THE RADIUS WITHIN WHICH THE BODY'S MASS WOULD HAVE TO BE COMPRESSED TO FORM A BLACK HOLE","ac":["EVENT HORIZON RADIUS","RADIUS AT WHICH ESCAPE VELOCITY EQUALS THE SPEED OF LIGHT"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5089","q":[
 {"i":95816,"s":"ess","f":"SA","qt":"tossup","n":76,"q":"Observation of the phases of which planet gave Galileo evidence for the Copernican model.","a":{"t":"Venus"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5089","q":[
@@ -1862,7 +1856,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5091","q":[
 {"i":95820,"s":"ess","f":"MC","qt":"tossup","n":80,"q":"Which observation provides the best evidence that Earth rotates?","c":{"W":"The position of the planets among the stars changes during the year.","X":"The location of the constellations in relationship to Polaris changes from month to month.","Y":"The length of the shadow cast by a flagpole at noontime changes from season to season.","Z":"The direction of swing of a freely swinging pendulum changes during the day."},"a":{"t":"The direction of swing of a freely swinging pendulum changes during the day.","l":"Z"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5091","q":[
-{"i":95821,"s":"ess","f":"MC","qt":"bonus","n":81,"q":"Earth's axis of rotation is tilted twenty three and a half degrees from a line perpendicular to the plane of its orbit. What would be the result if the tilt was increased to thirty three and a half degrees?","c":{"W":"an increase in the amount of solar radiation received by Earth.","X":"colder winters and warmer summers in New York State","Y":"less difference between winter and summer temperatures in New York State","Z":"shorter days and longer nights at the Equator"},"a":{"t":"colder winters and warmer summers in New York State","l":"X"}}]},
+{"i":95821,"s":"ess","f":"MC","qt":"bonus","n":81,"q":"Earth's axis of rotation is tilted twenty three and a half degrees from a line perpendicular to the plane of its orbit. What would be the result if the tilt was increased to thirty three and a half degrees?","c":{"W":"an increase in the amount of solar radiation received by Earth","X":"colder winters and warmer summers in New York State","Y":"less difference between winter and summer temperatures in New York State","Z":"shorter days and longer nights at the Equator"},"a":{"t":"colder winters and warmer summers in New York State","l":"X"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5092","q":[
 {"i":95822,"s":"ess","f":"MC","qt":"tossup","n":82,"q":"The best evidence of Earth's nearly spherical shape is obtained through","c":{"W":"telescopic observations of other planets","X":"photographs of Earth from an orbiting satellite","Y":"observations of the Sun's altitude made during the day","Z":"observations of the Moon made during solar eclipses"},"a":{"t":"photographs of Earth from an orbiting satellite","l":"X"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5092","q":[
@@ -1872,7 +1866,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5093","q":[
 {"i":95825,"s":"ess","f":"SA","qt":"bonus","n":85,"q":"What is the time from when a star crosses an observers meridian until the same star next crosses the observer's meridian called?","a":{"t":"sidereal day"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5094","q":[
-{"i":95826,"s":"ess","f":"MC","qt":"tossup","n":86,"q":"Which observation provides the best evidence that Earth revolves around the Sun?","c":{"W":"Stars seen from Earth appear to circle Polaris","X":"Earth's planetary winds are deflected by the Coriolis effect","Y":"The change from high ocean tide to low ocean tide is a repeating pattern","Z":"Different star constellations are seen from Earth at different times of the year."},"a":{"t":"Different star constellations are seen from Earth at different times of the year.","l":"Z"}}]},
+{"i":95826,"s":"ess","f":"MC","qt":"tossup","n":86,"q":"Which observation provides the best evidence that Earth revolves around the Sun?","c":{"W":"Stars seen from Earth appear to circle Polaris","X":"Earth's planetary winds are deflected by the Coriolis effect","Y":"The change from high ocean tide to low ocean tide is a repeating pattern","Z":"Different star constellations are seen from Earth at different times of the year"},"a":{"t":"Different star constellations are seen from Earth at different times of the year","l":"Z"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5094","q":[
 {"i":95827,"s":"ess","f":"SA","qt":"bonus","n":87,"q":"What is the name of the paradox that asks why the night sky is dark if the universe is infinite and should contain an infinite number of stars?","a":{"t":"OLBERS' PARADOX","ac":["OLBERS PARADOX"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5095","q":[
@@ -1888,7 +1882,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5097","q":[
 {"i":95833,"s":"ess","f":"MC","qt":"bonus","n":93,"q":"Two nebulae, A and B, of equal volume are beginning to contract and form stars A and B. Nebula A has 10,000 times the mass of nebula B. Which of the following predictions is most accurate?","c":{"W":"Star A will use up its fuel faster than star B.","X":"Star A will probably be much redder than star B.","Y":"Star B will be much hotter than star A.","Z":"Stars A and B will be identical in volume."},"a":{"t":"Star A will use up its fuel faster than star B.","l":"W"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5098","q":[
-{"i":95834,"s":"ess","f":"MC","qt":"tossup","n":94,"q":"The surface of Venus is much hotter than would be expected, considering its distance from the Sun. Which statement best explains this fact?","c":{"W":"Venus has many active volcanoes.","X":"Venus has a slow rate of rotation","Y":"The clouds of Venus are highly reflective","Z":"The atmosphere of Venus contains a high percentage of carbon dioxide."},"a":{"t":"The atmosphere of Venus contains a high percentage of carbon dioxide.","l":"Z"}}]},
+{"i":95834,"s":"ess","f":"MC","qt":"tossup","n":94,"q":"The surface of Venus is much hotter than would be expected, considering its distance from the Sun. Which statement best explains this fact?","c":{"W":"Venus has many active volcanoes","X":"Venus has a slow rate of rotation","Y":"The clouds of Venus are highly reflective","Z":"The atmosphere of Venus contains a high percentage of carbon dioxide"},"a":{"t":"The atmosphere of Venus contains a high percentage of carbon dioxide","l":"Z"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5099","q":[
 {"i":95835,"s":"ess","f":"MC","qt":"tossup","n":95,"q":"Rock samples brought back from the Moon show absolutely no evidence of chemical weathering. This is most likely due to","c":{"W":"the lack of an atmosphere on the Moon","X":"extremely low surface temperatures on the Moon","Y":"lack of biological activity on the Moon","Z":"large quantities of water in the lunar \"seas\""},"a":{"t":"the lack of an atmosphere on the Moon","l":"W"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5099","q":[
@@ -1896,7 +1890,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5100","q":[
 {"i":95836,"s":"ess","f":"MC","qt":"tossup","n":97,"q":"Which statement best describes how galaxies generally move?","c":{"W":"Galaxies move toward one another.","X":"Galaxies move away from one another.","Y":"Galaxies move randomly.","Z":"Galaxies do not move."},"a":{"t":"Galaxies move away from one another.","l":"X"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5101","q":[
-{"i":95837,"s":"ess","f":"MC","qt":"tossup","n":98,"q":"Within the early Earth's vast molten region, substances underwent a process known as differentiation, during which","c":{"W":"substances of low density rise to Earth's surface, while those of high density sink toward its center","X":"substances of high density float to Earth's surface, while those of low density sink toward its center.","Y":"substances of high and low density chemically combine to form uniformly dense substances.","Z":"substances of high density form gases, while those of low density form solids."},"a":{"t":"substances of low density rise to Earth's surface, while those of high density sink toward its center","l":"W"}}]},
+{"i":95837,"s":"ess","f":"MC","qt":"tossup","n":98,"q":"Within the early Earth's vast molten region, substances underwent a process known as differentiation, during which","c":{"W":"substances of low density rise to Earth's surface, while those of high density sink toward its center","X":"substances of high density float to Earth's surface, while those of low density sink toward its center","Y":"substances of high and low density chemically combine to form uniformly dense substances","Z":"substances of high density form gases, while those of low density form solids"},"a":{"t":"substances of low density rise to Earth's surface, while those of high density sink toward its center","l":"W"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5101","q":[
 {"i":95838,"s":"ess","f":"MC","qt":"bonus","n":99,"q":"Earth's magnetic field is likely a result of","c":{"W":"convection currents in Earth's mantle","X":"convection currents in Earth's core","Y":"a high concentration of iron in Earth's crust","Z":"high-energy particles in the solar wind"},"a":{"t":"convection currents in Earth's core","l":"X"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5102","q":[
@@ -2072,7 +2066,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5150","q":[
 {"i":95914,"s":"math","f":"MC","qt":"tossup","n":41,"q":"Let f be an odd function over the real numbers. What is the value of f at 0?","c":{"W":"-1","X":"0","Y":"1","Z":"There is not enough information to determine an answer"},"a":{"t":"0","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5150","q":[
-{"i":96252,"s":"math","f":"MC","qt":"bonus","n":42,"q":"Which of the following is true?","c":{"W":"An irrational number raised to an irrational power must have an irrational value.","X":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)","Y":"For all real numbers a,b,c,d with b and d being non-zero, if a/b > c/d, then a*d must be greater than b*c","Z":"There are more complex numbers than there are real numbers."},"a":{"t":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)","l":"X"}}]},
+{"i":96252,"s":"math","f":"MC","qt":"bonus","n":42,"q":"Which of the following is true?","c":{"W":"An irrational number raised to an irrational power must have an irrational value","X":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)","Y":"For all real numbers a,b,c,d with b and d being non-zero, if a/b > c/d, then a*d must be greater than b*c","Z":"There are more complex numbers than there are real numbers"},"a":{"t":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)","l":"X"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5151","q":[
 {"i":95915,"s":"math","f":"SA","qt":"tossup","n":43,"q":"How many vertices does a dodecahedron have?","a":{"t":"20"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5151","q":[
@@ -2128,7 +2122,7 @@
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5164","q":[
 {"i":95939,"s":"math","f":"SA","qt":"bonus","n":69,"q":"What is the largest integer that can't be written as the sum of 3's and 4's?","a":{"t":"5"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5165","q":[
-{"i":96255,"s":"math","f":"MC","qt":"tossup","n":70,"q":"What is the limit as x approaches 0 of x times ln x?","c":{"W":"-1","X":"1","Y":"0","Z":"The limit does not exist."},"a":{"t":"0","l":"Y"}}]},
+{"i":96255,"s":"math","f":"MC","qt":"tossup","n":70,"q":"What is the limit as x approaches 0 of x times ln x?","c":{"W":"-1","X":"1","Y":"0","Z":"The limit does not exist"},"a":{"t":"0","l":"Y"}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/bonus/5165","q":[
 {"i":95940,"s":"math","f":"SA","qt":"bonus","n":71,"q":"What is the derivative of arcsec x?","a":{"t":"1/(|x|√(x^2 − 1))","ac":["1/(x√(x^2 − 1))"]}}]},
 {"rl":"Stuy Math","r":null,"u":"https://scibowldb.com/tossup/5166","q":[
