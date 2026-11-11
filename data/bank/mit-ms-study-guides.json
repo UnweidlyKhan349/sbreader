@@ -34,9 +34,6 @@
 {"i":96101,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following is the most common location for young blue stars in a spiral galaxy?","c":{"W":"Halo","X":"Nucleus","Y":"Spiral arms","Z":"Central bulge"},"a":{"t":"Spiral arms","l":"Y"}}]},
 {"rl":"Physical Science","r":null,"u":"https://drive.google.com/file/d/1A17ep2gb_rhWRiuqkCyzKqBwhN_14k3n/view","q":[
 {"i":96102,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following is NOT an SI base unit?","c":{"W":"Kilogram","X":"Coulomb","Y":"Kelvin","Z":"Candela"},"a":{"t":"Coulomb","l":"X"}},
-{"i":96103,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following is NOT an example of a physical change?","c":{"W":"Water vapor condensing","X":"Magnetizing an iron nail","Y":"Filing a piece of iron","Z":"Iron rusting"},"a":{"t":"Iron rusting","l":"Z"}},
 {"i":96104,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"Rank the following three materials in terms of increasing density: I. Polystyrene II. Glass III. Gold","a":{"t":"1, 2, 3","ac":["POLYSTYRENE, GLASS, GOLD"]}},
-{"i":96105,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How many protons and neutrons will there be in the isotope resulting from U-238 undergoing one round of alpha decay and one round of beta decay? Uranium has 92 protons.","a":{"t":"91 PROTONS, 143 NEUTRONS"}},
-{"i":96106,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"Which of the following reactions is endothermic?","c":{"W":"Chlorine gas reacts with hydrogen gas to form hydrogen chloride gas","X":"Liquid water vaporizes to yield steam","Y":"Sodium metal reacts with water to yield sodium hydroxide and hydrogen gas","Z":"Liquid water freezes to yield solid ice"},"a":{"t":"Liquid water vaporizes to yield steam","l":"X"}},
-{"i":96107,"s":"chem","f":"SA","qt":"tossup","n":6,"q":"What is the oxidation state of hydrogen atoms in ammonia?","a":{"t":"+1","ac":["1"]}}]}
+{"i":96105,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How many protons and neutrons will there be in the isotope resulting from U-238 undergoing one round of alpha decay and one round of beta decay? Uranium has 92 protons.","a":{"t":"91 PROTONS, 143 NEUTRONS"}}]}
 ]

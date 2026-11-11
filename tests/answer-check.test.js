@@ -594,7 +594,7 @@ test('a key that listed synonyms takes each one: "bog" for BOG (also accept QUAG
   assert.strictEqual(bog.answer.text, 'BOG');
   assert.deepStrictEqual(bog.answer.accept, ['QUAGMIRE', 'MIRE']);
   for (const typed of ['bog', 'quagmire', 'mire']) assert.ok(checkAnswer(bog, typed).correct, typed);
-  for (const [id, typed] of [[98657, 'stapes'], [98657, 'stirrup'], [104564, 'coenzyme q'], [98777, 'concave'], [114551, 'ram'], [114238, 'pluto']]) {
+  for (const [id, typed] of [[98657, 'stapes'], [98657, 'stirrup'], [104564, 'coenzyme q'], [98777, 'concave'], [114551, 'ram']]) {
     assert.ok(checkAnswer(byId.get(id), typed).correct, `${typed} for question ${id}`);
   }
   // The ordering the "other one" report came from.

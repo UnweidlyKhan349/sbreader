@@ -207,8 +207,6 @@
 {"i":96281,"s":"bio","f":"MC","qt":"bonus","n":39,"q":"The group containing the most primitive living vascular plants has only two living genera. This group is named:","c":{"W":"arthropoda","X":"psilophyta","Y":"bryophyta","Z":"no choice"},"a":{"t":"psilophyta","l":"X"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5913","q":[
 {"i":93166,"s":"bio","f":"MC","qt":"bonus","n":40,"q":"What is the name of the blood vessels to the legs?","c":{"W":"mesenteric","X":"coronary","Y":"renal","Z":"iliac"},"a":{"t":"iliac","l":"Z"}}]},
-{"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5951","q":[
-{"i":93167,"s":"bio","f":"MC","qt":"bonus","n":41,"q":"Diatoms are:","c":{"W":"bacteria","X":"twinned crystals","Y":"seaweed","Z":"algae"},"a":{"t":"algae","l":"Z"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/tossup/5953","q":[
 {"i":93168,"s":"bio","f":"MC","qt":"tossup","n":42,"q":"Barbara McClintock won the 1983 Nobel Prize in Medicine for her discovery of which of the following?","c":{"W":"Telomeres","X":"Vancomycin","Y":"Transposons","Z":"Philadelphia Chromosome"},"a":{"t":"Transposons","l":"Y"}}]},
 {"rl":"Biology","r":null,"u":"https://scibowldb.com/bonus/5953","q":[
@@ -225,14 +223,10 @@
 {"i":96282,"s":"bio","f":"MC","qt":"bonus","n":48,"q":"Hormones which function in sending chemical signal between two or more individuals are known as:","c":{"W":"leucomones","X":"pheromones","Y":"comones","Z":"no choice"},"a":{"t":"pheromones","l":"X"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6024","q":[
 {"i":93174,"s":"chem","f":"MC","qt":"bonus","n":1,"q":"Which of the following tend to be the least acidic?","c":{"W":"Alkanes","X":"Alkenes","Y":"Alkynes","Z":"Alcohols"},"a":{"t":"Alkanes","l":"W"}}]},
-{"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6026","q":[
-{"i":93175,"s":"chem","f":"MC","qt":"bonus","n":2,"q":"The IUPAC name for formaldehyde is","c":{"W":"methanone.","X":"acetal.","Y":"methanal.","Z":"propanone."},"a":{"t":"methanal.","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6034","q":[
 {"i":93176,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"H2O2 is to the molecular formula of hydrogen peroxide as HO is to what?","a":{"t":"empirical formula","ac":["empirical"]}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6038","q":[
 {"i":96283,"s":"chem","f":"MC","qt":"tossup","n":4,"q":"When a strip of sodium reacts with dilute HCl it releases hydrogen gas this release is called:","c":{"W":"combustion","X":"effervescence","Y":"diffusion","Z":"ebullition"},"a":{"t":"effervescence","l":"X"}}]},
-{"rl":"Chemistry","r":null,"u":"https://scibowldb.com/tossup/6066","q":[
-{"i":93177,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"Arrange the following 4 bonds in order of INCREASING bond lengths: C-C; C=C; C≡C; C-H","a":{"t":"C–H, C≡C, C=C, C–C","ac":["C-H, C TRIPLE BOND C, C DOUBLE BOND C, C-C"]}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6075","q":[
 {"i":96284,"s":"chem","f":"MC","qt":"bonus","n":6,"q":"Which of the following is the term used for the resistance of a liquid system to flow?","c":{"W":"surface tension","X":"diffusion","Y":"viscosity","Z":"cohesion"},"a":{"t":"viscosity","l":"Y"}}]},
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6077","q":[
@@ -299,46 +293,22 @@
 {"i":93197,"s":"ess","f":"MC","qt":"bonus","n":24,"q":"Which of the following soil types is most commonly found in the tropics?","c":{"W":"Oxisols","X":"Alfisols","Y":"Ultisols","Z":"Histosols"},"a":{"t":"Oxisols","l":"W"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6450","q":[
 {"i":93198,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Approximately what percent of energy is lost as heat going up the energy pyramid?","c":{"W":"Ten","X":"Eighty","Y":"Thirty","Z":"Ninety"},"a":{"t":"Ninety","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6450","q":[
-{"i":93199,"s":"energy","f":"MC","qt":"bonus","n":2,"q":"The Thanet offshore wind farm, the world's largest when it opened in 2010, is located in the North Sea off the coast of what country?","c":{"W":"France","X":"UK","Y":"China","Z":"Denmark"},"a":{"t":"UK","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6451","q":[
 {"i":93200,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"The Ruhr, a region heavily dependent on its vast coal reserves is located in which of the following countries?","c":{"W":"France","X":"Germany","Y":"Poland","Z":"Vatican City"},"a":{"t":"Germany","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6451","q":[
-{"i":96296,"s":"energy","f":"MC","qt":"bonus","n":4,"q":"Which of the following is considered a renewable resource?","c":{"W":"Coal fired power plant","X":"Hydroelectric dam","Y":"Combustion turbine facility","Z":"Nuclear fission power plant"},"a":{"t":"Hydroelectric dam","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6453","q":[
-{"i":96297,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"What is the theoretical limit of the efficiency of a single-crystal single-junction cell in a photovoltaic system?","c":{"W":"9 percent","X":"29 percent","Y":"79 percent","Z":"99 percent"},"a":{"t":"29 percent","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6454","q":[
 {"i":96298,"s":"energy","f":"MC","qt":"tossup","n":6,"q":"Electric power is less expensive at night because:","c":{"W":"more hydroelectric generation is brought on line at night","X":"there is less demand at night","Y":"pollution control is less stringent at night","Z":"power plants are more efficient at night"},"a":{"t":"there is less demand at night","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6455","q":[
-{"i":96299,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"What state in the United States has the most nuclear power plants?","c":{"W":"New York","X":"Illinois","Y":"Pennsylvania","Z":"South Carolina"},"a":{"t":"Illinois","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6455","q":[
 {"i":93201,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"What percent of U.S. electricity is generated from nuclear power?","c":{"W":"5%","X":"10%","Y":"20%","Z":"45%"},"a":{"t":"20%","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6456","q":[
 {"i":96300,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"What fraction of the petroleum (oil) consumed in the United States is used for transportation?","c":{"W":"1/3","X":"1/2","Y":"3/4","Z":"9/10"},"a":{"t":"3/4","l":"Y"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6456","q":[
-{"i":96301,"s":"energy","f":"MC","qt":"bonus","n":10,"q":"Which state consumes the most energy?","c":{"W":"California","X":"New York","Y":"Florida","Z":"Texas"},"a":{"t":"Texas","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6457","q":[
-{"i":93202,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which of the following countries has not ratified the NPT (Nuclear non proliferation treaty)?","c":{"W":"Iran","X":"India","Y":"China","Z":"Russia"},"a":{"t":"India","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6458","q":[
 {"i":93203,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6458","q":[
 {"i":93204,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In 2009, the economic downturn led to a decline in U.S. energy consumption and energy-related CO2 emissions. What other factor helped reduce CO2 emissions?","c":{"W":"lower natural gas prices","X":"more use of renewable energy","Y":"reduced electricity generation from coal","Z":"all of the above"},"a":{"t":"all of the above","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6459","q":[
-{"i":96302,"s":"energy","f":"MC","qt":"tossup","n":14,"q":"What country produces the most coal?","c":{"W":"Australia","X":"China","Y":"Russia","Z":"United States"},"a":{"t":"China","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6459","q":[
 {"i":93205,"s":"energy","f":"MC","qt":"bonus","n":15,"q":"Electricity is called a secondary energy source because","c":{"W":"it's our no 2 source of energy","X":"it's not as important as oil and gas","Y":"we get it from converting other energy sources","Z":"all of the above"},"a":{"t":"we get it from converting other energy sources","l":"Y"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6466","q":[
-{"i":96303,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"In a typical power plant used to generate electricity in the U.S., the percentage of energy in the fuel that is converted to electricity is about:","c":{"W":"99 percent","X":"50 percent","Y":"35 percent","Z":"10 percent"},"a":{"t":"35 percent","l":"Y"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6467","q":[
-{"i":96304,"s":"energy","f":"MC","qt":"bonus","n":17,"q":"Of the energy used in the United States, about what percent is provided by hydroelectric power?","c":{"W":"4%","X":"20%","Y":"50%","Z":"75%"},"a":{"t":"4%","l":"W"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6468","q":[
 {"i":93207,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"The daily amount of energy used in the United States, per person, is about as much energy as....","c":{"W":"100 watt lightbulb left on for 103 days straight","X":"707 quarter-pound hamburgers","Y":"Half a tank of gasoline (7 gallons)","Z":"All of the above"},"a":{"t":"All of the above","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6468","q":[
-{"i":96305,"s":"energy","f":"MC","qt":"bonus","n":19,"q":"What country generates the greatest share of its electricity from wind power?","c":{"W":"Denmark","X":"Spain","Y":"Germany","Z":"United States"},"a":{"t":"Denmark","l":"W"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6469","q":[
-{"i":96306,"s":"energy","f":"MC","qt":"tossup","n":20,"q":"The use of which of the following energy sources does not normally produce nitrogen oxides as a byproduct?","c":{"W":"gasoline","X":"coal","Y":"nuclear","Z":"natural gas"},"a":{"t":"nuclear","l":"Y"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6469","q":[
-{"i":93208,"s":"energy","f":"MC","qt":"bonus","n":21,"q":"What country generates the most electricity from nuclear power?","c":{"W":"Japan","X":"United States","Y":"France","Z":"Russia"},"a":{"t":"United States","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6473","q":[
 {"i":93209,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"NASA's Mars Curiosity rover is powered by:","c":{"W":"Hydrogen Fuel Cell","X":"Nuclear Power","Y":"Diesel Engine","Z":"Solar Power"},"a":{"t":"Nuclear Power","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6484","q":[
@@ -389,8 +359,6 @@
 {"i":93230,"s":"math","f":"SA","qt":"tossup","n":23,"q":"P(x) is a function from the positive integers to the positive reals such that P(x+y) is equal to the product of P(x) and P(y) for all pairs of positive integers (x,y). If P(3) = 5, evaluate P(12).","a":{"t":"625"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6503","q":[
 {"i":93231,"s":"math","f":"SA","qt":"bonus","n":24,"q":"Let F(n) denote the nth Fibonacci number. As n goes to infinity, F(n+1)/F(n) approaches a constant. As a decimal to the nearest thousandth, what is this constant?","a":{"t":"1.618"}}]},
-{"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6508","q":[
-{"i":93232,"s":"math","f":"SA","qt":"bonus","n":25,"q":"Solve the following equation for x: -10|x + 2| = -50","a":{"t":"3 AND -7"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6527","q":[
 {"i":96309,"s":"math","f":"SA","qt":"tossup","n":26,"q":"Solve the following equation for x: 1/10 (2*3 + x)^2 = 10","a":{"t":"4 And -16"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6536","q":[
@@ -1893,8 +1861,6 @@
 {"i":93945,"s":"phys","f":"SA","qt":"bonus","n":691,"q":"Who developed the elementary equation used in x-ray crystallography? It uses the wavelength of an x-ray and the angle at which constructive interference occurs to determine the spacing between atoms.","a":{"t":"W. L. BRAGG","ac":["BRAGG","WILLIAM LAWRENCE BRAGG"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7088","q":[
 {"i":93946,"s":"phys","f":"MC","qt":"tossup","n":692,"q":"Which of the following is a fundamental flaw with Bohr's model of the atom?","c":{"W":"the positive charge of the nucleus should draw the electron into it","X":"it fails to account for the few discrete wavelengths of light emitted by an atom","Y":"an accelerating electron should constantly radiate energy","Z":"it limits the precision with which the momentum and position of an electron can be known"},"a":{"t":"an accelerating electron should constantly radiate energy","l":"Y"}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7088","q":[
-{"i":96349,"s":"phys","f":"MC","qt":"bonus","n":693,"q":"If materials become superconducting when cooled, any magnetic field will be expelled. This is called:","c":{"W":"diamagnetism","X":"repulsion","Y":"the Landow Effect","Z":"the Meissner Effect"},"a":{"t":"the Meissner Effect","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7089","q":[
 {"i":93947,"s":"phys","f":"MC","qt":"tossup","n":694,"q":"If a hole was drilled from the surface to the center of the Earth, the gravitational force in the hole would:","c":{"W":"decrease approaching the center","X":"increase approaching the center","Y":"remain constant","Z":"oscillate with increasing depth"},"a":{"t":"decrease approaching the center","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7089","q":[
@@ -3049,8 +3015,6 @@
 {"i":94502,"s":"phys","f":"SA","qt":"tossup","n":1270,"q":"What is the name of the law that relates the force between two charges?","a":{"t":"COULOMB'S LAW"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7392","q":[
 {"i":94503,"s":"phys","f":"MC","qt":"bonus","n":1271,"q":"What is the magnitude of the electrostatic force between two particles, each with a charge of +1 C, that are separated by 5 m? Include k (coulomb’s constant) in your answer.","c":{"W":"0.01k C^2/m^2","X":"0.04k C^2/m^2","Y":"0.10k C^2/m^2","Z":"0.20k C^2/m^2"},"a":{"t":"0.04k C^2/m^2","l":"X"}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7393","q":[
-{"i":96371,"s":"phys","f":"SA","qt":"tossup","n":1272,"q":"What is the SI unit of inductance?","a":{"t":"HENRY"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7393","q":[
 {"i":94504,"s":"phys","f":"SA","qt":"bonus","n":1273,"q":"Also known as radiation reaction force, what is the name of the recoil force on an accelerating charged particle caused by the particle emitting electromagnetic radiation? The force is proportional to the particle’s charge squared times the particle’s jerk.","a":{"t":"ABRAHAM-LORENTZ FORCE"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7394","q":[
@@ -3291,8 +3255,6 @@
 {"i":94613,"s":"phys","f":"MC","qt":"bonus","n":1391,"q":"A crystal is heated and generates a temporary voltage across the crystal. This is due to:","c":{"W":"Thermoelectricity","X":"Pyroelectricity","Y":"The electrocaloric effect","Z":"Thermogeneration"},"a":{"t":"Pyroelectricity","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7458","q":[
 {"i":94614,"s":"phys","f":"SA","qt":"tossup","n":1392,"q":"What is the term used to describe the ratio of capacitances of two sets of plates with differing insulation media?","a":{"t":"DIELECTRIC CONSTANT","ac":["RELATIVE PERMITTIVITY"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7458","q":[
-{"i":96381,"s":"phys","f":"MC","qt":"bonus","n":1393,"q":"The area under the velocity-time curve between two time intervals","c":{"W":"is the displacement","X":"is the velocity","Y":"is the acceleration","Z":"has no physical significance"},"a":{"t":"is the displacement","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7460","q":[
 {"i":94615,"s":"ess","f":"MC","qt":"tossup","n":1394,"q":"Telluric contamination is the disruption of which of the following?","c":{"W":"thin-slice mineral analysis","X":"mass spectrometry","Y":"photographic plate development","Z":"astronomic spectroscopy"},"a":{"t":"astronomic spectroscopy","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7460","q":[
@@ -3629,8 +3591,6 @@
 {"i":94764,"s":"phys","f":"SA","qt":"bonus","n":1560,"q":"What is the potential energy of a 20-pound mass 2 km above the ground, to 2 significant figures?","a":{"t":"180 KJ","ac":["178 KJ","1.8 × 10^5 J"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7552","q":[
 {"i":94765,"s":"phys","f":"MC","qt":"tossup","n":1561,"q":"Two positive charges are located 2 meters apart and repel each other with a force of 2 newtons. When the distance is halved, the force between them is","c":{"W":"one fourth as great","X":"one half as great","Y":"twice as great","Z":"four times as great"},"a":{"t":"four times as great","l":"Z"}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7552","q":[
-{"i":96399,"s":"phys","f":"MC","qt":"bonus","n":1562,"q":"The wave nature of electrons was EXPERIMENTALLY verified by","c":{"W":"Einstein","X":"Davisson and Germer","Y":"Balmer","Z":"Bohr"},"a":{"t":"Davisson and Germer","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7553","q":[
 {"i":94766,"s":"phys","f":"MC","qt":"tossup","n":1563,"q":"An ideal pendulum of length 500 cm on a planet has a period of 2π seconds. What is the acceleration due to gravity on the planet?","c":{"W":"1.0 m/s^2","X":"2.0 m/s^2","Y":"5.0 m/s^2","Z":"10.0 m/s^2"},"a":{"t":"5.0 m/s^2","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7553","q":[
@@ -3719,8 +3679,6 @@
 {"i":94808,"s":"phys","f":"MC","qt":"tossup","n":1606,"q":"What type of polarization occurs when the amplitudes of two electromagnetic waves are the same and they are out of phase by ninety degrees?","c":{"W":"Hyperbolic","X":"Circular","Y":"Elliptical","Z":"Linear"},"a":{"t":"Circular","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7575","q":[
 {"i":94809,"s":"phys","f":"SA","qt":"bonus","n":1607,"q":"If instead two electromagnetic waves have the same amplitude but are out of phase by 45 degrees, what is said to be their polarization?","a":{"t":"ELLIPTICAL"}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7576","q":[
-{"i":96401,"s":"phys","f":"SA","qt":"tossup","n":1608,"q":"A closed 2-liter container holds 3 moles of an ideal gas. If 200 joules of heat is added, what is the change in internal energy of the system?","a":{"t":"200 JOULES"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7576","q":[
 {"i":96402,"s":"phys","f":"SA","qt":"bonus","n":1609,"q":"A 2.5 m long organ pipe is open at one end and closed at the other. Its fundamental tone has a wavelength of","a":{"t":"10 METERS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7577","q":[
@@ -4150,7 +4108,5 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7694","q":[
 {"i":95012,"s":"phys","f":"MC","qt":"tossup","n":1822,"q":"If you quadruple the length of a pendulum of a grandfather clock, this will?","c":{"W":"quadruple the period","X":"double the frequency","Y":"double the period","Z":"have no effect"},"a":{"t":"double the period","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7694","q":[
-{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6467","q":[
-{"i":93206,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"Which State consumes the most energy?","c":{"W":"California","X":"Florida","Y":"Texas","Z":"New York"},"a":{"t":"Texas","l":"Y"}}]}
+{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]}
 ]
