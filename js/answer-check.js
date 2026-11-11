@@ -1023,24 +1023,14 @@
     return INFLECTION_PAIRS.some(([x, y]) => (ta === x && tb === y) || (ta === y && tb === x));
   }
 
-  // One word written two ways. A possessive counts with or without its
-  // ending (HOOKE'S / HOOKES / HOOKE), and so do the British and American
-  // spellings of a longer word: AE and OE for E (HAEMOGLOBIN, AETHER,
-  // OESTROGEN, and so MICHAELSON for MICHELSON), -OUR for -OR (COLOUR),
-  // -ISE/-YSE for -IZE/-YZE, -OGUE for -OG (ANALOGUE), SULPH- for SULF-,
-  // ALUMINIUM, and -RE for -ER (METRE). Short words are left alone, where
-  // the same swap makes another word (LOESS / LESS, TOURS / TORS).
+  // One word written two ways: a possessive counts with or without its
+  // ending (HOOKE'S / HOOKES / HOOKE). Nothing else: a British spelling
+  // (SULPHUR, COLOUR) is a near miss like any other misspelling.
+  // (One name is so often written with an A that both spellings count.)
+  const NAME_SPELLINGS = { MICHAELSON: 'MICHELSON' };
   function spellingKey(w) {
-    let s = w.replace(/'S?$/, '').replace(/'/g, '');
-    if (s.length >= 6) {
-      s = s.replace(/ALUMINIUM/, 'ALUMINUM').replace(/SULPH/, 'SULF')
-        .replace(/AE|OE/g, 'E')
-        .replace(/OUR(S|ED|ING|AL|LESS|FUL)?$/, 'OR$1')
-        .replace(/([IY])S(E[DSR]?|ING|ATIONS?)$/, '$1Z$2')
-        .replace(/OGUE(S?)$/, 'OG$1');
-    }
-    if (s.length >= 5) s = s.replace(/([^AEIOU])RE(S?)$/, '$1ER$2');
-    return s;
+    const bare = w.replace(/'S?$/, '').replace(/'/g, '');
+    return NAME_SPELLINGS[bare] || bare;
   }
   function sameWord(a, b) {
     if (a === b || inflectionOnly(a, b)) return true;
@@ -1551,19 +1541,25 @@
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
-  // A law, effect, experiment, ... named after someone is answered by the
-  // name alone: "Michelson-Morley" for "MICHELSON-MORLEY EXPERIMENT",
-  // "Doppler" for "DOPPLER EFFECT", "Hooke's" for "HOOKE'S LAW", "Krebs" for
-  // "KREBS CYCLE". Only a name: "rock" isn't "ROCK CYCLE", nor "skin" "SKIN
-  // EFFECT", nor "greenhouse" "GREENHOUSE EFFECT", where the last word is
-  // half the answer. Returns the key without that last word when what's left
-  // holds a name (a word in KIND_NAMES, or any possessive: "OHM'S", "ORE'S"),
-  // else null. What's left may carry more words ("PAULI EXCLUSION", "QUANTUM
-  // HALL"), which the answer then has to give as well.
-  // KIND_NAMES is every name before one of these words in the bank's keys,
-  // found by how the questions capitalise it and then read through; a new
-  // set's names go here (a possessive needs no entry).
-  const KIND_WORD_RE = /^(.*\S)[\s-]+(?:EXPERIMENT|EFFECT|LAW|PRINCIPLE|THEOREM|EQUATION|RULE|PROCESS|CYCLE)S?\s*$/i;
+  // A law, effect, experiment, relation, ... is answered without that last
+  // word when the words before it already say which one is meant:
+  // "Michelson-Morley" for "MICHELSON-MORLEY EXPERIMENT", "Doppler" for
+  // "DOPPLER EFFECT", "Hooke's" for "HOOKE'S LAW", "de Broglie" for "DE
+  // BROGLIE RELATION", "photoelectric" for "PHOTOELECTRIC EFFECT", "ideal
+  // gas" for "IDEAL GAS LAW". They do when they hold a name (a word in
+  // KIND_NAMES, or any possessive), are two words or more, or are one word
+  // that is a describing word or a long one ("PHOTOELECTRIC", "GREENHOUSE",
+  // "PYTHAGOREAN"). They don't when what's left is a short everyday noun or a
+  // substance, which would be a different answer by itself: "rock" isn't
+  // "ROCK CYCLE", nor "skin" "SKIN EFFECT", "carbon" "CARBON CYCLE" or
+  // "first" "FIRST LAW". Returns the key without its last word, or null.
+  // What's left must be given in full ("PAULI EXCLUSION", "QUANTUM HALL").
+  // KIND_NAMES is every name before one of these words in the bank's keys;
+  // a new set's names go here (a possessive needs no entry).
+  const KIND_WORD_RE = /^(.*\S)[\s-]+(?:EXPERIMENT|EFFECT|LAW|PRINCIPLE|THEOREM|EQUATION|RULE|PROCESS|CYCLE|RELATION|RELATIONSHIP|HYPOTHESIS|PARADOX|CONJECTURE|POSTULATE|INEQUALITY|APPROXIMATION|PHENOMENON|LIMIT)S?\s*$/i;
+  // One word left that names a thing of its own, however long.
+  const KIND_NOT_ALONE = new Set(['CARBON', 'NITROGEN', 'PHOSPHORUS', 'SULFUR', 'OXYGEN', 'HYDROGEN', 'WATER', 'FIRST', 'SECOND', 'THIRD', 'ZEROTH',
+    'CHEMICAL', 'NUCLEAR', 'PHYSICAL', 'NATURAL', 'GENERAL', 'SPECIAL', 'NORMAL', 'CENTRAL', 'INTERNAL', 'EXTERNAL', 'ORIGINAL', 'CRITICAL', 'ELECTRIC', 'MAGNETIC']);
   const KIND_NAMES = new Set(`
     ABEL ABNEY AHARONOV ALBRECHT ALFVEN ALLEE AMAGAT AMONTON AMPERE ANDERSON APOLLONIUS ARCHIMEDES ARHENNIUS
     ARNOLD ARRHENIUS AUFBAU AUGER AVERY AVOGADRO BABINET BACHARACH BAHCALL BALDWIN BALLOT BALMER BANACH BAPPU
@@ -1608,12 +1604,19 @@
     const m = String(key).match(KIND_WORD_RE);
     if (!m || /\d/.test(m[1])) return null;
     const name = m[1].replace(/^\s*THE\s+/i, '');
-    const named = tokenize(name).some((w) => {
+    const words = tokenize(name);
+    const named = words.some((w) => {
       const bare = w.replace(/'S?$/, '').replace(/'/g, '');
       if (KIND_NAMES.has(bare) || KIND_NAMES.has(bare.replace(/S$/, ''))) return true;
       return /'S?$/.test(w) && bare.length >= 2 && !NOT_NAMES.has(bare);
     });
-    return named ? name : null;
+    if (named) return name;
+    if (words.some((w) => NOT_NAMES.has(w.replace(/'S?$/, '')))) return null;
+    if (words.length >= 2) return words.every((w) => KIND_NOT_ALONE.has(w)) ? null : name;
+    const w = words[0] || '';
+    if (KIND_NOT_ALONE.has(w)) return null;
+    // a describing word ("PHOTOELECTRIC", "INDUCTIVE", "VIRIAL"), or a long one
+    return w.length >= 9 || (w.length >= 6 && /(?:IC|AL|AN|AR|ARY|IVE|OUS|OID)$/.test(w)) ? name : null;
   }
 
   // "The other one", "the last one", "the remaining one": what a player says

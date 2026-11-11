@@ -1786,7 +1786,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7069","q":[
 {"i":93911,"s":"phys","f":"MC","qt":"tossup","n":654,"q":"All leptons have a spin of:","c":{"W":"3/2","X":"0","Y":"1/2","Z":"1"},"a":{"t":"1/2","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7069","q":[
-{"i":93912,"s":"phys","f":"SA","qt":"bonus","n":655,"q":"Name three baryons.","a":{"t":"ANY THREE OF: PROTON, NEUTRON, LAMBDA, SIGMA, XI, OMEGA"}}]},
+{"i":93912,"s":"phys","f":"SA","qt":"bonus","n":655,"q":"Name three baryons.","a":{"t":"ANY 3 OF: PROTON, NEUTRON, LAMBDA, SIGMA, XI, OMEGA"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7070","q":[
 {"i":93913,"s":"phys","f":"MC","qt":"tossup","n":656,"q":"Which SI unit corresponds to resistance multiplied by capacitance?","c":{"W":"Joules","X":"Henries","Y":"Coulombs","Z":"Seconds"},"a":{"t":"Seconds","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7070","q":[
@@ -2038,7 +2038,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7134","q":[
 {"i":94031,"s":"phys","f":"MC","qt":"tossup","n":781,"q":"Which of the following people did NOT conduct a famous experiment involving electron diffraction?","c":{"W":"Davisson","X":"G.P. Thomson","Y":"Germer","Z":"de Broglie"},"a":{"t":"de Broglie","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7134","q":[
-{"i":94032,"s":"phys","f":"SA","qt":"bonus","n":782,"q":"List two particles, excluding photons, for which diffraction has been experimentally demonstrated.","a":{"t":"ANY TWO OF: ELECTRONS, NEUTRONS, HYDROGEN ATOMS, HELIUM ATOMS"}}]},
+{"i":94032,"s":"phys","f":"SA","qt":"bonus","n":782,"q":"List two particles, excluding photons, for which diffraction has been experimentally demonstrated.","a":{"t":"ANY 2 OF: ELECTRONS, NEUTRONS, HYDROGEN ATOMS, HELIUM ATOMS"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7135","q":[
 {"i":94033,"s":"phys","f":"SA","qt":"tossup","n":783,"q":"A neutron whose energy is equal to the product of Boltzmann's constant and the absolute temperature, and which is likely to be involved in a neutron capture reaction is known as what?","a":{"t":"THERMAL NEUTRON"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7135","q":[

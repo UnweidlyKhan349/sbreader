@@ -78,6 +78,7 @@
     <thead>
       <tr>
         <th scope="col" class="clickable" data-sort="name" aria-sort="none">Set Name <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="kind" aria-sort="none" title="A tournament's packets, a practice set (a team's or community's question collection), or another competition in the same format">Kind <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="level" aria-sort="none">Level <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="date" aria-sort="none">Date <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="packets" aria-sort="none"># of Packets <span class="sort-indicator"></span></th>
@@ -95,6 +96,7 @@
 <script>
   (function () {
     const LEVELS = { hs: 'High School', ms: 'Middle School' };
+    const KINDS = { tournament: 'Tournament', practice: 'Practice set', other: 'Other competition' };
     const body = document.getElementById('set-metadata-list');
     const search = document.getElementById('set-name-search');
     const headers = [...document.querySelectorAll('th[data-sort]')];
@@ -123,13 +125,14 @@
         a.href = 'set?set=' + encodeURIComponent(t.slug);
         a.textContent = t.name;
         tr.insertCell(-1).appendChild(a);
+        tr.insertCell(-1).textContent = KINDS[t.kind] || '';
         tr.insertCell(-1).textContent = LEVELS[t.level] || t.level || '';
         tr.insertCell(-1).textContent = monthYear(t.date);
         [t.packets, t.tossups, t.bonuses].forEach((n) => { tr.insertCell(-1).textContent = n == null ? '-' : n.toLocaleString(); });
       });
     }
     function sortBy(key) {
-      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' ? 1 : -1);
+      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' || key === 'kind' ? 1 : -1);
       sortKey = key;
       rows.sort((a, b) => {
         const x = a[key] == null ? '' : a[key];

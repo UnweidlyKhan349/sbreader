@@ -128,6 +128,7 @@ test('the newest-first order lists tournaments by meta.json date, each in packet
   globalThis.SBData.meta = loadCorpus().meta;
   const date = new Map(meta.tournaments.map((t) => [t.name, t.date]));
   assert.ok(meta.tournaments.every((t) => /^\d{4}-\d{2}-\d{2}$/.test(t.date || '')), 'every tournament has a YYYY-MM-DD date');
+  assert.ok(meta.tournaments.every((t) => ['tournament', 'practice', 'other'].includes(t.kind)), 'every set is a tournament, a practice set or another competition');
   const recent = globalThis.SBData.sortByPacketOrder(questions, { recent: true });
   const packet = globalThis.SBData.sortByPacketOrder(questions);
   assert.strictEqual(recent.length, questions.length);
@@ -325,4 +326,22 @@ test('stratifiedQueue deals each question once, subjects mixed', () => {
     assert.deepStrictEqual(new Set(q.slice(0, 3).map((x) => x.s)), new Set(['math', 'bio', 'chem']));
   }
   assert.deepStrictEqual(SBData.stratifiedQueue([], (x) => x.s), []);
+});
+
+test('a practice set holds no word-for-word copy of a tournament question or of another practice-set question', () => {
+  const { questions, meta } = loadCorpus();
+  const practice = new Set(meta.tournaments.filter((t) => t.kind === 'practice').map((t) => t.slug));
+  assert.ok(practice.size >= 10);
+  // Case, spacing and punctuation aside; never a math sign or a number; choices included.
+  const key = (q) => (q.question + ' | ' + ['W', 'X', 'Y', 'Z'].map((L) => (q.choices || {})[L] || '').join(' | ')).toLowerCase()
+    .replace(/[\u2212\u2013]/g, '-').replace(/[^a-z0-9+\-=<>^/*.%\u221a\u03c0 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const seen = new Map();
+  for (const q of questions) { const k = key(q); if (k.length < 20) continue; if (!seen.has(k)) seen.set(k, []); seen.get(k).push(q); }
+  const copies = [];
+  for (const g of seen.values()) {
+    if (g.length < 2) continue;
+    const inPractice = g.filter((q) => practice.has(q.tSlug));
+    if (inPractice.length && (inPractice.length < g.length || inPractice.length > 1)) copies.push(g.map((q) => q.id));
+  }
+  assert.deepStrictEqual(copies.slice(0, 10), []);
 });

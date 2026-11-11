@@ -400,7 +400,7 @@
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4691","q":[
 {"i":95214,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"What is the name of the equatorial region of the Atlantic Ocean that often experiences calms, sudden storms, and light unpredictable winds?","a":{"t":"doldrums"}}]},
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4691","q":[
-{"i":95215,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Name two of the three broad classes of variable stars.","a":{"t":"ANY TWO OF: PULSATING, CATACLYSMIC, ECLIPSING VARIABLES"}}]},
+{"i":95215,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Name two of the three broad classes of variable stars.","a":{"t":"ANY 2 OF: PULSATING, CATACLYSMIC, ECLIPSING VARIABLES"}}]},
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4692","q":[
 {"i":95216,"s":"energy","f":"SA","qt":"bonus","n":5,"q":"What term is used to describe the point in time when oil production reaches its maximum level?","a":{"t":"peak oil"}}]},
 {"rl":"Aug 25 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4693","q":[
@@ -580,7 +580,7 @@
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4742","q":[
 {"i":95297,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the derivative of (x^2 + 3)(3x^2 + 4x)?","a":{"t":"12x^3 + 12x^2 + 18x + 12","ac":["2x(3x^2 + 4x) + (6x + 4)(x^2 + 3)"]}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4743","q":[
-{"i":95298,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"Several bodies in our solar system have an atmosphere comprised primarily of nitrogen. Name two.","a":{"t":"ANY TWO OF: EARTH, TITAN, PLUTO, TRITON"}}]},
+{"i":95298,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"Several bodies in our solar system have an atmosphere comprised primarily of nitrogen. Name two.","a":{"t":"ANY 2 OF: EARTH, TITAN, PLUTO, TRITON"}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4743","q":[
 {"i":95299,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Order the three basic types of lava from that with the lowest silica content to the highest.","a":{"t":"Basaltic, Andesitic, Rhyolitic"}}]},
 {"rl":"Jul 28 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4744","q":[
@@ -861,8 +861,6 @@
 {"i":95427,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"What particle is released during Alpha Decay?","a":{"t":"Helium nucleus","ac":["2 proton and 2 neutrons"]}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4823","q":[
 {"i":95428,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"What does Carbon 14 decay into during beta decay?","a":{"t":"Nitrogen-14"}}]},
-{"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4824","q":[
-{"i":95429,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"As of 2016, approximately how many gallons of water does an average family of four in the US use per day?","c":{"W":"400 gallons","X":"250 gallons","Y":"100 gallons","Z":"50 gallons"},"a":{"t":"400 gallons","l":"W"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4824","q":[
 {"i":95430,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"Which of the following energy sources typically uses the least amount of water to process?","c":{"W":"Wind and Solar","X":"Nuclear","Y":"Coal","Z":"Natural gas"},"a":{"t":"Wind and Solar","l":"W"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4825","q":[

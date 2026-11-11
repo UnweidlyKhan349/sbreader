@@ -2179,7 +2179,6 @@
 {"i":91966,"s":"energy","f":"SA","qt":"tossup","n":39,"q":"The acronym NEPA stands for what?","a":{"t":"NATIONAL ENVIRONMENTAL POLICY ACT"},"pg":20},
 {"i":91967,"s":"energy","f":"MC","qt":"tossup","n":40,"q":"The U.S. population receives the largest dose of ionizing radiation from:","c":{"W":"natural sources.","X":"fallout from nuclear weapons testing.","Y":"nuclear medicine.","Z":"nuclear power plants."},"a":{"t":"natural sources.","l":"W"},"pg":20},
 {"i":91968,"s":"phys","f":"MC","qt":"tossup","n":41,"q":"The radioactive element most commonly detected in humans is:","c":{"W":"potassium-40","X":"cobalt-60","Y":"iodine-131","Z":"plutonium-238"},"a":{"t":"potassium-40","l":"W"},"pg":20},
-{"i":91969,"s":"energy","f":"MC","qt":"tossup","n":42,"q":"The largest breeder reactor built to date is located where?","c":{"W":"USSR","X":"Japan","Y":"France","Z":"United States"},"a":{"t":"France","l":"Y"},"pg":20},
 {"i":91970,"s":"chem","f":"MC","qt":"tossup","n":43,"q":"Radioisotopes which are used in medical diagnosis are known as what?","c":{"W":"tracers","X":"silver bullets","Y":"markers","Z":"dyes"},"a":{"t":"tracers","l":"W"},"pg":21},
 {"i":91971,"s":"energy","f":"MC","qt":"tossup","n":44,"q":"Most commercial nuclear power plants worldwide are cooled by:","c":{"W":"sodium","X":"mercury","Y":"helium","Z":"water"},"a":{"t":"water","l":"Z"},"pg":21},
 {"i":91972,"s":"chem","f":"SA","qt":"tossup","n":45,"q":"What did Ira Remsen discover in 1879, perhaps proclaiming: \"How sweet it is\"?","a":{"t":"SACCHARIN"},"pg":21},

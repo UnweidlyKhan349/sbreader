@@ -511,57 +511,53 @@ test('"all" said another way: "all" for "ALL OF THEM", "all of them" for "ALL"',
   no('1: RIGHT; 2: LEFT; 3: LEFT', 'all', three);
 });
 
-test('a law, effect or experiment named after someone by the name alone: "michelson-morley", but not "rock" for ROCK CYCLE', () => {
+test('the last word (experiment, effect, law, relation, ...) can go when the words before it say which one', () => {
   for (const [key, typed] of [
-    ['MICHELSON-MORLEY EXPERIMENT', 'michelson-morley'], ['MICHELSON-MORLEY EXPERIMENT', 'michaelson-morley'],
-    ['Michelson Morley experiment', 'morley michelson'],
+    // a name
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson-morley'], ['MICHELSON-MORLEY EXPERIMENT', 'michaelson-morley'], ['Michelson Morley experiment', 'morley michelson'],
     ['DOPPLER EFFECT', 'doppler'], ['THE DOPPLER EFFECT', 'doppler'], ['KREBS CYCLE', 'krebs'], ['HALL EFFECT', 'hall'],
-    ["HOOKE'S LAW", "hooke's"], ["HOOKE'S LAW", 'hookes'], ["HOOKE'S LAW", 'hooke'], ["HESS'S LAW", 'hess'],
-    ['PAULI EXCLUSION PRINCIPLE', 'pauli exclusion'], ['PYTHAGOREAN THEOREM', 'pythagorean'], ['NERNST EQUATION', 'nernst'],
-    ["HUND'S RULE", 'hunds'], ['HABER-BOSCH PROCESS', 'haber bosch'], ["NEWTON'S FIRST LAW", "newton's first"],
-    ["TORRICELLI'S THEOREM (OR LAW)", 'torricelli'],
-    ['DOPPLER EFFECT; RED SHIFT', 'doppler, red shift'],
-    // a name with more words to it, a possessive not on the list, and accented names typed plain
-    ['QUANTUM HALL EFFECT', 'quantum hall'], ['MILLIKAN OIL DROP EXPERIMENT', 'millikan oil drop'], ["ORE'S THEOREM", 'ores'],
+    ["HOOKE'S LAW", "hooke's"], ["HOOKE'S LAW", 'hookes'], ["HOOKE'S LAW", 'hooke'], ["HESS'S LAW", 'hess'], ["ORE'S THEOREM", 'ores'],
+    ['NERNST EQUATION', 'nernst'], ["HUND'S RULE", 'hunds'], ['HABER-BOSCH PROCESS', 'haber bosch'], ["NEWTON'S FIRST LAW", "newton's first"],
+    ["TORRICELLI'S THEOREM (OR LAW)", 'torricelli'], ['DE BROGLIE RELATION', 'de broglie'], ['CHANDRASEKHAR LIMIT', 'chandrasekhar'], ['FERMI PARADOX', 'fermi'],
     ['SCHRÖDINGER EQUATION', 'schrodinger'], ['HÜCKEL’S RULE', 'huckels'], ["LE CHÂTELIER'S PRINCIPLE", 'le chatelier'],
+    // two words or more
+    ['PAULI EXCLUSION PRINCIPLE', 'pauli exclusion'], ['QUANTUM HALL EFFECT', 'quantum hall'], ['MILLIKAN OIL DROP EXPERIMENT', 'millikan oil drop'],
+    ['IDEAL GAS LAW', 'ideal gas'], ['DOUBLE SLIT EXPERIMENT', 'double slit'], ['CENTRAL LIMIT THEOREM', 'central limit'], ['RIGHT HAND RULE', 'right hand'],
+    ['CITRIC ACID CYCLE', 'citric acid'],
+    // one describing or long word
+    ['PHOTOELECTRIC EFFECT', 'photoelectric'], ['GREENHOUSE EFFECT', 'greenhouse'], ['PYTHAGOREAN THEOREM', 'pythagorean'], ['UNCERTAINTY PRINCIPLE', 'uncertainty'],
+    ['NEBULAR HYPOTHESIS', 'nebular'], ['INDUCTIVE EFFECT', 'inductive'],
+    ['DOPPLER EFFECT; RED SHIFT', 'doppler, red shift'],
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
-  // Accents don't matter anywhere.
-  assert.ok(isCorrect('SCHRÖDINGER EQUATION', 'schrodinger equation'));
-  assert.ok(isCorrect('MOSSBAUER EFFECT', 'mössbauer effect'));
-  // The name itself still has to be all there, and right.
   for (const [key, typed] of [
-    ['MICHELSON-MORLEY EXPERIMENT', 'michelson'], ['MICHELSON-MORLEY EXPERIMENT', 'experiment'],
-    ['PAULI EXCLUSION PRINCIPLE', 'pauli'], ['PAULI EXCLUSION PRINCIPLE', 'exclusion'], ['KREBS CYCLE', 'calvin'],
-    // only a name stands alone: after an ordinary word, the last word is half the answer
-    ['ROCK CYCLE', 'rock'], ['SKIN EFFECT', 'skin'], ['CELL CYCLE', 'cell'], ['CARBON CYCLE', 'carbon'], ['GREENHOUSE EFFECT', 'greenhouse'],
-    ['PHOTOELECTRIC EFFECT', 'photoelectric'], ['CONTACT PROCESS', 'contact'], ['FOUNDER EFFECT', 'founder'], ['IDEAL GAS LAW', 'ideal gas'],
-    ['DOUBLE SLIT EXPERIMENT', 'double slit'], ['OCTET RULE', 'octet'], ['UNCERTAINTY PRINCIPLE', 'uncertainty'], ['CHAIN RULE', 'chain'],
-    ['CNO CYCLE', 'cno'], ["THE OBSERVER'S EFFECT", "observer's"], ['SKIN EFFECT; RED SHIFT', 'skin, red shift'],
-    // other last words aren't dropped, nor is one inside the key
-    ['CARBON DIOXIDE', 'carbon'], ['WHITE DWARF', 'white'], ['LAW OF CONSERVATION OF MASS', 'conservation of mass'],
-    ['FIRST LAW OF THERMODYNAMICS', 'first'],
-    // a number and its unit isn't a name; nor is a single letter
+    // what's left has to be all there, and right
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson'], ['MICHELSON-MORLEY EXPERIMENT', 'experiment'], ['PAULI EXCLUSION PRINCIPLE', 'pauli'],
+    ['PAULI EXCLUSION PRINCIPLE', 'exclusion'], ['KREBS CYCLE', 'calvin'],
+    // a short everyday noun or a substance is another answer by itself
+    ['ROCK CYCLE', 'rock'], ['SKIN EFFECT', 'skin'], ['CELL CYCLE', 'cell'], ['CARBON CYCLE', 'carbon'], ['WATER CYCLE', 'water'], ['PHOSPHORUS CYCLE', 'phosphorus'],
+    ['CONTACT PROCESS', 'contact'], ['FOUNDER EFFECT', 'founder'], ['OCTET RULE', 'octet'], ['CHAIN RULE', 'chain'], ['FIRST LAW', 'first'], ['CNO CYCLE', 'cno'],
+    ['CHEMICAL EQUATION', 'chemical'], ["THE OBSERVER'S EFFECT", "observer's"], ['SKIN EFFECT; RED SHIFT', 'skin, red shift'],
+    // other last words stay, and so does one inside the key
+    ['CARBON DIOXIDE', 'carbon'], ['WHITE DWARF', 'white'], ['LAW OF CONSERVATION OF MASS', 'conservation of mass'], ['FIRST LAW OF THERMODYNAMICS', 'first'],
     ['2 METERS PER CYCLE', '2 meters per'], ['S PROCESS', 's'],
   ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
-  // A typo in the name is close, as anywhere else; a rejected name stays rejected.
   assert.strictEqual(grade('MICHELSON-MORLEY EXPERIMENT', 'mickelson morley').close, true);
   assert.ok(!isCorrect('DOPPLER EFFECT', 'doppler', { reject: ['DOPPLER'] }));
+  assert.ok(isCorrect('SCHRÖDINGER EQUATION', 'schrodinger equation'));
+  assert.ok(isCorrect('MOSSBAUER EFFECT', 'mössbauer effect'));
 });
 
-test('British and American spellings and possessives are the same word', () => {
-  for (const [key, typed] of [
-    ['SULFUR', 'sulphur'], ['COLOR', 'colour'], ['HEMOGLOBIN', 'haemoglobin'], ['ALUMINUM', 'aluminium'],
-    ['CENTIMETER', 'centimetre'], ['FIBER', 'fibre'], ['ESTROGEN', 'oestrogen'], ['IONIZATION ENERGY', 'ionisation energy'],
-    ['HOMOLOG', 'homologue'], ['ETHER', 'aether'], ['MICHELSON', 'michaelson'],
-    ["HOOKE'S LAW", 'hookes law'], ["HOOKE'S LAW", 'hooke law'], ["EARTH'S CORE", 'earth core'], ["HUYGENS' PRINCIPLE", 'huygens principle'],
-  ]) {
+test('possessives are the same word; a British spelling is a near miss like any misspelling', () => {
+  for (const [key, typed] of [["HOOKE'S LAW", 'hookes law'], ["HOOKE'S LAW", 'hooke law'], ["EARTH'S CORE", 'earth core'], ["HUYGENS' PRINCIPLE", 'huygens principle'],
+    ['MICHELSON', 'michaelson']]) {
     assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
     assert.ok(isCorrect(typed.toUpperCase(), key.toLowerCase()), `${key} for ${typed}`);
   }
-  // Short words, where the same swap is another word, and real differences stay apart.
-  for (const [key, typed] of [['LESS', 'loess'], ['LOESS', 'less'], ['AEROBIC', 'anaerobic'], ['ALKANE', 'alkene'], ['FE', 'foe']]) {
-    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [['COLOR', 'colour'], ['HEMOGLOBIN', 'haemoglobin'], ['ALUMINUM', 'aluminium'], ['ESTROGEN', 'oestrogen']]) {
+    const r = grade(key, typed);
+    assert.ok(!r.correct && r.close, `${typed} for ${key} is close`);
   }
+  for (const [key, typed] of [['SULFUR', 'sulphur'], ['FIBER', 'fibre'], ['LESS', 'loess'], ['AEROBIC', 'anaerobic'], ['ALKANE', 'alkene']]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
 });
 
 test('"the other one" is the one item left in an ordering the question lists', () => {
