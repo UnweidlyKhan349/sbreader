@@ -12,8 +12,8 @@ SBData.meta = meta;
 globalThis.window = globalThis;
 require('../js/play-common.js');
 
-const q = (question, answer, tournament) => ({ question, answer: { text: answer }, tournament });
-const match = (item, search, ignoreOrder, type) => SBData.searchMatcher(search, ignoreOrder, type)(item);
+const q = (question, answer, tournament, more = {}) => ({ question, answer: { text: answer, accept: more.accept || [], reject: more.reject || [] }, tournament, choices: more.choices || null });
+const match = (item, search, ignoreOrder, type, exact) => SBData.searchMatcher(search, ignoreOrder, type, exact)(item);
 
 test('question, answer and tournament; any word order or the phrase; never case-sensitive', () => {
   const item = q('Table salt is mostly which compound?', 'Sodium Chloride', 'MIT 2024');
@@ -34,6 +34,49 @@ test('all text, question text only or answer text only', () => {
   assert.ok(match(item, 'sodium chloride', false, 'answer'));
   assert.ok(!match(item, 'seawater', true, 'answer'), 'the question isn\'t the answer');
   assert.ok(match(item, 'sodium seawater', true, 'all'));
+});
+
+test('choices, accepts and rejects are searched, each in its scope', () => {
+  const item = q('Which of the following is a wetland?', 'Bog', 'MIT 2024', { choices: { W: 'Bog', X: 'Dune', Y: 'Mesa', Z: 'Butte' }, accept: ['Quagmire'], reject: ['Swamp'] });
+  assert.ok(match(item, 'mesa', true, 'all'));
+  assert.ok(match(item, 'mesa wetland', true, 'question'), 'a choice is part of the question');
+  assert.ok(!match(item, 'mesa', true, 'answer'));
+  assert.ok(match(item, 'quagmire', true, 'answer'), 'an accepted answer is an answer');
+  assert.ok(!match(item, 'quagmire', true, 'question'));
+  assert.ok(match(item, 'swamp', true, 'all'), 'a rejected answer is on the card');
+  assert.ok(!match(item, 'swamp', true, 'answer'), 'but is not an answer');
+  assert.ok(!match(item, 'bog dune', false, 'all'), 'a phrase never runs from one field into the next');
+});
+
+test('accents, curly quotes and long dashes are typed plain', () => {
+  const item = q('What equation did Schrödinger write for the P–wave of Hooke’s “spring”?', 'Le Châtelier’s principle', 'MIT 2024');
+  for (const s of ['schrodinger', 'SCHRÖDINGER', "hooke's", 'hooke’s', 'p-wave', '"spring"', 'le chatelier\'s principle']) assert.ok(match(item, s, false), s);
+  assert.strictEqual(SBData.searchFold('Schrödinger’s P–wave').length, 'Schrödinger’s P–wave'.length, 'one character for each character');
+  assert.strictEqual(SBData.searchFold('Schrödinger’s P–wave'), "schrodinger's p-wave");
+});
+
+test('exact words: each word typed must stand as a whole word', () => {
+  const capillary = q('Which force restores capillary waves?', 'Surface tension', 'MIT 2024');
+  const seismic = q('Which arrive first, S-waves or P-waves?', 'P waves', 'MIT 2024');
+  const apart = q('Is p the momentum of the waves?', 'Yes', 'MIT 2024');
+  assert.ok(match(capillary, 'p waves', true), 'without it, "p" is found inside "capillary"');
+  assert.ok(!match(capillary, 'p waves', true, 'all', true));
+  assert.ok(match(seismic, 'p waves', true, 'all', true), 'a hyphen ends a word');
+  assert.ok(match(apart, 'p waves', true, 'all', true), 'the words needn\'t be together');
+  assert.ok(!match(apart, 'p waves', false, 'all', true), 'unless word order counts');
+  assert.ok(match(seismic, 'p waves', false, 'all', true));
+  assert.ok(!match(seismic, 'p wave', true, 'all', true), '"wave" is not "waves"');
+  assert.ok(match(seismic, 'P WAVES', true, 'answer', true));
+  // Digits are part of a word; markup and punctuation aren't.
+  const chem = q('What is the K_sp of H2O at 25 degrees?', 'x^2', 'MIT 2024');
+  assert.ok(match(chem, 'ksp', true, 'all', true));
+  assert.ok(match(chem, 'h2o', true, 'all', true));
+  assert.ok(!match(chem, 'h2', true, 'all', true));
+  assert.ok(!match(chem, '2', true, 'question', true), '25 and H2O hold a 2, but not as a word');
+  assert.ok(match(chem, '25', true, 'all', true));
+  assert.ok(match(chem, 'x^2', true, 'answer', true));
+  assert.strictEqual(SBData.wholeWordIndex('a p-wave and p waves', 'p', 3), 13);
+  assert.strictEqual(SBData.wholeWordIndex('capillary waves', 'p', 0), -1);
 });
 
 test('the year range keeps only the tournaments of those years', () => {

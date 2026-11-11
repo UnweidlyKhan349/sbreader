@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=c283333004"></script>
+<script src="js/data.js?v=3c4720fe96"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -85,7 +85,7 @@
   </p>
 
   <div class="input-group mb-2">
-    <input type="search" class="form-control" id="searchBox" placeholder="Query" aria-label="Search question text, answers, or tournament" autocomplete="off" />
+    <input type="search" class="form-control" id="searchBox" placeholder="Query" aria-label="Search questions, choices, answers and tournaments" autocomplete="off" />
     <button class="btn btn-info" type="button" id="searchBtn">Search</button>
     <button class="btn btn-success" type="button" id="randomBtn">Random</button>
   </div>
@@ -148,6 +148,10 @@
     <label class="form-check-label" for="ignoreWordOrder">Ignore word order</label>
   </div>
   <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="exactWords" />
+    <label class="form-check-label" for="exactWords" title="Each word typed must be a whole word: &quot;p waves&quot; finds &quot;P-waves&quot;, not &quot;capillary waves&quot;">Exact words</label>
+  </div>
+  <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
     <label class="form-check-label" for="includeUnlabeledRounds">Include questions with no round number</label>
   </div>
@@ -164,7 +168,7 @@
   <nav id="pagination" aria-label="Result pages"></nav>
 </div>
 
-<script src="js/catalog.js?v=f0602d5a94"></script>
+<script src="js/catalog.js?v=883523a103"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=fb96918069"></script>
 <script src="js/account.js?v=5d9f0b76ec"></script>

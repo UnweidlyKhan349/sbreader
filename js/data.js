@@ -1125,7 +1125,7 @@
 
   /* ---------------- Filtering ---------------- */
   // opts: { subjects, roundRange:[min,max], yearRange:[min,max], includeUnlabeled, tournaments, formats, qtypes, levels, visuals, bookmarkedOnly,
-  //         search, ignoreWordOrder (default true), searchType: 'all' | 'question' | 'answer' }
+  //         search, ignoreWordOrder (default true), searchType: 'all' | 'question' | 'answer', exactWords (default false) }
   // each of subjects/tournaments/formats/qtypes/levels/visuals is either null/empty (= all) or a Set/array of allowed values
   // (visuals holds 'visual' and/or 'text')
   SBData.filterQuestions = function (opts) {
@@ -1138,7 +1138,7 @@
     const visuals = toSetOrNull(opts.visuals);
     const bookmarkedOnly = !!opts.bookmarkedOnly;
     const bookmarks = bookmarkedOnly ? bookmarkSet() : null;
-    const matchesSearch = SBData.searchMatcher(opts.search, opts.ignoreWordOrder, opts.searchType);
+    const matchesSearch = SBData.searchMatcher(opts.search, opts.ignoreWordOrder, opts.searchType, opts.exactWords);
     const roundRange = opts.roundRange || null; // [min, max] inclusive
     const yearRange = opts.yearRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
@@ -1169,48 +1169,105 @@
     return ys.length ? [Math.min(...ys), Math.max(...ys)] : [2000, new Date().getFullYear()];
   };
 
-  // A search, as on QB Reader's database: where to look (all text: the
-  // question, the answer and the tournament name; the question text only;
-  // or the answer text only), and whether the words may
-  // come in any order (each must appear somewhere) or, with ignoreWordOrder
-  // false, must appear together as typed. Always case-insensitive. Null when
-  // there's nothing to search for.
+  // A search, as on QB Reader's database: where to look (all text: what a
+  // card shows, that is the question, its choices, the answer with its
+  // "also accept" and "do not accept" entries, and the tournament name; the
+  // question with its choices only; or the answer with its accepts only),
+  // whether the words may come in any order (each must appear somewhere) or,
+  // with ignoreWordOrder false, must appear together as typed, and whether
+  // they must be whole words (exactWords: "p waves" finds "P-waves" and
+  // "... p ... waves", not "capillary waves" or "p wave"). Never
+  // case-sensitive, and accents, curly quotes and long dashes are typed
+  // plain (see searchFold). Null when there's nothing to search for.
   SBData.SEARCH_TYPES = ['all', 'question', 'answer'];
-  SBData.searchMatcher = function (search, ignoreWordOrder, searchType) {
+  SBData.searchMatcher = function (search, ignoreWordOrder, searchType, exactWords) {
     const type = SBData.SEARCH_TYPES.includes(searchType) ? searchType : 'all';
+    const has = exactWords ? (text, term) => SBData.wholeWordIndex(text, term, 0) !== -1 : (text, term) => text.includes(term);
     if (ignoreWordOrder === false) {
       const phrase = SBData.searchPhrase(search);
-      return phrase ? (q) => searchText(q, type).includes(phrase) : null;
+      return phrase ? (q) => has(searchText(q, type), phrase) : null;
     }
     const words = SBData.searchWords(search);
-    return words.length ? (q) => { const text = searchText(q, type); return words.every((w) => text.includes(w)); } : null;
+    return words.length ? (q) => { const text = searchText(q, type); return words.every((w) => has(text, w)); } : null;
   };
-  // The query as one lowercased phrase, its spacing evened out.
+
+  // Text as a search compares it: lowercased, with what a keyboard doesn't
+  // have typed plain. Accents are dropped ("Schrödinger" is "schrodinger"),
+  // curly quotes are straight ones ("Hooke’s" is "hooke's"), and every dash
+  // and the minus sign are a hyphen ("P–wave" is "p-wave"); a no-break space
+  // is a space. Each character becomes exactly one character, so a position
+  // in the result is the same position in the text (the highlighter marks
+  // matches by position).
+  const FOLD_CHARS = {
+    '‘': "'", '’': "'", 'ʼ': "'", '′': "'", '“': '"', '”': '"', '″': '"',
+    '‐': '-', '‑': '-', '‒': '-', '–': '-', '—': '-', '−': '-',
+    ' ': ' ', ' ': ' ', ' ': ' ', ' ': ' ', ' ': ' ',
+  };
+  const foldedChars = new Map();
+  function foldChar(c) {
+    let f = foldedChars.get(c);
+    if (f === undefined) {
+      f = FOLD_CHARS[c] || c.normalize('NFD')[0] || c;
+      foldedChars.set(c, f);
+    }
+    return f;
+  }
+  SBData.searchFold = function (text) {
+    const s = String(text == null ? '' : text);
+    // (Plain ASCII, most of the bank, needs only lowercasing.)
+    return (/[^\x00-\x7f]/.test(s) ? s.replace(/[^\x00-\x7f]/g, foldChar) : s).toLowerCase();
+  };
+
+  // Folded text with its spacing evened out and any loose accent marks
+  // dropped (a hat written after its letter, "k̂", rather than as one
+  // character): what the search compares. Not position for position.
+  const searchKey = (text) => SBData.searchFold(text).replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+
+  // The query as one folded phrase.
   SBData.searchPhrase = function (search) {
-    return (search || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    return searchKey(search || '').trim();
   };
 
   // A search is a list of words, each of which must appear somewhere in the
-  // question, answer or tournament name; they needn't be next to each other
-  // or in the typed order. Lowercased, with repeats dropped.
+  // searched text; they needn't be next to each other or in the typed
+  // order. Folded, with repeats dropped.
   SBData.searchWords = function (search) {
-    return Array.from(new Set((search || '').toLowerCase().split(/\s+/).filter(Boolean)));
+    return Array.from(new Set(searchKey(search || '').split(' ').filter(Boolean)));
   };
 
-  // What a search matches against: the question, answer and tournament name,
-  // lowercased, each also without exponent and subscript markup (invisible
-  // on screen, so "7100" also finds "7^100" and "ksp" finds "K_sp"). Built the first time a question is searched
-  // and kept, so later keystrokes don't lowercase the whole bank again. The
-  // NUL separators keep a match from running across two fields, since a
-  // search word can't contain one.
+  // Where `term` next stands in `text` as a whole word (or run of words), at
+  // or after `from`: the character before it and the one after it aren't a
+  // letter or a digit. -1 when it doesn't. An end of the term that isn't a
+  // letter or digit itself ("(a)", "x^2 +") has nothing to check. Both are
+  // already folded.
+  const WORD_CHAR = /[\p{L}\p{N}]/u;
+  SBData.wholeWordIndex = function (text, term, from) {
+    if (!term) return -1;
+    const startsWord = WORD_CHAR.test(term[0]);
+    const endsWord = WORD_CHAR.test(term[term.length - 1]);
+    for (let i = text.indexOf(term, from || 0); i !== -1; i = text.indexOf(term, i + 1)) {
+      const before = i > 0 ? text[i - 1] : '';
+      const after = text[i + term.length] || '';
+      if ((!startsWord || !before || !WORD_CHAR.test(before)) && (!endsWord || !after || !WORD_CHAR.test(after))) return i;
+    }
+    return -1;
+  };
+
+  // What a search matches against: every field of the scope, folded, each
+  // also without exponent and subscript markup (invisible on screen, so
+  // "7100" also finds "7^100" and "ksp" finds "K_sp"). Built the first time
+  // a question is searched and kept, so later keystrokes don't fold the
+  // whole bank again. The NUL separators keep a match from running across
+  // two fields, since a search word can't contain one.
   // Spacing is evened out, so a phrase search isn't thrown by a line break.
   const searchTexts = new WeakMap();
   const unmarkExponents = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
+  const choiceTexts = (q) => (q.choices ? Object.values(q.choices) : []);
   // Each scope is built the first time it's searched and kept.
   const SEARCH_FIELDS = {
-    all: (q) => [q.question, q.answer.text, q.tournament],
-    question: (q) => [q.question],
-    answer: (q) => [q.answer.text],
+    all: (q) => [q.question, ...choiceTexts(q), q.answer.text, ...(q.answer.accept || []), ...(q.answer.reject || []), q.tournament],
+    question: (q) => [q.question, ...choiceTexts(q)],
+    answer: (q) => [q.answer.text, ...(q.answer.accept || [])],
   };
   function searchText(q, type) {
     type = type || 'all';
@@ -1218,7 +1275,7 @@
     if (!texts) { texts = {}; searchTexts.set(q, texts); }
     let text = texts[type];
     if (text === undefined) {
-      const fields = SEARCH_FIELDS[type](q).map((f) => (f || '').toLowerCase().replace(/\s+/g, ' '));
+      const fields = SEARCH_FIELDS[type](q).filter(Boolean).map(searchKey);
       text = fields.join('\0');
       const plain = fields.map(unmarkExponents).join('\0');
       if (plain !== text) text += '\0' + plain;

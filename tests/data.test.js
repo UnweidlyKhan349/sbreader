@@ -201,21 +201,50 @@ test('every subject matches what its source prints, or is a listed override', ()
   assert.deepStrictEqual(found, {});
 });
 
-test('search matches every word in the question, answer or tournament, ignoring case, order and exponent markup', () => {
+test('search matches every word in what a card shows, ignoring case, order, accents and exponent markup; exact words are whole words', () => {
   const { questions } = loadCorpus();
   const SBData = globalThis.SBData;
   SBData.questions = questions;
-  const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
-  const has = (t, s) => { const l = t.toLowerCase(); return l.includes(s) || plain(l).includes(s); };
-  const hasWord = (q, w) => has(q.question, w) || has(q.answer.text, w) || has(q.tournament, w);
-  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium', 'cell mitochondria membrane']) {
-    const words = search.trim().toLowerCase().split(/\s+/);
-    const expected = questions.filter((q) => words.every((w) => hasWord(q, w))).map((q) => q.id);
+  // An independent check: every field a card shows, each word looked for in
+  // each field on its own (with and without exponent markup).
+  const plain = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
+  const fold = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[‘’ʼ′]/g, "'").replace(/[“”″]/g, '"')
+    .replace(/[‐‑‒–—−]/g, '-').replace(/[     ]/g, ' ').toLowerCase().replace(/\s+/g, ' ');
+  const fields = (q) => [q.question, ...Object.values(q.choices || {}), q.answer.text, ...(q.answer.accept || []), ...(q.answer.reject || []), q.tournament].filter(Boolean);
+  const folded = new Map(questions.map((q) => [q, fields(q).map(fold).flatMap((f) => [f, plain(f)])]));
+  const esc = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const wordRe = (w) => new RegExp((/^[\p{L}\p{N}]/u.test(w) ? '(?<![\\p{L}\\p{N}])' : '') + esc(w) + (/[\p{L}\p{N}]$/u.test(w) ? '(?![\\p{L}\\p{N}])' : ''), 'u');
+  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium',
+    'cell mitochondria membrane', 'schrodinger', "hooke's law", 'p-wave', 'quagmire', 'hyperbolic', 'p waves', 'rna', 'ksp']) {
+    const words = fold(search.trim()).split(/\s+/);
+    const expected = questions.filter((q) => words.every((w) => folded.get(q).some((f) => f.includes(w)))).map((q) => q.id);
     assert.deepStrictEqual(SBData.filterQuestions({ search }).map((q) => q.id), expected, search);
+    const res = words.map(wordRe);
+    const exact = questions.filter((q) => res.every((re) => folded.get(q).some((f) => re.test(f)))).map((q) => q.id);
+    assert.deepStrictEqual(SBData.filterQuestions({ search, exactWords: true }).map((q) => q.id), exact, `${search} (exact words)`);
+    assert.ok(exact.length <= expected.length);
   }
   // Words needn't be adjacent or in order.
   const apart = SBData.filterQuestions({ search: 'chloride sodium' }).length;
   assert.ok(apart >= SBData.filterQuestions({ search: 'sodium chloride' }).length && apart > 0);
+  // Every question is found by its own text, typed plain, in each scope: the
+  // first words of the question, of each choice, of the answer and of each accept.
+  const typed = (t) => fold(t).trim().split(' ').slice(0, 3).join(' ');
+  const misses = [];
+  for (const q of questions) {
+    const check = (text, type) => {
+      const m = text && SBData.searchMatcher(typed(text), true, type);
+      if (m && !m(q)) misses.push([q.id, type, typed(text)]);
+      const e = text && SBData.searchMatcher(typed(text), true, type, true);
+      if (e && !e(q)) misses.push([q.id, type + ' exact', typed(text)]);
+    };
+    check(q.question, 'question'); check(q.question, 'all');
+    Object.values(q.choices || {}).forEach((c) => { check(c, 'question'); check(c, 'all'); });
+    check(q.answer.text, 'answer'); check(q.answer.text, 'all');
+    (q.answer.accept || []).forEach((x) => { check(x, 'answer'); check(x, 'all'); });
+    (q.answer.reject || []).forEach((x) => check(x, 'all'));
+  }
+  assert.deepStrictEqual(misses.slice(0, 10), []);
 });
 
 test('a packet location becomes a #page= or #L fragment only on PDF and GitHub links', () => {
