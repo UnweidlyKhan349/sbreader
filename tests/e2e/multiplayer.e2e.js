@@ -256,3 +256,23 @@ test('n starts and goes on but never skips; s only skips; the timer is at 0 afte
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
+
+test('a wrong answer in the last second of the buzz window leaves the others at least 5 seconds', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  const seconds = (p) => p.evaluate(() => parseFloat(document.getElementById('mpTimerFace').textContent + document.getElementById('mpTimerFraction').textContent));
+  await a.locator('#mpSettingsRateSlider').evaluate((el) => { el.value = el.max; el.dispatchEvent(new Event('input')); el.dispatchEvent(new Event('change')); });
+  await a.locator('#mpNextBtn').click();
+  // Read through: the buzz window is counting down.
+  await a.waitForFunction(() => { const t = parseFloat(document.getElementById('mpTimerFace').textContent + document.getElementById('mpTimerFraction').textContent); return t > 0 && t < 3; }, null, { timeout: 60000, polling: 100 });
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press(' ');
+  await g.waitForSelector('#mpAnswerInput:visible');
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter');
+  await a.waitForTimeout(400);
+  for (const p of [a, g]) { const t = await seconds(p); assert.ok(t > 4 && t <= 5, `${t} seconds left`); }
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});

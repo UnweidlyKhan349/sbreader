@@ -7,6 +7,9 @@
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
+  // After a wrong answer (with rebuzzes on), the time left to buzz once the
+  // question has been read through is never under this.
+  const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
   const SETTINGS_KEY = 'sb_solo_settings';
 
@@ -429,7 +432,8 @@
     if (!settings.timer) return;
     const q = currentQ();
     const full = q.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
-    const ms = runtime.buzzwindowLeftMs != null ? runtime.buzzwindowLeftMs : full;
+    let ms = runtime.buzzwindowLeftMs != null ? runtime.buzzwindowLeftMs : full;
+    if (runtime.attempts.length) ms = Math.max(ms, AFTER_BUZZ_MS);
     runTimer(ms, 'buzz', () => { resolveQuestion(); });
   }
 

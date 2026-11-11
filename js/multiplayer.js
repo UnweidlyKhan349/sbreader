@@ -4,6 +4,10 @@
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
+  // Once someone has buzzed on a question, the time left to buzz after it
+  // has been read through is never under this: a wrong answer given in the
+  // last second still leaves the others time to buzz.
+  const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
   const TYPING_THROTTLE_MS = 150;
   const CHAT_HISTORY = 60;
@@ -1553,7 +1557,9 @@
     host.broadcast({ type: 'phase', phase: 'buzzwindow' });
     applyPhaseLocal('buzzwindow');
     const full = hostGame.currentFull;
-    const ms = full.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
+    let ms = full.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
+    // (After a wrong interrupt, the question read on to here.)
+    if (hostGame.anyAttempt) ms = Math.max(ms, AFTER_BUZZ_MS);
     hostRunTimer(ms, 'buzz', () => hostReveal());
   }
 
@@ -1648,15 +1654,15 @@
       const fullDurationMs = full.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
       // Resume the buzz-in countdown from where it was interrupted, rather
       // than restarting the whole question's buzz window at full duration.
-      const ms = hostGame.buzzwindowRemainingMs != null
+      const ms = Math.max(AFTER_BUZZ_MS, hostGame.buzzwindowRemainingMs != null
         ? hostGame.buzzwindowRemainingMs
-        : fullDurationMs;
+        : fullDurationMs);
       hostGame.buzzwindowRemainingMs = null;
       // Pass the ORIGINAL full duration as the bar's 100% reference (see
       // hostRunTimer) so picking up with, say, 12 of 20 seconds left shows a
       // partially-drained bar - the portion already spent before the first
       // buzz stays visibly "empty" - instead of rendering as a fresh full bar.
-      hostRunTimer(ms, 'buzz', () => hostReveal(), fullDurationMs);
+      hostRunTimer(ms, 'buzz', () => hostReveal(), Math.max(fullDurationMs, ms));
     }
   }
 
