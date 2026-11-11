@@ -1101,8 +1101,6 @@
 {"i":95531,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What term refers to the amount of genetic material passed on to the next generation not only by the individual, but by family members as well?","c":{"W":"Relative fitness","X":"Inclusive fitness","Y":"Adaptation coefficient","Z":"Evolution score"},"a":{"t":"Inclusive fitness","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4893","q":[
 {"i":95532,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"You have to decide if it makes biological sense to save one of your relatives. If you do not save them, their chance of dying is 100%. If you save them, they are guaranteed to survive. You have a 50% chance of dying if you make an attempt to save them. You can produce one more offspring, while your relative can produce two. What is the minimum coefficient of relatedness required for it to make sense to save your relative?","a":{"t":"25%","ac":["0.25"]}}]},
-{"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4894","q":[
-{"i":95533,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"What US state is home to the world’s largest geothermal field?","c":{"W":"Texas","X":"Arizona","Y":"California","Z":"Hawaii"},"a":{"t":"California","l":"Y"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4894","q":[
 {"i":95534,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"Approximately how many geothermal wells are located at The Geysers?","c":{"W":"150","X":"350","Y":"550","Z":"1000"},"a":{"t":"350","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4895","q":[
@@ -1667,8 +1665,6 @@
 {"i":95770,"s":"ess","f":"MC","qt":"tossup","n":12,"q":"The reason there aren't any active volcanoes in the Himalayan mountain range is because:","c":{"W":"The Indian plate is composed of basaltic igneous rock, which only melts at higher temperatures.","X":"It was formed by localized faults in the Earth's upper crust.","Y":"It was formed by the collision of two continental plates with no significant density differences.","Z":"It is composed of extinct volcanoes."},"a":{"t":"It was formed by the collision of two continental plates with no significant density differences.","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5056","q":[
 {"i":95771,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"What is a system or group of parallel mountain ranges together with the intervening plateaus and other features?","a":{"t":"Cordillera"}}]},
-{"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5057","q":[
-{"i":95772,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"What mountain has the highest point in the Western Hemisphere?","a":{"t":"Mt. Aconcagua"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5058","q":[
 {"i":96225,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"A solar eclipse can only occur at what phase of the moon?","a":{"t":"New Moon"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5059","q":[

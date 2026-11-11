@@ -49,7 +49,6 @@
 {"i":46424,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Identify all of the following 3 types of transport across cellular membranes that require ATP: 1) Active transport 2) Facilitated diffusion 3) Osmosis","a":{"t":"1 only"}},
 {"i":46425,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"In a solution, what term describes the matter, typically a fluid, that a solute is dissolved in?","a":{"t":"Solvent"}},
 {"i":46426,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"Which of the following elements is a liquid at room temperature?","a":{"t":"Mercury","l":"X"},"c":{"W":"Hydrogen","X":"Mercury","Y":"Neon","Z":"Iron"}},
-{"i":46427,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"What is the largest desert by area?","a":{"t":"Antarctica"}},
 {"i":46428,"s":"ess","f":"MC","qt":"bonus","n":5,"q":"Which of the following transition layers does not exist within the Earth's oceans?","a":{"t":"Tachocline","l":"X"},"c":{"W":"Halocline","X":"Tachocline","Y":"Thermocline","Z":"Nutricline"}},
 {"i":46429,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"Identify all of the following 3 particles that are in the nucleus of an atom: 1) Electron 2) Proton 3) Neutron","a":{"t":"2 and 3"}},
 {"i":46430,"s":"phys","f":"MC","qt":"bonus","n":6,"q":"When disregarding air resistance, what is the shape of the path that a ball takes over flat ground when shot at an angle above the horizontal?","a":{"t":"Parabola","l":"X"},"c":{"W":"Straight line","X":"Parabola","Y":"Hyperbola","Z":"Ellipse"}}]},

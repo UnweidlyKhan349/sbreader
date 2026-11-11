@@ -168,7 +168,6 @@
 {"rl":"BTHS SE 1","r":4,"u":"https://drive.google.com/drive/folders/17CvnsTwOrde25C_GdXJjapoF9y37HKwc","q":[
 {"i":43708,"s":"math","f":"SA","qt":"bonus","n":19,"q":"Given that the golden ratio equals (1+√5)/2, compute the golden ratio raised to the 6th power.","a":{"t":"9 + 4√5"}}]},
 {"rl":"BTHS SE 1","r":4,"u":"https://drive.google.com/file/d/12uUyWbpiADiHQCNfKn7Sh5r1KJXxWXst/view","q":[
-{"i":43709,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"Name the country in which continental glaciers can be found, excluding the continent of Antarctica.","a":{"t":"Greenland","ac":["Denmark"]}},
 {"i":43710,"s":"ess","f":"MC","qt":"bonus","n":20,"q":"Most of Earth’s internal heat is created by:","a":{"t":"Radioactive Decay","l":"W"},"c":{"W":"Radioactive Decay","X":"Volcanism","Y":"Its magnetic field","Z":"Earthquakes"}},
 {"i":43711,"s":"phys","f":"MC","qt":"tossup","n":21,"q":"In a circuit, a parallel combination of six 1.6 kilo-ohm resistors is connected in series with a parallel combination of four 2.4 kilo-ohm resistors. If the source voltage is 24 volts, what will be the percentage of total current in one of the 2.4 kilo-ohm resistors?","a":{"t":"25 percent","l":"Z"},"c":{"W":"10 percent","X":"15 percent","Y":"20 percent","Z":"25 percent"}},
 {"i":43712,"s":"phys","f":"SA","qt":"bonus","n":21,"q":"What is the name of the optical phenomenon where the refraction of light rays creates an image that is either distorted or displaced?","a":{"t":"Mirage"}}]},

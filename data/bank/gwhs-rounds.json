@@ -428,7 +428,6 @@
 {"i":9513,"s":"phys","f":"MC","qt":"tossup","n":15,"q":"The buoyant force is a result of which of the following principles?","a":{"t":"Archimedes’ Principle","l":"Y"},"c":{"W":"Bernoulli's Principle","X":"Newton's Principle","Y":"Archimedes’ Principle","Z":"Descartes’ Principle"},"pg":8},
 {"i":9514,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"An object of uniform density floats in a cup of water such that 20% of the object’s volume is above the water’s surface. Which of the following is the density of the object in kilograms per cubic meter?","a":{"t":"800"},"pg":8},
 {"i":9515,"s":"ess","f":"SA","qt":"tossup","n":16,"q":"Give the name for the largest canyon in the Solar System, found on Mars.","a":{"t":"VALLES MARINERIS"},"pg":8},
-{"i":9516,"s":"ess","f":"SA","qt":"bonus","n":16,"q":"Created as part of the NASA Mars Exploration Program, what rover was launched from Cape Canaveral on November 26th, 2011 and aimed to discover whether or not microbial life could have ever existed on Mars?","a":{"t":"CURIOSITY"},"pg":8},
 {"i":9517,"s":"chem","f":"SA","qt":"tossup","n":17,"q":"What is the molecular geometry around a carbon in ethene?","a":{"t":"TRIGONAL PLANAR"},"pg":9},
 {"i":9518,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"Identify all of the following three elements that are in the same group as carbon: 1) Silicon, 2) Indium, 3) Lead.","a":{"t":"1 AND 3"},"pg":9},
 {"i":9519,"s":"math","f":"MC","qt":"tossup","n":18,"q":"What is the derivative of x?","a":{"t":"1","l":"Z"},"c":{"W":"(1/2)x^2","X":"x","Y":"1/2 x","Z":"1"},"pg":9},

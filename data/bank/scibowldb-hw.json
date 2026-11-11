@@ -105,8 +105,6 @@
 {"i":93122,"s":"ess","f":"MC","qt":"tossup","n":52,"q":"Fill in the blank: Mercury has around _______ percent of Earth's mass.","c":{"W":"5","X":"25","Y":"50","Z":"75"},"a":{"t":"5","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5725","q":[
 {"i":93123,"s":"ess","f":"SA","qt":"bonus","n":53,"q":"Name the layer of the Sun's atmosphere that breaks up into jets called spicules at its outer limit.","a":{"t":"Chromosphere"}}]},
-{"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5726","q":[
-{"i":93124,"s":"ess","f":"MC","qt":"bonus","n":54,"q":"The first spacecraft to cross the asteroid belt belonged to which space program?","c":{"W":"Pioneer","X":"Voyager","Y":"Mercury","Z":"Galileo"},"a":{"t":"Pioneer","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5727","q":[
 {"i":93125,"s":"ess","f":"MC","qt":"bonus","n":55,"q":"About what percent of the total mass in our solar system is contained within the Sun?","c":{"W":"99%","X":"86%","Y":"79%","Z":"66%"},"a":{"t":"99%","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5728","q":[
@@ -293,8 +291,6 @@
 {"i":93197,"s":"ess","f":"MC","qt":"bonus","n":24,"q":"Which of the following soil types is most commonly found in the tropics?","c":{"W":"Oxisols","X":"Alfisols","Y":"Ultisols","Z":"Histosols"},"a":{"t":"Oxisols","l":"W"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6450","q":[
 {"i":93198,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Approximately what percent of energy is lost as heat going up the energy pyramid?","c":{"W":"Ten","X":"Eighty","Y":"Thirty","Z":"Ninety"},"a":{"t":"Ninety","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6451","q":[
-{"i":93200,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"The Ruhr, a region heavily dependent on its vast coal reserves is located in which of the following countries?","c":{"W":"France","X":"Germany","Y":"Poland","Z":"Vatican City"},"a":{"t":"Germany","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6454","q":[
 {"i":96298,"s":"energy","f":"MC","qt":"tossup","n":6,"q":"Electric power is less expensive at night because:","c":{"W":"more hydroelectric generation is brought on line at night","X":"there is less demand at night","Y":"pollution control is less stringent at night","Z":"power plants are more efficient at night"},"a":{"t":"there is less demand at night","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6455","q":[
@@ -719,8 +715,6 @@
 {"i":93395,"s":"phys","f":"MC","qt":"bonus","n":117,"q":"A wire is pointing straight towards you, with current flowing towards you as well. The magnetic field produced is","c":{"W":"pointing radially outward from the wire","X":"pointing radially inward from the wire","Y":"circling the wire, clockwise","Z":"circling the wire, counterclockwise"},"a":{"t":"circling the wire, counterclockwise","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6791","q":[
 {"i":93396,"s":"phys","f":"SA","qt":"tossup","n":118,"q":"The splitting of absorption lines due to the presence of an electric field is known as the what?","a":{"t":"INVERSE STARK EFFECT","ac":["STARK EFFECT"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6791","q":[
-{"i":93397,"s":"phys","f":"MC","qt":"bonus","n":119,"q":"Johannes Stark won a nobel prize for his discovery in which year?","c":{"W":"1914","X":"1919","Y":"1929","Z":"1942"},"a":{"t":"1919","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6792","q":[
 {"i":93398,"s":"phys","f":"MC","qt":"tossup","n":120,"q":"A positive point charge is stationary. Electrical equipotential lines caused by this charge will be","c":{"W":"radial lines pointing outward","X":"radial lines pointing inward","Y":"concentric circles","Z":"there are no equipotential lines"},"a":{"t":"concentric circles","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6792","q":[
@@ -1037,8 +1031,6 @@
 {"i":93549,"s":"phys","f":"SA","qt":"bonus","n":276,"q":"Unpolarized light enters a linear polarizer, and then enters another linear polarizer at a different angle. What is the name for the second polarizer?","a":{"t":"ANALYZER"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6873","q":[
 {"i":93550,"s":"phys","f":"SA","qt":"tossup","n":277,"q":"What is the name for the splitting of absorption lines in a spectrum due to a magnetic field?","a":{"t":"INVERSE ZEEMAN EFFECT","ac":["ZEEMAN EFFECT"]}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6873","q":[
-{"i":93551,"s":"phys","f":"MC","qt":"bonus","n":278,"q":"Zeeman won the Physics Nobel prize in 1902 with what other physicist?","c":{"W":"Lorentz","X":"Thomson","Y":"Lippmann","Z":"Marconi"},"a":{"t":"Lorentz","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6874","q":[
 {"i":93552,"s":"phys","f":"MC","qt":"tossup","n":279,"q":"A pulled string is attached to a 4 kg block, which is attached by string to a 2 kg block. If the string is pulled at 12 newtons, what is the tension in the string that connects the blocks?","c":{"W":"2 N","X":"4 N","Y":"6 N","Z":"12 N"},"a":{"t":"4 N","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6874","q":[
