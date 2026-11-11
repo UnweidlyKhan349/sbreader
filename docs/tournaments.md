@@ -4,13 +4,13 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 
 | Tournament | Questions | Visual | Level |
 |---|---|---|---|
-| 2016 Question Exchange | 1,137 |  | hs |
+| 2016 Question Exchange | 1,136 |  | hs |
 | 2026 Texas Science Bowl Invitational | 645 |  | hs |
 | AVES 2 | 580 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
 | BASED 2025 | 611 | 5 | hs |
 | Bash 2025 | 653 | 25 | hs |
-| BASIS Peoria Rounds | 785 |  | hs |
+| BASIS Peoria Rounds | 784 |  | hs |
 | Bay Ultimate MS Scibowl | 520 | 4 | ms |
 | Berkeley 2023 | 644 |  | hs |
 | Brooklyn Tech Invitational | 369 |  | hs |
@@ -56,10 +56,10 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 1 | 648 | 34 | hs |
 | LOST 2 | 609 | 46 | hs |
 | LOST 3 HS | 569 | 18 | hs |
-| LOST 3 MS | 488 | 18 | ms |
+| LOST 3 MS | 487 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
-| Mira Loma Question Database | 15,902 |  | hs |
+| Mira Loma Question Database | 15,879 |  | hs |
 | MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -75,12 +75,12 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | National Chemistry Bowl Fall 2026 | 424 |  | hs |
 | National Ocean Sciences Bowl | 495 |  | hs |
 | NCB 2026 | 287 |  | hs |
-| NESB | 998 |  | hs |
+| NESB | 997 |  | hs |
 | NNHS Rounds 2020-21 | 778 |  | hs |
-| NSB MS Regs | 11,443 |  | ms |
+| NSB MS Regs | 11,438 |  | ms |
 | NSB Nationals 2005 | 788 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
-| NSB Regs | 12,037 |  | hs |
+| NSB Regs | 12,034 |  | hs |
 | NSBA1 | 723 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
@@ -99,13 +99,13 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | SBST (Spring) | 614 |  | hs |
 | SCB 2025 | 480 | 1 | hs |
 | ScibowlDB HW | 2,055 |  | hs |
-| Science Bowl Subject Sets 1991–93 | 3,288 |  | hs |
+| Science Bowl Subject Sets 1991–93 | 3,287 |  | hs |
 | SMH 2025 | 512 | 11 | hs |
 | SMH 2026 | 618 | 17 | hs |
 | SSBT 2023 | 552 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
-| Stuyvesant Question Bank | 2,210 |  | hs |
+| Stuyvesant Question Bank | 2,207 |  | hs |
 | Summer 2019 | 119 |  | hs |
 | Texas Sci Bowl 2025 | 649 |  | hs |
 | THUMB 2025 | 206 |  | hs |
@@ -117,4 +117,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (113)** | **103,166** | **567** | |
+| **Total (113)** | **103,127** | **567** | |
