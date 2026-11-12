@@ -483,3 +483,150 @@ test('items labelled with Roman numerals take numbers or numerals: "3" for "III 
   // One "I." alone (a sentence ending in "I") isn't a list.
   assert.strictEqual(globalThis.SBAnswer.detectItemCount('What is the charge of an ion of group I. Give a number.'), null);
 });
+
+test('"all" said another way: "all" for "ALL OF THEM", "all of them" for "ALL"', () => {
+  const three = 'Identify all of the following three that are true: 1) a; 2) b; 3) c';
+  const four = 'Identify all of the following four that are true: 1) a; 2) b; 3) c; 4) d';
+  const plain = 'Identify all of the following three gases that are noble: helium, neon, argon';
+  const ok = (key, typed, question) => assert.ok(isCorrect(key, typed, { question }), `${typed} for ${key}`);
+  const no = (key, typed, question) => assert.ok(!isCorrect(key, typed, { question }), `${typed} for ${key}`);
+  for (const key of ['ALL', 'ALL OF THEM', 'All of the above', 'ALL THREE', '1, 2, AND 3']) {
+    for (const typed of ['all', 'all of them', 'all three', 'all 3', 'all of the above', 'all of these', 'every one', '123']) ok(key, typed, three);
+    for (const typed of ['all four', 'none', '1 and 2']) no(key, typed, three);
+  }
+  for (const key of ['ALL', 'ALL OF THEM', 'ALL 4', 'ALL (1, 2, 3, 4)']) {
+    for (const typed of ['all', 'all of them', 'all four', '1234']) ok(key, typed, four);
+    no(key, 'all three', four);
+  }
+  // Items that aren't numbered: the stem's "following three" is the count.
+  for (const key of ['ALL', 'ALL OF THEM']) {
+    for (const typed of ['all', 'all of them', 'all three', 'all of the above']) ok(key, typed, plain);
+    no(key, 'all four', plain);
+  }
+  // Not every key with "all" in it, and not for a key that isn't all of them.
+  no('1 AND 2', 'all', three);
+  no('ALL BUT 2', 'all', three);
+  no('ALL REAL NUMBERS', 'all');
+  no('ALL', 'all real numbers');
+  no('1: RIGHT; 2: LEFT; 3: LEFT', 'all', three);
+});
+
+test('the last word (experiment, effect, law, relation, ...) can go when the words before it say which one', () => {
+  for (const [key, typed] of [
+    // a name
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson-morley'], ['MICHELSON-MORLEY EXPERIMENT', 'michaelson-morley'], ['Michelson Morley experiment', 'morley michelson'],
+    ['DOPPLER EFFECT', 'doppler'], ['THE DOPPLER EFFECT', 'doppler'], ['KREBS CYCLE', 'krebs'], ['HALL EFFECT', 'hall'],
+    ["HOOKE'S LAW", "hooke's"], ["HOOKE'S LAW", 'hookes'], ["HOOKE'S LAW", 'hooke'], ["HESS'S LAW", 'hess'], ["ORE'S THEOREM", 'ores'],
+    ['NERNST EQUATION', 'nernst'], ["HUND'S RULE", 'hunds'], ['HABER-BOSCH PROCESS', 'haber bosch'], ["NEWTON'S FIRST LAW", "newton's first"],
+    ["TORRICELLI'S THEOREM (OR LAW)", 'torricelli'], ['DE BROGLIE RELATION', 'de broglie'], ['CHANDRASEKHAR LIMIT', 'chandrasekhar'], ['FERMI PARADOX', 'fermi'],
+    ['SCHRÖDINGER EQUATION', 'schrodinger'], ['HÜCKEL’S RULE', 'huckels'], ["LE CHÂTELIER'S PRINCIPLE", 'le chatelier'],
+    // two words or more
+    ['PAULI EXCLUSION PRINCIPLE', 'pauli exclusion'], ['QUANTUM HALL EFFECT', 'quantum hall'], ['MILLIKAN OIL DROP EXPERIMENT', 'millikan oil drop'],
+    ['IDEAL GAS LAW', 'ideal gas'], ['DOUBLE SLIT EXPERIMENT', 'double slit'], ['CENTRAL LIMIT THEOREM', 'central limit'], ['RIGHT HAND RULE', 'right hand'],
+    ['CITRIC ACID CYCLE', 'citric acid'],
+    // one describing or long word
+    ['PHOTOELECTRIC EFFECT', 'photoelectric'], ['GREENHOUSE EFFECT', 'greenhouse'], ['PYTHAGOREAN THEOREM', 'pythagorean'], ['UNCERTAINTY PRINCIPLE', 'uncertainty'],
+    ['NEBULAR HYPOTHESIS', 'nebular'], ['INDUCTIVE EFFECT', 'inductive'],
+    ['DOPPLER EFFECT; RED SHIFT', 'doppler, red shift'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    // what's left has to be all there, and right
+    ['MICHELSON-MORLEY EXPERIMENT', 'michelson'], ['MICHELSON-MORLEY EXPERIMENT', 'experiment'], ['PAULI EXCLUSION PRINCIPLE', 'pauli'],
+    ['PAULI EXCLUSION PRINCIPLE', 'exclusion'], ['KREBS CYCLE', 'calvin'],
+    // a short everyday noun or a substance is another answer by itself
+    ['ROCK CYCLE', 'rock'], ['SKIN EFFECT', 'skin'], ['CELL CYCLE', 'cell'], ['CARBON CYCLE', 'carbon'], ['WATER CYCLE', 'water'], ['PHOSPHORUS CYCLE', 'phosphorus'],
+    ['CONTACT PROCESS', 'contact'], ['FOUNDER EFFECT', 'founder'], ['OCTET RULE', 'octet'], ['CHAIN RULE', 'chain'], ['FIRST LAW', 'first'], ['CNO CYCLE', 'cno'],
+    ['CHEMICAL EQUATION', 'chemical'], ["THE OBSERVER'S EFFECT", "observer's"], ['SKIN EFFECT; RED SHIFT', 'skin, red shift'],
+    // other last words stay, and so does one inside the key
+    ['CARBON DIOXIDE', 'carbon'], ['WHITE DWARF', 'white'], ['LAW OF CONSERVATION OF MASS', 'conservation of mass'], ['FIRST LAW OF THERMODYNAMICS', 'first'],
+    ['2 METERS PER CYCLE', '2 meters per'], ['S PROCESS', 's'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  assert.strictEqual(grade('MICHELSON-MORLEY EXPERIMENT', 'mickelson morley').close, true);
+  assert.ok(!isCorrect('DOPPLER EFFECT', 'doppler', { reject: ['DOPPLER'] }));
+  assert.ok(isCorrect('SCHRÖDINGER EQUATION', 'schrodinger equation'));
+  assert.ok(isCorrect('MOSSBAUER EFFECT', 'mössbauer effect'));
+});
+
+test('possessives are the same word; a British spelling is a near miss like any misspelling', () => {
+  for (const [key, typed] of [["HOOKE'S LAW", 'hookes law'], ["HOOKE'S LAW", 'hooke law'], ["EARTH'S CORE", 'earth core'], ["HUYGENS' PRINCIPLE", 'huygens principle'],
+    ['MICHELSON', 'michaelson']]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+    assert.ok(isCorrect(typed.toUpperCase(), key.toLowerCase()), `${key} for ${typed}`);
+  }
+  for (const [key, typed] of [['COLOR', 'colour'], ['HEMOGLOBIN', 'haemoglobin'], ['ALUMINUM', 'aluminium'], ['ESTROGEN', 'oestrogen']]) {
+    const r = grade(key, typed);
+    assert.ok(!r.correct && r.close, `${typed} for ${key} is close`);
+  }
+  for (const [key, typed] of [['SULFUR', 'sulphur'], ['FIBER', 'fibre'], ['LESS', 'loess'], ['AEROBIC', 'anaerobic'], ['ALKANE', 'alkene']]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+});
+
+test('"the other one" is the one item left in an ordering the question lists', () => {
+  const waves = 'Arrange the following 3 types of seismic waves from the FIRST to arrive at a seismic recording station to the LAST from a given earthquake: S-wave; L-wave; P-wave';
+  const key = 'P-WAVE; S-WAVE; L-WAVE';
+  for (const typed of ['p wave s wave other one', 'p wave, s wave, the other one', 'p-wave; s-wave; the last one', 'p wave s wave other',
+    'p wave, s wave, the remaining one', 'p wave other one l wave', 'other one s wave l wave']) {
+    assert.ok(isCorrect(key, typed, { question: waves }), typed);
+  }
+  // The rest must be right and in place, and only one item can be left.
+  for (const typed of ['s wave p wave other one', 'p wave other one', 'other one other one l wave', 'other one', 'the other one and the last one and l wave']) {
+    assert.ok(!isCorrect(key, typed, { question: waves }), typed);
+  }
+  // Not when the question doesn't list the things (it would be a guess) ...
+  assert.ok(!isCorrect(key, 'p wave s wave other one', { question: 'Name the three types of seismic waves in order of arrival.' }));
+  // ... or isn't an ordering (the other one of four isn't one thing).
+  assert.ok(!isCorrect('HELIUM; NEON', 'helium and the other one', { question: 'Which two of the following four are noble gases: helium, oxygen, neon, iron' }));
+  // Numbered items, by number or by name; and a comma-list key.
+  const rank = 'Rank the following three from smallest to largest: 1) Sun; 2) Moon; 3) Earth';
+  for (const typed of ['2, 3, other one', '2 3 the last one', 'moon, earth, the other one', '2, other one, 1']) assert.ok(isCorrect('2, 3, 1', typed, { question: rank }), typed);
+  for (const typed of ['3, 2, other one', 'other one', '2, other one']) assert.ok(!isCorrect('2, 3, 1', typed, { question: rank }), typed);
+  assert.ok(isCorrect('LEAD, PHOSPHORUS, HYDROGEN, CALCIUM', 'lead, phosphorus, hydrogen, the other one',
+    { question: 'Organize the following elements from oldest date of discovery, to most recent: Calcium, Phosphorus, Hydrogen, Lead' }));
+});
+
+test('a key that listed synonyms takes each one: "bog" for BOG (also accept QUAGMIRE, MIRE)', () => {
+  const { questions } = loadCorpus();
+  const byId = new Map(questions.map((q) => [q.id, q]));
+  const bog = byId.get(115053);
+  assert.strictEqual(bog.answer.text, 'BOG');
+  assert.deepStrictEqual(bog.answer.accept, ['QUAGMIRE', 'MIRE']);
+  for (const typed of ['bog', 'quagmire', 'mire']) assert.ok(checkAnswer(bog, typed).correct, typed);
+  for (const [id, typed] of [[98657, 'stapes'], [98657, 'stirrup'], [104564, 'coenzyme q'], [98777, 'concave'], [114551, 'ram']]) {
+    assert.ok(checkAnswer(byId.get(id), typed).correct, `${typed} for question ${id}`);
+  }
+  // The ordering the "other one" report came from.
+  assert.ok(checkAnswer(byId.get(75346), 'p wave s wave other one').correct);
+});
+
+test('what a keyboard has: slash fractions, Greek letters by name, x for a times sign', () => {
+  for (const [key, typed] of [
+    ['½', '1/2'], ['½', '0.5'], ['1/2', '½'], ['2½', '2 1/2'], ['5 ⅔', '5 2/3'], ['¼ F', '1/4 F'], ['⅔mr^2', '2/3 mr^2'], ['½ OHM', '1/2 ohm'],
+    ['sin θ', 'sin theta'], ['Rω^2', 'R omega^2'], ['ΔH', 'delta H'], ['2 sec θ', '2 sec theta'], ['λ/2', 'lambda/2'], ['ℏ/2', 'hbar/2'],
+    ['(-∞, -4)', '(-infinity, -4)'], ['σ BOND', 'sigma bond'], ['α PARTICLE', 'alpha particle'], ['μ', 'mu'],
+    ['67 × 101', '67 x 101'], ['2×2×3', '2x2x3'], ['50 × √3', '50 x √3'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // The symbol is part of the answer: it used to be dropped, so these passed.
+  for (const [key, typed] of [['sin θ', 'sin'], ['5 ⅔', '5'], ['½ OHM', 'ohm'], ['ρ = 6', '= 6'], ['(-∞, -4)', '-4)'], ['ΔH', 'h'], ['4x', '4']]) {
+    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  // A fraction is one number, never a list of two.
+  const list = { question: 'Identify all of the following three that are true: 1) a; 2) b; 3) c' };
+  assert.ok(!isCorrect('1/2', '1 and 2'));
+  assert.ok(!isCorrect('1/2', '1, 2'));
+  assert.ok(!isCorrect('½', '1 2'));
+  assert.ok(!isCorrect('1 AND 2', '1/2', list));
+  assert.ok(isCorrect('1 AND 2', '1, 2', list));
+  assert.ok(isCorrect('1 / 2', '1/2'));
+  // A slash inside a longer expression is still just punctuation.
+  assert.ok(isCorrect('x^2/2', '(x^2)/2'));
+  assert.ok(isCorrect('(a + b)/2', '(a+b) / 2'));
+  assert.ok(isCorrect('(1/2)mv^2', '1/2 mv^2'));
+});
+
+test('part numbers alone are not the parts: "1, 2" for "1) HALITE; 2) LISTRIC FAULT"', () => {
+  const key = '1) HALITE; 2) LISTRIC FAULT';
+  for (const typed of ['1, 2', '1/2', '1; 2', '1 and 2']) assert.ok(!isCorrect(key, typed), typed);
+  for (const typed of ['halite, listric fault', '1) halite 2) listric fault', 'halite; listric fault']) assert.ok(isCorrect(key, typed), typed);
+  // Parts that are numbers still take the bare numbers.
+  assert.ok(isCorrect('1) 5 METERS; 2) 7 SECONDS', '5, 7'));
+  assert.ok(isCorrect('1) 5; 2) 7', '5, 7'));
+});

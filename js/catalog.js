@@ -13,6 +13,8 @@
     // words may come in any order, as on QB Reader's database.
     searchType: 'all',
     ignoreWordOrder: true,
+    // Only whole words count: "p waves" finds "P-waves", not "capillary waves".
+    exactWords: false,
     // [first, last] years, or null for every year.
     yearRange: null,
     // From a frequency list: only questions whose answer is this one (its
@@ -169,6 +171,9 @@
       const ignoreOrder = document.getElementById('ignoreWordOrder');
       ignoreOrder.addEventListener('change', () => { state.ignoreWordOrder = ignoreOrder.checked; state.page = 1; render(); });
 
+      const exactWords = document.getElementById('exactWords');
+      exactWords.addEventListener('change', () => { state.exactWords = exactWords.checked; state.page = 1; render(); });
+
       const hideAnswers = document.getElementById('hideAnswers');
       hideAnswers.checked = state.hideAnswers;
       hideAnswers.addEventListener('change', () => {
@@ -188,6 +193,8 @@
         state.exactAnswer = '';
         state.page = 1;
         state.ignoreWordOrder = true;
+        state.exactWords = false;
+        exactWords.checked = false;
         state.searchType = 'all';
         typeRadios.forEach((r) => { r.checked = r.value === 'all'; });
         document.getElementById('searchBox').value = '';
@@ -250,12 +257,13 @@
       search: state.exactAnswer ? '' : state.search,
       searchType: state.searchType,
       ignoreWordOrder: state.ignoreWordOrder,
+      exactWords: state.exactWords,
     }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
     if (state.random) {
-      const key = [state.search, state.searchType, state.ignoreWordOrder, state.yearRange, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
+      const key = [state.search, state.searchType, state.ignoreWordOrder, state.exactWords, state.yearRange, [...state.subjects], [...state.qtypes], [...state.formats], [...state.levels], [...state.visuals], [...state.tournaments], state.roundRange, state.includeUnlabeled].map(String).join('|');
       if (!state.randomPick || state.randomKey !== key) {
         state.randomPick = SBData.shuffle(filtered).slice(0, RANDOM_COUNT);
         state.randomKey = key;
@@ -367,18 +375,19 @@
     const card = SBData.questionCard(q, { hideAnswer: state.hideAnswers });
     // Marked only where the search looked (the question text, or the
     // answer); a phrase as a whole when word order counts.
-    const where = { question: [...card.querySelectorAll('.q-text')], answer: [...card.querySelectorAll('.a-text')] }[state.searchType] || [card];
+    const where = { question: [...card.querySelectorAll('.q-text, .choices')], answer: [...card.querySelectorAll('.a-text')] }[state.searchType] || [card];
     const terms = state.ignoreWordOrder ? SBData.searchWords(state.search) : [SBData.searchPhrase(state.search)].filter(Boolean);
-    where.forEach((root) => highlightMatches(root, terms));
+    where.forEach((root) => highlightMatches(root, terms, state.exactWords));
     return card;
   }
 
-  // Wraps every case-insensitive occurrence of each search term (a word, or
-  // the whole phrase) in a <mark>.
+  // Wraps every occurrence of each search term (a word, or the whole
+  // phrase) in a <mark>, compared as the search compares them (SBData.searchFold:
+  // no case, accents or curly quotes); only whole words when `exact`.
   // Works on the rendered DOM's text nodes rather than the HTML string, so
   // the <sup>/<sub> math markup and escaped characters stay intact. Buttons
   // are skipped (their labels aren't searched).
-  function highlightMatches(root, words) {
+  function highlightMatches(root, words, exact) {
     if (!words.length) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: (n) => (n.parentElement.closest('button')
@@ -388,12 +397,13 @@
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach((node) => {
       const text = node.nodeValue;
-      const lower = text.toLowerCase();
+      const lower = SBData.searchFold(text);
       // Every match of every word, sorted, with overlapping ones merged
       // ("sod" and "sodium" both hitting "sodium" give one mark).
       const hits = [];
       words.forEach((w) => {
-        for (let idx = lower.indexOf(w); idx !== -1; idx = lower.indexOf(w, idx + 1)) hits.push([idx, idx + w.length]);
+        const next = exact ? (from) => SBData.wholeWordIndex(lower, w, from) : (from) => lower.indexOf(w, from);
+        for (let idx = next(0); idx !== -1; idx = next(idx + 1)) hits.push([idx, idx + w.length]);
       });
       if (!hits.length) return;
       hits.sort((a, b) => a[0] - b[0]);

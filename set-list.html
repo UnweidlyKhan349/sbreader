@@ -14,7 +14,7 @@
 <meta name="description" content="Every Science Bowl tournament in the SB Reader question bank, with its level, date and question count." />
 <link rel="canonical" href="https://sbreader.github.io/set-list" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<link rel="stylesheet" href="css/style.css?v=b6c7add815" />
+<link rel="stylesheet" href="css/style.css?v=626de2c2e8" />
 <script src="js/site.js?v=b8366c7695"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
@@ -78,6 +78,7 @@
     <thead>
       <tr>
         <th scope="col" class="clickable" data-sort="name" aria-sort="none">Set Name <span class="sort-indicator"></span></th>
+        <th scope="col" class="clickable" data-sort="kind" aria-sort="none" title="A tournament's packets, a practice set (a team's or community's question collection), or another competition in the same format">Kind <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="level" aria-sort="none">Level <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="date" aria-sort="none">Date <span class="sort-indicator"></span></th>
         <th scope="col" class="clickable" data-sort="packets" aria-sort="none"># of Packets <span class="sort-indicator"></span></th>
@@ -91,10 +92,11 @@
   <div class="d-block mx-auto mt-3 spinner-border" id="spinner" role="status"><span class="d-none">Loading...</span></div>
 </div>
 
-<script src="js/data.js?v=c283333004"></script>
+<script src="js/data.js?v=3c4720fe96"></script>
 <script>
   (function () {
     const LEVELS = { hs: 'High School', ms: 'Middle School' };
+    const KINDS = { tournament: 'Tournament', practice: 'Practice set', other: 'Other competition' };
     const body = document.getElementById('set-metadata-list');
     const search = document.getElementById('set-name-search');
     const headers = [...document.querySelectorAll('th[data-sort]')];
@@ -123,13 +125,14 @@
         a.href = 'set?set=' + encodeURIComponent(t.slug);
         a.textContent = t.name;
         tr.insertCell(-1).appendChild(a);
+        tr.insertCell(-1).textContent = KINDS[t.kind] || '';
         tr.insertCell(-1).textContent = LEVELS[t.level] || t.level || '';
         tr.insertCell(-1).textContent = monthYear(t.date);
         [t.packets, t.tossups, t.bonuses].forEach((n) => { tr.insertCell(-1).textContent = n == null ? '-' : n.toLocaleString(); });
       });
     }
     function sortBy(key) {
-      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' ? 1 : -1);
+      sortDir = sortKey === key ? -sortDir : (key === 'name' || key === 'level' || key === 'kind' ? 1 : -1);
       sortKey = key;
       rows.sort((a, b) => {
         const x = a[key] == null ? '' : a[key];

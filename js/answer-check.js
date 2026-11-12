@@ -10,8 +10,15 @@
   function normalize(s) {
     if (s == null) return '';
     return String(s)
+      // accents are dropped, so "schrodinger" is "SCHRÖDINGER" and "huckel"
+      // "HÜCKEL" (the accented letter used to be cut out as punctuation)
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      // one-character fractions are typed with a slash: "½" is "1/2", "2½" is "2 1/2"
+      .replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f])
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // a times sign typed as the letter x between numbers: "67 x 101", "2x2x3"
+      .replace(/(\d)\s*X\s*(?=[\d√(])/g, '$1 ')
       // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
       // dropped as punctuation below)
       .replace(/(\d)\s*X\s*(?=10\s*\^)/g, '$1 ')
@@ -28,6 +35,10 @@
       // silently never match and the symbol would just get stripped as
       // punctuation below instead of becoming "PI".
       .replace(/[πΠ]/g, ' PI ') // so a typed "pi" matches a displayed "π" and vice versa
+      // the other Greek letters, ħ and ∞ are typed by name too: "omega" for
+      // "ω", "delta H" for "ΔH", "hbar", "infinity" (the text is in capitals
+      // by now, so "ω" is "Ω"; a name can't tell Δ from δ, as when spoken)
+      .replace(GREEK_RE, (c) => ' ' + GREEK_NAMES[c] + ' ')
       // spelled-out "square/cube root of X" (however the packet phrased the
       // answer key) collapses to the same "SQRT X"/"CBRT X" form a student
       // typing the shorthand would produce, so either way of writing it
@@ -37,8 +48,14 @@
       // a decimal point stays part of its number, so "7.2" is one word and
       // never matches "2.7" by word order
       .replace(/(\d)\.(?=\d)/g, '$1\u0001')
-      .replace(/[^A-Z0-9'\s\u0001]/g, ' ') // strip punctuation except apostrophe
+      // a fraction standing by itself stays one word too, so "1/2" is never
+      // the list "1, 2" (it used to pass for a key of "1 AND 2", and "1 and
+      // 2" for a key of "1/2"); a slash inside a longer expression
+      // ("x^2/2", "(a + b)/2") is punctuation as before
+      .replace(/(^|[\s,;(=])(\d+)\s*\/\s*(\d+)(?=$|[\s,;)])/g, '$1$2\u0002$3')
+      .replace(/[^A-Z0-9'\s\u0001\u0002]/g, ' ') // strip punctuation except apostrophe
       .replace(/\u0001/g, '.')
+      .replace(/\u0002/g, '/')
       .replace(/\s+/g, ' ')
       .trim()
       // standard abbreviations become the full term, so "ER" and "rough ER"
@@ -53,6 +70,16 @@
       // round: "0" = "ZERO", "three" = "3".
       .replace(SPELLED_NUMBER_RE, (m) => String(SPELLED_NUMBERS.indexOf(m)));
   }
+  const VULGAR = { '½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
+    '⅙': '1/6', '⅚': '5/6', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8' };
+  const VULGAR_RE = new RegExp('(\\d)?([' + Object.keys(VULGAR).join('') + '])', 'g');
+  const GREEK_NAMES = { Α: 'ALPHA', Β: 'BETA', Γ: 'GAMMA', Δ: 'DELTA', Ε: 'EPSILON', Ζ: 'ZETA', Η: 'ETA', Θ: 'THETA', Ι: 'IOTA', Κ: 'KAPPA',
+    Λ: 'LAMBDA', Μ: 'MU', Ν: 'NU', Ξ: 'XI', Ρ: 'RHO', Σ: 'SIGMA', Τ: 'TAU', Υ: 'UPSILON', Φ: 'PHI', Χ: 'CHI', Ψ: 'PSI', Ω: 'OMEGA',
+    ℏ: 'HBAR', Ħ: 'HBAR', '∞': 'INFINITY' };
+  const GREEK_RE = new RegExp('[' + Object.keys(GREEK_NAMES).join('') + ']', 'g');
+  // (Without the g flag, for .test(), which a g flag makes remember where it stopped.)
+  const GREEK_TEST = new RegExp(GREEK_RE.source);
+  const VULGAR_TEST = new RegExp('[' + Object.keys(VULGAR).join('') + ']');
   const SPELLED_NUMBERS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN',
     'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN', 'TWENTY'];
   const SPELLED_NUMBER_RE = new RegExp('\\b(?:' + SPELLED_NUMBERS.join('|') + ')\\b', 'g');
@@ -179,6 +206,23 @@
     return digits.join('');
   }
 
+  // "ALL", "ALL OF THEM", "ALL THREE", "ALL OF THE ABOVE", "ALL 4 OF THESE",
+  // "EVERY ONE": every listed item, however it's said. Returns { n }, the
+  // count the phrase names (null when it names none), or null when `up`
+  // (already normalized, so "THREE" reads "3") is something else.
+  const ALL_RE = /^(?:ALL(?: OF)?(?: THE)?(?: (\d))?(?: OF)?(?: THE)?(?: (?:ABOVE|THEM|THESE|THOSE|FOLLOWING|ITEMS|OPTIONS|CHOICES|STATEMENTS|ANSWERS))?|EVERY 1(?: OF (?:THEM|THESE|THE ABOVE))?|EVERYTHING)$/;
+  function allPhrase(up) {
+    const m = up.match(ALL_RE);
+    return m ? { n: m[1] ? parseInt(m[1], 10) : null } : null;
+  }
+  // How many things a stem says it lists: "the following three", "these 4".
+  function statedCount(questionText) {
+    const m = normalize(questionText).match(/\b(?:FOLLOWING|THESE|THOSE) (\d)\b/);
+    return m ? parseInt(m[1], 10) : null;
+  }
+  // A key without a note in brackets at its end: "ALL (1, 2, 3)" -> "ALL".
+  function withoutEndNote(key) { return String(key).replace(/\s*\([^()]*\)\s*$/, ''); }
+
   // Try to interpret a string as a "list of item numbers" answer, e.g.
   // "1 AND 3", "1, 3", "13", "ALL", "3 ONLY", "NONE" -> canonical sorted-digit string like "13".
   // Returns null if it doesn't look like a list-style answer.
@@ -187,9 +231,9 @@
     const up = romanItemsToDigits(normalize(raw));
     if (!up) return null;
 
-    if (/^ALL( OF THE ABOVE| THREE| FOUR| FIVE| SIX)?$/.test(up)) {
-      return digitsToCanonical(range(1, itemCount));
-    }
+    // "all three" of four listed items names the wrong count
+    const all = allPhrase(up);
+    if (all) return all.n == null || all.n === itemCount ? digitsToCanonical(range(1, itemCount)) : null;
     if (/^NONE( OF THE ABOVE)?$/.test(up)) {
       return '0';
     }
@@ -840,7 +884,12 @@
     if (signConflict(a, b)) return false;
     const pa = pureNumber(a), pb = pureNumber(b);
     if (pa && pb) return sameValue(pa, pb);
-    return normalize(a) === normalize(b) || leadingValueEqual(a, b);
+    const na = normalize(a), nb = normalize(b);
+    if (na === nb || leadingValueEqual(a, b)) return true;
+    // A Greek letter becomes its name with spaces around it, a typed name
+    // has only the spaces that were typed ("Rω^2" is "R OMEGA 2", "R
+    // omega^2" is "R OMEGA2"): with one in the answer, spacing doesn't count.
+    return GREEK_TEST.test((String(a) + String(b)).toUpperCase()) && na.length > 0 && na.replace(/ /g, '') === nb.replace(/ /g, '');
   }
   // Only whitespace is dropped (punctuation is kept, so "1.5" never meets
   // "15"), and only for answers containing a letter, since spacing is
@@ -974,9 +1023,25 @@
     return INFLECTION_PAIRS.some(([x, y]) => (ta === x && tb === y) || (ta === y && tb === x));
   }
 
+  // One word written two ways: a possessive counts with or without its
+  // ending (HOOKE'S / HOOKES / HOOKE). Nothing else: a British spelling
+  // (SULPHUR, COLOUR) is a near miss like any other misspelling.
+  // (One name is so often written with an A that both spellings count.)
+  const NAME_SPELLINGS = { MICHAELSON: 'MICHELSON' };
+  function spellingKey(w) {
+    const bare = w.replace(/'S?$/, '').replace(/'/g, '');
+    return NAME_SPELLINGS[bare] || bare;
+  }
+  function sameWord(a, b) {
+    if (a === b || inflectionOnly(a, b)) return true;
+    const ka = spellingKey(a), kb = spellingKey(b);
+    return ka.length >= 2 && (ka === kb || inflectionOnly(ka, kb));
+  }
+
   // Pairs up each word in `a` with a not-yet-used word in `b`, in any order.
   // Returns 'exact' when every word matches exactly (only the order, stop
-  // words or singular/plural differ), 'typo' when some pair is only within its length's
+  // words, singular/plural or the spelling variants of sameWord differ),
+  // 'typo' when some pair is only within its length's
   // typo tolerance, or null. Requires the same word count on both sides, so
   // incomplete or padded answers never get here.
   function lenientWordMatch(a, b) {
@@ -997,7 +1062,7 @@
       let bestDist = Infinity;
       for (let j = 0; j < wb.length; j++) {
         if (usedB[j]) continue;
-        if (w === wb[j] || inflectionOnly(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
+        if (sameWord(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
         const tol = typoTolerance(Math.max(w.length, wb[j].length));
         if (!tol || contrastingWords(w, wb[j])) continue;
         const d = levenshtein(w, wb[j]);
@@ -1059,6 +1124,9 @@
     // GLYCOSYLASE", "W ((R)-METHYL 3-HYDROXYBUTANOATE)") takes either one
     const choice = noNum.match(/^([WXYZ])\)\s*(\S.*)$/) || noNum.match(/^([WXYZ])\s+\((.+)\)\s*$/);
     if (choice) out.push(choice[1], choice[2]);
+    // a named law, effect, ... by its name alone ("DOPPLER EFFECT" -> "DOPPLER")
+    const name = withoutKindWord(noNum);
+    if (name) out.push(name);
     for (const v of out.slice()) {
       if (/\(/.test(v)) {
         out.push(v.replace(/\([^)]*\)/g, ' '));
@@ -1100,7 +1168,8 @@
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
       // a bare number for a part keyed as that number and a unit ("3.2 *
       // 10^23" for "3.2 × 10^23 J"), as for a single answer
-      if (segNums) {
+      // (never against a part still carrying its label: "1" isn't "1) HALITE")
+      if (segNums && !/^\s*\(?(?:[1-9]|IX|IV|V?I{1,3}|V)\s*[):]\s/.test(alt)) {
         const altNums = extractLeadingNumbers(alt);
         if (altNums.length && numsEqualAsSet(segNums, altNums) && !signConflict(seg, alt) && unitTail(alt)) return 'exact';
       }
@@ -1472,6 +1541,125 @@
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
+  // A law, effect, experiment, relation, ... is answered without that last
+  // word when the words before it already say which one is meant:
+  // "Michelson-Morley" for "MICHELSON-MORLEY EXPERIMENT", "Doppler" for
+  // "DOPPLER EFFECT", "Hooke's" for "HOOKE'S LAW", "de Broglie" for "DE
+  // BROGLIE RELATION", "photoelectric" for "PHOTOELECTRIC EFFECT", "ideal
+  // gas" for "IDEAL GAS LAW". They do when they hold a name (a word in
+  // KIND_NAMES, or any possessive), are two words or more, or are one word
+  // that is a describing word or a long one ("PHOTOELECTRIC", "GREENHOUSE",
+  // "PYTHAGOREAN"). They don't when what's left is a short everyday noun or a
+  // substance, which would be a different answer by itself: "rock" isn't
+  // "ROCK CYCLE", nor "skin" "SKIN EFFECT", "carbon" "CARBON CYCLE" or
+  // "first" "FIRST LAW". Returns the key without its last word, or null.
+  // What's left must be given in full ("PAULI EXCLUSION", "QUANTUM HALL").
+  // KIND_NAMES is every name before one of these words in the bank's keys;
+  // a new set's names go here (a possessive needs no entry).
+  const KIND_WORD_RE = /^(.*\S)[\s-]+(?:EXPERIMENT|EFFECT|LAW|PRINCIPLE|THEOREM|EQUATION|RULE|PROCESS|CYCLE|RELATION|RELATIONSHIP|HYPOTHESIS|PARADOX|CONJECTURE|POSTULATE|INEQUALITY|APPROXIMATION|PHENOMENON|LIMIT)S?\s*$/i;
+  // One word left that names a thing of its own, however long.
+  const KIND_NOT_ALONE = new Set(['CARBON', 'NITROGEN', 'PHOSPHORUS', 'SULFUR', 'OXYGEN', 'HYDROGEN', 'WATER', 'FIRST', 'SECOND', 'THIRD', 'ZEROTH',
+    'CHEMICAL', 'NUCLEAR', 'PHYSICAL', 'NATURAL', 'GENERAL', 'SPECIAL', 'NORMAL', 'CENTRAL', 'INTERNAL', 'EXTERNAL', 'ORIGINAL', 'CRITICAL', 'ELECTRIC', 'MAGNETIC']);
+  const KIND_NAMES = new Set(`
+    ABEL ABNEY AHARONOV ALBRECHT ALFVEN ALLEE AMAGAT AMONTON AMPERE ANDERSON APOLLONIUS ARCHIMEDES ARHENNIUS
+    ARNOLD ARRHENIUS AUFBAU AUGER AVERY AVOGADRO BABINET BACHARACH BAHCALL BALDWIN BALLOT BALMER BANACH BAPPU
+    BARKHAUSEN BASSHAM BAYER BAYES BENSON BERGERON BERGIUS BERNOUILLI BERNOULLI BESSEMER BETHE BETZ BIEFELD BIOT
+    BLANDFORD BLAZHKO BLOCH BODE BOHM BOHR BOLTZMAN BOLTZMANN BOREL BORN BORSUK BOSCH BOSCHE BOSE BOSH BOYLE
+    BOYLES BRAGG BRAYTON BREDT BREWSTER BRIGGS BRILLOUIN BROGLIE BUCKINGHAM BUTLER BUYS CAHN CALVIN CANTOR
+    CARNOT CAROTHERS CARTY CASIMIR CASTNER CAUCHY CAYLEY CEVA CHAIKOFF CHARGAFF CHARLES CHASE CHASLES CHATELIER
+    CHERENKOV CHINESE CLAPEYRON CLASIUS CLAUS CLAUSIUS CLAYPERON COLEMAN COMPTON CONDON COOLEO CORI CORIOLIS
+    COULOMB COWAN CRAM CRAMER CURIE CURTIN CUSHING DALEMBERT DALTON DARBOUX DARCY DAVIES DAVIS DAVISSON DEBYE
+    DEEMTER DEMORGAN DENNARD DESCARTES DEWAR DIELS DIETERICI DILWORTH DIRAC DOLAN DOLE DOOB DOPPLER DOW DRAGO
+    DRAKE DUHEM DUHRING DULONG DZHANIBEKOV EARNSHAW ECKART ECKMAN EDISON EINSTEIN EKMAN ELITZUR EMDEN ENGELMANN
+    ERDOS EULER EVANS EXNER EYRING FAJANS FARADAY FERMAT FERMI FICK FIESER FINDEISEN FISCHER FISHER FLORY
+    FORCHHAMMER FOURIER FRANCIS FRANCK FRANK FRASCH FRESNEL FRIEDMANN FUBINI FUJISHIMA FUJITA FUJIWHARA GAUSE
+    GAUSS GAY GEIGER GERLACH GERMER GIBBS GLASSER GLEN GLOGER GOLDMAN GOOS GOUY GRAHAM GRIFFITH GRUNDY
+    GULLSTRAND GUTENBERG HAASE HABER HAFELE HAGEN HALDANE HALL HAMILTON HAMILTONIAN HAMMETT HANER HARDY HARKINS
+    HASSE HASSELBACH HASSELBALCH HAWKING HEBB HEEZEN HEINE HEISENBERG HELMHOLTZ HENDERSON HENRY HERAULT HEROULT
+    HERSHEY HERTZ HESS HESSE HIGGS HILL HIRE HODGKIN HOFF HOFFMAN HOFFMANN HOMESTAKE HONDA HOOKE HOPKINSON
+    HOUWINK HUBBLE HUCKEL HUCKLE HUGGINS HUND HUYGENS INGOLD IVES JAHN JEANS JEFIMENKO JORDAN JOSEPHSON JOULE
+    JURIN KARAMAN KARRICK KASHA KATZ KEATING KELLNER KELVIN KEPLER KERR KIRCHHOFF KIRCHOFF KLEIN KLINKENBERG
+    KOBAYASHI KOHLRAUSCH KONDO KOPP KOPPEN KREBS KROLL KURATOWSKI LAGRANGE LAMBERT LAMPA LANDAUER LANDOW
+    LANGMUIR LAPLACE LAPORTE LECHATELIER LEIBNIZ LEIDENFROST LENZ LEWIS LHOPITAL LIOUVILLE LORENTZ LORENZ LOTKA
+    LUSSAC LYDERSON LYELL MACLEOD MADDEN MADELUNG MAGNUS MALUS MANDULA MARANGONI MARCET MARKONIKOV MARKOV
+    MARKOVNIKOV MARSDEN MAXWELL MAYER MCLAUGHLIN MECKEL MEISSNER MEITNER MENELAUS MENTEN MERMIN MESELSON METONIC
+    MICHAELIS MICHELSON MIHAILESCU MILANKOVITCH MILLER MILLIKAN MINGOS MINKOWSKI MOIVRE MOND MONGE MOORE MORGAN
+    MORLEY MOSELEY MOSER MOSLEY MOSSBAUER MPEMBA NAPOLEON NASH NAVIER NEEL NERNST NEWTON NICOMACHU NISHINA
+    NOETHER NORTON NOVIKOV NYE NYQUIST OBERTH OCHSENFELD OCHSENFIELD ODDO OERSTED OHM OKEEFE ONNES OSTWALD OTTO
+    OVERHAUSER PADDACK PAPPUS PARETO PASCAL PASCHEN PAULI PELL PELTIER PENROSE PETCH PETIT PLANCHEREL PLANCK
+    POCKELS POISEUILLE POISSON POLANYI POLYA POMERANCHUK POYNTING PRELOG PRIMAKOFF PROUST PTOLEMY PYTHAGOREAN
+    RADZIEVSKII RALL RANKINE RAOULT RASHBA RAYLEIGH REBKA REINES RENNER RICHTER RIEMANN RIESZ ROBERTSON ROLLE
+    ROSSI ROSSITER ROULT ROWLAND RUCHARDT RUFFINI RUTHERFORD RYDBERG SABATIER SACHS SAGNAC SAHA SAROS SAVART
+    SAYTZEFF SCHMIDT SCHRODINGER SCHUR SCHWARTZCHILD SCHWINGER SEABORG SEEBECK SELLMEIER SERRES SEWALL SHANNON
+    SIMPSON SITTER SLATER SNELL SOKOLOV SOTHIC SPRAGUE STAHL STARK STARLING STEFAN STEWART STILWELL STIRLING
+    STODOLA STOKES STURM SUNYAEV SYLOW SZEKERES TAFEL TAYLOR TELLER TERNOV TERRELL THEVENIN THIRRING THOMPSON
+    THOMSON THORPE TITIUS TOLMAN TORICELLI TORRICELLI TROPSCH TROUTON TSIOLKOVSKY TULLEY TWOMEY TYCHONOFF TYNDAL
+    TYNDALL ULAM UNRUH URCA UREY VAIDMAN VAUCOULEUR VOLMER VOLTA VOLTERRA WAALS WADE WAGNER WAHLUND WALTHER
+    WARBURG WEGENER WEINBERG WEIZSACKER WERKMAN WIEN WIGNER WILSON WOLFE WOLFF WOODWARD WRIGHT YANG YARKOVSKY
+    YORP ZAITSEV ZANSTRA ZAREMBAS ZECKENDORF ZEEMAN ZELDOVICH ZENO ZNAJEK ZSIGMONDY ZWALLY
+  `.split(/\s+/).filter(Boolean));
+  // Possessives that aren't a person's ("THE OBSERVER'S EFFECT").
+  const NOT_NAMES = new Set(['OBSERVER', 'LENSMAKER', 'EARTH', 'MOON', 'SUN']);
+  function withoutKindWord(key) {
+    const m = String(key).match(KIND_WORD_RE);
+    if (!m || /\d/.test(m[1])) return null;
+    const name = m[1].replace(/^\s*THE\s+/i, '');
+    const words = tokenize(name);
+    const named = words.some((w) => {
+      const bare = w.replace(/'S?$/, '').replace(/'/g, '');
+      if (KIND_NAMES.has(bare) || KIND_NAMES.has(bare.replace(/S$/, ''))) return true;
+      return /'S?$/.test(w) && bare.length >= 2 && !NOT_NAMES.has(bare);
+    });
+    if (named) return name;
+    if (words.some((w) => NOT_NAMES.has(w.replace(/'S?$/, '')))) return null;
+    if (words.length >= 2) return words.every((w) => KIND_NOT_ALONE.has(w)) ? null : name;
+    const w = words[0] || '';
+    if (KIND_NOT_ALONE.has(w)) return null;
+    // a describing word ("PHOTOELECTRIC", "INDUCTIVE", "VIRIAL"), or a long one
+    return w.length >= 9 || (w.length >= 6 && /(?:IC|AL|AN|AR|ARY|IVE|OUS|OID)$/.test(w)) ? name : null;
+  }
+
+  // "The other one", "the last one", "the remaining one": what a player says
+  // for the one thing left when every other one has been named. Returns the
+  // answer around the phrase when it's there exactly once.
+  const OTHER_ONE_RE = /\b(?:the\s+)?(?:(?:other|last|remaining|final|left\s?over)\s+(?:one|1)|other|one\s+left)\b/gi;
+  function otherOneSlot(raw) {
+    const found = [...raw.matchAll(OTHER_ONE_RE)];
+    if (found.length !== 1) return null;
+    const m = found[0];
+    return (fill) => `${raw.slice(0, m.index)} ${fill} ${raw.slice(m.index + m[0].length)}`.trim();
+  }
+  // Only where it can't be a guess: the question is an ordering of things it
+  // lists itself, so the key holds every one of them and "the other one" is
+  // whichever the rest of the answer leaves. Each part of the key is tried
+  // in the phrase's place, and the usual check decides (a part named twice,
+  // or in the wrong place, still fails).
+  function partsListedInQuestion(spec, questionText) {
+    const nq = ` ${normalize(questionText)} `;
+    return spec.alts.every((alts) => alts.some((a) => { const na = normalize(a); return na && nq.includes(` ${na} `); }));
+  }
+  function checkWithOtherOne(raw, spec, question) {
+    const fill = otherOneSlot(raw);
+    if (!fill || spec.n < 2 || !isRankingQuestion(question.question) || !partsListedInQuestion(spec, question.question)) return null;
+    let best = null;
+    for (let k = 0; k < spec.n && best !== 'exact'; k++) best = betterMatch(best, checkMultiPart(fill(spec.alts[k][0]), spec));
+    return best;
+  }
+  // The same for a ranking of numbered items ("3, 1, the other one", or the
+  // item names): the digits of the full ordering, or null.
+  function rankedWithOtherOne(raw, itemCount, itemTexts) {
+    const fill = otherOneSlot(raw);
+    if (!fill) return null;
+    const complete = (c) => c && c.length === itemCount && new Set(c).size === itemCount;
+    for (let d = 1; d <= itemCount; d++) {
+      const byNumber = canonicalizeRanked(fill(String(d)), itemCount, true);
+      if (complete(byNumber)) return byNumber;
+      const nums = itemTexts ? resolveTermsToNumbers(fill(`, ${itemTexts[d - 1]}, `).replace(/^[\s,]+|[\s,]+$/g, '').replace(/\s*,[\s,]*/g, ', '), itemTexts) : null;
+      if (nums && complete(nums.join(''))) return nums.join('');
+    }
+    return null;
+  }
+
   /**
    * Grade a free-typed answer against a question.
    * Returns { correct, matched: 'main'|'accept'|'lenient'|'fuzzy'|null, rejected, close? }
@@ -1564,6 +1752,22 @@
       }
     }
 
+    // ---- "All" said another way: "all" for "ALL OF THEM", "all of them"
+    // or "all of the above" for "ALL", with or without numbered items. A
+    // count ("all three") must be the count the key or the stem gives. ----
+    const typedAll = allPhrase(normalize(raw));
+    if (typedAll) {
+      const listed = itemCount || statedCount(question.question);
+      for (const k of [ans.text, ...accepts].flatMap(multi ? (x) => [x] : keyVariants)) {
+        const keyAll = allPhrase(normalize(withoutEndNote(k)));
+        if (!keyAll) continue;
+        const count = keyAll.n != null ? keyAll.n : listed;
+        if (typedAll.n == null || count == null || typedAll.n === count) {
+          return { correct: true, matched: k === ans.text ? 'main' : 'accept', rejected: false };
+        }
+      }
+    }
+
     // ---- List-style answers ("1 and 2", "all", "3 only", "312" ranking,
     // the item names themselves, or "all but <item>") ----
     if (itemCount) {
@@ -1579,6 +1783,8 @@
         const distinct = itemTexts && new Set(itemTexts.map((s) => normalize(s))).size === itemTexts.length;
         const nums = distinct ? resolveTermsToNumbers(raw, itemTexts) : null;
         if (nums && nums.length === itemCount && new Set(nums).size === itemCount) userCanon = nums.join('');
+        // ... or with "the other one" for the one item left
+        if (userCanon === null) userCanon = rankedWithOtherOne(raw, itemCount, distinct ? itemTexts : null);
       }
       if (userCanon === null && !ranking) {
         // Not a number/ALL/NONE-style answer - a set-selection question (not
@@ -1599,7 +1805,9 @@
         // answers each item in turn; it isn't a choice of items, so its
         // numbers mustn't be read as one ("all" or "123" would pass). Those
         // keys are left to the multi-part checks below.
-        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null : canonFn(k, itemCount));
+        // (A note in brackets at the key's end isn't part of it: "ALL (1, 2, 3)".)
+        const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null
+          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount));
         const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
@@ -1691,7 +1899,8 @@
 
     // ---- Multi-part: every part given, each matched on its own ----
     if (multi) {
-      const m = checkMultiPart(raw, multi);
+      let m = checkMultiPart(raw, multi);
+      if (m !== 'exact') m = betterMatch(m, checkWithOtherOne(raw, multi, question));
       if (m === 'exact' || m === 'fuzzy') return { correct: true, matched: m === 'exact' ? 'main' : 'fuzzy', rejected: false };
       if (m === 'typo') close = true;
     }
@@ -1707,7 +1916,8 @@
     // ("respectively", "order the following") only in its order.
     const list = multi ? null : listSpec(question);
     if (list) {
-      const m = checkMultiPart(raw, list);
+      let m = checkMultiPart(raw, list);
+      if (m !== 'exact') m = betterMatch(m, checkWithOtherOne(raw, list, question));
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
     }
@@ -1719,6 +1929,20 @@
         : lenientWordMatch(raw, key);
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
+    }
+
+    // ---- A named law, effect, experiment, ... by its name alone ----
+    // ("michelson-morley" for "MICHELSON-MORLEY EXPERIMENT"; see
+    // withoutKindWord). A typo in the name is close, as anywhere else.
+    if (!multi) {
+      for (const key of keys) {
+        const name = withoutKindWord(key);
+        if (!name) continue;
+        if (normEqual(raw, name) || compactEqual(raw, name)) return { correct: true, matched: 'lenient', rejected: false };
+        const m = lenientWordMatch(raw, name);
+        if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
+        if (m) close = true;
+      }
     }
 
     // ---- Typed answer contains the whole key plus more: close ----
@@ -1804,7 +2028,16 @@
   // charges contradict the key and every accept (see operatorConflict) is
   // wrong, however it matched (unit rewriting, word order, typo tolerance
   // and the part-by-part checks all compare text with the symbols gone).
+  // One-character fractions written out ("½" -> "1/2", "2½" -> "2 1/2") in
+  // the typed answer and the key, so the number checks, which read the text
+  // as written, see a fraction they know.
+  const slashFractions = (t) => (t == null ? t : String(t).replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f]));
   function checkAnswer(question, userInput) {
+    if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join(''))) {
+      const a = question.answer;
+      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
+      userInput = slashFractions(userInput);
+    }
     const result = checkAnswerInner(question, userInput);
     if (!result.correct || !question.answer || question.format === 'MC') return result;
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says

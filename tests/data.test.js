@@ -128,6 +128,7 @@ test('the newest-first order lists tournaments by meta.json date, each in packet
   globalThis.SBData.meta = loadCorpus().meta;
   const date = new Map(meta.tournaments.map((t) => [t.name, t.date]));
   assert.ok(meta.tournaments.every((t) => /^\d{4}-\d{2}-\d{2}$/.test(t.date || '')), 'every tournament has a YYYY-MM-DD date');
+  assert.ok(meta.tournaments.every((t) => ['tournament', 'practice', 'other'].includes(t.kind)), 'every set is a tournament, a practice set or another competition');
   const recent = globalThis.SBData.sortByPacketOrder(questions, { recent: true });
   const packet = globalThis.SBData.sortByPacketOrder(questions);
   assert.strictEqual(recent.length, questions.length);
@@ -201,21 +202,50 @@ test('every subject matches what its source prints, or is a listed override', ()
   assert.deepStrictEqual(found, {});
 });
 
-test('search matches every word in the question, answer or tournament, ignoring case, order and exponent markup', () => {
+test('search matches every word in what a card shows, ignoring case, order, accents and exponent markup; exact words are whole words', () => {
   const { questions } = loadCorpus();
   const SBData = globalThis.SBData;
   SBData.questions = questions;
-  const plain = (t) => t.replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '');
-  const has = (t, s) => { const l = t.toLowerCase(); return l.includes(s) || plain(l).includes(s); };
-  const hasWord = (q, w) => has(q.question, w) || has(q.answer.text, w) || has(q.tournament, w);
-  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium', 'cell mitochondria membrane']) {
-    const words = search.trim().toLowerCase().split(/\s+/);
-    const expected = questions.filter((q) => words.every((w) => hasWord(q, w))).map((q) => q.id);
+  // An independent check: every field a card shows, each word looked for in
+  // each field on its own (with and without exponent markup).
+  const plain = (t) => t.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
+  const fold = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[‘’ʼ′]/g, "'").replace(/[“”″]/g, '"')
+    .replace(/[‐‑‒–—−]/g, '-').replace(/[     ]/g, ' ').toLowerCase().replace(/\s+/g, ' ');
+  const fields = (q) => [q.question, ...Object.values(q.choices || {}), q.answer.text, ...(q.answer.accept || []), ...(q.answer.reject || []), q.tournament].filter(Boolean);
+  const folded = new Map(questions.map((q) => [q, fields(q).map(fold).flatMap((f) => [f, plain(f)])]));
+  const esc = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const wordRe = (w) => new RegExp((/^[\p{L}\p{N}]/u.test(w) ? '(?<![\\p{L}\\p{N}])' : '') + esc(w) + (/[\p{L}\p{N}]$/u.test(w) ? '(?![\\p{L}\\p{N}])' : ''), 'u');
+  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium',
+    'cell mitochondria membrane', 'schrodinger', "hooke's law", 'p-wave', 'quagmire', 'hyperbolic', 'p waves', 'rna', 'ksp']) {
+    const words = fold(search.trim()).split(/\s+/);
+    const expected = questions.filter((q) => words.every((w) => folded.get(q).some((f) => f.includes(w)))).map((q) => q.id);
     assert.deepStrictEqual(SBData.filterQuestions({ search }).map((q) => q.id), expected, search);
+    const res = words.map(wordRe);
+    const exact = questions.filter((q) => res.every((re) => folded.get(q).some((f) => re.test(f)))).map((q) => q.id);
+    assert.deepStrictEqual(SBData.filterQuestions({ search, exactWords: true }).map((q) => q.id), exact, `${search} (exact words)`);
+    assert.ok(exact.length <= expected.length);
   }
   // Words needn't be adjacent or in order.
   const apart = SBData.filterQuestions({ search: 'chloride sodium' }).length;
   assert.ok(apart >= SBData.filterQuestions({ search: 'sodium chloride' }).length && apart > 0);
+  // Every question is found by its own text, typed plain, in each scope: the
+  // first words of the question, of each choice, of the answer and of each accept.
+  const typed = (t) => fold(t).trim().split(' ').slice(0, 3).join(' ');
+  const misses = [];
+  for (const q of questions) {
+    const check = (text, type) => {
+      const m = text && SBData.searchMatcher(typed(text), true, type);
+      if (m && !m(q)) misses.push([q.id, type, typed(text)]);
+      const e = text && SBData.searchMatcher(typed(text), true, type, true);
+      if (e && !e(q)) misses.push([q.id, type + ' exact', typed(text)]);
+    };
+    check(q.question, 'question'); check(q.question, 'all');
+    Object.values(q.choices || {}).forEach((c) => { check(c, 'question'); check(c, 'all'); });
+    check(q.answer.text, 'answer'); check(q.answer.text, 'all');
+    (q.answer.accept || []).forEach((x) => { check(x, 'answer'); check(x, 'all'); });
+    (q.answer.reject || []).forEach((x) => check(x, 'all'));
+  }
+  assert.deepStrictEqual(misses.slice(0, 10), []);
 });
 
 test('a packet location becomes a #page= or #L fragment only on PDF and GitHub links', () => {
@@ -296,4 +326,22 @@ test('stratifiedQueue deals each question once, subjects mixed', () => {
     assert.deepStrictEqual(new Set(q.slice(0, 3).map((x) => x.s)), new Set(['math', 'bio', 'chem']));
   }
   assert.deepStrictEqual(SBData.stratifiedQueue([], (x) => x.s), []);
+});
+
+test('a practice set holds no word-for-word copy of a tournament question or of another practice-set question', () => {
+  const { questions, meta } = loadCorpus();
+  const practice = new Set(meta.tournaments.filter((t) => t.kind === 'practice').map((t) => t.slug));
+  assert.ok(practice.size >= 10);
+  // Case, spacing and punctuation aside; never a math sign or a number; choices included.
+  const key = (q) => (q.question + ' | ' + ['W', 'X', 'Y', 'Z'].map((L) => (q.choices || {})[L] || '').join(' | ')).toLowerCase()
+    .replace(/[\u2212\u2013]/g, '-').replace(/[^a-z0-9+\-=<>^/*.%\u221a\u03c0 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const seen = new Map();
+  for (const q of questions) { const k = key(q); if (k.length < 20) continue; if (!seen.has(k)) seen.set(k, []); seen.get(k).push(q); }
+  const copies = [];
+  for (const g of seen.values()) {
+    if (g.length < 2) continue;
+    const inPractice = g.filter((q) => practice.has(q.tSlug));
+    if (inPractice.length && (inPractice.length < g.length || inPractice.length > 1)) copies.push(g.map((q) => q.id));
+  }
+  assert.deepStrictEqual(copies.slice(0, 10), []);
 });

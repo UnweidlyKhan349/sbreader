@@ -138,3 +138,84 @@ test('q is listed among the shortcuts, and flips I was wrong / I was right in Pl
   assert.match(await stat(), /^0\/1 with 1 question seen/);
   await ctx.close();
 });
+
+test('n starts and goes on but never skips; s only skips', async () => {
+  const { ctx, page } = await freshPlay();
+  const mode = () => page.evaluate(() => document.getElementById('nextBtn').dataset.mode);
+  const press = async (k) => { await page.keyboard.press(k); await page.waitForTimeout(400); };
+  await press('s');
+  assert.strictEqual(await mode(), 'start', 's does not start a session');
+  await press('n');
+  assert.strictEqual(await mode(), 'skip', 'n starts');
+  const first = await page.locator('#questionInfo').innerText();
+  await press('n');
+  assert.strictEqual(await mode(), 'skip', 'n does not skip a question being read');
+  assert.strictEqual(await page.locator('#revealBox').isVisible(), false);
+  await press('s');
+  assert.strictEqual(await mode(), 'next', 's skips');
+  assert.match(await page.locator('#revealBox').innerText(), /ANSWER:/);
+  await press('s');
+  assert.strictEqual(await mode(), 'next', 's does not start the next question');
+  assert.strictEqual(await page.locator('#questionInfo').innerText(), first);
+  assert.strictEqual(await page.locator('#questionLog .history-card').count(), 0);
+  await press('n');
+  assert.strictEqual(await mode(), 'skip', 'n goes on once the question is over');
+  assert.strictEqual(await page.locator('#questionLog .history-card').count(), 1);
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
+
+test('with rebuzzes on, the timer is back at 0 after a wrong interrupt', async () => {
+  const { ctx, page } = await freshPlay();
+  await page.locator('#toggleRebuzz').check({ force: true });
+  await page.locator('#nextBtn').click();
+  await page.waitForTimeout(500);
+  await page.keyboard.press(' ');
+  await page.waitForSelector('#answerInput:visible');
+  await page.waitForTimeout(700);
+  const timer = () => page.evaluate(() => document.getElementById('timerFace').textContent + document.getElementById('timerFraction').textContent);
+  assert.match(await timer(), /^[89]\.\d$/, 'the answer clock is running');
+  await page.keyboard.type('zzzz not the answer');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(300);
+  assert.strictEqual(await page.evaluate(() => document.getElementById('nextBtn').dataset.mode), 'skip', 'the question reads on');
+  assert.strictEqual(await timer(), '0.0');
+  await ctx.close();
+});
+
+test('Starred Questions: a near miss just says Close; with every star gone, n alerts and the question stays', async () => {
+  const { ctx, page } = await freshPlay();
+  // One starred question with a one-word key, so "key + more" is a near miss.
+  const q = await page.evaluate(() => {
+    const one = SBData.questions.find((x) => x.format === 'SA' && /^[A-Z]{6,12}$/.test(x.answer.text) && !x.answer.accept.length && !x.answer.reject.length && !x.visual);
+    localStorage.setItem('sb_bookmarks_v1', JSON.stringify([one.id]));
+    return { id: one.id, key: one.answer.text };
+  });
+  const alerts = [];
+  page.on('dialog', (d) => alerts.push(d.message()));
+  await page.goto(server.url + 'solo?mode=starred', { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => document.getElementById('nextBtn').dataset.mode === 'skip', null, { timeout: 60000 });
+  await page.keyboard.press(' ');
+  await page.waitForSelector('#answerInput:visible');
+  await page.keyboard.type(q.key.toLowerCase() + ' zzzz');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(500);
+  assert.strictEqual(await page.locator('#revealBox .close-hint').innerText(), 'Close');
+  // The last star goes (as from the card's star, or the Starred Questions page).
+  await page.evaluate((id) => SBData.bookmarks.remove(id), q.id);
+  const shown = await page.locator('#qDisplay').innerText();
+  await page.locator('body').click({ position: { x: 5, y: 300 } });
+  await page.keyboard.press('n');
+  await page.waitForTimeout(500);
+  assert.deepStrictEqual(alerts, ['No starred questions.']);
+  assert.ok(shown.length > 20 && await page.locator('#qDisplay').innerText() === shown, 'the question stays on screen');
+  assert.match(await page.locator('#revealBox').innerText(), /ANSWER:/);
+  // Starred again, n reads it once more.
+  await page.evaluate((id) => SBData.bookmarks.add(id), q.id);
+  await page.keyboard.press('n');
+  await page.waitForTimeout(500);
+  assert.strictEqual(await page.evaluate(() => document.getElementById('nextBtn').dataset.mode), 'skip');
+  assert.deepStrictEqual(alerts, ['No starred questions.']);
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});

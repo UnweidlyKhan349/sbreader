@@ -239,3 +239,35 @@ test('Set and packet pages link their sources; packet questions have no tag line
   assert.deepStrictEqual([...set.errors, ...packet.errors, ...freq.errors], []);
   await ctx.close();
 });
+
+test('Database: Exact words finds whole words only, marks only them, and a wrong choice or an accepted answer is searched', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'catalog');
+  await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
+  assert.strictEqual(await page.locator('#exactWords').isChecked(), false);
+  const search = async (text) => { await page.fill('#searchBox', text); await page.keyboard.press('Enter'); await page.waitForTimeout(500); return results(page); };
+  const loose = await search('p waves');
+  await page.locator('#exactWords').check();
+  await page.waitForTimeout(500);
+  const exact = await results(page);
+  assert.ok(exact > 0 && exact < loose, `${exact} with exact words, ${loose} without`);
+  // Every mark is the whole word "p" or "waves", never part of a longer
+  // word (a subscript or exponent set beside it is its own piece of text).
+  const marks = await page.locator('#results mark').evaluateAll((ms) => ms.map((m) => {
+    const side = (n, last) => (n && n.nodeType === 3 ? (last ? n.nodeValue.slice(-1) : n.nodeValue[0] || '') : '');
+    return [m.textContent.toLowerCase(), /[a-z0-9]/i.test(side(m.previousSibling, true)), /[a-z0-9]/i.test(side(m.nextSibling, false))];
+  }));
+  assert.ok(marks.length > 0);
+  for (const [text, before, after] of marks) { assert.ok(text === 'p' || text === 'waves', text); assert.ok(!before && !after, 'a mark stands alone'); }
+  await page.locator('#clearFilters').click();
+  assert.strictEqual(await page.locator('#exactWords').isChecked(), false);
+  // An accepted alternate, typed without its accent or curly quote, is found; so is a choice that isn't the answer.
+  assert.ok(await search('quagmire') >= 1);
+  assert.match(await page.locator('#results .a-text mark').first().innerText(), /quagmire/i);
+  assert.ok(await search('schrodinger') > 20);
+  await page.locator('#searchTypeQuestion').check();
+  assert.ok(await search('hyperbolic') > 50);
+  assert.ok(await page.locator('#results .choices mark').count() > 0, 'choices are marked');
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});

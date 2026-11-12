@@ -162,7 +162,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3592","q":[
 {"i":89105,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"What large machine, which came on line in the summer of 2000 at the Department of Energy’s Brookhaven National Lab, is the world’s highest energy ion collider:","c":{"W":"Advanced Photon Source","X":"CERN supercollider","Y":"Relativistic Heavy Ion Collider","Z":"Phoenix"},"a":{"t":"Relativistic Heavy Ion Collider","l":"Y"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3592","q":[
-{"i":89106,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"According to the standard model of particle physics, what is the name for the three leptons that have no electric charge and little if any mass?","a":{"t":"NEUTRINO","ac":["ELECTRON NEUTRINO","TAU NEUTRINO","AND MUON NUTRINO"]}}]},
+{"i":89106,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"According to the standard model of particle physics, what is the name for the three leptons that have no electric charge and little if any mass?","a":{"t":"NEUTRINO","ac":["ELECTRON NEUTRINO","TAU NEUTRINO","MUON NEUTRINO"]}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3593","q":[
 {"i":89107,"s":"bio","f":"MC","qt":"tossup","n":18,"q":"Which of the following is NOT true about toxic shock syndrome:","c":{"W":"it is not known to occur in males","X":"it is caused by a bacteria","Y":"up to 15% of healthy women harbor the causative germ in their vaginal flora","Z":"it is associated with infrequent changes of super absorbent tampons"},"a":{"t":"it is not known to occur in males","l":"W"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3593","q":[
@@ -314,7 +314,7 @@
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3631","q":[
 {"i":89181,"s":"ess","f":"MC","qt":"tossup","n":6,"q":"Which of the following is NOT likely to have been formed by glaciers:","c":{"W":"arete","X":"hanging valley","Y":"fjord","Z":"dike"},"a":{"t":"dike","l":"Z"}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3631","q":[
-{"i":89182,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Give the common name of the historic mineral that was the original source of radium and the first substance in which helium was discovered on earth:","a":{"t":"PITCHBLENDE","ac":["URANINITE or UO2"]}}]},
+{"i":89182,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"Give the common name of the historic mineral that was the original source of radium and the first substance in which helium was discovered on earth:","a":{"t":"PITCHBLENDE","ac":["URANINITE","UO2"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/tossup/3632","q":[
 {"i":89183,"s":"energy","f":"SA","qt":"tossup","n":7,"q":"Which federal agency is primarily in charge of our National Laboratories and is charged with ensuring a stable supply of energy for the nation?","a":{"t":"DEPARTMENT OF ENERGY","ac":["DOE"]}}]},
 {"rl":"Round 5","r":5,"u":"https://scibowldb.com/bonus/3632","q":[
@@ -417,8 +417,6 @@
 {"i":89232,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"What is the term for groundwater emerging naturally at the ground surface, where the water table intersects the surface:","a":{"t":"SPRING","ac":["SEEP"]}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3657","q":[
 {"i":89233,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"Which of the following is most specifically designed to measure low temperatures:","c":{"W":"alcohol thermometer","X":"pyrometer","Y":"cryometer","Z":"mercury thermometer"},"a":{"t":"cryometer","l":"Y"}}]},
-{"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3657","q":[
-{"i":89234,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"Who was the first president of the International Psychoanalysis Association who theorized that the shadow archetype consists of animal instincts:","a":{"t":"CARL JUNG"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3658","q":[
 {"i":89235,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Which of the following would be a measurement of a typical printer’s resolution:","c":{"W":"0.25 millimeters","X":"300 dpi","Y":"640 X 480","Z":"200 RSU"},"a":{"t":"300 dpi","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3658","q":[
@@ -442,7 +440,7 @@
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3663","q":[
 {"i":89245,"s":"math","f":"MC","qt":"tossup","n":13,"q":"In a simple random sample:","c":{"W":"response bias will be small","X":"non-response bias will be small","Y":"any two samples of the same size will have the same chance of being drawn","Z":"each subject is asked every question and random responses are allowed"},"a":{"t":"any two samples of the same size will have the same chance of being drawn","l":"Y"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3663","q":[
-{"i":89246,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Every even integer greater than 2 can be written as the sum of two primes. Give the respective two pairs of prime numbers that when added give 8 and 12:","a":{"t":"5 AND 3 FOR THE NUMBER 8; AND 7 AND 5 FOR THE NUMBER 12 [Note: 11 and 1 is not an acceptable answer; 1 is not a prime number]"}}]},
+{"i":89246,"s":"math","f":"SA","qt":"bonus","n":13,"q":"Every even integer greater than 2 can be written as the sum of two primes. Give the respective two pairs of prime numbers that when added give 8 and 12:","a":{"t":"5 AND 3 FOR THE NUMBER 8; AND 7 AND 5 FOR THE NUMBER 12"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3664","q":[
 {"i":89247,"s":"ess","f":"SA","qt":"tossup","n":14,"q":"What is the professional name for the person who studies fossils?","a":{"t":"PALEONTOLOGIST"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3664","q":[
@@ -562,7 +560,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3694","q":[
 {"i":89305,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following is an organic molecule:","c":{"W":"CaSO4","X":"CH4","Y":"NH3","Z":"H2O"},"a":{"t":"CH4","l":"X"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3694","q":[
-{"i":89306,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"To the nearest whole number, convert 0.300 atmosphere into millimeters of mercury, or torr:","a":{"t":"228 MILLIMETERS OF MERCURY, OR TORR"}}]},
+{"i":89306,"s":"chem","f":"SA","qt":"bonus","n":19,"q":"To the nearest whole number, convert 0.300 atmosphere into millimeters of mercury, or torr:","a":{"t":"228 MILLIMETERS OF MERCURY","ac":["228 TORR"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3695","q":[
 {"i":89307,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"What is the term for the amount of energy released from each square meter of an object’s surface each second:","c":{"W":"energy flux","X":"Pascal’s Law","Y":"Boltzman’s Equation","Z":"Kelvin’s Law"},"a":{"t":"energy flux","l":"W"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3695","q":[
@@ -636,7 +634,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3712","q":[
 {"i":89342,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"These doughnut shaped zones of atomic particles consists of electrons and protons captured by the Earth’s magnetic field from the solar winds and are called:","a":{"t":"VAN ALLEN BELTS"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3713","q":[
-{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI-LOBACHEVSKY GEOMETRY","or RIENMANN GEOMETRY"]}}]},
+{"i":89343,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What form of geometry is one in which the parallel postulate of Euclidean Geometry does NOT hold:","a":{"t":"NON-EUCLIDEAN GEOMETRY","ac":["HYPERBOLIC GEOMETRY","BOLYAI-LOBACHEVSKY GEOMETRY","RIEMANNIAN GEOMETRY"]}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3713","q":[
 {"i":89344,"s":"math","f":"SA","qt":"bonus","n":13,"q":"If the length of the cycloid is 4 times the diameter of a rotating circle, then the area under the arch traced out by that cycloid is how many times the area of the rotating circle?","a":{"t":"3 TIMES"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3714","q":[
@@ -700,7 +698,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3728","q":[
 {"i":89374,"s":"phys","f":"SA","qt":"bonus","n":3,"q":"What is the following statement most commonly known as: “A body immersed in a fluid is supported by a force equal to the weight of the fluid it displaces.”","a":{"t":"ARCHIMEDES’ PRINCIPLE"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3729","q":[
-{"i":89375,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"An emission or bright line spectrum consists of:","c":{"W":"a series of bright lines superimposed on a black or continuous background.","X":"a series of bright and dark lines superimposed on a black-lined grid","Y":"a series of faint black lines superimposed on a bright background","Z":"a circular array of dark ring patterns on a bright background"},"a":{"t":"a series of bright lines superimposed on a black or continuous background.","l":"W"}}]},
+{"i":89375,"s":"ess","f":"MC","qt":"tossup","n":4,"q":"An emission or bright line spectrum consists of:","c":{"W":"a series of bright lines superimposed on a black or continuous background","X":"a series of bright and dark lines superimposed on a black-lined grid","Y":"a series of faint black lines superimposed on a bright background","Z":"a circular array of dark ring patterns on a bright background"},"a":{"t":"a series of bright lines superimposed on a black or continuous background","l":"W"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3729","q":[
 {"i":89376,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"What is the name for the celestial body of interstellar gas and dust where stars are sometimes born?","a":{"t":"NEBULA"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3730","q":[
@@ -748,7 +746,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3740","q":[
 {"i":89398,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3741","q":[
-{"i":89399,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT true about JAVA:","c":{"W":"it provides support for networking.","X":"it is an ISO standard language","Y":"it is an object oriented language","Z":"it is a dynamic language."},"a":{"t":"it is an ISO standard language","l":"X"}}]},
+{"i":89399,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT true about JAVA:","c":{"W":"it provides support for networking","X":"it is an ISO standard language","Y":"it is an object oriented language","Z":"it is a dynamic language"},"a":{"t":"it is an ISO standard language","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3741","q":[
 {"i":89400,"s":"energy","f":"SA","qt":"bonus","n":16,"q":"What JAVA statement makes Java classes available to the current class under an abbreviated name?","a":{"t":"THE IMPORT STATEMENT","ac":["IMPORT"]}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3742","q":[
@@ -942,7 +940,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3390","q":[
 {"i":89496,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Uranium-238, uranium-235, and thorium-232 all undergo decay to form isotopes of this one element of the carbon group:","a":{"t":"LEAD"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3391","q":[
-{"i":89497,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"The term SQL, which is sometimes pronounced \"sequel\", stands for what language?","a":{"t":"STRUCTURED QUERY LANGUAGE."}}]},
+{"i":89497,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"The term SQL, which is sometimes pronounced \"sequel\", stands for what language?","a":{"t":"STRUCTURED QUERY LANGUAGE"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3391","q":[
 {"i":89498,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Which of the following shows a superclass-subclass relation:","c":{"W":"holiday – Labor Day","X":"Labor day – holiday","Y":"car – wheel","Z":"wheel – car"},"a":{"t":"holiday – Labor Day","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3392","q":[
@@ -1130,7 +1128,7 @@
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3437","q":[
 {"i":89590,"s":"ess","f":"SA","qt":"bonus","n":12,"q":"At various distances from the Sun, the areas where very few asteroids orbit are called:","a":{"t":"KIRKWOOD GAPS"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3438","q":[
-{"i":89591,"s":"math","f":"SA","qt":"tossup","n":13,"q":"During the study of what biological phenomenon concerning what animal did Fibonacci discover the sequence bearing his name?","a":{"t":"THE PROGENY (OR MULTIPLICATION) OF RABBITS"}}]},
+{"i":89591,"s":"math","f":"SA","qt":"tossup","n":13,"q":"During the study of what biological phenomenon concerning what animal did Fibonacci discover the sequence bearing his name?","a":{"t":"THE PROGENY OF RABBITS","ac":["THE MULTIPLICATION OF RABBITS"]}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3438","q":[
 {"i":89592,"s":"math","f":"MC","qt":"bonus","n":13,"q":"The Fibonacci sequence begins with the numbers 0, 1, 1, 2, 3, 5, and 8. If the 11th and 12th terms of the sequence are 55 and 89, respectively, what is the 13th term:","c":{"W":"102","X":"121","Y":"144","Z":"163"},"a":{"t":"144","l":"Y"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3439","q":[
@@ -1155,8 +1153,6 @@
 {"i":89602,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"What is the name of the element that is one of the softest metals known, reacts with oxygen to produce superoxides, is used inside vacuum tubes to maintain a vacuum, and whose naturally occurring isotope is used as the world’s official measure of time:","a":{"t":"CESIUM","ac":["Cs"]}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3444","q":[
 {"i":89603,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"The brilliance of a cut diamond is in great part because of its:","c":{"W":"low critical angle and high index of refraction","X":"low index of refraction","Y":"pure carbon content","Z":"high critical angle and high index of refraction"},"a":{"t":"low critical angle and high index of refraction","l":"W"}}]},
-{"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3444","q":[
-{"i":89604,"s":"phys","f":"SA","qt":"bonus","n":19,"q":"Assume a gravitational acceleration of 10 meters per second squared and negligible air resistance: If a worker drops a tool off a high rise building and the tool strikes the ground in 5 seconds, what is the height of the building and what is the tool’s speed when it hits the ground?","a":{"t":"BUILDING HEIGHT IS 125 METERS AND THE SPEED OF THE TOOL IS 50 METERS PER SECOND"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3445","q":[
 {"i":89605,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"Which of the following is NOT true of the class of meteorites called carbonaceous chondrites:","c":{"W":"they make up less than 10% of all meteorites","X":"they contain as much as 20% of water","Y":"they are rich in organic compounds","Z":"they show substantial evidence of being subjected to high-temperature metamorphic processes"},"a":{"t":"they show substantial evidence of being subjected to high-temperature metamorphic processes","l":"Z"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3445","q":[
@@ -1232,7 +1228,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3463","q":[
 {"i":89641,"s":"math","f":"MC","qt":"tossup","n":13,"q":"For which of the following mathematical systems does the commutative law of multiplication NOT hold:","c":{"W":"ordinary algebra","X":"algebra of groups","Y":"algebra of fields","Z":"algebra of matrices"},"a":{"t":"algebra of matrices","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3463","q":[
-{"i":89642,"s":"math","f":"SA","qt":"bonus","n":13,"q":"The crossing point between two lines, x + 2y - 4 = 0 and -2x + y + 3 = 0, is how far away from the origin?","a":{"t":"√5 or 2.236"}}]},
+{"i":89642,"s":"math","f":"SA","qt":"bonus","n":13,"q":"The crossing point between two lines, x + 2y - 4 = 0 and -2x + y + 3 = 0, is how far away from the origin?","a":{"t":"√5","ac":["2.236"]}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3464","q":[
 {"i":89643,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"Underwater volcanoes that have a flat top are called:","c":{"W":"seamounts","X":"island arcs","Y":"abyssal mountains","Z":"guyots"},"a":{"t":"guyots","l":"Z"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3464","q":[
@@ -1258,15 +1254,13 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3469","q":[
 {"i":89654,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"In certain tissues, where nuclear division is NOT followed by cytokinesis, which of the following will occur:","c":{"W":"meiotic disjunction","X":"a syncytium results","Y":"chiasmata can form in abnormal numbers","Z":"a diploid zygote is always formed"},"a":{"t":"a syncytium results","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3470","q":[
-{"i":89655,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"According to most accepted theories, the Oort Cloud cannot account for the origin of what types of comets in our solar system:","c":{"W":"comets that have origins outside of the Kuiper belt.","X":"comets that have short orbits and travel along the ecliptic","Y":"comets that are classified as cold comets","Z":"comets that have origins at a distance farther from the sun than the Oort Cloud"},"a":{"t":"comets that have short orbits and travel along the ecliptic","l":"X"}}]},
+{"i":89655,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"According to most accepted theories, the Oort Cloud cannot account for the origin of what types of comets in our solar system:","c":{"W":"comets that have origins outside of the Kuiper belt","X":"comets that have short orbits and travel along the ecliptic","Y":"comets that are classified as cold comets","Z":"comets that have origins at a distance farther from the sun than the Oort Cloud"},"a":{"t":"comets that have short orbits and travel along the ecliptic","l":"X"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3470","q":[
 {"i":89656,"s":"ess","f":"SA","qt":"bonus","n":20,"q":"To use this ancient astronomical instrument, the user hangs it from a metal ring attached to the top of a round star map and looks toward a specific star through a sighting device called an adilade:","a":{"t":"AN ASTROLABE"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3471","q":[
 {"i":89657,"s":"math","f":"MC","qt":"tossup","n":21,"q":"Which of the following most closely approximates the golden ratio:","c":{"W":"an 8 inch by 10 inch photograph","X":"an 8.5 inch by 11 inch sheet of paper","Y":"a 3 inch by 5 inch index card","Z":"a square greeting card"},"a":{"t":"a 3 inch by 5 inch index card","l":"Y"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3471","q":[
 {"i":89658,"s":"math","f":"SA","qt":"bonus","n":21,"q":"In a class of 20 students, each student speaks German, Chinese, or both. Thirteen students speak German and 17 students speak Chinese. How many speak both German and Chinese?","a":{"t":"10"}}]},
-{"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3472","q":[
-{"i":89659,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"This nurse/statistician was the first person in the English speaking world to apply statistics to the study of public health and invented the pie chart:","a":{"t":"FLORENCE NIGHTINGALE"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3472","q":[
 {"i":89660,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"Over a time period of thousands of years, which of the following is true for the Carbon Cycle:","c":{"W":"the oceans determine atmospheric CO2 concentration","X":"the atmosphere determines the oceanic CO2 concentration","Y":"the oceans have only a minor affect on atmospheric CO2 concentration","Z":"the terrestrial CO2 reservoir directly determines the oceanic CO2 concentration"},"a":{"t":"the oceans determine atmospheric CO2 concentration","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3473","q":[
@@ -1337,8 +1331,6 @@
 {"i":89693,"s":"ess","f":"MC","qt":"tossup","n":14,"q":"What would most likely result if the Earth’s axis of rotation were tilted 10 degrees less than it now tilts?","c":{"W":"less difference between winter and summer in the Northern Hemisphere","X":"colder winters and warmer summers in the Northern Hemisphere","Y":"shorter days and longer nights at the Equator","Z":"warmer winters and warmer summers in the Northern Hemisphere"},"a":{"t":"less difference between winter and summer in the Northern Hemisphere","l":"W"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3489","q":[
 {"i":89694,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"The property exhibited by certain minerals, such as sphalerite, which causes them to give off \"flashes\" of light when struck, is called?","a":{"t":"TRIBOLUMINESCENCE"}}]},
-{"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3490","q":[
-{"i":89695,"s":"bio","f":"SA","qt":"tossup","n":15,"q":"In what continent does the AIDS epidemic affect the greatest proportion of the population?","a":{"t":"AFRICA"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/bonus/3490","q":[
 {"i":89696,"s":"bio","f":"MC","qt":"bonus","n":15,"q":"Anthropologists most often infer brain shape from which of the following:","c":{"W":"presence of high zygomatic arch","X":"contours of fossil skulls","Y":"presence or absence of occipital bones","Z":"direct observation of preserved brains"},"a":{"t":"contours of fossil skulls","l":"X"}}]},
 {"rl":"Round 15","r":15,"u":"https://scibowldb.com/tossup/3491","q":[
@@ -1456,7 +1448,7 @@
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3519","q":[
 {"i":89753,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Of the four main blood types, which two will show no agglutination when tested against anti-B serum?","a":{"t":"TYPES “A” AND “O”"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3520","q":[
-{"i":89754,"s":"math","f":"MC","qt":"tossup","n":20,"q":"sin(2A) is equal to which of the following:","c":{"W":"sin(A) - cos(A)","X":"3sin(A) ÷ cos(A)","Y":"2sin(A) × cos(A)","Z":"tan(A) - 1"},"a":{"t":"2sin(A) × cos(A)","l":"Y"}}]},
+{"i":89754,"s":"math","f":"MC","qt":"tossup","n":20,"q":"Sin(2A) is equal to which of the following:","c":{"W":"sin(A) - cos(A)","X":"3sin(A) ÷ cos(A)","Y":"2sin(A) × cos(A)","Z":"tan(A) - 1"},"a":{"t":"2sin(A) × cos(A)","l":"Y"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/bonus/3520","q":[
 {"i":89755,"s":"math","f":"SA","qt":"bonus","n":20,"q":"The pendulum of a clock swings through an angle of 1 radian, and the tip sweeps out an arc of 12 inches. How long is the pendulum?","a":{"t":"12 INCHES"}}]},
 {"rl":"Round 16","r":16,"u":"https://scibowldb.com/tossup/3521","q":[
@@ -1550,7 +1542,7 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3543","q":[
 {"i":89800,"s":"chem","f":"MC","qt":"bonus","n":18,"q":"In hydrogen fuel cells, the open-circuit voltage from a single cell operating near room temperature is approximately:","c":{"W":"1.2 volts","X":"7.0 volts","Y":"12 volts","Z":"27 volts"},"a":{"t":"1.2 volts","l":"W"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3544","q":[
-{"i":89801,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"Which of the following is NOT desirable in the design of a hot air engine as proposed by Carnot:","c":{"W":"there must be means of obtaining isothermal compression at a low temperature.","X":"there must be a means of obtaining isothermal expansion at a high temperature.","Y":"highest possible differences in temperature should be achieved.","Z":"there should be as much direct heat transfer between hot and cold ends as possible"},"a":{"t":"there should be as much direct heat transfer between hot and cold ends as possible","l":"Z"}}]},
+{"i":89801,"s":"phys","f":"MC","qt":"tossup","n":19,"q":"Which of the following is NOT desirable in the design of a hot air engine as proposed by Carnot:","c":{"W":"there must be means of obtaining isothermal compression at a low temperature","X":"there must be a means of obtaining isothermal expansion at a high temperature","Y":"highest possible differences in temperature should be achieved","Z":"there should be as much direct heat transfer between hot and cold ends as possible"},"a":{"t":"there should be as much direct heat transfer between hot and cold ends as possible","l":"Z"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3544","q":[
 {"i":89802,"s":"phys","f":"SA","qt":"bonus","n":19,"q":"Assuming g is 10 m/sec^2, what is the net force needed, in Newtons, to accelerate a 1000 Kg object at 2 m/sec^2 in a horizontal direction:","a":{"t":"2000 NEWTONS"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3545","q":[
