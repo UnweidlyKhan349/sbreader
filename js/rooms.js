@@ -130,7 +130,10 @@
   }
 
   // Everything kept about a room, for whoever opens it:
-  //   { exists, isPublic, ownerKey, banned: [pid], controlled, players: [...] }
+  //   { exists, isPublic, ownerKey, banned: [pid], bannedAt: { pid: ms },
+  //     controlled, players: [...] }
+  // A ban lasts 30 minutes (the list has only the ones still running; a
+  // project from before ban times gives no bannedAt).
   // exists is false for a room never seen before. Resolves null when there's
   // no project, or it can't be reached, or it predates room owners (then the
   // players come from mp_roster, with `legacy` set).
@@ -142,12 +145,18 @@
       return { legacy: true, exists: null, players: await roster(roomKey) };
     }
     const d = r.data;
-    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], controlled: false, players: [] };
+    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, controlled: false, players: [] };
+    const banned = Array.isArray(d.banned) ? d.banned.filter((x) => typeof x === 'string') : [];
+    const bannedAt = {};
+    if (d.ban_times && typeof d.ban_times === 'object') {
+      banned.forEach((pid) => { const t = Number(d.ban_times[pid]); if (isFinite(t) && t > 0) bannedAt[pid] = t; });
+    }
     return {
       exists: true,
       isPublic: d.is_public !== false,
       ownerKey: typeof d.owner_key === 'string' ? d.owner_key : null,
-      banned: Array.isArray(d.banned) ? d.banned.filter((x) => typeof x === 'string') : [],
+      banned,
+      bannedAt,
       controlled: !!d.controlled,
       players: Array.isArray(d.players) ? d.players : [],
     };
@@ -171,16 +180,24 @@
     return r.data === true;
   }
 
+  let heardUnknown = false;
   // This player is in the room: called on joining and every 30 seconds
   // while there, with their current name and score.
   async function heartbeat(roomKey, { isPublic, isPermanent }, me) {
     if (!enabled || !roomKey || !me || !me.pid) return;
     const name = me.name.slice(0, 24) || 'Player';
-    const { error } = await rpc('mp_heartbeat', {
+    const args = {
       p_room: roomKey, p_is_public: !!isPublic, p_pid: me.pid, p_secret: mySecret(), p_username: name,
       p_score: me.score | 0, p_correct: me.correct | 0, p_incorrect: me.incorrect | 0,
       p_negs: me.negs | 0, p_cel_sum: Math.max(0, Number(me.celSum) || 0), p_cel_n: me.celN | 0,
-    });
+    };
+    // p_heard (questions heard in the room) was added in November 2026; a
+    // project that hasn't run the schema since takes the call without it.
+    let { error } = heardUnknown ? { error: { missing: true } } : await rpc('mp_heartbeat', { ...args, p_heard: Math.max(0, me.heard | 0) });
+    if (error && error.missing) {
+      ({ error } = await rpc('mp_heartbeat', args));
+      if (!error) heardUnknown = true;
+    }
     if (!error || !error.missing) return;
     const c = await client();
     if (!c) return;
