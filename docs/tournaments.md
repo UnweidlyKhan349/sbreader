@@ -39,7 +39,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Earth and Space Scrimmage 2025 | 341 |  | hs |
 | ESBOT 1 | 562 |  | hs |
 | ESBOT 2 | 591 | 30 | hs |
-| Evan Zhong Study Sets | 155 |  | hs |
+| Evan Zhong Study Sets | 150 |  | hs |
 | Fall 2023 | 642 | 22 | hs |
 | FE!M 2025 | 600 | 5 | hs |
 | GWHS Rounds | 759 |  | hs |
@@ -60,7 +60,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 3 MS | 487 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
-| Mira Loma Question Database | 15,525 |  | hs |
+| Mira Loma Question Database | 15,308 |  | hs |
 | MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -106,16 +106,16 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | SSBT 2023 | 552 | 9 | hs |
 | Stanford 2025 | 644 |  | hs |
 | Stanford 2026 | 644 |  | hs |
-| Stuyvesant Question Bank | 2,171 |  | hs |
+| Stuyvesant Question Bank | 2,150 |  | hs |
 | Summer 2019 | 119 |  | hs |
 | Texas Sci Bowl 2025 | 649 |  | hs |
 | THUMB 2025 | 206 |  | hs |
 | TJSBT 2025 | 598 |  | hs |
 | Trio Online Math Bowl 2026 | 560 | 12 | hs |
-| Tycho Practice Rounds | 503 |  | hs |
+| Tycho Practice Rounds | 500 |  | hs |
 | University Prep | 50 |  | hs |
 | Walton Rounds | 773 |  | hs |
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (114)** | **102,621** | **567** | |
+| **Total (114)** | **102,375** | **567** | |

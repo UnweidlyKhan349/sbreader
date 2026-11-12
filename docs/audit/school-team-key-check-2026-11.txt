@@ -1,0 +1,763 @@
+97775|a|1 AND 3|IgM is a pentamer and the light chain has one variable and one constant domain; J-chain is in IgM and IgA, not IgD.
+97967|a|1 ONLY|Higher pH raises O2 affinity, but more 2,3-BPG, more CO2 and higher temperature all lower it.
+98082|rm||Degenerative optomosis is not a real disorder and no inheritance information is given, so the question cannot be answered.
+98090|a|Point mutation|Sickle-cell anemia is a single-base substitution, not a deletion.
+98105|a|I, II, and III|Cholesterol has a polar hydroxyl head and nonpolar body so it is amphipathic too.
+98162|rm||No choice is correct because plant cells have a large central vacuole and the other options are also false.
+98188|a|placenta|After about 12 weeks the placenta takes over estrogen and progesterone production from the corpus luteum.
+98199|rm||Only cysteine forms disulfide bridges, so a question asking for two amino acids has no valid answer.
+98240|rm||Both dinoflagellates and diatoms arose by secondary endosymbiosis and Algae is too vague, so there is no single right choice.
+98264|a|Helicobacter pylori|The genus is spelled Helicobacter.
+98328|a|2,3,4,5,1|Water enters the sieve tubes (5) before bulk flow down the stem (1).
+98365|a|X|Spindle microtubules originate at the centrosome; plant cells have no centrioles.
+98418|q|["differentiate glucose and cellulose","differentiate glycogen and cellulose"]|Glucose is a monomer with no branching; the intended comparison is glycogen versus cellulose.
+98431|rm||Asks "which of the following" but no options are given.
+98455|rm||Refers to an unnamed gene from a previous question.
+98472|a|nucleoid|Prokaryotic DNA is located mainly in the nucleoid region; plasmids are only extra DNA.
+98496|a|CD4 cells|HIV attacks CD4 helper T cells, not "C4" cells.
+98500|a|3|Three turns of the Calvin cycle fix 3 CO2 to yield one net G3P (PGAL).
+98523|a|Phagocytosis|Pseudopods engulf particles in phagocytosis, not receptor-mediated endocytosis.
+98533|rm||Enzyme-substrate binding also involves hydrogen bonding, so no choice is correct.
+98534|a|Z|Poly-A tail is added at the 3' end, not the 5' end; splicing is a real modification.
+98541|a|urinary|Urinary comes after skeletal alphabetically.
+98579|rm||All four choices are abiotic factors that influence climate.
+98671|a|Factor X (Xa)|Prothrombinase (factor Xa) converts prothrombin to thrombin; factor III is tissue factor, which acts earlier.
+98688|rm||Hemocyanin and hemerythrin are not found in human blood, so the question has no valid answer set.
+98752|rm||Both type B and type O blood carry anti-A antibodies, so two choices are correct.
+98790|rm||Many animals reproduce asexually, so the premise of 'the only animal' is false.
+100599|a|Z|Collagen is the structural protein; hemoglobin is a transport protein.
+100601|a|Z|Nucleotides contain a nitrogenous (organic) base, not an inorganic base; the pentose sugar is a component.
+100602|a|transcription|RNA made from a DNA template is transcription, not 'coding'.
+100942|a|Thigmotropism|Key is misspelled; the response to touch is thigmotropism
+100950|a|Cholecystokinin|Key is misspelled; the hormone is cholecystokinin (CCK)
+101091|rm||Question is garbled and refers to missing context; AIDS virus family is Retroviridae not Herpesviridae
+101095|rm||Refers to a missing image
+101096|rm||Refers to a missing figure of a disaccharide
+101100|rm||Question refers to an unspecified missing referent
+101101|rm||No context given for the virus or lesions
+101105|rm||Refers to a missing disaccharide figure
+101106|rm||Refers to a missing membrane figure
+101109|rm||All B vitamins listed including pyridoxine take part in metabolism so no choice is correct
+101110|rm||Statements are garbled and statement 1 is cut off
+101193|q|["glutamine","glutamic acid"]|Sickle cell mutation replaces glutamic acid with valine
+101380|a|64|2^6 = 64 combinations for n = 6
+101587|rm||Refers to a missing figure
+101595|rm||Refers to a missing figure
+101668|a|Allopatric Speciation|Geographic barriers produce allopatric speciation not allotropic
+102002|rm||Alzheimer's disease has genes on several chromosomes so no single answer
+102061|rm||Refers to missing images
+102068|a|ARRHYTHMIA|Key is misspelled
+102076|a|1. DNA, 2. DNA, 3. DNA|cDNA synthesis primers and nucleic acid probes are normally DNA oligonucleotides
+102185|a|PYRUVATE|Glycolysis ends with pyruvate; G3P is an intermediate.
+102196|a|STRYCHNINE|Key is misspelled.
+102201|a|Y|Peptide elongation costs about 4 ATP equivalents, while pyruvate to lactate costs none.
+102222|a|Thigmonasty|The rapid touch response (e.g. Mimosa) is thigmonasty; thigmotropism is directional growth.
+102228|a|Z|Pyruvate is used in lactic fermentation and is not a citric acid cycle product; NAD+ is not used in the fermentation step.
+102255|a|B cell|B cells proliferate into memory B cells and plasma cells that secrete antibodies, not helper T cells.
+102629|a|PHOTOSYSTEM I, HYDROGEN SULFIDE|Early phototrophs extracted electrons from H2S; sulfate cannot act as an electron donor.
+102689|a|THIAMINE|Key is misspelled.
+102766|q|["in 1985","in 1977"]|Sanger developed chain-termination sequencing in 1977.
+102785|a|BRASSINOSTEROIDS|Key is misspelled.
+102821|rm||Plastoquinone, plastocyanin, ferredoxin and cytochrome b6 are all part of cyclic electron flow so no choice is correct.
+102823|a|CASPASES|Key is misspelled.
+102848|rm||Refers to a figure of skin disorders W to Z that is not provided.
+103339|a|RECEPTACLE|key is misspelled
+103390|q|["What polysaccharide is formed","What disaccharide is formed"]|sucrose is a disaccharide, not a polysaccharide
+103392|q|["What enzymes do animals use","What organelles do animals use"]|key Lysosomes is an organelle, not an enzyme
+103408|a|Brassinosteroids|key is misspelled
+103423|a|NUCLEOID|key is misspelled
+103445|q|["due to their hydrophilic nature","due to their hydrophobic nature"]|lipids are grouped by hydrophobicity, not hydrophilicity
+103450|a|GLUCOSE, OXYGEN, WATER|carbon dioxide is a reactant of photosynthesis, glucose is a product
+103609|a|TRICHOME|key is misspelled
+103645|rm||both dendrites and cilia are not bacterial surface extensions so two choices are correct
+103656|a|PHOTOAUTOTROPHS AND CHEMOAUTOTROPHS (1ST AND 2ND)|reverse Krebs cycle occurs in autotrophs (photoautotrophs and chemoautotrophs), not chemoheterotrophs
+103671|a|Y|charophytes are the green algae most closely related to land plants; embryophytes are the land plants themselves
+103695|rm||both Hydra and the coelacanth are non-protostomes so two choices are correct
+103702|rm||both ethylene glycol (W) and a fragrance pheromone (X) are not hormones so more than one choice is correct
+103742|q|["crossing over between sister chromatids","crossing over between nonsister chromatids"]|crossing over occurs between nonsister chromatids of homologs
+103743|a|4|prophase not prometaphase is when chromosomes first become visible and the diatom/dinoflagellate statement is true
+103764|a|1 AND 2|ubiquinone precedes cytochrome reductase so statement 1 is also false
+103780|a|Y|Tay-Sachs is an autosomal recessive disease
+103786|rm||opsonization is a real antibody mechanism so the keyed answer is not a valid NOT choice
+103808|a|X|Asteraceae is the largest angiosperm family by species and dispersal (pappus)
+103811|a|LINEWEAVER-BURK PLOT|the plot is named for Burk not Burke
+103820|a|Y|COX inhibition reduces eicosanoid synthesis and so represses downstream signaling like PKC stimulation not raising histamine
+103830|q|["Paleozoic Era of the Proterozoic Eon","Paleozoic Era of the Phanerozoic Eon"]|the Paleozoic Era is in the Phanerozoic Eon
+103856|rm||podia and tube feet are the same structure so two choices are correct
+103861|rm||bacteria and foreign proteins are exogenous pyrogens not endogenous and no choice says exogenous
+103931|a|TAIL BONE, JAW BONE, COLLARBONE|the clavicle is the collarbone not the shoulder
+103987|a|W|meiosis I parent cell has diploid number of chromosomes versus haploid in meiosis II and there are 92 not 46 chromatids in meiosis I
+104033|a|W|arteries carry blood away from the heart
+104077|a|Hemagglutinin and neuraminidase|key is misspelled; the two H1N1 surface proteins are hemagglutinin and neuraminidase
+104078|rm||viroids are not viruses, and plant viruses have no single special name, so the key does not answer the question
+104132|a|Citrate synthase|acetyl CoA is a substrate, not the enzyme that makes citrate
+104157|q|["Horizontal roots that grow along the surface","Horizontal stems that grow along the surface"]|stolons are horizontal stems, not roots
+104209|a|Style|key is misspelled as STY LE
+104214|a|Y|an organism whose genome contains a gene from another organism is transgenic
+104272|q|["biconcave lens","biconvex lens"]|the eye lens is biconvex, not biconcave
+104399|q|["Thymine Pyrophosphate","Thiamine Pyrophosphate"]|the PDH cofactor is thiamine pyrophosphate; as written two choices are non-cofactors
+104477|rm||too vague; many muscle types use mitochondrial energy so no single answer is determined
+104492|rm||Ca, S and K are major minerals, so none of the listed elements is a trace element
+104513|rm||refers to unspecified "both groups" from a previous question
+104531|rm||garbled and refers to "these cells" from a previous question
+105314|a|PSEUDOGENES|Key is misspelled; the term is pseudogenes.
+105414|a|INOSITOL TRIPHOSPHATE|Key is misspelled; the term is inositol triphosphate.
+106095|a|Synergid|Key is misspelled; the cells are synergids.
+106114|a|Brassinosteroid|Key is misspelled; the hormone is brassinosteroid.
+106997|a|Statocysts|Key is misspelled; the gravity sensing organs are statocysts.
+106154|a|Epistasis|A gene that modifies another gene at a different locus is epistasis; pleiotropy is one gene with many effects.
+106214|q|["primary structure","secondary structure"]|Hydrogen bonds form the alpha helix and beta sheet, which are secondary structure.
+106465|rm||Alternative splicing is also not a snoRNA function, so both Y and Z are correct.
+106483|rm||Refers to "this oxygen" from a missing previous question so it cannot be answered.
+106814|a|X|A human has 46 chromosomes; "Over 92" is wrong.
+107190|a|SENESCENCE|key is misspelled
+107222|a|CHIROPTEROPHILY|key is misspelled
+107257|rm||several choices are true (X and Y), and the edge of a sarcomere has thin filaments, not only thick
+107258|rm||statement with no question, and key ALL OF THEM does not answer it
+107552|rm||the sarcomere runs Z line to Z line; none of the choices is a synonym
+107574|q|["affinity for DNA polymerase","affinity for RNA polymerase"]|CAP increases RNA polymerase binding at the promoter
+107624|a|Ca^2+|blood clotting requires calcium ions
+107727|q|["Meiosis Test A gene's","A gene's"]|stray header text in question
+107808|rm||refers to an unlabeled figure that is not present
+107908|q|["Mult Choice Eruption","Eruption"]|stray header text in question
+107975|a|2 AND 3|only covalent peptide bonds define primary structure; ionic and hydrogen bonds are not involved
+107987|a|Ailurus|Ailuridae is the family; the genus is Ailurus
+108079|q|["lyctic","lytic"]|misspelling of lytic
+108084|a|RECOMBINANT DNA|key is misspelled
+108137|a|Z|peripheral proteins attach non-covalently to protruding portions of integral proteins
+108152|a|W|pepsin digests proteins, not lipids
+108156|a|6, 6, 3, 3, 3, 3|1,3-bisphosphoglycerate, 3-phosphoglycerate and pyruvate each have 3 carbons
+108159|rm||both acetyl CoA and citrate are not ketones
+108162|a|ISOCITRATE, α-KETOGLUTARATE, SUCCINYL COA, SUCCINATE, FUMARATE, MALATE|key is misspelled
+108165|rm||all four pairings are correct so no choice is the exception
+108167|a|UBIQUINONE (COENZYME Q) AND CYTOCHROME C|key is misspelled
+108203|a|3, 3, 5|Ribulose bisphosphate has 5 carbons, not 4
+108754|rm||Squirrels, hedgehogs and frogs all hibernate so more than one choice is correct
+108763|a|W|Endocytosis, not exocytosis, is the uptake of large molecules
+108765|a|DECOMPOSITION|Key has a stray "Y-" prefix
+108994|q|["Name seven of the eleven","Name six of the eleven"]|Key says any 6 of the periods
+109006|a|ORGANISM, ORGAN SYSTEM, ORGAN, TISSUE, CELL, ORGANELLE, MOLECULE, ATOM|Biggest to smallest of the listed objects; key is reversed and includes quark which is not listed
+109042|a|GOSSYPIUM HIRSUTUM|Genus is spelled Gossypium
+109554|rm||Refers to placentation types labelled A-E in a figure that is not provided
+109561|rm||Requires data from an image that is not provided
+109573|rm||Requires a phylogenetic tree that is not provided
+109929|rm||Asks for two factors but lists three unnumbered statements and the key uses numerals that do not exist
+109953|q|["is the splitting of the nucleus","is the splitting of the cell"]|Cytokinesis splits the cytoplasm/cell; mitosis is the nuclear division
+109979|a|AUTOTROPH|Key just repeats PROKARYOTE; an organism making organic compounds from inorganic ones is an autotroph
+110183|a|STARCH|Plants store carbohydrate as starch; cellulose is structural
+110249|a|PROPHASE|Prophase is the longest stage of mitosis
+110418|a|3|pOH = 11 so pH = 14 - 11 = 3
+110425|a|ENANTIOMERS|Key misspelled; the term is enantiomers
+110442|a|HYDROPHOBIC (LITTLE OR NO AFFINITY FOR WATER)|Key LITTLE is a truncated non-answer
+110480|rm||Refers to a previous question that is not available
+110507|rm||Both W (not all peroxisomes have crystalloid cores) and Z (gout is not a peroxisomal disorder) are false, so two choices fit NOT true.
+110517|a|2, 3, and 4|Autophagy is self-digestion, apoptosis is not food digestion, and phagocytosis is not cellular repair; 1 and 5 are correct matches.
+110530|a|1, 2, and 4|Statement 1 is true (motor proteins walk along microfilaments with ATP) and statement 3 is false.
+110547|a|1 and 3|Statement 1 is true and statement 2 is false because glucose transporters reject fructose.
+110571|a|METHYL SALICYLATE|The SAR signal is methyl salicylate; the key is misspelled and names the wrong compound.
+110623|a|HETEROTROPHS|Organisms dependent on others for food are heterotrophs or consumers, not just scavengers.
+110636|rm||Both Adversarism and Competition are not forms of symbiosis, so two choices are correct.
+110650|a|PROKARYOTES|The earliest organisms were prokaryotes; protozoans are eukaryotes.
+110680|q|["lower layer of cells","upper layer of cells"]|The layer that forms the trilaminar disc through gastrulation is the epiblast, the upper layer.
+110749|a|REGULATOR, CONFORMER, CONFORMER, CONFORMER, CONFORMER|River otter is an endotherm regulator while bass, rotifer, sea turtle and termite are conformers.
+110798|a|49%|58 black-tailed (29%) plus 40 heterozygotes carry the black allele, which is 98 of 200.
+110818|a|1 only|Sodium channels open before potassium channels and axon length does not set conduction speed, so only 1 is true.
+110831|a|Z|Cardiac muscle is not a primary tissue type, whereas muscle is one of the four.
+111019|a|THE CELL IS THE FUNDAMENTAL UNIT OF LIFE|The key has a typo, IF for IS.
+111043|a|CEREBRUM, CEREBELLUM, BRAIN STEM|The spinal cord is not part of the brain; the third main part is the brainstem.
+111052|rm||All choices are in million years but earliest evidence of life is about 3.8 billion years old.
+111143|a|HYDROXYL, CARBONYL, CARBOXYL, AMINO, SULFHYDRYL, PHOSPHATE|Six groups are asked but the key lists five and omits the amino group.
+111209|a|GLYCOLYSIS, KREBS CYCLE, AND ELECTRON TRANSPORT CHAIN|key is cut off with a dangling AND
+111225|rm||mature red blood cells have no nucleus so they also lack 46 chromosomes, giving two right choices
+111606|a|Amnion, Chorion, Allantois, and yolk sac|chlorion is a misspelling of chorion
+111615|a|The organ of Corti (hair cells on the basilar membrane)|the tectorial membrane does not transduce sound; hair cells of the organ of Corti do
+111694|a|II only|only ribosomes are present in prokaryotes; the others are eukaryotic structures
+111789|a|paraphyletic|papaphyletic is a misspelling of paraphyletic
+111798|a|II, I, IV, III|IIII is a typo for IV; order is pith, vascular cambium, primary phloem, cork
+112235|a|X|a G-C pair has 3 hydrogen bonds, not 2
+112252|rm||glucose phosphorylation to a 1,6-bisphosphate is not a Krebs cycle step; the question and choices do not fit
+112420|q|["What polysaccharide is synthesized","What disaccharide is synthesized"]|Maltose is a disaccharide, not a polysaccharide.
+112464|rm||Statement 1 is garbled so the question cannot be answered.
+112656|a|1. B 2. A 3. C|Spherical is coccus (B) and rod is bacillus (C), so the key has 1 and 3 swapped.
+112709|a|Z|Option W is true (thick peptidoglycan retains crystal violet), so the key is wrong; lipopolysaccharide, not lipidoglycan, is the Gram-negative envelope component.
+112876|a|1. reducing 2. reducing 3. oxidizing 4. reducing|Denitrification reduces nitrate to N2, so it is reducing.
+113214|a|1, 2 and 3|All fishes including largemouth bass have countercurrent exchange in the gills.
+113356|rm||Dipeptidase does not break polypeptides; trypsin, carboxypeptidase and aminopeptidase also act, so no single right answer.
+113567|rm||Glycogen is also not a starch, so both Y and Z are correct.
+113588|a|RIGHT ATRIUM, RIGHT VENTRICLE, LEFT ATRIUM, LEFT VENTRICLE|Blood from the vena cava enters the right atrium first and the key lists the left side first.
+113630|q|["all invertebrates and most invertebrates","all vertebrates and most invertebrates"]|Should read vertebrates for the first group.
+113727|rm||Both lysosomes and centrioles are absent from typical plant cells, so two choices are correct.
+113740|q|["asexually reproducing organisms","sexually reproducing organisms"]|A zygote is only involved in sexual reproduction.
+113755|rm||Humans carry about 4x10^13 bacteria, which matches none of the choices.
+113759|a|Matthias Schleiden and Theodor Schwann|Cell theory was proposed by Schleiden and Schwann, while Hooke only coined the term cell.
+113788|rm||Pills contain estrogen and progesterone, not oxytocin, and no choice correctly explains the mechanism.
+113923|a|AFFERENT|Misspelled key; the term is afferent.
+114046|a|Z|Similar sequences suggest similar evolutionary histories, not equal mutation counts.
+114066|q|["Which mode delays","Which node delays"]|Typo: the AV node is a node, not a mode.
+114081|a|VAGUS NERVE|Misspelled key; the nerve is the vagus nerve.
+114252|a|X|Distilled water is hypotonic to the cell.
+114268|a|64|q=0.4, so homozygous AA is 0.36 and 1-0.36 = 64 per 100 have at least one B.
+114296|a|1, 4|Only achondroplasia and Huntington's are dominant; cystic fibrosis and sickle cell are recessive.
+114462|rm||Both Interphase and the nonexistent Cytophase are not phases of mitosis, so two choices fit.
+114776|rm||No statement is numbered and all listed T3 statements are true, so the key is meaningless.
+114896|a|W|Cloning produces genetically identical individuals, not splitting DNA.
+114897|rm||Both sea anemones and starfish can reproduce asexually by cloning.
+114908|a|Z|The DNA sequence where RNA polymerase attaches is the promoter.
+114921|a|Archaeoglobus fulgidus, Escherichia coli, humans, Lily family plant|A. fulgidus genome is about 2.2 Mb, smaller than E. coli at about 4.6 Mb.
+115132|a|3|Cleavage cells do not grow, the blastocoel is the cavity, and gastrulation forms three germ layers.
+115150|rm||Question describes a metallocene, which is not heme, and has no biological name.
+115170|rm||Key lists calcium first though it is most abundant, omits magnesium and chlorine.
+115198|a|X|Beta-1,4 linkages do not link alpha and beta forms; they are between glucose units.
+115217|a|KINESINS AND DYNEINS|Misspelled key; dyneins.
+115219|a|DYNEINS|Misspelled key; dyneins.
+115307|rm||Giardiasis is parasitic while the other choices are not, so the key is not the answer but three choices are non-parasitic.
+115341|a|STAPEDIUS|The stapedius in the middle ear is the smallest skeletal muscle.
+115371|a|MYASTHENIA GRAVIS|key is misspelled; the disease is myasthenia gravis
+115509|a|VIROID|a viroid is the infectious agent with no coat; a prion is a protein, not a virus
+116329|a|W|degradation (fermentation) came first, before photosynthesis and aerobic respiration
+116348|a|PROTEASOME|key is misspelled; the organelle is the proteasome
+116404|a|Y|a terrestrially adapted egg defines amniotes, not all tetrapods; the gnathostome statement is correct
+116619|rm||substrate-level phosphorylation occurs in both glycolysis and the Krebs cycle, so two choices are correct
+117017|a|INTERFERONS|Key is misspelled; the proteins are interferons
+117258|a|1, 3, and 4|The repressor blocks RNA polymerase, not DNA polymerase, so statement 2 is false and statement 3 (tryptophan corepressor) is true
+117349|a|NONE|All three statements are true, so none are false
+117369|rm||One mole of glucose is 180 g; the keyed 342 g is sucrose and 180 is not offered
+117374|rm||Both W (water is about 9x iron) and Z (ethanol is about 0.6 cal/g C) are false
+117035|rm||Both caterpillars and humans are bulk feeders
+117438|a|W|Water has a relatively low vapor pressure; hydrogen bonding is a property of water
+97618|rm||Both X and Y are false; the carboxylic acid deprotonates first and the first equivalence point is near pH 6.0
+97731|rm||Both epoxide opening with acid and with base give the anti diol
+97805|a|Y|Delta H minus delta U is -20 kJ so delta n gas is negative and the reaction consumes more gas; it is not spontaneous at all temperatures
+98819|rm||Carbon is not the fourth most abundant element on Earth and no choice is correct
+98839|a|X|Bromide anion (196 pm) is far larger than Ag+, Na+ or Cu2+
+98840|a|Alkali metals|Noble gases are not assigned electronegativity values; alkali metals are the least electronegative group
+98901|rm||Both HF and H2SO4 are molecular, not ionic
+98906|a|W|Positive delta H means unfolding is not favored enthalpically
+98987|a|Z|P4O6 (phosphorus trioxide) exists; PH5 cannot exist
+98999|q|["Which element is the more electronegative?","Which element is the most electronegative?"]|No comparison is given; the question means the most electronegative element (fluorine)
+99007|a|Z|Chlorine has the highest electron affinity; fluorine's is lower because of its small size
+99030|rm||Both W (CdS) and Z (PbSO4) form precipitates
+99033|a|Nickel and palladium|White gold is gold alloyed with nickel or palladium; silver and copper give yellow, green or rose gold
+99047|a|Chalcogens|Key misspells chalcogens
+99075|a|All of them|LiOH, Sr(OH)2, CsOH and Ba(OH)2 are all strong bases
+99088|rm||H2SO4 is not the strongest acid; HClO4 and superacids are stronger, so there is no single intended answer
+99149|rm||Water and diamond are both diamagnetic
+99196|a|Z|HI is a strong acid; chloric acid is the only choice that may be considered not strong
+99224|q|["Which of these is not an amorphous solid?","Which of these is an amorphous solid?"]|Polystyrene is amorphous; the other three are crystalline
+99247|a|X|CaCl2 gives 3 ions (i = 3); H2O is about 1
+100492|a|P-type layer; holes|Boron doping gives a p-type layer with a surplus of holes
+100499|rm||Both bauxite and potash are listed as sources of alum
+100535|a|Dmitri Mendeleev|Key misspells Mendeleev
+100536|a|Antoine Lavoisier|Lavoisier is known as the father of modern chemistry
+100538|q|["A base produces what types of atoms?","A base produces what types of ions?"]|Key is hydroxide ions, not atoms
+100667|rm||Since 2019 the kelvin has been defined by the Boltzmann constant, not the triple point of water
+100766|a|117 grams|2 x 58.44 g/mol = 116.9 g, which rounds to 117
+100782|a|Fe +3, C +2, N -3|In CN-, N is -3 and C is +2
+100795|q|["1s^22s^22p^63s^23p^64d^5","1s^22s^22p^63s^23p^64s^23d^5"]|Manganese is [Ar]4s2 3d5; the given configuration has no 4s2 and puts the electrons in 4d
+101033|a|CH2|The five-carbon alkene C5H10 has empirical formula CH2; key is garbled
+101037|a|HENRI BECQUEREL|Misspelled answer; the name is Becquerel
+101040|a|FLUORINE|Misspelled answer; the element is fluorine
+101090|rm||Refers to a missing structure or figure
+101250|a|BARIUM, RADIUM, CALCIUM, STRONTIUM, MAGNESIUM, BERYLLIUM|Radon is a noble gas; the alkaline earth metal is radium
+101325|q|["no more than 2 electrons in an atom have","no 2 electrons in an atom have"]|Pauli principle says no two electrons share all four quantum numbers
+101513|a|I, II, III AND IV|Enthalpy, Gibbs energy, internal energy and Helmholtz energy are all state functions
+101538|a|III AND IV|Nitric and chloric acids are strong; only HCN and HF are weak
+101544|q|["lattice CHEMISTRY","lattice energy"]|Word energy was replaced by CHEMISTRY
+101550|q|["percent of the CHEMISTRY from the sun","percent of the energy from the sun"]|Word energy was replaced by CHEMISTRY
+101553|q|["largest source of CHEMISTRY from wood","largest source of energy from wood"]|Word energy was replaced by CHEMISTRY
+101579|q|["Earth's geothermal CHEMISTRY","Earth's geothermal energy"]|Word energy was replaced by CHEMISTRY
+101584|rm||A gel (liquid in solid) also lacks a liquid dispersion medium, so both aerosol and gel are correct
+101624|a|HENDERSON-HASSELBALCH EQUATION|Misspelled answer; the name is Hasselbalch
+101679|rm||The choices are oxoacids, not hydrogen-halogen acids; the strongest hydrohalic acid is HI, which is not offered
+101693|a|[Ar] 4s^13d^10|Copper is an exception with a filled 3d subshell
+101743|a|[Kr] 5s^24d^5|Technetium fills the 4d, not the 3d, subshell
+102063|q|["[CuCl4]^(2+)","[CuCl4]^(2-)"]|Cu(II) with four chlorides gives a 2- charge, matching the -ate name
+102064|rm||Refers to two chemical equations that are not given
+102161|rm||There are more than five radiation units (e.g. sievert, becquerel), so there is no single answer
+102204|a|III ONLY|Set IV is invalid because ml must be 0 when l=0; only set III is allowed
+102215|q|["yields CH3CHCH2Br","yields CH3CH=CH2"]|Elimination of HBr from 1-bromopropane gives propene; the product formula is garbled
+102464|rm||Both condensation and crystallization are exothermic
+102498|rm||Neither a catalyst nor an inert gas at constant volume shifts the equilibrium, so two choices are correct
+102694|a|2-CHLOROPROPANE|Key is not an answer; C3H7Cl is 78.5 g/mol and isopropyl chloride gives a septet and a doublet
+102739|rm||Refers to a titration curve and labels that are not shown
+102841|rm||Refers to a reaction shown that is not present
+102846|rm||Refers to a flowchart with labels W, X, Y that is not present
+102861|rm||Refers to a reaction and labels W, A, B that are not shown
+102896|a|Y|Friedel-Crafts reactions are electrophilic aromatic substitutions, not SN2
+102920|q|["SN1 nucleophilic substitution","SN2 nucleophilic substitution"]|Methyl is the least reactive in SN1 but the most reactive in SN2, matching the key
+103188|a|Y|PCBs and PCDFs are dioxin-like compounds acting through the same mechanism as dioxins
+103806|a|W|Aluminum shows no inert pair effect while In, Sn and As show lower oxidation states
+103812|a|Z|Ozone has two resonance structures; nitrate, carbonate and thiocyanate have three
+103815|q|["Which orbital does phosphorus trichloride use","Which orbital does phosphorus pentachloride use"]|PCl3 does not expand its octet; PCl5 uses 3d orbitals
+103818|rm||1,3-cyclohexadiene has no notable steric hindrance; TNT and 1-methylnaphthalene both do, so no single answer
+103896|a|Z|Proline disrupts helices because its side chain is bonded to the backbone nitrogen, making it rigid and removing the N-H
+103898|q|["exothermic is to positive enthalpy as exergonic","endothermic is to positive enthalpy as endergonic"]|Exothermic means negative enthalpy; analogy only matches the key positive Gibbs energy for endothermic/endergonic
+103909|a|X|Single C-H bond (about 413 kJ/mol) is stronger than C-O (358), C-C (348) and C-N (293)
+104600|rm||The accepted model today is the quantum mechanical model; neither Dalton nor any other choice is correct
+104645|rm||Out of date: since the 2019 SI redefinition Avogadro's number is fixed exactly and no longer based on carbon-12
+104655|a|Z|Iodine has a large electron affinity (about 295 kJ/mol) while nitrogen's is near zero or negative
+104669|rm||Both CN- and NH3 are weak bases while ClO4- is a negligible base, so the key is wrong and two choices are correct
+104756|a|Z|Configuration ending in 7p2 places the element in the p-block (group 14)
+104913|rm||By Henry's law quadrupling pressure increases dissolved gas concentration fourfold, so the premise of a decrease is wrong.
+104934|a|C2H6O|Ethanol is C2H5OH, i.e. C2H6O, not C2H5O.
+104945|a|Trioxygen|O3 is named trioxygen; trioxide is not a name for ozone.
+104952|a|3.16|Pauling electronegativity of chlorine is 3.16; 2.96 is bromine's.
+104953|a|2.05|Pauling electronegativity of antimony is 2.05; 2.02 is bismuth's.
+105055|rm||Oxygen's oxidation states (-2, -1, 0, +1, +2 and fractional ones) give no single agreed count, and 8 is not supported.
+105059|a|[Ar] 4s^1 3d^10|Copper is an exception with a filled 3d subshell, [Ar]4s1 3d10.
+105208|a|11.1 Liters|1 g / 2.016 g/mol = 0.496 mol x 22.4 L/mol = 11.1 L to three significant figures
+105728|a|Haber-Bosch Process|Misspelled answer; the process is Haber-Bosch
+106107|a|-2|Sulfur in the sulfide ion S^2- has oxidation number -2, not +4
+106127|a|2HNO3 + Ba(OH)2 → Ba(NO3)2 + 2H2O|Key is garbled and unbalanced; nitric acid is HNO3 and barium hydroxide is Ba(OH)2
+106262|rm||Frozen smoke is a nickname for silica aerogel so two choices are the same answer, and newer materials such as aerographite are now lighter
+106387|a|FULLERENE|Misspelled answer; the allotrope is fullerene
+106619|rm||The distance d is never specified (answer 1/e^2 only holds for a hydrogen 1s electron at d = one Bohr radius)
+106829|a|Z|MgCl2 is a strong electrolyte; glyceraldehyde-3-phosphate is the weakest electrolyte and conducts least
+106998|a|Y|BF3 is a Lewis acid; NH3 can only act as a Lewis base among the choices
+107064|rm||Dipole-dipole (Keesom) and dipole-induced-dipole (Debye) are both van der Waals interactions
+107120|q|["is TRUE regarding","is NOT true regarding"]|Keyed choice Y is false (higher temperature broadens the distribution) while W, X and Z are true, so the question must ask which is NOT true
+107241|a|X|Rate is zero order in B so increasing B does not change the rate, while a catalyst does increase it
+107242|rm||Hydronium is trigonal pyramidal, which is not among the choices; trigonal bipyramidal is wrong
+107256|rm||Linear geometry also cannot show cis-trans isomerism, so both X and Z are correct
+107312|a|TOWARDS THE LEFT|Decreasing pressure shifts equilibrium toward the side with more moles of gas, the left side with 4 moles
+107449|rm||H2O (sp3 oxygen) is the textbook example of hybridization, and N2 is also commonly described as sp, so the key is not uniquely correct
+107644|a|RUBISCO|The most common enzyme is ribulose-1,5-bisphosphate carboxylase/oxygenase; ribulose-5-phosphate is a sugar, not an enzyme
+107721|a|I, IV, VI|C40H84 is not an alkane (C40H82 is), so only CH4, C8H18 and C20H42 fit CnH2n+2
+107920|a|Z|1s2 2s2 2p2 has 6 electrons, which is carbon, not boron
+107958|a|Z|1s2 2s2 2p2 has 6 electrons, which is carbon, not boron
+107991|a|NEGATIVE (ΔG < 0)|A spontaneous process has negative ΔG; ΔG = 0 means equilibrium
+108303|q|["What is the heat of fusion?","What is the heat of fusion of water?"]|The substance is missing; 335 J/g is the heat of fusion of water
+108383|rm||Bohrium's predicted radius (~128 pm) is smaller than Hf, Zr and Mo, so the keyed order is wrong and Zr/Hf are nearly equal
+108503|a|sp^2|Trigonal planar geometry corresponds to sp2 hybridization; sp3d is trigonal bipyramidal
+108773|q|["its pH increases","its pH decreases"]|Increasing hydronium concentration lowers pH
+109070|a|MOSCOVIUM|Element 115 was officially named moscovium in 2016; ununpentium was only a placeholder
+109404|rm||Says 4 options but lists only 3 unlabeled statements, so the numerals in the key cannot be matched
+109495|a|X|Nano means 10^-9; 10^-12 is pico
+109920|a|BOHR FREQUENCY CONDITION (BOHR MODEL)|Photon energy = E_upper - E_lower is Bohr's frequency condition; the Born interpretation concerns probability density
+109943|a|INTERNATIONAL UNION OF PURE AND APPLIED CHEMISTRY|The C in IUPAC stands for Chemistry, not Sciences
+110052|a|CHLORIDE ION (Cl^-)|The conjugate base of HCl is the chloride ion, not chlorine
+110074|a|J.J. THOMSON|The discoverer of the electron is spelled Thomson, not Thompson
+110356|a|12, ON THE OXYGEN ATOMS|Glucose has 6 oxygen atoms each with 2 lone pairs, giving 12 lone pairs
+110366|rm||Cyclobutadiene, cyclopropene and cyclohexadiene are all non-aromatic so W, X and Y are all correct
+110575|a|W|1 M H2SO4 is 2 N, higher than 0.5 M H3PO4 at 1.5 N
+110670|q|["highest activation energies","highest ionization energies"]|Beryllium is the group 2 element with the highest ionization energy; activation energy is not an element property
+110761|q|["approaches zero","approaches one"]|Raoult's law is the limiting law as the mole fraction approaches one; the zero limit is Henry's law
+111329|a|16|Berkeley Lab is credited with 16 elements and the key's own list names 16
+111335|a|SEVEN (B, SI, GE, AS, SB, TE, AT)|Sulfur and iodine are nonmetals; the metalloids listed should be silicon and astatine
+111347|q|["ratio of a reaction's forward rate to its reverse rate","ratio of a reaction's forward rate constant to its reverse rate constant"]|The ratio of the forward and reverse rate constants gives K; the ratio of the rates themselves is 1 at equilibrium
+111352|a|1.45 × 10^25|Glucose has 24 atoms per molecule so 24 × 6.022 × 10^23 = 1.45 × 10^25 atoms
+111357|a|TECHNETIUM|Technetium (Z = 43) is the lowest-numbered artificially produced element
+111510|rm||The Kyoto Protocol covers six gases including nitrous oxide, so there is no single set of five
+111551|a|2.09 J/g°C AND 0.50 cal/g°C|The specific heat of ice is about 2.09 J/g°C (0.50 cal/g°C)
+111618|q|["NaCl (80°C)","NaCl (801°C)"]|NaCl melts at 801°C; 80°C would be lower than sugar's 186°C
+111669|rm||The question text is cut off at the start and the subject is not chemistry
+111803|a|IPSO CARBON|The term is ipso carbon
+111874|a|FUSION, VAPORIZATION, SUBLIMATION, O-H BOND ENTHALPY|The key is cut off; the order is about 6, 41-44, 51 and 463 kJ/mol
+111892|a|III ONLY|Biodiesel is a mono-alkyl ester, so III is false while I and II are characteristic
+112154|a|Y|In a group of order 3, h + k = e so h = k^-1, and e + h + k = e, not k
+112407|a|WEAK ACID SOLUTION|Acetic acid alone partly dissociating is a weak acid (weak electrolyte); a buffer needs the conjugate base as well
+112666|a|X|An exothermic reaction releases heat to the surroundings, which raises their entropy; heat does not flow into the system
+112922|a|gasoline, kerosene, diesel, asphalt|Key is reversed; gasoline boils lowest and asphalt highest.
+112958|q|["to CI2,","to CO2,"]|Catalytic converters oxidize CO and hydrocarbons to CO2, not CI2.
+113205|a|X|Octane-air is thermodynamically unstable (combustion is spontaneous) but kinetically stable without ignition.
+113652|rm||Answer depends on which unsaturated hydrocarbon; methane gives 2 H2O per C vs 1 for alkenes, so key of 2 is unsupported.
+113808|a|ALCHEMY|Key has a stray "Y-" prefix; the answer is alchemy.
+113814|rm||Polonium occurs naturally (discovered in uranium ore), as do the other choices, so no choice is a synthetic element.
+113818|q|["all seven different types","all six different types"]|There are six quark flavors, as the key lists.
+113831|rm||Paraffins and alkanes are the same thing, so W and X are both correct.
+113837|a|Y|Cerium is a lanthanide; californium is an actinide.
+114013|a|1919|IUPAC was founded in 1919.
+114039|a|tetrahedral|Methane (AX4) is tetrahedral, not trigonal planar.
+114251|a|Y|Strontium's atomic weight is 87.62, closest to 88 (and Sr-88 is the most abundant isotope).
+114253|rm||Nickel (58.69) and cobalt (58.93) both have masses near 58, and Ni-58 is the common mass-58 isotope, so key cobalt is not defensible as unique.
+114323|a|X|Alkynes are CnH2n-2, so X is false; coal tar is indeed a coke by-product.
+114451|rm||Joule-Kelvin effect and Joule-Thomson effect are the same effect, so W and X are both correct.
+114684|a|ENTHALPY OF FUSION, ENTHALPY OF VAPORIZATION, ENTHALPY OF SUBLIMATION|Key is cut off; sublimation is the largest.
+114691|a|Y|K much less than 1 means delta G standard = -RT ln K is positive.
+114697|rm||Glycine is achiral, so it shows no enantiomerism and the keyed answer is wrong.
+115033|a|Z|The atmosphere is about 78% nitrogen; argon is under 1%.
+115406|a|2:1|A hemihydrate has one water per two formula units, so compound to water is 2:1.
+115427|rm||Alka-Seltzer (citric acid + bicarbonate) in water is endothermic, as is KCl dissolving, so two choices are correct
+115449|a|X|Longer bonds are weaker, so bond energy decreases as bond length increases
+115572|a|Markovnikov's Rule|Key is misspelled; the rule is Markovnikov's rule
+115750|rm||X is also false: H2 + I2 to 2HI has equal moles of gas on both sides so pressure change causes no shift, giving two false statements
+115796|q|["Na4Te","Na2Te"]|Telluride is Te2-, so sodium telluride is Na2Te
+115797|q|["Give the formula for the following binary ionic compound","Give the name for the following binary ionic compound"]|A formula is given and the key is a name, so the question should ask for the name
+115822|a|Torricelli|Key is misspelled; the inventor is Evangelista Torricelli
+115994|a|1|If ΔG equals ΔG°, then RT ln Q = 0 so Q = 1; Q = K only when ΔG = 0
+116262|rm||Text is garbled: a charcoal question is merged with an unrelated Earth science question
+116467|q|["18^(th) century","20^(th) century"]|The Haber-Bosch process was developed in the early 20th century
+116502|q|["18th century","20th century"]|The Haber-Bosch process was developed in the early 20th century
+116672|a|W|C-C (about 154 pm) is the longest; N-H (about 101 pm) is the shortest of these bonds
+116673|a|TRIGONAL BIPYRAMIDAL, TRIGONAL BIPYRAMIDAL, TRIGONAL BIPYRAMIDAL|All three have 5 electron pairs on the central atom; the key gives molecular shapes, not electron-pair geometries
+116835|q|["1 gram of?","1 gram of 226 Ra?"]|Question is cut off; the Curie is based on the decay of 1 gram of radium-226
+117032|rm||Refers to P from a previous question and does not specify the orbital
+117059|q|["50,000 cal.","5,000 cal."]|50,000 cal / (100 g x 50 °C) = 10 cal/g°C, not water's 1 cal/g°C
+117151|rm||Refers to a reaction shown in a figure that is not present
+117172|rm||Refers to compounds A and B in a figure that is not present
+117204|q|["2.0 × 10^3 M","2.0 × 10^-3 M"]|With [H2] = 2.0e3 M, Q = 1.25e-11 < K (shift right); with 2.0e-3 M, Q = 1.25e7 > K so the keyed left shift holds
+117213|a|-ΔH° (NEGATIVE STANDARD ENTHALPY OF REACTION)|ln K = -ΔH°/RT + ΔS°/R, so the slope of ln K vs 1/RT is -ΔH°, not ΔG°
+117286|rm||All four statements are true; [OH-] does vary inversely with [H+] via Kw, so no choice is false
+117294|rm||HCl and NaCl do not form a buffer, since HCl is a strong acid
+117338|a|X|Rutherford performed the first artificial nuclear transformation in 1917.
+117316|rm||All four listed nuclides are isotopes of carbon, so no choice is correct.
+100493|a|Boron; Electron holes|A hole-rich p-type layer is doped with boron, not arsenic (n-type).
+100502|a|Y|Gallium arsenide is direct-bandgap and has the highest thin-film efficiency.
+100515|a|Z|Binary uses two symbols; octal uses eight.
+100520|a|yotta, Y|The prefix for 10^24 is spelled yotta.
+100880|a|0.00283 km|283 cm = 2.83 m = 0.00283 km.
+101001|a|RETICULAR LAYER|The reticular layer is the innermost dermal layer; the papillary layer is the outermost.
+101188|a|120 V|US standard outlet voltage is 120 V, not 140.
+102438|a|X|Rutherford, not Goldstein, named the proton.
+102942|rm||Out of date: the Fifth Assessment Report was finalized in 2014 and is no longer the next report.
+102878|rm||Refers to an instrument shown in a figure that is not present.
+105760|a|AUSTRALIA, UNITED STATES, INDIA, CHINA|Key lists the order reversed; China consumes the most coal and Australia the least.
+105776|a|UNITED STATES, CANADA, BRAZIL, CHINA|China generates the most hydroelectricity, so it must come last in increasing order.
+105810|rm||Coal, nuclear fuel and solar are all primary energy sources, so more than one choice is correct.
+105836|a|Dam|A barrage is a dam across an inlet; hydrogen sulfide does not answer the question.
+106112|a|BIOMASS GASIFICATION|key misspelled; the process is gasification
+106230|rm||ECHO 1 was a passive NASA balloon, not commercial; Early Bird and Telstar 1 are both arguable
+106244|rm||EPA was created in 1970; Love Canal was 1978 and no choice led to its creation
+106361|a|ROBERT HOOKE|Hooke coined the term cell in Micrographia (1665)
+106428|a|UNIFORMITARIANISM|key misspelled
+108377|a|-31|wind chill at -5F and 25 mph is about -31F, not positive 30
+108915|a|Y|a pound of coal supplies roughly 1 kWh (1000 Wh), not 100 Wh
+109041|q|["alimeter","altimeter"]|typo; the instrument measuring altitude is an altimeter
+109720|rm||none of the listed engines always uses a liquid working fluid; Stirling uses gas and Rankine changes phase
+110153|a|ALEXANDER FLEMING|key misspelled
+110296|a|X|natural gas has surpassed coal as the largest US electricity source
+110320|a|SILVER IODIDE|The cloud seeding compound is silver iodide, not silver iodine
+110856|a|ELECTRONIC NUMERICAL INTEGRATOR AND COMPUTER|ENIAC stands for Electronic Numerical Integrator and Computer
+111520|rm||Largest wind farm as of 2010 is out of date and the keyed Roscoe farm is not the largest
+113688|a|ARTHROPODS|Scorpions are arthropods; key is misspelled as anthropods
+113694|rm||There are about 600 oak species so none of the choices is correct
+113703|a|LEAD POISONING|Key is misspelled as poisioning
+113705|rm||Oranges, lemons and tangerines all contain vitamin C so several choices are correct
+113707|a|Y|Nuclear fission bombs work by fission; fusion is only in thermonuclear weapons
+114429|rm||7 decigrams is 0.0007 kg and no choice matches
+114548|a|1024|A kilobyte is 1024 (or 1000) bytes; 8192 is bits
+114549|q|["Bill Gates Sr.","Bill Gates"]|Microsoft was cofounded with Bill Gates, not his father Bill Gates Sr.
+114554|rm||Refers to a very recent rocket launch that is time dependent and unspecified
+114850|rm||None of the choices is true; breeder reactors are commonly sodium cooled so only helium is false
+115021|a|TURING MACHINE|Key has a typo; it is a Turing machine
+115031|a|SYN, SYN-ACK, ACK|The three-way handshake uses SYN, SYN-ACK and ACK; FIN is for closing
+115043|a|Treptichnus pedum|Earliest widespread trace fossil is Treptichnus pedum, key is misspelled
+115249|rm||9 dB minus 5.6 dB is 3.4 dB, a power ratio of about 2.2, so none of the choices is correct
+115259|a|SPONTANEOUS GENERATION|the discredited theory is called spontaneous generation, not regeneration
+115269|rm||C, Delphi and Pascal are all not scripting languages so more than one choice is correct
+115274|a|UNCONSCIOUS MIND|key is misspelled
+115870|a|Aneroid Barometer|key is misspelled
+116571|a|CRITICAL MASS|the minimum amount of fissionable material for a chain reaction is the critical mass
+117096|rm||average warming is about 0.02 C per year, not about 1 degree, so the key is wrong with no clean fix
+97738|rm||all four statements about Bowen's series are true so there is no false statement
+97913|a|3 ONLY|kames are stratified sorted deposits and Midwest drumlins are not east-west so only statement 3 is true
+97999|q|["is planned for launch in late 2018","was launched in December 2021"]|out of date since JWST launched in December 2021
+99287|rm||San Andreas is both a transform plate boundary and a strike slip fault so two choices are correct
+99372|a|Olivine, Mica, Topaz, Talc (1, 2, 3, 4)|talc is also a silicate mineral
+99403|a|Y|By volume oxygen is first and potassium is second; silicon is second only by mass.
+99410|a|Early Proterozoic|Key misspells Proterozoic.
+99455|rm||None of the choices (argon, silicon, chlorine, oxygen) occurs as a native element in the crust.
+99463|a|Y|A steel file has hardness about 6.5, between feldspar and quartz.
+99485|a|W|A lake is a local base level while a floodplain is not.
+99537|a|12 hours 25 minutes|High to low to high is one semidiurnal cycle of about 12 h 25 min; 24 h 50 min is two cycles.
+99538|a|Carbon|Abundance order is hydrogen, helium, oxygen, carbon so oxygen is third and carbon is fourth.
+99565|a|Karl Schwarzschild|Schwarzschild's 1916 solution first predicted black holes.
+99577|rm||All four statements are equivalent to the parallel postulate so there is no single non-equivalent choice.
+100527|a|Z|The Pistol Star is not the biggest star; VY Canis Majoris is far larger.
+100860|a|Shale|Shale (mudrock) is the most common sedimentary rock.
+101092|rm||Refers to a missing image or figure and cannot be answered.
+101203|a|2, 4|El Nino raises sea level in the Americas relative to Asia; statements 2 and 3 contradict each other.
+101204|rm||Both W (La Nina is not always preceded by El Nino) and Y (La Nina is cooling not warming) are false.
+101240|a|Ridge push|Gravity sliding due to elevated ridge crest is ridge push, not slab pull or slab push.
+101390|rm||Question text is cut off: the star's mass and the speed of light values are missing.
+101401|a|PROXIMA CENTAURI b|Alpha Centauri Bb was refuted; the closest known exoplanet is Proxima b.
+101423|a|Y|Diamond is the hardest material actually known; carbon nitride is only theoretical.
+101502|a|EPHEMERAL STREAMS|Key is misspelled.
+101638|a|Y|3.6 miles is mid-level; altocumulus forms there while stratocumulus is a low cloud.
+101747|rm||Betelgeuse is in the Winter Triangle; the hexagon stars not in the triangle are Rigel, Aldebaran, Capella and Pollux, so there is no single answer.
+101809|a|SUBGIANT (HD 140283)|The oldest known star is a metal-poor subgiant; a red supergiant cannot be billions of years old.
+101810|rm||Pluto has five known moons, not three, and no other listed dwarf planet has three.
+101823|q|["orbit the sun in a retrograde manner","rotate in a retrograde manner"]|Venus rotates retrograde but all planets orbit the sun in the same direction.
+101877|a|PLEISTOCENE|The question asks for an epoch; frost wedging is not an epoch.
+101973|a|DARK ENERGY|Vacuum energy is dark energy or the cosmological constant; quintessence is a hypothetical field.
+102423|a|geostrophic wind|key misspells geostrophic
+102434|q|["is not below first-magnitude","is below first-magnitude"]|as written three choices are not below first magnitude; only Polaris is dimmer
+102483|rm||Chandrasekhar limit, not the TOV limit, is where a white dwarf collapses to a neutron star; question and key conflict
+102532|a|roche moutonnee|key misspelled
+102553|a|ARIEL, MIRANDA, OBERON, TITANIA, UMBRIEL|key has stray "Z—" prefix
+102638|a|16 MHZ|relativistic Doppler factor sqrt((1+0.6)/(1-0.6)) = 2, so 8 MHz becomes 16 MHz
+102643|a|FUKUSHIMA-DAIICHI DISASTER|key misspelled Fukushima
+102661|a|PERIAPSIS|perigee applies only to Earth orbiters; general term for both Earth and Moon is periapsis
+102715|rm||both mass number 5 and mass number 8 have no stable nuclei
+102727|q|["1200's","1000s"]|Crab supernova was observed by Chinese astronomers in 1054
+102774|a|APPARENT MAGNITUDE AND FLUX|flux also depends on distance
+102784|a|W|most magnitude 7+ earthquakes occur in Asia, not Europe
+102819|a|Y|water particles in open-ocean waves move in circles, both vertically and horizontally
+103109|a|ALL OF THEM|in astronomy every element heavier than helium is a metal
+103881|rm||Mercury has only an exosphere and no troposphere, so choices make no sense
+105569|a|Y|P waves do pass through the outer core (they are only refracted into shadow zones); the false statement is Y
+105573|rm||Both X (O class most massive) and Y (A type strongest hydrogen lines) are true
+105619|a|SYNCLINE|Key has a stray "Y-" prefix; the answer is syncline
+105633|rm||Statements X and Z are both clearly inaccurate (magnifying power is least significant; equatorial mounts track better)
+105665|a|FELDSPAR|Feldspar, not quartz, is the most abundant mineral in the crust
+105672|a|W|Orogeny builds mountains; transgression is a sea-level rise
+105675|rm||Several choices are not results of El Nino (rainfall decreases in the West Pacific, drought increases)
+105766|a|OZONE, METHANE, CARBON DIOXIDE, WATER VAPOR|Key lists highest to lowest but the question asks lowest to highest
+105886|a|about 31,600 (10^4.5)|Energy rises by 10^1.5 per magnitude so 3 units gives 10^4.5, not 1000
+105916|a|ANTECEDENT STREAM|Misspelled key; correct spelling is antecedent
+105968|a|recumbent folds|key is misspelled ("recombent"); the term is recumbent folds
+106142|a|5 x 10^12 m^3/s|100 km x 10 km x 5 km/s = 5000 km^3/s = 5 x 10^12 m^3/s, not 5,000,000
+106272|rm||Mount Washington's 1934 record was surpassed by Barrow Island, Australia (1996), which is not a choice, so the key is out of date
+106793|a|Z|apatite has Mohs hardness 5; orthoclase is 6
+106813|a|Z|Triton is not a Galilean moon; Europa is the smallest Galilean satellite
+107046|rm||both W (filaments emit line emission, not synchrotron) and Y (synchrotron is spread over many wavelengths) are incorrect
+107090|a|SYNCHROTRON RADIATION|key is misspelled ("SYNCHOTRON")
+107107|a|1, 2, AND 3|Statement 1 is true (a nonrotating Earth would have a single thermal convection cell) and statement 4 is false (four pressure zones).
+107177|a|1 AND 2|Coronal gas is hot and very low density (less dense than nearby interstellar matter) and does emit UV and X-rays.
+107206|a|PETROLEUM, NATURAL GAS, COAL|Natural gas now supplies more US energy than coal.
+107476|rm||Kepler derived his laws from Tycho Brahe's observations; the Rudolphine Tables were computed afterward from his laws.
+107588|rm||VY Canis Majoris is no longer considered the largest known star (out of date).
+108370|a|Beryllium, molybdenum, tungsten|Beryl is the ore of beryllium, not aluminum.
+108449|rm||Refers to a figure of three wind turbines that is not provided.
+108658|rm||Many minerals start with q so there is no single answer set
+108706|a|FELDSPAR|Feldspars are the most abundant minerals in the continental crust, quartz is second
+108855|a|3 and 4|Mantle top five are O, Mg, Si, Fe, Ca so Aluminum and Sodium are the ones left out
+108869|a|2 and 3|Rail and building weakening are direct acid rain effects; coal burning and mineral upwelling are not
+108888|a|Y|Form drag is greatest when the bar is perpendicular (90 or 270 degrees) to the flow
+108990|rm||Inferior planets (Mercury and Venus) have no moons so Deimos is not a valid answer
+109014|rm||Refers to "this disk" from the previous question and cannot stand alone
+109270|a|SLATE|Shale metamorphoses to slate first (schist is a much higher grade)
+109342|q|["19 mete","19 meters"]|Choice Z is cut off
+109355|a|W|A 6 solar mass star ends as a white dwarf (neutron stars need about 8 to 20 solar masses)
+109444|a|Z|Volcanic resurfacing, not planetary contraction, erased Mars' ancient craters
+109454|rm||Both a'a and pahoehoe form from basaltic lava so more than one choice is correct
+109595|a|1 and 3|Richter magnitude uses the S-P time interval and the amplitude, not a distance between waves
+109741|a|CRETACEOUS-PALEOGENE EXTINCTION EVENT (K-PG)|Key is misspelled "Creataceous"
+110361|a|Z|Arecibo collapsed in 2020; the largest full-dish radio telescope is FAST in Guizhou, China
+110645|a|Meridian (any line of longitude)|every meridian passes through both poles, not just 0 degrees
+110704|a|PYCNOCLINE|key is misspelled
+110747|a|1, 2, and 4|stratovolcanoes are characterized by explosive eruptions so statement 2 is true; only 3 (mafic) is false
+110804|a|LITTORAL, MESOPELAGIC, BATHYAL, ABYSSOPELAGIC (3, 1, 2, 4)|zones in order of decreasing height are littoral, mesopelagic, bathyal, abyssopelagic
+110883|q|["Compared to oceanic crust, crust is","Compared to oceanic crust, continental crust is"]|word continental was lost
+110974|rm||both magnesium and iron are enriched in mafic rocks relative to felsic
+111388|a|NEBULAR HYPOTHESIS|Earth formed from the solar nebula, not from the Big Bang
+111396|a|PLATE TECTONICS|theory based on tectonic plates is plate tectonics
+111457|a|AQUITARDS|key is misspelled
+111660|a|X|Tunguska impactor is estimated at about 30-60 m, not 300 m
+111713|a|Beryllium-10|Cosmogenic dating of quartz uses Be-10 (and Al-26); Cl-36 is used on carbonates and whole rocks
+111791|q|["Cape Ann earthquake in South Carolina","Cape Ann earthquake in Massachusetts"]|Cape Ann is in Massachusetts
+111885|a|II, III, and IV|Proglacial lakes also occur in terrain left by a receding glacier
+111926|a|Y|Rodinia (about 1 Ga) land could host simple microbial life, not complex organisms or no life
+112026|a|SN 1885A|The first supernova named this way was SN 1885A in Andromeda, not SN 1987A
+112037|q|["diameter: 24 meters","diameter: 2.4 meters"]|Hubble's mirror is 2.4 m and 0.05 arcsec only fits 2.4 m
+112093|a|B/289|Smaller radius lowers luminosity by 17^2, so B/289 not 289B
+112167|a|Komatiite|Misspelled key; the extrusive equivalent of peridotite is komatiite
+112171|rm||Five statements listed for a four-statement question and the last item is cut off, so key is unreliable
+112311|a|W|A compact quasi-stellar object is a quasar
+112489|a|sun, alpha centauri, Barnard's star, wolf 359, beta centauri|Beta Centauri is about 390 ly away, far beyond Wolf 359 at 7.9 ly
+112587|a|9 times|Light collecting area scales with diameter squared so (3/1)^2 = 9
+112588|a|X|Equatorial or alt-azimuth mounts are needed to track the sky against Earth's rotation
+112600|q|["following five spectral classes","following four spectral classes"]|Only four classes are listed
+112617|a|ANGLE OF REPOSE|Misspelled key
+112736|a|LARGE SYNOPTIC SURVEY TELESCOPE|The name is Large Synoptic Survey Telescope, not Sky
+112906|rm||Peridotite is listed as extrusive and key gives komatite; item 4 is reversed and misspelled
+112917|a|W|Density parameter is 0.2/5 = 0.04, less than 1, so open
+113002|q|["dry adiabatic lapse rate is lower than the environmental lapse rate, but the wet adiabatic lapse rate is greater than","dry adiabatic lapse rate is greater than the environmental lapse rate, but the wet adiabatic lapse rate is lower than"]|Conditional instability needs wet rate < environmental < dry rate
+113003|a|orbital forcing|Changes in Earth's orbit and orientation are called orbital forcing
+113013|rm||Out of date: Huge-LQG is no longer the largest known structure
+113132|a|turbidity currents|Misspelled key
+113208|q|["the bright star Sirius marks","the bright star Polaris marks"]|Polaris, not Sirius, currently marks the North Celestial Pole.
+113464|a|the foreshock|An earlier earthquake that is followed by a larger one is called a foreshock.
+113571|a|Y|Olympic times are given to the hundredth of a second.
+113572|rm||A week has 604800 seconds and none of the choices matches.
+113575|rm||Iron and cobalt are also found in ocean water, so more than one choice is correct.
+113583|a|Y|Einsteinium is named after Albert Einstein.
+113659|a|Longevity factor|Misspelled answer.
+113669|a|(a) Roche lobe and (b) the Lagrangian point (L1)|The Roche limit is not the volume enclosed by a star's gravity.
+113700|a|Venus|Venus has far more atmospheric water vapor than Mercury.
+113723|rm||Arachnids number over 100000 species so no choice is correct.
+113863|a|IGNEOUS|Key is garbled; aplite is an igneous rock.
+113880|rm||Question is garbled and the key does not answer it.
+113889|rm||The Karman line at 100 km lies in the thermosphere, not the exosphere.
+113911|a|drawdown|The effect is called drawdown, not drawback.
+113916|a|X|Trellis drainage has parallel tributaries perpendicular to the main channel.
+113929|rm||Both chromate and chromite contain no sulfur.
+114113|rm||Io, Titan and Triton do not share one primary atmospheric gas.
+114180|a|Magma|Liquid rock beneath the surface is magma.
+114199|rm||No planet has 67 satellites today; Jupiter's count is now far higher so the question is out of date
+114249|a|Carbon dioxide, nitrogen, argon, oxygen, carbon monoxide|Mars' atmosphere is mainly CO2, N2, Ar, O2 and CO, not hydrogen or water
+114257|rm||Largest known star is out of date and disputed; NML Cygni and VY Canis Majoris are no longer the accepted largest
+114282|rm||Both W and Y are true: lakes and rivers hold more water than the atmosphere
+114363|rm||The 4th largest moon is Io; the Moon is 5th and Io is not a choice
+114377|rm||All four giant planets (Jupiter, Saturn, Uranus, Neptune) have rings so there is no two-planet answer
+114427|a|SAFFIR-SIMPSON SCALE|The Beaufort scale measures wind force; hurricanes use Saffir-Simpson
+114466|a|X|Granite is igneous so fossils are not found in it
+114565|a|X|Earthquakes cause the most deaths of the listed disasters
+114636|rm||Weathering and erosion are both part of the rock cycle so no choice is clearly NOT a process
+114641|a|OBSIDIAN|Glassy textured igneous rock is obsidian; pumice is a vesicular rock
+114729|a|1 AU FROM THE STAR|Center of mass is 5*3/15 = 1 AU from the 12-mass body, not from the moon
+115042|rm||Archean is after the Hadean, and is also before the Paleozoic and Phanerozoic so several choices are correct
+115063|a|2 and 4|Both Capricornus and Aquarius are visible in the Northern Hemisphere in September
+115091|rm||Refers to a figure with labelled regions A-F that is not included
+115302|a|MERCURY AND VENUS|Only the inferior planets can never be in opposition
+115651|a|Z|Radiation pressure from sunlight (and solar wind), not heat, pushes dust away from the coma.
+115770|q|["2 high tides and 3 low tides","2 high tides and 2 low tides"]|A semidiurnal pattern has two highs and two lows per tidal day.
+115877|a|W|A white dwarf accreting past the Chandrasekhar limit produces a Type Ia supernova, not Ib.
+115952|rm||Both W (the Sun is Population I) and Y (younger than Population II) are true, and the key X is false since Pop I stars have the highest metallicities.
+116030|rm||The Sun produces most energy by the proton-proton chain (about 99%), so the 96.6% CNO premise is false.
+116151|rm||The Baltic Sea is at most about 459 m deep so it cannot have a pycnocline at 400-1000 m; the key is wrong and no choice is clearly right.
+116297|a|1 ONLY|Surface mining is cheaper than underground mining and longwall mining removes rather than preserves rock.
+116358|a|2, 4, AND 5|Submetallic and vitreous are luster terms while shiny, aqueous and tabular are not.
+116374|a|1, 2, 3, AND 4|Crystal settling also changes the composition of the remaining magma.
+117147|a|X|Magnetic fields, rotation and turbulence resist collapse, whereas lack of thermal energy does not resist it.
+117168|rm||Refers to diagrams that are not provided.
+117040|q|["talc, apatite, diamond, topaz, corundum, gypsum.","talc, apatite, diamond, topaz, quartz, corundum, gypsum."]|Key includes quartz, which is missing from the question list.
+117242|a|1, 2, AND 3|A rising spinning column of air in a thunderstorm is a mesocyclone, so all three statements are true.
+97935|a|X|Solution y = 1 - 2e^(-x^2/2) tends to 1 as x goes to minus infinity.
+99690|a|n-1|In K_n each vertex is joined to the other n-1 vertices; the key answers a different question.
+99718|a|30 edges|Octahedral prism has 2*12 edges from the two octahedra plus 6 joining edges = 30.
+99807|rm||Smallest taxicab number is 1729 (or 2), and none of the choices is correct.
+99936|rm||d/dx(tan x/sec x) = d/dx(sin x) = cos x, which is not among the choices.
+99644|a|1|x^x is only defined for x>0 near 0 and tends to 1.
+101442|rm||Refers to a function that is not given.
+101484|rm||ln(sin x) has no elementary antiderivative; cot x is its derivative.
+101522|a|CLAUSIUS INEQUALITY|Misspelled key; the name is Clausius.
+101813|rm||Key 12 is not an answer to the question asked.
+101814|a|X|A segment meeting the circle at exactly two points is a chord; a secant is a line.
+101895|rm||Equation is missing from the question.
+102346|q|["f(x) = xtan^2(x)+sec(x)","f(x) = xsec(x)tan(x)+sec(x)"]|Key x sec x is the antiderivative of x sec x tan x + sec x.
+102547|a|0|At an inflection point f''(x)=0, so f' has slope zero.
+102634|a|1 AND 2|Heron's formula applies to all triangles, not only cyclic polygons.
+102645|a|33|Nonnegative solutions of a+b+c=7 number 36, minus 3 with a die showing 7, gives 33.
+102749|rm||Refers to a graph with a purple line that is not provided.
+102854|rm||Refers to a figure that is not provided.
+102993|a|independent|Events whose likelihood is unaffected by the other are independent, not mutually exclusive
+104248|a|-10|g(x) = -(x-2)^2 + 2 - 3, so g(-1) = -9 + 2 - 3 = -10
+104373|a|1/3|1 plum = 1.5 oranges = 1.5 x 2/9 pineapple = 1/3 pineapple
+104381|rm||Hexagonal tetrahedron is not a real polyhedron so the question cannot be answered
+104394|rm||Both 2 (quadrilateral) and 9 (hexagon) are diagonal counts of polygons
+104422|a|1/4|Primes on a die are 2, 3, 5 giving 1/2 each roll, so 1/4 for two rolls
+105318|rm||Empty set is both open and closed and the question has no sensible single answer
+105561|a|X|900 three-digit numbers minus 9*9*9 = 729 with no zero gives 171
+106825|rm||Matrix is garbled digits 3-45111 and cannot be reconstructed
+107705|rm||Refers to an object that is not shown
+107708|rm||Refers to a cylinder that is not shown
+107711|rm||Missing setup (two dice) so the probability is undefined
+107713|rm||Missing setup (two dice) so the probability is undefined
+108642|a|AFFINE|Function mx + b is an affine function; AFFLINE is a misspelling
+108979|a|26/19 g/mL|Mass 65 g over volume 26.67 + 20.83 = 47.5 mL gives 26/19 g/mL
+109528|a|Equilateral|Only in an equilateral triangle does every median bisect its vertex angle
+109569|rm||Refers to a figure of circles in a square that is not shown
+109754|a|W|dx/dy = -(2x+2y)/(6x+2y) with y = -1 at x = 1 gives 0/4 = 0
+110339|rm||Refers to four graphs that are not shown
+110932|a|π/4 and 5π/4|sin A = cos A at A = π/4 and 5π/4 in [0, 2π]
+110964|a|Carl Friedrich Gauss|Gauss introduced modular arithmetic in Disquisitiones Arithmeticae
+111645|rm||Problem text lost its values and expressions and is unanswerable
+111753|a|Z|Skew is scale invariant while outliers double in value
+111891|q|["Mr. and Mrs. Stevie","Mr. and Mrs. Lopez"]|Name mismatch with the Lopez driver condition
+112112|a|-i - j + k|j component is -(3*-5 - 8*-2) = -1
+112114|rm||Refers to a rectangle that is not shown
+112329|a|Z|The circumcenter is equidistant from all three vertices (the circumradius).
+112882|a|2π − √3/5|Integral of cos5x over [-π/3, π/3] is (2/5)sin(5π/3) = -√3/5 and the 3 contributes 2π, so it is not zero.
+114020|rm||Counts are garbled: white pixels are given as both twice and four times the green count.
+114033|q|["is 3/3","is √3/3"]|cot(-120°) = √3/3, the square root sign was lost.
+114543|a|(x^2)/2 + C|The constant of integration is C, not +1.
+114544|a|Four|Painting four faces (leaving an opposite pair unpainted) already guarantees any two adjacent faces include a red one.
+115313|a|X|dy/dx = -y/x gives xy = c, a hyperbola, not a circle.
+115637|rm||P(one red and one blue) = 6*3/C(9,2) = 1/2, which is not among the choices.
+115991|rm||Integrand secx tan2x is garbled and its antiderivative is not cscx.
+116714|rm||The formula for the nth term is missing so the question cannot be answered.
+116904|rm||The ellipse equation is missing from the question.
+116941|a|1/π|Square area s^2 over circle area πs^2 is 1/π.
+97733|a|√3/2|I = 3/4 mR^2 about the pivot at R/2 gives T = 2π√(3R/2g) versus 2π√(2R/g) for length 2R, a ratio of √3/2.
+100092|a|Y|An electron at rest feels no magnetic force so it stays in place.
+100375|a|W|Ball going up is decelerating; velocity decreases linearly, not exponentially
+100391|a|about 3.00 x 10^5 km per second|Speed of light is 3x10^5 km/s; key value is km per hour
+100494|a|LC oscillations|Key "EM" is not an answer to the question
+100938|a|Gamma = 1/√(1-v^2/c^2)|Time dilation factor gamma is the reciprocal of the keyed expression
+101146|rm||All four listed processes are part of the Carnot cycle so no choice is correct
+101222|q|["What harmonic of pipe B will have the same frequency of the fundamental of pipe A?","What harmonic of pipe A will have the same frequency of the fundamental of pipe B?"]|Pipe A fundamental is half of pipe B fundamental; swapped pipes give second harmonic
+101758|a|Entropy|Heat in a quasistatic process is Q = integral of T dS
+101771|a|Kepler's First Law of Planetary Motion|Ellipses with the Sun at a focus is the first law
+102070|rm||Refers to a pressure-volume diagram that is not provided
+102107|a|X|Isothermal molar heat capacity is infinite while adiabatic is zero
+102134|a|QUARKS, LEPTONS, AND BOSONS|hadrons are composite, not fundamental; the fundamental types are quarks, leptons, bosons
+102135|rm||Higgs boson has been observed, so the question is out of date
+102176|a|Max Planck|the physicist is Max Planck, not Maxwell Planck
+102188|q|["Maxwell Planck","Max Planck"]|the physicist is Max Planck
+102679|rm||both lower height and lower velocity fail to imply lower pressure, so two choices are correct
+102710|a|Y|adiabatic PV^gamma is constant, where gamma is the ratio of Cp to Cv
+102763|q|["magnetic stress","mechanical stress"]|piezoelectricity is charge from mechanical stress
+102801|q|["permittivity of free space","permeability of free space"]|Ampere's law uses the permeability mu0
+102804|rm||refers to a diagram that is not present
+102809|rm||refers to an image that is not present
+102839|rm||refers to a diagram that is not present
+102849|a|p/(1+3aT)|volume grows by about (1+3aT) so density is p/(1+3aT)
+103176|a|Quantum chromodynamics|the theory of quarks and gluons with confinement and asymptotic freedom is QCD
+103245|a|W|Stirling uses isothermal steps with isochoric ones; Otto uses adiabatic steps
+103807|a|II, III|statement I is false because the twin paradox is not resolved by faster aging during acceleration, and IV is false because simultaneity lines tilt
+104312|a|Newton's First Law of Motion|object at rest stays at rest describes the first law
+105217|a|Y|F is proportional to m/r^2: 1e-10, 1e-6, 1e-2 so the 10,000 kg at 1 km is greatest
+105751|a|HELMHOLTZ FREE ENERGY|key is misspelled
+106161|a|1, 2, 3|the Higgs boson has spin 0, so statement 4 is false
+106317|a|W|a typical cell nucleus is about 10 micrometers across, not nanometers
+106370|a|W|Bohr proposed the planetary-orbit atomic model; Millikan did not
+106701|a|X|an object inside the focal point of a diverging lens always gives a virtual smaller image
+106831|q|["λ= hmv","λ= h/mv"]|the de Broglie wavelength is h/(mv), the slash was lost
+106919|a|Permittivity of free space|epsilon0 is the permittivity, not permeability
+107019|q|["19^(th) century","20^(th) century"]|Noether proved her theorem in 1915, so 20th century
+107706|rm||refers to an object/figure that is not provided
+107707|rm||refers to a cylinder/figure that is not provided
+107709|rm||refers to a cylinder/figure that is not provided
+107720|q|["Shorter Answer In what type","In what type"]|stray leading text "Shorter Answer"
+107768|a|Z|a charged sphere attracts the neutral conductor and induced net charge stays zero, so X is false and Z is true
+107820|a|1.80 × 10^10|3×10^8 m/s times 60 s is 1.8×10^10 m/min
+107836|a|W|object beyond C gives an inverted reduced image between C and F; X is wrong
+107962|a|X|the traveling twin returns younger due to time dilation
+107889|rm||garbled text mixing a different question and answer explanation into the question
+107995|a|I, II, IV|capacitors in series combine as 1/C, so III is false while II and IV are correct
+109526|rm||Two choices are false: Reynolds number is the ratio of inertial to viscous force (not drag), and higher kinematic viscosity lowers it
+109550|a|SYNCHROTRON|Key is misspelled
+109556|a|W|Field into page decreasing induces a clockwise current; increasing induces counterclockwise
+109571|rm||No element superconducts at 30 K at ambient conditions; the claim is false (iron is about 2 K under high pressure)
+109868|a|X|Human body efficiency is about 20-25 percent, closest to 20%
+110290|a|Y|Speed of light is about 3 x 10^8 m/s, three hundred million
+110358|a|Forward (eastward)|Static friction on the shoe pushes forward in the direction of walking, not downward
+110996|a|Z|Potential is proportional to 1/r so doubling the distance halves it
+111607|a|I and III|Fick's law: rate is proportional to area and inversely proportional to distance, so III is also true
+111634|rm||Refers to a previous example that is not provided
+112017|a|Y|Different wave speeds in different media explain refraction
+112161|a|2 and 3|Statement 2 (parallax) is wrong as worded and statement 3 is wrong; the GUT statement is the idealized one that is acceptable
+112271|rm||Garbled text merging several questions with no single answerable question
+112287|rm||All four statements are true so no choice is false
+112288|a|Piezoelectric effect|Key is misspelled
+112513|a|W|Centripetal acceleration is omega^2 r so Jane at 2 m has greater acceleration; Jack's linear velocity is smaller
+112515|a|Wilhelm Röntgen|Key is misspelled
+112524|a|2|Average translational kinetic energy is proportional to T so doubling T doubles it
+112884|q|["first proposed it in 1959","first proposed it in 1859"]|Rankine proposed the scale in 1859.
+113009|a|Y|At the critical temperature below the critical pressure the substance is a gas, so raising pressure gives gas to supercritical fluid.
+113036|rm||For steady flow of an incompressible fluid the velocity profile is the same at both ends so W and X are both equally fast.
+113376|rm||Terminal velocity has no single speed and the key 9.8 m/s^2 is an acceleration not a speed.
+113684|a|Y|The SI base unit of temperature is the kelvin.
+113985|rm||Out of date since the 2019 redefinition the kilogram is defined by the Planck constant and no SI unit uses a prototype.
+114384|rm||You are lighter at the equator not the poles and centrifugal force accounts for only part of the difference.
+114533|rm||Refers to a figure or scenario that is not provided.
+114534|rm||Refers to a figure or scenario that is not provided.
+114536|rm||Refers to a figure or scenario that is not provided.
+114455|q|["Stanford Model","Standard Model"]|Misnamed model of particle physics.
+114723|rm||Both Y and Z are correct since cos[w(t - x/v)] is a wave moving in the positive x direction.
+114755|a|II only|Meissner effect is expulsion of field and the Type I and II descriptions in IV are swapped.
+114777|a|Electromagnetic force and weak force|The electroweak force splits into electromagnetism and the weak force.
+114793|rm||Hawking radiation makes the black hole lose mass so statement II is false and the key I and II is wrong.
+114805|a|II only|Meissner effect is expulsion of field and the Type I and II descriptions in IV are swapped.
+115315|a|500 WATTS|P = I^2 R = 100 x 5 = 500 W.
+115577|a|Principle of Complementarity|Key misspells complementarity.
+115698|a|Y|dV = V*P/K = 1e8 Pa / 1e11 Pa = 1e-3 m^3, and choice Z is a garbled leftover
+115625|a|Bohr Magneton|the unit is the Bohr magneton, not magnetron
+116001|rm||at resonance X_L = X_C, so L is not the inverse of C and no choice is clearly correct
+116003|rm||the question asks for focal length but the key gives image distance, so key does not answer the question
+116224|q|["theorized in 1976","theorized in 1957"]|BCS theory was published in 1957
+116497|q|["sustain a chemical chain reaction","sustain a nuclear chain reaction"]|critical mass concerns a nuclear chain reaction
+116868|q|["sustain a chemical chain reaction","sustain a nuclear chain reaction"]|critical mass concerns a nuclear chain reaction
+116432|a|X|dichromats are missing one visual pigment, not two, so X is the incorrect statement
+117056|rm||question refers to an unspecified object and cannot be answered
