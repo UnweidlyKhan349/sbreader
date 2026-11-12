@@ -121,23 +121,73 @@ drop policy if exists "anyone updates a player" on public.mp_players;
 -- except through the functions.)
 revoke all on public.mp_rooms, public.mp_players from anon, authenticated;
 
+-- How long things last, as on QB Reader (rewritten November 2026). QB Reader
+-- keeps rooms and players in its server's memory and restarts the server
+-- every day at 08:00 UTC, so:
+--   * an offline player's score stays until the next restart (no timer per
+--     player); a player who leaves without having heard or answered a
+--     question is taken off at once;
+--   * a room stays until the next restart, except that a public room whose
+--     players have heard 2 questions or fewer between them goes as soon as
+--     nobody is in it (private rooms, and rooms that were played in, stay);
+--   * the built-in rooms stay, and start each day with no players.
+-- Nothing here runs on a clock: the functions that read leave out what has
+-- lapsed, and every heartbeat deletes it (mp_sweep). "In the room" means a
+-- heartbeat in the last 90 seconds. Players who stay in a room through
+-- 08:00 UTC keep playing, with their scores.
+alter table public.mp_players add column if not exists heard integer not null default 0 check (heard between 0 and 1000000);
+
+create or replace function public.mp_last_restart()
+returns timestamptz
+language sql stable set search_path = public as $$
+  select (date_trunc('day', (now() at time zone 'UTC') - interval '8 hours') + interval '8 hours') at time zone 'UTC';
+$$;
+
+create or replace function public.mp_player_live(p public.mp_players)
+returns boolean
+language sql stable set search_path = public as $$
+  select p.last_seen >= mp_last_restart()
+     and (p.last_seen > now() - interval '90 seconds'
+          or p.heard > 0 or p.correct > 0 or p.incorrect > 0 or p.negs > 0);
+$$;
+
+create or replace function public.mp_room_live(r public.mp_rooms)
+returns boolean
+language sql stable set search_path = public as $$
+  select r.is_permanent
+      or (r.updated_at >= mp_last_restart()
+          and not (r.is_public
+                   and r.updated_at < now() - interval '90 seconds'
+                   and (select coalesce(sum(p.heard), 0) from mp_players p where p.room = r.name) <= 2));
+$$;
+
+create or replace function public.mp_sweep()
+returns void
+language sql security definer set search_path = public as $$
+  delete from mp_rooms r where not mp_room_live(r);
+  delete from mp_players p where not mp_player_live(p);
+$$;
+
 create or replace function public.mp_list()
 returns table (name text, is_public boolean, is_permanent boolean, players integer, online integer)
 language sql stable security definer set search_path = public as $$
   select r.name, r.is_public, r.is_permanent,
          count(p.pid)::integer,
          count(p.pid) filter (where p.last_seen > now() - interval '90 seconds')::integer
-  from mp_rooms r left join mp_players p on p.room = r.name
-  where r.is_public
+  from mp_rooms r left join mp_players p on p.room = r.name and mp_player_live(p)
+  where r.is_public and mp_room_live(r)
   group by r.name, r.is_public, r.is_permanent;
 $$;
 
-create or replace function public.mp_roster(p_room text)
+-- (Dropped first: its columns changed, with heard.)
+drop function if exists public.mp_roster(text);
+create function public.mp_roster(p_room text)
 returns table (pid text, username text, score integer, correct integer, incorrect integer,
-               negs integer, cel_sum real, cel_n integer, last_seen timestamptz)
+               negs integer, cel_sum real, cel_n integer, last_seen timestamptz, heard integer)
 language sql stable security definer set search_path = public as $$
-  select pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen
-  from mp_players where room = p_room;
+  select p.pid, p.username, p.score, p.correct, p.incorrect, p.negs, p.cel_sum, p.cel_n, p.last_seen, p.heard
+  from mp_players p join mp_rooms r on r.name = p.room
+  where p.room = p_room and mp_room_live(r) and mp_player_live(p);
 $$;
 
 -- The built-in rooms, by name (General and one per subject but Energy; see
@@ -157,9 +207,14 @@ delete from public.mp_rooms where name like 'pub-%' and not public.mp_is_builtin
 update public.mp_rooms set is_permanent = public.mp_is_builtin(name), is_public = is_public or public.mp_is_builtin(name)
   where is_permanent <> public.mp_is_builtin(name);
 
+-- p_heard (the questions this player has heard in the room) was added in
+-- November 2026; a call without it leaves the count as it is. The function
+-- without it is dropped so a call can't match two.
+drop function if exists public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer);
 create or replace function public.mp_heartbeat(
   p_room text, p_is_public boolean, p_pid text, p_secret text, p_username text,
-  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer)
+  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer,
+  p_heard integer default null)
 returns boolean
 language plpgsql security definer set search_path = public as $$
 declare
@@ -173,14 +228,10 @@ begin
     raise exception 'reserved room name';
   end if;
   h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
-  -- Rooms nobody has been in for 30 days are deleted, with their players
-  -- (added November 2026). The built-in pub-* rooms are kept. It runs on
-  -- every heartbeat; with the index on updated_at it costs next to nothing
-  -- when there's nothing to delete.
-  delete from mp_rooms where not is_permanent and updated_at < now() - interval '30 days';
-  -- And players who haven't been seen for a day, in every room (the site
-  -- takes offline players off the leaderboard after a day too).
-  delete from mp_players where last_seen < now() - interval '1 day';
+  -- What has lapsed goes first (see "How long things last" above), so a
+  -- room that is gone starts again as a new one, with this player as its
+  -- creator.
+  perform mp_sweep();
   -- The room: created by the first player to report it; only that player
   -- can change whether it's listed. Built-in rooms are always public.
   insert into mp_rooms (name, is_public, is_permanent, owner_hash, updated_at)
@@ -195,20 +246,24 @@ begin
   if found and existing is not null and existing <> h then
     return false;
   end if;
-  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash)
-  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h)
+  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash, heard)
+  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h,
+          least(greatest(coalesce(p_heard, 0), 0), 1000000))
   on conflict (room, pid) do update set
     username = excluded.username, score = excluded.score, correct = excluded.correct,
     incorrect = excluded.incorrect, negs = excluded.negs, cel_sum = excluded.cel_sum,
-    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash;
+    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash,
+    heard = case when p_heard is null then mp_players.heard else excluded.heard end;
   return true;
 end;
 $$;
 
+revoke all on function public.mp_last_restart(), public.mp_player_live(public.mp_players),
+  public.mp_room_live(public.mp_rooms), public.mp_sweep() from public;
 revoke all on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer) from public;
 grant execute on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer) to anon, authenticated;
 
 -- Room owners (added November 2026). A named room's owner is the browser
 -- that created it, as on QB Reader: it shows a crown, can mute and ban
@@ -225,16 +280,26 @@ alter table public.mp_rooms add column if not exists owner_key text check (char_
 alter table public.mp_rooms add column if not exists banned text[] not null default '{}' check (cardinality(banned) <= 500);
 alter table public.mp_rooms add column if not exists controlled boolean not null default false;
 
+-- A ban lasts 30 minutes, as on QB Reader (added November 2026; before, a
+-- ban was for good). ban_times has when each began: { pid: ms since 1970 },
+-- set here, by the server's clock. `banned` is kept as the list of pids.
+-- Bans from before this have no time and are over.
+alter table public.mp_rooms add column if not exists ban_times jsonb not null default '{}'::jsonb;
+
 create or replace function public.mp_room(p_room text)
 returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object(
-    'is_public', r.is_public, 'owner_key', r.owner_key, 'banned', to_jsonb(r.banned), 'controlled', r.controlled,
+    'is_public', r.is_public, 'owner_key', r.owner_key, 'controlled', r.controlled,
+    'banned', coalesce((select jsonb_agg(e.key) from jsonb_each_text(r.ban_times) e
+      where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '[]'::jsonb),
+    'ban_times', coalesce((select jsonb_object_agg(e.key, e.value::bigint) from jsonb_each_text(r.ban_times) e
+      where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '{}'::jsonb),
     'players', coalesce((select jsonb_agg(jsonb_build_object(
         'pid', p.pid, 'username', p.username, 'score', p.score, 'correct', p.correct, 'incorrect', p.incorrect,
-        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'last_seen', p.last_seen))
-      from mp_players p where p.room = r.name), '[]'::jsonb))
-  from mp_rooms r where r.name = p_room;
+        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'heard', p.heard, 'last_seen', p.last_seen))
+      from mp_players p where p.room = r.name and mp_player_live(p)), '[]'::jsonb))
+  from mp_rooms r where r.name = p_room and mp_room_live(r);
 $$;
 
 create or replace function public.mp_set_room(
@@ -244,6 +309,8 @@ language plpgsql security definer set search_path = public as $$
 declare
   h text;
   n integer;
+  now_ms bigint := (extract(epoch from now()) * 1000)::bigint;
+  bans jsonb;
 begin
   if p_secret is null or char_length(p_secret) not between 16 and 128 then
     raise exception 'bad secret';
@@ -258,14 +325,24 @@ begin
     raise exception 'bad ban list';
   end if;
   h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
-  insert into mp_rooms (name, is_public, is_permanent, owner_hash, owner_key, banned, controlled, updated_at)
+  perform mp_sweep(); -- a room that is gone can be made again, by anyone
+  -- Each ban keeps the time it began while it's still running; a new one
+  -- (or one that had run out) begins now.
+  select coalesce(jsonb_object_agg(x.b, coalesce(old.t, now_ms)), '{}'::jsonb) into bans
+  from (select distinct b from unnest(coalesce(p_banned[1:500], '{}')) b) x
+  left join lateral (
+    select (r.ban_times ->> x.b)::bigint as t from mp_rooms r
+    where r.name = p_room and r.ban_times ? x.b and (r.ban_times ->> x.b)::bigint > now_ms - 1800000
+  ) old on true;
+  insert into mp_rooms (name, is_public, is_permanent, owner_hash, owner_key, banned, ban_times, controlled, updated_at)
   values (p_room, coalesce(p_is_public, true), false, h, p_owner_key,
-          coalesce(p_banned[1:500], '{}'), coalesce(p_controlled, false), now())
+          coalesce(p_banned[1:500], '{}'), bans, coalesce(p_controlled, false), now())
   on conflict (name) do update set
     -- The key is set once; after that only the bans and the switch change.
     owner_key = coalesce(mp_rooms.owner_key, excluded.owner_key),
     owner_hash = coalesce(mp_rooms.owner_hash, excluded.owner_hash),
     banned = excluded.banned,
+    ban_times = excluded.ban_times,
     controlled = excluded.controlled
   where mp_rooms.owner_hash is null or mp_rooms.owner_hash = h;
   get diagnostics n = row_count;

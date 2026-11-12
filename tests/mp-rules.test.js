@@ -132,13 +132,27 @@ test('a takeover is followed only from a member, by a small step, and from the r
   assert.strictEqual(acceptsCoordinator({ ...view, coordinatorId: 'a' }, 'a', 99), false);
 });
 
-test('a player who left stays on the list, offline, for a day', () => {
-  const { stillOffline } = globalThis.SBMpRules;
-  const now = Date.now();
-  assert.strictEqual(stillOffline({ leftAt: now }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 23 * 3600 * 1000 }, now), true);
-  assert.strictEqual(stillOffline({ leftAt: now - 25 * 3600 * 1000 }, now), false);
-  for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, now), false);
+test('a player who left stays on the list, offline, until the daily restart at 08:00 UTC', () => {
+  const { stillOffline, lastRestart } = globalThis.SBMpRules;
+  const at = (h, m = 0, day = 12) => Date.UTC(2026, 10, day, h, m);
+  assert.strictEqual(lastRestart(at(9)), at(8));
+  assert.strictEqual(lastRestart(at(8)), at(8));
+  assert.strictEqual(lastRestart(at(7, 59)), at(8, 0, 11));
+  // Left after the last restart: still there, however long ago.
+  assert.strictEqual(stillOffline({ leftAt: at(8, 1) }, at(8, 1)), true);
+  assert.strictEqual(stillOffline({ leftAt: at(8, 1, 11) }, at(7, 59)), true);
+  // Left before it: gone, even a minute ago.
+  assert.strictEqual(stillOffline({ leftAt: at(7, 59) }, at(8, 0)), false);
+  assert.strictEqual(stillOffline({ leftAt: at(9, 0, 11) }, at(9)), false);
+  for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, at(9)), false);
+});
+
+test('a player has activity once they have heard or answered a question', () => {
+  const { hasActivity } = globalThis.SBMpRules;
+  assert.strictEqual(hasActivity({ score: 0, correct: 0, incorrect: 0, negs: 0, heard: 0 }), false);
+  assert.strictEqual(hasActivity({}), false);
+  assert.strictEqual(hasActivity(null), false);
+  for (const k of ['heard', 'correct', 'incorrect', 'negs']) assert.strictEqual(hasActivity({ [k]: 1 }), true);
 });
 
 test('room names are cleaned to letters, digits and dashes, and give a stable door', () => {
