@@ -148,7 +148,8 @@
      players to connect to (and lobby-list probes with a player count). The
      door can change hands without anyone in the room noticing.
 
-     makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo() })
+     makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo(),
+                onDisconnect(), onReconnect() })
        ready              resolves with this player's own peer ID
        join(roomId)       through the door: connects to every player listed;
                           resolves { members, ...doorInfo } (the ones reached)
@@ -180,7 +181,7 @@
   // is told they've been disconnected (it usually comes back within seconds).
   const LOST_AFTER_MS = 8000;
 
-  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect }) {
+  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect, onReconnect }) {
     const conns = new Map();
     let self;
     let door = null;
@@ -215,11 +216,29 @@
       const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
       if (offline || (self.disconnected && conns.size === 0)) { lostTold = true; onDisconnect(); }
     }
+    // Back again after being told (the browser is online and the connection
+    // service reachable): told once more (onReconnect), and a later loss is
+    // told afresh.
+    function checkBack() {
+      if (!lostTold || self.destroyed) return;
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+      if (self.disconnected) return;
+      lostTold = false;
+      if (onReconnect) onReconnect();
+    }
     self.on('disconnected', () => {
       setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
       setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
     });
-    if (typeof window !== 'undefined') window.addEventListener('offline', () => checkLost());
+    // PeerJS opens again once a reconnect() gets through.
+    self.on('open', () => checkBack());
+    if (typeof window !== 'undefined') {
+      window.addEventListener('offline', () => checkLost());
+      window.addEventListener('online', () => {
+        if (!self.destroyed && self.disconnected) { try { self.reconnect(); } catch (e) { /* tried again later */ } }
+        checkBack();
+      });
+    }
 
     /* ----- The relay channel (see above) ----- */
     const relay = { roomId: null, ch: null, opening: null, waits: new Map(), lastTick: new Map() };

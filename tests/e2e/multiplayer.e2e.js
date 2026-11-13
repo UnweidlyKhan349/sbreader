@@ -257,6 +257,22 @@ test('losing the connection shows "Disconnected from server" in a dialog on the 
   await ctx.close();
 });
 
+test('the "Disconnected from server" dialog goes away by itself once the connection is back', async () => {
+  const ctx = await newContext(browser);
+  const page = await joinRoom(ctx, server.url, room());
+  await ctx.setOffline(true);
+  await page.evaluate(() => window.dispatchEvent(new Event('offline')));
+  await page.waitForSelector('#alert-modal.show');
+  await ctx.setOffline(false);
+  await page.evaluate(() => window.dispatchEvent(new Event('online')));
+  await page.waitForSelector('#alert-modal', { state: 'hidden' });
+  // A later loss is told again.
+  await ctx.setOffline(true);
+  await page.evaluate(() => window.dispatchEvent(new Event('offline')));
+  await page.waitForSelector('#alert-modal.show');
+  await ctx.close();
+});
+
 test('n starts and goes on but never skips; s only skips; the timer is at 0 after a wrong interrupt; cards carry no "answered" line', async () => {
   const ctx = await newContext(browser);
   const r = room();

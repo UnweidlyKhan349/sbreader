@@ -2097,6 +2097,7 @@
   // This player's connection: made once, as early as there's reason to (the
   // lobby makes it ahead of time, so a room opens without waiting for it).
   // Its TURN logins are asked for alongside (see SBPeer.makeMesh).
+  const DISCONNECTED_TEXT = 'Disconnected from server';
   function openMesh() {
     if (!mesh) {
       mesh = SBPeer.makeMesh({
@@ -2104,7 +2105,13 @@
         onLeave: onMemberLeft,
         // As QB Reader does when its connection to the room drops: a
         // message in a dialog on the page, with an OK button.
-        onDisconnect: () => { if (myState.role) SBSite.alert('Disconnected from server'); },
+        onDisconnect: () => { if (myState.role) SBSite.alert(DISCONNECTED_TEXT); },
+        // Reconnected: the "Disconnected" dialog, if still up, goes away.
+        onReconnect: () => {
+          const el = document.getElementById('alert-modal');
+          const text = document.getElementById('alert-modal-text');
+          if (el && el.classList.contains('show') && text && text.textContent === DISCONNECTED_TEXT) SBSite.hideModal(el);
+        },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
     }
