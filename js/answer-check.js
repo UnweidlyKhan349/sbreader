@@ -2196,7 +2196,30 @@
   // the typed answer and the key, so the number checks, which read the text
   // as written, see a fraction they know.
   const slashFractions = (t) => (t == null ? t : String(t).replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f]));
+  // A sign on a particle's or letter's name reads the same written as a
+  // word or a symbol: "W minus boson" is "W- boson" (and "W⁻", "W^-"),
+  // "pi plus" is "π+", "beta-minus decay" is "β- decay". Both the typed
+  // answer and the key are rewritten with the symbol, so the sign is then
+  // checked like any other charge (a "W+" for "W MINUS" is wrong, see
+  // operatorConflict). Only after a single letter or a Greek letter's name,
+  // and not before a number or another lone letter ("x minus 2", "a plus b"
+  // are arithmetic)
+  const SIGN_NAME = '(?:[A-Za-z]|[\u0391-\u03a9\u03b1-\u03c9]|alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega)';
+  // (nor before a spelled number or a math word: "a minus absolute value of b")
+  const SIGN_MATH_WORDS = 'zero|one|two|three|four|five|six|seven|eight|nine|ten|half|the|absolute|square|cube|sqrt|root|log|ln|sin|cos|tan|pi|infinity|negative';
+  const SIGN_WORD_RE = new RegExp('(^|[^A-Za-z0-9\u0391-\u03c9])(' + SIGN_NAME + ')(?:\\s+|-)(minus|plus)(?![A-Za-z0-9])(?!\\s*(?:\\d|[A-Za-z](?![A-Za-z])|(?:' + SIGN_MATH_WORDS + ')(?![A-Za-z])))', 'gi');
+  function signWords(t) {
+    if (t == null) return t;
+    return String(t).replace(/\u207b/g, '-').replace(/\u207a/g, '+')
+      .replace(SIGN_WORD_RE, (m, pre, name, word) => pre + name + (/^m/i.test(word) ? '-' : '+'));
+  }
+  const SIGN_WORD_TEST = /\b(?:minus|plus)\b|[\u207a\u207b]/i;
   function checkAnswer(question, userInput) {
+    if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
+      const a = question.answer;
+      question = { ...question, answer: { ...a, text: signWords(a.text), accept: (a.accept || []).map(signWords), reject: (a.reject || []).map(signWords) } };
+      userInput = signWords(userInput);
+    }
     if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join(''))) {
       const a = question.answer;
       question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };

@@ -716,3 +716,16 @@ test('part numbers alone are not the parts: "1, 2" for "1) HALITE; 2) LISTRIC FA
   assert.ok(isCorrect('1) 5 METERS; 2) 7 SECONDS', '5, 7'));
   assert.ok(isCorrect('1) 5; 2) 7', '5, 7'));
 });
+
+test('a sign on a particle or letter name reads the same as a word or a symbol', () => {
+  const q = { question: 'What gauge boson mediates beta-minus decay?' };
+  for (const [key, typed] of [
+    ['W MINUS BOSON', 'W- boson'], ['W MINUS BOSON', 'W^- boson'], ['W MINUS BOSON', 'W⁻ boson'], ['W MINUS BOSON', 'W-minus boson'],
+    ['W- BOSON', 'W minus boson'], ['W PLUS', 'W+'], ['PI MINUS', 'π-'], ['PI MINUS', 'pi-'],
+    ['BETA MINUS DECAY', 'beta- decay'], ['BETA PLUS', 'β+'], ['Beta-minus', 'beta minus'],
+  ]) assert.ok(isCorrect(key, typed, q), `${typed} for ${key}`);
+  for (const [key, typed] of [
+    ['W MINUS BOSON', 'W+ boson'], ['W MINUS BOSON', 'W plus boson'], ['BETA PLUS', 'beta-'], ['W- BOSON', 'W plus boson'],
+    ['x minus one', 'x+1'], ['X MINUS 2', 'x+2'],
+  ]) assert.ok(!isCorrect(key, typed, q), `${typed} for ${key}`);
+});
