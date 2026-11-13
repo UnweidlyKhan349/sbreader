@@ -743,7 +743,7 @@ test('a charge left out is wrong unless the question makes it plain or says it i
     ['SiO4; 4^-', 'SiO4; 4', 'What is the empirical formula and charge of the silicon-oxygen tetrahedron?'],
   ]) {
     const r = grade(key, typed, { question });
-    assert.ok(!r.correct && r.chargeMissing, `${typed} for ${key}`);
+    assert.ok(!r.correct && r.chargeMissing && r.close, `${typed} for ${key}`);
   }
   // The question names the sign, or says the charge isn't needed; or the
   // packet accepts the answer without it.

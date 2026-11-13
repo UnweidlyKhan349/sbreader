@@ -2273,7 +2273,9 @@
         checkAnswerInner({ ...question, answer: { ...a, text: plain[0], accept: plain.slice(1) } }, userInput));
       if (again.correct) return result;
     }
-    return { correct: false, matched: null, rejected: false, chargeMissing: true };
+    // A near miss, like a typo: the pages mark it "Close" and the player
+    // can claim it with "I was right".
+    return { correct: false, matched: null, rejected: false, close: true, chargeMissing: true };
   }
   function checkAnswer(question, userInput) {
     if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
