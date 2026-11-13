@@ -102,7 +102,8 @@ test('the buzz mark sits right after what had been read, for every word of a sam
       let left = w.end;
       const shown = segs.map((s, k) => { const n = Math.min(left, lengths[k]); left -= n; return visibleTruncate(s.html, n); });
       const expected = plain(shown.join(' ')).slice(plain(visibleTruncate(segs[0].html, header)).length).trim();
-      const read = 1 - Math.round((1 - w.end / total) * 1000) / 1000; // as saved: celerity to three decimals
+      // as saved: celerity to three decimals, of the question without its header line
+      const read = 1 - Math.round((1 - (w.end - header) / (total - header)) * 1000) / 1000;
       const m = SBData.buzzMarked(q, read);
       const got = plain([m.text, ...letters.map((L) => m.choices[L])].join(' '));
       assert.strictEqual((got.match(/\u0001/g) || []).length, 1, `question ${q.id}: one mark`);

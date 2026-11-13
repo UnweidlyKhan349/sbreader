@@ -328,17 +328,32 @@
   // match a distinct, not-yet-used item (exact, then word-order/typo
   // tolerant, then whole-word substring) - if any segment can't be matched,
   // the whole attempt is abandoned (returns null) rather than guessing.
-  function resolveTermsToNumbers(raw, itemTexts) {
+  // `strict` (used on answer keys) takes whole names only: no splitting on
+  // spaces and no part-of-a-name matches.
+  function resolveTermsToNumbers(raw, itemTexts, strict) {
     if (!itemTexts || !itemTexts.length || !raw) return null;
     const trimmed = raw.trim();
     if (!trimmed) return null;
-    let segments = trimmed.split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((s) => s.trim()).filter(Boolean);
-    if (segments.length < 2) {
-      const wsSplit = trimmed.split(/\s+/).filter(Boolean);
-      if (wsSplit.length >= 2) segments = wsSplit;
-    }
+    const segments = trimmed.split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((s) => s.trim()).filter(Boolean);
     if (!segments.length) return null;
-
+    // An answer with no separator is one item's name ("Paschen series",
+    // "gap junctions") before it is several short ones ("diatoms
+    // radiolarians"): the whole thing is tried first, and may only be the
+    // name or a part of it, never something that merely contains a name.
+    if (segments.length < 2) {
+      const exact = matchSegments(segments, itemTexts, 'none');
+      if (exact || strict) return exact;
+      const wsSplit = trimmed.split(/\s+/).filter(Boolean);
+      const words = wsSplit.length >= 2 ? matchSegments(wsSplit, itemTexts, 'none') : null; // "A B", "diatoms radiolarians"
+      if (words) return words;
+      return matchSegments(segments, itemTexts, 'inside')
+        || (wsSplit.length >= 2 ? matchSegments(wsSplit, itemTexts, 'either') : null);
+    }
+    return matchSegments(segments, itemTexts, strict ? 'none' : 'either');
+  }
+  // `contain` says how far a part-of-a-name match may go: 'either' way round,
+  // only the typed text 'inside' the item's name, or 'none'.
+  function matchSegments(segments, itemTexts, contain) {
     const used = new Array(itemTexts.length).fill(false);
     const nums = [];
     for (const seg of segments) {
@@ -350,13 +365,15 @@
       if (bestIdx === -1) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
-          if (lenientWordMatch(seg, itemTexts[i])) { bestIdx = i; break; }
+          const m = lenientWordMatch(seg, itemTexts[i]);
+          if (contain === 'none' ? m === 'exact' : m) { bestIdx = i; break; }
         }
       }
-      if (bestIdx === -1 && normalize(seg).length >= 4) {
+      if (bestIdx === -1 && contain !== 'none' && normalize(seg).length >= 4) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
-          if (eitherContains(seg, itemTexts[i])) { bestIdx = i; break; }
+          const hit = contain === 'either' ? eitherContains(seg, itemTexts[i]) : containsWholeRun(normalize(itemTexts[i]), normalize(seg));
+          if (hit) { bestIdx = i; break; }
         }
       }
       if (bestIdx === -1) return null;
@@ -1538,6 +1555,11 @@
       const stripped = v.replace(/\s+\([^()]*[A-Za-z]{2,}[^()]*\)\s*$/, '');
       if (stripped !== v) out.push(stripped);
     }
+    // "SN2 ONLY", "TYPE VI ONLY": the answer with or without the "only"
+    for (const v of out.slice()) {
+      const bare = v.replace(/(\S)\s+ONLY\s*$/i, '$1');
+      if (bare !== v) out.push(bare);
+    }
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
@@ -1627,7 +1649,10 @@
     const found = [...raw.matchAll(OTHER_ONE_RE)];
     if (found.length !== 1) return null;
     const m = found[0];
-    return (fill) => `${raw.slice(0, m.index)} ${fill} ${raw.slice(m.index + m[0].length)}`.trim();
+    const fill = (text) => `${raw.slice(0, m.index)} ${text} ${raw.slice(m.index + m[0].length)}`.trim();
+    fill.before = raw.slice(0, m.index);
+    fill.after = raw.slice(m.index + m[0].length);
+    return fill;
   }
   // Only where it can't be a guess: the question is an ordering of things it
   // lists itself, so the key holds every one of them and "the other one" is
@@ -1647,17 +1672,26 @@
   }
   // The same for a ranking of numbered items ("3, 1, the other one", or the
   // item names): the digits of the full ordering, or null.
+  // What's said before and after the phrase is read by itself, as numbers
+  // ("1 3", "13") or names with or without commas ("ceres pluto"), and the
+  // phrase stands where it was said for the one item not named.
   function rankedWithOtherOne(raw, itemCount, itemTexts) {
-    const fill = otherOneSlot(raw);
-    if (!fill) return null;
-    const complete = (c) => c && c.length === itemCount && new Set(c).size === itemCount;
-    for (let d = 1; d <= itemCount; d++) {
-      const byNumber = canonicalizeRanked(fill(String(d)), itemCount, true);
-      if (complete(byNumber)) return byNumber;
-      const nums = itemTexts ? resolveTermsToNumbers(fill(`, ${itemTexts[d - 1]}, `).replace(/^[\s,]+|[\s,]+$/g, '').replace(/\s*,[\s,]*/g, ', '), itemTexts) : null;
-      if (nums && complete(nums.join(''))) return nums.join('');
-    }
-    return null;
+    const slot = otherOneSlot(raw);
+    if (!slot) return null;
+    const side = (text) => {
+      const t = text.replace(/\b(?:and\s+then|then|and)\b/gi, ',').replace(/^[\s,;]+|[\s,;]+$/g, '').replace(/\s*[,;][\s,;]*/g, ', ');
+      if (!t) return [];
+      const byNumber = canonicalizeRanked(t, itemCount, true);
+      if (byNumber) return byNumber.split('').map(Number);
+      return itemTexts ? resolveTermsToNumbers(t, itemTexts) : null;
+    };
+    const before = side(slot.before);
+    const after = side(slot.after);
+    if (!before || !after) return null;
+    const named = [...before, ...after];
+    if (named.length !== itemCount - 1 || new Set(named).size !== named.length) return null;
+    const left = range(1, itemCount).find((d) => !named.includes(d));
+    return [...before, left, ...after].join('');
   }
 
   /**
@@ -1677,6 +1711,18 @@
     return out || null;
   }
 
+  // "Only" or "just" around an answer adds nothing to it: "1 only", "gap
+  // junctions only", "just 2", "only the mantle".
+  function withoutOnly(raw) {
+    const out = String(raw).trim().replace(/^(?:only|just)\s+(?=\S)/i, '').replace(/(?<=\S)[\s,]+(?:only|alone)$/i, '').trim();
+    return out || String(raw).trim();
+  }
+
+  // The Mohorovičić discontinuity goes by "Moho" as often as by its name, so
+  // a key that is any one of its forms takes them all.
+  const MOHO_RE = /^(?:THE\s+)?MOHO(?:ROVI\S{3})?(?:\s+DISCONTINUITY)?$/i;
+  const MOHO_FORMS = ['MOHO', 'MOHO DISCONTINUITY', 'MOHOROVICIC', 'MOHOROVICIC DISCONTINUITY'];
+
   function gradeAnswer(question, userInput) {
     const raw = (userInput || '').trim();
     if (!raw) return { correct: false, matched: null, rejected: false, empty: true };
@@ -1685,7 +1731,11 @@
     const itemCount = detectItemCount(question.question);
     // For a multi-part answer, lone per-part accepts are not whole answers.
     const multi = question.format === 'MC' ? null : multiPartSpec(question);
-    const accepts = multi ? multi.wholeAccepts : (ans.accept || []);
+    let accepts = multi ? multi.wholeAccepts : (ans.accept || []);
+    if (!multi && question.format !== 'MC' && [ans.text, ...accepts].some((k) => MOHO_RE.test(String(k).trim()))) {
+      const rejected = (ans.reject || []).map(normalize);
+      accepts = [...accepts, ...MOHO_FORMS.filter((f) => !rejected.includes(normalize(f)))];
+    }
 
     // ---- Multiple choice ----
     // Graded strictly: the answer must be exactly the correct letter, the
@@ -1796,8 +1846,19 @@
         if (allBut !== null) {
           userCanon = allBut;
         } else if (itemTexts) {
-          const nums = resolveTermsToNumbers(raw, itemTexts);
-          if (nums && nums.length) userCanon = digitsToCanonical(nums);
+          // "just 2", "gap junctions only", "only the first one's name"
+          const bare = withoutOnly(raw);
+          if (bare !== raw) userCanon = canonicalizeList(bare, itemCount);
+          // one item given with its own number: "1) gap junctions", "1 gap junctions"
+          const numbered = userCanon === null && bare.match(/^([1-9])\s*[).:]?\s+(?:only\s+)?(\S.*)$/i);
+          if (numbered && parseInt(numbered[1], 10) <= itemCount) {
+            const named = resolveTermsToNumbers(numbered[2], itemTexts);
+            if (named && named.length === 1 && named[0] === parseInt(numbered[1], 10)) userCanon = numbered[1];
+          }
+          if (userCanon === null) {
+            const nums = resolveTermsToNumbers(bare, itemTexts);
+            if (nums && nums.length) userCanon = digitsToCanonical(nums);
+          }
         }
       }
       if (userCanon !== null) {
@@ -1806,8 +1867,15 @@
         // numbers mustn't be read as one ("all" or "123" would pass). Those
         // keys are left to the multi-part checks below.
         // (A note in brackets at the key's end isn't part of it: "ALL (1, 2, 3)".)
+        // A set question's key may name its items instead ("COBALT" for item
+        // 1, "GAP JUNCTIONS ONLY"), and then stands for their numbers.
+        const keyItems = ranking ? null : extractItemTexts(question.question, itemCount);
+        const namedKey = (k) => {
+          const nums = keyItems ? resolveTermsToNumbers(withoutOnly(withoutEndNote(k)), keyItems, true) : null;
+          return nums && nums.length ? digitsToCanonical(nums) : null;
+        };
         const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null
-          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount));
+          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount) ?? namedKey(k));
         const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
@@ -2047,6 +2115,15 @@
     return result;
   }
   function checkAnswerInner(question, userInput) {
+    const graded = gradeWithUnits(question, userInput);
+    if (graded.correct || graded.rejected || question.format === 'MC' || !question.answer) return graded;
+    // "gap junctions only" for a key of "GAP JUNCTIONS"
+    const bare = withoutOnly(userInput || '');
+    if (bare === String(userInput || '').trim()) return graded;
+    const again = gradeWithUnits(question, bare);
+    return again.correct || again.rejected ? again : graded;
+  }
+  function gradeWithUnits(question, userInput) {
     const first = gradeAnswer(question, userInput);
     if (first.correct || question.format === 'MC' || !question.answer) return first;
     const ans = question.answer;

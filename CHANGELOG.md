@@ -263,3 +263,13 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Data: new practice set **CSUN Regional Practice Rounds** (23 questions; the rest of that folder is already in the bank as the Science Bowl Subject Sets 1991–93, or copies it).
 - Data: every computational math, physics and chemistry question in the school-team sets (3,150) was worked out again: 211 wrong keys corrected, 236 questions removed, 54 stems repaired. Bank 102,834 → 102,621. See [data-history](docs/data-history.md#computational-rework-november-12-2026).
 - Data: the rest of the school-team sets (15,445 questions) were checked by reader agents: 440 keys corrected, 246 questions removed, 80 stems repaired. With the computational re-work, every question in those four sets has now been checked once. Bank 102,621 → 102,375. See [data-history](docs/data-history.md#school-team-full-check).
+- Answers: **Moho** and Mohorovičić (discontinuity) are one answer, whichever the key gives. **"The other one"** now works without commas and by name ("ceres pluto other one" for `1, 3, 2`), standing where it is said. A single listed item passes by number or name, with or without "only" or "just" ("1 only", "gap junctions only", "1) gap junctions"), also when the key names the item instead of numbering it; a whole item name is tried before its separate words ("Paschen series").
+- Multiplayer: anyone marked wrong can click **I was right** even after another player was marked correct; that player's answer is then marked incorrect (no points, no penalty), and comes back if the override is taken back.
+- **Celerity** no longer counts the heading read before a question ("TOSS-UP Earth and Space Multiple Choice"), in Play and Multiplayer.
+- **Select by Set Name** mode removed from Play and Multiplayer (Multiplayer has no mode picker left).
+- Frequency lists: the level, limit and question-type dropdowns and the "Download this page" links are gone; each list is the top 50.
+- Database: "Include questions with no round number" is the first switch under the search-type buttons.
+- Set pages: "Source packets" opens the folder of all the tournament's packets wherever one is known: the tournament's page on scibowl.live for packets LeBot hosts, a Drive folder, or the publisher's page. Five sets with separate files and no known folder still list each packet. The set list's "Kind" column is "Type".
+- Play: no "Clear stats" link in Starred Questions mode.
+- Search results: the home page's title and heading now give the site's name, "SB Reader", as its structured data does.
+- Multiplayer rooms: an empty room is no longer deleted 90 seconds after its last player leaves; every room stays until 08:00 UTC (needs `supabase/schema.sql` run again).

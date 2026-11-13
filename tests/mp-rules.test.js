@@ -61,9 +61,9 @@ test('settings are limited to known values and clamped', () => {
   assert.strictEqual(cleanHostMessage({ type: 'updateSettings', rate: 0 }, meta).rate, 0);
 });
 
-test('a player can override only their own grade, and only one player scores', () => {
+test('a player can override only their own grade, even after someone else was right', () => {
   const wrongThenRight = [{ playerId: 'A', correct: false }, { playerId: 'B', correct: true }];
-  assert.strictEqual(canOverrideOwn(wrongThenRight, 'A', false), false);
+  assert.strictEqual(canOverrideOwn(wrongThenRight, 'A', false), true);
   assert.strictEqual(canOverrideOwn(wrongThenRight, 'B', false), true);
   assert.strictEqual(canOverrideOwn(wrongThenRight, 'C', false), false);
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', false), true);
@@ -171,11 +171,9 @@ test('room names are cleaned to letters, digits and dashes, and give a stable do
   assert.strictEqual(roomPeerId(''), '');
 });
 
-test('room settings carry the mode, set, packets and switches, cleaned', () => {
+test('room settings carry the switches, cleaned, and are always random questions', () => {
   const s = cleanHostMessage({ type: 'updateSettings', mode: 'set', setName: meta.tournaments[0].slug, packetNumbers: '1-3, 5<script>', rebuzz: true, timer: false, isPublic: false }, meta);
-  assert.strictEqual(s.mode, 'set');
-  assert.strictEqual(s.setName, meta.tournaments[0].slug);
-  assert.strictEqual(s.packetNumbers, '1-3, 5');
+  assert.deepStrictEqual([s.mode, s.setName, s.packetNumbers], ['random', '', '']);
   assert.deepStrictEqual([s.rebuzz, s.timer, s.isPublic], [true, false, false]);
   const d = cleanHostMessage({ type: 'updateSettings', mode: 'weird', setName: 'no-such-set' }, meta);
   assert.deepStrictEqual([d.mode, d.setName, d.rebuzz, d.timer, d.isPublic], ['random', '', false, true, true]);

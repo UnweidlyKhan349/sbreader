@@ -1,5 +1,5 @@
 // Play (solo.html), laid out and behaving like QB Reader's play page: a mode
-// (Select by Set Name, Random Questions, Starred Questions), subject toggles,
+// (Random Questions, Starred Questions), subject toggles,
 // type-to-answer / rebuzz / timer switches, and finished questions
 // collapsed into cards under the current one (k opens the latest, t stars it).
 (function () {
@@ -16,8 +16,6 @@
   // Everything the sidebar sets, saved per device.
   const settings = SBPlay.loadSettings(SETTINGS_KEY, {
     mode: 'random',
-    setName: '',
-    packetNumbers: '',
     subjects: null, // null = every subject
     tournaments: [],
     roundRange: null,
@@ -35,25 +33,11 @@
   let roundSliderApi;
   let yearSliderApi;
   let categories;
-  let packetPicker;
 
   /* ================= QUESTIONS FOR THE CURRENT SETTINGS ================= */
-  function setTournament() {
-    const name = settings.setName.trim().toLowerCase();
-    if (!name) return null;
-    return SBData.meta.tournaments.find((t) => t.name.toLowerCase() === name || t.slug === name) || null;
-  }
-  // The questions the settings match, in no particular order (random and
-  // starred), or in reading order (a set's chosen packets).
+  // The questions the settings match, in no particular order.
   function matchingQuestions() {
     if (settings.mode === 'starred') return SBData.filterQuestions({ bookmarkedOnly: true });
-    if (settings.mode === 'set') {
-      const t = setTournament();
-      if (!t) return [];
-      const packets = SBPlay.packetsOf(t.slug);
-      const chosen = SBPlay.parsePacketNumbers(settings.packetNumbers, packets.length);
-      return [].concat(...chosen.map((n) => packets[n - 1].questions)).filter((q) => subjects.has(q.subject));
-    }
     return SBData.filterQuestions({
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
@@ -62,12 +46,10 @@
       includeUnlabeled: settings.includeUnlabeled !== false,
     });
   }
-  // The questions to read, in order: the chosen packets of the chosen set
-  // (packet order), or the starred questions or random questions matching
-  // the filters, mixed evenly across subjects.
+  // The questions to read, in order: the starred questions or random
+  // questions matching the filters, mixed evenly across subjects.
   function buildPool(matches) {
-    const qs = matches || matchingQuestions();
-    return settings.mode === 'set' ? qs : SBData.stratifiedQueue(qs, (q) => q.subject);
+    return SBData.stratifiedQueue(matches || matchingQuestions(), (q) => q.subject);
   }
 
   function updateMatchCount(matches) {
@@ -103,23 +85,13 @@
 
   /* ================= SIDEBAR ================= */
   function showModeSettings() {
-    document.getElementById('setSettings').classList.toggle('d-none', settings.mode !== 'set');
     document.getElementById('randomSettings').classList.toggle('d-none', settings.mode !== 'random');
     document.getElementById('starredSettings').classList.toggle('d-none', settings.mode !== 'starred');
     // Starred mode plays your starred questions whatever their subject, so
-    // the subject tiles are hidden there.
+    // the subject tiles are hidden there, as are the two "Clear" links.
     document.getElementById('subjectButtons').classList.toggle('d-none', settings.mode === 'starred');
     document.getElementById('clearFilters').classList.toggle('d-none', settings.mode === 'starred');
-  }
-
-  function describeSet() {
-    const input = document.getElementById('setName');
-    const info = document.getElementById('setInfo');
-    const t = setTournament();
-    input.classList.toggle('is-invalid', !!settings.setName.trim() && !t);
-    info.textContent = !t && settings.setName.trim() ? 'No set with that name.' : '';
-    // The packet dropdown lists this set's packets.
-    packetPicker.setPackets(t && SBData.questions ? SBPlay.packetsOf(t.slug) : [], settings.packetNumbers);
+    document.getElementById('clearStats').classList.toggle('d-none', settings.mode === 'starred');
   }
 
   function initSettings() {
@@ -137,19 +109,6 @@
     mode.addEventListener('change', () => { settings.mode = mode.value; showModeSettings(); onSettingsChange(); mode.blur(); });
     showModeSettings();
 
-    // Select by Set Name.
-    const list = document.getElementById('setNameList');
-    SBData.meta.tournaments.forEach((t) => { const o = document.createElement('option'); o.value = t.name; list.appendChild(o); });
-    const setName = document.getElementById('setName');
-    setName.value = settings.setName;
-    packetPicker = SBPlay.packetSelect(document.getElementById('packetSelect'), (text) => { settings.packetNumbers = text; onSettingsChange(); });
-    setName.addEventListener('change', () => {
-      // The same set again (the box losing focus after a packet was picked,
-      // say) keeps its packets.
-      if (setName.value === settings.setName) return;
-      settings.setName = setName.value; settings.packetNumbers = ''; describeSet(); onSettingsChange();
-    });
-    describeSet();
     document.getElementById('clearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearFilters(); });
     document.getElementById('clearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); clearStats(); });
 
@@ -219,8 +178,8 @@
   }
 
   // The round slider spans the picked tournaments' rounds only.
-  // Clear all filters: every tournament, every round, every subject, and
-  // (choosing by set) all of the set's packets. The mode and set stay.
+  // Clear all filters: every tournament, every round, every subject. The
+  // mode stays.
   function clearFilters() {
     settings.tournaments = [];
     document.getElementById('tournamentSelect').setMultiValues([]);
@@ -228,8 +187,6 @@
     subjects.clear();
     SBData.meta.subjects.forEach((s) => subjects.add(s.key));
     categories.sync();
-    settings.packetNumbers = '';
-    describeSet();
     settings.includeUnlabeled = true;
     document.getElementById('toggleUnlabeled').checked = true;
     roundSliderApi.reset(); // reports the full range, which saves and recounts
@@ -359,7 +316,7 @@
       session.index = next - 1;
     } else if (session.index + 1 >= session.queue.length) {
       // As on QB Reader: an alert, and the last question stays where it is.
-      window.alert(settings.mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match your settings');
+      window.alert('You have reached the end of the questions that match your settings');
       return;
     }
     clearRuntimeTimer();
@@ -385,7 +342,7 @@
     setNextButtonMode('skip');
     setBuzzEnabled(true);
     document.getElementById('pauseBtn').disabled = false;
-    document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q, ' ', { ofPacket: settings.mode === 'set' });
+    document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q, ' ');
     document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => {
       el.classList.remove('reveal-correct');
       el.classList.remove('clickable');
@@ -393,7 +350,7 @@
 
     const qDisplay = document.getElementById('qDisplay');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
-    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, lead: SBReveal.visibleLength(SBData.readoutHeaderHTML(q)) }];
     const choicesDisplay = document.getElementById('choicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -609,7 +566,7 @@
     parkOverride();
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
-    SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl, { ofPacket: settings.mode === 'set' });
+    SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
     box.style.display = 'block';
 
     // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
@@ -796,7 +753,6 @@
     wireGameControls();
   });
   Promise.all([metaReady, SBData.load()]).then(() => {
-    describeSet();
     scopeRounds();
     updateMatchCount();
     setNextButtonMode('start');

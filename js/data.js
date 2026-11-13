@@ -410,6 +410,7 @@
     const kind = isVisualBonus(q) ? 'VISUAL BONUS' : q.qtype === 'bonus' ? 'BONUS' : 'TOSS-UP';
     return `<span class="fw-semibold">${kind}</span> ${escapeHtml(subjectLabel(q.subject))} <i>${escapeHtml(FORMAT_LABELS[q.format] || q.format || '')}</i>\n`;
   }
+  SBData.readoutHeaderHTML = readoutHeaderHTML;
   function readoutHTML(q) {
     return readoutHeaderHTML(q) + questionTextHTML(q);
   }
@@ -512,8 +513,8 @@
   // question's text and choices as HTML with "(#)" after the last word that
   // was showing. `read` is how much had been read at the buzz, 0 to 1 (1
   // minus the celerity): the share of the characters Play and Multiplayer
-  // type out, header line and choices included (js/reveal.js), so the mark
-  // is found by laying the question out the same way. Needs SBReveal;
+  // type out, choices included but not the header line (js/reveal.js), so
+  // the mark is found by laying the question out the same way. Needs SBReveal;
   // without it, or without a usable `read`, nothing is marked.
   const BUZZ_MARK = ' <span class="buzz-marker" title="Where you buzzed">(#)</span> ';
   function buzzMarked(q, read) {
@@ -533,7 +534,7 @@
     if (!total) return out;
     // A buzz always falls at the end of a word; the saved celerity is
     // rounded, so take the word end nearest to it.
-    const target = read * total;
+    const target = header + read * (total - header);
     let at = 0;
     R.schedule(segs).words.forEach((w) => { if (Math.abs(w.end - target) < Math.abs(at - target)) at = w.end; });
     // Which segment that is, and how far into it.
@@ -1353,10 +1354,21 @@
   // packet already points to, or the place most of its links point into: a
   // tournament's ISOBowl page (its rounds' address without ?round=), the
   // NSB's sample-question pages, a GitHub repository, a database the
-  // questions came from, or a folder that lists its files. meta.json's `source` on a tournament overrides this. Null
+  // questions came from, the tournament's page on scibowl.live (for packets
+  // LeBot hosts), a folder that lists its files, or the one file that holds
+  // every packet. meta.json's `source` on a tournament overrides this. Null
   // when the packets only live as separate files (then each packet's own
   // link is listed instead).
   const LISTED_FOLDER_HOSTS = new Set(['www.csun.edu']);
+  // scibowl.live names a tournament's page after its LeBot folder: lower
+  // case, spaces as hyphens, other punctuation dropped ("FE!M-2025" is
+  // fem-2025, "SBST (Spring)" sbst-spring, "NSI_2024" nsi_2024).
+  const SCIBOWL_LIVE_PACKETS = 'https://www.scibowl.live/packets/';
+  function scibowlLiveSlug(folder) {
+    let name = folder;
+    try { name = decodeURIComponent(folder); } catch (e) { /* as written */ }
+    return name.toLowerCase().replace(/[^a-z0-9 _-]/g, '').trim().replace(/\s+/g, '-');
+  }
   // A packet's link is to the packet as a whole: a question's own place in
   // it (#page=5 of a PDF, #L120 of a GitHub file; see packetAnchor) is left off.
   SBData.packetSourceUrl = function (packet) {
@@ -1394,8 +1406,15 @@
     if (repo) return repo;
     const db = all((u) => (['scibowldb.com', 'speriphery.com'].includes(u.hostname) ? u.origin + (u.hostname === 'speriphery.com' ? u.pathname : '/') : null));
     if (db) return db;
+    // Packets hosted by LeBot (lebot.djiang.xyz/packets/<folder>/…): the
+    // folder itself doesn't list its files, but scibowl.live, which serves
+    // the same files, has a page per tournament listing every packet.
+    const lebot = all((u) => { const m = u.hostname === 'lebot.djiang.xyz' && u.pathname.match(/^\/packets\/([^/]+)\//); return m ? SCIBOWL_LIVE_PACKETS + scibowlLiveSlug(m[1]) : null; });
+    if (lebot) return lebot;
     const dir = all((u) => (LISTED_FOLDER_HOSTS.has(u.hostname) ? u.origin + u.pathname.replace(/[^/]*$/, '') : null));
-    return dir || null;
+    if (dir) return dir;
+    // One file that holds every packet (a single Google Doc or PDF).
+    return all((u) => (u.hostname === 'speriphery.com' ? null : u.origin + u.pathname + (u.hostname.endsWith('isobowl.com') ? u.search : '')));
   };
   // The line under a packet page's heading: its source packet.
   SBData.packetSourceHTML = function (packet) {

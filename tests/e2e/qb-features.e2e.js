@@ -110,22 +110,6 @@ test('Login: the eye shows the password and turns into a crossed-out eye, which 
   await ctx.close();
 });
 
-test('Multiplayer, Select by Set Name with no set yet: subjects can still be switched off', async () => {
-  const ctx = await newContext(browser);
-  const r = 'e2e' + Math.random().toString(36).slice(2, 8);
-  const a = await joinRoom(ctx, server.url, r);
-  const b = await joinRoom(ctx, server.url, r);
-  await a.selectOption('#mpSetMode', 'set');
-  await b.waitForFunction(() => document.getElementById('mpSetMode').value === 'set', null, { timeout: 10000 });
-  await a.locator('#mpSubjectButtons .btn-subject[data-subject="math"]').click();
-  await a.waitForTimeout(800);
-  const mathOn = (p) => p.evaluate(() => document.querySelector('#mpSubjectButtons .btn-subject[data-subject="math"]').classList.contains('active'));
-  assert.strictEqual(await mathOn(a), false, 'it stays off');
-  await b.waitForFunction(() => !document.querySelector('#mpSubjectButtons .btn-subject[data-subject="math"]').classList.contains('active'), null, { timeout: 10000 });
-  assert.deepStrictEqual([...a.errors, ...b.errors], []);
-  await ctx.close();
-});
-
 test('Database cards: the title (with round and question) links the source; Stats | Report beside the answer; no footer; stats from everyone', async () => {
   const { ctx } = await statsContext({ heard: 10, correct: 6, incorrect: 1, negs: 2, unanswered: 1, cel_sum: 3, cel_n: 6 });
   const page = await openPage(ctx, server.url + 'catalog');
@@ -218,7 +202,7 @@ test('Multiplayer: a year range set by one player reaches the room, which hears 
   await ctx.close();
 });
 
-test('Set and packet pages link their sources; packet questions have no tag line; frequency lists keep their downloads and pickers', async () => {
+test('Set and packet pages link their sources; packet questions have no tag line; frequency lists are a plain table', async () => {
   const ctx = await newContext(browser);
   const set = await openPage(ctx, server.url + 'set?set=ncb-fall-2026');
   await set.waitForSelector('.set-source', { timeout: 30000 });
@@ -231,11 +215,9 @@ test('Set and packet pages link their sources; packet questions have no tag line
   assert.doesNotMatch(text, /Download packet|<Physics|Report/);
   const freq = await openPage(ctx, server.url + 'frequency-list?subject=bio');
   await freq.waitForSelector('#frequency-list tr', { timeout: 30000 });
-  assert.deepStrictEqual(await freq.locator('select').evaluateAll((xs) => xs.map((x) => x.id)), ['level-select', 'limit-select', 'question-type-select']);
-  assert.match(await freq.locator('#freqPage').innerText(), /Download this page:\s*TXT\s*CSV/);
+  assert.strictEqual(await freq.locator('#freqPage select').count(), 0, 'no dropdowns');
+  assert.doesNotMatch(await freq.locator('#freqPage').innerText(), /Download this page/);
   assert.strictEqual(await freq.locator('#frequency-list tr').count(), 50);
-  await freq.selectOption('#limit-select', '25');
-  assert.strictEqual(await freq.locator('#frequency-list tr').count(), 25);
   assert.deepStrictEqual([...set.errors, ...packet.errors, ...freq.errors], []);
   await ctx.close();
 });

@@ -127,9 +127,9 @@ revoke all on public.mp_rooms, public.mp_players from anon, authenticated;
 --   * an offline player's score stays until the next restart (no timer per
 --     player); a player who leaves without having heard or answered a
 --     question is taken off at once;
---   * a room stays until the next restart, except that a public room whose
---     players have heard 2 questions or fewer between them goes as soon as
---     nobody is in it (private rooms, and rooms that were played in, stay);
+--   * a room stays until the next restart, whether or not anyone is in it
+--     and however little was played in it (until November 13, 2026 a public
+--     room hardly played in went 90 seconds after its last player left);
 --   * the built-in rooms stay, and start each day with no players.
 -- Nothing here runs on a clock: the functions that read leave out what has
 -- lapsed, and every heartbeat deletes it (mp_sweep). "In the room" means a
@@ -154,11 +154,7 @@ $$;
 create or replace function public.mp_room_live(r public.mp_rooms)
 returns boolean
 language sql stable set search_path = public as $$
-  select r.is_permanent
-      or (r.updated_at >= mp_last_restart()
-          and not (r.is_public
-                   and r.updated_at < now() - interval '90 seconds'
-                   and (select coalesce(sum(p.heard), 0) from mp_players p where p.room = r.name) <= 2));
+  select r.is_permanent or r.updated_at >= mp_last_restart();
 $$;
 
 create or replace function public.mp_sweep()
