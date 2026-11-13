@@ -250,9 +250,11 @@
     // half of their signing key (see ownerKeys), or null for a room without
     // one (the built-in rooms). The owner's row has `owner` set and a crown.
     ownerKey: null,
-    // Players the owner banned (pids, for good) and muted (mute keys: they
-    // can't chat). Kept by everyone, like `kicked`.
+    // Players the owner banned (pids; for 30 minutes, as on QB Reader:
+    // bannedAt has when, by pid) and muted (mute keys: they can't chat).
+    // Kept by everyone, like `kicked`.
     banned: [],
+    bannedAt: {},
     muted: [],
     // Last tick actually applied (remainingMs/totalMs/kind), so a re-render
     // triggered by something other than a fresh tick - e.g. toggling pause,
@@ -395,7 +397,7 @@
   // The players who've left, as rows for the leaderboard.
   function offlineRows() {
     const now = Date.now();
-    return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
+    return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, heard: d.heard || 0, owner: !!d.owner, offline: true }));
   }
   // Whether this player is the room's owner, as the room has it.
   // As on QB Reader, a room's owner counts only while the room is private:
@@ -447,7 +449,7 @@
       const menu = [];
       if (canKick) menu.push('<li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li>');
       if (ownerTools && !p.offline) menu.push(`<li><button type="button" class="dropdown-item" data-mute>${isMuted(p) ? 'Unmute' : 'Mute'}</button></li>`);
-      if (ownerTools) menu.push('<li><button type="button" class="dropdown-item text-danger" data-ban title="Remove this player from the room for good">Ban</button></li>');
+      if (ownerTools) menu.push('<li><button type="button" class="dropdown-item text-danger" data-ban title="Remove this player from the room for 30 minutes">Ban</button></li>');
       item.innerHTML = `<div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
             <span class="${menu.length ? 'me-2' : 'me-1'}">${isOwner(p) ? CROWN : ''}${escapeHtml(p.name)}${isMuted(p) ? '<span class="mp-muted" title="Muted by the room owner" aria-label="muted">&#128263;</span>' : ''}</span>
@@ -1070,11 +1072,12 @@
   const departedPlayers = new Map();
   function markOffline(p) {
     departedPlayers.delete(p.pid);
-    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, owner: !!p.owner, leftAt: Date.now() });
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, owner: !!p.owner, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
   }
-  // Offline players are taken off the leaderboard a day after they left
-  // (SBMpRules.OFFLINE_KEEP_MS).
+  // As on QB Reader, offline players stay on the leaderboard until the
+  // daily restart (08:00 UTC; SBMpRules.lastRestart), with no timer of
+  // their own.
   function pruneDeparted() {
     const now = Date.now();
     departedPlayers.forEach((d, pid) => { if (!SBMpRules.stillOffline(d, now)) departedPlayers.delete(pid); });
@@ -1087,8 +1090,11 @@
       buzzedPlayerGone(connId);
     }
     hostPlayers.delete(connId);
+    // As on QB Reader: a player who leaves without having heard or answered
+    // anything is taken off the list; anyone else stays on it, offline.
     if (p.pid) {
-      markOffline(p);
+      if (SBMpRules.hasActivity(p)) markOffline(p);
+      else departedPlayers.delete(p.pid);
     }
     broadcastLobby();
     if (!quiet) hostBroadcastChat('SYSTEM', p.name, 'left the game', true);
@@ -1130,6 +1136,26 @@
     host.broadcast({ type: 'kicked', playerId: targetId });
     if (targetId === myState.myId) { broadcastLobby(); leaveKicked(); return; }
     hostPlayerLeft(targetId, true);
+  }
+  // A ban lasts 30 minutes, like a vote kick (QB Reader's BAN_DURATION).
+  // A ban with no time (from a player on an older copy of the site) counts
+  // from when it's first seen here.
+  function pruneBans() {
+    const now = Date.now();
+    const at = game.bannedAt || {};
+    const kept = {};
+    game.banned = game.banned.filter((pid) => {
+      const t = typeof at[pid] === 'number' ? at[pid] : now;
+      if (now - t >= SBMpRules.KICK_BAN_MS) return false;
+      kept[pid] = t;
+      return true;
+    });
+    game.bannedAt = kept;
+  }
+  function isBanned(pid) {
+    if (!pid) return false;
+    pruneBans();
+    return game.banned.includes(pid);
   }
   // Whoever is kicked (or banned) goes back to the lobby, which says so.
   function leaveKicked(banned) {
@@ -1241,7 +1267,11 @@
       return;
     }
     if (action !== 'ban') return;
-    if (target.pid && !game.banned.includes(target.pid)) game.banned = game.banned.concat(target.pid).slice(-500);
+    pruneBans();
+    if (target.pid && !game.banned.includes(target.pid)) {
+      game.banned = game.banned.concat(target.pid).slice(-500);
+      game.bannedAt[target.pid] = Date.now();
+    }
     hostBroadcastChat('SYSTEM', target.name, 'was banned by the room owner', true);
     if (online) {
       host.broadcast({ type: 'kicked', playerId: targetId, banned: true });
@@ -1337,12 +1367,13 @@
   }
 
   function broadcastLobby() {
-    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null, owner: !!p.owner }));
+    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, pid: p.pid || null, owner: !!p.owner }));
     pruneDeparted();
+    pruneBans();
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     refreshOwnerControls();
-    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, muted: game.muted, roomCode: myState.roomId });
+    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, bannedAt: game.bannedAt, muted: game.muted, roomCode: myState.roomId });
   }
 
   function hostBroadcastChat(fromId, name, text, system, cid) {
@@ -1411,13 +1442,13 @@
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
       if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
-      if (msg.pid && game.banned.includes(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true }); return; }
+      if (isBanned(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true }); return; }
       // A returning player (same pid, not already in the room) gets their
       // score back.
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
       const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
       if (back) departedPlayers.delete(msg.pid);
-      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
+      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, heard: back ? back.heard || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
       broadcastLobby();
       hostEvent(connId, 'joined the game');
       // The room's owner, coming back: their signature says so.
@@ -1494,7 +1525,7 @@
   function hostClearStats(connId) {
     const p = hostPlayers.get(connId);
     if (!p) return;
-    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0 });
+    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, heard: 0 });
     broadcastLobby();
     hostEvent(connId, 'cleared their stats');
   }
@@ -1746,6 +1777,10 @@
     game.log.unshift(logEntry);
     host.broadcast({ type: 'reveal', ...revealData, logEntry });
     applyRevealLocal(revealData);
+    // Everyone in the room has heard one more question (QB Reader's TUH):
+    // it's what makes a player, and a room, count as played in.
+    hostPlayers.forEach((p) => { p.heard = (p.heard || 0) + 1; });
+    broadcastLobby();
   }
 
   function hostRunTimer(ms, kind, onExpire, displayTotalMs) {
@@ -2122,8 +2157,8 @@
     departedPlayers.clear();
     (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
-      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, connId: p.id, pid: p.pid || null, owner: !!p.owner });
-      else if (p.pid) markOffline(p);
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, connId: p.id, pid: p.pid || null, owner: !!p.owner });
+      else if (p.pid && SBMpRules.hasActivity(p)) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
     memberInfo.forEach((info, id) => { if (isUp(id) && !hostPlayers.has(id)) addPlayer(id, info.name, info.pid); });
@@ -2181,7 +2216,7 @@
     const pidInUse = pid && [...hostPlayers.values()].some((p) => p.pid === pid);
     const back = pid && !pidInUse ? departedPlayers.get(pid) : null;
     if (back) departedPlayers.delete(pid);
-    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
+    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, heard: back ? back.heard || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
   }
 
   // The coordinator holds the room's code, so newcomers can find the room.
@@ -2259,7 +2294,7 @@
     SBRooms.heartbeat(roomKey(), {
       isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
       isPermanent: !!myState.publicLobby,
-    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
+    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0, heard: me.heard || 0 }).catch(() => {});
   }
   // After a settings change (a dragged slider makes many): one heartbeat,
   // a second after the last.
@@ -2300,11 +2335,11 @@
     hostGame.queueStale = true;
     game.total = hostGame.queue.length;
     myState.myName = name;
-    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid, owner: false };
+    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, heard: 0, connId: mesh.id, pid: myState.pid, owner: false };
 
     // The owner (named rooms only): the one the room list has, or this
     // player, for a room that's new (or, with no room list, one starting up).
-    game.ownerKey = null; game.banned = []; game.muted = [];
+    game.ownerKey = null; game.banned = []; game.bannedAt = {}; game.muted = [];
     if (!lobby) {
       if (info && info.ownerKey) game.ownerKey = info.ownerKey;
       else if (!info || info.legacy || !info.exists) {
@@ -2315,7 +2350,11 @@
         const k = await myOwnerKey(true);
         if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned, controlled: false }), 3000, null)) game.ownerKey = k.pub;
       }
-      if (info && !info.legacy) game.banned = (info.banned || []).slice();
+      if (info && !info.legacy) {
+        game.banned = (info.banned || []).slice();
+        game.bannedAt = { ...(info.bannedAt || {}) };
+        pruneBans();
+      }
       const mine = await myOwnerKey(false);
       me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
       // Only a private room can be controlled (as on QB Reader).
@@ -2331,7 +2370,7 @@
       if (!r || !SBMpRules.cleanPid(r.pid) || game.banned.includes(r.pid)) return;
       // Negs and celerity come back too (they're 0 on a project whose
       // schema predates them).
-      const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0 };
+      const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0, heard: r.heard || 0 };
       if (r.pid === myState.pid) { Object.assign(me, stats); return; }
       const entry = { pid: r.pid, name: r.username, ...stats, leftAt: Date.parse(r.last_seen) || Date.now() };
       if (SBMpRules.stillOffline(entry, Date.now())) departedPlayers.set(r.pid, entry);
@@ -2501,7 +2540,14 @@
       game.departed = Array.isArray(msg.departed) ? msg.departed : [];
       if (Array.isArray(msg.kicked)) game.kicked = msg.kicked;
       if ('ownerKey' in msg) game.ownerKey = typeof msg.ownerKey === 'string' ? msg.ownerKey : null;
-      if (Array.isArray(msg.banned)) game.banned = msg.banned.filter((x) => typeof x === 'string');
+      if (Array.isArray(msg.banned)) {
+        game.banned = msg.banned.filter((x) => typeof x === 'string');
+        const at = msg.bannedAt && typeof msg.bannedAt === 'object' ? msg.bannedAt : {};
+        const now = Date.now();
+        const mine = game.bannedAt || {};
+        game.bannedAt = {};
+        game.banned.forEach((pid) => { game.bannedAt[pid] = typeof at[pid] === 'number' ? at[pid] : (typeof mine[pid] === 'number' ? mine[pid] : now); });
+      }
       if (Array.isArray(msg.muted)) game.muted = msg.muted.filter((x) => typeof x === 'string');
       const me = game.players.find((p) => p.id === myState.myId);
       if (me) myState.myName = me.name;

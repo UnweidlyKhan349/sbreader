@@ -79,13 +79,27 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
+  // QB Reader keeps rooms and players in its server's memory, and the
+  // server restarts every day at 08:00 UTC: that's when offline players'
+  // scores and idle rooms go. The same hour is kept here (and in
+  // supabase/schema.sql, mp_last_restart). This is the latest restart at or
+  // before `now`, in ms.
+  const RESTART_HOUR_UTC = 8;
+  function lastRestart(now) {
+    const d = new Date(now);
+    const t = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), RESTART_HOUR_UTC);
+    return t <= now ? t : t - 24 * 60 * 60 * 1000;
+  }
   // Players who leave stay in the room's player list, marked offline, with
-  // their score, for a day; then they're taken off (the room list deletes
-  // their saved row after a day too). This checks the entry is well formed
-  // and recent enough.
-  const OFFLINE_KEEP_MS = 24 * 60 * 60 * 1000;
+  // their score, until the next restart (there's no timer per player). This
+  // checks the entry is well formed and from after the last one.
   function stillOffline(entry, now) {
-    return !!entry && typeof entry.leftAt === 'number' && now - entry.leftAt < OFFLINE_KEEP_MS;
+    return !!entry && typeof entry.leftAt === 'number' && entry.leftAt >= lastRestart(now);
+  }
+  // As QB Reader's Player.hasActivity: has heard a question or answered
+  // one. A player who leaves without any is taken off the list at once.
+  function hasActivity(p) {
+    return !!p && ['heard', 'correct', 'incorrect', 'negs'].some((k) => Number(p[k]) > 0);
   }
 
   // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
@@ -294,5 +308,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, OFFLINE_KEEP_MS, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, lastRestart, hasActivity, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);
