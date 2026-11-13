@@ -12,7 +12,7 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and starred questions kept per device) written in plain HTML/CSS/JS, with no build step, JavaScript framework or server of its own to run, so it can be deployed straight to GitHub Pages or any static host. The optional extras use a [Supabase](https://supabase.com) project: accounts, the Multiplayer room list and relay, and question reports, through the database schema in `supabase/schema.sql`, plus one small Edge Function that hands out TURN logins for Multiplayer (`supabase/functions/turn-credentials`). Without a project everything else still works. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (from the jsDelivr CDN at a fixed version, with an integrity hash) with Light, Night and Auto themes.
 
-**Current question bank: 102,834 questions from 113 sets** (55,791 tossups / 47,043 bonuses; 63,820 short answer / 39,014 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 60,192 of those links open the packet at the question's page or line.
+**Current question bank: 102,375 questions from 114 sets** (55,536 tossups / 46,839 bonuses; 63,530 short answer / 38,845 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 60,162 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|
@@ -379,7 +379,7 @@ Some bonuses (and a few tossups) are about a picture: a diagram, graph, microgra
 
 ## Inclusion and duplicate policy
 
-Each set has a `kind` in `meta.json`, shown on the Set List: a **tournament** (a competition's packets, or a team's practice rounds in that format), a **practice set** (a team's or community's question collection with no rounds behind it: Mira Loma Question Database, Stuyvesant Question Bank, Tycho Practice Rounds, Evan Zhong Study Sets, MIT MS Study Guides, ScibowlDB HW, 2016 Question Exchange, Random, Random Stuff, Summer 2019, David Rounds 2019) or **another competition** in the same format (National Ocean Sciences Bowl, the National Chemistry Bowl sets, Lexington Biology Bowl, Trio Online Math Bowl).
+Each set has a `kind` in `meta.json`, shown on the Set List: a **tournament** (a competition's packets, or a team's practice rounds in that format), a **practice set** (a team's or community's question collection with no rounds behind it: Mira Loma Question Database, Stuyvesant Question Bank, Tycho Practice Rounds, Evan Zhong Study Sets, MIT MS Study Guides, ScibowlDB HW, 2016 Question Exchange, Random, Random Stuff, Summer 2019, David Rounds 2019, CSUN Regional Practice Rounds) or **another competition** in the same format (National Ocean Sciences Bowl, the National Chemistry Bowl sets, Lexington Biology Bowl, Trio Online Math Bowl).
 
 **What's kept.** Every question of every tournament packet, with these in particular:
 
