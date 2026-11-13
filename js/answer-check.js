@@ -2214,6 +2214,67 @@
       .replace(SIGN_WORD_RE, (m, pre, name, word) => pre + name + (/^m/i.test(word) ? '-' : '+'));
   }
   const SIGN_WORD_TEST = /\b(?:minus|plus)\b|[\u207a\u207b]/i;
+  // ---- A charge left out ----
+  // "OH" for OH^-, "W boson" for W- boson, "beta decay" for beta- decay
+  // read the same once normalize() drops the symbols, but the charge is
+  // part of the answer: they pass only when the question says it isn't
+  // needed (see chargeExcused), or an accept without it matches.
+  // A charge is a + or - after a letter, a Greek letter or a bracket, maybe
+  // with its count ("Fe2+", "Fe^(2+)", "SO4^2-", "B(OH)4^-", "W-", "β+"),
+  // ending the word: not a hyphen ("X-ray"), an operation ("x-1", "a+b") or a leading sign ("-2").
+  function chargesOf(raw) {
+    const str = String(raw == null ? '' : raw)
+      .replace(/[−–‐—⁻]/g, '-').replace(/⁺/g, '+')
+      .replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '');
+    const out = { '+': 0, '-': 0 };
+    const re = /[A-Za-zΑ-Ωα-ω)\]]\d*([+-])(?=$|[\s,;.()\]/])/g;
+    let m;
+    while ((m = re.exec(str))) out[m[1]]++;
+    // a charge written by itself after a separator: "SiO4; 4-"
+    const bare = /(?:^|[;,]\s*)\d+([+-])(?=$|[\s,;.)])/g;
+    while ((m = bare.exec(str))) out[m[1]]++;
+    return out;
+  }
+  // The charges the key has and the typed answer hasn't ([] for none).
+  function droppedCharges(typed, key) {
+    const t = chargesOf(typed), k = chargesOf(key);
+    return ['+', '-'].filter((c) => k[c] > t[c]);
+  }
+  // The question makes the charge plain, or says it can be left out:
+  // "charge not required", "you need not give the charge", "ignoring
+  // charge"; or it names the sign itself ("What negatively charged ion …",
+  // "this cation", "with a charge of +2"), so the sign left out is the one
+  // the question already gave. A sign word inside another name ("beta-minus
+  // decay" in the question, for a W- boson) doesn't count.
+  const CHARGE_OPTIONAL_RE = /\bcharges?\s+(?:is\s+|are\s+)?(?:not\s+(?:necessary|needed|required)|optional|unnecessary)|\b(?:do\s+not|don't|need\s+not|needn't|no\s+need\s+to)\s+(?:need\s+to\s+)?(?:give|include|state|specify|write|provide|indicate)\s+(?:the\s+|its\s+|their\s+|any\s+)?(?:charges?|signs?)|\b(?:without|ignoring|ignore|disregard(?:ing)?|regardless\s+of)\s+(?:the\s+|its\s+|their\s+|any\s+)?charges?\b/i;
+  // A question that asks for the charge never excuses it: "including
+  // charge", "indicating charge", "the formula and charge".
+  const CHARGE_ASKED_RE = /\b(?:includ(?:e|ing)|indicat(?:e|ing)|with|show(?:ing)?|giv(?:e|ing)|stat(?:e|ing)|specify(?:ing)?)\s+(?:the\s+|its\s+|their\s+|any\s+)?(?:ionic\s+)?charges?\b|\b(?:formula|symbol|identity|name)s?\s+and\s+(?:the\s+|its\s+|their\s+)?charges?\b/i;
+  function chargeExcused(questionText, dropped) {
+    const q = String(questionText || '');
+    if (CHARGE_ASKED_RE.test(q)) return false;
+    if (CHARGE_OPTIONAL_RE.test(q)) return true;
+    const given = new Set();
+    if (/\bnegative\s+charges?\b|\bnegatively[\s-]+charged\b|\bnegative(?:ly)?\s+(?:charged\s+)?ions?\b|\banions?\b|\bcharge\s+of\s*(?:negative|minus|[\-−–])|(?:^|\s)[\-−–]\d?\s*charge\b/i.test(q)) given.add('-');
+    if (/\bpositive\s+charges?\b|\bpositively[\s-]+charged\b|\bpositive(?:ly)?\s+(?:charged\s+)?ions?\b|\bcations?\b|\bcharge\s+of\s*(?:positive|plus|\+)|(?:^|\s)\+\d?\s*charge\b/i.test(q)) given.add('+');
+    return dropped.every((c) => given.has(c));
+  }
+  function chargeLeftOut(question, userInput, result) {
+    const a = question.answer;
+    const keys = [a.text, ...(a.accept || [])].filter(Boolean);
+    const charged = keys.filter((k) => droppedCharges(userInput, k).length);
+    if (!charged.length) return result;
+    if (charged.every((k) => chargeExcused(question.question, droppedCharges(userInput, k)))) return result;
+    // Right by an accept that has no such charge ("W BOSON" accepted for
+    // "W- BOSON") is right.
+    const plain = keys.filter((k) => !charged.includes(k) || chargeExcused(question.question, droppedCharges(userInput, k)));
+    if (plain.length) {
+      const again = checkWithAskedUnits({ ...question, answer: { ...a, text: plain[0], accept: plain.slice(1) } }, userInput,
+        checkAnswerInner({ ...question, answer: { ...a, text: plain[0], accept: plain.slice(1) } }, userInput));
+      if (again.correct) return result;
+    }
+    return { correct: false, matched: null, rejected: false, chargeMissing: true };
+  }
   function checkAnswer(question, userInput) {
     if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
       const a = question.answer;
@@ -2231,7 +2292,7 @@
     // nothing about "NO3^(+)".
     const keys = [question.answer.text, ...(question.answer.accept || [])].filter((k) => k && operatorsOf(k).size);
     if (keys.length && keys.every((k) => operatorConflict(userInput, k))) return { correct: false, matched: null, rejected: false };
-    return result;
+    return chargeLeftOut(question, userInput, result);
   }
   function checkAnswerInner(question, userInput) {
     const graded = gradeWithUnits(question, userInput);

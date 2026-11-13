@@ -365,7 +365,7 @@ test('a swapped sign, charge, operation or inequality is wrong', () => {
   assert.ok(isCorrect('x < 17/15', '17/15 > x'));
   // Leaving symbols out, or writing them another way, isn't a contradiction.
   for (const [key, typed] of [
-    ['OH^-', 'OH'], ['Fe^(2+)', 'Fe2+'], ['3.2 × 10^23', '3.2*10^23'], ['x ≤ 3', 'x <= 3'],
+    ['Fe^(2+)', 'Fe2+'], ['3.2 × 10^23', '3.2*10^23'], ['x ≤ 3', 'x <= 3'],
     ['ALPHA-HELIX', 'alpha helix'], ['1/(i*hbar)', '1/(i hbar)'], ['e^(-x)', 'e^-x'], ['NA^+ AND K^+', 'na+ and k+'],
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
 });
@@ -389,7 +389,7 @@ test('signed exponents, absolute values and labelled parts keep their signs', ()
   ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
   for (const [key, typed] of [
     ['x^-2+y', 'y+x^-2'], ['x^-2+y', 'x^(-2)+y'], ['-ln(|cos(x)|) + C', 'C - ln(|cos(x)|)'], ['|x-1|', '|-1+x|'],
-    ['1) +, 2) –, 3) -', '1) +, 2) -, 3) -'], ['1) +, 2) –, 3) -', '1) + 2) - 3) -'], ['OH^-', 'OH'], ['Na^+ + Cl^-', 'Na^+ + Cl^-'],
+    ['1) +, 2) –, 3) -', '1) +, 2) -, 3) -'], ['1) +, 2) –, 3) -', '1) + 2) - 3) -'], ['Na^+ + Cl^-', 'Na^+ + Cl^-'],
   ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
   // The bank's own questions.
   const { questions } = loadCorpus();
@@ -728,4 +728,35 @@ test('a sign on a particle or letter name reads the same as a word or a symbol',
     ['W MINUS BOSON', 'W+ boson'], ['W MINUS BOSON', 'W plus boson'], ['BETA PLUS', 'beta-'], ['W- BOSON', 'W plus boson'],
     ['x minus one', 'x+1'], ['X MINUS 2', 'x+2'],
   ]) assert.ok(!isCorrect(key, typed, q), `${typed} for ${key}`);
+});
+
+test('a charge left out is wrong unless the question makes it plain or says it is not needed', () => {
+  // Nothing in the question says the charge can go.
+  for (const [key, typed, question] of [
+    ['OH^-', 'OH', 'The Arrhenius definition of a base states that a base dissociates to form what ion?'],
+    ['W MINUS BOSON', 'W boson', 'What gauge boson mediates beta-minus decay?'],
+    ['BETA MINUS DECAY', 'beta decay', 'What decay converts a neutron into a proton?'],
+    ['B(OH)4^-', 'B(OH)4', 'Give the molecular formula of the conjugate base of boric acid.'],
+    ['K^+', 'K', 'What ion mainly triggers guard cell turgor pressure change?'],
+    // The question asks for the charge.
+    ['ClO3^-', 'ClO3', 'What is the chemical formula, including charge, for the chlorate anion?'],
+    ['SiO4; 4^-', 'SiO4; 4', 'What is the empirical formula and charge of the silicon-oxygen tetrahedron?'],
+  ]) {
+    const r = grade(key, typed, { question });
+    assert.ok(!r.correct && r.chargeMissing, `${typed} for ${key}`);
+  }
+  // The question names the sign, or says the charge isn't needed; or the
+  // packet accepts the answer without it.
+  for (const [key, typed, question, accept] of [
+    ['OH^-', 'OH', 'The ions Fe^(2+), Cr^(3+) and Ni^(2+) all precipitate a green solid when reacting with what anion?'],
+    ['NA+ AND K+', 'Na and K', 'Which two cations are responsible for action potentials?'],
+    ['W+ BOSON', 'W boson', 'What boson has a positive charge and mediates the weak force?'],
+    ['H3O^(+)', 'H3O', 'What specific positively charged product is formed?'],
+    ['OH^-', 'OH', 'Give its formula. The charge is not required.'],
+    ['NO3^-', 'NO3', 'Ignoring charge, what is the formula of the nitrate ion?'],
+    ['W- BOSON', 'W boson', 'What particle does the neutron emit?', ['W BOSON']],
+  ]) assert.ok(isCorrect(key, typed, { question, accept }), `${typed} for ${key}`);
+  // Writing the charge, or another form of it, is right as before.
+  assert.ok(isCorrect('OH^-', 'OH-', { question: 'Q?' }));
+  assert.ok(isCorrect('Fe^(2+)', 'Fe2+', { question: 'Q?' }));
 });
