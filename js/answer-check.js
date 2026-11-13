@@ -17,6 +17,8 @@
       .replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f])
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // "24pi", "2pi/3": pi written straight after its number, as "24π" is
+      .replace(/(\d)PI(?![A-Z])/g, '$1 PI')
       // a times sign typed as the letter x between numbers: "67 x 101", "2x2x3"
       .replace(/(\d)\s*X\s*(?=[\d√(])/g, '$1 ')
       // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
@@ -328,17 +330,32 @@
   // match a distinct, not-yet-used item (exact, then word-order/typo
   // tolerant, then whole-word substring) - if any segment can't be matched,
   // the whole attempt is abandoned (returns null) rather than guessing.
-  function resolveTermsToNumbers(raw, itemTexts) {
+  // `strict` (used on answer keys) takes whole names only: no splitting on
+  // spaces and no part-of-a-name matches.
+  function resolveTermsToNumbers(raw, itemTexts, strict) {
     if (!itemTexts || !itemTexts.length || !raw) return null;
     const trimmed = raw.trim();
     if (!trimmed) return null;
-    let segments = trimmed.split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((s) => s.trim()).filter(Boolean);
-    if (segments.length < 2) {
-      const wsSplit = trimmed.split(/\s+/).filter(Boolean);
-      if (wsSplit.length >= 2) segments = wsSplit;
-    }
+    const segments = trimmed.split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((s) => s.trim()).filter(Boolean);
     if (!segments.length) return null;
-
+    // An answer with no separator is one item's name ("Paschen series",
+    // "gap junctions") before it is several short ones ("diatoms
+    // radiolarians"): the whole thing is tried first, and may only be the
+    // name or a part of it, never something that merely contains a name.
+    if (segments.length < 2) {
+      const exact = matchSegments(segments, itemTexts, 'none');
+      if (exact || strict) return exact;
+      const wsSplit = trimmed.split(/\s+/).filter(Boolean);
+      const words = wsSplit.length >= 2 ? matchSegments(wsSplit, itemTexts, 'none') : null; // "A B", "diatoms radiolarians"
+      if (words) return words;
+      return matchSegments(segments, itemTexts, 'inside')
+        || (wsSplit.length >= 2 ? matchSegments(wsSplit, itemTexts, 'either') : null);
+    }
+    return matchSegments(segments, itemTexts, strict ? 'none' : 'either');
+  }
+  // `contain` says how far a part-of-a-name match may go: 'either' way round,
+  // only the typed text 'inside' the item's name, or 'none'.
+  function matchSegments(segments, itemTexts, contain) {
     const used = new Array(itemTexts.length).fill(false);
     const nums = [];
     for (const seg of segments) {
@@ -350,13 +367,15 @@
       if (bestIdx === -1) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
-          if (lenientWordMatch(seg, itemTexts[i])) { bestIdx = i; break; }
+          const m = lenientWordMatch(seg, itemTexts[i]);
+          if (contain === 'none' ? m === 'exact' : m) { bestIdx = i; break; }
         }
       }
-      if (bestIdx === -1 && normalize(seg).length >= 4) {
+      if (bestIdx === -1 && contain !== 'none' && normalize(seg).length >= 4) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
-          if (eitherContains(seg, itemTexts[i])) { bestIdx = i; break; }
+          const hit = contain === 'either' ? eitherContains(seg, itemTexts[i]) : containsWholeRun(normalize(itemTexts[i]), normalize(seg));
+          if (hit) { bestIdx = i; break; }
         }
       }
       if (bestIdx === -1) return null;
@@ -1538,6 +1557,11 @@
       const stripped = v.replace(/\s+\([^()]*[A-Za-z]{2,}[^()]*\)\s*$/, '');
       if (stripped !== v) out.push(stripped);
     }
+    // "SN2 ONLY", "TYPE VI ONLY": the answer with or without the "only"
+    for (const v of out.slice()) {
+      const bare = v.replace(/(\S)\s+ONLY\s*$/i, '$1');
+      if (bare !== v) out.push(bare);
+    }
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
@@ -1627,7 +1651,10 @@
     const found = [...raw.matchAll(OTHER_ONE_RE)];
     if (found.length !== 1) return null;
     const m = found[0];
-    return (fill) => `${raw.slice(0, m.index)} ${fill} ${raw.slice(m.index + m[0].length)}`.trim();
+    const fill = (text) => `${raw.slice(0, m.index)} ${text} ${raw.slice(m.index + m[0].length)}`.trim();
+    fill.before = raw.slice(0, m.index);
+    fill.after = raw.slice(m.index + m[0].length);
+    return fill;
   }
   // Only where it can't be a guess: the question is an ordering of things it
   // lists itself, so the key holds every one of them and "the other one" is
@@ -1647,17 +1674,26 @@
   }
   // The same for a ranking of numbered items ("3, 1, the other one", or the
   // item names): the digits of the full ordering, or null.
+  // What's said before and after the phrase is read by itself, as numbers
+  // ("1 3", "13") or names with or without commas ("ceres pluto"), and the
+  // phrase stands where it was said for the one item not named.
   function rankedWithOtherOne(raw, itemCount, itemTexts) {
-    const fill = otherOneSlot(raw);
-    if (!fill) return null;
-    const complete = (c) => c && c.length === itemCount && new Set(c).size === itemCount;
-    for (let d = 1; d <= itemCount; d++) {
-      const byNumber = canonicalizeRanked(fill(String(d)), itemCount, true);
-      if (complete(byNumber)) return byNumber;
-      const nums = itemTexts ? resolveTermsToNumbers(fill(`, ${itemTexts[d - 1]}, `).replace(/^[\s,]+|[\s,]+$/g, '').replace(/\s*,[\s,]*/g, ', '), itemTexts) : null;
-      if (nums && complete(nums.join(''))) return nums.join('');
-    }
-    return null;
+    const slot = otherOneSlot(raw);
+    if (!slot) return null;
+    const side = (text) => {
+      const t = text.replace(/\b(?:and\s+then|then|and)\b/gi, ',').replace(/^[\s,;]+|[\s,;]+$/g, '').replace(/\s*[,;][\s,;]*/g, ', ');
+      if (!t) return [];
+      const byNumber = canonicalizeRanked(t, itemCount, true);
+      if (byNumber) return byNumber.split('').map(Number);
+      return itemTexts ? resolveTermsToNumbers(t, itemTexts) : null;
+    };
+    const before = side(slot.before);
+    const after = side(slot.after);
+    if (!before || !after) return null;
+    const named = [...before, ...after];
+    if (named.length !== itemCount - 1 || new Set(named).size !== named.length) return null;
+    const left = range(1, itemCount).find((d) => !named.includes(d));
+    return [...before, left, ...after].join('');
   }
 
   /**
@@ -1677,6 +1713,91 @@
     return out || null;
   }
 
+  // "Only" or "just" around an answer adds nothing to it: "1 only", "gap
+  // junctions only", "just 2", "only the mantle".
+  function withoutOnly(raw) {
+    const out = String(raw).trim().replace(/^(?:only|just)\s+(?=\S)/i, '').replace(/(?<=\S)[\s,]+(?:only|alone)$/i, '').trim();
+    return out || String(raw).trim();
+  }
+
+  // The Mohorovičić discontinuity goes by "Moho" as often as by its name, so
+  // a key that is any one of its forms takes them all.
+  const MOHO_RE = /^(?:THE\s+)?MOHO(?:ROVI\S{3})?(?:\s+DISCONTINUITY)?$/i;
+  const MOHO_FORMS = ['MOHO', 'MOHO DISCONTINUITY', 'MOHOROVICIC', 'MOHOROVICIC DISCONTINUITY'];
+
+  const AVOGADRO_RE = /^(?:THE )?AVOGADRO(?:'?S)? (?:NUMBER|CONSTANT)$/;
+  const AVOGADRO_FORMS = ["AVOGADRO'S NUMBER", "AVOGADRO'S CONSTANT"];
+
+  // The kind of thing a question asks for, in its own words: "particle" in
+  // "What type of nuclear particle …", "group" in "What functional group
+  // …", "constant" in "… by what constant?". Saying that word or leaving it
+  // out changes nothing: "alpha particle" for ALPHA, "phosphate" for
+  // PHOSPHATE GROUP. Returns the words (with their plurals), from the few
+  // words after each what / which / name the / identify the / give the.
+  const ASK_SKIP = new Set(['IS', 'ARE', 'WAS', 'WERE', 'THE', 'A', 'AN', 'OF', 'NAME', 'TERM', 'TYPE', 'TYPES', 'KIND', 'KINDS', 'CLASS', 'SORT',
+    'GENERAL', 'SPECIFIC', 'OTHER', 'SINGLE', 'COMMON', 'FOLLOWING', 'CORRECT', 'PROPER', 'SCIENTIFIC', 'EXACT']);
+  const ASK_STOP = new Set(['IS', 'ARE', 'WAS', 'WERE', 'DOES', 'DO', 'DID', 'CAN', 'COULD', 'WILL', 'WOULD', 'SHOULD', 'MUST', 'HAS', 'HAVE', 'HAD', 'MAY',
+    'MIGHT', 'THAT', 'WHICH', 'WHO', 'WHOSE', 'OF', 'IN', 'ON', 'FOR', 'TO', 'FROM', 'WITH', 'BY', 'AT', 'AS', 'AND', 'OR', 'IF', 'WHEN', 'THIS', 'THESE',
+    'THE', 'A', 'AN', 'NOT', 'BEST', 'MOST', 'MORE', 'LESS', 'ALSO', 'BE', 'IT', 'ITS', 'THEIR', 'USED', 'CALLED', 'KNOWN', 'FOUND']);
+  function askedKindWords(questionText) {
+    const out = new Set();
+    const re = /\b(?:what|which|name the|identify the|give the|state the)\b([^,.;:?!()]*)/gi;
+    let m;
+    while ((m = re.exec(questionText || ''))) {
+      const words = normalize(m[1]).split(' ').filter(Boolean);
+      let i = 0;
+      while (i < words.length && ASK_SKIP.has(words[i])) i++;
+      for (let n = 0; i < words.length && n < 3 && !ASK_STOP.has(words[i]); i++, n++) {
+        const w = words[i];
+        if (w.length < 3 || /\d/.test(w)) break;
+        out.add(w); out.add(w + 'S'); if (w.endsWith('S')) out.add(w.slice(0, -1));
+      }
+    }
+    return out;
+  }
+  // The typed answer and the key are the same once those words are left out
+  // of both (and something is left of each).
+  function sameWithoutKind(raw, key, kinds) {
+    // (never for numbers or expressions, whose labels and signs matter)
+    if (!kinds.size || /[\d=<>]/.test(String(raw) + key)) return false;
+    const all = (t) => tokenize(t);
+    const rest = (t) => all(t).filter((w) => !kinds.has(w));
+    const a = rest(raw), b = rest(key);
+    if (!a.length || !b.length || (a.length === all(raw).length && b.length === all(key).length)) return false;
+    if (!a.some((w) => /[A-Z]{3,}/.test(w)) || isMathAnswer(raw) || isMathAnswer(key)) return false;
+    return a.join(' ') === b.join(' ') || lenientWordMatch(a.join(' '), b.join(' ')) === 'exact';
+  }
+
+  // A list key that labels its items with the question's own words, on a
+  // question that asks for them in order: "Zinc anode, Manganese dioxide
+  // cathode" for "What are the cathode and anode, respectively, …". The
+  // order asked for is the question's, whatever order the key was written
+  // in, and the labels needn't be typed: "manganese dioxide and zinc".
+  // Typed with their labels, the items can come in any order. Returns the
+  // two specs for checkMultiPart, or null.
+  function labelledListSpecs(question) {
+    const items = listItems(question.answer.text);
+    // The labels are looked for in the words leading up to "respectively".
+    const lead = String(question.question || '').match(/^(.*)\brespectively\b/is);
+    if (!items || !lead || items.some((t) => /[\d=<>+\-−–^]/.test(t))) return null;
+    const qWords = normalize(lead[1]).split(' ').slice(-12);
+    const at = (w) => { const i = qWords.indexOf(w); return i >= 0 ? i : qWords.indexOf(w + 'S'); };
+    const parts = [];
+    for (const item of items) {
+      const words = tokenize(item);
+      const labels = words.filter((w) => w.length >= 4 && at(w) >= 0);
+      if (labels.length !== 1 || words.length < 2) return null;
+      parts.push({ full: item, bare: words.filter((w) => w !== labels[0]).join(' '), label: labels[0], pos: at(labels[0]) });
+    }
+    if (new Set(parts.map((x) => x.label)).size !== parts.length) return null;
+    parts.sort((x, y) => x.pos - y.pos);
+    const base = { n: parts.length, floating: [], noSlash: true };
+    return [
+      { ...base, alts: parts.map((x) => [x.bare, x.full]), ordered: true },
+      { ...base, alts: parts.map((x) => [x.full]), ordered: false },
+    ];
+  }
+
   function gradeAnswer(question, userInput) {
     const raw = (userInput || '').trim();
     if (!raw) return { correct: false, matched: null, rejected: false, empty: true };
@@ -1685,7 +1806,16 @@
     const itemCount = detectItemCount(question.question);
     // For a multi-part answer, lone per-part accepts are not whole answers.
     const multi = question.format === 'MC' ? null : multiPartSpec(question);
-    const accepts = multi ? multi.wholeAccepts : (ans.accept || []);
+    let accepts = multi ? multi.wholeAccepts : (ans.accept || []);
+    if (!multi && question.format !== 'MC' && [ans.text, ...accepts].some((k) => MOHO_RE.test(String(k).trim()))) {
+      const rejected = (ans.reject || []).map(normalize);
+      accepts = [...accepts, ...MOHO_FORMS.filter((f) => !rejected.includes(normalize(f)))];
+    }
+    // Avogadro's number and Avogadro's constant are one thing.
+    if (!multi && question.format !== 'MC' && [ans.text, ...accepts].some((k) => AVOGADRO_RE.test(normalize(k)))) {
+      const rejected = (ans.reject || []).map(normalize);
+      accepts = [...accepts, ...AVOGADRO_FORMS.filter((f) => !rejected.includes(normalize(f)))];
+    }
 
     // ---- Multiple choice ----
     // Graded strictly: the answer must be exactly the correct letter, the
@@ -1796,8 +1926,19 @@
         if (allBut !== null) {
           userCanon = allBut;
         } else if (itemTexts) {
-          const nums = resolveTermsToNumbers(raw, itemTexts);
-          if (nums && nums.length) userCanon = digitsToCanonical(nums);
+          // "just 2", "gap junctions only", "only the first one's name"
+          const bare = withoutOnly(raw);
+          if (bare !== raw) userCanon = canonicalizeList(bare, itemCount);
+          // one item given with its own number: "1) gap junctions", "1 gap junctions"
+          const numbered = userCanon === null && bare.match(/^([1-9])\s*[).:]?\s+(?:only\s+)?(\S.*)$/i);
+          if (numbered && parseInt(numbered[1], 10) <= itemCount) {
+            const named = resolveTermsToNumbers(numbered[2], itemTexts);
+            if (named && named.length === 1 && named[0] === parseInt(numbered[1], 10)) userCanon = numbered[1];
+          }
+          if (userCanon === null) {
+            const nums = resolveTermsToNumbers(bare, itemTexts);
+            if (nums && nums.length) userCanon = digitsToCanonical(nums);
+          }
         }
       }
       if (userCanon !== null) {
@@ -1806,8 +1947,15 @@
         // numbers mustn't be read as one ("all" or "123" would pass). Those
         // keys are left to the multi-part checks below.
         // (A note in brackets at the key's end isn't part of it: "ALL (1, 2, 3)".)
+        // A set question's key may name its items instead ("COBALT" for item
+        // 1, "GAP JUNCTIONS ONLY"), and then stands for their numbers.
+        const keyItems = ranking ? null : extractItemTexts(question.question, itemCount);
+        const namedKey = (k) => {
+          const nums = keyItems ? resolveTermsToNumbers(withoutOnly(withoutEndNote(k)), keyItems, true) : null;
+          return nums && nums.length ? digitsToCanonical(nums) : null;
+        };
         const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null
-          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount));
+          : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount) ?? namedKey(k));
         const mainCanon = canonKey(ans.text);
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
@@ -1914,6 +2062,13 @@
     // when it matters ("zinc; copper" vs "copper; zinc"). A list key is
     // matched item by item too (see listSpec), and on an ordered question
     // ("respectively", "order the following") only in its order.
+    const labelled = multi ? null : labelledListSpecs(question);
+    if (labelled) {
+      if (labelled.some((spec) => checkMultiPart(raw, spec) === 'exact')) return { correct: true, matched: 'lenient', rejected: false };
+      // (the key's own order isn't the one asked for, so the plain list
+      // check below, which would take it, is skipped)
+      return { correct: false, matched: null, rejected: false };
+    }
     const list = multi ? null : listSpec(question);
     if (list) {
       let m = checkMultiPart(raw, list);
@@ -1943,6 +2098,15 @@
         if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
         if (m) close = true;
       }
+    }
+
+    // ---- With or without the word the question asks by ----
+    // ("alpha particle" for ALPHA on "What type of nuclear particle …",
+    // "phosphate" for PHOSPHATE GROUP on "What functional group …")
+    if (!multi) {
+      const kinds = askedKindWords(question.question);
+      const refused = (ans.reject || []).some((rej) => sameWithoutKind(raw, rej, kinds));
+      if (!refused && keys.some((key) => sameWithoutKind(raw, key, kinds))) return { correct: true, matched: 'lenient', rejected: false };
     }
 
     // ---- Typed answer contains the whole key plus more: close ----
@@ -2038,7 +2202,7 @@
       question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
       userInput = slashFractions(userInput);
     }
-    const result = checkAnswerInner(question, userInput);
+    const result = checkWithAskedUnits(question, userInput, checkAnswerInner(question, userInput));
     if (!result.correct || !question.answer || question.format === 'MC') return result;
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says
     // nothing about "NO3^(+)".
@@ -2047,6 +2211,40 @@
     return result;
   }
   function checkAnswerInner(question, userInput) {
+    const graded = gradeWithUnits(question, userInput);
+    if (graded.correct || graded.rejected || question.format === 'MC' || !question.answer) return graded;
+    // "gap junctions only" for a key of "GAP JUNCTIONS"
+    const bare = withoutOnly(userInput || '');
+    if (bare === String(userInput || '').trim()) return graded;
+    const again = gradeWithUnits(question, bare);
+    return again.correct || again.rejected ? again : graded;
+  }
+  // The units a question asks for ("in moles per liter", "in meters per
+  // second") needn't be typed, and typing them isn't wrong: "10 mol/L",
+  // "10 M" or "10 moles per liter" for a key of "10". Returns the number
+  // alone when the typed answer is a number followed by units the question
+  // names, or null.
+  function withoutAskedUnits(question, userInput) {
+    const typed = canonicalUnits(String(userInput || '')).trim();
+    const m = typed.match(/^([+\-−–]?\s*(?:\d[\d,]*(?:\.\d+)?|\.\d+)(?:\s*(?:[X×*·]|TIMES)\s*10\s*\^\s*\(?[+\-−–]?\d+\)?|E[+\-]?\d+)?)\s*([A-Z][A-Z0-9^/ ]*)$/);
+    if (!m) return null;
+    const qText = canonicalUnits(question.question || '');
+    const asked = new Set();
+    qText.split(/[^A-ZΩ°]+/).forEach((w) => { const sym = w.length >= 2 ? unitSymbol(w) : null; if (sym) asked.add(sym); });
+    const molar = /\bMOLAR(?:ITY)?\b|\bMOL(?:E|ES)? PER LIT|\bMOL\/L\b/.test(qText);
+    const tail = m[2].trim();
+    if (molar && /^(?:M|MOLAR)$/.test(tail)) return m[1];
+    const units = tail.split(/[/ ]+/).map((u) => u.replace(/\^\d+$/, '')).filter(Boolean);
+    return units.length && units.every((u) => asked.has(u)) ? m[1] : null;
+  }
+  function checkWithAskedUnits(question, userInput, graded) {
+    if (graded.correct || graded.rejected || question.format === 'MC' || !question.answer || !/\d/.test(question.answer.text)) return graded;
+    const number = withoutAskedUnits(question, userInput);
+    if (!number) return graded;
+    const again = checkAnswerInner(question, number);
+    return again.correct ? again : graded;
+  }
+  function gradeWithUnits(question, userInput) {
     const first = gradeAnswer(question, userInput);
     if (first.correct || question.format === 'MC' || !question.answer) return first;
     const ans = question.answer;

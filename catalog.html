@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=3c4720fe96"></script>
+<script src="js/data.js?v=4c47ebe00e"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -144,16 +144,16 @@
     </div>
   </div>
   <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
+    <label class="form-check-label" for="includeUnlabeledRounds">Include questions with no round number</label>
+  </div>
+  <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="ignoreWordOrder" checked />
     <label class="form-check-label" for="ignoreWordOrder">Ignore word order</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="exactWords" />
     <label class="form-check-label" for="exactWords" title="Each word typed must be a whole word: &quot;p waves&quot; finds &quot;P-waves&quot;, not &quot;capillary waves&quot;">Exact words</label>
-  </div>
-  <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" id="includeUnlabeledRounds" checked />
-    <label class="form-check-label" for="includeUnlabeledRounds">Include questions with no round number</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" id="hideAnswers" />

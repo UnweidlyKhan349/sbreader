@@ -76,16 +76,9 @@
 
   /* ================= LOBBY ================= */
   // Filter toggles (the room settings in the sidebar use these).
-  // The questions for a set of room settings, in reading order: the chosen
-  // packets of a set (packet order), or random questions matching the
-  // filters (mixed evenly across subjects).
+  // The questions for a set of room settings, in reading order: random
+  // questions matching the filters (mixed evenly across subjects).
   function queueFor(values) {
-    if (values.mode === 'set') {
-      if (!values.setName) return [];
-      const packets = SBPlay.packetsOf(values.setName);
-      const chosen = SBPlay.parsePacketNumbers(values.packetNumbers, packets.length);
-      return [].concat(...chosen.map((n) => packets[n - 1].questions)).filter((q) => values.subjects.has(q.subject));
-    }
     return SBData.stratifiedQueue(SBData.filterQuestions({
       subjects: values.subjects,
       roundRange: values.roundRange,
@@ -673,7 +666,7 @@
     const qDisplay = document.getElementById('mpQDisplay');
     qDisplay.classList.remove('mp-waiting-text');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
-    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay }];
+    const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, lead: SBReveal.visibleLength(SBData.readoutHeaderHTML(q)) }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
       choicesDisplay.style.display = 'grid';
@@ -728,8 +721,8 @@
     return activeFilterState && activeFilterState[key] !== undefined ? activeFilterState[key] : fallback;
   }
 
-  // "Toss-up 10 of 24" when the room reads a set; "Toss-up 10" otherwise.
-  function labelOpts() { return { ofPacket: roomSetting('mode', 'random') === 'set' }; }
+  // How a question's source line is labelled ("Toss-up 10").
+  function labelOpts() { return undefined; }
 
   function fullRenderFromState() {
     renderPlayerList(document.getElementById('mpPlayerList'));
@@ -1038,7 +1031,9 @@
   // A copy of a full set of room settings (filters plus mode and switches).
   function copyFilters(f) {
     return {
-      mode: f.mode === 'set' ? 'set' : 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
+      // (Rooms only read random questions now; the three fields stay in the
+      // settings so players on an older copy still understand them.)
+      mode: 'random', setName: '', packetNumbers: '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
@@ -1394,7 +1389,7 @@
   function settingsStatePayload() {
     const f = activeFilterState;
     return {
-      mode: f.mode || 'random', setName: f.setName || '', packetNumbers: f.packetNumbers || '',
+      mode: 'random', setName: '', packetNumbers: '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
@@ -1715,6 +1710,29 @@
     const p = hostPlayers.get(requesterConnId);
     if (p) p.score -= g.delta;
     const nowCorrect = !g.correct;
+    // "I was right" after someone else was graded correct: the question is
+    // the requester's, so the other answer is marked wrong (no points, and
+    // no penalty: they only got to answer because of the misgrade). Taking
+    // the override back gives them their correct answer again.
+    const regrade = (connId, gr, correct) => {
+      const pp = hostPlayers.get(connId);
+      const f = gr.celerity == null ? 1 : gr.celerity;
+      if (pp) {
+        pp.score += correct ? 4 : -4;
+        pp.correct = Math.max(0, (pp.correct || 0) + (correct ? 1 : -1));
+        pp.incorrect = Math.max(0, (pp.incorrect || 0) + (correct ? -1 : 1));
+        pp.celSum = Math.max(0, (pp.celSum || 0) + (correct ? f : -f));
+        pp.celN = Math.max(0, (pp.celN || 0) + (correct ? 1 : -1));
+      }
+      hostGame.gradesByConn.set(connId, { ...gr, correct, delta: correct ? 4 : 0, displacedBy: correct ? null : requesterConnId });
+      return { type: 'graded', playerId: connId, correct, delta: correct ? 4 : 0, userText: gr.userText, override: true, by: requesterConnId, counts: countsOf(pp) };
+    };
+    const regraded = [];
+    for (const [connId, gr] of [...hostGame.gradesByConn]) {
+      if (connId === requesterConnId) continue;
+      if (nowCorrect && gr.correct) regraded.push(regrade(connId, gr, false));
+      else if (!nowCorrect && !gr.correct && gr.displacedBy === requesterConnId) regraded.push(regrade(connId, gr, true));
+    }
     if (p) {
       const f = g.celerity == null ? 1 : g.celerity;
       const wrong = g.buzzedDuringReading ? 'negs' : 'incorrect';
@@ -1743,7 +1761,12 @@
     const counts = countsOf(p);
     host.broadcast({ type: 'graded', playerId: requesterConnId, correct: nowCorrect, delta, userText: g.userText, scores, override: true, overrideLocked: hostGame.overrideLocked, counts });
     applyGradeLocal(requesterConnId, nowCorrect, delta, scores, g.userText, true, hostGame.overrideLocked, undefined, counts);
-    if (game.log.length) game.log[0].category = nowCorrect ? 'correct' : 'incorrect';
+    regraded.forEach((m) => {
+      const out = { ...m, scores, overrideLocked: hostGame.overrideLocked };
+      host.broadcast(out);
+      applyGradeLocal(out.playerId, out.correct, out.delta, scores, out.userText, true, hostGame.overrideLocked, undefined, out.counts, out.by);
+    });
+    if (game.log.length) game.log[0].category = nowCorrect || regraded.some((m) => m.correct) ? 'correct' : 'incorrect';
     host.broadcast({ type: 'logUpdate', log: game.log });
     if (nowCorrect && hostGame.phase !== 'reveal') hostReveal();
     fullRenderFromState();
@@ -1918,7 +1941,9 @@
     liveBuzzLine(playerId, playerName(playerId));
     fullRenderFromState();
   }
-  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close, counts) {
+  // by: the player whose own override changed this player's grade (their
+  // "I was right" takes the question from whoever was graded correct).
+  function applyGradeLocal(playerId, correct, delta, scores, userText, isOverride, overrideLocked, close, counts, by) {
     scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
     const pl = game.players.find((pp) => pp.id === playerId);
     const cleanCounts = counts && typeof counts === 'object'
@@ -1936,10 +1961,14 @@
     // picks up again sends its own tick after this.
     if (!isOverride) hideTimer();
     game.lastGrade = { playerId, correct, userText };
-    if (isOverride && correct && playerId === myState.myId && window.SBReports && game.question) {
+    if (isOverride && correct && !by && playerId === myState.myId && window.SBReports && game.question) {
       SBReports.logOverride(SBData.byId.get(game.question.id), userText, 'mp');
     }
-    if (isOverride) { recolorBuzzLine(playerId, correct); renderOverrideLinkSoon(); logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`); }
+    if (isOverride) {
+      recolorBuzzLine(playerId, correct); renderOverrideLinkSoon();
+      if (by && by !== playerId) logEvent(playerName(playerId), `was marked ${correct ? 'correct again' : 'incorrect'}: ${playerName(by)} ${correct ? 'took back their override' : 'was right'}`);
+      else logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
+    }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = overrideLocked || false;
     // Find THIS player's own attempt row to update, rather than assuming an
@@ -2648,7 +2677,7 @@
       return;
     }
     if (msg.type === 'graded') {
-      applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close, msg.counts);
+      applyGradeLocal(msg.playerId, msg.correct, msg.delta, msg.scores, msg.userText, msg.override, msg.overrideLocked, msg.close, msg.counts, typeof msg.by === 'string' ? msg.by : undefined);
       if (game.phase === 'reveal') { showReveal(); renderOverrideLink(); }
       return;
     }
@@ -2809,7 +2838,6 @@
   const midGameFilterState = copyFilters({ subjects: [] });
   let midGameRoundSliderApi = null;
   let midGameYearSliderApi = null;
-  let mpPacketPicker = null;
   let categories = null;
   let midGameSettingsWired = false;
   // Set while the controls are repainted FROM the room's settings, so that
@@ -2828,10 +2856,6 @@
   }
 
   function tournamentBySlug(slug) { return SBData.meta.tournaments.find((t) => t.slug === slug) || null; }
-  function tournamentByName(name) {
-    const n = (name || '').trim().toLowerCase();
-    return n ? SBData.meta.tournaments.find((t) => t.name.toLowerCase() === n || t.slug === n) || null : null;
-  }
 
   function setMatchCountText(text) { document.getElementById('mpSettingsMatchCount').textContent = text; }
   // How many questions a set of settings matches: a plain filter (no
@@ -2841,7 +2865,7 @@
   function countFor(v) {
     const key = JSON.stringify([v.mode, v.setName, v.packetNumbers, [...v.subjects].sort(), [...(v.tournaments || [])].sort(), v.roundRange, v.yearRange, v.includeUnlabeled !== false]);
     if (countCache.key === key) return countCache.n;
-    const n = v.mode === 'set' ? queueFor(v).length : SBData.filterQuestions({
+    const n = SBData.filterQuestions({
       subjects: v.subjects, roundRange: v.roundRange, yearRange: v.yearRange, includeUnlabeled: v.includeUnlabeled !== false, tournaments: v.tournaments,
     }).length;
     countCache.key = key;
@@ -2855,9 +2879,6 @@
     if (!bankLoaded()) { setMatchCountText('Loading questions…'); return; }
     const n = countFor(midGameFilterState);
     setMatchCountText(`${n.toLocaleString()} question${n === 1 ? '' : 's'} match the room's settings`);
-    // The packet dropdown lists the chosen set's packets.
-    const t = tournamentBySlug(midGameFilterState.setName);
-    if (mpPacketPicker) mpPacketPicker.setPackets(t ? SBPlay.packetsOf(t.slug) : [], midGameFilterState.packetNumbers);
   }
   function onSettingChange() {
     updateMidGameMatchCount();
@@ -2929,23 +2950,6 @@
 
     categories = SBPlay.subjectButtons(document.getElementById('mpSubjectButtons'), SBData.meta.subjects, midGameFilterState.subjects, () => { if (!suppressSettingsApplyEcho) onSettingChange(); });
 
-    const mode = document.getElementById('mpSetMode');
-    mode.addEventListener('change', () => { midGameFilterState.mode = mode.value; showModeControls(); onSettingChange(); mode.blur(); });
-    const list = document.getElementById('mpSetNameList');
-    SBData.meta.tournaments.forEach((t) => { const o = document.createElement('option'); o.value = t.name; list.appendChild(o); });
-    const setName = document.getElementById('mpSetName');
-    setName.addEventListener('change', () => {
-      const t = tournamentByName(setName.value);
-      setName.classList.toggle('is-invalid', !!setName.value.trim() && !t);
-      // The same set again (the box losing focus after a packet was picked,
-      // say) keeps its packets.
-      if ((t ? t.slug : '') === midGameFilterState.setName) return;
-      midGameFilterState.setName = t ? t.slug : '';
-      midGameFilterState.packetNumbers = '';
-      onSettingChange();
-    });
-    mpPacketPicker = SBPlay.packetSelect(document.getElementById('mpPacketSelect'), (text) => { midGameFilterState.packetNumbers = text; onSettingChange(); });
-
     const tSelect = document.getElementById('mpSettingsTournamentSelect');
     SBData.meta.tournaments.forEach((t) => {
       const opt = document.createElement('option');
@@ -3003,12 +3007,6 @@
     rateSlider.addEventListener('change', () => { rateSlider.blur(); requestApplySettings(); });
   }
 
-  function showModeControls() {
-    const isSet = midGameFilterState.mode === 'set';
-    document.getElementById('mpSetSettings').classList.toggle('d-none', !isSet);
-    document.getElementById('mpRandomSettings').classList.toggle('d-none', isSet);
-  }
-
   // Paints the sidebar from the room's current settings: on entering, and
   // whenever they change (activeFilterState is every player's live copy).
   function showSettingsFromState() {
@@ -3025,12 +3023,6 @@
     document.getElementById('mpSettingsRateValue').textContent = String(myState.rate);
     suppressSettingsApplyEcho = true;
     try {
-      document.getElementById('mpSetMode').value = f.mode;
-      showModeControls();
-      const t = tournamentBySlug(f.setName);
-      const setName = document.getElementById('mpSetName');
-      if (document.activeElement !== setName) { setName.value = t ? t.name : ''; setName.classList.remove('is-invalid'); }
-      if (mpPacketPicker) mpPacketPicker.setPackets(t && bankLoaded() ? SBPlay.packetsOf(t.slug) : [], f.packetNumbers);
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(f.tournaments));
       if (midGameRoundSliderApi && f.roundRange) midGameRoundSliderApi.setRange(f.roundRange[0], f.roundRange[1]);
       if (midGameYearSliderApi) { const ys = SBData.yearSpan(); const yr = f.yearRange || ys; midGameYearSliderApi.setRange(yr[0], yr[1]); }
@@ -3068,8 +3060,6 @@
   function describeChanges(before, after, rateBefore, rateAfter) {
     const out = [];
     const sameSet = (a, b) => a.size === b.size && [...a].every((x) => b.has(x));
-    if (before.mode !== after.mode) out.push(`changed the mode to ${after.mode === 'set' ? 'Select by Set Name' : 'Random Questions'}`);
-    if (before.setName !== after.setName) { const t = tournamentBySlug(after.setName); out.push(t ? `changed the set to ${t.name}` : 'cleared the set'); }
     if (before.packetNumbers !== after.packetNumbers) out.push(after.packetNumbers ? `changed the packet numbers to ${after.packetNumbers}` : 'cleared the packet numbers');
     if (!sameSet(before.subjects, after.subjects)) {
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);

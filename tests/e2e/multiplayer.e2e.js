@@ -75,6 +75,48 @@ test('a wrong answer can be overridden, and taken back, on the buzz line', async
   await ctx.close();
 });
 
+test('"I was right" after someone else was marked correct takes the question from them, and gives it back when undone', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  // The guest interrupts and is wrong; the question reads on.
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press(' '); await g.waitForTimeout(400);
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
+  // The other player buzzes and gives the key.
+  // (Once enough of it has been read to tell which question it is.)
+  const reading = () => {
+    const plain = (html) => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent.replace(/\s+/g, ' ').trim(); };
+    const shown = document.getElementById('mpQDisplay').textContent.replace(/\s+/g, ' ').trim();
+    const found = shown.length < 40 ? [] : SBData.questions.filter((q) => plain(SBData.readoutHTML(q)).startsWith(shown));
+    return found.length === 1 ? (found[0].answer.letter || found[0].answer.text) : null;
+  };
+  await a.waitForFunction(reading, null, { timeout: 20000, polling: 250 });
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.keyboard.press(' '); await a.waitForTimeout(400);
+  const answer = await a.evaluate(reading);
+  assert.ok(answer, 'the question being read was found');
+  await a.keyboard.type(answer); await a.keyboard.press('Enter'); await a.waitForTimeout(1000);
+  const badges = (p) => p.$$eval('#mpHistory li[data-buzz-player]', (lis) => lis.map((li) => (li.querySelector('.badge').classList.contains('bg-success') ? 'green' : 'red')).join(' '));
+  const scores = (p) => p.$$eval('.mp-player-row:visible', (rows) => rows.map((x) => x.textContent.replace(/Votekick/g, ' ').replace(/\s+/g, ' ').trim()).sort().join(' | '));
+  assert.strictEqual(await badges(g), 'green red', 'newest first: the key, then the wrong interrupt');
+  // The guest says they were right: their line turns green, the other's red.
+  assert.strictEqual(await g.locator('#mpHistory .mp-inline-override').innerText(), 'I was right');
+  await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
+  for (const p of [a, g]) assert.strictEqual(await badges(p), 'red green');
+  assert.match(await a.locator('#mpHistory').innerText(), /was marked incorrect: .* was right/);
+  assert.strictEqual(await scores(a), await scores(g));
+  assert.match(await scores(a), / 0 \| .* 4$/, 'the guest has the 4 points, the other player none');
+  // Only the guest can change it now; taking it back restores both.
+  assert.strictEqual(await a.locator('#mpHistory .mp-inline-override').count(), 0);
+  await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
+  for (const p of [a, g]) assert.strictEqual(await badges(p), 'green red');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
 test('chat shows the line as soon as the box opens, then the text as it is typed', async () => {
   const ctx = await newContext(browser);
   const r = room();

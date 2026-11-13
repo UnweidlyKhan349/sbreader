@@ -118,11 +118,16 @@
   // segments: [{ text, el }] or [{ html, el }] - each rendered into el in
   // sequence, word by word. speed: QB Reader's reading speed, 0 to 100.
   // callbacks: { onComplete, onProgress, startUnits }. Returns a controller.
+  // The first segment may carry `lead`: how many of its visible characters
+  // are a heading before the question itself ("TOSS-UP Earth and Space
+  // Multiple Choice"). They're read out like the rest but don't count
+  // towards progress(), so celerity measures the question alone.
   function startReveal(segments, speed, callbacks) {
     callbacks = callbacks || {};
     let msUnit = msPerUnit(speed);
     const lengths = segments.map(segLength);
     const totalChars = lengths.reduce((sum, n) => sum + n, 0);
+    const leadChars = Math.max(0, Math.min(totalChars, Number(segments[0] && segments[0].lead) || 0));
     const { words, totalUnits } = schedule(segments);
 
     let stopped = false;
@@ -242,9 +247,9 @@
         finish();
       },
       isDone() { return done; },
-      // How much of the text is showing, 0 to 1 (celerity is 1 minus this,
-      // as on QB Reader).
-      progress() { return done || !totalChars ? 1 : shownChars / totalChars; },
+      // How much of the question is showing, 0 to 1, not counting the
+      // heading (celerity is 1 minus this, as on QB Reader).
+      progress() { return done || totalChars <= leadChars ? 1 : Math.max(0, shownChars - leadChars) / (totalChars - leadChars); },
       isPaused() { return paused; },
       // How far the reading has got, in timing units (pass it back as
       // startUnits to resume another reveal of the same text there).

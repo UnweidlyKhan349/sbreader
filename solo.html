@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=3c4720fe96"></script>
+<script src="js/data.js?v=4c47ebe00e"></script>
 <script>SBData.load();</script>
 </head>
 <body>
@@ -86,16 +86,9 @@
       <hr>
       <label class="form-check-label mb-1" for="setMode">Choose a mode:</label>
       <select class="form-select mb-2" id="setMode">
-        <option value="set">Select by Set Name</option>
         <option value="random" selected>Random Questions</option>
         <option value="starred">Starred Questions</option>
       </select>
-      <div class="d-none" id="setSettings">
-        <input class="form-control" id="setName" type="text" placeholder="Set Name" list="setNameList" autocomplete="off" aria-label="Set name" />
-        <datalist id="setNameList"></datalist>
-        <div class="my-1"><select id="packetSelect" aria-label="Packets"></select></div>
-        <div class="form-text mb-2" id="setInfo"></div>
-      </div>
       <div class="d-none" id="starredSettings">
         <p class="mb-2" id="starredInfo">Star questions to practice them here.</p>
       </div>
@@ -201,10 +194,10 @@
   </div>
 </div>
 
-<script src="js/answer-check.js?v=11f854dca7"></script>
+<script src="js/answer-check.js?v=7272ca9b11"></script>
 <script src="js/play-common.js?v=ce2fd98739"></script>
-<script src="js/reveal.js?v=496607392a"></script>
-<script src="js/solo.js?v=4c584dc547"></script>
+<script src="js/reveal.js?v=9bd421d9d9"></script>
+<script src="js/solo.js?v=debf9bf0e9"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=fb96918069"></script>
 <script src="js/account.js?v=5d9f0b76ec"></script>

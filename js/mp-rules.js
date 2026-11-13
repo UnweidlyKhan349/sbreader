@@ -239,13 +239,14 @@
         yearRange = [Math.min(lo, hi), Math.max(lo, hi)];
         if (yearRange[0] === first && yearRange[1] === last) yearRange = null;
       }
-      const setName = str(msg.setName, 80);
       return {
         type,
-        // How questions are chosen: random (filters) or a set's packets.
-        mode: msg.mode === 'set' ? 'set' : 'random',
-        setName: known.tournaments.has(setName) ? setName : '',
-        packetNumbers: str(msg.packetNumbers, 60).replace(/[^0-9,\s-]/g, ''),
+        // Questions are always random ones matching the filters. (Reading a
+        // set's packets in order was a mode once; a message from an older
+        // copy that still asks for it gets random questions.)
+        mode: 'random',
+        setName: '',
+        packetNumbers: '',
         rebuzz: msg.rebuzz === true,
         // Allow skips (on unless turned off), and a controlled room (only
         // its owner changes the settings; the coordinator checks who asked).
@@ -272,17 +273,17 @@
   }
 
   // Whether a player may flip their own grade on the current question:
-  // they were graded, nobody else has been overridden to correct, and - for
-  // a wrong answer - nobody else was already graded correct (two players
-  // can't both score on one question). attempts: [{ playerId, correct }].
+  // they were graded, and nobody else has been overridden to correct.
+  // Someone who was marked wrong may say "I was right" even after another
+  // player was graded correct: the question is theirs then, and the other
+  // player's answer is marked wrong (two players can't both score on one
+  // question; see hostOverrideLastGrade). attempts: [{ playerId, correct }].
   // overrideLocked is the ID of the player overridden to correct (false if
   // none): only they may still take it back ("I was wrong"). A bare `true`
   // locks everyone.
   function canOverrideOwn(attempts, playerId, overrideLocked) {
     if (overrideLocked && overrideLocked !== playerId) return false;
-    const mine = attempts.find((a) => a.playerId === playerId);
-    if (!mine) return false;
-    return mine.correct || !attempts.some((a) => a.playerId !== playerId && a.correct);
+    return attempts.some((a) => a.playerId === playerId);
   }
 
   // Public lobbies: rooms with a fixed, well-known code that anyone can join

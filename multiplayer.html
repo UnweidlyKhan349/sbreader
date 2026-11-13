@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=3c4720fe96"></script>
+<script src="js/data.js?v=4c47ebe00e"></script>
 <script>SBData.load();</script>
 <!-- A link straight into a room (?room= or ?lobby=) shows the room at once,
      with "Connecting…", instead of the lobby first. -->
@@ -140,19 +140,6 @@
         <input class="form-control" id="mpUsername" type="text" placeholder="Username" maxlength="24" autocomplete="off" aria-label="Username" />
       </div>
       <fieldset id="mpRoomSettings">
-      <label class="form-check-label mb-1" for="mpSetMode">Choose a mode:</label>
-      <select class="form-select mb-2" id="mpSetMode">
-        <option value="set">Select by Set Name</option>
-        <option value="random" selected>Random Questions</option>
-      </select>
-      <div class="d-none" id="mpSetSettings">
-        <div class="input-group mb-2">
-          <span class="input-group-text">Set Name</span>
-          <input class="form-control" id="mpSetName" type="text" list="mpSetNameList" autocomplete="off" />
-          <datalist id="mpSetNameList"></datalist>
-        </div>
-        <div class="mb-2"><select id="mpPacketSelect" aria-label="Packets"></select></div>
-      </div>
       <div id="mpRandomSettings">
         <div class="mb-2"><select id="mpSettingsTournamentSelect" aria-label="Tournaments"></select></div>
         <div id="mpSettingsYearRangeLabel">Year range</div>
@@ -283,10 +270,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" integrity="sha384-nlUQ8ZqCbvStErob+biJNzSgltf6urV3VGqhfIfzhmg9RXmpeRm76ELw0pYnKlTR" crossorigin="anonymous"></script>
-<script src="js/answer-check.js?v=11f854dca7"></script>
-<script src="js/reveal.js?v=496607392a"></script>
+<script src="js/answer-check.js?v=7272ca9b11"></script>
+<script src="js/reveal.js?v=9bd421d9d9"></script>
 <script src="js/peer.js?v=8eca107f30"></script>
-<script src="js/mp-rules.js?v=572e273cb8"></script>
+<script src="js/mp-rules.js?v=f6d516e05d"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=fb96918069"></script>
 <script src="js/account.js?v=5d9f0b76ec"></script>
@@ -294,6 +281,6 @@
 <script src="js/question-stats.js?v=dd0e3a179d"></script>
 <script src="js/rooms.js?v=b4dac1246c"></script>
 <script src="js/play-common.js?v=ce2fd98739"></script>
-<script src="js/multiplayer.js?v=b7ef77a0a8"></script>
+<script src="js/multiplayer.js?v=1b20fee052"></script>
 </body>
 </html>
