@@ -92,10 +92,17 @@ test('a set page links its whole tournament where the packets point to one place
   assert.strictEqual(src('nsb-regs'), 'https://science.osti.gov/wdts/nsb/Regional-Competitions/Resources/HS-Sample-Questions');
   assert.match(src('clash-2026-hs'), /^https:\/\/drive\.google\.com\/drive\/folders\//);
   assert.strictEqual(src('aves-2025'), 'https://drive.google.com/drive/folders/1-ZwTmmC0L-v4hjQGavnbOWIkecD2OxNv');
-  // Separate files only: each packet's own link is listed instead.
-  const t = SBData.meta.tournaments.find((x) => !SBData.tournamentSourceUrl(x, SBPlay.packetsOf(x.slug)));
-  assert.ok(t, 'some tournament has only separate packet files');
-  const html = SBData.tournamentSourceHTML(t, SBPlay.packetsOf(t.slug));
+  // Packets LeBot hosts: the tournament's page on scibowl.live, which lists them.
+  assert.strictEqual(src('tjsbt-2025'), 'https://www.scibowl.live/packets/tjsbt-2025');
+  assert.strictEqual(src('basis-peoria-rounds'), 'https://www.scibowl.live/packets/basis-peoria-rounds');
+  // A folder given in meta.json.
+  assert.strictEqual(src('bums-2026'), 'https://drive.google.com/drive/folders/1d7K7cB4BemHpx2ky5Hhf-uS1xZ3n2h_Q');
+  // Every tournament in the bank has such a link now.
+  for (const x of SBData.meta.tournaments) assert.ok(SBData.tournamentSourceUrl(x, SBPlay.packetsOf(x.slug)), x.slug);
+  // Separate files only (no set in the bank any more): each packet's own link is listed instead.
+  const packets = [1, 2].map((n) => ({ questions: [{ sourceUrl: `https://drive.google.com/file/d/file${n}/view` }] }));
+  assert.strictEqual(SBData.tournamentSourceUrl({ slug: 'x' }, packets), null);
+  const html = SBData.tournamentSourceHTML({ slug: 'x' }, packets);
   assert.match(html, /^<p class="set-source">Source packets: <a href="https?:\/\/[^"]+" target="_blank" rel="noopener">1<\/a>/);
   // Every tournament has one or the other.
   for (const x of SBData.meta.tournaments) assert.ok(SBData.tournamentSourceHTML(x, SBPlay.packetsOf(x.slug)), x.slug);

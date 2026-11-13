@@ -623,6 +623,52 @@ test('Moho and Mohorovičić discontinuity are the same answer', () => {
   assert.ok(!isCorrect('MOHOROVICIC DISCONTINUITY', 'moho', { reject: ['MOHO'] }));
 });
 
+test('units the question asks for may be typed or left out', () => {
+  const q = 'To two significant figures and in moles per liter, what is the molarity of Travis\u2019 solution?';
+  for (const typed of ['10', '10 M', '10 mol/L', '10 moles per liter', '10 molar']) assert.ok(isCorrect('10', typed, { question: q }), typed);
+  for (const typed of ['11 M', '10 grams', '10 m/s']) assert.ok(!isCorrect('10', typed, { question: q }), typed);
+  const speed = 'In meters per second, how fast is the cart moving?';
+  assert.ok(isCorrect('4.5', '4.5 m/s', { question: speed }));
+  assert.ok(isCorrect('4.5', '4.5 meters per second', { question: speed }));
+  assert.ok(!isCorrect('4.5', '4.5 km/s', { question: speed }));
+  // Units the question never named are not waved through.
+  assert.ok(!isCorrect('4.5', '4.5 m/s', { question: 'How fast is the cart moving?' }));
+});
+
+test('the word the question asks by may be said or left out', () => {
+  const group = 'What functional group is the Uranium (IV) typically bound to allowing it to exist as a biomass-associated species?';
+  for (const typed of ['phosphate', 'phosphate group', 'phosphates']) assert.ok(isCorrect('PHOSPHATE GROUP', typed, { question: group }), typed);
+  assert.ok(!isCorrect('PHOSPHATE GROUP', 'sulfate', { question: group }));
+  assert.ok(!isCorrect('PHOSPHATE GROUP', 'group', { question: group }));
+  const particle = 'What type of nuclear particle is emanated from the first radioactive decay step of uranium-238?';
+  for (const typed of ['alpha', 'alpha particle', 'alpha particles']) assert.ok(isCorrect('ALPHA', typed, { question: particle }), typed);
+  assert.ok(!isCorrect('ALPHA', 'beta particle', { question: particle }));
+  // Only the question's own word: "decay" isn't what was asked for.
+  assert.ok(!isCorrect('ALPHA', 'alpha decay', { question: particle }));
+  assert.ok(!isCorrect('ALPHA', 'alpha particle', { question: particle, reject: ['ALPHA PARTICLE'] }));
+});
+
+test('pi straight after its number, and Avogadro\u2019s number or constant', () => {
+  for (const typed of ['24pi', '24 pi', '24π', '24*pi']) assert.ok(isCorrect('24π', typed), typed);
+  assert.ok(isCorrect('2π/3', '2pi/3'));
+  assert.ok(!isCorrect('24π', '42pi'));
+  for (const key of ['AVOGADRO\u2019S CONSTANT', "Avogadro's number"]) {
+    for (const typed of ['avogadros number', "avogadro's constant", 'avogadro number', 'avogadros constant']) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  assert.ok(!isCorrect("Avogadro's law", 'avogadros number'));
+});
+
+test('"respectively" with a key that labels its items: the order asked for, labels optional', () => {
+  const q = 'What are the cathode and anode, respectively, of a Zinc-Carbon cell?';
+  const key = 'Zinc anode, Manganese dioxide cathode';
+  for (const typed of ['manganese dioxide and zinc', 'manganese dioxide, zinc', 'manganese dioxide cathode, zinc anode', 'zinc anode, manganese dioxide cathode']) {
+    assert.ok(isCorrect(key, typed, { question: q }), typed);
+  }
+  for (const typed of ['zinc and manganese dioxide', 'zinc cathode, manganese dioxide anode', 'manganese dioxide']) {
+    assert.ok(!isCorrect(key, typed, { question: q }), typed);
+  }
+});
+
 test('a key that listed synonyms takes each one: "bog" for BOG (also accept QUAGMIRE, MIRE)', () => {
   const { questions } = loadCorpus();
   const byId = new Map(questions.map((q) => [q.id, q]));
