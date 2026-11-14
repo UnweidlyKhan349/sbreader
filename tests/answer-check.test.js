@@ -760,3 +760,16 @@ test('a charge left out is wrong unless the question makes it plain or says it i
   assert.ok(isCorrect('OH^-', 'OH-', { question: 'Q?' }));
   assert.ok(isCorrect('Fe^(2+)', 'Fe2+', { question: 'Q?' }));
 });
+
+test('an element keyed as its molecule formula takes the element name', () => {
+  const q = 'Copper II iodide is unstable because it disproportionates to what two compounds?';
+  for (const typed of ['copper(I) iodide and iodine', 'iodine and copper (I) iodide', 'copper(I) iodide and molecular iodine', 'copper(I) iodide and I2']) {
+    assert.ok(isCorrect('COPPER (I) IODIDE AND I2', typed, { question: q }), typed);
+  }
+  assert.ok(!isCorrect('COPPER (I) IODIDE AND I2', 'copper(I) iodide and iodide', { question: q }));
+  assert.ok(isCorrect('I2', 'iodine'));
+  assert.ok(isCorrect('CL2', 'chlorine'));
+  assert.ok(isCorrect('SULFUR DIOXIDE AND O2', 'sulfur dioxide and oxygen'));
+  assert.ok(!isCorrect('O2', 'ozone'));
+  assert.ok(!isCorrect('H2O', 'hydrogen'));
+});
