@@ -69,8 +69,6 @@
 "38950":"phys→chem",
 "41178":"phys→ess",
 "42275":"chem→bio",
-"43228":"math→energy",
-"43344":"math→energy",
 "43640":"chem→bio",
 "43644":"ess→phys",
 "44219":"chem→phys",
