@@ -418,7 +418,9 @@
     const openMenu = container.querySelector('.dropdown-menu.show');
     const openMenuKey = openMenu ? openMenu.closest('[data-key]').dataset.key : null;
     container.innerHTML = '';
-    const offline = offlineRows();
+    // Hidden offline players aren't drawn at all (not just hidden), so the
+    // first and last rows that show keep the list's border and corners.
+    const offline = showOffline ? offlineRows() : [];
     const everyone = game.players.concat(offline).sort((a, b) => (b.score - a.score) || a.name.localeCompare(b.name));
     everyone.forEach((p) => {
       const key = p.id || 'pid:' + p.pid;
@@ -427,7 +429,6 @@
       item.setAttribute('role', 'button');
       item.className = 'list-group-item list-group-item-action clickable mp-player-row';
       if (p.offline) item.classList.add('offline');
-      if (p.offline && !showOffline) item.classList.add('d-none');
       if (p.id === myState.myId) item.classList.add('user-score');
       const attempt = !p.offline && game.attempts.find((x) => x.playerId === p.id);
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
