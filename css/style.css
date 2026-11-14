@@ -81,7 +81,6 @@
 [data-bs-theme=dark] .pagination { --bs-pagination-active-bg: #375a7f; --bs-pagination-active-border-color: #375a7f; }
 [data-bs-theme=dark] .form-check-input:checked { background-color: #375a7f; border-color: #375a7f; }
 
-html { scrollbar-gutter: stable; }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 .btn:hover, .nav-link:hover, .dropdown-item:hover, #logo:hover { text-decoration: none; }
