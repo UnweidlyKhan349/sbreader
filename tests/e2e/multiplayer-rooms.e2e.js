@@ -1,5 +1,5 @@
 // Multiplayer, rooms (tests/e2e/fake-peer.js, as in multiplayer.e2e.js):
-// room owners (crown, mute, ban, controlled rooms), Allow skips, room links
+// room owners (crown, mute, ban), Allow skips, room links
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -51,34 +51,19 @@ async function ownerMenu(owner, name, action) {
 // Owners count only in private rooms, as on QB Reader.
 const privateRoom = (r) => `${r}&private=true`;
 
-test('the room\'s creator has a crown; a controlled room\'s settings are theirs alone', async () => {
+test('the room\'s creator has a crown; everyone can change the settings', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, privateRoom(r));
   const g = await strangerIn(ctx, server.url, r);
   const aName = await myName(a);
   assert.deepStrictEqual(await crowned(g), [aName], 'only the creator is crowned, on everyone\'s list');
-  assert.strictEqual(await g.locator('#mpToggleControlled').isDisabled(), true, 'only the owner has the controlled switch');
-  const note = (p, id) => p.locator('#' + id).isVisible();
-  assert.strictEqual(await note(g, 'mpControlledNote'), false, 'no note before the room is controlled');
-  await a.locator('#mpToggleControlled').check();
-  await g.waitForFunction(() => document.getElementById('mpRoomSettings').disabled, null, { timeout: 10000 });
-  for (const p of [a, g]) {
-    assert.strictEqual(await note(p, 'mpControlledNote'), true, 'everyone is told the room is controlled');
-    assert.strictEqual(await note(p, 'mpPermanentNote'), false, 'and it isn\'t a permanent room');
-  }
-  assert.match(await g.locator('#mpControlledNote').innerText(), /^This is a controlled room\. Some settings can only be edited by the creator\.$/);
-  assert.strictEqual(await a.locator('#mpTogglePublic').isDisabled(), true, 'a controlled room stays private');
-  // A change sent anyway (the controls forced back on) is refused and undone.
+  assert.strictEqual(await g.locator('#mpToggleControlled').count(), 0, 'there are no controlled rooms');
+  assert.strictEqual(await g.locator('#mpRoomSettings').evaluate((x) => x.disabled), false);
+  // A player who isn't the owner changes the settings for everyone.
   const before = await subjectOn(a, 'chem');
-  await g.evaluate(() => { document.getElementById('mpRoomSettings').disabled = false; });
   await g.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click();
-  await g.waitForTimeout(1000);
-  assert.strictEqual(await subjectOn(a, 'chem'), before);
-  assert.strictEqual(await subjectOn(g, 'chem'), before, 'the refused change is undone on the sender\'s screen');
-  // The owner still changes them.
-  await a.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click();
-  await g.waitForFunction((was) => document.querySelector('#mpSubjectButtons .btn-subject[data-subject="chem"]').classList.contains('active') !== was, before, { timeout: 10000 });
+  await a.waitForFunction((was) => document.querySelector('#mpSubjectButtons .btn-subject[data-subject="chem"]').classList.contains('active') !== was, before, { timeout: 10000 });
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
@@ -135,19 +120,16 @@ test('a permanent room says some settings are restricted', async () => {
   const a = await openPage(ctx, `${server.url}multiplayer?lobby=bio`);
   await a.waitForFunction(() => document.getElementById('mpPermanentNote') && !document.getElementById('mpPermanentNote').classList.contains('d-none'), null, { timeout: 40000 });
   assert.strictEqual(await a.locator('#mpPermanentNote').innerText(), 'This is a permanent room. Some settings have been restricted.');
-  assert.strictEqual(await a.locator('#mpControlledNote').isVisible(), false);
   assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
 
-test('Clear stats zeroes your own score for the room, also in a controlled room', async () => {
+test('Clear stats zeroes your own score for the room', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, privateRoom(r));
   const g = await strangerIn(ctx, server.url, r);
   const gName = await myName(g);
-  await a.locator('#mpToggleControlled').check();
-  await g.waitForFunction(() => document.getElementById('mpRoomSettings').disabled, null, { timeout: 10000 });
   // A wrong buzz while the question is read: -4.
   await a.locator('#mpNextBtn').click();
   await g.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 15000 });
@@ -182,7 +164,7 @@ test('a room record that failed to save is saved again, until it goes through', 
   });
   const r = room();
   const a = await joinRoom(ctx, server.url, privateRoom(r));
-  await a.waitForFunction(() => document.getElementById('mpControlledRow') && !document.getElementById('mpControlledRow').classList.contains('d-none'), null, { timeout: 15000 });
+  await a.waitForFunction(() => document.querySelector('.mp-player-row:not(.offline) .mp-crown'), null, { timeout: 15000 });
   const deadline = Date.now() + 15000;
   while (saves.length < 2 && Date.now() < deadline) await a.waitForTimeout(250);
   assert.ok(saves.length >= 2, `the failed save was tried again (${saves.length} saves)`);
@@ -245,7 +227,7 @@ test('the owner gets the crown back on returning, from whoever runs the room by 
   await ctx.close();
 });
 
-test('a public room has no owner: no crown, owner tools or controlled switch', async () => {
+test('a public room has no owner: no crown or owner tools', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
@@ -257,12 +239,10 @@ test('a public room has no owner: no crown, owner tools or controlled switch', a
   await row.locator('[data-sb-dropdown]').click();
   assert.strictEqual(await row.locator('[data-ban], [data-mute]').count(), 0, 'no Mute or Ban');
   assert.strictEqual(await row.locator('[data-votekick]').count(), 1, 'Votekick is still there');
-  assert.strictEqual(await a.locator('#mpToggleControlled').isDisabled(), true, 'a public room can\'t be controlled');
   // Made private, the creator is the owner again.
   await a.locator('label[for=mpTogglePublic]').click();
   await g.waitForFunction(() => document.querySelector('.mp-player-row:not(.offline) .mp-crown'), null, { timeout: 10000 });
   assert.deepStrictEqual(await crowned(g), [await myName(a)]);
-  assert.strictEqual(await a.locator('#mpToggleControlled').isDisabled(), false);
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });

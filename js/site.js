@@ -140,8 +140,7 @@
     if (!el.dataset.sbModalWired) {
       el.dataset.sbModalWired = '1';
       el.addEventListener('click', (e) => {
-        // (A [data-sb-static] dialog closes only by its own buttons.)
-        if ((e.target === el && !el.hasAttribute('data-sb-static')) || e.target.closest('[data-sb-dismiss]')) hideModal(el);
+        if (e.target === el || e.target.closest('[data-sb-dismiss]')) hideModal(el);
       });
     }
     // As Bootstrap (and QB Reader) do: focus the dialog itself, not its
@@ -150,13 +149,13 @@
     el.focus({ preventScroll: true });
   }
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && openModalEl && !openModalEl.hasAttribute('data-sb-static')) { e.stopPropagation(); hideModal(openModalEl); }
+    if (e.key === 'Escape' && openModalEl) { e.stopPropagation(); hideModal(openModalEl); }
   }, true);
 
   // A message in a dialog on the page, as QB Reader's alert modal: centred,
-  // the text and an OK button, closed only by OK (or Enter / Space on it;
-  // not Esc or a click outside). Unlike window.alert it doesn't freeze the
-  // page. onClose runs when it's dismissed.
+  // the text and an OK button, closed by OK, Esc or a click outside, like
+  // every dialog. Unlike window.alert it doesn't freeze the page. onClose
+  // runs when it's dismissed.
   let alertEl = null;
   function showAlert(text, onClose) {
     if (!alertEl) {
@@ -164,7 +163,6 @@
       alertEl.className = 'modal';
       alertEl.id = 'alert-modal';
       alertEl.tabIndex = -1;
-      alertEl.setAttribute('data-sb-static', '');
       alertEl.setAttribute('aria-labelledby', 'alert-modal-text');
       alertEl.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">'
         + '<div class="modal-body"><p id="alert-modal-text" class="mb-0"></p></div>'

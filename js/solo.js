@@ -568,6 +568,7 @@
     // Once it's over, the label above the question links to the packet.
     SBPlay.linkQuestionInfo(document.getElementById('questionInfo'), q, q.sourceUrl);
     box.style.display = 'block';
+    SBPlay.headerStar(document.getElementById('qDisplay'), q.id, () => SBPlay.repaintStars(document.getElementById('questionLog'), q.id));
 
     // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
     const override = document.getElementById('overrideBtn');

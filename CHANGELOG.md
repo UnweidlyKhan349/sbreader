@@ -284,3 +284,7 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Nav: the signed-in account name is a plain link to the Account page (which has Stats, Graphs, Starred Questions and Log out) instead of a dropdown menu.
 - Account page: the username and email are shown as code (pink monospace), as on QB Reader.
 - Frequency lists: as on QB Reader, with a round range (in place of its difficulty menu), a limit, a question type (all, tossups or bonuses) and a year range, kept in the address, and "Download this page" as TXT or CSV.
+- Multiplayer: a tournament change is told as "selected 3 tournaments" (with their names when there are three or fewer) instead of "changed the tournaments"; a player's popover no longer has the "Online?" row.
+- Play and Multiplayer: once a question is over, its star is at the right of the "TOSS-UP Physics Multiple Choice" line.
+- Every dialog closes on a click outside it (and Esc), the "Disconnected from server" message included.
+- Multiplayer: controlled rooms are gone (the lobby's "Make room controlled", the "Controlled room" switch and note, and the coordinator's lock). Room owners keep their crown, mute and ban. Re-run `supabase/schema.sql` (it drops `mp_rooms.controlled` and the six-argument `mp_set_room`).

@@ -274,19 +274,21 @@ revoke all on function public.mp_leave(text, text, text) from public;
 grant execute on function public.mp_leave(text, text, text) to anon, authenticated;
 
 -- Room owners (added November 2026). A named room's owner is the browser
--- that created it, as on QB Reader: it shows a crown, can mute and ban
--- players, and can make the room "controlled" (only the owner changes the
--- settings). The owner proves who they are to the other players by signing
+-- that created it, as on QB Reader: it shows a crown and can mute and ban
+-- players. The owner proves who they are to the other players by signing
 -- with a key only their browser holds; owner_key is its public half. These
--- columns keep a room's owner, bans and controlled switch after everyone has
--- left, so the room comes back the same.
---   mp_room(room)        the room's listing, owner key, bans, controlled
---                        switch and players, in one call (null: no such room)
---   mp_set_room(..)      the creator's browser (owner_hash) records its key,
---                        bans and controlled switch; creates the room if new
+-- columns keep a room's owner and bans after everyone has left, so the room
+-- comes back the same.
+--   mp_room(room)        the room's listing, owner key, bans and players, in
+--                        one call (null: no such room)
+--   mp_set_room(..)      the creator's browser (owner_hash) records its key
+--                        and bans; creates the room if new
 alter table public.mp_rooms add column if not exists owner_key text check (char_length(owner_key) <= 200);
 alter table public.mp_rooms add column if not exists banned text[] not null default '{}' check (cardinality(banned) <= 500);
-alter table public.mp_rooms add column if not exists controlled boolean not null default false;
+-- Controlled rooms (only the owner changes the settings) were taken out in
+-- November 2026: their switch and the old six-argument mp_set_room go.
+alter table public.mp_rooms drop column if exists controlled;
+drop function if exists public.mp_set_room(text, text, boolean, text, text[], boolean);
 
 -- A ban lasts 30 minutes, as on QB Reader (added November 2026; before, a
 -- ban was for good). ban_times has when each began: { pid: ms since 1970 },
@@ -298,7 +300,7 @@ create or replace function public.mp_room(p_room text)
 returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object(
-    'is_public', r.is_public, 'owner_key', r.owner_key, 'controlled', r.controlled,
+    'is_public', r.is_public, 'owner_key', r.owner_key,
     'banned', coalesce((select jsonb_agg(e.key) from jsonb_each_text(r.ban_times) e
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '[]'::jsonb),
     'ban_times', coalesce((select jsonb_object_agg(e.key, e.value::bigint) from jsonb_each_text(r.ban_times) e
@@ -311,7 +313,7 @@ language sql stable security definer set search_path = public as $$
 $$;
 
 create or replace function public.mp_set_room(
-  p_room text, p_secret text, p_is_public boolean, p_owner_key text, p_banned text[], p_controlled boolean)
+  p_room text, p_secret text, p_is_public boolean, p_owner_key text, p_banned text[])
 returns boolean
 language plpgsql security definer set search_path = public as $$
 declare
@@ -342,24 +344,23 @@ begin
     select (r.ban_times ->> x.b)::bigint as t from mp_rooms r
     where r.name = p_room and r.ban_times ? x.b and (r.ban_times ->> x.b)::bigint > now_ms - 1800000
   ) old on true;
-  insert into mp_rooms (name, is_public, is_permanent, owner_hash, owner_key, banned, ban_times, controlled, updated_at)
+  insert into mp_rooms (name, is_public, is_permanent, owner_hash, owner_key, banned, ban_times, updated_at)
   values (p_room, coalesce(p_is_public, true), false, h, p_owner_key,
-          coalesce(p_banned[1:500], '{}'), bans, coalesce(p_controlled, false), now())
+          coalesce(p_banned[1:500], '{}'), bans, now())
   on conflict (name) do update set
-    -- The key is set once; after that only the bans and the switch change.
+    -- The key is set once; after that only the bans change.
     owner_key = coalesce(mp_rooms.owner_key, excluded.owner_key),
     owner_hash = coalesce(mp_rooms.owner_hash, excluded.owner_hash),
     banned = excluded.banned,
-    ban_times = excluded.ban_times,
-    controlled = excluded.controlled
+    ban_times = excluded.ban_times
   where mp_rooms.owner_hash is null or mp_rooms.owner_hash = h;
   get diagnostics n = row_count;
   return n > 0;
 end;
 $$;
 
-revoke all on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[], boolean) from public;
-grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[], boolean) to anon, authenticated;
+revoke all on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) from public;
+grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Problem reports and "I was right" clicks (added November 2026).

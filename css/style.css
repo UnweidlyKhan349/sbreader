@@ -517,6 +517,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .history-card .card-header-clickable { flex: 1; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }
+/* A finished question's star, at the right of its "TOSS-UP Physics …" line. */
+.q-display .header-star { float: right; margin-left: .5rem; white-space: normal; }
 .history-card .q-text { margin-bottom: .25rem; }
 .history-card .choices { white-space: pre-wrap; }
 .history-card .q-figure { max-height: 300px; }

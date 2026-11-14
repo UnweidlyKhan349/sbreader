@@ -2,7 +2,7 @@
 // mp_players tables (supabase/schema.sql) when accounts are set up. Games
 // run browser to browser; this only lets the lobby page list rooms with
 // "N players - M online", keeps a room's players and scores after everyone
-// has left, keeps a room's owner, bans and "controlled" switch, and marks
+// has left, keeps a room's owner and bans, and marks
 // rooms public or private. Without a project every call resolves to nothing
 // and the lobby falls back to the built-in rooms.
 //
@@ -119,7 +119,7 @@
 
   // Everything kept about a room, for whoever opens it:
   //   { exists, isPublic, ownerKey, banned: [pid], bannedAt: { pid: ms },
-  //     controlled, players: [...] }
+  //     players: [...] }
   // A ban lasts 30 minutes (the list has only the ones still running; a
   // project from before ban times gives no bannedAt).
   // exists is false for a room never seen before. Resolves null when there's
@@ -133,7 +133,7 @@
       return { legacy: true, exists: null, players: await roster(roomKey) };
     }
     const d = r.data;
-    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, controlled: false, players: [] };
+    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, players: [] };
     const banned = Array.isArray(d.banned) ? d.banned.filter((x) => typeof x === 'string') : [];
     const bannedAt = {};
     if (d.ban_times && typeof d.ban_times === 'object') {
@@ -145,21 +145,20 @@
       ownerKey: typeof d.owner_key === 'string' ? d.owner_key : null,
       banned,
       bannedAt,
-      controlled: !!d.controlled,
       players: Array.isArray(d.players) ? d.players : [],
     };
   }
 
-  // The room's creator records its owner key, bans and controlled switch
+  // The room's creator records its owner key and bans
   // (creating the room's entry if it's new). Resolves true when saved, false
   // when this browser didn't create the room, null when there's no project
   // or it predates room owners; rejects when the save failed for now (no
   // connection, a server error), so the caller can try again.
-  async function saveRoom(roomKey, { isPublic, ownerKey, banned, controlled }) {
+  async function saveRoom(roomKey, { isPublic, ownerKey, banned }) {
     if (!enabled || !roomKey) return null;
     const r = await rpc('mp_set_room', {
       p_room: roomKey, p_secret: mySecret(), p_is_public: isPublic !== false, p_owner_key: ownerKey || null,
-      p_banned: (banned || []).slice(0, 500), p_controlled: !!controlled,
+      p_banned: (banned || []).slice(0, 500),
     });
     if (r.error) {
       if (r.error.missing) return null;

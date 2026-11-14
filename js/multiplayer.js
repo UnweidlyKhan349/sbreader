@@ -90,7 +90,7 @@
   // A new room's settings: every subject, random questions, timer on.
   function defaultFilters(isPublic) {
     return {
-      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, controlled: false, timer: true, isPublic: isPublic !== false,
+      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, timer: true, isPublic: isPublic !== false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
       tournaments: new Set(), roundRange: null, yearRange: null, includeUnlabeled: true,
     };
@@ -109,7 +109,6 @@
       const name = SBMpRules.cleanRoomName(input.value) || input.placeholder;
       const params = new URLSearchParams({ room: name });
       if (document.getElementById('privateRoomCheckbox').checked) params.set('private', 'true');
-      if (document.getElementById('controlledRoomCheckbox').checked) params.set('controlled', 'true');
       goToRoom(`${location.pathname}?${params}`);
     });
     // A room in the lists opens on this page, without loading it again (the
@@ -557,7 +556,6 @@
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
-      ['Online?', plain(p.offline ? 'No' : 'Yes')],
     ].concat(isOwner(p) ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
@@ -877,6 +875,8 @@
     SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null, labelOpts());
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
+    const qid = game.question.id;
+    SBPlay.headerStar(document.getElementById('mpQDisplay'), qid, () => SBPlay.repaintStars(historyEl(), qid));
     if (game.question.choices && r.letter) {
       const el = document.querySelector(`#mpChoicesDisplay .choice-box[data-letter="${r.letter}"]`);
       if (el) el.classList.add('reveal-correct');
@@ -1063,7 +1063,7 @@
       // (Rooms only read random questions now; the three fields stay in the
       // settings so players on an older copy still understand them.)
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -1190,8 +1190,7 @@
 
   /* ---------------- The room's owner ----------------
      A named room belongs to the browser that created it, as on QB Reader:
-     the owner has a crown, can mute and ban players, and can make the room
-     "controlled", where only they change the settings. The built-in rooms
+     the owner has a crown and can mute and ban players. The built-in rooms
      have no owner.
 
      There's no server to vouch for anyone, so the owner proves who they are
@@ -1318,8 +1317,8 @@
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
-  // The owner's browser keeps the room's record (owner key, bans and the
-  // controlled switch) in the room list, so the room comes back the same
+  // The owner's browser keeps the room's record (owner key and bans) in the
+  // room list, so the room comes back the same
   // after everyone has left. Only the browser that created the room can
   // change it there; for anyone else saveRoom just answers false.
   // A record counts as saved only once the room list says so. A save that
@@ -1336,7 +1335,7 @@
   function saveRoomRecord() {
     if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
     const key = roomKey();
-    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
+    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice() };
     const text = key + '\u0000' + JSON.stringify(rec);
     if (text === settledRecord || savingRecord !== null) return;
     clearTimeout(recordRetry); recordRetry = null;
@@ -1355,26 +1354,12 @@
     });
   }
 
-  // Whatever depends on who owns the room: the controlled-room lock on the
-  // settings, the controlled and public switches, the record in the room
-  // list. As on QB Reader, a room is never both public and controlled.
+  // Whatever depends on the room: the public switch, the permanent-room
+  // note, the record in the room list.
   function refreshOwnerControls() {
-    const owner = amOwner();
-    const controlled = !!roomSetting('controlled', false) && roomIsPrivate();
-    const locked = controlled && !owner;
-    const fieldset = document.getElementById('mpRoomSettings');
-    if (fieldset) fieldset.disabled = locked;
-    // The switch is there in rooms with an owner; only the owner can use
-    // it, and only while the room is private.
-    document.getElementById('mpControlledRow').classList.toggle('d-none', !game.ownerKey);
-    const sw = document.getElementById('mpToggleControlled');
-    sw.checked = controlled;
-    sw.disabled = !owner || !roomIsPrivate();
-    // A controlled room stays private until it's made uncontrolled.
-    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
+    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby;
     // As on QB Reader, a note says why some settings can't be changed.
     document.getElementById('mpPermanentNote').classList.toggle('d-none', !myState.publicLobby);
-    document.getElementById('mpControlledNote').classList.toggle('d-none', !controlled);
     // Skip follows "Allow skips".
     if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
@@ -1415,7 +1400,7 @@
     const f = activeFilterState;
     return {
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1510,7 +1495,7 @@
     }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, controlled: msg.controlled, timer: msg.timer, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -2416,7 +2401,7 @@
       } else {
         // A room from before room owners: its creator's browser can claim it.
         const k = await myOwnerKey(true);
-        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned, controlled: false }), 3000, null)) game.ownerKey = k.pub;
+        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned }), 3000, null)) game.ownerKey = k.pub;
       }
       if (info && !info.legacy) {
         game.banned = (info.banned || []).slice();
@@ -2425,11 +2410,6 @@
       }
       const mine = await myOwnerKey(false);
       me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
-      // Only a private room can be controlled (as on QB Reader).
-      activeFilterState.controlled = !!game.ownerKey && activeFilterState.isPublic === false
-        && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
-    } else {
-      activeFilterState.controlled = false;
     }
 
     // As on QB Reader, a room keeps its players after they leave: anyone the
@@ -2590,12 +2570,10 @@
     myState.publicLobby = lobby;
     return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
-  // A named room: opened public unless the link says private=true, and
-  // controlled when it says controlled=true (for a new room). As on QB
-  // Reader, a controlled room is private too.
-  function joinNamedRoom(name, isPrivate, isControlled) {
+  // A named room: opened public unless the link says private=true.
+  function joinNamedRoom(name, isPrivate) {
     myState.roomName = name;
-    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate && !isControlled), controlled: !!isControlled }, key: name });
+    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: defaultFilters(!isPrivate), key: name });
   }
 
   function initPublicLobbies() {
@@ -3026,7 +3004,7 @@
     document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -3104,10 +3082,14 @@
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
       out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
     }
-    if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
+    if (!sameSet(before.tournaments, after.tournaments)) {
+      // "selected 3 tournaments (MIT 2025, Stanford 2026, LOST 2)"
+      const n = after.tournaments.size;
+      const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
+      out.push(n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments');
+    }
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
-    if (before.controlled !== after.controlled) out.push(after.controlled ? 'made the room controlled (only the owner can change the settings)' : 'made the room uncontrolled');
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
     if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
@@ -3122,26 +3104,6 @@
     if (myState.publicLobby) values = { ...values, isPublic: true };
     if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
-    // A controlled room's settings are its owner's to change, and so is the
-    // switch itself; a room without an owner can't be controlled. As on QB
-    // Reader, only a private room can be (or have) an owner's: a public room
-    // is never controlled, and a controlled one stays private until it's made
-    // uncontrolled.
-    const sender = hostPlayers.get(byConnId || myState.myId);
-    const byOwner = !!(sender && sender.owner);
-    const wasControlled = before.controlled && before.isPublic === false;
-    if (wasControlled && !byOwner) {
-      const text = 'can\'t change the settings: only the room owner can in a controlled room';
-      if ((byConnId || myState.myId) === myState.myId) logEvent('You', text);
-      else host.sendTo(byConnId, { type: 'notice', text });
-      // Everyone's sidebar shows the room's settings again.
-      broadcastSettingsState(null, 0);
-      showSettingsFromState();
-      return;
-    }
-    if (wasControlled && values.controlled) values = { ...values, isPublic: false };
-    const mayControl = byOwner && !!game.ownerKey && before.isPublic === false && values.isPublic === false;
-    values = { ...values, controlled: mayControl && !!values.controlled };
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
@@ -3215,7 +3177,7 @@
       client.send({
         type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
-        rebuzz: values.rebuzz, skip: values.skip, controlled: values.controlled, timer: values.timer, isPublic: values.isPublic,
+        rebuzz: values.rebuzz, skip: values.skip, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
         tournaments: [...values.tournaments], roundRange: values.roundRange, yearRange: values.yearRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
@@ -3289,7 +3251,7 @@
     }
     const name = SBMpRules.cleanRoomName(params.get('room') || '');
     if (!name) { document.documentElement.classList.remove('mp-direct'); return false; }
-    joinNamedRoom(name, params.get('private') === 'true', params.get('controlled') === 'true');
+    joinNamedRoom(name, params.get('private') === 'true');
     return true;
   }
 

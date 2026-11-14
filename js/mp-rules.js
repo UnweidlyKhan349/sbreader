@@ -243,10 +243,8 @@
         setName: '',
         packetNumbers: '',
         rebuzz: msg.rebuzz === true,
-        // Allow skips (on unless turned off), and a controlled room (only
-        // its owner changes the settings; the coordinator checks who asked).
+        // Allow skips (on unless turned off).
         skip: msg.skip !== false,
-        controlled: msg.controlled === true,
         timer: msg.timer !== false,
         isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
