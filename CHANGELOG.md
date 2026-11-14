@@ -283,3 +283,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - The page no longer keeps an empty strip for the scrollbar (`scrollbar-gutter: stable` removed): a page that doesn't scroll fills the window, and the content moves over only while a scrollbar is showing.
 - Nav: the signed-in account name is a plain link to the Account page (which has Stats, Graphs, Starred Questions and Log out) instead of a dropdown menu.
 - Account page: the username and email are shown as code (pink monospace), as on QB Reader.
+- Frequency lists: as on QB Reader, with a round range (in place of its difficulty menu), a limit, a question type (all, tossups or bonuses) and a year range, kept in the address, and "Download this page" as TXT or CSV.
