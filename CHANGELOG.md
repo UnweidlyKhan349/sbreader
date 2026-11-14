@@ -281,4 +281,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer lobby: "N active players in M active rooms" kept accurate. The list refreshes every 15 seconds and when the tab comes back into view, no out-of-date list from an earlier visit is shown, and a player who closes the tab or goes back to the lobby is marked offline at once (new `mp_leave` database function) instead of counting for 90 more seconds. Re-run `supabase/schema.sql`.
 - Question cards: the source-packet title link no longer turns blue on hover (it keeps its underline).
 - The page no longer keeps an empty strip for the scrollbar (`scrollbar-gutter: stable` removed): a page that doesn't scroll fills the window, and the content moves over only while a scrollbar is showing.
-- Nav: the signed-in account name no longer shows a dropdown caret (the menu still opens on click).
+- Nav: the signed-in account name is a plain link to the Account page (which has Stats, Graphs, Starred Questions and Log out) instead of a dropdown menu.

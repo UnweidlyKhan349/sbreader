@@ -90,7 +90,7 @@
   });
 
   /* ---------------- Navbar ---------------- */
-  // A "Log in" link, or your name with the account pages and Log out, in
+  // A "Log in" link, or your name linking to the Account page, in
   // the navbar's #navAccount slot.
   function renderNav() {
     const slot = document.getElementById('navAccount');
@@ -101,18 +101,11 @@
       slot.innerHTML = `<a class="nav-link" href="${pageUrl('login')}" id="login-link">Log in</a>`;
       return;
     }
-    slot.className = 'nav-item dropdown';
-    slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
-      + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
-      + `<a class="dropdown-item" href="${pageUrl('account')}">Account</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stats')}">Stats</a>`
-      + `<a class="dropdown-item" href="${pageUrl('graphs')}">Graphs</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stars')}">Starred Questions</a>`
-      + '<hr class="dropdown-divider">'
-      + '<button class="dropdown-item" type="button" data-sb-logout>Log out</button></div>';
-    slot.querySelector('[data-sb-dropdown]').textContent = displayName();
-    slot.querySelector('[data-sb-logout]').addEventListener('click', () => signOut());
-    if (window.SBSite) window.SBSite.wireDropdown(slot.querySelector('[data-sb-dropdown]'));
+    // your name links to the Account page, which has Stats, Graphs,
+    // Starred Questions and Log out
+    slot.className = 'nav-item';
+    slot.innerHTML = `<a class="nav-link" href="${pageUrl('account')}" id="account-link"></a>`;
+    slot.querySelector('a').textContent = displayName();
   }
 
   /* ---------------- Sync ---------------- */
