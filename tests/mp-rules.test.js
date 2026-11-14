@@ -147,13 +147,6 @@ test('a player who left stays on the list, offline, until the daily restart at 0
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, at(9)), false);
 });
 
-test('a player has activity once they have heard or answered a question', () => {
-  const { hasActivity } = globalThis.SBMpRules;
-  assert.strictEqual(hasActivity({ score: 0, correct: 0, incorrect: 0, negs: 0, heard: 0 }), false);
-  assert.strictEqual(hasActivity({}), false);
-  assert.strictEqual(hasActivity(null), false);
-  for (const k of ['heard', 'correct', 'incorrect', 'negs']) assert.strictEqual(hasActivity({ [k]: 1 }), true);
-});
 
 test('room names are cleaned to letters, digits and dashes, and give a stable door', () => {
   const { cleanRoomName, roomPeerId } = globalThis.SBMpRules;

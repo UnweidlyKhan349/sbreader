@@ -180,7 +180,6 @@
     return r.data === true;
   }
 
-  let heardUnknown = false;
   // This player is in the room: called on joining and every 30 seconds
   // while there, with their current name and score.
   async function heartbeat(roomKey, { isPublic, isPermanent }, me) {
@@ -191,13 +190,7 @@
       p_score: me.score | 0, p_correct: me.correct | 0, p_incorrect: me.incorrect | 0,
       p_negs: me.negs | 0, p_cel_sum: Math.max(0, Number(me.celSum) || 0), p_cel_n: me.celN | 0,
     };
-    // p_heard (questions heard in the room) was added in November 2026; a
-    // project that hasn't run the schema since takes the call without it.
-    let { error } = heardUnknown ? { error: { missing: true } } : await rpc('mp_heartbeat', { ...args, p_heard: Math.max(0, me.heard | 0) });
-    if (error && error.missing) {
-      ({ error } = await rpc('mp_heartbeat', args));
-      if (!error) heardUnknown = true;
-    }
+    const { error } = await rpc('mp_heartbeat', args);
     if (!error || !error.missing) return;
     const c = await client();
     if (!c) return;

@@ -125,8 +125,7 @@ revoke all on public.mp_rooms, public.mp_players from anon, authenticated;
 -- keeps rooms and players in its server's memory and restarts the server
 -- every day at 08:00 UTC, so:
 --   * an offline player's score stays until the next restart (no timer per
---     player); a player who leaves without having heard or answered a
---     question is taken off at once;
+--     player), whether or not they played;
 --   * a room stays until the next restart, whether or not anyone is in it
 --     and however little was played in it (until November 13, 2026 a public
 --     room hardly played in went 90 seconds after its last player left);
@@ -135,7 +134,10 @@ revoke all on public.mp_rooms, public.mp_players from anon, authenticated;
 -- lapsed, and every heartbeat deletes it (mp_sweep). "In the room" means a
 -- heartbeat in the last 90 seconds. Players who stay in a room through
 -- 08:00 UTC keep playing, with their scores.
-alter table public.mp_players add column if not exists heard integer not null default 0 check (heard between 0 and 1000000);
+-- (From November 13 to 14, 2026 a player who left without having heard or
+-- answered a question was taken off at once, which needed a count of the
+-- questions each player had heard. Both are gone.)
+alter table public.mp_players drop column if exists heard;
 
 create or replace function public.mp_last_restart()
 returns timestamptz
@@ -146,9 +148,7 @@ $$;
 create or replace function public.mp_player_live(p public.mp_players)
 returns boolean
 language sql stable set search_path = public as $$
-  select p.last_seen >= mp_last_restart()
-     and (p.last_seen > now() - interval '90 seconds'
-          or p.heard > 0 or p.correct > 0 or p.incorrect > 0 or p.negs > 0);
+  select p.last_seen >= mp_last_restart();
 $$;
 
 create or replace function public.mp_room_live(r public.mp_rooms)
@@ -175,13 +175,13 @@ language sql stable security definer set search_path = public as $$
   group by r.name, r.is_public, r.is_permanent;
 $$;
 
--- (Dropped first: its columns changed, with heard.)
+-- (Dropped first: its columns changed, when heard came and went.)
 drop function if exists public.mp_roster(text);
 create function public.mp_roster(p_room text)
 returns table (pid text, username text, score integer, correct integer, incorrect integer,
-               negs integer, cel_sum real, cel_n integer, last_seen timestamptz, heard integer)
+               negs integer, cel_sum real, cel_n integer, last_seen timestamptz)
 language sql stable security definer set search_path = public as $$
-  select p.pid, p.username, p.score, p.correct, p.incorrect, p.negs, p.cel_sum, p.cel_n, p.last_seen, p.heard
+  select p.pid, p.username, p.score, p.correct, p.incorrect, p.negs, p.cel_sum, p.cel_n, p.last_seen
   from mp_players p join mp_rooms r on r.name = p.room
   where p.room = p_room and mp_room_live(r) and mp_player_live(p);
 $$;
@@ -203,14 +203,11 @@ delete from public.mp_rooms where name like 'pub-%' and not public.mp_is_builtin
 update public.mp_rooms set is_permanent = public.mp_is_builtin(name), is_public = is_public or public.mp_is_builtin(name)
   where is_permanent <> public.mp_is_builtin(name);
 
--- p_heard (the questions this player has heard in the room) was added in
--- November 2026; a call without it leaves the count as it is. The function
--- without it is dropped so a call can't match two.
-drop function if exists public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer);
+-- The version with p_heard (November 13 to 14, 2026) is dropped.
+drop function if exists public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer);
 create or replace function public.mp_heartbeat(
   p_room text, p_is_public boolean, p_pid text, p_secret text, p_username text,
-  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer,
-  p_heard integer default null)
+  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer)
 returns boolean
 language plpgsql security definer set search_path = public as $$
 declare
@@ -242,14 +239,12 @@ begin
   if found and existing is not null and existing <> h then
     return false;
   end if;
-  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash, heard)
-  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h,
-          least(greatest(coalesce(p_heard, 0), 0), 1000000))
+  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash)
+  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h)
   on conflict (room, pid) do update set
     username = excluded.username, score = excluded.score, correct = excluded.correct,
     incorrect = excluded.incorrect, negs = excluded.negs, cel_sum = excluded.cel_sum,
-    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash,
-    heard = case when p_heard is null then mp_players.heard else excluded.heard end;
+    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash;
   return true;
 end;
 $$;
@@ -257,9 +252,9 @@ $$;
 revoke all on function public.mp_last_restart(), public.mp_player_live(public.mp_players),
   public.mp_room_live(public.mp_rooms), public.mp_sweep() from public;
 revoke all on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer) from public;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
 grant execute on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer) to anon, authenticated;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
 
 -- Room owners (added November 2026). A named room's owner is the browser
 -- that created it, as on QB Reader: it shows a crown, can mute and ban
@@ -293,7 +288,7 @@ language sql stable security definer set search_path = public as $$
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '{}'::jsonb),
     'players', coalesce((select jsonb_agg(jsonb_build_object(
         'pid', p.pid, 'username', p.username, 'score', p.score, 'correct', p.correct, 'incorrect', p.incorrect,
-        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'heard', p.heard, 'last_seen', p.last_seen))
+        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'last_seen', p.last_seen))
       from mp_players p where p.room = r.name and mp_player_live(p)), '[]'::jsonb))
   from mp_rooms r where r.name = p_room and mp_room_live(r);
 $$;

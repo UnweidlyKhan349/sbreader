@@ -96,11 +96,6 @@
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && entry.leftAt >= lastRestart(now);
   }
-  // As QB Reader's Player.hasActivity: has heard a question or answered
-  // one. A player who leaves without any is taken off the list at once.
-  function hasActivity(p) {
-    return !!p && ['heard', 'correct', 'incorrect', 'negs'].some((k) => Number(p[k]) > 0);
-  }
 
   // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
   // is kept to letters, digits and dashes (spaces become dashes), lower
@@ -309,5 +304,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, lastRestart, hasActivity, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, lastRestart, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);
