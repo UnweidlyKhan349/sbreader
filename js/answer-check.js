@@ -1129,23 +1129,6 @@
     const parts = splitTopLevel(text).map((p) => p.trim()).filter((p) => normalize(p.replace(PART_NUMBER_RE, '')));
     return parts.length >= 2 ? parts : null;
   }
-  // An element keyed as the formula of its molecule ("I2", "CL2", "S8") is
-  // answered by the element's name: "iodine" (or "molecular iodine") for I2.
-  const ELEMENT_MOLECULES = {
-    H2: 'HYDROGEN', N2: 'NITROGEN', O2: 'OXYGEN', F2: 'FLUORINE', CL2: 'CHLORINE',
-    BR2: 'BROMINE', I2: 'IODINE', P4: 'PHOSPHORUS', S8: 'SULFUR',
-  };
-  function elementNameVariants(text) {
-    const f = String(text).trim().replace(/[\u2080-\u2089]/g, (d) => String(d.charCodeAt(0) - 0x2080))
-      .replace(/\s+/g, '').toUpperCase();
-    const name = Object.prototype.hasOwnProperty.call(ELEMENT_MOLECULES, f) ? ELEMENT_MOLECULES[f] : null;
-    if (!name) return [];
-    const out = [name, 'MOLECULAR ' + name];
-    if (f.endsWith('2')) out.push('DIATOMIC ' + name);
-    if (name === 'SULFUR') out.push('SULPHUR', 'MOLECULAR SULPHUR');
-    return out;
-  }
-
   // The forms of one part a student might reasonably give: as written, without
   // its "1)" number, just the value of a "MEDIAN = 25" / "ANODE: ZINC" label,
   // with a parenthetical dropped or kept ("STRONG (FORCE)"), or any one entry
@@ -1171,7 +1154,6 @@
       const br = v.trim().match(/^\[(.*)\]$/);
       if (br) out.push(...br[1].split(','));
     }
-    for (const v of out.slice()) out.push(...elementNameVariants(v));
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
@@ -1580,7 +1562,6 @@
       const bare = v.replace(/(\S)\s+ONLY\s*$/i, '$1');
       if (bare !== v) out.push(bare);
     }
-    for (const v of out.slice()) out.push(...elementNameVariants(v));
     return [...new Set(out.map((v) => v.trim()).filter((v) => normalize(v)))];
   }
 
