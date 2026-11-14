@@ -247,12 +247,11 @@ test('losing the connection shows "Disconnected from server" in a dialog on the 
   await page.evaluate(() => window.dispatchEvent(new Event('offline')));
   await page.waitForSelector('#alert-modal.show');
   assert.strictEqual(await page.textContent('#alert-modal-text'), 'Disconnected from server');
-  // OK closes it, and so does a click on the backdrop, as for any dialog.
-  await page.click('#alert-modal-close');
-  await page.waitForSelector('#alert-modal', { state: 'hidden' });
-  await page.evaluate(() => SBSite.alert('Again'));
-  await page.waitForSelector('#alert-modal.show');
+  // Only OK closes it: not Esc, not a click outside.
+  await page.keyboard.press('Escape');
   await page.mouse.click(5, 5);
+  assert.strictEqual(await page.isVisible('#alert-modal'), true);
+  await page.click('#alert-modal-close');
   await page.waitForSelector('#alert-modal', { state: 'hidden' });
   assert.deepStrictEqual(dialogs, []);
   await ctx.close();
