@@ -282,3 +282,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Question cards: the source-packet title link no longer turns blue on hover (it keeps its underline).
 - The page no longer keeps an empty strip for the scrollbar (`scrollbar-gutter: stable` removed): a page that doesn't scroll fills the window, and the content moves over only while a scrollbar is showing.
 - Nav: the signed-in account name is a plain link to the Account page (which has Stats, Graphs, Starred Questions and Log out) instead of a dropdown menu.
+- Account page: the username and email are shown as code (pink monospace), as on QB Reader.
