@@ -30,7 +30,7 @@
 {"i":41117,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"Identify all of the following three intermolecular forces that are present between molecules of CH4: 1) London Dispersion 2) Hydrogen Bonding 3) Dipole-Dipole","a":{"t":"1 ONLY"}},
 {"i":41118,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"Place the following three elements from most to least abundant in Earth’s crust: 1) Iron 2) Oxygen 3) Silicon","a":{"t":"2, 3, 1"}},
 {"i":41119,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"The upcoming solar maximum will occur in 2025. In what year did the previous solar maximum occur?","a":{"t":"2014"}},
-{"i":41120,"s":"math","f":"SA","qt":"tossup","n":16,"q":"Identify all of the following three numbers that have an odd number of factors: 1) 27 2) 64 3) 196","a":{"t":"2"}},
+{"i":41120,"s":"math","f":"SA","qt":"tossup","n":16,"q":"Identify all of the following three numbers that have an odd number of factors: 1) 27 2) 64 3) 196","a":{"t":"2 AND 3"}},
 {"i":41121,"s":"math","f":"SA","qt":"bonus","n":16,"q":"The mean of 2x, x, and 4 is equal to 1. What is x?","a":{"t":"-1"}},
 {"i":41122,"s":"phys","f":"SA","qt":"tossup","n":17,"q":"What is the equivalent capacitance, in millifarads, of two thirty millifarad capacitors in parallel with each other and in series with a third sixty millifarad capacitor?","a":{"t":"30"}},
 {"i":41123,"s":"phys","f":"MC","qt":"bonus","n":17,"q":"Which of the following particles is made of three quarks, two down and one up?","a":{"t":"Neutron","l":"W"},"c":{"W":"Neutron","X":"Electron","Y":"Gluon","Z":"Proton"}},

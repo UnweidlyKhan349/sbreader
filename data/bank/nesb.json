@@ -589,7 +589,7 @@
 {"i":20001,"s":"bio","f":"MC","qt":"bonus","n":19,"q":"The crushed, dry sugar plant, after sugar has been extracted, can be used to manufacture ethanol fuels. It is called","a":{"t":"bagasse.","l":"Z"},"c":{"W":"bakelite.","X":"bolata.","Y":"barbate.","Z":"bagasse."},"pg":10},
 {"i":20002,"s":"phys","f":"MC","qt":"tossup","n":20,"q":"Which of the following devices contains a step-up transformer?","a":{"t":"Fluorescent light","l":"X"},"c":{"W":"Calculator","X":"Fluorescent light","Y":"Tape player","Z":"Doorbell"},"pg":10},
 {"i":20003,"s":"phys","f":"MC","qt":"bonus","n":20,"q":"Which of the following devices contains a step-down transformer?","a":{"t":"Radio","l":"W"},"c":{"W":"Radio","X":"Television set","Y":"X-ray machine","Z":"Calculator"},"pg":10},
-{"i":20004,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"Genetic engineers use what kind of enzymes like a molecular knife to cut DNA strands?","a":{"t":"RESTRICTIVE"},"pg":11},
+{"i":20004,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"Genetic engineers use what kind of enzymes like a molecular knife to cut DNA strands?","a":{"t":"RESTRICTION"},"pg":11},
 {"i":20006,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"What temperature scale must be used when working with the ideal gas equation?","a":{"t":"KELVIN"},"pg":11},
 {"i":20007,"s":"chem","f":"MC","qt":"bonus","n":22,"q":"A characteristic associated with esters is the","a":{"t":"fruity odor.","l":"Y"},"c":{"W":"bitter taste.","X":"sour taste.","Y":"fruity odor.","Z":"high boiling temperature."},"pg":11},
 {"i":20008,"s":"phys","f":"SA","qt":"tossup","n":23,"q":"The inside walls of fluorescent bulbs are coated with substances called","a":{"t":"PHOSPHORS"},"pg":12},

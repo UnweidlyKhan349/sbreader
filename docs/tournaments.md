@@ -8,7 +8,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | 2026 Texas Science Bowl Invitational | 645 |  | hs |
 | AVES 2 | 580 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
-| BASED 2025 | 610 | 5 | hs |
+| BASED 2025 | 609 | 5 | hs |
 | Bash 2025 | 653 | 25 | hs |
 | BASIS Peoria Rounds | 779 |  | hs |
 | Bay Ultimate MS Scibowl | 520 | 4 | ms |
@@ -69,7 +69,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | MIT 2025 | 950 | 36 | hs |
 | MIT MS Study Guides | 33 |  | ms |
 | MNSBT 2024 | 650 |  | hs |
-| MOOSE 2021 | 409 |  | ms |
+| MOOSE 2021 | 408 |  | ms |
 | MOSFET 2 | 507 |  | hs |
 | MOSFET 2024 | 602 |  | hs |
 | Mosfet1 | 587 |  | hs |
@@ -81,12 +81,12 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NSB MS Regs | 11,406 |  | ms |
 | NSB Nationals 2005 | 785 |  | hs |
 | NSB Regionals 2002 Set B | 832 |  | hs |
-| NSB Regs | 12,015 |  | hs |
+| NSB Regs | 12,014 |  | hs |
 | NSBA1 | 723 | 31 | hs |
 | NSBA2 | 314 |  | hs |
 | NSBA4 | 480 |  | hs |
 | NSFBL | 552 | 8 | hs |
-| NSI 2023 | 268 |  | hs |
+| NSI 2023 | 267 |  | hs |
 | NSI 2024 | 252 |  | hs |
 | NWI 2024 | 276 |  | hs |
 | NWI 2025 | 397 |  | hs |
@@ -118,4 +118,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (114)** | **102,375** | **567** | |
+| **Total (114)** | **102,371** | **567** | |

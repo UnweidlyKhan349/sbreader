@@ -273,7 +273,7 @@
 {"i":25307,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Identify all of the following three statements that are true of the endocrine system: 1) ACTH is a tropic hormone; 2) Parathyroid hormone is released when blood calcium levels are high; 3) Diabetes insipidus is due to a lack in oxytocin secretion.","a":{"t":"1 ONLY"},"pg":10},
 {"i":25308,"s":"math","f":"SA","qt":"tossup","n":20,"q":"How many terms are in the binomial expansion of (x^2 + xy + y^2) squared?","a":{"t":"5"},"pg":10},
 {"i":25310,"s":"ess","f":"SA","qt":"tossup","n":21,"q":"What group of greenish phyllosilicate minerals are formed from the low grade metamorphism of mafic rock?","a":{"t":"CHLORITE GROUP"},"pg":11},
-{"i":25313,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What is the oxidation state of the carbon atom in methanol?","a":{"t":"2"},"pg":11},
+{"i":25313,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What is the oxidation state of the carbon atom in methanol?","a":{"t":"-2"},"pg":11},
 {"i":25315,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Identify all of the following three statements that are true of the weak interaction: 1) It acts only on charged particles, 2) It conserves lepton number, 3) It mediates the decay of the top quark","a":{"t":"2 AND 3"},"pg":12}]},
 {"rl":"Round 10 (Comp)","r":10,"u":"https://lebot.djiang.xyz/packets/SBL/Round%2010%20%28Comp%29.pdf","q":[
 {"i":25318,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"When performing hydroboration oxidation on a terminal alkyne, a vinyl alcohol is formed, which forms what other functional group after isomerization?","a":{"t":"ALDEHYDE","ac":["CARBONYL"],"rj":["KETONE"]},"pg":1},
