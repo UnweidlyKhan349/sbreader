@@ -17,7 +17,7 @@ Every set's source link (the set's own folder or document, and every packet link
 
 ## What the gaps turned out to be
 
-- **BUMS 2026** is the same event as **Bay Ultimate MS Scibowl**, ingested twice (its Drive folder holds DE1–DE8 and RR1–RR5, the same packets). Every regular question in the BUMS files is in the bank under Bay Ultimate MS Scibowl; the BUMS 2026 set only keeps 30 leftovers, and all 30 are copies of Bay Ultimate questions (26 identical, 4 with a word or two changed). That is why its RR 2 shows two questions and RR 1 and RR 3 don't appear at all. The only BUMS questions in neither set are the "BUMS Special" joke rounds (policy 8). **Suggested fix**: retire the BUMS 2026 set and alias its 30 questions to their Bay Ultimate copies, as the duplicate policy (4) already says.
+- **BUMS 2026** is the same event as **Bay Ultimate MS Scibowl**, ingested twice (its Drive folder holds DE1–DE8 and RR1–RR5, the same packets). Every regular question in the BUMS files is in the bank under Bay Ultimate MS Scibowl; the BUMS 2026 set only keeps 30 leftovers, and all 30 are copies of Bay Ultimate questions (24 word for word, 6 a printing that lost or flattened its choices). That is why its RR 2 shows two questions and RR 1 and RR 3 don't appear at all. The only BUMS questions in neither set are the "BUMS Special" joke rounds (policy 8). **Done**: the BUMS 2026 set is retired and its 30 questions alias to their Bay Ultimate copies.
 - **CSBL Rounds 7–10** read as entirely missing only because those PDFs' text layer drops the letters t, r, s, u, v and w; the bank has all four rounds.
 - **Science Bowl Subject Sets 1991–93** and the six DOE subject files in the **CSUN** folder: the documented leave-outs (dated facts, place names, prize and spaceflight trivia, wrong keys) plus PDF damage.
 - **NOSB**: mostly Marine Policy, Social Sciences and geography questions (policies 6 and 7).
@@ -25,6 +25,8 @@ Every set's source link (the set's own folder or document, and every packet link
 - **Mira Loma Question Database** (305 not found, of about 15,300 in its GitHub files): its files include drafts, unparsed copies and e-mail archives, and the November school-team passes removed 475 questions across Mira Loma, Stuyvesant, Tycho and Evan Zhong (wrong keys, no right choice, missing figures, dated facts). The rest weren't gone through one by one here.
 
 ## Not found and not explained by the policy (100, Mira Loma aside)
+
+**Resolved (November 14, 2026)**: 25 of these were in the bank after all, 50 were added and 25 stay out under the policy; each is listed in [Source-link audit](../data-history.md#source-link-audit-november-2026).
 
 NSB Regionals 2002 Set B's leave-outs (argon's compounds, the 20 nm chip, USB and MMDS speeds, groundwater, "currently" nuclear producers) are documented and aren't repeated here; Texas 2026's yo-yo is one of its documented drops.
 

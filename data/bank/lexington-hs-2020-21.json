@@ -227,6 +227,7 @@
 {"i":55639,"s":"bio","f":"SA","qt":"bonus","n":25,"q":"Order the following steps in production of the receptor potential from first to occur to last to occur: I. Transducin activates the enzyme phosphodiesterase II. Na+ channels close when the cGMP detaches III. cis-retinal converted to trans-retinal, and rhodopsin is activated","a":{"t":"III, I, II"},"pg":13}]},
 {"rl":"Round 5","r":5,"u":"https://drive.google.com/file/d/1W6_-JxsUG7jejohPsowUwM1By8P4xXxI/view","q":[
 {"i":71469,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Over the last couple of years, the EPA has published articles warning consumers about what radioactive element that can have higher concentrations in granite?","a":{"t":"Uranium","l":"Y"},"c":{"W":"Potassium","X":"Thorium","Y":"Uranium","Z":"Plutonium"}},
+{"i":118106,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"List the following supercontinents from oldest to newest: I) Laurentia; II) Laurasia; III) Gondwana.","a":{"t":"I, III, II","ac":["1, 3, 2"]}},
 {"i":71470,"s":"math","f":"SA","qt":"tossup","n":4,"q":"In △ABC, AB = 3, BC, = 4, and AC = 5. Find the inradius of this triangle.","a":{"t":"1"}},
 {"i":71471,"s":"bio","f":"MC","qt":"tossup","n":5,"q":"Which of the following would NOT be classified as being diploblastic?","a":{"t":"Molluscs","l":"X"},"c":{"W":"Jellyfish","X":"Molluscs","Y":"Corals","Z":"Sea Anemone"}},
 {"i":71472,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"Tim launches a piece of galena from his cannon. At what angle should he angle the cannon so that the galena goes the furthest?","a":{"t":"45"}},
@@ -783,7 +784,8 @@
 {"rl":"Round 10","r":10,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2010.pdf","q":[
 {"i":86001,"s":"ess","f":"SA","qt":"tossup","n":21,"q":"What is the most common type of lava formation on/near a seamount?","a":{"t":"Pillow Lavas"},"pg":9}]},
 {"rl":"Round 11","r":11,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2011.pdf","q":[
-{"i":86002,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"What is the van’t hoff factor of the dimerization of benzoic acid in benzene solution?","a":{"t":"1/2"},"pg":2}]},
+{"i":86002,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"What is the van’t hoff factor of the dimerization of benzoic acid in benzene solution?","a":{"t":"1/2"},"pg":2},
+{"i":118103,"s":"math","f":"SA","qt":"tossup","n":21,"q":"Evaluate (2 + 3i)/(3 + 2i).","a":{"t":"12/13 + (5/13)i","ac":["(12 + 5i)/13"]}}]},
 {"rl":"Round 13","r":13,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2013.pdf","q":[
 {"i":86003,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"Calculate the formal charge of nitrogen in the nitrate ion.","a":{"t":"+1"},"pg":2},
 {"i":86004,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"By name or by number, identify all of the following statements about Vitamin D that are true: 1. Calcitriol is the active form of Vitamin D that aids in the uptake of calcium within the kidney and gut 2. Cholecalciferol and Ergocalciferol are Vitamins D2 and D3 respectively 3. Calcitonin inhibits the activity of osteoblasts within the bone in order to lower calcium levels in the plasma","a":{"t":"1 only"},"pg":10}]},
@@ -792,6 +794,7 @@
 {"rl":"Round 15","r":15,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2015.pdf","q":[
 {"i":86006,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"What is the baryon number of a deuterium nucleus?","a":{"t":"+2"},"pg":3},
 {"i":86007,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"How many degrees of freedom does a molecule of HCl have?","a":{"t":"6"},"pg":3},
+{"i":118104,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Differentiate y = x^(1/n) with respect to x.","a":{"t":"(1/n)x^((1 − n)/n)","ac":["(1/n)x^(1/n − 1)"]}},
 {"i":86008,"s":"math","f":"MC","qt":"tossup","n":24,"q":"In how many ways can a hexagon be triangulated?","a":{"t":"14","l":"Z"},"c":{"W":"5","X":"6","Y":"9","Z":"14"},"pg":12}]},
 {"rl":"Round 16","r":16,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2016.pdf","q":[
 {"i":86009,"s":"math","f":"SA","qt":"tossup","n":7,"q":"How many ways are there to arrange a deck of 4 red and 4 black cards in one pile if the cards must alternate colors?","a":{"t":"1152"},"pg":4},
@@ -802,14 +805,16 @@
 {"i":86013,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"When the natural log of the equilibrium constant is graphed against 1/T for a certain reaction, the graph is linear with a positive slope and positive y-intercept. Which of the following can be concluded from the graph?","a":{"t":"The reaction is always spontaneous","l":"W"},"c":{"W":"The reaction is always spontaneous","X":"The reaction is never spontaneous","Y":"The reaction is spontaneous at high temperatures","Z":"The reaction is spontaneous at low temperatures"},"pg":7},
 {"i":86014,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"By name or number, identify the period for each of the following epochs: I. Oligocene; II. Pennsylvanian; III. Lopingian.","a":{"t":"I. PALEOGENE; II. CARBONIFEROUS; III. PERMIAN"},"pg":8}]},
 {"rl":"Round 4","r":4,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%204.pdf","q":[
-{"i":86015,"s":"math","f":"MC","qt":"tossup","n":3,"q":"The graphs of y = 2^x and y = x^2 intersect each other at how many points?","a":{"t":"3","l":"Z"},"c":{"W":"0","X":"1","Y":"2","Z":"3"},"pg":5}]},
+{"i":86015,"s":"math","f":"MC","qt":"tossup","n":3,"q":"The graphs of y = 2^x and y = x^2 intersect each other at how many points?","a":{"t":"3","l":"Z"},"c":{"W":"0","X":"1","Y":"2","Z":"3"},"pg":5},
+{"i":118105,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"Choose all of the following that are NOT correct about catecholamines. I. They increase heart rate and stroke volume. II. They dilate the bronchioles in the lungs. III. They shunt blood towards the skin, digestive organs, and kidneys.","a":{"t":"III","ac":["3"]}}]},
 {"rl":"Round 5","r":5,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%205.pdf","q":[
 {"i":86016,"s":"math","f":"MC","qt":"tossup","n":19,"q":"Find the numerical value of k for which 6/(x+y)=k/(x+z)=10/(z-y) for all x, y, and z such that the denominators of the fractions are nonzero.","a":{"t":"16","l":"Y"},"c":{"W":"10","X":"12","Y":"16","Z":"24"},"pg":10}]},
 {"rl":"Round 7","r":7,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%207.pdf","q":[
 {"i":86017,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"Known as an extension of the corona, what is the name of the highly ionized gas emitted from the sun that permeate the solar system, and is a primary method of the Sun’s mass loss?","a":{"t":"Solar Wind"},"pg":2},
 {"i":86018,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Bobby is flipping a coin and stops when he gets 2 consecutive heads or tails. What is the probability that his first coin flip and his last coin flip have the same result?","a":{"t":"2/3"},"pg":3}]},
 {"rl":"Round 8","r":8,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%208.pdf","q":[
-{"i":86019,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Which of Kepler’s Laws describes a planet’s orbit as an ellipse with the sun at one focus?","a":{"t":"KEPLER’S FIRST LAW"},"pg":2}]},
+{"i":86019,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Which of Kepler’s Laws describes a planet’s orbit as an ellipse with the sun at one focus?","a":{"t":"KEPLER’S FIRST LAW"},"pg":2},
+{"i":118107,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"How many constellations are officially recognized?","c":{"W":"77","X":"88","Y":"99","Z":"101"},"a":{"t":"88","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%209.pdf","q":[
 {"i":86020,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What is the molecular formula of sulfur dioxide?","a":{"t":"SO2"},"pg":1},
 {"i":86021,"s":"math","f":"SA","qt":"tossup","n":17,"q":"How many distinct ways are there to arrange the letters of the word “energy”?","a":{"t":"360"},"pg":7},
