@@ -17,6 +17,8 @@
       .replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f])
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // "50 percent" is "50%" (the % sign is dropped as punctuation below)
+      .replace(/(\d)\s*PER\s?CENT\b/g, '$1 ')
       // "24pi", "2pi/3": pi written straight after its number, as "24π" is
       .replace(/(\d)PI(?![A-Z])/g, '$1 PI')
       // a times sign typed as the letter x between numbers: "67 x 101", "2x2x3"
@@ -1185,6 +1187,8 @@
     const segNums = wordCut ? null : extractPureNumbers(seg);
     for (const alt of alts) {
       if (normEqual(seg, alt) || compactEqual(seg, alt)) return 'exact';
+      // a part that is math, written another way ("sqrt5" for "√5")
+      if (!wordCut && /[\^√∛π*/()]|\b(?:pi|sqrt|cbrt)\b/i.test(seg + ' ' + alt) && mathEquivalent(seg, alt, '')) return 'exact';
       // a bare number for a part keyed as that number and a unit ("3.2 *
       // 10^23" for "3.2 × 10^23 J"), as for a single answer
       // (never against a part still carrying its label: "1" isn't "1) HALITE")
@@ -2277,6 +2281,288 @@
     // can claim it with "I was right".
     return { correct: false, matched: null, rejected: false, close: true, chargeMissing: true };
   }
+  // ---- The same answer written another way ----
+  // Run after every other check has failed, on short answers only.
+
+  // Math that's equal in value: "pi^2/6" or "pi*pi/6" for "π^2/6", "sqrt3/2"
+  // for "√3/2", "e^7 sqrt(pi)" for "e^7 √π", "1.4x - 5.2" for "(7/5)x −
+  // 26/5", "(12+5i)/13" for "12/13 + (5/13)i", "I/(pt)" for "r = I/(pt)".
+  // Both sides are evaluated at the same random points (i and every letter
+  // a variable, π and e constants) and must agree everywhere, including
+  // where neither is defined. Guards, so equal value isn't enough to pass:
+  //  - the typed answer may not use more numbers and letters than the key,
+  //    so working the question out ("692 - 312" for 380, "(x+1)^2" for
+  //    x^2 + 2x + 1) never passes for its result;
+  //  - a question that asks for a form (expand, factor, simplify, simplest,
+  //    lowest terms, rationalize, complete the square) is left to the
+  //    form-by-form checks above;
+  //  - plain numbers, and expressions of plain numbers with nothing
+  //    irrational in them, are left to the existing rules (unreduced
+  //    fractions and dropped significant figures stay wrong);
+  //  - a fraction of two whole numbers must be in lowest terms.
+  const SUPERSCRIPTS = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+' };
+  function mathText(raw) {
+    return String(raw == null ? '' : raw)
+      .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (m) => '^(' + [...m].map((c) => SUPERSCRIPTS[c]).join('') + ')')
+      .replace(/\*\*/g, '^')
+      .replace(/[πΠ]/g, ' pi ')
+      // "2pir^2", "pie^4": pi written straight before a variable
+      .replace(/(^|[^A-Za-z])pi(?=[a-z])/gi, '$1pi ')
+      // "sqrt3", "sqrt 3", "sqrt(3)", "cbrt 2": a radical sign
+      .replace(/\bsqrt\b\s*|sqrt(?=[\d(])/gi, '√').replace(/\bcbrt\b\s*|cbrt(?=[\d(])/gi, '∛')
+      .replace(/\binfinity\b/gi, '∞')
+      // a letter with a number stuck to it is a subscripted symbol: "ε0",
+      // "μ0", "H0", "v1" (not ε·0)
+      .replace(/(^|[^A-Za-z_^])([A-Za-zα-ωΑ-Ω])(\d+)(?![A-Za-z0-9.])/g, (m, pre, l, d) => (/\d$/.test(pre) && /e/i.test(l) ? m : pre + l + '_' + d));
+  }
+  const FORM_ASKED_RE = /\b(?:expand|expanded|factor|factored|factorization|factorise|factorize|simplif\w*|simplest|lowest terms|rationaliz\w*|complete the square|distribute|multiply out|combine like)\b/i;
+  const EVAL_CONSTANTS = { PI: Math.PI, E: Math.E };
+  // Each letter of a run of letters is its own variable ("PT" is p·t),
+  // except names (Greek letters, hbar) and subscripted symbols.
+  function exprVars(sides) {
+    const vars = new Set();
+    const walk = (n) => {
+      if (!n) return;
+      if (n.t === 'leaf') {
+        if (/^\d/.test(n.v) || n.v in EVAL_CONSTANTS) return;
+        if (EXPR_NAMES.has(n.v) || n.v.includes('_')) vars.add(n.v);
+        else [...n.v].forEach((c) => vars.add(c));
+      } else { walk(n.a); walk(n.b); walk(n.x); }
+    };
+    sides.forEach(walk);
+    return vars;
+  }
+  function leafCount(n) {
+    if (!n) return 0;
+    if (n.t === 'leaf') return /^\d/.test(n.v) || n.v in EVAL_CONSTANTS || EXPR_NAMES.has(n.v) || n.v.includes('_') ? 1 : n.v.length;
+    return leafCount(n.a) + leafCount(n.b) + leafCount(n.x);
+  }
+  function hasIrrational(n) {
+    if (!n) return false;
+    if (n.t === 'leaf') return !/^\d/.test(n.v);
+    if (n.t === 'fn') return true;
+    if (n.t === 'pow') {
+      // a whole-number power (10^-14, x^3) is still rational
+      const e = n.b && n.b.t === 'neg' ? n.b.x : n.b;
+      if (!e || e.t !== 'leaf' || !/^\d+$/.test(e.v)) return true;
+      return hasIrrational(n.a);
+    }
+    return hasIrrational(n.a) || hasIrrational(n.b) || hasIrrational(n.x);
+  }
+  function unreducedFraction(n) {
+    if (!n) return false;
+    if (n.t === 'div' && n.a.t === 'leaf' && n.b.t === 'leaf' && /^\d+$/.test(n.a.v) && /^\d+$/.test(n.b.v)) {
+      return gcd(BigInt(n.a.v), BigInt(n.b.v)) !== 1n;
+    }
+    return unreducedFraction(n.a) || unreducedFraction(n.b) || unreducedFraction(n.x);
+  }
+  const FN_EVAL = {
+    SIN: Math.sin, COS: Math.cos, TAN: Math.tan, SEC: (x) => 1 / Math.cos(x), CSC: (x) => 1 / Math.sin(x), COT: (x) => 1 / Math.tan(x),
+    ARCSIN: Math.asin, ARCCOS: Math.acos, ARCTAN: Math.atan, SINH: Math.sinh, COSH: Math.cosh, TANH: Math.tanh,
+    LN: Math.log, LOG: Math.log10, EXP: Math.exp, SQRT: Math.sqrt, CBRT: Math.cbrt, ABS: Math.abs,
+  };
+  function evalNode(n, env) {
+    switch (n.t) {
+      case 'leaf': {
+        if (/^\d/.test(n.v)) return parseFloat(n.v);
+        if (n.v in EVAL_CONSTANTS) return EVAL_CONSTANTS[n.v];
+        if (EXPR_NAMES.has(n.v) || n.v.includes('_')) return env[n.v];
+        return [...n.v].reduce((acc, c) => acc * env[c], 1);
+      }
+      case 'add': return evalNode(n.a, env) + evalNode(n.b, env);
+      case 'sub': return evalNode(n.a, env) - evalNode(n.b, env);
+      case 'mul': return evalNode(n.a, env) * evalNode(n.b, env);
+      case 'div': return evalNode(n.a, env) / evalNode(n.b, env);
+      case 'neg': return -evalNode(n.x, env);
+      case 'pow': return Math.pow(evalNode(n.a, env), evalNode(n.b, env));
+      case 'fn': return FN_EVAL[n.name] ? FN_EVAL[n.name](evalNode(n.x, env)) : NaN;
+      default: return NaN;
+    }
+  }
+  // A seeded generator, so a grade never changes from one try to the next.
+  function seededRandom(seed) {
+    let x = seed >>> 0 || 1;
+    return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; };
+  }
+  // f and g (functions of env) agree wherever either is defined; with
+  // `ratio`, g is a nonzero constant multiple of f (two equations).
+  function sameValues(f, g, vars, ratio) {
+    const rnd = seededRandom(0x5eed);
+    let compared = 0, k = null, nonzero = false;
+    for (let t = 0; t < 24; t++) {
+      const env = {};
+      vars.forEach((v) => { let x; do { x = (rnd() * 6 - 3); } while (Math.abs(x) < 0.3); env[v] = x; });
+      const a = f(env), b = g(env);
+      const okA = Number.isFinite(a), okB = Number.isFinite(b);
+      if (okA !== okB) return false;
+      if (!okA) continue;
+      const tol = 1e-9 * Math.max(Math.abs(a), Math.abs(b));
+      if (ratio) {
+        if (Math.abs(a) < 1e-12 && Math.abs(b) < 1e-12) continue;
+        if (Math.abs(a) < 1e-12 || Math.abs(b) < 1e-12) return false;
+        const r = b / a;
+        if (k === null) k = r;
+        else if (Math.abs(r - k) > 1e-9 * Math.max(1, Math.abs(k))) return false;
+      } else if (Math.abs(a - b) > tol) return false;
+      if (Math.abs(a) > 1e-12 || Math.abs(b) > 1e-12) nonzero = true;
+      compared++;
+    }
+    // (two things that are 0 everywhere, "0 m/s" and "0 m*s", aren't shown equal)
+    return compared >= 4 && nonzero;
+  }
+  function sameSet(a, b) { return a.size === b.size && [...a].every((x) => b.has(x)); }
+  // "y = expr" or "f(x) = expr" with a lone letter (or call) on the left:
+  // the expression it names.
+  function namedValue(sides) {
+    if (sides.length !== 2) return null;
+    const [l, r] = sides;
+    if (l.t === 'leaf' && /^[A-Z]$/.test(l.v)) return { name: l.v, expr: r };
+    return null;
+  }
+  function mathEquivalent(typed, key, questionText) {
+    // the same expression in other notation ("sqrt(42)/3" for "√42/3"),
+    // which is fine even when a form is asked for
+    // (not numbers alone: "3 1 2" is a ranking, "1.0" not "1")
+    if (/^[\s\d.,;:+\-−–]*$/.test(typed) || /^[\s\d.,;:+\-−–]*$/.test(key)) {
+      const named = String(key).match(/^\s*[A-Za-z]\s*=\s*([^=]+)$/);
+      return !!(named && pureNumber(named[1]) && pureNumber(typed) && normEqual(typed, named[1]));
+    }
+    const ct = parseExpression(mathText(typed)), ck = parseExpression(mathText(key));
+    if (ct && ck && (ct.length > 1 || ct[0].t !== 'leaf') && ct.length === ck.length && canonExpression(ct) === canonExpression(ck)) return true;
+    if (FORM_ASKED_RE.test(questionText || '')) return false;
+    // a long decimal is an approximation ("e^7*1.7724538509" for "e^7 √π")
+    if ((String(typed).match(/\d*\.\d+/g) || []).some((d) => d.replace(/^0*\.?0*/, '').replace('.', '').length > 6)) return false;
+    // "4" for "y = 4", "x = -2"
+    const named = String(key).match(/^\s*[A-Za-z]\s*=\s*([^=]+)$/);
+    if (named && pureNumber(named[1]) && pureNumber(typed)) return normEqual(typed, named[1]);
+    if (pureNumber(typed) || pureNumber(key)) return false;
+    const ta = parseExpression(mathText(typed)), kb = parseExpression(mathText(key));
+    if (!ta || !kb) return false;
+    let tExpr, kExpr;
+    if (ta.length === 1 && kb.length === 1) { tExpr = ta[0]; kExpr = kb[0]; }
+    else if (ta.length === 2 && kb.length === 2) {
+      // Two equations: the same relation, sides in any order, scaled or moved.
+      const nt = namedValue(ta), nk = namedValue(kb);
+      if (nt && nk && nt.name === nk.name) { tExpr = nt.expr; kExpr = nk.expr; }
+      else {
+        const diff = (s) => ({ t: 'sub', a: s[0], b: s[1] });
+        const vt = exprVars(ta), vk = exprVars(kb);
+        const sideLeaves = (sd) => sd.reduce((acc, x) => acc + (x.t === 'leaf' && x.v === '0' ? 0 : leafCount(x)), 0);
+        if (!sameSet(vt, vk) || sideLeaves(ta) > sideLeaves(kb) || unreducedFraction(diff(ta))) return false;
+        return sameValues((env) => evalNode(diff(kb), env), (env) => evalNode(diff(ta), env), vk, true);
+      }
+    } else {
+      // "I/(pt)" for "r = I/(pt)", and the other way round
+      const nt = ta.length === 2 ? namedValue(ta) : null, nk = kb.length === 2 ? namedValue(kb) : null;
+      if (nk && ta.length === 1) { tExpr = ta[0]; kExpr = nk.expr; }
+      else if (nt && kb.length === 1) { tExpr = nt.expr; kExpr = kb[0]; }
+      else return false;
+    }
+    if (tExpr.t === 'leaf' && kExpr.t === 'leaf') return false;
+    const vt = exprVars([tExpr]), vk = exprVars([kExpr]);
+    if (!sameSet(vt, vk)) return false;
+    if (!vk.size && !hasIrrational(kExpr)) return false;
+    if (leafCount(tExpr) > leafCount(kExpr) || unreducedFraction(tExpr)) return false;
+    return sameValues((env) => evalNode(kExpr, env), (env) => evalNode(tExpr, env), vk, false);
+  }
+
+  // A vector or point with its parts in any brackets, or none: "(1/9, 4/9,
+  // 8/9)" or "1/9, 4/9, 8/9" for "[1/9, 4/9, 8/9]". Only when the question
+  // is about a vector, point or coordinates; an interval's brackets are its
+  // answer (see bracketConflict).
+  const TUPLE_QUESTION_RE = /\b(?:vectors?|points?|coordinates?|ordered (?:pair|triple)|tuple)\b/i;
+  const INTERVAL_QUESTION_RE = /\b(?:intervals?|range|domain|interval notation)\b/i;
+  function tupleParts(raw) {
+    let s = String(raw == null ? '' : raw).trim();
+    const m = s.match(/^([([<⟨])(.*)([)\]>⟩])$/s);
+    const open = m ? m[1] : '', close = m ? m[3] : '';
+    if (m) s = m[2];
+    const parts = [];
+    let depth = 0, cur = '';
+    for (const ch of s) {
+      if ('([{'.includes(ch)) depth++;
+      else if (')]}'.includes(ch)) depth--;
+      if (ch === ',' && depth === 0) { parts.push(cur.trim()); cur = ''; continue; }
+      cur += ch;
+    }
+    parts.push(cur.trim());
+    return parts.length >= 2 && parts.every(Boolean) ? { open, close, parts } : null;
+  }
+  function sameTuple(typed, key, questionText) {
+    if (!TUPLE_QUESTION_RE.test(questionText || '') || INTERVAL_QUESTION_RE.test(questionText || '')) return false;
+    const t = tupleParts(typed), k = tupleParts(key);
+    if (!t || !k || !k.open || t.parts.length !== k.parts.length) return false;
+    // a stray bracket ("<-1, 2, -2" or ">-1,2,-2>") isn't a vector typed another way
+    if (!t.open && /^[([<⟨)\]>⟩]|[([<⟨)\]>⟩]$/.test(String(typed).trim())) return false;
+    return k.parts.every((kp, i) => normEqual(t.parts[i], kp) || compactEqual(t.parts[i], kp) || mathEquivalent(t.parts[i], kp, ''));
+  }
+  // An interval typed with other brackets is another interval: "(−π/2,
+  // π/2)" is not "[−π/2, π/2]".
+  function bracketConflict(typed, key, questionText) {
+    if (!INTERVAL_QUESTION_RE.test(questionText || '')) return false;
+    const t = tupleParts(typed), k = tupleParts(key);
+    return !!(t && k && k.open && k.parts.length === 2 && t.parts.length === 2 && (t.open !== k.open || t.close !== k.close));
+  }
+
+  // A key that numbers its answers ("1 VENUS, 2 MARS, 3 MERCURY", "I)
+  // ADENINE; II) GUANINE") answered in that order without the numbers:
+  // "venus, mars, mercury".
+  const LABEL_RE = /^\s*\(?((?:IX|IV|V?I{1,3}|V)|[1-9])\s*[).:\-–]?\s+(?=\S)/i;
+  function labelledKeySpec(key) {
+    const items = answerParts(key) || listItems(key);
+    if (!items || items.length < 2) return null;
+    const stripped = [];
+    for (let i = 0; i < items.length; i++) {
+      const m = items[i].match(LABEL_RE);
+      if (!m) return null;
+      const lab = m[1].toUpperCase();
+      const n = /^\d$/.test(lab) ? +lab : ROMAN_VALUE[lab];
+      if (n !== i + 1) return null;
+      stripped.push(items[i].slice(m[0].length).trim());
+    }
+    if (stripped.some((x) => !/[A-Z]/i.test(x))) return null;
+    return { n: stripped.length, alts: stripped.map(partVariants), floating: [], ordered: true, noSlash: true };
+  }
+
+  // A key that is only roman item numerals ("I, III, II", "II ONLY", "I
+  // AND III") read with digits, and the typed answer too, for a question
+  // whose items aren't marked in a way the list checks find.
+  const ROMAN_LIST_RE = /^\s*(?:(?:IX|IV|V?I{1,3}|V)\b[\s,;&]*(?:\b(?:AND|ONLY|OR|THEN)\b[\s,;&]*)?)+$/i;
+  function romanListDigits(s) {
+    return String(s).replace(/\b(IX|IV|V?I{1,3}|V)\b/gi, (m) => String(ROMAN_VALUE[m.toUpperCase()]));
+  }
+  function sameRomanList(typed, key, questionText) {
+    // and the other way round: "I, III, II" for a key of "1, 3, 2"
+    if (/^\s*\d\s*(?:(?:[,;&]|\b(?:AND|THEN)\b)\s*\d\s*)+$/i.test(key) && ROMAN_LIST_RE.test(typed)) {
+      return sameRomanList(key, typed, questionText);
+    }
+    if (!ROMAN_LIST_RE.test(key)) return false;
+    // a lone "I" may be iodine, the imaginary unit or a pronoun: only when
+    // the question numbers its items with roman numerals
+    if ((key.match(/\b(?:IX|IV|V?I{1,3}|V)\b/gi) || []).length < 2 && !/\bII\b/.test(questionText || '')) return false;
+    const t = /^[\s\dIVXivx,;&]*(?:\b(?:and|only|or|then)\b[\s\dIVXivx,;&]*)*$/i.test(typed) ? romanListDigits(typed) : null;
+    if (!t) return false;
+    const k = romanListDigits(key);
+    const bare = (x) => normalize(String(x).replace(/\bONLY\b/gi, ' ').replace(/\b(?:AND|THEN)\b|[,;&]/gi, ' '));
+    return bare(t) === bare(k);
+  }
+
+  function sameAnswerOtherForm(question, userInput) {
+    const a = question.answer;
+    const typed = String(userInput || '').trim();
+    if (!typed) return false;
+    // (a lone accept for one part of a multi-part key is not a whole answer)
+    const multiKey = !!answerParts(a.text);
+    const keys = [a.text, ...(a.accept || []).filter((x) => !multiKey || !isPartFragment(x))].filter(Boolean);
+    const rejects = (a.reject || []).filter(Boolean);
+    const q = question.question || '';
+    const hit = (k) => mathEquivalent(typed, k, q) || sameTuple(typed, k, q) || sameRomanList(typed, k, q)
+      || (() => { const spec = labelledKeySpec(k); return !!spec && checkMultiPart(typed, spec) === 'exact'; })();
+    if (!keys.some(hit)) return false;
+    // a "do not accept" form said another way is still not accepted
+    return !rejects.some((r) => normEqual(typed, r) || mathEquivalent(typed, r, ''));
+  }
+
   function checkAnswer(question, userInput) {
     if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
       const a = question.answer;
@@ -2288,7 +2574,21 @@
       question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
       userInput = slashFractions(userInput);
     }
-    const result = checkWithAskedUnits(question, userInput, checkAnswerInner(question, userInput));
+    // superscript digits typed straight ("18⁹", "x²") and "**" are exponents
+    if (/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]|\*\*/.test(String(userInput || ''))) {
+      userInput = String(userInput).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (m) => '^(' + [...m].map((c) => SUPERSCRIPTS[c]).join('') + ')').replace(/\*\*/g, '^');
+    }
+    let result = checkWithAskedUnits(question, userInput, checkAnswerInner(question, userInput));
+    if (question && question.answer && question.format !== 'MC') {
+      const keys = [question.answer.text, ...(question.answer.accept || [])].filter(Boolean);
+      if (result.correct && keys.some((k) => tupleParts(k)) && keys.every((k) => bracketConflict(userInput, k, question.question))) {
+        return { correct: false, matched: null, rejected: false };
+      }
+      // (equal by value or form, so the symbol checks below don't apply)
+      if (!result.correct && !result.rejected && sameAnswerOtherForm(question, userInput)) {
+        return { correct: true, matched: 'lenient', rejected: false };
+      }
+    }
     if (!result.correct || !question.answer || question.format === 'MC') return result;
     // Only the forms that write symbols count: "NITRATE AND SODIUM" says
     // nothing about "NO3^(+)".

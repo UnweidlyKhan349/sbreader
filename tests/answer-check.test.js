@@ -760,3 +760,52 @@ test('a charge left out is wrong unless the question makes it plain or says it i
   assert.ok(isCorrect('OH^-', 'OH-', { question: 'Q?' }));
   assert.ok(isCorrect('Fe^(2+)', 'Fe2+', { question: 'Q?' }));
 });
+
+test('the same math typed another way passes: pi, sqrt, **, superscripts, implicit products, equation forms', () => {
+  for (const [key, typed, q] of [
+    ['π^2/6', 'pi^2/6'], ['π^2/6', 'pi²/6'], ['π^2/6', '(pi^2)/6'], ['π^2/6', 'pi*pi/6'],
+    ['e^7 √π', 'sqrt(pi)e^7'], ['e^7 √π', 'e^7 sqrt(pi)'], ['√3/2', '(sqrt 3)/2'], ['√3/2', 'sqrt3/2'],
+    ['x^2', 'x**2'], ['18^9', '18⁹'], ['5 × 10^14', '5 × 10**14'], ['(1/3)πr^2h', '(1/3)pir^2h'],
+    ['y = (7/5)x − 26/5', 'y=1.4x-5.2'], ['y = (7/5)x − 26/5', 'y = 7x/5 - 26/5'], ['y = 2x + 3', '2x+3'], ['y = 2x + 3', '2x - y + 3 = 0'],
+    ['r = I/(pt)', 'I/pt'], ['12/13 + (5/13)i', '(12+5i)/13'], ['12/13 + (5/13)i', '12/13+5i/13'],
+    ['(1/n)x^((1 − n)/n)', 'x^(1/n)/(n x)'], ['x = -2', '-2'], ['16ε0', '16 epsilon0'], ['2/ε0', '2/epsilon_0'],
+    ['√42/3', 'sqrt(42)/3', 'Give your answer in simplest radical form.'],
+    ['50%', '50 percent'],
+  ]) assert.ok(isCorrect(key, typed, { question: q || 'Q?' }), `${typed} for ${key}`);
+});
+
+test('equal value is not enough when the typed answer works the question out, changes a form or approximates', () => {
+  for (const [key, typed, q] of [
+    ['380', '692-312', 'Evaluate 692 - 312.'],
+    ['14', '(1+sqrt2)^3+(1-sqrt2)^3', 'Evaluate (1+√2)^3+(1−√2)^3.'],
+    ['x^2 + 4x + 4', '(x+2)^2', 'Expand (x + 2)^2.'],
+    ['(x − 2)(x + 2)', 'x^2-4', 'Factor x^2 − 4.'],
+    ['5√2', '√50', 'Simplify √50.'],
+    ['√3', 'tan(pi/3)', 'What is the exact value of tan(π/3)?'],
+    ['3/28', '15/140', 'Multiply.'], ['380', '380.0', 'Q?'],
+    ['e^7 √π', 'e^7*1.7724538509', 'Q?'],
+    ['16ε0', '26ε0', 'Q?'], ['1.0 × 10^-14', '2.0 × 10^-14', 'Q?'], ['300 μ0', '400 μ0', 'Q?'],
+    ['1', '1.0', 'Q?'], ['i', '1 only', 'What is the sum of i^(5k)?'],
+    ['x^2 + C', 'x^2', 'Integrate 2x.'],
+  ]) assert.ok(!isCorrect(key, typed, { question: q }), `${typed} for ${key}`);
+});
+
+test('an interval keeps its brackets; a vector or point may use any', () => {
+  assert.ok(!isCorrect('[-π/2, π/2]', '(-pi/2, pi/2)', { question: 'What is the range of arcsin x?' }));
+  assert.ok(isCorrect('[-π/2, π/2]', '[-pi/2, pi/2]', { question: 'What is the range of arcsin x?' }));
+  for (const typed of ['(1/9, 4/9, 8/9)', '<1/9, 4/9, 8/9>', '1/9, 4/9, 8/9']) {
+    assert.ok(isCorrect('[1/9, 4/9, 8/9]', typed, { question: 'What is the normalized vector of [1, 4, 8]?' }), typed);
+  }
+});
+
+test('roman and arabic item numbers, and a numbered key answered in order without its numbers', () => {
+  const q3 = 'Which of the following are true? I. a II. b III. c';
+  for (const [key, typed] of [['I AND III', '1 and 3'], ['III', '3'], ['II ONLY', '2 only'], ['I, III, II', '1, 3, 2'], ['1, 3', 'I, III']]) {
+    assert.ok(isCorrect(key, typed, { question: q3 }), `${typed} for ${key}`);
+  }
+  const q = 'Match each of the following features with their respective planets: 1) Gula Mons; 2) Valles Marineris; 3) Caloris Basin.';
+  for (const typed of ['venus, mars, mercury', 'venus mars mercury', '1 venus 2 mars 3 mercury']) {
+    assert.ok(isCorrect('1 VENUS, 2 MARS, 3 MERCURY', typed, { question: q }), typed);
+  }
+  assert.ok(!isCorrect('1 VENUS, 2 MARS, 3 MERCURY', 'mars, venus, mercury', { question: q }));
+});
