@@ -40,11 +40,11 @@
   // A database function, called over REST: resolves { data, error }, where
   // error.missing means the project hasn't got the function (it hasn't run
   // the latest supabase/schema.sql).
-  async function rpc(fn, args) {
+  async function rpc(fn, args, keepalive) {
     if (!enabled) return { data: null, error: { message: 'No project.' } };
     try {
       const res = await fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/rest/v1/rpc/${fn}`, {
-        method: 'POST',
+        method: 'POST', keepalive: !!keepalive,
         headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' },
         body: JSON.stringify(args || {}),
       });
@@ -65,23 +65,12 @@
     };
   }
 
-  // The last list this browser saw, so the lobby can show it at once while
-  // the current one is fetched (it's replaced within a moment).
-  const CACHE_KEY = 'sb_mp_rooms_cache';
-  const CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
-  function cachedList() {
-    try {
-      const c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (c && Array.isArray(c.rows) && Date.now() - c.at < CACHE_MAX_AGE_MS) return summarize(c.rows);
-    } catch (e) { /* none */ }
-    return null;
-  }
-
   // Every public room with its player and online counts, and the totals.
-  // One request per page: later calls share it.
+  // Calls share the page's request; { fresh: true } asks again (the lobby
+  // does, to keep its counts current).
   let listPromise = null;
-  function list() {
-    if (!listPromise) listPromise = fetchList();
+  function list(opts) {
+    if (!listPromise || (opts && opts.fresh)) listPromise = fetchList();
     return listPromise;
   }
   async function fetchList() {
@@ -89,7 +78,6 @@
     const { data, error } = await rpc('mp_list');
     if (!error) {
       const rows = (data || []).map((r) => ({ ...r, players: r.players | 0, online: r.online | 0 }));
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), rows })); } catch (e) { /* not kept */ }
       return summarize(rows);
     }
     if (!error.missing) return null;
@@ -206,5 +194,14 @@
     if (r2.error) await c.from('mp_players').upsert(row, { onConflict: 'room,pid' });
   }
 
-  window.SBRooms = { enabled, list, cachedList, roster, roomInfo, saveRoom, heartbeat, key, ONLINE_MS };
+  // This player has left the room (closed the tab, went back to the
+  // lobby): they stop counting as online now, not 90 seconds after their
+  // last heartbeat. keepalive lets it finish while the page unloads. A
+  // project without mp_leave just waits out the 90 seconds.
+  function leave(roomKey, pid) {
+    if (!enabled || !roomKey || !pid) return Promise.resolve();
+    return rpc('mp_leave', { p_room: roomKey, p_pid: pid, p_secret: mySecret() }, true).then(() => {});
+  }
+
+  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, heartbeat, leave, key, ONLINE_MS };
 })();

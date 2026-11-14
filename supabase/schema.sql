@@ -108,6 +108,7 @@ alter table public.mp_players enable row level security;
 --   mp_heartbeat(..) adds or updates this browser's own row; the server
 --                    sets last_seen, and a room's "permanent" flag follows
 --                    its name (only the built-in pub-* rooms are)
+--   mp_leave(..)     marks this browser's own row offline (below)
 alter table public.mp_rooms add column if not exists owner_hash text;
 alter table public.mp_players add column if not exists secret_hash text;
 
@@ -255,6 +256,22 @@ revoke all on function public.mp_list(), public.mp_roster(text),
   public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
 grant execute on function public.mp_list(), public.mp_roster(text),
   public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
+
+-- Leaving (added November 2026): a player who closes the tab or goes back
+-- to the lobby stops counting as online at once, instead of for up to 90
+-- seconds after their last heartbeat, so the lobby's "N active players in
+-- M active rooms" is right. Their row (and score) stays, offline.
+create or replace function public.mp_leave(p_room text, p_pid text, p_secret text)
+returns void
+language sql security definer set search_path = public as $$
+  update mp_players
+  set last_seen = greatest(mp_last_restart(), now() - interval '90 seconds')
+  where room = p_room and pid = p_pid
+    and secret_hash = encode(sha256(convert_to(coalesce(p_secret, ''), 'UTF8')), 'hex')
+    and last_seen > now() - interval '90 seconds';
+$$;
+revoke all on function public.mp_leave(text, text, text) from public;
+grant execute on function public.mp_leave(text, text, text) to anon, authenticated;
 
 -- Room owners (added November 2026). A named room's owner is the browser
 -- that created it, as on QB Reader: it shows a crown, can mute and ban

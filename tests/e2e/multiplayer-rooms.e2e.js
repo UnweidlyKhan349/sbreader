@@ -327,3 +327,53 @@ test('whoever opens a room, and whoever joins it, sees their own "joined the gam
   await ctx.close();
 });
 
+
+test('the lobby\'s active player count stays right as players come and go', async () => {
+  // A room list in memory: heartbeats mark a player online, mp_leave marks
+  // them offline, mp_list counts. Everything else bound for Supabase is
+  // turned away, as in the other tests.
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const online = new Map(); // "room|pid" -> true while online
+  const leaves = [];
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const body = route.request().postDataJSON() || {};
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_heartbeat/.test(url)) { online.set(`${body.p_room}|${body.p_pid}`, true); return ok(true); }
+    if (/\/rpc\/mp_leave/.test(url)) { leaves.push(body); online.delete(`${body.p_room}|${body.p_pid}`); return ok(null); }
+    if (/\/rpc\/mp_room$/.test(url)) return ok(null);
+    if (/\/rpc\/mp_list/.test(url)) {
+      const rooms = new Map();
+      online.forEach((v, k) => { const name = k.split('|')[0]; rooms.set(name, (rooms.get(name) || 0) + 1); });
+      return ok([...rooms].map(([name, n]) => ({ name, is_public: true, is_permanent: false, players: n, online: n })));
+    }
+    return route.abort();
+  });
+  const summary = (p) => p.locator('#activeSummary').textContent();
+  const lobby = await openPage(ctx, `${server.url}multiplayer`);
+  await lobby.waitForFunction(() => /active rooms?\.$/.test(document.getElementById('activeSummary').textContent), null, { timeout: 10000 });
+  assert.strictEqual(await summary(lobby), 'There are 0 active players in 0 active rooms.');
+  // Someone comes in: the open lobby picks it up within its 15 seconds.
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  await lobby.waitForFunction(() => document.getElementById('activeSummary').textContent === 'There is 1 active player in 1 active room.', null, { timeout: 20000 });
+  // They close the tab: marked offline at once, and the lobby goes back to 0.
+  // (The test's fake list can't see a request sent as a page unloads, though
+  // browsers send it, so the page's goodbye is fired before it closes.)
+  await a.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide')));
+  for (let i = 0; i < 40 && !leaves.length; i++) await a.waitForTimeout(50);
+  await a.close();
+  await lobby.waitForFunction(() => document.getElementById('activeSummary').textContent === 'There are 0 active players in 0 active rooms.', null, { timeout: 20000 });
+  assert.strictEqual(leaves.length, 1);
+  assert.strictEqual(leaves[0].p_room, r);
+  // Back to the lobby from a room: the lobby that loads doesn't count them.
+  const b = await openPage(ctx, `${server.url}multiplayer`);
+  await b.locator('#permanentRoomList a').first().click();
+  await b.waitForFunction(() => document.querySelector('.mp-player-row.user-score'), null, { timeout: 40000 });
+  await lobby.waitForFunction(() => document.getElementById('activeSummary').textContent === 'There is 1 active player in 1 active room.', null, { timeout: 20000 });
+  await Promise.all([b.waitForEvent('load', { timeout: 15000 }), b.goBack()]);
+  await b.waitForFunction(() => /active rooms?\.$/.test(document.getElementById('activeSummary').textContent), null, { timeout: 10000 });
+  assert.strictEqual(await summary(b), 'There are 0 active players in 0 active rooms.');
+  assert.deepStrictEqual(lobby.errors, []);
+  await ctx.close();
+});

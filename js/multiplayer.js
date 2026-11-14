@@ -122,7 +122,13 @@
       goToRoom(a.href);
     }));
     // Back (or forward) from a room: the page as that address has it.
-    window.addEventListener('popstate', () => location.reload());
+    // From a room, this player is marked as gone from the room list first,
+    // so the lobby that loads doesn't count them as still playing.
+    window.addEventListener('popstate', () => {
+      if (!myState.role) { location.reload(); return; }
+      leaveRoomList();
+      within(leftRoomList || Promise.resolve(), 1500, null).then(() => location.reload());
+    });
     document.getElementById('emptyRoomCheckbox').addEventListener('change', (e) => {
       document.querySelectorAll('#roomList .empty-room').forEach((li) => li.classList.toggle('d-none', !e.target.checked));
       showNoRooms();
@@ -159,26 +165,48 @@
     none.classList.toggle('d-none', shown);
   }
 
-  // Filled once when the page opens (it doesn't refresh itself).
   // A promise that gives up after `ms` with `fallback`, so a slow room list
   // or roster never holds up the lobby or entering a room.
   function within(promise, ms, fallback) {
     return Promise.race([promise.catch(() => fallback), new Promise((r) => setTimeout(() => r(fallback), ms))]);
   }
 
-  // The last list this browser saw is drawn at once, then the current one
-  // (usually within half a second) replaces it.
-  async function renderRoomLists() {
-    const fresh = within(SBRooms.list(), 6000, null);
-    const cached = SBRooms.cachedList ? SBRooms.cachedList() : null;
-    paintRoomLists(cached, null);
-    const reg = await fresh;
-    let probe = null;
-    if (!reg) {
-      // No room list: count the built-in rooms by asking each one.
-      probe = await SBPeer.probeRooms(lobbyList.map((l) => l.peerId)).catch(() => new Map());
+  // The built-in rooms are drawn at once, without counts, then the current
+  // list (usually within half a second) fills in the counts and the named
+  // rooms. No list remembered from an earlier visit is shown: its counts
+  // would be out of date. While the lobby shows, the list is asked for again
+  // every 15 seconds and whenever the tab comes back into view, so "N active
+  // players in M active rooms" stays right.
+  const ROOM_LIST_REFRESH_MS = 15 * 1000;
+  let roomListTimer = null;
+  let roomListBusy = false;
+  function lobbyShowing() {
+    return !myState.role && !joining && document.getElementById('lobbyScreen').style.display !== 'none';
+  }
+  async function renderRoomLists(again) {
+    if (roomListBusy) return;
+    roomListBusy = true;
+    try {
+      if (!again) paintRoomLists(null, null);
+      const reg = await within(SBRooms.list({ fresh: !!again }), 6000, null);
+      let probe = null;
+      if (!reg) {
+        // No room list: count the built-in rooms by asking each one.
+        probe = await SBPeer.probeRooms(lobbyList.map((l) => l.peerId)).catch(() => new Map());
+      }
+      if (lobbyShowing()) paintRoomLists(reg, probe);
+    } finally {
+      roomListBusy = false;
     }
-    paintRoomLists(reg, probe);
+    if (!roomListTimer) {
+      roomListTimer = setInterval(() => {
+        if (lobbyShowing() && document.visibilityState === 'visible') renderRoomLists(true);
+      }, ROOM_LIST_REFRESH_MS);
+      const now = () => { if (lobbyShowing() && document.visibilityState === 'visible') renderRoomLists(true); };
+      document.addEventListener('visibilitychange', now);
+      // Back to this page from another site (the browser kept it as it was).
+      window.addEventListener('pageshow', (e) => { if (e.persisted) now(); });
+    }
   }
 
   // reg: SBRooms.list()'s answer; probe: the built-in rooms' counts asked
@@ -2330,7 +2358,17 @@
   // a second after the last.
   let beatTimer = null;
   function beatSoon() { clearTimeout(beatTimer); beatTimer = setTimeout(beat, 1000); }
+  // Leaving the room: no more heartbeats, and the room list stops counting
+  // this player as online now (not 90 seconds after the last heartbeat).
+  let leftRoomList = null;
+  function leaveRoomList() {
+    if (!myState.role || leftRoomList) return;
+    if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+    clearTimeout(beatTimer);
+    leftRoomList = SBRooms.leave(roomKey(), myState.pid).catch(() => {});
+  }
   function startHeartbeat() {
+    leftRoomList = null;
     if (heartbeatTimer) clearInterval(heartbeatTimer);
     setTimeout(beat, 300);
     heartbeatTimer = setInterval(beat, 30 * 1000);
@@ -3337,7 +3375,11 @@
   // and free the room's door if this player held it.
   window.addEventListener('pagehide', () => {
     try { if (mesh) mesh.leave(); } catch (e) { /* the page is going anyway */ }
+    leaveRoomList();
   });
+  // Back on this page with the browser's saved copy, still in the room:
+  // heartbeats start again.
+  window.addEventListener('pageshow', (e) => { if (e.persisted && myState.role && leftRoomList) startHeartbeat(); });
 
   // The lobby needs only meta.json, so it shows at once; the question bank
   // (SBData.load, started from <head>) keeps downloading and is waited for
