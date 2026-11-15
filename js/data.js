@@ -601,6 +601,9 @@
     a.href = '#';
     a.className = 'star-question';
     a.dataset.qid = qId;
+    // aria-pressed is only allowed on a button, so screen readers announce
+    // it as a toggle. (Space stays Play's buzz key, so it isn't bound here.)
+    a.setAttribute('role', 'button');
     function paint() {
       const on = SBData.bookmarks.isBookmarked(qId);
       const icons = window.SBIcons || {};
