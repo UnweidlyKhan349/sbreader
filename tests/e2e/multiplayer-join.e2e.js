@@ -249,30 +249,6 @@ async function slowPlayer(ctx, base, r, slowMs) {
   return p;
 }
 
-test('the buzz pressed first wins, even from a slower connection', async () => {
-  const ctx = await newContext(browser);
-  const r = room();
-  const a = await joinRoom(ctx, server.url, r);
-  const g = await joinRoom(ctx, server.url, r);
-  // 120 ms each way: s's screen is 120 ms behind, and its buzz 120 ms late.
-  const s = await slowPlayer(ctx, server.url, r, 120);
-  await a.evaluate(() => { const el = document.getElementById('mpSettingsRateSlider'); if (el) { el.value = el.min || 0; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); } });
-  await a.waitForTimeout(2500); // pings measure the round trips
-  await press(a, 'n');
-  for (const p of [g, s]) await p.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled && document.getElementById('mpQDisplay').textContent.length > 20, null, { timeout: 10000 });
-  // s presses 60 ms before g (on the same clock): s reaches the coordinator
-  // second, but pressed first.
-  const at = await a.evaluate(() => Date.now() + 400);
-  await Promise.all([
-    s.evaluate((t) => setTimeout(() => document.getElementById('mpBuzzBtn').click(), t - Date.now()), at),
-    g.evaluate((t) => setTimeout(() => document.getElementById('mpBuzzBtn').click(), t - Date.now()), at + 60),
-  ]);
-  await s.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 5000 });
-  assert.ok(await g.evaluate(() => document.getElementById('mpAnswerRow').classList.contains('d-none')), 'g is not the one answering');
-  assert.deepStrictEqual([...a.errors, ...g.errors, ...s.errors], []);
-  await ctx.close();
-});
-
 test('a room opened on a slow connection is handed to a better-connected player, and plays on', async () => {
   const ctx = await newContext(browser);
   const r = room();

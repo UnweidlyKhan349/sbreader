@@ -1615,7 +1615,6 @@
     }
     if (hostGame.queueStale || (hostGame.index < 0 && !hostGame.queue.length)) rebuildQueue();
     clearHostTimer();
-    hostGame.settle = null;
     // The last question's card comes up for everyone now: noted, so that
     // someone joining later sees it in the same place among the chat.
     if (game.log[0] && !game.log[0].cardAt) game.log[0].cardAt = Date.now();
@@ -1668,68 +1667,15 @@
     hostRunTimer(ms, 'buzz', () => hostReveal());
   }
 
-  // Fair buzzes across connections. A player's screen runs behind this one
-  // by half their round-trip time, and their buzz takes the other half to
-  // get here, so it was pressed at what this screen showed one round trip
-  // before it arrived. The first buzz to arrive therefore waits (reading
-  // and clock stopped) for as long as the slowest other player who could
-  // still buzz is behind, at most BUZZ_SETTLE_MAX_MS, and of the buzzes in
-  // by then the one pressed earliest wins: arrival minus that player's
-  // round trip (capped the same, so a player can't gain by answering pings
-  // late). Players with a fast link to the coordinator are hardly waited for.
-  const BUZZ_SETTLE_MAX_MS = 300;
-  function buzzLagMs(id) {
-    if (!mesh || id === mesh.id) return 0;
-    const rtt = mesh.rtt(id);
-    return rtt == null ? 0 : Math.min(rtt, BUZZ_SETTLE_MAX_MS);
-  }
   function hostHandleBuzz(connId) {
     if (hostGame.phase !== 'reading' && hostGame.phase !== 'buzzwindow') return;
     if (hostGame.lockedOutIds.has(connId) || hostGame.buzzedConnId) return;
-    const pressedAt = Date.now() - buzzLagMs(connId);
-    const settle = hostGame.settle;
-    if (settle) {
-      if (!settle.buzzes.some((b) => b.id === connId)) settle.buzzes.push({ id: connId, at: pressedAt });
-      return;
-    }
-    const others = [...hostPlayers.keys()].filter((id) => id !== connId && isUp(id) && !hostGame.lockedOutIds.has(id));
-    const wait = Math.max(0, ...others.map(buzzLagMs));
-    if (!wait) { hostAcceptBuzz(connId); return; }
-    // Hold everything where it is while the slower screens catch up.
-    const s = { buzzes: [{ id: connId, at: pressedAt }], index: hostGame.index, phase: hostGame.phase, remainingMs: hostGame.remainingMs, totalMs: hostGame.totalMs };
-    hostGame.settle = s;
-    if (hostGame.phase === 'buzzwindow') clearHostTimer();
-    if (revealCtl && !revealCtl.isDone()) revealCtl.pause();
-    setTimeout(() => {
-      if (hostGame.settle !== s) return;
-      hostGame.settle = null;
-      // The question moved on meanwhile (skipped, or the room changed hands).
-      if (myState.role !== 'host' || hostGame.index !== s.index || hostGame.phase !== s.phase || hostGame.buzzedConnId) return;
-      const ok = s.buzzes.filter((b) => hostPlayers.has(b.id) && !hostGame.lockedOutIds.has(b.id));
-      if (ok.length) {
-        // Earliest pressed; a tie goes to whoever arrived first.
-        const first = ok.reduce((best, b) => (b.at < best.at ? b : best));
-        hostAcceptBuzz(first.id, s);
-        return;
-      }
-      // Everyone who buzzed has gone: carry on as if nobody had.
-      if (s.phase === 'reading') syncRevealToState();
-      else {
-        const full = hostGame.currentFull;
-        const fullMs = full && full.qtype === 'bonus' ? BONUS_BUZZ_MS : TOSSUP_BUZZ_MS;
-        hostRunTimer(Math.max(1000, s.remainingMs || 0), 'buzz', () => hostReveal(), s.totalMs || fullMs);
-      }
-    }, wait);
-  }
-  // `held`: the buzz waited (hostHandleBuzz), and the buzz-in clock's time
-  // left is what it was when the wait began.
-  function hostAcceptBuzz(connId, held) {
     hostGame.buzzedDuringReading = hostGame.phase === 'reading';
     // If this buzz interrupted the buzz-in countdown (not the reading), bank
     // whatever time was left on it so a wrong answer can resume from there
     // instead of restarting the whole countdown from full duration.
     if (hostGame.phase === 'buzzwindow') {
-      hostGame.buzzwindowRemainingMs = held ? held.remainingMs : hostGame.remainingMs;
+      hostGame.buzzwindowRemainingMs = hostGame.remainingMs;
     }
     hostGame.buzzedConnId = connId;
     hostGame.anyAttempt = true;
@@ -2366,7 +2312,7 @@
     handoffStrikes = handoffStrikes.id === best ? { id: best, n: handoffStrikes.n + 1 } : { id: best, n: 1 };
     // Between questions only, and not again too soon.
     if (handoffStrikes.n < HANDOFF_STRIKES || now - lastHandoffAt < HANDOFF_COOLDOWN_MS) return;
-    if ((hostGame.phase !== 'lobby' && hostGame.phase !== 'reveal') || hostGame.waitingForBank || hostGame.settle) return;
+    if ((hostGame.phase !== 'lobby' && hostGame.phase !== 'reveal') || hostGame.waitingForBank) return;
     handOffTo(best);
   }
   function handOffTo(id) {
