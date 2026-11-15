@@ -402,9 +402,16 @@ test('the console says when the database schema is behind, once asked per sessio
     const page = await ctx.newPage();
     const warnings = [];
     page.on('console', (m) => { if (m.type() === 'warning' && /schema/.test(m.text())) warnings.push(m.text()); });
+    // Each page checks once it's idle (5 s at the latest): wait for the
+    // warning, or, when none is due, long enough for it to have come.
+    const settle = async (n) => {
+      for (let i = 0; i < 100 && warnings.length < n; i++) await page.waitForTimeout(100);
+      if (!want) await page.waitForTimeout(5500);
+    };
+    let seen = 0;
     for (const where of ['', 'about']) {
       await page.goto(`${server.url}${where}`, { waitUntil: 'networkidle' });
-      await page.waitForTimeout(2000);
+      await settle(want ? ++seen : 0);
     }
     assert.strictEqual(asked, 1, 'asked once for the two pages');
     if (want) {

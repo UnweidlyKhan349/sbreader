@@ -474,7 +474,8 @@
     const warning = schemaWarning(v || null);
     if (warning) console.warn(warning);
   }
-  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
+  // When the page is idle, or after 5 s at the latest.
+  const idle = window.requestIdleCallback ? (fn) => window.requestIdleCallback(fn, { timeout: 5000 }) : (fn) => setTimeout(fn, 1500);
   if (enabled) idle(() => { checkSchema(); });
 
   window.SBAccount = {
