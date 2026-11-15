@@ -246,7 +246,7 @@ data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, 
 tests/              node --test suites: grader, multiplayer rules, data shape, page building
 tests/e2e/          browser tests (Playwright): Play, Multiplayer with simulated players, every page
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
-.github/workflows/deploy.yml  on every push to main, runs the unit tests and copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
+.github/workflows/deploy.yml  once CI passes on a push to main, copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
 ```
 
 ### `js/data.js` (`window.SBData`)
@@ -536,12 +536,12 @@ The code lives and is worked on here, in `UnweidlyKhan349/sbreader`. A `<name>.g
 
 ```
 UnweidlyKhan349/sbreader      ← push here
-        │  .github/workflows/deploy.yml, on every push to main
+        │  .github/workflows/deploy.yml, once CI passes on a push to main
         ▼
 sbreader/sbreader.github.io   ← copy only, served at https://sbreader.github.io/
 ```
 
-The workflow runs the unit tests (not the browser tests, which run separately in CI and don't hold up a deploy), copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**).
+The workflow starts when CI (`ci.yml`: the unit and browser tests) has passed on a push to `main`, and deploys the commit CI tested; if CI fails, nothing is deployed and the site stays as it was. It runs the unit tests again, copies the site (everything but `.git`, `.github`, `tests`, `tools` and `supabase`) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**), which deploys `main` as it is without waiting for CI (the unit tests still run first).
 
 Setting it up (done once; listed in case it has to be redone):
 1. Create the `sbreader` organization (Free plan) and in it an empty **public** repo named `sbreader.github.io`.

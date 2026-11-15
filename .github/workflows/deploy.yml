@@ -3,16 +3,20 @@
 # The code stays in UnweidlyKhan349/sbreader; a <name>.github.io address can
 # only be served by a repo of the account called <name>, so every push to
 # main is copied to sbreader/sbreader.github.io, which serves
-# it with GitHub Pages (Deploy from a branch: main, / (root)). The deploy
-# runs the unit tests first but doesn't wait for the browser tests, which
-# run separately in ci.yml.
+# it with GitHub Pages (Deploy from a branch: main, / (root)). It waits for
+# CI (ci.yml: the unit and browser tests) to pass on that push to main, and
+# deploys exactly the commit CI tested; a failed CI run deploys nothing.
+# Running it by hand (workflow_dispatch) deploys main as it is, after the
+# unit tests.
 #
 # Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
 # has write access to sbreader/sbreader.github.io (see README, Deploying).
 name: Deploy to sbreader.github.io
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 
@@ -23,21 +27,49 @@ concurrency:
 
 jobs:
   deploy:
+    # Only after CI passed on a push to main (not a pull request from a
+    # branch that happens to be called main).
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
+    env:
+      # The commit CI tested (a workflow_run's own github.sha is just main's
+      # tip, which may be newer); by hand, main's tip.
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
+      # If main has moved on since (CI runs can finish out of order), this
+      # older commit isn't deployed: the newer push's CI deploys its own.
+      - name: Still main's latest commit?
+        if: github.event_name == 'workflow_run'
+        run: |
+          tip=$(git ls-remote "https://github.com/${{ github.repository }}.git" refs/heads/main | cut -f1)
+          if [ "$tip" != "$DEPLOY_SHA" ]; then
+            echo "::notice::main is now at $tip; skipping the deploy of $DEPLOY_SHA."
+            echo "STALE=1" >> "$GITHUB_ENV"
+          fi
       - uses: actions/checkout@v4
+        if: env.STALE != '1'
+        with:
+          ref: ${{ env.DEPLOY_SHA }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Tests
+        if: env.STALE != '1'
         run: node --test tests/*.test.js
       - name: Copy the site files
+        if: env.STALE != '1'
         run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
       - name: Build a page for every set and packet, and the full sitemap
+        if: env.STALE != '1'
         run: node tools/build-pages.js "$RUNNER_TEMP/site"
       - name: Stamp this deploy's version, so open tabs pick it up
-        run: node tools/stamp-version.js "$RUNNER_TEMP/site" "${{ github.sha }}"
+        if: env.STALE != '1'
+        run: node tools/stamp-version.js "$RUNNER_TEMP/site" "${{ env.DEPLOY_SHA }}"
       - name: Push to sbreader/sbreader.github.io
+        if: env.STALE != '1'
         uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
@@ -47,4 +79,4 @@ jobs:
           force_orphan: true
           user_name: github-actions[bot]
           user_email: 41898299+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Deploy UnweidlyKhan349/sbreader@${{ github.sha }}
+          full_commit_message: Deploy UnweidlyKhan349/sbreader@${{ env.DEPLOY_SHA }}
