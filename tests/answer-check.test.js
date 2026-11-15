@@ -836,3 +836,75 @@ test('a stand-in for the wrong symbol or value is still wrong', () => {
     ['±3', '3'], ['±3', '3 and 3'], ['x^2', 'x cubed'], ['√2', 'root 3'], ['2 kΩ', '2 ohms'], ['16ε0', '26 epsilon naught'],
   ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
 });
+
+test('capitals that change the answer: genotypes, symbols and formulas, milli/mega are Close, not right', () => {
+  const g = { question: 'Name the genotype of a heterozygous individual.' };
+  const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && r.close; };
+  for (const typed of ['AA', 'aa']) assert.ok(closeOnly('Aa', typed, g), typed);
+  for (const typed of ['Aa', 'aA']) assert.ok(isCorrect('Aa', typed, g), typed);
+  assert.ok(isCorrect('AaBb', 'BbAa', g));
+  assert.ok(closeOnly('AaBb', 'aabb', g));
+  assert.ok(closeOnly('ii', 'II', { question: 'Name the genotype for type O blood.' }));
+  assert.ok(closeOnly('CO', 'Co', { question: 'What gas forms in incomplete combustion of carbon?' }));
+  assert.ok(isCorrect('CO', 'co', { question: 'What gas forms in incomplete combustion of carbon?' }));
+  assert.ok(closeOnly('Co', 'CO', { question: 'What element is in vitamin B12?' }));
+  assert.ok(isCorrect('NaCl', 'nacl'));
+  assert.ok(isCorrect('SI O2', 'SiO2'));
+  for (const [key, typed] of [['10 MW', '10 mW'], ['10 MW', '10 mw'], ['61 mV', '61 MV']]) assert.ok(closeOnly(key, typed), typed);
+  assert.ok(isCorrect('10 MW', '10 megawatts'));
+  assert.ok(!isCorrect('10 MW', '10 milliwatts'));
+});
+
+test('round 3: what a player reasonably types', () => {
+  const tf = { question: 'True or false: water boils at 100 degrees Celsius at sea level.' };
+  assert.ok(isCorrect('TRUE', 'T', tf)); assert.ok(!isCorrect('TRUE', 'F', tf));
+  assert.ok(isCorrect('YES', 'y'));
+  const ratio = { question: 'What is the ratio of the areas?' };
+  for (const typed of ['1 to 2', '1/2', '1 : 2']) assert.ok(isCorrect('1:2', typed, ratio), typed);
+  assert.ok(!isCorrect('1:2', '2 to 1', ratio));
+  for (const typed of ['1st', '1', 'first order', '1st order']) assert.ok(isCorrect('FIRST', typed), typed);
+  assert.ok(isCorrect("NEWTON'S SECOND LAW", "Newton's 2nd law"));
+  assert.ok(!isCorrect('THIRD', '-3')); assert.ok(!isCorrect('3', '-3'));
+  assert.ok(!isCorrect('FIRST LAW', 'first'));
+  for (const typed of ['2,500,000,000 years', '2500000000 years']) assert.ok(isCorrect('2.5 BILLION YEARS', typed), typed);
+  assert.ok(!isCorrect('500 MILLION YEARS', '500'));
+  const el = { question: 'What element makes up most of Earth\'s core?' };
+  for (const typed of ['Fe', 'fe', 'FE', 'iron']) assert.ok(isCorrect('IRON', typed, el), typed);
+  assert.ok(!isCorrect('IRON', 'Ni', el));
+  assert.ok(isCorrect('Na', 'sodium', { question: 'What element has the configuration 1s2 2s2 2p6 3s1?' }));
+  assert.ok(!isCorrect('Na', 'sodium', { question: 'Give the symbol of the element with the configuration 1s2 2s2 2p6 3s1.' }));
+  const cfg = '1s^2 2s^2 2p^6 3s^2 3p^6 4s^1 3d^5';
+  for (const typed of ['[Ar] 4s1 3d5', '[Ar]3d5 4s1', '1s2 2s2 2p6 3s2 3p6 3d5 4s1']) assert.ok(isCorrect(cfg, typed, { question: 'What is the electron configuration of chromium?' }), typed);
+  assert.ok(!isCorrect(cfg, '[Ar] 4s1 3d5', { question: 'What is the full electron configuration of chromium?' }));
+  assert.ok(!isCorrect(cfg, '[Ar] 4s2 3d4', { question: 'What is the electron configuration of chromium?' }));
+  for (const [key, typed] of [['NON-POLAR', 'nonpolar'], ['X-RAY', 'xray'], ['LIGHT-YEAR', 'lightyear']]) assert.ok(isCorrect(key, typed), typed);
+  for (const [key, typed] of [['DEOXYRIBONUCLEIC ACID', 'DNA'], ['ATP', 'adenosine triphosphate'], ['MESSENGER RNA', 'mRNA'], ['POLYMERASE CHAIN REACTION', 'PCR']]) assert.ok(isCorrect(key, typed), typed);
+  assert.ok(!isCorrect('RNA', 'deoxyribonucleic acid'));
+  for (const typed of ['the answer is mitochondria', 'answer: mitochondria', "it's the mitochondria", 'I think it is mitochondria']) assert.ok(isCorrect('MITOCHONDRIA', typed), typed);
+  assert.ok(!isCorrect('OSMIUM TETROXIDE', 'osmium', { question: 'What important metal oxide is used to oxidize alkenes?', accept: ['osmium oxide'] }));
+  assert.ok(!isCorrect('2k^2', '2', { question: 'What is the area of a square inscribed in a circle of radius k?' }));
+  assert.ok(!isCorrect('2n AND 4s', '2')); assert.ok(!isCorrect('1 CM X 1 CM', '1')); assert.ok(!isCorrect('4C9', '4'));
+  assert.ok(isCorrect('4 m/s^2', '4', { question: 'A runner reaches 12 m/s at t = 3 s. What is the acceleration?' }));
+  assert.ok(!isCorrect('2 ONLY', '-2', { question: 'Identify all of the following that are true: 1) a 2) b 3) c' }));
+  assert.ok(!isCorrect('1, 3', '133', { question: 'Identify all of the following that are true: 1) a 2) b 3) c' }));
+  assert.ok(!isCorrect('1 – METAMORPHIC, 2 – IGNEOUS, 3 – METAMORPHIC', '1', { question: 'Categorize each rock: 1) slate 2) granite 3) marble' }));
+  assert.ok(!isCorrect('1/3, –1/3', '1 AND 3', { accept: ['±1/3'] }));
+  assert.ok(!isCorrect('5 METERS PER SECOND SQUARED', '5 AMPS', { accept: ['5'] }));
+  assert.ok(!isCorrect('MITOCHONDRIA', 'x'.repeat(600)));
+});
+
+test('multiple choice takes the letter however it is marked, or the letter with its choice', () => {
+  const q = { question: 'Q?', format: 'MC', choices: { W: 'Proton', X: 'Neutron', Y: 'Electron', Z: 'Photon' },
+    answer: { text: 'Electron', letter: 'Y', accept: [], reject: [] } };
+  for (const typed of ['(Y)', 'y.', 'Y!', '[y]', 'y electron', 'choice Y', 'option y', 'answer: y']) assert.ok(checkAnswer(q, typed).correct, typed);
+  for (const typed of ['x electron', 'y proton', '(X)', 'electrons']) assert.ok(!checkAnswer(q, typed).correct, typed);
+});
+
+test('across the corpus, another question\'s answer passes only where it is the same answer (snapshot)', () => {
+  const { crossAccepts } = require('../tools/grader-cross-check.js');
+  const expected = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'grader-cross-accepts.json'), 'utf8'));
+  const extra = crossAccepts().filter((x) => !expected.includes(x));
+  // A new pair means the grader accepts an answer it didn't: check it, and if
+  // it is the same answer, rerun `node tools/grader-cross-check.js --write`.
+  assert.deepStrictEqual(extra, []);
+});
