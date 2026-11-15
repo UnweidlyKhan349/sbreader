@@ -997,6 +997,14 @@ test('an order or range note in the accept list is read, never taken as an answe
   for (const x of ['ANY 2 OF: EARTH, TITAN, PLUTO', 'ANY CHLOROPHYLL', 'ANY CARBONATE ROCK, CALCITE, OR DOLOMITE']) assert.ok(!globalThis.SBAnswer.isNote(x), x);
 });
 
+test('a word in brackets at the start of a key can be left off', () => {
+  for (const [key, typed] of [['(Richard) Feynman', 'feynman'], ['(NUCLEAR) FUSION', 'fusion'], ['(ULTRA) LUMINOUS INFRARED', 'luminous infrared'],
+    ['(glacial) erratics', 'erratics'], ['(NUCLEAR) FUSION', 'nuclear fusion']]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  assert.ok(!isCorrect('(Richard) Feynman', 'richard'));
+  assert.ok(!isCorrect('(instantaneous) power', 'average power', { reject: ['average'] }));
+  assert.ok(!isCorrect('(pi)r^2 + pi*r*l', 'r^2 + pi*r*l'));
+});
+
 test('more units written out: decibels, webers, lux, grays, becquerels, sieverts, km/h, rad/s', () => {
   for (const [key, typed] of [['73 dB', '73 decibels'], ['1.5 Wb', '1.5 webers'], ['5 lx', '5 lux'], ['3 Gy', '3 grays'],
     ['4 Bq', '4 becquerels'], ['2 mSv', '2 millisieverts'], ['1 km/h', '1 kilometers per hour'], ['9 rad/s', '9 radians per second'], ['2 H', '2 henries']]) {

@@ -1605,6 +1605,12 @@
       const splitsOk = !/\bBOTH\b|[=<>≤≥]/i.test(text) && pieces.some((p) => /[A-Za-z]{2,}/.test(p));
       if (splitsOk) out.push(...pieces);
     }
+    // "(RICHARD) FEYNMAN", "(NUCLEAR) FUSION": a word in brackets at the
+    // start is one the answer can do without (never in math: "(pi)r^2")
+    for (const v of out.slice()) {
+      const lead = v.match(/^\(\s*([A-Za-z][A-Za-z '’.\-]*?)\s*\)\s*([A-Za-z].*)$/);
+      if (lead && !/[\d^=*+/<>]/.test(lead[2])) out.push(lead[2], lead[1] + ' ' + lead[2]);
+    }
     for (const v of out.slice()) {
       const stripped = v.replace(/\s+\([^()]*[A-Za-z]{2,}[^()]*\)\s*$/, '');
       if (stripped !== v) out.push(stripped);
