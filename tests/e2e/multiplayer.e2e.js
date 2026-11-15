@@ -86,12 +86,16 @@ test('"I was right" after someone else was marked correct takes the question fro
   await g.keyboard.press(' '); await g.waitForTimeout(400);
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
   // The other player buzzes and gives the key.
-  // (Once enough of it has been read to tell which question it is.)
+  // (Once enough of it has been read to tell its key: every question it
+  // could still be has the same one. The bank keeps questions printed
+  // twice, so the text alone may never single one out, and a short
+  // question never reaches a fixed length.)
   const reading = () => {
     const plain = (html) => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent.replace(/\s+/g, ' ').trim(); };
     const shown = document.getElementById('mpQDisplay').textContent.replace(/\s+/g, ' ').trim();
-    const found = shown.length < 40 ? [] : SBData.questions.filter((q) => plain(SBData.readoutHTML(q)).startsWith(shown));
-    return found.length === 1 ? (found[0].answer.letter || found[0].answer.text) : null;
+    const found = shown.length < 15 ? [] : SBData.questions.filter((q) => plain(SBData.readoutHTML(q)).startsWith(shown));
+    const keys = new Set(found.map((q) => q.answer.letter || q.answer.text));
+    return keys.size === 1 ? [...keys][0] : null;
   };
   await a.waitForFunction(reading, null, { timeout: 20000, polling: 250 });
   await a.locator('body').click({ position: { x: 400, y: 300 } });
