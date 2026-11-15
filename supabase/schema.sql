@@ -91,6 +91,18 @@ create table if not exists public.mp_players (
 alter table public.mp_players add column if not exists negs integer not null default 0 check (negs between 0 and 100000);
 alter table public.mp_players add column if not exists cel_sum real not null default 0 check (cel_sum between 0 and 100000);
 alter table public.mp_players add column if not exists cel_n integer not null default 0 check (cel_n between 0 and 100000);
+-- A named room's settings when last played (added November 2026; see
+-- mp_save_settings). Kept apart from mp_rooms so they outlast the daily
+-- reset that clears a room and its scores: they go 30 days after the room
+-- was last played (mp_sweep).
+create table if not exists public.mp_room_settings (
+  room text primary key check (room ~ '^[a-z0-9-]{1,32}$'),
+  settings jsonb not null check (jsonb_typeof(settings) = 'object' and octet_length(settings::text) <= 8000),
+  saved_at timestamptz not null default now()
+);
+create index if not exists mp_room_settings_saved_at on public.mp_room_settings (saved_at);
+alter table public.mp_room_settings enable row level security;
+revoke all on public.mp_room_settings from anon, authenticated;
 create index if not exists mp_players_last_seen on public.mp_players (last_seen desc);
 create index if not exists mp_rooms_updated_at on public.mp_rooms (updated_at);
 
@@ -163,6 +175,7 @@ returns void
 language sql security definer set search_path = public as $$
   delete from mp_rooms r where not mp_room_live(r);
   delete from mp_players p where not mp_player_live(p);
+  delete from mp_room_settings s where s.saved_at < now() - interval '30 days';
 $$;
 
 create or replace function public.mp_list()
@@ -204,11 +217,20 @@ delete from public.mp_rooms where name like 'pub-%' and not public.mp_is_builtin
 update public.mp_rooms set is_permanent = public.mp_is_builtin(name), is_public = is_public or public.mp_is_builtin(name)
   where is_permanent <> public.mp_is_builtin(name);
 
--- The version with p_heard (November 13 to 14, 2026) is dropped.
+-- A player's connection (PeerJS) ID, from their heartbeat (added November
+-- 2026): someone joining asks the players in the room who's there as well
+-- as the room's door, so a door on a slow connection doesn't hold them up.
+-- Anyone at the door gets the same IDs, so they're no secret.
+alter table public.mp_players add column if not exists peer text check (peer ~ '^[A-Za-z0-9_-]{1,64}$');
+
+-- The version with p_heard (November 13 to 14, 2026), and the one before
+-- p_peer (until November 15, 2026), are dropped.
 drop function if exists public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, integer);
+drop function if exists public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer);
 create or replace function public.mp_heartbeat(
   p_room text, p_is_public boolean, p_pid text, p_secret text, p_username text,
-  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer)
+  p_score integer, p_correct integer, p_incorrect integer, p_negs integer, p_cel_sum real, p_cel_n integer,
+  p_peer text default null)
 returns boolean
 language plpgsql security definer set search_path = public as $$
 declare
@@ -240,12 +262,18 @@ begin
   if found and existing is not null and existing <> h then
     return false;
   end if;
-  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash)
-  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h)
+  if p_peer is not null and p_peer !~ '^[A-Za-z0-9_-]{1,64}$' then
+    p_peer := null;
+  end if;
+  insert into mp_players (room, pid, username, score, correct, incorrect, negs, cel_sum, cel_n, last_seen, secret_hash, peer)
+  values (p_room, p_pid, p_username, p_score, p_correct, p_incorrect, p_negs, p_cel_sum, p_cel_n, now(), h, p_peer)
   on conflict (room, pid) do update set
     username = excluded.username, score = excluded.score, correct = excluded.correct,
     incorrect = excluded.incorrect, negs = excluded.negs, cel_sum = excluded.cel_sum,
-    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash;
+    cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash, peer = excluded.peer;
+  -- Played today: the room's saved settings get their 30 days again (at
+  -- most once an hour, to keep heartbeats cheap).
+  update mp_room_settings set saved_at = now() where room = p_room and saved_at < now() - interval '1 hour';
   return true;
 end;
 $$;
@@ -253,9 +281,9 @@ $$;
 revoke all on function public.mp_last_restart(), public.mp_player_live(public.mp_players),
   public.mp_room_live(public.mp_rooms), public.mp_sweep() from public;
 revoke all on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) from public;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, text) from public;
 grant execute on function public.mp_list(), public.mp_roster(text),
-  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer) to anon, authenticated;
+  public.mp_heartbeat(text, boolean, text, text, text, integer, integer, integer, integer, real, integer, text) to anon, authenticated;
 
 -- Leaving (added November 2026): a player who closes the tab or goes back
 -- to the lobby stops counting as online at once, instead of for up to 90
@@ -295,22 +323,34 @@ drop function if exists public.mp_set_room(text, text, boolean, text, text[], bo
 -- set here, by the server's clock. `banned` is kept as the list of pids.
 -- Bans from before this have no time and are over.
 alter table public.mp_rooms add column if not exists ban_times jsonb not null default '{}'::jsonb;
--- A named room's settings when last played (see mp_save_settings below).
-alter table public.mp_rooms add column if not exists settings jsonb
-  check (settings is null or (jsonb_typeof(settings) = 'object' and octet_length(settings::text) <= 8000));
+-- Room settings were kept on mp_rooms for a day (November 15, 2026), and so
+-- went at the daily reset: what that column holds moves to mp_room_settings.
+do $$
+begin
+  if exists (select 1 from information_schema.columns
+             where table_schema = 'public' and table_name = 'mp_rooms' and column_name = 'settings') then
+    execute 'insert into public.mp_room_settings (room, settings)
+             select name, settings from public.mp_rooms
+             where settings is not null and name ~ ''^[a-z0-9-]{1,32}$''
+             on conflict (room) do nothing';
+    execute 'alter table public.mp_rooms drop column settings';
+  end if;
+end $$;
 
 create or replace function public.mp_room(p_room text)
 returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object(
-    'is_public', r.is_public, 'owner_key', r.owner_key, 'settings', r.settings,
+    'is_public', r.is_public, 'owner_key', r.owner_key,
+    'settings', (select s.settings from mp_room_settings s where s.room = r.name),
     'banned', coalesce((select jsonb_agg(e.key) from jsonb_each_text(r.ban_times) e
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '[]'::jsonb),
     'ban_times', coalesce((select jsonb_object_agg(e.key, e.value::bigint) from jsonb_each_text(r.ban_times) e
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '{}'::jsonb),
     'players', coalesce((select jsonb_agg(jsonb_build_object(
         'pid', p.pid, 'username', p.username, 'score', p.score, 'correct', p.correct, 'incorrect', p.incorrect,
-        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'last_seen', p.last_seen))
+        'negs', p.negs, 'cel_sum', p.cel_sum, 'cel_n', p.cel_n, 'last_seen', p.last_seen,
+        'peer', case when p.last_seen > now() - interval '90 seconds' then p.peer end))
       from mp_players p where p.room = r.name and mp_player_live(p)), '[]'::jsonb))
   from mp_rooms r where r.name = p_room and mp_room_live(r);
 $$;
@@ -366,23 +406,24 @@ revoke all on function public.mp_room(text), public.mp_set_room(text, text, bool
 grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) to anon, authenticated;
 
 -- Room settings (added November 2026): a named room keeps its settings
--- (filters, switches, reading speed) after everyone has left, and opens
--- with them again. Any player now in the room (their own live row, by
--- their browser's secret) can save them; the coordinator does after each
--- change. Built-in rooms keep their fixed settings and save nothing.
--- (Its column, mp_rooms.settings, is added above, before mp_room.)
-
+-- (filters, switches, reading speed) in mp_room_settings and opens with
+-- them again, for 30 days after it was last played. Any player now in the
+-- room (their own live row, by their browser's secret) can save them; the
+-- coordinator does after each change. Built-in rooms keep their fixed
+-- settings and save nothing.
+--   mp_save_settings(..)     saves them
+--   mp_saved_settings(room)  reads them, for a room nobody is in (mp_room
+--                            has them for one that's open)
 create or replace function public.mp_save_settings(p_room text, p_pid text, p_secret text, p_settings jsonb)
 returns boolean
 language plpgsql security definer set search_path = public as $$
 declare
   h text;
-  n integer;
 begin
   if p_secret is null or char_length(p_secret) not between 16 and 128 then
     raise exception 'bad secret';
   end if;
-  if p_room like 'pub-%' then
+  if p_room is null or p_room !~ '^[a-z0-9-]{1,32}$' then
     return false;
   end if;
   if p_settings is null or jsonb_typeof(p_settings) <> 'object' or octet_length(p_settings::text) > 8000 then
@@ -393,13 +434,22 @@ begin
                  and p.last_seen > now() - interval '90 seconds') then
     return false;
   end if;
-  update mp_rooms set settings = p_settings where name = p_room;
-  get diagnostics n = row_count;
-  return n > 0;
+  insert into mp_room_settings (room, settings, saved_at) values (p_room, p_settings, now())
+  on conflict (room) do update set settings = excluded.settings, saved_at = now();
+  return true;
 end;
 $$;
 revoke all on function public.mp_save_settings(text, text, text, jsonb) from public;
 grant execute on function public.mp_save_settings(text, text, text, jsonb) to anon, authenticated;
+
+create or replace function public.mp_saved_settings(p_room text)
+returns jsonb
+language sql stable security definer set search_path = public as $$
+  select s.settings from mp_room_settings s
+  where s.room = p_room and s.saved_at >= now() - interval '30 days';
+$$;
+revoke all on function public.mp_saved_settings(text) from public;
+grant execute on function public.mp_saved_settings(text) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Problem reports and "I was right" clicks (added November 2026).

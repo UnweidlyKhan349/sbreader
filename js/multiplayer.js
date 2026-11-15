@@ -2419,7 +2419,7 @@
     SBRooms.heartbeat(roomKey(), {
       isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
       isPermanent: !!myState.publicLobby,
-    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
+    }, { pid: myState.pid, peer: mesh && mesh.id, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
   }
   // After a settings change (a dragged slider makes many): one heartbeat,
   // a second after the last.
@@ -2524,12 +2524,12 @@
 
   // Joins the room behind `roomId` through its door. Needs no questions:
   // the room sends what's on screen.
-  async function joinExisting(roomId, name, lobby) {
+  async function joinExisting(roomId, name, lobby, hint) {
     // Players whose link comes up after joining finished missed the 'join'
     // message: they get it on its own once it's ready.
     let joinMsgReady;
     const joinMsg = new Promise((r) => { joinMsgReady = r; });
-    const info = await mesh.join(roomId, { onLateLink: (id) => joinMsg.then((m) => { if (mesh) mesh.send(id, m); }) });
+    const info = await mesh.join(roomId, { hint, onLateLink: (id) => joinMsg.then((m) => { if (mesh) mesh.send(id, m); }) });
     if (!info.coordinator || !isUp(info.coordinator)) {
       throw new Error('Could not connect to the players in that room. Try again, or try a different network.');
     }
@@ -2616,6 +2616,12 @@
     showConnecting(`Connecting to ${label}…`);
     document.title = `SBReader - Multiplayer - ${label}`;
     const infoP = within(SBRooms.roomInfo(key), 4000, null);
+    // The players the room list has as in the room right now: joining asks
+    // them who's there as well as the door (SBPeer's join).
+    const hint = infoP.then((info) => (info && Array.isArray(info.players) ? info.players : [])
+      .filter((p) => p && typeof p.peer === 'string' && p.peer && Date.now() - Date.parse(p.last_seen) < SBRooms.ONLINE_MS)
+      .sort((a, b) => Date.parse(b.last_seen) - Date.parse(a.last_seen))
+      .map((p) => p.peer));
     const name = myName();
     let lastErr = null;
     openMesh().catch(() => {});
@@ -2651,7 +2657,7 @@
       lastErr = door.reason;
       if (!lastErr || lastErr.type !== 'unavailable-id') break;
       try {
-        await joinExisting(peerId, name, lobby);
+        await joinExisting(peerId, name, lobby, hint);
         joining = false;
         return;
       } catch (err) {
