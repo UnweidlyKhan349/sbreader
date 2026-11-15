@@ -5,8 +5,12 @@
 //                               networks block them; the relay is needed)
 //   window.__LAG_MS = 150       every message arrives this much later
 //   window.__SLOW_MS = 3000     this tab is on a slow connection: links to
-//                               and from it open, and messages reach it,
-//                               this much later (set it in that tab only)
+//                               and from it open, and messages to and from
+//                               it arrive, this much later each way (set it
+//                               in that tab only; its round trip is twice it)
+//   window.__DELAY_IN = (data) => ms   holds back messages reaching this tab
+//                               by that much more (a negative number drops
+//                               them), to time a test
 (function () {
   const bc = new BroadcastChannel('fakepeer');
   const local = new Map(); // id -> Peer in this tab
@@ -14,7 +18,11 @@
   const conns = new Map(); // cid -> Conn
   class Conn extends Emitter {
     constructor(cid, me, peer) { super(); this.cid = cid; this.me = me; this.peer = peer; this.open = false; conns.set(cid, this); }
-    send(d) { if (this.open) bc.postMessage({ t: 'data', cid: this.cid, to: this.peer, d: JSON.parse(JSON.stringify(d)) }); }
+    send(d) {
+      if (!this.open) return;
+      const m = { t: 'data', cid: this.cid, to: this.peer, d: JSON.parse(JSON.stringify(d)) };
+      if (window.__SLOW_MS) setTimeout(() => bc.postMessage(m), window.__SLOW_MS); else bc.postMessage(m);
+    }
     close() { if (!this.open) return; this.open = false; bc.postMessage({ t: 'close', cid: this.cid, to: this.peer }); this.emit('close'); }
   }
   const asks = new Map();
@@ -49,7 +57,9 @@
     if (m.t === 'data') {
       const c = conns.get(m.cid);
       if (c && c.me === m.to && c.open) {
-        const wait = (window.__LAG_MS || 0) + (window.__SLOW_MS || 0);
+        const extra = typeof window.__DELAY_IN === 'function' ? Number(window.__DELAY_IN(m.d)) || 0 : 0;
+        if (extra < 0) return; // dropped
+        const wait = (window.__LAG_MS || 0) + (window.__SLOW_MS || 0) + extra;
         if (wait) setTimeout(() => c.emit('data', m.d), wait); else c.emit('data', m.d);
       }
       return;

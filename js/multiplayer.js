@@ -1507,6 +1507,7 @@
     if (!msg) return;
     // Everything but 'join' needs a player who has joined.
     if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
+    if (msg.type === 'pings') { pingReports.set(connId, { rtts: msg.rtts, bank: msg.bank, at: Date.now() }); return; }
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
       if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
@@ -2160,6 +2161,10 @@
   }
   function stamp(msg) {
     const out = { ...msg, term };
+    // Handed the game (see handOffTo): the term's messages say by whom, so a
+    // player who hears from this one before hearing about the handoff can
+    // keep them until they do.
+    if (handoffFrom && term === handoffTerm) out.hf = handoffFrom;
     if (!NO_ENGINE.has(msg.type)) out.eng = engineSnapshot();
     return out;
   }
@@ -2196,6 +2201,7 @@
         },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
+      setInterval(connectionTick, HANDOFF_CHECK_MS);
     }
     return mesh.ready;
   }
@@ -2218,6 +2224,14 @@
       applyLiveTyping(from, data.text.slice(0, SBMpRules.LIMITS.answer), data.seq);
       return;
     }
+    if (data.type === 'fwd') {
+      // A player's message passed on by whoever handed this player the game
+      // (see handOffTo): handled as if it had come straight from them.
+      if (myState.role === 'host') {
+        if (from === handoffFrom && Date.now() - handoffAt < 2 * HANDOFF_FORWARD_MS && typeof data.from === 'string' && data.msg && typeof data.msg === 'object') handleHostMessage(data.from, data.msg);
+      } else keepIntent(from, data);
+      return;
+    }
     if (data.type === 'join') {
       const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
       if (!msg) return;
@@ -2227,13 +2241,23 @@
     }
     if ('term' in data) {
       // From a coordinator: follow it, or ignore it (see acceptsCoordinator).
-      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder(), isUp }, from, data.term)) return;
+      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder(), isUp }, from, data.term)) {
+        if (data.hf && data.hf === coordinatorId && data.term === term + 1) stashForHandoff(from, data);
+        return;
+      }
       if (from !== coordinatorId || data.term !== term) followCoordinator(from, data.term);
+      // The player handed the game has taken it.
+      if (handoffWatch && from === handoffWatch.to && data.term >= handoffWatch.term) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
       if (data.eng) followerEngine = data.eng;
       handleClientMessage(data);
       return;
     }
-    if (myState.role === 'host') handleHostMessage(from, data);
+    if (myState.role === 'host') { handleHostMessage(from, data); return; }
+    // Meant for whoever runs the game, which this player isn't (any more,
+    // or yet): just handed over, it goes on to the new one; otherwise it's
+    // kept a moment, in case the game is being handed to this player.
+    if (handedOffTo && Date.now() - handedOffTo.at < HANDOFF_FORWARD_MS && mesh) mesh.send(handedOffTo.to, { type: 'fwd', from, msg: data });
+    else keepIntent(from, data);
   }
 
   function followCoordinator(id, newTerm) {
@@ -2246,6 +2270,136 @@
     myState.role = 'client';
     host = null;
     client = clientLink;
+    markRole();
+  }
+
+  /* ----- Handing the game to the best-connected player -----
+     Everyone else's screen waits on the coordinator's connection (every
+     buzz, grade and tick goes through it), so the coordinator should be
+     whoever is best connected to everyone, not just whoever has been in the
+     room longest. Every HANDOFF_CHECK_MS each player reports their round
+     trips to the others (from SBPeer's pings) to the coordinator, which
+     works out each player's average to everyone (SBMpRules.pickBestConnected).
+     When someone else would clearly do better (worthHandingOff) at
+     HANDOFF_STRIKES checks in a row, it hands the game over between
+     questions: it says so ('handoff'), follows them at once, and they carry
+     on from their own copy of the game (takeOver), as when a coordinator
+     leaves. Only with three or more players (with two, each is as far from
+     the other), only when every player reports (an older copy of the page
+     doesn't, and wouldn't follow), and at most once per HANDOFF_COOLDOWN_MS.
+     Nobody else sees anything change. */
+  const HANDOFF_CHECK_MS = 10 * 1000;
+  const HANDOFF_STRIKES = 2;
+  const HANDOFF_COOLDOWN_MS = 2 * 60 * 1000;
+  let lastHandoffAt = 0;
+  let handoffFrom = null; let handoffTerm = null;
+  let handoffStrikes = { id: null, n: 0 };
+  const pingReports = new Map(); // player -> { rtts, bank, at }
+  let handoffStash = [];
+  // Making sure a handoff can't lose the game or a message:
+  //  - whoever hands the game over passes on what players send it for
+  //    HANDOFF_FORWARD_MS after ('fwd'), since they may not have heard yet;
+  //  - the player handed it keeps what reaches it shortly before it hears
+  //    (keepIntent), and handles it once it has taken over;
+  //  - if the player handed it isn't heard from within HANDOFF_WATCH_MS
+  //    (they never got the message, or their connection went), everyone
+  //    picks the next coordinator as when one leaves, without them.
+  const HANDOFF_FORWARD_MS = 5000;
+  const HANDOFF_WATCH_MS = 8000;
+  let handedOffTo = null; // { to, at }, by whoever handed the game over
+  let handoffAt = 0; // when this player was handed it
+  let handoffWatch = null; // { to, term, timer }
+  let intentStash = [];
+  function keepIntent(from, data) {
+    const now = Date.now();
+    intentStash = intentStash.filter((x) => now - x.at < 2 * HANDOFF_FORWARD_MS).slice(-50);
+    intentStash.push({ from, data, at: now });
+  }
+  function watchHandoff(to, newTerm) {
+    if (handoffWatch) clearTimeout(handoffWatch.timer);
+    const w = { to, term: newTerm, timer: null };
+    w.timer = setTimeout(() => {
+      if (handoffWatch !== w) return;
+      handoffWatch = null;
+      if (myState.role !== 'client' || coordinatorId !== to || term !== newTerm) return;
+      const next = SBMpRules.pickCoordinator(memberOrder().filter((x) => x !== to), isUp);
+      if (!next || next === mesh.id) { if (bankLoaded()) takeOver(); } else coordinatorId = next; // their first message has a newer term
+    }, HANDOFF_WATCH_MS);
+    handoffWatch = w;
+  }
+  function markRole() {
+    document.documentElement.dataset.mpRole = myState.role || '';
+  }
+  function myRtts() {
+    const out = {};
+    if (mesh) mesh.memberIds().forEach((id) => { const v = mesh.rtt(id); if (v != null) out[id] = v; });
+    return out;
+  }
+  function connectionTick() {
+    if (!mesh || !myState.role) return;
+    if (myState.role === 'client') {
+      if (client) client.send({ type: 'pings', rtts: myRtts(), bank: bankLoaded() });
+      return;
+    }
+    hostConsiderHandoff();
+  }
+  function hostConsiderHandoff() {
+    const now = Date.now();
+    const reset = () => { handoffStrikes = { id: null, n: 0 }; };
+    const ids = [mesh.id, ...[...hostPlayers.keys()].filter((id) => id !== mesh.id && isUp(id))];
+    if (ids.length < 3 || ids.slice(1).some((id) => { const r = pingReports.get(id); return !r || now - r.at > 3 * HANDOFF_CHECK_MS; })) { reset(); return; }
+    const rtt = (a, b) => {
+      if (a === mesh.id) return mesh.rtt(b);
+      const r = pingReports.get(a);
+      return r && typeof r.rtts[b] === 'number' ? r.rtts[b] : null;
+    };
+    const { best, ms } = SBMpRules.pickBestConnected(ids, rtt);
+    if (!best || best === mesh.id || !pingReports.get(best).bank || !SBMpRules.worthHandingOff(ms[mesh.id], ms[best])) { reset(); return; }
+    handoffStrikes = handoffStrikes.id === best ? { id: best, n: handoffStrikes.n + 1 } : { id: best, n: 1 };
+    // Between questions only, and not again too soon.
+    if (handoffStrikes.n < HANDOFF_STRIKES || now - lastHandoffAt < HANDOFF_COOLDOWN_MS) return;
+    if ((hostGame.phase !== 'lobby' && hostGame.phase !== 'reveal') || hostGame.waitingForBank) return;
+    handOffTo(best);
+  }
+  function handOffTo(id) {
+    lastHandoffAt = Date.now();
+    handoffStrikes = { id: null, n: 0 };
+    pingReports.clear();
+    host.broadcast({ type: 'handoff', to: id });
+    followCoordinator(id, term + 1);
+    handedOffTo = { to: id, at: Date.now() };
+    watchHandoff(id, term);
+  }
+  // A 'handoff' from the coordinator (handleClientMessage).
+  function onHandoff(to) {
+    lastHandoffAt = Date.now();
+    if (to === mesh.id) {
+      handoffFrom = coordinatorId;
+      handoffTerm = term + 1;
+      handoffAt = Date.now();
+      handoffStash = [];
+      // Take over, then handle what players sent meanwhile.
+      const take = () => {
+        takeOver();
+        const kept = intentStash;
+        intentStash = [];
+        kept.forEach((x) => onMeshMessage(x.from, x.data));
+      };
+      if (bankLoaded()) take();
+      else SBData.load().then(() => { if (myState.role === 'client' && coordinatorId === handoffFrom) take(); }).catch(() => {});
+      return;
+    }
+    followCoordinator(to, term + 1);
+    watchHandoff(to, term);
+    // What the new coordinator sent before this arrived.
+    const kept = handoffStash.filter((x) => x.from === to && x.data.term === term);
+    handoffStash = [];
+    kept.forEach((x) => onMeshMessage(x.from, x.data));
+  }
+  function stashForHandoff(from, data) {
+    const now = Date.now();
+    handoffStash = handoffStash.filter((x) => now - x.at < 10000).slice(-100);
+    handoffStash.push({ from, data, at: now });
   }
 
   function onMemberLeft(id) {
@@ -2272,6 +2426,10 @@
     term += 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
+    markRole();
+    pingReports.clear();
+    handoffStrikes = { id: null, n: 0 };
+    if (handoffWatch) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
     host = hostLink;
     client = null;
     const tick = game.lastTick;
@@ -2452,6 +2610,7 @@
     term = 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
+    markRole();
     host = hostLink;
     client = null;
     myState.rate = rate;
@@ -2684,6 +2843,7 @@
   }
 
   function handleClientMessage(msg) {
+    if (msg.type === 'handoff') { if (typeof msg.to === 'string' && msg.to) onHandoff(msg.to); return; }
     if (msg.type === 'lobby') {
       game.players = msg.players;
       game.departed = Array.isArray(msg.departed) ? msg.departed : [];

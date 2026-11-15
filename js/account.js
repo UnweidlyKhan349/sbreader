@@ -443,10 +443,46 @@
     return text;
   }
 
+  // The database's schema version (sb_schema_version, the last thing
+  // supabase/schema.sql makes): when it's missing or older than this site
+  // expects, the console says to run the file again, since the site
+  // otherwise just does without what's missing. Asked once per browser
+  // session; the answer is kept, so each page still says so.
+  const SCHEMA_VERSION = 20261115;
+  const SCHEMA_KEY = 'sb_schema_version';
+  function schemaWarning(v) {
+    if (typeof v === 'number' && v >= SCHEMA_VERSION) return null;
+    return `SB Reader: the Supabase database schema is ${typeof v === 'number' ? `out of date (version ${v}, this site needs ${SCHEMA_VERSION})` : 'older than this site'}. `
+      + 'Run supabase/schema.sql again in the SQL Editor (it is safe to re-run); until then the features that need the newer schema are left out.';
+  }
+  async function checkSchema() {
+    if (!enabled) return;
+    let v;
+    try { v = JSON.parse(sessionStorage.getItem(SCHEMA_KEY)); } catch (e) { v = undefined; }
+    if (v === undefined || v === null) {
+      try {
+        const res = await fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/rest/v1/rpc/sb_schema_version`, {
+          method: 'POST', headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' }, body: '{}',
+        });
+        const body = await res.json().catch(() => null);
+        if (res.ok && typeof body === 'number') v = body;
+        else if (res.status === 404 || (body && body.code === 'PGRST202')) v = 0; // no such function yet
+        else return; // the service is down or unreachable: nothing to say
+      } catch (e) { return; }
+      try { sessionStorage.setItem(SCHEMA_KEY, JSON.stringify(v)); } catch (e) { /* kept for this page only */ }
+    }
+    const warning = schemaWarning(v || null);
+    if (warning) console.warn(warning);
+  }
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
+  if (enabled) idle(() => { checkSchema(); });
+
   window.SBAccount = {
     friendlyError,
     enabled,
     ready,
+    schemaWarning,
+    SCHEMA_VERSION,
     user: () => user,
     displayName,
     onChange(fn) { listeners.push(fn); },

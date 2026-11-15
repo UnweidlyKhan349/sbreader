@@ -537,3 +537,19 @@ revoke all on function public.question_play(integer, text, text, real, text) fro
 revoke all on function public.question_stats(integer) from public;
 grant execute on function public.question_play(integer, text, text, real, text) to anon, authenticated;
 grant execute on function public.question_stats(integer) to anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Schema version (added November 2026). The site asks for it (js/account.js)
+-- and says in the browser console when the database is behind what it
+-- expects, so a missed re-run of this file shows up instead of the site
+-- quietly doing without. It's made last: a run that stops partway through
+-- leaves the old number. Raise it (here and SCHEMA_VERSION in
+-- js/account.js, to the date) whenever this file gains something the site
+-- uses.
+create or replace function public.sb_schema_version()
+returns integer
+language sql immutable as $$
+  select 20261115;
+$$;
+revoke all on function public.sb_schema_version() from public;
+grant execute on function public.sb_schema_version() to anon, authenticated;
