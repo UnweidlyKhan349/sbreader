@@ -146,6 +146,8 @@ test('every whole-answer accept in the corpus grades as correct', () => {
     // a multi-part key's single-part accepts are alternates for one part only
     if (q.format === 'MC' || /;|\s\|\s/.test(q.answer.text)) continue;
     for (const acc of q.answer.accept) {
+      // (an order or range note is read by the grader, not typed: see isNote)
+      if (globalThis.SBAnswer.isNote(acc)) continue;
       if (!checkAnswer(q, acc).correct) failures.push(`${q.id}: ${acc}`);
     }
   }
@@ -898,6 +900,130 @@ test('multiple choice takes the letter however it is marked, or the letter with 
     answer: { text: 'Electron', letter: 'Y', accept: [], reject: [] } };
   for (const typed of ['(Y)', 'y.', 'Y!', '[y]', 'y electron', 'choice Y', 'option y', 'answer: y']) assert.ok(checkAnswer(q, typed).correct, typed);
   for (const typed of ['x electron', 'y proton', '(X)', 'electrons']) assert.ok(!checkAnswer(q, typed).correct, typed);
+});
+
+test('multiple choice: a choice\'s text passes only for its own choice, however close the others read', () => {
+  const mc = (choices, letter) => ({ question: 'Which?', format: 'MC', choices, answer: { text: choices[letter], letter, accept: [], reject: [] } });
+  const ok = (q, typed) => checkAnswer(q, typed).correct;
+  // choices that normalize() alone can't tell apart
+  const roots = mc({ W: 'F/2', X: 'F/√2', Y: 'F √2', Z: '2 F' }, 'X');
+  assert.ok(ok(roots, 'F/√2') && ok(roots, 'f/√2') && ok(roots, 'X'));
+  assert.ok(!ok(roots, 'F/sqrt2')); // reads as both X and Y: not exactly either
+  assert.ok(!ok(roots, 'F √2') && !ok(roots, 'F/2'));
+  const geno = mc({ W: 'BB', X: 'bB', Y: 'Bb', Z: 'bb' }, 'W');
+  assert.ok(ok(geno, 'BB'));
+  for (const t of ['bB', 'Bb', 'bb']) assert.ok(!ok(geno, t), t);
+  for (const [choices, letter, wrongText] of [
+    [{ W: 'σ2p', X: 'π2p', Y: 'σ*2p', Z: 'π*2p' }, 'Y', 'σ2p'],
+    [{ W: 'O2^(2-)', X: 'O2', Y: 'O2^-', Z: 'O2^+' }, 'Z', 'O2'],
+    [{ W: 'x < 6', X: 'x = 6', Y: 'x ≤ 6', Z: 'x > 6' }, 'Z', 'x = 6'],
+    [{ W: 'cos(x)', X: '-cos(x)', Y: 'sin(x)', Z: '-sin(x)' }, 'X', 'cos(x)'],
+    [{ W: '(–10, 5]', X: '[–10, 5)', Y: '[–10, 5]', Z: '(–10, 5)' }, 'X', '(–10, 5]'],
+    [{ W: 'T^(λmax)', X: 'λmax/T', Y: 'T/λmax', Z: 'Tλmax' }, 'Z', 'T^(λmax)'],
+  ]) {
+    const q = mc(choices, letter);
+    assert.ok(ok(q, choices[letter]), choices[letter]);
+    assert.ok(!ok(q, wrongText), `${wrongText} for ${choices[letter]}`);
+  }
+  // a choice printed twice in the packet is still the wrong choice
+  const twice = mc({ W: 'yaw', X: 'stall', Y: 'roll', Z: 'stall' }, 'Y');
+  assert.ok(ok(twice, 'roll') && !ok(twice, 'stall'));
+  // "minus"/"plus" and ½ in a choice are typed as printed
+  const beta = mc({ W: 'Alpha decay', X: 'Electron capture', Y: 'Beta-plus decay', Z: 'Beta-minus decay' }, 'Z');
+  assert.ok(ok(beta, 'Beta-minus decay') && ok(beta, 'beta minus decay') && ok(beta, 'z beta-minus decay'));
+  assert.ok(!ok(beta, 'Beta-plus decay') && !ok(beta, 'beta plus decay'));
+  // and only as printed: the sign written as a symbol, or left off, is not the choice
+  for (const t of ['beta- decay', 'beta decay', 'β- decay']) assert.ok(!ok(beta, t), t);
+  const lone = mc({ W: 'Alpha decay', X: 'Electron capture', Y: 'Gamma decay', Z: 'Beta-minus decay' }, 'Z');
+  assert.ok(ok(lone, 'beta-minus decay') && !ok(lone, 'beta decay') && !ok(lone, 'beta- decay'));
+  const half = mc({ W: '½', X: '¼', Y: '2', Z: '4' }, 'W');
+  assert.ok(ok(half, '½') && ok(half, '1/2') && !ok(half, '1/4'));
+});
+
+test('a last letter A is part of the name, not the article', () => {
+  for (const [key, typed] of [['VITAMIN A', 'vitamin'], ['COENZYME A', 'coenzyme'], ['TYPE A', 'type'],
+    ['CHLOROPHYLL A', 'chlorophyll'], ['0.5 TIMES THE CONCENTRATION OF A', '0.5 times the concentration of'], ['LEAD', 'lead a']]) {
+    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  for (const [key, typed] of [['VITAMIN A', 'vitamin a'], ['COENZYME A', 'coenzyme a'], ['A PROTON', 'proton'], ['5 A', '5 amperes']]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  }
+});
+
+test('a changed digit is a different number, not a typo', () => {
+  for (const [key, typed] of [['24500', '24501'], ['65536', '65537'], ['0.064', '0.065'], ['12.75', '12.7'], ['12.75', '13.75'], ['146097', '146098']]) {
+    const r = grade(key, typed);
+    assert.ok(!r.correct && !r.close, `${typed} for ${key}`);
+  }
+  assert.ok(grade('DEUTEROSTOMES', 'deuterosomes').close);
+});
+
+test('respectively: an accept or a word the question asks by does not undo the order', () => {
+  const meth = { question: 'What are the names for the two processes that, respectively, inhibit and promote gene expression?', accept: ['METHYLATION; ACETYLATION'] };
+  assert.ok(isCorrect('METHYLATION AND ACETYLATION', 'methylation and acetylation', meth));
+  assert.ok(!isCorrect('METHYLATION AND ACETYLATION', 'acetylation and methylation', meth));
+  const hj = { question: 'In the Hjulstrom curve, what particle type is deposited the most easily, and what physical drag law is based on small spherical particles falling through a fluid, respectively?' };
+  assert.ok(isCorrect('Sand, Stokes drag', 'sand, stokes drag', hj));
+  assert.ok(!isCorrect('Sand, Stokes drag', 'stokes drag, sand', hj));
+  const zinc = { question: 'What are the chemical compounds used as the anode and cathode, respectively, of a standard alkaline AA battery?', accept: ['ZINC AND MANGANESE OXIDE'] };
+  assert.ok(isCorrect('ANODE: ZINC; CATHODE: MANGANESE OXIDE', 'zinc and manganese oxide', zinc));
+  assert.ok(!isCorrect('ANODE: ZINC; CATHODE: MANGANESE OXIDE', 'manganese oxide and zinc', zinc));
+  // items that each carry the question's own word for them can come in any order, typed whole
+  const nao = { question: 'The NAO is an oscillation due to changes in strength of what low and high pressure systems, respectively?' };
+  assert.ok(isCorrect('ICELANDIC LOW, AZORES HIGH', 'azores high, icelandic low', nao));
+  assert.ok(!isCorrect('ICELANDIC LOW, AZORES HIGH', 'azores, icelandic', nao));
+  const redox = { question: 'In the reaction of selenous acid and iodide, what elements are reduced and what are oxidized, respectively?' };
+  assert.ok(isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is oxidized and selenium is reduced', redox));
+  assert.ok(!isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is reduced, selenium is oxidized', redox));
+});
+
+test('an order or range note in the accept list is read, never taken as an answer', () => {
+  const rods = { question: 'What are the two types of photoreceptors in the retina?', accept: ['in any order'] };
+  assert.ok(!isCorrect('Cones and Rods', 'in any order', rods));
+  assert.ok(isCorrect('Cones and Rods', 'rods and cones', rods));
+  const ranks = { question: 'Order the following categories from most general to most specific: Species, Family, Genus, Order, Class', accept: ['in that order'] };
+  assert.ok(!isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'in that order', ranks));
+  assert.ok(isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'class, order, family, genus, species', ranks));
+  assert.ok(!isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'species, genus, family, order, class', ranks));
+  // "in that order" holds a list to its order even where the stem doesn't say so
+  const zinc = { question: 'What metals are used in a battery?', accept: ['in that order'] };
+  assert.ok(!isCorrect('ZINC AND COPPER', 'copper and zinc', zinc) && isCorrect('ZINC AND COPPER', 'zinc and copper', zinc));
+  for (const [key, note] of [['90', 'ANYTHING BETWEEN 90 AND 95'], ['Bronze', 'Anything metallic'], ['Basal slip', 'anything with “basal”'],
+    ['80', 'ANY VALUE FROM 70 TO 90'], ['850', 'ANY VALUE BETWEEN 800-870'], ['66 DEGREES, 32 MINUTES NORTH', 'ACCEPT ANSWERS WITHIN 5 MINUTES']]) {
+    assert.ok(!isCorrect(key, note, { accept: [note] }), note);
+    assert.ok(isCorrect(key, key.toLowerCase(), { accept: [note] }), key);
+  }
+  // a "name any N" key and a class named as the answer are answers, not notes
+  for (const x of ['ANY 2 OF: EARTH, TITAN, PLUTO', 'ANY CHLOROPHYLL', 'ANY CARBONATE ROCK, CALCITE, OR DOLOMITE']) assert.ok(!globalThis.SBAnswer.isNote(x), x);
+});
+
+test('a word in brackets at the start of a key can be left off', () => {
+  for (const [key, typed] of [['(Richard) Feynman', 'feynman'], ['(NUCLEAR) FUSION', 'fusion'], ['(ULTRA) LUMINOUS INFRARED', 'luminous infrared'],
+    ['(glacial) erratics', 'erratics'], ['(NUCLEAR) FUSION', 'nuclear fusion']]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  assert.ok(!isCorrect('(Richard) Feynman', 'richard'));
+  assert.ok(!isCorrect('(instantaneous) power', 'average power', { reject: ['average'] }));
+  assert.ok(!isCorrect('(pi)r^2 + pi*r*l', 'r^2 + pi*r*l'));
+});
+
+test('a function typed without brackets around its argument', () => {
+  for (const [key, typed] of [['-2sin(x)cos(x)', '-2 sin x cos x'], ['-2sin(x)cos(x)', '-2 sinx cosx'], ['-2sin(x)cos(x)', '-2sinxcosx'], ['sin(x)+ tan(x)sec(x)', 'sinx + tanxsecx'], ['2sin(x)', '2 sin x'], ['2sin(x)', '2sinx'],
+    ['-5sin(5x)', '-5 sin 5x'], ['sin(x)+ tan(x)sec(x)', 'sinx + tanx secx'], ['ln(2)', 'ln 2'], ['sec^2(x)', 'sec^2 x']]) {
+    assert.ok(isCorrect(key, typed, { question: 'What is it?' }), `${typed} for ${key}`);
+  }
+  for (const [key, typed] of [['-2sin(x)cos(x)', '2 sin x cos x'], ['-5sin(5x)', '-5 cos 5x'], ['2sin(x)', '2 sin y']]) {
+    assert.ok(!isCorrect(key, typed, { question: 'What is it?' }), `${typed} for ${key}`);
+  }
+  // a word that starts with a function's name is not that function
+  assert.ok(!isCorrect('SINE = –15/17, TANGENT = –15/8', 'SINE = –15*17, TANGENT = –15/8'));
+});
+
+test('more units written out: decibels, webers, lux, grays, becquerels, sieverts, km/h, rad/s', () => {
+  for (const [key, typed] of [['73 dB', '73 decibels'], ['1.5 Wb', '1.5 webers'], ['5 lx', '5 lux'], ['3 Gy', '3 grays'],
+    ['4 Bq', '4 becquerels'], ['2 mSv', '2 millisieverts'], ['1 km/h', '1 kilometers per hour'], ['9 rad/s', '9 radians per second'], ['2 H', '2 henries']]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  assert.ok(!isCorrect('73 dB', '73 decibars'));
+  assert.ok(!isCorrect('3 Gy', '3 sieverts'));
 });
 
 test('across the corpus, another question\'s answer passes only where it is the same answer (snapshot)', () => {

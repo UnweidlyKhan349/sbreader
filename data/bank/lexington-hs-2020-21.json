@@ -339,7 +339,7 @@
 {"i":55730,"s":"ess","f":"SA","qt":"tossup","n":23,"q":"By name of number, indicate which of the following organisms primarily compose calcareous ooze: I. Coccolithophores II. Diatoms III. Formanifers","a":{"t":"I, III"},"pg":12},
 {"i":55731,"s":"ess","f":"MC","qt":"bonus","n":23,"q":"On a clear sunny afternoon with no wind, a cumulus cloud forms. Given that the dew point is 15 C and the temperature is 30 C, what is the approximate height of the cloud base in meters?","a":{"t":"1875 m","l":"Y"},"c":{"W":"825 m","X":"1255 m","Y":"1875 m","Z":"3420 m"},"pg":13},
 {"i":55732,"s":"math","f":"SA","qt":"tossup","n":24,"q":"Bob likes punching walls, however he is a very weak man. When punching walls, he has a 36% chance to hurt his hand and feel sad and a 64% chance to not hurt his hand and feel happy. If Bob punches the wall 100 times, what is the standard deviation of happiness?","a":{"t":"4.8"},"pg":13},
-{"i":55733,"s":"math","f":"SA","qt":"bonus","n":24,"q":"What is the derivative of sin(x)tan(x)?","a":{"t":"sin(x)+ tan(x)sec(x)"},"pg":13},
+{"i":55733,"s":"math","f":"SA","qt":"bonus","n":24,"q":"What is the derivative of sin(x)tan(x)?","a":{"t":"sin(x) + tan(x)sec(x)"},"pg":13},
 {"i":55734,"s":"bio","f":"SA","qt":"tossup","n":25,"q":"Name all of the following amino acids that are purely ketogenic. I. Leucine II. Isoleucine III. Lysine IV. Tyrosine","a":{"t":"I AND III (LEUCINE AND LYSINE)"},"pg":13},
 {"i":55735,"s":"bio","f":"SA","qt":"bonus","n":25,"q":"The rough endoplasmic reticulum is highly concentrated in neurons due to the presence of what large granular bodies?","a":{"t":"NISSL BODIES"},"pg":14}]},
 {"rl":"Round 8","r":8,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%208.pdf","q":[
