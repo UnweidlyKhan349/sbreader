@@ -245,11 +245,7 @@ test('losing the connection shows "Disconnected from server" in a dialog on the 
   page.on('dialog', (d) => dialogs.push(d.message()));
   await ctx.setOffline(true);
   await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-  // First a few seconds of "Reconnecting…", then the dialog.
-  await page.waitForSelector('#mpReconnecting');
-  assert.strictEqual(await page.isVisible('#alert-modal'), false);
-  await page.waitForSelector('#alert-modal.show', { timeout: 15000 });
-  assert.strictEqual(await page.locator('#mpReconnecting').count(), 0);
+  await page.waitForSelector('#alert-modal.show');
   assert.strictEqual(await page.textContent('#alert-modal-text'), 'Disconnected from server');
   // Only OK closes it: not Esc, not a click outside.
   await page.keyboard.press('Escape');
@@ -266,30 +262,14 @@ test('the "Disconnected from server" dialog goes away by itself once the connect
   const page = await joinRoom(ctx, server.url, room());
   await ctx.setOffline(true);
   await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-  await page.waitForSelector('#alert-modal.show', { timeout: 15000 });
+  await page.waitForSelector('#alert-modal.show');
   await ctx.setOffline(false);
   await page.evaluate(() => window.dispatchEvent(new Event('online')));
   await page.waitForSelector('#alert-modal', { state: 'hidden' });
   // A later loss is told again.
   await ctx.setOffline(true);
   await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-  await page.waitForSelector('#alert-modal.show', { timeout: 15000 });
-  await ctx.close();
-});
-
-test('a short drop only shows "Reconnecting…", never the dialog', async () => {
-  const ctx = await newContext(browser);
-  const page = await joinRoom(ctx, server.url, room());
-  await ctx.setOffline(true);
-  await page.evaluate(() => window.dispatchEvent(new Event('offline')));
-  await page.waitForSelector('#mpReconnecting');
-  await page.waitForTimeout(2000);
-  await ctx.setOffline(false);
-  await page.evaluate(() => window.dispatchEvent(new Event('online')));
-  await page.waitForSelector('#mpReconnecting', { state: 'detached' });
-  await page.waitForTimeout(6000);
-  assert.strictEqual(await page.isVisible('#alert-modal'), false, 'no dialog after the grace period either');
-  assert.deepStrictEqual(page.errors, []);
+  await page.waitForSelector('#alert-modal.show');
   await ctx.close();
 });
 

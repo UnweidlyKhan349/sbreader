@@ -2194,25 +2194,10 @@
           const text = document.getElementById('alert-modal-text');
           if (el && el.classList.contains('show') && text && text.textContent === DISCONNECTED_TEXT) SBSite.hideModal(el);
         },
-        // A short drop (a phone switching networks): a small notice, and the
-        // dialog above only if it lasts.
-        onReconnecting: (on) => showReconnecting(on && !!myState.role),
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
     }
     return mesh.ready;
-  }
-
-  function showReconnecting(on) {
-    let el = document.getElementById('mpReconnecting');
-    if (!on) { if (el) el.remove(); return; }
-    if (el) return;
-    el = document.createElement('div');
-    el.id = 'mpReconnecting';
-    el.className = 'mp-reconnecting badge text-bg-warning';
-    el.setAttribute('role', 'status');
-    el.textContent = 'Reconnecting…';
-    document.body.appendChild(el);
   }
 
   function onMeshMessage(from, data) {

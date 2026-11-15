@@ -149,7 +149,7 @@
      door can change hands without anyone in the room noticing.
 
      makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo(),
-                onDisconnect(), onReconnect(), onReconnecting(bool) })
+                onDisconnect(), onReconnect() })
        ready              resolves with this player's own peer ID
        join(roomId, { hint, onLateLink })
                           through the door (or a player in `hint`, whichever
@@ -188,12 +188,8 @@
   // How long the connection service may stay unreachable before the player
   // is told they've been disconnected (it usually comes back within seconds).
   const LOST_AFTER_MS = 8000;
-  // The browser saying it's offline isn't told at once either: phones say
-  // so for a moment when they switch networks. Until then the player sees
-  // "Reconnecting…" (onReconnecting).
-  const OFFLINE_GRACE_MS = 6000;
 
-  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect, onReconnect, onReconnecting }) {
+  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect, onReconnect }) {
     const conns = new Map();
     let self;
     let door = null;
@@ -223,35 +219,10 @@
     // been unreachable for a while with no other player still connected.
     // Told once (onDisconnect), never after leaving on purpose.
     let lostTold = false;
-    const isOffline = () => typeof navigator !== 'undefined' && navigator.onLine === false;
     function checkLost() {
       if (lostTold || self.destroyed || !onDisconnect) return;
-      if (isOffline() || (self.disconnected && conns.size === 0)) { lostTold = true; setReconnecting(false); onDisconnect(); }
-    }
-    // Between losing the connection and either getting it back or telling
-    // the player: "Reconnecting…".
-    let reconnecting = false;
-    let graceTimer = null;
-    function setReconnecting(on) {
-      if (on === reconnecting) return;
-      reconnecting = on;
-      if (!on) { clearTimeout(graceTimer); graceTimer = null; }
-      if (onReconnecting) onReconnecting(on);
-    }
-    function wobble(waitMs) {
-      if (lostTold || self.destroyed) return;
-      setReconnecting(true);
-      clearTimeout(graceTimer);
-      graceTimer = setTimeout(() => {
-        graceTimer = null;
-        checkLost();
-        // Not lost after all (someone is still connected): steady again.
-        if (!lostTold && !isOffline()) setReconnecting(false);
-      }, waitMs);
-    }
-    function steady() {
-      if (isOffline() || (self.disconnected && conns.size === 0)) return;
-      setReconnecting(false);
+      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      if (offline || (self.disconnected && conns.size === 0)) { lostTold = true; onDisconnect(); }
     }
     // Back again after being told (the browser is online and the connection
     // service reachable): told once more (onReconnect), and a later loss is
@@ -265,19 +236,15 @@
     }
     self.on('disconnected', () => {
       setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
-      // Only the connection service: the game goes on over the links to the
-      // other players, so nothing is shown unless there are none.
-      if (conns.size === 0) wobble(LOST_AFTER_MS);
-      else setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
+      setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
     });
     // PeerJS opens again once a reconnect() gets through.
-    self.on('open', () => { checkBack(); steady(); });
+    self.on('open', () => checkBack());
     if (typeof window !== 'undefined') {
-      window.addEventListener('offline', () => wobble(OFFLINE_GRACE_MS));
+      window.addEventListener('offline', () => checkLost());
       window.addEventListener('online', () => {
         if (!self.destroyed && self.disconnected) { try { self.reconnect(); } catch (e) { /* tried again later */ } }
         checkBack();
-        steady();
       });
     }
 
@@ -423,7 +390,6 @@
       conn.on('close', () => drop(false));
       conn.on('error', () => drop(false));
       if (!old && onJoin) onJoin(id);
-      steady();
     }
     self.on('connection', (conn) => {
       // A newcomer asking this player, instead of the door, who's in the
