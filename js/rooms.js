@@ -145,6 +145,8 @@
       ownerKey: typeof d.owner_key === 'string' ? d.owner_key : null,
       banned,
       bannedAt,
+      // the room's settings when it was last played (null before any)
+      settings: d.settings && typeof d.settings === 'object' ? d.settings : null,
       players: Array.isArray(d.players) ? d.players : [],
     };
   }
@@ -202,5 +204,13 @@
     return rpc('mp_leave', { p_room: roomKey, p_pid: pid, p_secret: mySecret() }, true).then(() => {});
   }
 
-  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, heartbeat, leave, key, ONLINE_MS };
+  // The room's settings, kept for when it's next opened (see
+  // mp_save_settings). Resolves true when saved.
+  async function saveSettings(roomKey, pid, settings) {
+    if (!enabled || !roomKey || !pid || !settings) return null;
+    const r = await rpc('mp_save_settings', { p_room: roomKey, p_pid: pid, p_secret: mySecret(), p_settings: settings });
+    return r.error ? null : r.data === true;
+  }
+
+  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, saveSettings, heartbeat, leave, key, ONLINE_MS };
 })();

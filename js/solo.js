@@ -599,6 +599,8 @@
 
   function skipQuestion() {
     if (runtime.phase !== 'revealing' && runtime.phase !== 'buzzwindow') return;
+    // Skipping a paused question goes on unpaused.
+    if (runtime.paused) setPaused(false);
     resolveQuestion();
   }
 

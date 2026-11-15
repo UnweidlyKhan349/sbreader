@@ -210,7 +210,12 @@
       const name = str(msg.name, LIMITS.name).trim();
       return name ? { type, name } : null;
     }
-    if (type === 'submitAnswer' || type === 'typing') return { type, text: str(msg.text, LIMITS.answer) };
+    if (type === 'submitAnswer') return { type, text: str(msg.text, LIMITS.answer) };
+    if (type === 'typing') {
+      const out = { type, text: str(msg.text, LIMITS.answer) };
+      if (Number.isInteger(msg.seq) && msg.seq > 0) out.seq = msg.seq;
+      return out;
+    }
     if (type === 'chatSend') {
       const text = str(msg.text, LIMITS.chat).trim();
       if (!text) return null;

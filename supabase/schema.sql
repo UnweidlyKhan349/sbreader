@@ -295,12 +295,15 @@ drop function if exists public.mp_set_room(text, text, boolean, text, text[], bo
 -- set here, by the server's clock. `banned` is kept as the list of pids.
 -- Bans from before this have no time and are over.
 alter table public.mp_rooms add column if not exists ban_times jsonb not null default '{}'::jsonb;
+-- A named room's settings when last played (see mp_save_settings below).
+alter table public.mp_rooms add column if not exists settings jsonb
+  check (settings is null or (jsonb_typeof(settings) = 'object' and octet_length(settings::text) <= 8000));
 
 create or replace function public.mp_room(p_room text)
 returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object(
-    'is_public', r.is_public, 'owner_key', r.owner_key,
+    'is_public', r.is_public, 'owner_key', r.owner_key, 'settings', r.settings,
     'banned', coalesce((select jsonb_agg(e.key) from jsonb_each_text(r.ban_times) e
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '[]'::jsonb),
     'ban_times', coalesce((select jsonb_object_agg(e.key, e.value::bigint) from jsonb_each_text(r.ban_times) e
@@ -361,6 +364,42 @@ $$;
 
 revoke all on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) from public;
 grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) to anon, authenticated;
+
+-- Room settings (added November 2026): a named room keeps its settings
+-- (filters, switches, reading speed) after everyone has left, and opens
+-- with them again. Any player now in the room (their own live row, by
+-- their browser's secret) can save them; the coordinator does after each
+-- change. Built-in rooms keep their fixed settings and save nothing.
+-- (Its column, mp_rooms.settings, is added above, before mp_room.)
+
+create or replace function public.mp_save_settings(p_room text, p_pid text, p_secret text, p_settings jsonb)
+returns boolean
+language plpgsql security definer set search_path = public as $$
+declare
+  h text;
+  n integer;
+begin
+  if p_secret is null or char_length(p_secret) not between 16 and 128 then
+    raise exception 'bad secret';
+  end if;
+  if p_room like 'pub-%' then
+    return false;
+  end if;
+  if p_settings is null or jsonb_typeof(p_settings) <> 'object' or octet_length(p_settings::text) > 8000 then
+    raise exception 'bad settings';
+  end if;
+  h := encode(sha256(convert_to(p_secret, 'UTF8')), 'hex');
+  if not exists (select 1 from mp_players p where p.room = p_room and p.pid = p_pid and p.secret_hash = h
+                 and p.last_seen > now() - interval '90 seconds') then
+    return false;
+  end if;
+  update mp_rooms set settings = p_settings where name = p_room;
+  get diagnostics n = row_count;
+  return n > 0;
+end;
+$$;
+revoke all on function public.mp_save_settings(text, text, text, jsonb) from public;
+grant execute on function public.mp_save_settings(text, text, text, jsonb) to anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Problem reports and "I was right" clicks (added November 2026).

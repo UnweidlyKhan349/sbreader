@@ -17,6 +17,9 @@ test('string fields are coerced and cut to length', () => {
   assert.deepStrictEqual(cleanHostMessage({ type: 'join', name: { x: 1 } }, meta), { type: 'join', name: 'Player' });
   assert.strictEqual(cleanHostMessage({ type: 'join', name: 'x'.repeat(100) }, meta).name.length, 24);
   assert.strictEqual(cleanHostMessage({ type: 'typing', text: 'x'.repeat(5000) }, meta).text.length, 200);
+  // A typing update's number is kept only when it's a positive whole number.
+  assert.deepStrictEqual(cleanHostMessage({ type: 'typing', text: 'ab', seq: 7 }, meta), { type: 'typing', text: 'ab', seq: 7 });
+  for (const seq of [0, -1, 1.5, '3', null]) assert.deepStrictEqual(cleanHostMessage({ type: 'typing', text: 'ab', seq }, meta), { type: 'typing', text: 'ab' });
   assert.strictEqual(cleanHostMessage({ type: 'chatSend', text: 'x'.repeat(5000) }, meta).text.length, 300);
 });
 
