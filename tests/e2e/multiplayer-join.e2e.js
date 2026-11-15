@@ -234,3 +234,68 @@ test('a slow door doesn\'t hold up joining: the players the room list knows are 
   assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
   await ctx.close();
 });
+
+// A player whose connection is slow from the start (fake-peer's __SLOW_MS,
+// each way).
+async function slowPlayer(ctx, base, r, slowMs) {
+  const p = await ctx.newPage();
+  p.errors = [];
+  p.on('pageerror', (e) => p.errors.push(e.message));
+  await p.addInitScript((ms) => { window.__SLOW_MS = ms; }, slowMs);
+  // Loaded in full, as joinRoom does: a tab still busy loading answers the
+  // fake broker late, and another tab could claim the same room's door.
+  await p.goto(`${base}multiplayer?room=${r}`, { waitUntil: 'networkidle' });
+  await p.waitForFunction(() => document.querySelector('.mp-player-row.user-score') && /joined the game/.test(document.getElementById('mpHistory').textContent), null, { timeout: 40000 });
+  return p;
+}
+
+test('the buzz pressed first wins, even from a slower connection', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  // 120 ms each way: s's screen is 120 ms behind, and its buzz 120 ms late.
+  const s = await slowPlayer(ctx, server.url, r, 120);
+  await a.evaluate(() => { const el = document.getElementById('mpSettingsRateSlider'); if (el) { el.value = el.min || 0; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); } });
+  await a.waitForTimeout(2500); // pings measure the round trips
+  await press(a, 'n');
+  for (const p of [g, s]) await p.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled && document.getElementById('mpQDisplay').textContent.length > 20, null, { timeout: 10000 });
+  // s presses 60 ms before g (on the same clock): s reaches the coordinator
+  // second, but pressed first.
+  const at = await a.evaluate(() => Date.now() + 400);
+  await Promise.all([
+    s.evaluate((t) => setTimeout(() => document.getElementById('mpBuzzBtn').click(), t - Date.now()), at),
+    g.evaluate((t) => setTimeout(() => document.getElementById('mpBuzzBtn').click(), t - Date.now()), at + 60),
+  ]);
+  await s.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 5000 });
+  assert.ok(await g.evaluate(() => document.getElementById('mpAnswerRow').classList.contains('d-none')), 'g is not the one answering');
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...s.errors], []);
+  await ctx.close();
+});
+
+test('a room opened on a slow connection is handed to a better-connected player, and plays on', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const role = (p) => p.evaluate(() => document.documentElement.dataset.mpRole);
+  // a opens the room (so it runs the game) on a slow connection.
+  const a = await slowPlayer(ctx, server.url, r, 150);
+  assert.strictEqual(await role(a), 'host');
+  const g = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  // Two checks in a row, 10 s apart, once everyone has reported.
+  await b.waitForFunction(() => document.documentElement.dataset.mpRole === 'host', null, { timeout: 60000 })
+    .catch(() => g.waitForFunction(() => document.documentElement.dataset.mpRole === 'host', null, { timeout: 30000 }));
+  const roles = [await role(a), await role(g), await role(b)];
+  assert.strictEqual(roles[0], 'client', `a no longer runs it (${roles})`);
+  assert.strictEqual(roles.filter((x) => x === 'host').length, 1, `exactly one player does (${roles})`);
+  // Nobody was told, and the game goes on: a question, a wrong buzz.
+  for (const p of [a, g, b]) assert.ok(!/coordinator|handed/i.test(await p.locator('#mpHistory').innerText()));
+  await press(a, 'n');
+  for (const p of [g, b]) await p.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 10000 });
+  await press(g, ' ');
+  await g.waitForSelector('#mpAnswerInput:visible', { timeout: 10000 });
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter');
+  for (const p of [a, g, b]) await p.waitForFunction(() => /zzzz/.test(document.getElementById('mpHistory').innerText) && /Incorrect/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
+  await ctx.close();
+});

@@ -198,3 +198,28 @@ test('a room\'s year range stays within the bank\'s years; the whole span means 
   assert.strictEqual(year('2015-2020'), null);
   assert.deepStrictEqual(cleanHostMessage({ type: 'announceYears', yearRange: [1, 2] }, meta), { type: 'announceYears' });
 });
+
+test('the best-connected player is the one with the shortest average round trip', () => {
+  const { pickBestConnected, worthHandingOff } = globalThis.SBMpRules;
+  // a is far from both; b and c are close to each other.
+  const table = { a: { b: 300, c: 320 }, b: { a: 310, c: 20 }, c: { b: 25 } };
+  const rtt = (x, y) => (table[x] && typeof table[x][y] === 'number' ? table[x][y] : null);
+  const r = pickBestConnected(['a', 'b', 'c'], rtt);
+  assert.strictEqual(r.best, 'b');
+  assert.strictEqual(r.ms.a, 310);
+  assert.strictEqual(r.ms.b, 165);
+  assert.strictEqual(r.ms.c, 172.5, 'c\'s missing figure for a is a\'s for c');
+  assert.ok(worthHandingOff(r.ms.a, r.ms.b));
+  // A player with no figure for someone can't be judged.
+  assert.strictEqual(pickBestConnected(['a', 'b', 'd'], rtt).ms.d, null);
+  // Small or proportionally small gains don't move the game.
+  assert.ok(!worthHandingOff(100, 40), 'only 60 ms better');
+  assert.ok(!worthHandingOff(400, 300), 'only a quarter better');
+  assert.ok(!worthHandingOff(null, 10));
+});
+
+test('a player\'s round-trip report is cleaned', () => {
+  const msg = cleanHostMessage({ type: 'pings', rtts: { p1: 12.6, 'bad id!': 5, p2: -1, p3: 'x', p4: 70000, p5: 30 }, bank: 'yes' }, meta);
+  assert.deepStrictEqual(msg, { type: 'pings', rtts: { p1: 13, p5: 30 }, bank: false });
+  assert.deepStrictEqual(cleanHostMessage({ type: 'pings', rtts: [1, 2], bank: true }, meta), { type: 'pings', rtts: {}, bank: true });
+});

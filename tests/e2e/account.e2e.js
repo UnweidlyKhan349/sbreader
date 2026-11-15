@@ -389,3 +389,29 @@ test('reporting a question thanks you in the form, which then closes, with no br
   assert.deepStrictEqual(popups, []);
   await ctx.close();
 });
+
+test('the console says when the database schema is behind, once asked per session', async () => {
+  for (const [answer, want] of [[{ status: 200, body: '20261115' }, null], [{ status: 200, body: '20261101' }, /out of date \(version 20261101/], [{ status: 404, body: '{"code":"PGRST202"}' }, /older than this site/]]) {
+    const ctx = await browser.newContext({ serviceWorkers: 'block' });
+    await routeCdn(ctx);
+    let asked = 0;
+    await ctx.route(/supabase\.co/, (route) => {
+      if (/\/rpc\/sb_schema_version$/.test(route.request().url())) { asked++; return route.fulfill({ status: answer.status, contentType: 'application/json', body: answer.body }); }
+      return route.abort();
+    });
+    const page = await ctx.newPage();
+    const warnings = [];
+    page.on('console', (m) => { if (m.type() === 'warning' && /schema/.test(m.text())) warnings.push(m.text()); });
+    for (const where of ['', 'about']) {
+      await page.goto(`${server.url}${where}`, { waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+    }
+    assert.strictEqual(asked, 1, 'asked once for the two pages');
+    if (want) {
+      assert.strictEqual(warnings.length, 2, 'and said so on each');
+      assert.match(warnings[0], want);
+      assert.match(warnings[0], /Run supabase\/schema\.sql again/);
+    } else assert.deepStrictEqual(warnings, []);
+    await ctx.close();
+  }
+});

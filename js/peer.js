@@ -112,6 +112,11 @@
   const PING_MS = 5000;
   const SILENCE_MS = 75000;
   const PING = '__ping';
+  // A ping carries the time it was sent; the other side sends it straight
+  // back (PONG), which gives each link a round-trip time (conn.rtt, ms,
+  // averaged), for the coordinator's choices. Old copies of the page send
+  // pings without a time and don't answer: their links have no rtt.
+  const PONG = '__pong';
   function watchConn(conn, onDead) {
     let lastHeard = Date.now();
     let iceTimer = null;
@@ -127,12 +132,29 @@
       }
     });
     conn.on('close', stop);
+    const ping = () => { if (conn.open) conn.send({ type: PING, t: Date.now() }); };
     const pinger = setInterval(() => {
       if (Date.now() - lastHeard > SILENCE_MS) { dead(); return; }
-      if (conn.open) conn.send({ type: PING });
+      ping();
     }, PING_MS);
-    // Call with each message; true means it was a ping, for this layer only.
-    return (data) => { lastHeard = Date.now(); return !!(data && data.type === PING); };
+    // One straight away, so the link has a round-trip time early.
+    setTimeout(ping, 200);
+    // Call with each message; true means it was a ping or pong, for this
+    // layer only.
+    return (data) => {
+      lastHeard = Date.now();
+      if (!data) return false;
+      if (data.type === PING) {
+        if (typeof data.t === 'number' && conn.open) conn.send({ type: PONG, t: data.t });
+        return true;
+      }
+      if (data.type === PONG) {
+        const rtt = typeof data.t === 'number' ? Date.now() - data.t : -1;
+        if (rtt >= 0 && rtt < 60000) conn.rtt = conn.rtt == null ? rtt : Math.round(conn.rtt * 0.7 + rtt * 0.3);
+        return true;
+      }
+      return false;
+    };
   }
 
   function randomRoomCode() {
@@ -200,7 +222,7 @@
     } catch (err) {
       const failure = Promise.reject(err);
       failure.catch(() => {});
-      return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, memberIds: () => [], connectTo: () => failure, leave() {} };
+      return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, rtt: () => null, memberIds: () => [], connectTo: () => failure, leave() {} };
     }
     // Open on the connection service, and (in parallel, briefly) the TURN
     // logins, before the first connection to anyone.
@@ -558,6 +580,9 @@
       // Whether anyone in the room is reached through the relay (for the UI).
       relayed: () => [...conns.values()].some((c) => c.relay && c.open),
       isUp: (id) => conns.has(id),
+      // Round-trip time to that player in ms (averaged over the pings), or
+      // null while unknown.
+      rtt: (id) => { const c = conns.get(id); return c && typeof c.rtt === 'number' ? c.rtt : null; },
       memberIds: () => [...conns.keys()],
       leave() {
         for (const c of conns.values()) { try { if (c.open) c.send({ type: BYE }); } catch (e) { /* going */ } }

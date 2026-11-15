@@ -5,8 +5,9 @@
 //                               networks block them; the relay is needed)
 //   window.__LAG_MS = 150       every message arrives this much later
 //   window.__SLOW_MS = 3000     this tab is on a slow connection: links to
-//                               and from it open, and messages reach it,
-//                               this much later (set it in that tab only)
+//                               and from it open, and messages to and from
+//                               it arrive, this much later each way (set it
+//                               in that tab only; its round trip is twice it)
 (function () {
   const bc = new BroadcastChannel('fakepeer');
   const local = new Map(); // id -> Peer in this tab
@@ -14,7 +15,11 @@
   const conns = new Map(); // cid -> Conn
   class Conn extends Emitter {
     constructor(cid, me, peer) { super(); this.cid = cid; this.me = me; this.peer = peer; this.open = false; conns.set(cid, this); }
-    send(d) { if (this.open) bc.postMessage({ t: 'data', cid: this.cid, to: this.peer, d: JSON.parse(JSON.stringify(d)) }); }
+    send(d) {
+      if (!this.open) return;
+      const m = { t: 'data', cid: this.cid, to: this.peer, d: JSON.parse(JSON.stringify(d)) };
+      if (window.__SLOW_MS) setTimeout(() => bc.postMessage(m), window.__SLOW_MS); else bc.postMessage(m);
+    }
     close() { if (!this.open) return; this.open = false; bc.postMessage({ t: 'close', cid: this.cid, to: this.peer }); this.emit('close'); }
   }
   const asks = new Map();
