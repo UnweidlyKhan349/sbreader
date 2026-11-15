@@ -146,6 +146,8 @@ test('every whole-answer accept in the corpus grades as correct', () => {
     // a multi-part key's single-part accepts are alternates for one part only
     if (q.format === 'MC' || /;|\s\|\s/.test(q.answer.text)) continue;
     for (const acc of q.answer.accept) {
+      // (an order or range note is read by the grader, not typed: see isNote)
+      if (globalThis.SBAnswer.isNote(acc)) continue;
       if (!checkAnswer(q, acc).correct) failures.push(`${q.id}: ${acc}`);
     }
   }
@@ -905,7 +907,8 @@ test('multiple choice: a choice\'s text passes only for its own choice, however 
   const ok = (q, typed) => checkAnswer(q, typed).correct;
   // choices that normalize() alone can't tell apart
   const roots = mc({ W: 'F/2', X: 'F/√2', Y: 'F √2', Z: '2 F' }, 'X');
-  assert.ok(ok(roots, 'F/√2') && ok(roots, 'f/√2') && ok(roots, 'F/sqrt2') && ok(roots, 'X'));
+  assert.ok(ok(roots, 'F/√2') && ok(roots, 'f/√2') && ok(roots, 'X'));
+  assert.ok(!ok(roots, 'F/sqrt2')); // reads as both X and Y: not exactly either
   assert.ok(!ok(roots, 'F √2') && !ok(roots, 'F/2'));
   const geno = mc({ W: 'BB', X: 'bB', Y: 'Bb', Z: 'bb' }, 'W');
   assert.ok(ok(geno, 'BB'));
@@ -925,10 +928,14 @@ test('multiple choice: a choice\'s text passes only for its own choice, however 
   // a choice printed twice in the packet is still the wrong choice
   const twice = mc({ W: 'yaw', X: 'stall', Y: 'roll', Z: 'stall' }, 'Y');
   assert.ok(ok(twice, 'roll') && !ok(twice, 'stall'));
-  // "minus"/"plus" and ½ in a choice read the same as when typed
+  // "minus"/"plus" and ½ in a choice are typed as printed
   const beta = mc({ W: 'Alpha decay', X: 'Electron capture', Y: 'Beta-plus decay', Z: 'Beta-minus decay' }, 'Z');
   assert.ok(ok(beta, 'Beta-minus decay') && ok(beta, 'beta minus decay') && ok(beta, 'z beta-minus decay'));
   assert.ok(!ok(beta, 'Beta-plus decay') && !ok(beta, 'beta plus decay'));
+  // and only as printed: the sign written as a symbol, or left off, is not the choice
+  for (const t of ['beta- decay', 'beta decay', 'β- decay']) assert.ok(!ok(beta, t), t);
+  const lone = mc({ W: 'Alpha decay', X: 'Electron capture', Y: 'Gamma decay', Z: 'Beta-minus decay' }, 'Z');
+  assert.ok(ok(lone, 'beta-minus decay') && !ok(lone, 'beta decay') && !ok(lone, 'beta- decay'));
   const half = mc({ W: '½', X: '¼', Y: '2', Z: '4' }, 'W');
   assert.ok(ok(half, '½') && ok(half, '1/2') && !ok(half, '1/4'));
 });
@@ -968,6 +975,26 @@ test('respectively: an accept or a word the question asks by does not undo the o
   const redox = { question: 'In the reaction of selenous acid and iodide, what elements are reduced and what are oxidized, respectively?' };
   assert.ok(isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is oxidized and selenium is reduced', redox));
   assert.ok(!isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is reduced, selenium is oxidized', redox));
+});
+
+test('an order or range note in the accept list is read, never taken as an answer', () => {
+  const rods = { question: 'What are the two types of photoreceptors in the retina?', accept: ['in any order'] };
+  assert.ok(!isCorrect('Cones and Rods', 'in any order', rods));
+  assert.ok(isCorrect('Cones and Rods', 'rods and cones', rods));
+  const ranks = { question: 'Order the following categories from most general to most specific: Species, Family, Genus, Order, Class', accept: ['in that order'] };
+  assert.ok(!isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'in that order', ranks));
+  assert.ok(isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'class, order, family, genus, species', ranks));
+  assert.ok(!isCorrect('CLASS, ORDER, FAMILY, GENUS, SPECIES', 'species, genus, family, order, class', ranks));
+  // "in that order" holds a list to its order even where the stem doesn't say so
+  const zinc = { question: 'What metals are used in a battery?', accept: ['in that order'] };
+  assert.ok(!isCorrect('ZINC AND COPPER', 'copper and zinc', zinc) && isCorrect('ZINC AND COPPER', 'zinc and copper', zinc));
+  for (const [key, note] of [['90', 'ANYTHING BETWEEN 90 AND 95'], ['Bronze', 'Anything metallic'], ['Basal slip', 'anything with “basal”'],
+    ['80', 'ANY VALUE FROM 70 TO 90'], ['850', 'ANY VALUE BETWEEN 800-870'], ['66 DEGREES, 32 MINUTES NORTH', 'ACCEPT ANSWERS WITHIN 5 MINUTES']]) {
+    assert.ok(!isCorrect(key, note, { accept: [note] }), note);
+    assert.ok(isCorrect(key, key.toLowerCase(), { accept: [note] }), key);
+  }
+  // a "name any N" key and a class named as the answer are answers, not notes
+  for (const x of ['ANY 2 OF: EARTH, TITAN, PLUTO', 'ANY CHLOROPHYLL', 'ANY CARBONATE ROCK, CALCITE, OR DOLOMITE']) assert.ok(!globalThis.SBAnswer.isNote(x), x);
 });
 
 test('more units written out: decibels, webers, lux, grays, becquerels, sieverts, km/h, rad/s', () => {

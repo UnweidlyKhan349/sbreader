@@ -1294,6 +1294,10 @@
   // generation fuel cells" in a stem doesn't make a list ordered.
   function listIsOrdered(question) {
     const q = question.question || '';
+    // the packet's own order note, kept in the accept list, settles it
+    const notes = (question.answer && question.answer.notes) || [];
+    if (notes.some((n) => /\b(EITHER|ANY)\s+ORDER/i.test(n))) return false;
+    if (notes.some((n) => /\b(?:THAT|THIS)\s+ORDER\b/i.test(n))) return true;
     return isRankingQuestion(q) || /\brespectively\b/i.test(q)
       || (/\bin (?:that|this) order\b/i.test(q) && !/\bnot necessarily in (?:that|this) order\b/i.test(q))
       || /\bin rows\b|\bwhat matrix\b|\bordered (?:pair|triple)\b|\b(?:cartesian|polar|rectangular) coordinates\b/i.test(q)
@@ -1451,7 +1455,7 @@
     const alts = parts.map(partVariants);
     const wholeAccepts = [];
     const fragments = [];
-    const notes = [];
+    const notes = [...(ans.notes || [])];
     for (const acc of ans.accept || []) {
       if (/\bORDER\b/i.test(acc) && !answerParts(acc)) { notes.push(acc); continue; }
       const accParts = answerParts(acc);
@@ -1865,7 +1869,7 @@
   // (with `markup`, "^" and "_" are kept: "Tλmax" isn't "T^(λmax)")
   function mcSymbols(t, markup) {
     const s = String(t == null ? '' : t).normalize('NFC').replace(/[−–‐—]/g, '-').replace(/['’‘]/g, "'");
-    return (markup ? s.replace(/([\^_])\(([^()]*)\)/g, '$1$2') : s.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '')).replace(/sqrt\s*/gi, '√').replace(/\s+/g, '').replace(/\.$/, '');
+    return (markup ? s.replace(/([\^_])\(([^()]*)\)/g, '$1$2') : s.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '')).replace(/\s+/g, '').replace(/\.$/, '');
   }
 
   function gradeAnswer(question, userInput) {
@@ -2497,6 +2501,11 @@
     const toks = letterTokens(key);
     if (!toks.length || !toks.every((t) => /^[A-Za-z]{2,8}$/.test(t))) return null;
     if (!toks.every((t) => /[a-z]/.test(t) || /^([A-Z])\1+$/.test(t) || /^X[A-Z]?X[A-Z]?$|^X[A-Z]?Y$/i.test(t))) return null;
+    // a gene is two of one letter ("Aa", "BbCc", "Bbee", "ii"), or X-linked:
+    // "None", "Malate" or "Biotin" on a genetics question is a word
+    const genes = (t) => t.length % 2 === 0 && /^(?:([A-Za-z])(?=[A-Za-z]))/.test(t)
+      && [...t.matchAll(/(.)(.)/g)].every((m) => m[1].toUpperCase() === m[2].toUpperCase());
+    if (!toks.every((t) => genes(t) || /^X[A-Z]?X[A-Z]?$|^X[A-Z]?Y$/i.test(t))) return null;
     return toks;
   }
   function geneCanon(x) {
@@ -2549,6 +2558,8 @@
     return out;
   }
   function formulaCaseConflict(typed, key, questionText) {
+    // ("No" answers a yes-or-no question unless the question is about nobelium)
+    if (/^\s*no\s*$/i.test(key) && !/nobelium|symbol/i.test(questionText || '')) return false;
     const k = formulaKey(key);
     if (!k) return false;
     const t = String(typed).trim().replace(/\^\(?\d*[+\-−]\)?$/, '').replace(/[\s^_]/g, '');
@@ -3013,19 +3024,33 @@
     return rejects.some((r) => normEqual(typed, r) || mathEquivalent(typed, r, '')) ? false : 'exact';
   }
 
-  // (the choices are rewritten with the typed answer, so a choice's text
-  // still reads the same as the answer typed from it: "Beta-minus decay")
-  const mapChoices = (choices, f) => (choices ? Object.fromEntries(Object.entries(choices).map(([L, t]) => [L, f(t)])) : choices);
+  // An accept entry that is a note about answers rather than an answer: an
+  // order note ("in any order", "in that order"), which the order checks
+  // read, or a range or class for the player to override on ("ANYTHING
+  // BETWEEN 90 AND 95", "Anything metallic"). Typed as is, it is no answer.
+  const NOTE_RE = new RegExp([
+    '^\\s*(?:(?:in|either)\\s+)?(?:either|any|that|this)\\s+order\\s*$',
+    '^\\s*anything\\b',
+    '^\\s*any\\s+(?:value|answer|number|indication|variant|subset|other|switching|cyclic|ordering|common\\s+name)\\b',
+    '^\\s*accept\\s+answers?\\s+within\\b',
+  ].join('|'), 'i');
+  const isNote = (x) => NOTE_RE.test(String(x == null ? '' : x));
   function checkAnswer(question, userInput) {
     if (String(userInput || '').length > MAX_ANSWER_LENGTH) return { correct: false, matched: null, rejected: false };
-    if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' ') + ' ' + Object.values(question.choices || {}).join(' '))) {
+    if (question && question.answer && (question.answer.accept || []).some(isNote)) {
       const a = question.answer;
-      question = { ...question, answer: { ...a, text: signWords(a.text), accept: (a.accept || []).map(signWords), reject: (a.reject || []).map(signWords) }, choices: mapChoices(question.choices, signWords) };
+      question = { ...question, answer: { ...a, accept: a.accept.filter((x) => !isNote(x)), notes: [...(a.notes || []), ...a.accept.filter(isNote)] } };
+    }
+    // (never on multiple choice, whose answer is the choice exactly as
+    // printed: "Beta-minus decay" is typed as it reads, not as "beta- decay")
+    if (question && question.answer && question.format !== 'MC' && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
+      const a = question.answer;
+      question = { ...question, answer: { ...a, text: signWords(a.text), accept: (a.accept || []).map(signWords), reject: (a.reject || []).map(signWords) } };
       userInput = signWords(userInput);
     }
-    if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join('') + Object.values(question.choices || {}).join(''))) {
+    if (question && question.answer && question.format !== 'MC' && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join(''))) {
       const a = question.answer;
-      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) }, choices: mapChoices(question.choices, slashFractions) };
+      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
       userInput = slashFractions(userInput);
     }
     if (question && question.answer && question.format !== 'MC') {
@@ -3169,5 +3194,6 @@
     extractLeadingNumbers,
     checkAnswer,
     canonicalUnits,
+    isNote,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

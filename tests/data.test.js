@@ -34,9 +34,6 @@ test('every record has the fields and values the site expects', () => {
     'source URL already has a fragment': (q) => q.u != null && q.u.includes('#'),
     'packet location (pg) is not a positive whole number': (q) => q.pg != null && !(Number.isInteger(q.pg) && q.pg > 0),
     'packet location (pg) on a link that has no pages or lines': (q) => q.pg != null && !globalThis.SBData.packetAnchor(q.u, q.pg),
-    // a packet's note to the moderator is not an answer: typed as is, it
-    // would pass ("in any order" for "CONES AND RODS")
-    'accept or reject entry is a moderator note': (q) => [...(q.a.ac || []), ...(q.a.rj || [])].some((x) => /^\s*(?:in (?:any|that|either) order|similar (?:answers|responses))\s*$|\banything (?:with|between|metallic)\b|\bETC\.?$|\baccept answers\b/i.test(x)),
   });
   assert.deepStrictEqual(found, {});
 });

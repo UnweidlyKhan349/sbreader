@@ -1336,7 +1336,7 @@
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4957","q":[
 {"i":95639,"s":"bio","f":"MC","qt":"tossup","n":91,"q":"Which of the following genetic diseases is not matched correctly with the type of inheritance it has?","c":{"W":"Hemophilia: X-linked recessive","X":"PKU; Autosomal dominant","Y":"Sickle cell anemia; Autosomal recessive","Z":"Rett Syndrome; X-linked dominant"},"a":{"t":"PKU; Autosomal dominant","l":"X"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4957","q":[
-{"i":95640,"s":"bio","f":"SA","qt":"bonus","n":92,"q":"What are the names for the two processes that, respectively, inhibit and promote gene expression by regulating access to a chromosome?","a":{"t":"METHYLATION AND ACETYLATION","ac":["METHYLATION; ACETYLATION"]}}]},
+{"i":95640,"s":"bio","f":"SA","qt":"bonus","n":92,"q":"What are the names for the two processes that, respectively, inhibit and promote gene expression by regulating access to a chromosome?","a":{"t":"METHYLATION AND ACETYLATION","ac":["METHYLATION; ACETYLATION","in that order"]}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/tossup/4958","q":[
 {"i":95641,"s":"bio","f":"MC","qt":"tossup","n":93,"q":"Where might a proteasome be found?","c":{"W":"Nucleus","X":"Plasma membrane","Y":"Extracellular Matrix","Z":"Lysosome"},"a":{"t":"Nucleus","l":"W"}}]},
 {"rl":"Stuy Biology","r":null,"u":"https://scibowldb.com/bonus/4958","q":[
