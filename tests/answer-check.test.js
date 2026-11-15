@@ -809,3 +809,30 @@ test('roman and arabic item numbers, and a numbered key answered in order withou
   }
   assert.ok(!isCorrect('1 VENUS, 2 MARS, 3 MERCURY', 'mars, venus, mercury', { question: q }));
 });
+
+test('what a keyboard lacks, typed in words or letters, reads as the symbol', () => {
+  for (const [key, typed] of [
+    ['16ε0', '16 epsilon0'], ['16ε0', '16 epsilon naught'], ['16ε0', '16 eps_0'], ['16ε0', '16 epsilon sub 0'], ['μ0', 'mu not'], ['μ0', 'u0'],
+    ['λ/2', 'lamda/2'], ['λ/2', 'lambda over 2'], ['ħ/2', 'hbar over 2'], ['∞', 'inf'], ['ω^2 r', 'omega squared r'],
+    ['5 μm', '5 micrometers'], ['5 μm', '5 um'], ['5 μm', '5 microns'], ['5 μm', '5 micro meters'], ['20 μF', '20 uF'], ['5 μg', '5 mcg'],
+    ['10 μs', '10 microseconds'], ['2 μA', '2 microamps'], ['2 kΩ', '2 kilohms'], ['2 kΩ', '2 kohm'], ['0.5 MΩ', '0.5 megaohms'],
+    ['1.5 Å', '1.5 angstroms'], ['3 nm', '3 nanometres'],
+    ['±3', '+/-3'], ['±3', 'plus or minus 3'], ['±3', '3 and -3'], ['±3', '-3, 3'],
+    ['x ≤ 5', 'x less than or equal to 5'], ['x ≥ 5', 'x greater than or equal to 5'], ['x ≠ 0', 'x not equal to 0'], ['x ≠ 0', 'x != 0'],
+    ['^(14)C', 'C-14'], ['^(14)C', 'carbon-14'], ['^(14)C', 'carbon 14'], ['^(14)C', '14C'], ['URANIUM-235', 'U-235'], ['^(235)U', 'uranium 235'],
+    ['Fe^(3+)', 'Fe+3'], ['Fe^(3+)', 'Fe 3+'], ['SO4^(2-)', 'SO4 2-'],
+    ['x^2', 'x squared'], ['x^3', 'x to the third'], ['10^5', '10 to the 5th'], ['10^5', 'ten to the fifth power'], ['e^x', 'e to the x'],
+    ['3.0 × 10^8 m/s', '3.0 times 10 to the 8th m/s'], ['3.0 × 10^8 m/s', '3.0e8 m/s'],
+    ['1/2', 'one half'], ['2/3', 'two thirds'], ['√2', 'root 2'], ['∛2', '2^(1/3)'], ['ln 2', 'natural log of 2'], ['ln 2', 'log base e of 2'],
+    ['∫ x dx', 'integral of x dx'], ['K_sp', 'K sp'],
+    ['N2 + 3H2 → 2NH3', 'N2 + 3H2 yields 2NH3'], ['N2 + 3H2 → 2NH3', 'N2 + 3 H2 --> 2 NH3'],
+  ]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+});
+
+test('a stand-in for the wrong symbol or value is still wrong', () => {
+  for (const [key, typed] of [
+    ['x < 5', 'x less than or equal to 5'], ['x ≥ 5', 'x less than or equal to 5'], ['Fe^(3+)', 'Fe+2'], ['Fe^(3+)', 'Fe 2+'],
+    ['^(14)C', 'carbon-12'], ['^(14)C', 'N-14'], ['5 μm', '5 nm'], ['5 μm', '5 mm'], ['1/3', 'one half'], ['10^5', '10 to the 6th'],
+    ['±3', '3'], ['±3', '3 and 3'], ['x^2', 'x cubed'], ['√2', 'root 3'], ['2 kΩ', '2 ohms'], ['16ε0', '26 epsilon naught'],
+  ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+});

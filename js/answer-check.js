@@ -19,6 +19,22 @@
       .replace(/['’‘]/g, "'")
       // "50 percent" is "50%" (the % sign is dropped as punctuation below)
       .replace(/(\d)\s*PER\s?CENT\b/g, '$1 ')
+      // math said in words, as a player types it: "x squared" is "x^2",
+      // "10 to the fifth (power)" is "10^5", "e to the x" is "e^x", "1
+      // over 2" is "1/2", "root 2" is "√2", "natural log of 2" is "ln 2"
+      .replace(/(\d)\s+TIMES\s+(?=\d)/g, '$1 ')
+      .replace(/\b(ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN)(?=\s+(?:RAISED\s+)?TO\s+THE\b)/g, (m) => String(SPELLED_NUMBERS.indexOf(m)))
+      .replace(/\s*\bSQUARED\b/g, '2').replace(/\s*\bCUBED\b/g, '3')
+      .replace(/\s+(?:RAISED\s+)?TO\s+THE\s+(?:POWER\s+(?:OF\s+)?)?([+\-−]?\s*\d+|[A-Z]|FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|SEVENTH|EIGHTH|NINTH|TENTH)(?:ST|ND|RD|TH)?(?:\s+POWER)?\b/g,
+        (m, e) => (ORDINAL_WORDS[e] || e.replace(/\s+/g, '')))
+      .replace(/\s+OVER\s+/g, ' / ')
+      .replace(/(^|[\s(])(?:SQUARE\s+)?(?:ROOT|RT)\s*(?=\d)/g, '$1 SQRT ')
+      .replace(/\bNATURAL\s+LOG(?:ARITHM)?(?:\s+OF)?\b|\bLOG\s*(?:_\s*|BASE\s+)E\b/g, 'LN')
+      .replace(/∫/g, ' INTEGRAL ').replace(/\bINTEGRAL\s+OF\b/g, 'INTEGRAL')
+      // the Greek letters' short names and misspellings, and "naught",
+      // "not" or "sub 0" for a subscript 0 ("epsilon naught" is ε0)
+      .replace(/\bEPS(?![A-Z])/g, 'EPSILON').replace(/\bLAMDA\b/g, 'LAMBDA').replace(/\bINF\b/g, 'INFINITY')
+      .replace(/\b(EPSILON|MU|LAMBDA|SIGMA|RHO|OMEGA|PHI|NU|TAU|THETA|ALPHA|BETA|GAMMA|DELTA|PSI|CHI|KAPPA|ETA|[A-Z])[\s_]*(?:NAUGHT|NOUGHT|NOT|SUB\s*0|_?0)\b/g, '$1 0')
       // "24pi", "2pi/3": pi written straight after its number, as "24π" is
       .replace(/(\d)PI(?![A-Z])/g, '$1 PI')
       // a times sign typed as the letter x between numbers: "67 x 101", "2x2x3"
@@ -26,7 +42,7 @@
       // "3.2 x 10^23" and "3.2e23" read as "3.2 × 10^23" (the × and * are
       // dropped as punctuation below)
       .replace(/(\d)\s*X\s*(?=10\s*\^)/g, '$1 ')
-      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1$2 10 $3')
+      .replace(/(^|[^A-Z\d.])(\d+(?:\.\d+)?)E([+\-]?\d+)(?![A-Z\d])/g, '$1$2 10^$3')
       // exponent and subscript markup is ignored, so "x^2" = "x2",
       // "e^(-x)" = "e-x" and "K_sp" = "Ksp"
       .replace(/[\^_]\(([^()]*)\)/g, '$1')
@@ -74,6 +90,7 @@
       // round: "0" = "ZERO", "three" = "3".
       .replace(SPELLED_NUMBER_RE, (m) => String(SPELLED_NUMBERS.indexOf(m)));
   }
+  const ORDINAL_WORDS = { FIRST: '1', SECOND: '2', THIRD: '3', FOURTH: '4', FIFTH: '5', SIXTH: '6', SEVENTH: '7', EIGHTH: '8', NINTH: '9', TENTH: '10' };
   const VULGAR = { '½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4', '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5',
     '⅙': '1/6', '⅚': '5/6', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8', '⅞': '7/8' };
   const VULGAR_RE = new RegExp('(\\d)?([' + Object.keys(VULGAR).join('') + '])', 'g');
@@ -849,7 +866,7 @@
   // A reaction's sides, each a sorted list of its species: "N2 + 3H2 →
   // 2NH3" is [["3H2", "N2"], ["2NH3"]]. A "+" after "^" or before nothing
   // but another "+" or the end is a charge ("H^+ + OH^-", "Na+ + Cl-").
-  const ARROW_RE = /\s*(?:→|⟶|⇌|⇄|<=>|<->|->|=>)\s*/;
+  const ARROW_RE = /\s*(?:→|⟶|⇌|⇄|<=+>|<-+>|-+>|=+>|\byields\b|\bproduces\b|\bforms\b)\s*/i;
   function reactionSides(raw) {
     const sides = String(raw == null ? '' : raw).split(ARROW_RE);
     if (sides.length !== 2) return null;
@@ -917,7 +934,7 @@
   // meaningful inside bare numbers ("1 2" vs "12").
   function compact(s) {
     return String(s == null ? '' : s).toUpperCase().replace(/['’‘]/g, "'")
-      .replace(/\^\(([^()]*)\)/g, '$1').replace(/\^/g, '').replace(/\s+/g, '');
+      .replace(/\^\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '').replace(/\s+/g, '');
   }
   function compactEqual(a, b) {
     if (signConflict(a, b)) return false;
@@ -2136,6 +2153,12 @@
     ['KILOWATTS?', 'KW'], ['MEGAWATTS?', 'MW'], ['GIGAWATTS?', 'GW'], ['WATTS?', 'W'],
     ['KILOVOLTS?', 'KV'], ['MILLIVOLTS?', 'MV'], ['VOLTS?', 'V'],
     ['MILLIAMPERES?|MILLIAMPS?', 'MA'], ['AMPERES?|AMPS?', 'A'],
+    ['KILOHMS?|KILOOHMS?|KILO-OHMS?|KOHMS?|KΩ', 'KOHM'], ['MEGOHMS?|MEGAOHMS?|MEGA-OHMS?|MOHMS?|MΩ', 'MEGOHM'],
+    ['ANGSTROMS?|ÅNGSTRÖMS?|Å', 'ANGSTROM'],
+    ['MICROMETERS?|MICROMETRES?|MICRONS?|[ΜU]M', 'UM'], ['MICROSECONDS?|[ΜU]S', 'US'], ['MICROGRAMS?|MCG|[ΜU]G', 'UG'],
+    ['MICROFARADS?|[ΜU]F', 'UF'], ['MICROAMPERES?|MICROAMPS?|[ΜU]A', 'UA'], ['MICROLITERS?|MICROLITRES?|[ΜU]L', 'UL'],
+    ['MICROVOLTS?|[ΜU]V', 'UV'], ['MICROCOULOMBS?|[ΜU]C', 'UC'], ['MICROMOLES?|[ΜU]MOL', 'UMOL'], ['MICROTESLAS?|[ΜU]T', 'UT'],
+    ['NANOSECONDS?', 'NS'], ['NANOGRAMS?', 'NG'], ['NANOFARADS?', 'NF'], ['PICOFARADS?', 'PF'], ['PICOMETERS?|PICOMETRES?', 'PM'],
     ['OHMS?|Ω', 'OHM'], ['COULOMBS?', 'C'], ['FARADS?', 'F'], ['HENRIES|HENRYS?', 'H'], ['TESLAS?', 'T'],
     ['KILOHERTZ', 'KHZ'], ['MEGAHERTZ', 'MHZ'], ['GIGAHERTZ', 'GHZ'], ['HERTZ', 'HZ'],
     ['KILOPASCALS?', 'KPA'], ['PASCALS?', 'PA'], ['ATMOSPHERES?', 'ATM'],
@@ -2160,6 +2183,8 @@
     // temperatures get their own symbols, so Celsius never meets coulombs (C)
     // or Fahrenheit farads (F)
     const s = String(text).toUpperCase()
+      // a prefix typed apart from its unit: "micro meters", "kilo ohms"
+      .replace(/(\d\s*)(PICO|NANO|MICRO|MILLI|CENTI|KILO|MEGA|GIGA)\s+(?=[A-Z])/g, '$1$2')
       .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)C(?:ELSIUS)?(?![A-Z])|\bCELSIUS\b/g, ' DEGC ')
       .replace(/(?:°\s*|\bDEG(?:REE)?S?\s+)F(?:AHRENHEIT)?(?![A-Z])|\bFAHRENHEIT\b/g, ' DEGF ')
       .replace(/\bDEG(?:REE)?S?\s+K(?:ELVINS?)?(?![A-Z])/g, ' K ');
@@ -2177,7 +2202,7 @@
         if (units.length && per) { sep = '/'; j += per[0].length; continue; }
         const pow = rest.match(/^\s*(SQUARED|CUBED|\^\s*\(?[23]\)?)/);
         if (units.length && pow) { units[units.length - 1] += pow[1].startsWith('S') ? '^2' : pow[1].startsWith('C') ? '^3' : '^' + pow[1].replace(/\D/g, ''); j += pow[0].length; continue; }
-        const w = rest.match(/^\s*([A-ZΩ°]+)(?![A-Z])/) || rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)/);
+        const w = rest.match(/^\s*([A-ZΩ°ΜÅ]+)(?![A-Z])/) || rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)/);
         const two = rest.match(/^\s*(ELECTRON VOLTS?|KILOWATT[ -]HOURS?|LIGHT[ -]YEARS?|ASTRONOMICAL UNITS?)(?![A-Z])/);
         const word = two ? two[1] : w && w[1];
         const sym = word && unitSymbol(word.replace(/-/g, ' '));
@@ -2281,6 +2306,80 @@
     // can claim it with "I was right".
     return { correct: false, matched: null, rejected: false, close: true, chargeMissing: true };
   }
+  // ---- What a player types for a symbol their keyboard lacks ----
+  // Applied to the typed answer only, before grading. Comparisons in words
+  // ("x less than or equal to 5", "not equal to"), "+/-" and "plus or
+  // minus" become the symbols; a whole answer of "one half", "a third" ...
+  // is the fraction; and with a charged key, a charge typed after the
+  // formula ("Fe+3", "Fe 3+", "SO4 2-") is a superscript charge.
+  const SPELLED_FRACTIONS = [[/^(?:one|a)\s+half$|^half$/i, '1/2'], [/^(?:one|a)\s+third$/i, '1/3'], [/^two\s+thirds$/i, '2/3'],
+    [/^(?:one|a)\s+(?:quarter|fourth)$/i, '1/4'], [/^three\s+(?:quarters|fourths)$/i, '3/4'], [/^(?:one|a)\s+fifth$/i, '1/5']];
+  const CHARGED_KEY_RE = /\^\(\d*[+\-−]\)|\^[+\-−](?=$|[\s,;)])|[A-Za-z)\]]\d*[+\-−](?=$|[,;)])/;
+  function plusMinus(t) { return String(t).replace(/\+\s*\/\s*-|\+-(?=\s*[\d(a-z])|\bplus\s+or\s+minus\b/gi, '±'); }
+  function typedStandIns(userInput, keys) {
+    let t = String(userInput == null ? '' : userInput);
+    t = t.replace(/\s*\b(?:is\s+)?less\s+than\s+or\s+equal\s+to\b\s*/gi, ' <= ')
+      .replace(/\s*\b(?:is\s+)?greater\s+than\s+or\s+equal\s+to\b\s*/gi, ' >= ')
+      .replace(/\s*\b(?:is\s+not\s+equal\s+to|not\s+equal\s+to|does\s+not\s+equal)\b\s*/gi, ' ≠ ')
+      .replace(/!=|=\/=/g, ' ≠ ');
+    t = plusMinus(t);
+    // ("less than" alone only between two things, so "less than 5" stays words)
+    t = t.replace(/(\S)\s+(?:is\s+)?less\s+than\s+(?=\S)/gi, '$1 < ').replace(/(\S)\s+(?:is\s+)?greater\s+than\s+(?=\S)/gi, '$1 > ');
+    for (const [re, v] of SPELLED_FRACTIONS) if (re.test(t.trim())) t = v;
+    // a reaction's arrow typed as "-->", "==>" or "yields"
+    if (keys.some((k) => /[→⟶⇌⇄]|->|=>/.test(k))) t = t.replace(/\s*(?:-{2,}>|={2,}>|\byields\b|\bproduces\b|\bgives\b)\s*/gi, ' → ');
+    // "u" for μ ("u0" for μ0) when the key has a μ and no u
+    if (keys.some((k) => /[μµ]/.test(k)) && !keys.some((k) => /(^|[^A-Za-z])u([^A-Za-z]|$)/i.test(k))) t = t.replace(/(^|[^A-Za-z])u(?=[\s_]*0|[^A-Za-z]|$)/g, '$1μ');
+    if (keys.some((k) => CHARGED_KEY_RE.test(k) && /[A-Za-z]/.test(k))) {
+      t = t.replace(/([A-Za-z)\]])([+\-−])(\d)(?=$|[,;)])/g, '$1^($3$2)')
+        .replace(/([A-Za-z\d)\]])\s+(\d*[+\-−])(?=$|[,;)])/g, '$1^($2)');
+    }
+    return t;
+  }
+
+  // "3 and -3", "-3, 3" or "+/-3" for a key of "±3"
+  function samePlusMinus(typed, key) {
+    const m = String(key).trim().match(/^±\s*(.+)$/);
+    if (!m) return false;
+    const items = String(typed).split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((x) => x.trim()).filter(Boolean);
+    if (items.length !== 2) return false;
+    const pos = items.find((x) => !/^[-−–]/.test(x)), neg = items.find((x) => /^[-−–]/.test(x));
+    if (!pos || !neg) return false;
+    const eq = (a, b) => normEqual(a, b) || compactEqual(a, b);
+    return eq(pos.replace(/^\+/, ''), m[1]) && eq(neg.replace(/^[-−–]\s*/, ''), m[1]);
+  }
+
+  // An isotope however it's written: "^(14)C", "C-14", "carbon-14",
+  // "carbon 14", "14C", "C14" (for a key written as an isotope).
+  const ELEMENT_NAMES = ('H hydrogen,He helium,Li lithium,Be beryllium,B boron,C carbon,N nitrogen,O oxygen,F fluorine,Ne neon,Na sodium,Mg magnesium,'
+    + 'Al aluminum,Si silicon,P phosphorus,S sulfur,Cl chlorine,Ar argon,K potassium,Ca calcium,Sc scandium,Ti titanium,V vanadium,Cr chromium,'
+    + 'Mn manganese,Fe iron,Co cobalt,Ni nickel,Cu copper,Zn zinc,Ga gallium,Ge germanium,As arsenic,Se selenium,Br bromine,Kr krypton,Rb rubidium,'
+    + 'Sr strontium,Y yttrium,Zr zirconium,Nb niobium,Mo molybdenum,Tc technetium,Ru ruthenium,Rh rhodium,Pd palladium,Ag silver,Cd cadmium,In indium,'
+    + 'Sn tin,Sb antimony,Te tellurium,I iodine,Xe xenon,Cs cesium,Ba barium,La lanthanum,Ce cerium,Pr praseodymium,Nd neodymium,Pm promethium,'
+    + 'Sm samarium,Eu europium,Gd gadolinium,Tb terbium,Dy dysprosium,Ho holmium,Er erbium,Tm thulium,Yb ytterbium,Lu lutetium,Hf hafnium,'
+    + 'Ta tantalum,W tungsten,Re rhenium,Os osmium,Ir iridium,Pt platinum,Au gold,Hg mercury,Tl thallium,Pb lead,Bi bismuth,Po polonium,'
+    + 'At astatine,Rn radon,Fr francium,Ra radium,Ac actinium,Th thorium,Pa protactinium,U uranium,Np neptunium,Pu plutonium,Am americium,'
+    + 'Cm curium,Bk berkelium,Cf californium,Es einsteinium,Fm fermium,Md mendelevium,No nobelium,Lr lawrencium').split(',')
+    .reduce((o, x) => { const [sym, name] = x.split(' '); o.bySym[sym.toUpperCase()] = sym; o.byName[name.toUpperCase()] = sym; return o; },
+      { bySym: {}, byName: { ALUMINIUM: 'Al', SULPHUR: 'S', CAESIUM: 'Cs' } });
+  function isotopeOf(raw) {
+    const s = String(raw == null ? '' : raw).trim().replace(/\s+(?:isotope|nucleus|atom)s?$/i, '');
+    let m;
+    const sym = (x) => (ELEMENT_NAMES.bySym[x.toUpperCase()] && (x.length === 1 || /^[A-Z][a-z]$/.test(x)) ? ELEMENT_NAMES.bySym[x.toUpperCase()] : null);
+    if ((m = s.match(/^\^?\(?(\d{1,3})\)?\s*([A-Za-z]{1,2})$/))) { const e = sym(m[2]); return e && { e, a: +m[1] }; }
+    if ((m = s.match(/^([A-Za-z]{1,2})\s*-?\s*(\d{1,3})$/))) { const e = sym(m[1]); return e && { e, a: +m[2] }; }
+    if ((m = s.match(/^([A-Za-z]{3,})\s*-?\s*(\d{1,3})$/))) { const e = ELEMENT_NAMES.byName[m[1].toUpperCase()]; return e && { e, a: +m[2] }; }
+    return null;
+  }
+  function sameIsotope(typed, key) {
+    const k = isotopeOf(key);
+    // the key must read as an isotope ("^(14)C", "C-14", "CARBON-14"), not
+    // as a formula ("C14", "N2")
+    if (!k || !/^\s*\^|-\s*\d|^[A-Za-z]{3,}/.test(String(key))) return false;
+    const t = isotopeOf(typed);
+    return !!t && t.e === k.e && t.a === k.a;
+  }
+
   // ---- The same answer written another way ----
   // Run after every other check has failed, on short answers only.
 
@@ -2335,6 +2434,9 @@
   function leafCount(n) {
     if (!n) return 0;
     if (n.t === 'leaf') return /^\d/.test(n.v) || n.v in EVAL_CONSTANTS || EXPR_NAMES.has(n.v) || n.v.includes('_') ? 1 : n.v.length;
+    // a power of 1/2 or 1/3 counts as its root sign, so "2^(1/3)" may stand
+    // for "∛2"
+    if (n.t === 'pow' && n.b.t === 'div' && n.b.a.t === 'leaf' && n.b.a.v === '1' && n.b.b.t === 'leaf' && /^[23]$/.test(n.b.b.v)) return leafCount(n.a);
     return leafCount(n.a) + leafCount(n.b) + leafCount(n.x);
   }
   function hasIrrational(n) {
@@ -2557,6 +2659,7 @@
     const rejects = (a.reject || []).filter(Boolean);
     const q = question.question || '';
     const hit = (k) => mathEquivalent(typed, k, q) || sameTuple(typed, k, q) || sameRomanList(typed, k, q)
+      || samePlusMinus(typed, k) || sameIsotope(typed, k)
       || (() => { const spec = labelledKeySpec(k); return !!spec && checkMultiPart(typed, spec) === 'exact'; })();
     if (!keys.some(hit)) return false;
     // a "do not accept" form said another way is still not accepted
@@ -2574,6 +2677,39 @@
       question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
       userInput = slashFractions(userInput);
     }
+    if (question && question.answer && question.format !== 'MC') {
+      // "+/-" and "plus or minus" are "±" on both sides
+      // (only when the player wrote one of them: "-/-" stays a different answer)
+      if (/\+\s*\/\s*-|\+-|plus\s+or\s+minus|±/i.test(String(userInput || '')) && /\+\s*\/\s*-|\+-|plus\s+or\s+minus|±/i.test([question.answer.text, ...(question.answer.accept || []), ...(question.answer.reject || [])].join(' '))) {
+        const a = question.answer;
+        question = { ...question, answer: { ...a, text: plusMinus(a.text), accept: (a.accept || []).map(plusMinus), reject: (a.reject || []).map(plusMinus) } };
+        userInput = plusMinus(userInput);
+      }
+      // the answer as typed first; then with keyboard stand-ins read as symbols
+      const swapped = typedStandIns(userInput, [question.answer.text, ...(question.answer.accept || [])].filter(Boolean));
+      if (swapped !== String(userInput == null ? '' : userInput)) {
+        const first = gradeTyped(question, userInput);
+        if (first.correct || first.rejected) return first;
+        const second = gradeTyped(question, swapped);
+        return second.correct ? second : first;
+      }
+    }
+    return gradeTyped(question, userInput);
+  }
+  function gradeTyped(question, userInput) {
+    const graded = gradeTypedInner(question, userInput);
+    // A ± in every form of the key is part of the answer: "3" leaves out
+    // the -3 of "±3" (both roots, "3 and -3", still pass).
+    if (graded.correct && question && question.answer && question.format !== 'MC') {
+      const keys = [question.answer.text, ...(question.answer.accept || [])].filter(Boolean);
+      const typed = String(userInput || '');
+      if (keys.length && keys.every((k) => /±/.test(k)) && !/±/.test(typed) && !keys.some((k) => samePlusMinus(typed, k))) {
+        return { correct: false, matched: null, rejected: false, close: true };
+      }
+    }
+    return graded;
+  }
+  function gradeTypedInner(question, userInput) {
     // superscript digits typed straight ("18⁹", "x²") and "**" are exponents
     if (/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]|\*\*/.test(String(userInput || ''))) {
       userInput = String(userInput).replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (m) => '^(' + [...m].map((c) => SUPERSCRIPTS[c]).join('') + ')').replace(/\*\*/g, '^');
