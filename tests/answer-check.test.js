@@ -1006,7 +1006,7 @@ test('a word in brackets at the start of a key can be left off', () => {
 });
 
 test('a function typed without brackets around its argument', () => {
-  for (const [key, typed] of [['-2sin(x)cos(x)', '-2 sin x cos x'], ['-2sin(x)cos(x)', '-2 sinx cosx'], ['2sin(x)', '2 sin x'], ['2sin(x)', '2sinx'],
+  for (const [key, typed] of [['-2sin(x)cos(x)', '-2 sin x cos x'], ['-2sin(x)cos(x)', '-2 sinx cosx'], ['-2sin(x)cos(x)', '-2sinxcosx'], ['sin(x)+ tan(x)sec(x)', 'sinx + tanxsecx'], ['2sin(x)', '2 sin x'], ['2sin(x)', '2sinx'],
     ['-5sin(5x)', '-5 sin 5x'], ['sin(x)+ tan(x)sec(x)', 'sinx + tanx secx'], ['ln(2)', 'ln 2'], ['sec^2(x)', 'sec^2 x']]) {
     assert.ok(isCorrect(key, typed, { question: 'What is it?' }), `${typed} for ${key}`);
   }
