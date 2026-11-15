@@ -221,6 +221,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    a row (six in a row would wrap "Earth & Space"). */
 #subjectChips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .375rem; }
 #subjectChips .chip { justify-content: center; text-align: center; white-space: nowrap; }
+/* On the narrowest phones (under 360 px) "Earth & Space" doesn't fit a third of
+   the row, so it wraps onto two lines instead of pushing the page sideways. */
+@media (max-width: 359.98px) { #subjectChips { grid-template-columns: repeat(3, minmax(0, 1fr)); } #subjectChips .chip { white-space: normal; } }
 /* The other filters fill the right half: a 2 x 2 grid of pairs, each chip
    stretched to share its cell. One pair per row where two won't fit: on
    phones, and from 992 px (when they move beside the subjects) to 1199 px. */
