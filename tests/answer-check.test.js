@@ -1005,6 +1005,18 @@ test('a word in brackets at the start of a key can be left off', () => {
   assert.ok(!isCorrect('(pi)r^2 + pi*r*l', 'r^2 + pi*r*l'));
 });
 
+test('a function typed without brackets around its argument', () => {
+  for (const [key, typed] of [['-2sin(x)cos(x)', '-2 sin x cos x'], ['-2sin(x)cos(x)', '-2 sinx cosx'], ['2sin(x)', '2 sin x'], ['2sin(x)', '2sinx'],
+    ['-5sin(5x)', '-5 sin 5x'], ['sin(x)+ tan(x)sec(x)', 'sinx + tanx secx'], ['ln(2)', 'ln 2'], ['sec^2(x)', 'sec^2 x']]) {
+    assert.ok(isCorrect(key, typed, { question: 'What is it?' }), `${typed} for ${key}`);
+  }
+  for (const [key, typed] of [['-2sin(x)cos(x)', '2 sin x cos x'], ['-5sin(5x)', '-5 cos 5x'], ['2sin(x)', '2 sin y']]) {
+    assert.ok(!isCorrect(key, typed, { question: 'What is it?' }), `${typed} for ${key}`);
+  }
+  // a word that starts with a function's name is not that function
+  assert.ok(!isCorrect('SINE = –15/17, TANGENT = –15/8', 'SINE = –15*17, TANGENT = –15/8'));
+});
+
 test('more units written out: decibels, webers, lux, grays, becquerels, sieverts, km/h, rad/s', () => {
   for (const [key, typed] of [['73 dB', '73 decibels'], ['1.5 Wb', '1.5 webers'], ['5 lx', '5 lux'], ['3 Gy', '3 grays'],
     ['4 Bq', '4 becquerels'], ['2 mSv', '2 millisieverts'], ['1 km/h', '1 kilometers per hour'], ['9 rad/s', '9 radians per second'], ['2 H', '2 henries']]) {

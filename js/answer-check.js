@@ -2757,6 +2757,12 @@
   //    fractions and dropped significant figures stay wrong);
   //  - a fraction of two whole numbers must be in lowest terms.
   const SUPERSCRIPTS = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+' };
+  const FUNC_NAMES = 'arcsin|arccos|arctan|sinh|cosh|tanh|sech|csch|coth|sin|cos|tan|sec|csc|cot|ln|log';
+  // (a letter stuck to the name only when it's x, y, z, t or θ: "SINE" and
+  // "LOGS" are words)
+  const FUNC_ARG = '(?:\\d+(?:\\.\\d+)?(?![\\d.A-Za-z(^])|\\d*LETTER(?![A-Za-z0-9(^_])|\\d*LETTER(?=(?:' + FUNC_NAMES + ')(?![a-z])))';
+  const FUNC_ARG_RE = new RegExp('(?<![A-Za-z])(' + FUNC_NAMES + ')(\\^\\(?-?\\d+\\)?)?'
+    + '(?:\\s+(' + FUNC_ARG.replace(/LETTER/g, '[a-zθ]') + ')|(' + FUNC_ARG.replace(/LETTER/g, '[xyztθ]') + '))', 'gi');
   function mathText(raw) {
     return String(raw == null ? '' : raw)
       .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (m) => '^(' + [...m].map((c) => SUPERSCRIPTS[c]).join('') + ')')
@@ -2767,6 +2773,10 @@
       // "sqrt3", "sqrt 3", "sqrt(3)", "cbrt 2": a radical sign
       .replace(/\bsqrt\b\s*|sqrt(?=[\d(])/gi, '√').replace(/\bcbrt\b\s*|cbrt(?=[\d(])/gi, '∛')
       .replace(/\binfinity\b/gi, '∞')
+      // a function's simple argument typed without brackets: "sin x" is
+      // sin(x), "2 sin x cos x" is 2 sin(x) cos(x), "ln 2" is ln(2), "cos 5x"
+      // is cos(5x), "sin^2 x" is sin^2(x) and "sinxcosx" is sin(x)cos(x)
+      .replace(FUNC_ARG_RE, (m, f, pow, spaced, glued) => f + (pow || '') + '(' + (spaced || glued) + ')')
       // a letter with a number stuck to it is a subscripted symbol: "ε0",
       // "μ0", "H0", "v1" (not ε·0)
       .replace(/(^|[^A-Za-z_^])([A-Za-zα-ωΑ-Ω])(\d+)(?![A-Za-z0-9.])/g, (m, pre, l, d) => (/\d$/.test(pre) && /e/i.test(l) ? m : pre + l + '_' + d));
