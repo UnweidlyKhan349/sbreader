@@ -900,6 +900,85 @@ test('multiple choice takes the letter however it is marked, or the letter with 
   for (const typed of ['x electron', 'y proton', '(X)', 'electrons']) assert.ok(!checkAnswer(q, typed).correct, typed);
 });
 
+test('multiple choice: a choice\'s text passes only for its own choice, however close the others read', () => {
+  const mc = (choices, letter) => ({ question: 'Which?', format: 'MC', choices, answer: { text: choices[letter], letter, accept: [], reject: [] } });
+  const ok = (q, typed) => checkAnswer(q, typed).correct;
+  // choices that normalize() alone can't tell apart
+  const roots = mc({ W: 'F/2', X: 'F/√2', Y: 'F √2', Z: '2 F' }, 'X');
+  assert.ok(ok(roots, 'F/√2') && ok(roots, 'f/√2') && ok(roots, 'F/sqrt2') && ok(roots, 'X'));
+  assert.ok(!ok(roots, 'F √2') && !ok(roots, 'F/2'));
+  const geno = mc({ W: 'BB', X: 'bB', Y: 'Bb', Z: 'bb' }, 'W');
+  assert.ok(ok(geno, 'BB'));
+  for (const t of ['bB', 'Bb', 'bb']) assert.ok(!ok(geno, t), t);
+  for (const [choices, letter, wrongText] of [
+    [{ W: 'σ2p', X: 'π2p', Y: 'σ*2p', Z: 'π*2p' }, 'Y', 'σ2p'],
+    [{ W: 'O2^(2-)', X: 'O2', Y: 'O2^-', Z: 'O2^+' }, 'Z', 'O2'],
+    [{ W: 'x < 6', X: 'x = 6', Y: 'x ≤ 6', Z: 'x > 6' }, 'Z', 'x = 6'],
+    [{ W: 'cos(x)', X: '-cos(x)', Y: 'sin(x)', Z: '-sin(x)' }, 'X', 'cos(x)'],
+    [{ W: '(–10, 5]', X: '[–10, 5)', Y: '[–10, 5]', Z: '(–10, 5)' }, 'X', '(–10, 5]'],
+    [{ W: 'T^(λmax)', X: 'λmax/T', Y: 'T/λmax', Z: 'Tλmax' }, 'Z', 'T^(λmax)'],
+  ]) {
+    const q = mc(choices, letter);
+    assert.ok(ok(q, choices[letter]), choices[letter]);
+    assert.ok(!ok(q, wrongText), `${wrongText} for ${choices[letter]}`);
+  }
+  // a choice printed twice in the packet is still the wrong choice
+  const twice = mc({ W: 'yaw', X: 'stall', Y: 'roll', Z: 'stall' }, 'Y');
+  assert.ok(ok(twice, 'roll') && !ok(twice, 'stall'));
+  // "minus"/"plus" and ½ in a choice read the same as when typed
+  const beta = mc({ W: 'Alpha decay', X: 'Electron capture', Y: 'Beta-plus decay', Z: 'Beta-minus decay' }, 'Z');
+  assert.ok(ok(beta, 'Beta-minus decay') && ok(beta, 'beta minus decay') && ok(beta, 'z beta-minus decay'));
+  assert.ok(!ok(beta, 'Beta-plus decay') && !ok(beta, 'beta plus decay'));
+  const half = mc({ W: '½', X: '¼', Y: '2', Z: '4' }, 'W');
+  assert.ok(ok(half, '½') && ok(half, '1/2') && !ok(half, '1/4'));
+});
+
+test('a last letter A is part of the name, not the article', () => {
+  for (const [key, typed] of [['VITAMIN A', 'vitamin'], ['COENZYME A', 'coenzyme'], ['TYPE A', 'type'],
+    ['CHLOROPHYLL A', 'chlorophyll'], ['0.5 TIMES THE CONCENTRATION OF A', '0.5 times the concentration of'], ['LEAD', 'lead a']]) {
+    assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  for (const [key, typed] of [['VITAMIN A', 'vitamin a'], ['COENZYME A', 'coenzyme a'], ['A PROTON', 'proton'], ['5 A', '5 amperes']]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  }
+});
+
+test('a changed digit is a different number, not a typo', () => {
+  for (const [key, typed] of [['24500', '24501'], ['65536', '65537'], ['0.064', '0.065'], ['12.75', '12.7'], ['12.75', '13.75'], ['146097', '146098']]) {
+    const r = grade(key, typed);
+    assert.ok(!r.correct && !r.close, `${typed} for ${key}`);
+  }
+  assert.ok(grade('DEUTEROSTOMES', 'deuterosomes').close);
+});
+
+test('respectively: an accept or a word the question asks by does not undo the order', () => {
+  const meth = { question: 'What are the names for the two processes that, respectively, inhibit and promote gene expression?', accept: ['METHYLATION; ACETYLATION'] };
+  assert.ok(isCorrect('METHYLATION AND ACETYLATION', 'methylation and acetylation', meth));
+  assert.ok(!isCorrect('METHYLATION AND ACETYLATION', 'acetylation and methylation', meth));
+  const hj = { question: 'In the Hjulstrom curve, what particle type is deposited the most easily, and what physical drag law is based on small spherical particles falling through a fluid, respectively?' };
+  assert.ok(isCorrect('Sand, Stokes drag', 'sand, stokes drag', hj));
+  assert.ok(!isCorrect('Sand, Stokes drag', 'stokes drag, sand', hj));
+  const zinc = { question: 'What are the chemical compounds used as the anode and cathode, respectively, of a standard alkaline AA battery?', accept: ['ZINC AND MANGANESE OXIDE'] };
+  assert.ok(isCorrect('ANODE: ZINC; CATHODE: MANGANESE OXIDE', 'zinc and manganese oxide', zinc));
+  assert.ok(!isCorrect('ANODE: ZINC; CATHODE: MANGANESE OXIDE', 'manganese oxide and zinc', zinc));
+  // items that each carry the question's own word for them can come in any order, typed whole
+  const nao = { question: 'The NAO is an oscillation due to changes in strength of what low and high pressure systems, respectively?' };
+  assert.ok(isCorrect('ICELANDIC LOW, AZORES HIGH', 'azores high, icelandic low', nao));
+  assert.ok(!isCorrect('ICELANDIC LOW, AZORES HIGH', 'azores, icelandic', nao));
+  const redox = { question: 'In the reaction of selenous acid and iodide, what elements are reduced and what are oxidized, respectively?' };
+  assert.ok(isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is oxidized and selenium is reduced', redox));
+  assert.ok(!isCorrect('Selenium is reduced, Iodine is oxidized', 'iodine is reduced, selenium is oxidized', redox));
+});
+
+test('more units written out: decibels, webers, lux, grays, becquerels, sieverts, km/h, rad/s', () => {
+  for (const [key, typed] of [['73 dB', '73 decibels'], ['1.5 Wb', '1.5 webers'], ['5 lx', '5 lux'], ['3 Gy', '3 grays'],
+    ['4 Bq', '4 becquerels'], ['2 mSv', '2 millisieverts'], ['1 km/h', '1 kilometers per hour'], ['9 rad/s', '9 radians per second'], ['2 H', '2 henries']]) {
+    assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  assert.ok(!isCorrect('73 dB', '73 decibars'));
+  assert.ok(!isCorrect('3 Gy', '3 sieverts'));
+});
+
 test('across the corpus, another question\'s answer passes only where it is the same answer (snapshot)', () => {
   const { crossAccepts } = require('../tools/grader-cross-check.js');
   const expected = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'grader-cross-accepts.json'), 'utf8'));

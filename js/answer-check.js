@@ -1018,8 +1018,10 @@
   // which stays a strict match.
   const STOPWORDS = new Set(['AND', 'OR', 'THE', 'A', 'AN', 'OF']);
   function tokenize(s) {
-    // ("A" after a number is amperes, not the article: "5 A" is not "5")
-    return normalize(s).split(' ').filter((w, i, all) => w && (!STOPWORDS.has(w) || (w === 'A' && /\d$/.test(all[i - 1] || ''))));
+    // ("A" after a number is amperes, not the article: "5 A" is not "5";
+    // and a last "A" is a letter, never the article: "VITAMIN A", "TYPE A")
+    return normalize(s).split(' ').filter((w, i, all) => w && (!STOPWORDS.has(w)
+      || (w === 'A' && (/\d$/.test(all[i - 1] || '') || (i > 0 && i === all.length - 1)))));
   }
   // Small words are left alone (a 1-2 letter difference between short words
   // can flip to a totally different, wrong word - e.g. "RNA" vs "DNA" - so
@@ -1125,7 +1127,8 @@
         if (usedB[j]) continue;
         if (sameWord(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
         const tol = typoTolerance(Math.max(w.length, wb[j].length));
-        if (!tol || contrastingWords(w, wb[j])) continue;
+        // (a digit changed is a different number, never a typo: "24501" for 24500)
+        if (!tol || contrastingWords(w, wb[j]) || /\d/.test(w + wb[j])) continue;
         const d = levenshtein(w, wb[j]);
         if (d <= tol && d < bestDist) { bestDist = d; bestIdx = j; }
       }
@@ -1824,6 +1827,15 @@
   // in, and the labels needn't be typed: "manganese dioxide and zinc".
   // Typed with their labels, the items can come in any order. Returns the
   // two specs for checkMultiPart, or null.
+  // Does every item hold a word of the question that no other item holds,
+  // beside the rest of its answer?
+  function selfLabelled(questionText, items) {
+    const qWords = new Set(tokenize(questionText).flatMap((w) => [w, w.replace(/S$/, '')]));
+    const toks = items.map((t) => tokenize(t));
+    return toks.every((ws, i) => ws.length >= 2 && ws.some((w) => w.length >= 3 && !/\d/.test(w)
+      && (qWords.has(w) || qWords.has(w.replace(/S$/, '')))
+      && toks.every((o, j) => j === i || !o.includes(w))));
+  }
   function labelledListSpecs(question) {
     const items = listItems(question.answer.text);
     // The labels are looked for in the words leading up to "respectively".
@@ -1845,6 +1857,15 @@
       { ...base, alts: parts.map((x) => [x.bare, x.full]), ordered: true },
       { ...base, alts: parts.map((x) => [x.full]), ordered: false },
     ];
+  }
+
+  // A choice's text with only spacing, dashes and exponent markup evened
+  // out: what is left (signs, slashes, stars, brackets, capitals) can be
+  // all that tells two choices apart.
+  // (with `markup`, "^" and "_" are kept: "Tλmax" isn't "T^(λmax)")
+  function mcSymbols(t, markup) {
+    const s = String(t == null ? '' : t).normalize('NFC').replace(/[−–‐—]/g, '-').replace(/['’‘]/g, "'");
+    return (markup ? s.replace(/([\^_])\(([^()]*)\)/g, '$1$2') : s.replace(/[\^_]\(([^()]*)\)/g, '$1').replace(/[\^_]/g, '')).replace(/sqrt\s*/gi, '√').replace(/\s+/g, '').replace(/\.$/, '');
   }
 
   function gradeAnswer(question, userInput) {
@@ -1887,23 +1908,36 @@
       const letterOnly = lead.match(/^[([{]?\s*([WXYZwxyz])\s*[)\]}]?\s*[.!:]?$/);
       if (letterOnly) return letterOnly[1].toUpperCase() === correctLetter ? right : wrong;
 
-      // exact text of the correct choice
-      if (correctText && (normEqual(raw, correctText) || compactEqual(raw, correctText))) return right;
-      // the correct choice without its reading guide ("gneiss [nice]",
-      // "1-hexyne (“one hex-why-ne”)"), as long as no other choice reads
-      // the same once its own guide is gone
-      const bare = choiceWithoutGuide(correctText);
-      if (bare && bare !== correctText && (normEqual(raw, bare) || compactEqual(raw, bare))
-          && !Object.entries(question.choices).some(([L, t]) => L !== correctLetter && normEqual(raw, choiceWithoutGuide(t) || t))) {
-        return right;
-      }
+      // The text of a choice. Compared first as normalize() reads it, but
+      // when that can't tell two choices apart ("F/√2" and "F √2", "BB" and
+      // "Bb", "x = 6" and "x > 6", "σ*2p" and "σ2p") the symbols and then
+      // the capitals decide; if they still don't, it is no choice at all.
+      const choiceOf = (typed) => {
+        const entries = Object.entries(question.choices).filter(([, t]) => t != null && String(t).trim());
+        const tiers = [
+          (a, b) => normEqual(a, b) || compactEqual(a, b),
+          (a, b) => mcSymbols(a).toUpperCase() === mcSymbols(b).toUpperCase(),
+          (a, b) => mcSymbols(a, true).toUpperCase() === mcSymbols(b, true).toUpperCase(),
+          (a, b) => mcSymbols(a, true) === mcSymbols(b, true),
+        ];
+        let pool = entries;
+        for (const same of tiers) {
+          const hits = pool.filter(([, t]) => same(typed, t) || same(typed, choiceWithoutGuide(t) || t));
+          if (hits.length <= 1 || new Set(hits.map(([, t]) => mcSymbols(t, true))).size === 1) {
+            return hits.length && hits.some(([L]) => L === correctLetter) ? correctLetter : (hits.length ? hits[0][0] : null);
+          }
+          pool = hits;
+        }
+        return null;
+      };
+      const whole = correctText ? choiceOf(raw) : null;
+      if (whole) return whole === correctLetter ? right : wrong;
 
       // "W) text" / "W. text" / "W: text" / "W - text" - the letter AND the
       // text must both be the correct choice's.
       const letterPrefix = lead.match(/^[([]?([WXYZwxyz])\s*[)\].:-]?\s+(.+)$/) || lead.match(/^[([]?([WXYZwxyz])\s*[)\].:-]\s*(.+)$/);
       if (letterPrefix && letterPrefix[1].toUpperCase() === correctLetter
-          && correctText
-          && (normEqual(letterPrefix[2], correctText) || compactEqual(letterPrefix[2], correctText))) {
+          && correctText && choiceOf(letterPrefix[2]) === correctLetter) {
         return right;
       }
       return wrong;
@@ -2148,10 +2182,20 @@
     }
     for (const key of keys) {
       if (multi && answerParts(key)) continue;
-      const items = list && list.ordered ? listItems(key) : null;
-      const m = items
+      // (an accept written with ";" is the same list, held to the same order)
+      // (and so is a whole-answer accept of an ordered multi-part key: "ZINC
+      // AND MANGANESE OXIDE" for "ANODE: ZINC; CATHODE: MANGANESE OXIDE")
+      const items = (list && list.ordered) || (multi && multi.ordered) ? (listItems(key) || answerParts(key)) : null;
+      let m = items
         ? checkMultiPart(raw, { n: items.length, alts: items.map(partVariants), floating: [], ordered: true, noSlash: true })
         : lenientWordMatch(raw, key);
+      // items that each carry their own word from the question ("ICELANDIC
+      // LOW, AZORES HIGH" for "what low and high pressure systems,
+      // respectively") say which is which, so typed whole they can come in
+      // any order; a bare "stokes drag, sand" can't
+      if (m !== 'exact' && items && selfLabelled(question.question, items)) {
+        m = betterMatch(m, checkMultiPart(raw, { n: items.length, alts: items.map((x) => [x]), floating: [], ordered: false, noSlash: true }));
+      }
       if (m === 'exact') return { correct: true, matched: 'lenient', rejected: false };
       if (m) close = true;
     }
@@ -2173,7 +2217,8 @@
     // ---- With or without the word the question asks by ----
     // ("alpha particle" for ALPHA on "What type of nuclear particle …",
     // "phosphate" for PHOSPHATE GROUP on "What functional group …")
-    if (!multi) {
+    // (not on an ordered list, where the word match would take any order)
+    if (!multi && !(list && list.ordered)) {
       const kinds = askedKindWords(question.question);
       const refused = (ans.reject || []).some((rej) => sameWithoutKind(raw, rej, kinds));
       if (!refused && keys.some((key) => sameWithoutKind(raw, key, kinds))) return { correct: true, matched: 'lenient', rejected: false };
@@ -2218,6 +2263,8 @@
     ['MILLISECONDS?', 'MS'], ['SECONDS?|SECS?', 'S'], ['MINUTES?|MINS?', 'MIN'], ['HOURS?|HRS?', 'HR'],
     ['MILLILITERS?|MILLILITRES?', 'ML'], ['LITERS?|LITRES?', 'L'],
     ['MOLES?', 'MOL'], ['KILOCALORIES?', 'KCAL'], ['CALORIES?', 'CAL'], ['PARSECS?', 'PC'],
+    ['DECIBELS?', 'DB'], ['WEBERS?', 'WB'], ['LUX', 'LX'], ['GRAYS?', 'GY'], ['BECQUERELS?', 'BQ'],
+    ['MILLISIEVERTS?', 'MSV'], ['SIEVERTS?', 'SV'], ['RADIANS?', 'RAD'],
   ];
   const UNIT_SYMBOLS = new Set(UNIT_NAMES.map(([, s]) => s));
   function unitSymbol(word) {
@@ -2256,7 +2303,8 @@
         const word = two ? two[1] : w && w[1];
         const sym = word && unitSymbol(word.replace(/-/g, ' '));
         if (!sym) break;
-        units.push((units.length ? (sep || ' ') : ' ') + sym);
+        // (per "H" is per hour: no one asks for anything per henry)
+        units.push((units.length ? (sep || ' ') : ' ') + (sep === '/' && sym === 'H' ? 'HR' : sym));
         sep = '';
         j += (two ? two[0] : w[0]).length;
       }
@@ -2965,16 +3013,19 @@
     return rejects.some((r) => normEqual(typed, r) || mathEquivalent(typed, r, '')) ? false : 'exact';
   }
 
+  // (the choices are rewritten with the typed answer, so a choice's text
+  // still reads the same as the answer typed from it: "Beta-minus decay")
+  const mapChoices = (choices, f) => (choices ? Object.fromEntries(Object.entries(choices).map(([L, t]) => [L, f(t)])) : choices);
   function checkAnswer(question, userInput) {
     if (String(userInput || '').length > MAX_ANSWER_LENGTH) return { correct: false, matched: null, rejected: false };
-    if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' '))) {
+    if (question && question.answer && SIGN_WORD_TEST.test(String(userInput || '') + ' ' + question.answer.text + ' ' + (question.answer.accept || []).join(' ') + ' ' + (question.answer.reject || []).join(' ') + ' ' + Object.values(question.choices || {}).join(' '))) {
       const a = question.answer;
-      question = { ...question, answer: { ...a, text: signWords(a.text), accept: (a.accept || []).map(signWords), reject: (a.reject || []).map(signWords) } };
+      question = { ...question, answer: { ...a, text: signWords(a.text), accept: (a.accept || []).map(signWords), reject: (a.reject || []).map(signWords) }, choices: mapChoices(question.choices, signWords) };
       userInput = signWords(userInput);
     }
-    if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join(''))) {
+    if (question && question.answer && VULGAR_TEST.test(String(userInput || '') + question.answer.text + (question.answer.accept || []).join('') + (question.answer.reject || []).join('') + Object.values(question.choices || {}).join(''))) {
       const a = question.answer;
-      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) } };
+      question = { ...question, answer: { ...a, text: slashFractions(a.text), accept: (a.accept || []).map(slashFractions), reject: (a.reject || []).map(slashFractions) }, choices: mapChoices(question.choices, slashFractions) };
       userInput = slashFractions(userInput);
     }
     if (question && question.answer && question.format !== 'MC') {
