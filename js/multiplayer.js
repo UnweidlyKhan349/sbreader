@@ -2224,6 +2224,14 @@
       applyLiveTyping(from, data.text.slice(0, SBMpRules.LIMITS.answer), data.seq);
       return;
     }
+    if (data.type === 'fwd') {
+      // A player's message passed on by whoever handed this player the game
+      // (see handOffTo): handled as if it had come straight from them.
+      if (myState.role === 'host') {
+        if (from === handoffFrom && Date.now() - handoffAt < 2 * HANDOFF_FORWARD_MS && typeof data.from === 'string' && data.msg && typeof data.msg === 'object') handleHostMessage(data.from, data.msg);
+      } else keepIntent(from, data);
+      return;
+    }
     if (data.type === 'join') {
       const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
       if (!msg) return;
@@ -2238,11 +2246,18 @@
         return;
       }
       if (from !== coordinatorId || data.term !== term) followCoordinator(from, data.term);
+      // The player handed the game has taken it.
+      if (handoffWatch && from === handoffWatch.to && data.term >= handoffWatch.term) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
       if (data.eng) followerEngine = data.eng;
       handleClientMessage(data);
       return;
     }
-    if (myState.role === 'host') handleHostMessage(from, data);
+    if (myState.role === 'host') { handleHostMessage(from, data); return; }
+    // Meant for whoever runs the game, which this player isn't (any more,
+    // or yet): just handed over, it goes on to the new one; otherwise it's
+    // kept a moment, in case the game is being handed to this player.
+    if (handedOffTo && Date.now() - handedOffTo.at < HANDOFF_FORWARD_MS && mesh) mesh.send(handedOffTo.to, { type: 'fwd', from, msg: data });
+    else keepIntent(from, data);
   }
 
   function followCoordinator(id, newTerm) {
@@ -2281,6 +2296,37 @@
   let handoffStrikes = { id: null, n: 0 };
   const pingReports = new Map(); // player -> { rtts, bank, at }
   let handoffStash = [];
+  // Making sure a handoff can't lose the game or a message:
+  //  - whoever hands the game over passes on what players send it for
+  //    HANDOFF_FORWARD_MS after ('fwd'), since they may not have heard yet;
+  //  - the player handed it keeps what reaches it shortly before it hears
+  //    (keepIntent), and handles it once it has taken over;
+  //  - if the player handed it isn't heard from within HANDOFF_WATCH_MS
+  //    (they never got the message, or their connection went), everyone
+  //    picks the next coordinator as when one leaves, without them.
+  const HANDOFF_FORWARD_MS = 5000;
+  const HANDOFF_WATCH_MS = 8000;
+  let handedOffTo = null; // { to, at }, by whoever handed the game over
+  let handoffAt = 0; // when this player was handed it
+  let handoffWatch = null; // { to, term, timer }
+  let intentStash = [];
+  function keepIntent(from, data) {
+    const now = Date.now();
+    intentStash = intentStash.filter((x) => now - x.at < 2 * HANDOFF_FORWARD_MS).slice(-50);
+    intentStash.push({ from, data, at: now });
+  }
+  function watchHandoff(to, newTerm) {
+    if (handoffWatch) clearTimeout(handoffWatch.timer);
+    const w = { to, term: newTerm, timer: null };
+    w.timer = setTimeout(() => {
+      if (handoffWatch !== w) return;
+      handoffWatch = null;
+      if (myState.role !== 'client' || coordinatorId !== to || term !== newTerm) return;
+      const next = SBMpRules.pickCoordinator(memberOrder().filter((x) => x !== to), isUp);
+      if (!next || next === mesh.id) { if (bankLoaded()) takeOver(); } else coordinatorId = next; // their first message has a newer term
+    }, HANDOFF_WATCH_MS);
+    handoffWatch = w;
+  }
   function markRole() {
     document.documentElement.dataset.mpRole = myState.role || '';
   }
@@ -2321,6 +2367,8 @@
     pingReports.clear();
     host.broadcast({ type: 'handoff', to: id });
     followCoordinator(id, term + 1);
+    handedOffTo = { to: id, at: Date.now() };
+    watchHandoff(id, term);
   }
   // A 'handoff' from the coordinator (handleClientMessage).
   function onHandoff(to) {
@@ -2328,12 +2376,21 @@
     if (to === mesh.id) {
       handoffFrom = coordinatorId;
       handoffTerm = term + 1;
+      handoffAt = Date.now();
       handoffStash = [];
-      if (bankLoaded()) takeOver();
-      else SBData.load().then(() => { if (myState.role === 'client' && coordinatorId === handoffFrom) takeOver(); }).catch(() => {});
+      // Take over, then handle what players sent meanwhile.
+      const take = () => {
+        takeOver();
+        const kept = intentStash;
+        intentStash = [];
+        kept.forEach((x) => onMeshMessage(x.from, x.data));
+      };
+      if (bankLoaded()) take();
+      else SBData.load().then(() => { if (myState.role === 'client' && coordinatorId === handoffFrom) take(); }).catch(() => {});
       return;
     }
     followCoordinator(to, term + 1);
+    watchHandoff(to, term);
     // What the new coordinator sent before this arrived.
     const kept = handoffStash.filter((x) => x.from === to && x.data.term === term);
     handoffStash = [];
@@ -2372,6 +2429,7 @@
     markRole();
     pingReports.clear();
     handoffStrikes = { id: null, n: 0 };
+    if (handoffWatch) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
     host = hostLink;
     client = null;
     const tick = game.lastTick;

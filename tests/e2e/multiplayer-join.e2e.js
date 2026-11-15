@@ -275,3 +275,53 @@ test('a room opened on a slow connection is handed to a better-connected player,
   assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
   await ctx.close();
 });
+
+// A slow player opens the room and two fast ones join; resolves once the
+// slow one has handed the game over (data-mp-role), with the pages set up
+// by `before` (run in the fast players' pages before that).
+async function roomAboutToHandOff(ctx, before) {
+  const r = room();
+  const a = await slowPlayer(ctx, server.url, r, 150);
+  const g = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  for (const p of [g, b]) await p.evaluate(before);
+  await a.waitForFunction(() => document.documentElement.dataset.mpRole === 'client', null, { timeout: 60000 });
+  return { a, g, b };
+}
+const roles = (ps) => Promise.all(ps.map((p) => p.evaluate(() => document.documentElement.dataset.mpRole)));
+const chat = async (p, text) => { await p.locator('body').click({ position: { x: 400, y: 300 } }); await p.keyboard.press('Enter'); await p.keyboard.type(text); await p.keyboard.press('Enter'); };
+
+test('what players send while the game changes hands isn\'t lost', async () => {
+  const ctx = await newContext(browser);
+  // The handoff message reaches the fast players 2.5 s late, so both send
+  // their chat to the player who has just handed the game over.
+  const { a, g, b } = await roomAboutToHandOff(ctx, () => { window.__DELAY_IN = (d) => (d && d.type === 'handoff' ? 2500 : 0); });
+  await Promise.all([chat(g, 'hello from g'), chat(b, 'hello from b')]);
+  for (const p of [a, g, b]) {
+    await p.waitForFunction(() => /hello from g/.test(document.getElementById('mpHistory').innerText) && /hello from b/.test(document.getElementById('mpHistory').innerText), null, { timeout: 15000 });
+  }
+  const now = await roles([a, g, b]);
+  assert.strictEqual(now.filter((x) => x === 'host').length, 1, `one player runs the game (${now})`);
+  assert.strictEqual(now[0], 'client');
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
+  await ctx.close();
+});
+
+test('if the player handed the game never takes it, someone else does', async () => {
+  const ctx = await newContext(browser);
+  // The handoff never arrives: whoever it named stays a follower.
+  const { a, g, b } = await roomAboutToHandOff(ctx, () => { window.__DELAY_IN = (d) => (d && d.type === 'handoff' ? -1 : 0); });
+  // After the watchdog, the next in line (the slow player, longest in the
+  // room) runs it again, and the game goes on.
+  await a.waitForFunction(() => document.documentElement.dataset.mpRole === 'host', null, { timeout: 15000 });
+  const now = await roles([a, g, b]);
+  assert.deepStrictEqual(now, ['host', 'client', 'client']);
+  await press(a, 'n');
+  for (const p of [g, b]) await p.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 10000 });
+  await press(b, ' ');
+  await b.waitForSelector('#mpAnswerInput:visible', { timeout: 10000 });
+  await b.keyboard.type('zzzz'); await b.keyboard.press('Enter');
+  for (const p of [a, g, b]) await p.waitForFunction(() => /zzzz/.test(document.getElementById('mpHistory').innerText) && /Incorrect/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
+  await ctx.close();
+});

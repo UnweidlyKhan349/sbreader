@@ -8,6 +8,9 @@
 //                               and from it open, and messages to and from
 //                               it arrive, this much later each way (set it
 //                               in that tab only; its round trip is twice it)
+//   window.__DELAY_IN = (data) => ms   holds back messages reaching this tab
+//                               by that much more (a negative number drops
+//                               them), to time a test
 (function () {
   const bc = new BroadcastChannel('fakepeer');
   const local = new Map(); // id -> Peer in this tab
@@ -54,7 +57,9 @@
     if (m.t === 'data') {
       const c = conns.get(m.cid);
       if (c && c.me === m.to && c.open) {
-        const wait = (window.__LAG_MS || 0) + (window.__SLOW_MS || 0);
+        const extra = typeof window.__DELAY_IN === 'function' ? Number(window.__DELAY_IN(m.d)) || 0 : 0;
+        if (extra < 0) return; // dropped
+        const wait = (window.__LAG_MS || 0) + (window.__SLOW_MS || 0) + extra;
         if (wait) setTimeout(() => c.emit('data', m.d), wait); else c.emit('data', m.d);
       }
       return;
