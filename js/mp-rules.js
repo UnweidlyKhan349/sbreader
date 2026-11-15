@@ -79,6 +79,38 @@
   function pickCoordinator(order, isUp) {
     return order.find((id) => isUp(id)) || null;
   }
+  // Who should run the game: the player with the shortest average round
+  // trip to everyone else. `ids` are the players online; `rtt(a, b)` is a
+  // round trip in ms or null (either direction will do). A player with a
+  // missing figure can't be judged and isn't picked. Returns
+  // { best, bestMs, ms: { id: average } }.
+  function pickBestConnected(ids, rtt) {
+    const ms = {};
+    ids.forEach((c) => {
+      const others = ids.filter((o) => o !== c);
+      if (!others.length) { ms[c] = 0; return; }
+      let sum = 0;
+      for (const o of others) {
+        const v = rtt(c, o) ?? rtt(o, c);
+        if (typeof v !== 'number') { ms[c] = null; return; }
+        sum += v;
+      }
+      ms[c] = sum / others.length;
+    });
+    let best = null;
+    ids.forEach((c) => { if (ms[c] != null && (best == null || ms[c] < ms[best])) best = c; });
+    return { best, bestMs: best == null ? null : ms[best], ms };
+  }
+  // Whether to hand the game over: only for a clear gain (at least
+  // HANDOFF_GAIN_MS on average, and to at most HANDOFF_RATIO of the time
+  // now), so that ordinary jitter never moves it.
+  const HANDOFF_GAIN_MS = 80;
+  const HANDOFF_RATIO = 0.6;
+  function worthHandingOff(currentMs, bestMs) {
+    if (typeof currentMs !== 'number' || typeof bestMs !== 'number') return false;
+    return currentMs - bestMs >= HANDOFF_GAIN_MS && bestMs <= currentMs * HANDOFF_RATIO;
+  }
+
   // QB Reader keeps rooms and players in its server's memory, and the
   // server restarts every day at 08:00 UTC: that's when offline players'
   // scores and idle rooms go. The same hour is kept here (and in
@@ -95,11 +127,6 @@
   // checks the entry is well formed and from after the last one.
   function stillOffline(entry, now) {
     return !!entry && typeof entry.leftAt === 'number' && entry.leftAt >= lastRestart(now);
-  }
-  // As QB Reader's Player.hasActivity: has heard a question or answered
-  // one. A player who leaves without any is taken off the list at once.
-  function hasActivity(p) {
-    return !!p && ['heard', 'correct', 'incorrect', 'negs'].some((k) => Number(p[k]) > 0);
   }
 
   // Rooms are named, as on QB Reader (multiplayer.html?room=<name>). A name
@@ -215,7 +242,25 @@
       const name = str(msg.name, LIMITS.name).trim();
       return name ? { type, name } : null;
     }
-    if (type === 'submitAnswer' || type === 'typing') return { type, text: str(msg.text, LIMITS.answer) };
+    if (type === 'pings') {
+      // A player's round-trip times to the others (ms, by peer ID), and
+      // whether they have the question bank, for picking who runs the game
+      // (see pickBestConnected).
+      const rtts = {};
+      if (msg.rtts && typeof msg.rtts === 'object' && !Array.isArray(msg.rtts)) {
+        Object.keys(msg.rtts).slice(0, 64).forEach((id) => {
+          const v = msg.rtts[id];
+          if (/^[A-Za-z0-9_-]{1,64}$/.test(id) && typeof v === 'number' && Number.isFinite(v) && v >= 0 && v < 60000) rtts[id] = Math.round(v);
+        });
+      }
+      return { type, rtts, bank: msg.bank === true };
+    }
+    if (type === 'submitAnswer') return { type, text: str(msg.text, LIMITS.answer) };
+    if (type === 'typing') {
+      const out = { type, text: str(msg.text, LIMITS.answer) };
+      if (Number.isInteger(msg.seq) && msg.seq > 0) out.seq = msg.seq;
+      return out;
+    }
     if (type === 'chatSend') {
       const text = str(msg.text, LIMITS.chat).trim();
       if (!text) return null;
@@ -248,10 +293,8 @@
         setName: '',
         packetNumbers: '',
         rebuzz: msg.rebuzz === true,
-        // Allow skips (on unless turned off), and a controlled room (only
-        // its owner changes the settings; the coordinator checks who asked).
+        // Allow skips (on unless turned off).
         skip: msg.skip !== false,
-        controlled: msg.controlled === true,
         timer: msg.timer !== false,
         isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
@@ -309,5 +352,5 @@
     return publicLobbies(meta).find((l) => l.key === k) || null;
   }
 
-  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, lastRestart, hasActivity, coordinatorOrder, pickCoordinator, acceptsCoordinator, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
+  global.SBMpRules = { cleanOwnerProof, cleanChatId, votekickThreshold, isKicked, VOTEKICK_COOLDOWN_MS, KICK_BAN_MS, cleanRoomName, roomPeerId, ROOM_PREFIX, cleanHostMessage, canOverrideOwn, cleanPid, stillOffline, lastRestart, coordinatorOrder, pickCoordinator, acceptsCoordinator, pickBestConnected, worthHandingOff, MAX_TERM_STEP, publicLobbies, findPublicLobby, lobbySlug, LIMITS, RATE_MIN, RATE_MAX, RATE_DEFAULT, readingSpeed };
 })(typeof window !== 'undefined' ? window : globalThis);

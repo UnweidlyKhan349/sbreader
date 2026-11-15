@@ -90,7 +90,7 @@
   });
 
   /* ---------------- Navbar ---------------- */
-  // A "Log in" link, or your name with the account pages and Log out, in
+  // A "Log in" link, or your name linking to the Account page, in
   // the navbar's #navAccount slot.
   function renderNav() {
     const slot = document.getElementById('navAccount');
@@ -101,18 +101,11 @@
       slot.innerHTML = `<a class="nav-link" href="${pageUrl('login')}" id="login-link">Log in</a>`;
       return;
     }
-    slot.className = 'nav-item dropdown';
-    slot.innerHTML = '<a class="nav-link dropdown-toggle" href="#" role="button" data-sb-dropdown></a>'
-      + '<div class="dropdown-menu dropdown-menu-end" data-bs-popper="static">'
-      + `<a class="dropdown-item" href="${pageUrl('account')}">Account</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stats')}">Stats</a>`
-      + `<a class="dropdown-item" href="${pageUrl('graphs')}">Graphs</a>`
-      + `<a class="dropdown-item" href="${pageUrl('stars')}">Starred Questions</a>`
-      + '<hr class="dropdown-divider">'
-      + '<button class="dropdown-item" type="button" data-sb-logout>Log out</button></div>';
-    slot.querySelector('[data-sb-dropdown]').textContent = displayName();
-    slot.querySelector('[data-sb-logout]').addEventListener('click', () => signOut());
-    if (window.SBSite) window.SBSite.wireDropdown(slot.querySelector('[data-sb-dropdown]'));
+    // your name links to the Account page, which has Stats, Graphs,
+    // Starred Questions and Log out
+    slot.className = 'nav-item';
+    slot.innerHTML = `<a class="nav-link" href="${pageUrl('account')}" id="account-link"></a>`;
+    slot.querySelector('a').textContent = displayName();
   }
 
   /* ---------------- Sync ---------------- */
@@ -450,10 +443,47 @@
     return text;
   }
 
+  // The database's schema version (sb_schema_version, the last thing
+  // supabase/schema.sql makes): when it's missing or older than this site
+  // expects, the console says to run the file again, since the site
+  // otherwise just does without what's missing. Asked once per browser
+  // session; the answer is kept, so each page still says so.
+  const SCHEMA_VERSION = 20261115;
+  const SCHEMA_KEY = 'sb_schema_version';
+  function schemaWarning(v) {
+    if (typeof v === 'number' && v >= SCHEMA_VERSION) return null;
+    return `SB Reader: the Supabase database schema is ${typeof v === 'number' ? `out of date (version ${v}, this site needs ${SCHEMA_VERSION})` : 'older than this site'}. `
+      + 'Run supabase/schema.sql again in the SQL Editor (it is safe to re-run); until then the features that need the newer schema are left out.';
+  }
+  async function checkSchema() {
+    if (!enabled) return;
+    let v;
+    try { v = JSON.parse(sessionStorage.getItem(SCHEMA_KEY)); } catch (e) { v = undefined; }
+    if (v === undefined || v === null) {
+      try {
+        const res = await fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/rest/v1/rpc/sb_schema_version`, {
+          method: 'POST', headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' }, body: '{}',
+        });
+        const body = await res.json().catch(() => null);
+        if (res.ok && typeof body === 'number') v = body;
+        else if (res.status === 404 || (body && body.code === 'PGRST202')) v = 0; // no such function yet
+        else return; // the service is down or unreachable: nothing to say
+      } catch (e) { return; }
+      try { sessionStorage.setItem(SCHEMA_KEY, JSON.stringify(v)); } catch (e) { /* kept for this page only */ }
+    }
+    const warning = schemaWarning(v || null);
+    if (warning) console.warn(warning);
+  }
+  // When the page is idle, or after 5 s at the latest.
+  const idle = window.requestIdleCallback ? (fn) => window.requestIdleCallback(fn, { timeout: 5000 }) : (fn) => setTimeout(fn, 1500);
+  if (enabled) idle(() => { checkSchema(); });
+
   window.SBAccount = {
     friendlyError,
     enabled,
     ready,
+    schemaWarning,
+    SCHEMA_VERSION,
     user: () => user,
     displayName,
     onChange(fn) { listeners.push(fn); },

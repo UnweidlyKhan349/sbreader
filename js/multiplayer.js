@@ -10,7 +10,8 @@
   const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
   const TYPING_THROTTLE_MS = 150;
-  const CHAT_HISTORY = 60;
+  // Chat and events a newcomer gets on joining (with every finished question).
+  const CHAT_HISTORY = 200;
 
   // Snapshot of whatever filters actually produced the room's current queue -
   // kept in sync on room creation and whenever the in-game settings panel is
@@ -42,8 +43,29 @@
   // Random names, as QB Reader gives: for a new room ("quantum-otter") and
   // for a first-time player ("Quantum Otter").
   const NAME_WORDS = [
-    ['quantum', 'nimble', 'covalent', 'orbital', 'stellar', 'polar', 'kinetic', 'tidal', 'ionic', 'lunar', 'mitotic', 'prime', 'radiant', 'tectonic', 'vector', 'zesty'],
-    ['otter', 'falcon', 'quokka', 'lynx', 'heron', 'tapir', 'gecko', 'ibis', 'marmot', 'narwhal', 'okapi', 'puffin', 'koala', 'newt', 'bison', 'wombat'],
+    [
+      'quantum', 'nimble', 'covalent', 'orbital', 'stellar', 'polar', 'kinetic', 'tidal', 'ionic', 'lunar', 'mitotic', 'prime', 'radiant', 'tectonic',
+      'vector', 'zesty', 'acidic', 'adiabatic', 'alkaline', 'amber', 'angular', 'aquatic', 'arctic', 'atomic', 'auroral', 'basaltic', 'binary', 'boreal',
+      'brisk', 'bubbly', 'cellular', 'chiral', 'cobalt', 'coral', 'cosmic', 'crimson', 'crystal', 'cubic', 'curious', 'dapper', 'daring', 'diatomic',
+      'digital', 'dynamic', 'electric', 'elliptic', 'emerald', 'fractal', 'frosty', 'galactic', 'gamma', 'glacial', 'golden', 'granite', 'gravity', 'helical',
+      'hexagonal', 'humid', 'hyper', 'igneous', 'inert', 'infrared', 'isotopic', 'jolly', 'jovial', 'keen', 'laminar', 'laser', 'lucid', 'luminous',
+      'magnetic', 'martian', 'molar', 'molten', 'mossy', 'nebular', 'neutral', 'noble', 'nova', 'oceanic', 'optic', 'orbiting', 'ozone', 'photonic',
+      'plasma', 'plucky', 'polymer', 'prismatic', 'proton', 'quartz', 'quirky', 'radial', 'rapid', 'redshift', 'rocky', 'rotary', 'saline',
+      'scarlet', 'seismic', 'silicon', 'sleek', 'solar', 'sonic', 'sparky', 'spiral', 'static', 'steady', 'stoic', 'sunny', 'swift', 'thermal',
+      'titan', 'topaz', 'tropic', 'turbo', 'twilight', 'ultra', 'velvet', 'violet', 'vivid', 'volcanic', 'wavy', 'windy', 'zippy',
+    ],
+    [
+      'otter', 'falcon', 'quokka', 'lynx', 'heron', 'tapir', 'gecko', 'ibis', 'marmot', 'narwhal', 'okapi', 'puffin', 'koala', 'newt',
+      'bison', 'wombat', 'axolotl', 'badger', 'beaver', 'bobcat', 'capybara', 'caracal', 'chinchilla', 'condor', 'coyote', 'crane', 'dingo', 'dolphin',
+      'dormouse', 'egret', 'ermine', 'ferret', 'finch', 'flamingo', 'fox', 'gazelle', 'gibbon', 'gopher', 'hedgehog', 'hornbill', 'hyrax', 'iguana',
+      'impala', 'jackal', 'jaguar', 'jay', 'kestrel', 'kingfisher', 'kiwi', 'lemur', 'leopard', 'llama', 'loon', 'macaw', 'manatee', 'mantis',
+      'marlin', 'meerkat', 'mongoose', 'moose', 'ocelot', 'octopus', 'oriole', 'osprey', 'owl', 'panda', 'pangolin', 'panther', 'pelican', 'penguin',
+      'petrel', 'pika', 'platypus', 'porcupine', 'possum', 'quail', 'raccoon', 'raven', 'salamander', 'seahorse', 'seal', 'serval', 'shrew', 'skink',
+      'sloth', 'sparrow', 'squid', 'starling', 'stingray', 'stoat', 'swallow', 'swan', 'swift', 'tamarin', 'tarsier', 'tern', 'tortoise', 'toucan',
+      'tuna', 'turtle', 'urchin', 'vole', 'walrus', 'warbler', 'weasel', 'wolf', 'wolverine', 'wren', 'yak', 'zebra', 'atom', 'boson',
+      'comet', 'electron', 'galaxy', 'gluon', 'ion', 'isotope', 'lepton', 'meson', 'muon', 'neutrino', 'nucleus', 'photon', 'pulsar', 'quark',
+      'quasar',
+    ],
   ];
   function randomWords() {
     const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -90,7 +112,7 @@
   // A new room's settings: every subject, random questions, timer on.
   function defaultFilters(isPublic) {
     return {
-      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, controlled: false, timer: true, isPublic: isPublic !== false,
+      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, timer: true, isPublic: isPublic !== false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
       tournaments: new Set(), roundRange: null, yearRange: null, includeUnlabeled: true,
     };
@@ -109,7 +131,6 @@
       const name = SBMpRules.cleanRoomName(input.value) || input.placeholder;
       const params = new URLSearchParams({ room: name });
       if (document.getElementById('privateRoomCheckbox').checked) params.set('private', 'true');
-      if (document.getElementById('controlledRoomCheckbox').checked) params.set('controlled', 'true');
       goToRoom(`${location.pathname}?${params}`);
     });
     // A room in the lists opens on this page, without loading it again (the
@@ -122,7 +143,13 @@
       goToRoom(a.href);
     }));
     // Back (or forward) from a room: the page as that address has it.
-    window.addEventListener('popstate', () => location.reload());
+    // From a room, this player is marked as gone from the room list first,
+    // so the lobby that loads doesn't count them as still playing.
+    window.addEventListener('popstate', () => {
+      if (!myState.role) { location.reload(); return; }
+      leaveRoomList();
+      within(leftRoomList || Promise.resolve(), 1500, null).then(() => location.reload());
+    });
     document.getElementById('emptyRoomCheckbox').addEventListener('change', (e) => {
       document.querySelectorAll('#roomList .empty-room').forEach((li) => li.classList.toggle('d-none', !e.target.checked));
       showNoRooms();
@@ -159,26 +186,48 @@
     none.classList.toggle('d-none', shown);
   }
 
-  // Filled once when the page opens (it doesn't refresh itself).
   // A promise that gives up after `ms` with `fallback`, so a slow room list
   // or roster never holds up the lobby or entering a room.
   function within(promise, ms, fallback) {
     return Promise.race([promise.catch(() => fallback), new Promise((r) => setTimeout(() => r(fallback), ms))]);
   }
 
-  // The last list this browser saw is drawn at once, then the current one
-  // (usually within half a second) replaces it.
-  async function renderRoomLists() {
-    const fresh = within(SBRooms.list(), 6000, null);
-    const cached = SBRooms.cachedList ? SBRooms.cachedList() : null;
-    paintRoomLists(cached, null);
-    const reg = await fresh;
-    let probe = null;
-    if (!reg) {
-      // No room list: count the built-in rooms by asking each one.
-      probe = await SBPeer.probeRooms(lobbyList.map((l) => l.peerId)).catch(() => new Map());
+  // The built-in rooms are drawn at once, without counts, then the current
+  // list (usually within half a second) fills in the counts and the named
+  // rooms. No list remembered from an earlier visit is shown: its counts
+  // would be out of date. While the lobby shows, the list is asked for again
+  // every 15 seconds and whenever the tab comes back into view, so "N active
+  // players in M active rooms" stays right.
+  const ROOM_LIST_REFRESH_MS = 15 * 1000;
+  let roomListTimer = null;
+  let roomListBusy = false;
+  function lobbyShowing() {
+    return !myState.role && !joining && document.getElementById('lobbyScreen').style.display !== 'none';
+  }
+  async function renderRoomLists(again) {
+    if (roomListBusy) return;
+    roomListBusy = true;
+    try {
+      if (!again) paintRoomLists(null, null);
+      const reg = await within(SBRooms.list({ fresh: !!again }), 6000, null);
+      let probe = null;
+      if (!reg) {
+        // No room list: count the built-in rooms by asking each one.
+        probe = await SBPeer.probeRooms(lobbyList.map((l) => l.peerId)).catch(() => new Map());
+      }
+      if (lobbyShowing()) paintRoomLists(reg, probe);
+    } finally {
+      roomListBusy = false;
     }
-    paintRoomLists(reg, probe);
+    if (!roomListTimer) {
+      roomListTimer = setInterval(() => {
+        if (lobbyShowing() && document.visibilityState === 'visible') renderRoomLists(true);
+      }, ROOM_LIST_REFRESH_MS);
+      const now = () => { if (lobbyShowing() && document.visibilityState === 'visible') renderRoomLists(true); };
+      document.addEventListener('visibilitychange', now);
+      // Back to this page from another site (the browser kept it as it was).
+      window.addEventListener('pageshow', (e) => { if (e.persisted) now(); });
+    }
   }
 
   // reg: SBRooms.list()'s answer; probe: the built-in rooms' counts asked
@@ -227,7 +276,7 @@
     // this question and how it was graded, used to badge the buzz-status
     // panel and the answer box. Reset to null at the start of each question.
     lastGrade: null, log: [], paused: false,
-    lastRevealData: null, liveTypingText: '', liveTypingFrom: null,
+    lastRevealData: null, liveTypingText: '', liveTypingFrom: null, liveTypingSeq: null,
     // IDs of every question asked since the room last started from the top,
     // kept by everyone, so whoever takes over (and any rebuild of the queue
     // after a settings change) never asks one again. Cleared only at the end
@@ -390,7 +439,7 @@
   // The players who've left, as rows for the leaderboard.
   function offlineRows() {
     const now = Date.now();
-    return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, heard: d.heard || 0, owner: !!d.owner, offline: true }));
+    return (game.departed || []).filter((d) => SBMpRules.stillOffline(d, now)).map((d) => ({ id: null, pid: d.pid, name: d.name, score: d.score, correct: d.correct || 0, incorrect: d.incorrect || 0, celSum: d.celSum || 0, celN: d.celN || 0, negs: d.negs || 0, owner: !!d.owner, offline: true }));
   }
   // Whether this player is the room's owner, as the room has it.
   // As on QB Reader, a room's owner counts only while the room is private:
@@ -418,7 +467,9 @@
     const openMenu = container.querySelector('.dropdown-menu.show');
     const openMenuKey = openMenu ? openMenu.closest('[data-key]').dataset.key : null;
     container.innerHTML = '';
-    const offline = offlineRows();
+    // Hidden offline players aren't drawn at all (not just hidden), so the
+    // first and last rows that show keep the list's border and corners.
+    const offline = showOffline ? offlineRows() : [];
     const everyone = game.players.concat(offline).sort((a, b) => (b.score - a.score) || a.name.localeCompare(b.name));
     everyone.forEach((p) => {
       const key = p.id || 'pid:' + p.pid;
@@ -427,7 +478,6 @@
       item.setAttribute('role', 'button');
       item.className = 'list-group-item list-group-item-action clickable mp-player-row';
       if (p.offline) item.classList.add('offline');
-      if (p.offline && !showOffline) item.classList.add('d-none');
       if (p.id === myState.myId) item.classList.add('user-score');
       const attempt = !p.offline && game.attempts.find((x) => x.playerId === p.id);
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
@@ -528,7 +578,6 @@
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
-      ['Online?', plain(p.offline ? 'No' : 'Yes')],
     ].concat(isOwner(p) ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
@@ -619,6 +668,23 @@
     li.removeAttribute('id');
     li.dataset.buzzPlayer = playerId;
     li.dataset.buzzQ = String(game.index);
+  }
+  // A finished buzz from before you joined, as finishBuzzLine leaves one.
+  function pastBuzzLine(a, qtype, qIndex) {
+    const li = document.createElement('li');
+    const cls = a.correct ? 'badge text-white bg-success' : 'badge text-white bg-danger';
+    li.innerHTML = `<span class="${cls}">${qtype === 'bonus' ? 'Answer' : 'Buzz'}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
+    li.querySelector('b').textContent = a.playerName || '?';
+    li.querySelector('.live-answer').textContent = a.userText ? a.userText : '(blank)';
+    if (!a.correct && a.close) {
+      const hint = document.createElement('span');
+      hint.className = 'close-hint ms-2';
+      hint.textContent = 'Close';
+      li.appendChild(hint);
+    }
+    li.dataset.buzzPlayer = a.playerId;
+    if (qIndex != null) li.dataset.buzzQ = String(qIndex);
+    historyEl().prepend(li);
   }
   // An override re-colours that player's line for this question: green and
   // "Correct", or red and "Incorrect".
@@ -848,6 +914,8 @@
     SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null, labelOpts());
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
+    const qid = game.question.id;
+    SBPlay.headerStar(document.getElementById('mpQDisplay'), qid, () => SBPlay.repaintStars(historyEl(), qid));
     if (game.question.choices && r.letter) {
       const el = document.querySelector(`#mpChoicesDisplay .choice-box[data-letter="${r.letter}"]`);
       if (el) el.classList.add('reveal-correct');
@@ -1034,7 +1102,7 @@
       // (Rooms only read random questions now; the three fields stay in the
       // settings so players on an older copy still understand them.)
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -1067,7 +1135,7 @@
   const departedPlayers = new Map();
   function markOffline(p) {
     departedPlayers.delete(p.pid);
-    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, owner: !!p.owner, leftAt: Date.now() });
+    departedPlayers.set(p.pid, { pid: p.pid, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, owner: !!p.owner, leftAt: Date.now() });
     while (departedPlayers.size > DEPARTED_MAX) departedPlayers.delete(departedPlayers.keys().next().value);
   }
   // As on QB Reader, offline players stay on the leaderboard until the
@@ -1085,12 +1153,8 @@
       buzzedPlayerGone(connId);
     }
     hostPlayers.delete(connId);
-    // As on QB Reader: a player who leaves without having heard or answered
-    // anything is taken off the list; anyone else stays on it, offline.
-    if (p.pid) {
-      if (SBMpRules.hasActivity(p)) markOffline(p);
-      else departedPlayers.delete(p.pid);
-    }
+    // Everyone who leaves stays on the list, offline, until 08:00 UTC.
+    if (p.pid) markOffline(p);
     broadcastLobby();
     if (!quiet) hostBroadcastChat('SYSTEM', p.name, 'left the game', true);
   }
@@ -1165,8 +1229,7 @@
 
   /* ---------------- The room's owner ----------------
      A named room belongs to the browser that created it, as on QB Reader:
-     the owner has a crown, can mute and ban players, and can make the room
-     "controlled", where only they change the settings. The built-in rooms
+     the owner has a crown and can mute and ban players. The built-in rooms
      have no owner.
 
      There's no server to vouch for anyone, so the owner proves who they are
@@ -1293,8 +1356,8 @@
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
-  // The owner's browser keeps the room's record (owner key, bans and the
-  // controlled switch) in the room list, so the room comes back the same
+  // The owner's browser keeps the room's record (owner key and bans) in the
+  // room list, so the room comes back the same
   // after everyone has left. Only the browser that created the room can
   // change it there; for anyone else saveRoom just answers false.
   // A record counts as saved only once the room list says so. A save that
@@ -1311,7 +1374,7 @@
   function saveRoomRecord() {
     if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
     const key = roomKey();
-    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
+    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice() };
     const text = key + '\u0000' + JSON.stringify(rec);
     if (text === settledRecord || savingRecord !== null) return;
     clearTimeout(recordRetry); recordRetry = null;
@@ -1330,26 +1393,12 @@
     });
   }
 
-  // Whatever depends on who owns the room: the controlled-room lock on the
-  // settings, the controlled and public switches, the record in the room
-  // list. As on QB Reader, a room is never both public and controlled.
+  // Whatever depends on the room: the public switch, the permanent-room
+  // note, the record in the room list.
   function refreshOwnerControls() {
-    const owner = amOwner();
-    const controlled = !!roomSetting('controlled', false) && roomIsPrivate();
-    const locked = controlled && !owner;
-    const fieldset = document.getElementById('mpRoomSettings');
-    if (fieldset) fieldset.disabled = locked;
-    // The switch is there in rooms with an owner; only the owner can use
-    // it, and only while the room is private.
-    document.getElementById('mpControlledRow').classList.toggle('d-none', !game.ownerKey);
-    const sw = document.getElementById('mpToggleControlled');
-    sw.checked = controlled;
-    sw.disabled = !owner || !roomIsPrivate();
-    // A controlled room stays private until it's made uncontrolled.
-    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
+    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby;
     // As on QB Reader, a note says why some settings can't be changed.
     document.getElementById('mpPermanentNote').classList.toggle('d-none', !myState.publicLobby);
-    document.getElementById('mpControlledNote').classList.toggle('d-none', !controlled);
     // Skip follows "Allow skips".
     if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
@@ -1362,7 +1411,7 @@
   }
 
   function broadcastLobby() {
-    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, pid: p.pid || null, owner: !!p.owner }));
+    game.players = [...hostPlayers.values()].map((p) => ({ id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, pid: p.pid || null, owner: !!p.owner }));
     pruneDeparted();
     pruneBans();
     game.departed = [...departedPlayers.values()];
@@ -1390,7 +1439,7 @@
     const f = activeFilterState;
     return {
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1401,6 +1450,24 @@
   function broadcastSettingsState(by, seq) {
     if (!host || !activeFilterState) return;
     host.broadcast({ type: 'settingsState', ...settingsStatePayload(), by: by || null, seq: seq || 0 });
+    saveRoomSettingsSoon();
+  }
+  // The room's settings go to the room list (a named room only), a moment
+  // after the last change, so the room opens with them again once everyone
+  // has left.
+  let settingsSaveTimer = null;
+  let savedSettingsText = '';
+  function saveRoomSettingsSoon() {
+    if (myState.publicLobby || !myState.roomName || !window.SBRooms || !activeFilterState) return;
+    clearTimeout(settingsSaveTimer);
+    settingsSaveTimer = setTimeout(() => {
+      if (myState.role !== 'host' || !activeFilterState) return;
+      const payload = settingsStatePayload();
+      delete payload.isPublic; // kept by the room's own record
+      const text = JSON.stringify(payload);
+      if (text === savedSettingsText) return;
+      SBRooms.saveSettings(roomKey(), myState.pid, payload).then((ok) => { if (ok) savedSettingsText = text; }).catch(() => {});
+    }, 1500);
   }
 
   function sendSyncTo(connId) {
@@ -1423,6 +1490,12 @@
       attempts: game.attempts,
       overrideLocked: hostGame.overrideLocked,
       chat: hostChat.slice(-CHAT_HISTORY),
+      // The countdown as it stands, so a newcomer sees the time left (frozen
+      // while paused, when no ticks are sent) instead of 0.
+      tick: hostGame.timer ? {
+        remainingMs: hostGame.paused ? hostGame.timerRemainingAtAnchor : Math.max(0, hostGame.timerRemainingAtAnchor - (Date.now() - hostGame.timerAnchorAt)),
+        totalMs: hostGame.totalMs, kind: hostGame.timerKind,
+      } : null,
       // How much of the question the room has read, so a newcomer reads on
       // from there instead of seeing it all (and can't buzz on unread text).
       readUnits: revealCtl && !revealCtl.isDone() && (hostGame.phase === 'reading' || hostGame.phase === 'answering') ? revealCtl.units() : null,
@@ -1434,6 +1507,7 @@
     if (!msg) return;
     // Everything but 'join' needs a player who has joined.
     if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
+    if (msg.type === 'pings') { pingReports.set(connId, { rtts: msg.rtts, bank: msg.bank, at: Date.now() }); return; }
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
       if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
@@ -1443,7 +1517,7 @@
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
       const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
       if (back) departedPlayers.delete(msg.pid);
-      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, heard: back ? back.heard || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
+      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
       broadcastLobby();
       hostEvent(connId, 'joined the game');
       // The room's owner, coming back: their signature says so.
@@ -1462,9 +1536,10 @@
     if (msg.type === 'submitAnswer') { hostHandleAnswer(connId, msg.text); return; }
     if (msg.type === 'typing') {
       if (connId !== hostGame.buzzedConnId) return;
-      game.liveTypingText = msg.text; game.liveTypingFrom = connId;
-      host.broadcast({ type: 'typing', playerId: connId, text: msg.text });
-      renderBuzzStatus();
+      applyLiveTyping(connId, msg.text, msg.seq);
+      // Passed on even when the direct copy got here first: not everyone
+      // has a direct link to the player answering.
+      host.broadcast({ type: 'typing', playerId: connId, text: msg.text, seq: msg.seq });
       return;
     }
     if (msg.type === 'chatSend') {
@@ -1485,7 +1560,7 @@
     }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, controlled: msg.controlled, timer: msg.timer, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -1520,7 +1595,7 @@
   function hostClearStats(connId) {
     const p = hostPlayers.get(connId);
     if (!p) return;
-    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, heard: 0 });
+    Object.assign(p, { score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0 });
     broadcastLobby();
     hostEvent(connId, 'cleared their stats');
   }
@@ -1540,6 +1615,9 @@
     }
     if (hostGame.queueStale || (hostGame.index < 0 && !hostGame.queue.length)) rebuildQueue();
     clearHostTimer();
+    // The last question's card comes up for everyone now: noted, so that
+    // someone joining later sees it in the same place among the chat.
+    if (game.log[0] && !game.log[0].cardAt) game.log[0].cardAt = Date.now();
     hostGame.index++;
     hostGame.buzzedConnId = null;
     hostGame.anyAttempt = false;
@@ -1795,14 +1873,13 @@
       category,
       answeredBy: answeredByPlayer ? answeredByPlayer.name : null,
       userText: grade ? grade.userText : null,
+      // every buzz on it, so someone who joins later sees them in the history
+      attempts: game.attempts.map((a) => ({ playerId: a.playerId, playerName: a.playerName, userText: a.userText, correct: !!a.correct, close: !!a.close, at: a.at || 0 })),
       at: Date.now(),
     };
     game.log.unshift(logEntry);
     host.broadcast({ type: 'reveal', ...revealData, logEntry });
     applyRevealLocal(revealData);
-    // Everyone in the room has heard one more question (QB Reader's TUH):
-    // it's what makes a player, and a room, count as played in.
-    hostPlayers.forEach((p) => { p.heard = (p.heard || 0) + 1; });
     broadcastLobby();
   }
 
@@ -1901,6 +1978,12 @@
   // no grade, same as the timer naturally expiring with nobody buzzing in.
   function hostSkipQuestion() {
     if (hostGame.phase !== 'reading' && hostGame.phase !== 'buzzwindow') return;
+    // Skipping a paused question goes on unpaused.
+    if (hostGame.paused) {
+      hostGame.paused = false; game.paused = false;
+      host.broadcast({ type: 'pauseState', paused: false });
+      syncRevealToState();
+    }
     hostReveal();
   }
 
@@ -1980,7 +2063,7 @@
       existing.correct = correct;
     } else {
       const p = game.players.find((pp) => pp.id === playerId);
-      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close });
+      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close, at: Date.now() });
     }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderBuzzStatus();
@@ -2078,6 +2161,10 @@
   }
   function stamp(msg) {
     const out = { ...msg, term };
+    // Handed the game (see handOffTo): the term's messages say by whom, so a
+    // player who hears from this one before hearing about the handoff can
+    // keep them until they do.
+    if (handoffFrom && term === handoffTerm) out.hf = handoffFrom;
     if (!NO_ENGINE.has(msg.type)) out.eng = engineSnapshot();
     return out;
   }
@@ -2114,6 +2201,7 @@
         },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
+      setInterval(connectionTick, HANDOFF_CHECK_MS);
     }
     return mesh.ready;
   }
@@ -2129,6 +2217,21 @@
       else if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
       return;
     }
+    if (data.type === 'typingLive') {
+      // Straight from the player answering; anyone else's is ignored.
+      if (game.phase !== 'answering' || from !== game.buzzedPlayerId || from === myState.myId) return;
+      if (typeof data.text !== 'string' || !Number.isInteger(data.seq)) return;
+      applyLiveTyping(from, data.text.slice(0, SBMpRules.LIMITS.answer), data.seq);
+      return;
+    }
+    if (data.type === 'fwd') {
+      // A player's message passed on by whoever handed this player the game
+      // (see handOffTo): handled as if it had come straight from them.
+      if (myState.role === 'host') {
+        if (from === handoffFrom && Date.now() - handoffAt < 2 * HANDOFF_FORWARD_MS && typeof data.from === 'string' && data.msg && typeof data.msg === 'object') handleHostMessage(data.from, data.msg);
+      } else keepIntent(from, data);
+      return;
+    }
     if (data.type === 'join') {
       const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
       if (!msg) return;
@@ -2138,13 +2241,23 @@
     }
     if ('term' in data) {
       // From a coordinator: follow it, or ignore it (see acceptsCoordinator).
-      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder(), isUp }, from, data.term)) return;
+      if (!SBMpRules.acceptsCoordinator({ term, coordinatorId, order: memberOrder(), isUp }, from, data.term)) {
+        if (data.hf && data.hf === coordinatorId && data.term === term + 1) stashForHandoff(from, data);
+        return;
+      }
       if (from !== coordinatorId || data.term !== term) followCoordinator(from, data.term);
+      // The player handed the game has taken it.
+      if (handoffWatch && from === handoffWatch.to && data.term >= handoffWatch.term) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
       if (data.eng) followerEngine = data.eng;
       handleClientMessage(data);
       return;
     }
-    if (myState.role === 'host') handleHostMessage(from, data);
+    if (myState.role === 'host') { handleHostMessage(from, data); return; }
+    // Meant for whoever runs the game, which this player isn't (any more,
+    // or yet): just handed over, it goes on to the new one; otherwise it's
+    // kept a moment, in case the game is being handed to this player.
+    if (handedOffTo && Date.now() - handedOffTo.at < HANDOFF_FORWARD_MS && mesh) mesh.send(handedOffTo.to, { type: 'fwd', from, msg: data });
+    else keepIntent(from, data);
   }
 
   function followCoordinator(id, newTerm) {
@@ -2157,6 +2270,136 @@
     myState.role = 'client';
     host = null;
     client = clientLink;
+    markRole();
+  }
+
+  /* ----- Handing the game to the best-connected player -----
+     Everyone else's screen waits on the coordinator's connection (every
+     buzz, grade and tick goes through it), so the coordinator should be
+     whoever is best connected to everyone, not just whoever has been in the
+     room longest. Every HANDOFF_CHECK_MS each player reports their round
+     trips to the others (from SBPeer's pings) to the coordinator, which
+     works out each player's average to everyone (SBMpRules.pickBestConnected).
+     When someone else would clearly do better (worthHandingOff) at
+     HANDOFF_STRIKES checks in a row, it hands the game over between
+     questions: it says so ('handoff'), follows them at once, and they carry
+     on from their own copy of the game (takeOver), as when a coordinator
+     leaves. Only with three or more players (with two, each is as far from
+     the other), only when every player reports (an older copy of the page
+     doesn't, and wouldn't follow), and at most once per HANDOFF_COOLDOWN_MS.
+     Nobody else sees anything change. */
+  const HANDOFF_CHECK_MS = 10 * 1000;
+  const HANDOFF_STRIKES = 2;
+  const HANDOFF_COOLDOWN_MS = 2 * 60 * 1000;
+  let lastHandoffAt = 0;
+  let handoffFrom = null; let handoffTerm = null;
+  let handoffStrikes = { id: null, n: 0 };
+  const pingReports = new Map(); // player -> { rtts, bank, at }
+  let handoffStash = [];
+  // Making sure a handoff can't lose the game or a message:
+  //  - whoever hands the game over passes on what players send it for
+  //    HANDOFF_FORWARD_MS after ('fwd'), since they may not have heard yet;
+  //  - the player handed it keeps what reaches it shortly before it hears
+  //    (keepIntent), and handles it once it has taken over;
+  //  - if the player handed it isn't heard from within HANDOFF_WATCH_MS
+  //    (they never got the message, or their connection went), everyone
+  //    picks the next coordinator as when one leaves, without them.
+  const HANDOFF_FORWARD_MS = 5000;
+  const HANDOFF_WATCH_MS = 8000;
+  let handedOffTo = null; // { to, at }, by whoever handed the game over
+  let handoffAt = 0; // when this player was handed it
+  let handoffWatch = null; // { to, term, timer }
+  let intentStash = [];
+  function keepIntent(from, data) {
+    const now = Date.now();
+    intentStash = intentStash.filter((x) => now - x.at < 2 * HANDOFF_FORWARD_MS).slice(-50);
+    intentStash.push({ from, data, at: now });
+  }
+  function watchHandoff(to, newTerm) {
+    if (handoffWatch) clearTimeout(handoffWatch.timer);
+    const w = { to, term: newTerm, timer: null };
+    w.timer = setTimeout(() => {
+      if (handoffWatch !== w) return;
+      handoffWatch = null;
+      if (myState.role !== 'client' || coordinatorId !== to || term !== newTerm) return;
+      const next = SBMpRules.pickCoordinator(memberOrder().filter((x) => x !== to), isUp);
+      if (!next || next === mesh.id) { if (bankLoaded()) takeOver(); } else coordinatorId = next; // their first message has a newer term
+    }, HANDOFF_WATCH_MS);
+    handoffWatch = w;
+  }
+  function markRole() {
+    document.documentElement.dataset.mpRole = myState.role || '';
+  }
+  function myRtts() {
+    const out = {};
+    if (mesh) mesh.memberIds().forEach((id) => { const v = mesh.rtt(id); if (v != null) out[id] = v; });
+    return out;
+  }
+  function connectionTick() {
+    if (!mesh || !myState.role) return;
+    if (myState.role === 'client') {
+      if (client) client.send({ type: 'pings', rtts: myRtts(), bank: bankLoaded() });
+      return;
+    }
+    hostConsiderHandoff();
+  }
+  function hostConsiderHandoff() {
+    const now = Date.now();
+    const reset = () => { handoffStrikes = { id: null, n: 0 }; };
+    const ids = [mesh.id, ...[...hostPlayers.keys()].filter((id) => id !== mesh.id && isUp(id))];
+    if (ids.length < 3 || ids.slice(1).some((id) => { const r = pingReports.get(id); return !r || now - r.at > 3 * HANDOFF_CHECK_MS; })) { reset(); return; }
+    const rtt = (a, b) => {
+      if (a === mesh.id) return mesh.rtt(b);
+      const r = pingReports.get(a);
+      return r && typeof r.rtts[b] === 'number' ? r.rtts[b] : null;
+    };
+    const { best, ms } = SBMpRules.pickBestConnected(ids, rtt);
+    if (!best || best === mesh.id || !pingReports.get(best).bank || !SBMpRules.worthHandingOff(ms[mesh.id], ms[best])) { reset(); return; }
+    handoffStrikes = handoffStrikes.id === best ? { id: best, n: handoffStrikes.n + 1 } : { id: best, n: 1 };
+    // Between questions only, and not again too soon.
+    if (handoffStrikes.n < HANDOFF_STRIKES || now - lastHandoffAt < HANDOFF_COOLDOWN_MS) return;
+    if ((hostGame.phase !== 'lobby' && hostGame.phase !== 'reveal') || hostGame.waitingForBank) return;
+    handOffTo(best);
+  }
+  function handOffTo(id) {
+    lastHandoffAt = Date.now();
+    handoffStrikes = { id: null, n: 0 };
+    pingReports.clear();
+    host.broadcast({ type: 'handoff', to: id });
+    followCoordinator(id, term + 1);
+    handedOffTo = { to: id, at: Date.now() };
+    watchHandoff(id, term);
+  }
+  // A 'handoff' from the coordinator (handleClientMessage).
+  function onHandoff(to) {
+    lastHandoffAt = Date.now();
+    if (to === mesh.id) {
+      handoffFrom = coordinatorId;
+      handoffTerm = term + 1;
+      handoffAt = Date.now();
+      handoffStash = [];
+      // Take over, then handle what players sent meanwhile.
+      const take = () => {
+        takeOver();
+        const kept = intentStash;
+        intentStash = [];
+        kept.forEach((x) => onMeshMessage(x.from, x.data));
+      };
+      if (bankLoaded()) take();
+      else SBData.load().then(() => { if (myState.role === 'client' && coordinatorId === handoffFrom) take(); }).catch(() => {});
+      return;
+    }
+    followCoordinator(to, term + 1);
+    watchHandoff(to, term);
+    // What the new coordinator sent before this arrived.
+    const kept = handoffStash.filter((x) => x.from === to && x.data.term === term);
+    handoffStash = [];
+    kept.forEach((x) => onMeshMessage(x.from, x.data));
+  }
+  function stashForHandoff(from, data) {
+    const now = Date.now();
+    handoffStash = handoffStash.filter((x) => now - x.at < 10000).slice(-100);
+    handoffStash.push({ from, data, at: now });
   }
 
   function onMemberLeft(id) {
@@ -2183,6 +2426,10 @@
     term += 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
+    markRole();
+    pingReports.clear();
+    handoffStrikes = { id: null, n: 0 };
+    if (handoffWatch) { clearTimeout(handoffWatch.timer); handoffWatch = null; }
     host = hostLink;
     client = null;
     const tick = game.lastTick;
@@ -2193,8 +2440,8 @@
     departedPlayers.clear();
     (game.departed || []).forEach((d) => { if (d && d.pid) departedPlayers.set(d.pid, { ...d }); });
     game.players.forEach((p) => {
-      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, heard: p.heard || 0, connId: p.id, pid: p.pid || null, owner: !!p.owner });
-      else if (p.pid && SBMpRules.hasActivity(p)) markOffline(p);
+      if (isUp(p.id)) hostPlayers.set(p.id, { id: p.id, name: p.name, score: p.score, correct: p.correct || 0, incorrect: p.incorrect || 0, celSum: p.celSum || 0, celN: p.celN || 0, negs: p.negs || 0, connId: p.id, pid: p.pid || null, owner: !!p.owner });
+      else if (p.pid) markOffline(p);
     });
     if (!hostPlayers.has(mesh.id)) addPlayer(mesh.id, myState.myName, myState.pid);
     memberInfo.forEach((info, id) => { if (isUp(id) && !hostPlayers.has(id)) addPlayer(id, info.name, info.pid); });
@@ -2252,7 +2499,7 @@
     const pidInUse = pid && [...hostPlayers.values()].some((p) => p.pid === pid);
     const back = pid && !pidInUse ? departedPlayers.get(pid) : null;
     if (back) departedPlayers.delete(pid);
-    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, heard: back ? back.heard || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
+    hostPlayers.set(id, { id, name: uniqueName(name, id), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId: id, pid: pidInUse ? null : (pid || null) });
   }
 
   // The coordinator holds the room's code, so newcomers can find the room.
@@ -2272,7 +2519,7 @@
         } catch (err) {
           if (err && err.type === 'unavailable-id' && myState.role === 'host') {
             try {
-              const info = await mesh.join(myState.roomId);
+              const info = await mesh.join(myState.roomId, { onLateLink: (id) => { if (lastJoinMsg && mesh) mesh.send(id, lastJoinMsg); } });
               if (info.coordinator && info.coordinator !== mesh.id && !hostPlayers.has(info.coordinator) && myState.role === 'host') {
                 rejoinRoom(info);
                 return;
@@ -2330,13 +2577,23 @@
     SBRooms.heartbeat(roomKey(), {
       isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
       isPermanent: !!myState.publicLobby,
-    }, { pid: myState.pid, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0, heard: me.heard || 0 }).catch(() => {});
+    }, { pid: myState.pid, peer: mesh && mesh.id, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
   }
   // After a settings change (a dragged slider makes many): one heartbeat,
   // a second after the last.
   let beatTimer = null;
   function beatSoon() { clearTimeout(beatTimer); beatTimer = setTimeout(beat, 1000); }
+  // Leaving the room: no more heartbeats, and the room list stops counting
+  // this player as online now (not 90 seconds after the last heartbeat).
+  let leftRoomList = null;
+  function leaveRoomList() {
+    if (!myState.role || leftRoomList) return;
+    if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+    clearTimeout(beatTimer);
+    leftRoomList = SBRooms.leave(roomKey(), myState.pid).catch(() => {});
+  }
   function startHeartbeat() {
+    leftRoomList = null;
     if (heartbeatTimer) clearInterval(heartbeatTimer);
     setTimeout(beat, 300);
     heartbeatTimer = setInterval(beat, 30 * 1000);
@@ -2353,6 +2610,7 @@
     term = 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
+    markRole();
     host = hostLink;
     client = null;
     myState.rate = rate;
@@ -2363,6 +2621,14 @@
     departedPlayers.clear();
     hostChat.length = 0;
     activeFilterState = copyFilters(filters);
+    // A named room opens with the settings it had when it was last played.
+    if (!lobby && info && info.settings && SBData.meta) {
+      const saved = SBMpRules.cleanHostMessage({ ...info.settings, type: 'updateSettings' }, SBData.meta);
+      if (saved && saved.subjects.length) {
+        activeFilterState = copyFilters(saved);
+        myState.rate = saved.rate;
+      }
+    }
     // A room the list knows keeps whether it's listed (not what a link says).
     if (!lobby && info && info.exists && typeof info.isPublic === 'boolean') activeFilterState.isPublic = info.isPublic;
     // The questions are picked when the game starts (rebuildQueue), which
@@ -2371,7 +2637,7 @@
     hostGame.queueStale = true;
     game.total = hostGame.queue.length;
     myState.myName = name;
-    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, heard: 0, connId: mesh.id, pid: myState.pid, owner: false };
+    const me = { id: mesh.id, name, score: 0, correct: 0, incorrect: 0, negs: 0, celSum: 0, celN: 0, connId: mesh.id, pid: myState.pid, owner: false };
 
     // The owner (named rooms only): the one the room list has, or this
     // player, for a room that's new (or, with no room list, one starting up).
@@ -2384,7 +2650,7 @@
       } else {
         // A room from before room owners: its creator's browser can claim it.
         const k = await myOwnerKey(true);
-        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned, controlled: false }), 3000, null)) game.ownerKey = k.pub;
+        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned }), 3000, null)) game.ownerKey = k.pub;
       }
       if (info && !info.legacy) {
         game.banned = (info.banned || []).slice();
@@ -2393,11 +2659,6 @@
       }
       const mine = await myOwnerKey(false);
       me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
-      // Only a private room can be controlled (as on QB Reader).
-      activeFilterState.controlled = !!game.ownerKey && activeFilterState.isPublic === false
-        && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
-    } else {
-      activeFilterState.controlled = false;
     }
 
     // As on QB Reader, a room keeps its players after they leave: anyone the
@@ -2406,7 +2667,7 @@
       if (!r || !SBMpRules.cleanPid(r.pid) || game.banned.includes(r.pid)) return;
       // Negs and celerity come back too (they're 0 on a project whose
       // schema predates them).
-      const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0, heard: r.heard || 0 };
+      const stats = { score: r.score || 0, correct: r.correct || 0, incorrect: r.incorrect || 0, negs: r.negs || 0, celSum: r.cel_sum || 0, celN: r.cel_n || 0 };
       if (r.pid === myState.pid) { Object.assign(me, stats); return; }
       const entry = { pid: r.pid, name: r.username, ...stats, leftAt: Date.parse(r.last_seen) || Date.now() };
       if (SBMpRules.stillOffline(entry, Date.now())) departedPlayers.set(r.pid, entry);
@@ -2422,14 +2683,18 @@
 
   // Joins the room behind `roomId` through its door. Needs no questions:
   // the room sends what's on screen.
-  async function joinExisting(roomId, name, lobby) {
-    const info = await mesh.join(roomId);
+  async function joinExisting(roomId, name, lobby, hint) {
+    // Players whose link comes up after joining finished missed the 'join'
+    // message: they get it on its own once it's ready.
+    let joinMsgReady;
+    const joinMsg = new Promise((r) => { joinMsgReady = r; });
+    const info = await mesh.join(roomId, { hint, onLateLink: (id) => joinMsg.then((m) => { if (mesh) mesh.send(id, m); }) });
     if (!info.coordinator || !isUp(info.coordinator)) {
       throw new Error('Could not connect to the players in that room. Try again, or try a different network.');
     }
     followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : 0);
     enterRoomAs(roomId, name, lobby);
-    await sendJoin(name);
+    joinMsgReady(await sendJoin(name));
     fullRenderFromState();
   }
   // Tells the room who this is (and, for its owner, proves it).
@@ -2438,7 +2703,10 @@
     const msg = { type: 'join', name, pid: myState.pid };
     if (owner) msg.owner = owner;
     mesh.broadcast(msg);
+    lastJoinMsg = msg;
+    return msg;
   }
+  let lastJoinMsg = null;
 
   // The questions arrived after the room opened: the queue (for whoever
   // runs the game) and the sidebar's count catch up.
@@ -2507,6 +2775,12 @@
     showConnecting(`Connecting to ${label}…`);
     document.title = `SBReader - Multiplayer - ${label}`;
     const infoP = within(SBRooms.roomInfo(key), 4000, null);
+    // The players the room list has as in the room right now: joining asks
+    // them who's there as well as the door (SBPeer's join).
+    const hint = infoP.then((info) => (info && Array.isArray(info.players) ? info.players : [])
+      .filter((p) => p && typeof p.peer === 'string' && p.peer && Date.now() - Date.parse(p.last_seen) < SBRooms.ONLINE_MS)
+      .sort((a, b) => Date.parse(b.last_seen) - Date.parse(a.last_seen))
+      .map((p) => p.peer));
     const name = myName();
     let lastErr = null;
     openMesh().catch(() => {});
@@ -2542,7 +2816,7 @@
       lastErr = door.reason;
       if (!lastErr || lastErr.type !== 'unavailable-id') break;
       try {
-        await joinExisting(peerId, name, lobby);
+        await joinExisting(peerId, name, lobby, hint);
         joining = false;
         return;
       } catch (err) {
@@ -2558,12 +2832,10 @@
     myState.publicLobby = lobby;
     return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
-  // A named room: opened public unless the link says private=true, and
-  // controlled when it says controlled=true (for a new room). As on QB
-  // Reader, a controlled room is private too.
-  function joinNamedRoom(name, isPrivate, isControlled) {
+  // A named room: opened public unless the link says private=true.
+  function joinNamedRoom(name, isPrivate) {
     myState.roomName = name;
-    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate && !isControlled), controlled: !!isControlled }, key: name });
+    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: defaultFilters(!isPrivate), key: name });
   }
 
   function initPublicLobbies() {
@@ -2571,6 +2843,7 @@
   }
 
   function handleClientMessage(msg) {
+    if (msg.type === 'handoff') { if (typeof msg.to === 'string' && msg.to) onHandoff(msg.to); return; }
     if (msg.type === 'lobby') {
       game.players = msg.players;
       game.departed = Array.isArray(msg.departed) ? msg.departed : [];
@@ -2612,9 +2885,21 @@
       historyEl().innerHTML = '';
       carded.clear();
       chatMirror = [];
+      // Buzzes too: each finished question's (kept with it in the log) and
+      // the current question's so far.
+      const buzzItems = [];
+      (game.log || []).forEach((e) => (e.attempts || []).forEach((a) => buzzItems.push({ t: a.at || (e.at || 0) - 1, buzz: a, qtype: e.question && e.question.qtype })));
+      if (game.phase !== 'reveal' || !(game.log[0] && game.log[0].attempts)) {
+        (game.attempts || []).forEach((a) => buzzItems.push({ t: a.at || Date.now(), buzz: a, qtype: game.question && game.question.qtype, current: true }));
+      }
       const items = (msg.chat || []).map((c) => ({ t: c.ts || 0, chat: c }))
-        .concat((game.log || []).slice(game.phase === 'reveal' ? 1 : 0).map((e) => ({ t: e.at || 0, entry: e })));
-      items.sort((x, y) => x.t - y.t).forEach((it) => { if (it.chat) renderChatAppend(it.chat); else addHistoryCard(it.entry); });
+        .concat((game.log || []).slice(game.phase === 'reveal' ? 1 : 0).map((e) => ({ t: e.cardAt || e.at || 0, entry: e })))
+        .concat(buzzItems);
+      items.sort((x, y) => x.t - y.t).forEach((it) => {
+        if (it.chat) renderChatAppend(it.chat);
+        else if (it.buzz) pastBuzzLine(it.buzz, it.qtype, (it.current || (game.phase === 'reveal' && game.log[0] && (game.log[0].attempts || []).includes(it.buzz))) ? game.index : null);
+        else addHistoryCard(it.entry);
+      });
       if (msg.scores) {
         msg.scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
       }
@@ -2627,6 +2912,10 @@
         // Someone is answering mid-question: the reading waits for them.
         if (game.phase === 'answering' && revealCtl) revealCtl.pause();
       } else if (game.question) startLocalReveal(game.question, true);
+      if (msg.tick && typeof msg.tick.remainingMs === 'number' && typeof msg.tick.totalMs === 'number') {
+        onClientTick(msg.tick.remainingMs, msg.tick.totalMs, msg.tick.kind);
+        setClientTickPaused(game.paused);
+      }
       fullRenderFromState();
       return;
     }
@@ -2667,8 +2956,11 @@
       return;
     }
     if (msg.type === 'typing') {
-      game.liveTypingText = msg.text; game.liveTypingFrom = msg.playerId;
-      renderBuzzStatus();
+      // Your own words come back from the runner a moment late: the line
+      // already shows what you've typed since, so leave it alone.
+      if (msg.playerId === myState.myId) return;
+      if (game.phase !== 'answering' || msg.playerId !== game.buzzedPlayerId) return;
+      applyLiveTyping(msg.playerId, typeof msg.text === 'string' ? msg.text.slice(0, SBMpRules.LIMITS.answer) : '', msg.seq);
       return;
     }
     if (msg.type === 'chat') {
@@ -2804,19 +3096,34 @@
 
   let typingThrottled = false;
   let pendingTypingText = null;
+  let typingSeq = 0;
+  // A player's live answer line can reach you twice: straight from them
+  // (typingLive) and passed on by whoever runs the game (typing). Each
+  // update is numbered, so a late copy of older text never replaces newer.
+  function applyLiveTyping(from, text, seq) {
+    if (Number.isInteger(seq) && game.liveTypingFrom === from && Number.isInteger(game.liveTypingSeq) && seq <= game.liveTypingSeq) return false;
+    game.liveTypingText = text; game.liveTypingFrom = from;
+    game.liveTypingSeq = Number.isInteger(seq) ? seq : null;
+    renderBuzzStatus();
+    return true;
+  }
   function sendTypingUpdate(text) {
+    const seq = ++typingSeq;
     if (myState.role === 'host') {
-      game.liveTypingText = text; game.liveTypingFrom = myState.myId;
-      host.broadcast({ type: 'typing', playerId: myState.myId, text });
+      game.liveTypingText = text; game.liveTypingFrom = myState.myId; game.liveTypingSeq = seq;
+      host.broadcast({ type: 'typing', playerId: myState.myId, text, seq });
       renderBuzzStatus();
     } else if (client) {
-      client.send({ type: 'typing', text });
+      client.send({ type: 'typing', text, seq });
+      // Also straight to everyone else, so what they see doesn't wait on
+      // the runner's connection (a slow runner made typing look laggy).
+      if (mesh) mesh.broadcast({ type: 'typingLive', text, seq });
     }
   }
   function doTypingInput(text) {
     if (game.phase !== 'answering' || game.buzzedPlayerId !== myState.myId) return;
     // Your own live line follows every keystroke.
-    game.liveTypingText = text; game.liveTypingFrom = myState.myId;
+    game.liveTypingText = text; game.liveTypingFrom = myState.myId; game.liveTypingSeq = null;
     renderBuzzStatus();
     if (typingThrottled) {
       // Don't drop this keystroke, or what others see can lag behind what
@@ -2994,7 +3301,7 @@
     document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -3072,10 +3379,14 @@
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
       out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
     }
-    if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
+    if (!sameSet(before.tournaments, after.tournaments)) {
+      // "selected 3 tournaments (MIT 2025, Stanford 2026, LOST 2)"
+      const n = after.tournaments.size;
+      const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
+      out.push(n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments');
+    }
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
-    if (before.controlled !== after.controlled) out.push(after.controlled ? 'made the room controlled (only the owner can change the settings)' : 'made the room uncontrolled');
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
     if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
@@ -3090,26 +3401,6 @@
     if (myState.publicLobby) values = { ...values, isPublic: true };
     if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
-    // A controlled room's settings are its owner's to change, and so is the
-    // switch itself; a room without an owner can't be controlled. As on QB
-    // Reader, only a private room can be (or have) an owner's: a public room
-    // is never controlled, and a controlled one stays private until it's made
-    // uncontrolled.
-    const sender = hostPlayers.get(byConnId || myState.myId);
-    const byOwner = !!(sender && sender.owner);
-    const wasControlled = before.controlled && before.isPublic === false;
-    if (wasControlled && !byOwner) {
-      const text = 'can\'t change the settings: only the room owner can in a controlled room';
-      if ((byConnId || myState.myId) === myState.myId) logEvent('You', text);
-      else host.sendTo(byConnId, { type: 'notice', text });
-      // Everyone's sidebar shows the room's settings again.
-      broadcastSettingsState(null, 0);
-      showSettingsFromState();
-      return;
-    }
-    if (wasControlled && values.controlled) values = { ...values, isPublic: false };
-    const mayControl = byOwner && !!game.ownerKey && before.isPublic === false && values.isPublic === false;
-    values = { ...values, controlled: mayControl && !!values.controlled };
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
@@ -3183,7 +3474,7 @@
       client.send({
         type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
-        rebuzz: values.rebuzz, skip: values.skip, controlled: values.controlled, timer: values.timer, isPublic: values.isPublic,
+        rebuzz: values.rebuzz, skip: values.skip, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
         tournaments: [...values.tournaments], roundRange: values.roundRange, yearRange: values.yearRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
@@ -3257,7 +3548,7 @@
     }
     const name = SBMpRules.cleanRoomName(params.get('room') || '');
     if (!name) { document.documentElement.classList.remove('mp-direct'); return false; }
-    joinNamedRoom(name, params.get('private') === 'true', params.get('controlled') === 'true');
+    joinNamedRoom(name, params.get('private') === 'true');
     return true;
   }
 
@@ -3343,7 +3634,11 @@
   // and free the room's door if this player held it.
   window.addEventListener('pagehide', () => {
     try { if (mesh) mesh.leave(); } catch (e) { /* the page is going anyway */ }
+    leaveRoomList();
   });
+  // Back on this page with the browser's saved copy, still in the room:
+  // heartbeats start again.
+  window.addEventListener('pageshow', (e) => { if (e.persisted && myState.role && leftRoomList) startHeartbeat(); });
 
   // The lobby needs only meta.json, so it shows at once; the question bank
   // (SBData.load, started from <head>) keeps downloading and is waited for

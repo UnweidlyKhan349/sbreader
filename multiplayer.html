@@ -20,7 +20,7 @@
 <meta property="og:url" content="https://sbreader.github.io/multiplayer" />
 <meta name="twitter:card" content="summary" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<link rel="stylesheet" href="css/style.css?v=626de2c2e8" />
+<link rel="stylesheet" href="css/style.css?v=dc6595f91a" />
 <script src="js/site.js?v=b8366c7695"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
 <link rel="icon" href="favicon.ico" sizes="32x32" />
@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
      downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=4c47ebe00e"></script>
+<script src="js/data.js?v=8d08ba2360"></script>
 <script>SBData.load();</script>
 <!-- A link straight into a room (?room= or ?lobby=) shows the room at once,
      with "Connecting…", instead of the lobby first. -->
@@ -89,7 +89,7 @@
   <p class="lead">Play Science Bowl in real time against other players.</p>
   <p>
     You can invite friends to join you by sharing the URL to your room.
-    <span id="activeSummary">There are <span id="activePlayers">0</span> active players in <span id="activeRooms">0</span> active rooms.</span>
+    <span id="activeSummary">Counting active players…</span>
   </p>
   <p class="mb-0 pb-2">Create/Join a Room:</p>
   <form id="roomForm">
@@ -101,10 +101,6 @@
     <div class="form-check">
       <input class="form-check-input" id="privateRoomCheckbox" type="checkbox" />
       <label class="form-check-label" for="privateRoomCheckbox">Make room private</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" id="controlledRoomCheckbox" type="checkbox" />
-      <label class="form-check-label" for="controlledRoomCheckbox">Make room controlled</label>
     </div>
   </form>
   <p class="small-note mt-2" id="joinStatus"></p>
@@ -166,17 +162,12 @@
         <div class="mb-1" id="mpSettingsMatchCount"></div>
         <div class="d-flex align-items-baseline">
           <button class="btn btn-link p-0" id="mpClearFilters" type="button">Clear all filters</button>
-          <!-- a link, not a button, so a controlled room's locked settings don't lock it too -->
           <a class="ms-auto" href="#" id="mpClearStats" role="button">Clear stats</a>
         </div>
         <hr>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpTogglePublic" type="checkbox" role="switch" />
           <label class="form-check-label" for="mpTogglePublic">Public room</label>
-        </div>
-        <div class="form-check form-switch d-none" id="mpControlledRow">
-          <input class="form-check-input" id="mpToggleControlled" type="checkbox" role="switch" />
-          <label class="form-check-label" for="mpToggleControlled" title="Only the room's owner can change the settings">Controlled room</label>
         </div>
         <div class="form-check form-switch">
           <input class="form-check-input" id="mpToggleRebuzz" type="checkbox" role="switch" />
@@ -196,7 +187,6 @@
         <!-- as on QB Reader: under the reading speed, italic and muted -->
         <p class="mb-1 text-body-secondary">
           <i class="d-none" id="mpPermanentNote">This is a permanent room. Some settings have been restricted.</i>
-          <i class="d-none" id="mpControlledNote">This is a controlled room. Some settings can only be edited by the creator.</i>
         </p>
       </div>
       </fieldset>
@@ -270,17 +260,17 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" integrity="sha384-nlUQ8ZqCbvStErob+biJNzSgltf6urV3VGqhfIfzhmg9RXmpeRm76ELw0pYnKlTR" crossorigin="anonymous"></script>
-<script src="js/answer-check.js?v=e50e78f0a7"></script>
+<script src="js/answer-check.js?v=9c3952e0db"></script>
 <script src="js/reveal.js?v=9bd421d9d9"></script>
-<script src="js/peer.js?v=43f78250f0"></script>
-<script src="js/mp-rules.js?v=f6d516e05d"></script>
+<script src="js/peer.js?v=8858181f66"></script>
+<script src="js/mp-rules.js?v=77116826ea"></script>
 <script src="js/config.js?v=d72942fd70"></script>
 <script src="js/account-core.js?v=fb96918069"></script>
-<script src="js/account.js?v=5d9f0b76ec"></script>
+<script src="js/account.js?v=701a09584e"></script>
 <script src="js/reports.js?v=11b28451ea"></script>
 <script src="js/question-stats.js?v=dd0e3a179d"></script>
-<script src="js/rooms.js?v=b4dac1246c"></script>
-<script src="js/play-common.js?v=ce2fd98739"></script>
-<script src="js/multiplayer.js?v=74bd7c862f"></script>
+<script src="js/rooms.js?v=c868c8b8d2"></script>
+<script src="js/play-common.js?v=5370557b82"></script>
+<script src="js/multiplayer.js?v=a2230685c8"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 // mp_players tables (supabase/schema.sql) when accounts are set up. Games
 // run browser to browser; this only lets the lobby page list rooms with
 // "N players - M online", keeps a room's players and scores after everyone
-// has left, keeps a room's owner, bans and "controlled" switch, and marks
+// has left, keeps a room's owner and bans, and marks
 // rooms public or private. Without a project every call resolves to nothing
 // and the lobby falls back to the built-in rooms.
 //
@@ -40,11 +40,11 @@
   // A database function, called over REST: resolves { data, error }, where
   // error.missing means the project hasn't got the function (it hasn't run
   // the latest supabase/schema.sql).
-  async function rpc(fn, args) {
+  async function rpc(fn, args, keepalive) {
     if (!enabled) return { data: null, error: { message: 'No project.' } };
     try {
       const res = await fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/rest/v1/rpc/${fn}`, {
-        method: 'POST',
+        method: 'POST', keepalive: !!keepalive,
         headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' },
         body: JSON.stringify(args || {}),
       });
@@ -65,23 +65,12 @@
     };
   }
 
-  // The last list this browser saw, so the lobby can show it at once while
-  // the current one is fetched (it's replaced within a moment).
-  const CACHE_KEY = 'sb_mp_rooms_cache';
-  const CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
-  function cachedList() {
-    try {
-      const c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (c && Array.isArray(c.rows) && Date.now() - c.at < CACHE_MAX_AGE_MS) return summarize(c.rows);
-    } catch (e) { /* none */ }
-    return null;
-  }
-
   // Every public room with its player and online counts, and the totals.
-  // One request per page: later calls share it.
+  // Calls share the page's request; { fresh: true } asks again (the lobby
+  // does, to keep its counts current).
   let listPromise = null;
-  function list() {
-    if (!listPromise) listPromise = fetchList();
+  function list(opts) {
+    if (!listPromise || (opts && opts.fresh)) listPromise = fetchList();
     return listPromise;
   }
   async function fetchList() {
@@ -89,7 +78,6 @@
     const { data, error } = await rpc('mp_list');
     if (!error) {
       const rows = (data || []).map((r) => ({ ...r, players: r.players | 0, online: r.online | 0 }));
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), rows })); } catch (e) { /* not kept */ }
       return summarize(rows);
     }
     if (!error.missing) return null;
@@ -131,7 +119,7 @@
 
   // Everything kept about a room, for whoever opens it:
   //   { exists, isPublic, ownerKey, banned: [pid], bannedAt: { pid: ms },
-  //     controlled, players: [...] }
+  //     players: [...] }
   // A ban lasts 30 minutes (the list has only the ones still running; a
   // project from before ban times gives no bannedAt).
   // exists is false for a room never seen before. Resolves null when there's
@@ -145,7 +133,16 @@
       return { legacy: true, exists: null, players: await roster(roomKey) };
     }
     const d = r.data;
-    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, controlled: false, players: [] };
+    if (!d || typeof d !== 'object') {
+      // Nobody's in it (or it was cleared at the daily reset): its settings
+      // are kept longer than the room, so ask for them on their own.
+      let settings = null;
+      if (!/^pub-/.test(roomKey)) {
+        const s = await rpc('mp_saved_settings', { p_room: roomKey });
+        if (!s.error && s.data && typeof s.data === 'object' && !Array.isArray(s.data)) settings = s.data;
+      }
+      return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, settings, players: [] };
+    }
     const banned = Array.isArray(d.banned) ? d.banned.filter((x) => typeof x === 'string') : [];
     const bannedAt = {};
     if (d.ban_times && typeof d.ban_times === 'object') {
@@ -157,21 +154,22 @@
       ownerKey: typeof d.owner_key === 'string' ? d.owner_key : null,
       banned,
       bannedAt,
-      controlled: !!d.controlled,
+      // the room's settings when it was last played (null before any)
+      settings: d.settings && typeof d.settings === 'object' ? d.settings : null,
       players: Array.isArray(d.players) ? d.players : [],
     };
   }
 
-  // The room's creator records its owner key, bans and controlled switch
+  // The room's creator records its owner key and bans
   // (creating the room's entry if it's new). Resolves true when saved, false
   // when this browser didn't create the room, null when there's no project
   // or it predates room owners; rejects when the save failed for now (no
   // connection, a server error), so the caller can try again.
-  async function saveRoom(roomKey, { isPublic, ownerKey, banned, controlled }) {
+  async function saveRoom(roomKey, { isPublic, ownerKey, banned }) {
     if (!enabled || !roomKey) return null;
     const r = await rpc('mp_set_room', {
       p_room: roomKey, p_secret: mySecret(), p_is_public: isPublic !== false, p_owner_key: ownerKey || null,
-      p_banned: (banned || []).slice(0, 500), p_controlled: !!controlled,
+      p_banned: (banned || []).slice(0, 500),
     });
     if (r.error) {
       if (r.error.missing) return null;
@@ -180,7 +178,6 @@
     return r.data === true;
   }
 
-  let heardUnknown = false;
   // This player is in the room: called on joining and every 30 seconds
   // while there, with their current name and score.
   async function heartbeat(roomKey, { isPublic, isPermanent }, me) {
@@ -191,12 +188,14 @@
       p_score: me.score | 0, p_correct: me.correct | 0, p_incorrect: me.incorrect | 0,
       p_negs: me.negs | 0, p_cel_sum: Math.max(0, Number(me.celSum) || 0), p_cel_n: me.celN | 0,
     };
-    // p_heard (questions heard in the room) was added in November 2026; a
-    // project that hasn't run the schema since takes the call without it.
-    let { error } = heardUnknown ? { error: { missing: true } } : await rpc('mp_heartbeat', { ...args, p_heard: Math.max(0, me.heard | 0) });
-    if (error && error.missing) {
+    // This player's connection ID, so a newcomer can ask them who's in the
+    // room. A project whose schema predates it has no such argument: then
+    // the heartbeat goes again without it.
+    if (typeof me.peer === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(me.peer)) args.p_peer = me.peer;
+    let { error } = await rpc('mp_heartbeat', args);
+    if (error && error.missing && args.p_peer) {
+      delete args.p_peer;
       ({ error } = await rpc('mp_heartbeat', args));
-      if (!error) heardUnknown = true;
     }
     if (!error || !error.missing) return;
     const c = await client();
@@ -213,5 +212,22 @@
     if (r2.error) await c.from('mp_players').upsert(row, { onConflict: 'room,pid' });
   }
 
-  window.SBRooms = { enabled, list, cachedList, roster, roomInfo, saveRoom, heartbeat, key, ONLINE_MS };
+  // This player has left the room (closed the tab, went back to the
+  // lobby): they stop counting as online now, not 90 seconds after their
+  // last heartbeat. keepalive lets it finish while the page unloads. A
+  // project without mp_leave just waits out the 90 seconds.
+  function leave(roomKey, pid) {
+    if (!enabled || !roomKey || !pid) return Promise.resolve();
+    return rpc('mp_leave', { p_room: roomKey, p_pid: pid, p_secret: mySecret() }, true).then(() => {});
+  }
+
+  // The room's settings, kept for when it's next opened (see
+  // mp_save_settings). Resolves true when saved.
+  async function saveSettings(roomKey, pid, settings) {
+    if (!enabled || !roomKey || !pid || !settings) return null;
+    const r = await rpc('mp_save_settings', { p_room: roomKey, p_pid: pid, p_secret: mySecret(), p_settings: settings });
+    return r.error ? null : r.data === true;
+  }
+
+  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, saveSettings, heartbeat, leave, key, ONLINE_MS };
 })();

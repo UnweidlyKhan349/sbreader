@@ -112,6 +112,11 @@
   const PING_MS = 5000;
   const SILENCE_MS = 75000;
   const PING = '__ping';
+  // A ping carries the time it was sent; the other side sends it straight
+  // back (PONG), which gives each link a round-trip time (conn.rtt, ms,
+  // averaged), for the coordinator's choices. Old copies of the page send
+  // pings without a time and don't answer: their links have no rtt.
+  const PONG = '__pong';
   function watchConn(conn, onDead) {
     let lastHeard = Date.now();
     let iceTimer = null;
@@ -127,12 +132,29 @@
       }
     });
     conn.on('close', stop);
+    const ping = () => { if (conn.open) conn.send({ type: PING, t: Date.now() }); };
     const pinger = setInterval(() => {
       if (Date.now() - lastHeard > SILENCE_MS) { dead(); return; }
-      if (conn.open) conn.send({ type: PING });
+      ping();
     }, PING_MS);
-    // Call with each message; true means it was a ping, for this layer only.
-    return (data) => { lastHeard = Date.now(); return !!(data && data.type === PING); };
+    // One straight away, so the link has a round-trip time early.
+    setTimeout(ping, 200);
+    // Call with each message; true means it was a ping or pong, for this
+    // layer only.
+    return (data) => {
+      lastHeard = Date.now();
+      if (!data) return false;
+      if (data.type === PING) {
+        if (typeof data.t === 'number' && conn.open) conn.send({ type: PONG, t: data.t });
+        return true;
+      }
+      if (data.type === PONG) {
+        const rtt = typeof data.t === 'number' ? Date.now() - data.t : -1;
+        if (rtt >= 0 && rtt < 60000) conn.rtt = conn.rtt == null ? rtt : Math.round(conn.rtt * 0.7 + rtt * 0.3);
+        return true;
+      }
+      return false;
+    };
   }
 
   function randomRoomCode() {
@@ -151,7 +173,9 @@
      makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo(),
                 onDisconnect(), onReconnect() })
        ready              resolves with this player's own peer ID
-       join(roomId)       through the door: connects to every player listed;
+       join(roomId, { hint, onLateLink })
+                          through the door (or a player in `hint`, whichever
+                          answers first): connects to every player listed;
                           resolves { members, ...doorInfo } (the ones reached)
        claimDoor(roomId)  takes the room's ID; rejects 'unavailable-id' if held
        releaseDoor(), holdsDoor()
@@ -170,6 +194,12 @@
   // A direct link not open by then gets the relay as well; the first to open
   // carries the pair's messages.
   const RELAY_AFTER_MS = 3500;
+  // After the coordinator answers, how long joining waits on everyone else.
+  const JOIN_OTHERS_WAIT_MS = 1500;
+  // Joining also asks up to this many of the room's players (from the room
+  // list) who's in the room, giving each this long to answer.
+  const MEMBER_KNOCKS = 4;
+  const MEMBER_KNOCK_MS = 6000;
   const RELAY_WAIT_MS = 8000;
   // Timer ticks go out ten times a second; each player's timer runs on its
   // own between them, so over the relay two a second (and the final 0) do.
@@ -192,7 +222,7 @@
     } catch (err) {
       const failure = Promise.reject(err);
       failure.catch(() => {});
-      return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, memberIds: () => [], connectTo: () => failure, leave() {} };
+      return { ready: failure, id: null, join: () => failure, claimDoor: () => failure, releaseDoor() {}, holdsDoor: () => false, send() {}, broadcast() {}, isUp: () => false, rtt: () => null, memberIds: () => [], connectTo: () => failure, leave() {} };
     }
     // Open on the connection service, and (in parallel, briefly) the TURN
     // logins, before the first connection to anyone.
@@ -384,8 +414,27 @@
       if (!old && onJoin) onJoin(id);
     }
     self.on('connection', (conn) => {
+      // A newcomer asking this player, instead of the door, who's in the
+      // room (see join's `hint`): answered as the door would, for this
+      // room only, and never made a link.
+      if (conn.metadata && conn.metadata.knock) {
+        if (currentRoom && conn.metadata.room === currentRoom) answerKnock(conn);
+        else setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, 1000);
+        return;
+      }
       conn.on('open', () => adopt(conn));
     });
+    // The room this player is in (or opening), for answering knocks.
+    let currentRoom = null;
+    function answerKnock(conn) {
+      conn.on('data', (data) => {
+        if (!data) return;
+        const info = doorInfo ? doorInfo() : {};
+        if (data.type === '__hello') conn.send({ type: '__members', members: [self.id, ...conns.keys()], ...info });
+        else if (data.type === 'peek') conn.send({ type: 'peekInfo', players: info.players || 0 });
+      });
+      setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, DOOR_HOLD_MS);
+    }
 
     function connectDirect(id) {
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
@@ -411,8 +460,18 @@
       });
     }
 
-    function join(roomId) {
+    // Joining waits for the link to the room's coordinator (it has the
+    // game), and for the other players only briefly: one slow connection
+    // shouldn't hold up getting in. Links that finish later are still made,
+    // and reported to onLateLink(id).
+    //
+    // `hint` (peer IDs, or a promise of them: the players the room list
+    // says are in the room) is asked who's in the room alongside the door,
+    // and the first answer is used, so a slow door (its holder on a poor
+    // connection) doesn't hold up the start. IDs that have gone just fail.
+    function join(roomId, { onLateLink, hint } = {}) {
       openRelay(roomId);
+      currentRoom = roomId;
       const relayedKnocks = new WeakSet();
       const relayed = (info) => relayedKnocks.has(info);
       const viaRelay = () => new Promise((resolve, reject) => {
@@ -424,6 +483,12 @@
         });
       });
       const direct = knockDirect(roomId);
+      const viaMembers = Promise.resolve(hint).then((ids) => {
+        const list = (Array.isArray(ids) ? ids : []).filter((id) => typeof id === 'string' && id && id !== self.id && id !== roomId).slice(0, MEMBER_KNOCKS);
+        if (!list.length) throw new Error('No one to ask.');
+        return Promise.any(list.map((id) => knockDirect(id, { knock: true, room: roomId }, MEMBER_KNOCK_MS)));
+      });
+      viaMembers.catch(() => {});
       // The door answers directly within a second or two when it can; after
       // that, ask on the channel too. Nobody holding the door at all
       // ('peer-unavailable') isn't a reason to ask: the room is empty.
@@ -434,29 +499,52 @@
         direct.then(win, (err) => { lastErr = err; if (err && err.type === 'peer-unavailable') { won = true; reject(err); return; } lose(err); });
         setTimeout(() => { if (!won) viaRelay().then(win, lose); else lose(null); }, RELAY_AFTER_MS);
       });
-      return knock.then((info) => {
+      // The door or a player, whichever answers first; only if both fail
+      // does joining fail, with the door's reason.
+      const answered = new Promise((resolve, reject) => {
+        let doorErr = null; let doorOut = false; let membersOut = false;
+        const both = () => { if (doorOut && membersOut) reject(doorErr); };
+        knock.then(resolve, (err) => { doorErr = err; doorOut = true; both(); });
+        viaMembers.then(resolve, () => { membersOut = true; both(); });
+      });
+      return answered.then((info) => {
         const others = info.members.filter((id) => typeof id === 'string' && id !== self.id);
         // Answered on the channel: this network can't reach the room directly,
         // so link over the channel straight away (direct only if that fails).
         const link = (id) => (relayed(info) ? relayLink(id).catch(() => connectTo(id)) : connectTo(id));
-        return Promise.allSettled(others.map(link)).then(() => ({ ...info, members: others.filter((id) => conns.has(id)) }));
+        const links = others.map((id) => link(id).then(() => id));
+        const all = Promise.allSettled(links);
+        const coord = others.indexOf(info.coordinator);
+        const enough = coord < 0 ? all
+          : links[coord].then(() => Promise.race([all, new Promise((r) => setTimeout(r, JOIN_OTHERS_WAIT_MS))]), () => all);
+        return enough.then(() => {
+          const members = others.filter((id) => conns.has(id));
+          const had = new Set(members);
+          links.forEach((p) => p.then((id) => { if (!had.has(id) && onLateLink) onLateLink(id); }, () => {}));
+          return { ...info, members };
+        });
       });
     }
 
-    function knockDirect(roomId) {
+    function knockDirect(roomId, metadata, timeoutMs) {
+      let rej = null;
+      // (Another wait on the same ID, a link to that player, may have taken
+      // its place in `pending`: that one is left alone.)
+      const done = () => { if (pending.get(roomId) === rej) pending.delete(roomId); };
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
+        rej = reject;
         pending.set(roomId, reject);
-        const conn = self.connect(roomId, { reliable: true });
+        const conn = self.connect(roomId, metadata ? { reliable: true, metadata } : { reliable: true });
         conn.on('open', () => conn.send({ type: '__hello' }));
         conn.on('error', (err) => reject(err));
         conn.on('data', (data) => {
           if (!data || data.type !== '__members' || !Array.isArray(data.members)) return;
-          pending.delete(roomId);
+          done();
           try { conn.close(); } catch (e) { /* done with the door */ }
           resolve(data);
         });
-      }), CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
-        .finally(() => pending.delete(roomId)));
+      }), timeoutMs || CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
+        .finally(done));
     }
 
     function claimDoor(roomId) {
@@ -466,15 +554,8 @@
       let d;
       try { d = new Peer(roomId, { debug: 0, config: ICE_CONFIG }); } catch (err) { return Promise.reject(err); }
       door = d;
-      d.on('connection', (conn) => {
-        conn.on('data', (data) => {
-          if (!data) return;
-          const info = doorInfo ? doorInfo() : {};
-          if (data.type === '__hello') conn.send({ type: '__members', members: [self.id, ...conns.keys()], ...info });
-          else if (data.type === 'peek') conn.send({ type: 'peekInfo', players: info.players || 0 });
-        });
-        setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, DOOR_HOLD_MS);
-      });
+      currentRoom = roomId;
+      d.on('connection', answerKnock);
       d.on('disconnected', () => {
         setTimeout(() => { if (!d.destroyed && d.disconnected) d.reconnect(); }, 1000);
       });
@@ -499,6 +580,9 @@
       // Whether anyone in the room is reached through the relay (for the UI).
       relayed: () => [...conns.values()].some((c) => c.relay && c.open),
       isUp: (id) => conns.has(id),
+      // Round-trip time to that player in ms (averaged over the pings), or
+      // null while unknown.
+      rtt: (id) => { const c = conns.get(id); return c && typeof c.rtt === 'number' ? c.rtt : null; },
       memberIds: () => [...conns.keys()],
       leave() {
         for (const c of conns.values()) { try { if (c.open) c.send({ type: BYE }); } catch (e) { /* going */ } }

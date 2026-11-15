@@ -151,9 +151,14 @@ test('n starts and goes on but never skips; s only skips', async () => {
   await press('n');
   assert.strictEqual(await mode(), 'skip', 'n does not skip a question being read');
   assert.strictEqual(await page.locator('#revealBox').isVisible(), false);
+  assert.strictEqual(await page.locator('#qDisplay .header-star').count(), 0, 'no star while the question is read');
   await press('s');
   assert.strictEqual(await mode(), 'next', 's skips');
   assert.match(await page.locator('#revealBox').innerText(), /ANSWER:/);
+  // Once it's over, the question's star sits at the right of its header line.
+  await page.locator('#qDisplay .header-star .star-question').click();
+  assert.strictEqual(await page.locator('#qDisplay .header-star .star-question').getAttribute('aria-pressed'), 'true');
+  await page.locator('#qDisplay .header-star .star-question').click();
   await press('s');
   assert.strictEqual(await mode(), 'next', 's does not start the next question');
   assert.strictEqual(await page.locator('#questionInfo').innerText(), first);

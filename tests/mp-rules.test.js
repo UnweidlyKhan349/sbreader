@@ -17,6 +17,9 @@ test('string fields are coerced and cut to length', () => {
   assert.deepStrictEqual(cleanHostMessage({ type: 'join', name: { x: 1 } }, meta), { type: 'join', name: 'Player' });
   assert.strictEqual(cleanHostMessage({ type: 'join', name: 'x'.repeat(100) }, meta).name.length, 24);
   assert.strictEqual(cleanHostMessage({ type: 'typing', text: 'x'.repeat(5000) }, meta).text.length, 200);
+  // A typing update's number is kept only when it's a positive whole number.
+  assert.deepStrictEqual(cleanHostMessage({ type: 'typing', text: 'ab', seq: 7 }, meta), { type: 'typing', text: 'ab', seq: 7 });
+  for (const seq of [0, -1, 1.5, '3', null]) assert.deepStrictEqual(cleanHostMessage({ type: 'typing', text: 'ab', seq }, meta), { type: 'typing', text: 'ab' });
   assert.strictEqual(cleanHostMessage({ type: 'chatSend', text: 'x'.repeat(5000) }, meta).text.length, 300);
 });
 
@@ -147,13 +150,6 @@ test('a player who left stays on the list, offline, until the daily restart at 0
   for (const e of [null, {}, { leftAt: 'x' }]) assert.strictEqual(stillOffline(e, at(9)), false);
 });
 
-test('a player has activity once they have heard or answered a question', () => {
-  const { hasActivity } = globalThis.SBMpRules;
-  assert.strictEqual(hasActivity({ score: 0, correct: 0, incorrect: 0, negs: 0, heard: 0 }), false);
-  assert.strictEqual(hasActivity({}), false);
-  assert.strictEqual(hasActivity(null), false);
-  for (const k of ['heard', 'correct', 'incorrect', 'negs']) assert.strictEqual(hasActivity({ [k]: 1 }), true);
-});
 
 test('room names are cleaned to letters, digits and dashes, and give a stable door', () => {
   const { cleanRoomName, roomPeerId } = globalThis.SBMpRules;
@@ -201,4 +197,29 @@ test('a room\'s year range stays within the bank\'s years; the whole span means 
   assert.strictEqual(year([first, last]), null);
   assert.strictEqual(year('2015-2020'), null);
   assert.deepStrictEqual(cleanHostMessage({ type: 'announceYears', yearRange: [1, 2] }, meta), { type: 'announceYears' });
+});
+
+test('the best-connected player is the one with the shortest average round trip', () => {
+  const { pickBestConnected, worthHandingOff } = globalThis.SBMpRules;
+  // a is far from both; b and c are close to each other.
+  const table = { a: { b: 300, c: 320 }, b: { a: 310, c: 20 }, c: { b: 25 } };
+  const rtt = (x, y) => (table[x] && typeof table[x][y] === 'number' ? table[x][y] : null);
+  const r = pickBestConnected(['a', 'b', 'c'], rtt);
+  assert.strictEqual(r.best, 'b');
+  assert.strictEqual(r.ms.a, 310);
+  assert.strictEqual(r.ms.b, 165);
+  assert.strictEqual(r.ms.c, 172.5, 'c\'s missing figure for a is a\'s for c');
+  assert.ok(worthHandingOff(r.ms.a, r.ms.b));
+  // A player with no figure for someone can't be judged.
+  assert.strictEqual(pickBestConnected(['a', 'b', 'd'], rtt).ms.d, null);
+  // Small or proportionally small gains don't move the game.
+  assert.ok(!worthHandingOff(100, 40), 'only 60 ms better');
+  assert.ok(!worthHandingOff(400, 300), 'only a quarter better');
+  assert.ok(!worthHandingOff(null, 10));
+});
+
+test('a player\'s round-trip report is cleaned', () => {
+  const msg = cleanHostMessage({ type: 'pings', rtts: { p1: 12.6, 'bad id!': 5, p2: -1, p3: 'x', p4: 70000, p5: 30 }, bank: 'yes' }, meta);
+  assert.deepStrictEqual(msg, { type: 'pings', rtts: { p1: 13, p5: 30 }, bank: false });
+  assert.deepStrictEqual(cleanHostMessage({ type: 'pings', rtts: [1, 2], bank: true }, meta), { type: 'pings', rtts: {}, bank: true });
 });
