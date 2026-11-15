@@ -96,7 +96,7 @@ test('a set page links its whole tournament where the packets point to one place
   assert.strictEqual(src('tjsbt-2025'), 'https://www.scibowl.live/packets/tjsbt-2025');
   assert.strictEqual(src('basis-peoria-rounds'), 'https://www.scibowl.live/packets/basis-peoria-rounds');
   // A folder given in meta.json.
-  assert.strictEqual(src('bums-2026'), 'https://drive.google.com/drive/folders/1d7K7cB4BemHpx2ky5Hhf-uS1xZ3n2h_Q');
+  assert.strictEqual(src('hsbt-2026'), 'https://drive.google.com/drive/folders/1rauwk5NrExMDUPs3HUPAVHSslBnyM2Az');
   // Every tournament in the bank has such a link now.
   for (const x of SBData.meta.tournaments) assert.ok(SBData.tournamentSourceUrl(x, SBPlay.packetsOf(x.slug)), x.slug);
   // Separate files only (no set in the bank any more): each packet's own link is listed instead.

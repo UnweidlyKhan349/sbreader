@@ -10,7 +10,8 @@
   const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
   const TYPING_THROTTLE_MS = 150;
-  const CHAT_HISTORY = 60;
+  // Chat and events a newcomer gets on joining (with every finished question).
+  const CHAT_HISTORY = 200;
 
   // Snapshot of whatever filters actually produced the room's current queue -
   // kept in sync on room creation and whenever the in-game settings panel is
@@ -42,8 +43,29 @@
   // Random names, as QB Reader gives: for a new room ("quantum-otter") and
   // for a first-time player ("Quantum Otter").
   const NAME_WORDS = [
-    ['quantum', 'nimble', 'covalent', 'orbital', 'stellar', 'polar', 'kinetic', 'tidal', 'ionic', 'lunar', 'mitotic', 'prime', 'radiant', 'tectonic', 'vector', 'zesty'],
-    ['otter', 'falcon', 'quokka', 'lynx', 'heron', 'tapir', 'gecko', 'ibis', 'marmot', 'narwhal', 'okapi', 'puffin', 'koala', 'newt', 'bison', 'wombat'],
+    [
+      'quantum', 'nimble', 'covalent', 'orbital', 'stellar', 'polar', 'kinetic', 'tidal', 'ionic', 'lunar', 'mitotic', 'prime', 'radiant', 'tectonic',
+      'vector', 'zesty', 'acidic', 'adiabatic', 'alkaline', 'amber', 'angular', 'aquatic', 'arctic', 'atomic', 'auroral', 'basaltic', 'binary', 'boreal',
+      'brisk', 'bubbly', 'cellular', 'chiral', 'cobalt', 'coral', 'cosmic', 'crimson', 'crystal', 'cubic', 'curious', 'dapper', 'daring', 'diatomic',
+      'digital', 'dynamic', 'electric', 'elliptic', 'emerald', 'fractal', 'frosty', 'galactic', 'gamma', 'glacial', 'golden', 'granite', 'gravity', 'helical',
+      'hexagonal', 'humid', 'hyper', 'igneous', 'inert', 'infrared', 'isotopic', 'jolly', 'jovial', 'keen', 'laminar', 'laser', 'lucid', 'luminous',
+      'magnetic', 'martian', 'molar', 'molten', 'mossy', 'nebular', 'neutral', 'noble', 'nova', 'oceanic', 'optic', 'orbiting', 'ozone', 'photonic',
+      'plasma', 'plucky', 'polymer', 'prismatic', 'proton', 'quartz', 'quirky', 'radial', 'rapid', 'redshift', 'rocky', 'rotary', 'saline',
+      'scarlet', 'seismic', 'silicon', 'sleek', 'solar', 'sonic', 'sparky', 'spiral', 'static', 'steady', 'stoic', 'sunny', 'swift', 'thermal',
+      'titan', 'topaz', 'tropic', 'turbo', 'twilight', 'ultra', 'velvet', 'violet', 'vivid', 'volcanic', 'wavy', 'windy', 'zippy',
+    ],
+    [
+      'otter', 'falcon', 'quokka', 'lynx', 'heron', 'tapir', 'gecko', 'ibis', 'marmot', 'narwhal', 'okapi', 'puffin', 'koala', 'newt',
+      'bison', 'wombat', 'axolotl', 'badger', 'beaver', 'bobcat', 'capybara', 'caracal', 'chinchilla', 'condor', 'coyote', 'crane', 'dingo', 'dolphin',
+      'dormouse', 'egret', 'ermine', 'ferret', 'finch', 'flamingo', 'fox', 'gazelle', 'gibbon', 'gopher', 'hedgehog', 'hornbill', 'hyrax', 'iguana',
+      'impala', 'jackal', 'jaguar', 'jay', 'kestrel', 'kingfisher', 'kiwi', 'lemur', 'leopard', 'llama', 'loon', 'macaw', 'manatee', 'mantis',
+      'marlin', 'meerkat', 'mongoose', 'moose', 'ocelot', 'octopus', 'oriole', 'osprey', 'owl', 'panda', 'pangolin', 'panther', 'pelican', 'penguin',
+      'petrel', 'pika', 'platypus', 'porcupine', 'possum', 'quail', 'raccoon', 'raven', 'salamander', 'seahorse', 'seal', 'serval', 'shrew', 'skink',
+      'sloth', 'sparrow', 'squid', 'starling', 'stingray', 'stoat', 'swallow', 'swan', 'swift', 'tamarin', 'tarsier', 'tern', 'tortoise', 'toucan',
+      'tuna', 'turtle', 'urchin', 'vole', 'walrus', 'warbler', 'weasel', 'wolf', 'wolverine', 'wren', 'yak', 'zebra', 'atom', 'boson',
+      'comet', 'electron', 'galaxy', 'gluon', 'ion', 'isotope', 'lepton', 'meson', 'muon', 'neutrino', 'nucleus', 'photon', 'pulsar', 'quark',
+      'quasar',
+    ],
   ];
   function randomWords() {
     const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -90,7 +112,7 @@
   // A new room's settings: every subject, random questions, timer on.
   function defaultFilters(isPublic) {
     return {
-      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, controlled: false, timer: true, isPublic: isPublic !== false,
+      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, timer: true, isPublic: isPublic !== false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
       tournaments: new Set(), roundRange: null, yearRange: null, includeUnlabeled: true,
     };
@@ -109,7 +131,6 @@
       const name = SBMpRules.cleanRoomName(input.value) || input.placeholder;
       const params = new URLSearchParams({ room: name });
       if (document.getElementById('privateRoomCheckbox').checked) params.set('private', 'true');
-      if (document.getElementById('controlledRoomCheckbox').checked) params.set('controlled', 'true');
       goToRoom(`${location.pathname}?${params}`);
     });
     // A room in the lists opens on this page, without loading it again (the
@@ -255,7 +276,7 @@
     // this question and how it was graded, used to badge the buzz-status
     // panel and the answer box. Reset to null at the start of each question.
     lastGrade: null, log: [], paused: false,
-    lastRevealData: null, liveTypingText: '', liveTypingFrom: null,
+    lastRevealData: null, liveTypingText: '', liveTypingFrom: null, liveTypingSeq: null,
     // IDs of every question asked since the room last started from the top,
     // kept by everyone, so whoever takes over (and any rebuild of the queue
     // after a settings change) never asks one again. Cleared only at the end
@@ -557,7 +578,6 @@
     playerPopover.querySelector('.popover-header').textContent = p.name;
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
-      ['Online?', plain(p.offline ? 'No' : 'Yes')],
     ].concat(isOwner(p) ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
     // Placed to the left of the player, as QB Reader's are; below it when
     // there's no room on the left (phones).
@@ -648,6 +668,23 @@
     li.removeAttribute('id');
     li.dataset.buzzPlayer = playerId;
     li.dataset.buzzQ = String(game.index);
+  }
+  // A finished buzz from before you joined, as finishBuzzLine leaves one.
+  function pastBuzzLine(a, qtype, qIndex) {
+    const li = document.createElement('li');
+    const cls = a.correct ? 'badge text-white bg-success' : 'badge text-white bg-danger';
+    li.innerHTML = `<span class="${cls}">${qtype === 'bonus' ? 'Answer' : 'Buzz'}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
+    li.querySelector('b').textContent = a.playerName || '?';
+    li.querySelector('.live-answer').textContent = a.userText ? a.userText : '(blank)';
+    if (!a.correct && a.close) {
+      const hint = document.createElement('span');
+      hint.className = 'close-hint ms-2';
+      hint.textContent = 'Close';
+      li.appendChild(hint);
+    }
+    li.dataset.buzzPlayer = a.playerId;
+    if (qIndex != null) li.dataset.buzzQ = String(qIndex);
+    historyEl().prepend(li);
   }
   // An override re-colours that player's line for this question: green and
   // "Correct", or red and "Incorrect".
@@ -877,6 +914,8 @@
     SBPlay.linkQuestionInfo(document.getElementById('mpQuestionInfo'), game.question, r.sourceUrl || null, labelOpts());
     box.style.display = 'block';
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
+    const qid = game.question.id;
+    SBPlay.headerStar(document.getElementById('mpQDisplay'), qid, () => SBPlay.repaintStars(historyEl(), qid));
     if (game.question.choices && r.letter) {
       const el = document.querySelector(`#mpChoicesDisplay .choice-box[data-letter="${r.letter}"]`);
       if (el) el.classList.add('reveal-correct');
@@ -1063,7 +1102,7 @@
       // (Rooms only read random questions now; the three fields stay in the
       // settings so players on an older copy still understand them.)
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -1190,8 +1229,7 @@
 
   /* ---------------- The room's owner ----------------
      A named room belongs to the browser that created it, as on QB Reader:
-     the owner has a crown, can mute and ban players, and can make the room
-     "controlled", where only they change the settings. The built-in rooms
+     the owner has a crown and can mute and ban players. The built-in rooms
      have no owner.
 
      There's no server to vouch for anyone, so the owner proves who they are
@@ -1318,8 +1356,8 @@
     return game.phase === 'buzzwindow' && !roomSetting('timer', true);
   }
 
-  // The owner's browser keeps the room's record (owner key, bans and the
-  // controlled switch) in the room list, so the room comes back the same
+  // The owner's browser keeps the room's record (owner key and bans) in the
+  // room list, so the room comes back the same
   // after everyone has left. Only the browser that created the room can
   // change it there; for anyone else saveRoom just answers false.
   // A record counts as saved only once the room list says so. A save that
@@ -1336,7 +1374,7 @@
   function saveRoomRecord() {
     if (!amOwner() || myState.publicLobby || !game.ownerKey) return;
     const key = roomKey();
-    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice(), controlled: !!roomSetting('controlled', false) };
+    const rec = { isPublic: roomSetting('isPublic', true), ownerKey: game.ownerKey, banned: game.banned.slice() };
     const text = key + '\u0000' + JSON.stringify(rec);
     if (text === settledRecord || savingRecord !== null) return;
     clearTimeout(recordRetry); recordRetry = null;
@@ -1355,26 +1393,12 @@
     });
   }
 
-  // Whatever depends on who owns the room: the controlled-room lock on the
-  // settings, the controlled and public switches, the record in the room
-  // list. As on QB Reader, a room is never both public and controlled.
+  // Whatever depends on the room: the public switch, the permanent-room
+  // note, the record in the room list.
   function refreshOwnerControls() {
-    const owner = amOwner();
-    const controlled = !!roomSetting('controlled', false) && roomIsPrivate();
-    const locked = controlled && !owner;
-    const fieldset = document.getElementById('mpRoomSettings');
-    if (fieldset) fieldset.disabled = locked;
-    // The switch is there in rooms with an owner; only the owner can use
-    // it, and only while the room is private.
-    document.getElementById('mpControlledRow').classList.toggle('d-none', !game.ownerKey);
-    const sw = document.getElementById('mpToggleControlled');
-    sw.checked = controlled;
-    sw.disabled = !owner || !roomIsPrivate();
-    // A controlled room stays private until it's made uncontrolled.
-    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby || controlled;
+    document.getElementById('mpTogglePublic').disabled = !!myState.publicLobby;
     // As on QB Reader, a note says why some settings can't be changed.
     document.getElementById('mpPermanentNote').classList.toggle('d-none', !myState.publicLobby);
-    document.getElementById('mpControlledNote').classList.toggle('d-none', !controlled);
     // Skip follows "Allow skips".
     if (game.phase === 'reading' || game.phase === 'buzzwindow') document.getElementById('mpNextBtn').disabled = !canSkip();
     saveRoomRecord();
@@ -1415,7 +1439,7 @@
     const f = activeFilterState;
     return {
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, controlled: !!f.controlled, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1426,6 +1450,24 @@
   function broadcastSettingsState(by, seq) {
     if (!host || !activeFilterState) return;
     host.broadcast({ type: 'settingsState', ...settingsStatePayload(), by: by || null, seq: seq || 0 });
+    saveRoomSettingsSoon();
+  }
+  // The room's settings go to the room list (a named room only), a moment
+  // after the last change, so the room opens with them again once everyone
+  // has left.
+  let settingsSaveTimer = null;
+  let savedSettingsText = '';
+  function saveRoomSettingsSoon() {
+    if (myState.publicLobby || !myState.roomName || !window.SBRooms || !activeFilterState) return;
+    clearTimeout(settingsSaveTimer);
+    settingsSaveTimer = setTimeout(() => {
+      if (myState.role !== 'host' || !activeFilterState) return;
+      const payload = settingsStatePayload();
+      delete payload.isPublic; // kept by the room's own record
+      const text = JSON.stringify(payload);
+      if (text === savedSettingsText) return;
+      SBRooms.saveSettings(roomKey(), myState.pid, payload).then((ok) => { if (ok) savedSettingsText = text; }).catch(() => {});
+    }, 1500);
   }
 
   function sendSyncTo(connId) {
@@ -1448,6 +1490,12 @@
       attempts: game.attempts,
       overrideLocked: hostGame.overrideLocked,
       chat: hostChat.slice(-CHAT_HISTORY),
+      // The countdown as it stands, so a newcomer sees the time left (frozen
+      // while paused, when no ticks are sent) instead of 0.
+      tick: hostGame.timer ? {
+        remainingMs: hostGame.paused ? hostGame.timerRemainingAtAnchor : Math.max(0, hostGame.timerRemainingAtAnchor - (Date.now() - hostGame.timerAnchorAt)),
+        totalMs: hostGame.totalMs, kind: hostGame.timerKind,
+      } : null,
       // How much of the question the room has read, so a newcomer reads on
       // from there instead of seeing it all (and can't buzz on unread text).
       readUnits: revealCtl && !revealCtl.isDone() && (hostGame.phase === 'reading' || hostGame.phase === 'answering') ? revealCtl.units() : null,
@@ -1487,9 +1535,10 @@
     if (msg.type === 'submitAnswer') { hostHandleAnswer(connId, msg.text); return; }
     if (msg.type === 'typing') {
       if (connId !== hostGame.buzzedConnId) return;
-      game.liveTypingText = msg.text; game.liveTypingFrom = connId;
-      host.broadcast({ type: 'typing', playerId: connId, text: msg.text });
-      renderBuzzStatus();
+      applyLiveTyping(connId, msg.text, msg.seq);
+      // Passed on even when the direct copy got here first: not everyone
+      // has a direct link to the player answering.
+      host.broadcast({ type: 'typing', playerId: connId, text: msg.text, seq: msg.seq });
       return;
     }
     if (msg.type === 'chatSend') {
@@ -1510,7 +1559,7 @@
     }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, controlled: msg.controlled, timer: msg.timer, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: msg.timer, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -1565,6 +1614,9 @@
     }
     if (hostGame.queueStale || (hostGame.index < 0 && !hostGame.queue.length)) rebuildQueue();
     clearHostTimer();
+    // The last question's card comes up for everyone now: noted, so that
+    // someone joining later sees it in the same place among the chat.
+    if (game.log[0] && !game.log[0].cardAt) game.log[0].cardAt = Date.now();
     hostGame.index++;
     hostGame.buzzedConnId = null;
     hostGame.anyAttempt = false;
@@ -1820,6 +1872,8 @@
       category,
       answeredBy: answeredByPlayer ? answeredByPlayer.name : null,
       userText: grade ? grade.userText : null,
+      // every buzz on it, so someone who joins later sees them in the history
+      attempts: game.attempts.map((a) => ({ playerId: a.playerId, playerName: a.playerName, userText: a.userText, correct: !!a.correct, close: !!a.close, at: a.at || 0 })),
       at: Date.now(),
     };
     game.log.unshift(logEntry);
@@ -1923,6 +1977,12 @@
   // no grade, same as the timer naturally expiring with nobody buzzing in.
   function hostSkipQuestion() {
     if (hostGame.phase !== 'reading' && hostGame.phase !== 'buzzwindow') return;
+    // Skipping a paused question goes on unpaused.
+    if (hostGame.paused) {
+      hostGame.paused = false; game.paused = false;
+      host.broadcast({ type: 'pauseState', paused: false });
+      syncRevealToState();
+    }
     hostReveal();
   }
 
@@ -2002,7 +2062,7 @@
       existing.correct = correct;
     } else {
       const p = game.players.find((pp) => pp.id === playerId);
-      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close });
+      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close, at: Date.now() });
     }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderBuzzStatus();
@@ -2151,6 +2211,13 @@
       else if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
       return;
     }
+    if (data.type === 'typingLive') {
+      // Straight from the player answering; anyone else's is ignored.
+      if (game.phase !== 'answering' || from !== game.buzzedPlayerId || from === myState.myId) return;
+      if (typeof data.text !== 'string' || !Number.isInteger(data.seq)) return;
+      applyLiveTyping(from, data.text.slice(0, SBMpRules.LIMITS.answer), data.seq);
+      return;
+    }
     if (data.type === 'join') {
       const msg = SBMpRules.cleanHostMessage(data, SBData.meta);
       if (!msg) return;
@@ -2294,7 +2361,7 @@
         } catch (err) {
           if (err && err.type === 'unavailable-id' && myState.role === 'host') {
             try {
-              const info = await mesh.join(myState.roomId);
+              const info = await mesh.join(myState.roomId, { onLateLink: (id) => { if (lastJoinMsg && mesh) mesh.send(id, lastJoinMsg); } });
               if (info.coordinator && info.coordinator !== mesh.id && !hostPlayers.has(info.coordinator) && myState.role === 'host') {
                 rejoinRoom(info);
                 return;
@@ -2395,6 +2462,14 @@
     departedPlayers.clear();
     hostChat.length = 0;
     activeFilterState = copyFilters(filters);
+    // A named room opens with the settings it had when it was last played.
+    if (!lobby && info && info.settings && SBData.meta) {
+      const saved = SBMpRules.cleanHostMessage({ ...info.settings, type: 'updateSettings' }, SBData.meta);
+      if (saved && saved.subjects.length) {
+        activeFilterState = copyFilters(saved);
+        myState.rate = saved.rate;
+      }
+    }
     // A room the list knows keeps whether it's listed (not what a link says).
     if (!lobby && info && info.exists && typeof info.isPublic === 'boolean') activeFilterState.isPublic = info.isPublic;
     // The questions are picked when the game starts (rebuildQueue), which
@@ -2416,7 +2491,7 @@
       } else {
         // A room from before room owners: its creator's browser can claim it.
         const k = await myOwnerKey(true);
-        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned, controlled: false }), 3000, null)) game.ownerKey = k.pub;
+        if (k && await within(SBRooms.saveRoom(myState.roomName, { isPublic: activeFilterState.isPublic, ownerKey: k.pub, banned: info.banned }), 3000, null)) game.ownerKey = k.pub;
       }
       if (info && !info.legacy) {
         game.banned = (info.banned || []).slice();
@@ -2425,11 +2500,6 @@
       }
       const mine = await myOwnerKey(false);
       me.owner = !!(game.ownerKey && mine && mine.pub === game.ownerKey);
-      // Only a private room can be controlled (as on QB Reader).
-      activeFilterState.controlled = !!game.ownerKey && activeFilterState.isPublic === false
-        && (!!(info && info.controlled) || (!!filters.controlled && me.owner && !(info && info.exists)));
-    } else {
-      activeFilterState.controlled = false;
     }
 
     // As on QB Reader, a room keeps its players after they leave: anyone the
@@ -2455,13 +2525,17 @@
   // Joins the room behind `roomId` through its door. Needs no questions:
   // the room sends what's on screen.
   async function joinExisting(roomId, name, lobby) {
-    const info = await mesh.join(roomId);
+    // Players whose link comes up after joining finished missed the 'join'
+    // message: they get it on its own once it's ready.
+    let joinMsgReady;
+    const joinMsg = new Promise((r) => { joinMsgReady = r; });
+    const info = await mesh.join(roomId, { onLateLink: (id) => joinMsg.then((m) => { if (mesh) mesh.send(id, m); }) });
     if (!info.coordinator || !isUp(info.coordinator)) {
       throw new Error('Could not connect to the players in that room. Try again, or try a different network.');
     }
     followCoordinator(info.coordinator, typeof info.term === 'number' ? info.term : 0);
     enterRoomAs(roomId, name, lobby);
-    await sendJoin(name);
+    joinMsgReady(await sendJoin(name));
     fullRenderFromState();
   }
   // Tells the room who this is (and, for its owner, proves it).
@@ -2470,7 +2544,10 @@
     const msg = { type: 'join', name, pid: myState.pid };
     if (owner) msg.owner = owner;
     mesh.broadcast(msg);
+    lastJoinMsg = msg;
+    return msg;
   }
+  let lastJoinMsg = null;
 
   // The questions arrived after the room opened: the queue (for whoever
   // runs the game) and the sidebar's count catch up.
@@ -2590,12 +2667,10 @@
     myState.publicLobby = lobby;
     return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
-  // A named room: opened public unless the link says private=true, and
-  // controlled when it says controlled=true (for a new room). As on QB
-  // Reader, a controlled room is private too.
-  function joinNamedRoom(name, isPrivate, isControlled) {
+  // A named room: opened public unless the link says private=true.
+  function joinNamedRoom(name, isPrivate) {
     myState.roomName = name;
-    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: { ...defaultFilters(!isPrivate && !isControlled), controlled: !!isControlled }, key: name });
+    return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: defaultFilters(!isPrivate), key: name });
   }
 
   function initPublicLobbies() {
@@ -2644,9 +2719,21 @@
       historyEl().innerHTML = '';
       carded.clear();
       chatMirror = [];
+      // Buzzes too: each finished question's (kept with it in the log) and
+      // the current question's so far.
+      const buzzItems = [];
+      (game.log || []).forEach((e) => (e.attempts || []).forEach((a) => buzzItems.push({ t: a.at || (e.at || 0) - 1, buzz: a, qtype: e.question && e.question.qtype })));
+      if (game.phase !== 'reveal' || !(game.log[0] && game.log[0].attempts)) {
+        (game.attempts || []).forEach((a) => buzzItems.push({ t: a.at || Date.now(), buzz: a, qtype: game.question && game.question.qtype, current: true }));
+      }
       const items = (msg.chat || []).map((c) => ({ t: c.ts || 0, chat: c }))
-        .concat((game.log || []).slice(game.phase === 'reveal' ? 1 : 0).map((e) => ({ t: e.at || 0, entry: e })));
-      items.sort((x, y) => x.t - y.t).forEach((it) => { if (it.chat) renderChatAppend(it.chat); else addHistoryCard(it.entry); });
+        .concat((game.log || []).slice(game.phase === 'reveal' ? 1 : 0).map((e) => ({ t: e.cardAt || e.at || 0, entry: e })))
+        .concat(buzzItems);
+      items.sort((x, y) => x.t - y.t).forEach((it) => {
+        if (it.chat) renderChatAppend(it.chat);
+        else if (it.buzz) pastBuzzLine(it.buzz, it.qtype, (it.current || (game.phase === 'reveal' && game.log[0] && (game.log[0].attempts || []).includes(it.buzz))) ? game.index : null);
+        else addHistoryCard(it.entry);
+      });
       if (msg.scores) {
         msg.scores.forEach((s) => { const pl = game.players.find((p) => p.id === s.id); if (pl) pl.score = s.score; });
       }
@@ -2659,6 +2746,10 @@
         // Someone is answering mid-question: the reading waits for them.
         if (game.phase === 'answering' && revealCtl) revealCtl.pause();
       } else if (game.question) startLocalReveal(game.question, true);
+      if (msg.tick && typeof msg.tick.remainingMs === 'number' && typeof msg.tick.totalMs === 'number') {
+        onClientTick(msg.tick.remainingMs, msg.tick.totalMs, msg.tick.kind);
+        setClientTickPaused(game.paused);
+      }
       fullRenderFromState();
       return;
     }
@@ -2699,8 +2790,11 @@
       return;
     }
     if (msg.type === 'typing') {
-      game.liveTypingText = msg.text; game.liveTypingFrom = msg.playerId;
-      renderBuzzStatus();
+      // Your own words come back from the runner a moment late: the line
+      // already shows what you've typed since, so leave it alone.
+      if (msg.playerId === myState.myId) return;
+      if (game.phase !== 'answering' || msg.playerId !== game.buzzedPlayerId) return;
+      applyLiveTyping(msg.playerId, typeof msg.text === 'string' ? msg.text.slice(0, SBMpRules.LIMITS.answer) : '', msg.seq);
       return;
     }
     if (msg.type === 'chat') {
@@ -2836,19 +2930,34 @@
 
   let typingThrottled = false;
   let pendingTypingText = null;
+  let typingSeq = 0;
+  // A player's live answer line can reach you twice: straight from them
+  // (typingLive) and passed on by whoever runs the game (typing). Each
+  // update is numbered, so a late copy of older text never replaces newer.
+  function applyLiveTyping(from, text, seq) {
+    if (Number.isInteger(seq) && game.liveTypingFrom === from && Number.isInteger(game.liveTypingSeq) && seq <= game.liveTypingSeq) return false;
+    game.liveTypingText = text; game.liveTypingFrom = from;
+    game.liveTypingSeq = Number.isInteger(seq) ? seq : null;
+    renderBuzzStatus();
+    return true;
+  }
   function sendTypingUpdate(text) {
+    const seq = ++typingSeq;
     if (myState.role === 'host') {
-      game.liveTypingText = text; game.liveTypingFrom = myState.myId;
-      host.broadcast({ type: 'typing', playerId: myState.myId, text });
+      game.liveTypingText = text; game.liveTypingFrom = myState.myId; game.liveTypingSeq = seq;
+      host.broadcast({ type: 'typing', playerId: myState.myId, text, seq });
       renderBuzzStatus();
     } else if (client) {
-      client.send({ type: 'typing', text });
+      client.send({ type: 'typing', text, seq });
+      // Also straight to everyone else, so what they see doesn't wait on
+      // the runner's connection (a slow runner made typing look laggy).
+      if (mesh) mesh.broadcast({ type: 'typingLive', text, seq });
     }
   }
   function doTypingInput(text) {
     if (game.phase !== 'answering' || game.buzzedPlayerId !== myState.myId) return;
     // Your own live line follows every keystroke.
-    game.liveTypingText = text; game.liveTypingFrom = myState.myId;
+    game.liveTypingText = text; game.liveTypingFrom = myState.myId; game.liveTypingSeq = null;
     renderBuzzStatus();
     if (typingThrottled) {
       // Don't drop this keystroke, or what others see can lag behind what
@@ -3026,7 +3135,7 @@
     document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleControlled', 'controlled'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -3104,10 +3213,14 @@
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
       out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
     }
-    if (!sameSet(before.tournaments, after.tournaments)) out.push(after.tournaments.size ? 'changed the tournaments' : 'cleared the tournaments');
+    if (!sameSet(before.tournaments, after.tournaments)) {
+      // "selected 3 tournaments (MIT 2025, Stanford 2026, LOST 2)"
+      const n = after.tournaments.size;
+      const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
+      out.push(n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments');
+    }
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
-    if (before.controlled !== after.controlled) out.push(after.controlled ? 'made the room controlled (only the owner can change the settings)' : 'made the room uncontrolled');
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
     if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
@@ -3122,26 +3235,6 @@
     if (myState.publicLobby) values = { ...values, isPublic: true };
     if (fixedSubjectLobby()) values = { ...values, subjects: new Set(myState.publicLobby.subjects) };
     const before = activeFilterState ? copyFilters(activeFilterState) : copyFilters(defaultFilters(true));
-    // A controlled room's settings are its owner's to change, and so is the
-    // switch itself; a room without an owner can't be controlled. As on QB
-    // Reader, only a private room can be (or have) an owner's: a public room
-    // is never controlled, and a controlled one stays private until it's made
-    // uncontrolled.
-    const sender = hostPlayers.get(byConnId || myState.myId);
-    const byOwner = !!(sender && sender.owner);
-    const wasControlled = before.controlled && before.isPublic === false;
-    if (wasControlled && !byOwner) {
-      const text = 'can\'t change the settings: only the room owner can in a controlled room';
-      if ((byConnId || myState.myId) === myState.myId) logEvent('You', text);
-      else host.sendTo(byConnId, { type: 'notice', text });
-      // Everyone's sidebar shows the room's settings again.
-      broadcastSettingsState(null, 0);
-      showSettingsFromState();
-      return;
-    }
-    if (wasControlled && values.controlled) values = { ...values, isPublic: false };
-    const mayControl = byOwner && !!game.ownerKey && before.isPublic === false && values.isPublic === false;
-    values = { ...values, controlled: mayControl && !!values.controlled };
     const rateBefore = myState.rate;
     myState.rate = SBMpRules.readingSpeed(values.rate);
     if (revealCtl && !revealCtl.isDone()) revealCtl.setRate(myState.rate);
@@ -3215,7 +3308,7 @@
       client.send({
         type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
-        rebuzz: values.rebuzz, skip: values.skip, controlled: values.controlled, timer: values.timer, isPublic: values.isPublic,
+        rebuzz: values.rebuzz, skip: values.skip, timer: values.timer, isPublic: values.isPublic,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
         tournaments: [...values.tournaments], roundRange: values.roundRange, yearRange: values.yearRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
@@ -3289,7 +3382,7 @@
     }
     const name = SBMpRules.cleanRoomName(params.get('room') || '');
     if (!name) { document.documentElement.classList.remove('mp-direct'); return false; }
-    joinNamedRoom(name, params.get('private') === 'true', params.get('controlled') === 'true');
+    joinNamedRoom(name, params.get('private') === 'true');
     return true;
   }
 

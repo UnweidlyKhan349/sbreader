@@ -170,6 +170,8 @@
   // A direct link not open by then gets the relay as well; the first to open
   // carries the pair's messages.
   const RELAY_AFTER_MS = 3500;
+  // After the coordinator answers, how long joining waits on everyone else.
+  const JOIN_OTHERS_WAIT_MS = 1500;
   const RELAY_WAIT_MS = 8000;
   // Timer ticks go out ten times a second; each player's timer runs on its
   // own between them, so over the relay two a second (and the final 0) do.
@@ -411,7 +413,11 @@
       });
     }
 
-    function join(roomId) {
+    // Joining waits for the link to the room's coordinator (it has the
+    // game), and for the other players only briefly: one slow connection
+    // shouldn't hold up getting in. Links that finish later are still made,
+    // and reported to onLateLink(id).
+    function join(roomId, { onLateLink } = {}) {
       openRelay(roomId);
       const relayedKnocks = new WeakSet();
       const relayed = (info) => relayedKnocks.has(info);
@@ -439,7 +445,17 @@
         // Answered on the channel: this network can't reach the room directly,
         // so link over the channel straight away (direct only if that fails).
         const link = (id) => (relayed(info) ? relayLink(id).catch(() => connectTo(id)) : connectTo(id));
-        return Promise.allSettled(others.map(link)).then(() => ({ ...info, members: others.filter((id) => conns.has(id)) }));
+        const links = others.map((id) => link(id).then(() => id));
+        const all = Promise.allSettled(links);
+        const coord = others.indexOf(info.coordinator);
+        const enough = coord < 0 ? all
+          : links[coord].then(() => Promise.race([all, new Promise((r) => setTimeout(r, JOIN_OTHERS_WAIT_MS))]), () => all);
+        return enough.then(() => {
+          const members = others.filter((id) => conns.has(id));
+          const had = new Set(members);
+          links.forEach((p) => p.then((id) => { if (!had.has(id) && onLateLink) onLateLink(id); }, () => {}));
+          return { ...info, members };
+        });
       });
     }
 

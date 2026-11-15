@@ -172,6 +172,18 @@
   // Repaints every card's star for one question (it may be starred elsewhere).
   function repaintStars(list, qid) {
     list.querySelectorAll('.history-card').forEach((c) => { if (c.dataset.qid === String(qid) && c.paintStar) c.paintStar(); });
+    document.querySelectorAll('.header-star .star-question').forEach((a) => { if (a.dataset.qid === String(qid) && a.paint) a.paint(); });
+  }
+  // Once a question is over, its star at the right of the "TOSS-UP Physics
+  // Multiple Choice" line. onChange(isBookmarked) lets the page repaint the
+  // question's card in the history.
+  function headerStar(displayEl, qid, onChange) {
+    displayEl.querySelectorAll('.header-star').forEach((el) => el.remove());
+    if (qid == null) return;
+    const wrap = document.createElement('span');
+    wrap.className = 'header-star';
+    wrap.appendChild(SBData.bookmarkButton(qid, onChange));
+    displayEl.prepend(wrap);
   }
 
   /* ---------------- Question label ---------------- */
@@ -260,7 +272,7 @@
   function yearLabel(lo, hi) { return `Year range: ${lo} - ${hi}`; }
 
   window.SBPlay = {
-    subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars, answerReportLink,
+    subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars, headerStar, answerReportLink,
     packetsOf, parsePacketNumbers, loadSettings, saveSettings, yearLabel,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;
