@@ -297,3 +297,8 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Multiplayer, coordinator on a slow connection: joining no longer waits on every other player's link, live typing goes straight between players, and your own answer line no longer jumps back to older text when the coordinator's echo arrives late.
 - More words for random room names and usernames.
 - Home page: signed in, it reads "Welcome to SB Reader, name!".
+- `tools/override-report.js`: the "I was right" clicks regraded with today's grader, listing what it still marks wrong, most clicked first, from a CSV export or (with the service role key) straight from the table.
+- Multiplayer: joining asks the players the room list has as online who's in the room, as well as the room's door, and goes with the first answer, so a door held on a slow connection doesn't hold up getting in. Re-run `supabase/schema.sql` (it adds `mp_players.peer` and a heartbeat that records it); until then joining goes through the door as before.
+- Multiplayer: a named room's saved settings now last 30 days after it was last played instead of until the daily reset (new `mp_room_settings` table and `mp_saved_settings`; what yesterday's `mp_rooms.settings` column held moves over). Re-run `supabase/schema.sql`.
+- Multiplayer: a short drop shows "Reconnecting…" at the top of the page; the "Disconnected from server" dialog only comes if it lasts more than 6 seconds.
+- Browser tests: Supabase's Realtime WebSocket is blocked too (it wasn't, so Multiplayer tests could fall back on the real relay), and new tests cover joining past a slow player or a slow door, settings after the daily reset, and a short drop.

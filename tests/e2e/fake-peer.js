@@ -4,6 +4,9 @@
 //   window.__NO_DIRECT = true   direct links never open (players whose
 //                               networks block them; the relay is needed)
 //   window.__LAG_MS = 150       every message arrives this much later
+//   window.__SLOW_MS = 3000     this tab is on a slow connection: links to
+//                               and from it open, and messages reach it,
+//                               this much later (set it in that tab only)
 (function () {
   const bc = new BroadcastChannel('fakepeer');
   const local = new Map(); // id -> Peer in this tab
@@ -31,12 +34,26 @@
     if (m.t === 'ihave') { const a = asks.get(m.q); if (a) a(); return; }
     if (m.t === 'connect') {
       const p = local.get(m.to); if (!p || p.destroyed) return;
-      const c = new Conn(m.cid, m.to, m.from); c.open = true; p.emit('connection', c);
-      c.emit('open');
-      bc.postMessage({ t: 'accept', cid: m.cid }); return;
+      const accept = () => {
+        if (p.destroyed) return;
+        const c = new Conn(m.cid, m.to, m.from); c.open = true; c.metadata = m.meta; p.emit('connection', c);
+        c.emit('open');
+        bc.postMessage({ t: 'accept', cid: m.cid });
+      };
+      // (The broker still knows the ID at once: only the link is slow.)
+      if (window.__SLOW_MS) { bc.postMessage({ t: 'slowaccept', cid: m.cid }); setTimeout(accept, window.__SLOW_MS); } else accept();
+      return;
     }
+    if (m.t === 'slowaccept') { const c = conns.get(m.cid); if (c) c.slow = true; return; }
     if (m.t === 'accept') { const c = conns.get(m.cid); if (c && !c.open) { c.accepted = true; c.open = true; c.emit('open'); } return; }
-    if (m.t === 'data') { const c = conns.get(m.cid); if (c && c.me === m.to && c.open) { if (window.__LAG_MS) setTimeout(() => c.emit('data', m.d), window.__LAG_MS); else c.emit('data', m.d); } return; }
+    if (m.t === 'data') {
+      const c = conns.get(m.cid);
+      if (c && c.me === m.to && c.open) {
+        const wait = (window.__LAG_MS || 0) + (window.__SLOW_MS || 0);
+        if (wait) setTimeout(() => c.emit('data', m.d), wait); else c.emit('data', m.d);
+      }
+      return;
+    }
     if (m.t === 'close') { const c = conns.get(m.cid); if (c && c.me === m.to && c.open) { c.open = false; c.emit('close'); } }
   };
   window.Peer = class extends Emitter {
@@ -57,7 +74,7 @@
         local.set(this.id, this); this.open = true; this.emit('open', this.id);
       }, 150);
     }
-    connect(to) {
+    connect(to, opts) {
       const cid = Math.random().toString(36).slice(2);
       const c = new Conn(cid, this.id, to);
       if (window.__NO_DIRECT) {
@@ -68,8 +85,10 @@
         setTimeout(() => { asks.delete(q); if (!exists) this.emit('error', { type: 'peer-unavailable', message: 'Could not connect to peer ' + to }); }, 300);
         return c;
       }
-      bc.postMessage({ t: 'connect', cid, from: this.id, to });
-      setTimeout(() => { if (!c.accepted) this.emit('error', { type: 'peer-unavailable', message: 'Could not connect to peer ' + to }); }, 400);
+      const msg = { t: 'connect', cid, from: this.id, to, meta: opts && opts.metadata };
+      // A slow tab's own links are slow to open too.
+      if (window.__SLOW_MS) { c.slow = true; setTimeout(() => bc.postMessage(msg), window.__SLOW_MS); } else bc.postMessage(msg);
+      setTimeout(() => { if (!c.accepted && !c.slow) this.emit('error', { type: 'peer-unavailable', message: 'Could not connect to peer ' + to }); }, 400);
       return c;
     }
     destroy() {

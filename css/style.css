@@ -410,6 +410,8 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .grade-badge.skipped { background: var(--bs-secondary-bg); color: var(--bs-secondary-color); }
 
 /* ---------------- Multiplayer ---------------- */
+/* "Reconnecting…" while a short drop sorts itself out (see showReconnecting). */
+.mp-reconnecting { position: fixed; top: .75rem; left: 50%; transform: translateX(-50%); z-index: 1080; font-size: .875rem; padding: .4em .8em; }
 .mp-player-row { text-decoration: none; color: var(--bs-body-color); }
 /* The Votekick menu beside a player's name (QB Reader's caret toggle). */
 .mp-player-row .dropdown-toggle { color: inherit; border: 0; line-height: 1; }

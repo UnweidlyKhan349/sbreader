@@ -133,7 +133,16 @@
       return { legacy: true, exists: null, players: await roster(roomKey) };
     }
     const d = r.data;
-    if (!d || typeof d !== 'object') return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, players: [] };
+    if (!d || typeof d !== 'object') {
+      // Nobody's in it (or it was cleared at the daily reset): its settings
+      // are kept longer than the room, so ask for them on their own.
+      let settings = null;
+      if (!/^pub-/.test(roomKey)) {
+        const s = await rpc('mp_saved_settings', { p_room: roomKey });
+        if (!s.error && s.data && typeof s.data === 'object' && !Array.isArray(s.data)) settings = s.data;
+      }
+      return { exists: false, isPublic: null, ownerKey: null, banned: [], bannedAt: {}, settings, players: [] };
+    }
     const banned = Array.isArray(d.banned) ? d.banned.filter((x) => typeof x === 'string') : [];
     const bannedAt = {};
     if (d.ban_times && typeof d.ban_times === 'object') {
@@ -179,7 +188,15 @@
       p_score: me.score | 0, p_correct: me.correct | 0, p_incorrect: me.incorrect | 0,
       p_negs: me.negs | 0, p_cel_sum: Math.max(0, Number(me.celSum) || 0), p_cel_n: me.celN | 0,
     };
-    const { error } = await rpc('mp_heartbeat', args);
+    // This player's connection ID, so a newcomer can ask them who's in the
+    // room. A project whose schema predates it has no such argument: then
+    // the heartbeat goes again without it.
+    if (typeof me.peer === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(me.peer)) args.p_peer = me.peer;
+    let { error } = await rpc('mp_heartbeat', args);
+    if (error && error.missing && args.p_peer) {
+      delete args.p_peer;
+      ({ error } = await rpc('mp_heartbeat', args));
+    }
     if (!error || !error.missing) return;
     const c = await client();
     if (!c) return;

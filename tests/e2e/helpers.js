@@ -63,11 +63,25 @@ async function routeCdn(ctx) {
 }
 
 // opts: { lagMs, noDirect, viewport, liveSupabase }. liveSupabase leaves the
-// real Supabase project reachable (the relay test), everything else blocks it.
+// real Supabase project reachable (the relay test, and tests that answer its
+// calls themselves); everything else blocks it, its WebSocket included.
 async function newContext(browser, opts = {}) {
   const ctx = await browser.newContext({ viewport: opts.viewport || { width: 1300, height: 900 }, serviceWorkers: 'block' });
   await routeCdn(ctx);
-  if (!opts.liveSupabase) await ctx.route(/supabase\.co/, (r) => r.abort());
+  if (!opts.liveSupabase) {
+    await ctx.route(/supabase\.co/, (r) => r.abort());
+    // Realtime (the relay) is a WebSocket, which routes don't see: refused
+    // here as well, so no test reaches the real project unless it asks to.
+    await ctx.addInitScript(() => {
+      const Real = window.WebSocket;
+      window.WebSocket = function (url, protocols) {
+        if (/supabase\.co/.test(String(url))) throw new DOMException('Blocked in tests.', 'SecurityError');
+        return new Real(url, protocols);
+      };
+      window.WebSocket.prototype = Real.prototype;
+      Object.assign(window.WebSocket, { CONNECTING: 0, OPEN: 1, CLOSING: 2, CLOSED: 3 });
+    });
+  }
   // The real PeerJS comes from the CDN with an integrity hash, so another
   // file can't stand in for it: the fake is put in place before the page's
   // scripts run, and the real one isn't loaded.

@@ -149,9 +149,11 @@
      door can change hands without anyone in the room noticing.
 
      makeMesh({ onMessage(fromId, data), onJoin(id), onLeave(id, graceful), doorInfo(),
-                onDisconnect(), onReconnect() })
+                onDisconnect(), onReconnect(), onReconnecting(bool) })
        ready              resolves with this player's own peer ID
-       join(roomId)       through the door: connects to every player listed;
+       join(roomId, { hint, onLateLink })
+                          through the door (or a player in `hint`, whichever
+                          answers first): connects to every player listed;
                           resolves { members, ...doorInfo } (the ones reached)
        claimDoor(roomId)  takes the room's ID; rejects 'unavailable-id' if held
        releaseDoor(), holdsDoor()
@@ -172,6 +174,10 @@
   const RELAY_AFTER_MS = 3500;
   // After the coordinator answers, how long joining waits on everyone else.
   const JOIN_OTHERS_WAIT_MS = 1500;
+  // Joining also asks up to this many of the room's players (from the room
+  // list) who's in the room, giving each this long to answer.
+  const MEMBER_KNOCKS = 4;
+  const MEMBER_KNOCK_MS = 6000;
   const RELAY_WAIT_MS = 8000;
   // Timer ticks go out ten times a second; each player's timer runs on its
   // own between them, so over the relay two a second (and the final 0) do.
@@ -182,8 +188,12 @@
   // How long the connection service may stay unreachable before the player
   // is told they've been disconnected (it usually comes back within seconds).
   const LOST_AFTER_MS = 8000;
+  // The browser saying it's offline isn't told at once either: phones say
+  // so for a moment when they switch networks. Until then the player sees
+  // "Reconnecting…" (onReconnecting).
+  const OFFLINE_GRACE_MS = 6000;
 
-  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect, onReconnect }) {
+  function makeMesh({ onMessage, onJoin, onLeave, doorInfo, onDisconnect, onReconnect, onReconnecting }) {
     const conns = new Map();
     let self;
     let door = null;
@@ -213,10 +223,35 @@
     // been unreachable for a while with no other player still connected.
     // Told once (onDisconnect), never after leaving on purpose.
     let lostTold = false;
+    const isOffline = () => typeof navigator !== 'undefined' && navigator.onLine === false;
     function checkLost() {
       if (lostTold || self.destroyed || !onDisconnect) return;
-      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      if (offline || (self.disconnected && conns.size === 0)) { lostTold = true; onDisconnect(); }
+      if (isOffline() || (self.disconnected && conns.size === 0)) { lostTold = true; setReconnecting(false); onDisconnect(); }
+    }
+    // Between losing the connection and either getting it back or telling
+    // the player: "Reconnecting…".
+    let reconnecting = false;
+    let graceTimer = null;
+    function setReconnecting(on) {
+      if (on === reconnecting) return;
+      reconnecting = on;
+      if (!on) { clearTimeout(graceTimer); graceTimer = null; }
+      if (onReconnecting) onReconnecting(on);
+    }
+    function wobble(waitMs) {
+      if (lostTold || self.destroyed) return;
+      setReconnecting(true);
+      clearTimeout(graceTimer);
+      graceTimer = setTimeout(() => {
+        graceTimer = null;
+        checkLost();
+        // Not lost after all (someone is still connected): steady again.
+        if (!lostTold && !isOffline()) setReconnecting(false);
+      }, waitMs);
+    }
+    function steady() {
+      if (isOffline() || (self.disconnected && conns.size === 0)) return;
+      setReconnecting(false);
     }
     // Back again after being told (the browser is online and the connection
     // service reachable): told once more (onReconnect), and a later loss is
@@ -230,15 +265,19 @@
     }
     self.on('disconnected', () => {
       setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
-      setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
+      // Only the connection service: the game goes on over the links to the
+      // other players, so nothing is shown unless there are none.
+      if (conns.size === 0) wobble(LOST_AFTER_MS);
+      else setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
     });
     // PeerJS opens again once a reconnect() gets through.
-    self.on('open', () => checkBack());
+    self.on('open', () => { checkBack(); steady(); });
     if (typeof window !== 'undefined') {
-      window.addEventListener('offline', () => checkLost());
+      window.addEventListener('offline', () => wobble(OFFLINE_GRACE_MS));
       window.addEventListener('online', () => {
         if (!self.destroyed && self.disconnected) { try { self.reconnect(); } catch (e) { /* tried again later */ } }
         checkBack();
+        steady();
       });
     }
 
@@ -384,10 +423,30 @@
       conn.on('close', () => drop(false));
       conn.on('error', () => drop(false));
       if (!old && onJoin) onJoin(id);
+      steady();
     }
     self.on('connection', (conn) => {
+      // A newcomer asking this player, instead of the door, who's in the
+      // room (see join's `hint`): answered as the door would, for this
+      // room only, and never made a link.
+      if (conn.metadata && conn.metadata.knock) {
+        if (currentRoom && conn.metadata.room === currentRoom) answerKnock(conn);
+        else setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, 1000);
+        return;
+      }
       conn.on('open', () => adopt(conn));
     });
+    // The room this player is in (or opening), for answering knocks.
+    let currentRoom = null;
+    function answerKnock(conn) {
+      conn.on('data', (data) => {
+        if (!data) return;
+        const info = doorInfo ? doorInfo() : {};
+        if (data.type === '__hello') conn.send({ type: '__members', members: [self.id, ...conns.keys()], ...info });
+        else if (data.type === 'peek') conn.send({ type: 'peekInfo', players: info.players || 0 });
+      });
+      setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, DOOR_HOLD_MS);
+    }
 
     function connectDirect(id) {
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
@@ -417,8 +476,14 @@
     // game), and for the other players only briefly: one slow connection
     // shouldn't hold up getting in. Links that finish later are still made,
     // and reported to onLateLink(id).
-    function join(roomId, { onLateLink } = {}) {
+    //
+    // `hint` (peer IDs, or a promise of them: the players the room list
+    // says are in the room) is asked who's in the room alongside the door,
+    // and the first answer is used, so a slow door (its holder on a poor
+    // connection) doesn't hold up the start. IDs that have gone just fail.
+    function join(roomId, { onLateLink, hint } = {}) {
       openRelay(roomId);
+      currentRoom = roomId;
       const relayedKnocks = new WeakSet();
       const relayed = (info) => relayedKnocks.has(info);
       const viaRelay = () => new Promise((resolve, reject) => {
@@ -430,6 +495,12 @@
         });
       });
       const direct = knockDirect(roomId);
+      const viaMembers = Promise.resolve(hint).then((ids) => {
+        const list = (Array.isArray(ids) ? ids : []).filter((id) => typeof id === 'string' && id && id !== self.id && id !== roomId).slice(0, MEMBER_KNOCKS);
+        if (!list.length) throw new Error('No one to ask.');
+        return Promise.any(list.map((id) => knockDirect(id, { knock: true, room: roomId }, MEMBER_KNOCK_MS)));
+      });
+      viaMembers.catch(() => {});
       // The door answers directly within a second or two when it can; after
       // that, ask on the channel too. Nobody holding the door at all
       // ('peer-unavailable') isn't a reason to ask: the room is empty.
@@ -440,7 +511,15 @@
         direct.then(win, (err) => { lastErr = err; if (err && err.type === 'peer-unavailable') { won = true; reject(err); return; } lose(err); });
         setTimeout(() => { if (!won) viaRelay().then(win, lose); else lose(null); }, RELAY_AFTER_MS);
       });
-      return knock.then((info) => {
+      // The door or a player, whichever answers first; only if both fail
+      // does joining fail, with the door's reason.
+      const answered = new Promise((resolve, reject) => {
+        let doorErr = null; let doorOut = false; let membersOut = false;
+        const both = () => { if (doorOut && membersOut) reject(doorErr); };
+        knock.then(resolve, (err) => { doorErr = err; doorOut = true; both(); });
+        viaMembers.then(resolve, () => { membersOut = true; both(); });
+      });
+      return answered.then((info) => {
         const others = info.members.filter((id) => typeof id === 'string' && id !== self.id);
         // Answered on the channel: this network can't reach the room directly,
         // so link over the channel straight away (direct only if that fails).
@@ -459,20 +538,25 @@
       });
     }
 
-    function knockDirect(roomId) {
+    function knockDirect(roomId, metadata, timeoutMs) {
+      let rej = null;
+      // (Another wait on the same ID, a link to that player, may have taken
+      // its place in `pending`: that one is left alone.)
+      const done = () => { if (pending.get(roomId) === rej) pending.delete(roomId); };
       return ready.then(() => withTimeout(new Promise((resolve, reject) => {
+        rej = reject;
         pending.set(roomId, reject);
-        const conn = self.connect(roomId, { reliable: true });
+        const conn = self.connect(roomId, metadata ? { reliable: true, metadata } : { reliable: true });
         conn.on('open', () => conn.send({ type: '__hello' }));
         conn.on('error', (err) => reject(err));
         conn.on('data', (data) => {
           if (!data || data.type !== '__members' || !Array.isArray(data.members)) return;
-          pending.delete(roomId);
+          done();
           try { conn.close(); } catch (e) { /* done with the door */ }
           resolve(data);
         });
-      }), CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
-        .finally(() => pending.delete(roomId)));
+      }), timeoutMs || CONNECT_TIMEOUT_MS, 'Could not connect. Check the room code and your internet connection, then try again.')
+        .finally(done));
     }
 
     function claimDoor(roomId) {
@@ -482,15 +566,8 @@
       let d;
       try { d = new Peer(roomId, { debug: 0, config: ICE_CONFIG }); } catch (err) { return Promise.reject(err); }
       door = d;
-      d.on('connection', (conn) => {
-        conn.on('data', (data) => {
-          if (!data) return;
-          const info = doorInfo ? doorInfo() : {};
-          if (data.type === '__hello') conn.send({ type: '__members', members: [self.id, ...conns.keys()], ...info });
-          else if (data.type === 'peek') conn.send({ type: 'peekInfo', players: info.players || 0 });
-        });
-        setTimeout(() => { try { conn.close(); } catch (e) { /* gone */ } }, DOOR_HOLD_MS);
-      });
+      currentRoom = roomId;
+      d.on('connection', answerKnock);
       d.on('disconnected', () => {
         setTimeout(() => { if (!d.destroyed && d.disconnected) d.reconnect(); }, 1000);
       });

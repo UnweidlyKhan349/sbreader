@@ -115,19 +115,22 @@ test('your own live answer doesn\'t jump back to older text when the runner is s
   await ctx.close();
 });
 
-test('a named room keeps its settings after everyone leaves', async () => {
+test('a named room keeps its settings after everyone leaves, and after the daily reset', async () => {
   const ctx = await newContext(browser, { liveSupabase: true });
-  const rooms = new Map(); // room -> { settings }
+  // As in the database: the room's record (cleared at the daily reset) and
+  // its saved settings (kept 30 days) apart.
+  const rooms = new Set();
+  const saved = new Map();
   const saves = [];
   await ctx.route(/supabase\.co/, (route) => {
     const url = route.request().url();
     const body = route.request().postDataJSON() || {};
     const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
-    if (/\/rpc\/mp_heartbeat/.test(url)) { if (!rooms.has(body.p_room)) rooms.set(body.p_room, { settings: null }); return ok(true); }
-    if (/\/rpc\/mp_save_settings/.test(url)) { saves.push(body); rooms.set(body.p_room, { settings: body.p_settings }); return ok(true); }
+    if (/\/rpc\/mp_heartbeat/.test(url)) { rooms.add(body.p_room); return ok(true); }
+    if (/\/rpc\/mp_save_settings/.test(url)) { saves.push(body); saved.set(body.p_room, body.p_settings); return ok(true); }
+    if (/\/rpc\/mp_saved_settings/.test(url)) return ok(saved.get(body.p_room) || null);
     if (/\/rpc\/mp_room$/.test(url)) {
-      const d = rooms.get(body.p_room);
-      return ok(d ? { is_public: true, owner_key: null, banned: [], settings: d.settings, players: [] } : null);
+      return ok(rooms.has(body.p_room) ? { is_public: true, owner_key: null, banned: [], settings: saved.get(body.p_room) || null, players: [] } : null);
     }
     if (/\/rpc\/mp_leave|\/rpc\/mp_set_room/.test(url)) return ok(null);
     if (/\/rpc\/mp_list/.test(url)) return ok([]);
@@ -147,7 +150,87 @@ test('a named room keeps its settings after everyone leaves', async () => {
   // The room is empty; whoever opens it next gets the settings back.
   const b = await joinRoom(ctx, server.url, r);
   assert.strictEqual(await subjectOn(b, 'chem'), false, 'the room opens with chem still off');
-  assert.deepStrictEqual(b.errors, []);
+  await b.close();
+  // The daily reset clears the room; its settings stay.
+  rooms.clear();
+  const c = await joinRoom(ctx, server.url, r);
+  assert.strictEqual(await subjectOn(c, 'chem'), false, 'and still after the reset');
+  assert.deepStrictEqual([...b.errors, ...c.errors], []);
   await ctx.close();
 });
 
+
+// A newcomer's page that notes who first told it who's in the room: the
+// door, or a player it asked (a knock with metadata).
+async function watchedNewcomer(ctx, base, r) {
+  const p = await ctx.newPage();
+  p.errors = [];
+  p.on('pageerror', (e) => p.errors.push(e.message));
+  await p.addInitScript(() => {
+    window.__knocks = [];
+    const wrap = () => {
+      const connect = window.Peer.prototype.connect;
+      window.Peer.prototype.connect = function (to, opts) {
+        const c = connect.call(this, to, opts);
+        c.on('data', (d) => { if (d && d.type === '__members') window.__knocks.push({ to, member: !!(opts && opts.metadata && opts.metadata.knock), at: performance.now() }); });
+        return c;
+      };
+    };
+    if (window.Peer) wrap(); else document.addEventListener('DOMContentLoaded', wrap);
+  });
+  const t0 = Date.now();
+  await p.goto(`${base}multiplayer?room=${r}`, { waitUntil: 'domcontentloaded' });
+  await p.waitForFunction(() => document.querySelector('.mp-player-row.user-score') && /joined the game/.test(document.getElementById('mpHistory').textContent), null, { timeout: 40000 });
+  p.joinMs = Date.now() - t0;
+  return p;
+}
+
+test('joining doesn\'t wait on a slow player who isn\'t running the game', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  await g.evaluate(() => { window.__SLOW_MS = 8000; });
+  const b = await watchedNewcomer(ctx, server.url, r);
+  assert.ok(b.joinMs < 7000, `in after ${b.joinMs} ms, not after the slow link (8 s)`);
+  // The slow player's link still comes up, and they hear who joined.
+  await b.waitForFunction(() => document.querySelectorAll('.mp-player-row:not(.offline)').length >= 3, null, { timeout: 15000 });
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
+  await ctx.close();
+});
+
+test('a slow door doesn\'t hold up joining: the players the room list knows are asked too', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  // "room|pid|peer" -> row (the tabs share one browser's player ID, so the
+  // connection ID tells them apart here)
+  const players = new Map();
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const body = route.request().postDataJSON() || {};
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_heartbeat/.test(url)) {
+      players.set(`${body.p_room}|${body.p_pid}|${body.p_peer}`, { pid: body.p_pid, username: body.p_username, score: 0, peer: body.p_peer || null, last_seen: new Date().toISOString() });
+      return ok(true);
+    }
+    if (/\/rpc\/mp_room$/.test(url)) {
+      const rows = [...players].filter(([k]) => k.startsWith(body.p_room + '|')).map(([, v]) => v);
+      return ok(rows.length ? { is_public: true, owner_key: null, banned: [], players: rows } : null);
+    }
+    if (/\/rpc\/mp_saved_settings|\/rpc\/mp_leave|\/rpc\/mp_set_room|\/rpc\/mp_save_settings/.test(url)) return ok(null);
+    if (/\/rpc\/mp_list/.test(url)) return ok([]);
+    return route.abort();
+  });
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  for (let i = 0; i < 50 && [...players.values()].filter((p) => p.peer).length < 2; i++) await g.waitForTimeout(100);
+  assert.strictEqual([...players.values()].filter((p) => p.peer).length, 2, 'both players sent their connection IDs');
+  // The door's holder (who also runs the game) is on a slow connection.
+  await a.evaluate(() => { window.__SLOW_MS = 3000; });
+  const b = await watchedNewcomer(ctx, server.url, r);
+  const knocks = await b.evaluate(() => window.__knocks);
+  assert.ok(knocks.length >= 1);
+  assert.strictEqual(knocks[0].member, true, `the first answer came from a player, not the slow door (${JSON.stringify(knocks)})`);
+  assert.deepStrictEqual([...a.errors, ...g.errors, ...b.errors], []);
+  await ctx.close();
+});
