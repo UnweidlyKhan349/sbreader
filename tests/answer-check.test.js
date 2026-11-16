@@ -784,10 +784,10 @@ test('equal value is not enough when the typed answer works the question out, ch
     ['(x − 2)(x + 2)', 'x^2-4', 'Factor x^2 − 4.'],
     ['5√2', '√50', 'Simplify √50.'],
     ['√3', 'tan(pi/3)', 'What is the exact value of tan(π/3)?'],
-    ['3/28', '15/140', 'Multiply.'], ['380', '380.0', 'Q?'],
+    ['3/28', '15/140', 'Multiply.'],
     ['e^7 √π', 'e^7*1.7724538509', 'Q?'],
     ['16ε0', '26ε0', 'Q?'], ['1.0 × 10^-14', '2.0 × 10^-14', 'Q?'], ['300 μ0', '400 μ0', 'Q?'],
-    ['1', '1.0', 'Q?'], ['i', '1 only', 'What is the sum of i^(5k)?'],
+    ['i', '1 only', 'What is the sum of i^(5k)?'],
     ['x^2 + C', 'x^2', 'Integrate 2x.'],
   ]) assert.ok(!isCorrect(key, typed, { question: q }), `${typed} for ${key}`);
 });
@@ -1033,4 +1033,112 @@ test('across the corpus, another question\'s answer passes only where it is the 
   // A new pair means the grader accepts an answer it didn't: check it, and if
   // it is the same answer, rerun `node tools/grader-cross-check.js --write`.
   assert.deepStrictEqual(extra, []);
+});
+
+// ---- The second look (November 2026 full review): what a player types and a moderator takes ----
+const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && !!r.close; };
+test('second look: none, trailing zeros, percent, + C, equation forms', () => {
+  const idAll = 'Identify all of the following three moraines that are sorted: 1) Lateral 2) Ground 3) Terminal';
+  for (const t of ['none of them', 'none are true', 'none of the above', 'neither']) assert.ok(isCorrect('None', t, { question: idAll }), t);
+  assert.ok(closeOnly('None', '0', { question: idAll }));
+  // equal value, other trailing zeros: right, unless the question asks for a precision
+  assert.ok(isCorrect('1.50 L', '1.5', { question: 'What volume is needed? Give your answer in liters.' }));
+  assert.ok(isCorrect('1.50 L', '1.5 liters', { question: 'What volume is needed? Give your answer in liters.' }));
+  assert.ok(isCorrect('$100,000.00', '100000', { question: 'How much did she earn?' }));
+  assert.ok(isCorrect('380', '380.0'));
+  assert.ok(closeOnly('2.50', '2.5', { question: 'To three significant figures, what is the mass?' }));
+  assert.ok(!isCorrect('1.50 L', '15', { question: 'Give your answer in liters.' }));
+  // percent, fraction and decimal
+  assert.ok(isCorrect('1/2', '50%', { question: 'What is the probability that he rolls a prime number?' }));
+  assert.ok(isCorrect('3/4', '75%', { question: 'What is the chance of an encounter?' }));
+  assert.ok(closeOnly('1/2', '50%', { question: 'As a fraction, what is the probability?' }));
+  assert.ok(closeOnly('48%', '0.48', { question: 'What percentage of offspring are blue?' }));
+  assert.ok(!isCorrect('1/3', '33%', { question: 'What is the probability?' }));
+  assert.ok(closeOnly('1/2', '3/6', { question: 'What is the probability?' }));
+  // a constant of integration: given where the key has none is right, left out where it has one is Close
+  assert.ok(isCorrect('e^x', 'e^x + C', { question: 'What is the integral of e^x?' }));
+  assert.ok(closeOnly('x^2 + C', 'x^2', { question: 'Integrate 2x.' }));
+  assert.ok(!isCorrect('-cos(x) + C', '+cos(x)', { question: 'Integrate sin x.' }));
+  assert.ok(isCorrect('f(x)=sinx', 'sin x', { question: 'What is the 2009th derivative of f(x) = -cos x?' }));
+  assert.ok(!isCorrect('f(x)=sinx', 'cos x', { question: 'What is the 2009th derivative of f(x) = -cos x?' }));
+  assert.ok(isCorrect('x^2-6x + 13 = 0', 'x^2-6x+13', { question: 'Find the quadratic equation with roots 3-2i and its conjugate.' }));
+});
+
+test('second look: units the question names, SI prefixes, signs', () => {
+  const volts = 'If the potential at one point is 20 volts, what is the electric potential at the point (6, 6, 7)?';
+  assert.ok(isCorrect('14', '14 V', { question: volts }));
+  assert.ok(isCorrect('14', '14 volts', { question: volts }));
+  assert.ok(!isCorrect('14', '14 amps', { question: volts }));
+  assert.ok(!isCorrect('14', '15 volts', { question: volts }));
+  assert.ok(isCorrect('100', '100 GJ', { question: 'What is the change in kinetic energy, in gigajoules?' }));
+  assert.ok(isCorrect('6', '6h', { question: 'What is the right ascension, to the nearest hour, of the Sun?' }));
+  assert.ok(isCorrect('9', '9 times', { question: 'How many times as much kinetic energy does it have?' }));
+  assert.ok(isCorrect('FOUR', '4 moons', { question: "How many of Jupiter's moons were known?", accept: ['4'] }));
+  assert.ok(isCorrect('4.5', '4.5 units', { question: 'What is the height of the water?' }));
+  assert.ok(closeOnly('10 MW', '10 mW'));
+  assert.ok(isCorrect('1200', '1.2 kPa', { question: 'What is the pressure drop in pascals?' }));
+  assert.ok(isCorrect('25 GRAMS', '0.025 kg', { question: 'What is the mass?' }));
+  assert.ok(isCorrect('360 KJ', '360000 joules', { question: 'How much energy?' }));
+  assert.ok(!isCorrect('360 KJ', '360 joules', { question: 'How much energy?' }));
+  assert.ok(isCorrect('(√k / 7) HERTZ', 'sqrt(k)/7', { question: 'Leave your answer in terms of k.' }));
+  assert.ok(isCorrect('8π × 10^-5 Amps', '8pi x 10^-5 A', { question: 'What is the current in terms of pi?' }));
+  assert.ok(isCorrect('-1', 'negative one', { question: 'Raised to what power?' }));
+  assert.ok(isCorrect('-1', '1-', { question: 'What is the electrical charge of acetate?' }));
+  assert.ok(!isCorrect('-1', '1', { question: 'What is the electrical charge of acetate?' }));
+  assert.ok(!isCorrect('-1', '+1', { question: 'What is the electrical charge of acetate?' }));
+  assert.ok(isCorrect('+2', '2+', { question: 'What is the oxidation state of carbon?', reject: ['2'] }));
+  assert.ok(!isCorrect('+2', '2', { question: 'What is the oxidation state of carbon?', reject: ['2'] }));
+  assert.ok(isCorrect('−j', '-j', { question: 'In what direction is the field?', reject: ['j', '+j'] }));
+  assert.ok(!isCorrect('−j', 'j', { question: 'In what direction is the field?', reject: ['j', '+j'] }));
+  assert.ok(isCorrect('10^-15', '1e-15', { question: 'The prefix femto- represents what value?' }));
+  assert.ok(isCorrect('π^2', 'pi squared'));
+  assert.ok(isCorrect('11/10', '11:10', { question: 'What is the ratio of the two sums?' }));
+});
+
+test('second look: names, formulas, abbreviations and words the question supplies', () => {
+  assert.ok(isCorrect('TECHNETIUM AND PROMETHIUM', 'Tc and Pm', { question: 'Which elements do not occur naturally?' }));
+  assert.ok(isCorrect('NITROGEN, CARBON DIOXIDE AND OXYGEN', 'N2, O2, CO2', { question: 'What three gases make up most dissolved gas?' }));
+  assert.ok(isCorrect('carbon dioxide', 'co2', { question: 'What gas carries the heat away?' }));
+  assert.ok(closeOnly('CO2', 'carbon dioxide', { question: 'What is the formula of dry ice?' }));
+  assert.ok(isCorrect('NITRATE', 'NO3-', { question: 'Which ion is a spectator?' }));
+  assert.ok(!isCorrect('NITRATE', 'NO3+', { question: 'Which ion is a spectator?' }));
+  assert.ok(!isCorrect('NITRATE', 'NO2-', { question: 'Which ion is a spectator?' }));
+  assert.ok(isCorrect('Leucine and Isoleucine', 'Leu and Ile', { question: 'Which two amino acids are isomers?' }));
+  assert.ok(isCorrect('Radio Frequency Identification Device (RFID)', 'RFID', { question: 'What tag-like chip is used?' }));
+  assert.ok(isCorrect('ACETYLCHOLINE', 'ACh', { question: 'What neurotransmitter is released?' }));
+  assert.ok(isCorrect('INFRARED', 'IR', { question: 'What type of radiation?' }));
+  assert.ok(isCorrect('COUNTERCURRENT EXCHANGE', 'counter-current exchange', { question: 'What mechanism?' }));
+  assert.ok(isCorrect('Antoine Lavoisier', 'Lavoisier', { question: 'What scientist discovered the law of conservation of mass?' }));
+  assert.ok(!isCorrect('SMALL INTESTINE', 'intestine', { question: 'In man, what organ absorbs most nutrients?' }));
+  // the word the question asks by, and what it is "of"
+  assert.ok(isCorrect('SECOND LAW', 'second law of thermodynamics', { question: 'Which law of thermodynamics states that entropy increases?' }));
+  assert.ok(isCorrect('SPIN', 'electron spin', { question: 'What is the quantum mechanical property of electrons that splits the beam?' }));
+  assert.ok(isCorrect('STROMA', 'chloroplast stroma', { question: 'The Calvin cycle occurs in what part of the chloroplast?' }));
+  assert.ok(isCorrect('X chromosome', 'X', { question: 'On what chromosome are the opsin genes located?' }));
+  assert.ok(isCorrect('SCHWARZSCHILD RADIUS', 'Schwarzschild', { question: "What is the name for the radius of a black hole's event horizon?" }));
+  assert.ok(isCorrect('Transverse Wave', 'transverse', { question: 'What term is defined as a wave that vibrates at right angles?' }));
+  assert.ok(!isCorrect('CARBON DIOXIDE', 'carbon', { question: 'Which gas, unlike sulfur dioxide, is odorless?' }));
+  assert.ok(!isCorrect('WHITE DWARF', 'dwarf', { question: 'What remnant does the Sun become?' }));
+  assert.ok(!isCorrect('GAP JUNCTIONS', 'gap junctions and desmosomes', { question: 'Which of 1) gap junctions 2) desmosomes connect cytoplasm?' }));
+});
+
+test('second look: listed items by another name, and orders that must hold', () => {
+  const rank = (items) => 'Rank the following three in increasing order: ' + items;
+  assert.ok(isCorrect('1, 3, 2', 'Li, K, Na', { question: rank('1) Lithium; 2) Sodium; 3) Potassium.') }));
+  assert.ok(!isCorrect('1, 3, 2', 'Li, Na, K', { question: rank('1) Lithium; 2) Sodium; 3) Potassium.') }));
+  assert.ok(isCorrect('2,1,3', 'iron, nickel, copper', { question: rank('1) Ni^(2+); 2) Fe^(2+); 3) Cu^(2+).') }));
+  assert.ok(isCorrect('2,1,3', 'turner, klinefelter, triple x', { question: rank("1) Klinefelter syndrome; 2) Turner's syndrome; 3) Triple X.") }));
+  assert.ok(isCorrect('2, 1, 3', 'hdl, ldl, chylomicrons', { question: rank('1) Low density lipoproteins 2) High density lipoproteins 3) Chylomicrons') }));
+  assert.ok(isCorrect('2,3,1', 'Kr, Ar, HCl', { question: rank('1) Hydrogen Chloride 2) Krypton 3) Argon') }));
+  assert.ok(isCorrect('I & II', 'lh and estradiol', { question: 'Identify all of the following three hormones: I. Luteinizing hormone; II. Estradiol, III. Progesterone' }));
+  assert.ok(isCorrect('I, III, IV', 'notochord, pharyngeal slits, post-anal tail', { question: 'Identify all of the following four characteristics: I – Notochord II – Backbone III – Pharyngeal Slits IV – Post-Anal Tail' }));
+  assert.ok(isCorrect('2, 4, 5', 'dendritic cells, neutrophils, monocytes', { question: 'Which of the following cells are phagocytic? 1.Megakaryocyte 2.Dendritic cells 3.Natural killer cells 4.Neutrophils 5.Monocytes' }));
+  // a key that numbers its answers holds them to that order
+  const tides = 'Give the type of tide at each of the following 3 locations: 1) Boston 2) Galveston 3) Los Angeles';
+  assert.ok(isCorrect('1) Semidiurnal, 2) Diurnal, 3) Mixed', 'semidiurnal, diurnal, mixed', { question: tides }));
+  assert.ok(!isCorrect('1) Semidiurnal, 2) Diurnal, 3) Mixed', 'diurnal, semidiurnal, mixed', { question: tides }));
+  // an interval's brackets count even when an accept is written as an inequality
+  const dom = 'What is the largest possible real domain for the function?';
+  assert.ok(isCorrect('(-2, 2)', '(-2,2)', { question: dom, accept: ['-2 < x < 2'] }));
+  assert.ok(!isCorrect('(-2, 2)', '[-2,2]', { question: dom, accept: ['-2 < x < 2'] }));
 });

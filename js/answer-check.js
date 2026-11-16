@@ -140,14 +140,14 @@
   // ending "... of order 8: 1) ..." still sees the "1)" after it. A colon
   // after a label word ("row 1: 2, 3", "Step 1: A + B → D") is a heading,
   // not a list item.
-  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s|:(?=\s))/g;
+  const ITEM_MARKER_RE = /(?:^|[\s;,:])([1-9])(?:\)|\.\s|\.(?=[A-Z][a-z])|:(?=\s))/g;
   const COLON_LABEL_RE = /\b(?:rows?|columns?|cols?|steps?|stages?|phases?|parts?|rounds?|sets?|levels?|questions?|problems?)\s*$/i;
   // Some packets label the items with Roman numerals instead ("I. Gravity
   // II. Normal force III. Friction", keyed "I ONLY" or "I AND III"). They
   // count the same way, as items 1, 2, 3, ..., when the stem has no run of
   // arabic ones; the labels are capitals (a lower-case "i." is more likely
   // the end of a sentence), and stop at IX ("X)" is a choice letter).
-  const ROMAN_ITEM_RE = /(?:^|[\s;,:])(IX|IV|V?I{1,3}|V)(?:\)|\.\s|:(?=\s))/g;
+  const ROMAN_ITEM_RE = /(?:^|[\s;,:])(IX|IV|V?I{1,3}|V)(?:\)|\.\s|:(?=\s)|\s[–—-]\s(?=[A-Z][a-z]))/g;
   const ROMAN_VALUE = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9 };
   // How many of the markers continue a 1, 2, 3, ... run.
   function markerRun(markers) {
@@ -380,6 +380,39 @@
     }
     return matchSegments(segments, itemTexts, strict ? 'none' : 'either');
   }
+  function itemAliases(item, all) {
+    const out = [];
+    const t = String(item).trim();
+    const up = t.toUpperCase();
+    const EL = ELEMENT_NAMES;
+    if (EL) {
+      if (EL.byName[up]) out.push(EL.byName[up]);
+      const ion = t.match(/^([A-Z][a-z]?)(?:\s*\^?\(?\d*[+\-−]\)?|\s*\d*[+\-−])?$/);
+      if (ion && EL.bySym[ion[1].toUpperCase()] === ion[1]) {
+        out.push(ion[1]);
+        const name = Object.keys(EL.byName).find((n) => EL.byName[n] === ion[1] && !/^(?:ALUMINIUM|SULPHUR|CAESIUM)$/.test(n));
+        if (name) out.push(name);
+      }
+    }
+    for (const [f, name] of Object.entries(COMPOUND_NAMES)) {
+      if (name === up || COMPOUND_ALT[f] === up) out.push(f);
+      if (f === t) { out.push(name); if (COMPOUND_ALT[f]) out.push(COMPOUND_ALT[f]); }
+    }
+    const words = normalize(t.replace(/\([^()]*\)/g, ' ')).split(' ').filter(Boolean);
+    const headOf = (x) => normalize(String(x).replace(/\([^()]*\)/g, ' ')).split(' ').filter(Boolean).slice(0, -1).join(' ');
+    if (words.length >= 2) {
+      const head = words.slice(0, -1).join(' ');
+      if (head.length >= 4 && all.filter((x) => headOf(x) === head).length === 1) { out.push(head); out.push(head.replace(/['’]?S$/, '')); }
+      const initials = words.map((w) => w[0]).join('');
+      const initialsOf = (x) => normalize(String(x).replace(/\([^()]*\)/g, ' ')).split(' ').filter(Boolean).map((w) => w[0]).join('');
+      if (/^[A-Z]{2,5}$/.test(initials) && all.filter((x) => initialsOf(x) === initials).length === 1) out.push(initials);
+    }
+    if (typeof abbrCanon === 'function') {
+      const canon = abbrCanon(t);
+      for (const [abbr, full] of Object.entries(STANDARD_ABBREVIATIONS)) if (full === canon) out.push(abbr);
+    }
+    return out.filter(Boolean);
+  }
   // `contain` says how far a part-of-a-name match may go: 'either' way round,
   // only the typed text 'inside' the item's name, or 'none'.
   function matchSegments(segments, itemTexts, contain) {
@@ -404,6 +437,16 @@
           const hit = contain === 'either' ? eitherContains(seg, itemTexts[i]) : containsWholeRun(normalize(itemTexts[i]), normalize(seg));
           if (hit) { bestIdx = i; break; }
         }
+      }
+      if (bestIdx === -1 && contain !== 'none') {
+        // another name a player gives a listed item: an element's symbol or
+        // name, initials ("LDL"), a standard abbreviation, or the name
+        // without its last word ("Turner" for "Turner's syndrome")
+        const hits = [];
+        for (let i = 0; i < itemTexts.length; i++) {
+          if (!used[i] && itemAliases(itemTexts[i], itemTexts).some((al) => normEqual(seg, al))) hits.push(i);
+        }
+        if (hits.length === 1) bestIdx = hits[0];
       }
       if (bestIdx === -1) return null;
       used[bestIdx] = true;
@@ -1335,7 +1378,9 @@
         ai.forEach((x, i) => { if (differs[i]) alts[i].push(x); });
       }
     }
-    return { n: items.length, alts, floating: [], ordered: listIsOrdered(question), noSlash: true };
+    // (a key that numbers its items answers them in turn: "1) Semidiurnal, 2) Diurnal, 3) Mixed")
+    const numbered = items.every((x, i) => new RegExp('^\\s*\\(?' + (i + 1) + '\\s*[).:]').test(x));
+    return { n: items.length, alts, floating: [], ordered: numbered || listIsOrdered(question), noSlash: true };
   }
 
   // Cutting a typed answer into pieces, one per part. First by the
@@ -1957,7 +2002,7 @@
     // Checked before the reject list, which normalize() can't always tell
     // apart from the key: "+6" vs a rejected "6", "W+ BOSON" vs "W BOSON".
     // Exponent markup is dropped here too, so "W+ boson" is the key "W^+ BOSON".
-    const literal = (t) => String(t).toUpperCase().replace(/[\^_]\(([^()]*)\)/g, '$1')
+    const literal = (t) => String(t).toUpperCase().replace(/[\u2212\u2013\u2010]/g, '-').replace(/[\^_]\(([^()]*)\)/g, '$1')
       .replace(/[\^_]/g, '').replace(/\s+/g, ' ').trim();
     if (literal(raw) === literal(ans.text)) return { correct: true, matched: 'main', rejected: false };
     if (accepts.some((acc) => literal(raw) === literal(acc))) return { correct: true, matched: 'accept', rejected: false };
@@ -2705,6 +2750,17 @@
     AGN: 'ACTIVE GALACTIC NUCLEUS', GPS: 'GLOBAL POSITIONING SYSTEM', EMF: 'ELECTROMOTIVE FORCE', SONAR: 'SOUND NAVIGATION AND RANGING',
     LASER: 'LIGHT AMPLIFICATION BY STIMULATED EMISSION OF RADIATION', SNP: 'SINGLE NUCLEOTIDE POLYMORPHISM', MHC: 'MAJOR HISTOCOMPATIBILITY COMPLEX',
     SA: 'SINOATRIAL', AV: 'ATRIOVENTRICULAR', PKU: 'PHENYLKETONURIA', ALS: 'AMYOTROPHIC LATERAL SCLEROSIS',
+    ACH: 'ACETYLCHOLINE', IR: 'INFRARED', GABA: 'GAMMA AMINOBUTYRIC ACID', CSF: 'CEREBROSPINAL FLUID', ECM: 'EXTRACELLULAR MATRIX',
+    ETC: 'ELECTRON TRANSPORT CHAIN', GFP: 'GREEN FLUORESCENT PROTEIN', RBC: 'RED BLOOD CELL', RBCS: 'RED BLOOD CELLS', WBC: 'WHITE BLOOD CELL',
+    WBCS: 'WHITE BLOOD CELLS', PEP: 'PHOSPHOENOLPYRUVATE', ROS: 'REACTIVE OXYGEN SPECIES', BMR: 'BASAL METABOLIC RATE',
+    CAM: 'CRASSULACEAN ACID METABOLISM', ELISA: 'ENZYME LINKED IMMUNOSORBENT ASSAY', ITCZ: 'INTERTROPICAL CONVERGENCE ZONE',
+    ENSO: 'EL NINO SOUTHERN OSCILLATION', ISM: 'INTERSTELLAR MEDIUM', JWST: 'JAMES WEBB SPACE TELESCOPE', HST: 'HUBBLE SPACE TELESCOPE',
+    LHC: 'LARGE HADRON COLLIDER', QED: 'QUANTUM ELECTRODYNAMICS', QCD: 'QUANTUM CHROMODYNAMICS', BEC: 'BOSE EINSTEIN CONDENSATE',
+    SHM: 'SIMPLE HARMONIC MOTION', AC: 'ALTERNATING CURRENT', DC: 'DIRECT CURRENT', TNT: 'TRINITROTOLUENE', PVC: 'POLYVINYL CHLORIDE',
+    THF: 'TETRAHYDROFURAN', DMSO: 'DIMETHYL SULFOXIDE', BOD: 'BIOCHEMICAL OXYGEN DEMAND', APC: 'ANTIGEN PRESENTING CELL',
+    SEM: 'SCANNING ELECTRON MICROSCOPE', TEM: 'TRANSMISSION ELECTRON MICROSCOPE', BAO: 'BARYON ACOUSTIC OSCILLATIONS',
+    RFID: 'RADIO FREQUENCY IDENTIFICATION', FISH: 'FLUORESCENCE IN SITU HYBRIDIZATION', IVF: 'IN VITRO FERTILIZATION',
+    TCA: 'TRICARBOXYLIC ACID', SSRI: 'SELECTIVE SEROTONIN REUPTAKE INHIBITOR', GERD: 'GASTROESOPHAGEAL REFLUX DISEASE',
   };
   const ABBR_TEST = new RegExp('\\b(?:' + Object.keys(STANDARD_ABBREVIATIONS).join('|') + ')\\b');
   const ABBR_EXPAND_RE = new RegExp('\\b(?:' + Object.keys(STANDARD_ABBREVIATIONS).join('|') + ')\\b', 'g');
@@ -3061,7 +3117,7 @@
     '^\\s*accept\\s+answers?\\s+within\\b',
   ].join('|'), 'i');
   const isNote = (x) => NOTE_RE.test(String(x == null ? '' : x));
-  function checkAnswer(question, userInput) {
+  function checkAnswerCore(question, userInput) {
     if (String(userInput || '').length > MAX_ANSWER_LENGTH) return { correct: false, matched: null, rejected: false };
     if (question && question.answer && (question.answer.accept || []).some(isNote)) {
       const a = question.answer;
@@ -3097,6 +3153,404 @@
       }
     }
     return gradeTyped(question, userInput);
+  }
+  // ---- A second look, the way a moderator would give one ----
+  // Run only when everything above has failed (and the answer isn't on the
+  // reject list), on short answers. Each step rewrites the typed answer or
+  // the key into a form the checks above already understand and grades
+  // again; a form on the reject list stays rejected.
+  const SPELLED_VALUE = Object.fromEntries(SPELLED_NUMBERS.map((w, i) => [w, i]));
+  // Does the question ask for a precision? Then trailing zeros are part of it.
+  const SIGFIG_RE = /\bsignificant\s+(?:figures?|digits?)\b|\bsig\.?\s*figs?\b|\bdecimal\s+places?\b|\bnearest\s+(?:tenth|hundredth|thousandth|cent)\b|\bdecimal\s+point\b/i;
+  function trimZeros(s) {
+    return String(s).replace(/(\d+)\.(\d*?)0+(?![\d])/g, (m, a, b) => (b ? a + '.' + b : a)).replace(/\$\s*(?=\d)/g, '');
+  }
+  const NONE_TYPED_RE = /^(?:none|neither|no\s+one|not\s+any)(?:\s+of\s+(?:them|these|those|the\s+above|the\s+following|the\s+(?:\w+\s+)?\w+))?(?:\s+(?:are|is|apply|applies|do|does|would|will|were|was)(?:\s+\w+){0,3})?$/i;
+  const NONE_KEY_RE = /^(?:NONE|NEITHER)(?: OF (?:THEM|THESE|THOSE|THE ABOVE|THE FOLLOWING))?$/;
+  // Formulas a player types for a common substance (and the reverse).
+  const COMPOUND_NAMES = Object.fromEntries(('H2O water,CO2 carbon dioxide,CO carbon monoxide,N2 nitrogen,O2 oxygen,H2 hydrogen,O3 ozone,Cl2 chlorine,'
+    + 'F2 fluorine,Br2 bromine,I2 iodine,CH4 methane,NH3 ammonia,NaCl sodium chloride,HCl hydrochloric acid,H2SO4 sulfuric acid,HNO3 nitric acid,'
+    + 'NaOH sodium hydroxide,KOH potassium hydroxide,CaCO3 calcium carbonate,SiO2 silicon dioxide,NO2 nitrogen dioxide,SO2 sulfur dioxide,'
+    + 'SO3 sulfur trioxide,N2O nitrous oxide,NO nitric oxide,H2O2 hydrogen peroxide,C6H12O6 glucose,KCl potassium chloride,H2S hydrogen sulfide,'
+    + 'CaO calcium oxide,MgO magnesium oxide,C2H5OH ethanol,CH3OH methanol,C2H6 ethane,C3H8 propane,C2H4 ethene,C2H2 ethyne,C6H6 benzene,'
+    + 'H3PO4 phosphoric acid,H2CO3 carbonic acid,HF hydrofluoric acid,NaHCO3 sodium bicarbonate,CaSO4 calcium sulfate,Al2O3 aluminum oxide,'
+    + 'Fe2O3 iron(III) oxide,TiO2 titanium dioxide,ZnO zinc oxide,CS2 carbon disulfide,CCl4 carbon tetrachloride,HCN hydrogen cyanide,'
+    + 'SOx sulfur oxides,NOx nitrogen oxides').split(',').map((x) => { const i = x.indexOf(' '); return [x.slice(0, i), x.slice(i + 1).toUpperCase()]; }));
+  const ION_NAMES = { NO3: ['NITRATE', '1-'], SO4: ['SULFATE', '2-'], PO4: ['PHOSPHATE', '3-'], CO3: ['CARBONATE', '2-'], OH: ['HYDROXIDE', '1-'],
+    NH4: ['AMMONIUM', '1+'], HCO3: ['BICARBONATE', '1-'], MNO4: ['PERMANGANATE', '1-'], CLO4: ['PERCHLORATE', '1-'], CLO3: ['CHLORATE', '1-'],
+    NO2: ['NITRITE', '1-'], SO3: ['SULFITE', '2-'], CN: ['CYANIDE', '1-'], H3O: ['HYDRONIUM', '1+'], CRO4: ['CHROMATE', '2-'],
+    CR2O7: ['DICHROMATE', '2-'], C2O4: ['OXALATE', '2-'], CH3COO: ['ACETATE', '1-'], C2H3O2: ['ACETATE', '1-'] };
+  const AMINO_ACIDS = { ALA: 'ALANINE', ARG: 'ARGININE', ASN: 'ASPARAGINE', ASP: 'ASPARTATE', CYS: 'CYSTEINE', GLN: 'GLUTAMINE', GLU: 'GLUTAMATE',
+    GLY: 'GLYCINE', HIS: 'HISTIDINE', ILE: 'ISOLEUCINE', LEU: 'LEUCINE', LYS: 'LYSINE', MET: 'METHIONINE', PHE: 'PHENYLALANINE', PRO: 'PROLINE',
+    SER: 'SERINE', THR: 'THREONINE', TRP: 'TRYPTOPHAN', TYR: 'TYROSINE', VAL: 'VALINE' };
+  const COMPOUND_ALT = { HCl: 'HYDROGEN CHLORIDE', HF: 'HYDROGEN FLUORIDE', C2H4: 'ETHYLENE', C2H2: 'ACETYLENE', SiO2: 'SILICA', NaCl: 'TABLE SALT', N2O: 'DINITROGEN MONOXIDE', H2O: 'DIHYDROGEN MONOXIDE' };
+  const COMPOUND_BY_UPPER = Object.fromEntries(Object.keys(COMPOUND_NAMES).map((f) => [f.toUpperCase(), f]));
+  const LIST_SPLIT_RE = /(\s*(?:,|;|&|\band\b)\s*)/i;
+  // Each formula or element symbol in a list, as its name. A formula with a
+  // digit is read in any case ("co2"); one without only in its own capitals
+  // ("CO" is carbon monoxide, "Co" cobalt, "co" neither).
+  function formulasToNames(text) {
+    let changed = false;
+    const out = String(text).split(LIST_SPLIT_RE).map((seg, i) => {
+      if (i % 2) return seg;
+      const t = seg.trim().replace(/\s+(?:gas|molecules?)$/i, '');
+      if (!t || /\s/.test(t)) return seg;
+      const f = COMPOUND_NAMES[t] ? t : (/\d/.test(t) ? COMPOUND_BY_UPPER[t.toUpperCase()] : null);
+      if (f) { changed = true; return COMPOUND_NAMES[f]; }
+      // an ion with its charge: "NO3-", "SO4 2-", "NH4+", "SO4^(2-)"
+      for (const re of [/^([A-Za-z0-9]+)\s*\^?\(?()([+\-−])\)?$/, /^([A-Za-z0-9]+?)\s*\^?\(?(\d*)([+\-−])\)?$/]) {
+        const ion = seg.trim().match(re);
+        const known = ion && ION_NAMES[ion[1].toUpperCase()];
+        if (known && (ion[2] || '1') + (ion[3] === '+' ? '+' : '-') === known[1]) { changed = true; return known[0]; }
+      }
+      if (/^[A-Za-z]{3}$/.test(t) && AMINO_ACIDS[t.toUpperCase()]) { changed = true; return AMINO_ACIDS[t.toUpperCase()]; }
+      const sym = ELEMENT_NAMES.bySym[t.toUpperCase()];
+      if (sym && (t === sym || (t.length === 2 && t === t.toLowerCase()))) {
+        const name = Object.keys(ELEMENT_NAMES.byName).find((n) => ELEMENT_NAMES.byName[n] === sym && !/^(?:ALUMINIUM|SULPHUR|CAESIUM)$/.test(n));
+        if (name) { changed = true; return name; }
+      }
+      return seg;
+    });
+    return { text: out.join(''), changed };
+  }
+  function numberValue(s) {
+    const m = String(s).trim().match(/^([+\-−–]?)\s*(\d[\d,]*(?:\.\d+)?|\.\d+)(?:\s*\/\s*(\d+(?:\.\d+)?))?$/);
+    if (!m) return null;
+    const v = parseFloat(m[2].replace(/,/g, '')) / (m[3] ? parseFloat(m[3]) : 1);
+    return Number.isFinite(v) ? (m[1] && m[1] !== '+' ? -v : v) : null;
+  }
+  // A quantity with an SI prefix, as a value in the base unit: "1.2 kPa",
+  // "0.13 nm", "360 kJ", "1.7 milliohms", "2.07 x 10^2 J".
+  const SI_BASE = { M: 'm', G: 'g', S: 's', J: 'J', W: 'W', V: 'V', A: 'A', N: 'N', PA: 'Pa', HZ: 'Hz', L: 'L', MOL: 'mol', K: 'K', OHM: 'ohm', 'Ω': 'ohm',
+    F: 'F', C: 'C', T: 'T', EV: 'eV', CAL: 'cal' };
+  const SI_BASE_NAME = { METER: 'm', METRE: 'm', GRAM: 'g', SECOND: 's', JOULE: 'J', WATT: 'W', VOLT: 'V', AMP: 'A', AMPERE: 'A', NEWTON: 'N', PASCAL: 'Pa',
+    HERTZ: 'Hz', LITER: 'L', LITRE: 'L', MOLE: 'mol', KELVIN: 'K', OHM: 'ohm', FARAD: 'F', COULOMB: 'C', TESLA: 'T', ELECTRONVOLT: 'eV', CALORIE: 'cal' };
+  const SI_PREFIX_SYM = { p: 1e-12, n: 1e-9, u: 1e-6, 'μ': 1e-6, 'µ': 1e-6, m: 1e-3, c: 1e-2, k: 1e3, K: 1e3, M: 1e6, G: 1e9, T: 1e12 };
+  const SI_PREFIX_NAME = { PICO: 1e-12, NANO: 1e-9, MICRO: 1e-6, MILLI: 1e-3, CENTI: 1e-2, KILO: 1e3, MEGA: 1e6, GIGA: 1e9, TERA: 1e12 };
+  function siUnit(u) {
+    const raw = String(u).trim();
+    const up = raw.toUpperCase().replace(/\s+/g, '');
+    const nm = up.match(/^(PICO|NANO|MICRO|MILLI|CENTI|KILO|MEGA|GIGA|TERA)?-?(METER|METRE|GRAM|SECOND|JOULE|WATT|VOLT|AMPERE|AMP|NEWTON|PASCAL|HERTZ|LITER|LITRE|MOLE|KELVIN|OHM|FARAD|COULOMB|TESLA|ELECTRONVOLT|CALORIE)S?$/);
+    if (nm) return { base: SI_BASE_NAME[nm[2]], factor: nm[1] ? SI_PREFIX_NAME[nm[1]] : 1 };
+    if (/\s/.test(raw)) return null;
+    if (SI_BASE[up]) return { base: SI_BASE[up], factor: 1 };
+    const pre = SI_PREFIX_SYM[raw[0]], rest = raw.slice(1).toUpperCase();
+    if (pre && SI_BASE[rest]) return { base: SI_BASE[rest], factor: pre };
+    return null;
+  }
+  function plainNumber(t) {
+    const x = String(t).trim().replace(/[−–]/g, '-').replace(/,(?=\d{3})/g, '');
+    let m = x.match(/^([+-]?(?:\d+(?:\.\d+)?|\.\d+))\s*(?:[x×*·]|times)\s*10\s*\^\s*\(?\s*([+-]?\d+)\s*\)?$/i);
+    if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+    m = x.match(/^10\s*\^\s*\(?\s*([+-]?\d+)\s*\)?$/);
+    if (m) return Math.pow(10, parseInt(m[1], 10));
+    if (/^[+-]?(?:\d+(?:\.\d+)?|\.\d+)(?:e[+-]?\d+)?$/i.test(x)) return parseFloat(x);
+    return null;
+  }
+  function siQuantity(text) {
+    const t = String(text).trim();
+    const m = t.match(/^(.*?[\d)])\s*([A-Za-zΩμµ][A-Za-zΩμµ -]*)$/);
+    if (!m) { const v = plainNumber(t); return v == null ? null : { value: v, base: null, factor: 1 }; }
+    const v = plainNumber(m[1]);
+    const u = siUnit(m[2]);
+    if (v == null || !u) return null;
+    return { value: v * u.factor, base: u.base, factor: u.factor, raw: v };
+  }
+  const PERCENT_RE = /^(.*?\d)\s*(?:%|percent|per\s+cent)$/i;
+  // The question's words, with simple endings folded, for "does the question
+  // itself say this word?"
+  function questionWordSet(questionText) {
+    const out = new Set();
+    for (const w of tokenize(questionText || '')) {
+      out.add(w);
+      for (const end of ['S', 'ES', 'ING', 'ED', 'IC', 'AL']) if (w.length > end.length + 3 && w.endsWith(end)) out.add(w.slice(0, -end.length));
+    }
+    return out;
+  }
+  function inQuestion(w, qWords) {
+    if (qWords.has(w)) return true;
+    for (const end of ['S', 'ES', 'ING', 'ED']) if (w.length > end.length + 3 && w.endsWith(end) && qWords.has(w.slice(0, -end.length))) return true;
+    return qWords.has(w + 'S') || qWords.has(w + 'ING') || qWords.has(w + 'ES');
+  }
+  const UNIT_PREFIX = { T: 'TERA', G: 'GIGA', M: 'MEGA', K: 'KILO', C: 'CENTI', N: 'NANO', U: 'MICRO', P: 'PICO' };
+  // Is this unit (a word or symbol the player typed after a number) one the
+  // question itself names?
+  function unitAsked(w, q, qWords) {
+    if (inQuestion(w, qWords) && (unitSymbol(w) || /^(?:GIGA|MEGA|KILO|MILLI|MICRO|NANO|CENTI|TERA|PICO)[A-Z]+$/.test(w) || /^(?:HOURS?|MINUTES?|SECONDS?|DAYS?|YEARS?|GRAMS?|LITERS?|METERS?|MOLES?)$/.test(w))) return true;
+    const Q = String(q || '').toUpperCase();
+    if (/^(?:H|HR|HRS)$/.test(w)) return /\bHOURS?\b/.test(Q);
+    if (/^(?:MIN|MINS)$/.test(w)) return /\bMINUTES?\b/.test(Q);
+    if (/^(?:S|SEC|SECS)$/.test(w)) return /\bSECONDS?\b/.test(Q);
+    const named = (sym) => UNIT_NAMES.filter(([, s2]) => s2 === sym).some(([n]) => new RegExp('\\b(?:' + n + ')\\b').test(Q));
+    const sym = unitSymbol(w) || w;
+    if (named(sym)) return true;
+    // a prefixed symbol: "GJ" for "gigajoules"
+    if (w.length >= 2 && UNIT_PREFIX[w[0]]) {
+      return UNIT_NAMES.filter(([, s2]) => s2 === w.slice(1)).some(([n]) => new RegExp('\\b' + UNIT_PREFIX[w[0]] + '(?:' + n + ')\\b').test(Q));
+    }
+    return false;
+  }
+  const PERSON_ASKED_RE = /\b(?:scientist|physicist|chemist|biologist|astronomer|mathematician|geologist|naturalist|engineer|inventor|botanist|physician|astrophysicist|geneticist|zoologist|microbiologist|paleontologist|meteorologist|cosmologist|philosopher|monk|researcher|nobel\s+laureate)s?\b|^\s*who\b|\bwho\s+(?:was|is|first|discovered|invented|proposed|developed|formulated|coined|introduced|showed|demonstrated|published|won|received)\b|\bby\s+whom\b|\bnamed\s+(?:after|for)\s+(?:what|which|whom)\b/i;
+  function secondChance(question, userInput) {
+    const a = question.answer;
+    const typed = String(userInput || '').trim();
+    if (!typed || !a || !a.text) return null;
+    const q = question.question || '';
+    const keys = [a.text, ...(a.accept || [])].filter((k) => k && !isNote(k));
+    const RIGHT = { correct: true, matched: 'lenient', rejected: false };
+    const CLOSE = { correct: false, matched: null, rejected: false, close: true };
+    const withKeys = (fn, extra) => ({ ...question, answer: { ...a, text: fn(a.text), accept: [...(a.accept || []).map((x) => (isNote(x) ? x : fn(x))), ...(extra || [])] } });
+    const same = (x) => x;
+    // grade a rewritten answer; null when it changes nothing
+    const tries = [];
+    const attempt = (t2, q2, verdict) => { tries.push([t2, q2, verdict || RIGHT]); };
+
+    // "none of them", "none are true" for NONE; a bare 0 is Close
+    if (keys.some((k) => NONE_KEY_RE.test(normalize(withoutEndNote(k))))) {
+      if (NONE_TYPED_RE.test(typed)) return RIGHT;
+      if (/^(?:0|zero)$/i.test(typed)) return CLOSE;
+    }
+
+    // trailing zeros and a currency sign: "1.5" for "1.50 L", "100,000" for
+    // "$100,000.00" (Close when the question asks for a precision)
+    {
+      const t2 = trimZeros(typed);
+      if (t2 !== typed || keys.some((k) => trimZeros(k) !== k)) attempt(t2, withKeys(trimZeros), SIGFIG_RE.test(q) ? CLOSE : RIGHT);
+    }
+
+    // a constant of integration, given or left out
+    if (/\bintegra|\bantiderivative/i.test(q)) {
+      const strip = (x) => String(x).replace(/\s*\+\s*(?:c|k|constant)\s*$/i, '');
+      // (given where the key has none it is right; left out where the key has one, Close)
+      if (strip(typed) !== typed) attempt(strip(typed), withKeys(strip));
+      else if (keys.some((k) => strip(k) !== k) && !/(^|[^A-Za-z])[ck]($|[^A-Za-z])/i.test(typed)) attempt(typed, withKeys(strip), CLOSE);
+    }
+
+    // "f(x) = sin x" answered "sin x"; "x^2 - 6x + 13 = 0" answered without "= 0"
+    {
+      const extra = [];
+      for (const k of keys) {
+        let m = String(k).match(/^\s*(?:[A-Za-z]'{0,2}\s*\(\s*[A-Za-z]\s*\)|d[a-z]\s*\/\s*d[a-z]|[a-z]'{1,2})\s*=\s*([^=]+)$/);
+        if (m) extra.push(m[1].trim());
+        m = String(k).match(/^([^=]*[+\-−–][^=]*?)\s*=\s*0\s*$/);
+        if (m && !/=/.test(typed) && /\bequation\b/i.test(q)) extra.push(m[1].trim());
+      }
+      if (extra.length) attempt(typed, withKeys(same, extra));
+    }
+
+    // a number with a unit the question names, "units", or the thing counted
+    // ("9 times" on "how many times …"), for a key that is the bare number
+    const numericKeys = keys.map((k) => (SPELLED_VALUE[normalize(k)] != null ? String(SPELLED_VALUE[normalize(k)]) : k)).filter((k) => !/[A-Za-z]/.test(k) && /\d/.test(k));
+    if (numericKeys.length && keys.every((k) => !/[A-Za-z]/.test(k) || SPELLED_VALUE[normalize(k)] != null || numericKeys.length)) {
+      const numQ = { ...question, answer: { ...a, text: numericKeys[0], accept: numericKeys.slice(1) } };
+      const words = typed.split(/\s+/);
+      for (let n = 1; n <= 2 && n < words.length; n++) {
+        const head = words.slice(0, -n).join(' '), tail = words.slice(-n).map((w) => w.toUpperCase());
+        if (!/\d/.test(head) || tail.some((w) => !/^[A-Z]+$/.test(w))) continue;
+        const qWords = questionWordSet(q);
+        const counted = new Set();
+        const re = /\bhow\s+many\s+((?:[A-Za-z'’-]+\s+){0,3}[A-Za-z'’-]+)/gi;
+        let m;
+        while ((m = re.exec(q))) tokenize(m[1]).forEach((w) => { counted.add(w); counted.add(w.replace(/S$/, '')); counted.add(w + 'S'); });
+        const ok = tail.every((w) => /^(?:UNITS?|SQUARE|CUBIC|SQUARED|CUBED)$/.test(w))
+          || tail.every((w) => counted.has(w))
+          || tail.every((w) => unitAsked(w, q, qWords));
+        if (ok) attempt(head, numQ);
+      }
+      // "6h", "14V": a unit symbol stuck to the number
+      const glued = typed.match(/^([+\-−–]?[\d.,]+)([A-Za-z]{1,3})$/);
+      if (glued && unitAsked(glued[2].toUpperCase(), q, questionWordSet(q))) attempt(glued[1], numQ);
+    }
+    // small stand-ins: "x 10^" for "× 10^", "pi squared", a ratio as "11:10"
+    {
+      let t2 = typed.replace(/\s+x\s+(?=10\s*\^)/i, ' × ').replace(/(\S)\s+squared\b/gi, '$1^2').replace(/(\S)\s+cubed\b/gi, '$1^3');
+      if (/\bratios?\b|\bodds\b/i.test(q)) t2 = t2.replace(/^(\d+)\s*(?::|\bto\b)\s*(\d+)$/i, '$1/$2');
+      if (t2 !== typed) attempt(t2, question);
+    }
+
+    // a unit after an expression: "sqrt(k)/7" for "(√k / 7) HERTZ"
+    {
+      const extra = [];
+      let t2 = typed;
+      for (const k of keys) {
+        const m = String(k).trim().match(/^(.*[^A-Za-z\s*\/^·+\-−–=])\s*([A-Za-zΩ°]+(?:\s+PER\s+[A-Za-z]+)?)$/i);
+        if (!m || !/[√π()^]|sqrt|pi/i.test(m[1])) continue;
+        const sym = unitSymbol(m[2].toUpperCase());
+        if (!sym) continue;
+        let body = m[1].trim();
+        if (/^\(.*\)$/.test(body) && !/\).*\(/.test(body.slice(1, -1))) body = body.slice(1, -1).trim();
+        extra.push(body);
+        const tm = typed.match(/^(.*[^A-Za-z\s])\s*([A-Za-zΩ°]+)$/);
+        if (tm && unitSymbol(tm[2].toUpperCase()) === sym) t2 = tm[1].trim();
+      }
+      if (extra.length) attempt(t2, withKeys(same, extra));
+    }
+
+    // one quantity with another SI prefix or in scientific notation: "1.2 kPa"
+    // for "1200" on a question in pascals, "0.025 kg" for "25 GRAMS",
+    // "360000 joules" for "360 KJ"
+    {
+      const tq = siQuantity(typed);
+      if (tq && !SIGFIG_RE.test(q)) {
+        const eq = (x, y) => Math.abs(x - y) <= 1e-9 * Math.max(Math.abs(x), Math.abs(y)) && (x !== 0 || y === 0);
+        for (const k of keys) {
+          const kq = siQuantity(k);
+          if (!kq) continue;
+          if (tq.base && kq.base === tq.base && eq(tq.value, kq.value) && (tq.factor !== kq.factor || String(tq.raw) !== String(kq.raw))) return RIGHT;
+          if (tq.base && !kq.base && tq.factor !== 1) {
+            // the unit the question asks in
+            const Q = String(q);
+            const re = /([A-Za-zΩμµ]+)/g;
+            let m;
+            while ((m = re.exec(Q))) {
+              const u = m[1].length >= 4 ? siUnit(m[1]) : null;
+              if (u && u.base === tq.base && eq(tq.value, kq.value * u.factor)) return RIGHT;
+            }
+          }
+          if (!tq.base && !kq.base && eq(tq.value, kq.value) && /\^|e/i.test(typed + k) && trimZeros(typed) !== trimZeros(k)) return RIGHT;
+        }
+      }
+    }
+
+    // percent, fraction and decimal of one value
+    {
+      const tp = typed.match(PERCENT_RE);
+      const tv = tp ? numberValue(tp[1]) : numberValue(typed);
+      if (tv != null) {
+        for (const k of keys) {
+          const kp = String(k).trim().match(PERCENT_RE);
+          const kv = kp ? numberValue(kp[1]) : numberValue(k);
+          if (kv == null) continue;
+          const eq = (x, y) => Math.abs(x - y) <= 1e-9 * Math.max(1, Math.abs(y));
+          const asksPercent = /\bpercent|%/i.test(q);
+          if (tp && !kp && !asksPercent && kv > 0 && kv <= 1 && eq(tv / 100, kv)) {
+            return /\b(?:as\s+a|in)\s+(?:reduced\s+|simplest\s+|common\s+)?(?:fraction|decimal)|\bwhat\s+fraction\b/i.test(q) ? CLOSE : RIGHT;
+          }
+          if (!tp && tv > 0 && tv <= 1 && (kp || asksPercent) && kv > 1 && eq(tv * 100, kv)) return asksPercent ? CLOSE : RIGHT;
+        }
+      }
+    }
+
+    // a fraction not in lowest terms is Close
+    {
+      const f = typed.match(/^([+\-−–]?)\s*(\d+)\s*\/\s*(\d+)$/);
+      if (f && +f[3] !== 0 && gcd(BigInt(f[2]), BigInt(f[3])) !== 1n) {
+        const tv = numberValue(typed);
+        if (keys.some((k) => { const kv = numberValue(k); return kv != null && Math.abs(kv - tv) < 1e-12; })) return CLOSE;
+      }
+    }
+
+    // a hyphen the key doesn't have: "counter-current" for COUNTERCURRENT
+    if (/[A-Za-z]-[A-Za-z]/.test(typed) && /^[A-Za-z' -]+$/.test(typed)) {
+      attempt(typed.replace(/([A-Za-z])-(?=[A-Za-z])/g, '$1'), question);
+    }
+
+    // signs said or placed another way: "negative one", "1-" for a charge,
+    // "2" for "+2"
+    {
+      const m = typed.match(/^(negative|minus|positive|plus)\s+([a-z]+)$/i);
+      if (m && SPELLED_VALUE[m[2].toUpperCase()] != null) attempt((/^(?:negative|minus)$/i.test(m[1]) ? '-' : '+') + SPELLED_VALUE[m[2].toUpperCase()], question);
+      const tail = typed.match(/^(\d+(?:\.\d+)?)\s*([+\-−])$/);
+      if (tail && /\bcharges?\b|\boxidation\b|\bions?\b|\bvalenc/i.test(q)) attempt(tail[2] + tail[1], question);
+      if (/^\d/.test(typed) && keys.some((k) => /^\s*\+\s*\d/.test(k))) attempt('+' + typed, question);
+      const sci = typed.match(/^1(?:\.0+)?\s*(?:e|(?:x|×|\*)\s*10\s*\^)\s*\(?([+\-−]?\d+)\)?$/i);
+      if (sci) attempt('10^' + sci[1], question);
+    }
+
+    // the abbreviation a key gives in brackets: "RFID" for "Radio Frequency
+    // Identification Device (RFID)"
+    for (const k of keys) {
+      const m = String(k).match(/^(.+?)\s*\(([A-Za-z]{2,7})\)\s*$/);
+      if (!m || normalize(typed) !== m[2].toUpperCase()) continue;
+      const initials = m[1].split(/[\s-]+/).filter(Boolean).map((w) => w[0].toUpperCase()).join('');
+      if (initials.startsWith(m[2].toUpperCase()) || m[2] === m[2].toUpperCase()) return RIGHT;
+    }
+
+    // formulas and symbols for names, or names for formulas, also in a list
+    {
+      const t2 = formulasToNames(typed);
+      const keyChanged = keys.some((k) => formulasToNames(k).changed);
+      if (t2.changed || keyChanged) {
+        attempt(t2.text, withKeys((k) => formulasToNames(k).text), !t2.changed && /\b(?:formula|symbol)s?\b/i.test(q) ? CLOSE : RIGHT);
+      }
+    }
+
+    // a person by last name
+    if (PERSON_ASKED_RE.test(q) && !/\b(?:full|first|given)\s+name\b/i.test(q) && /^[A-Za-z'’.-]+$/.test(typed) && typed.length >= 4) {
+      for (const k of keys) {
+        const w = String(k).trim().split(/\s+/);
+        if (w.length < 2 || w.length > 4 || !w.every((x) => /^[A-Za-z'’.-]+$/.test(x))) continue;
+        if (answerParts(k) || listItems(k)) continue;
+        if (normEqual(typed, w[w.length - 1]) && !inQuestion(normalize(w[w.length - 1]), questionWordSet(q))) return RIGHT;
+      }
+    }
+
+    // words the question itself supplies, added to the key or left off its end
+    if (!isMathAnswer(typed) && !/\d/.test(typed)) {
+      const qWords = questionWordSet(q);
+      const tt = tokenize(typed);
+      const plain = (w) => w.length >= 3 && !/\d/.test(w) && !CHEMICAL_CLASS_RE.test(w) && !NEGATORS.has(w) && inQuestion(w, qWords);
+      // what the question asks by, and what that is "of": "law" and
+      // "thermodynamics" in "Which law of thermodynamics …"
+      const kinds = new Set(askedKindWords(q));
+      {
+        const qt = normalize(q).split(' ');
+        qt.forEach((w, i) => {
+          if (!kinds.has(w) || qt[i + 1] !== 'OF') return;
+          let j = i + 2;
+          while (j < qt.length && /^(?:THE|A|AN)$/.test(qt[j])) j++;
+          if (qt[j] && qt[j].length >= 4) kinds.add('OF:' + qt[j]);
+        });
+      }
+      const fold = (w) => [w, w + 'S', w + 'ING', w.replace(/S$/, ''), w.replace(/ING$/, ''), w.replace(/ES$/, '')];
+      const asked = (w) => w.length >= 3 && !CHEMICAL_CLASS_RE.test(w) && fold(w).some((x) => kinds.has(x) || kinds.has('OF:' + x));
+      const listQuestion = !!detectItemCount(q) || /,|;|\band\b/i.test(typed);
+      for (const k of keys) {
+        if (isMathAnswer(k) || /\d/.test(k) || answerParts(k) || listItems(k)) continue;
+        const kt = tokenize(k);
+        if (!kt.length || !tt.length || kt.length === tt.length) continue;
+        if (tt.length > kt.length && tt.length - kt.length <= 3) {
+          // the key with more around it
+          const nk = kt.join(' ');
+          for (let i = 0; i + kt.length <= tt.length; i++) {
+            if (tt.slice(i, i + kt.length).join(' ') !== nk) continue;
+            const extras = [...tt.slice(0, i), ...tt.slice(i + kt.length)];
+            const near = (w) => kt.some((x) => x !== w && x.length >= 4 && w.length >= 4 && levenshtein(x, w) <= 2);
+            if (!listQuestion && extras.every((w) => asked(w) && !near(w)) && kt.some((w) => w.length >= 3)) return RIGHT;
+          }
+        } else if (kt.length > tt.length && kt.length - tt.length <= 3) {
+          // the key without its last words
+          const head = kt.slice(0, tt.length), dropped = kt.slice(tt.length);
+          if (listQuestion || !dropped.every(plain)) continue;
+          const solid = head.some((w) => w.length >= 4) || dropped.every((w) => kinds.has(w));
+          if (solid && (head.join(' ') === tt.join(' ') || (head.some((w) => w.length >= 4) && lenientWordMatch(tt.join(' '), head.join(' ')) === 'exact'))) return RIGHT;
+        }
+      }
+    }
+
+    for (const [t2, q2, verdict] of tries) {
+      if (t2 === typed && q2 === question) continue;
+      const r = checkAnswerCore(q2, t2);
+      if (r.rejected) return null;
+      if (r.correct) return verdict;
+    }
+    return null;
+  }
+  function checkAnswer(question, userInput) {
+    const first = checkAnswerCore(question, userInput);
+    if (first.correct || first.empty || !question || !question.answer || question.format === 'MC') return first;
+    if (String(userInput || '').length > MAX_ANSWER_LENGTH) return first;
+    if (first.rejected) {
+      // "2+" for a key of "+2" (where a bare "2" is refused)
+      const tail = String(userInput || '').trim().match(/^(\d+(?:\.\d+)?)\s*([+\-−])$/);
+      if (!tail) return first;
+      const again = checkAnswerCore(question, tail[2] + tail[1]);
+      return again.correct ? again : first;
+    }
+    const second = secondChance(question, userInput);
+    if (!second) return first;
+    // (a Close from the first look isn't lowered by the second)
+    return second.correct || !first.close ? second : first;
   }
   // Longer than any real answer: not graded (a huge paste would hold up the
   // grader, and in Multiplayer the coordinator grades everyone's answers).
@@ -3140,7 +3594,8 @@
     let result = checkWithAskedUnits(question, userInput, checkAnswerInner(question, userInput));
     if (question && question.answer && question.format !== 'MC') {
       const keys = [question.answer.text, ...(question.answer.accept || [])].filter(Boolean);
-      if (result.correct && keys.some((k) => tupleParts(k)) && keys.every((k) => bracketConflict(userInput, k, question.question))) {
+      const tupleKeys = keys.filter((k) => tupleParts(k));
+      if (result.correct && tupleKeys.length && /[()[\]]/.test(String(userInput || '')) && tupleKeys.every((k) => bracketConflict(userInput, k, question.question))) {
         return { correct: false, matched: null, rejected: false };
       }
       // (equal by value or form, so the symbol checks below don't apply)
