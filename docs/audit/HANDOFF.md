@@ -1,167 +1,87 @@
-# Handoff: check every answer key in the bank with reader subagents
+# Handoff: the full review (every question read twice by subagents)
 
-You are taking over a job on `UnweidlyKhan349/sbreader`, a static Science Bowl practice site. The bank holds about 102,000 questions in `data/bank/`. The job is to have **every question read once by a subagent that answers it independently**, then fix or remove the ones whose key or text is wrong. About 19,600 are done; about 82,000 remain. The owner has asked for all of them and has approved using subagents for this.
+The owner asked for every question's text, key and grading to be reviewed with subagents, keeping in mind a player who types an answer and a moderator who judges it. This file is the procedure and the state. Read it all before continuing.
 
-Read this whole file before starting. Everything you need is in the repo; nothing from the previous session's scratch space survives.
+## What the review does
 
-## Where things stand
+Each chunk of 300 questions goes through two readers:
 
-Run this first. It is the source of truth for what is left:
+1. **Reviewer** (`docs/audit/CHECKER-INSTRUCTIONS.md`): answers every question itself, flags wrong keys, unusable questions and text errors (`a`, `rm`, `q` lines), and for short answers writes what a player would type that a moderator would accept (`alt`) and near misses a moderator would refuse (`not`).
+2. **Verifier** (`docs/audit/VERIFIER-INSTRUCTIONS.md`): a second, independent opinion on the reviewer's findings, on the `alt` answers the grader refuses, and on the `not` answers the grader accepts.
 
-```bash
-node tools/keycheck.js status
-```
+Only what both readers agree on is applied:
 
-At handoff it printed:
+- a finding both make the same way is applied;
+- when both say a question is wrong but disagree on the fix, the question is removed;
+- a finding the verifier drops is not applied;
+- an `alt` the verifier confirms becomes an accepted alternate (`ac`); a `not` it confirms goes on the reject list (`rj`); a wrong accept entry is removed (`rmac`).
 
-| Group | What it is | Questions | Checked |
-|---|---|---|---|
-| `school` | Mira Loma, Stuyvesant, Tycho, Evan Zhong | 18,108 | all |
-| `team` | tournaments written by teams | 48,978 | 939 (a sample) |
-| `official` | DOE sets (`nsb-*`, Science Bowl Subject Sets) | 28,297 | 557 (a sample) |
-| `practice` | the other practice sets | 4,793 | 0 |
-| `other` | Ocean Sciences Bowl, Chemistry Bowl, Biology Bowl, Math Bowl | 2,195 | 0 |
+The `alt` answers are also how grader gaps are found: a kind of answer refused again and again is fixed in `js/answer-check.js` (see "A second look" in the README's grading section), not accept by accept.
 
-Checked ids live in `docs/audit/checked-ids.txt`. Visual questions (about 570) are skipped: a subagent can't see the figure.
+## State
 
-What the earlier passes found, so you know what to expect:
+`node tools/keycheck.js status` shows what is checked (`docs/audit/checked-ids.txt`). The earlier key-only check's list is kept as `checked-ids-keycheck-2026-11.txt`; the full review starts again from zero because it checks more.
 
-- School-team sets: 16% of computational math, physics and chemistry questions needed a fix; 4.9% of the rest.
-- A hand-verified random sample of 1,500 tournament questions: 1.9% had a confirmed error (2.5% team-written, 0.7% official). Of 35 flags, 28 were right, 1 was wrong, 6 were judgment calls, and one right flag proposed the wrong replacement answer.
-
-That last point drives the main rule below.
-
-## The one rule that matters
-
-**Read every finding yourself before it is applied.** In the school-team pass the findings were applied after only mechanical checks, and the owner was told some of those changes will be wrong. Do not repeat that. A subagent flag is a lead, not a verdict: about one in five should not be applied as written. For each flag, look at the question and decide one of:
-
-- apply as proposed,
-- apply with a different answer (work it out yourself),
-- remove the question instead (no right choice, not enough given, needs a missing figure),
-- drop the flag (the key was fine, or you can't tell).
-
-When you can't tell, drop the flag. A key is changed only when the right answer is unambiguous. Where two conventions give two answers and the question doesn't say which, remove the question rather than pick one.
-
-This reading is the owner's quality bar for this job; it is the part subagents can't do for you. Expect roughly 1,500 flags in total across the remaining groups.
-
-## Order of work
-
-1. `practice` (16 chunks). Never checked, user-written, likely the highest error rate left.
-2. `other` (8 chunks).
-3. `team` (about 161 chunks). The bulk of the errors.
-4. `official` (about 93 chunks). Lowest rate; many flags will be typos or dated facts.
-
-Finish and merge one group before starting the next, so a lost session costs at most one group.
-
-## Procedure for one group
-
-Use your session's scratchpad directory for `<dir>`; one directory per group.
-
-**1. Make the chunks**
+Chunks are cut once, in this order, 300 questions each: practice (1–16), other bowls (17–24), team-written tournaments (25–186), official DOE sets (187–281), school-team sets (282–342). **Do not re-cut the chunks mid-review**: cut them all at the start (`chunks` skips checked ids, so re-cutting renumbers everything).
 
 ```bash
-node tools/keycheck.js chunks <dir> practice
+for g in practice other team official school; do node tools/keycheck.js chunks <dir> $g 300; done
 ```
 
-This writes `in_001.txt`, `in_002.txt`, … with 300 questions each, sorted by subject, skipping visual and already-checked questions.
+(`chunks` numbers files after the ones already in `<dir>`.) If the scratch directory is lost, cut again; ids already in `checked-ids.txt` are skipped, so the new chunks hold only what is left.
 
-**2. Send each chunk to a subagent**
+## One wave
 
-One subagent per chunk, type `general-purpose`, model `sonnet`, run in the background. Use exactly this prompt, filling in the three paths (use absolute paths):
+Reviewer agents: one per chunk, `general-purpose`, model `sonnet`, in the background, at most 20 at once. Prompt:
 
-> Read the instructions at `<repo>/docs/audit/CHECKER-INSTRUCTIONS.md` and follow them exactly. Input file: `<dir>/in_NNN.txt` (300 lines). Output file: `<dir>/out_NNN.txt`. Do not modify any other file and do not touch the git repository.
+> Read the instructions at `<repo>/docs/audit/CHECKER-INSTRUCTIONS.md` and follow them exactly. Input file: `<dir>/in_NNN.txt` (300 lines). Output file: `<dir>/out_NNN.txt`. Do not modify any other file and do not touch the git repository. Your final reply must be only the word DONE.
 
-For `official` chunks add: "These are official DOE questions; expect well under 1% errors and flag only what you are sure of."
-
-Limits you will hit:
-
-- **At most 20 subagents run at once.** Launch 20, then top up as they report back.
-- **Usage limit.** A wave of 20 Sonnet chunks uses most of a five-hour usage window. When the limit hits, running subagents fail with a rate-limit error. Their `out_NNN.txt` may or may not exist. After the reset, relaunch only the chunks with no `out` file. Do not use Opus for this: it exhausts the window after a few chunks, and Sonnet's findings were good.
-- A chunk takes one to two minutes. A subagent that finishes writes its file and replies with "300 lines read, N findings".
-
-**3. Read the findings**
+Then:
 
 ```bash
-node tools/keycheck.js review <dir> 1 2 3
+node tools/keycheck.js verify <dir> 59 60 61
 ```
 
-This prints each finding with its reason, followed by the question, choices and current key. Read them all.
+writes `vin_NNN.txt`. Verifier agents take three chunks each (same agent type and model). Prompt:
 
-**4. Queue, then edit the queue**
+> Read the instructions at `<repo>/docs/audit/VERIFIER-INSTRUCTIONS.md` and follow them exactly. With D = `<dir>`, do this for each input file in turn, writing one output file per input file: D/vin_AAA.txt -> D/vout_AAA.txt, … Read every line of each input file. Do not modify any other file and do not touch the git repository. Your final reply must be only the word DONE.
+
+Then:
 
 ```bash
-node tools/keycheck.js queue <dir> 1 2 3
+node tools/keycheck.js collect <dir> 59 60 61
 ```
-
-This validates each finding (the id exists, a new multiple-choice key is one of the four choices and differs from the current one, a text repair matches the question exactly) and appends the survivors to `<dir>/fixes.txt`. Then **edit `fixes.txt` by hand** to reflect your decisions from step 3: delete the lines you rejected, change the ones where you have a better answer, add `rm` lines where removal is right.
-
-Line formats:
-
-```
-12345|rm|
-12345|a|NEW ANSWER              (short answer: the new key text)
-12345|a|X                       (multiple choice: the letter W, X, Y or Z)
-12345|q|["exact old text","new text"]
-12345|ac|ANOTHER ACCEPTED ANSWER
-```
-
-Changing a short-answer key drops its old accept list, since the alternates belonged to the old key. Add any that still apply with `ac` lines.
-
-**5. Apply**
 
 ```bash
 node tools/keycheck.js apply <dir>
 ```
 
-This unpacks the bank, applies the lines not yet applied, repacks, fixes `meta.json` totals and the subject files, drops star aliases that point at removed questions, removes any practice-set question that became a word-for-word copy (adding an alias to the kept one), refreshes counts and asset stamps, and runs `npm test`. It must end with `npm test: pass`. If it fails, run `npm test`, read the failure and fix it before going on.
-
-**6. Mark the chunks checked**
-
 ```bash
-node tools/keycheck.js done <dir> 1 2 3
+node tools/keycheck.js done <dir> 59 60 61
 ```
 
-Only for chunks whose findings you have fully processed.
+`collect` appends the agreed lines to `<dir>/fixes.txt` and writes disagreements to `<dir>/disputed.txt`; read the `VERIFIER` and `NEW` lines there (few) and add a line to `fixes.txt` by hand where one is clearly right. `apply` changes the bank, syncs `meta.json` and the subject files, and runs `npm test`.
 
-**7. Keep the findings**
+After `apply`, two tests often need attention:
 
-Append the group's raw findings to the audit file so any change can be traced:
+- **Cross-accept snapshot** (`tests/grader-cross-accepts.json`): removing questions shifts which questions the test samples, so new pairs appear. Run `node tools/grader-cross-check.js`, read the new pairs (they should be the same answer said another way, such as `1` for `1 ONLY`), then `node tools/grader-cross-check.js --write`.
+- **Sign-flip test**: a new accept written with other operators can let a flipped key pass (`4*pi*epsilon0*G` beside `G/k`). Remove that accept with an `id|rmac|…` line and apply again.
 
-```bash
-cat <dir>/out_*.txt >> docs/audit/key-check-<group>-<yyyy-mm>.txt
-```
+Keep the trail: append the wave's `out_*.txt`, `vout_*.txt` and `fixes.txt` to the `docs/audit/full-review-2026-11-*.txt` files, then commit and push. A stop hook refuses to end a turn with unpushed work.
 
-**8. Commit and push** after every wave of chunks, not just at the end of a group. A stop hook refuses to end a turn with uncommitted or unpushed work.
+Limits: about 15–20 reviewer chunks fit in one five-hour usage window. An agent that hits the limit has usually written its file already; relaunch only chunks with no `out` file. Subagents cannot launch subagents.
 
-## When a group is finished
+## When all chunks are done
 
-1. Update the docs. All four are required; the counts must agree with the bank:
-   - `README.md` line 15, the headline: total questions, tossups and bonuses, short answer and multiple choice, and the count of links that open at a page. Get the numbers from the bank, not by subtraction.
-   - `docs/tournaments.md`: per-set counts and the total row, from `data/meta.json`.
-   - `docs/data-history.md`: add a dated section before "Rule history taken out of the README". State how many questions were read, how many flags came back, how many you applied, changed, removed or dropped, the error rate, and a handful of typical corrections with ids. Say plainly what was and wasn't verified. Follow the tone of the "Error rate of the tournament sets" section.
-   - `CHANGELOG.md`: one line.
-2. Run both test suites:
+1. Update `README.md` (headline counts, subject table, grading section), `docs/tournaments.md`, `docs/data-history.md` (a dated section: questions read, findings, agreed, removed, accepts added, sample checks, what was not verified), `CHANGELOG.md`.
+2. `npm test` and `node --test --test-concurrency=4 tests/e2e/*.e2e.js`.
+3. Merge `origin/main` normally (never force-push; other sessions land changes there; `CHANGELOG.md` conflicts keep both sides, then re-run `python3 tools/keycheck_sync.py`, `node tools/meta-counts.js`, `node tools/stamp-assets.js`).
+4. Tell the owner which grading policies changed (listed under "A second look" in the README) and what was and wasn't verified. Do not open a pull request unless asked.
 
-```bash
-npm test
-```
+## Repo rules
 
-```bash
-node --test --test-concurrency=4 tests/e2e/*.e2e.js
-```
-
-   The browser suite takes several minutes; one multiplayer test is occasionally flaky under load, so re-run before concluding it is broken.
-3. Commit, push, and report to the owner. **Do not open or merge a pull request unless the owner asks.** They usually ask for "create pr and merge" once a piece is done.
-
-## Repo rules you must follow
-
-- Work on the branch you are given; push only there. If its pull request has already merged, restart the branch from `origin/main` first (`git fetch origin main && git checkout -B <branch> origin/main`). Before opening a PR, merge `origin/main` in and re-run the tests: other sessions land changes on `main` (the last merge had a `CHANGELOG.md` conflict; keep both sides).
-- Commit messages end with the attribution lines your session gives you. No model names in commits, PRs or code.
-- Never edit files in `data/bank/` by hand. Go through `tools/keycheck.js apply`, or `tools/bank.js unpack` / `pack` for anything it doesn't cover.
-- `data/meta.json` is written in Python `json.dumps(ensure_ascii=False)` form. `tools/keycheck_sync.py` preserves that; don't rewrite the file with `JSON.stringify`.
-- The left-out rules in the README's "Inclusion and duplicate policy" apply to every question you touch. A flagged question that is place-name geography, minor history trivia, a dated fact, or (in practice sets) not science is removed, not repaired.
-- The owner has said twice not to check every question personally and then asked for subagents to do it. Reading the flagged few percent is expected; reading unflagged questions is not.
-
-## What to tell the owner at the end
-
-Lead with what is now true: every non-visual question has been read once, and how many were fixed. Then give, per group, questions read, flags, and what you did with them. State the limits honestly: one reader misses some errors, visual questions were not checked, and the school-team findings from the earlier pass were applied without a hand review (the list is `docs/audit/school-team-key-check-2026-11.txt`; a second-opinion pass over those 759 is a sensible follow-up if the owner wants it).
+- Work on the given branch only. No model names in commits, PRs or code.
+- Never edit `data/bank/` by hand; use `tools/keycheck.js apply` or `tools/bank.js unpack`/`pack`.
+- `data/meta.json` stays in Python `json.dumps(ensure_ascii=False)` form (`tools/keycheck_sync.py` keeps it).
+- The README's inclusion rules apply to anything touched: place-name geography, minor history, dated facts and (in practice sets) non-science are removed, not repaired.
+- Visual questions are skipped: a subagent can't see the figure.
