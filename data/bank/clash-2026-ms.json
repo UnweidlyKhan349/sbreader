@@ -57,7 +57,7 @@
 {"rl":"CLASH RR 1","r":1,"u":"https://docs.google.com/document/d/1-n2gLUKr60sd1n3buyeBsun3BXf2qOIW-F3g9on55EQ/edit","q":[
 {"i":46432,"s":"math","f":"SA","qt":"bonus","n":7,"q":"Identify all of the following 3 triangle theorems that maintain similarity but not congruency: 1) Angle-angle-angle 2) Angle-side-side 3) Side-angle-side","a":{"t":"1 only"}},
 {"i":46433,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"What most common monosaccharide serves as the reactant for cellular respiration?","a":{"t":"Glucose"}},
-{"i":46434,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"What cycle, responsible for the generation of glyceraldehyde 3-phosphate from carbon dioxide, occurs in the stroma of chloroplasts?","a":{"t":"Calvin cycle"}},
+{"i":46434,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"What cycle, responsible for the generation of glyceraldehyde 3-phosphate from carbon dioxide, occurs in the stroma of chloroplasts?","a":{"t":"Calvin cycle","ac":["calvin-benson cycle","calvin benson cycle"]}},
 {"i":46435,"s":"chem","f":"MC","qt":"tossup","n":9,"q":"Which of the following foods is a homogeneous mixture?","a":{"t":"Coffee","l":"Y"},"c":{"W":"Salad","X":"Pizza","Y":"Coffee","Z":"Cookie"}},
 {"i":46436,"s":"chem","f":"MC","qt":"bonus","n":9,"q":"What is the molecular geometry of methane?","a":{"t":"Tetrahedral","l":"Y"},"c":{"W":"Linear","X":"Bent","Y":"Tetrahedral","Z":"Octahedral"}},
 {"i":46437,"s":"ess","f":"MC","qt":"tossup","n":10,"q":"At which of the following latitudes, in degrees, is there the most precipitation?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"30","Y":"60","Z":"90"}},
@@ -202,7 +202,7 @@
 {"i":46570,"s":"math","f":"SA","qt":"bonus","n":12,"q":"Let f(x) = (x-2)^2 + 5 and g(x) = √x. What is f(g(4)) - g(f(4))?","a":{"t":"2"}}]},
 {"rl":"CLASH SW 1","r":4,"u":"https://docs.google.com/document/d/1y8bExYgLT78DcDrVbRxcaS3lbgHJF0qFD8GPO9dEwkA/edit","q":[
 {"i":46571,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"During the cell cycle, what enzymes form complexes with certain proteins of fluctuating concentration in order to progress the cell cycle?","a":{"t":"Cyclin dependent kinases","ac":["CDKs"]}},
-{"i":46572,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"The presence of retroviruses and their ability to convert RNA into DNA violates what theory dictates the directionality of the flow of genetic information in cells?","a":{"t":"Central dogma"}},
+{"i":46572,"s":"bio","f":"SA","qt":"bonus","n":13,"q":"The presence of retroviruses and their ability to convert RNA into DNA violates what theory dictates the directionality of the flow of genetic information in cells?","a":{"t":"Central dogma","ac":["central dogma of molecular biology"]}},
 {"i":46573,"s":"chem","f":"SA","qt":"tossup","n":14,"q":"What is the oxidation state of manganese in potassium permanganate, with chemical formula KMnO4?","a":{"t":"+7"}},
 {"i":46574,"s":"chem","f":"MC","qt":"bonus","n":14,"q":"Which of the following is closest to the bond angle, in degrees, for an ammonia molecule?","a":{"t":"107","l":"X"},"c":{"W":"90","X":"107","Y":"109.5","Z":"120"}},
 {"i":46575,"s":"ess","f":"SA","qt":"tossup","n":15,"q":"Order the following 3 gases by increasing relative abundance in Earth's atmosphere: 1) Argon 2) Nitrogen 3) Oxygen","a":{"t":"1, 3, 2"}},
@@ -220,7 +220,7 @@
 {"i":46585,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"A vertical intrusion of igneous rock into horizontal layers of sedimentary rock is most likely which of the following structures?","a":{"t":"Dike","l":"X"},"c":{"W":"Sill","X":"Dike","Y":"Laccolith","Z":"Batholith"}},
 {"i":46586,"s":"ess","f":"MC","qt":"bonus","n":20,"q":"Which of the following soil types has the highest groundwater volumetric flow rate?","a":{"t":"Sandy loam","l":"W"},"c":{"W":"Sandy loam","X":"Silty loam","Y":"Sandy clay","Z":"Silty clay"}},
 {"i":46587,"s":"bio","f":"MC","qt":"tossup","n":21,"q":"A plant located at the summit of a mountain is receiving light from the rising sun. In which of the following cardinal directions will most auxin accumulate on the plant?","a":{"t":"West","l":"X"},"c":{"W":"North","X":"West","Y":"South","Z":"East"}},
-{"i":46588,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Chelicates are named for what type of structure, commonly seen in the subphylum Chelicerata?","a":{"t":"Fang","ac":["Chelicerae"]}},
+{"i":46588,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"Chelicates are named for what type of structure, commonly seen in the subphylum Chelicerata?","a":{"t":"Fang","ac":["Chelicerae","chelicera"]}},
 {"i":46589,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"At the compensation depth, the pressure beneath mountain and normal crust are the same because of isostasy. Isostasy is an application of what physical principle?","a":{"t":"Archimedes"}}]},
 {"rl":"CLASH SW 2","r":5,"u":"https://docs.google.com/document/d/1ytKSAz-tFoyWLI7-oxux0nw24KhOk0Id9a6gV9zMGSo/edit","q":[
 {"i":46590,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Ziang is swimming at 10 meters per second. If they decelerate at 5 meters per second squared until they come to rest, what is the total distance that they swim, in meters?","a":{"t":"10"}},
@@ -229,7 +229,7 @@
 {"i":46592,"s":"math","f":"SA","qt":"tossup","n":2,"q":"At what x-coordinate does the function f(x) = 2x^2 - 8x + 6 reach a minimum?","a":{"t":"2"}}]},
 {"rl":"CLASH SW 2","r":5,"u":"https://docs.google.com/document/d/1ytKSAz-tFoyWLI7-oxux0nw24KhOk0Id9a6gV9zMGSo/edit","q":[
 {"i":46593,"s":"math","f":"MC","qt":"bonus","n":2,"q":"What is the ratio of the area of a hexagon inscribed in a circle to the area of a hexagon circumscribing that same circle?","a":{"t":"3/4","l":"Y"},"c":{"W":"1/2","X":"2/3","Y":"3/4","Z":"4/5"}},
-{"i":46594,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"In the electron transport chain, what molecule serves as the final electron acceptor?","a":{"t":"O2","ac":["Oxygen"]}},
+{"i":46594,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"In the electron transport chain, what molecule serves as the final electron acceptor?","a":{"t":"O2","ac":["Oxygen","molecular oxygen"]}},
 {"i":46595,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Both statins and HMG-CoA reductase inhibitors are used to treat high levels of what substance in the blood, which is carried by both LDL and HDL?","a":{"t":"Cholesterol"}},
 {"i":46596,"s":"chem","f":"MC","qt":"tossup","n":4,"q":"If the half-life of a certain radioactive substance is 6 hours, what percent of the original substance will there be after a day?","a":{"t":"6.25","l":"X"},"c":{"W":"3.125","X":"6.25","Y":"12.5","Z":"25"}},
 {"i":46597,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"In which of the following reaction types are the oxidation states of each element preserved?","a":{"t":"Double replacement","l":"X"},"c":{"W":"Single replacement","X":"Double replacement","Y":"Synthesis","Z":"Redox"}},
@@ -263,8 +263,8 @@
 {"rl":"CLASH SW 2","r":5,"u":"https://drive.google.com/drive/folders/1xc68i0JoH-i-KzTRVMEfFDa0BnDLhLwo","q":[
 {"i":46623,"s":"math","f":"MC","qt":"bonus","n":17,"q":"Which of the following is equivalent to e^(i*π/6)?","a":{"t":"√3/2 + i/2","l":"Y"},"c":{"W":"1/2 + i*√3/2","X":"1/2 - i*√3/2","Y":"√3/2 + i/2","Z":"√3/2 - i/2"}}]},
 {"rl":"CLASH SW 2","r":5,"u":"https://docs.google.com/document/d/1ytKSAz-tFoyWLI7-oxux0nw24KhOk0Id9a6gV9zMGSo/edit","q":[
-{"i":46624,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"To what type of codons do the tRNAs that transport release factors bind to?","a":{"t":"Stop"}},
-{"i":46625,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What is the term for the terminal bones that make up the digits of the hands and feet?","a":{"t":"Phalanges"}},
+{"i":46624,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"To what type of codons do the tRNAs that transport release factors bind to?","a":{"t":"Stop","ac":["termination codons"]}},
+{"i":46625,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What is the term for the terminal bones that make up the digits of the hands and feet?","a":{"t":"Phalanges","ac":["phalanx"]}},
 {"i":46626,"s":"chem","f":"MC","qt":"tossup","n":19,"q":"Which of the following gases has the highest root mean square velocity at 300 kelvin?","a":{"t":"H2O","l":"X"},"c":{"W":"N2","X":"H2O","Y":"Cl2","Z":"Ar"}},
 {"i":46627,"s":"chem","f":"MC","qt":"bonus","n":19,"q":"Which of the following compounds is nonpolar?","a":{"t":"Xenon tetrafluoride","l":"W"},"c":{"W":"Xenon tetrafluoride","X":"Sulfur tetrafluoride","Y":"Chlorine heptafluoride","Z":"Bromine trifluoride"}},
 {"i":46628,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"What term describes the steep slopes between 2 relatively flat regions left behind by faulting or erosion?","a":{"t":"Scarps","rj":["Lobate scarps"]}},
@@ -277,7 +277,7 @@
 {"i":46634,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"A rock is tossed off of a 20 meter high cliff at a horizontal velocity of 5 meters per second. To the nearest meter, how far does the rock travel horizontally?","a":{"t":"10"}},
 {"i":46635,"s":"math","f":"SA","qt":"tossup","n":2,"q":"Find all solutions of x that satisfy |x - 6| = 22.","a":{"t":"-16, 28"}},
 {"i":46636,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the units digit of 2^20 + 3^20 + 5^20?","a":{"t":"2"}},
-{"i":46637,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Damage to what region of the temporal lobe of the brain prevents the ability to understand language and can result in speech sounding like a \"word-salad\"?","a":{"t":"Wernicke's area"}},
+{"i":46637,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Damage to what region of the temporal lobe of the brain prevents the ability to understand language and can result in speech sounding like a \"word-salad\"?","a":{"t":"Wernicke's area","ac":["wernicke"]}},
 {"i":46638,"s":"bio","f":"MC","qt":"bonus","n":3,"q":"Which of the following signaling pathways does insulin use?","a":{"t":"Receptor tyrosine kinases","l":"X"},"c":{"W":"G-protein coupled receptors","X":"Receptor tyrosine kinases","Y":"Ligand-gated ion channels","Z":"Nuclear receptors"}},
 {"i":46639,"s":"chem","f":"MC","qt":"tossup","n":4,"q":"How many pi bonds are found in one molecule of butane?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"1","Y":"2","Z":"3"}},
 {"i":46640,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"Aragonite, a polymorph of calcite, has chemical formula CaCO3. Given that the Ksp of aragonite in pure water is approximately 5 × 10^-9 at 25 degrees Celsius, which of the following is the molar solubility of aragonite at this temperature, to two significant figures and in scientific notation?","a":{"t":"7.1 × 10^-5","l":"Z"},"c":{"W":"2.2 × 10^-4","X":"9.8 × 10^-4","Y":"3.6 × 10^-5","Z":"7.1 × 10^-5"}},
@@ -324,7 +324,7 @@
 {"i":46678,"s":"math","f":"MC","qt":"tossup","n":2,"q":"What is the slope of the line with equation 4x - 9y = 24?","a":{"t":"4/9","l":"W"},"c":{"W":"4/9","X":"-4/9","Y":"9/4","Z":"-9/4"}},
 {"i":46679,"s":"math","f":"SA","qt":"bonus","n":2,"q":"What is the minimum amount of colors required to color a 2-dimensional map with single, closed regions?","a":{"t":"4"}},
 {"i":46680,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"In Akshayland, 36% of people are homozygous for sickle-cell disease. If Akshayland has 400 people, how many people will be carriers for the sickle-cell allele?","a":{"t":"192"}},
-{"i":46681,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Simon is suffering from the horrors of APUSH. After spending 1 hour and 39 minutes on the DBQ, he has 1 minute left to frantically write an LEQ. What anterior pituitary hormone would Simon most likely have a high concentration of in his blood?","a":{"t":"Adrenocorticotropic hormone","ac":["ACTH"]}},
+{"i":46681,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"Simon is suffering from the horrors of APUSH. After spending 1 hour and 39 minutes on the DBQ, he has 1 minute left to frantically write an LEQ. What anterior pituitary hormone would Simon most likely have a high concentration of in his blood?","a":{"t":"Adrenocorticotropic hormone","ac":["ACTH","corticotropin"]}},
 {"i":46682,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"Identify all of the following 3 types of intermolecular forces that are exhibited by noble gases: 1) London dispersion forces 2) Dipole-dipole interactions 3) Hydrogen bonding","a":{"t":"1 only"}},
 {"i":46683,"s":"chem","f":"MC","qt":"bonus","n":4,"q":"A decomposition reaction has a negative change in enthalpy. Which of the following best describes the temperatures at which this reaction is spontaneous?","a":{"t":"All temperatures","l":"Y"},"c":{"W":"High temperatures","X":"Low temperatures","Y":"All temperatures","Z":"No temperatures"}},
 {"i":46684,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"Order the following 3 boundaries in our solar system by increasing distance from the Sun: 1) Gravitational sphere of influence 2) Heliopause 3) Termination shock","a":{"t":"3, 2, 1"}},
@@ -354,7 +354,7 @@
 {"i":46708,"s":"math","f":"SA","qt":"tossup","n":17,"q":"At a Science Bowl tournament, Justin the non-biker is waiting in a registration line with 240 bikers and 79 other non-bikers, making a total of 320 people in line. If all possible line arrangements are equally likely, what is the probability that Justin is positioned ahead of every single biker in the line?","a":{"t":"1/241"}},
 {"i":46709,"s":"math","f":"SA","qt":"bonus","n":17,"q":"How many 3 digit integers exist such that all of its digits are even?","a":{"t":"100"}},
 {"i":46710,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"What protein attaches amino acids to the 3 prime end of tRNA to allow for translation?","a":{"t":"Aminoacyl tRNA synthetase"}},
-{"i":46711,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What hydrophobic region, found in the endodermis of plant roots, forces incoming nutrients to take the symplast route into the vascular cylinder, effectively filtering out toxins?","a":{"t":"Casparian strip"}},
+{"i":46711,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What hydrophobic region, found in the endodermis of plant roots, forces incoming nutrients to take the symplast route into the vascular cylinder, effectively filtering out toxins?","a":{"t":"Casparian strip","ac":["casparian band"]}},
 {"i":46712,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"In the Nernst equation, what constant represents the total electric charge carried by one mole of an electron?","a":{"t":"Faraday's constant"}},
 {"i":46713,"s":"chem","f":"MC","qt":"bonus","n":19,"q":"At absolute zero, the entropy of a perfect crystal is equal to what value?","a":{"t":"0","l":"W"},"c":{"W":"0","X":"1/2","Y":"1","Z":"2"}},
 {"i":46714,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"What is the complete stellar class of the Sun?","a":{"t":"G2V","ac":["G2"]}},
@@ -381,9 +381,9 @@
 {"rl":"CLASH SW 5","r":8,"u":"https://drive.google.com/drive/folders/1xc68i0JoH-i-KzTRVMEfFDa0BnDLhLwo","q":[
 {"i":46732,"s":"math","f":"MC","qt":"bonus","n":7,"q":"What is the set of solutions to the inequality √(x - 6) < 3?","a":{"t":"[6, 15)","l":"Y"},"c":{"W":"[6, 15]","X":"(6, 15]","Y":"[6, 15)","Z":"(6, 15)"}}]},
 {"rl":"CLASH SW 5","r":8,"u":"https://docs.google.com/document/d/1CjYYH6DcQGyd2dfDHJrcZw0OhhjsuHdSqOp4nc2o6Jc/edit","q":[
-{"i":46733,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"A special characteristic of angiosperms is that they perform double fertilization. One sperm fertilizes the egg to form the zygote. The other sperm fertilizes two polar nuclei to produce what structure, which has a ploidy of 3n?","a":{"t":"Endosperm"}}]},
+{"i":46733,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"A special characteristic of angiosperms is that they perform double fertilization. One sperm fertilizes the egg to form the zygote. The other sperm fertilizes two polar nuclei to produce what structure, which has a ploidy of 3n?","a":{"t":"Endosperm","ac":["triploid endosperm"]}}]},
 {"rl":"CLASH SW 5","r":8,"u":"https://drive.google.com/drive/folders/1xc68i0JoH-i-KzTRVMEfFDa0BnDLhLwo","q":[
-{"i":46734,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"In contrast to Osteichthyes that have bony skeletons, what class of fishes includes sharks and rays and possesses skeletons made of cartilage?","a":{"t":"Chondrichthyes"}}]},
+{"i":46734,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"In contrast to Osteichthyes that have bony skeletons, what class of fishes includes sharks and rays and possesses skeletons made of cartilage?","a":{"t":"Chondrichthyes","ac":["cartilaginous fishes","chondrichthyans"]}}]},
 {"rl":"CLASH SW 5","r":8,"u":"https://docs.google.com/document/d/1CjYYH6DcQGyd2dfDHJrcZw0OhhjsuHdSqOp4nc2o6Jc/edit","q":[
 {"i":46735,"s":"chem","f":"SA","qt":"tossup","n":9,"q":"Water and ethanol form a minimum-boiling example of what special type of mixture that has a constant boiling point and stronger intermolecular forces than either of its components?","a":{"t":"Azeotrope"}},
 {"i":46736,"s":"chem","f":"SA","qt":"bonus","n":9,"q":"Azeotropes experience a deviation from what law, which states that the vapor pressure of a solution equals the mole fraction of the solvent multiplied by the vapor pressure of the pure solvent?","a":{"t":"Raoult's Law"}},
@@ -404,7 +404,7 @@
 {"i":46751,"s":"math","f":"MC","qt":"tossup","n":17,"q":"What operation on a function is defined as the exact area under the curve, forming from adding up infinite amounts of rectangles under the curve?","a":{"t":"Integral","l":"Y"},"c":{"W":"Limit","X":"Derivative","Y":"Integral","Z":"Parametric"}},
 {"i":46752,"s":"math","f":"SA","qt":"bonus","n":17,"q":"Nihar has a sequence starting from 1, 4, 5, 16, and so on, where the sequence consists of all positive integers that can be written as the sum of distinct powers of 4. Find the 7th term of this sequence.","a":{"t":"21"}},
 {"i":46753,"s":"bio","f":"SA","qt":"tossup","n":18,"q":"Order the following 3 actions of a cytotoxic T cell by chronological order: 1) CD8 receptor binds to MHC Class I 2) Release of perforins 3) Release of granzymes","a":{"t":"1, 2, 3"}},
-{"i":46754,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What is the name for the hemispheric region of slowly dividing stem cells within the root apical meristem that serves as a reservoir of cells during repairs?","a":{"t":"Quiescent center"}},
+{"i":46754,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"What is the name for the hemispheric region of slowly dividing stem cells within the root apical meristem that serves as a reservoir of cells during repairs?","a":{"t":"Quiescent center","ac":["qc","quiescent centre"]}},
 {"i":46755,"s":"chem","f":"SA","qt":"tossup","n":19,"q":"What term describes the substance produced by combining aqueous solutions of an acid or base and its conjugate base or acid, which can help stabilize changes in pH in a reaction?","a":{"t":"Buffer"}},
 {"i":46756,"s":"chem","f":"MC","qt":"bonus","n":19,"q":"Which of the following best explains what would happen to the voltage of a galvanic cell and the spontaneity of the reaction, respectively, if the contents of the cell are shifted so that the reaction quotient Q is increased:","a":{"t":"Voltage decreases, spontaneity decreases","l":"Z"},"c":{"W":"Voltage increases, spontaneity increases","X":"Voltage increases, spontaneity decreases","Y":"Voltage decreases, spontaneity increases","Z":"Voltage decreases, spontaneity decreases"}},
 {"i":46757,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"When hydrochloric acid is poured onto carbonate rocks, what phenomenon occurs, defined as the production of gas bubbles from a liquid?","a":{"t":"Effervescence"}},
@@ -459,7 +459,7 @@
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/14aNXpO2cRT0P5j7Cz6b7PKvN0IfmSosYWliVtbDl8dU/edit","q":[
 {"i":71211,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"What type of water is formed when freshwater discharged begins mixing with saltwater?","a":{"t":"Brackish"}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/1GTYMQiz4NEZUfC5IERLAQWhNQZsxAFq-s60xf3-TxSQ/edit","q":[
-{"i":71163,"s":"bio","f":"SA","qt":"tossup","n":5,"q":"What is the name for the genetic condition in which the body is not able to coagulate its own blood, leading to continuous and dangerous bleeding?","a":{"t":"Hemophilia"}}]},
+{"i":71163,"s":"bio","f":"SA","qt":"tossup","n":5,"q":"What is the name for the genetic condition in which the body is not able to coagulate its own blood, leading to continuous and dangerous bleeding?","a":{"t":"Hemophilia","ac":["haemophilia"]}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/14aNXpO2cRT0P5j7Cz6b7PKvN0IfmSosYWliVtbDl8dU/edit","q":[
 {"i":71212,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"What glacial landform refers to a lake that fills a bowl-shaped depression or valley, also known as a cirque?","a":{"t":"Tarn"}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/1GTYMQiz4NEZUfC5IERLAQWhNQZsxAFq-s60xf3-TxSQ/edit","q":[
@@ -483,11 +483,11 @@
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/14aNXpO2cRT0P5j7Cz6b7PKvN0IfmSosYWliVtbDl8dU/edit","q":[
 {"i":71217,"s":"ess","f":"SA","qt":"bonus","n":7,"q":"Binary black hole systems are detected using sensors such as LIGO because of what disturbances in spacetime?","a":{"t":"Gravitational waves"}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/1GTYMQiz4NEZUfC5IERLAQWhNQZsxAFq-s60xf3-TxSQ/edit","q":[
-{"i":71169,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"What pigment contributes the most to granting rhodophytes, or red algae, their characteristic red color?","a":{"t":"Phycoerythrin"}}]},
+{"i":71169,"s":"bio","f":"SA","qt":"tossup","n":8,"q":"What pigment contributes the most to granting rhodophytes, or red algae, their characteristic red color?","a":{"t":"Phycoerythrin","ac":["PE"]}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/14aNXpO2cRT0P5j7Cz6b7PKvN0IfmSosYWliVtbDl8dU/edit","q":[
 {"i":71218,"s":"ess","f":"SA","qt":"tossup","n":8,"q":"Because the Sun is a main-sequence star, what stellar remnant will it leave after its life cycle ends?","a":{"t":"Planetary nebula"}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/1GTYMQiz4NEZUfC5IERLAQWhNQZsxAFq-s60xf3-TxSQ/edit","q":[
-{"i":71170,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"What is the name for the overhanging ends of DNA left when restriction enzymes digest a DNA sample at a restriction site?","a":{"t":"Sticky ends"}}]},
+{"i":71170,"s":"bio","f":"SA","qt":"bonus","n":8,"q":"What is the name for the overhanging ends of DNA left when restriction enzymes digest a DNA sample at a restriction site?","a":{"t":"Sticky ends","ac":["cohesive ends"]}}]},
 {"rl":"CLASH Replacement Questions","r":null,"u":"https://docs.google.com/document/d/14aNXpO2cRT0P5j7Cz6b7PKvN0IfmSosYWliVtbDl8dU/edit","q":[
 {"i":71219,"s":"ess","f":"MC","qt":"bonus","n":8,"q":"Which of the following correctly describes the sorting of sediment in a levee:","a":{"t":"Largest sediments closer to the river","l":"W"},"c":{"W":"Largest sediments closer to the river","X":"Largest sediments further from the river","Y":"Largest sediments distributed throughout the levee","Z":"No distinguishable pattern in sorting"}},
 {"i":71220,"s":"ess","f":"SA","qt":"tossup","n":9,"q":"What karst topography structures are tall, made of soluble rock such as limestone, and left behind after surrounding rock is dissolved?","a":{"t":"Towers"}}]},

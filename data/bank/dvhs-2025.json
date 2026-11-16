@@ -1,8 +1,8 @@
 [
 {"rl":"Bio Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Bio%20Supplemental.pdf","q":[
 {"i":33057,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Students at Dougherty Valley High School are part of what Genus and Species, respectively?","a":{"t":"Homo Sapiens"},"pg":1},
-{"i":33058,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Blood is mostly made of water and proteins. What is this liquid portion of blood known as?","a":{"t":"Plasma"},"pg":1},
-{"i":33059,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Which step in aerobic cellular respiration produces the most ATP?","a":{"t":"Oxidative Phosphorylation","ac":["Electron Transport Chain","Chemiosmosis"]},"pg":2},
+{"i":33058,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Blood is mostly made of water and proteins. What is this liquid portion of blood known as?","a":{"t":"Plasma","ac":["blood plasma"]},"pg":1},
+{"i":33059,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Which step in aerobic cellular respiration produces the most ATP?","a":{"t":"Oxidative Phosphorylation","ac":["Electron Transport Chain","Chemiosmosis","oxphos"]},"pg":2},
 {"i":33061,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"What type of muscle tissue would you primarily expect to find in the heart?","a":{"t":"Cardiac Muscle"},"pg":3},
 {"i":33062,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Order the following 3 steps of PCR in order from first to last: 1) annealing 2) extension 3) denaturation","a":{"t":"3,1,2"},"pg":4}]},
 {"rl":"Chem Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/Chem%20Supplemental.pdf","q":[
@@ -36,7 +36,7 @@
 {"i":33093,"s":"chem","f":"SA","qt":"tossup","n":14,"q":"What is the value of absolute zero on the Kelvin scale?","a":{"t":"0"},"pg":5},
 {"i":33094,"s":"chem","f":"SA","qt":"bonus","n":14,"q":"What temperature scale is commonly used in the United States to measure air temperature as well as body temperature?","a":{"t":"Fahrenheit"},"pg":5},
 {"i":33095,"s":"bio","f":"SA","qt":"tossup","n":15,"q":"What is the genetic material inside the nucleus of eukaryotic cells made from?","a":{"t":"DNA","ac":["Deoxyribonucleic Acid"]},"pg":5},
-{"i":33096,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"RNA is a nucleic acid like DNA except that RNA contains what base not found in DNA?","a":{"t":"Uracil"},"pg":5},
+{"i":33096,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"RNA is a nucleic acid like DNA except that RNA contains what base not found in DNA?","a":{"t":"Uracil","ac":["u"]},"pg":5},
 {"i":33097,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"Most solar panels are made from what element, which can be doped to make P type and N type?","a":{"t":"Silicon"},"pg":6},
 {"i":33098,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"Which scientist proposed the theory of continental drift, which was ignored until long after he died?","a":{"t":"Alfred Wegener"},"pg":6},
 {"i":33099,"s":"math","f":"SA","qt":"tossup","n":18,"q":"The Knicks won game 5 of the Eastern Conference finals by a score of 111 to 94. By how many points did they win?","a":{"t":"17"},"pg":6},
@@ -151,11 +151,11 @@
 {"i":40918,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"A person suffering from Hepatitis is most likely experiencing dysfunction of which organ?","a":{"t":"liver","l":"W"},"c":{"W":"liver","X":"kidney","Y":"stomach","Z":"lungs"}},
 {"i":40920,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Akshara is enjoying vegetarian samosas for lunch. After the samosas pass through her stomach and are partially digested, where do the remains go assuming normal biologic function?","a":{"t":"Small intestines"}},
 {"i":40921,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"Trisha is a student at Dougherty Valley studying Biology. What are the two types of photoreceptors present in her retina while she reads the Campbell textbook?","a":{"t":"Cones and Rods","ac":["in any order"]}},
-{"i":40922,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Tannishtha is doing calf raises during her PE class. Calf raises are possible because of which tendon, which attaches the calf muscles to the heel?","a":{"t":"Achilles tendon"}},
+{"i":40922,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Tannishtha is doing calf raises during her PE class. Calf raises are possible because of which tendon, which attaches the calf muscles to the heel?","a":{"t":"Achilles tendon","ac":["calcaneal tendon"]}},
 {"i":40923,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following diseases is dominantly inherited?","a":{"t":"Huntington’s Disease","l":"X"},"c":{"W":"Cystic Fibrosis","X":"Huntington’s Disease","Y":"Phenylketonuria","Z":"Tay Sachs disease"}},
 {"i":40924,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Red Green Colorblindness is a x-linked recessive disorder. If a colorblind male mates with a carrier female, what percent of their offspring are expected to be male and color blind?","a":{"t":"25%"}},
 {"i":40925,"s":"bio","f":"SA","qt":"tossup","n":19,"q":"What is the name for the functional unit of skeletal muscle?","a":{"t":"Sarcomere"}},
-{"i":40926,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Endoplasmic Reticulum in a muscle fiber is known by what name?","a":{"t":"Sarcoplasmic Reticulum"}},
+{"i":40926,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"Endoplasmic Reticulum in a muscle fiber is known by what name?","a":{"t":"Sarcoplasmic Reticulum","ac":["sr"]}},
 {"i":40927,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"Which of the following hormones would be responsible for reducing the Ca^(2+) levels in the bloodstream?","a":{"t":"Calcitonin","l":"Y"},"c":{"W":"Thyroxine","X":"Parathyroid Hormone","Y":"Calcitonin","Z":"Follicle Stimulating Hormone"}}]},
 {"rl":"Dvhs Chem Supplemental","r":null,"u":"https://docs.google.com/document/d/1F387A8wlsP8saQJmH7ojeQTB9tvzoMf_U6LudSeJ93A/edit","q":[
 {"i":40930,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"Alan has a habit of tasting chemicals in Chemistry class. During a lab, he tastes an unknown substance and finds it to be bitter. The substance nearly slips out of his hand on the way to his mouth. Which of the following substances could Alan have tasted?","a":{"t":"bleach","l":"X"},"c":{"W":"hydrochloric acid","X":"bleach","Y":"vinegar","Z":"pure water"}},

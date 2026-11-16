@@ -8,7 +8,7 @@
 {"i":11985,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"A rigid cylinder fitted with a piston is filled with 0.1 moles of carbon dioxide and 0.1 moles of dry ice with negligible volume at 1 atmosphere. The piston is then lifted such that the volume inside the cylinder is quadrupled. What is the new pressure inside of the cylinder, in atmospheres?","a":{"t":"0.5"},"pg":9}]},
 {"rl":"Round 5","r":5,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%205.pdf","q":[
 {"i":12012,"s":"bio","f":"SA","qt":"bonus","n":9,"q":"What term is used to describe the structures formed by sedimentary rocks and the evolutionary ancestor of chloroplasts?","a":{"t":"STROMATOLITES"},"pg":5},
-{"i":12034,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"What class of mollusks have a modified muscular foot so that it is on the same side as their stomach?","a":{"t":"GASTROPODA","ac":["SNAILS"]},"pg":11}]},
+{"i":12034,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"What class of mollusks have a modified muscular foot so that it is on the same side as their stomach?","a":{"t":"GASTROPODA","ac":["SNAILS","gastropods","gastropod"]},"pg":11}]},
 {"rl":"Round 6","r":6,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%206.pdf","q":[
 {"i":12068,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Two molecules experience London dispersion forces of magnitude F when at a distance D from each other. In terms of F to one significant figure, what will the magnitude of the London dispersion forces between the two molecules be at a distance 1.5D?","a":{"t":"0.06F"},"pg":8}]},
 {"rl":"Round 7","r":7,"u":"https://lebot.djiang.xyz/packets/LexSciBowl/Round%207.pdf","q":[

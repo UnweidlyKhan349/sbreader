@@ -206,12 +206,18 @@ const cmds = {
           const key = p[0] + p[1]; typed.set(key, (typed.get(key) || []).concat(t));
         }
       }
-      for (const l of fs.readFileSync(vout, 'utf8').split('\n')) {
+      // findings first, so an alternate for a corrected key is added after the key changes,
+      // and never when the correction itself was not agreed
+      const vlines = fs.readFileSync(vout, 'utf8').split('\n');
+      const isList = (l) => /^\d+\|(?:ac|rj)\|/.test(l.trim());
+      const keyChanged = new Set(), settled = new Set();
+      for (const l of [...vlines.filter((x) => !isList(x)), ...vlines.filter(isList)]) {
         const m = l.trim().match(/^(\d+)\|(a|rm|q|drop|rmac|ac|rj)\|(.*)$/);
         if (!m) { if (l.trim()) c.bad++; continue; }
         const id = +m[1], act = m[2], val = m[3].trim(), q = by.get(id);
         if (!q) { c.bad++; continue; }
         let fix = null;
+        if ((act === 'ac' || act === 'rj') && F.has(id) && /^(?:a=|rm)/.test(F.get(id).want) && !settled.has(id)) { c.held = (c.held || 0) + 1; continue; }
         if (act === 'ac' || act === 'rj') {
           const list = typed.get((act === 'ac' ? 'A' : 'N') + id) || [];
           const hit = list.find((t) => t === val) || list.find((t) => norm(t) === norm(val));
@@ -226,7 +232,7 @@ const cmds = {
           const f = F.get(id);
           if (!f) { disp.push(`NEW (verifier only) ${l.trim()} || ${line(q)}`); c.disputed++; continue; }
           f.seen = true;
-          if (act === 'drop') { c.dropped++; continue; }
+          if (act === 'drop') { c.dropped++; if (!/\bALSO\b|accept/i.test(f.line.split(' | WHY: ')[1] || '')) settled.add(id); continue; }
           const wantAct = f.want === 'rm' ? 'rm' : f.want[0];
           const wantVal = f.want === 'rm' ? '' : f.want.slice(2);
           let agree = act === wantAct;
@@ -236,7 +242,7 @@ const cmds = {
               agree = !!L(val) && L(val) === L(wantVal) && L(val) !== q.answer.letter;
               if (agree) fix = `${id}|a|${L(val)}`;
             } else {
-              agree = norm(val) === norm(wantVal) && norm(val) !== norm(q.answer.text);
+              agree = norm(val) === norm(wantVal) && /[+\-−–]/.test(val) === /[+\-−–]/.test(wantVal) && val.trim().toLowerCase() !== q.answer.text.trim().toLowerCase();
               if (agree) fix = `${id}|a|${wantVal.trim()}`;
             }
           } else if (agree && act === 'q') {
@@ -244,8 +250,16 @@ const cmds = {
             agree = agree && Array.isArray(x) && Array.isArray(y) && x.length === 2 && x[0] === y[0] && norm(x[1]) === norm(y[1]) && q.question.includes(x[0]);
             if (agree) fix = `${id}|q|${JSON.stringify(y)}`;
           } else if (agree) fix = `${id}|rm|`;
+          // both readers say the question is wrong but not how to fix it: it goes
+          if (!agree && (act === 'a' || act === 'rm') && (wantAct === 'a' || wantAct === 'rm')) {
+            fix = `${id}|rm|`; c.removedOnDisagreement = (c.removedOnDisagreement || 0) + 1;
+            disp.push(`chunk ${n} REMOVED (readers disagree) ${l.trim()} || ${f.line}`);
+            if (!have.has(fix)) { out.push(fix); have.add(fix); }
+            continue;
+          }
           if (!agree) { disp.push(`chunk ${n} VERIFIER ${l.trim()} || ${f.line}`); c.disputed++; continue; }
           c.agreed++;
+          if (act === 'a') settled.add(id);
         }
         if (fix && !have.has(fix)) { out.push(fix); have.add(fix); }
       }

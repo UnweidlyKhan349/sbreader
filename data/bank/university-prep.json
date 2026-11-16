@@ -1,7 +1,7 @@
 [
 {"rl":"Round 1","r":1,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Stuy/University_Prep_Round_1.pdf","q":[
 {"i":55400,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"What proteins have a cysteine residue at their active site and are responsible for apoptosis in animal cells?","a":{"t":"Caspases","l":"Y"},"c":{"W":"Kinesins","X":"Proteases","Y":"Caspases","Z":"Kinases"},"pg":1},
-{"i":55401,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"IAP is a family of proteins thought to inhibit apoptosis. What does the acronym IAP stand for?","a":{"t":"INHIBITOR OF APOPTOSIS"},"pg":1},
+{"i":55401,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"IAP is a family of proteins thought to inhibit apoptosis. What does the acronym IAP stand for?","a":{"t":"INHIBITOR OF APOPTOSIS","ac":["inhibitor of apoptosis protein"]},"pg":1},
 {"i":55402,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"What type of intermolecular interactions exists between noble gas solids?","a":{"t":"London dispersion forces","l":"X"},"c":{"W":"Delocalized covalent bonds","X":"London dispersion forces","Y":"Directional covalent bonds","Z":"Ionic bonds"},"pg":1},
 {"i":55403,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"What is the only element in the periodic table that does NOT freeze at 1 atm?","a":{"t":"HELIUM"},"pg":1},
 {"i":55404,"s":"phys","f":"SA","qt":"tossup","n":3,"q":"What type of friction results from the deformation of an object moving across a line?","a":{"t":"ROLLING FRICTION"},"pg":1},
@@ -37,7 +37,7 @@
 {"i":55434,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"As of January 2014, what is the largest capacity that a hydroelectric power station can generate in megawatts?","a":{"t":"20,000","l":"Z"},"c":{"W":"2,000","X":"4,000","Y":"10,000","Z":"20,000"},"pg":7},
 {"i":55435,"s":"energy","f":"SA","qt":"bonus","n":18,"q":"What is the name of the facility in Livermore, California, that uses laser based inertial confinement to attempt nuclear fusion?","a":{"t":"NATIONAL IGNITION FACILITY","ac":["NIF"]},"pg":7},
 {"i":55436,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"What gaseous hormone promotes fruit ripening and flowering in pineapples?","a":{"t":"Ethylene","l":"W"},"c":{"W":"Ethylene","X":"Methylene","Y":"Cytokinins","Z":"Abscisic acid"},"pg":7},
-{"i":55437,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"What is the predominant natural auxin in plants called?","a":{"t":"INDOLEACETIC ACID","ac":["IAA"]},"pg":7},
+{"i":55437,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"What is the predominant natural auxin in plants called?","a":{"t":"INDOLEACETIC ACID","ac":["IAA","indole-3-acetic acid"]},"pg":7},
 {"i":55438,"s":"chem","f":"MC","qt":"tossup","n":20,"q":"What indicator is blue above a pH of 7.6, and yellow below a pH of 6.0?","a":{"t":"Bromothymol Blue","l":"Y"},"c":{"W":"Bromophenol Blue","X":"Litmus","Y":"Bromothymol Blue","Z":"Phenolphthalein"},"pg":7},
 {"i":55439,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"What type of titration is used when the endpoint of a normal titration is difficult to identify?","a":{"t":"BACK TITRATION","ac":["REVERSE TITRATION"]},"pg":8},
 {"i":55440,"s":"phys","f":"MC","qt":"tossup","n":21,"q":"A single fission reaction with uranium-235 produces approximately how much energy?","a":{"t":"200 MeV","l":"X"},"c":{"W":"100 MeV","X":"200 MeV","Y":"300 MeV","Z":"400 MeV"},"pg":8},

@@ -4,7 +4,7 @@
 {"i":96073,"s":"math","f":"SA","qt":"tossup","n":2,"q":"As a base-10 logarithm, what is 3 log_10 2 + log_10 5?","a":{"t":"log_10 40","ac":["LOG 40","LOG BASE 10 OF 40"]}},
 {"i":96074,"s":"math","f":"MC","qt":"tossup","n":3,"q":"How many factors does 96 have?","c":{"W":"6","X":"12","Y":"16","Z":"24"},"a":{"t":"12","l":"X"}},
 {"i":96075,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the slope of a line with equation 3x + 4y = 15?","a":{"t":"−3/4","ac":["-0.75"]}},
-{"i":96076,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In reduced form, what is the product of (1 + 2i)(3 − i)?","a":{"t":"5 + 5i"}},
+{"i":96076,"s":"math","f":"SA","qt":"tossup","n":5,"q":"In reduced form, what is the product of (1 + 2i)(3 − i)?","a":{"t":"5 + 5i","rj":["5-5i"]}},
 {"i":96077,"s":"math","f":"MC","qt":"tossup","n":6,"q":"What shape is described by the equation (x − 6)^2 + 4y^2 = 1?","c":{"W":"A circle","X":"An ellipse","Y":"A parabola","Z":"A hyperbola"},"a":{"t":"An ellipse","l":"X"}},
 {"i":96078,"s":"math","f":"SA","qt":"tossup","n":7,"q":"What is the probability of rolling a prime number on a six-sided die?","a":{"t":"1/2","ac":["50%","0.5"]}},
 {"i":96079,"s":"math","f":"MC","qt":"tossup","n":8,"q":"How many distinct ways are there to arrange the letters in ENERGY?","c":{"W":"120","X":"240","Y":"360","Z":"720"},"a":{"t":"360","l":"Y"}},
@@ -12,7 +12,7 @@
 {"i":96081,"s":"math","f":"SA","qt":"tossup","n":10,"q":"As a fraction, what is the area of the triangle with coordinates (0, 1), (1, 3), and (0, 4)?","a":{"t":"3/2"}},
 {"i":96082,"s":"math","f":"SA","qt":"tossup","n":11,"q":"How many edges are there in a regular pyramid with 16 faces?","a":{"t":"30"}},
 {"i":96083,"s":"math","f":"SA","qt":"tossup","n":12,"q":"If all alligators are green, give, by name or number, all of the following statements which are true: I. All green animals are alligators. II. If an animal is not green, then it is not an alligator. III. If an animal is not an alligator, then it is not green.","a":{"t":"II ONLY","ac":["2 ONLY","2"]}},
-{"i":96084,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the name of the figure which only contains one surface?","a":{"t":"MÖBIUS STRIP","ac":["MOBIUS STRIP","KLEIN BOTTLE"]}}]},
+{"i":96084,"s":"math","f":"SA","qt":"tossup","n":13,"q":"What is the name of the figure which only contains one surface?","a":{"t":"MÖBIUS STRIP","ac":["MOBIUS STRIP","KLEIN BOTTLE","Mobius band"]}}]},
 {"rl":"Life Science","r":null,"u":"https://drive.google.com/file/d/1eBDvQvJJbArJuP9OXy0HfUwr2r-F0L--/view","q":[
 {"i":96085,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"What phase of the cell cycle takes the longest amount of time?","a":{"t":"INTERPHASE"}},
 {"i":96086,"s":"bio","f":"SA","qt":"tossup","n":2,"q":"How many daughter cells are produced by the end of meiosis?","a":{"t":"4","ac":["FOUR"]}},
@@ -35,5 +35,5 @@
 {"rl":"Physical Science","r":null,"u":"https://drive.google.com/file/d/1A17ep2gb_rhWRiuqkCyzKqBwhN_14k3n/view","q":[
 {"i":96102,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"Which of the following is NOT an SI base unit?","c":{"W":"Kilogram","X":"Coulomb","Y":"Kelvin","Z":"Candela"},"a":{"t":"Coulomb","l":"X"}},
 {"i":96104,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"Rank the following three materials in terms of increasing density: I. Polystyrene II. Glass III. Gold","a":{"t":"1, 2, 3","ac":["POLYSTYRENE, GLASS, GOLD"]}},
-{"i":96105,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How many protons and neutrons will there be in the isotope resulting from U-238 undergoing one round of alpha decay and one round of beta decay? Uranium has 92 protons.","a":{"t":"91 PROTONS, 143 NEUTRONS"}}]}
+{"i":96105,"s":"phys","f":"SA","qt":"tossup","n":4,"q":"How many protons and neutrons will there be in the isotope resulting from U-238 undergoing one round of alpha decay and one round of beta decay? Uranium has 92 protons.","a":{"t":"91 PROTONS, 143 NEUTRONS","ac":["91 p, 143 n"]}}]}
 ]
