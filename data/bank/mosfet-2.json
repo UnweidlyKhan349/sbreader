@@ -512,7 +512,7 @@
 {"rl":"Round 8","r":8,"u":"https://drive.google.com/file/d/1aFBYNIOGzcuZIt77aH9HAPpowcQBpTTD/view","q":[
 {"i":44305,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Circle A is translated 2 units to the right and 1 unit down, producing circle B with equation quantity x - 4 squared + quantity y - 2 squared = 12. What are the coordinates of the center of circle A?","a":{"t":"(2, 3)"}}]},
 {"rl":"Round 1","r":1,"u":"https://drive.google.com/file/d/1BR76_QGrRnFtEMshA-cIOfgr4tdxN6oj/view","q":[
-{"i":71101,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"In the reaction between PCl3 and Cl2, the rate law is given by k times the concentration of PCl3 times the concentration of Cl2. What is the overall order of this reaction?","a":{"t":"2"}}]},
+{"i":71101,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"In the reaction between PCl3 and Cl2, the rate law is given by k times the concentration of PCl3 times the concentration of Cl2. What is the overall order of this reaction?","a":{"t":"2","ac":["second","second order","2nd order"]}}]},
 {"rl":"Round 10","r":10,"u":"https://drive.google.com/file/d/1gau_j4hcSvk4T3bOVaGljmHAQvxn2N58/view","q":[
 {"i":71102,"s":"math","f":"MC","qt":"tossup","n":14,"q":"Certain equations such as a^2 + b^2 = c^2 have infinitely many real solutions, but only integer solutions are of interest. What is the adjective which describes these equations?","a":{"t":"Diophantine","l":"Z"},"c":{"W":"Integral","X":"Gaussian","Y":"Euclidean","Z":"Diophantine"}}]},
 {"rl":"Round 2","r":2,"u":"https://drive.google.com/file/d/1FE9yTxsN5aA6looy6yKhrMvGTqt2wNpQ/view","q":[

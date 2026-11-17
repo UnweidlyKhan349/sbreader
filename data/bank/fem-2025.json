@@ -532,7 +532,7 @@
 {"i":9094,"s":"math","f":"SA","qt":"bonus","n":19,"q":"An ellipse with area 32π has a semiminor axis of length 4. What is the distance between the foci of this ellipse?","a":{"t":"8√3"},"pg":15},
 {"i":9095,"s":"ess","f":"MC","qt":"tossup","n":20,"q":"Diurnal inequality is most pronounced in which of the following types of tidal patterns?","a":{"t":"Mixed","l":"W"},"c":{"W":"Mixed","X":"Diurnal","Y":"Semidiurnal","Z":"Ebb"},"pg":16}]},
 {"rl":"RR1","r":1,"u":"https://drive.google.com/drive/folders/1pbjCAO25spaXxLma6yZDt5tWcXVRtzgT","q":[
-{"i":53528,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"When P4O10 is added to water, what is the oxidation of phosphorus in the final product?","a":{"t":"+5"}},
+{"i":53528,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"When P4O10 is added to water, what is the oxidation of phosphorus in the final product?","a":{"t":"+5","ac":["+5 oxidation state"]}},
 {"i":53530,"s":"phys","f":"SA","qt":"tossup","n":12,"q":"A particle has an initial velocity of 2 m/s at time t = 0 and moves along a straight line with an acceleration given by a(t) = 6t. In meters, what is the displacement of the particle after 3 seconds?","a":{"t":"33"}},
 {"i":53531,"s":"math","f":"SA","qt":"bonus","n":14,"q":"What is the sum from n = 1 to n = 2025 of i^(n), where i is the imaginary unit?","a":{"t":"i"}},
 {"i":53532,"s":"math","f":"SA","qt":"tossup","n":19,"q":"What is the 2025th digit to the right of the decimal point of the fraction 5/7?","a":{"t":"4"}}]},
@@ -555,7 +555,7 @@
 {"i":53555,"s":"phys","f":"MC","qt":"tossup","n":12,"q":"An object has an associated potential function given by U(x) = x^3 − 3x^2 . Which of the following types of equilibrium is this object in at x = 2?","a":{"t":"Stable","l":"W"},"c":{"W":"Stable","X":"Unstable","Y":"Metastable","Z":"Hyperstable"}},
 {"i":53558,"s":"math","f":"SA","qt":"tossup","n":19,"q":"The vertices of a polygon are labeled A, B, C, and so on, in that order. If angle BAC is found to be 12 degrees, how many sides does the polygon have?","a":{"t":"15"}}]},
 {"rl":"DE1","r":6,"u":"https://drive.google.com/drive/folders/1pbjCAO25spaXxLma6yZDt5tWcXVRtzgT","q":[
-{"i":53560,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"Find the number of stereoisomers of the compound [CoCl3(NH3)3]^(2+)","a":{"t":"2"}},
+{"i":53560,"s":"chem","f":"SA","qt":"bonus","n":3,"q":"Find the number of stereoisomers of the compound [CoCl3(NH3)3]","a":{"t":"2"}},
 {"i":53561,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the 1003rd derivative of − sin(x)?","a":{"t":"cos(x)"}},
 {"i":53562,"s":"bio","f":"SA","qt":"bonus","n":6,"q":"Order the following three cell types by increasing proximity to the retinal pigmented epithelium: 1) Horizontal cell 2) Cone cell 3) Ganglion cell","a":{"t":"3, 1, 2"}},
 {"i":53563,"s":"math","f":"SA","qt":"bonus","n":9,"q":"The maximum value of the function f(x) = sin(x) + sin(2x) between x = 0 and x = pi occurs at x = a. Compute cos(a).","a":{"t":"(−1 + √33)/8"}},

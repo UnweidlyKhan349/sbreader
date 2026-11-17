@@ -13070,3 +13070,2570 @@
 13715|alt|graphite ;; C
 13721|rm||octahedral electron geometry shares no molecular geometry with trigonal bipyramidal, the question is wrong
 13731|alt|H2SO4 ;; sulfuric
+39230|rm||Platinum is also an Aufbau exception (5d9 6s1) so all four choices are exceptions
+39933|rm||Brass is denser than zinc and also has no fixed melting point, so two choices are true
+40107|rm||Decomposition of N2O4 into NO2 is endothermic, so the premise is false
+39370|a|2 AND 3|s orbitals cannot form pi bonds; p and d can
+39380|a|1 2 3|Sigma 2s lies below sigma 2p which lies below sigma 2p star
+40017|a|Y|Fluorine (most electronegative) shifts neighboring protons most, about 4.4 ppm versus about 2 ppm for carbonyl
+40424|a|Z|Slope of G/T vs T is -H/T^2 so the largest positive enthalpy change (evaporation) gives the most negative slope
+40772|a|Clausius-Clapeyron Equation|Misspelled key
+41125|a|1 AND 3|Tungsten is also a transition metal
+41160|a|2 AND 3|Isochoric heating raises temperature and so internal energy
+41317|a|1 AND 3|Combustion is a redox reaction so statement 3 is true
+41343|a|1 AND 4|Silicon is also a metalloid
+41344|a|1 AND 2|Key contains explanatory parenthetical
+41375|a|1 AND 2|Key contains explanatory parenthetical
+41405|a|Y|C20H40 + 30 O2 gives 20 CO2 + 20 H2O so 30 O2 are consumed
+39219|alt|Zn
+39229|alt|Fr
+39229|not|cesium
+39239|alt|Nernst ;; Nernst's equation
+39240|alt|2+ ;; 2
+39259|alt|london dispersion, dipole-dipole, hydrogen bonding ;; 3,2,1
+39259|not|1 2 3
+39260|alt|1,1 ;; one and one
+39269|alt|0 ;; zeroth ;; zero order
+39269|not|first
+39270|alt|AlK(SO4)2
+39290|alt|1 alpha and 3 beta plus ;; 1 alpha, 3 positron
+39290|not|3 alpha, 1 beta plus
+39298|alt|Clausius Clapeyron
+39299|alt|L^3 mol^-3 s^-1 ;; M^-3 s^-1
+39314|alt|2 and 3 ;; silicon dioxide and carbon
+39314|not|2 only
+39322|alt|Hess law ;; law of constant heat summation
+39332|alt|2, 1, 3 ;; oxygen, nitrogen, fluorine
+39333|alt|1.93e5 ;; 193000 ;; 1.93 x 10^5
+39351|alt|Avogadro ;; Avogadro's hypothesis
+39352|alt|2 1 3 ;; hydrogen, oxygen, formaldehyde
+39359|alt|SHE
+39369|alt|pre-exponential
+39370|alt|2, 3 ;; p and d ;; 2 and 3
+39370|not|all ;; 2 only
+39380|alt|1, 2, 3 ;; sigma 2s, sigma 2p, sigma 2p star
+39380|not|2 1 3
+39836|alt|sp2
+39836|not|sp3 ;; sp
+39837|alt|3 ;; enthalpy ;; 3 only
+39837|not|1, 3
+39870|alt|1, 2, 3 ;; all three ;; all of them
+39871|alt|orbital angular momentum
+39884|alt|2 3 1 ;; simple cubic, bcc, fcc
+39885|alt|2 1 3 ;; heptane, water, isopropyl alcohol
+39885|not|1 2 3
+39895|alt|0.25 M ;; 1/4
+39915|alt|2 ;; three-level system
+39927|alt|3 ;; Lindlar ;; Lindlar's catalyst
+39941|alt|0.5[A] ;; 0.5A ;; 1/2 [A]
+39961|alt|canonical partition function
+39967|alt|prop-1-ene
+39972|alt|Cys
+39974|not|7 ;; 8
+39977|alt|triplet state
+39980|alt|2 3 1 ;; chair, twist-boat, boat
+39996|alt|2 ;; IR ;; infrared spectroscopy
+39997|alt|retrosynthetic
+40029|alt|2 only ;; borane
+40035|alt|2 1 3 ;; sulfuric acid, acetic acid, boric acid
+40045|alt|carboxyl and amine ;; amine and carboxylic acid ;; amino and carboxyl
+40053|alt|4e-3 ;; 4 x 10^-3
+40068|alt|2 3 1 ;; octane, acetone, butane
+40082|alt|2
+40083|alt|12 g/mol
+40089|alt|3 2 1 ;; acetone, ethanol, water
+40094|alt|gravimetry ;; gravimetric
+40121|alt|Bq ;; becquerels
+40122|alt|1 3 2 ;; NF, HCl, HF
+40127|alt|Clausius Clapeyron
+40136|alt|4e-2 ;; 4 x 10^-2 ;; 0.04
+40138|alt|1 ;; sigma
+40141|alt|1 ;; liquid mercury
+40147|alt|1 2 3 ;; lithium fluoride, water, hexane
+40156|alt|2 ;; 2 only
+40162|alt|none of the above ;; 0
+40169|alt|metal organic frameworks ;; MOF ;; metal-organic framework
+40181|alt|0.5 M ;; 1/2
+40186|alt|1, 2 ;; blue and green ;; 1 and 2
+40186|not|all ;; 1 only
+40187|alt|2, 3 ;; arsenic and phosphorus
+40187|not|1 and 2
+40200|alt|1.4 atm
+40201|alt|4 3 1 2 ;; aluminum, sodium, fluorine, oxygen
+40201|not|2 1 3 4
+40221|alt|hydrogen bonds ;; H-bonding
+40252|alt|1e-6 ;; 1 x 10^-6 ;; 10^-6 M
+40259|alt|1 ;; 1 only
+40274|alt|DFT
+40284|alt|autodissociation
+40285|alt|5.76 ;; 6 J/K
+40304|alt|3, 4 ;; d and f ;; 3 and 4
+40304|not|3 only
+40316|alt|0.2 ;; 2e-1
+40317|alt|1 ;; H2O ;; water
+40317|not|1 and 2 ;; 2
+40327|alt|1, 2, 3 ;; all three
+40328|alt|overvoltage
+40336|alt|2 3 1 ;; chloride, oxalate, EDTA
+40337|alt|1, 2 ;; acid-catalyzed hydration and oxymercuration-demercuration
+40337|not|3 ;; 1, 2, 3
+40348|alt|Lindlar catalyst ;; Lindlar's catalyst ;; Lindlar
+40372|alt|2 ;; phosphorus
+40372|not|1 and 3
+40373|alt|2 3 1 ;; cesium, potassium, lithium
+40373|not|1 3 2
+40388|alt|Hall Heroult process ;; Hall-Heroult ;; Hall process
+40399|alt|1, 3 ;; iron and gadolinium
+40399|not|all
+40400|alt|Haworth ;; Haworth projection
+40403|alt|exchange-correlation
+40433|alt|2 ;; high purity
+40445|not|fugacity
+40458|alt|atropisomer
+40479|alt|mercury acetate ;; mercury(II) acetate
+40491|alt|Walden ;; inversion of configuration
+40515|alt|gamma
+40526|alt|none ;; none of them ;; 0
+40537|alt|leveling ;; levelling effect ;; solvent leveling effect
+40550|alt|1+ln2 ;; 1 + ln(2) ;; 1.69
+40561|alt|1, 2, 3 ;; oxide, peroxide, superoxide
+40562|alt|2 1 4 3 ;; acyl azide, isocyanate, carbamic acid, amine
+40579|alt|3 1 2 ;; C-F, C-H, C-Si
+40580|alt|4 ;; carbanion
+40590|alt|neighboring group participation ;; NGP ;; anchimeric
+40591|alt|ligand substitution
+40601|alt|Rh
+40605|alt|1, 2, 3 ;; all three
+40616|alt|1 3 2 ;; NaCl, CaCl2, MgO
+40617|alt|Hund's rule ;; Hund
+40639|alt|coordinate bond ;; dative covalent bond
+40649|alt|1, 2, 3
+40657|alt|simplified molecular-input line-entry system ;; simplified molecular input line entry system
+40660|alt|3 1 2 ;; silicon, fluorine, chlorine
+40660|not|3 2 1
+40671|alt|6+ ;; 6
+40672|alt|1, 2, 3 ;; all three
+40683|alt|1 ;; CaSO4
+40691|alt|Hess law ;; Hess's law
+40692|alt|3 2 1 ;; water, acetone, diethyl ether
+40714|alt|colloids ;; colloidal mixture
+40726|alt|1, 2 ;; work and heat
+40737|alt|Hammond postulate ;; Hammond's postulate
+40748|alt|2 ;; melting of ice
+40749|alt|bandgap ;; energy gap ;; band gap energy
+40761|alt|1 3 2 ;; chromium, manganese, osmium
+40772|alt|Clausius-Clapeyron equation ;; Clausius Clapeyron ;; Clapeyron equation
+40782|alt|disproportionation reaction ;; dismutation
+40794|alt|2 3 1 ;; most probable, average, rms
+40805|alt|3 2 1 ;; NO-, NO, NO+
+40806|alt|2, 3 ;; brass and bronze
+40817|alt|aldehydes
+40818|alt|1, 2, 3
+40942|alt|1, 3 ;; hydrogen bonding and dipole-dipole
+40942|not|1, 2, 3
+41092|alt|chemical equilibrium ;; dynamic equilibrium
+41117|alt|1 ;; london dispersion ;; dispersion forces
+41125|alt|1, 3 ;; nickel and tungsten
+41125|not|1 only
+41149|alt|steady state ;; steady state approximation
+41150|alt|3000 ;; 3e3 J ;; 3 kJ
+41160|alt|2, 3 ;; 2 and 3
+41160|not|2 only
+41181|alt|4/sqrt(7) ;; 1.51
+41212|alt|inert pair ;; inert-pair effect
+41213|alt|1, 3 ;; structural and cis-trans
+41213|not|all
+41222|alt|1, 2, 3, 4 ;; all four
+41223|alt|1, 2, 3 ;; all three
+41242|alt|3 1 2 ;; Kr, PH3, SO2
+41262|alt|CH4
+41298|not|cathode
+41299|alt|2 1 3 ;; Na+, F-, Cl-
+41308|alt|H2PO4- ;; dihydrogen phosphate
+41309|alt|3 ;; temperature
+41317|alt|1, 3
+41317|not|1 only
+41320|alt|2 ;; iron
+41321|alt|2 1 3 ;; HF, HBr, HI
+41343|alt|1, 4 ;; boron and silicon
+41344|alt|1, 2 ;; ammonia and carbon monoxide
+41344|not|all ;; 1 and 3
+41353|alt|1500 ;; 1500 J ;; +1500
+41372|alt|2 ;; SiO2
+41375|alt|1, 2 ;; pressure and volume
+41375|not|1, 2, 3
+41376|alt|1 ;; bond length
+41388|alt|1 3 2 ;; lithium, sodium, fluorine
+41552|a|1 AND 3|CH2O central carbon is sp2 like SO3; CO2 is sp
+41593|a|1 AND 3|Hydration of gaseous ions and combustion are exothermic; ionization and vaporization are endothermic
+41603|a|1 AND 2|Alcohols and amides H-bond with themselves; esters have no N-H or O-H
+41628|a|1 AND 2|Group 3 (Sc, Y) and the lanthanides are rare earth elements
+41630|a|1 AND 2|Graphite and graphene are sp2; diamond is sp3
+42039|a|I AND IV|Alpha and positron decay lower Z; key had explanation text
+42145|a|CHLORIDE AND HYPOCHLORITE|Cold dilute NaOH gives Cl- and OCl-, not chlorite
+42313|a|ELECTROWINNING|Electrodeposition of metals from solution is electrowinning, not leaching
+42523|a|2.9|e^(0.5*2.1)=2.858 rounds to 2.9
+42749|rm||NaCl and RbCl both give 1.0 mol of ions so no unique largest boiling point elevation
+42122|q|["react nitrous oxide with oxygen gas","react nitric oxide with oxygen gas"]|Enthalpy 90 kJ/mol and the key use NO, not N2O
+42122|q|["formation of nitrous oxide is 90 kJ/mol","formation of nitric oxide is 90 kJ/mol"]|Enthalpy 90 kJ/mol and the key use NO, not N2O
+41416|alt|1 ;; activation energy
+41416|not|1 and 2
+41451|alt|3 ;; rings
+41451|not|1 and 3
+41463|alt|f2, hf, n2
+41463|not|1, 2, 3
+41474|alt|end point
+41474|not|equivalence point
+41484|alt|heat of sublimation ;; enthalpy of sublimation
+41485|not|1 and 3
+41497|alt|1 ;; zeroth order
+41508|alt|radicals ;; free radicals
+41509|alt|3 ;; zinc
+41509|not|2 and 3 ;; all
+41552|alt|1, 3 ;; 1 and 3 ;; so3 and ch2o
+41552|not|1 only ;; all
+41564|alt|all three ;; 1, 2, 3
+41574|alt|all three ;; 1, 2, 3
+41582|alt|maxwell-boltzmann distribution ;; maxwell boltzmann
+41583|not|1 and 3 ;; 2 only
+41593|alt|1, 3 ;; 1 and 3
+41593|not|1 only ;; 3 only
+41603|alt|1, 2 ;; 1 and 2
+41603|not|1 only ;; 2 only
+41628|alt|1, 2 ;; group 3 and lanthanides
+41628|not|2 only ;; 2 and 3
+41630|alt|1, 2 ;; graphite and graphene
+41630|not|1 only ;; all
+41634|alt|q
+41635|alt|1.2e-3 ;; 0.0012 ;; 1.2 x 10^-3
+41636|alt|two
+41649|alt|hess law ;; hess's law ;; law of constant heat summation
+41653|not|1, 2, 3
+41654|alt|1 and 3 ;; 1, 3 ;; i and iii
+41654|not|all ;; 2 and 3
+41668|alt|30 ;; 303 k
+41673|alt|2 ;; nano3 ;; sodium nitrate
+41674|alt|none of them ;; 0
+41674|not|3 only ;; all
+41690|alt|zinc, iron, molybdenum ;; 1, 2, 3
+41709|alt|1 ;; co2 ;; carbon dioxide
+41710|alt|ag
+41721|alt|none of them ;; 0
+41722|alt|racemate ;; racemic
+41731|alt|2 and 3 ;; 2, 3
+41732|alt|2 and 3 ;; 2, 3 ;; nimh and lead-acid
+41746|alt|chiral
+41746|not|achiral
+41751|alt|three
+41751|not|2 ;; 4
+41772|alt|rf ;; rf value ;; retardation factor
+41773|alt|three ;; triple
+41773|not|2
+41782|alt|ionization, acceleration, deflection, detection ;; 4, 3, 1, 2
+41795|alt|ln(2)/10 ;; 0.0693
+41795|not|ln(2)/20
+41804|alt|most probable, average, rms ;; 1, 3, 2
+41815|alt|hi, hbr, hcl, hf ;; 4, 3, 2, 1
+41824|alt|lewis acid
+41825|alt|3 ;; milk of magnesia
+41825|not|2 and 3
+41835|alt|two
+41848|alt|rate = k[no][h2]^3 ;; k[no][h2]^3
+41848|not|rate = k[no][h2]^2 ;; rate = k[no]^2[h2]^3
+41855|alt|+2 and +3 ;; 2+ and 3+
+41868|alt|halogen ;; group 17
+41869|alt|ozone, carbonate ion, sulfur trioxide ;; 1, 3, 4
+41869|not|all ;; 1 and 3
+41891|alt|y, x, z ;; 2, 1, 3
+41891|not|i, ii, iii
+41902|alt|6 ;; ii
+41902|not|6 and 12
+41912|alt|hydroxyl group ;; oh ;; hydroxy
+41922|alt|sc, bcc, fcc ;; 1, 3, 2
+41922|not|1, 2, 3
+41923|alt|eight
+41923|not|7 ;; 14
+41934|alt|2.00 v ;; 2.00
+41935|alt|0.231 s^-1
+41942|alt|deep eutectic
+41946|alt|1 ;; magnesium
+41946|not|1 and 2
+41956|alt|three
+41967|alt|1 and 2 ;; 1, 2 ;; prefactor and temperature
+41967|not|all ;; 2 only
+41977|alt|2 ;; temperature
+41977|not|1 and 2
+41990|alt|2, 3, 4 ;; gold, copper, platinum
+42006|alt|1 and 2 ;; 1, 2
+42006|not|all ;; 3 only
+42017|alt|all three ;; 1, 2, 3
+42018|alt|2 and 3 ;; 2, 3 ;; hydrogen peroxide and ozone
+42018|not|1 and 2 ;; all
+42029|alt|vanadium(v) oxide
+42039|alt|1 and 4 ;; 1, 4 ;; alpha and positron
+42039|not|1 only ;; 1, 2, 4
+42059|alt|rate = k[a]^2[b] ;; k[a]^2[b]
+42059|not|rate = k[a][b] ;; rate = k[a]^2[b]^2
+42060|alt|1 ;; 1+
+42060|not|-1 ;; 0
+42083|alt|node
+42084|alt|1, 2, 3
+42084|not|1, 3, 2
+42098|alt|antiaromatic ;; anti-aromatic
+42098|not|aromatic ;; nonaromatic
+42110|alt|all three ;; 1, 2, 3
+42116|alt|1 and 2 ;; ionic and network covalent
+42116|not|all ;; 2 only
+42122|alt|33 ;; +33 kj/mol
+42122|not|-33 kj/mol ;; 66 kj/mol
+42123|alt|1 and 3 ;; 1, 3
+42123|not|all ;; 3 only
+42134|alt|6.25e4 ;; 62500 ;; 6.25 x 10^4
+42134|not|1.6e-5
+42144|alt|1 ;; i
+42144|not|3 only ;; all
+42145|alt|cl- and ocl- ;; hypochlorite and chloride ;; cl- and clo-
+42145|not|chlorite and hypochlorite ;; chloride and chlorate
+42164|alt|he
+42165|alt|alpha particle ;; helium nucleus ;; he-4
+42165|not|beta ;; gamma
+42166|alt|decreases ;; goes down
+42172|alt|two
+42173|alt|dipole dipole ;; dipole-dipole forces
+42173|not|hydrogen bonding ;; london dispersion
+42192|alt|sp3d ;; dsp3
+42193|alt|baso4, ag2so4, ba(no3)2
+42193|not|1, 2, 3 ;; 2, 1, 3
+42203|alt|10 ml ;; 10.0
+42203|not|20 ;; 5
+42223|alt|per- and polyfluoroalkyl substances ;; perfluoroalkyl and polyfluoroalkyl substances
+42231|alt|[ar] 4s1 3d5 ;; [ar]3d5 4s1
+42241|alt|three
+42267|alt|1.5 ;; 3/2
+42267|not|2 ;; 1
+42276|alt|8 j ;; 8 joules
+42276|not|-8 ;; 24
+42283|alt|dismutation
+42283|not|comproportionation
+42284|alt|0.63 v ;; +0.63
+42284|not|-0.63 ;; 0.89
+42313|alt|electroextraction ;; electro-winning
+42313|not|leaching ;; electrorefining
+42321|alt|paramagnetic ;; paramagnet
+42340|alt|carbon nitride
+42341|alt|1.35 ;; 27/20
+42358|alt|li2o and coo ;; lithium oxide and cobalt(ii) oxide
+42358|not|lithium oxide and cobalt(iii) oxide
+42376|alt|claisen ;; claisen reaction
+42376|not|aldol condensation
+42386|alt|4
+42386|not|3 ;; 2
+42387|alt|2/(3*pi^2) ;; 0.0675
+42387|not|2/(9*pi^2)
+42394|not|3, 4, 2, 1
+42395|alt|nitroso group
+42413|alt|mtbe ;; methyl t-butyl ether ;; 2-methoxy-2-methylpropane
+42413|not|diethyl ether
+42434|alt|3
+42434|not|1 and 3 ;; all
+42435|alt|fingerprint ;; the fingerprint region
+42436|alt|none of them ;; 0
+42436|not|3 only ;; 1 only
+42455|alt|azeotropic mixture ;; azeotropic
+42456|alt|1 ;; ln c ;; natural log of c
+42456|not|1 and 3
+42469|alt|3.9 angstroms
+42469|not|2.8 ;; 5.5
+42478|alt|first order ;; one
+42478|not|2 ;; 0
+42487|alt|photoelectric work function
+42487|not|ionization energy ;; threshold frequency
+42488|alt|1, 2
+42488|not|1 only ;; all
+42505|alt|1 ;; cobalt
+42505|not|2 only ;; 1 and 2
+42522|alt|lanthanoid contraction
+42522|not|actinide contraction ;; inert pair effect
+42523|alt|2.9
+42523|not|7.4
+42536|alt|photoelectric work function
+42536|not|ionization energy ;; threshold frequency
+42537|alt|1, 2 ;; 1 and 2
+42537|not|2 only ;; all
+42544|alt|zero ;; 0 hbar
+42544|not|1
+42545|alt|one
+42545|not|2 ;; 0
+42554|alt|kie ;; deuterium isotope effect
+42555|alt|two ;; rho^2
+42595|alt|enolate ion ;; enolate anion
+42595|not|enol
+42601|alt|1, 2, 3
+42601|not|3, 2, 1
+42617|alt|four
+42617|not|3 ;; 5
+42623|alt|2-ethylbutane, hexane, cyclohexane
+42623|not|1, 2, 3 ;; 2, 1, 3
+42638|alt|1 ;; n2 2-
+42638|not|2 only ;; all
+42645|alt|hf, n2, he
+42645|not|3, 2, 1
+42657|alt|white ;; p4
+42657|not|red phosphorus ;; black phosphorus
+42660|alt|21 s ;; 21 seconds
+42667|alt|wittig ;; wittig olefination
+42668|alt|refluxing ;; heating under reflux
+42668|not|distillation
+42672|alt|all three ;; 1, 2, 3
+42672|not|3 only
+42679|alt|nabh3cn, nabh4, lialh4 ;; 1, 2, 3
+42679|not|3, 2, 1
+42708|alt|none of them ;; 0
+42708|not|all ;; 2 only
+42715|alt|frenkel ;; frenkel pair
+42715|not|schottky defect
+42748|alt|1/2 ;; one half
+42748|not|1 ;; 1.5
+42756|alt|anomeric ;; anomeric stabilization
+42756|not|gauche effect ;; inductive effect
+42784|alt|burgi-dunitz ;; burgi dunitz angle ;; burgi-dunitz trajectory
+42795|alt|2-chloronitrobenzene, pyridine, pyrrole ;; 2, 1, 3
+42795|not|1, 2, 3 ;; 3, 1, 2
+42800|alt|2,3-dimethylbut-2-ene, ethene, acrylonitrile ;; 3, 2, 1
+42800|not|1, 2, 3
+42809|alt|chloride, triphenylphosphine, carbon monoxide ;; 2, 3, 1
+42809|not|1, 3, 2
+42836|alt|1, 2 ;; london dispersion and dipole-dipole
+42836|not|all ;; 2 only
+42837|alt|3 ;; heating the container
+42837|not|1 only ;; all
+42843|alt|no3- ;; nitrate ion
+42848|alt|allotrope ;; allotropic forms
+42848|not|isotopes ;; isomers
+42854|alt|alpha ;; alpha emission ;; alpha particle emission
+42854|not|beta decay ;; spontaneous fission
+42881|alt|aufbau ;; the aufbau principle ;; building-up principle
+42881|not|hund's rule ;; pauli exclusion principle
+42893|alt|carbon-14, carbon-13, carbon-12 ;; c-14, c-13, c-12
+42893|not|1, 2, 3
+42900|alt|4 ;; an increase of 4
+42900|not|-4 ;; +6
+42911|alt|mnso4, mno2, kmno4 ;; 1, 3, 2
+42911|not|1, 2, 3
+42916|alt|supersaturated solution
+42916|not|saturated ;; unsaturated
+42917|alt|n-n, c=c, c-o ;; 1, 3, 2
+42917|not|2, 3, 1 ;; 1, 2, 3
+42924|alt|c2h4
+42931|alt|zero ;; 0 kj/k
+42931|not|21
+42941|alt|-0.5 ;; -.5 ;; negative one half
+42941|not|1/2 ;; -2
+42958|alt|1 and 3 ;; 1, 3
+42958|not|2 and 3 ;; all
+42972|alt|germanium, silicon, diamond ;; 1, 2, 3
+42972|not|3, 2, 1
+42978|alt|1 ;; steel
+42978|not|1 and 3 ;; 2 only
+43005|not|carbon monoxide ;; formic acid
+43006|alt|1 and 3 ;; 1, 3
+43006|not|all ;; 1 and 2
+43017|alt|5.5 g
+43027|alt|2 and 3 ;; heme and vitamin b12
+43027|not|1 only ;; all
+43039|alt|3 ;; ccl4 ;; carbon tetrachloride
+43039|not|all ;; 2 and 3
+43581|a|0.165 MOLES|n = PV/RT = 4/(0.08206*295) = 0.165 mol, not 1/3
+43592|a|MAXWELL-BOLTZMANN DISTRIBUTION LAW|misspelled Boltzmann
+43591|q|["Kinetic Molecular Theory? Kelvin temperature of the gas","Kinetic Molecular Theory?"]|stray choice text lost in the question
+43591|q|["directly proportional to the ","directly proportional to the Kelvin temperature of the gas "]|choice Y cut off, restore ending
+44250|q|["0.3 M sodium acetate","0.4 M sodium acetate"]|pH 4.76+log(1.5)=4.94 matches no choice; 0.4 M gives 5.06
+44967|a|1, 2 AND 3|raising Cu2+ lowers Q, higher T with Q<1 raises E, and Ag cathode raises E0
+45392|a|1, 2, 3|Lewis acidity increases AlF3 < AlCl3 < AlBr3
+45461|a|4|two meso forms plus one enantiomeric pair gives 4 stereoisomers
+45678|a|0.32 g|965 C is 0.01 mol e-, 0.005 mol Cu is 0.32 g
+45874|a|1 ONLY|violet (Hittorf) phosphorus is crystalline, only red is amorphous
+46072|rm||Ksp = a^a b^b x^(a+b) gives none of 27x^3, 8x^4, 16x^5, 54x^6
+43552|alt|cations and anions ;; positive and negative ions ;; anions and cations
+43563|alt|polyprotic ;; polyprotic acid
+43563|not|diprotic
+43572|not|blue
+43581|alt|0.165 ;; 0.165 mol
+43581|not|0.33 moles
+43592|alt|Maxwell-Boltzmann distribution ;; Maxwell-Boltzmann
+43602|alt|Graham's law of effusion ;; Graham's law
+43611|alt|calcium carbonate
+43611|not|CaO
+43621|alt|Raoult's law ;; Raoult
+43650|alt|catecholamine
+43659|not|copper
+43678|alt|Hall-Heroult ;; Hall process
+43688|alt|staggered conformation
+43697|alt|phenyl ;; C6H5
+43706|alt|pi ;; the pi bond ;; pi bonds
+43706|not|sigma bond
+43724|alt|ferrochromium
+43732|alt|black body ;; black body radiator ;; blackbody radiator
+43742|alt|18810 ;; 18810 J ;; 18810 joules
+44145|alt|1, 2, 3 ;; all ;; all three
+44161|alt|sp3d2 ;; d2sp3 ;; sp3d2 hybridization
+44161|not|sp3d ;; sp3
+44169|alt|109.5 ;; 109.5 degrees
+44190|alt|azeotrope
+44239|alt|1 and 3 ;; phenol and nitrite ;; I and III
+44239|not|all
+44294|alt|Tyndall ;; Tyndall scattering
+44296|alt|sqrt(3) ;; sqrt 3 ;; root 3
+44893|alt|1 2 3 ;; CO2, N2O, SF6
+44903|alt|C-C, C-H, C-F ;; 2 1 3
+44911|alt|C
+44914|alt|-170 ;; -170 J ;; -170 joules
+44920|not|3s ;; 3d
+44936|alt|1, 2 ;; 1 and 2
+44940|alt|1, 3 ;; diborane and trihydrogen cation ;; diborane and H3+
+44942|alt|2, 3, 1 ;; hydroxide, water, nitrite ;; OH-, H2O, NO2-
+44967|alt|1, 2, 3 ;; all ;; all three
+44967|not|1 and 3 ;; 2 and 3
+44973|alt|meso ;; meso form
+44990|alt|H
+45009|alt|van der Waals ;; van der Waals equation of state ;; vdw equation
+45011|alt|trigonal pyramid ;; pyramidal
+45011|not|trigonal planar ;; tetrahedral
+45024|alt|0 ;; neutral
+45027|not|critical point
+45028|alt|supercritical ;; supercritical state ;; supercritical phase
+45028|not|plasma
+45036|alt|2, 3 ;; 2 and 3 ;; dispersion and hydrogen bonding
+45036|not|1 and 2 ;; 3 only
+45051|alt|L/mol/s ;; M^-1 s^-1 ;; L mol^-1 s^-1
+45051|not|per second ;; moles per liter per second
+45058|not|2
+45069|alt|ionic solids ;; ionic crystals
+45070|alt|Mg
+45139|alt|I-, H2O, NH3, CN- ;; 4, 2, 3, 1
+45222|alt|10 s ;; 10 seconds
+45234|alt|Hund's rule of maximum multiplicity ;; Hunds rule ;; Hund
+45243|alt|sp3d2 ;; d2sp3
+45255|alt|zero ;; 0 J ;; no electrons
+45255|not|K-W ;; W-K
+45266|alt|3 ;; increasing the pressure ;; 3 only
+45266|not|2 ;; 1 and 3
+45279|alt|3 ;; 3.0
+45301|alt|Ag+ ;; silver ;; silver ion
+45301|not|Cu2+
+45313|alt|[Ag(NH3)2]+ ;; Ag(NH3)2+
+45325|alt|0.02 ;; 2e-2 ;; 2 x 10^-2
+45333|alt|NO-, NO, NO+ ;; 3 2 1 ;; 3,2,1
+45334|not|5.3 ;; 4.3
+45342|alt|hydrogen-2 ;; H-2 ;; 2H
+45346|alt|sulfur, selenium, oxygen ;; S, Se, O
+45354|alt|C
+45357|alt|Nernst
+45358|alt|1 and 2 ;; benzene and toluene
+45369|alt|none of them ;; neither ;; none of these
+45380|alt|15 sigma 2 pi ;; 15 and 2 ;; 15 sigma, 2 pi
+45380|not|14, 3 ;; 14, 2
+45403|alt|law of multiple proportions ;; Dalton's law ;; multiple proportions
+45414|alt|1 and 2 ;; sulfurous and sulfuric
+45415|alt|sulfur trioxide
+45415|not|SO2
+45424|not|coordination number
+45436|alt|KIE ;; isotope effect ;; kinetic isotope
+45437|alt|Cl-, NH3, CN- ;; chloride, ammonia, cyanide
+45448|alt|three
+45460|alt|racemic mixture ;; racemate
+45461|alt|four
+45461|not|3 ;; 8
+45470|alt|1, 2, 3 ;; all three ;; all of them
+45471|alt|BaSO4, MgCl2, Na3PO4 ;; 2 1 3
+45492|alt|Diels Alder ;; Diels-Alder ;; [4+2] cycloaddition
+45505|alt|eclipsed, gauche, anti
+45514|alt|nitrate, imine, ketone
+45526|alt|1e-31 ;; 1 x 10^-31 ;; 1e-31 kg
+45538|alt|acetaldehyde and benzaldehyde ;; 1 and 3
+45549|alt|potassium, boron, sodium ;; K, B, Na
+45591|alt|delta ;; delta bonding
+45600|not|racemization ;; retention
+45611|alt|salt effect
+45611|not|common ion effect
+45612|alt|zero
+45612|not|1 ;; 2
+45635|alt|240 ;; 240 joules
+45644|not|activity ;; compression factor
+45655|alt|methyl, isopropyl, allyl
+45665|alt|one ;; single
+45671|alt|compressibility factor ;; Z ;; compressibility
+45678|alt|0.32 ;; 0.32 grams
+45711|not|chromophore ;; fluorophore
+45722|alt|Debye-Huckel theory ;; Debye Huckel limiting law ;; Debye-Huckel equation
+45731|alt|1 and 3 ;; Madelung constant and ionic radii
+45731|not|2 ;; 1, 2, 3
+45742|alt|Fick's first law ;; Fick ;; Ficks law
+45764|alt|Hammond's postulate ;; Hammond-Leffler postulate ;; Hammond
+45765|alt|Lipinski's rule ;; rule of five ;; Rule of 5
+45765|not|Veber's rule
+45778|alt|three
+45787|alt|zero point energy ;; ground state energy ;; ZPE
+45797|alt|disproportionation reaction ;; dismutation
+45807|alt|sp2 ;; sp2 hybridization ;; sp2 hybridized
+45807|not|sp3 ;; sp
+45808|alt|ionization energy and electron affinity ;; IE and EA ;; electron affinity and ionization energy
+45820|alt|chair, twist-boat, half-chair
+45830|alt|eutectic mixture
+45831|alt|Boyle point
+45841|alt|2 1 3 4
+45850|alt|2, 3 ;; LiCl and FeCl2
+45850|not|1, 2, 3
+45863|alt|temperature only ;; T
+45874|alt|1 ;; red ;; red only
+45874|not|1 and 3
+45907|alt|Au ;; gold nanoparticles
+45916|alt|1 ;; bromo ;; bromo only
+45916|not|1 and 2 ;; 3
+45926|alt|red-brown ;; brick red ;; reddish brown
+45927|alt|1, 2 ;; naphthalene and adenine
+45927|not|1 only
+45936|alt|two
+45936|not|1 ;; 3
+45937|alt|benzaldehyde, fluorobenzene, ethylbenzene, anisole
+45960|alt|1, 3 ;; 1 and 3
+45970|alt|ortho, meta, para ;; o, m, p
+45980|alt|sodium chloride, sodium sulfate, sodium carbonate ;; NaCl, Na2SO4, Na2CO3
+46002|alt|four
+46012|alt|N2, F2, O2 ;; nitrogen, fluorine, oxygen
+46053|alt|sigma star ;; sigma* ;; C-X sigma*
+46054|alt|242 amu ;; 242 u
+46062|alt|W(CO)6, Cr(CO)6, [Mn(CO)6]+ ;; tungsten, chromium, manganese
+46066|alt|1, 2 ;; 1 and 2 ;; statements 1 and 2
+46066|not|3 ;; 1, 2 and 3
+46073|alt|9.2 ;; 9 min ;; 9.24
+46082|alt|pyridine, 2-tert-butylpyridine, 2-methylpyridine, 2,6-dimethylpyridine
+47400|q|["dinitrogen pentoxide","dinitrogen tetroxide"]|Dimerization of NO2 gives N2O4; Kc = Kp*RT = 25 only fits N2O4
+47561|rm||No choice has Cp = 10R: methane 13R, ethylene 16R, CO2 7.5R, benzene 34R with all vibrations excited
+46091|not|carbocation ;; carbonyl
+46112|alt|quintuplet ;; pentet ;; 5
+46112|not|septet ;; triplet
+46120|alt|Brillouin theorem ;; Brillouin
+46120|not|Koopmans' theorem ;; Hellmann-Feynman theorem
+46126|alt|Volmer Weber ;; island growth
+46126|not|Frank-van der Merwe growth ;; Stranski-Krastanov growth
+46133|alt|Marcus inverted region ;; inverted regime
+46134|alt|Hg(NH2)Cl ;; HgClNH2
+46159|alt|Cram rule ;; Cram's rule
+46160|alt|0.12 M
+46178|alt|methane, ethanol, water ;; 1 3 2
+46178|not|1, 2, 3
+46188|alt|1s2 2s2 2p6 3s2 3p4
+46188|not|1s2 2s2 2p6 3s2 3p6
+46197|alt|Hunds rule ;; Hund's rule of maximum multiplicity
+46207|alt|peroxide
+46207|not|superoxides ;; oxides
+46208|alt|1 ;; decreasing the temperature
+46208|not|1 and 3
+46220|alt|3 1 2
+46241|alt|2 ;; xenon tetrafluoride and tetrahedral
+46241|not|1 and 2
+46263|alt|1, 3 ;; 1,3
+46263|not|3 only
+46274|alt|360 g ;; 360 grams
+46284|alt|common-ion effect ;; common ion
+46284|not|Le Chatelier's principle
+46293|alt|3 1 2 ;; most probable, mean, rms
+46307|alt|sigma, pi, and delta ;; 1, 2, 3
+46307|not|1, 2, 3, and 4
+46317|alt|3 ;; thiosulfate ion
+46317|not|2 and 3
+46327|alt|methyl, primary, secondary, tertiary
+46337|alt|3 1 2
+46349|alt|inert pair ;; inert s pair effect
+46349|not|lanthanide contraction
+46380|alt|1.1e3 ;; 1.1 x 10^3
+46391|alt|1, 2, and 3 ;; 1 2 3 ;; all three
+46398|alt|2 ;; only 2
+46398|not|1 and 2
+46413|alt|1 ;; sodium chloride
+46413|not|1 and 2
+46455|alt|proton ;; H+ ;; hydrogen ions
+46455|not|electrons
+46479|alt|electron ;; e-
+46479|not|protons
+46489|alt|limiting reagent ;; limiting reactant
+46511|alt|1 3 2
+46522|alt|left ;; toward the reactants ;; reverse direction
+46522|not|to the right
+46532|alt|one
+46542|alt|1 2 3
+46555|alt|1, 2 ;; 1 and 2 only
+46555|not|1, 2, and 3
+46565|alt|2.5 mL
+46573|alt|7 ;; plus 7
+46607|alt|0.75 atm
+46617|alt|three
+46631|alt|solidus line
+46660|alt|seven
+46674|alt|rotoreflection ;; improper rotation axis
+46682|alt|1 ;; london dispersion forces
+46682|not|1 and 2
+46692|alt|1, 2 ;; 1 and 2 only ;; nitrate ion and sulfur trioxide
+46692|not|1, 2, and 3
+46702|alt|high specific heat ;; specific heat capacity ;; specific heat
+46712|alt|Faraday constant ;; faraday ;; F
+46712|not|Avogadro's constant ;; Boltzmann's constant
+46735|alt|azeotropic mixture ;; minimum boiling azeotrope
+46735|not|eutectic mixture ;; zeotrope
+46736|alt|Raoult ;; raoult's law
+46736|not|Henry's law ;; Dalton's law
+46745|alt|dipolar ion
+46755|alt|buffer solution
+46769|alt|halogen ;; group 17 ;; group 7A
+46769|not|alkali metals ;; chalcogens
+46780|alt|covalent bond
+46781|alt|44 g ;; 44 grams
+46792|alt|2, 3, 1 ;; solid, liquid, gas ;; II III I
+46792|not|I, III, II
+46815|alt|1, 3 ;; 1 and 3 only
+46815|not|2 only
+46818|alt|electron ;; valence electrons ;; delocalized electrons
+46826|alt|1 ;; 1:1 ;; 1 to 1
+46838|alt|endothermic reaction
+46839|alt|oxygen and silicon
+46851|alt|Avogadro's number ;; Avogadro constant ;; 6.022 x 10^23
+46860|alt|He ;; helium-4
+46861|alt|hydrogen-3 ;; H-3 ;; 3H
+46861|not|deuterium ;; protium
+46873|alt|C
+46885|not|7 ;; 0.07
+46897|alt|activation barrier ;; Ea
+46918|alt|2+ ;; plus 2
+46919|alt|1, 3 ;; 1 and 3 only
+46919|not|1, 2, and 3
+46931|alt|2 ;; sodium and chlorine
+46931|not|2 and 3
+46935|alt|amorphous solids ;; amorphous solid
+46942|alt|0 ;; none
+46943|alt|Zn
+46977|alt|non newtonian ;; non-Newtonian
+46989|alt|3 ;; 3 molar ;; 3 mol/L
+46989|not|2.5 ;; 5
+47010|alt|all ;; 1, 2, and 3 ;; all three
+47011|alt|aerosols
+47011|not|emulsion ;; foam
+47022|not|critical point ;; boiling point
+47034|alt|all ;; 1, 2, and 3 ;; all three
+47044|alt|-0.26 ;; -0.26 volts ;; -0.26 v
+47044|not|+0.26 ;; -1.26
+47045|alt|Tc ;; element 43
+47045|not|promethium
+47056|alt|Henderson Hasselbalch ;; HH equation
+47056|not|Nernst equation
+47057|alt|2 ;; nitrogen dioxide
+47057|not|2 and 3
+47068|alt|2 ;; plus 2 ;; 2+
+47081|alt|Boltzmann constant ;; kB
+47081|not|Avogadro's constant ;; Planck's constant
+47110|alt|Nernst ;; the Nernst equation
+47110|not|Henderson-Hasselbalch equation
+47119|alt|2, 3 ;; liquid and gas ;; 2 and 3 only
+47119|not|1, 2, and 3
+47120|alt|alpha ;; alpha emission
+47120|not|beta decay
+47133|alt|CaO ;; lime ;; quicklime
+47133|not|calcium hydroxide ;; calcium carbonate
+47155|alt|1, 3 ;; diamond and silicon dioxide
+47155|not|1, 2, 3 ;; 2 only
+47164|alt|Faraday constant ;; Faraday ;; F
+47172|alt|1, 2 ;; boron and aluminum
+47172|not|3 only ;; 1, 2, and 3
+47177|alt|London dispersion ;; dispersion forces ;; van der Waals
+47177|not|hydrogen bonding ;; dipole-dipole
+47178|alt|absolute temperature ;; T
+47199|alt|2 3 1 ;; simple cubic, body-centered cubic, face-centered cubic
+47199|not|1, 3, 2
+47200|alt|hydrogen bond ;; H-bonding
+47200|not|dipole-dipole forces ;; london dispersion forces
+47210|alt|15 s ;; 15 seconds
+47221|alt|carbon -1, oxygen +1 ;; -1, +1
+47221|not|+1 and -1
+47222|alt|1 2 3 ;; KI, NaCl, MgCl2
+47222|not|3, 2, 1
+47232|alt|2 g/mol ;; 2 grams per mole
+47243|alt|1, 2 ;; carbon and oxygen
+47243|not|1, 2, 3
+47244|alt|zero
+47244|not|1
+47253|alt|4 M ;; 4 molar
+47253|not|6 ;; 2
+47254|alt|six
+47254|not|3 ;; 12
+47267|alt|18 L
+47267|not|9
+47288|alt|1 ;; first electron affinity of fluorine
+47288|not|1 and 2
+47298|alt|2 ;; Fe2+ ;; iron(II)
+47298|not|2 and 3
+47299|alt|four
+47299|not|2 ;; 8
+47311|alt|Hofmann ;; Hoffmann product
+47311|not|Zaitsev product ;; Saytzeff product
+47321|alt|disproportionation reaction ;; dismutation
+47321|not|comproportionation
+47322|alt|20 K
+47322|not|10 ;; 100
+47332|alt|1 3 2 ;; chloride, oxalate, EDTA
+47332|not|1, 2, 3
+47342|alt|Hunds rule ;; Hund's rule of maximum multiplicity
+47342|not|Pauli exclusion principle ;; Aufbau principle
+47343|alt|400 K
+47356|alt|Li
+47376|alt|zwitterion ;; zwitterionic compounds
+47376|not|ylides ;; carbanions
+47386|alt|8 s ;; 8 seconds
+47386|not|4 ;; 16
+47400|not|1 ;; 0.04
+47408|alt|2 1 3 ;; fluoride, hydride, chloride
+47408|not|1, 2, 3
+47419|alt|three
+47419|not|4 ;; 2
+47429|alt|1 3 2 ;; cyano, fluoro, amino
+47429|not|2, 3, 1
+47430|not|violet ;; blue
+47442|alt|2 3 1
+47442|not|1, 2, 3
+47443|alt|3 1 2
+47443|not|2, 1, 3
+47452|alt|50 mL
+47452|not|40 ;; 60
+47463|alt|N2 ;; dinitrogen ;; nitrogen
+47463|not|hydrogen gas ;; ammonia
+47474|alt|3 ;; oxygen
+47474|not|2 and 3 ;; 1 only
+47496|alt|hydroxybenzene ;; C6H5OH
+47507|alt|1 ;; NH3 ;; ammonia
+47507|not|1 and 2
+47508|alt|5:3 ;; 5 to 3
+47508|not|3/5
+47518|alt|allenes ;; cumulated dienes
+47531|alt|2, 3 ;; Dess-Martin and Michael
+47531|not|1, 2, and 3 ;; 1 and 2
+47540|alt|octahedron
+47541|alt|1, 2 ;; iron and zinc
+47541|not|2 only ;; 1, 2, 3
+47562|alt|black and red ;; black, red ;; black phosphorus, red phosphorus
+47562|not|white and red ;; red and black
+47584|alt|1, 3 ;; 1 and 3 only
+47584|not|1, 2, and 3
+47592|alt|polarity inversion ;; umpolung reactivity
+47599|alt|2 3 1
+47599|not|1, 3, 2
+47606|alt|Sandmeyer reaction ;; Sandmeyer
+47606|not|Gattermann reaction ;; Schiemann reaction
+47619|alt|living polymerisation ;; living chain polymerization ;; living
+47620|alt|Weinreb amide ;; Weinreb-Nahm amides ;; N-methoxy-N-methylamides
+47628|alt|2.30 ;; 2.3
+47628|not|-2.3 ;; 0.43
+47629|alt|Debye-Huckel ;; Debye Huckel theory
+47636|alt|Zintl anions ;; Zintl ion
+47648|alt|NOE ;; Overhauser effect
+47648|not|J-coupling ;; spin-spin coupling
+47667|alt|1, 3 ;; 1 and 3 only ;; bcc and hcp
+47667|not|2 and 3 ;; 3 only
+47675|alt|1, 2 ;; dimethyl sulfide and zinc
+47693|a|CHARLES'S LAW|ALSO ACCEPTED entry "Ideal gas law" is a different law and wrong
+47693|alt|charles law ;; charles's law
+47693|not|boyle's law ;; gay-lussac's law
+47755|q|[" (ENFORCE STALLS)",""]|stray garbage text in question
+47760|alt|mercury, cobalt, tungsten ;; Hg, Co, W
+47760|not|1, 2, 3
+47769|alt|platinum, zinc, sodium
+47774|alt|beer's law ;; beer lambert law
+47779|alt|1, 3 ;; hydrochloric acid and nitric acid
+47788|alt|2, 4 ;; bicarbonate and carbonate
+47798|alt|NiCl2 + 2NaOH -> Ni(OH)2 + 2NaCl
+47803|alt|ethene ;; C2H4
+47803|not|ethane
+47841|alt|hammond postulate ;; hammond
+47851|not|4 ;; 2
+47870|alt|co, nh3, h2o
+47875|alt|C6H5CHO
+47880|not|sodium
+47898|alt|pressure, enthalpy, entropy ;; 2, 3, and 4
+47918|alt|beer-lambert law ;; beers law ;; beer lambert law
+47938|alt|pauli exclusion ;; pauli's exclusion principle
+47949|alt|beta minus ;; beta-minus decay
+47949|not|beta plus decay ;; alpha decay
+47978|alt|NaOBr
+47978|not|NaBrO2 ;; NaBrO3
+47979|alt|seesaw ;; see saw ;; disphenoidal
+47979|not|tetrahedral ;; square planar
+47988|alt|20 mg
+47989|alt|hcl, h2so4, h3po4
+47999|not|6 ;; 4
+48019|not|436
+48028|alt|bimolecular nucleophilic substitution
+48028|not|SN1
+48029|alt|nernst ;; nernst's equation
+48038|alt|square-planar
+48038|not|tetrahedral ;; octahedral
+48048|alt|sigma
+48048|not|pi bond
+48049|alt|sulfur hexafluoride, dinitrogen, helium ;; SF6, N2, He
+48069|alt|3.1 V ;; 3.1 volts
+48078|alt|CH4 and XeO4 ;; 1, 3
+48079|alt|4
+48079|not|2
+48099|alt|2, 3, 4
+48109|alt|0.69 V
+48118|alt|bromine, gallium, carbon
+48119|alt|11 sigma and 2 pi ;; 11, 2
+48119|not|10 sigma, 2 pi ;; 11 sigma, 3 pi
+48128|alt|condensation polymer
+48129|alt|hammond's postulate ;; hammond principle
+48148|alt|zeolite
+48159|alt|1
+48168|alt|atropisomer ;; atropisomers
+48188|alt|helmholtz energy ;; helmholtz
+48188|not|gibbs free energy
+48199|alt|eclipsed, gauche, anti
+48208|alt|current, time, and valency ;; 1, 2, 4
+48218|alt|neither
+48228|alt|hexane and ethyl acetate ;; 2, 3
+48239|a|3.5U|vibration adds R to Cv so Cv=7/2 R; 500 K gives 1750R vs U=500R, i.e. 3.5U
+48248|alt|comproportionation reaction ;; synproportionation
+48258|alt|carbocation and radical ;; 1, 2
+48258|not|carbanion
+48278|alt|mossbauer
+48279|alt|2, 1
+48288|alt|AIBN and benzoyl peroxide ;; 1, 3
+48297|alt|40.5
+48298|alt|zincblende and antifluorite ;; 1, 3
+48308|alt|beta-hydride elimination
+48318|alt|45 ;; 45000 J
+48328|alt|1, 2
+48337|alt|16 cm
+48347|alt|vmax
+48366|not|4 ;; 2
+48367|alt|-16/45 delta O ;; -16/45
+48376|alt|nickel carbonyl ;; tetracarbonylnickel
+48386|rm||Ni2+ d8, high-spin Fe3+ d5 and low-spin Fe(CN)6 4- are all not Jahn-Teller active, so more than one choice fits
+48397|alt|C3V
+48407|alt|2, 3
+48416|alt|hammett function ;; H0
+48417|alt|(e-1)/e ;; 1 - e^-1
+48427|alt|bcc and hcp ;; 2, 4
+48436|alt|z type ;; z ligand
+48437|alt|CH2 and C(CH3)2 ;; 2, 3
+48437|not|1, 4
+48457|alt|1-phenyl-2-propanone and NaBH3CN ;; phenylacetone and sodium cyanoborohydride
+48466|alt|anomeric ;; the anomeric effect
+48467|alt|57
+48476|alt|lithium enolate and aza enolate ;; 1, 2
+48477|alt|2, 3, 4
+48487|alt|nitrene, isocyanate
+48507|alt|4
+48516|alt|1, 3 ;; 4 and 8
+48517|alt|250 min ;; 250 minutes
+48527|alt|neither
+48536|alt|-18
+48551|alt|0.25 M
+48552|alt|II ;; 2
+48562|alt|KI, LiCl, CaS ;; 1, 3, 2
+48572|alt|I and III
+48582|alt|5 s ;; 5 seconds
+48592|alt|1 and 2 ;; london dispersion and dipole-dipole
+48601|alt|2
+48612|q|["nitric acid and sulfuric acid","nitric acid and hydrochloric acid"]|aqua regia is nitric acid plus hydrochloric acid
+48621|not|-7 ;; +5
+48662|alt|Cl- and K+ ;; 1 and 3
+48692|alt|potassium, silicon, chlorine
+48711|alt|5e-10 ;; 5 x 10^-10
+48721|q|["4,7-heptadiene","3,6-heptadiene"]|reversing the numbering of 1,4-heptadiene in a 7-carbon chain gives 3,6
+48742|not|10.3
+48751|not|108 ;; 94
+48771|alt|gaseous ;; gases
+48779|alt|z ;; proton number
+48780|alt|6.022e23 ;; 6.022 x 10^23
+48795|a|PROTONS|ALSO ACCEPTED entry "electrons" is wrong; atomic number counts protons
+48795|not|neutrons
+48859|alt|copolymer
+48860|alt|specific heat capacity
+48872|alt|0.25 atm
+48898|alt|SiF4 + 2 H2O ;; silicon tetrafluoride and water
+48913|alt|arginine, lysine
+48925|alt|0.2 moles ;; 0.2 mol
+48925|not|2 ;; 0.02
+48929|alt|2Fe + 3H2O ;; iron and water
+48945|alt|0.1 M ;; 0.1
+48945|not|0.025 M
+48960|alt|le chatelier's principle ;; le chatelier principle
+48968|alt|le chatelier ;; henri le chatelier
+48978|alt|1e-12 and 12 ;; 10^-12 M, pH 12
+48993|alt|na
+48994|alt|9.09%
+48994|not|10.0 ;; 10
+49009|alt|hydrogen bonds ;; hydrogen bonding
+49010|not|8 ;; 6
+49036|alt|0 C and 760 mm Hg ;; 0 degrees C and 760 mmHg
+49040|not|Fe2(CO3)3
+49041|alt|32.7 ;; 33 g
+49056|alt|bond energy ;; bond dissociation enthalpy
+49076|a|DINITROGEN MONOXIDE|systematic name is dinitrogen monoxide; nitrous oxide is the common name
+49076|alt|dinitrogen oxide ;; N2O
+49093|alt|N2, O2, Ar, CO2
+49121|alt|buret
+49127|alt|22.4 L
+49157|alt|gly
+49158|alt|8 L
+49174|alt|+160 ;; 160 kJ
+49189|alt|salts of fatty acids
+49190|alt|raoults law
+49205|alt|twenty
+49206|alt|triacylglycerol ;; triglycerides
+49219|alt|boyles law
+49220|alt|5 L
+49228|alt|ether
+49272|alt|carboxylic acid group
+49384|rm||Cellophane is regenerated cellulose (viscose); none of the choices is correct
+49404|q|["between ethane and bromine","between ethene and bromine"]|Addition giving only C2H4Br2 requires ethene, not ethane
+49505|a|TYNDALL EFFECT|Misspelled key; the phenomenon is the Tyndall effect
+49542|a|0.16|n = PV/RT = 4.0/(0.0821 x 300) = 0.162 mol, which rounds to 0.16
+49635|q|["Bromine, Iodine, and Antimony","Bromine, Iodine, and Astatine"]|Antimony is not a halogen; astatine is meant
+50329|a|AVOGADRO'S LAW|Garbled key; the hypothesis is Avogadro's law
+49307|not|ethene
+49319|alt|galvanizing ;; mechanical galvanizing
+49341|alt|nitrocellulose ;; celluloid
+49373|alt|absorbance vs concentration ;; absorbance, concentration
+49388|alt|30 ;; 30 min
+49388|not|60 minutes
+49416|alt|glucose and galactose ;; galactose, glucose ;; glucose, galactose
+49458|alt|0.4 ;; 0.4 j/g°c
+49470|alt|-1.01 kj ;; -1.01 kilojoules
+49474|alt|2.5e-4 ;; 2.5x10^-4
+49526|alt|arginine, lysine ;; lysine and arginine ;; arginine and lysine
+49541|alt|po4^3- ;; po4 3-
+49558|alt|60 g/mol ;; 60 grams per mole
+49591|alt|heat of fusion ;; latent heat of fusion ;; enthalpy of fusion
+49616|alt|ph
+49642|alt|relative density
+49675|alt|-870 ;; -870 j
+49675|not|+870 joules
+49691|alt|gay-lussac's law ;; amontons law
+49773|alt|h2so4
+49914|alt|7
+49936|alt|4
+49947|alt|505 ;; 505 kpa
+49963|alt|180 degrees
+50007|alt|7
+50008|alt|microwave
+50013|alt|277 ;; 277 k
+50014|alt|418 ;; 418.4 ;; 418 j
+50024|alt|pauli exclusion ;; pauli principle ;; exclusion principle
+50056|alt|racemic mixture
+50056|not|meso
+50069|alt|stoichiometric coefficient ;; coefficients
+50120|alt|homolysis ;; homolytic fission
+50120|not|heterolytic cleavage
+50132|alt|cu
+50142|alt|+2 ;; sr2+ ;; 2
+50157|alt|graham's law of effusion ;; grahams law
+50163|alt|2.4 ;; 2.4 mol
+50174|alt|haloalkane ;; organohalide
+50183|alt|5
+50196|not|chiral
+50211|alt|magnetic ;; ml
+50212|not|aromatic
+50225|alt|-oh ;; hydroxyl group ;; hydroxy
+50249|alt|3/2 ;; 3 to 2
+50250|alt|2.5e-5 ;; 2.5x10^-5
+50263|not|chlorine
+50293|alt|potassium dihydrogen phosphate ;; monopotassium phosphate
+50313|alt|torsional strain ;; eclipsing strain
+50329|alt|avogadro's hypothesis ;; avogadro's principle ;; avogadro's law
+50346|alt|fischer projection
+50360|alt|2
+50365|alt|10 ;; 10 ml
+50391|alt|0.02 ;; .02
+50415|alt|1 ;; 1+
+50415|not|-1
+50463|alt|-3 ;; 3-
+50463|not|+3
+50498|alt|carbon monoxide, potassium iodide, calcium oxide
+50517|alt|balmer ;; 2
+50517|not|1
+50518|alt|1.67 ;; 1.7 s
+50520|alt|metal organic frameworks
+50553|alt|1+ ;; plus 1
+50553|not|-1
+50566|alt|neutron scattering
+50574|alt|oxirane ;; epoxy
+50591|alt|potassium ;; k+ ;; 1
+50600|alt|32 g/mol
+50612|alt|six
+50629|alt|1
+50659|alt|3
+50659|not|four
+50665|alt|co and n2h4 ;; carbon monoxide and hydrazine ;; 1, 3
+50665|not|2 and 4
+50671|alt|1
+50684|alt|2 ;; glycine
+50684|not|1 and 3
+50687|alt|two
+50695|alt|2
+50695|not|one ;; three
+50701|alt|crystal field theory
+50711|alt|0
+50712|alt|fcc, bcc, sc
+50728|alt|1:4 ;; 1/4 ;; 0.25
+50745|alt|silver nitrate and silver fluoride ;; agno3 and agf ;; 1, 2
+50745|not|1 and 3
+50746|alt|1/4 ;; .25
+50757|alt|madelung
+50770|alt|born oppenheimer approximation ;; born-oppenheimer
+50780|alt|all three ;; 1, 2, 3 ;; 1, 2, and 3
+50796|alt|sigma ;; σ bond
+50810|alt|1, 2 ;; salt and decreasing temperature
+50810|not|1 and 3
+50821|alt|1/2 ;; 0.5 ;; half
+50823|alt|methyl ;; ch3
+50833|alt|sodium phenolate
+50834|alt|1, 2 ;; hydrogen-1 and carbon-13
+50834|not|1, 2, and 3
+50930|a|NONE|Ammonia is a weaker trans director than chloride, the effect is mainly square planar and kinetic, so no statement is true
+51120|a|Cannizzaro reaction|Misspelled; the reaction is Cannizzaro
+51572|a|3, 4, 2, 1|Electron affinities: B 27, Na 53, Li 60, O 141 kJ/mol so boron is lowest
+51718|a|Z|Benzene and toluene is ideal and acetone with DMSO shows negative deviation
+51746|a|3, 2, 4, 1|Bond angles: AsH3 92, PH3 93.5, H2O 104.5, NH3 107
+51972|a|3, 2, 1|p-Hydroxybenzoic acid (pKa 4.58) is weaker than p-methoxy (4.47) which is weaker than p-fluoro (4.14)
+52309|a|3|Only endothermic N2O4 to 2NO2 has a larger Keq at higher T; the other two are exothermic
+52419|a|2, 3, 1|Fluoride is a weak base (Kb about 1e-11), carbonate Kb about 2e-4, nitrate negligible
+51768|rm||Question gives no ordering criterion and the key does not match either direction of the real isomer yields
+51085|q|["following four compounds that act as electrophiles","following three compounds that act as electrophiles"]|Only three compounds are listed
+51320|q|["triprotic acid","diprotic acid"]|The byproduct H3PO3 is diprotic
+50861|alt|hsab ;; hard soft acid base theory
+50861|not|lewis acid-base theory
+50862|alt|4.5 ;; 9:2 ;; 9 to 2
+50862|not|2/9
+50882|alt|mlct ;; metal to ligand charge transfer
+50897|not|destructive
+50898|alt|50sqrt(30) ;; 50*sqrt(30)
+50903|alt|p4 ;; white p
+50903|not|red phosphorus ;; black phosphorus
+50933|alt|2+ ;; +ii ;; 2
+50941|alt|tert-butyl alcohol ;; 2-methyl-2-propanol ;; t-butanol
+50941|not|isobutylene ;; 2-butanol
+50942|not|1 ;; 3
+50949|not|oxygen ;; carbon
+50963|alt|4
+50963|not|6 ;; 2
+50974|not|reductive elimination ;; transmetalation
+50989|alt|3 ;; three-membered ring
+50989|not|4 ;; 5
+50990|alt|aldol ;; aldol reaction
+50995|not|alcohol ;; amide
+51014|alt|square pyramid ;; square pyramidal geometry
+51014|not|trigonal bipyramidal ;; octahedral
+51018|alt|flory-huggins ;; flory huggins theory
+51034|alt|1h-indole
+51042|alt|tertiary alcohol ;; 3 degree alcohol
+51042|not|secondary alcohol ;; primary alcohol
+51058|alt|torsional ;; torsion strain
+51058|not|angle strain ;; steric strain
+51104|not|oxidation ;; reduction
+51120|alt|cannizzaro ;; cannizzaro reaction
+51120|not|aldol reaction ;; claisen condensation
+51126|alt|eutectic mixture
+51126|not|azeotrope
+51135|alt|hydrogen bond ;; h-bonding ;; hydrogen bonds
+51164|alt|0.0025 ;; 2.5e-3 ;; 2.5x10^-3 m
+51189|alt|cyclopentadienyl, eta5 ;; cp, 5 ;; cyclopentadienide, 5
+51195|alt|ag
+51195|not|copper ;; gold
+51234|alt|[AuCl4]- ;; tetrachloroaurate(III) ;; aucl4-
+51234|not|aucl3 ;; au3+
+51286|alt|differentiating ;; non-leveling solvents
+51286|not|leveling solvents
+51337|not|-6 ;; 6
+51383|alt|0 radial 2 angular ;; 0,2
+51383|not|2 and 0 ;; 1 and 2
+51410|alt|grahams law ;; graham's law of effusion
+51411|alt|supernatant liquid ;; supernate
+51411|not|precipitate
+51420|alt|pale pink ;; light pink
+51420|not|colorless ;; purple
+51435|alt|henderson hasselbalch ;; henderson-hasselbalch equation
+51443|alt|0.25 ;; 1:4 ;; 1 to 4
+51480|alt|1.1e-4 ;; 1.1x10^-4 ;; 0.00011
+51486|alt|zinc and manganese dioxide ;; zn, mno2 ;; zn anode, mno2 cathode
+51567|alt|hess law ;; hess's law ;; law of constant heat summation
+51567|not|le chatelier's principle
+51631|alt|sodium methanoate ;; hcoona
+51631|not|sodium carbonate ;; sodium acetate
+51641|alt|20 ;; 20 j
+51649|alt|dative bond ;; coordinate bond ;; dative covalent bond
+51650|not|carbon dioxide ;; formaldehyde
+51700|alt|fractionation
+51703|not|isotactic ;; atactic
+51762|alt|crosslinking ;; cross-linking ;; crosslinks
+51763|alt|propyl ethanoate ;; n-propyl acetate
+51775|alt|3/2
+51775|not|2 ;; 1
+51811|alt|sigma star ;; sigma*
+51874|alt|1 and 2 ;; 1,2 ;; 1 radial, 2 angular
+51898|alt|kroll process
+51898|not|hall-heroult ;; mond process
+51949|alt|jahn teller effect ;; jahn-teller
+52003|alt|atom efficiency
+52003|not|percent yield ;; yield
+52067|alt|peptide bond ;; amide bond ;; amide
+52067|not|glycosidic bond ;; ester bond
+52081|alt|sp ;; sp hybridization
+52081|not|sp2 ;; sp3
+52082|not|silver chromate
+52087|alt|van der waals ;; vdw equation ;; van der waals equation of state
+52124|alt|haber bosch ;; haber
+52124|not|ostwald process ;; contact process
+52128|alt|pauli exclusion ;; pauli principle ;; exclusion principle
+52128|not|hund's rule ;; aufbau principle
+52146|alt|saturated solution
+52146|not|supersaturated ;; unsaturated
+52177|alt|common-ion effect
+52258|alt|0.6 ;; 0.6 m
+52271|alt|chemical adsorption ;; chemisorb
+52271|not|physisorption
+52296|not|monodentate ;; tridentate
+52320|alt|hyperconjugative effect
+52320|not|induction ;; resonance
+52335|alt|0.0009765625 ;; 4^-5 ;; 1/4^5
+52346|alt|-3.72 ;; -3.72 c
+52358|alt|ketone
+52358|not|alcohols ;; carboxylic acids
+52372|alt|steric effects ;; sterics ;; steric
+52373|alt|p4o6
+52373|not|p2o5
+52384|alt|anisotropic ;; anisotropic materials
+52511|a|Y|Dihydroxylation of alkenes is an oxidation; epoxide formation from a halohydrin is an intramolecular SN2, not a redox step
+52641|a|0.05|W = P*dV = 25 Pa * 2 L = 25 Pa * 0.002 m^3 = 0.05 J
+52642|a|84|Water loses 500*4.2*60 = 126000 J; Oscarium gains 100*c*15, so c = 84 J/g K
+52660|a|W|Gas solubility is highest at high pressure (Henry's law) and low temperature
+52897|a|POTASSIUM CHLORIDE|ALSO ACCEPTED lists sodium chloride/NaCl, but a calomel electrode uses KCl
+53330|a|GAS|A fart is a gas; liquid is not correct
+52456|q|["If gold crystallizes","If aluminum crystallizes"]|The given 143 pm radius is aluminum's, so the fcc cell is aluminum's
+52567|q|["test?up","test?"]|Stray garbled characters after the question mark
+52567|q|["Strontiumltech","Strontium"]|Stray garbled characters appended to the choice and key
+52786|q|["with a pKa of 5.6","with a pKb of 5.6"]|The 5.6 is the amine's pKb; conjugate acid pKa = 14 - 5.6 = 8.4
+52934|q|["N2O is in equilibrium","NO2 is in equilibrium"]|The equilibrium is 2NO2 <-> N2O4
+52934|q|["number of N2O molecules","number of NO2 molecules"]|The equilibrium is 2NO2 <-> N2O4
+53292|q|["records it as a square planar compound","records it as a square pyramidal compound"]|Berry pseudorotation passes through a square pyramidal intermediate
+53292|q|["trigonal bipyramidal and square planar shapes","trigonal bipyramidal and square pyramidal shapes"]|Berry pseudorotation passes through a square pyramidal intermediate
+53560|q|["[CoCl3(NH3)3]^(2+)","[CoCl3(NH3)3]"]|Co(III) with three Cl- and three NH3 is neutral, not 2+
+52455|alt|sqrt(6)hbar ;; sqrt(6) hbar ;; sqrt 6 h-bar
+52456|alt|286sqrt(2) pm ;; 286*sqrt(2) ;; 286sqrt2
+52469|alt|acetone ;; propan-2-one
+52507|alt|zwitterion
+52519|alt|0.5 ;; ln2/ln4
+52542|alt|1.10 ;; 1.1 V
+52553|alt|sp2
+52554|alt|liquid and vapor ;; gas and liquid
+52629|alt|-1/2 ;; -0.5
+52750|alt|sp3d2
+52787|alt|0.005 ;; 5e-3 M ;; 0.0050 M
+52851|alt|beta minus decay ;; beta-minus
+53075|alt|dispersion forces ;; van der Waals
+53145|alt|Hess's law ;; Hess law
+53215|alt|van der Waals ;; van der Waals equation
+53254|alt|Hofmann ;; Hofmann product
+53274|alt|Henderson-Hasselbalch ;; Henderson Hasselbalch equation
+53302|alt|Fajans rules ;; Fajans' rules
+53461|alt|180 ;; 180 degrees
+53528|alt|5 ;; +5 oxidation state
+53603|alt|11:9 ;; 9:11
+53656|alt|zeolites
+53764|alt|oxygen gas ;; O2
+53827|alt|sqrt(2) ;; sqrt2
+53871|alt|Woodward-Hoffmann rules ;; Woodward Hoffmann
+53873|alt|2:3 ;; 3:2
+53907|alt|H2F+
+53914|alt|Debye-Huckel theory ;; Debye Huckel
+53995|alt|Li-7 ;; lithium 7
+54004|alt|pi-pi stacking ;; pi stacking interaction
+52553|not|sp3 ;; sp
+52554|not|liquid and solid ;; solid and gas
+52629|not|1/2 ;; 1
+52750|not|sp3 ;; sp3d
+53074|not|5 ;; 4
+53420|not|3 ;; 14
+53528|not|+3 ;; +4
+53533|not|40 mL ;; 25 mL
+53034|not|octahedral ;; trigonal planar
+52999|not|2 angular, 0 radial ;; 1 angular, 1 radial
+53721|not|2 ;; 1
+52642|not|8.4 ;; 0.84
+52641|not|50 ;; 0.5
+54114|a|2, 1, 3|Hückel gap shrinks with conjugation: hexatriene < butadiene < benzene, so increasing is 2, 1, 3
+54120|a|1, 2, 3|Lewis acidity is BF3 < BCl3 < BBr3 because pi donation from F is strongest
+54171|rm||Ionic liquids are not liquid crystals, supercritical fluids, plasmas or superconductors, so no choice fits
+54769|a|1 AND 4|Maximum voltage depends on the electrode identities and on concentrations through the Nernst equation
+54857|a|Ni(CO)4|Mond process product is nickel tetracarbonyl, subscript 4 lost from the key
+54911|a|1 AND 2|Propene has isolated pi bond and is not conjugated, so ALL is wrong
+54945|a|Z|Hydrogen-like energy levels scale as Z^2, not Z^-2
+55251|q|["group | metal","group 1 metal"]|Garbled text, group 1 metal intended
+55365|a|1|Fluorine 2p5 has one unpaired electron
+55456|rm||Pure liquid water, solid aluminum and liquid benzene all have activity 1, so more than one choice is right
+55505|a|NONE|Ag half cell is cathode, KCl precipitates AgCl and lowers cell potential, cations flow to the silver half cell
+55535|a|X|Cyanide is a soft pi-acceptor ligand, not a harder base than chloride
+55636|rm||W and Y are the same reaction (H+ and H3O+), so two choices are correct
+55818|q|["CeF","CsF"]|Cesium fluoride intended, Ce is a typo for Cs
+55818|q|["CeCl","CsCl"]|Cesium chloride intended, Ce is a typo for Cs
+55818|q|["CeBr","CsBr"]|Cesium bromide intended, Ce is a typo for Cs
+55818|q|["CeI","CsI"]|Cesium iodide intended, Ce is a typo for Cs
+55822|rm||Key uses the wrong sign for the oncoming atom and sqrt(RT/M) as the average speed, which is not correct
+55900|a|-56.5 kJ/mol|NO + 1/2 O2 gives NO2 so 33.9 - 90.4 = -56.5; -113 is for two moles
+55939|a|Cristobalite, SiO2|Key misspells cristobalite
+55944|rm||None of the choices has a stereocenter; 2-methylbutane is achiral
+54030|alt|amide, ester, acid chloride
+54031|alt|2
+54031|not|1 and 2
+54038|alt|diphenylmethanone, 5, less ;; 1) diphenylmethanone; 2) 5; 3) less than
+54050|alt|ortho nitroaniline, meta nitroaniline, aniline
+54062|alt|all three ;; 1, 2, 3
+54072|alt|formaldehyde
+54073|alt|raman
+54106|alt|ester, thioester, acid chloride
+54114|alt|hexatriene, butadiene, benzene
+54114|not|3, 2, 1
+54120|alt|bf3, bcl3, bbr3 ;; boron trifluoride, boron trichloride, boron tribromide
+54120|not|3, 2, 1
+54148|alt|configurational entropy ;; entropy of mixing
+54149|alt|tanabe sugano ;; tanabe-sugano diagram ;; tanabe sugano diagrams
+54156|alt|enamines
+54187|alt|anisotropic polarizability ;; polarizability anisotropy
+54683|alt|coordinate bond ;; dative bond ;; dative covalent bond
+54683|not|ionic bond ;; hydrogen bond
+54684|alt|-300 kj ;; -300 kilojoules
+54684|not|300 ;; -400
+54695|alt|h2so4, nh4+, h2o ;; sulfuric acid, ammonium, water
+54696|alt|3, 4
+54696|not|2 and 3
+54705|alt|2 ;; 2+ ;; pb2+
+54706|alt|0 j ;; zero
+54712|alt|four
+54717|alt|boron, beryllium, oxygen, nitrogen ;; b, be, o, n
+54717|not|4, 3, 2, 1
+54738|alt|1 ;; ethanol
+54738|not|1 and 3
+54739|alt|-0.67 ;; -0.667
+54739|not|-1 ;; -2
+54747|alt|10.0
+54768|alt|2, 3
+54768|not|1, 2, 3
+54769|alt|1, 4
+54769|not|1 only
+54775|alt|avogadro constant ;; avogadro's number ;; avogadros number
+54778|alt|1, 2
+54778|not|1, 2, 3
+54779|alt|3.0
+54789|alt|no2-, no2, no2+
+54801|alt|3
+54823|alt|8.5e-9 ;; 8.5 x 10^-9
+54834|alt|pentagonal bipyramid ;; pentagonal bipyramidal geometry
+54834|not|pentagonal planar ;; octahedral
+54835|alt|1, 3
+54847|alt|2500 m^-1 s^-1 ;; 2.5e3
+54857|alt|nickel tetracarbonyl ;; tetracarbonylnickel(0) ;; nickel carbonyl
+54864|alt|gallium phosphide, zinc sulfide, aluminum nitride ;; gap, zns, aln
+54867|alt|protons ;; h+
+54878|alt|faraday's 1st law ;; first law of electrolysis
+54879|alt|2e-4 ;; 2 x 10^-4 ;; 0.0002
+54889|alt|nuclear isomer
+54911|alt|1, 2 ;; 1 and 2
+54911|not|all
+54919|alt|keto-enol tautomerism ;; tautomerization ;; tautomers
+54923|alt|1, 3
+54924|alt|1, 3
+54924|not|1, 2, 3
+54936|alt|2, 3
+54944|alt|3 ;; principal quantum number
+54944|not|2 and 3
+54956|alt|1 ;; calcium
+54962|alt|entropy of mixing
+54962|not|enthalpy
+54966|alt|no change ;; unchanged ;; 1x
+54979|alt|liquid crystals ;; liquid crystal phase
+54988|alt|raoult's law ;; raoults law
+54989|alt|mo-99 ;; molybdenum 99
+55000|alt|meso compound ;; meso compounds
+55000|not|racemic ;; enantiomer
+55045|alt|hess law ;; hess's law ;; law of constant heat summation
+55053|alt|5e-10 ;; 5 x 10^-10
+55056|alt|1 ;; first order ;; 1st order
+55056|not|second order ;; zeroth order
+55057|alt|4e-5
+55069|alt|1, 2, 3 ;; all three ;; all of them
+55091|alt|mgo, nacl, kcl
+55099|alt|1, 3
+55102|alt|1, 3 ;; sf4 and so2
+55103|alt|.75 ;; 0.75 m
+55114|alt|second ;; 2nd law ;; second law of thermodynamics
+55114|not|first law ;; third law
+55137|alt|1, 2 ;; nitrate and sulfate
+55137|not|1, 2, 3
+55148|alt|157 l ;; 156.8
+55155|alt|2, 3
+55169|alt|pb
+55170|alt|2 1/2 ;; 5/2
+55182|alt|10 atm ;; 10 atmospheres
+55189|alt|copolymer
+55190|alt|h2 ;; hydrogen gas
+55205|alt|c6h5oh
+55216|alt|0 ;; no change
+55227|alt|n=4 l=3 ;; 4, 3 ;; 4 3
+55228|alt|biradical
+55239|alt|hg
+55251|alt|na2co3 ;; soda ash
+55252|alt|condensation
+55273|alt|overvoltage
+55274|alt|cv
+55286|alt|a) 1.0e4, b) products ;; 1.0 x 10^4, products
+55293|alt|phase diagrams ;; pressure-temperature phase diagram
+55297|alt|sodium metal ;; na
+55307|alt|m ;; meta-
+55308|alt|ewg, meisenheimer complex ;; electron withdrawing group, meisenheimer intermediate
+55319|alt|zero
+55320|alt|jahn teller ;; jahn-teller distortion ;; jahn teller effect
+55331|alt|cu
+55332|alt|two
+55343|alt|tppo ;; triphenylphosphane oxide ;; triphenylphosphine oxide
+55344|alt|cui and i2 ;; copper(i) iodide and iodine ;; cuprous iodide and iodine
+55356|alt|sp3
+55365|alt|one
+55365|not|2 ;; 3
+55373|alt|12 degrees ;; 12 c
+55381|alt|zero
+55389|alt|250 ;; 250 j
+55396|not|aldehyde ;; alcohol
+55403|alt|he
+55415|alt|isoelectronic ;; isoelectronic species
+55427|alt|right ;; to the right ;; forward ;; products
+55439|alt|back-titration
+55441|alt|th
+55466|alt|linear, sp3d ;; linear; dsp3
+55466|not|bent
+55477|alt|2, 3 ;; ni(co)4 and nicl4 2-
+55486|alt|-1 ;; 1-
+55487|alt|3
+55497|alt|methyl ethanoate
+55497|not|ethyl acetate ;; acetic acid
+55505|alt|none ;; none of them
+55534|alt|sc, bcc, fcc ;; simple cubic, body centered cubic, face centered cubic
+55544|alt|1.41 ;; sqrt(2)
+55552|alt|charles, gay-lussac, boyle ;; charles' law, gay-lussac's law, boyle's law
+55552|not|1, 2, 3, 4
+55553|alt|157 ;; 157 kj ;; 157000 j
+55570|alt|precipitation reaction ;; precipitate reaction
+55578|alt|pi ;; pi bond ;; π bonds
+55579|alt|the triple point
+55586|alt|nuclear fission ;; fission reaction
+55591|alt|kcl, glucose, li3n, napo4
+55601|alt|1 and 4 ;; 1, 4
+55611|alt|1e-4 ;; 0.0001 ;; 1 x 10^-4
+55616|alt|third ;; third order ;; 3rd order
+55621|alt|rb, k, ca, kr ;; rubidium, potassium, calcium, krypton
+55626|alt|two
+55631|alt|nine
+55648|alt|hno3
+55649|alt|o-o, c-c, c=o
+55659|alt|octahedral geometry ;; octahedron
+55673|alt|3 ;; removing pcl5
+55686|alt|trigonal pyramid ;; pyramidal
+55686|not|tetrahedral
+55687|alt|hammond postulate ;; hammond-leffler postulate
+55693|alt|cao and co2 ;; calcium oxide and carbon dioxide
+55700|alt|cbr4, ccl4, ch4
+55719|alt|1, 4 ;; so2 and h2o
+55738|alt|1s2 2s2 2p6 3s2 3p6 3d10 4s1
+55746|alt|h
+55754|alt|676
+55755|alt|3.3 l ;; 3.31
+55765|alt|po4 3-
+55769|alt|ga
+55784|alt|enamines
+55826|alt|δ ;; delta orbital
+55828|alt|basic, acidic, amphoteric, basic
+55834|alt|zero ;; zeroth
+55844|alt|sodium nitrite ;; nano2
+55854|alt|0.5 ;; one half ;; half
+55861|alt|none ;; none of them
+55873|alt|1
+55879|alt|1
+55882|alt|ethanethiol ;; methanethiol ;; ethyl mercaptan
+55885|alt|licl, lif, cacl2, caf2
+55900|alt|-56.5 ;; -56.5 kj
+55910|alt|tc
+55915|alt|five
+55925|alt|14 sigma and 1 pi ;; 14, 1
+55930|alt|evaporation and water melts ;; evaporation and melting ;; evaporation, melting
+55934|alt|eutectic ;; eutectic, 14%
+55939|alt|cristobalite, sio2
+55949|alt|+2, octahedral
+55968|alt|1 s ;; 1
+55983|alt|4039
+67917|alt|boyle's law ;; boyles law ;; boyle law
+67937|alt|chadwick
+67938|alt|327 c ;; 327 degrees celsius
+68227|a|2|6f has n - l - 1 = 6 - 3 - 1 = 2 radial nodes
+68246|a|2,1,3|lone pairs repel more than a single unpaired electron, which repels more than a bonding pair
+68413|q|["cobalt hexacarbonyl complex","cobalt hexacyanide complex"]|K3[Co(CO)6] does not exist; the low-spin diamagnetic key fits K3[Co(CN)6]
+68797|rm||second-order concentration at t=3 depends on the rate constant, which is not given
+68866|a|Y|all-cis-1,2,3-trimethyl has a syn-diaxial Me/Me flip (about 3.7 kcal/mol extra) versus about 2.7 for trans-1,2-dimethyl
+69525|rm||every option has an invalid ms and the question asks which set is degenerate, which is meaningless
+69600|q|["isotope of phosphorus","allotrope of phosphorus"]|red phosphorus is an allotrope, not an isotope
+69632|a|HYPERCONJUGATION|key is misspelled
+69639|a|ZINC BLENDE|SiC adopts the zinc blende structure (8-atom cubic cell), not diamond cubic
+69661|rm||1-bromobutane cannot be prepared from 1-bromocyclopentene so the question is garbled
+69986|q|["conrotary","disrotatory"]|photochemical 6-pi ring opening of 1,3-cyclohexadiene is disrotatory
+67948|alt|346 ;; 346 g/mol
+67967|alt|Beer's law ;; Beer Lambert law ;; Beer-Lambert
+67977|alt|first order ;; 1st order
+67958|alt|1, 2, 3 ;; all of them ;; all three
+68068|alt|1, 2, 3 ;; all of them ;; all three
+69283|alt|1, 2, 3 ;; all of them ;; all three
+69585|alt|1, 2, 3 ;; all of them ;; all three
+69621|alt|1, 2, 3 ;; all of them ;; all three
+68518|alt|1, 2, 3 ;; all of them ;; all three
+67968|alt|1, 3 ;; 1,3 ;; 1 & 3
+68875|alt|1, 3 ;; 1,3 ;; 1 & 3
+68880|alt|1, 3 ;; 1,3 ;; 1 & 3
+68257|alt|1, 2 ;; 1,2 ;; 1 & 2
+68432|alt|1, 2 ;; 1,2 ;; 1 & 2
+68916|alt|2, 3 ;; 2,3 ;; 2 & 3
+69686|alt|1, 2 ;; 1,2 ;; 1 & 2
+69329|alt|2, 3 ;; 2,3 ;; 2 & 3
+68267|alt|2 and 3 ;; 2,3
+69393|alt|D, F ;; D and F ;; DF
+68136|alt|2 ;; only 2 ;; Paschen
+68167|alt|2 ;; only 2
+68206|alt|2 ;; only 2
+68354|alt|2 ;; only 2 ;; indium
+68355|alt|3 ;; only 3
+68403|alt|2 ;; only 2
+68470|alt|2 ;; only 2
+68944|alt|3 ;; only 3
+69055|alt|2 ;; only 2
+69598|alt|3 ;; only 3
+69629|alt|2 ;; only 2
+69751|alt|1 ;; only 1 ;; d_xy
+68491|alt|1 ;; only 1
+68538|alt|1 ;; only 1
+69492|alt|1,2,3 ;; methyl orange, methyl red, phenolphthalein
+68988|alt|2 ;; only 2
+69055|not|1 ;; 3
+68136|not|1 ;; 3
+67988|alt|3,1,2 ;; aluminium, carbon, nitrogen ;; Al, C, N
+68118|alt|1,2,3 ;; HNO2, HNO3, H2SO4
+68147|alt|1,3,2
+68157|alt|2,3,1 ;; ethane, ethylene, acetylene
+68177|alt|3,1,2 ;; water, carbon dioxide, methane
+68197|alt|3,2,1
+68236|alt|2,1,3 ;; acetylene, ethylene, benzene
+68246|alt|bonding pair, radical, lone pair ;; 2,1,3
+68246|not|1,2,3 ;; 3,1,2
+68266|alt|3,2,1 ;; HF, water, ammonia
+68294|alt|1,2,3
+68305|alt|3,1,2 ;; helium, nitrogen, methylene chloride
+68334|alt|3,1,2 ;; white, red, black
+68374|alt|3,1,2
+68384|alt|2,3,1
+68480|alt|2,1,3 ;; hydroxide, nitrite, cyanide
+68508|alt|2,3,1
+68884|alt|2,1,3
+68940|alt|2,1,3 ;; Na+, K+, Cl-
+68949|alt|1,2,3
+69091|alt|1,3,2 ;; argon, carbon dioxide, chlorine
+69138|alt|2,1,3
+69289|alt|1,2,3 ;; tritium, carbon-14, uranium-238
+69973|alt|1,3,2 ;; indium, chlorine, calcium
+68048|alt|M^-4 s^-1 ;; L^4 mol^-4 s^-1 ;; 1/(M^4 s)
+68058|alt|H2CO3 ;; carbonic acid
+68067|alt|Nernst ;; Nernst's equation
+68067|not|Gibbs equation
+68087|alt|azeotropic mixture ;; azeotropic
+68087|not|eutectic
+68137|not|1-butanol ;; 2-methyl-2-propanol
+68166|alt|Lennard-Jones ;; Lennard Jones potential ;; LJ potential
+68166|not|Morse potential
+68187|alt|equipartition ;; equipartition of energy
+68187|not|virial theorem
+68285|not|nucleophilic substitution ;; aldol addition
+68373|alt|fluorescence quantum yield ;; quantum efficiency
+68827|alt|Huckel's rule ;; Hückel rule ;; 4n+2 rule
+68827|not|Hund's rule
+68840|alt|Pourbaix diagram ;; potential-pH diagram
+68840|not|Ellingham diagram
+68951|alt|Madelung ;; Madelung's constant
+68974|alt|virial ;; virial expansion
+68984|alt|Hammond postulate ;; Hammond's postulate
+68984|not|Le Chatelier's principle
+69423|alt|Marcus ;; Marcus theory of electron transfer
+69402|alt|lanthanoid contraction
+69402|not|actinide contraction
+69410|alt|D-infinity-h ;; Dinfh ;; D∞h
+69422|alt|Fe(Cp)2 ;; bis(cyclopentadienyl)iron
+69422|not|nickelocene ;; cobaltocene
+69473|alt|black phosphorus
+69473|not|white ;; red
+69634|alt|primary amide ;; acetamide
+69634|not|amine ;; ester
+69764|alt|delta ;; δ bond
+69764|not|sigma bond ;; pi bond
+69829|not|hydrophilic
+68127|alt|Po
+68723|alt|nido ;; nido borane
+68723|not|closo-borane ;; arachno-borane
+68726|alt|Hammett acidity ;; Hammett function ;; H0
+68759|alt|Holstein-Herring ;; Holstein Herring
+69711|alt|hyperconjugation
+69742|alt|benzenecarbaldehyde ;; PhCHO
+69742|not|benzoic acid ;; benzyl alcohol
+69602|not|carbonate ;; oxalate
+68499|not|halogen exchange
+68786|not|Bronsted-Lowry ;; Lewis
+68344|alt|-0.5 ;; -1/2
+68344|not|1/2 ;; -1
+68802|alt|-0.5 ;; -1/2
+68527|alt|5/8 ;; 62.5%
+68945|alt|2.083 ;; 25/12 K
+68973|alt|3.125 ;; 25/8 eV
+69177|alt|210 g
+69175|alt|100
+69921|alt|1.26 ;; 1.26 V
+69209|alt|-0.85 V
+69951|alt|0.16 V ;; 0.16
+68247|alt|-0.37
+68586|alt|4.5
+69944|alt|A factor ;; frequency factor ;; pre-exponential
+69944|not|activation energy
+69898|alt|chair conformation
+68284|alt|desiccant ;; drying reagent
+70291|a|1 ONLY|Raising T shifts left, but decreasing volume or adding NO2 shifts right toward N2O4
+70394|a|132 grams|Cinnamaldehyde C9H8O has molar mass about 132 g/mol, not 109
+70441|a|TRANSITION STATE|The highest free-energy point on the reaction profile is the transition state
+70644|a|W|Allene has 7 atoms so 3N-6 = 15 normal modes
+70687|a|110|Mole fraction pentane 3.5/19.8=0.177 gives 0.177*420+0.823*40 = 107 torr, i.e. 110
+71122|a|W|Freezing point is highest for the smallest i*m; sulfuric acid gives about 1.2 vs 2.0 or more for the others
+71285|a|1,5-HEXADIENE|The simplest degenerate Cope substrate is 1,5-hexadiene; 1,3,5-hexatriene has no 1,5-diene unit
+71361|a|0|n=5 l=3 is the 5f subshell, which is empty in ground state lead
+71460|a|XENON|Radon is period 6; the period 5 noble gas is xenon
+72294|a|OXYGEN BOND DISSOCIATION ENERGY|Key misspelled DISSOCATION
+70287|rm||O-O in O2F2 is about 1.22 A, shorter than a normal O-O single bond, so the premise is false
+71388|rm||Both Ag+ and Fe3+ spontaneously react with copper metal, and the wording is unclear
+73655|rm||Ethanol-acetone and water-acetone also show positive deviation, so several choices are correct
+70666|q|["the acid’s conjugate acid","the acid’s conjugate base"]|A buffer pairs an acid with its conjugate base
+70031|alt|Balz-Schiemann reaction ;; Balz-Schiemann ;; Schiemann
+70031|not|Sandmeyer reaction ;; Gattermann reaction
+70044|alt|Jahn Teller ;; Jahn-Teller distortion
+70078|alt|HCl, HBr, H2S ;; hydrogen chloride, hydrogen bromide, hydrogen sulfide
+70099|alt|5p, 6s, 4f, 5d ;; 4,3,1,2
+70117|alt|1 and 3 ;; 1,3 ;; racemic and 0 degrees
+70117|not|1 only ;; 1, 2, 3
+70130|alt|ammonia, ethylenediamine, EDTA ;; 2,3,1
+70134|alt|oxygen, carbon dioxide, ammonia ;; O2, CO2, NH3
+70169|alt|1 and 2 ;; 1,2
+70169|not|1, 2, 3 ;; 2 only
+70172|alt|inversely proportional ;; inverse relationship ;; Boyle's law
+70173|alt|reductions ;; reduce ;; hydrogenation
+70173|not|oxidation
+70182|alt|London dispersion forces ;; dispersion forces ;; van der Waals
+70194|alt|1 and 3 ;; 1,3 ;; acetic acid and aluminum chloride
+70194|not|1 only ;; 3 only
+70197|alt|1/heat capacity ;; reciprocal of heat capacity ;; one over heat capacity
+70197|not|heat capacity ;; specific heat
+70206|alt|3 ;; only 3
+70208|alt|allylic bromination ;; radical bromination ;; Wohl-Ziegler bromination
+70216|alt|2 ;; increase in pressure
+70216|not|2 and 3 ;; 1 and 2
+70227|alt|1.41 ;; sqrt(2)
+70279|alt|aldol ;; aldol addition ;; aldol condensation
+70290|alt|neighboring group participation ;; NGP
+70291|alt|1 ;; 1 only
+70291|not|1 and 2 ;; 2 only
+70304|alt|tetrahedral and octahedral ;; tetrahedral, octahedral
+70304|not|octahedral, tetrahedral
+70332|alt|Bragg's law ;; Bragg equation ;; Braggs law
+70375|alt|proton ;; hydrogen ions ;; H+
+70375|not|electrons ;; neutrons
+70387|alt|carboxylic acid ;; COOH ;; carboxyl
+70393|alt|peptide bonds ;; amide bonds ;; peptide
+70393|not|ester ;; glycosidic
+70402|alt|Ac-227 ;; actinium 227
+70407|alt|racemic mixture ;; racemate ;; racemic solution
+70407|not|optically active ;; S enantiomer only
+70420|alt|IC ;; internal conversion
+70420|not|intersystem crossing ;; fluorescence
+70424|alt|frequency factor ;; A ;; Arrhenius pre-exponential factor
+70429|alt|glycerin ;; glycerine ;; propane-1,2,3-triol
+70440|alt|M^-1 s^-1 ;; 1/(M s) ;; L/(mol s)
+70440|not|1/s ;; M/s
+70443|alt|sublimation ;; fractional sublimation
+70470|alt|aromatic ;; aromatic stabilization ;; aromatic stability
+70472|alt|S8 ;; eight
+70503|alt|van der Waals forces ;; London dispersion forces ;; pi stacking
+70524|alt|Peierls ;; Peierls instability
+70535|alt|three
+70535|not|2 ;; 5
+70548|alt|5.0
+70585|alt|ten
+70588|alt|15 M^-1 ;; fifteen
+70620|alt|K^-3 ;; 1/(K^3) ;; 1/K³
+70620|not|1/K ;; K^3
+70660|alt|two ;; double bond
+70665|alt|+1 ;; plus one ;; 1
+70716|alt|secondary alcohol ;; 2 ;; 2 degree
+70716|not|primary ;; tertiary
+70718|not|red ;; orange
+70730|alt|7.5
+70756|alt|neutrons
+70756|not|protons ;; electrons
+70790|alt|six
+70798|alt|comproportionation reaction ;; synproportionation ;; symproportionation
+70798|not|disproportionation
+70800|alt|sigma hyperconjugation ;; hyperconjugative stabilization
+70802|alt|206
+70857|alt|silicon, potassium, indium, barium ;; Si, K, In, Ba
+70982|alt|HNO3 ;; nitric acid
+70982|not|nitrous acid ;; nitrogen dioxide
+71014|alt|2^7 ;; 128 stereoisomers
+71014|not|64 ;; 14
+71101|alt|second ;; second order ;; 2nd order
+71110|alt|oxygen, nitrogen, fluorine ;; O, N, F
+71200|alt|six
+71201|alt|nuclear atom ;; Rutherford model ;; Rutherford nuclear model
+71201|not|Bohr model ;; plum pudding
+71262|alt|H0 ;; Hammett acidity ;; Hammett function
+71265|alt|Cr6+ ;; chromium trioxide ;; chromic acid
+71265|not|chromium(III) ;; manganese
+71274|alt|iminium ;; iminium cation
+71274|not|imine ;; enamine
+71328|alt|Tyndall scattering ;; Tyndall
+71334|alt|alkenes ;; double bond
+71349|alt|TMS ;; tetramethylsilane ;; Si(CH3)4
+71353|alt|B(OH)4- ;; BOH4- ;; [B(OH)4]-
+71365|alt|isobutane, butane, 1-propanol ;; 2,3,1
+71392|alt|zeroth law ;; zeroth law of thermodynamics
+71392|not|first law ;; second law
+71460|alt|Xe ;; xenon
+71465|alt|2 ;; second ;; 2nd order
+71473|alt|5p orbital
+71484|alt|two ;; 2x
+71496|alt|amorphous ;; amorphous solid ;; noncrystalline solids
+71496|not|crystalline solids ;; polycrystalline
+71501|alt|exothermic reaction ;; exothermic process
+71501|not|endothermic
+71523|alt|condensation reaction ;; imine condensation ;; dehydration
+71528|alt|CH3CN ;; acetonitrile ;; methyl cyanide
+71528|not|acetic acid ;; acetaldehyde
+71542|alt|1 and 3 ;; 1,3
+71542|not|1 only ;; 3 only
+71543|alt|2,1,3 ;; C triple bond C, C-H, O-H
+72026|alt|none ;; zero ;; no modes
+72043|alt|phosphorescent ;; afterglow
+72043|not|fluorescence
+72052|alt|leveling ;; levelling effect ;; solvent leveling
+72052|not|common ion effect
+72053|not|5 ;; 50
+72078|alt|PF3, PCl3, PBr3
+72096|alt|all ;; 1,2,3 ;; all three
+72106|alt|1,2 ;; 1 and 2
+72106|not|1 and 3 ;; 2 and 3
+72116|alt|2,3 ;; volume and temperature
+72116|not|1 and 3 ;; 1 and 2
+72143|alt|Zn2+, Ni2+, Cu2+ ;; 3,1,2
+72153|alt|1,2 ;; zinc and aluminum
+72153|not|1,2,3 ;; 2 only
+72171|alt|none ;; 0 ;; zero
+72216|alt|F/2^7 ;; F/128 ;; 1/128 F
+72216|not|F/64 ;; F/4
+72233|alt|carboxylate ion ;; carboxylate anion ;; RCOO-
+72233|not|carboxylic acid ;; alkoxide
+72243|alt|2,3 ;; oxalate and ethylenediamine
+72243|not|1 and 2 ;; 2 only
+72253|alt|virial equation of state ;; virial expansion ;; virial
+72260|alt|acetyl, methyl, hydroxyl
+72269|alt|hydroxybenzene ;; C6H5OH ;; phenol
+72269|not|benzene ;; phenyl benzoate
+72277|alt|mass spec ;; MS
+72286|alt|2/5 ;; 2 to 5 ;; 0.4
+72286|not|5:2 ;; 2:3
+72303|alt|CaC2O4, CaCO3, CaO ;; calcium oxalate, calcium carbonate, calcium oxide
+72311|alt|107 degrees
+72329|alt|2 E ;; 2Δ ;; 2 delta
+72336|alt|first order ;; 1st order ;; one
+72336|not|2 ;; 1.5
+72344|alt|aldol reaction ;; Evans aldol ;; asymmetric aldol
+72345|alt|linear combination of atomic orbitals ;; LCAO
+72354|alt|18-crown-6 ether ;; 18 crown 6 ;; dibenzo-18-crown-6
+72364|alt|Berry pseudorotation ;; pseudorotation
+72365|alt|OTf ;; triflate group ;; trifluoromethanesulfonate
+72372|alt|double beta decay ;; 2 beta decay ;; double-beta decay
+72373|alt|eta1 ;; monohapto ;; 1
+73624|alt|Type 2 ;; type II ;; II
+73624|not|Type I ;; Type 1
+73629|alt|Pt ;; platinum
+73630|alt|3, 3 ;; 3 sigma and 3 pi
+73630|not|3 and 6 ;; 6 and 3
+73633|alt|galena and rutile ;; 1,3
+73633|not|1 and 2 ;; 2 only
+73657|alt|1 ;; styrene ;; 1 only
+73657|not|2 only ;; 1 and 2
+73722|alt|state function ;; state variable ;; function of state
+73723|alt|none ;; 0 ;; zero
+73723|not|3 only ;; 1 only
+73749|alt|C ;; carbon
+73755|alt|salt and water ;; water, salt ;; H2O and salt
+73755|not|water only ;; acid and base
+84829|a|1, 4, 2, 3|Isobutane (-12 C) boils below n-butane (-1 C), and n-butanol (117 C) boils above isobutanol (108 C)
+73844|q|["density of 1 g/cm^3","density of 1 g/L"]|A gas density of 1 g/cm^3 is absurd and gives 150000; with 1 g/L, M = dRT/P = 1*8*300/16 = 150
+73762|not|nonane
+73763|alt|ethane, propane, butane
+73763|not|3, 1, 2
+73796|alt|81 protons and 124 neutrons ;; 81, 124
+73796|not|83 and 126 ;; 81 and 128
+73810|alt|5 M ;; 5 mol/L
+73810|not|0.5 ;; 50
+73841|not|1 ;; 2
+73844|not|1500 ;; 15
+73845|alt|1 ;; oxygen
+73845|not|1 and 2 ;; 1 and 3
+73847|alt|gibbs energy ;; gibbs
+73857|alt|mass deficit
+73862|alt|3 2 1 ;; barium, tin, phosphorus
+73897|alt|d subshell ;; d orbital
+73901|not|sublimation ;; condensation
+73908|alt|water and aluminum oxide ;; 1, 2
+73908|not|1 only ;; 2 only
+73931|not|+4 ;; -2
+73932|alt|ClO3- ;; ClO3^(-)
+73933|alt|aniline and toluene ;; 1, 2
+73933|not|2 only ;; 1, 2 and 3
+73984|alt|4 to 3
+73984|not|3:4 ;; 2:1
+73999|alt|le chatelier ;; le chateliers principle
+74000|alt|none ;; 0 ;; none of them
+74000|not|2 only ;; 3 only
+74021|not|lithium ;; zinc
+74046|alt|1 3 2
+74082|alt|ion-dipole ;; ion dipole forces ;; ion-dipole force
+74085|alt|-17.1 c ;; -17.1 degrees
+74085|not|-5.7 ;; -11.4
+74526|alt|aufbau ;; aufbau rule
+74546|alt|reaction quotient Q
+74546|not|equilibrium constant ;; K
+74547|not|6 ;; 3
+74557|not|3, 2, 1 ;; 1, 2, 3
+74598|not|CH ;; C9H10
+74685|alt|CH2=CH2 ;; ethylene
+84558|alt|NH4Cl and KCl ;; 2 and 3
+84558|not|1, 2, 3 ;; 2 only
+84571|not|3 ;; 6
+84582|not|4 ;; 6
+84603|alt|hunds rule ;; hund rule
+84615|alt|propane ;; 1
+84615|not|1 and 2 ;; 1 and 3
+84638|alt|3:5 ;; 0.6
+84638|not|5/3 ;; 3/4
+84647|not|3, 2, 1
+84672|alt|33 ;; 33 s
+84672|not|67 ;; 330
+84693|alt|400 ;; 400 g
+84693|not|200 ;; 100
+84694|alt|t shaped ;; t-shape
+84716|alt|steady state ;; steady-state
+84728|alt|enantiomer ;; enantiomeric pair
+84729|not|4 ;; 3
+84738|alt|AlCl3 and BF3 ;; 1, 2
+84738|not|1, 2, 3 ;; 2 and 3
+84744|alt|catalytic cracking
+84762|not|3 ;; 4
+84773|alt|disproportionation reaction ;; dismutation
+84783|alt|zwitterion ;; dipolar ion ;; dipolar ions
+84795|alt|phosphorus and arsenic ;; 1, 2
+84795|not|3 ;; 1, 2, 3
+84796|alt|0.35 ;; 7/20
+84796|not|20/7 ;; 5/7
+84808|alt|10 M ;; 10 mol/L
+84808|not|4.0 ;; 5
+84818|alt|inductive ;; induction effect
+84819|alt|0.8 ;; 0.80 atm
+84819|not|0.4 ;; 1.6
+84853|alt|Be(OH)2 and Al(OH)3 ;; 2, 3
+84853|not|3 only ;; 1 and 2
+84864|alt|cyclopropane ;; 1
+84864|not|1 and 2 ;; 2 only
+84865|not|1 only ;; 1 and 2
+84886|not|1 and 2 ;; 1, 2, 3
+84887|not|1, 2, 3 ;; 1 only
+84911|alt|crystallization and column chromatography ;; 2, 3
+84911|not|1 and 2 ;; 3 only
+84932|not|1 only ;; 1, 2, 3
+84943|not|4 ;; 6
+84954|not|combination band ;; fermi resonance
+84989|alt|27 mmHg ;; 27.0
+84989|not|3.0 ;; 30
+84999|alt|all ;; 1, 2, 3 ;; 1 and 2 and 3
+85000|alt|1, 2
+85000|not|1 only ;; 1, 2, 3
+85009|alt|partial molar Gibbs energy
+85066|alt|amine ;; 1 degree amine
+85066|not|secondary amine ;; amide
+85078|alt|all ;; 1, 2, 3
+85078|not|1 and 2 ;; 2 and 3
+85086|alt|0.5 ;; 0.50 M
+85086|not|0.055 ;; 0.55
+85092|alt|primary and secondary ;; 1, 2
+85092|not|2 and 3 ;; 1, 2, 3
+85093|alt|2 ;; only 2
+85093|not|1 and 2 ;; 2 and 3
+85110|alt|smectic and discotic ;; 1, 2
+85110|not|1 only ;; 2 and 3
+85111|not|1, 3 ;; 1, 2, 3, 4
+85126|alt|grotthuss
+85127|alt|2 ;; (2E,4Z)-hexa-2,4-diene
+85127|not|1 ;; 1 and 2
+85135|alt|Racah parameter
+85155|alt|haptotropic shift
+85340|alt|1, 2 and 3 ;; all ;; oxygen, fluorine, and nitrogen
+85340|not|2 only ;; 1 and 2
+85344|alt|t shaped ;; t-shape
+85353|not|C2H5OH ;; CH3O
+85370|alt|bromine and mercury ;; Br and Hg ;; mercury, bromine
+85370|not|mercury ;; bromine
+85373|alt|daltons law ;; dalton's law of partial pressure
+85395|alt|one ;; 1 pair
+85395|not|3 ;; 2
+85396|not|tetrahedral ;; octahedral
+85405|alt|HCHO ;; H2CO
+85405|not|CH3OH ;; HCOOH
+85414|alt|2Al + Fe2O3 -> Al2O3 + 2Fe ;; Fe2O3 + 2 Al -> 2 Fe + Al2O3
+85443|alt|1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 5s1 ;; 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1
+85453|alt|helium-4
+85459|not|-1 ;; 1
+85461|alt|74 g/mol
+85461|not|72 ;; 88
+85465|not|protons
+85789|alt|nitrite ion ;; NO2-
+85789|not|nitrate ;; nitrosonium
+85791|alt|zero-point entropy
+85791|not|zero-point energy ;; enthalpy of formation
+85820|alt|propane-1,2,3-triol ;; 1,2,3-propanetriol
+85820|not|methanol ;; ethanol
+85824|alt|brownian movement
+85846|alt|mohr's method ;; mohr titration
+85881|alt|all ;; 1, 2, 3
+85881|not|2 and 3 ;; 3 only
+85896|alt|tempo and epr ;; 1) tempo; 2) electron paramagnetic resonance
+85897|alt|Ag
+85897|not|copper ;; gold
+85913|alt|4.2e-23 ;; 4.2 x 10^-23
+85913|not|4.2 x 10^23 ;; 2.8 x 10^-22
+85915|alt|thiols ;; mercaptan
+85940|alt|4sqrt(2) ;; sqrt(32)
+85940|not|1/(4sqrt(2)) ;; 32
+85942|alt|ether and diethyl ether ;; A) ether B) diethyl ether
+85942|not|A) ester; B) diethyl ether
+85943|alt|6 and 1.5 ;; A) 6 B) 1.5
+85943|not|6 and 1 ;; 3 and 1.5
+85944|alt|banana bond, Al2Cl6, Diels-Alder ;; three-center two-electron bond, Al2Cl6, Diels-Alder
+85946|alt|[4+2], 0, claisen rearrangement ;; A) [4+2]; B) 0; C) CLAISEN
+85946|not|A) [2+2]; B) 0; C) Cope rearrangement
+86002|alt|0.5 ;; one half
+86002|not|2 ;; 1
+86003|alt|1
+86003|not|-1 ;; +5
+86007|not|5 ;; 3
+86022|alt|1- ;; minus one
+86022|not|+1 ;; -2
+86034|alt|64 E
+86034|not|8E ;; 4E
+86053|alt|6 and 1 ;; 6, 1
+86053|not|6 and 2 ;; 3 and 1
+86062|alt|1, 2
+86062|not|2 only ;; 1, 2 and 3
+86097|alt|maxwell boltzmann ;; maxwell speed distribution
+86097|not|boltzmann distribution ;; gaussian distribution
+86109|alt|sp2
+86110|alt|ductile
+86119|alt|C6H6O7 2- ;; C6H6O7(2-)
+86119|not|C6H7O7- ;; C6H5O7^3-
+86120|not|4 ;; 10
+86131|alt|Na
+86132|alt|multiple proportions ;; dalton's law of multiple proportions
+86132|not|law of definite proportions ;; law of conservation of mass
+86141|alt|nernst ;; the nernst equation
+86141|not|Butler-Volmer equation ;; Goldman equation
+86152|alt|six
+86152|not|8 ;; 12
+86162|alt|Tc
+86162|not|promethium
+86174|alt|hydrogen bonding ;; H-bonds
+86194|alt|+2 ;; 2
+86194|not|-2 ;; +1
+86195|not|1, 2, 4, 3
+86237|alt|sulfur hexafluoride ;; 1
+86237|not|1 and 3 ;; 3 only
+86247|alt|3 sigma and 4 pi ;; 3 and 4
+86247|not|4 and 3 ;; 5 and 2
+86260|not|-1 ;; -2
+86269|alt|allotrope
+86270|alt|white, red, black
+86270|not|3, 2, 1 ;; 1, 2, 3
+86281|alt|platinum group metals ;; platinum group ;; PGMs
+86282|alt|drago rule ;; drago's
+86303|alt|4 C
+86303|not|2C ;; 8C
+86332|alt|2 and 3 ;; electronegativity and ionization energy
+86332|not|1 and 2 ;; 3 only
+86333|alt|CH4
+86333|not|ethane ;; propane
+86344|not|3, 1, 2
+86345|alt|5/36 I ;; 0.139 I
+86345|not|3I/4 ;; 8I/9
+86354|alt|first order ;; 1st order ;; 1
+86355|alt|9x ;; 9 times ;; nine
+86355|not|3 ;; 6
+86367|alt|N-14 ;; nitrogen-14
+86367|not|1 and 3 ;; 1, 2, 3
+86376|alt|born oppenheimer ;; born-oppenheimer
+86387|alt|sp3d ;; dsp3
+86387|not|sp3 ;; sp3d2
+86388|alt|1900 kJ/mol ;; 1902
+86396|alt|1- ;; minus 1
+86396|not|-2 ;; 0
+86397|alt|triplet ;; triplet dioxygen ;; triplet O2
+86397|not|singlet oxygen
+86418|alt|polarisability
+86419|alt|bragg law ;; bragg equation
+86419|not|Laue equations ;; Snell's law
+86430|alt|all ;; all of them
+86430|not|1 and 2 ;; 2 only
+86439|alt|amorphous solids ;; amorphous solid
+87336|a|Walden inversion|The inversion of configuration in SN2 is the Walden inversion, not "Walther's"
+96663|a|KIRCHHOFF'S LAW|Misspelled; the law is Kirchhoff's law (with two h's)
+96722|q|["dimethyl sulfide, DMSO","dimethyl sulfoxide, DMSO"]|DMSO is dimethyl sulfoxide, not dimethyl sulfide
+96853|q|["6,2'(prime)-dichloro-2'(prime),6-dibromobiphenyl","6,2'(prime)-dichloro-2,6'(prime)-dibromobiphenyl"]|Each position carries both Cl and Br as written; the chiral biphenyl needs 2-Br,6-Cl on one ring and 2'-Cl,6'-Br on the other
+86452|alt|maillard ;; maillard browning ;; maillard reaction
+86461|alt|n = 1 ;; n=1 state
+86473|alt|synproportionation ;; comproportionation reaction
+86473|not|disproportionation
+86483|alt|chelate effect ;; chelation
+86483|not|macrocyclic effect
+86504|alt|uv catastrophe ;; the ultraviolet catastrophe
+86525|alt|compressibility ;; z factor ;; z
+86557|not|isotropic
+86575|alt|jahn teller effect ;; jahn-teller distortion ;; jahn teller
+86582|alt|frost-ebsworth diagram ;; frost ebsworth diagram
+86582|not|latimer diagram
+86591|alt|lennard jones potential ;; lj potential ;; 12-6 potential
+86592|alt|octahedral and tetrahedral ;; tetrahedral, octahedral
+86610|alt|raney ni ;; ra-ni ;; raney nickel
+86637|alt|bents rule ;; bent rule
+86648|alt|ziegler natta ;; ziegler-natta catalysts ;; ziegler natta catalysts
+86657|alt|rosenmund ;; rosenmund reduction
+86657|not|stephen reduction ;; rosenmund-von braun
+86661|alt|7 x 10^-4 ;; 7e-4 ;; 0.0007
+86671|alt|1 um ;; 1 micron ;; 1000 nm
+87037|alt|huckel rule ;; huckels rule ;; 4n+2 rule
+87037|not|baird's rule
+87046|alt|common-ion effect ;; common ion
+87136|alt|lanthanoid contraction
+87136|not|actinide contraction
+87146|alt|substitutional alloy ;; substitutional alloys
+87146|not|interstitial
+87157|alt|constant pressure
+87167|alt|van t hoff equation ;; vant hoff equation ;; van't hoff
+87176|alt|avogadro constant ;; avogadro number ;; N_A
+87177|alt|0.5 ;; one half ;; 1/2 R
+87197|not|fluorescence
+87206|not|boat ;; twist-boat
+87207|alt|anomeric ;; the anomeric effect
+87237|alt|born haber cycle ;; born-haber ;; born haber
+87256|alt|paschen
+87256|not|brackett series ;; balmer series
+87267|alt|change in number of moles of gas ;; delta n ;; delta n gas
+87276|alt|si(ch3)4 ;; tetramethyl silane
+87286|alt|b2 ;; second virial coefficient b2
+87287|alt|simmons smith reaction ;; simmons-smith cyclopropanation ;; simmons smith
+87297|not|monodentate
+87327|alt|sigma 2p ;; sigma_2p ;; sigma2p
+87336|alt|walden's inversion ;; inversion of configuration
+87367|alt|woodward hoffmann rules ;; woodward-hoffmann ;; woodward hoffmann
+87395|alt|cryptands ;; cryptand ligand
+87425|alt|suzuki reaction ;; suzuki ;; suzuki-miyaura reaction
+87425|not|heck reaction ;; stille coupling
+87445|alt|karplus equation ;; karplus curve ;; karplus
+87446|alt|nephelauxetic
+87455|alt|eta5 ;; eta-5 ;; η5
+87466|alt|trans-effect
+87466|not|trans influence
+87507|alt|jacobsen epoxidation ;; jacobsen-katsuki ;; jacobsen katsuki epoxidation
+87508|alt|dewar chatt duncanson model ;; dcd model ;; dewar-chatt-duncanson bonding model
+87642|alt|3.7 MPa ;; 3.7e6 Pa ;; 3700 kPa
+87117|alt|pi bond ;; pi orbital ;; pi
+96475|alt|[Ar] 4s2 3d6 ;; 1s2 2s2 2p6 3s2 3p6 4s2 3d6 ;; 1s2 2s2 2p6 3s2 3p6 3d6 4s2
+96475|not|[Ar] 4s2 3d6
+96494|alt|oxygen ;; O2 gas
+96505|alt|1.56 V
+96516|alt|clausius clapeyron ;; clausius-clapeyron
+96527|alt|azeotropic mixture ;; constant boiling mixture
+96546|alt|hydronium ;; H3O+
+96601|alt|24418 ;; 24418 J
+96663|alt|kirchhoffs law ;; kirchhoff's law of thermochemistry
+96672|alt|change in polarizability ;; polarisability
+96683|alt|three-center two-electron bond ;; 3c-2e bond ;; 3 center 2 electron bond
+96683|not|3-center 4-electron bond
+96702|alt|lanthanoid contraction
+96712|alt|maillard ;; maillard browning
+96722|not|polar protic
+96773|alt|jahn-teller effect ;; jahn teller distortion
+96802|alt|laporte ;; laporte's rule
+96822|alt|I3- ;; triiodide ion
+96853|alt|atropisomers ;; atropisomerism
+96853|not|enantiomer ;; conformer
+96872|alt|activation enthalpy ;; delta H double dagger
+96872|not|entropy of activation ;; activation energy
+96873|alt|pi back-bonding ;; backbonding ;; pi backdonation
+96882|alt|3/2 R ;; 1.5R ;; 3R/2
+96902|alt|levelling effect ;; leveling
+96912|alt|michaelis menten ;; michaelis-menten kinetics ;; michaelis menten equation
+96912|not|lineweaver-burk equation
+96913|alt|epimer
+96913|not|anomers
+96922|alt|sigmatropic ;; sigmatropic reaction
+96922|not|electrocyclic reaction ;; cycloaddition
+96933|alt|nephelauxetic
+96953|alt|renner teller ;; renner-teller
+96953|not|jahn-teller effect
+97002|alt|homolytic fission ;; homolytic bond cleavage
+97022|alt|tautomer
+97022|not|conformers
+97033|alt|williamson synthesis ;; williamson ether ;; williamson
+97063|alt|oxygen and ozone ;; O2 and O3 ;; dioxygen and ozone
+97082|alt|desublimation
+97082|not|sublimation
+97122|alt|equilibrium ;; chemical equilibrium
+97152|alt|Mg
+97452|a|1|XeF4 has no d electrons and is square planar from an octahedral electron geometry, so only 1 is true
+5171|a|Y|commercial solar panels are typically about 15-22% efficient
+9955|a|3|injective and collision-resistant hash functions exist; probing occurs in closed hashing only
+11002|a|I only|actor-critic and VAEs are not adversarially trained
+1565|a|FACET|ALSO ACCEPTED entry "Facility for" is a truncated fragment
+1306|rm||CO2 is clearly an emission of E10 too, and ozone is formed rather than emitted
+5282|rm||says 4 layers but lists 3, and the layer order is unclear
+9945|rm||both O(n^2) time and O(n^2) space are standard issues of self-attention
+10986|rm||all subset sums can number 2^n so no listed polynomial bound is correct
+11689|rm||separators prevent electrode short circuits; none of the choices says so
+97353|q|["Cycloehexane","Cyclohexane"]|misspelled cyclohexane
+5387|q|["Thorium-288","Thorium-227"]|the cancer-therapy isotope is thorium-227
+97162|not|3, 2, 1
+97182|alt|resonance effect ;; resonance structures
+97182|not|hyperconjugation
+97193|alt|sigma
+97193|not|pi bond
+97202|alt|copper and chromium ;; cu and cr
+97202|not|2, 3 ;; 1, 2
+97232|not|1, 2
+97242|alt|van't hoff ;; vant hoff factor
+97242|not|osmotic coefficient
+97243|alt|lewis ;; lewis theory ;; lewis acid-base
+97243|not|bronsted-lowry ;; arrhenius
+97252|not|diffusion
+97253|alt|h2 ;; h
+97272|not|1, 2, 3
+97282|alt|none ;; none of them
+97293|alt|none ;; none of them
+97302|alt|0.556 ;; 5:9
+97302|not|9/5
+97332|alt|buffer solution
+97332|not|titrant
+97352|alt|0.0625
+97352|not|16
+97372|alt|negative 1 ;; negative one
+97393|alt|overvoltage
+97443|alt|standard reduction potentials ;; standard electrode potential
+118131|alt|chemically equivalent hydrogens ;; chemical equivalence
+1139|alt|cold nuclear fusion
+1149|alt|pumped hydro ;; pumped storage ;; pumped hydroelectric storage
+1170|alt|betz limit ;; betz law ;; betz's law
+1171|alt|59 ;; 59.3%
+1171|not|60%
+1239|alt|$0.06 ;; 6 ¢
+1284|alt|h+ ;; hydrogen ion
+1318|alt|pt
+1349|alt|h+ ;; hydrogen ion
+1391|alt|nox ;; nitrogen oxides
+1392|alt|low temp combustion
+1414|alt|carbon capture and storage ;; ccs
+1435|alt|supercapacitors ;; ultracapacitor
+1448|alt|tokamaks
+1565|alt|facility for advanced accelerator experimental tests ;; facet-ii
+1573|alt|microreactor ;; nuclear microreactors
+1574|alt|triso ;; tristructural isotropic fuel
+1586|alt|honda fujishima ;; honda-fujishima
+1606|alt|2h ;; d
+1739|alt|pwr and bwr ;; pressurized water reactor and boiling water reactor
+1750|alt|parabolic ;; parabolic shape
+1804|alt|horizontal axis and vertical axis ;; hawt and vawt
+3019|alt|heptane ;; normal heptane
+3019|not|octane ;; isooctane
+3375|alt|nimh ;; nickel metal hydride ;; ni-mh
+3403|alt|x ray crystallography ;; xray crystallography
+3413|alt|halting problem
+3454|alt|ocs ;; carbonyl sulphide
+5188|alt|shors algorithm ;; shor algorithm
+5325|not|underfitting
+5326|alt|backprop ;; back propagation
+5400|alt|u-235 ;; uranium 235
+5490|alt|moores law ;; moore's law
+5821|alt|afm ;; atomic force microscope
+7018|alt|ro ;; reverse-osmosis
+7018|not|osmosis ;; nanofiltration
+8014|alt|roc ;; receiver operating characteristic ;; roc graph
+8049|alt|roc ;; receiver operating characteristic ;; roc graph
+8257|alt|i ;; parasitic inductance
+9123|alt|xrd ;; x ray crystallography
+9402|alt|phosphate ;; phosphates
+9619|alt|synapse ;; synaptic connections
+9665|alt|xps ;; x ray photoelectron spectroscopy
+9771|alt|c-11 ;; 11c ;; carbon 11
+9771|not|carbon-14 ;; carbon-13
+9791|alt|1, 2, 3, 4 ;; all of them ;; all four
+9801|alt|1 and 3 ;; coal and agricultural runoff
+9838|alt|3 ;; iii
+9901|alt|3 ;; iii
+9964|alt|dennard scaling ;; dennard's law
+10005|alt|bm
+10036|alt|needleman wunsch ;; nw algorithm
+10083|alt|greedy algorithm
+10103|alt|rectified linear ;; relu function
+10126|alt|first-out and last-in ;; lifo ;; 2 and 3
+10131|alt|cas ;; computer algebra
+10150|alt|unsupervised learning
+10156|alt|transformers
+10192|alt|overfit ;; over-fitting
+10192|not|underfitting
+10311|alt|black-box ;; black box model
+10360|alt|pwr ;; pressurized water
+10551|alt|gd
+10552|alt|ensemble ;; ensemble methods ;; ensembling
+10588|alt|all ;; 1, 2, 3 ;; all of them
+10636|alt|all ;; 1, 2, 3 ;; all of them
+10660|alt|superintelligent ai ;; artificial superintelligence
+10755|alt|mutual assured destruction
+10791|alt|scientific breakeven ;; breakeven
+10804|alt|the singularity
+10851|alt|neural networks ;; neural net
+10904|alt|data compression
+10918|alt|2 and 3 ;; ii, iii ;; 2, 3
+10924|alt|the gradient ;; grad
+10931|alt|sigmoid function ;; logistic function ;; logistic sigmoid
+10931|not|softmax ;; tanh
+10937|alt|i and iii ;; merge sort and quick sort ;; 1 and 3
+10946|alt|hallucinations ;; hallucinating
+10951|alt|http ;; hypertext transfer protocol
+10960|alt|flops ;; floating point operations per second
+10965|alt|state value function ;; v(s)
+10974|alt|polynomial time
+10990|alt|turing machine
+10998|alt|diffusion models ;; diffusion model ;; denoising diffusion
+10999|alt|ai alignment
+11002|alt|i ;; gans ;; gan
+11005|alt|uniform manifold approximation and projection
+11010|alt|chain of thought ;; chain-of-thought
+11013|alt|monads
+11263|alt|pet ;; pet scan ;; positron emission tomography
+11482|alt|dope
+11528|alt|tokamaks
+11548|alt|transistor
+12477|alt|resonance absorption ;; resonant capture
+12496|alt|all ;; 1, 2, 3 ;; all three
+12835|alt|tokamaks
+13397|alt|liquid argon ;; ar
+13398|alt|shors algorithm ;; shor's
+13488|alt|supercapacitor ;; ultracapacitor
+13595|alt|unsupervised ;; unsupervised machine learning
+13604|alt|monte carlo method ;; monte carlo simulation ;; monte carlo methods
+14026|alt|-2, photolithography ;; -2 and photolithography
+14941|alt|quantum dot ;; qds ;; qd
+15789|alt|forster resonance energy transfer ;; förster resonance energy transfer
+15980|alt|quantum bit ;; qbit
+16291|alt|ii and iii ;; maldi-tof and tandem ms ;; 2, 3
+16361|not|precision ;; specificity
+16617|alt|graph
+16680|a|1 AND 2|Free electron lasers do not use quantum dots, so not all three apply
+16680|alt|1 and 2 ;; 1,2
+16814|alt|nash equilibrium
+16947|alt|monte carlo algorithms ;; monte carlo method
+16947|not|las vegas
+17001|alt|1, 2, 3 ;; 1 2 3
+17001|not|3,2,1
+17048|not|x-ray crystallography
+17054|alt|np complete ;; npc
+17362|alt|transformers
+17448|alt|pet scan
+17508|alt|backprop ;; back propagation
+17509|alt|foundation models
+17639|not|128 ;; 256
+17700|alt|activation function
+17700|not|weights
+17756|alt|sparse matrix ;; sparse matrices
+19806|alt|list processor
+19807|alt|list
+19807|not|array
+19862|not|256 ;; 127
+19890|alt|john backus
+20073|a|FISCHER-TROPSCH|Process is spelled Fischer-Tropsch, key misspelled
+20073|alt|fischer tropsch ;; fischer-tropsch process
+20200|alt|hypertext markup language
+20305|alt|reduced instruction set computing
+20535|alt|1,2 ;; 1 and 2
+20616|alt|1
+20616|not|all
+20716|not|tin
+20830|a|STENT|The thin metal tube left in place to induce clotting is a stent, not a catheter
+20946|alt|charge-coupled device
+21058|alt|pt
+21128|alt|d ;; 2h
+21195|alt|(previous, current) => previous * current
+21316|alt|c++ and java ;; 1,2
+21499|alt|multiplexor ;; mux
+21544|alt|ethyl alcohol ;; c2h5oh
+21587|alt|back propagation
+21629|q|["random sampling to calculate an","random sampling to calculate an approximate numerical result?"]|Question text is cut off mid-sentence
+21629|alt|monte carlo method ;; monte carlo simulation
+21859|alt|hidden ;; hidden layers
+21860|alt|xor and xnor ;; 2,3
+21872|alt|dom tree
+21883|alt|string and tuple ;; 1,3
+21896|alt|overloading operators
+21907|alt|beginning and end ;; 1,3
+21919|alt|register ;; cpu registers
+21932|alt|and and or ;; 1,3
+21932|not|xor
+21956|alt|clock jitter
+21980|alt|cross-site scripting
+22002|alt|regular languages
+22002|not|context-free
+22014|alt|hamming
+22014|not|levenshtein distance ;; edit distance
+22025|alt|halting
+22072|alt|alpha beta pruning ;; alpha-beta ;; alpha beta
+22085|alt|ntp
+22086|alt|op code ;; operation code
+22109|alt|double-ended queue ;; double ended queue
+22110|alt|tail call elimination ;; tco ;; tail recursion optimization
+22121|alt|memoisation
+22185|alt|carbon capture and storage ;; carbon capture and sequestration
+22208|alt|2,3 ;; lifo and filo
+22231|a|Y|Reactivity depends on fuel and moderator, not on flux level, so it stays constant
+22255|a|O(N+E)|Depth first search takes time proportional to nodes plus edges; key is cut off
+22255|alt|o(n+e) ;; o(v+e)
+22268|alt|linear ;; o(n)
+22268|not|o(log n) ;; o(1)
+22280|alt|1,2,3 ;; all three
+22813|alt|montreal protocol on substances that deplete the ozone layer
+22841|alt|microwaves ;; microwave radiation
+22841|not|infrared
+22929|alt|synchrotron ;; synchrotron radiation
+22954|not|gasification ;; combustion
+22978|alt|current carrying capacity
+23077|alt|cumulative reward ;; expected return
+23101|alt|mesa optimizer ;; mesa-optimization
+23113|alt|teg ;; seebeck generator
+23149|alt|anti-natalism
+23173|a|CONVENTION ON CERTAIN CONVENTIONAL WEAPONS|Key is cut off; the UN agreement is the Convention on Certain Conventional Weapons
+23244|alt|gan ;; generative adversarial networks
+23245|alt|cnn ;; convnet
+23268|alt|control engineering
+23304|alt|ergodic
+23352|alt|long short-term memory
+23353|alt|vanishing gradients
+23400|alt|hmm ;; hidden markov model
+23412|alt|fast breeder ;; fbr
+23412|not|thermal reactor
+23460|alt|explosive lenses ;; high explosive lens
+23485|alt|landauer's principle ;; landauer bound
+23485|not|bekenstein bound
+23569|alt|recursive self-improvement
+23592|alt|rl
+23628|alt|ml
+23629|alt|neural net ;; artificial neural network ;; ann
+23689|alt|selection bias ;; survivorship bias
+23736|rm||Largest model claim is out of date and GPT-3 is no longer the largest
+23737|alt|parallel computing ;; parallel processing
+23783|alt|supervised
+23867|alt|u-238 ;; uranium 238
+23879|alt|algorithmic
+23914|alt|f1 score ;; f1 ;; f-measure
+23961|alt|rl ;; rlhf
+23962|alt|k means ;; kmeans
+23962|not|k-nearest neighbors ;; hierarchical clustering
+24045|alt|a singleton
+24082|alt|ridge ;; l2 regularization ;; tikhonov regularization
+24082|not|lasso regression
+24105|alt|agency problem
+24117|alt|logistic ;; sigmoid
+24165|alt|bias variance tradeoff ;; bias-variance dilemma
+24214|alt|pascal mugging
+27642|a|X|Cape Town is in the southern hemisphere at about 34 S so panels face north tilted near the latitude, about 30 degrees, not 60
+31119|a|STELLARATOR|key is misspelled
+31672|rm||Summit is no longer the most powerful supercomputer (Frontier and El Capitan surpassed it)
+42260|rm||NIF at Lawrence Livermore uses laser inertial confinement, not a torus-shaped tokamak
+38577|a|UNSUPERVISED LEARNING|the accepted alternate DEEP LEARNING is not the same as unsupervised learning
+40711|a|Zero-shot|few-shot and one-shot require examples so they are wrong alternates for a prompt with no examples
+41759|a|DYNAMIC RANDOM-ACCESS MEMORY|SRAM, ROM and flash do not need refresh circuits so they are wrong alternates
+45534|a|1 and 3|greedy cannot count the number of ways to make change, only brute force and dynamic programming can
+28932|a|PHOTOLITHOGRAPHY|patterning with UV light on a resist is photolithography; nanoimprint uses a mold
+40449|a|Low Rank Adaptation|key is misspelled (Adaption)
+24238|alt|overfit
+24238|not|underfitting
+24310|alt|trolley dilemma ;; the trolley problem
+24382|alt|gain of function ;; gain-of-function
+25165|alt|3D-printing ;; additive manufacturing ;; 3d printed
+25656|not|qudit
+25789|alt|undulators
+25819|alt|RO
+26040|alt|carbon dioxide sequestration ;; geologic carbon sequestration ;; carbon storage
+26690|alt|diffusion monte carlo ;; quantum monte carlo
+26862|alt|1, 3 ;; 1 3
+27062|alt|ATLAS detector
+27692|alt|W
+29399|alt|moores law
+29400|alt|H-3 ;; hydrogen-3
+29449|alt|quantum bit
+29517|alt|1, 3 ;; coolant and moderator
+29517|not|1 and 2 ;; 3 only
+29570|alt|transformers ;; transformer model
+29639|alt|overfit
+30565|alt|x-ray diffraction ;; xray crystallography
+30747|alt|perovskites ;; perovskite structure
+31142|alt|1, 2 ;; 1 2
+31211|alt|farnsworth-hirsch fusor ;; inertial electrostatic confinement
+31243|alt|nuclear fusion
+31309|alt|polyhydroxyalkanoates ;; polyhydroxyalkanoic acid
+31465|alt|fusion ;; fusion energy
+31733|alt|water, heat, and electricity ;; electricity, heat, water ;; H2O, heat, electricity
+31734|alt|PEM ;; proton exchange membrane ;; polymer electrolyte membrane
+31808|alt|parabolic troughs ;; parabolic mirrors
+31911|alt|Pu-238 ;; plutonium 238 ;; plutonium
+31911|not|uranium-235 ;; plutonium-239
+33088|alt|UV ;; UV rays ;; ultraviolet rays
+33097|alt|Si
+33105|alt|transformer ;; step-down transformer
+33130|alt|maize
+33442|alt|solar power ;; solar energy
+37713|alt|binary
+38405|alt|collision
+38406|alt|1, 2, 3 ;; all three ;; MD5, SHA-1, and SHA-256
+38417|alt|selective laser sintering (SLS)
+38418|alt|thermoplastic polyurethane
+38440|alt|RTG ;; radioisotope thermoelectric generator ;; radioisotope power generator
+38577|alt|unsupervised
+38589|alt|response time ;; reaction time
+38624|alt|race condition
+38636|alt|overfitting
+38670|alt|neither ;; none of them ;; neither 1 nor 2
+38727|alt|10^18 ;; 1e18 ;; 10**18
+38727|not|10^15 ;; 10^21
+38728|alt|floating-point operation ;; floating point operations
+38728|not|floating point operations per second
+39148|alt|transistor ;; MOSFETs ;; mosfet transistor
+39148|not|BJT
+39150|alt|exploration and exploitation ;; exploitation, exploration
+39159|alt|RL
+39160|alt|euv ;; extreme ultraviolet ;; ultraviolet
+39160|not|infrared ;; visible light
+39165|alt|mixture-of-experts ;; MoE ;; sparse mixture of experts
+39166|alt|knowledge distillation ;; distillation
+39166|not|fine-tuning ;; quantization
+39171|alt|1, 2 ;; 1 2
+39172|alt|1, 2, 4 ;; sigmoid, softmax, silu
+39172|not|1, 2, 3, 4 ;; 1, 2
+39178|alt|1, 2 ;; 1 2
+39182|alt|none ;; nothing ;; no
+39185|alt|relu, sigmoid, softmax ;; 1 relu 2 sigmoid 3 softmax
+39187|alt|single-layer perceptron ;; perceptrons
+39189|alt|unet ;; U Net
+40062|alt|spectrometer ;; UV-Vis spectrophotometer ;; UV-vis spectrometer
+40093|alt|RO ;; reverse-osmosis
+40170|alt|toroid ;; donut ;; doughnut
+40202|alt|all ;; 1, 2, and 3 ;; 1 2 3
+40300|alt|NP ;; nondeterministic polynomial ;; NP-complete
+40300|not|P
+40323|alt|zero
+40324|alt|1, 2, 3 ;; all three ;; 1 2 3
+40357|alt|latent representation ;; bottleneck ;; latent
+40416|alt|masked language modeling ;; masking ;; masked language model
+40437|alt|-67 ;; negative 67
+40437|not|67 ;; 189
+40449|alt|lora ;; low-rank adaptation
+40450|alt|MoE ;; mixture-of-experts
+40462|alt|4-way handshake ;; four-way handshake ;; WPA handshake
+40483|alt|3 ;; value ;; V
+40495|alt|1, 3 ;; 1 3 ;; binary and jump
+40495|not|2 and 4
+40496|alt|one ;; linearly ;; first power
+40496|not|2 ;; quadratically
+40613|alt|black-box ;; black box problem
+40635|alt|BFS ;; breadth-first search ;; breadth first
+40635|not|depth first search ;; DFS
+40667|alt|data leak ;; test set contamination ;; train-test contamination
+40679|alt|distributed computing ;; grid computing ;; volunteer computing
+40699|alt|1, 2, 3 ;; all ;; all three
+40711|alt|zero shot ;; zero-shot learning
+40711|not|few-shot ;; fine-tuning
+40723|alt|eighty-five
+40723|not|95 ;; 90
+40790|alt|deadlock situation ;; a deadlock
+40791|alt|vanishing gradients ;; vanishing gradient ;; vanishing-gradient problem
+40791|not|exploding gradient
+40853|alt|solar cells ;; photovoltaic cells ;; PV panels
+40888|alt|mass and volume ;; volume and mass ;; mass, volume
+40900|alt|ethyl alcohol ;; C2H5OH ;; ethanol
+41727|alt|quantum dot ;; QDs
+41844|alt|I ;; 1 ;; I only
+41877|alt|moores law ;; Moore's Law
+42233|alt|I-131 ;; iodine-131
+42269|alt|bituminous coal
+42304|alt|pumped hydro ;; pumped-storage hydroelectricity ;; PSH
+42315|alt|ICF ;; inertial fusion ;; inertial confinement
+42315|not|magnetic confinement fusion
+42352|alt|1, 3, 4, 2 ;; C, S, L, P ;; C S L P
+42379|alt|beryllium and polonium ;; Po and Be ;; polonium and beryllium
+42388|alt|born oppenheimer ;; adiabatic approximation ;; clamped nuclei approximation
+42562|alt|RL
+42736|alt|SAE ;; sparse autoencoders
+42868|alt|graphene sheet ;; monolayer graphene
+44297|alt|threads ;; thread of execution
+44946|alt|perovskite ;; halide perovskites
+44974|alt|dendrite ;; lithium dendrites
+45219|alt|method overriding ;; overriding ;; runtime polymorphism
+45263|alt|overfit
+45321|alt|4x4 ;; 4 x 4 ;; 4 by 4 matrix
+45321|not|3 by 3 ;; 2 by 2
+45366|alt|hash table ;; hashmap ;; hash map
+45478|alt|knapsack problem ;; the knapsack problem
+45501|alt|1 and 3 ;; 1 3
+45501|not|1, 2 ;; 2, 3
+45534|alt|1, 3 ;; brute force and dynamic programming
+45564|alt|2^7 - 1
+45564|not|128 ;; 255
+45608|alt|1 and 2 ;; 1 2 ;; clustering and dimensionality reduction
+45662|alt|2 and 3 ;; 2 3 ;; directed and acyclic
+45662|not|1 and 3
+45673|alt|3D pixel
+45761|alt|3 1 2 ;; linear programming, traveling salesman, halting problem
+45942|alt|Euler rotation theorem ;; Euler's theorem ;; Euler's theorem on rotation
+45984|alt|mangrove ;; mangrove forests ;; mangrove trees
+46026|alt|1, 2 ;; 1 2
+46026|not|1, 2, 3
+46170|alt|negative 4
+46254|alt|Moore's Law ;; moores law
+46256|alt|racemate ;; racemic mixture
+46383|alt|heap, bubble, bogo ;; heap sort, bubble sort, bogosort

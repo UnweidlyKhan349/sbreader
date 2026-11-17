@@ -334,7 +334,7 @@
 {"i":70075,"s":"bio","f":"MC","qt":"tossup","n":14,"q":"Molecules of which of the following classes of macronutrients first enter the lymphatic system after their absorption by the intestinal epithelium?","a":{"t":"Lipids","l":"Y"},"c":{"W":"Proteins","X":"Carbohydrates","Y":"Lipids","Z":"Nucleic acids"}},
 {"i":70076,"s":"math","f":"MC","qt":"tossup","n":16,"q":"Which of the following shapes can not tessellate the plane?","a":{"t":"Regular octagon","l":"Y"},"c":{"W":"Square","X":"Parallelogram","Y":"Regular octagon","Z":"Regular hexagon"}},
 {"i":70077,"s":"chem","f":"MC","qt":"tossup","n":17,"q":"Which of the following compounds is nonpolar?","a":{"t":"Boron trifluoride","l":"X"},"c":{"W":"Ammonia","X":"Boron trifluoride","Y":"Sulfur tetrafluoride","Z":"Oxalic acid"}},
-{"i":70078,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"By name or number, order the following three compounds by increasing boiling points: 1) Hydrogen sulfide, 2) Hydrogen chloride, 3) Hydrogen bromide.","a":{"t":"2, 3, 1 (HYDROGEN CHLORIDE, HYDROGEN BROMIDE, HYDROGEN SULFIDE)"}},
+{"i":70078,"s":"chem","f":"SA","qt":"bonus","n":17,"q":"By name or number, order the following three compounds by increasing boiling points: 1) Hydrogen sulfide, 2) Hydrogen chloride, 3) Hydrogen bromide.","a":{"t":"2, 3, 1 (HYDROGEN CHLORIDE, HYDROGEN BROMIDE, HYDROGEN SULFIDE)","ac":["HCl, HBr, H2S"]}},
 {"i":70079,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following is NOT an iron ore?","a":{"t":"Sphalerite","l":"Z"},"c":{"W":"Goethite","X":"Hematite","Y":"Magnetite","Z":"Sphalerite"}}]},
 {"rl":"Round 1","r":1,"u":"https://speriphery.com/query","q":[
 {"i":73692,"s":"bio","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following vitamins which are fat-soluble: 1) A 2) D 3) E 4) K","a":{"t":"All"}}]},
@@ -356,7 +356,7 @@
 {"i":70095,"s":"math","f":"MC","qt":"bonus","n":16,"q":"Which of the following statements is incorrect about the hyperbola x^2/25 − y^2/144 = 1?","a":{"t":"One of the asymptotes has slope 5/12.","l":"Y"},"c":{"W":"The length of the transverse axis is 10.","X":"The distance between the foci is 26.","Y":"One of the asymptotes has slope 5/12.","Z":"The absolute distance between a focus and its closest vertex is 8."}}]},
 {"rl":"Round 4","r":4,"u":"https://drive.google.com/file/d/1jBXsHyz989IDhX7zCK9CJFKxiSUrbw1h/view","q":[
 {"i":70097,"s":"chem","f":"MC","qt":"tossup","n":5,"q":"How many atoms are contained within one unit cell of a crystal with a primitive cubic structure?","a":{"t":"1","l":"W"},"c":{"W":"1","X":"2","Y":"3","Z":"4"}},
-{"i":70099,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"Order the following four atomic orbitals from lowest to highest energy: 1) 4f; 2) 5d; 3) 6s; 4) 5p.","a":{"t":"4, 3, 1, 2 (5p, 6s, 4f, 5d)"}},
+{"i":70099,"s":"chem","f":"SA","qt":"bonus","n":11,"q":"Order the following four atomic orbitals from lowest to highest energy: 1) 4f; 2) 5d; 3) 6s; 4) 5p.","a":{"t":"4, 3, 1, 2 (5p, 6s, 4f, 5d)","ac":["5p, 6s, 4f, 5d","4,3,1,2"]}},
 {"i":70101,"s":"ess","f":"MC","qt":"tossup","n":21,"q":"Which of the following minerals has the chemical formula Na3AlF6?","a":{"t":"Cryolite","l":"W"},"c":{"W":"Cryolite","X":"Bauxite","Y":"Ilmenite","Z":"Sillimanite"}}]},
 {"rl":"Round 4","r":4,"u":"https://speriphery.com/query","q":[
 {"i":73693,"s":"ess","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following four layers of the atmosphere which, as altitude increases, experience a decrease in temperature: 1) Trophosphere 2) Stratosphere 3) Mesosphere 4) Thermosphere","a":{"t":"1 and 3"}}]},

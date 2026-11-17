@@ -5130,3 +5130,1064 @@
 13731|ac|sulfuric
 12431|rj|2 AND 4
 12671|rj|1 2 3
+39230|rm|
+39933|rm|
+40107|rm|
+39370|a|2 AND 3
+39380|a|1 2 3
+40017|a|Y
+40424|a|Z
+40772|a|Clausius-Clapeyron Equation
+41125|a|1 AND 3
+41160|a|2 AND 3
+41317|a|1 AND 3
+41343|a|1 AND 4
+41405|a|Y
+39269|ac|zeroth
+39269|ac|zero order
+39270|ac|AlK(SO4)2
+39290|ac|1 alpha, 3 positron
+39299|ac|L^3 mol^-3 s^-1
+39322|ac|law of constant heat summation
+39351|ac|Avogadro's hypothesis
+39359|ac|SHE
+39369|ac|pre-exponential
+39370|ac|2, 3
+39370|ac|p and d
+39370|ac|2 and 3
+39380|ac|1, 2, 3
+39380|ac|sigma 2s, sigma 2p, sigma 2p star
+39871|ac|orbital angular momentum
+39941|ac|0.5[A]
+39941|ac|0.5A
+39941|ac|1/2 [A]
+39961|ac|canonical partition function
+39967|ac|prop-1-ene
+40045|ac|carboxyl and amine
+40094|ac|gravimetry
+40121|ac|Bq
+40221|ac|hydrogen bonds
+40221|ac|H-bonding
+40252|ac|10^-6 M
+40274|ac|DFT
+40284|ac|autodissociation
+40328|ac|overvoltage
+40537|ac|levelling effect
+40579|ac|C-F, C-H, C-Si
+40590|ac|neighboring group participation
+40590|ac|NGP
+40591|ac|ligand substitution
+40657|ac|simplified molecular-input line-entry system
+40657|ac|simplified molecular input line entry system
+40714|ac|colloidal mixture
+40749|ac|energy gap
+40749|ac|band gap energy
+40772|ac|Clausius-Clapeyron equation
+40772|ac|Clausius Clapeyron
+40782|ac|disproportionation reaction
+40782|ac|dismutation
+40794|ac|most probable, average, rms
+40805|ac|NO-, NO, NO+
+41092|ac|chemical equilibrium
+41092|ac|dynamic equilibrium
+41125|ac|1, 3
+41125|ac|nickel and tungsten
+41149|ac|steady state approximation
+41150|ac|3e3 J
+41160|ac|2, 3
+41160|ac|2 and 3
+41317|ac|1, 3
+41343|ac|1, 4
+41343|ac|boron and silicon
+41125|rj|1 only
+41160|rj|2 only
+41317|rj|1 only
+41552|a|1 AND 3
+41593|a|1 AND 3
+41603|a|1 AND 2
+41628|a|1 AND 2
+41630|a|1 AND 2
+42145|a|CHLORIDE AND HYPOCHLORITE
+42313|a|ELECTROWINNING
+42523|a|2.9
+42749|rm|
+42122|q|["formation of nitrous oxide is 90 kJ/mol","formation of nitric oxide is 90 kJ/mol"]
+41484|ac|heat of sublimation
+41484|ac|enthalpy of sublimation
+41497|ac|zeroth order
+41582|ac|maxwell-boltzmann distribution
+41649|ac|law of constant heat summation
+41668|ac|30
+41673|ac|sodium nitrate
+41722|ac|racemate
+41732|ac|nimh and lead-acid
+41746|ac|chiral
+41772|ac|rf
+41772|ac|rf value
+41772|ac|retardation factor
+41773|ac|triple
+41804|ac|most probable, average, rms
+41815|ac|hi, hbr, hcl, hf
+41848|ac|k[no][h2]^3
+41912|ac|oh
+41912|ac|hydroxy
+41935|ac|0.231 s^-1
+42029|ac|vanadium(v) oxide
+42059|ac|rate = k[a]^2[b]
+42098|ac|antiaromatic
+42098|ac|anti-aromatic
+42165|ac|helium nucleus
+42165|ac|he-4
+42166|ac|goes down
+42193|ac|baso4, ag2so4, ba(no3)2
+42223|ac|perfluoroalkyl and polyfluoroalkyl substances
+42231|ac|[ar] 4s1 3d5
+42231|ac|[ar]3d5 4s1
+42321|ac|paramagnetic
+42321|ac|paramagnet
+42376|ac|claisen reaction
+42395|ac|nitroso group
+42413|ac|mtbe
+42413|ac|methyl t-butyl ether
+42413|ac|2-methoxy-2-methylpropane
+42455|ac|azeotropic mixture
+42478|ac|first order
+42487|ac|photoelectric work function
+42536|ac|photoelectric work function
+42522|ac|lanthanoid contraction
+42544|ac|0 hbar
+42554|ac|kie
+42595|ac|enolate ion
+42595|ac|enolate anion
+42638|ac|n2 2-
+42657|ac|p4
+42667|ac|wittig olefination
+42668|ac|refluxing
+42668|ac|heating under reflux
+42679|ac|nabh3cn, nabh4, lialh4
+42800|ac|2,3-dimethylbut-2-ene, ethene, acrylonitrile
+42843|ac|nitrate ion
+42848|ac|allotropic forms
+42854|ac|alpha emission
+42854|ac|alpha particle emission
+42881|ac|building-up principle
+42893|ac|c-14, c-13, c-12
+42900|ac|an increase of 4
+42916|ac|supersaturated solution
+42917|ac|n-n, c=c, c-o
+42941|ac|negative one half
+41552|rj|1 only
+41593|rj|1 only
+41603|rj|1 only
+41630|rj|1 only
+42679|rj|3, 2, 1
+43581|a|0.165 MOLES
+43592|a|MAXWELL-BOLTZMANN DISTRIBUTION LAW
+44967|a|1, 2 AND 3
+45392|rm|
+45461|a|4
+45678|a|0.32 g
+45874|a|1 ONLY
+46072|rm|
+43552|ac|positive and negative ions
+43563|ac|polyprotic
+43581|ac|0.165
+43581|ac|0.165 mol
+43592|ac|Maxwell-Boltzmann distribution
+43592|ac|Maxwell-Boltzmann
+43602|ac|Graham's law of effusion
+43688|ac|staggered conformation
+43724|ac|ferrochromium
+43732|ac|black body radiator
+43732|ac|blackbody radiator
+44294|ac|Tyndall scattering
+44903|ac|C-C, C-H, C-F
+44940|ac|diborane and H3+
+44967|ac|1, 2, 3
+44967|ac|all
+44967|ac|all three
+44973|ac|meso form
+45009|ac|van der Waals equation of state
+45011|ac|trigonal pyramid
+45024|ac|neutral
+45028|ac|supercritical
+45028|ac|supercritical state
+45028|ac|supercritical phase
+45051|ac|L/mol/s
+45051|ac|M^-1 s^-1
+45051|ac|L mol^-1 s^-1
+45069|ac|ionic crystals
+45234|ac|Hund's rule of maximum multiplicity
+45279|ac|3
+45301|ac|silver
+45301|ac|silver ion
+45333|ac|NO-, NO, NO+
+45342|ac|hydrogen-2
+45342|ac|H-2
+45342|ac|2H
+45380|ac|15 sigma 2 pi
+45380|ac|15 sigma, 2 pi
+45436|ac|KIE
+45437|ac|chloride, ammonia, cyanide
+45460|ac|racemic mixture
+45460|ac|racemate
+45461|ac|four
+45591|ac|delta bonding
+45671|ac|compressibility factor
+45671|ac|Z
+45678|ac|0.32
+45678|ac|0.32 grams
+45722|ac|Debye-Huckel theory
+45722|ac|Debye Huckel limiting law
+45722|ac|Debye-Huckel equation
+45742|ac|Fick's first law
+45765|ac|Lipinski's rule
+45765|ac|rule of five
+45765|ac|Rule of 5
+45787|ac|ground state energy
+45787|ac|ZPE
+45797|ac|dismutation
+45807|ac|sp2 hybridization
+45807|ac|sp2 hybridized
+45808|ac|IE and EA
+45830|ac|eutectic mixture
+45831|ac|Boyle point
+45863|ac|T
+45874|ac|1
+45874|ac|red
+45874|ac|red only
+45907|ac|gold nanoparticles
+45970|ac|o, m, p
+45980|ac|NaCl, Na2SO4, Na2CO3
+46053|ac|sigma*
+46053|ac|C-X sigma*
+46054|ac|242 amu
+46054|ac|242 u
+46062|ac|tungsten, chromium, manganese
+46066|ac|statements 1 and 2
+46082|ac|pyridine, 2-tert-butylpyridine, 2-methylpyridine, 2,6-dimethylpyridine
+45051|rj|moles per liter per second
+47400|q|["dinitrogen pentoxide","dinitrogen tetroxide"]
+47561|rm|
+46112|ac|quintuplet
+46112|ac|pentet
+46133|ac|Marcus inverted region
+46133|ac|inverted regime
+46134|ac|Hg(NH2)Cl
+46134|ac|HgClNH2
+46197|ac|Hund's rule of maximum multiplicity
+46293|ac|most probable, mean, rms
+46349|ac|inert s pair effect
+46380|ac|1.1e3
+46380|ac|1.1 x 10^3
+46455|ac|hydrogen ions
+46479|ac|e-
+46489|ac|limiting reagent
+46522|ac|left
+46522|ac|toward the reactants
+46522|ac|reverse direction
+46674|ac|rotoreflection
+46702|ac|high specific heat
+46702|ac|specific heat capacity
+46702|ac|specific heat
+46712|ac|F
+46735|ac|azeotropic mixture
+46735|ac|minimum boiling azeotrope
+46745|ac|dipolar ion
+46755|ac|buffer solution
+46769|ac|group 17
+46769|ac|group 7A
+46792|ac|solid, liquid, gas
+46818|ac|valence electrons
+46818|ac|delocalized electrons
+46826|ac|1:1
+46826|ac|1 to 1
+46838|ac|endothermic reaction
+46851|ac|6.022 x 10^23
+46860|ac|helium-4
+46861|ac|hydrogen-3
+46861|ac|H-3
+46861|ac|3H
+46897|ac|activation barrier
+46897|ac|Ea
+46931|ac|sodium and chlorine
+46935|ac|amorphous solids
+46935|ac|amorphous solid
+46942|ac|none
+46989|ac|3 mol/L
+47045|ac|element 43
+47056|ac|HH equation
+47081|ac|kB
+47120|ac|alpha emission
+47133|ac|quicklime
+47164|ac|F
+47177|ac|London dispersion
+47177|ac|dispersion forces
+47178|ac|absolute temperature
+47178|ac|T
+47200|ac|hydrogen bond
+47200|ac|H-bonding
+47221|ac|carbon -1, oxygen +1
+47222|ac|KI, NaCl, MgCl2
+47232|ac|2 g/mol
+47232|ac|2 grams per mole
+47311|ac|Hoffmann product
+47321|ac|dismutation
+47342|ac|Hund's rule of maximum multiplicity
+47376|ac|zwitterionic compounds
+47463|ac|N2
+47463|ac|dinitrogen
+47463|ac|nitrogen
+47496|ac|hydroxybenzene
+47496|ac|C6H5OH
+47540|ac|octahedron
+47562|ac|black and red
+47562|ac|black, red
+47592|ac|polarity inversion
+47619|ac|living polymerisation
+47619|ac|living chain polymerization
+47620|ac|Weinreb-Nahm amides
+47620|ac|N-methoxy-N-methylamides
+47628|ac|2.30
+47629|ac|Debye Huckel theory
+47636|ac|Zintl anions
+47648|ac|NOE
+47648|ac|Overhauser effect
+47693|rmac|Ideal gas law
+47755|q|[" (ENFORCE STALLS)",""]
+48239|a|3.5U
+48386|rm|
+48612|q|["nitric acid and sulfuric acid","nitric acid and hydrochloric acid"]
+48721|q|["4,7-heptadiene","3,6-heptadiene"]
+48795|rmac|ELECTRONS
+49076|a|DINITROGEN MONOXIDE
+47774|ac|beer's law
+47875|ac|C6H5CHO
+47978|ac|NaOBr
+47989|ac|hcl, h2so4, h3po4
+48049|ac|SF6, N2, He
+48119|ac|11, 2
+48129|ac|hammond principle
+48168|ac|atropisomer
+48188|ac|helmholtz energy
+48248|ac|synproportionation
+48318|ac|45000 J
+48376|ac|nickel carbonyl
+48376|ac|tetracarbonylnickel
+48416|ac|hammett function
+48417|ac|(e-1)/e
+48417|ac|1 - e^-1
+48457|ac|1-phenyl-2-propanone and NaBH3CN
+48562|ac|KI, LiCl, CaS
+48662|ac|Cl- and K+
+48662|ac|1 and 3
+48771|ac|gaseous
+48860|ac|specific heat capacity
+48898|ac|silicon tetrafluoride and water
+48929|ac|iron and water
+48960|ac|le chatelier principle
+48968|ac|henri le chatelier
+48978|ac|10^-12 M, pH 12
+49036|ac|0 C and 760 mm Hg
+49036|ac|0 degrees C and 760 mmHg
+49056|ac|bond dissociation enthalpy
+49121|ac|buret
+49206|ac|triacylglycerol
+49272|ac|carboxylic acid group
+49384|rm|
+49404|q|["between ethane and bromine","between ethene and bromine"]
+49505|a|TYNDALL EFFECT
+49542|a|0.16
+49635|q|["Bromine, Iodine, and Antimony","Bromine, Iodine, and Astatine"]
+50329|rm|
+49319|ac|galvanizing
+49341|ac|nitrocellulose
+49458|ac|0.4 j/g°c
+49541|ac|po4 3-
+49591|ac|enthalpy of fusion
+49642|ac|relative density
+50024|ac|pauli principle
+50024|ac|exclusion principle
+50069|ac|stoichiometric coefficient
+50120|ac|homolysis
+50120|ac|homolytic fission
+50142|ac|+2
+50142|ac|sr2+
+50157|ac|graham's law of effusion
+50174|ac|haloalkane
+50225|ac|hydroxy
+50313|ac|eclipsing strain
+50574|ac|oxirane
+50665|ac|carbon monoxide and hydrazine
+50728|ac|1:4
+50745|ac|agno3 and agf
+50810|ac|salt and decreasing temperature
+50821|ac|1/2
+50821|ac|0.5
+50823|ac|methyl
+50833|ac|sodium phenolate
+50930|a|NONE
+51120|a|Cannizzaro reaction
+51572|a|3, 4, 2, 1
+51718|a|Z
+51746|a|3, 2, 4, 1
+51972|a|3, 2, 1
+52309|a|3
+52419|a|2, 3, 1
+51768|rm|
+51085|q|["following four compounds that act as electrophiles","following three compounds that act as electrophiles"]
+51320|q|["triprotic acid","diprotic acid"]
+50882|ac|metal to ligand charge transfer
+50903|ac|p4
+50941|ac|tert-butyl alcohol
+50941|ac|2-methyl-2-propanol
+50941|ac|t-butanol
+50989|ac|three-membered ring
+51014|ac|square pyramid
+51018|ac|flory huggins theory
+51034|ac|1h-indole
+51042|ac|3 degree alcohol
+51058|ac|torsional
+51058|ac|torsion strain
+51120|ac|cannizzaro
+51120|ac|cannizzaro reaction
+51126|ac|eutectic mixture
+51135|ac|hydrogen bond
+51135|ac|h-bonding
+51135|ac|hydrogen bonds
+51164|ac|2.5e-3
+51164|ac|2.5x10^-3 m
+51189|ac|cyclopentadienyl, eta5
+51189|ac|cp, 5
+51234|ac|tetrachloroaurate(III)
+51286|ac|non-leveling solvents
+51383|ac|0 radial 2 angular
+51410|ac|graham's law of effusion
+51411|ac|supernatant liquid
+51411|ac|supernate
+51420|ac|pale pink
+51420|ac|light pink
+51480|ac|0.00011
+51486|ac|zn anode, mno2 cathode
+51567|ac|law of constant heat summation
+51631|ac|sodium methanoate
+51631|ac|hcoona
+51649|ac|dative bond
+51649|ac|coordinate bond
+51649|ac|dative covalent bond
+51762|ac|crosslinking
+51762|ac|cross-linking
+51763|ac|n-propyl acetate
+51811|ac|sigma star
+51811|ac|sigma*
+51874|ac|1,2
+51874|ac|1 radial, 2 angular
+51949|ac|jahn teller effect
+51949|ac|jahn-teller
+52003|ac|atom efficiency
+52067|ac|amide bond
+52081|ac|sp
+52081|ac|sp hybridization
+52087|ac|vdw equation
+52087|ac|van der waals equation of state
+52128|ac|pauli principle
+52128|ac|exclusion principle
+52146|ac|saturated solution
+52271|ac|chemical adsorption
+52320|ac|hyperconjugative effect
+52335|ac|4^-5
+52335|ac|1/4^5
+52372|ac|steric effects
+52384|ac|anisotropic materials
+52511|a|Y
+52641|a|0.05
+52642|a|84
+52660|a|W
+52897|rmac|SODIUM CHLORIDE
+52897|rmac|NaCl
+53330|a|GAS
+52456|q|["If gold crystallizes","If aluminum crystallizes"]
+52786|q|["with a pKa of 5.6","with a pKb of 5.6"]
+52934|q|["number of N2O molecules","number of NO2 molecules"]
+53292|q|["trigonal bipyramidal and square planar shapes","trigonal bipyramidal and square pyramidal shapes"]
+53560|q|["[CoCl3(NH3)3]^(2+)","[CoCl3(NH3)3]"]
+52469|ac|acetone
+52469|ac|propan-2-one
+52519|ac|ln2/ln4
+52554|ac|liquid and vapor
+53075|ac|dispersion forces
+53215|ac|van der Waals
+53215|ac|van der Waals equation
+53274|ac|Henderson-Hasselbalch
+53274|ac|Henderson Hasselbalch equation
+53528|ac|+5 oxidation state
+53871|ac|Woodward-Hoffmann rules
+53871|ac|Woodward Hoffmann
+53914|ac|Debye-Huckel theory
+54004|ac|pi stacking interaction
+54114|a|2, 1, 3
+54120|a|1, 2, 3
+54171|rm|
+54769|a|1 AND 4
+54857|a|Ni(CO)4
+54911|a|1 AND 2
+54945|a|Z
+55365|a|1
+55456|rm|
+55505|a|NONE
+55535|a|X
+55636|rm|
+55822|rm|
+55900|a|-56.5 kJ/mol
+55939|a|Cristobalite, SiO2
+55944|rm|
+54038|ac|diphenylmethanone, 5, less
+54038|ac|1) diphenylmethanone; 2) 5; 3) less than
+54050|ac|ortho nitroaniline, meta nitroaniline, aniline
+54148|ac|configurational entropy
+54148|ac|entropy of mixing
+54187|ac|anisotropic polarizability
+54187|ac|polarizability anisotropy
+54683|ac|coordinate bond
+54683|ac|dative covalent bond
+54789|ac|no2-, no2, no2+
+54834|ac|pentagonal bipyramid
+54847|ac|2500 m^-1 s^-1
+54857|ac|tetracarbonylnickel(0)
+54864|ac|gap, zns, aln
+54867|ac|h+
+54878|ac|first law of electrolysis
+54879|ac|0.0002
+54919|ac|keto-enol tautomerism
+54919|ac|tautomerization
+54962|ac|entropy of mixing
+54966|ac|no change
+54966|ac|unchanged
+54966|ac|1x
+54979|ac|liquid crystal phase
+55000|ac|meso compound
+55000|ac|meso compounds
+55045|ac|law of constant heat summation
+55057|ac|4e-5
+55102|ac|sf4 and so2
+55170|ac|2 1/2
+55205|ac|c6h5oh
+55216|ac|no change
+55227|ac|n=4 l=3
+55228|ac|biradical
+55251|ac|na2co3
+55251|ac|soda ash
+55273|ac|overvoltage
+55274|ac|cv
+55286|ac|1.0 x 10^4, products
+55297|ac|sodium metal
+55308|ac|electron withdrawing group, meisenheimer intermediate
+55343|ac|tppo
+55343|ac|triphenylphosphane oxide
+55344|ac|cui and i2
+55344|ac|cuprous iodide and iodine
+55373|ac|12 c
+55415|ac|isoelectronic
+55415|ac|isoelectronic species
+55427|ac|to the right
+55427|ac|forward
+55427|ac|products
+55466|ac|linear, sp3d
+55477|ac|ni(co)4 and nicl4 2-
+55497|ac|methyl ethanoate
+55552|ac|charles, gay-lussac, boyle
+55570|ac|precipitate reaction
+55586|ac|fission reaction
+55591|ac|kcl, glucose, li3n, napo4
+55649|ac|o-o, c-c, c=o
+55659|ac|octahedron
+55687|ac|hammond-leffler postulate
+55693|ac|cao and co2
+55826|ac|delta orbital
+55834|ac|zeroth
+55844|ac|sodium nitrite
+55925|ac|14, 1
+55930|ac|evaporation and melting
+55930|ac|evaporation, melting
+55934|ac|eutectic, 14%
+67938|ac|327 c
+68227|a|2
+68246|a|2,1,3
+68413|q|["cobalt hexacarbonyl complex","cobalt hexacyanide complex"]
+68797|rm|
+68866|a|Y
+69525|rm|
+69600|q|["isotope of phosphorus","allotrope of phosphorus"]
+69632|a|HYPERCONJUGATION
+69639|a|ZINC BLENDE
+69661|rm|
+69986|q|["conrotary","disrotatory"]
+67967|ac|Beer's law
+68048|ac|L^4 mol^-4 s^-1
+68087|ac|azeotropic mixture
+68166|ac|LJ potential
+68187|ac|equipartition of energy
+68373|ac|fluorescence quantum yield
+68827|ac|4n+2 rule
+68840|ac|potential-pH diagram
+68974|ac|virial expansion
+69423|ac|Marcus theory of electron transfer
+69402|ac|lanthanoid contraction
+69410|ac|Dinfh
+69422|ac|Fe(Cp)2
+69422|ac|bis(cyclopentadienyl)iron
+68726|ac|Hammett acidity
+68726|ac|Hammett function
+68802|ac|-0.5
+69944|ac|A factor
+69944|ac|frequency factor
+69944|ac|pre-exponential
+69898|ac|chair conformation
+68284|ac|desiccant
+68284|ac|drying reagent
+68246|rj|3,1,2
+70291|a|1 ONLY
+70394|a|132 grams
+70441|a|TRANSITION STATE
+70644|a|W
+70687|a|110
+71122|a|W
+71285|a|1,5-HEXADIENE
+71361|a|0
+71460|a|XENON
+72294|a|OXYGEN BOND DISSOCIATION ENERGY
+70287|rm|
+71388|rm|
+73655|rm|
+70666|q|["the acid’s conjugate acid","the acid’s conjugate base"]
+70031|ac|Balz-Schiemann reaction
+70031|ac|Balz-Schiemann
+70044|ac|Jahn-Teller distortion
+70078|ac|HCl, HBr, H2S
+70099|ac|5p, 6s, 4f, 5d
+70099|ac|4,3,1,2
+70172|ac|inversely proportional
+70182|ac|London dispersion forces
+70182|ac|van der Waals
+70197|ac|reciprocal of heat capacity
+70279|ac|aldol addition
+70332|ac|Bragg equation
+70375|ac|hydrogen ions
+70407|ac|racemic mixture
+70407|ac|racemate
+70420|ac|IC
+70424|ac|Arrhenius pre-exponential factor
+70429|ac|glycerin
+70429|ac|glycerine
+70429|ac|propane-1,2,3-triol
+70440|ac|M^-1 s^-1
+70440|ac|L/(mol s)
+70524|ac|Peierls instability
+70548|ac|5.0
+70588|ac|15 M^-1
+70660|ac|double bond
+70798|ac|synproportionation
+70798|ac|symproportionation
+71101|ac|second
+71101|ac|second order
+71101|ac|2nd order
+71201|ac|nuclear atom
+71201|ac|Rutherford model
+71201|ac|Rutherford nuclear model
+71262|ac|Hammett function
+71274|ac|iminium
+71274|ac|iminium cation
+71349|ac|TMS
+71349|ac|Si(CH3)4
+71365|ac|isobutane, butane, 1-propanol
+71473|ac|5p orbital
+71484|ac|2x
+71496|ac|noncrystalline solids
+71501|ac|exothermic reaction
+71501|ac|exothermic process
+71528|ac|CH3CN
+71528|ac|methyl cyanide
+71543|ac|C triple bond C, C-H, O-H
+72026|ac|none
+72026|ac|no modes
+72052|ac|levelling effect
+72171|ac|0
+72171|ac|zero
+72216|ac|F/2^7
+72216|ac|1/128 F
+72233|ac|carboxylate ion
+72233|ac|carboxylate anion
+72233|ac|RCOO-
+72253|ac|virial expansion
+72269|ac|hydroxybenzene
+72269|ac|C6H5OH
+72344|ac|Evans aldol
+72354|ac|18-crown-6 ether
+72365|ac|triflate group
+72365|ac|trifluoromethanesulfonate
+72373|ac|eta1
+72373|ac|monohapto
+73630|ac|3 sigma and 3 pi
+73723|ac|none
+72286|rj|5:2
+84829|a|1, 4, 2, 3
+73844|q|["density of 1 g/cm^3","density of 1 g/L"]
+73796|ac|81 protons and 124 neutrons
+73847|ac|gibbs energy
+73857|ac|mass deficit
+73897|ac|d subshell
+74000|ac|none
+74000|ac|none of them
+74082|ac|ion-dipole
+74082|ac|ion dipole forces
+74082|ac|ion-dipole force
+74085|ac|-17.1 c
+74085|ac|-17.1 degrees
+74526|ac|aufbau rule
+74546|ac|reaction quotient Q
+74685|ac|CH2=CH2
+84694|ac|t-shape
+84728|ac|enantiomeric pair
+84773|ac|disproportionation reaction
+84773|ac|dismutation
+84783|ac|dipolar ion
+84783|ac|dipolar ions
+84819|ac|0.80 atm
+84989|ac|27 mmHg
+84989|ac|27.0
+85009|ac|partial molar Gibbs energy
+85066|ac|1 degree amine
+85086|ac|0.5
+85127|ac|2
+85127|ac|(2E,4Z)-hexa-2,4-diene
+85155|ac|haptotropic shift
+85344|ac|t-shape
+85405|ac|HCHO
+85414|ac|Fe2O3 + 2 Al -> 2 Fe + Al2O3
+85453|ac|helium-4
+85789|ac|nitrite ion
+85820|ac|propane-1,2,3-triol
+85820|ac|1,2,3-propanetriol
+85824|ac|brownian movement
+85846|ac|mohr titration
+85896|ac|1) tempo; 2) electron paramagnetic resonance
+85915|ac|mercaptan
+85942|ac|ether and diethyl ether
+85943|ac|6 and 1.5
+85944|ac|banana bond, Al2Cl6, Diels-Alder
+85944|ac|three-center two-electron bond, Al2Cl6, Diels-Alder
+85946|ac|[4+2], 0, claisen rearrangement
+85946|ac|A) [4+2]; B) 0; C) CLAISEN
+86097|ac|maxwell boltzmann
+86097|ac|maxwell speed distribution
+86119|ac|C6H6O7(2-)
+86132|ac|dalton's law of multiple proportions
+86174|ac|hydrogen bonding
+86174|ac|H-bonds
+86194|ac|+2
+86194|ac|2
+86247|ac|3 sigma and 4 pi
+86355|ac|9x
+86355|ac|9 times
+86367|ac|nitrogen-14
+86387|ac|dsp3
+86388|ac|1900 kJ/mol
+86397|ac|triplet dioxygen
+86397|ac|triplet O2
+86418|ac|polarisability
+86419|ac|bragg equation
+86439|ac|amorphous solids
+86439|ac|amorphous solid
+73984|rj|3:4
+87336|a|Walden inversion
+96663|a|KIRCHHOFF'S LAW
+96722|q|["dimethyl sulfide, DMSO","dimethyl sulfoxide, DMSO"]
+96853|q|["6,2'(prime)-dichloro-2'(prime),6-dibromobiphenyl","6,2'(prime)-dichloro-2,6'(prime)-dibromobiphenyl"]
+86452|ac|maillard browning
+86461|ac|n=1 state
+86473|ac|synproportionation
+86473|ac|comproportionation reaction
+86525|ac|z factor
+86575|ac|jahn-teller distortion
+86591|ac|lj potential
+86591|ac|12-6 potential
+86592|ac|octahedral and tetrahedral
+86610|ac|ra-ni
+87037|ac|4n+2 rule
+87136|ac|lanthanoid contraction
+87167|ac|van t hoff equation
+87176|ac|N_A
+87177|ac|1/2 R
+87267|ac|change in number of moles of gas
+87267|ac|delta n
+87267|ac|delta n gas
+87276|ac|si(ch3)4
+87286|ac|b2
+87286|ac|second virial coefficient b2
+87287|ac|simmons-smith cyclopropanation
+87395|ac|cryptand ligand
+87425|ac|suzuki reaction
+87425|ac|suzuki-miyaura reaction
+87445|ac|karplus equation
+87507|ac|jacobsen epoxidation
+87508|ac|dcd model
+87508|ac|dewar-chatt-duncanson bonding model
+87642|ac|3.7 MPa
+87117|ac|pi
+87117|ac|pi orbital
+96527|ac|azeotropic mixture
+96527|ac|constant boiling mixture
+96663|ac|kirchhoffs law
+96663|ac|kirchhoff's law of thermochemistry
+96672|ac|change in polarizability
+96672|ac|polarisability
+96683|ac|3c-2e bond
+96702|ac|lanthanoid contraction
+96712|ac|maillard browning
+96773|ac|jahn-teller effect
+96872|ac|delta H double dagger
+96873|ac|backbonding
+96873|ac|pi backdonation
+96902|ac|levelling effect
+96902|ac|leveling
+96922|ac|sigmatropic reaction
+97002|ac|homolytic fission
+97033|ac|williamson synthesis
+97033|ac|williamson ether
+97063|ac|oxygen and ozone
+97063|ac|O2 and O3
+97063|ac|dioxygen and ozone
+97082|ac|desublimation
+97452|rm|
+5171|a|Y
+9955|rm|
+11002|rm|
+1565|rmac|Facility for
+1306|rm|
+5282|rm|
+9945|rm|
+10986|rm|
+11689|rm|
+97353|q|["Cycloehexane","Cyclohexane"]
+5387|q|["Thorium-288","Thorium-227"]
+97282|ac|none
+97282|ac|none of them
+97293|ac|none
+97293|ac|none of them
+97393|ac|overvoltage
+97443|ac|standard electrode potential
+118131|ac|chemically equivalent hydrogens
+1139|ac|cold nuclear fusion
+1149|ac|pumped hydro
+1149|ac|pumped storage
+1149|ac|pumped hydroelectric storage
+1170|ac|betz limit
+1239|ac|$0.06
+1239|ac|6 ¢
+1284|ac|h+
+1284|ac|hydrogen ion
+1349|ac|h+
+1349|ac|hydrogen ion
+1392|ac|low temp combustion
+1435|ac|ultracapacitor
+1573|ac|nuclear microreactors
+1574|ac|tristructural isotropic fuel
+1606|ac|2h
+1739|ac|pwr and bwr
+1750|ac|parabolic
+1750|ac|parabolic shape
+1804|ac|horizontal axis and vertical axis
+1804|ac|hawt and vawt
+3019|ac|normal heptane
+3375|ac|nimh
+3375|ac|ni-mh
+3454|ac|carbonyl sulphide
+5326|ac|backprop
+5821|ac|afm
+5821|ac|atomic force microscope
+7018|ac|ro
+8014|ac|roc
+8014|ac|receiver operating characteristic
+8014|ac|roc graph
+8049|ac|roc
+8049|ac|receiver operating characteristic
+8049|ac|roc graph
+9665|ac|xps
+10083|ac|greedy algorithm
+10103|ac|rectified linear
+10131|ac|cas
+10192|ac|overfit
+10311|ac|black box model
+10360|ac|pwr
+10552|ac|ensemble methods
+10660|ac|superintelligent ai
+10660|ac|artificial superintelligence
+10755|ac|mutual assured destruction
+10851|ac|neural net
+10904|ac|data compression
+10931|ac|sigmoid function
+10931|ac|logistic sigmoid
+10946|ac|hallucinating
+10965|ac|state value function
+10998|ac|denoising diffusion
+11263|ac|pet
+11263|ac|positron emission tomography
+12477|ac|resonance absorption
+12477|ac|resonant capture
+13595|ac|unsupervised machine learning
+13604|ac|monte carlo method
+13604|ac|monte carlo simulation
+13604|ac|monte carlo methods
+14941|ac|qds
+14941|ac|qd
+15980|ac|qbit
+7018|rj|osmosis
+16680|a|1 AND 2
+20073|a|FISCHER-TROPSCH
+20830|a|STENT
+21629|q|["random sampling to calculate an","random sampling to calculate an approximate numerical result?"]
+22231|a|Y
+22255|a|O(N+E)
+23173|a|CONVENTION ON CERTAIN CONVENTIONAL WEAPONS
+23736|rm|
+16947|ac|monte carlo method
+17448|ac|pet scan
+17508|ac|backprop
+17756|ac|sparse matrix
+17756|ac|sparse matrices
+19806|ac|list processor
+19890|ac|john backus
+20200|ac|hypertext markup language
+20305|ac|reduced instruction set computing
+21195|ac|(previous, current) => previous * current
+21499|ac|multiplexor
+21544|ac|ethyl alcohol
+21629|ac|monte carlo method
+21629|ac|monte carlo simulation
+21919|ac|cpu registers
+21932|ac|and and or
+21956|ac|clock jitter
+22002|ac|regular languages
+22086|ac|operation code
+22110|ac|tail call elimination
+22110|ac|tco
+22110|ac|tail recursion optimization
+22121|ac|memoisation
+22185|ac|carbon capture and sequestration
+22255|ac|o(n+e)
+22268|ac|linear
+22813|ac|montreal protocol on substances that deplete the ozone layer
+22841|ac|microwave radiation
+22929|ac|synchrotron
+22929|ac|synchrotron radiation
+22978|ac|current carrying capacity
+23077|ac|cumulative reward
+23113|ac|teg
+23113|ac|seebeck generator
+23244|ac|gan
+23245|ac|cnn
+23245|ac|convnet
+23304|ac|ergodic
+23400|ac|hmm
+23400|ac|hidden markov model
+23412|ac|fbr
+23460|ac|high explosive lens
+23485|ac|landauer bound
+23592|ac|rl
+23628|ac|ml
+23629|ac|neural net
+23629|ac|artificial neural network
+23629|ac|ann
+23914|ac|f1 score
+23914|ac|f1
+23914|ac|f-measure
+23961|ac|rl
+23962|ac|kmeans
+24105|ac|agency problem
+24165|ac|bias-variance dilemma
+27642|a|X
+31119|a|STELLARATOR
+31672|rm|
+42260|rm|
+38577|rmac|DEEP LEARNING
+40711|rmac|Few-shot
+41759|rmac|SRAM
+45534|a|1 and 3
+28932|a|PHOTOLITHOGRAPHY
+40449|a|Low Rank Adaptation
+24238|ac|overfit
+24310|ac|trolley dilemma
+25165|ac|additive manufacturing
+25165|ac|3d printed
+25819|ac|RO
+29400|ac|H-3
+29400|ac|hydrogen-3
+29570|ac|transformer model
+29639|ac|overfit
+31211|ac|farnsworth-hirsch fusor
+31243|ac|nuclear fusion
+31465|ac|fusion
+31465|ac|fusion energy
+31734|ac|PEM
+33088|ac|UV rays
+33130|ac|maize
+33442|ac|solar power
+38417|ac|selective laser sintering (SLS)
+38440|ac|RTG
+38670|ac|neither 1 nor 2
+39148|ac|mosfet transistor
+39159|ac|RL
+39160|ac|euv
+39165|ac|sparse mixture of experts
+39166|ac|knowledge distillation
+39182|ac|nothing
+39187|ac|single-layer perceptron
+40062|ac|UV-Vis spectrophotometer
+40093|ac|RO
+40300|ac|nondeterministic polynomial
+40416|ac|masking
+40450|ac|MoE
+40483|ac|V
+40496|ac|linearly
+40496|ac|first power
+40613|ac|black box problem
+40635|ac|BFS
+40635|ac|breadth first
+40667|ac|data leak
+40723|ac|eighty-five
+40790|ac|deadlock situation
+40791|ac|vanishing gradients
+40791|ac|vanishing gradient
+40853|ac|PV panels
+40900|ac|ethyl alcohol
+41727|ac|QDs
+42269|ac|bituminous coal
+42304|ac|pumped hydro
+42304|ac|PSH
+42315|ac|ICF
+42315|ac|inertial fusion
+42562|ac|RL
+42736|ac|SAE
+42868|ac|graphene sheet
+42868|ac|monolayer graphene
+44297|ac|thread of execution
+44974|ac|lithium dendrites
+45263|ac|overfit
+45321|ac|4x4
+45321|ac|4 x 4
+45321|ac|4 by 4 matrix
+45478|ac|knapsack problem
+45478|ac|the knapsack problem
+45564|ac|2^7 - 1
+45662|ac|directed and acyclic
+45942|ac|Euler's theorem on rotation
+45984|ac|mangrove forests
+45984|ac|mangrove trees
+46256|ac|racemic mixture
+46383|ac|heap, bubble, bogo
+51874|rmac|1,2
+21195|rmac|(previous, current) => previous * current
+44250|rm|
+42122|q|["react nitrous oxide with oxygen gas","react nitric oxide with oxygen gas"]
+52934|q|["N2O is in equilibrium","NO2 is in equilibrium"]
+53292|q|["records it as a square planar compound","records it as a square pyramidal compound"]
