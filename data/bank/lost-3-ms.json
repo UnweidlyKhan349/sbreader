@@ -168,7 +168,7 @@
 {"i":97193,"s":"chem","qt":"bonus","n":19,"f":"SA","q":"What bond is formed from the head on overlap of orbitals, often the first bond 2 atoms form together?","a":{"t":"SIGMA BOND"}},
 {"i":97194,"s":"ess","qt":"tossup","n":20,"f":"MC","q":"Rahib is a star that shines very brightly, with spectral classification O. Which of the following is the likely color of Rahib?","c":{"W":"Yellow","X":"Brown","Y":"Red","Z":"Blue"},"a":{"t":"Blue","l":"Z"}},
 {"i":97195,"s":"ess","qt":"bonus","n":20,"f":"SA","q":"Mismatches in cosmological measurements of mass can be attributed to what type of matter that can only be measured by its gravitational effects on normal matter?","a":{"t":"DARK MATTER"}},
-{"i":118057,"s":"energy","qt":"tossup","n":21,"f":"SA","q":"New research in quantum computing has been able to improve what unit of the quantum computer, acting as a quantum version of a bit?","a":{"t":"QUBIT"}},
+{"i":118057,"s":"energy","qt":"tossup","n":21,"f":"SA","q":"New research in quantum computing has been able to improve what unit of the quantum computer, acting as a quantum version of a bit?","a":{"t":"QUBIT","ac":["quantum bit"]}},
 {"i":118058,"s":"energy","qt":"bonus","n":21,"f":"SA","q":"Identify all of the following three materials that could act as moderators in nuclear fission reactors: 1) Water; 2) Graphite; 3) Vanadium","a":{"t":"1, 2"}}]},
 {"rl":"RR 5","r":5,"u":"https://drive.google.com/file/d/19cmJbUOzd5odwmmw5wpeF3UTmh_8Mm98/view","q":[
 {"i":97196,"s":"phys","qt":"tossup","n":1,"f":"SA","q":"The emission of electrons from materials due to incoming electromagnetic waves is an example of what effect, first observed in 1887 by physicist Heinrich Hertz, and later explained by Albert Einstein?","a":{"t":"PHOTOELECTRIC EFFECT"}},

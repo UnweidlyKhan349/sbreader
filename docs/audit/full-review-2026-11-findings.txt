@@ -15637,3 +15637,2499 @@
 46254|alt|Moore's Law ;; moores law
 46256|alt|racemate ;; racemic mixture
 46383|alt|heap, bubble, bogo ;; heap sort, bubble sort, bogosort
+46418|a|Z|Cortisol tends to 0, and low cortisol means less glucose production so low blood sugar; low cortisol would raise, not lower, cytokines
+49353|q|["COBAL","COBOL"]|Misspelled language name in the question
+49834|rm||Both -32.0 and 5,621 are not valid integer constants so two choices are correct
+50138|a|INTEGRATED SERVICES DIGITAL NETWORK|ISDN stands for Integrated Services Digital Network, not Domain
+50185|rm||Colossus was designed by Tommy Flowers, and Turing's machine was the Bombe, which is not a choice
+51940|a|Z|Success probability is sin^2(1333*0.001)=0.945, closest to 15/16
+46673|alt|BFS ;; breadth first search
+46673|not|depth-first search
+47049|not|giga ;; peta
+47173|alt|vanishing gradients ;; vanishing gradient problem
+47284|not|generator
+47394|alt|electrical breakdown ;; dielectric breakdown of air
+47460|alt|double-ended queue ;; double ended queue
+47570|alt|inverse ackermann ;; inverse ackermann function ;; alpha(n)
+47607|alt|kolmogorov complexity ;; algorithmic complexity
+47682|alt|kosaraju ;; kosaraju algorithm
+48792|alt|rambus dram
+48841|alt|read-only memory
+48856|alt|micro, pico, atto ;; micro pico atto
+49089|alt|.011 ;; 011
+49116|alt|id, ego, and superego ;; id ego superego
+49116|not|id and ego
+49137|alt|mead
+49386|alt|network interface controller ;; network interface
+49402|alt|formula translation
+49573|alt|download ;; downloaded
+49573|not|uploading
+49659|alt|upload ;; upload
+49659|not|downloading
+49685|alt|300 bps ;; 300 bits/s
+49735|alt|ad-hoc
+49747|alt|chlorofluorocarbon
+49756|alt|ncsa mosaic
+49775|alt|radiocarbon dating ;; carbon-14 dating ;; c-14 dating
+49858|alt|mhz
+49874|alt|joint photographic experts group
+49905|alt|h2s
+50124|alt|dl ;; <dl></dl>
+50138|alt|integrated services digital network
+50143|alt|gateway
+50165|alt|gb ;; gigabytes
+50171|alt|therms
+50200|alt|win.ini, system.ini ;; win.ini and system.ini
+50215|alt|cache memory
+50307|alt|disassemblers
+50335|alt|ctrl alt del ;; ctrl+alt+delete
+50276|alt|8
+51583|alt|re-gasification ;; regasify
+51857|alt|poison ;; neutron poison
+51939|alt|superdense coding ;; quantum dense coding
+52137|alt|tensor
+52191|alt|a stack ;; lifo
+52227|alt|overfit
+52279|alt|1, 2, and 3 ;; 1 2 3
+51742|alt|1, 2, 3, 4 ;; 1 2 3 4
+47526|alt|1, 2, 3 ;; 1 2 3
+52343|alt|alphafold2 ;; alphafold 2
+49055|not|terabyte ;; exabyte
+50064|alt|ring topology
+50064|not|star ;; bus
+49639|alt|absolute reference
+49651|alt|international system of units ;; systeme international d'unites
+49810|alt|synthesizer
+50020|alt|the clipboard
+50035|alt|bookmarks
+50093|alt|rotational latency ;; rotational delay
+50252|alt|webring
+50133|alt|.wav
+50147|alt|babbage
+46877|alt|I and III ;; nuclear and geothermal
+46956|alt|2 3 1 ;; incandescent, fluorescent, led
+47329|alt|bubble sort and quicksort
+51701|alt|2, 3 ;; depth first search and prim's algorithm
+52031|alt|sugar beet and corn
+52232|alt|equivalence point and cell
+52136|not|backpropagation ;; stochastic gradient ascent
+1147|a|Y|M dwarfs are cool and dim so they sit at the bottom-right of the H-R diagram
+1446|a|Z|Kyanite is the highest-grade index mineral listed; orthoclase is not a Barrovian index mineral
+2624|a|Z|Malachite is a supergene mineral formed by secondary alteration of copper sulfides, not hydrothermal
+2645|a|1 and 3|Opal is a mineraloid not quartz, so pair 2 is incorrect
+2685|a|1,2|Plunge is the inclination of a fold hinge/axis, not measured along the limb
+118130|rm||Lindemann criterion concerns melting; equipartition with a single frequency is the Einstein/Dulong-Petit model, so the question and key do not match
+1270|rm||Loess is wind-blown silt, not hard compacted sand; no clear answer
+1445|rm||Contact and thermal metamorphism are the same thing so the key is not two distinct types
+96|q|["the largest structure known in the universe","a huge structure in the universe"]|Out of date, larger structures such as the Hercules-Corona Borealis Great Wall are now known
+1258|q|["Beringer Crater","Barringer Crater"]|Misspelled name of Barringer (Meteor) Crater
+87686|alt|na
+96058|alt|O(logn) ;; log n ;; O(log(n))
+96058|not|O(n) ;; O(1)
+96060|alt|1, 2, 3 ;; all of them ;; all three
+96440|not|1 ;; 3
+96508|alt|compiled language
+96508|not|interpreted
+96509|alt|concatenate ;; string concatenation
+118021|alt|all of them ;; all ;; 1 2 3 4
+118022|alt|memory resistor
+118022|not|memcapacitor ;; meminductor
+118050|alt|token
+118052|alt|2 and 4 ;; 2,4 ;; nuclear and geothermal
+118052|not|2 ;; 1, 3
+118054|alt|hidden layer ;; hidden
+118057|alt|quantum bit ;; qubits
+118058|alt|1 and 2 ;; 1,2 ;; water and graphite
+118060|alt|random forests
+118060|not|decision tree
+7|alt|1 and 3 ;; 1,3
+7|not|1 and 2 ;; 2
+26|alt|3, 2, 1 ;; 3 2 1 ;; 3-2-1
+36|alt|eddington luminosity
+37|alt|1 ;; water
+37|not|all
+46|alt|porphyritic texture
+56|alt|all ;; 1,2,3 ;; 1, 2, and 3
+59|alt|suture zone
+146|alt|2 and 4 ;; 2,4 ;; kames and eskers
+146|not|1 and 3
+157|alt|1 3 2 4 ;; 1, 3, 2, 4
+166|alt|1 ;; a
+166|not|2
+186|alt|1,2,4 ;; 1 2 and 4
+187|alt|8m ;; 8 m ;; 8 times M
+196|alt|katabatic ;; katabatic wind
+226|alt|twomey ;; cloud albedo effect ;; first indirect effect
+236|alt|density wave ;; spiral density wave
+256|alt|r process
+266|alt|62.5 nm ;; 62.5 nanometers
+274|alt|lithospheric delamination
+284|alt|fermi mechanism ;; diffusive shock acceleration
+284|not|synchrotron radiation
+285|alt|1,3 ;; 1 and 3 only ;; wolf-rayet and luminous blue variable
+293|alt|plage
+294|alt|low velocity zone ;; lvz
+304|alt|none ;; 0 ;; no statements
+313|alt|perthite ;; perthitic texture
+333|alt|coastal upwelling
+334|alt|h2co3
+334|not|carbonate ;; bicarbonate
+342|alt|2,3,1 ;; 2 3 1
+343|alt|the solar wind ;; solar winds
+352|alt|lagrange point ;; lagrangian points
+352|not|hill sphere
+353|alt|triple-alpha process ;; triple alpha
+363|alt|all ;; 1,2,3
+381|alt|one ;; 1 planet
+391|alt|barycentre
+391|not|centroid
+411|alt|accretionary complex ;; accretion wedge
+412|not|quasar ;; pulsar
+421|not|helium
+422|alt|outwash ;; sandur ;; outwash plains
+431|alt|contact metamorphism ;; thermal metamorphism
+441|alt|1,3,2 ;; 1 3 2
+452|alt|fumarole
+461|alt|2,3,1 ;; 2 3 1
+470|alt|0.5 ;; .5
+470|not|2/3 ;; 1/3
+491|alt|neutron star ;; binary neutron stars
+501|alt|3,1,2 ;; 3 1 2
+502|alt|2,3 ;; 2 and 3 only ;; augite and hornblende
+502|not|1,2,3
+511|alt|ridge-push ;; ridge push force ;; gravitational sliding
+1136|alt|silicon dioxide
+1137|not|sabkha
+1159|alt|seamounts ;; sea mount
+1168|alt|msp ;; millisecond pulsars
+1169|alt|magnetars
+1169|not|pulsar
+1180|alt|pennsylvanian and mississippian ;; mississippian, pennsylvanian
+1181|alt|o2 ;; oxygen gas
+1192|alt|quasi-stellar object ;; qso ;; quasi stellar radio source
+1192|not|pulsar ;; blazar
+1193|alt|blazar
+1193|not|pulsar ;; quasar
+1204|alt|cascadia subduction zone ;; cascadia megathrust
+1204|not|juan de fuca ;; aleutian
+1215|alt|cinder cone volcano ;; scoria cone
+1226|alt|2.5e4 ;; 2.5 x 10^4 ;; 25000
+1227|alt|1.0
+1227|not|11 ;; -4
+1237|alt|2.7 k ;; 2.7 kelvin
+1238|alt|globular ;; globular clusters
+1249|alt|piedmont
+1282|alt|black hole evaporation ;; hawking evaporation
+1283|alt|heavy hydrogen
+1283|not|tritium ;; protium
+1304|alt|degeneracy pressure ;; electron degeneracy ;; pauli exclusion
+1304|not|neutron degeneracy pressure
+1305|alt|chandrasekhar mass
+1315|alt|neutrino
+1316|alt|schonberg chandrasekhar limit ;; schonberg-chandrasekhar
+1316|not|chandrasekhar limit ;; eddington limit
+1327|alt|pacific ring of fire ;; circum-pacific belt ;; the ring of fire
+1328|alt|soil liquefaction
+1339|alt|3,1,2 ;; 3 1 2
+1347|alt|carbon star ;; c-type star ;; c star
+1348|alt|wolf rayet ;; wolf-rayet star ;; wr stars
+1356|alt|.4 ;; z=0.4
+1356|not|1.4 ;; 40
+1357|alt|42.8 ;; 43 mpc ;; 43 megaparsecs
+1400|alt|pyroxene ;; pyroxene group
+1411|alt|al ;; aluminium
+1412|alt|feldspar ;; feldspar group
+1434|alt|cyclosilicate ;; ring silicates
+1457|alt|oil sands ;; tar sands ;; oil sand
+1468|alt|2 ;; two bodies
+1468|not|three ;; 3
+1474|alt|3 mpc ;; 3 megaparsec
+1474|not|3 parsecs ;; 3 kpc
+1479|alt|james jeans ;; sir james jeans
+1500|alt|x-ray binary ;; xrbs
+1501|alt|microquasar ;; micro-quasars
+1501|not|quasars ;; blazars
+1511|alt|agn ;; active galactic nuclei
+1512|alt|superluminal ;; apparent superluminal motion
+1522|alt|sapphire and ruby ;; ruby, sapphire ;; sapphire, ruby
+1544|alt|dyke
+1556|alt|coral bleaching
+1562|alt|pp chain ;; proton proton chain ;; p-p chain
+1562|not|cno cycle
+1563|alt|core helium flash ;; he flash
+1563|not|helium shell flash
+1571|alt|batholiths
+1583|alt|reddening and extinction ;; dimming and reddening ;; extinction, reddening
+1584|alt|reflection ;; reflection nebulae
+1595|alt|pyroclastic flows ;; pyroclastic density current ;; nuee ardente
+1604|alt|ir
+1604|not|osmium ;; platinum
+1616|alt|appalachia and laramidia ;; laramidia, appalachia ;; appalachia, laramidia
+1628|alt|mercury sulfide ;; mercury(ii) sulfide
+1628|not|hg2s
+1640|alt|cno ;; cno process ;; carbon nitrogen oxygen cycle
+1640|not|proton-proton chain
+1641|alt|sub brown dwarf ;; subbrown dwarf
+1641|not|brown dwarf
+1661|alt|laurasia and gondwanaland ;; gondwanaland and laurasia ;; gondwana and laurasia
+1662|alt|banded iron formation ;; bif ;; bifs
+1672|not|cambrian
+1673|not|devonian ;; ordovician
+1694|not|silurian ;; carboniferous
+1695|not|ediacaran ;; sturtian
+1704|alt|drumlins
+1705|alt|hanging valleys
+1715|alt|h ;; hydrogen
+1715|not|helium
+1727|alt|planet ;; an exoplanet ;; exoplanet
+1728|alt|hot jupiter ;; hot jupiters
+1728|not|super earths ;; hot neptunes
+1770|alt|blue stragglers ;; blue straggler star
+1779|alt|occlusion ;; occluded
+1779|not|stationary front ;; warm front
+1789|alt|si
+1789|not|oxygen ;; magnesium
+1790|alt|2 ;; two
+1790|not|1 ;; 3
+1823|alt|dog star
+1858|alt|glacial horn ;; pyramidal peak ;; horn peak
+1859|alt|terminal moraine
+2550|alt|supergene enrichment ;; secondary sulfide enrichment ;; supergene
+2561|alt|the jet stream ;; jetstream ;; jet streams
+2570|alt|wind deflation
+2571|alt|guyot ;; tablemount
+2580|alt|hubble law ;; hubble's law ;; hubble-lemaitre law
+2615|alt|all of them ;; 1,2,3
+2625|alt|2 ;; 2 only
+2633|alt|langmuir cells ;; langmuir circulations
+2644|not|carbonate compensation depth ;; ccd
+2654|alt|3, 2, 1 ;; 3 2 1
+2655|alt|ppiv ;; pp4 ;; hep process
+2664|alt|2 and 3 ;; 2, 3 ;; 2 3
+2665|alt|ram-pressure stripping ;; rps
+2665|not|tidal stripping ;; strangulation
+2707|alt|mercury, venus
+2707|not|venus and mercury ;; mercury and neptune
+2708|alt|366.256 times ;; 366.256 rotations
+2708|not|365.256 ;; 366
+2717|not|calcite
+2718|alt|none of them ;; none of the statements ;; 0
+2758|rm||W, X and Z are not La Niña features while Y is one, so the key is wrong and there is no single answer
+2790|a|2 ONLY|Abyssal clay is the only terrigenous sediment; carbonates are biogenous and manganese nodules hydrogenous
+2873|q|["schist, BASIS Peoria Late Regionals DE-Mid Nationals DE depending","schist depending"]|stray tournament header text inside the question
+2970|q|["around the sun","around Jupiter"]|the moons orbit Jupiter, not the Sun
+3105|a|IV ONLY|only longitudinal dunes lie parallel to the wind; barchans are crescentic and transverse to it
+3327|a|I ONLY|Richter measures magnitude not intensity and P waves are faster than S waves, so only statement I is true
+3376|a|HUBBLE'S LAW|key is truncated to HUBBLE'
+5064|a|BOWEN'S REACTION SERIES|key is truncated to BOWEN'
+5142|q|["l ignite","lignite"]|stray space splits the word lignite
+5149|a|KEPLER'S SECOND LAW|key is truncated to KEPLER' and the second law is the angular momentum law
+5150|a|(577+408*sqrt(2))K, about 1154K|e=2*sqrt(2)/3 so ra/rp=17+12*sqrt(2) and KE ratio is its square
+5323|q|["proponent","component"]|wrong word, eastward component of velocity is meant
+2728|alt|mesozoic era ;; the mesozoic
+2728|not|paleozoic ;; cenozoic
+2738|alt|chromite ore ;; FeCr2O4
+2757|alt|venus
+2796|alt|1 ;; dolomite
+2833|alt|shepherd moons ;; shepherding moon
+2836|alt|composite ;; composite volcano ;; stratocone
+2836|not|shield volcano ;; cinder cone
+2839|alt|transform ;; transform boundary ;; transform boundaries
+2839|not|divergent boundary ;; convergent boundary
+2840|alt|d double prime ;; d'' ;; d prime prime
+2855|alt|lithify ;; diagenesis
+2855|not|sedimentation ;; compaction
+2885|alt|type ic supernova ;; ic ;; type 1c
+2885|not|type ia ;; type ii
+2896|alt|turbidites ;; turbidite deposit
+2898|alt|degassing ;; volcanic outgassing
+2921|alt|wave shoaling ;; shoal
+2921|not|refraction ;; diffraction
+2933|not|birefringence ;; anisotropism
+2936|alt|cosmic rays
+2951|alt|syzygy
+2961|alt|distributaries
+3028|alt|striations ;; glacial striae ;; striae
+3039|alt|triclinic system
+3039|not|monoclinic ;; orthorhombic
+3047|alt|16 light years ;; 16 ly
+3068|alt|lindblad resonances ;; lindblad
+3077|alt|benioff zone ;; wadati benioff zone ;; wadati-benioff
+3151|alt|widmanstatten patterns ;; widmanstatten ;; thomson structures
+3154|alt|outflow channel ;; outburst flood channels
+3162|alt|stellar occultation ;; occultations
+3163|alt|cosmological principle
+3167|alt|carbonaceous chondrite ;; c-type chondrites ;; carbonaceous
+3167|not|ordinary chondrite ;; enstatite chondrite
+3175|alt|vertical erosion ;; downcutting erosion ;; incision
+3207|alt|inflation ;; cosmic inflation theory ;; inflationary theory
+3208|alt|be and c ;; beryllium then carbon ;; beryllium-8 and carbon-12
+3208|not|helium and carbon ;; carbon and oxygen
+3233|alt|olivine pyroxene quartz ;; 1,3,2
+3236|alt|coriolis force ;; coriolis
+3236|not|centrifugal force ;; centripetal force
+3256|alt|kirkwood gap
+3347|alt|pp chain ;; proton proton chain ;; proton-proton fusion
+3347|not|cno cycle ;; triple alpha process
+3348|alt|16 solar masses
+3361|alt|cosmic microwave background ;; cmb ;; cmbr
+3372|alt|backswamp ;; back swamps ;; backswamps
+3383|alt|200 ;; 200x
+3383|not|0.005 ;; 100
+3391|alt|ccd ;; carbonate compensation depth ;; calcite compensation depth
+3391|not|lysocline ;; carbonate saturation depth
+3410|alt|brown dwarfs ;; substellar object
+3410|not|red dwarf ;; white dwarf
+3429|alt|adiabatic cooling ;; adiabatic expansion
+3429|not|diabatic ;; radiational cooling
+3440|alt|photosphere chromosphere corona ;; 3,1,2
+3441|alt|4y ;; 4 y ;; 4*y
+3470|alt|laccoliths
+3470|not|sill ;; batholith
+3536|alt|iceberg
+4999|alt|the instability strip ;; cepheid instability strip ;; instability region
+5010|alt|cosmogenic ;; cosmogenous sediment ;; cosmic
+5010|not|hydrogenous ;; terrigenous
+5021|alt|elliptical galaxy ;; supergiant elliptical ;; cd galaxy
+5022|alt|grand design spiral ;; grand-design ;; grand design galaxies
+5022|not|flocculent ;; barred spiral
+5031|alt|focus ;; hypocentre
+5031|not|epicenter ;; epicentre
+5054|alt|ganymede
+5065|alt|moho ;; moho discontinuity ;; mohorovicic discontinuity
+5065|not|gutenberg discontinuity ;; lehmann discontinuity
+5077|alt|maunder butterfly diagram ;; sunspot butterfly diagram
+5094|alt|chandrasekhar limit ;; chandrasekhar mass ;; 1.4 solar masses
+5106|alt|star dunes ;; star dune
+5106|not|barchan ;; transverse
+5118|alt|southern cross ;; crux constellation
+5143|alt|metamorphic metamorphic igneous metamorphic ;; m,m,i,m
+5169|alt|24 hours 50 minutes ;; 24 hours and 50 minutes ;; 24h50m
+5169|not|24 hours ;; 12 hours 25 minutes
+5177|alt|pp chain ;; proton proton chain ;; proton-proton fusion
+5177|not|cno cycle ;; triple alpha process
+5189|alt|1.0
+5199|alt|gravitational radiation ;; gravity waves
+5200|alt|michelson interferometer ;; laser interferometer
+5229|alt|inflation ;; cosmic inflation ;; inflationary epoch
+5229|not|big bang nucleosynthesis ;; recombination
+5240|alt|ergosphere
+5241|alt|kerr and kerr-newman ;; kerr, kerr newman
+5241|not|1,2,3,4 ;; schwarzschild and reissner-nordstrom
+5245|alt|mesozoic era
+5245|not|paleozoic ;; cenozoic
+5246|alt|anthropocene epoch
+5247|alt|45 ;; 45 degrees ;; 45°
+5247|not|90 degrees ;; 0 degrees
+5248|alt|dynamo theory ;; geodynamo ;; dynamo
+5311|alt|distance and velocity ;; distance and recession velocity ;; velocity and distance
+5323|alt|angular momentum
+5323|not|linear momentum ;; energy
+5353|alt|minkowski spacetime ;; minkowski space ;; minkowski metric
+5354|alt|stress energy tensor ;; energy-momentum tensor ;; stress-energy-momentum tensor
+5371|alt|wolf rayet ;; wolf-rayet star ;; wr stars
+5372|alt|kappa-mechanism ;; kappa effect ;; eddington valve
+5388|alt|trade winds westerlies polar winds ;; 1,3,2
+5420|alt|transform ;; transform fault ;; transform plate boundary
+5421|alt|karst topography ;; karst landscape
+5438|alt|io torus ;; plasma torus ;; io plasma torus
+5450|alt|polarisation ;; light polarization
+5469|alt|titan
+5473|alt|sunspot ;; sun spots
+5479|alt|devonian period ;; the devonian
+5479|not|silurian ;; carboniferous
+5480|alt|ir ;; iridium
+5489|alt|pp chain ;; proton proton chain ;; p-p chain
+5500|alt|m, f, a ;; m f a ;; 3,2,1
+5511|alt|uv ;; ultraviolet light ;; ultraviolet region
+5511|not|visible ;; infrared
+5512|alt|quark-gluon plasma ;; quark gluon plasma ;; qgp
+5519|alt|w ;; tungsten ore
+5520|alt|peridotite rock
+5520|not|dunite ;; basalt
+5524|alt|calcite ;; calcium carbonate
+5527|alt|laccoliths
+5527|not|sill ;; batholith
+5568|alt|eris
+5578|alt|slate phyllite schist gneiss ;; slate, phyllite, schist, gneiss
+5593|alt|10 ;; 10 pc ;; 10 parsec
+5594|alt|period luminosity relation ;; period-luminosity relation ;; leavitt law
+5601|alt|tidal lock ;; synchronous rotation ;; tidally locked
+5601|not|libration ;; precession
+5604|alt|atomic oxygen ;; o2 ;; o
+5604|not|nitrogen ;; hydrogen
+5605|alt|tully fisher ;; tully fisher relation ;; tully-fisher
+5606|alt|lenticular ;; lenticular galaxy ;; s0
+5606|not|elliptical ;; barred spiral
+5622|alt|1 increase 2 increase 3 decrease ;; increase, increase, decrease
+5627|alt|gravitational lens ;; strong lensing ;; lensing
+5635|alt|200 solar masses
+5636|alt|doppler shift ;; doppler ;; radial velocity
+5655|alt|all ;; 1,2,3 ;; all three
+5656|alt|increases, decreases, decreases ;; increase, decrease, decrease
+5664|alt|henyey ;; henyey tracks
+5664|not|hayashi track ;; main sequence
+5710|alt|frame dragging ;; frame-dragging ;; lense thirring
+5718|alt|virial ;; virial theorem
+5718|not|tolman equation ;; ehrenfest theorem
+5742|alt|ga ;; gallium
+5742|not|germanium ;; indium
+5744|alt|inosilicate ;; chain silicates ;; chain silicate
+5744|not|nesosilicates ;; phyllosilicates
+5760|alt|homoclinal ;; monocline structure
+5760|not|monocline ;; anticline
+5765|alt|carbonate ;; carbonate minerals ;; carbonate rocks
+5766|alt|september 12 ;; sept 12 ;; 9/12
+5766|not|september 19 ;; september 5
+6143|a|Y|Williamina Fleming first grouped stars by Balmer line strength (A to N); Cannon later reorganized by temperature
+7058|q|["declination in the sky is analogous to longitude on the surface of the Earth. What other measure in the sky is analogous to latitude","right ascension in the sky is analogous to longitude on the surface of the Earth. What other measure in the sky is analogous to latitude"]|declination is the latitude analog and right ascension the longitude analog
+7058|a|DECLINATION|declination is the sky analog of latitude
+7140|a|W|the neritic zone extends from shore to the edge of the continental shelf; littoral is only the intertidal zone
+7179|rm||both W and X are true statements (Kepler's third law gives binary masses), so no single answer
+7954|a|Z|in Andersonian reverse faulting the largest stress is horizontal and perpendicular to strike, not vertical
+8070|rm||fluorite cleaves on {111}, which is not among the choices
+8071|a|3,2,1|incompatible K is depleted most and compatible Co least, so increasing depletion is Co, Ca, K
+8117|a|3,2,1|in a transgression limestone is deepest and conglomerate shallowest
+8236|a|3,2,1|Jupiter is closest to solar composition, then Saturn, then Uranus
+8287|q|["following 4 atomic weights","following 3 atomic weights"]|only three items are listed
+5767|alt|madden julian oscillation
+5767|not|ENSO ;; QBO
+5787|alt|2^-10
+5787|not|1/256 ;; 1/64
+5811|alt|1, 2, and 3 ;; 1,2,3 ;; all three
+5837|alt|1,2,4 ;; 1, 2, 4
+5837|not|1, 2 ;; 1,2,3,4
+5838|not|6 ;; 5
+5850|alt|wolf rayet star ;; WR star ;; wolf-rayet
+5855|alt|none of them ;; none of the pairs
+5855|not|3
+5856|not|3 ;; 1
+5874|alt|1, 2, and 3 ;; 1,2,3 ;; all three
+5884|alt|1, 4 ;; height and steepness
+5884|not|1, 2, 4 ;; 1 and 3
+5896|alt|Icelandic low and Azores high ;; Icelandic low and Bermuda-Azores high
+5896|not|Aleutian low, Siberian high
+5918|alt|1, 2, 3 ;; conglomerate breccia sandstone
+5918|not|3,2,1
+5919|alt|2, 3 ;; 2 and 3
+5919|not|1 and 2
+5928|alt|2, 3 ;; type 1b and type 1c ;; 1b and 1c
+5929|alt|1, 3 ;; 1,3
+5929|not|1 and 2
+5940|alt|amphidromic points ;; amphidrome
+5941|alt|1, 2, 3 ;; helium, hydrogen, calcium
+5952|alt|tolman oppenheimer volkoff limit ;; TOV mass limit
+5958|alt|herbig haro ;; HH object ;; herbig-haro
+5959|alt|1 ;; carbon dioxide
+5959|not|1 and 2 ;; 3
+5975|alt|zz ceti stars ;; ZZ Ceti star
+5975|not|GW Virginis ;; V777 Her
+5986|alt|failed rift arm ;; failed rift
+5987|alt|pacific decadal
+5987|not|ENSO ;; NAO
+5999|alt|2, 3, 1 ;; entisols inceptisols alfisols
+5999|not|1,3,2
+6004|alt|southeast 45 ;; 45 degrees SE ;; 45 SE
+6004|not|45 degrees northwest ;; 60 degrees southeast
+6005|alt|2, 3 ;; 2,3 ;; strength of emission lines and luminosity
+6005|not|1 ;; 1 and 2
+6010|alt|1, 2 ;; trellis and annular
+6010|not|2 and 3 ;; 3
+6011|alt|c type ;; carbonaceous chondrites ;; carbonaceous asteroids
+6011|not|S-type ;; M-type
+6039|alt|2
+6039|not|1 ;; 1 and 2
+6044|alt|CaTiO3 ;; calcium titanate
+6044|not|sphene ;; rutile
+6056|alt|100 pc ;; 100 parsecs
+6056|not|10 ;; 1000
+6067|alt|phreatic ;; saturation zone
+6067|not|vadose zone ;; aeration zone
+6072|alt|starburst galaxy ;; starburst galaxies
+6079|alt|carbon star ;; class C
+6079|not|S ;; M
+6091|alt|2.5 ;; 2.5 km
+6097|alt|anorthite and albite ;; anorthite then albite
+6097|not|albite, anorthite
+6102|alt|eddington luminosity ;; eddington
+6103|alt|none ;; none of the three
+6103|not|2 ;; 2 and 3
+6113|alt|se ;; south east
+6113|not|northwest ;; northeast
+6124|alt|pulsars ;; millisecond pulsars
+6124|not|white dwarf ;; main sequence
+6125|alt|tail disconnection event ;; comet tail disconnection
+6149|alt|fringing ;; fringing reefs
+6149|not|barrier reef ;; atoll
+6158|alt|lagrange point 2 ;; sun-earth L2
+6158|not|L1 ;; L3
+6159|alt|3 ;; 11
+6159|not|2 and 3 ;; 2
+6171|not|chatoyancy ;; iridescence
+6182|alt|1, 3, 2 ;; plinian strombolian hawaiian
+6182|not|2,3,1 ;; 1,2,3
+6183|alt|SOFAR ;; deep sound channel ;; sound fixing and ranging channel
+6195|alt|main-sequence turnoff ;; MS turnoff ;; main sequence turn off
+7011|alt|lustre
+7032|alt|b, g, k ;; B G K
+7032|not|1,2,3
+7041|not|thermosphere ;; mesosphere
+7047|alt|asteroid belt, kuiper belt, oort cloud ;; 2, 1, 3
+7047|not|2,3,1 ;; 1,2,3
+7058|not|right ascension ;; RA
+7078|alt|paleozoic, mesozoic, cenozoic ;; 3, 1, 2
+7078|not|1,2,3 ;; 3,2,1
+7084|alt|c ;; c-horizon ;; c layer
+7084|not|B horizon ;; R horizon
+7087|not|mercury ;; uranus
+7104|alt|1 ;; shale
+7104|not|1 and 3 ;; 2
+7123|alt|stationary
+7123|not|occluded front ;; cold front
+7129|alt|iceberg
+7149|alt|calcium carbonate
+7149|not|dolomite ;; aragonite
+7178|alt|axial precession ;; precession of the equinoxes
+7178|not|nutation ;; obliquity
+7185|alt|2, 3 ;; 2,3
+7185|not|1, 2, 3 ;; 1 and 3
+7194|not|plankton ;; sediment
+7199|alt|lahars
+7199|not|pyroclastic flow ;; nuee ardente
+7214|not|plankton ;; benthos
+7219|alt|coriolis force ;; coriolis
+7220|alt|filament ;; solar filaments
+7220|not|sunspots ;; plages
+7223|alt|totality
+7230|alt|basal slip
+7230|not|plastic flow ;; internal deformation
+7239|alt|kirkwood gap ;; kirkwood
+7239|not|trojans ;; hilda
+7260|alt|stromatolite
+7268|alt|dynamo ;; geodynamo ;; dynamo theory
+7275|alt|1, 3 ;; total and annular
+7275|not|1 and 2 ;; 1 only
+7285|alt|lapillus
+7285|not|tuff ;; volcanic ash
+7290|alt|plutino
+7290|not|cubewanos ;; twotinos
+7291|alt|2, 3 ;; drumlins and eskers
+7291|not|1 and 4 ;; 2 only
+7304|not|supercontinent cycle ;; rock cycle
+7305|alt|2,3,4 ;; anhydrite, gypsum, and limestone
+7305|not|3 and 4 ;; 1, 2, 3
+7311|alt|collision-coalescence ;; collision and coalescence ;; collision coalescence
+7311|not|Bergeron process ;; condensation
+7314|not|electron degeneracy pressure ;; thermal pressure
+7330|alt|cutbank ;; cut-bank
+7330|not|point bar ;; slip-off slope
+7331|alt|iron and aluminum ;; aluminum and iron ;; Fe and Al
+7331|not|calcium and silicon
+7336|alt|sulfide ;; metal sulfide ;; metallic sulfides
+7336|not|oxides ;; sulfates
+7337|alt|1, 3 ;; herbig-haro objects and bok globules
+7337|not|1 and 2 ;; 2 only
+7356|not|riming ;; accretion
+7359|alt|1:81 ;; 0.0123
+7359|not|81 ;; 1/9
+7366|alt|1, 2 ;; north america and asia
+7366|not|1 and 4 ;; 1, 2, 3
+7369|alt|exfoliation weathering
+7369|not|spheroidal weathering ;; frost wedging
+7372|alt|2.4 solar masses ;; 2.4 Msun
+7372|not|10 ;; 5
+7373|alt|non-conformity ;; non conformity
+7373|not|disconformity ;; angular unconformity
+7374|alt|frontal uplift ;; frontal lift
+7374|not|orographic lifting ;; convective lifting
+7395|alt|LHB ;; lunar cataclysm
+7976|alt|BAO ;; baryon acoustic oscillation
+7976|not|Sachs-Wolfe effect ;; Silk damping
+7977|alt|1 and 3 ;; 1, 3 ;; I, III
+7977|not|I and II ;; I only
+8017|alt|inverse compton scattering ;; IC scattering
+8017|not|Thomson scattering ;; Rayleigh scattering
+8028|alt|he, c, o ;; helium carbon oxygen
+8028|not|3,2,1
+8052|alt|all three ;; I, II, and III
+8060|alt|59 ;; 59 earth days
+8060|not|88 ;; 176
+8071|alt|cobalt, calcium, potassium
+8071|not|1,2,3
+8084|alt|kelvin wave ;; equatorial kelvin waves
+8084|not|Rossby waves ;; Rossby wave
+8116|alt|turbidity current ;; turbidites ;; turbidity flows
+8116|not|aeolian transport
+8117|alt|limestone, sandstone, conglomerate
+8117|not|1,2,3
+8124|alt|gravitational force ;; gravity force ;; gravitation
+8124|not|weak force ;; electromagnetism
+8132|alt|farallon ;; farallon slab
+8132|not|Juan de Fuca plate ;; Kula plate
+8155|alt|kappa-mechanism ;; valve mechanism
+8165|alt|o and e horizons ;; O, E ;; e and o
+8165|not|A and B ;; O and A
+8172|alt|1:6 ;; 0.167 ;; 0.17
+8172|not|6 ;; 6/1
+8173|alt|noachis terra, hesperia planum, amazonis planitia ;; noachis, hesperia, amazonis
+8173|not|1,2,3
+8179|alt|pyrolusite, hematite, wolframite
+8179|not|1,2,3
+8190|alt|Si II ;; Si+ ;; ionized silicon
+8190|not|Calcium II ;; Silicon III
+8203|alt|c-13 ;; 13C ;; carbon 13
+8203|not|carbon-14 ;; carbon-12
+8218|alt|inflation, electroweak symmetry breaking, recombination ;; 3, 1, 2
+8218|not|3,2,1 ;; 1,3,2
+8230|alt|polynyas
+8230|not|lead
+8231|alt|capillary, gravity, rogue
+8231|not|3,1,2 ;; 1,2,3
+8236|alt|uranus saturn jupiter
+8236|not|1,2,3 ;; 3,1,2
+8237|alt|462 ;; 462 days
+8237|not|231 days ;; 116 days
+8247|not|10 ;; 2
+8277|alt|calcium carbonate ;; CaCO3
+8277|not|dolomite ;; gypsum
+8289|alt|sw ;; south west
+8289|not|northeast ;; northwest
+8306|alt|saturn, neptune, mercury, earth
+8306|not|3,4,2,1 ;; 4,3,1,2
+8307|alt|protoplanetary disc
+8307|not|debris disk ;; Kuiper belt
+8321|alt|all three ;; I, II, III ;; 1,2,3
+8326|alt|grabens
+8326|not|horst ;; syncline
+8327|alt|xenon, neon, argon
+8327|not|2,1,3 ;; 1,2,3
+8334|alt|1.33 ;; 1.33 pc
+8334|not|0.75 ;; 750
+8336|alt|1 and 2 ;; sulfur and gypsum ;; I, II
+8336|not|1, 2, 3 ;; 2 only
+8348|alt|hayashi tracks
+8348|not|asymptotic giant branch ;; horizontal branch
+8349|alt|blazar, quasar, AGN ;; 2,3,1
+8349|not|1,3,2
+8363|alt|p waves, s waves, love waves
+8363|not|1,3,2 ;; 3,2,1
+8364|alt|pumice, scoria, obsidian, tachylite
+8364|not|1,2,3,4 ;; 4,2,3,1
+8369|alt|jet ;; relativistic jets ;; radio jets
+8369|not|accretion disk ;; corona
+8370|alt|3 ;; 3 only ;; iii
+8370|not|1 and 3 ;; 2
+8385|alt|BIF ;; banded iron formation ;; BIFs
+8385|not|varves ;; evaporites
+8388|alt|1 and 3 ;; marble and quartzite ;; I, III
+8388|not|1 and 2 ;; 1,2,3
+8401|alt|gravity, strong, weak
+8401|not|1,2,3 ;; 3,1,2
+8402|alt|waning crescent moon
+8402|not|waxing crescent ;; waning gibbous
+8417|not|mammatus ;; drizzle
+8418|alt|1 and 2 ;; I, II ;; 1, 2
+8418|not|1 only ;; I, II, III
+8449|not|archean
+8457|alt|neutrinos
+8457|not|photons ;; gamma rays
+8458|alt|all four ;; I, II, III, IV ;; all
+8458|not|I only ;; I and III
+8486|alt|1 and 2 ;; anthracite and pumice ;; I and II
+8486|not|3 ;; 2
+8497|alt|optical libration ;; libration of the moon
+8497|not|precession ;; nutation
+8503|alt|AAIW, NADW, AABW
+8503|not|3,2,1 ;; 1,3,2
+8504|alt|barite, celestite, gypsum
+8504|not|1,2,3 ;; 3,1,2
+8511|alt|elliptical galaxy ;; giant elliptical galaxy
+8511|not|spiral ;; lenticular
+8512|alt|comet coma ;; cometary coma
+8512|not|nucleus
+8563|alt|geopotential height ;; height of the pressure surface
+8563|not|pressure ;; temperature
+8564|alt|3,2,1 ;; mira, cepheid, rr lyrae
+8564|not|1,2,3
+8570|alt|none of them ;; none of the types ;; 0
+8570|not|all ;; 3
+8580|alt|3,1,2 ;; cosmic neutrino background, solar, extragalactic
+8580|not|2,1,3 ;; 1,2,3
+8597|rm||Thermocline is an ocean-layer concept and has no meaning for the crust of a compact object; the question is nonsensical
+8752|a|1, 2, 3|Salt is hygroscopic and condenses at the lowest RH, then dust, and hydrophobic soot needs the highest
+8782|a|Y|Pressure-gradient geostrophic flow keeps the high-pressure coast on its right, so southward on the west coast and northward on the east coast
+9302|a|4|Birds first appeared in the Jurassic (Archaeopteryx), so the answer is not none
+9345|a|19|d = 10^((m-M+5)/5) = 10^1.28, about 19 parsecs
+9411|q|["4 events relating","5 events relating"]|Five events are listed
+9498|a|2, 3, 4|Climate change does not cause acid rain; decomposing vegetation, volcanoes and vehicles do
+9558|a|URBAIN LE VERRIER, JOHN COUCH ADAMS|Misspelled name, it is Urbain Le Verrier
+9814|a|X|A barrier layer has density increasing with salinity (halocline) while temperature stays constant
+9835|a|Homocline|A uniform dip in one direction is a homocline, a monocline is a step-like fold
+9913|a|1 3 2|Deuterium ignites near 1 million K, lithium near 2.5 million K, protium near 10 million K
+9950|a|None|Pegmatites form from water-rich melt, are very coarse-grained, and do not hold high amounts of corundum
+8608|alt|1, 2 ;; freezing rain and glaze ice
+8618|alt|1 and 2 ;; hardness and grain size
+8637|alt|clear skies
+8658|not|selenite ;; satin spar
+8696|alt|cyanite
+8696|not|sillimanite ;; andalusite
+8707|alt|none ;; none of them
+8744|alt|2 ;; saturation vapor pressure
+8744|not|1 and 2
+8763|alt|1 ;; copper
+8772|alt|Ca2+ ;; calcium ;; calcium ion
+8773|alt|3 and 4 ;; 3, 4
+8811|not|rhodochrosite
+8831|alt|1, 3 ;; clast imbrication and flute casts
+8912|alt|Ia ;; type 1a ;; 1a
+8931|alt|law of conservation of angular momentum
+8970|alt|cultural eutrophication
+8970|not|hypoxia
+8980|not|suspension ;; traction
+9098|alt|neutron stars
+9108|alt|cosmic ray
+9126|alt|micas
+9127|alt|four
+9137|not|black smoker
+9163|alt|9x ;; 9 times
+9164|alt|Juan de Fuca plate and North American plate ;; North American and Juan de Fuca
+9172|alt|Devonian
+9181|alt|1 and 5 ;; 5, 1
+9198|alt|geostrophic ;; geostrophic flow
+9198|not|ekman current
+9208|alt|4, 1, 2, 3 ;; 4 1 2 3
+9214|not|dextral
+9225|alt|11 degree days ;; 11 CDD
+9241|alt|3 and 4 ;; marsupials, birds
+9259|alt|depression cone
+9267|alt|dec and ra
+9268|alt|0 degrees and 0 hours ;; 0 deg and 0 h
+9282|alt|synodic
+9294|alt|supercritical fluid
+9327|alt|groundmass
+9328|alt|3, 2, 1 ;; 3 2 1
+9339|alt|lenticular clouds ;; altocumulus lenticularis
+9340|alt|1, 2, 5 ;; 1 2 5
+9346|alt|16 times ;; 16x
+9368|alt|nunatak
+9379|alt|terrane ;; accreted terranes
+9394|alt|scattered disk ;; scattered disc ;; SDOs
+9395|alt|centaur
+9411|alt|1 3 2 4 5
+9452|alt|exfoliation dome
+9498|alt|2 3 4
+9498|not|1, 2, 3, 4 ;; all
+9508|alt|silicate
+9554|alt|photon ;; light
+9558|alt|Le Verrier and Adams
+9558|not|Galileo and Kuiper
+9574|alt|rain shadow ;; rain shadow effect
+9602|not|thermosphere ;; stratosphere
+9613|alt|1, 3, 4
+9628|alt|reverse fault
+9639|alt|flint and jasper
+9640|alt|3, 1, 2
+9647|alt|shepherd satellites ;; shepherd moon
+9648|alt|tidal heating ;; tidal flexing
+9657|alt|cutbank ;; undercut bank
+9672|alt|iron and titanium
+9683|alt|guyot ;; tablemount
+9698|alt|hydrogen gas ;; H2
+9713|alt|1, 2, 4 ;; 1 2 4
+9725|alt|relativistic jet ;; astrophysical jets
+9728|alt|carbonate ;; carbonate minerals
+9775|alt|Deneb and Altair
+9799|alt|gravitational instability
+9811|alt|Hayashi
+9818|alt|1 3 4 5 ;; 1, 3, 4, 5
+9835|not|monocline
+9836|alt|monogenetic volcano
+9844|alt|3
+9849|alt|conditionally unstable
+9861|alt|2, 3, 1
+9862|alt|Kelvin-Helmholtz contraction ;; Kelvin Helmholtz mechanism
+9870|alt|2, 3, 1
+9876|alt|1 and 4 ;; biotite and talc
+9887|alt|2*sqrt(3)*v_0 ;; sqrt(12) v_0
+9895|alt|3, 1, 4, 2 ;; pillow lavas, sheeted dikes, layered gabbro, peridotite
+9902|alt|3
+9903|alt|reversed zoning
+9903|not|normal zoning ;; oscillatory zoning
+9912|alt|21 centimeters ;; hydrogen line ;; HI line
+9913|alt|1, 3, 2 ;; 1,3,2
+9920|alt|2, 3, 4, 1
+9928|alt|3, 4, 2, 1
+9956|alt|3 ;; M
+9957|alt|2, 3, 1 ;; termination shock, heliopause, bow shock
+9969|alt|gossamer ring
+9987|alt|birthline
+10026|alt|tholin
+10027|alt|2
+10044|alt|omission solid solution
+10049|alt|2, 1, 3
+10057|alt|Urca ;; URCA process
+10058|alt|blue loops
+10066|alt|2 ;; helium
+10071|alt|1, 3 ;; magnetite and hematite
+10077|alt|summer triangle ;; Summer Triangle asterism
+10078|alt|Bowen's reaction series ;; Bowen series
+10235|a|MESOCYCLONE|key misspelled
+10630|a|-2 and -4|direct starlight flux falls as R^-2, reflected as R^-4; key lost the sign
+11277|a|1,2,3|Goldich: anorthite weathers fastest, then albite, gibbsite most stable
+11481|a|DOLOMITE|magnesite is not an acceptable alternate; dolomitization of calcite gives dolomite
+11811|a|Z|sulfuric acid clouds obscuring the surface is clearly true; X is not a clear fact
+10092|alt|2,1,4,3 ;; hayashi track, main sequence, red giant, white dwarf
+10092|not|2,1,3,4
+10102|alt|karst
+10133|alt|double refraction
+10144|alt|ia ;; type ia ;; type ia supernova
+10145|alt|1 3 4 2 ;; glacial ice, firn, neve, snow
+10145|not|1,4,3,2
+10154|alt|peles tears ;; pele tears
+10155|alt|failed rift
+10166|alt|sunspot
+10167|alt|all ;; all three ;; 1 2 3
+10177|alt|phenocrysts
+10181|alt|europe, north america, africa ;; 2 3 1
+10181|not|1,3,2
+10187|alt|rotational slide ;; rotational slump
+10198|alt|tully fisher relation ;; tully-fisher relation
+10211|alt|anticlines and domes ;; 1,2 ;; anticline and dome
+10211|not|1 and 3
+10222|alt|kirkwood gap
+10235|alt|mesocyclone
+10282|alt|wegener-bergeron-findeisen process ;; bergeron-findeisen process ;; ice crystal process
+10318|alt|3 ;; 3 only ;; statement 3
+10318|not|1 and 3
+10330|alt|dikes ;; 1 ;; dike
+10330|not|1 and 3
+10336|alt|grb ;; grbs ;; gamma ray bursts
+10348|alt|jupiter trojans ;; trojan asteroids
+10353|alt|NE
+10354|alt|accretion wedge
+10378|alt|mesopause, tropopause, stratopause ;; 3 1 2
+10389|alt|all ;; 1, 2, 3 ;; all of them
+10401|alt|zinc blende ;; zns
+10402|alt|magnesium, sodium, chloride ;; 3 1 2
+10413|alt|2
+10426|alt|3 ;; 3 only
+10426|not|1 and 3
+10486|alt|mercury
+10521|alt|perched aquifer
+10557|alt|1,2 ;; cosmic background radiation and heavy neutral metals
+10558|alt|all ;; all three ;; 1,2,3
+10581|alt|lensing ;; gravitational lens
+10605|alt|all ;; 1,2,3 ;; all of them
+10618|alt|EPR
+10630|alt|-2, -4 ;; -2 -4
+10630|not|2 and -4 ;; -2 and -2
+10641|alt|katabatic wind ;; katabatic ;; drainage wind
+10653|alt|venus, mercury, earth ;; 2 1 3
+10653|not|1,2,3
+10677|alt|ecliptic plane
+10678|alt|h2o ice
+10701|alt|main sequence, red giant, white dwarf ;; 3 2 1
+10701|not|1,2,3
+10702|alt|1,2 ;; 1 and 2
+10702|not|1,2,3
+10713|alt|salinity and temperature ;; temperature, salinity
+10713|not|temperature only ;; pressure and temperature
+10719|alt|surface albedo
+10720|alt|meteor impact ;; asteroid
+10726|alt|Si
+10726|not|hydrogen ;; helium
+10744|alt|HZ
+10749|alt|chandrasekhar mass ;; chandrasekhar's limit
+10750|alt|hyperbola
+10767|alt|ozone layer
+10774|alt|proxima centauri, sirius, polaris ;; 3 2 1
+10786|alt|phyllite, schist, gneiss ;; 3 2 1
+10786|not|1,2,3
+10797|alt|CH4
+10798|alt|H
+10803|not|troposphere ;; mesosphere
+10810|alt|1 and 3 ;; 1,3 ;; angular unconformity and disconformity
+10810|not|1 and 2 ;; 2 and 3
+10833|alt|2+
+10846|alt|CH4
+10870|alt|radiative zone, convective zone, photosphere ;; 1 2 3
+10881|alt|columnar joints
+10894|alt|vesta, charon, eris ;; 1 3 2
+10926|alt|lateral moraines
+10939|not|cold front ;; occluded front
+10940|alt|ephemeral streams
+10953|alt|1 and 3 ;; I and III ;; kettle lake and drumlin
+10953|not|I, II, III
+10981|alt|coriolis ;; the coriolis effect
+10982|alt|benioff zone ;; wadati benioff zone ;; benioff-wadati zone
+11231|alt|CNO ;; CNO cycle ;; carbon-nitrogen-oxygen cycle
+11240|alt|hubble constant ;; H0
+11242|alt|oxbow ;; ox-bow lake
+11264|alt|k-feldspar ;; k feldspar ;; potash feldspar
+11264|not|plagioclase
+11265|alt|basal sliding
+11277|alt|anorthite, albite, gibbsite ;; 1 2 3
+11277|not|2,1,3
+11278|alt|magmatic stoping
+11301|alt|hirayama family
+11302|alt|all ;; 1,2,3 ;; all three
+11314|alt|1 and 2 ;; 1,2
+11314|not|all ;; 1 only
+11324|alt|1
+11325|alt|1 and 3 ;; 1,3
+11337|alt|all ;; 1,2,3
+11345|alt|optical libration
+11356|alt|s process ;; slow neutron capture
+11388|alt|macho ;; massive compact halo objects
+11396|alt|all ;; 1,2,3 ;; all three
+11397|alt|none ;; 0
+11427|alt|Ca ;; Ca II
+11450|alt|1 and 2 ;; OB associations and emission nebulae
+11450|not|all ;; 2 and 3
+11481|not|magnesite ;; calcite
+11492|alt|coronal mass ejection ;; CMEs
+11515|alt|stationary front
+11516|alt|2,3 ;; tidal flats, playa lakes
+11516|not|1 and 2
+11545|alt|cocos, nazca, juan de fuca ;; juan de fuca plate, cocos plate, nazca plate
+11556|alt|1,2 ;; scarps, horsts
+11556|not|all ;; 2 and 3
+11567|alt|longshore drift ;; littoral drift ;; longshore transport
+11570|alt|the water table ;; phreatic surface
+11576|not|S-wave shadow zone
+11580|alt|zeolite
+11600|alt|100 pc ;; 100 parsecs
+11610|alt|cryovolcano ;; tiger stripes
+11621|alt|barchan and transverse ;; transverse, barchan
+11642|alt|2,3 ;; diatoms, radiolarians
+11643|alt|4,8 ;; 4 solar masses and 8 solar masses
+11643|not|8 and 4
+11654|alt|radio galaxy
+11665|alt|3 ;; 3 only ;; neutron star
+11665|not|1 and 3
+11676|alt|epipelagic zone ;; sunlight zone
+11687|alt|rockies ;; the rocky mountains
+11712|alt|1 ;; 1 only ;; statement 1
+11712|not|1 and 2
+11723|alt|fresh snow, neve, firn ;; 3 1 2
+11723|not|2,1,3
+11731|alt|2 and 3 ;; 2,3 ;; listric and detachment
+11731|not|1 and 2
+11741|alt|garnet schist, clinopyroxenite, dunite ;; 1 2 3
+11750|alt|red giant branch, horizontal branch, asymptotic giant branch ;; RGB, HB, AGB ;; 2 1 3
+11750|not|2,3,1
+11751|alt|none ;; 0
+11761|alt|dendrochronology, speleothems, ocean cores ;; 2 1 3
+11772|alt|3 ;; 3 only ;; haumea
+11772|not|1 and 2
+11780|alt|white dwarf
+11781|alt|ring galaxies
+11792|alt|3 ;; 3 only
+11793|alt|1,2 ;; 1 and 2
+11793|not|all
+11802|alt|1 ;; 1 only
+11911|alt|CH4
+11911|not|carbon dioxide ;; nitrous oxide
+12151|alt|vine-matthews hypothesis ;; vine matthews morley
+12222|alt|the troposphere
+12223|alt|all ;; 1,2,3 ;; all three
+12224|alt|ISM
+12235|alt|reddening
+12241|alt|1,2 ;; 1 and 2
+12241|not|all ;; 3 only
+12245|alt|B ;; B-horizon
+12254|alt|pp chain ;; proton proton chain ;; pp cycle
+12268|alt|starquakes ;; star quake
+12270|alt|upslope
+12271|alt|2,3 ;; 2 and 3
+12271|not|1,2,3
+12281|alt|dust whirl ;; dust whirl stage
+12290|alt|cloud street ;; horizontal convective rolls
+12291|alt|BIF ;; BIFs ;; banded iron formation
+12316|a|X|Less acidic ocean means less carbonate dissolution so the CCD deepens (falls toward the sea floor)
+12417|a|3|Distance modulus m - M = 5.4 - 2.4 = 3 (40 is the distance in parsecs)
+13094|a|1,3,2|By mass oxygen is olivine (~43%) < muscovite (~48%) < quartz (53%), so increasing is 1,3,2
+12909|q|["Rotation of the universe","Rotation of the cloud"]|The cloud's rotation resists collapse, not the universe's
+12315|alt|1, 2 ;; 2 and 1
+12315|not|1 only ;; 2 only
+12317|alt|transgression
+12317|not|regression ;; marine regression
+12346|alt|total penumbral eclipse
+12346|not|umbral eclipse
+12361|alt|proto-planetary nebula ;; PPN
+12361|not|planetary nebula
+12372|alt|amphibole, biotite, potassium feldspar ;; 1 3 2
+12372|not|2,3,1
+12382|alt|aitken nuclei ;; aitken
+12382|not|giant nuclei
+12392|alt|neptune and uranus ;; uranus, neptune
+12392|not|uranus only
+12405|alt|1,3 ;; 3 and 1
+12405|not|1 only ;; all of them
+12406|alt|salinity and temperature ;; temperature, salinity
+12406|not|temperature and pressure
+12407|alt|none
+12407|not|all of them
+12416|alt|nacreous clouds ;; PSC ;; polar stratospheric clouds
+12417|not|40 ;; 4
+12426|alt|warm water vents ;; warm vents
+12426|not|black smokers ;; white smokers
+12427|alt|RR Lyrae ;; RR Lyrae stars
+12427|not|Cepheid variables
+12437|alt|2,3 ;; 3 and 2
+12452|alt|plutino
+12452|not|cubewanos
+12453|not|epilimnion ;; hypolimnion
+12462|alt|isostatic equilibrium
+12463|alt|slab-pull
+12463|not|ridge push
+12472|not|summer ;; fall
+12481|alt|quasi-stellar object ;; QSO
+12482|alt|glaze ice ;; freezing rain
+12497|alt|poikiloblastic
+12497|not|porphyroblastic
+12498|alt|2
+12498|not|1 ;; 3
+12507|alt|oxygen and carbon ;; carbon, oxygen
+12507|not|helium and carbon
+12518|alt|1,2 ;; plagioclase and gypsum
+12518|not|all of them
+12528|alt|dinoflagellate
+12528|not|diatoms ;; cyanobacteria
+12542|alt|2
+12542|not|1 and 2
+12544|alt|2,3
+12544|not|2 only
+12554|alt|counter-illumination ;; counter illumination
+12554|not|bioluminescence ;; countershading
+12563|alt|gossamer ring ;; gossamer
+12563|not|main ring ;; halo ring
+12564|alt|none
+12564|not|all of them
+12573|alt|SGR ;; soft gamma repeaters ;; soft gamma-ray repeater
+12573|not|magnetar
+12574|alt|all ;; 1,2,3
+12574|not|none of them
+12589|alt|rossby-gravity waves ;; yanai wave
+12589|not|kelvin wave ;; rossby wave
+12590|alt|tridymite, stishovite, coesite ;; 2,3,5
+12590|not|2,3,4,5
+12599|alt|wolf rayet ;; WR star ;; wolf-rayet
+12599|not|O star
+12600|alt|none
+12610|alt|1 ;; 1 only ;; micas
+12610|not|1 and 3
+12619|alt|photo-disintegration
+12619|not|pair production
+12654|alt|CCN ;; condensation nuclei
+12655|alt|ITCZ ;; inter-tropical convergence zone
+12655|not|horse latitudes
+12651|alt|type 2 supernova ;; type II
+12651|not|type Ia supernova
+12664|not|lignite ;; anthracite
+12665|alt|none of them
+12665|not|all of them
+12679|alt|1,2 ;; 2 and 1
+12679|not|1 only
+12701|alt|hyperbola ;; hyperbolic orbit
+12701|not|parabolic ;; elliptical
+12710|not|halocline ;; pycnocline
+12711|alt|1 ;; 1 only
+12711|not|1 and 3
+12725|alt|1,3 ;; 3 and 1
+12725|not|1 only
+12726|alt|13 m^2 ;; 13 square meters ;; 13 m2
+12726|not|468
+12736|alt|el niño
+12736|not|la nina
+12737|alt|all ;; 1,2,3
+12746|alt|babcock ;; babcock-leighton model
+12747|alt|dyke
+12747|not|sill
+12756|alt|planetary nebulae
+12756|not|protoplanetary nebula
+12757|alt|128 ;; 128 times brighter
+12757|not|64 ;; 256
+12771|alt|2 1 3 4
+12771|not|1,2,3,4
+12772|alt|contact
+12772|not|regional metamorphism
+12773|alt|1,2
+12773|not|all of them
+12793|alt|seeding
+12802|alt|van allen radiation belts ;; radiation belts ;; van allen belt
+12802|not|magnetopause ;; bow shock
+12817|alt|1,3
+12817|not|all of them
+12819|alt|valley glacier ;; mountain glaciers
+12819|not|continental glacier ;; ice sheet
+12829|alt|2,3 ;; 3 and 2
+12829|not|1,2,3
+12848|alt|soil creep
+12848|not|solifluction ;; slump
+12849|alt|2,3,4 ;; moraine, kame, esker
+12849|not|1,2,3,4
+12863|alt|1 ;; 1 only
+12863|not|all of them
+12864|alt|mohorovicic ;; moho discontinuity
+12864|not|gutenberg discontinuity ;; lehmann discontinuity
+12865|not|limestone ;; dolostone
+12872|alt|filaments ;; cosmic filaments
+12872|not|supercluster
+12873|alt|the photosphere
+12873|not|chromosphere ;; corona
+12883|alt|all ;; 1,2,3
+12892|alt|OB association
+12892|not|open cluster
+12893|alt|1,3 ;; schist and gneiss ;; gneiss and schist
+12893|not|2 and 4
+12908|alt|radial drainage ;; radial pattern
+12908|not|dendritic ;; centripetal
+12909|alt|all ;; 1,2,3
+12909|not|1 and 2
+12919|alt|advection fog
+12919|not|radiation fog ;; steam fog
+12928|alt|SSW ;; sudden stratospheric warming event
+12928|not|polar vortex
+12929|alt|2 ;; einstein ring
+12929|not|1 and 2
+12938|alt|basal slip ;; basal slide
+12938|not|internal deformation ;; plastic flow
+12951|alt|Li
+12951|not|hydrogen
+12952|alt|1,2
+12952|not|all of them
+12963|alt|out-gassing ;; degassing
+12973|alt|2,3 ;; south america and africa ;; africa and south america
+12973|not|1 and 2
+12974|alt|atmosphere, streams, oceans, ice caps ;; 3 2 4 1
+12974|not|2,3,4,1
+12983|alt|bowshock ;; earth's bow shock
+12983|not|magnetopause
+13037|alt|Ar
+13037|not|neon ;; carbon dioxide
+13048|alt|south american ;; south america ;; south america plate
+13057|alt|cepheid ;; cepheids ;; cepheid variables
+13057|not|RR Lyrae
+13071|alt|salt content
+13071|not|temperature ;; density
+13083|alt|minus 1 ;; 1-
+13083|not|-2 ;; +1
+13084|alt|quarrying ;; glacial plucking
+13084|not|abrasion
+13094|alt|olivine, muscovite, quartz ;; 1 3 2
+13094|not|2,3,1
+13103|alt|Si
+13103|not|iron ;; oxygen
+13116|alt|littoral drift ;; longshore transport
+13116|not|rip current
+13138|alt|gravitational red shift
+13138|not|doppler shift
+13147|not|biostratigraphy ;; chronostratigraphy
+13148|alt|2,1,3,4 ;; saber toothed tiger, megalodon, velociraptor, trilobite
+13148|not|1,2,3,4
+13174|alt|parabolic dune ;; parabolic dunes
+13174|not|barchan ;; transverse
+13183|alt|none ;; none of them
+13183|not|all of them ;; 2 and 3
+13193|alt|drawdown cone ;; depression cone
+13194|alt|amphidromic point ;; amphidromes
+13208|alt|exoplanet ;; extrasolar planets
+13241|alt|lunar regolith ;; lunar soil
+13252|alt|60 ;; 60 days
+13252|not|90 days ;; 120 days
+13253|alt|2 ;; ceres
+13253|not|2 and 3
+13261|alt|neptune and uranus
+13261|not|jupiter and saturn
+13264|alt|gossamer ring ;; gossamer
+13264|not|main ring
+13265|alt|magnetars
+13265|not|pulsar ;; white dwarf
+13274|alt|capillary wave
+13274|not|gravity waves ;; swell
+13297|alt|N-15 ;; 15N ;; nitrogen 15
+13297|not|nitrogen-14 ;; carbon-13
+13305|not|inferior conjunction ;; opposition
+13306|alt|2.125 years ;; 17/8
+13306|not|17/9 ;; 8/17
+13309|alt|all of them ;; 1,2,3 ;; all three
+13309|not|1 and 3
+13310|alt|giant impact hypothesis ;; giant impact theory
+13310|not|fission hypothesis ;; capture hypothesis
+13319|alt|HB ;; horizontal branch phase
+13319|not|red giant branch ;; asymptotic giant branch
+13320|alt|0.5 billion years ;; 500 million ;; 0.5 Gyr
+13320|not|4 billion years ;; 1 billion years
+13332|alt|r-process and s-process ;; r process and s process ;; s and r processes
+13332|not|s process only
+13344|alt|1 ;; zircon ;; 1 only
+13344|not|1 and 2
+13351|alt|1 ;; the sun ;; sun
+13351|not|1 and 3
+13355|alt|oddo harkins rule ;; oddo-harkins effect
+13356|alt|2 to 7 ;; 0.286
+13356|not|7:2 ;; 1:2
+13390|alt|saha ionization equation ;; saha
+13390|not|boltzmann equation ;; planck function
+13411|alt|hesperian ;; hesperian era
+13411|not|noachian ;; amazonian
+13412|alt|all ;; all of them ;; 1,2,3
+13412|not|2 and 3
+13421|alt|all of them ;; 1,2,3
+13421|not|none
+13422|alt|katabatic wind ;; katabatic
+13422|not|anabatic winds ;; foehn winds
+13434|alt|2,3
+13434|not|1,2,3
+13435|alt|hayashi
+13435|not|Henyey track
+13446|alt|H2 ;; molecular hydrogen ;; hydrogen gas
+13446|not|helium ;; oxygen
+13456|alt|uranium oxide ;; UO2 ;; uranium
+13457|alt|shale, siltstone, sandstone, conglomerate ;; 3 4 1 2
+13457|not|2,1,4,3
+13467|alt|mercalli scale ;; modified mercalli intensity scale ;; MMI
+13467|not|richter scale ;; moment magnitude scale
+13481|alt|brackish water
+13481|not|freshwater ;; saltwater
+13493|alt|white cliffs of dover ;; cliffs of dover
+13493|not|cliffs of moher
+13512|alt|newtonian ;; newtonian reflector
+13512|not|refractor ;; cassegrain
+13525|alt|artesian ;; artesian wells
+13536|alt|cretaceous ;; the cretaceous
+13536|not|paleogene ;; jurassic
+13537|alt|3 2 1 4 ;; krakatoa, end of ice age, extinction of dinosaurs, breakup of pangea
+13537|not|4,1,2,3
+13549|alt|haematite
+13549|not|magnetite ;; goethite
+13570|alt|ferrel ;; ferrel circulation ;; mid-latitude cell
+13570|not|walker cell ;; hadley cell
+13578|alt|dynamo theory ;; dynamo ;; geodynamo
+13578|not|greenhouse effect ;; doppler effect
+13582|alt|orogenesis
+13582|not|epeirogeny ;; subduction
+13603|alt|the cambrian explosion
+13603|not|great oxidation event ;; permian extinction
+13616|alt|abyssal plains ;; abyssal floor
+13616|not|continental shelf ;; abyssal hill
+13617|alt|pelagic sediments
+13617|not|terrigenous sediment ;; turbidite
+13628|alt|solar magnetic field ;; magnetic fields
+13628|not|convection zone ;; corona
+13638|alt|O ;; o-horizon ;; organic horizon
+13638|not|A horizon ;; B horizon
+13662|not|natural gas
+13663|alt|1 2 4
+13663|not|1,2,3,4 ;; 1,2
+13674|alt|nicolas steno ;; niels stensen
+13674|not|hutton
+13675|alt|white smokers
+13675|not|black smoker ;; warm-water vent
+13694|not|CaMg(CO3)2
+13695|alt|divergent boundary ;; divergent plate boundary
+13695|not|convergent ;; transform
+13708|alt|1 ;; 1 only ;; limestone
+13708|not|1 and 2
+13719|alt|A and B ;; rings A and B ;; B and A rings
+13719|not|B and C rings
+13729|alt|none ;; none of them
+13729|not|all of them
+13753|alt|p wave shadow zone ;; p-wave shadow
+13753|not|s-wave shadow zone
+13754|alt|inner core superrotation ;; core super rotation
+13765|alt|low velocity zone
+13765|not|lithosphere
+13766|alt|1,3 ;; fault scarps and horsts
+13766|not|all of them
+13775|alt|6.5 light years ;; 6.5 ly
+13775|not|2 ;; 3.3
+13785|alt|ion tail ;; plasma tail
+13785|not|dust tail
+13798|alt|silurian, permian, eocene ;; 2 1 3
+13798|not|3,1,2
+13809|alt|coriolis ;; coriolis effect
+13809|not|friction ;; centrifugal force
+13824|alt|calcite compensation depth ;; calcium carbonate compensation depth
+13824|not|lysocline ;; aragonite compensation depth
+13833|alt|1,3 ;; 3 and 1
+13833|not|1 and 2 ;; 2 and 4
+13847|not|hill sphere
+13856|alt|alpha leonis ;; cor leonis
+13856|not|denebola ;; algieba
+13857|alt|-5 ;; minus 5 ;; -5 magnitude
+13857|not|5 ;; -10
+13870|alt|2,3 ;; isotropic and homogeneous ;; homogeneous and isotropic
+13870|not|1 and 2 ;; 1 and 3
+13871|alt|1 3 2
+13871|not|1,2,3
+13879|alt|N2 ;; nitrogen gas ;; molecular nitrogen
+13879|not|methane ;; hydrogen
+13906|alt|1,2 ;; 2 and 1
+13906|not|all of them
+13929|a|Synchrotron radiation|key misspelled "Sychrotron"
+14023|a|1,2,3,4|Top to bottom is pillow lava, sheeted dikes, layered gabbro, peridotite; key lists bottom to top
+14483|a|2 only|Statement 1 describes riming not the Bergeron process and statement 3 is false since Bergeron produces rain too
+15211|a|X|Redshift first then blueshift means the planet crosses the approaching limb first, a prograde orbit
+14636|a|Transit method|Transit timing is a different method so the ALSO ACCEPTED entry is wrong
+14060|rm||Choices W (crystal settling removes dense iron-rich minerals) and Y are both defensible
+14905|q|["German for “desert mountains,”","German for “island mountains,”"]|Inselberg means island mountain
+13929|alt|synchrotron ;; synchrotron emission
+13930|alt|2.5 ;; 2.5 arcsec
+13965|alt|biotite, garnet, sillimanite
+13965|not|3,2,1
+13980|alt|62500 ;; 6.25e4
+13986|alt|none ;; 0
+13986|not|all of them
+13991|alt|north american, nazca, philippine ;; 1, 2, 3
+13991|not|1,2,3,4
+13992|alt|red giant branch, helium flash, horizontal branch, asymptotic giant branch
+13992|not|3,4,1,2
+14014|alt|1, 2, and 3 ;; 1 2 3 ;; all three
+14023|alt|pillow lava, sheeted dikes, layered gabbro, peridotite
+14023|not|4,3,2,1
+14036|alt|1,3
+14036|not|1,2,3
+14042|alt|3, 75 ;; eyepiece 3, 75x
+14059|alt|none ;; 0
+14061|not|basalt ;; rhyolite
+14081|alt|1,2 ;; slate and schist
+14081|not|1,2,3
+14088|alt|1
+14097|alt|H ;; atomic hydrogen ;; neutral hydrogen
+14103|alt|10 ;; 10 pc
+14103|not|0.1 parsecs
+14104|alt|silicate, carbonate, sulfate, silicate ;; 1 silicate 2 carbonate 3 sulfate 4 silicate
+14120|alt|b f k m
+14149|alt|gypsum, calcite, quartz
+14171|alt|shelf, rise, slope
+14172|alt|1,2 ;; radiolarians and diatoms
+14172|not|1,2,3 ;; 2 only
+14185|alt|clay, silt, sand, gravel
+14196|alt|-3 ;; negative 3
+14196|not|-23
+14215|alt|2,4 ;; volcanic island arc and oceanic trench
+14216|alt|3 ;; sediment load
+14221|alt|1,3
+14254|alt|none ;; 0
+14265|alt|zeolite, greenschist, eclogite
+14266|alt|64 ;; 64 AU
+14272|alt|9 ;; 9x
+14272|not|3 ;; 36
+14280|alt|slate, phyllite, gneiss, migmatite
+14281|alt|1,2
+14300|alt|muscovite, biotite, olivine
+14301|alt|Herbig Haro object ;; HH object ;; Herbig-Haro
+14301|not|Bok globule
+14309|alt|divergent, convergent, transform
+14316|alt|continental lithosphere, oceanic lithosphere, asthenosphere
+14317|alt|1
+14339|alt|ceres, pluto, eris
+14348|alt|1,3 ;; dendritic and radial
+14361|alt|1
+14381|alt|amphidrome ;; amphidromic
+14405|alt|2,3
+14427|alt|calcium, magnesium, sodium, chloride
+14430|alt|stratus, cumulus, cirrus
+14431|alt|surging ;; glacier surge
+14431|not|calving
+14447|alt|angle of repose
+14458|alt|2,3 ;; saturn and jupiter
+14458|not|1,2,3 ;; 3 only
+14462|alt|Peles hair ;; Pele's hair ;; pele hair
+14463|alt|1,3 ;; jets and AGN
+14482|alt|2,3 ;; spiral arms and galactic disk
+14482|not|1,2,3
+14483|alt|2 ;; statement 2
+14483|not|1 and 2 ;; 1 only
+14490|alt|longshore drift ;; littoral drift
+14491|alt|1,2 ;; california and labrador
+14491|not|1,2,3
+14502|alt|cosmic microwave background ;; CMB radiation
+14502|not|cosmic neutrino background
+14512|alt|Reissner-Nordstrom ;; reissner nordstrom ;; RN metric
+14512|not|Kerr metric ;; Schwarzschild metric
+14524|alt|21 cm line ;; 21 cm ;; HI line
+14527|alt|axions
+14539|alt|3,4 ;; nitrogen and neon
+14540|alt|1,3,4 ;; advection, radiation, upslope
+14543|alt|r-process ;; r process ;; rapid process
+14552|alt|yardangs
+14563|alt|collisional ring galaxy
+14564|alt|1,2
+14578|alt|kappa mechanism
+14598|alt|FRW metric ;; Friedmann-Lemaitre-Robertson-Walker metric ;; Robertson-Walker metric
+14598|not|Schwarzschild metric
+14609|alt|radial velocity ;; Doppler spectroscopy ;; doppler method
+14622|alt|Moreton ;; Moreton-Ramsey wave
+14623|alt|inverse compton ;; ICS
+14624|alt|F region
+14636|alt|transit ;; transit photometry ;; transiting
+14639|not|Kuiper belt
+14640|alt|reg
+14640|not|desert varnish
+14646|alt|1,4 ;; calcite and dolomite
+14668|alt|1 ;; enceladus
+14668|not|1,2,3,4 ;; 3 only
+14673|alt|stromatolite
+14681|alt|2.5e3
+14698|alt|CMB ;; cosmic microwave background ;; CMB radiation
+14699|alt|quartz, biotite, amphibole, olivine
+14700|alt|100 ;; 100 percent
+14700|not|0%
+14711|alt|corona, chromosphere, photosphere
+14727|alt|3 ;; statement 3
+14728|alt|water, ammonium hydrosulfide, ammonia ;; water, ammonia hydrosulfide, ammonia
+14729|alt|speleothem
+14738|alt|lahar
+14738|not|pyroclastic flows
+14739|alt|noachian, hesperian, amazonian
+14748|alt|b3, a0, a5
+14749|alt|p waves, s waves, surface waves
+14766|alt|grand unification, inflation, recombination
+14767|alt|slate, phyllite, schist, gneiss
+14780|not|ablation
+14788|alt|basal sliding
+14797|alt|ceres, pluto, makemake
+14824|alt|flattening
+14841|alt|dike ;; dykes
+14845|alt|drumlins
+14846|alt|all ;; 1,2,3 ;; hydrogen, calcium, and iron
+14859|alt|epoch of recombination ;; recombination era
+14866|alt|0.438
+14873|alt|pillow basalts, sheeted dike complexes, gabbro
+14874|alt|maser ;; masers
+14892|not|contact metamorphism
+14905|alt|Inselberg ;; inselbergs
+14906|alt|limestone, shale, sandstone
+14930|alt|arthropods, mammals, birds, flowering plants
+14931|alt|Titius Bode law ;; Titius-Bode rule
+14944|alt|ogive ;; Forbes bands
+14953|alt|Si ;; silicon II
+14953|not|calcium ;; iron
+14980|alt|pressure gradient ;; vertical pressure gradient force
+15007|alt|obsidian, rhyolite, granite
+15020|alt|1,2 ;; lateral and medial
+15035|alt|-5 ;; negative 5
+15058|alt|chattermarks
+15059|alt|antarctic intermediate water, north atlantic deep water, antarctic bottom water
+15099|alt|all ;; all three ;; 1,2,3
+15101|alt|beryl and tourmaline
+15125|alt|2,3 ;; giant molecular clouds and herbig-haro objects
+15135|alt|1,2,4 ;; hematite, magnetite, siderite
+15152|alt|2,3 ;; winter stratification and spring turnover
+15158|alt|none
+15197|alt|Rossiter-McLaughlin ;; RM effect ;; Rossiter McLaughlin effect
+15260|alt|L4, L5 ;; l4 and l5
+15261|alt|kerr ;; kerr solution
+15261|not|Schwarzschild metric ;; Reissner-Nordstrom metric
+15270|alt|hadean, archean, proterozoic
+15307|alt|SZ effect ;; sunyaev zeldovich effect ;; SZE
+15328|alt|black holes ;; event horizon
+15332|alt|seiches
+15351|alt|2 ;; proton
+15362|alt|braided ;; braided river
+15381|alt|1,4 ;; drumlin and crag and tail
+15394|alt|brown dwarfs
+15394|not|red dwarf
+15395|alt|neptune trojans, plutinos, twotinos
+15419|alt|2,3 ;; discharge and velocity
+15436|alt|2,3 ;; horizontal branch and asymptotic giant branch
+15450|alt|beryllium 8 ;; 8Be
+15457|alt|1,3
+15460|alt|inter-tropical convergence zone
+15460|not|polar front
+15468|alt|himalayas, andes, appalachians
+15510|alt|neve, firn, coarse-grained ice
+15511|alt|listric ;; listric normal fault
+15512|alt|33 ly ;; 33 light years
+15521|alt|1,3 ;; calcite and aragonite; andalusite and kyanite
+15534|alt|0.667 ;; 0.67 ;; 0.6667
+15654|q|["three rocks","four rocks"]|Four rocks are listed, so the text should say four
+17122|q|["Saturn’s E ring","Saturn’s A ring"]|The Encke gap lies in the A ring, not the E ring
+15859|a|X|The Lyman-alpha forest traces neutral hydrogen (HI) clouds, not ionized HII regions
+15966|a|2 only|During El Nino the thermocline shoals in the west and the Humboldt current weakens, so only statement 2 is true
+16056|rm||Salinity and density increase with depth near Antarctica, so the key is wrong and no clear correct answer is given
+16328|rm||White dwarf volume scales as M^-1 (radius as M^-1/3), and -1 is not among the choices
+16771|a|W|Giant telescopes such as the OWL/ELT use altazimuth mounts
+16849|a|Bjerknes Feedback|Misspelled key; the name is Bjerknes
+16863|a|Jeans instability|The stellar instability is the Jeans instability, not Jean
+16871|a|1,3,2|Graptolites died out about 320 Ma, ammonites 66 Ma, multituberculates about 34 Ma, so decreasing age is 1,3,2
+16983|a|Z|Pahoehoe basalt is lower in silica and lower in volatiles than Plinian ash
+17056|a|2:3|Hilda period is about 7.9 yr versus 11.9 yr for Jupiter, a ratio of 2:3
+17067|a|3 ONLY|Pyrite sulfur is reduced sulfide; only anhydrite contains oxidized sulfate sulfur
+15535|alt|1,3 ;; 1, 3 ;; rr lyrae and mira
+15535|not|1 and 2 ;; all three
+15542|alt|1, 3, 2 ;; m, l, t
+15551|alt|3,4 ;; 3, 4
+15551|not|4 only ;; 1 and 2
+15581|alt|HH object ;; Herbig Haro ;; HH objects
+15593|alt|glacial erratics ;; erratic
+15598|alt|3 ;; barite
+15598|not|1 and 2 ;; sphalerite
+15603|alt|1 ;; geographically widespread
+15608|alt|4, 1, 3, 2 ;; peridotite, gabbro, diorite, granite
+15625|alt|1, 3, 2 ;; o, f, a
+15630|alt|3, 1, 2 ;; rigel, arcturus, betelgeuse
+15639|alt|trace fossil ;; ichnofossils ;; ichnofossil
+15639|not|body fossils
+15653|alt|1010 mb ;; 1010 millibars
+15654|alt|shale, siltstone, sandstone, breccia ;; 2, 3, 4, 1
+15667|alt|Zeeman splitting
+15667|not|Stark effect
+15668|alt|10^7 ;; 1e7 ;; 10000000
+15668|not|10^6 ;; 10^8
+15678|alt|3,2,1
+15704|alt|wave shoaling ;; shoal
+15710|alt|isotropy
+15710|not|homogeneous ;; homogeneity
+15723|alt|1,3,4 ;; mercury, ganymede, jupiter
+15724|alt|2
+15766|alt|TOV limit ;; TOV ;; Tolman Oppenheimer Volkoff limit
+15782|alt|2,3 ;; inosilicates and phyllosilicates
+15813|alt|1.0
+15887|alt|Fe
+15956|alt|2,1,3 ;; jupiter, earth, venus
+15966|alt|2 ;; 2 only
+15977|alt|stromatolite
+16005|alt|1,3 ;; 1, 3
+16037|alt|2,3,1 ;; noachian, hesperian, amazonian
+16051|alt|all ;; 1,2,3 ;; 1, 2, and 3
+16052|alt|anti-umbra ;; antumbral shadow
+16083|alt|black hole evaporation
+16084|alt|ICM ;; intracluster gas
+16085|not|refraction
+16107|alt|1,3,2 ;; east pacific rise, juan de fuca, mid-atlantic ridge
+16111|alt|carbon film fossil
+16164|alt|2 km ;; 2 kilometers
+16165|alt|1,2,3 ;; 1, 2, and 3 ;; all three
+16177|not|full moon ;; first quarter
+16180|alt|1,2 ;; 1, 2
+16181|alt|1,4 ;; local group and virgo supercluster
+16199|alt|1,2,3 ;; all three
+16206|alt|pisolite ;; pisolitic texture
+16214|alt|1, 3, 4, 2 ;; mercury, earth, uranus, venus
+16229|alt|COBE, WMAP, Planck ;; 1,2,3
+16237|alt|AO
+16281|alt|1,2,3 ;; all three
+16301|alt|1,3 ;; magnitude and luminosity
+16301|not|2 ;; all three
+16311|alt|1,2,3 ;; all three
+16329|alt|chevron fold
+16350|alt|Rayleigh-Taylor instability ;; RTI ;; Rayleigh Taylor
+16367|alt|1, 2, 3 ;; hawaiian, vulcanian, plinian
+16368|alt|5:1 ;; 5 to 1
+16395|alt|kappa-mechanism ;; opacity mechanism
+16399|alt|frame-dragging ;; Lense-Thirring effect
+16410|alt|5.0 ;; 5 years
+16468|not|3 ;; all three
+16499|alt|2,3 ;; 2, 3
+16518|alt|amphidromic ;; amphidrome
+16532|alt|radiation, matter, dark energy ;; 2,3,1
+16543|not|Saturn ;; Mars
+16544|not|disconformity ;; angular unconformity
+16549|alt|Li
+16562|alt|LHB ;; late heavy bombardment
+16576|alt|1.4 solar masses
+16592|alt|3 ;; crystal structure
+16601|alt|triple-alpha ;; triple alpha ;; 3-alpha process
+16610|alt|1.2e3 ;; 1.2x10^3 ;; 1200 mpc
+16625|alt|geodynamo ;; dynamo
+16626|alt|2 ;; sea stack
+16659|alt|Caloris
+16660|alt|2,3 ;; 2, 3
+16675|alt|200 pc ;; 200 parsecs
+16676|not|chromosphere ;; corona
+16691|alt|Widmanstätten pattern ;; widmanstatten structure
+16692|alt|3, 1, 2
+16698|alt|2, 3, 1 ;; peridotite, gabbro, pillow lavas
+16714|alt|E ring ;; the E ring
+16749|alt|3, 2, 1
+16754|alt|IR ;; infrared light
+16754|not|ultraviolet ;; radio
+16777|alt|C:N:P ratio 106:16:1
+16778|alt|7 m/s ;; 7 meters per second
+16790|alt|meridional overturning circulation
+16807|alt|Kelvin-Helmholtz contraction ;; Kelvin Helmholtz
+16819|alt|324x
+16823|alt|3, 1, 2 ;; ediacara hills, burgess shale, morrison formation
+16841|alt|500 km/s ;; 500 kilometers per second
+16849|alt|Bjerknes feedback ;; bjerknes
+16863|alt|Jeans instability ;; jeans
+16871|alt|1, 3, 2 ;; graptolites, ammonites, multituberculates
+16879|alt|1 ;; kettle lake
+16890|alt|1 ;; capacity
+16902|not|dark matter
+16925|alt|L-1 ;; lagrange point 1
+16962|alt|pair instability supernova ;; pair-instability supernova ;; PISN
+16963|alt|1,2,3 ;; all three
+16965|alt|3 ;; stishovite
+16991|alt|2,3 ;; 2, 3
+16991|not|1,2,3 ;; 1 and 2
+17009|alt|10000 ;; 1e4 ;; 10000 K
+17010|alt|25x ;; 25 times
+17023|alt|2 ;; rings of saturn
+17035|alt|twinning ;; twin crystals
+17046|alt|phreatic ;; phreatic explosion ;; steam-driven eruption
+17046|not|phreatomagmatic eruption
+17056|alt|2 to 3 ;; 2/3
+17067|alt|3 ;; anhydrite
+17067|not|2 and 3 ;; pyrite
+17069|alt|1,2 ;; 1, 2
+17085|alt|rp process ;; rapid proton capture ;; rapid proton-capture process
+17098|alt|2, 1, 3 ;; ur, rodinia, pangea
+17099|alt|1,2,3 ;; all three
+17102|alt|magnetar
+17123|alt|Urca
+17128|alt|1, 3, 2
+17157|alt|1,2,3 ;; all three
+17168|alt|Yarkovsky
+17184|alt|detachment faults ;; detachment
+17199|alt|1 ;; 1 only
+17204|alt|lithium, iron, carbon, oxygen ;; 3, 4, 2, 1
+17205|alt|gravity, strong, weak ;; 3, 2, 1
+17216|alt|ceres, jupiter, venus ;; 3, 2, 1
+17248|alt|albite, labradorite, anorthite ;; 1, 3, 2
+17279|a|2 AND 3|River run-off adds fresh water at the surface and strengthens a halocline; storms and upwelling weaken it
+17599|rm||Ryugu is a near-Earth asteroid, not in the outer asteroid belt, and no other choice is true
+17676|a|Z|Soil is best developed on gentle slopes (less erosion) in humid climates (more weathering)
+17775|q|["Unsorted and Angulalr","Unsorted and Angular"]|typo in choice Y
+17792|a|ATLANTIC MERIDIONAL OVERTURNING CIRCULATION|AMOC stands for Atlantic Meridional Overturning Circulation, not ocean currents
+17819|q|["four celestial objects","three celestial objects"]|only three objects are listed
+18582|q|["in finite universe","infinite universe"]|stray space splits the word infinite
+19517|rm||Out of date: Andromeda is now put at about 2.5 million light years, which is not a choice
+19747|rm||Treats Pluto as an outer planet and relies on a discredited escaped-moon idea
+19932|rm||Out of date: over 5,500 minerals are now known, so no choice fits
+17278|alt|O3
+17279|alt|2,3 ;; 3,2
+17320|alt|iron and nickel ;; nickel and iron
+17328|alt|trades ;; trade wind
+17351|alt|66.5 degrees ;; +66.5
+17358|alt|10^3 ;; 1,000
+17358|not|100 ;; 31.6
+17387|alt|2,3 ;; 3,2
+17387|not|3 only ;; all
+17399|alt|3 ;; sea arch
+17494|alt|NH3
+17494|not|methane
+17547|alt|salt dome ;; salt diapirs ;; salt diapir
+17581|alt|1,2,3
+17610|alt|625 solar luminosities ;; 625 L_sun
+17611|alt|1 ;; temperature
+17619|alt|-4
+17619|not|4 ;; -14
+17658|not|8 ;; 4
+17671|not|carbon dioxide
+17687|not|thermocline ;; halocline
+17699|alt|blackhole
+17699|not|neutron star
+17721|alt|1 and 3
+17721|not|all
+17741|alt|2
+17792|alt|AMOC ;; atlantic meridional overturning circulation
+17820|alt|16.0
+18467|alt|hot spot
+18468|not|solar flare ;; coronal mass ejection
+18479|alt|C-12 ;; carbon 12 ;; 12C
+18490|alt|monsoon ;; asian monsoon
+18490|not|trade winds
+18524|alt|LHB
+18537|alt|right ascension and declination ;; RA and Dec
+18549|alt|main sequence turnoff ;; MSTO ;; turn-off point
+18558|alt|RGB
+18571|alt|1,3 ;; 3,1
+18582|alt|Olbers paradox ;; Olbers' paradox
+18583|alt|1,3 ;; 3,1
+18587|alt|turbidity currents ;; turbidity flow
+18587|not|rip current ;; longshore current
+18604|not|illuviation
+18608|not|dark matter
+18615|alt|tidal lock ;; synchronous rotation ;; gravitational locking
+18616|alt|1,2,3
+18628|alt|2,3 ;; 3,2
+18639|alt|luminosity and temperature ;; temperature and brightness
+18661|alt|2,3 ;; 3,2
+18672|not|calcium oxide ;; calcium sulfate
+18673|not|downwelling
+18677|alt|1 ;; subduction zone
+18684|alt|red dwarf ;; M dwarfs ;; M dwarf
+18707|alt|electron degeneracy ;; degeneracy pressure
+18707|not|neutron degeneracy pressure
+18730|alt|Ferrel ;; Ferrel circulation ;; ferrel cell
+18744|alt|SiO2
+18765|alt|1,2 ;; 2,1
+18786|alt|thermal inversion ;; inversion layer
+18798|alt|S0 ;; lenticular galaxies
+18799|alt|1
+18814|not|stratopause ;; mesopause
+18831|alt|biominerals ;; biogenic minerals
+18843|alt|coronal mass ejections
+18867|alt|Roche radius
+18889|alt|planetary differentiation
+18893|alt|UHI ;; urban heat island effect
+18901|alt|3 ;; spiral arms
+18912|alt|1,2 ;; 2,1
+18945|alt|shepherd moon ;; shepherding moons
+18957|alt|aperture synthesis ;; interferometer
+19419|alt|moon
+19425|alt|electron degeneracy pressure ;; degeneracy pressure
+19425|not|neutron degeneracy
+19435|alt|James Hutton
+19447|alt|red giants ;; red giant star
+19582|alt|12 hours ;; 12h
+19634|alt|the serpent bearer
+19654|alt|Tempel Tuttle ;; comet tempel-tuttle
+19659|alt|Gutenberg discontinuity ;; Gutenberg-Wiechert discontinuity
+19679|not|Betelgeuse ;; Aldebaran
+19858|alt|Quaternary period
+19858|not|Tertiary ;; Neogene
+19880|alt|Fe ;; iron and nickel
+19880|not|nickel
+19893|alt|year 2061
+19966|alt|xenoliths ;; xenolith
+19976|alt|the coelacanth ;; Latimeria
+19992|alt|Tropic of Cancer and Tropic of Capricorn ;; Cancer and Capricorn
+19992|not|Arctic and Antarctic circles ;; equator
+20190|q|["that was recently devastated","that was devastated in 1997"]|Soufriere Hills eruption was in the 1990s so "recently" is out of date
+20285|q|["large mineral grades","large mineral grains"]|phenocrysts are grains (crystals), not grades
+20395|a|ROCKY MOUNTAINS|The Rockies, not the Sierra Nevada, are North America's longest continuous range outside Alaska
+20575|q|["Transverse","Transform"]|San Andreas is a transform fault; transverse is not a fault type
+20768|a|Z|E4 has b/a=0.6 so e=sqrt(1-0.36)=0.8
+20768|q|["A spiral galaxy is classified as E4","An elliptical galaxy is classified as E4"]|E-classes are elliptical galaxies, not spiral
+21008|q|["experience retrograde motion,","have retrograde rotation,"]|Venus and Uranus have retrograde rotation; all planets show apparent retrograde motion
+21053|rm||The sun is not in Orion in summer; it passes through Taurus Gemini Cancer Leo so no single answer
+21156|rm||All four listed planets show retrograde motion so no single right answer
+21443|q|["the an isotropic","the anisotropic"]|garbled word; anisotropic emission causes the Yarkovsky effect
+20054|alt|stone age
+20056|alt|ferric oxide ;; fe2o3 ;; iron(iii) oxide
+20056|not|iron ;; iron sulfide
+20057|alt|redbeds
+20143|alt|16:1 ;; 16
+20143|not|4 to 1 ;; 8 to 1
+20301|alt|kilauea volcano
+20375|alt|jupiter and mars ;; between mars and jupiter
+20375|not|earth and mars ;; mars and saturn
+20383|alt|andromeda and pegasus ;; pegasus and andromeda
+20390|alt|dewpoint
+20392|alt|frank drake ;; drake equation
+20404|alt|venus and mercury
+20471|alt|synchronous rotation ;; tidal lock
+20471|not|orbital resonance
+20495|not|constellation
+20496|alt|gypsum, feldspar, quartz, corundum
+20505|alt|gravity slingshot ;; gravitational assist
+20506|alt|gutenberg
+20517|not|clay ;; sand
+20529|alt|milankovitch cycles ;; milankovitch theory ;; milankovitch
+20536|alt|vadose
+20557|alt|monsoon
+20576|alt|inter-tropical convergence zone
+20587|alt|big bang nucleosynthesis ;; primordial nucleosynthesis
+20588|alt|grand design spiral
+20598|alt|neutrinos
+20598|not|neutron
+20610|alt|bergeron and collision-coalescence ;; bergeron process and collision coalescence
+20622|alt|uranus, earth, jupiter, mercury
+20634|alt|sunyaev zeldovich effect ;; sunyaev-zeldovich ;; sze
+20634|not|compton effect
+20655|alt|stark ;; stark pressure broadening
+20655|not|zeeman effect ;; doppler broadening
+20666|alt|sn1054 ;; supernova 1054 ;; sn 1054a
+20667|alt|calcium, sulfate, sodium, chloride
+20677|alt|groynes ;; groin
+20677|not|jetties ;; breakwaters
+20688|alt|rodinia, gondwana, pangaea
+20700|alt|ogive ;; forbes bands
+20711|alt|3e5 m ;; 3*10^5 m ;; 300000 meters
+20722|alt|dole
+20722|not|bohr effect
+20723|alt|wilson-bappu ;; wilson bappu effect
+20723|not|doppler effect
+20755|not|beryllium ;; hydrogen
+20767|alt|tarns
+20778|alt|sea stack and sea arch ;; 2 and 3 ;; 2,3
+20789|alt|synodic month ;; synodic
+20789|not|sidereal period ;; sidereal month
+20790|not|osmium
+20813|not|nadir
+20824|alt|appalachians ;; appalachian mountains ;; appalachian
+20829|alt|acidification
+20835|alt|neap ;; neap tide
+20841|alt|saffir simpson scale ;; saffir-simpson ;; saffir simpson
+20848|alt|atmospheric seeing ;; astronomical seeing
+20860|alt|iron, aluminum, silicon, oxygen
+20870|alt|moulins
+20893|alt|degeneracy pressure ;; electron degeneracy
+20893|not|neutron degeneracy pressure
+20906|alt|clock drive
+20927|not|stratosphere
+20940|alt|coprolites
+20962|alt|hubble tuning fork ;; hubble classification
+20973|alt|planetesimal
+20974|alt|eocene, oligocene, pliocene
+20998|alt|ecliptic plane
+20998|not|celestial equator
+21019|alt|nodes ;; lunar node ;; ascending and descending nodes
+21020|alt|zeolite, greenschist, amphibolite, granulite
+21031|alt|ultraviolet radiation ;; ultraviolet light ;; uv light
+21052|alt|guyot
+21077|alt|mercury and venus ;; 1 and 2 ;; 1,2
+21098|alt|io and europa ;; 1 and 4 ;; 1,4
+21111|alt|chalk and coquina ;; 2 and 3 ;; 2,3
+21122|alt|cocos
+21122|not|nazca plate
+21123|alt|-3.5 ;; t^-7/2 ;; t^-3.5
+21134|alt|2 and 3 ;; 2,3
+21144|not|sill ;; lopolith
+21168|alt|carbonate ;; carbonate minerals
+21168|not|silicates
+21175|alt|oppenheimer-volkoff limit ;; tolman oppenheimer volkoff limit ;; tov
+21175|not|chandrasekhar limit
+21181|alt|quartz, muscovite, biotite, olivine
+21213|alt|sunyaev zeldovich effect ;; sunyaev-zeldovich ;; sze
+21213|not|doppler effect
+21224|alt|shallow water gravity waves and tsunamis ;; 3 and 4 ;; 3,4
+21234|alt|tholin
+21244|alt|lindblad resonances ;; lindblad ;; inner and outer lindblad resonance
+21257|alt|basaltic, andesitic, rhyolitic
+21257|not|rhyolitic, andesitic, basaltic
+21258|alt|lithospheric delamination
+21285|alt|scoria, dacite, obsidian, peridotite
+21292|alt|end moraine ;; terminal
+21302|alt|jupiter and saturn ;; 1 and 2 ;; 1,2
+21302|not|1,2,3
+21303|alt|2 and 3 ;; 2,3
+21323|alt|siltstone, greywacke, quartz arenite
+21332|alt|na+ ;; sodium ion ;; na
+21342|alt|1 and 2 ;; 1,2
+21350|alt|eclipsing binaries
+21351|alt|pressure gradient force and centrifugal force ;; pressure gradient and centrifugal force
+21368|alt|titan and triton ;; 3 and 4 ;; 3,4
+21409|alt|1/s ;; s^-1 ;; per second
+21428|alt|mars, earth, saturn, jupiter
+21439|alt|rgb
+21443|alt|yarkovsky
+21443|not|yorp effect
+21450|alt|2 ;; homogeneity
+21461|alt|1,2,3 ;; all three ;; 1, 2 and 3
+21471|alt|1 and 3 ;; disk and spiral arms ;; 1,3
+21482|alt|jupiter and neptune ;; 2 and 3 ;; 2,3
+21482|not|1 and 2
+21483|alt|cosmic filaments ;; filament
+21495|alt|radiolarians and diatoms ;; 1 and 2 ;; 1,2
+21495|not|1,2,3
+21517|alt|granite and gabbro ;; 1 and 3 ;; 1,3
+21528|alt|continental shelf, continental slope, continental rise ;; shelf, slope, rise
+21541|alt|1,2,3 ;; all of them
+21562|alt|pyroclastic density current ;; pdc
+21563|alt|peru-chile current ;; humboldt
+21573|alt|halite and dolomite ;; 1 and 2 ;; 1,2
+21574|alt|prominence ;; solar prominence
+21595|alt|e0, s0, sc
+21788|a|2 ONLY|Phobos orbits Mars about 3.2 times per Martian day and is spiraling inward, so only statement 2 is true
+21806|a|Y|The Sun ends as a white dwarf, which lies down and to the left of the main sequence
+21829|a|1,3,2|Deuterium ignites near 1 million K, lithium near 2.5 million K, protium near 4 million K
+22144|a|Z|SF6 has a GWP of about 23,500, higher than HFC-23 (about 14,800)
+22238|a|W|Tombolo is a coastal landform; bajadas are desert landforms
+23178|a|West|Rossby waves propagate westward relative to the mean flow
+22346|rm||Distance 9.8e5 m does not match the key working (9.8e10 m, 1 solar luminosity) and 0.31 does not follow from either
+21596|alt|anorthosite rock
+21596|not|basalt ;; gabbro
+21604|alt|1 ;; silt ;; silt only
+21616|alt|contact metamorphism ;; thermal metamorphism
+21616|not|regional ;; dynamic
+21625|alt|1,2,3 ;; all three ;; 1 2 and 3
+21636|alt|1,2,3 ;; all three
+21644|alt|1 2 3 ;; olivine amphibole muscovite
+21653|alt|3,4 ;; carbon and neon ;; 3 4
+21653|not|1 and 2 ;; 2 and 3
+21654|alt|2 and 3 ;; 2 3 ;; proxima centauri and rigel
+21663|alt|3 1 2 ;; deposition compaction cementation
+21664|alt|perched aquifer ;; perched water table ;; perched zone
+21664|not|water table
+21674|alt|scree ;; talus slope ;; talus pile
+21684|alt|sillimanite ;; fibrolite
+21684|not|kyanite ;; andalusite
+21693|alt|disconformity
+21693|not|angular unconformity ;; nonconformity
+21703|alt|2 1 3 ;; 2,1,3
+21714|alt|1,2 ;; gibbsite and hematite ;; 1 2
+21714|not|3 ;; 1 only
+21723|alt|halocline ;; salinity gradient
+21723|not|thermocline ;; pycnocline
+21735|alt|carbon and oxygen ;; c and o ;; carbon oxygen
+21745|alt|laramide orogeny ;; the laramide orogeny
+21755|alt|two
+21764|alt|esker ;; eskers
+21797|alt|3 ;; new moon ;; 3 only
+21818|alt|3 4 2 1 ;; planck electroweak quark photon
+21829|alt|deuterium lithium protium ;; 1 3 2
+21833|alt|darcy's law ;; darcys law ;; darcy law
+21849|alt|none ;; no facies ;; none of them
+21861|alt|2 ;; disk ;; the disk
+21861|not|1 and 2 ;; 3
+21862|alt|3a ;; 3 a ;; 3 times a
+21862|not|3a/2 ;; 2a
+21873|alt|1 3 2 ;; c s m
+21874|alt|2,3 ;; helium and carbon ;; 2 3
+21874|not|1 and 2 ;; all
+21885|alt|katabatic wind ;; katabatic
+21921|alt|gravitational lens ;; gravitational lensing effect ;; lensing
+21945|alt|henyey ;; henyey track ;; the henyey track
+21946|alt|4*S ;; 4 s ;; 4s
+21946|not|2S ;; S/4
+21957|alt|eddington luminosity ;; eddington
+21969|alt|double refraction ;; birefringent
+21969|not|dichroism
+21981|alt|antarctic circumpolar current ;; acc ;; circumpolar current
+21981|not|west wind drift ;; antarctic coastal current
+21982|alt|a ;; tropical ;; type a
+21992|alt|d double prime ;; d'' ;; d prime prime layer
+22004|alt|1 ;; turbidite ;; turbidites
+22015|alt|ergosphere
+22015|not|event horizon ;; photon sphere
+22016|alt|3 1 2 ;; o b e
+22028|alt|snow line ;; ice line ;; frost line
+22038|alt|2 3 1 ;; sand silt clay
+22050|alt|plutino ;; plutinos
+22050|not|cubewanos ;; twotinos
+22062|alt|all ;; 1,2,3 ;; all three
+22074|alt|3 ;; steep beach face ;; 3 only
+22099|alt|langmuir circulation ;; langmuir cells ;; langmuir
+22111|alt|atmospheric window ;; infrared window ;; radiative window
+22112|alt|all ;; 1,2,3 ;; all three
+22155|alt|181 ;; 181nm ;; 181 nanometers
+22156|alt|0.9 ;; 0.9 kilometers ;; 900 m
+22158|alt|16300 ;; 16,300 years ;; 16300
+22173|alt|brachiopoda ;; brachiopod
+22173|not|bryozoa ;; mollusca
+22179|alt|paternoster lakes ;; paternoster ;; paternoster lake chain
+22190|alt|105 ;; 105 degrees
+22214|alt|2,3 ;; pyroxene and biotite ;; 2 3
+22225|alt|neutron star ;; a pulsar ;; pulsar neutron star
+22226|alt|9.3 ;; +9.3
+22237|alt|listric fault ;; listric normal
+22250|alt|1 3 2
+22261|alt|upper crust and lower crust ;; upper and lower crust ;; crust
+22262|alt|seiches ;; seiche wave
+22262|not|tsunami ;; tide
+22274|alt|sungrazer ;; sungrazing comets ;; sungrazing comet
+22285|alt|radial velocity ;; doppler spectroscopy ;; doppler method
+22285|not|transit ;; astrometry
+22298|alt|410 km ;; 410 km discontinuity ;; 410
+22310|alt|esker ;; eskers
+22316|alt|tov limit ;; oppenheimer-volkoff limit ;; tolman oppenheimer volkoff limit
+22316|not|chandrasekhar limit ;; eddington limit
+22322|alt|abrasion ;; attrition
+22322|not|saltation ;; deflation
+22333|alt|chatter marks ;; chattermarks ;; chatter mark
+22334|alt|flowstone
+22334|not|stalactite ;; stalagmite
+22345|alt|angle of repose ;; repose angle ;; critical angle of repose
+22358|alt|sodium layer ;; sodium airglow layer ;; sodium
+22368|alt|low pressure high temperature ;; low pressure and mid to high temperature
+22369|alt|47600 ;; 47600 w/m2 ;; 47600 watts per square meter
+22764|alt|2,3 ;; 2 3 ;; low viscosity and low silica
+22764|not|1 and 2 ;; all
+22776|alt|trellis ;; trellis drainage ;; trellis pattern
+22776|not|dendritic ;; parallel
+22787|alt|soil creep ;; creep ;; downslope creep
+22788|alt|ir ;; iridium
+22794|alt|3 2 1 ;; rodinia gondwana pangaea ;; rodinia gondwanaland pangaea
+22815|alt|2,3 ;; gneiss and schist ;; 2 3
+22815|not|1 and 2 ;; all
+22827|alt|contact ;; contact metamorphism
+22827|not|regional metamorphism ;; dynamic metamorphism
+22840|alt|unsaturated zone ;; zone of aeration ;; vadose
+22840|not|phreatic zone ;; saturated zone
+22843|alt|2 1 3 ;; rivers groundwater oceans
+22865|alt|3 4 2 1 ;; red sea atlantic pacific mediterranean
+22880|alt|1,3,4 ;; 1 3 4 ;; terrane accretionary wedge wadati-benioff zone
+22880|not|2 ;; all
+22891|alt|2,3 ;; 2 3 ;; reverse and thrust
+22891|not|1 and 4 ;; 1 and 3
+22904|alt|4 3 1 2 ;; olivine biotite muscovite quartz
+22918|alt|bajada ;; bajadas ;; a bajada
+22930|alt|2 1 3 ;; aabw nadw aaiw
+22957|alt|2,3 ;; 2 3
+22957|not|1 and 2 ;; 1 only
+22969|alt|1,3 ;; 1 3
+22997|alt|3 solar masses ;; 3 ;; three
+23008|alt|1,2 ;; 1 2 ;; lepidodendron and ammonite
+23021|alt|3 ;; graupel ;; graupel only
+23047|alt|bottom up ;; bottom-up ;; hierarchical formation
+23047|not|top-down
+23048|alt|1:2 ;; 1/2 ;; 0.5
+23048|not|2:1 ;; 2
+23059|alt|the mantle ;; mantle layer
+23072|alt|2,3 ;; 2 3 ;; b-type main sequence and classical cepheids
+23072|not|1 and 2 ;; 1 only
+23083|alt|graupel ;; soft hail ;; snow pellets
+23083|not|hail ;; sleet
+23084|alt|2 ;; north sea ;; 2 only
+23096|alt|1,2 ;; 1 2 ;; chondrites and achondrites
+23096|not|all ;; 2 and 3
+23142|alt|1 ;; population i ;; 1 only
+23154|alt|zeolite ;; zeolite minerals
+23154|not|clays ;; feldspars
+23167|alt|2 1 3
+23190|alt|1,2 ;; 1 2
+23202|alt|phosphine ;; ph3
+23202|not|methane ;; ammonia
+23214|alt|sodium ;; na
+23214|not|dust ;; carbon dioxide ion
+23215|alt|2 ;; metallicity ;; 2 only
+23233|alt|outside view ;; the outside view ;; reference class forecasting
+23238|alt|birthline ;; stellar birthline ;; birth line
+23239|alt|3 ;; silicon ;; 3 only
+23250|alt|all ;; 1,2,3 ;; all three
+23251|alt|komatiites ;; komatiite
+23251|not|basalt ;; peridotite
+23263|alt|third dredge-up ;; dredge up ;; third dredge up
+23274|alt|amphidromic point ;; amphidrome point ;; amphidromic
+23275|alt|miscibility gap ;; solvus ;; solvus region
+23298|alt|langmuir circulation ;; langmuir cells ;; langmuir
+23311|alt|1,2 ;; 1 2
+23311|not|1 and 3 ;; all
+23316|alt|stratospheric aerosol injection ;; sai ;; stratospheric sulfate injection
+23316|not|marine cloud brightening ;; cirrus cloud thinning
+23317|alt|brewer dobson circulation ;; brewer-dobson ;; brewer dobson
+23322|alt|10 m ;; 10 meters ;; 10m
+23323|alt|3 1 2 ;; squall line bow echo comma echo
+23334|alt|color-magnitude diagram ;; color magnitude diagram ;; cmd
+23334|not|hr diagram ;; hertzsprung-russell diagram
+23335|alt|none ;; no conditions ;; none of them
+23347|alt|all ;; 1,2,3 ;; all three
+23359|alt|10^4 ;; 4 ;; 10000
+23382|alt|machos ;; macho ;; massive compact halo object
+23382|not|wimps ;; brown dwarfs
+23383|alt|2 3 1
+23407|alt|polytropic ;; polytropic gas ;; polytropic equation of state
+23437|alt|euxinic ;; euxinic conditions ;; euxinic waters
+23437|not|hypoxia ;; eutrophication
+23443|alt|2 1 3 ;; humus clay sand
+23455|alt|0.02 rad ;; 0.02 radians ;; .02
+23466|alt|wollastonite ;; calcium silicate ;; casio3
+23466|not|diopside ;; calcite
+23478|alt|cosmic neutrino background ;; cnb ;; relic neutrino background
+23478|not|cosmic microwave background ;; cmb
+23490|alt|aaiw ;; antarctic intermediate water ;; subantarctic mode water
+23503|alt|blandford-znajek ;; blandford znajek process ;; blandford znajek mechanism
+23503|not|penrose process ;; blandford-payne process
+23515|alt|peridotite ;; lherzolite
+23515|not|basalt ;; dunite
+23526|alt|herbig haro objects ;; ho objects ;; herbig-haro
+23526|not|t tauri stars ;; protostellar disks
+23539|alt|1 3 2 ;; eye rain bands eyewall
+23550|alt|4 au ;; 4 astronomical units ;; four
+23586|alt|solifluction ;; gelifluction
+23586|not|creep ;; rockfall
+25125|a|2 ONLY|carbonate solubility falls as temperature rises and aragonite is less stable than calcite, so only statement 2 is true
+25275|a|3,2,1|the Permian extinction (252 Ma) came before the first true mammals (Late Triassic) and flowering plants (Cretaceous)
+25515|a|HUBBLE'S LAW|spectroscopic parallax does not use redshift; redshift distance uses the Hubble-Lemaitre law
+23599|alt|3
+23604|alt|plume
+23622|alt|type 1a ;; Ia ;; SN Ia
+23622|not|type II ;; type Ib
+23623|alt|lenticular galaxy
+23623|not|elliptical ;; irregular
+23634|not|cyclostrophic ;; gradient wind
+23635|alt|1,2 ;; 1, 2 ;; 2 and 1
+23659|alt|1 3 2 ;; ultramafic, andesitic, rhyolitic
+23659|not|2,3,1
+23688|alt|Mount Toba ;; Toba eruption
+23700|alt|ice core
+23701|alt|CH4
+23701|not|carbon dioxide
+23718|alt|1 ;; Enceladus
+23731|alt|2,3 ;; 3 and 2 ;; discharge and average flow velocity
+23754|alt|methane clathrates ;; methane hydrate ;; gas hydrates
+23789|alt|Zeeman ;; Zeeman splitting
+23789|not|Doppler effect ;; Stark effect
+23802|alt|2,4 ;; 4 and 2
+23813|alt|21 cm line ;; 21 cm ;; 21-cm line
+23813|not|Lyman alpha
+23837|alt|radiation belts ;; van allen radiation belts
+23838|alt|black hole evaporation
+23907|alt|Ni-56 ;; nickel 56 ;; 56Ni
+23908|alt|globular clusters ;; globular
+23943|alt|all ;; 1, 2, and 3 ;; 1,2,3
+24016|alt|1,2 ;; 2 and 1
+24040|alt|1,2,3 ;; 1 2 3
+24076|alt|zero
+24112|alt|2,4 ;; staurolite and garnet
+24118|alt|2
+24124|alt|25 S
+24124|not|5S ;; 16S
+24135|alt|fault breccia, cataclastite, mylonite
+24136|alt|1,2 ;; 2 and 1
+24159|alt|1,3 ;; 3 and 1
+24183|alt|2,3,1
+24195|alt|Lissajous curves ;; Lissajous orbits
+24195|not|halo orbit
+24225|alt|pyroclastic density current
+24231|alt|boreal summer
+24231|not|winter
+24244|alt|3,1,2
+24261|alt|CME
+24268|alt|1,2 ;; 2 and 1
+24280|alt|3,4 ;; cuprite and rutile
+24280|not|3 only ;; 1 and 3
+24292|alt|Eddington luminosity
+24292|not|Chandrasekhar limit
+24297|alt|3,2,1
+24303|alt|all ;; 1, 2, and 3
+24315|alt|1
+24316|alt|2,1,3
+24339|alt|2,1,3
+24375|alt|H-3 ;; hydrogen-3 ;; 3H
+24375|not|deuterium
+24376|alt|1,3 ;; 3 and 1
+24400|alt|SO4 2- ;; sulphate
+24400|not|sulfide ;; sulfite
+24424|alt|1,2 ;; 2 and 1
+24436|alt|2,3 ;; 3 and 2
+24955|alt|kappa-mechanism ;; kappa effect
+24968|alt|1, 2, and 3 ;; 1,2,3
+24990|alt|Kelvin-Helmholtz contraction ;; gravitational contraction
+24990|not|nuclear fusion ;; radioactive decay
+25008|alt|2
+25012|alt|rho ;; mass density
+25012|not|temperature
+25017|alt|1,3 ;; 3 and 1
+25035|alt|1
+25045|alt|1,3 ;; 3 and 1
+25056|alt|oxygen and carbon
+25071|alt|pair annihilation ;; matter-antimatter annihilation
+25071|not|recombination
+25072|alt|2 4 1 3
+25074|alt|1,2 ;; 2 and 1
+25079|alt|decollement ;; basal detachment ;; sole thrust
+25090|alt|kappa-mechanism ;; kappa effect
+25102|alt|rho ;; mass density
+25125|alt|2
+25163|alt|1
+25170|alt|1
+25171|alt|1,2 ;; 2 and 1
+25180|alt|divergent ;; divergent plate boundary
+25180|not|convergent boundary ;; transform boundary
+25181|alt|June solstice ;; the summer solstice
+25192|alt|geopotential height
+25228|alt|asteroid families ;; Hirayama family
+25229|alt|1,3 ;; 3 and 1
+25236|not|event horizon ;; photon sphere
+25237|alt|none ;; 0
+25253|alt|1
+25264|alt|all ;; 1, 2, and 3
+25274|alt|1 2 3
+25275|alt|3 2 1
+25283|alt|2,3 ;; 3 and 2
+25298|alt|3 1 2
+25299|alt|2
+25310|alt|chlorite ;; chlorites
+25311|alt|all ;; 1, 2, and 3
+25321|alt|1,2 ;; 2 and 1
+25335|alt|83.5 degrees
+25335|not|86.5 ;; 53.5
+25349|alt|2,3 ;; 3 and 2
+25356|alt|T Tauri ;; T Tauri star ;; TTS
+25356|not|Herbig Ae/Be star
+25357|alt|none
+25413|alt|all ;; 1, 2, and 3
+25427|alt|1,2 ;; 2 and 1
+25433|alt|1,2 ;; 2 and 1
+25441|alt|shatter cone
+25448|alt|lensing ;; gravitational lens
+25449|alt|-1.8
+25449|not|1.8 ;; -11.8
+25507|alt|3 2 1
+25514|alt|3 1 2 4
+25515|alt|Hubble-Lemaitre law ;; Hubble flow ;; redshift distance
+25518|alt|Darcy law ;; Darcy
+25543|not|lithification ;; metamorphism
+25552|alt|S0 ;; lenticular galaxy
+25552|not|elliptical
+25560|alt|Mg and Fe ;; magnesium and iron
+25560|not|iron and calcium
+25561|alt|nuee ardente ;; glowing cloud ;; glowing avalanche
+25576|alt|1 2 3
+25576|not|3,2,1
+25588|not|quasar ;; Seyfert galaxy
+25589|alt|3 1 2
+25607|alt|nuee ardente ;; glowing cloud ;; glowing avalanche
+25623|alt|tidal tail
+25627|alt|1
+25654|not|sleet ;; hail
+25655|alt|1,3 ;; 3 and 1
+25657|alt|LHB ;; lunar cataclysm
+25666|alt|ogive ;; Forbes bands
+25666|not|varves
+25680|alt|Hubble time ;; age of universe
+25681|alt|all ;; 1, 2, and 3
+25781|alt|2
+25800|alt|aquitard ;; confining layers
+25816|alt|1,3 ;; 3 and 1
+25825|alt|all ;; 1, 2, and 3
+25826|alt|2 3 1 4
+25839|alt|1
+25854|alt|25 times
+25854|not|5 ;; 6.25
+25871|alt|2 1 3
+25879|alt|ET
+25879|not|transpiration ;; evaporation
+25900|not|25
+25923|alt|3 1 2
+25923|not|1,2,3
+24459|not|supernova ;; kilonova
+25962|a|2 AND 3|Reynolds number generally increases downstream as discharge grows, so statement 1 is false
+26706|a|2,1,3|Seawater concentrations: calcium ~10 mM < sulfate ~28 mM < magnesium ~53 mM
+26873|a|EINSTEIN RING|stray "~" left in key
+26887|a|2,1,3|Sidereal 27.3 d < synodic 29.5 d < nutation (18.6 yr)
+26895|a|RIME|key garbled as "RI ME"
+27523|a|Z|Air rises at the polar front near 60 N (Ferrel cell rises at 60, sinks at 30)
+27649|a|1 AND 4|Carbon monoxide also contributes to tropospheric ozone formation along with NOx
+27732|a|Y|At greatest eastern elongation Venus is half lit, like a first quarter Moon
+27672|a|DENSITY WAVE THEORY|ALSO ACCEPTED entry "LIN-" is truncated
+27412|rm||Refers to an image that is not provided
+26858|rm||Halley's comet is thought to come from the Oort cloud and Kowalski's comet is not a known object
+26354|q|["H e believes","He believes"]|stray space in word
+26480|q|["crust an d","crust and"]|stray space in word
+25931|not|sulfur dioxide ;; sulfuric acid
+25932|alt|8 Rs ;; 8R_s
+26039|alt|westerly winds ;; the westerlies
+26039|not|trade winds ;; polar easterlies
+26069|alt|slate, phyllite, migmatite
+26084|not|spit ;; barrier island
+26155|alt|sun
+26181|alt|cl-
+26181|not|sodium ;; chlorine
+26192|not|anorthosite
+26230|alt|a white dwarf ;; white dwarf star
+26230|not|neutron star ;; red giant
+26325|alt|a black hole
+26399|alt|the gulf stream
+26399|not|kuroshio current ;; north atlantic drift
+26429|alt|3 Rs ;; 3Rs
+26429|not|1.5 ;; 6
+26480|alt|mohorovicic discontinuity ;; mohorovicic
+26480|not|gutenberg discontinuity ;; lehmann discontinuity
+26498|alt|2,3 ;; 2 and 3
+26509|alt|reissner nordstrom ;; reissner-nordstrom metric
+26509|not|kerr ;; schwarzschild
+26510|alt|ring galaxies ;; collisional ring galaxy
+26578|alt|pair annihilation ;; matter-antimatter annihilation
+26578|not|pair production
+26634|alt|sub-solar point
+26716|alt|noachian, hesperian, amazonian
+26762|alt|nova ;; classical nova
+26762|not|supernova ;; kilonova
+26778|not|9
+26787|alt|babcock model, 22 years
+26791|alt|cosmic filaments
+26819|alt|supercell ;; supercell thunderstorms
+26827|alt|gamma rays ;; gamma radiation
+26827|not|x-ray
+26838|alt|hyperbolic ;; a hyperbola
+26838|not|parabola ;; ellipse
+26841|alt|atomic hydrogen ;; neutral hydrogen
+26873|alt|einstein's ring ;; an einstein ring
+26895|alt|rime ice
+26895|not|hail ;; snow
+26913|alt|acc ;; antarctic circumpolar
+26928|alt|calcite compensation depth
+26928|not|lysocline
+26942|alt|ef scale ;; enhanced fujita
+26942|not|fujita scale ;; saffir-simpson scale
+26952|alt|penumbral shadow ;; the penumbra
+26962|alt|cinder cone volcano ;; scoria cone
+26962|not|shield volcano ;; stratovolcano
+26977|alt|red dwarf ;; m dwarfs
+26977|not|brown dwarfs
+27007|alt|diurnal tide ;; diurnal tides
+27007|not|semidiurnal ;; mixed tide
+27008|alt|solar eclipse
+27038|not|uranus ;; jupiter
+27042|alt|kirkwood gap ;; kirkwood
+27095|alt|electron ;; electron degeneracy
+27095|not|neutrons
+27096|alt|collision coalescence ;; collision and coalescence
+27101|alt|rayleigh
+27120|alt|hubble's constant ;; h0
+27144|alt|coronal hole
+27146|alt|3x10^4 ;; 30,000
+27161|not|saturn
+27246|alt|type 1a supernova ;; type ia ;; sn ia
+27262|alt|triple alpha ;; triple alpha process
+27262|not|proton-proton chain ;; cno cycle
+27278|not|thermocline ;; halocline
+27301|alt|neutrino
+27321|not|helium
+27332|alt|li
+27338|alt|3.5th power ;; 7/2
+27388|alt|warm hot intergalactic medium
+27411|alt|quenching ;; galaxy quenching
+27468|alt|starquakes ;; star quake ;; crustquake
+27498|alt|2 ;; 2 m
+27510|not|12
+27544|not|gondwana
+27545|alt|sulphur
+27573|alt|hubble law ;; hubble's law
+27605|not|saturn
+27611|alt|tov ;; tov mass limit ;; tolman oppenheimer volkoff limit
+27630|alt|darcy law ;; darcys law
+27638|alt|liquefaction
+27661|not|angular unconformity ;; nonconformity
+27672|alt|density wave ;; density waves ;; lin-shu density wave theory
+27682|alt|poikiloblast ;; poikiloblastic
+27784|alt|neutrons ;; neutron capture
+27785|not|basalt
+27793|alt|130 ;; 130 ly ;; 130 light-years
+27817|alt|hyporheic
+27824|alt|potassium 40 ;; 40K
+27824|not|uranium-238
+27843|alt|12
+27854|alt|sulphate ;; so4 2-
+27854|not|chloride ;; bicarbonate
+27867|alt|the chromosphere
+27916|a|Mie scattering|Dust grains comparable to the wavelength scatter by Mie scattering, so the accepted Rayleigh entry is wrong
+27927|a|3,2,1|Stoss side is abraded as the glacier meets the bedrock, then the lee side is plucked
+28111|rm||The II-P plateau comes from hydrogen recombination, not isotope decay (Ni-56 powers the later tail)
+28279|a|Coccolithophores and foraminifera|Key misspells coccolithophores
+28594|a|Y|Parcel warmer by X reaches equilibrium where X-(D-E)z=0, so z=X/(D-E)
+28728|a|W|Mars polar caps are mostly water ice with only a thin seasonal CO2 layer
+28766|q|["The luminosity of a star is proportional","The apparent brightness (flux) of a star is proportional"]|Luminosity does not depend on distance; flux falls as r^-2
+29334|a|GLACIERS|Stray asterisk left in key
+27879|alt|1200 ;; 1.2 km ;; 1200 m
+27896|alt|rayleigh ;; rayleigh waves
+27896|not|love wave ;; p wave
+27897|alt|3 2 1 ;; fringing, barrier, atoll
+27906|alt|2 and 4 ;; 2 4 ;; 4 and 2
+27926|alt|1, 2, 3 ;; 1 2 3 ;; all three
+27937|alt|2, 3 ;; sleet and freezing rain
+27937|not|2 only ;; 3 only
+27954|alt|gravitational lens ;; lensing
+27968|not|upwelling
+27969|alt|1, 2 ;; tombolo and double spit
+27973|not|schwarzschild metric
+27989|alt|western boundary intensification ;; westward intensification
+28003|alt|2 1 4 3
+28013|not|englacial moraine ;; lateral moraine
+28024|alt|2, 3 ;; anabatic and valley breeze
+28045|alt|3 2 1
+28062|alt|2 3 1 4
+28076|alt|1, 3
+28099|alt|schonberg-chandrasekhar limit ;; schonberg chandrasekhar
+28100|alt|1, 2 ;; europa and charon
+28146|alt|friedmann-lemaitre-robertson-walker metric ;; frw metric ;; robertson-walker metric
+28147|alt|2 1 3
+28168|not|halocline ;; pycnocline
+28179|alt|venus and uranus
+28188|alt|coulomb ;; electrostatic barrier
+28189|alt|recombination ;; epoch of recombination
+28209|alt|1 4 2 3
+28229|alt|cno
+28238|alt|2 3 1
+28239|alt|darcy ;; darcys law ;; darcy's equation
+28239|not|bernoulli's equation
+28248|alt|3 2 1
+28258|alt|1 3 2
+28268|alt|1 and 4 ;; radio and x-ray
+28279|alt|foraminifera and coccolithophores ;; coccolithophores and foraminifera
+28297|alt|2 and 3 ;; t and y
+28297|not|1, 2, 3
+28307|alt|0.0625 ;; 1:16
+28307|not|16 ;; 1/4
+28327|alt|2, 3
+28348|alt|100 ;; 100 pc
+28359|alt|1, 2, 3 ;; all three
+28360|alt|four
+28370|alt|3 2 1 ;; C, B, A
+28379|not|mie scattering
+28380|alt|1 3 2
+28390|alt|1 ;; yardangs
+28438|not|4x ;; x/4
+28446|alt|1, 2, 3, 4
+28447|alt|1 ;; wind blowing south along western us coast
+28457|alt|none
+28476|alt|h2o
+28477|alt|10 times ;; ten
+28477|not|100 ;; 5
+28487|alt|near infrared ;; 1 only
+28497|alt|1 3 2
+28506|alt|2 ;; 2 to 1
+28517|alt|1, 2, 3 ;; all three
+28526|alt|10 au
+28526|not|5 ;; 25
+28535|alt|0.5 ;; 1 to 2
+28555|alt|1 ;; mantle plumes
+28565|alt|blue loops
+28574|alt|r process ;; rapid neutron capture
+28574|not|s-process
+28593|alt|superluminal ;; apparent superluminal motion
+28604|alt|3 1 2
+28613|alt|1 4 3 2
+28631|alt|1, 2, 3, 4
+28640|alt|2 3 1
+28660|alt|1, 2, 3
+28689|alt|1 3 2
+28700|alt|fe
+28729|alt|1, 2
+28739|alt|trojan asteroids ;; trojan
+28748|alt|none
+28756|alt|3 ;; m
+28765|alt|2 1 3
+28776|alt|3 ;; silt
+28785|alt|c
+28795|not|chromatic aberration
+28805|alt|contact metamorphism
+28814|alt|1, 2 ;; proton-proton chain and cno cycle
+28823|alt|3 2 1
+28833|alt|1, 2 ;; normal and reverse
+28881|alt|none
+28882|alt|calcium and magnesium ;; ca2+ and mg2+
+28897|alt|gamma ray burst ;; grb ;; short grb
+28904|alt|3 2 1
+28915|alt|4 times
+28926|alt|all ;; 1, 2, 3
+28937|alt|1, 2
+28938|alt|all ;; 1, 2, 3
+28943|alt|indian and eurasian plates ;; india and eurasia
+28949|alt|2 3 1
+28974|alt|13 ;; 13 light years
+28983|alt|1 2 3
+29003|alt|cepheid instability strip
+29030|alt|1, 2
+29053|alt|h ;; hydrogen
+29063|alt|darcy's equation
+29082|alt|2, 3
+29085|alt|orographic lifting ;; orographic uplift ;; orographic effect
+29093|alt|wegener-bergeron-findeisen process ;; wbf process
+29094|not|nonconformity ;; angular unconformity
+29108|alt|population 2 ;; pop ii
+29119|alt|ice wedging ;; frost action
+29152|alt|he
+29174|alt|2 ;; stratosphere
+29185|alt|1 ;; convergent
+29186|alt|3 ;; eruptive variables
+29206|alt|2 ;; foraminifera
+29222|alt|synchronous rotation ;; tidal lock
+29262|alt|channel avulsion
+29263|alt|1, 3 ;; visible and radio
+29274|alt|achromatic doublet ;; achromat
+29275|alt|10000000 ;; 10^7 pc
+29285|alt|coorbital moons
+29295|alt|1, 3
+29305|alt|1 2 3
+29316|alt|1, 3 ;; gamma ray and neutrino
+29317|alt|all ;; 1, 2, 3
+29335|alt|all ;; 1, 2, 3
+29342|alt|type 1a ;; ia
+29346|alt|1 ;; magnetite and iron
+29383|alt|11 years
+29388|alt|reconnection ;; magnetic reconnection
+29395|alt|columnar joints
+29396|alt|1 3 2
+29408|alt|1
+29439|alt|albedo
+29443|alt|2 3 1

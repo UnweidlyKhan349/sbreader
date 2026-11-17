@@ -6191,3 +6191,929 @@
 42122|q|["react nitrous oxide with oxygen gas","react nitric oxide with oxygen gas"]
 52934|q|["N2O is in equilibrium","NO2 is in equilibrium"]
 53292|q|["records it as a square planar compound","records it as a square pyramidal compound"]
+46418|a|Z
+49353|q|["COBAL","COBOL"]
+49834|rm|
+50138|a|INTEGRATED SERVICES DIGITAL NETWORK
+50185|rm|
+51940|a|Z
+46673|ac|BFS
+47173|ac|vanishing gradient problem
+47394|ac|electrical breakdown
+47394|ac|dielectric breakdown of air
+47460|ac|double-ended queue
+47460|ac|double ended queue
+47607|ac|algorithmic complexity
+48792|ac|rambus dram
+49137|ac|mead
+49386|ac|network interface controller
+49402|ac|formula translation
+49573|ac|download
+49659|ac|upload
+49685|ac|300 bps
+49685|ac|300 bits/s
+49756|ac|ncsa mosaic
+49775|ac|radiocarbon dating
+49775|ac|carbon-14 dating
+49775|ac|c-14 dating
+49858|ac|mhz
+50165|ac|gb
+50215|ac|cache memory
+50335|ac|ctrl alt del
+52343|ac|alphafold2
+52343|ac|alphafold 2
+49639|ac|absolute reference
+49651|ac|international system of units
+49651|ac|systeme international d'unites
+50093|ac|rotational latency
+1147|a|Y
+1446|a|Z
+2624|a|Z
+2645|a|1 and 3
+2685|rm|
+118130|rm|
+1270|rm|
+1445|rm|
+96|q|["the largest structure known in the universe","a huge structure in the universe"]
+1258|q|["Beringer Crater","Barringer Crater"]
+96509|ac|concatenate
+96509|ac|string concatenation
+118022|ac|memory resistor
+118057|ac|quantum bit
+36|ac|eddington luminosity
+46|ac|porphyritic texture
+187|ac|8 times M
+226|ac|cloud albedo effect
+226|ac|first indirect effect
+274|ac|lithospheric delamination
+284|ac|fermi mechanism
+304|ac|0
+304|ac|no statements
+313|ac|perthite
+333|ac|coastal upwelling
+352|ac|lagrangian points
+391|ac|barycentre
+411|ac|accretionary complex
+411|ac|accretion wedge
+422|ac|outwash
+422|ac|sandur
+431|ac|thermal metamorphism
+491|ac|binary neutron stars
+511|ac|ridge push force
+511|ac|gravitational sliding
+1168|ac|msp
+1181|ac|oxygen gas
+1192|ac|quasi-stellar object
+1192|ac|qso
+1192|ac|quasi stellar radio source
+1215|ac|scoria cone
+1238|ac|globular
+1282|ac|black hole evaporation
+1282|ac|hawking evaporation
+1304|ac|degeneracy pressure
+1304|ac|electron degeneracy
+1305|ac|chandrasekhar mass
+1327|ac|pacific ring of fire
+1327|ac|circum-pacific belt
+1328|ac|soil liquefaction
+1347|ac|c-type star
+1347|ac|c star
+1348|ac|wr stars
+1356|ac|z=0.4
+1400|ac|pyroxene group
+1411|ac|aluminium
+1434|ac|ring silicates
+1457|ac|oil sands
+1457|ac|oil sand
+1468|ac|two bodies
+1474|ac|3 mpc
+1479|ac|james jeans
+1479|ac|sir james jeans
+1500|ac|xrbs
+1512|ac|apparent superluminal motion
+1544|ac|dyke
+1562|ac|pp chain
+1562|ac|p-p chain
+1563|ac|he flash
+1584|ac|reflection nebulae
+1595|ac|pyroclastic density current
+1595|ac|nuee ardente
+1640|ac|cno
+1640|ac|cno process
+1640|ac|carbon nitrogen oxygen cycle
+1661|ac|laurasia and gondwanaland
+1661|ac|gondwanaland and laurasia
+1662|ac|bif
+1662|ac|bifs
+1727|ac|an exoplanet
+1727|ac|exoplanet
+1770|ac|blue straggler star
+1779|ac|occlusion
+1823|ac|dog star
+1858|ac|glacial horn
+1858|ac|pyramidal peak
+1858|ac|horn peak
+1859|ac|terminal moraine
+2550|ac|supergene enrichment
+2550|ac|secondary sulfide enrichment
+2571|ac|tablemount
+2580|ac|hubble-lemaitre law
+2633|ac|langmuir cells
+2655|ac|ppiv
+2655|ac|pp4
+2655|ac|hep process
+2665|ac|rps
+2708|ac|366.256 rotations
+2718|ac|0
+2758|rm|
+2790|a|2 ONLY
+2873|q|["schist, BASIS Peoria Late Regionals DE-Mid Nationals DE depending","schist depending"]
+2970|q|["around the sun","around Jupiter"]
+3105|a|IV ONLY
+3327|a|I ONLY
+3376|a|HUBBLE'S LAW
+5064|a|BOWEN'S REACTION SERIES
+5142|q|["l ignite","lignite"]
+5149|a|KEPLER'S SECOND LAW
+5150|a|(577+408*sqrt(2))K, about 1154K
+5323|q|["proponent","component"]
+2738|ac|chromite ore
+2738|ac|FeCr2O4
+2833|ac|shepherding moon
+2836|ac|stratocone
+2839|ac|transform boundary
+2839|ac|transform boundaries
+2840|ac|d double prime
+2840|ac|d''
+2840|ac|d prime prime
+2885|ac|ic
+2896|ac|turbidite deposit
+2898|ac|degassing
+2921|ac|wave shoaling
+3028|ac|striations
+3028|ac|glacial striae
+3028|ac|striae
+3039|ac|triclinic system
+3047|ac|16 light years
+3077|ac|benioff zone
+3162|ac|stellar occultation
+3207|ac|inflationary theory
+3208|ac|beryllium-8 and carbon-12
+3236|ac|coriolis force
+3348|ac|16 solar masses
+3372|ac|backswamps
+3391|ac|ccd
+4999|ac|cepheid instability strip
+5010|ac|cosmogenic
+5022|ac|grand design spiral
+5031|ac|hypocentre
+5077|ac|maunder butterfly diagram
+5077|ac|sunspot butterfly diagram
+5094|ac|chandrasekhar mass
+5169|ac|24h50m
+5199|ac|gravitational radiation
+5200|ac|michelson interferometer
+5229|ac|inflationary epoch
+5246|ac|anthropocene epoch
+5248|ac|dynamo theory
+5311|ac|distance and recession velocity
+5354|ac|energy-momentum tensor
+5354|ac|stress-energy-momentum tensor
+5371|ac|wr stars
+5388|ac|trade winds westerlies polar winds
+5420|ac|transform fault
+5421|ac|karst landscape
+5450|ac|polarisation
+5450|ac|light polarization
+5489|ac|pp chain
+5489|ac|p-p chain
+5511|ac|ultraviolet light
+5511|ac|ultraviolet region
+5519|ac|tungsten ore
+5594|ac|period luminosity relation
+5594|ac|period-luminosity relation
+5594|ac|leavitt law
+5601|ac|tidal lock
+5601|ac|tidally locked
+5627|ac|gravitational lens
+5635|ac|200 solar masses
+5636|ac|doppler shift
+5656|ac|increases, decreases, decreases
+5656|ac|increase, decrease, decrease
+5744|ac|chain silicates
+5744|ac|chain silicate
+5760|ac|homoclinal
+5766|ac|september 12
+5766|ac|sept 12
+5766|ac|9/12
+6143|a|Y
+7058|rm|
+7140|a|W
+7179|rm|
+7954|a|Z
+8070|rm|
+8071|a|3,2,1
+8117|a|3,2,1
+8236|a|3,2,1
+8287|q|["following 4 atomic weights","following 3 atomic weights"]
+5787|ac|2^-10
+5850|ac|WR star
+5928|ac|1b and 1c
+5940|ac|amphidrome
+5952|ac|TOV mass limit
+5958|ac|herbig haro
+5958|ac|HH object
+5958|ac|herbig-haro
+5975|ac|zz ceti stars
+5975|ac|ZZ Ceti star
+5986|ac|failed rift arm
+5986|ac|failed rift
+6004|ac|southeast 45
+6004|ac|45 degrees SE
+6004|ac|45 SE
+6044|ac|CaTiO3
+6044|ac|calcium titanate
+6067|ac|phreatic
+6072|ac|starburst galaxies
+6079|ac|class C
+6102|ac|eddington luminosity
+6113|ac|se
+6125|ac|tail disconnection event
+6125|ac|comet tail disconnection
+6158|ac|lagrange point 2
+6158|ac|sun-earth L2
+6183|ac|SOFAR
+6183|ac|deep sound channel
+6183|ac|sound fixing and ranging channel
+6195|ac|main-sequence turnoff
+6195|ac|MS turnoff
+6195|ac|main sequence turn off
+7011|ac|lustre
+7084|ac|c layer
+7178|ac|axial precession
+7178|ac|precession of the equinoxes
+7219|ac|coriolis force
+7220|ac|solar filaments
+7230|ac|basal slip
+7268|ac|dynamo
+7268|ac|dynamo theory
+7331|ac|iron and aluminum
+7331|ac|aluminum and iron
+7331|ac|Fe and Al
+7336|ac|metallic sulfides
+7372|ac|2.4 solar masses
+7372|ac|2.4 Msun
+7374|ac|frontal uplift
+7374|ac|frontal lift
+7395|ac|LHB
+7395|ac|lunar cataclysm
+8017|ac|IC scattering
+8060|ac|59 earth days
+8084|ac|equatorial kelvin waves
+8116|ac|turbidity flows
+8124|ac|gravitational force
+8124|ac|gravitation
+8155|ac|valve mechanism
+8165|ac|o and e horizons
+8190|ac|Si II
+8277|ac|calcium carbonate
+8277|ac|CaCO3
+8289|ac|sw
+8307|ac|protoplanetary disc
+8369|ac|relativistic jets
+8369|ac|radio jets
+8385|ac|BIF
+8385|ac|BIFs
+8503|ac|AAIW, NADW, AABW
+8511|ac|giant elliptical galaxy
+8512|ac|comet coma
+8512|ac|cometary coma
+6097|rj|albite, anorthite
+8597|rm|
+8752|a|1, 2, 3
+9302|a|4
+9345|rm|
+9411|q|["4 events relating","5 events relating"]
+9498|a|2, 3, 4
+9558|a|URBAIN LE VERRIER, JOHN COUCH ADAMS
+9814|a|X
+9835|a|Homocline
+9913|a|1 3 2
+9950|a|None
+8696|ac|cyanite
+8772|ac|calcium ion
+8912|ac|Ia
+8912|ac|1a
+9163|ac|9x
+9163|ac|9 times
+9164|ac|Juan de Fuca plate and North American plate
+9198|ac|geostrophic flow
+9225|ac|11 degree days
+9225|ac|11 CDD
+9267|ac|dec and ra
+9268|ac|0 deg and 0 h
+9294|ac|supercritical fluid
+9339|ac|lenticular clouds
+9339|ac|altocumulus lenticularis
+9346|ac|16x
+9379|ac|accreted terranes
+9394|ac|scattered disk
+9394|ac|SDOs
+9647|ac|shepherd satellites
+9657|ac|undercut bank
+9683|ac|tablemount
+9698|ac|hydrogen gas
+9811|ac|Hayashi
+9836|ac|monogenetic volcano
+9849|ac|conditionally unstable
+9862|ac|Kelvin-Helmholtz contraction
+9903|ac|reversed zoning
+9912|ac|hydrogen line
+10078|ac|Bowen series
+10235|a|MESOCYCLONE
+10630|a|-2 and -4
+11277|a|1,2,3
+11481|rmac|MAGNESITE
+11811|a|Z
+10133|ac|double refraction
+10144|ac|ia
+10144|ac|type ia supernova
+10187|ac|rotational slide
+10187|ac|rotational slump
+10282|ac|wegener-bergeron-findeisen process
+10282|ac|bergeron-findeisen process
+10318|ac|statement 3
+10336|ac|grb
+10336|ac|grbs
+10348|ac|jupiter trojans
+10348|ac|trojan asteroids
+10353|ac|NE
+10354|ac|accretion wedge
+10401|ac|zinc blende
+10401|ac|zns
+10618|ac|EPR
+10630|ac|-2, -4
+10630|ac|-2 -4
+10641|ac|drainage wind
+10677|ac|ecliptic plane
+10678|ac|h2o ice
+10719|ac|surface albedo
+10744|ac|HZ
+10749|ac|chandrasekhar mass
+10750|ac|hyperbola
+10767|ac|ozone layer
+10881|ac|columnar joints
+10940|ac|ephemeral streams
+10982|ac|benioff zone
+11231|ac|CNO
+11231|ac|carbon-nitrogen-oxygen cycle
+11240|ac|H0
+11242|ac|oxbow
+11264|ac|k-feldspar
+11264|ac|k feldspar
+11264|ac|potash feldspar
+11265|ac|basal sliding
+11277|ac|anorthite, albite, gibbsite
+11277|ac|1 2 3
+11278|ac|magmatic stoping
+11345|ac|optical libration
+11356|ac|slow neutron capture
+11388|ac|massive compact halo objects
+11427|ac|Ca II
+11545|ac|juan de fuca plate, cocos plate, nazca plate
+11567|ac|longshore drift
+11567|ac|littoral drift
+11570|ac|phreatic surface
+11643|ac|4 solar masses and 8 solar masses
+11676|ac|sunlight zone
+11712|ac|statement 1
+12151|ac|vine-matthews hypothesis
+12235|ac|reddening
+12254|ac|pp chain
+12254|ac|pp cycle
+12291|ac|BIF
+12291|ac|BIFs
+11750|rj|2,3,1
+12316|a|X
+12417|a|3
+13094|rm|
+12909|q|["Rotation of the universe","Rotation of the cloud"]
+12317|ac|transgression
+12346|ac|total penumbral eclipse
+12361|ac|PPN
+12416|ac|PSC
+12426|ac|warm vents
+12462|ac|isostatic equilibrium
+12481|ac|quasi-stellar object
+12481|ac|QSO
+12482|ac|glaze ice
+12573|ac|SGR
+12573|ac|soft gamma-ray repeater
+12589|ac|yanai wave
+12599|ac|WR star
+12654|ac|CCN
+12654|ac|condensation nuclei
+12701|ac|hyperbola
+12726|ac|13 square meters
+12726|ac|13 m2
+12747|ac|dyke
+12756|ac|planetary nebulae
+12757|ac|128 times brighter
+12793|ac|seeding
+12802|ac|van allen radiation belts
+12802|ac|radiation belts
+12848|ac|soil creep
+12872|ac|filaments
+12872|ac|cosmic filaments
+12928|ac|SSW
+12928|ac|sudden stratospheric warming event
+12938|ac|basal slip
+12938|ac|basal slide
+12963|ac|degassing
+12983|ac|earth's bow shock
+13048|ac|south america
+13048|ac|south america plate
+13057|ac|cepheid
+13057|ac|cepheids
+13071|ac|salt content
+13084|ac|quarrying
+13084|ac|glacial plucking
+13116|ac|littoral drift
+13116|ac|longshore transport
+13193|ac|drawdown cone
+13194|ac|amphidromes
+13208|ac|extrasolar planets
+13241|ac|lunar soil
+13310|ac|giant impact theory
+13319|ac|HB
+13319|ac|horizontal branch phase
+13320|ac|500 million
+13320|ac|0.5 Gyr
+13332|ac|r-process and s-process
+13332|ac|r process and s process
+13355|ac|oddo-harkins effect
+13390|ac|saha ionization equation
+13411|ac|hesperian era
+13435|ac|hayashi
+13446|ac|molecular hydrogen
+13456|ac|UO2
+13467|ac|mercalli scale
+13467|ac|modified mercalli intensity scale
+13467|ac|MMI
+13493|ac|cliffs of dover
+13512|ac|newtonian reflector
+13537|ac|krakatoa, end of ice age, extinction of dinosaurs, breakup of pangea
+13549|ac|haematite
+13570|ac|ferrel
+13570|ac|ferrel circulation
+13570|ac|mid-latitude cell
+13578|ac|dynamo theory
+13582|ac|orogenesis
+13628|ac|solar magnetic field
+13638|ac|organic horizon
+13674|ac|nicolas steno
+13674|ac|niels stensen
+13719|ac|A and B
+13753|ac|p-wave shadow
+13754|ac|inner core superrotation
+13775|ac|6.5 light years
+13785|ac|ion tail
+13785|ac|plasma tail
+13809|ac|coriolis effect
+13824|ac|calcite compensation depth
+13824|ac|calcium carbonate compensation depth
+13856|ac|alpha leonis
+13856|ac|cor leonis
+13857|ac|-5 magnitude
+13879|ac|nitrogen gas
+13879|ac|molecular nitrogen
+13356|rj|7:2
+13929|a|Synchrotron radiation
+14023|a|1,2,3,4
+14483|a|2 only
+15211|a|X
+14636|rmac|transit timing
+14060|rm|
+13929|ac|synchrotron
+13929|ac|synchrotron emission
+13930|ac|2.5 arcsec
+13980|ac|6.25e4
+14042|ac|3, 75
+14042|ac|eyepiece 3, 75x
+14097|ac|atomic hydrogen
+14097|ac|neutral hydrogen
+14272|ac|9x
+14301|ac|HH object
+14301|ac|Herbig-Haro
+14381|ac|amphidrome
+14431|ac|surging
+14431|ac|glacier surge
+14490|ac|longshore drift
+14490|ac|littoral drift
+14512|ac|Reissner-Nordstrom
+14512|ac|reissner nordstrom
+14512|ac|RN metric
+14524|ac|21 cm line
+14524|ac|21 cm
+14524|ac|HI line
+14598|ac|FRW metric
+14598|ac|Friedmann-Lemaitre-Robertson-Walker metric
+14609|ac|radial velocity
+14609|ac|Doppler spectroscopy
+14609|ac|doppler method
+14624|ac|F region
+14698|ac|CMB
+14698|ac|cosmic microwave background
+14727|ac|statement 3
+14788|ac|basal sliding
+14841|ac|dykes
+14859|ac|epoch of recombination
+14859|ac|recombination era
+14931|ac|Titius-Bode rule
+14944|ac|Forbes bands
+14953|ac|silicon II
+14980|ac|vertical pressure gradient force
+15197|ac|RM effect
+15261|ac|kerr solution
+15307|ac|SZE
+15362|ac|braided river
+15381|ac|drumlin and crag and tail
+15511|ac|listric normal fault
+15512|ac|33 ly
+15512|ac|33 light years
+15521|ac|calcite and aragonite; andalusite and kyanite
+15654|q|["three rocks","four rocks"]
+15859|a|X
+15966|a|2 only
+16056|rm|
+16328|rm|
+16771|a|W
+16849|a|Bjerknes Feedback
+16863|a|Jeans instability
+16871|a|1,3,2
+16983|a|Z
+17056|a|2:3
+17067|a|3 ONLY
+15542|ac|m, l, t
+15593|ac|glacial erratics
+15639|ac|ichnofossils
+15639|ac|ichnofossil
+15653|ac|1010 mb
+15667|ac|Zeeman splitting
+15668|ac|10^7
+15668|ac|1e7
+15704|ac|wave shoaling
+15710|ac|isotropy
+15766|ac|TOV limit
+16052|ac|anti-umbra
+16052|ac|antumbral shadow
+16084|ac|ICM
+16206|ac|pisolitic texture
+16229|ac|COBE, WMAP, Planck
+16237|ac|AO
+16350|ac|Rayleigh-Taylor instability
+16350|ac|RTI
+16368|ac|5:1
+16368|ac|5 to 1
+16395|ac|opacity mechanism
+16410|ac|5.0
+16518|ac|amphidrome
+16562|ac|LHB
+16576|ac|1.4 solar masses
+16601|ac|3-alpha process
+16625|ac|geodynamo
+16625|ac|dynamo
+16659|ac|Caloris
+16691|ac|widmanstatten structure
+16714|ac|E ring
+16714|ac|the E ring
+16754|ac|infrared light
+16778|ac|7 m/s
+16778|ac|7 meters per second
+16807|ac|Kelvin-Helmholtz contraction
+16819|ac|324x
+16925|ac|L-1
+16962|ac|PISN
+17009|ac|1e4
+17010|ac|25x
+17010|ac|25 times
+17035|ac|twinning
+17046|ac|phreatic explosion
+17205|ac|gravity, strong, weak
+17599|rm|
+17676|a|Z
+17792|a|ATLANTIC MERIDIONAL OVERTURNING CIRCULATION
+17819|q|["four celestial objects","three celestial objects"]
+18582|q|["in finite universe","infinite universe"]
+19517|rm|
+19747|rm|
+19932|rm|
+17610|ac|625 solar luminosities
+17610|ac|625 L_sun
+18524|ac|LHB
+18537|ac|RA and Dec
+18549|ac|main sequence turnoff
+18549|ac|MSTO
+18558|ac|RGB
+18587|ac|turbidity flow
+18615|ac|tidal lock
+18684|ac|M dwarfs
+18684|ac|M dwarf
+18707|ac|electron degeneracy
+18730|ac|Ferrel circulation
+18744|ac|SiO2
+18786|ac|thermal inversion
+18798|ac|S0
+18889|ac|planetary differentiation
+18893|ac|UHI
+18893|ac|urban heat island effect
+18945|ac|shepherding moons
+19425|ac|electron degeneracy pressure
+19435|ac|James Hutton
+19447|ac|red giant star
+19634|ac|the serpent bearer
+19659|ac|Gutenberg-Wiechert discontinuity
+19893|ac|year 2061
+19992|ac|Tropic of Cancer and Tropic of Capricorn
+20190|q|["that was recently devastated","that was devastated in 1997"]
+20285|q|["large mineral grades","large mineral grains"]
+20395|a|ROCKY MOUNTAINS
+20768|q|["A spiral galaxy is classified as E4","An elliptical galaxy is classified as E4"]
+21008|q|["experience retrograde motion,","have retrograde rotation,"]
+21053|rm|
+21156|rm|
+21443|q|["the an isotropic","the anisotropic"]
+20143|ac|16:1
+20143|ac|16
+20301|ac|kilauea volcano
+20375|ac|between mars and jupiter
+20392|ac|frank drake
+20392|ac|drake equation
+20471|ac|synchronous rotation
+20471|ac|tidal lock
+20505|ac|gravity slingshot
+20505|ac|gravitational assist
+20506|ac|gutenberg
+20529|ac|milankovitch theory
+20536|ac|vadose
+20587|ac|big bang nucleosynthesis
+20587|ac|primordial nucleosynthesis
+20634|ac|sze
+20655|ac|stark pressure broadening
+20666|ac|supernova 1054
+20677|ac|groynes
+20700|ac|forbes bands
+20711|ac|300000 meters
+20789|ac|synodic month
+20789|ac|synodic
+20848|ac|atmospheric seeing
+20848|ac|astronomical seeing
+20893|ac|degeneracy pressure
+20893|ac|electron degeneracy
+20906|ac|clock drive
+20962|ac|hubble tuning fork
+20998|ac|ecliptic plane
+21019|ac|nodes
+21019|ac|ascending and descending nodes
+21031|ac|ultraviolet light
+21031|ac|uv light
+21123|ac|t^-7/2
+21123|ac|t^-3.5
+21175|ac|oppenheimer-volkoff limit
+21213|ac|sze
+21244|ac|inner and outer lindblad resonance
+21258|ac|lithospheric delamination
+21351|ac|pressure gradient force and centrifugal force
+21351|ac|pressure gradient and centrifugal force
+21409|ac|1/s
+21409|ac|s^-1
+21409|ac|per second
+21439|ac|rgb
+21483|ac|cosmic filaments
+21562|ac|pyroclastic density current
+21562|ac|pdc
+21563|ac|peru-chile current
+21788|a|2 ONLY
+21806|a|Y
+21829|a|1,3,2
+22144|a|Z
+22238|a|W
+23178|a|West
+22346|rm|
+21674|ac|talus slope
+21684|ac|fibrolite
+21829|ac|deuterium lithium protium
+21829|ac|1 3 2
+21849|ac|no facies
+21862|ac|3 times a
+21873|ac|c s m
+21921|ac|gravitational lensing effect
+21945|ac|henyey
+21957|ac|eddington luminosity
+21969|ac|double refraction
+21969|ac|birefringent
+21981|ac|circumpolar current
+21982|ac|tropical
+21982|ac|type a
+21992|ac|d double prime
+21992|ac|d prime prime layer
+22099|ac|langmuir cells
+22111|ac|infrared window
+22156|ac|900 m
+22173|ac|brachiopoda
+22179|ac|paternoster lake chain
+22237|ac|listric fault
+22261|ac|upper crust and lower crust
+22262|ac|seiche wave
+22274|ac|sungrazing comets
+22274|ac|sungrazing comet
+22285|ac|doppler method
+22298|ac|410 km
+22316|ac|tov limit
+22316|ac|oppenheimer-volkoff limit
+22345|ac|critical angle of repose
+22358|ac|sodium airglow layer
+22368|ac|low pressure and mid to high temperature
+22369|ac|47600 w/m2
+22369|ac|47600 watts per square meter
+22776|ac|trellis drainage
+22776|ac|trellis pattern
+22787|ac|soil creep
+22794|ac|rodinia gondwana pangaea
+22840|ac|zone of aeration
+22840|ac|vadose
+22865|ac|red sea atlantic pacific mediterranean
+22880|ac|terrane accretionary wedge wadati-benioff zone
+22930|ac|aabw nadw aaiw
+22997|ac|3 solar masses
+23047|ac|hierarchical formation
+23059|ac|mantle layer
+23072|ac|b-type main sequence and classical cepheids
+23083|ac|soft hail
+23083|ac|snow pellets
+23154|ac|zeolite minerals
+23202|ac|ph3
+23238|ac|stellar birthline
+23274|ac|amphidromic point
+23274|ac|amphidromic
+23298|ac|langmuir cells
+23316|ac|sai
+23323|ac|squall line bow echo comma echo
+23334|ac|cmd
+23335|ac|no conditions
+23359|ac|10^4
+23359|ac|10000
+23407|ac|polytropic
+23437|ac|euxinic
+23437|ac|euxinic conditions
+23437|ac|euxinic waters
+23466|ac|casio3
+23478|ac|cnb
+23478|ac|relic neutrino background
+23503|ac|blandford znajek mechanism
+23539|ac|eye rain bands eyewall
+23550|ac|4 astronomical units
+25125|a|2 ONLY
+25275|a|3,2,1
+25515|a|HUBBLE'S LAW
+23604|ac|plume
+23622|ac|Ia
+23622|ac|SN Ia
+23623|ac|lenticular galaxy
+23688|ac|Mount Toba
+23754|ac|methane clathrates
+23754|ac|methane hydrate
+23754|ac|gas hydrates
+23789|ac|Zeeman splitting
+23813|ac|21 cm
+23837|ac|radiation belts
+23837|ac|van allen radiation belts
+23908|ac|globular
+24195|ac|Lissajous orbits
+24225|ac|pyroclastic density current
+24231|ac|boreal summer
+24261|ac|CME
+24292|ac|Eddington luminosity
+24375|ac|H-3
+24375|ac|hydrogen-3
+24375|ac|3H
+24400|ac|SO4 2-
+24400|ac|sulphate
+24990|ac|Kelvin-Helmholtz contraction
+25012|ac|rho
+25012|ac|mass density
+25071|ac|pair annihilation
+25071|ac|matter-antimatter annihilation
+25102|ac|rho
+25102|ac|mass density
+25125|ac|2
+25181|ac|June solstice
+25275|ac|3 2 1
+25356|ac|T Tauri
+25356|ac|TTS
+25448|ac|gravitational lens
+25515|ac|Hubble-Lemaitre law
+25552|ac|S0
+25561|ac|glowing cloud
+25607|ac|glowing cloud
+25657|ac|LHB
+25657|ac|lunar cataclysm
+25666|ac|Forbes bands
+25800|ac|confining layers
+25879|ac|ET
+25962|a|2 AND 3
+26706|a|2,1,3
+26873|a|EINSTEIN RING
+26887|a|2,1,3
+26895|a|RIME
+27523|a|Z
+27649|a|1 AND 4
+27732|a|Y
+27672|rmac|LIN-
+27412|rm|
+26858|rm|
+26354|q|["H e believes","He believes"]
+26480|q|["crust an d","crust and"]
+26230|ac|white dwarf star
+26429|ac|3 Rs
+26429|ac|3Rs
+26509|ac|reissner-nordstrom metric
+26510|ac|collisional ring galaxy
+26578|ac|pair annihilation
+26578|ac|matter-antimatter annihilation
+26762|ac|nova
+26762|ac|classical nova
+26787|ac|babcock model, 22 years
+26791|ac|cosmic filaments
+26827|ac|gamma radiation
+26838|ac|hyperbolic
+26841|ac|atomic hydrogen
+26841|ac|neutral hydrogen
+26895|ac|rime ice
+26913|ac|acc
+26928|ac|calcite compensation depth
+26942|ac|ef scale
+26952|ac|penumbral shadow
+26962|ac|scoria cone
+27007|ac|diurnal tide
+27007|ac|diurnal tides
+27042|ac|kirkwood
+27095|ac|electron degeneracy
+27120|ac|h0
+27146|ac|3x10^4
+27246|ac|sn ia
+27338|ac|3.5th power
+27411|ac|quenching
+27411|ac|galaxy quenching
+27468|ac|crustquake
+27545|ac|sulphur
+27638|ac|liquefaction
+27784|ac|neutron capture
+27854|ac|sulphate
+27916|rmac|Rayleigh
+27927|a|3,2,1
+28111|rm|
+28279|a|Coccolithophores and foraminifera
+28594|rm|
+28728|a|W
+28766|q|["The luminosity of a star is proportional","The apparent brightness (flux) of a star is proportional"]
+29334|a|GLACIERS
+27954|ac|gravitational lens
+27954|ac|lensing
+27989|ac|western boundary intensification
+28146|ac|friedmann-lemaitre-robertson-walker metric
+28146|ac|frw metric
+28188|ac|electrostatic barrier
+28189|ac|epoch of recombination
+28229|ac|cno
+28239|ac|darcy's equation
+28279|ac|foraminifera and coccolithophores
+28279|ac|coccolithophores and foraminifera
+28370|ac|C, B, A
+28574|ac|rapid neutron capture
+28593|ac|superluminal
+28593|ac|apparent superluminal motion
+28739|ac|trojan asteroids
+28882|ac|calcium and magnesium
+28897|ac|short grb
+28943|ac|indian and eurasian plates
+29003|ac|cepheid instability strip
+29063|ac|darcy's equation
+29085|ac|orographic lifting
+29085|ac|orographic uplift
+29093|ac|wegener-bergeron-findeisen process
+29093|ac|wbf process
+29108|ac|pop ii
+29119|ac|ice wedging
+29222|ac|synchronous rotation
+29222|ac|tidal lock
+29262|ac|channel avulsion
+29274|ac|achromatic doublet
+29274|ac|achromat
+29342|ac|ia
+29346|ac|magnetite and iron
+29395|ac|columnar joints
+14905|q|["German for “desert mountains,”","German for “island mountains,”"]
+17122|q|["Saturn’s E ring","Saturn’s A ring"]
+20768|q|["A spiral galaxy is classified as E4","An elliptical galaxy is classified as E4"]
+20768|a|Z
