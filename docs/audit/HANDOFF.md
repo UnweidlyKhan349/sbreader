@@ -66,6 +66,9 @@ After `apply`, two tests often need attention:
 
 - **Cross-accept snapshot** (`tests/grader-cross-accepts.json`): removing questions shifts which questions the test samples, so new pairs appear. Run `node tools/grader-cross-check.js`, read the new pairs (they should be the same answer said another way, such as `1` for `1 ONLY`), then `node tools/grader-cross-check.js --write`.
 - **Sign-flip test**: a new accept written with other operators can let a flipped key pass (`4*pi*epsilon0*G` beside `G/k`). Remove that accept with an `id|rmac|…` line and apply again.
+- **Whole-accept test**: an accept that reads as item numbers on a key that labels its parts (`1,2` for `1 RADIAL NODE, 2 ANGULAR NODES`) is refused by the grader; remove it with `rmac`.
+
+A `q` line only changes the question text. A repair to a multiple-choice choice or to key text (a stray "ltech" after "Strontium", `CeF` for `CsF`) is done by hand: `node tools/bank.js unpack <flat.json>`, edit the record's `c` and `a.t`, `node tools/bank.js pack <flat.json>`, `python3 tools/keycheck_sync.py`, then `npm test`.
 
 Keep the trail: append the wave's `out_*.txt`, `vout_*.txt` and `fixes.txt` to the `docs/audit/full-review-2026-11-*.txt` files, then commit and push. A stop hook refuses to end a turn with unpushed work.
 
