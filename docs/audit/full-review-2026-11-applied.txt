@@ -4850,3 +4850,283 @@
 39175|ac|LFT
 38754|ac|-5.6 C
 38744|ac|0.4
+5286|a|X
+5373|a|Y
+5318|rm|
+5540|a|2,3,1
+5680|q|["sp^2-hybridized","sp^3-hybridized"]
+5779|a|1 ONLY
+5816|rm|
+5872|rm|
+5997|a|HUND'S RULE
+6019|a|2-METHYLCYCLOBUTANONE
+7200|a|1 ONLY
+7386|q|["the sulfur atom in IF5","the iodine atom in IF5"]
+8045|a|I AND III
+8063|a|SQRT(6/5)
+8240|a|3
+8354|a|I, II
+5366|ac|cpni(no)
+5374|ac|c9h7bro
+5378|ac|becl2, kf, rbf
+5379|ac|sf6, h2o, nh3, co3 2-
+5415|ac|2^5
+5481|ac|sp3d2 hybridization
+5540|ac|propionic acid, butanal, pentane
+5589|ac|vanadium(v) oxide
+5602|ac|pi-pi interactions
+5668|ac|3c-4e bond
+5668|ac|three-center four-electron bond
+5668|ac|3 center 4 electron
+5699|ac|2-methyl-1,3-butadiene
+5720|ac|ring current effect
+5720|ac|aromatic ring current
+5725|ac|l and ml
+5778|ac|2^7
+5779|ac|1
+5779|ac|1 only
+5791|ac|h+ and carbenium
+5947|ac|fischer indolization
+5951|ac|heat
+5951|ac|thermally
+5963|ac|[3,3] sigmatropic
+5973|ac|robinson annelation
+5973|ac|robinson ring annulation
+5981|ac|cryo-electron microscopy
+5996|ac|jablonski energy diagram
+5997|ac|hund's rule of maximum multiplicity
+6009|ac|n-methylmorpholine oxide
+6019|ac|2-methyl cyclobutanone
+6042|ac|fe(co)5
+6042|ac|pentacarbonyliron
+6055|ac|cheletropic reaction
+6055|ac|cheletropic
+6076|ac|dipolar ion
+6110|ac|ch3i, ch3br, ch3f
+6130|ac|c60
+6146|ac|chemical activity
+6165|ac|mofs
+6165|ac|mof
+6169|ac|x = 0, l/3, 2l/3, l
+7143|ac|gibbs energy
+7143|ac|delta g
+7183|ac|acid-base neutralization
+7200|ac|1
+7253|ac|sixth
+7253|ac|6th
+7253|ac|sixth power
+7381|ac|chemical equilibrium
+7381|ac|dynamic equilibrium
+7382|ac|trigonal bipyramid
+7965|ac|sodium borohydride
+7991|ac|dft
+8045|ac|1 and 3
+8045|ac|i, iii
+8063|ac|sqrt(1.2)
+8074|ac|2-propynyl
+8074|ac|prop-2-ynyl
+8099|ac|4 membered, oxaphosphetane
+8125|ac|central -1, outer 0
+8133|ac|aromatic ring current
+8156|ac|jahn-teller distortion
+8240|ac|three
+8317|ac|positron emission and electron capture
+8332|ac|2 radial, 1 angular
+8339|ac|0.42 v
+8354|ac|1,2
+8354|ac|i and ii
+8354|ac|hcp and fcc
+8399|ac|vdw
+8415|a|-1384
+8523|a|Z
+8560|a|X
+8604|a|1,2,3
+8654|a|1/4
+8663|rm|
+8716|a|1,3,2
+8758|q|["The inside hydrogens have a chemical shift of 9.28 ppm, while those on the outside have a shift of -2.9 ppm","The inside hydrogens have a chemical shift of -2.9 ppm, while those on the outside have a shift of 9.28 ppm"]
+8855|a|Felkin-Anh Model
+8865|a|Y
+9044|a|Z
+9348|a|3
+9823|rm|
+9839|a|2,4,3,1
+9840|a|3
+9926|a|1,2,3
+8415|ac|-1384 kJ
+8415|ac|-1384 kJ/mol
+8448|ac|oxygen 0, fluorine -1
+8474|ac|steady-state approximation
+8474|ac|steady state approximation
+8507|ac|1 1/2
+8517|ac|methylbenzene
+8593|ac|methyl alcohol and ethanoic acid
+8593|ac|methanol and ethanoic acid
+8593|ac|CH3OH and CH3COOH
+8604|ac|1 2 3
+8604|ac|1, 2, 3
+8654|ac|1:4
+8654|ac|0.25
+8673|ac|Madelung
+8693|ac|dehydrobenzene
+8693|ac|1,2-didehydrobenzene
+8713|ac|Eyring-Polanyi equation
+8758|ac|aromatic ring current
+8777|ac|alpha-nitropyrrole
+8797|ac|4.5x
+8855|ac|Felkin-Anh
+8855|ac|Felkin Anh
+8855|ac|Felkin-Anh model
+9006|ac|inert s-pair effect
+9101|ac|oxidation-reduction
+9101|ac|reduction-oxidation
+9122|ac|methyl alcohol
+9122|ac|wood alcohol
+9284|ac|transactinide elements
+9303|ac|Cu2+ and Zn
+9303|ac|copper(II) and zinc
+9348|ac|argon and bromine
+9348|ac|3 only
+9351|ac|Cahn Ingold Prelog
+9351|ac|CIP rules
+9351|ac|CIP priority rules
+9361|ac|electron cloud
+9361|ac|electrons around the nucleus
+9374|ac|3c-2e bond
+9387|ac|racemic mixture
+9387|ac|racemate
+9388|ac|methanol and hydronium ion
+9391|ac|Fischer-Speier esterification
+9403|ac|+6
+9403|ac|U(VI)
+9403|ac|6
+9434|ac|Woodward cis-dihydroxylation
+9435|ac|2-methyl-2-chlorobutane
+9468|ac|Langmuir isotherm
+9468|ac|Langmuir adsorption isotherm
+9478|ac|equatorial conformer
+9478|ac|the equatorial one
+9478|ac|methyl equatorial
+9500|ac|oxygen is reduced and lithium is oxidized
+9577|ac|Na and Cl2
+9622|ac|none
+9652|ac|Haber-Bosch process
+9652|ac|Haber Bosch
+9721|ac|7, 1
+9734|ac|methanol and bromide ion
+9734|ac|methyl alcohol and bromide
+9793|ac|-1.86 degrees
+9847|ac|eclipsing strain
+9863|ac|zeroth
+9863|ac|zeroth order
+9864|ac|v/2^0.5
+9880|ac|carbonyl process
+9916|ac|DIBAL
+9916|ac|DIBAH
+9916|ac|diisobutylaluminium hydride
+8480|rj|3:2
+12267|a|3 ONLY
+12306|rm|
+12321|q|["-181 kelvin","-181 degrees Celsius"]
+12386|q|["electronsremain","electrons remain"]
+12402|q|["i s the","is the"]
+12410|rm|
+12411|rm|
+12431|a|2 ONLY
+12448|rm|
+12449|rm|
+12457|a|2,1,4,3
+12494|a|4
+12521|a|W
+12567|a|Y
+12671|a|1 2 4
+12722|q|["type o f","type of"]
+12731|a|2,3
+12769|a|2 AND 3
+12822|rm|
+12823|a|1.008 KILOJOULES
+12904|q|["s ulfu r tetrafluoride","sulfur tetrafluoride"]
+13009|rm|
+13152|a|1 AND 2
+13403|a|2,1,3
+13531|a|2,4,3,1
+13561|a|NONE
+13584|a|VALENCE BAND
+13721|rm|
+12267|ac|3
+12307|ac|hydrogen phosphate
+12307|ac|hydrogen phosphate ion
+12307|ac|HPO4 2-
+12321|ac|becoming a superconductor
+12341|ac|take the square root
+12341|ac|sqrt
+12353|ac|orientation factor
+12386|ac|inert s pair effect
+12403|ac|chair conformation
+12431|ac|2
+12431|ac|4s
+12457|ac|chlorine, fluorine, silicon, boron
+12476|ac|iodide and tetrathionate
+12476|ac|I- and S4O6 2-
+12502|ac|0.02 per second
+12502|ac|0.02 s^-1
+12534|ac|leveling effect
+12586|ac|dimer formation
+12671|ac|iron, magnesium, germanium
+12671|ac|1,2,4
+12685|ac|interstitial compound
+12731|ac|2 AND 3
+12731|ac|beryllium and zinc
+12763|ac|successful collision
+12769|ac|2,3
+12815|ac|Amontons's law
+12823|ac|1.008
+12823|ac|1008 joules
+12823|ac|1008 J
+12899|ac|dichlorine oxide
+12899|ac|chlorine(I) oxide
+12944|ac|C60
+12997|ac|oxirane
+13021|ac|Wittig olefination
+13027|ac|copper(II) and cyanide
+13040|ac|ammonium
+13107|ac|Hammett acidity function
+13107|ac|Hammett function
+13122|ac|sp3, sp2, sp
+13130|ac|Hammond-Leffler postulate
+13152|ac|1,2
+13152|ac|alkene and diene
+13168|ac|Grignard reagent
+13168|ac|alkylmagnesium bromide
+13175|ac|FT
+13175|ac|Fourier transformation
+13186|ac|catalytic hydrogenation
+13186|ac|hydrogenation reaction
+13248|ac|3, d5
+13266|ac|Re face
+13311|ac|ethyl, isopropyl, tert-butyl
+13339|ac|thermogravimetric analysis
+13350|ac|[4+2] cycloaddition
+13350|ac|4+2 cycloaddition
+13357|ac|Hartree Fock method
+13396|ac|hydride transfer
+13396|ac|hydride ion
+13396|ac|H-
+13403|ac|oxidative addition, transmetalation, reductive elimination
+13425|ac|hydrogen bonding
+13425|ac|H-bonding
+13522|ac|change in entropy
+13531|ac|sigma, pi, pi star, sigma star
+13539|ac|zeroth
+13539|ac|zero order
+13561|ac|none of them
+13584|ac|valence
+13584|ac|VB
+13630|ac|Rydberg formula
+13640|ac|Ti4+
+13676|ac|temperature change
+13698|ac|coordinate covalent bond
+13698|ac|dative covalent bond
+13731|ac|sulfuric
+12431|rj|2 AND 4
+12671|rj|1 2 3
