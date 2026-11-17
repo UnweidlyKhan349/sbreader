@@ -16,7 +16,7 @@
 {"i":33071,"s":"chem","f":"SA","qt":"bonus","n":20,"q":"Which principle in chemistry states that when a system experiences a disturbance, it will respond to restore a new equilibrium state?","a":{"t":"Le Châtelier’s Principle"},"pg":4}]},
 {"rl":"DV 2025 Round 1","r":1,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/DV%202025%20Round%201.pdf","q":[
 {"i":33073,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"Einstein’s theory of relativity includes what famous formula which equates the energy of a particle with its rest mass?","a":{"t":"E=mc^2"},"pg":1},
-{"i":33074,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Which group of elements are considered stable because they contain a full outer shell?","a":{"t":"Nobel Gases"},"pg":1},
+{"i":33074,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Which group of elements are considered stable because they contain a full outer shell?","a":{"t":"NOBLE GASES","ac":["noble gas"]},"pg":1},
 {"i":33075,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"What is the basic unit of life known as?","a":{"t":"Cells"},"pg":1},
 {"i":33076,"s":"bio","f":"SA","qt":"bonus","n":3,"q":"In what organelle in prokaryotic cells does protein synthesis take place?","a":{"t":"Ribosomes"},"pg":1},
 {"i":33077,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Most semiconductors are made from which metalloid?","a":{"t":"Silicon"},"pg":2},
@@ -76,7 +76,7 @@
 {"i":33135,"s":"chem","f":"SA","qt":"tossup","n":21,"q":"Identify the following 3 properties as chemical or physical, respectively. 1) flammability 2) density 3) hardness","a":{"t":"1) chemical 2) physical 3) physical"},"pg":8},
 {"i":33136,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"What terrestrial biome has the highest net primary productivity?","a":{"t":"Tropical Rainforest"},"pg":8},
 {"i":33137,"s":"bio","f":"SA","qt":"bonus","n":22,"q":"In the tundra biome, what is the term for the layer of the ground that is frozen year round?","a":{"t":"Permafrost"},"pg":8},
-{"i":33138,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"What is the term for the energy required to remove an electron from an atom?","a":{"t":"Ionization Energy"},"pg":8},
+{"i":33138,"s":"chem","f":"SA","qt":"tossup","n":23,"q":"What is the term for the energy required to remove an electron from an atom?","a":{"t":"Ionization Energy","ac":["ionization potential","ionisation energy"]},"pg":8},
 {"i":33139,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"Fermi Lab is the host to DUNE, an underground facility which will paint a picture of the universe and how it works. DUNE is designed to detect which ghostly particles?","a":{"t":"Neutrinos"},"pg":8}]},
 {"rl":"ESS Supplemental","r":null,"u":"https://lebot.djiang.xyz/packets/dvhs-2025/ESS%20Supplemental.pdf","q":[
 {"i":33140,"s":"ess","f":"SA","qt":"tossup","n":21,"q":"Anish, looking through Keshav’s telescope, observes the stars Betelgeuse and Rigel. At which constellation is Anish looking?","a":{"t":"Orion"},"pg":1},
