@@ -217,17 +217,17 @@ test('Set and packet pages link their sources; packet questions have no tag line
   assert.doesNotMatch(text, /Download packet|<Physics|Report/);
   const freq = await openPage(ctx, server.url + 'frequency-list?subject=bio');
   await freq.waitForSelector('#frequency-list tr', { timeout: 30000 });
-  // As QB Reader's: a limit, a question type, rounds and years, and downloads.
-  assert.match(await freq.locator('#freqPage').innerText(), /Download this page:\s*TXT\s*CSV/);
+  // Just the top 50: no downloads, round, limit, type or year pickers.
+  const page = await freq.locator('#freqPage').innerText();
+  assert.doesNotMatch(page, /Download this page|Choose a round|Choose a limit|Choose a question type|Year range/);
+  assert.strictEqual(await freq.locator('#freqPage input, #freqPage select').count(), 0);
   assert.strictEqual(await freq.locator('#frequency-list tr').count(), 50);
-  await freq.fill('#freqLimit', '7');
-  await freq.press('#freqLimit', 'Enter');
-  await freq.selectOption('#freqType', 'bonus');
-  await freq.waitForFunction(() => document.querySelectorAll('#frequency-list tr').length === 7);
-  assert.match(await freq.locator('#freqTitle').innerText(), /^The 7 most frequent answers in Biology bonuses:$/);
-  assert.match(await freq.evaluate(() => location.search), /limit=7&type=bonus/);
-  const [dl] = await Promise.all([freq.waitForEvent('download'), freq.click('#downloadCsv')]);
-  assert.strictEqual(dl.suggestedFilename(), 'frequency-list-bio-bonus.csv');
+  assert.match(await freq.locator('#freqTitle').innerText(), /^The 50 most frequent answers in Biology questions:$/);
+  // An old link's filters are ignored.
+  await freq.goto(server.url + 'frequency-list?subject=bio&limit=7&type=bonus', { waitUntil: 'networkidle' });
+  await freq.waitForSelector('#frequency-list tr', { timeout: 30000 });
+  assert.strictEqual(await freq.locator('#frequency-list tr').count(), 50);
+  assert.strictEqual(await freq.evaluate(() => location.search), '?subject=bio');
   assert.deepStrictEqual([...set.errors, ...packet.errors, ...freq.errors], []);
   await ctx.close();
 });

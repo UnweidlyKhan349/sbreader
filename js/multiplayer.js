@@ -268,14 +268,6 @@
     document.getElementById('activeSummary').textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
   }
 
-  // A new version of the site is taken by itself, with no button to press:
-  // at once in the lobby, and in a room between questions (not while one is
-  // read, open for buzzing or answered). The room is in the address, so the
-  // reload comes straight back into it, with this player's score.
-  if (window.SBSite && SBSite.autoUpdate) {
-    SBSite.autoUpdate(() => !myState.roomId || !['reading', 'buzzwindow', 'answering'].includes(game.phase));
-  }
-
   /* ================= SHARED GAME STATE (rendered identically on host & clients) ================= */
   const game = {
     players: [], phase: 'lobby', index: 0, total: 0,
