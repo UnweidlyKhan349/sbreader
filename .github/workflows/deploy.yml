@@ -61,7 +61,16 @@ jobs:
         run: node --test tests/*.test.js
       - name: Copy the site files
         if: env.STALE != '1'
-        run: rsync -a --exclude .git --exclude .github --exclude tests --exclude tools --exclude supabase ./ "$RUNNER_TEMP/site/"
+        # Only what the site serves: not the repo's own files (docs, tests,
+        # tools, the schema, the README and changelog, which pages link on
+        # GitHub), nor the data only npm test reads. LICENSE stays with the copy.
+        run: >-
+          rsync -a
+          --exclude .git --exclude .github --exclude .gitignore
+          --exclude tests --exclude tools --exclude supabase --exclude docs
+          --exclude README.md --exclude CHANGELOG.md --exclude package.json --exclude package-lock.json
+          --exclude data/source-subjects.json --exclude data/subject-overrides.json
+          ./ "$RUNNER_TEMP/site/"
       - name: Build a page for every set and packet, and the full sitemap
         if: env.STALE != '1'
         run: node tools/build-pages.js "$RUNNER_TEMP/site"

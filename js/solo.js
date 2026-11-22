@@ -287,7 +287,7 @@
     Object.assign(session, { correct: 0, incorrect: 0, skipped: 0, points: 0, celeritySum: 0, celerityCount: 0 });
     // The answer on screen was counted before the clear: overriding it now
     // changes its grade, not the fresh counts.
-    if (runtime.lastOutcome) runtime.lastOutcome.uncounted = true;
+    played.forEach((o) => { o.uncounted = true; });
     updateCounters();
   }
 
@@ -330,6 +330,8 @@
     if (runtime.revealCtl) runtime.revealCtl.stop();
     setPaused(false);
     cardPending();
+    parkOverride();
+    addPastOverride(runtime.lastOutcome);
     hideSettingsOnPhone();
 
     session.index++;
@@ -512,6 +514,13 @@
       : runtime.attempts.length
         ? { attempted: true, correct: false, userText: last.userText, close: last.close }
         : { attempted: false };
+    // What an override needs later, on this question or a past one: the
+    // question, where you buzzed, and whether any wrong buzz was early.
+    Object.assign(outcome, {
+      q, serial: runtime.serial,
+      fraction: runtime.buzzFraction,
+      anyEarly: runtime.attempts.some((a) => a.early),
+    });
     runtime.lastOutcome = outcome;
 
     // A skip counts toward Incorrect (you didn't get it) and is logged as such.
@@ -526,7 +535,9 @@
     session.points += pointsFor(outcome);
     updateCounters();
     runtime.pendingCard = { q, category, userText: outcome.userText || '' };
-    if (window.SBAccount) SBAccount.recordAnswer(q, category, 'solo', accountExtra(outcome));
+    // (the handle lets an override change this answer later)
+    if (window.SBAccount) outcome.account = SBAccount.recordAnswer(q, category, 'solo', accountExtra(outcome));
+    if (outcome.attempted) played.push(outcome);
     // For the question's community stats: how it went (a question skipped
     // before it was read through wasn't heard, so it isn't counted).
     if (window.SBQuestionStats && (outcome.attempted || runtime.readingDone)) {
@@ -547,15 +558,16 @@
     if (outcome.correct) return 'correct';
     return pointsFor(outcome) < 0 ? 'neg' : 'incorrect';
   }
+  function fractionOf(outcome) { return outcome.fraction == null ? 1 : outcome.fraction; }
   function celerityOf(outcome) {
-    return outcome.correct ? 1 - (runtime.buzzFraction == null ? 1 : runtime.buzzFraction) : null;
+    return outcome.correct ? 1 - fractionOf(outcome) : null;
   }
   // For your account's stats: the points, and where you buzzed (right or
   // wrong; nothing for a question you didn't buzz on).
   function accountExtra(outcome) {
     return {
       points: pointsFor(outcome),
-      celerity: outcome.attempted ? 1 - (runtime.buzzFraction == null ? 1 : runtime.buzzFraction) : null,
+      celerity: outcome.attempted ? 1 - fractionOf(outcome) : null,
     };
   }
 
@@ -563,7 +575,7 @@
   // the question finished (an interrupt), at most once per question.
   function pointsFor(outcome) {
     if (outcome.correct) return 4;
-    return outcome.early || runtime.attempts.some((a) => a.early) ? -4 : 0;
+    return outcome.early || outcome.anyEarly ? -4 : 0;
   }
 
   function showReveal() {
@@ -616,23 +628,48 @@
     resolveQuestion();
   }
 
-  function overrideGrading() {
-    if (runtime.phase !== 'reveal' || !runtime.lastOutcome || !runtime.lastOutcome.attempted) return;
-    const o = runtime.lastOutcome;
+  // "I was wrong" / "I was right": flips a graded answer, this question's
+  // or any earlier one's (from the link on its line in the history). The
+  // counts, points and celerity follow (unless Clear stats came since), and
+  // so does your account's record of it; a flip to right is logged for the
+  // grader (SBReports). A past question's community stats were already sent
+  // when the next question started, so only the current one's change there.
+  const played = []; // every graded answer this page has shown
+  function flipOutcome(o) {
     if (!o.uncounted) {
       session.points -= pointsFor(o);
       // Celerity follows the override: a correct answer counts toward it.
-      const f = runtime.buzzFraction == null ? 1 : runtime.buzzFraction;
+      const f = fractionOf(o);
       if (o.correct) { session.correct--; session.incorrect++; session.celeritySum -= f; session.celerityCount--; } else { session.incorrect--; session.correct++; session.celeritySum += f; session.celerityCount++; }
     }
     o.correct = !o.correct;
     if (!o.uncounted) session.points += pointsFor(o);
     updateCounters();
+    if (o === runtime.lastOutcome && window.SBQuestionStats) SBQuestionStats.update(o.q, playResult(o), celerityOf(o));
+    if (o.account) o.account.update(o.correct ? 'correct' : 'incorrect', accountExtra(o));
+    if (o.correct && window.SBReports) SBReports.logOverride(o.q, o.userText, 'solo');
+  }
+  function overrideGrading() {
+    if (runtime.phase !== 'reveal' || !runtime.lastOutcome || !runtime.lastOutcome.attempted) return;
+    const o = runtime.lastOutcome;
+    flipOutcome(o);
     if (runtime.pendingCard) runtime.pendingCard.category = o.correct ? 'correct' : 'incorrect';
-    if (window.SBQuestionStats) SBQuestionStats.update(currentQ(), playResult(o), celerityOf(o));
-    if (window.SBAccount) SBAccount.updateLastAnswer(o.correct ? 'correct' : 'incorrect', accountExtra(o));
-    if (o.correct && window.SBReports) SBReports.logOverride(currentQ(), o.userText, 'solo');
     showReveal();
+  }
+  // Once the next question starts, a past answer's line keeps its own
+  // "I was wrong" / "I was right" link.
+  function addPastOverride(o) {
+    if (!o || !o.attempted) return;
+    const line = [...document.querySelectorAll('#questionLog > li.answer-line')].find((li) => li.dataset.serial === String(o.serial));
+    if (!line || line.querySelector('.past-override')) return;
+    const link = document.createElement('a');
+    link.href = '#';
+    link.className = 'btn btn-link p-0 float-end past-override';
+    link.setAttribute('role', 'button');
+    const paint = () => { link.textContent = o.correct ? 'I was wrong' : 'I was right'; paintAnswerLine(line, o.correct, o.close); };
+    link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); flipOutcome(o); paint(); });
+    paint();
+    line.appendChild(link);
   }
 
   // The button skips while a question is being read, goes on once it's

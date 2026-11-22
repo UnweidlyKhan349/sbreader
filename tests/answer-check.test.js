@@ -839,7 +839,7 @@ test('a stand-in for the wrong symbol or value is still wrong', () => {
   ]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
 });
 
-test('capitals that change the answer: genotypes, symbols and formulas, milli/mega are Close, not right', () => {
+test('capitals that change the answer: genotypes and really ambiguous formulas are Close; unambiguous lower case and milli/mega pass', () => {
   const g = { question: 'Name the genotype of a heterozygous individual.' };
   const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && r.close; };
   for (const typed of ['AA', 'aa']) assert.ok(closeOnly('Aa', typed, g), typed);
@@ -852,7 +852,11 @@ test('capitals that change the answer: genotypes, symbols and formulas, milli/me
   assert.ok(closeOnly('Co', 'CO', { question: 'What element is in vitamin B12?' }));
   assert.ok(isCorrect('NaCl', 'nacl'));
   assert.ok(isCorrect('SI O2', 'SiO2'));
-  for (const [key, typed] of [['10 MW', '10 mW'], ['10 MW', '10 mw'], ['61 mV', '61 MV']]) assert.ok(closeOnly(key, typed), typed);
+  // Milli and mega aren't told apart by case (November 22, 2026): players type units in any case.
+  for (const [key, typed] of [['10 MW', '10 mW'], ['10 MW', '10 mw'], ['61 mV', '61 MV']]) assert.ok(isCorrect(key, typed), typed);
+  // Lower case is fine when it can only mean the key; "co" for Co (or CO) is really two things.
+  for (const [key, typed] of [['CaCO3', 'caco3'], ['Pb', 'pb'], ['SiO2', 'sio2'], ['NaHCO3', 'nahco3'], ['KAlSi3O8', 'kalsi3o8'], ['Zn(H2PO4)2', 'zn(h2po4)2'], ['SiO4^(4-)', 'sio4^(4-)']]) assert.ok(isCorrect(key, typed), typed);
+  for (const [key, typed] of [['Co', 'co'], ['Hf', 'hf']]) assert.ok(closeOnly(key, typed, { question: 'What element is it?' }), typed);
   assert.ok(isCorrect('10 MW', '10 megawatts'));
   assert.ok(!isCorrect('10 MW', '10 milliwatts'));
 });
@@ -1091,4 +1095,20 @@ test('full-bank stress fixes: rankings said "from X to Y" keep order; junk, "not
   const mc = { question: 'Which is incorrect?', format: 'MC', choices: { W: 'The length is 10.', X: 'Foci 26.', Y: 'One of the asymptotes has slope 5/12.', Z: 'None.' }, answer: { text: 'One of the asymptotes has slope 5/12.', letter: 'Y', accept: [], reject: [] } };
   for (const s of ['Y', 'One of the asymptotes has slope 5/12.', 'One of the asymptotes has slope 5/12']) assert.ok(checkAnswer(mc, s).correct, s);
   assert.ok(!checkAnswer(mc, '???').correct);
+});
+
+test('November 22 rules: simplified forms only, ± typed any way, multi-part split by commas or spaces', () => {
+  // Equal in value isn't enough: an unreduced fraction, a root left in the
+  // denominator or a root not simplified is another form.
+  for (const [key, typed] of [['1/2', '3/6'], ['√2/2', '1/√2'], ['sqrt2/2', '1/sqrt2'], ['√3/3', '1/√3'], ['2√3', '√12'], ['5√2', '√50'], ['2∛2', '∛16']]) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  for (const [key, typed] of [['√2/2', 'sqrt(2)/2'], ['2√3', '2sqrt3'], ['1/2', '0.5'], ['1/√2', '√2/2']]) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+  // A keyboard has no ±.
+  for (const key of ['±1', 'x = ±1']) {
+    for (const typed of ['+-1', '+- 1', '+/-1', 'plus or minus 1', '1, -1', '+1, -1', '1 and -1', '-1, 1', '1 -1', '1 or -1', 'x = 1, -1', 'x=1 or x=-1', 'x = +-1']) assert.ok(isCorrect(key, typed), `${typed} for ${key}`);
+    for (const typed of ['2, -2', '-1']) assert.ok(!isCorrect(key, typed), `${typed} for ${key}`);
+  }
+  // Multi-part answers split by commas, spaces or semicolons.
+  for (const typed of ['first quarter, full', 'first quarter full', 'first quarter; full']) assert.ok(isCorrect('FIRST QUARTER; FULL', typed), typed);
+  for (const typed of ['16 18', '16, 18', '4s 1/16'].slice(0, 2)) assert.ok(isCorrect('16; 18', typed), typed);
+  assert.ok(isCorrect('1) 4s; 2) 1/16', '4s 1/16'));
 });

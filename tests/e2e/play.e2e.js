@@ -38,7 +38,11 @@ test('a question can be buzzed, graded and overridden', async () => {
   await page.keyboard.press('n');
   await page.waitForTimeout(400);
   assert.strictEqual(await page.locator('#questionLog > *').first().evaluate((x) => x.classList.contains('history-card')), true);
-  assert.match(await page.locator('#questionLog > li.answer-line').first().innerText(), /^Correct definitely not the answer$/, 'the override link has left it');
+  // The past line keeps its own link (not the current question's).
+  const past = page.locator('#questionLog > li.answer-line').first();
+  assert.match(await past.innerText(), /^Correct definitely not the answer\s*I was wrong$/);
+  assert.strictEqual(await past.locator('#overrideBtn').count(), 0);
+  assert.strictEqual(await past.locator('.past-override').count(), 1);
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });
@@ -278,5 +282,30 @@ test('the year slider: a press to the right of two handles sitting together move
   await page.mouse.click(box.x + 10, y);
   const after = await range();
   assert.ok(after[0] < tied[0] && after[1] === tied[1], 'left of a tied pair moves the bottom');
+  await ctx.close();
+});
+
+test('a past question\'s answer keeps an I was right / I was wrong link that flips it and the counts', async () => {
+  const { ctx, page } = await freshPlay();
+  const stats = () => page.locator('#statline').innerText();
+  await page.keyboard.press('n'); await page.waitForTimeout(500);
+  await page.keyboard.press(' ');
+  await page.keyboard.type('zzzz not the answer');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(400);
+  assert.match(await stats(), /^0\/1 /);
+  await page.locator('body').click({ position: { x: 5, y: 300 } });
+  await page.keyboard.press('n'); await page.waitForTimeout(400);
+  // The first question is past: its line has its own link.
+  const line = page.locator('#questionLog > li.answer-line').first();
+  assert.strictEqual(await line.locator('.past-override').innerText(), 'I was right');
+  assert.strictEqual(await line.locator('#overrideBtn').count(), 0);
+  await line.locator('.past-override').click();
+  assert.match(await stats(), /^1\/0 /);
+  assert.match(await line.innerText(), /^Correct zzzz not the answer\s*I was wrong$/);
+  await line.locator('.past-override').click();
+  assert.match(await stats(), /^0\/1 /);
+  assert.ok(await line.locator('.badge.bg-danger').count() === 1);
+  assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });

@@ -2517,16 +2517,23 @@
     return t;
   }
 
-  // "3 and -3", "-3, 3" or "+/-3" for a key of "±3"
+  // "3 and -3", "-3, 3", "3 -3", "+3, -3", "+/-3" or "+- 3" for a key of
+  // "±3", and the same with or without the variable ("x = ±3", "x = 3, x =
+  // -3", "x=3 or x=-3"): a keyboard has no ±.
   function samePlusMinus(typed, key) {
-    const m = String(key).trim().match(/^±\s*(.+)$/);
+    const m = String(key).trim().match(/^(?:([A-Za-z])\s*=\s*)?±\s*(.+)$/);
     if (!m) return false;
-    const items = String(typed).split(/\s*(?:,|;|\band\b|\bor\b)\s*/i).map((x) => x.trim()).filter(Boolean);
+    const value = m[2];
+    const eq = (a, b) => normEqual(a, b) || compactEqual(a, b);
+    const noVar = (x) => x.trim().replace(/^[A-Za-z]\s*=\s*/, '');
+    const t = plusMinus(String(typed)).trim();
+    const whole = noVar(t).match(/^±\s*(.+)$/);
+    if (whole) return eq(whole[1], value);
+    const items = t.split(/\s*(?:,|;|\band\b|\bor\b)\s*|\s+(?=[-−–+]\s*\d)/i).map(noVar).filter(Boolean);
     if (items.length !== 2) return false;
     const pos = items.find((x) => !/^[-−–]/.test(x)), neg = items.find((x) => /^[-−–]/.test(x));
     if (!pos || !neg) return false;
-    const eq = (a, b) => normEqual(a, b) || compactEqual(a, b);
-    return eq(pos.replace(/^\+/, ''), m[1]) && eq(neg.replace(/^[-−–]\s*/, ''), m[1]);
+    return eq(pos.replace(/^\+\s*/, ''), value) && eq(neg.replace(/^[-−–]\s*/, ''), value);
   }
 
   // An isotope however it's written: "^(14)C", "C-14", "carbon-14",
@@ -2656,15 +2663,25 @@
         return !name || !new RegExp('\\b' + name).test(named);
       });
     }
-    // typed in one case only: fine when that can only be read one way
+    // Typed in one case only: fine unless it's really ambiguous. Each run
+    // of letters must be readable as the key's symbols, and the only
+    // ambiguity that counts is a two-letter formula that is both one
+    // element and a real two-element molecule ("co": Co or CO, "hf": Hf or
+    // HF). "caco3", "pb", "sio2", "nahco3" can only mean the key.
     if (t === t.toLowerCase() || t === t.toUpperCase()) {
       const runs = t.split(/[\d()[\]]+/).filter(Boolean);
       const keyRuns = k.split(/[\d()[\]]+/).filter(Boolean);
-      return !runs.every((r, i) => { const rd = symbolReadings(r, 3); return rd.length === 1 && rd[0] === keyRuns[i]; });
+      if (runs.length !== keyRuns.length || !runs.every((r, i) => symbolReadings(r, 50).includes(keyRuns[i]))) return true;
+      return /^[A-Za-z]{2}$/.test(t) && AMBIGUOUS_PAIRS.has(t.toUpperCase());
     }
     return true; // capitals typed on purpose, and different
   }
+  // Two letters that are both an element and a molecule people ask about:
+  // only these make a one-case formula ambiguous.
+  const AMBIGUOUS_PAIRS = new Set(['CO', 'HF', 'NO', 'CS', 'CN', 'PO', 'HS', 'HO']);
   // "10 mW" for "10 MW": a milli/mega (or other case-told) prefix flipped.
+  // (Not used in grading since November 22, 2026: players type units in any
+  // case, so milli and mega aren't told apart by case.)
   const PREFIX_UNIT_RE = /(\d)\s*([mM])(W|V|A|Hz|J|Pa|eV|g|s|m|pc|L|bps|Ω|ohms?)\b/;
   function prefixCaseConflict(typed, key) {
     const k = String(key).match(PREFIX_UNIT_RE);
@@ -2676,7 +2693,7 @@
     return t[2] !== k[2];
   }
   function caseConflict(typed, keys, questionText) {
-    return keys.some((k) => genotypeCaseConflict(typed, k, questionText) || formulaCaseConflict(typed, k, questionText) || prefixCaseConflict(typed, k));
+    return keys.some((k) => genotypeCaseConflict(typed, k, questionText) || formulaCaseConflict(typed, k, questionText));
   }
 
   // ---- Electron configurations ----
@@ -2969,6 +2986,38 @@
     if (l.t === 'leaf' && /^[A-Z]$/.test(l.v)) return { name: l.v, expr: r };
     return null;
   }
+  // Forms a moderator wouldn't take for a simplified key, however equal in
+  // value: a root left in a denominator ("1/√2" for √2/2), and a root of a
+  // whole number with a square (or cube) factor still inside ("√12" for
+  // 2√3, "∛16" for 2∛2).
+  function isRoot(n) {
+    if (!n) return false;
+    if (n.t === 'fn') return n.name === 'SQRT' || n.name === 'CBRT';
+    if (n.t === 'pow') {
+      const e = n.b && n.b.t === 'neg' ? n.b.x : n.b;
+      return !!e && e.t === 'div';
+    }
+    return false;
+  }
+  function hasRoot(n) { return !!n && (isRoot(n) || hasRoot(n.a) || hasRoot(n.b) || hasRoot(n.x)); }
+  function rootInDenominator(n) {
+    if (!n) return false;
+    if (n.t === 'div' && hasRoot(n.b)) return true;
+    return rootInDenominator(n.a) || rootInDenominator(n.b) || rootInDenominator(n.x);
+  }
+  function unsimplifiedRoot(n) {
+    if (!n) return false;
+    if (n.t === 'fn' && (n.name === 'SQRT' || n.name === 'CBRT') && n.x && n.x.t === 'leaf' && /^\d+$/.test(n.x.v)) {
+      const v = Number(n.x.v);
+      const k = n.name === 'SQRT' ? 2 : 3;
+      for (let f = 2; f ** k <= v; f++) if (v % (f ** k) === 0) return true;
+      return false;
+    }
+    return unsimplifiedRoot(n.a) || unsimplifiedRoot(n.b) || unsimplifiedRoot(n.x);
+  }
+  function unsimplifiedForm(t, k) {
+    return (rootInDenominator(t) && !rootInDenominator(k)) || (unsimplifiedRoot(t) && !unsimplifiedRoot(k));
+  }
   function mathEquivalent(typed, key, questionText) {
     // the same expression in other notation ("sqrt(42)/3" for "√42/3"),
     // which is fine even when a form is asked for
@@ -3012,7 +3061,7 @@
     const vt = exprVars([tExpr]), vk = exprVars([kExpr]);
     if (!sameSet(vt, vk)) return false;
     if (!vk.size && !hasIrrational(kExpr)) return false;
-    if (leafCount(tExpr) > leafCount(kExpr) || unreducedFraction(tExpr)) return false;
+    if (leafCount(tExpr) > leafCount(kExpr) || unreducedFraction(tExpr) || unsimplifiedForm(tExpr, kExpr)) return false;
     return sameValues((env) => evalNode(kExpr, env), (env) => evalNode(tExpr, env), vk, false);
   }
 
