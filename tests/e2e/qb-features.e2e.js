@@ -17,13 +17,15 @@ test.after(async () => { await browser.close(); await server.close(); });
 async function statsContext(stats) {
   const ctx = await newContext(browser, { liveSupabase: true });
   const plays = [];
+  const changes = [];
   await ctx.route(/supabase\.co/, (route) => {
     const url = route.request().url();
     if (/\/rpc\/question_play$/.test(url)) { plays.push(route.request().postDataJSON()); return route.fulfill({ status: 204, body: '' }); }
+    if (/\/rpc\/question_play_change$/.test(url)) { changes.push(route.request().postDataJSON()); return route.fulfill({ status: 200, contentType: 'application/json', body: 'true' }); }
     if (/\/rpc\/question_stats$/.test(url)) return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify([stats]) });
     return route.abort();
   });
-  return { ctx, plays };
+  return { ctx, plays, changes };
 }
 const results = (page) => page.locator('#resultCount').innerText().then((t) => parseInt(t.replace(/^Showing \d+ of /, ''), 10));
 
@@ -260,6 +262,30 @@ test('Database: Exact words finds whole words only, marks only them, and a wrong
   await page.locator('#searchTypeQuestion').check();
   assert.ok(await search('hyperbolic') > 50);
   assert.ok(await page.locator('#results .choices mark').count() > 0, 'choices are marked');
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
+
+test('Play: I was right on an earlier question changes its community-stats play, already sent, by the key sent with it', async () => {
+  const { ctx, plays, changes } = await statsContext({ heard: 0 });
+  const page = await openPage(ctx, server.url + 'solo');
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.keyboard.press('n'); await page.waitForTimeout(500);
+  await page.keyboard.press(' ');
+  await page.keyboard.type('zzzz not the answer');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(300);
+  await page.locator('body').click({ position: { x: 5, y: 300 } });
+  await page.keyboard.press('n'); await page.waitForTimeout(800);
+  assert.strictEqual(plays.length, 1, 'the first play was sent when the next question started');
+  assert.match(plays[0].p_key, /^[0-9a-f]{36}$/, 'with its key');
+  assert.ok(['incorrect', 'neg'].includes(plays[0].p_result));
+  await page.locator('#questionLog .past-override').first().click();
+  await page.waitForTimeout(500);
+  assert.strictEqual(changes.length, 1);
+  assert.strictEqual(changes[0].p_key, plays[0].p_key);
+  assert.strictEqual(changes[0].p_result, 'correct');
+  assert.ok(typeof changes[0].p_celerity === 'number');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });

@@ -330,8 +330,11 @@
   // overrideLocked is the ID of the player overridden to correct (false if
   // none): only they may still take it back ("I was wrong"). A bare `true`
   // locks everyone.
-  function canOverrideOwn(attempts, playerId, overrideLocked) {
-    if (overrideLocked && overrideLocked !== playerId) return false;
+  // Anyone who buzzed can override their own answer, also after someone
+  // else has been overridden to correct (there's no lock since November 22,
+  // 2026: each "I was right" takes the question from whoever had it).
+  // `overrideLocked` is still passed by older callers and ignored.
+  function canOverrideOwn(attempts, playerId, overrideLocked) { // eslint-disable-line no-unused-vars
     return attempts.some((a) => a.playerId === playerId);
   }
 

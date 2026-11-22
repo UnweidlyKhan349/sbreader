@@ -113,8 +113,9 @@ test('"I was right" after someone else was marked correct takes the question fro
   assert.match(await a.locator('#mpHistory').innerText(), /was marked incorrect: .* was right/);
   assert.strictEqual(await scores(a), await scores(g));
   assert.match(await scores(a), / 0 \| .* 4$/, 'the guest has the 4 points, the other player none');
-  // Only the guest can change it now; taking it back restores both.
-  assert.strictEqual(await a.locator('#mpHistory .mp-inline-override').count(), 0);
+  // The other player can still say they were right (no lock); here the
+  // guest takes it back instead, which restores both.
+  assert.strictEqual(await a.locator('#mpHistory .mp-inline-override').innerText(), 'I was right');
   await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
   for (const p of [a, g]) assert.strictEqual(await badges(p), 'green red');
   assert.deepStrictEqual([...a.errors, ...g.errors], []);

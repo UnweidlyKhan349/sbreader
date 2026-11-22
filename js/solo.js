@@ -541,7 +541,7 @@
     // For the question's community stats: how it went (a question skipped
     // before it was read through wasn't heard, so it isn't counted).
     if (window.SBQuestionStats && (outcome.attempted || runtime.readingDone)) {
-      SBQuestionStats.track(q, 'solo', playResult(outcome), celerityOf(outcome));
+      outcome.stats = SBQuestionStats.track(q, 'solo', playResult(outcome), celerityOf(outcome));
     }
 
     setBuzzEnabled(false);
@@ -632,8 +632,8 @@
   // or any earlier one's (from the link on its line in the history). The
   // counts, points and celerity follow (unless Clear stats came since), and
   // so does your account's record of it; a flip to right is logged for the
-  // grader (SBReports). A past question's community stats were already sent
-  // when the next question started, so only the current one's change there.
+  // grader (SBReports), and the question's community stats follow too
+  // (SBQuestionStats changes a play already sent).
   const played = []; // every graded answer this page has shown
   function flipOutcome(o) {
     if (!o.uncounted) {
@@ -645,7 +645,8 @@
     o.correct = !o.correct;
     if (!o.uncounted) session.points += pointsFor(o);
     updateCounters();
-    if (o === runtime.lastOutcome && window.SBQuestionStats) SBQuestionStats.update(o.q, playResult(o), celerityOf(o));
+    // (the community stats too: sent or not, the play's handle changes it)
+    if (o.stats) o.stats.change(playResult(o), celerityOf(o));
     if (o.account) o.account.update(o.correct ? 'correct' : 'incorrect', accountExtra(o));
     if (o.correct && window.SBReports) SBReports.logOverride(o.q, o.userText, 'solo');
   }

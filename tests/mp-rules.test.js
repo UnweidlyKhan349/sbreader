@@ -70,11 +70,12 @@ test('a player can override only their own grade, even after someone else was ri
   assert.strictEqual(canOverrideOwn(wrongThenRight, 'B', false), true);
   assert.strictEqual(canOverrideOwn(wrongThenRight, 'C', false), false);
   assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', false), true);
-  assert.strictEqual(canOverrideOwn([{ playerId: 'A', correct: false }], 'A', true), false);
-  // Whoever was overridden to correct can take it back; nobody else can override.
+  // No lock (November 22, 2026): after someone is overridden to correct,
+  // everyone who buzzed can still override their own answer.
   const overridden = [{ playerId: 'A', correct: true }, { playerId: 'B', correct: false }];
   assert.strictEqual(canOverrideOwn(overridden, 'A', 'A'), true);
-  assert.strictEqual(canOverrideOwn(overridden, 'B', 'A'), false);
+  assert.strictEqual(canOverrideOwn(overridden, 'B', 'A'), true);
+  assert.strictEqual(canOverrideOwn(overridden, 'C', 'A'), false, 'never someone who didn\'t buzz');
 });
 
 test('General starts with every subject but energy, and each subject but energy has a lobby', () => {

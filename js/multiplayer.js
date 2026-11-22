@@ -953,7 +953,6 @@
       if (entry.idx === game.index && game.phase === 'reveal') return; // the current question's own link
       const mine = entry.attempts.filter((a) => a.pid === myState.pid).pop();
       if (!mine) return;
-      if (entry.overrideLocked && entry.overrideLocked !== myState.pid) return;
       const line = [...historyEl().querySelectorAll('li[data-buzz-q]')]
         .find((x) => x.dataset.buzzQ === String(entry.idx) && x.dataset.buzzPid === myState.pid);
       if (!line || line.querySelector('.mp-past-override')) return;
@@ -1881,7 +1880,9 @@
     }
     if (p) {
       const f = g.celerity == null ? 1 : g.celerity;
-      const wrong = g.buzzedDuringReading ? 'negs' : 'incorrect';
+      // (a wrong answer that was only wrong because someone else took the
+      // question counted as incorrect, not as a neg)
+      const wrong = g.buzzedDuringReading && !g.displacedBy ? 'negs' : 'incorrect';
       if (nowCorrect) { p.correct = (p.correct || 0) + 1; p[wrong] = Math.max(0, (p[wrong] || 0) - 1); p.celSum = (p.celSum || 0) + f; p.celN = (p.celN || 0) + 1; }
       else { p[wrong] = (p[wrong] || 0) + 1; p.correct = Math.max(0, (p.correct || 0) - 1); p.celSum = Math.max(0, (p.celSum || 0) - f); p.celN = Math.max(0, (p.celN || 0) - 1); }
     }
@@ -1897,7 +1898,7 @@
       hostGame.lockedOutIds.add(requesterConnId);
     }
     if (p) p.score += delta;
-    const updated = { ...g, correct: nowCorrect, delta };
+    const updated = { ...g, correct: nowCorrect, delta, displacedBy: null };
     hostGame.gradesByConn.set(requesterConnId, updated);
     hostGame.lastGrade = { connId: requesterConnId, correct: nowCorrect, delta, userText: g.userText };
     // Changed to correct: locked for everyone else. Taken back: unlocked.
@@ -1958,7 +1959,6 @@
     if (!pid) return;
     const att = entry.attempts.filter((a) => a.pid === pid).pop();
     if (!att) return;
-    if (entry.overrideLocked && entry.overrideLocked !== pid) return;
     const nowCorrect = !att.correct;
     const changes = [];
     const deltaOf = (a) => (a.correct ? 4 : (a.displacedBy || !a.early ? 0 : -4));
@@ -2222,9 +2222,13 @@
     }
     // And to the question's community stats (a −4 is an interrupt).
     if (playerId === myState.myId && game.question && window.SBQuestionStats) {
-      SBQuestionStats.track(game.question, 'mp', correct ? 'correct' : (delta < 0 ? 'neg' : 'incorrect'), correct ? 1 - celerityNow() : null, game.index);
+      const play = SBQuestionStats.track(game.question, 'mp', correct ? 'correct' : (delta < 0 ? 'neg' : 'incorrect'), correct ? 1 - celerityNow() : null, game.index);
+      if (play) myPlays.set(game.index, play);
     }
   }
+  // Your community-stats play for each question, by index, so a change on
+  // an earlier question reaches the stats too.
+  const myPlays = new Map();
   // One row per question in your account's stats, for how the question
   // ended for you: a wrong answer then a correct rebuzz ends correct, and an
   // override changes it either way. A question you never buzzed on counts as
@@ -2259,6 +2263,8 @@
       if (c.pid === myState.pid) {
         const rec = myAnswers.get(msg.idx);
         if (rec) rec.update(c.correct ? 'correct' : 'incorrect', { points: c.points, celerity: c.correct ? 1 - c.celerity : null });
+        const play = myPlays.get(msg.idx);
+        if (play) play.change(c.correct ? 'correct' : (c.points < 0 ? 'neg' : 'incorrect'), c.correct ? 1 - c.celerity : null);
         if (c.correct && msg.by === myState.pid && window.SBReports && entry && entry.question) {
           const att = (entry.attempts || []).filter((a) => a.pid === c.pid).pop();
           SBReports.logOverride((SBData.byId && SBData.byId.get(entry.question.id)) || entry.question, att ? att.userText : '', 'mp');

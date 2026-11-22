@@ -421,12 +421,25 @@ test('"I was right" on an earlier question someone else got takes it from them (
   assert.strictEqual(await score(a, aName), 0, 'no points, and no penalty');
   assert.strictEqual(await score(a, gName), 4);
   assert.ok(gBefore === 0 || gBefore === -4);
-  // The other player can't override it now (someone was overridden to correct).
-  assert.strictEqual(await a.locator('#mpHistory .mp-past-override').count(), 0);
-  await g.locator('#mpHistory .mp-past-override').click();
-  await a.waitForFunction(() => /marked correct again on an earlier question/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  // The other player can still say they were right: they take it back.
+  await a.waitForSelector('#mpHistory .mp-past-override', { timeout: 5000 });
+  assert.strictEqual(await a.locator('#mpHistory .mp-past-override').innerText(), 'I was right');
+  await a.locator('#mpHistory .mp-past-override').click();
+  await g.waitForFunction(() => /changed their answer on an earlier question to correct/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
   assert.strictEqual(await score(a, aName), 4);
+  assert.strictEqual(await score(a, gName), 0, 'taken from the guest, without a penalty');
+  // and give it back
+  await a.locator('#mpHistory .mp-past-override').click();
+  await a.waitForFunction(() => /changed their answer on an earlier question to incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  assert.strictEqual(await score(a, gName), 4, 'the guest has it again');
+  // ("I was wrong" on a buzz made during the reading is an interrupt, -4)
+  const aWrong = await score(a, aName);
+  assert.ok(aWrong === 0 || aWrong === -4, String(aWrong));
+  // The guest gives it up too: back to their own wrong answer.
+  await g.locator('#mpHistory .mp-past-override').click();
+  await a.waitForFunction(() => (document.getElementById('mpHistory').textContent.match(/earlier question to incorrect/g) || []).length >= 2, null, { timeout: 10000 });
   assert.strictEqual(await score(a, gName), gBefore);
+  assert.strictEqual(await score(a, aName), aWrong);
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });

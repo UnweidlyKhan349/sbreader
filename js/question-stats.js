@@ -28,31 +28,73 @@
   // One play waits at a time: a later result for the same question (an
   // override, a correct rebuzz) replaces it, and a play of another question
   // sends it.
+  //
+  // A play can still change once it's been sent: an "I was right" on an
+  // earlier question. Each play is sent with a random key that only this
+  // page keeps (the database stores its hash), and question_play_change
+  // changes that one play's result, for a day. A database set up before
+  // November 22, 2026 takes plays without a key, and then they can't change.
   let pending = null;
+  function newKey() {
+    const b = new Uint8Array(18);
+    (window.crypto || {}).getRandomValues ? crypto.getRandomValues(b) : b.forEach((x, i) => { b[i] = Math.floor(Math.random() * 256); });
+    return [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+  }
+  let keysWork = true;
   function send(play, keepalive) {
     if (!enabled || !play) return;
-    rpc('question_play', {
+    play.sent = true;
+    const args = {
       p_question_id: play.id, p_qtype: play.qtype, p_result: play.result,
       p_celerity: play.celerity, p_mode: play.mode,
-    }, keepalive).catch(() => {});
+    };
+    const go = (withKey) => rpc('question_play', withKey ? { ...args, p_key: play.key } : args, keepalive);
+    go(keysWork).then((res) => {
+      // (an older database: no p_key argument, so the play is sent without)
+      if (res && res.status === 404 && keysWork) { keysWork = false; play.key = null; return go(false); }
+      if (!keysWork) play.key = null;
+      return res;
+    }).catch(() => {});
+  }
+  // A change to a play already sent.
+  function sendChange(play) {
+    if (!enabled || !play.key) return;
+    rpc('question_play_change', { p_key: play.key, p_result: play.result, p_celerity: play.celerity }).catch(() => {});
+  }
+  function celerityFor(result, celerity) {
+    return result === 'correct' && typeof celerity === 'number' && celerity >= 0 && celerity <= 1 ? Math.round(celerity * 1000) / 1000 : null;
   }
   // q: the question; result: correct | incorrect | neg | unanswered;
   // celerity: share of the question still unread at a correct buzz (0-1);
   // key: tells two plays of one question apart (Multiplayer's question index).
+  // Returns a handle whose change(result, celerity) changes this play later,
+  // whether or not it has been sent yet.
   function track(q, mode, result, celerity, key) {
-    if (!q || !(q.id > 0) || !RESULTS.includes(result)) return;
+    if (!q || !(q.id > 0) || !RESULTS.includes(result)) return null;
     const k = q.id + ':' + (key == null ? '' : key);
     if (pending && pending.k !== k) flush();
-    pending = {
+    // (a later result for the same play replaces it, keeping its handle)
+    if (pending && pending.k === k) { pending.result = result; pending.celerity = celerityFor(result, celerity); return pending.handle; }
+    const play = {
       k, id: q.id, qtype: q.qtype === 'bonus' ? 'bonus' : 'tossup', result, mode: mode === 'mp' ? 'mp' : 'solo',
-      celerity: result === 'correct' && typeof celerity === 'number' && celerity >= 0 && celerity <= 1 ? Math.round(celerity * 1000) / 1000 : null,
+      celerity: celerityFor(result, celerity), key: newKey(), sent: false,
     };
+    play.handle = {
+      change(newResult, newCelerity) {
+        if (!RESULTS.includes(newResult)) return;
+        play.result = newResult;
+        play.celerity = celerityFor(newResult, newCelerity);
+        if (play.sent) sendChange(play);
+      },
+    };
+    pending = play;
+    return play.handle;
   }
   // Changes the waiting play's result (an override), if it's this question.
   function update(q, result, celerity) {
     if (!pending || !q || pending.id !== q.id || !RESULTS.includes(result)) return;
     pending.result = result;
-    pending.celerity = result === 'correct' && typeof celerity === 'number' ? Math.round(celerity * 1000) / 1000 : null;
+    pending.celerity = celerityFor(result, celerity);
   }
   function flush(keepalive) {
     const p = pending;

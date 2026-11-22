@@ -509,12 +509,43 @@ create table if not exists public.question_plays (
 create index if not exists question_plays_question on public.question_plays (question_id);
 alter table public.question_plays enable row level security;
 revoke all on public.question_plays from anon, authenticated;
+-- A play can be changed later by whoever sent it, and nobody else (an "I
+-- was right" on an earlier question; added November 22, 2026): the page
+-- sends a random key with the play and keeps it, and only its hash is
+-- stored. question_play_change takes the key, for a day after the play.
+alter table public.question_plays add column if not exists change_hash text;
+create index if not exists question_plays_change on public.question_plays (change_hash) where change_hash is not null;
 
 create or replace function public.question_play(p_question_id integer, p_qtype text, p_result text, p_celerity real, p_mode text)
 returns void
 language sql security definer set search_path = public as $$
   insert into question_plays (question_id, qtype, result, celerity, mode)
   values (p_question_id, p_qtype, p_result, case when p_result = 'correct' then p_celerity end, p_mode);
+$$;
+-- The same, with the key that lets the sender change it later.
+create or replace function public.question_play(p_question_id integer, p_qtype text, p_result text, p_celerity real, p_mode text, p_key text)
+returns void
+language sql security definer set search_path = public as $$
+  insert into question_plays (question_id, qtype, result, celerity, mode, change_hash)
+  values (p_question_id, p_qtype, p_result, case when p_result = 'correct' then p_celerity end, p_mode,
+          case when char_length(p_key) between 16 and 64 then encode(sha256(convert_to(p_key, 'UTF8')), 'hex') end);
+$$;
+-- Changes the play sent with this key (within a day): its result and, for a
+-- right answer, its celerity. True when a play was changed.
+create or replace function public.question_play_change(p_key text, p_result text, p_celerity real)
+returns boolean
+language sql security definer set search_path = public as $$
+  with changed as (
+    update question_plays
+       set result = p_result,
+           celerity = case when p_result = 'correct' and p_celerity between 0 and 1 then p_celerity end
+     where char_length(p_key) between 16 and 64
+       and p_result in ('correct', 'incorrect', 'neg', 'unanswered')
+       and change_hash = encode(sha256(convert_to(p_key, 'UTF8')), 'hex')
+       and created_at > now() - interval '1 day'
+    returning 1
+  )
+  select exists (select 1 from changed);
 $$;
 
 create or replace function public.question_stats(p_question_id integer)
@@ -531,6 +562,10 @@ language sql stable security definer set search_path = public as $$
 $$;
 
 revoke all on function public.question_play(integer, text, text, real, text) from public;
+revoke all on function public.question_play(integer, text, text, real, text, text) from public;
+revoke all on function public.question_play_change(text, text, real) from public;
+grant execute on function public.question_play(integer, text, text, real, text, text) to anon, authenticated;
+grant execute on function public.question_play_change(text, text, real) to anon, authenticated;
 revoke all on function public.question_stats(integer) from public;
 grant execute on function public.question_play(integer, text, text, real, text) to anon, authenticated;
 grant execute on function public.question_stats(integer) to anon, authenticated;
@@ -546,7 +581,7 @@ grant execute on function public.question_stats(integer) to anon, authenticated;
 create or replace function public.sb_schema_version()
 returns integer
 language sql immutable as $$
-  select 20261122;
+  select 20261123;
 $$;
 revoke all on function public.sb_schema_version() from public;
 grant execute on function public.sb_schema_version() to anon, authenticated;
