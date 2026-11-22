@@ -299,7 +299,7 @@ revoke all on function public.mp_leave(text, text, text) from public;
 grant execute on function public.mp_leave(text, text, text) to anon, authenticated;
 
 -- Room owners (added November 2026). A named room's owner is the browser
--- that created it, as on QB Reader: it shows a crown and can mute and ban
+-- that created it, as on QB Reader: it shows a crown and can ban
 -- players. The owner proves who they are to the other players by signing
 -- with a key only their browser holds; owner_key is its public half. These
 -- columns keep a room's owner and bans after everyone has left, so the room

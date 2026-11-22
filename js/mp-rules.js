@@ -209,7 +209,7 @@
     return key && sig && Number.isFinite(ts) ? { key, ts, sig } : null;
   }
   // What a room's owner can do to another player.
-  const OWNER_ACTIONS = new Set(['mute', 'unmute', 'ban']);
+  const OWNER_ACTIONS = new Set(['ban']);
 
   // Returns a cleaned copy of `msg`, or null when it should be ignored.
   // A chat message's ID ties its live, still-being-typed copy to the sent one.

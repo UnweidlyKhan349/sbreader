@@ -1059,3 +1059,36 @@ test('stress-run fixes: extra words and typos inside parts and item names are Cl
   assert.strictEqual(verdict(g('5!', '5!', { question: 'What is 5 factorial?' })), 'correct', 'a factorial keeps its !');
   assert.strictEqual(verdict(g('5!', '5', { question: 'What is 5 factorial?' })), 'wrong');
 });
+
+// Found by the full-bank stress run (node tools/grader-stress.js --all).
+test('full-bank stress fixes: rankings said "from X to Y" keep order; junk, "not", spelled signs and MC full stops', () => {
+  const v = (r) => (r.correct ? 'correct' : r.close ? 'close' : 'wrong');
+  const g = (key, typed, extra) => v(grade(key, typed, extra));
+  const layers = { question: 'List the following three layers in the ophiolite sequence from top to bottom: 1) Gabbro; 2) Pillow Basalt; 3) Deep-sea Sediment.' };
+  assert.strictEqual(g('3, 2, 1', '3, 2, 1', layers), 'correct');
+  assert.strictEqual(g('3, 2, 1', '1, 2, 3', layers), 'wrong', 'reversed');
+  const ramp = { question: 'By name or number, rank how fast it takes them to roll to the bottom: 1) Hoop; 2) Solid sphere; 3) Disk' };
+  assert.strictEqual(g('2, 3, 1', '1, 3, 2', ramp), 'wrong');
+  for (const q of [
+    'Place the following three stages of a medium mass star as it exits the main-sequence: 1) Horizontal branch; 2) Red giant branch; 3) Asymptotic giant branch.',
+    'Place the following four steps of mitosis in their proper order: 1) Anaphase; 2) Telophase; 3) Metaphase; 4) Prophase.',
+    'Using numbers, put the following events into order: 1- A 2- B 3- C',
+    'By name or number, select all of the following three groups in order of increasing pKa. 1. Hydroxy 2. Methoxy 3. Fluoro',
+    'Order following groups in terms of increasing repulsive force: 1) radical 2) bonding pair 3) lone pair',
+  ]) assert.strictEqual(g('2, 1, 3', '3, 1, 2', { question: q }), 'wrong', q);
+  // not rankings: a number range, the noun "rank", a set question
+  assert.strictEqual(g('53, 59, 61, 67', '67, 61, 59, 53', { question: 'List the primes from 50 to 70.' }), 'correct');
+  assert.strictEqual(SBAnswer.isRankingQuestion('What taxonomic rank is shared by a group of closely related species?'), false);
+  assert.strictEqual(SBAnswer.isRankingQuestion('What is the largest possible rank of A?'), false);
+  assert.strictEqual(g('1, 2, 3', '3, 2, 1', { question: 'Identify all of the following four plates which border the Pacific plate: 1) North American 2) Nazca 3) Philippine 4) Scotia' }), 'correct');
+  assert.strictEqual(g('+', '???'), 'wrong', 'punctuation is no answer');
+  assert.strictEqual(g('+', '+'), 'correct');
+  assert.strictEqual(g('1', '-1', { accept: ['ONE'] }), 'wrong', 'a sign against a number word');
+  assert.strictEqual(g('1 AMPERE', '-1 AMPERE', { accept: ['ONE AMPERE'] }), 'wrong');
+  assert.strictEqual(g('PROPHASE I', 'prohase I'), 'close', 'a typo beside a lone I');
+  const minerals = { question: 'Identify all of the following three minerals that are sulfides or carbonates: 1) dolomite; 2) quartz; 3) pyrite' };
+  assert.notStrictEqual(g('DOLOMITE, PYRITE', 'not dolomite, pyrite', minerals), 'correct');
+  const mc = { question: 'Which is incorrect?', format: 'MC', choices: { W: 'The length is 10.', X: 'Foci 26.', Y: 'One of the asymptotes has slope 5/12.', Z: 'None.' }, answer: { text: 'One of the asymptotes has slope 5/12.', letter: 'Y', accept: [], reject: [] } };
+  for (const s of ['Y', 'One of the asymptotes has slope 5/12.', 'One of the asymptotes has slope 5/12']) assert.ok(checkAnswer(mc, s).correct, s);
+  assert.ok(!checkAnswer(mc, '???').correct);
+});

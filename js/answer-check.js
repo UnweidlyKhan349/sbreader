@@ -211,7 +211,16 @@
     // following three setups"), or say how to order instead ("in chronological
     // order", "by increasing distance"). A set question ("identify all ...")
     // never counts, nor does "order" inside "second-order" or "in order to".
+    // ("select all ... in order of increasing pKa" asks for an order all
+    // the same)
+    if (/\bin\s+order\s+of\s+(increasing|decreasing|ascending|descending)\b/i.test(t)) return true;
     if (/\b(identify|select|choose|name)\s+all\b/i.test(t)) return false;
+    // "Place the following three stages ...", "Order following groups ...",
+    // "put the following four steps in order to summarize ..." (where "in
+    // order to" isn't a purpose), "into order", "in their proper order"
+    if (/\b(order|rank|arrange|sort|place|put)\s+(?:the\s+)?following\b/i.test(t)
+      || /\b(?:put|place)\b[^.?!]{0,100}\b(?:in|into)\s+(?:the\s+|their\s+|its\s+)?(?:correct\s+|proper\s+|right\s+)?order\b/i.test(t)
+      || /\b(?:in|into)\s+(?:their|its)\s+(?:correct\s+|proper\s+|right\s+)?order\b/i.test(t)) return true;
     const s = t.replace(/-order\b/gi, ' ').replace(/\bin order (?:to|for|that)\b/gi, ' ');
     return /\b(order|rank|arrange|sort)\b[^.?!]{0,80}\b(the following|these|below)\b/i.test(s)
       || /\b(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\b(by|in)\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
@@ -219,7 +228,15 @@
       || /\bin\s+(increasing|decreasing|ascending|descending|chronological|sequential|reverse)\s+order\b/i.test(s)
       || /\bin\s+order\s+of\s+(increasing|decreasing|ascending|descending)\b/i.test(s)
       || /\b(order|rank|arrange|sort)\s+them\b/i.test(s)
-      || /\bchronologically\b|\bfrom (earliest|oldest|first|youngest|latest|newest|most recent)\b[^.?!]{0,40}\bto\b/i.test(s);
+      || /\bchronologically\b|\bfrom (earliest|oldest|first|youngest|latest|newest|most recent)\b[^.?!]{0,40}\bto\b/i.test(s)
+      // "List the following ... from hottest to coolest", "order ... from
+      // superior to inferior", "the order, from thinnest to thickest", and
+      // any "rank" ("rank how fast ...")
+      // (the verb starting its clause, not "a list of numbers from 1 to 9")
+      || /(?:^|[.?!:,]\s*|\bnumber,?\s+)(order|rank|arrange|sort|list|put|place)\b[^.?!]{0,100}\bfrom\s+(?:the\s+)?[a-z]+(?:\s+[a-z]+)?\s+to\s+(?:the\s+)?[a-z]+/i.test(s)
+      // "rank how fast ...", "rank the fundamental forces ..." (never the
+      // noun: "taxonomic rank", "the rank of A")
+      || /\brank\s+(?:how|the|these|them|which|each|in|by|from|according)\b/i.test(s);
   }
 
   // Canonicalize a ranking-style answer ("3, 1, 2" / "312") to its digit
@@ -417,6 +434,8 @@
             // the extra words are the question's own; otherwise Close
             // ("zebra turtles" for Turtles).
             const ns = normalize(seg), ni = normalize(itemTexts[i]);
+            // "not dolomite" names dolomite to leave it out: no match
+            if (ns.length > ni.length && ns.replace(ni, ' ').split(' ').some((w) => NEGATORS.has(w))) return null;
             if (ns.length > ni.length && askedWords) {
               const extra = ns.replace(ni, ' ').split(' ').filter(Boolean);
               if (!extra.every((w) => askedWords.some((q) => sameWord(w, q)))) nums.typo = true;
@@ -655,7 +674,13 @@
   function signConflict(a, b) {
     const parts = partSignConflict(a, b);
     if (parts !== null) return parts;
-    const la = String(a).match(LEADING_NUMBER_RE), lb = String(b).match(LEADING_NUMBER_RE);
+    // (a number written as a word counts: "-1" isn't ONE, nor "-1 AMPERE"
+    // ONE AMPERE)
+    const spelled = (t) => String(t).replace(/^(\s*(?:(?:negative|minus)\s+)?)([A-Za-z]+)\b/i, (m, sp, w) => {
+      const i = SPELLED_NUMBERS.indexOf(w.toUpperCase());
+      return i >= 0 && i <= 20 ? sp + i : m;
+    });
+    const la = spelled(a).match(LEADING_NUMBER_RE), lb = spelled(b).match(LEADING_NUMBER_RE);
     if (la && lb && signOf(la) !== signOf(lb)) return true;
     return termSignConflict(a, b) || operatorConflict(a, b);
   }
@@ -1154,6 +1179,9 @@
       for (let j = 0; j < wb.length; j++) {
         if (usedB[j]) continue;
         if (sameWord(w, wb[j])) { bestIdx = j; bestDist = 0; break; }
+        // Beside other words, a lone I or V is a numeral too ("PROPHASE I"
+        // reads "PROPHASE 1" once the name is known, which "prohase I" isn't)
+        if (wa.length > 1 && ((ROMAN_VALUE[w] && String(ROMAN_VALUE[w]) === wb[j]) || (ROMAN_VALUE[wb[j]] && String(ROMAN_VALUE[wb[j]]) === w))) { bestIdx = j; bestDist = 0; break; }
         const tol = typoTolerance(Math.max(w.length, wb[j].length));
         // (a digit changed is a different number, never a typo: "24501" for 24500)
         if (!tol || contrastingWords(w, wb[j]) || /\d/.test(w + wb[j])) continue;
@@ -3109,7 +3137,27 @@
     // A full stop at the end of a typed answer ends the sentence and isn't
     // part of it ("1) 4s; 2) 1/16." for 1) 4s; 2) 1/16). (Not "!", which is
     // a factorial.)
-    if (typeof userInput === 'string') userInput = userInput.trim().replace(/(\S)\s*\.+$/, '$1');
+    if (typeof userInput === 'string') {
+      userInput = userInput.trim();
+      const isMC = question && question.format === 'MC' && question.choices;
+      if (isMC) {
+        // A choice that ends in a full stop is the same typed with or
+        // without it ("One of the asymptotes has slope 5/12").
+        const bare = (t) => String(t || '').trim().replace(/\.+$/, '');
+        const c = Object.values(question.choices).find((x) => x && /\.$/.test(String(x).trim()) && bare(x) === bare(userInput));
+        if (c) userInput = String(c).trim();
+      } else {
+        userInput = userInput.replace(/(\S)\s*\.+$/, '$1');
+      }
+      // Nothing but punctuation and symbols ("???", "((((") is never an
+      // answer, unless it's exactly the key, an accept or a choice ("+", "∅").
+      if (!/[\p{L}\p{N}]/u.test(userInput) && question && question.answer) {
+        const a = question.answer;
+        const exact = [a.text, ...(a.accept || []), ...(isMC ? Object.values(question.choices) : [])]
+          .some((k) => k != null && String(k).replace(/\s+/g, '') === userInput.replace(/\s+/g, ''));
+        if (!exact) return { correct: false, matched: null, rejected: false };
+      }
+    }
     const outerAsked = askedWords;
     askedWords = question && question.question ? normalize(question.question).split(' ').filter(Boolean) : null;
     try {

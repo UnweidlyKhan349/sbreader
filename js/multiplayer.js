@@ -293,11 +293,9 @@
     // one (the built-in rooms). The owner's row has `owner` set and a crown.
     ownerKey: null,
     // Players the owner banned (pids; for 30 minutes, as on QB Reader:
-    // bannedAt has when, by pid) and muted (mute keys: they can't chat).
-    // Kept by everyone, like `kicked`.
+    // bannedAt has when, by pid). Kept by everyone, like `kicked`.
     banned: [],
     bannedAt: {},
-    muted: [],
     // Last tick actually applied (remainingMs/totalMs/kind), so a re-render
     // triggered by something other than a fresh tick - e.g. toggling pause,
     // which stops the host from broadcasting further ticks while paused -
@@ -443,7 +441,7 @@
   }
   // Whether this player is the room's owner, as the room has it.
   // As on QB Reader, a room's owner counts only while the room is private:
-  // in a public room nobody has a crown, mutes, bans or controls the
+  // in a public room nobody has a crown, bans or controls the
   // settings (the built-in rooms are always public).
   function roomIsPrivate() { return !myState.publicLobby && roomSetting('isPublic', true) === false; }
   function isOwner(p) { return !!(p && p.owner) && roomIsPrivate(); }
@@ -453,10 +451,11 @@
     const me = game.players.find((p) => p.id === myState.myId);
     return !!(me && me.owner);
   }
-  // Mutes are by player ID (pid), or by connection for a player without one.
-  function muteKey(p) { return p && (p.pid || (p.id ? 'id:' + p.id : null)); }
-  // Mutes are the owner's, so they hold only while the room is private.
-  function isMuted(p) { const k = muteKey(p); return !!k && roomIsPrivate() && (game.muted || []).includes(k); }
+  // Votekicks started from this page, by player key: when the 90-second
+  // cooldown ends, and whether one was started (the button then reads "VK",
+  // as on QB Reader).
+  const vkCooldown = new Map();
+  const VK_COOLDOWN_MS = 90 * 1000;
   function renderPlayerList(container) {
     // Your name as the room has it ("Henry 2" when another Henry got there
     // first) goes in the username box, unless you're typing in it.
@@ -482,21 +481,26 @@
       const attempt = !p.offline && game.attempts.find((x) => x.playerId === p.id);
       if (attempt) item.classList.add(attempt.correct ? 'answered-correct' : 'answered-incorrect');
       else if (!p.offline && p.id === game.buzzedPlayerId && game.phase === 'answering') item.classList.add('buzzed');
-      // As on QB Reader, other online players get a small menu beside their
-      // name with "Votekick" in it; in a private room its owner also gets
-      // Mute and Ban there (and Ban for offline players), has a crown, and
-      // can't be vote kicked.
+      // As on QB Reader, other online players get a small ▾ menu beside
+      // their name, built as QB Reader builds it: Votekick (a yellow button;
+      // once used, "Cooldown" for 90 seconds, then "VK"), and, for a private
+      // room's owner, Ban (a red one; offline players too). The owner has a
+      // crown and can't be vote kicked.
       const others = p.id !== myState.myId;
       const canKick = !p.offline && p.id && others && !isOwner(p);
       const ownerTools = amOwner() && roomIsPrivate() && others && !p.owner && (p.offline ? !!p.pid : !!p.id);
       const menu = [];
-      if (canKick) menu.push('<li><button type="button" class="dropdown-item" data-votekick title="Start or join a vote to kick this player. 90 second cooldown.">Votekick</button></li>');
-      if (ownerTools && !p.offline) menu.push(`<li><button type="button" class="dropdown-item" data-mute>${isMuted(p) ? 'Unmute' : 'Mute'}</button></li>`);
-      if (ownerTools) menu.push('<li><button type="button" class="dropdown-item text-danger" data-ban title="Remove this player from the room for 30 minutes">Ban</button></li>');
+      if (canKick) {
+        const vk = vkCooldown.get(key);
+        const cooling = vk && vk.until > Date.now();
+        if (cooling) setTimeout(() => renderPlayerList(container), vk.until - Date.now() + 50);
+        menu.push(`<li><button type="button" class="btn btn-warning btn-sm mt-2 me-1 dropdown-item" data-votekick title="Initiate a votekick on an user. 90 second cooldown."${cooling ? ' disabled' : ''}>${cooling ? 'Cooldown' : vk ? 'VK' : 'Votekick'}</button></li>`);
+      }
+      if (ownerTools) menu.push('<li><button type="button" class="btn btn-danger btn-sm mt-2 me-1 dropdown-item" data-ban title="Ban an user. They can no longer join the room.">Ban</button></li>');
       item.innerHTML = `<div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <span class="${menu.length ? 'me-2' : 'me-1'}">${isOwner(p) ? CROWN : ''}${escapeHtml(p.name)}${isMuted(p) ? '<span class="mp-muted" title="Muted by the room owner" aria-label="muted">&#128263;</span>' : ''}</span>
-            ${menu.length ? `<div class="dropdown ms-1">
+            <span class="${menu.length ? 'me-2' : 'me-1'}">${isOwner(p) ? CROWN : ''}${escapeHtml(p.name)}</span>
+            ${menu.length ? `<div class="ms-1 dropdown">
               <button class="btn btn-default dropdown-toggle py-0 px-1" type="button" data-sb-dropdown aria-label="Actions for ${escapeHtml(p.name)}"></button>
               <ul class="dropdown-menu">${menu.join('')}</ul>
             </div>` : ''}
@@ -517,8 +521,11 @@
             fn();
           });
         };
-        act('[data-votekick]', () => requestVotekick(p.id));
-        act('[data-mute]', () => requestOwnerAction(isMuted(p) ? 'unmute' : 'mute', p));
+        act('[data-votekick]', () => {
+          if (!requestVotekick(p.id)) return;
+          vkCooldown.set(key, { until: Date.now() + VK_COOLDOWN_MS });
+          renderPlayerList(container);
+        });
         act('[data-ban]', () => {
           SBSite.confirm(`Ban ${p.name} from this room? They won't be able to come back.`, { title: 'Ban player', ok: 'Ban', danger: true })
             .then((yes) => { if (yes) requestOwnerAction('ban', p); });
@@ -986,10 +993,8 @@
     li.append(b, document.createTextNode(' ' + entry.text));
     historyEl().prepend(li);
   }
-  function amMuted() { return isMuted(game.players.find((p) => p.id === myState.myId)); }
   function sendChat(text) {
     text = (text || '').trim();
-    if (amMuted()) { endLiveChat(true); if (text) logEvent('You', 'are muted in this room'); return; }
     const cid = myChatId;
     endLiveChat(!text);
     if (!text) return;
@@ -1042,7 +1047,7 @@
     li.querySelector('.live-chat-text').textContent = text;
   }
   function broadcastLiveChat(cid, text) {
-    if (mesh && !amMuted()) mesh.broadcast({ type: 'chatLive', cid, text: text === null ? null : text.slice(0, SBMpRules.LIMITS.chat) });
+    if (mesh) mesh.broadcast({ type: 'chatLive', cid, text: text === null ? null : text.slice(0, SBMpRules.LIMITS.chat) });
   }
   // The chat box opened: everyone sees your (still empty) line.
   function startLiveChat() {
@@ -1246,20 +1251,31 @@
     pruneBans();
     return game.banned.includes(pid);
   }
-  // Whoever is kicked (or banned) goes back to the lobby, which says so.
-  function leaveKicked(banned) {
-    location.href = `${location.pathname}?${banned ? 'banned' : 'kicked'}=1`;
+  // Whoever is kicked or banned, as on QB Reader: out of the room at once,
+  // a dialog says why, and OK goes to the Multiplayer page. `rejoin` is a
+  // player turned away while trying to come back.
+  let kickedOut = false;
+  function leaveKicked(banned, rejoin) {
+    if (kickedOut) return;
+    kickedOut = true;
+    try { if (mesh) mesh.leave(); } catch (e) { /* gone anyway */ }
+    leaveRoomList();
+    const text = banned
+      ? (rejoin ? 'You were banned from this room by the room owner, and cannot rejoin it.' : 'You were banned from this room by the room owner.')
+      : (rejoin ? 'You were kicked from this room by room players, and cannot rejoin it.' : 'You were vote kicked from this room by others.');
+    SBSite.alert(text, () => location.replace(location.pathname));
   }
   function requestVotekick(targetId) {
     const me = game.players.find((p) => p.id === myState.myId);
-    if (!me || !(me.correct > 0)) { logEvent('You', 'can only vote kick once you\'ve answered a question correctly'); return; }
+    if (!me || !(me.correct > 0)) { logEvent('You', 'can only vote kick once you\'ve answered a question correctly'); return false; }
     if (myState.role === 'host') hostVotekick(myState.myId, targetId);
     else if (client) client.send({ type: 'votekick', targetId });
+    return true;
   }
 
   /* ---------------- The room's owner ----------------
      A named room belongs to the browser that created it, as on QB Reader:
-     the owner has a crown and can mute and ban players. The built-in rooms
+     the owner has a crown and can ban players. The built-in rooms
      have no owner.
 
      There's no server to vouch for anyone, so the owner proves who they are
@@ -1330,7 +1346,7 @@
     } catch (e) { return false; }
   }
 
-  // The owner's tools, from the player menu: mute, unmute or ban `target`
+  // The owner's tool, from the player menu: ban `target`
   // (a leaderboard row: online with an id, or offline with a pid).
   function requestOwnerAction(action, target) {
     const targetId = target.offline ? null : target.id;
@@ -1345,15 +1361,6 @@
     const offline = !online && targetPid ? departedPlayers.get(targetPid) : null;
     const target = online || offline;
     if (!target || target.owner || targetId === connId) return;
-    if (action === 'mute' || action === 'unmute') {
-      const k = muteKey(target);
-      if (!k) return;
-      game.muted = game.muted.filter((x) => x !== k);
-      if (action === 'mute') game.muted.push(k);
-      broadcastLobby();
-      hostBroadcastChat('SYSTEM', target.name, action === 'mute' ? 'was muted by the room owner' : 'was unmuted by the room owner', true);
-      return;
-    }
     if (action !== 'ban') return;
     pruneBans();
     if (target.pid && !game.banned.includes(target.pid)) {
@@ -1447,7 +1454,7 @@
     game.departed = [...departedPlayers.values()];
     renderPlayerList(document.getElementById('mpPlayerList'));
     refreshOwnerControls();
-    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, bannedAt: game.bannedAt, muted: game.muted, roomCode: myState.roomId });
+    if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, bannedAt: game.bannedAt, roomCode: myState.roomId });
   }
 
   function hostBroadcastChat(fromId, name, text, system, cid) {
@@ -1540,8 +1547,8 @@
     if (msg.type === 'pings') { pingReports.set(connId, { rtts: msg.rtts, bank: msg.bank, at: Date.now() }); return; }
     if (msg.type === 'join') {
       if (hostPlayers.has(connId)) return;
-      if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId }); return; }
-      if (isBanned(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true }); return; }
+      if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, rejoin: true }); return; }
+      if (isBanned(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true, rejoin: true }); return; }
       // A returning player (same pid, not already in the room) gets their
       // score back.
       const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
@@ -1574,7 +1581,6 @@
     }
     if (msg.type === 'chatSend') {
       const p = hostPlayers.get(connId);
-      if (isMuted(p)) { host.sendTo(connId, { type: 'notice', text: 'are muted in this room' }); return; }
       hostBroadcastChat(connId, p ? p.name : 'Player', msg.text, false, msg.cid);
       return;
     }
@@ -2239,9 +2245,7 @@
   function onMeshMessage(from, data) {
     if (!data || typeof data !== 'object' || typeof data.type !== 'string') return;
     if (data.type === 'chatLive') {
-      // Straight from the player typing it, not through the game's runner
-      // (and not shown at all from a muted player).
-      if (isMuted(game.players.find((p) => p.id === from))) return;
+      // Straight from the player typing it, not through the game's runner.
       const cid = SBMpRules.cleanChatId(data.cid);
       if (cid && data.text === null) renderLiveChat(from, cid, null);
       else if (cid && typeof data.text === 'string') renderLiveChat(from, cid, data.text.slice(0, SBMpRules.LIMITS.chat));
@@ -2671,7 +2675,7 @@
 
     // The owner (named rooms only): the one the room list has, or this
     // player, for a room that's new (or, with no room list, one starting up).
-    game.ownerKey = null; game.banned = []; game.bannedAt = {}; game.muted = [];
+    game.ownerKey = null; game.banned = []; game.bannedAt = {};
     if (!lobby) {
       if (info && info.ownerKey) game.ownerKey = info.ownerKey;
       else if (!info || info.legacy || !info.exists) {
@@ -2830,7 +2834,7 @@
         if (info && info.banned && info.banned.includes(myState.pid)) {
           mesh.releaseDoor();
           joining = false;
-          backToLobby('You were banned from that room by its owner.');
+          leaveKicked(true, true);
           return;
         }
         try {
@@ -2887,7 +2891,6 @@
         game.bannedAt = {};
         game.banned.forEach((pid) => { game.bannedAt[pid] = typeof at[pid] === 'number' ? at[pid] : (typeof mine[pid] === 'number' ? mine[pid] : now); });
       }
-      if (Array.isArray(msg.muted)) game.muted = msg.muted.filter((x) => typeof x === 'string');
       const me = game.players.find((p) => p.id === myState.myId);
       if (me) myState.myName = me.name;
       renderPlayerList(document.getElementById('mpPlayerList'));
@@ -2998,7 +3001,7 @@
       return;
     }
     if (msg.type === 'kicked') {
-      if (msg.playerId === myState.myId) leaveKicked(!!msg.banned);
+      if (msg.playerId === myState.myId) leaveKicked(!!msg.banned, !!msg.rejoin);
       return;
     }
     if (msg.type === 'votekickRefused' || msg.type === 'notice') {
@@ -3564,10 +3567,6 @@
   function joinFromLink() {
     let params;
     try { params = new URLSearchParams(location.search); } catch (e) { return false; }
-    if (params.get('kicked') === '1' || params.get('banned') === '1') {
-      setJoinStatus(params.get('banned') === '1' ? 'You were banned from that room by its owner.' : 'You were vote kicked from that room.', true);
-      history.replaceState(null, '', location.pathname);
-    }
     const lobbyKey = params.get('lobby');
     if (lobbyKey) {
       const lobby = SBMpRules.findPublicLobby(SBData.meta, lobbyKey);

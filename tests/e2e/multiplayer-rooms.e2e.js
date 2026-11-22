@@ -1,5 +1,5 @@
 // Multiplayer, rooms (tests/e2e/fake-peer.js, as in multiplayer.e2e.js):
-// room owners (crown, mute, ban), Allow skips, room links
+// room owners (crown, ban), Allow skips, room links
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -178,7 +178,7 @@ test('a room record that failed to save is saved again, until it goes through', 
   await ctx.close();
 });
 
-test('the owner can mute and ban; a banned player stays out', async () => {
+test('the owner can ban: the player sees why in a dialog, OK goes to the Multiplayer page, and they stay out; there is no Mute', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, privateRoom(r));
@@ -186,13 +186,12 @@ test('the owner can mute and ban; a banned player stays out', async () => {
   const gName = await myName(g);
   const gPid = await g.evaluate(() => localStorage.getItem('sb_mp_pid'));
   assert.ok(!(await g.locator('.mp-player-row', { hasText: await myName(a) }).first().locator('[data-ban]').count()), 'only the owner has Ban');
-  await ownerMenu(a, gName, 'mute');
-  await g.waitForFunction(() => document.querySelector('.mp-muted'), null, { timeout: 10000 });
-  await g.locator('body').click({ position: { x: 400, y: 300 } });
-  await g.keyboard.press('Enter'); await g.keyboard.type('hello there'); await g.keyboard.press('Enter');
-  await a.waitForTimeout(800);
-  assert.ok(!/hello there/.test(await a.locator('#mpHistory').innerText()), 'a muted player\'s chat doesn\'t reach the room');
-  assert.match(await g.locator('#mpHistory').innerText(), /are muted in this room/);
+  // The menu as QB Reader's: a yellow Votekick and a red Ban, no Mute.
+  const gRow = a.locator('.mp-player-row', { hasText: gName }).first();
+  await gRow.locator('[data-sb-dropdown]').click();
+  assert.deepStrictEqual(await gRow.locator('.dropdown-menu button').evaluateAll((bs) => bs.map((b) => `${b.textContent}:${b.className}`)),
+    ['Votekick:btn btn-warning btn-sm mt-2 me-1 dropdown-item', 'Ban:btn btn-danger btn-sm mt-2 me-1 dropdown-item']);
+  await gRow.locator('[data-sb-dropdown]').click();
   // Ban asks first, in a dialog on the page: Cancel leaves the player in.
   await ownerMenu(a, gName, 'ban');
   await a.waitForSelector('#confirm-modal.show');
@@ -203,11 +202,15 @@ test('the owner can mute and ban; a banned player stays out', async () => {
   assert.ok(await a.locator('.mp-player-row', { hasText: gName }).count(), 'still in the room after Cancel');
   await ownerMenu(a, gName, 'ban');
   await a.click('#confirm-modal-ok');
-  await g.waitForFunction(() => /banned from that room/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 15000 });
+  // As on QB Reader: a dialog says why, and OK goes to the Multiplayer page.
+  await g.waitForSelector('#alert-modal.show', { timeout: 15000 });
+  assert.strictEqual(await g.textContent('#alert-modal-text'), 'You were banned from this room by the room owner.');
+  await Promise.all([g.waitForURL(/\/multiplayer$/, { timeout: 15000 }), g.click('#alert-modal-close')]);
   await a.waitForFunction((n) => ![...document.querySelectorAll('.mp-player-row')].some((x) => x.textContent.includes(n)), gName, { timeout: 10000 });
-  // Back with the same player ID: turned away.
+  // Back with the same player ID: turned away, with the same kind of dialog.
   const again = await stranger(ctx, server.url, r, gPid);
-  await again.waitForFunction(() => /banned from that room/.test((document.getElementById('joinStatus') || {}).textContent || ''), null, { timeout: 20000 });
+  await again.waitForSelector('#alert-modal.show', { timeout: 20000 });
+  assert.strictEqual(await again.textContent('#alert-modal-text'), 'You were banned from this room by the room owner, and cannot rejoin it.');
   assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
@@ -237,7 +240,7 @@ test('a public room has no owner: no crown or owner tools', async () => {
   assert.deepStrictEqual(await crowned(a), []);
   const row = a.locator('.mp-player-row', { hasText: gName }).first();
   await row.locator('[data-sb-dropdown]').click();
-  assert.strictEqual(await row.locator('[data-ban], [data-mute]').count(), 0, 'no Mute or Ban');
+  assert.strictEqual(await row.locator('[data-ban]').count(), 0, 'no Ban');
   assert.strictEqual(await row.locator('[data-votekick]').count(), 1, 'Votekick is still there');
   // Made private, the creator is the owner again.
   await a.locator('label[for=mpTogglePublic]').click();
