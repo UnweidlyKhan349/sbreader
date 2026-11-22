@@ -268,6 +268,14 @@
     document.getElementById('activeSummary').textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
   }
 
+  // A new version of the site is taken by itself, with no button to press:
+  // at once in the lobby, and in a room between questions (not while one is
+  // read, open for buzzing or answered). The room is in the address, so the
+  // reload comes straight back into it, with this player's score.
+  if (window.SBSite && SBSite.autoUpdate) {
+    SBSite.autoUpdate(() => !myState.roomId || !['reading', 'buzzwindow', 'answering'].includes(game.phase));
+  }
+
   /* ================= SHARED GAME STATE (rendered identically on host & clients) ================= */
   const game = {
     players: [], phase: 'lobby', index: 0, total: 0,
@@ -571,6 +579,13 @@
       document.addEventListener('click', closePlayerPopover);
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && openStatsFor) closePlayerPopover(); });
       window.addEventListener('resize', () => { if (openStatsFor) renderPlayerPopover(); });
+      // Scrolling (the page, or anything inside it) moves it along with the
+      // player, once a frame.
+      let scrollFrame = 0;
+      window.addEventListener('scroll', () => {
+        if (!openStatsFor || scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; positionPlayerPopover(); });
+      }, { passive: true, capture: true });
     }
     const heard = (p.correct || 0) + (p.incorrect || 0) + (p.negs || 0);
     const pill = (v) => `<span class="float-end badge rounded-pill bg-secondary">${escapeHtml(String(v))}</span>`;
@@ -579,32 +594,55 @@
     playerPopover.querySelector('.popover-body').innerHTML = '<ul class="list-group list-group-flush">' + [
       ['Points', pill(p.score)], ['Correct', pill(p.correct || 0)], ['Incorrect', pill(p.incorrect || 0)], ['Negs', pill(p.negs || 0)], ['Accuracy', plain(heard ? Math.round((100 * (p.correct || 0)) / heard) + '%' : '-')], ['Celerity', plain((p.celN ? 1 - p.celSum / p.celN : 0).toFixed(3))],
     ].concat(isOwner(p) ? [['Room owner', plain('Yes')]] : []).map(([k, v]) => `<li class="list-group-item"><span>${k}</span>${v}</li>`).join('') + '</ul>';
-    // Placed to the left of the player, as QB Reader's are; below it when
-    // there's no room on the left (phones).
     clearTimeout(popoverHideTimer);
     const appearing = playerPopover.hidden || !playerPopover.classList.contains('show');
     playerPopover.hidden = false;
+    positionPlayerPopover(item);
+    if (appearing) {
+      void playerPopover.offsetWidth; // start from transparent, then fade in
+      playerPopover.classList.add('show');
+    }
+  }
+  // Where the popover goes, as Bootstrap's Popper places QB Reader's: to the
+  // left of the player (below it when there's no room on the left, as on a
+  // phone, or above it when there's no room below either). Scrolling moves it
+  // along: it stays on screen, between the navbar and the button bar, for as
+  // long as any of the player's row is, with its arrow on the row, and goes
+  // off with the row once that has scrolled away.
+  function positionPlayerPopover(item) {
+    item = item || (openStatsFor && document.querySelector(`#mpPlayerList [data-key="${CSS.escape(openStatsFor)}"]`));
+    if (!item || !playerPopover || playerPopover.hidden) return;
     const r = item.getBoundingClientRect();
     const w = playerPopover.offsetWidth;
     const h = playerPopover.offsetHeight;
     const arrow = playerPopover.querySelector('.popover-arrow');
     const sx = window.scrollX; const sy = window.scrollY;
+    const nav = document.getElementById('navbar');
+    const bar = document.getElementById('buttons');
+    const viewTop = Math.max(0, nav ? nav.getBoundingClientRect().bottom : 0) + 4;
+    const viewBottom = Math.min(window.innerHeight, bar && bar.getClientRects().length ? bar.getBoundingClientRect().top : window.innerHeight) - 4;
+    const ARROW = 8; const EDGE = 8; // half the arrow; the corner it keeps clear of
+    const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), Math.max(lo, hi));
     const left = r.left >= w + 16;
-    playerPopover.classList.toggle('bs-popover-start', left);
-    playerPopover.classList.toggle('bs-popover-bottom', !left);
-    if (left) {
+    let place = left ? 'start' : 'bottom';
+    if (!left && r.bottom + 8 + h > viewBottom && r.top - 8 - h >= viewTop) place = 'top';
+    playerPopover.classList.toggle('bs-popover-start', place === 'start');
+    playerPopover.classList.toggle('bs-popover-bottom', place === 'bottom');
+    playerPopover.classList.toggle('bs-popover-top', place === 'top');
+    if (place === 'start') {
+      // Centred on the row, kept inside the screen, but never so far that
+      // the arrow would leave the row.
+      let top = clamp(r.top + r.height / 2 - h / 2, viewTop, viewBottom - h);
+      top = clamp(top, r.top + ARROW - (h - EDGE - ARROW), r.bottom - ARROW - EDGE - ARROW);
       playerPopover.style.left = (sx + r.left - w - 8) + 'px';
-      playerPopover.style.top = (sy + r.top + r.height / 2 - h / 2) + 'px';
-      arrow.style.left = ''; arrow.style.top = (h / 2 - 8) + 'px';
+      playerPopover.style.top = (sy + top) + 'px';
+      const mid = clamp(r.top + r.height / 2 - top, EDGE + ARROW, h - EDGE - ARROW);
+      arrow.style.left = ''; arrow.style.top = (mid - ARROW) + 'px';
     } else {
       const x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), document.documentElement.clientWidth - w - 8);
       playerPopover.style.left = (sx + x) + 'px';
-      playerPopover.style.top = (sy + r.bottom + 8) + 'px';
-      arrow.style.top = ''; arrow.style.left = (r.left + r.width / 2 - x - 8) + 'px';
-    }
-    if (appearing) {
-      void playerPopover.offsetWidth; // start from transparent, then fade in
-      playerPopover.classList.add('show');
+      playerPopover.style.top = (sy + (place === 'top' ? r.top - 8 - h : r.bottom + 8)) + 'px';
+      arrow.style.top = ''; arrow.style.left = (r.left + r.width / 2 - x - ARROW) + 'px';
     }
   }
 
@@ -1102,7 +1140,7 @@
       // (Rooms only read random questions now; the three fields stay in the
       // settings so players on an older copy still understand them.)
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: true, isPublic: f.isPublic !== false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -1439,7 +1477,7 @@
     const f = activeFilterState;
     return {
       mode: 'random', setName: '', packetNumbers: '',
-      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: f.timer !== false, isPublic: f.isPublic !== false,
+      rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: true, isPublic: f.isPublic !== false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1560,7 +1598,7 @@
     }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: msg.timer, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: true, isPublic: msg.isPublic,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -3301,7 +3339,7 @@
     document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleTimer', 'timer'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
     });
@@ -3343,7 +3381,6 @@
       document.getElementById('mpTogglePublic').checked = f.isPublic;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;
       document.getElementById('mpToggleSkip').checked = f.skip !== false;
-      document.getElementById('mpToggleTimer').checked = f.timer;
       // A built-in public room keeps its subject and stays public.
       const lobby = myState.publicLobby;
       document.getElementById('mpTogglePublic').disabled = !!lobby;

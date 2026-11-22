@@ -658,10 +658,11 @@
       badge.textContent = GRADE_LABELS[opts.grade];
       title.appendChild(badge);
     }
-    // "AVES 2025 | RR 1 | Question 7 | Biology | Tossup | Short Answer",
-    // bold and underlined, linking to the source packet when there is one.
-    const parts = [q.tournament, SBData.roundLabelFor(q), q.num ? 'Question ' + q.num : '',
-      subjectLabel(q.subject), qtypeLabel(q), FORMAT_LABELS[q.format] || q.format];
+    // "AVES 2025 | RR 1 | Toss-up 7 | Biology | Short Answer" (the kind and
+    // its number together, as packets print them), bold and underlined,
+    // linking to the source packet when there is one.
+    const parts = [q.tournament, SBData.roundLabelFor(q), q.num ? qtypeLabel(q) + ' ' + q.num : qtypeLabel(q),
+      subjectLabel(q.subject), FORMAT_LABELS[q.format] || q.format];
     if (q.visual && !isVisualBonus(q)) parts.push('Visual');
     const src = opts.answer && opts.answer.sourceUrl ? opts.answer.sourceUrl : (opts.sourceUrl || q.sourceUrl);
     const titleText = isPacketUrl(src) ? document.createElement('a') : document.createElement('span');
@@ -1598,20 +1599,18 @@
       else maxInput.value = Math.max(val, parseInt(minInput.value, 10));
     }
 
-    // dragHandle is 'min' | 'max' | 'pending' | null. 'pending' only happens
-    // when the press lands exactly on a tied point (lo === hi): there's no
-    // directional information yet at that instant (both handles are at that
-    // same spot), so which handle to grab is deferred until the first bit
-    // of actual pointer movement reveals which way the drag is going - a
-    // press+release with no movement in that exact case correctly does
-    // nothing, same as a real slider handle that hasn't been dragged.
+    // dragHandle is 'min' | 'max' | 'pending' | null. 'pending' is a press
+    // on both handles at once (tied, or overlapping when close together):
+    // which one to grab waits for the first bit of movement, right for the
+    // top of the range and left for the bottom. A press and release with no
+    // movement there does nothing, as on a real handle that isn't dragged.
     let dragHandle = null;
-    let pressVal = null;
+    let pressX = 0; // where the press was, and the range then
+    let pressRange = null;
     let grabOffset = 0; // how far from a grabbed handle's centre the press was
     const HANDLE_R = 8; // half a handle
-    let topHandle = 'max'; // drawn on top where the two overlap
+    // The handle last moved is drawn on top where the two overlap.
     function raise(handle) {
-      topHandle = handle;
       minInput.style.zIndex = handle === 'min' ? '3' : '2';
       maxInput.style.zIndex = handle === 'min' ? '2' : '3';
     }
@@ -1628,23 +1627,26 @@
       const dLo = Math.abs(e.clientX - xOfValue(lo));
       const dHi = Math.abs(e.clientX - xOfValue(hi));
       grabOffset = 0;
-      if (lo === hi && dLo <= HANDLE_R) {
-        // Both handles are here: the drag's direction decides.
+      pressX = e.clientX;
+      pressRange = [lo, hi];
+      if (dLo <= HANDLE_R && dHi <= HANDLE_R) {
+        // On both handles at once (they sit together, or overlap when
+        // close): the drag's direction decides, right for the top of the
+        // range and left for the bottom, so either way one of them moves.
         dragHandle = 'pending';
-        grabOffset = e.clientX - xOfValue(lo);
-        pressVal = lo;
       } else if (Math.min(dLo, dHi) <= HANDLE_R) {
-        // Inside one handle, that one; inside both (they overlap when close),
-        // the one drawn on top, as with real handle elements.
-        if (dLo <= HANDLE_R && dHi <= HANDLE_R) dragHandle = topHandle;
-        else dragHandle = dLo <= HANDLE_R ? 'min' : 'max';
+        dragHandle = dLo <= HANDLE_R ? 'min' : 'max';
         grabOffset = e.clientX - xOfValue(dragHandle === 'min' ? lo : hi);
-        pressVal = dragHandle === 'min' ? lo : hi;
         raise(dragHandle);
       } else {
         const val = valueFromClientX(e.clientX);
-        dragHandle = dLo <= dHi ? 'min' : 'max';
-        pressVal = val;
+        // Beyond both handles, the outer one on that side moves: a press to
+        // the right of two handles sitting together moves the top of the
+        // range (it used to pick the low handle, which can't pass the high
+        // one, so nothing moved); between them, the nearer one.
+        if (e.clientX > xOfValue(hi)) dragHandle = 'max';
+        else if (e.clientX < xOfValue(lo)) dragHandle = 'min';
+        else dragHandle = dLo <= dHi ? 'min' : 'max';
         raise(dragHandle);
         setHandleValue(dragHandle, val);
         render();
@@ -1654,12 +1656,14 @@
     });
     container.addEventListener('pointermove', (e) => {
       if (!dragHandle) return;
-      const val = valueFromClientX(e.clientX - grabOffset);
       if (dragHandle === 'pending') {
-        if (val === pressVal) return; // no directional movement yet
-        dragHandle = val > pressVal ? 'max' : 'min';
+        const dx = e.clientX - pressX;
+        if (Math.abs(dx) < 2) return; // no direction yet
+        dragHandle = dx > 0 ? 'max' : 'min';
+        grabOffset = pressX - xOfValue(dragHandle === 'min' ? pressRange[0] : pressRange[1]);
         raise(dragHandle);
       }
+      const val = valueFromClientX(e.clientX - grabOffset);
       setHandleValue(dragHandle, val);
       render();
     });

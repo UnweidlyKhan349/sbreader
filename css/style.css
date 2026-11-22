@@ -421,16 +421,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .mp-player-row.user-score:hover, .mp-player-row.user-score:focus, .mp-player-row.user-score:active {
   background-color: var(--user-score-background); color: var(--bs-body-color);
 }
-.mp-player-row.buzzed { box-shadow: inset 3px 0 0 var(--bs-warning); }
-.mp-player-row.answered-correct { box-shadow: inset 3px 0 0 var(--bs-success); }
-.mp-player-row.answered-incorrect { box-shadow: inset 3px 0 0 var(--bs-danger); }
 .mp-player-row.offline { color: var(--bs-secondary-color); }
 :root { --user-score-background: #FFF9C4; }
 [data-bs-theme=dark] { --user-score-background: #4A90E2; }
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
-.room-history .mp-inline-override { line-height: inherit; vertical-align: baseline; border: 0; }
+.room-history .mp-inline-override, .room-history #overrideBtn { line-height: inherit; vertical-align: baseline; border: 0; }
 /* Hidden rooms (empty ones, or "No public rooms." while there are rooms)
    are still in the list, so Bootstrap's sibling rule takes the top border
    and corners off whichever item shows first. Put them back on the first
@@ -527,8 +524,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .history-card .q-figure { max-height: 300px; }
 
 /* Player popover (Multiplayer), as QB Reader's: 250 px wide, the stats list
-   edge to edge. */
-.custom-popover { position: absolute; z-index: var(--bs-popover-zindex); width: 250px; max-width: calc(100vw - 16px); --bs-popover-max-width: 100%; --bs-popover-body-padding-x: 0; --bs-popover-body-padding-y: 0; }
+   edge to edge. Drawn over the button bar (1020) but under the sticky navbar
+   (1030), so a row scrolled up under the navbar takes it out of sight. */
+.custom-popover { position: absolute; z-index: 1025; width: 250px; max-width: calc(100vw - 16px); --bs-popover-max-width: 100%; --bs-popover-body-padding-x: 0; --bs-popover-body-padding-y: 0; }
 .custom-popover .popover-arrow { position: absolute; }
 .custom-popover .list-group-item { background: transparent; }
 

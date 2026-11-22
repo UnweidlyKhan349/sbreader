@@ -1,7 +1,7 @@
 // Features from QB Reader (November 2026): the Database's Ignore word order,
 // its cards (title linking the source, Stats | Report on the
 // answer line, no footer), community question stats (the Supabase functions
-// answered here), self-graded Play ("Type to answer" off) and the year range,
+// answered here), Play's answers always typed and the year range,
 // the set and packet pages' source links, the plainer frequency lists, and a
 // room's year range in Multiplayer.
 const test = require('node:test');
@@ -116,8 +116,9 @@ test('Database cards: the title (with round and question) links the source; Stat
   await page.waitForFunction(() => document.querySelector('#results .q-card'), null, { timeout: 60000 });
   const card = page.locator('#results .q-card').first();
   const title = card.locator('.q-card-title a.q-card-title-text');
-  // "Set | RR 2 | Question 13 | Chemistry | Toss-up | Multiple Choice"
-  assert.match(await title.innerText(), /^[^|]+ \| (?:[^|]+ \| )?Question \d+ \| [^|]+ \| [^|]+ \| [^|]+/);
+  // "Set | RR 2 | Toss-up 13 | Chemistry | Multiple Choice"
+  assert.match(await title.innerText(), /^[^|]+ \| (?:[^|]+ \| )?(?:Toss-up|Bonus|Visual Bonus) \d+ \| [^|]+ \| [^|]+/);
+  assert.doesNotMatch(await title.innerText(), /Question \d/);
   assert.doesNotMatch(await title.innerText(), /Packet/);
   assert.match(await title.getAttribute('href'), /^https?:\/\//);
   assert.strictEqual(await card.locator('.card-footer').count(), 0, 'no footer');
@@ -134,21 +135,22 @@ test('Database cards: the title (with round and question) links the source; Stat
   await ctx.close();
 });
 
-test('Play: with Type to answer off, Buzz becomes Reveal, the answer counts as right, and I was wrong flips it; the play is counted for the question\'s stats', async () => {
+test('Play: answers are always typed (no Type to answer switch); an overridden answer is counted for the question\'s stats as it finally stood', async () => {
   const { ctx, plays } = await statsContext({ heard: 0 });
   const page = await openPage(ctx, server.url + 'solo');
   await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
-  await page.locator('#toggleTypeToAnswer').uncheck();
+  assert.strictEqual(await page.locator('#toggleTypeToAnswer').count(), 0, 'Type to answer is gone');
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);
   await page.locator('#buzzBtn').click();
-  assert.strictEqual(await page.locator('#buzzBtn').innerText(), 'Reveal');
-  assert.strictEqual(await page.locator('#answerRow').isVisible(), false, 'nothing to type');
-  await page.locator('#buzzBtn').click();
-  await page.waitForTimeout(300);
-  assert.match(await page.locator('#revealBox').innerText(), /Correct/);
-  assert.match(await page.locator('#statline').innerText(), /^1\/0/);
+  assert.strictEqual(await page.locator('#answerRow').isVisible(), true, 'the answer box opens');
   assert.strictEqual(await page.locator('#buzzBtn').innerText(), 'Buzz');
+  await page.keyboard.type('zzzz not the answer');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(300);
+  assert.match(await page.locator('#statline').innerText(), /^0\/1/);
+  await page.locator('#overrideBtn').click();
+  assert.match(await page.locator('#statline').innerText(), /^1\/0/);
   await page.locator('#overrideBtn').click();
   assert.match(await page.locator('#statline').innerText(), /^0\/1/);
   // The next question sends this one's play, as it finally stood.
@@ -159,7 +161,7 @@ test('Play: with Type to answer off, Buzz becomes Reveal, the answer counts as r
   assert.strictEqual(plays[0].p_mode, 'solo');
   assert.strictEqual(await page.locator('#toggleShowHistory').count(), 0, 'Show question history is gone');
   const switches = await page.$$eval('#generalSettings .form-switch input', (xs) => xs.map((x) => x.id));
-  assert.deepStrictEqual(switches.slice(0, 2), ['toggleRebuzz', 'toggleTypeToAnswer'], 'Allow rebuzzes comes first');
+  assert.deepStrictEqual(switches, ['toggleRebuzz', 'toggleTimer'], 'Allow rebuzzes, then Enable timer');
   assert.strictEqual(await page.locator('#toggleShowSetName').count(), 0, 'Show set name is gone');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();

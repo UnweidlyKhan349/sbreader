@@ -1034,3 +1034,28 @@ test('across the corpus, another question\'s answer passes only where it is the 
   // it is the same answer, rerun `node tools/grader-cross-check.js --write`.
   assert.deepStrictEqual(extra, []);
 });
+
+// Found by a stress run (November 22, 2026): each answer that was graded
+// against the principle (more said, or a typo, is Close; never right).
+test('stress-run fixes: extra words and typos inside parts and item names are Close; a closing full stop and stray spaces are ignored', () => {
+  const g = (key, typed, extra) => grade(key, typed, extra);
+  const verdict = (r) => (r.correct ? 'correct' : r.close ? 'close' : 'wrong');
+  const fusion = { question: 'The Sun’s energy is generated from the fusion of what element to form what other element, respectively?' };
+  assert.strictEqual(verdict(g('HYDROGEN; HELIUM', 'hydrogen; helium', fusion)), 'correct');
+  assert.strictEqual(verdict(g('HYDROGEN; HELIUM', 'hydrogen; helium zebra', fusion)), 'close');
+  assert.strictEqual(verdict(g('HYDROGEN; HELIUM', 'zebra hydrogen; helium', fusion)), 'close');
+  const moon = { question: 'What are the phases of the Moon at positions 1 and 3?' };
+  assert.strictEqual(verdict(g('FIRST QUARTER; FULL', 'first quarter; full moon', moon)), 'correct', 'an extra word the question uses');
+  const plankton = { question: 'By name or number, indicate all of the following three organisms that are examples of macrozooplankton: 1) cladocerans, 2) rotifers, 3) adult copepods.' };
+  assert.strictEqual(verdict(g('CLADOCERANS AND ADULT COPEPODS', 'cladocerans and adult copepods', plankton)), 'correct');
+  assert.strictEqual(verdict(g('CLADOCERANS AND ADULT COPEPODS', 'claocerans and adult copepods', plankton)), 'close', 'a misspelt item name');
+  assert.strictEqual(verdict(g('CLADOCERANS AND ADULT COPEPODS', 'zebra cladocerans and adult copepods', plankton)), 'close', 'an item name with junk');
+  const fungi = { question: 'Beginning with a 2n zygote, order the following four stages of the fungal life cycle. 1) Germination 2) Karyogamy 3) Meiosis 4) Plasmogamy', accept: ['3,2,1,4'] };
+  assert.strictEqual(verdict(g('MEIOSIS, KARYOGAMY, GERMINATION, PLASMOGAMY', 'meiosis, karyogamy, germination, plasmogamy', fungi)), 'correct');
+  assert.strictEqual(verdict(g('MEIOSIS, KARYOGAMY, GERMINATION, PLASMOGAMY', 'meiosis, karyogamy, germination, plamogamy', fungi)), 'close');
+  assert.strictEqual(verdict(g('POPULATION II', 'poplation II')), 'close', 'a typo beside a roman numeral');
+  assert.strictEqual(verdict(g('1) 4s; 2) 1/16', '1) 4s; 2) 1/16.')), 'correct', 'a closing full stop');
+  assert.strictEqual(verdict(g('3- They bud from the ER system', '  3- They bud from the ER system  ')), 'correct', 'spaces around it');
+  assert.strictEqual(verdict(g('5!', '5!', { question: 'What is 5 factorial?' })), 'correct', 'a factorial keeps its !');
+  assert.strictEqual(verdict(g('5!', '5', { question: 'What is 5 factorial?' })), 'wrong');
+});

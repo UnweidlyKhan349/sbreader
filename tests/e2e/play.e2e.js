@@ -26,9 +26,19 @@ test('a question can be buzzed, graded and overridden', async () => {
   await page.keyboard.type('definitely not the answer');
   await page.keyboard.press('Enter');
   await page.waitForTimeout(600);
-  assert.match(await page.locator('#revealBox').innerText(), /ANSWER:[\s\S]*Incorrect/);
+  assert.match(await page.locator('#revealBox').innerText(), /ANSWER:/);
+  assert.doesNotMatch(await page.locator('#revealBox').innerText(), /Correct|Incorrect/, 'the grade is in the history, not under the answer');
+  // The answer is kept in the history: "Incorrect definitely not the answer", with the override at its right.
+  const line = page.locator('#questionLog > li.answer-line').first();
+  assert.match(await line.innerText(), /^Incorrect definitely not the answer\s*I was right$/);
   await page.locator('#overrideBtn').click();
-  assert.match(await page.locator('#revealBox').innerText(), /Correct/);
+  assert.match(await line.innerText(), /^Correct definitely not the answer\s*I was wrong$/);
+  assert.ok(await line.locator('.badge.bg-success').count() === 1, 'green once overridden');
+  // The next question cards this one above its answer line, which stays.
+  await page.keyboard.press('n');
+  await page.waitForTimeout(400);
+  assert.strictEqual(await page.locator('#questionLog > *').first().evaluate((x) => x.classList.contains('history-card')), true);
+  assert.match(await page.locator('#questionLog > li.answer-line').first().innerText(), /^Correct definitely not the answer$/, 'the override link has left it');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });
@@ -75,7 +85,7 @@ test('Clear stats starts the counts again; overriding the answer already shown l
   await page.locator('#clearStats').click();
   assert.strictEqual(await stats(), '0/0 with 0 questions seen (0 pts, celerity: 0.000)');
   await page.locator('#overrideBtn').click();
-  assert.match(await page.locator('#revealBox').innerText(), /Correct/);
+  assert.match(await page.locator('#questionLog > li.answer-line').first().innerText(), /^Correct/);
   assert.strictEqual(await stats(), '0/0 with 0 questions seen (0 pts, celerity: 0.000)');
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
@@ -92,7 +102,7 @@ test('Clear all filters puts tournaments, rounds and subjects back', async () =>
   await ctx.close();
 });
 
-test('history cards: the footer reads "Set / RR 3 / Question / Subject / Type", links "Source packet | Report", one choice or item per line', async () => {
+test('history cards: the footer reads "Set / RR 3 / Toss-up 6 / Subject", links "Source packet | Report", one choice or item per line', async () => {
   const { ctx, page } = await freshPlay();
   const r = await page.evaluate(async () => {
     await SBData.load();
@@ -103,14 +113,14 @@ test('history cards: the footer reads "Set / RR 3 / Question / Subject / Type", 
     return {
       left: card.querySelector('.card-footer .text-muted').textContent,
       right: card.querySelector('.card-footer .float-end').textContent,
-      expected: `${mc.tournament} / ${SBData.roundLabelFor(mc)} / Question ${mc.num} / ${SBData.subjectLabel(mc.subject)} / ${SBData.qtypeLabel(mc)}`,
+      expected: `${mc.tournament} / ${SBData.roundLabelFor(mc)} / ${SBData.qtypeLabel(mc)} ${mc.num} / ${SBData.subjectLabel(mc.subject)}`,
       rr: (() => { const q = Object.assign({}, mc, { roundLabel: 'Round Robin 3', tournament: 'MIT 2020' }); return SBPlay.historyCard(q).querySelector('.card-footer .text-muted').textContent; })(),
       choiceBreaks: card.querySelectorAll('.card-body br').length,
       listText: listCard.querySelector('.q-text, .card-body').innerText,
     };
   });
   assert.strictEqual(r.left, r.expected);
-  assert.match(r.rr, /^MIT 2020 \/ RR 3 \/ Question /);
+  assert.match(r.rr, /^MIT 2020 \/ RR 3 \/ (Toss-up|Bonus|Visual Bonus) \d+ \/ [^/]+$/);
   assert.match(r.right, /^Source packet \| Report/);
   assert.ok(r.choiceBreaks >= 3, 'W, X, Y, Z on their own lines');
   assert.match(r.listText, /\n1\. .*\n2\. /);
@@ -205,7 +215,7 @@ test('Starred Questions: a near miss just says Close; with every star gone, n al
   await page.keyboard.type(q.key.toLowerCase() + ' zzzz');
   await page.keyboard.press('Enter');
   await page.waitForTimeout(500);
-  assert.strictEqual(await page.locator('#revealBox .close-hint').innerText(), 'Close');
+  assert.strictEqual(await page.locator('#questionLog > li.answer-line .close-hint').innerText(), 'Close');
   // The last star goes (as from the card's star, or the Starred Questions page).
   await page.evaluate((id) => SBData.bookmarks.remove(id), q.id);
   const shown = await page.locator('#qDisplay').innerText();
@@ -222,5 +232,51 @@ test('Starred Questions: a near miss just says Close; with every star gone, n al
   assert.strictEqual(await page.evaluate(() => document.getElementById('nextBtn').dataset.mode), 'skip');
   assert.deepStrictEqual(alerts, ['No starred questions.']);
   assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
+
+test('with the timer off, each question shows in full at once and waits for a buzz', async () => {
+  const { ctx, page } = await freshPlay();
+  await page.locator('#toggleTimer').uncheck({ force: true });
+  await page.keyboard.press('n');
+  await page.waitForTimeout(150);
+  const full = await page.evaluate(() => document.getElementById('qDisplay').innerText.length);
+  assert.ok(full > 40, 'the whole question is on screen');
+  assert.strictEqual(await page.locator('#timer').isVisible(), false);
+  await page.waitForTimeout(1500);
+  assert.strictEqual(await page.locator('#revealBox').isVisible(), false, 'nothing ends it');
+  await page.keyboard.press(' ');
+  assert.ok(await page.locator('#answerRow').isVisible(), 'Space buzzes');
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
+
+test('the year slider: a press to the right of two handles sitting together moves the top of the range, to the left the bottom', async () => {
+  const { ctx, page } = await freshPlay();
+  const box = await page.locator('#yearSlider').boundingBox();
+  const y = box.y + box.height / 2;
+  const range = () => page.evaluate(() => [+document.getElementById('yearMin').value, +document.getElementById('yearMax').value]);
+  const [first, last] = await range();
+  // Drag the top handle all the way down onto the bottom one.
+  await page.mouse.move(box.x + box.width - 8, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 2, y, { steps: 8 });
+  await page.mouse.up();
+  assert.deepStrictEqual(await range(), [first, first]);
+  // Click to the right of the pair: the top of the range comes there.
+  await page.mouse.click(box.x + box.width / 2, y);
+  const [lo, hi] = await range();
+  assert.strictEqual(lo, first);
+  assert.ok(hi > first + 5 && hi < last, `top moved (${hi})`);
+  // The bottom handle dragged up onto the top one (it stops there): tied mid-way.
+  await page.mouse.move(box.x + 8, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width - 4, y, { steps: 8 });
+  await page.mouse.up();
+  const tied = await range();
+  assert.deepStrictEqual(tied, [hi, hi], 'tied');
+  await page.mouse.click(box.x + 10, y);
+  const after = await range();
+  assert.ok(after[0] < tied[0] && after[1] === tied[1], 'left of a tied pair moves the bottom');
   await ctx.close();
 });

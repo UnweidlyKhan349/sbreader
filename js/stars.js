@@ -110,7 +110,7 @@
   const round = (q) => (SBData.roundLabelFor ? SBData.roundLabelFor(q) : '') || '';
   function asText(list) {
     return list.map((q) => [
-      [q.tournament, round(q), q.num ? 'Question ' + q.num : ''].filter(Boolean).join(' | '),
+      [q.tournament, round(q), q.num ? (typeOf(q) === 'bonus' ? 'Bonus ' : 'Toss-up ') + q.num : ''].filter(Boolean).join(' | '),
       `${typeOf(q) === 'bonus' ? 'BONUS' : 'TOSS-UP'} ${SBData.subjectLabel(q.subject)} ${SBData.FORMAT_LABELS[q.format] || q.format || ''}`.trim(),
       q.question, ...choiceLines(q),
       'ANSWER: ' + answerText(q)

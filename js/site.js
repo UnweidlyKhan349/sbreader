@@ -213,7 +213,14 @@
     });
   }
 
-  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, alert: showAlert, confirm: showConfirm };
+  // A page that should take a new site version by itself (Multiplayer) says
+  // when it's at a quiet moment (autoUpdate(quietFn)); see the version check
+  // below. Other pages carry on as they are until they're refreshed.
+  let autoQuiet = null;
+  let reloadWhenQuiet = () => {};
+  function autoUpdate(fn) { autoQuiet = fn; reloadWhenQuiet(); }
+
+  window.SBSite = { wireDropdown, setTheme, showModal, hideModal, modalOpen: () => !!openModalEl, alert: showAlert, confirm: showConfirm, autoUpdate };
 
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
@@ -228,16 +235,40 @@
   // Updates after a redeploy. Each deploy writes version.json and stamps
   // its commit into every page (<meta name="sb-version">; see
   // tools/stamp-version.js). When the two differ, this page is older than
-  // the site. Nothing is shown and the page is never reloaded for you: it
-  // carries on as it is, and the new version arrives when you refresh or
-  // next open the site. The one thing done meanwhile is fetching the new
-  // service worker, so that refresh gets the new files and not cached old
-  // ones. Checked on load, when the tab comes back into view, and every
-  // five minutes. Pages without the meta tag (a local copy) never check.
+  // the site, and the new service worker is fetched, so that a refresh gets
+  // the new files and not cached old ones. Nothing is shown. Most pages are
+  // never reloaded for you: they carry on as they are, and the new version
+  // arrives when you refresh or next open the site. A page that asked for it
+  // (autoUpdate; Multiplayer) reloads itself at the first quiet moment it
+  // reports, when nothing is being typed and no dialog is open (once per
+  // version per tab, so a page that stays old can't loop). Checked on load,
+  // when the tab comes back into view, and every five minutes. Pages without
+  // the meta tag (a local copy) never check.
   const pageVersion = (document.querySelector('meta[name="sb-version"]') || {}).content;
   if (siteScript && pageVersion && window.fetch) {
     const versionUrl = new URL('../version.json', siteScript).href;
     let seen = pageVersion;
+    const typing = () => {
+      const el = document.activeElement;
+      return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA)$/.test(el.tagName)) && !!el.value;
+    };
+    let waiting = null;
+    reloadWhenQuiet = () => {
+      if (!autoQuiet || seen === pageVersion) return;
+      let quiet = false;
+      try { quiet = !!autoQuiet(); } catch (e) { quiet = false; }
+      if (!quiet || typing() || openModalEl) {
+        if (!waiting) waiting = setInterval(reloadWhenQuiet, 2000);
+        return;
+      }
+      clearInterval(waiting);
+      waiting = null;
+      try {
+        if (sessionStorage.getItem('sb_reloaded_for') === seen) return;
+        sessionStorage.setItem('sb_reloaded_for', seen);
+      } catch (e) { /* storage off: reload anyway */ }
+      location.reload();
+    };
     const check = async () => {
       try {
         const res = await fetch(versionUrl, { cache: 'no-store' });
@@ -245,9 +276,11 @@
         const v = String((await res.json()).version || '');
         if (!v || v === seen) return;
         seen = v;
-        if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
-          navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
-        }
+        const sw = navigator.serviceWorker && navigator.serviceWorker.getRegistration
+          ? navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {})
+          : Promise.resolve();
+        // The new worker first (or 5 s at most), so the reload gets new files.
+        Promise.race([sw, new Promise((ok) => setTimeout(ok, 5000))]).then(reloadWhenQuiet);
       } catch (e) { /* offline: try again later */ }
     };
     window.addEventListener('load', check);

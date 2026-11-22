@@ -86,3 +86,26 @@ test('the Database filters work from the keyboard and say whether they are on', 
   await page.waitForFunction(() => document.querySelector('#subjectChips button.chip').getAttribute('aria-pressed') === 'false');
   await ctx.close();
 });
+
+test('Multiplayer takes a new site version by itself: the lobby reloads into it, with no alert or button', async () => {
+  const ctx = await newContext(browser);
+  let served = 'old';
+  await ctx.route(/\/multiplayer$/, async (r) => {
+    const res = await r.fetch();
+    const body = (await res.text()).replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n<meta name="sb-version" content="${served}" />`);
+    served = 'new'; // the reload gets the new page
+    await r.fulfill({ response: res, body });
+  });
+  await ctx.route(/\/version\.json/, (r) => r.fulfill({ contentType: 'application/json', body: '{"version":"new"}' }));
+  const page = await ctx.newPage();
+  let loads = 0;
+  const dialogs = [];
+  page.on('load', () => { loads++; });
+  page.on('dialog', (d) => { dialogs.push(d.message()); d.accept(); });
+  await page.goto(server.url + 'multiplayer', { waitUntil: 'load' });
+  await page.waitForFunction(() => document.querySelector('meta[name="sb-version"]').content === 'new', null, { timeout: 20000 });
+  await page.waitForTimeout(6000);
+  assert.strictEqual(loads, 2, 'reloaded once, and not again');
+  assert.deepStrictEqual(dialogs, []);
+  await ctx.close();
+});

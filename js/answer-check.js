@@ -17,6 +17,12 @@
       .replace(VULGAR_RE, (m, digit, f) => (digit ? digit + ' ' : '') + VULGAR[f])
       .toUpperCase()
       .replace(/['’‘]/g, "'")
+      // A factorial is part of the answer, not punctuation: "n!" is "N
+      // FACTORIAL", so "n" doesn't pass for it (nor "log n" for "log n!").
+      // Only after a digit, a one-letter variable or a bracket, so
+      // "Smell!" and "Mitochondria!!!" keep their exclamation marks as
+      // punctuation; "!=" is "not equal".
+      .replace(/(\d|(?:^|[^A-Z])[A-Z]|\))!(?!=)/g, '$1 FACTORIAL ')
       // "2.5 billion" is 2500000000, and "2,500,000,000" too (a comma
       // between 3-digit groups, two or more of them, or after 1-2 digits)
       .replace(/(\d+(?:\.\d+)?)\s*(THOUSAND|MILLION|BILLION|TRILLION)\b/g, (m, n, w) => {
@@ -385,6 +391,9 @@
   function matchSegments(segments, itemTexts, contain) {
     const used = new Array(itemTexts.length).fill(false);
     const nums = [];
+    // Set when a name was only matched through a misspelling: the answer is
+    // then Close, not right ("plamogamy" for Plasmogamy).
+    nums.typo = false;
     for (const seg of segments) {
       let bestIdx = -1;
       for (let i = 0; i < itemTexts.length; i++) {
@@ -395,14 +404,25 @@
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
           const m = lenientWordMatch(seg, itemTexts[i]);
-          if (contain === 'none' ? m === 'exact' : m) { bestIdx = i; break; }
+          if (contain === 'none' ? m === 'exact' : m) { bestIdx = i; if (m === 'typo') nums.typo = true; break; }
         }
       }
       if (bestIdx === -1 && contain !== 'none' && normalize(seg).length >= 4) {
         for (let i = 0; i < itemTexts.length; i++) {
           if (used[i]) continue;
           const hit = contain === 'either' ? eitherContains(seg, itemTexts[i]) : containsWholeRun(normalize(itemTexts[i]), normalize(seg));
-          if (hit) { bestIdx = i; break; }
+          if (hit) {
+            bestIdx = i;
+            // The item's name with more said around it: right only when
+            // the extra words are the question's own; otherwise Close
+            // ("zebra turtles" for Turtles).
+            const ns = normalize(seg), ni = normalize(itemTexts[i]);
+            if (ns.length > ni.length && askedWords) {
+              const extra = ns.replace(ni, ' ').split(' ').filter(Boolean);
+              if (!extra.every((w) => askedWords.some((q) => sameWord(w, q)))) nums.typo = true;
+            }
+            break;
+          }
         }
       }
       if (bestIdx === -1) return null;
@@ -492,6 +512,8 @@
   const NOT_A_UNIT_TAIL = /^(?:THOUSAND|MILLION|BILLION|TRILLION|HUNDRED|DOZEN|X|BY|PER|OVER|AND|OR|PLUS|MINUS|SQUARED|CUBED)$/;
   function unitTail(text) {
     const raw = String(text == null ? '' : text);
+    // "5!" is 120, not 5 and a unit
+    if (/\d\s*!(?!=)|\bFACTORIAL\b/i.test(raw)) return false;
     if (/^\s*[+\-−–]?\s*(?:\d[\d,]*(?:\.\d+)?|\.\d+)[A-Za-z]/.test(raw) && !/^\s*[+\-−–]?[\d.,]+\s*(?:%|°|[A-Za-zμΩ]{1,4}(?:\/[A-Za-z]{1,4})?(?:\^\d)?)\s*$/.test(raw.replace(/\s*\([^)]*\)\s*$/, ''))) return false;
     if (/\d[A-Za-z]*\s*(?:\^|[xX×*]\s*\d|[A-Za-z]+\s*(?:and|AND|x|X|×)\s*\d)/.test(raw) && !/^\s*[\d.,]+\s*[xX×*]\s*10\s*\^/.test(raw)) return false;
     const words = numberTokens(text);
@@ -1097,6 +1119,12 @@
   }
   function sameWord(a, b) {
     if (a === b || inflectionOnly(a, b)) return true;
+    // A roman numeral and its digit ("POPULATION II" and "population 2"):
+    // the key's numeral becomes a digit only after a name it knows, so a
+    // misspelt name ("poplation II") would otherwise leave the two apart.
+    // (Not a lone I or V, which are also i, a pronoun, or volts.)
+    if (a.length > 1 && ROMAN_VALUE[a] && String(ROMAN_VALUE[a]) === b) return true;
+    if (b.length > 1 && ROMAN_VALUE[b] && String(ROMAN_VALUE[b]) === a) return true;
     const ka = spellingKey(a), kb = spellingKey(b);
     return ka.length >= 2 && (ka === kb || inflectionOnly(ka, kb));
   }
@@ -1222,6 +1250,9 @@
   function betterMatch(a, b) {
     return (MATCH_RANK[a] || 0) >= (MATCH_RANK[b] || 0) ? a : b;
   }
+  // The words of the question being graded (set by checkAnswer), for
+  // segMatch's one extra word; null outside a check.
+  let askedWords = null;
   function segMatch(seg, alts, wordCut) {
     let best = null;
     const ns = normalize(seg);
@@ -1247,7 +1278,13 @@
       if (na.length >= 3 && ns !== na && containsWholeRun(ns, na)) {
         const extra = ns.split(' ').length - na.split(' ').length;
         const extraWords = ns.replace(na, ' ').split(' ').filter(Boolean);
-        if (extra === 1 && !extraWords.some((w) => NEGATORS.has(w))) best = betterMatch(best, 'fuzzy');
+        // The extra word has to be one the question uses ("full moon" for
+        // FULL on a question about the moon's phases); any other word is
+        // more said than the key, which is Close, as for a whole answer
+        // ("HELIUM zebra" isn't HELIUM).
+        if (extra === 1 && !extraWords.some((w) => NEGATORS.has(w))) {
+          best = betterMatch(best, !askedWords || extraWords.every((w) => askedWords.some((q) => sameWord(w, q))) ? 'fuzzy' : 'typo');
+        }
       }
     }
     return best;
@@ -1999,6 +2036,7 @@
       const ranking = isRankingQuestion(question.question);
       const canonFn = ranking ? canonicalizeRanked : canonicalizeList;
       let userCanon = canonFn(raw, itemCount, true);
+      let namesMisspelt = false;
       if (userCanon === null && ranking) {
         // A ranking can be typed with the item names themselves, in order
         // ("SA node, AV node, bundle of His"). Every item must be named once,
@@ -2007,7 +2045,7 @@
         const itemTexts = extractItemTexts(question.question, itemCount);
         const distinct = itemTexts && new Set(itemTexts.map((s) => normalize(s))).size === itemTexts.length;
         const nums = distinct ? resolveTermsToNumbers(raw, itemTexts) : null;
-        if (nums && nums.length === itemCount && new Set(nums).size === itemCount) userCanon = nums.join('');
+        if (nums && nums.length === itemCount && new Set(nums).size === itemCount) { userCanon = nums.join(''); namesMisspelt = nums.typo; }
         // ... or with "the other one" for the one item left
         if (userCanon === null) userCanon = rankedWithOtherOne(raw, itemCount, distinct ? itemTexts : null);
       }
@@ -2028,11 +2066,11 @@
           const numbered = userCanon === null && bare.match(/^([1-9])\s*[).:]?\s+(?:only\s+)?(\S.*)$/i);
           if (numbered && parseInt(numbered[1], 10) <= itemCount) {
             const named = resolveTermsToNumbers(numbered[2], itemTexts);
-            if (named && named.length === 1 && named[0] === parseInt(numbered[1], 10)) userCanon = numbered[1];
+            if (named && named.length === 1 && named[0] === parseInt(numbered[1], 10)) { userCanon = numbered[1]; namesMisspelt = named.typo; }
           }
           if (userCanon === null) {
             const nums = resolveTermsToNumbers(bare, itemTexts);
-            if (nums && nums.length) userCanon = digitsToCanonical(nums);
+            if (nums && nums.length) { userCanon = digitsToCanonical(nums); namesMisspelt = nums.typo; }
           }
         }
       }
@@ -2052,6 +2090,11 @@
         const canonKey = (k) => (keyLabelsParts(k, question.question, itemCount) ? null
           : canonFn(k, itemCount) ?? canonFn(withoutEndNote(k), itemCount) ?? namedKey(k));
         const mainCanon = canonKey(ans.text);
+        // The right items, but a name only matched through a misspelling:
+        // Close, as any typo is.
+        if (namesMisspelt && (userCanon === mainCanon || accepts.some((acc) => canonKey(acc) === userCanon))) {
+          return { correct: false, matched: null, rejected: false, close: true };
+        }
         if (mainCanon !== null && userCanon === mainCanon) {
           return { correct: true, matched: 'main', rejected: false };
         }
@@ -3063,6 +3106,19 @@
   const isNote = (x) => NOTE_RE.test(String(x == null ? '' : x));
   function checkAnswer(question, userInput) {
     if (String(userInput || '').length > MAX_ANSWER_LENGTH) return { correct: false, matched: null, rejected: false };
+    // A full stop at the end of a typed answer ends the sentence and isn't
+    // part of it ("1) 4s; 2) 1/16." for 1) 4s; 2) 1/16). (Not "!", which is
+    // a factorial.)
+    if (typeof userInput === 'string') userInput = userInput.trim().replace(/(\S)\s*\.+$/, '$1');
+    const outerAsked = askedWords;
+    askedWords = question && question.question ? normalize(question.question).split(' ').filter(Boolean) : null;
+    try {
+      return checkAnswerOuter(question, userInput);
+    } finally {
+      askedWords = outerAsked;
+    }
+  }
+  function checkAnswerOuter(question, userInput) {
     if (question && question.answer && (question.answer.accept || []).some(isNote)) {
       const a = question.answer;
       question = { ...question, answer: { ...a, accept: a.accept.filter((x) => !isNote(x)), notes: [...(a.notes || []), ...a.accept.filter(isNote)] } };

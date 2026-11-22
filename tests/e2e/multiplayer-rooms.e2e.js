@@ -247,32 +247,16 @@ test('a public room has no owner: no crown or owner tools', async () => {
   await ctx.close();
 });
 
-test('with the timer off, a question that has been read waits for Next, which isn\'t a skip; the timer on starts the countdown', async () => {
+test('the timer is always on: there is no Enable timer switch, and a read question\'s buzz countdown runs out to the answer', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
-  const g = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await a.locator('#mpToggleTimer').count(), 0);
   await a.evaluate(() => { const s = document.getElementById('mpSettingsRateSlider'); s.value = 100; s.dispatchEvent(new Event('change')); });
-  await a.locator('label[for=mpToggleTimer]').click();
-  await g.waitForFunction(() => !document.getElementById('mpToggleTimer').checked, null, { timeout: 10000 });
   await a.locator('#mpNextBtn').click();
-  // Read in full: the button says Next, and nothing ends the question.
-  await g.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next' && !document.getElementById('mpRevealBox').offsetParent, null, { timeout: 60000 });
-  await g.waitForTimeout(1500);
-  assert.strictEqual(await g.locator('#mpRevealBox').isVisible(), false, 'still open for buzzing');
-  // The timer back on: the buzz countdown runs, and the answer shows when it ends.
-  await g.locator('label[for=mpToggleTimer]').click();
-  await a.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Skip', null, { timeout: 10000 });
-  await a.waitForFunction(() => document.getElementById('mpRevealBox').offsetParent, null, { timeout: 30000 });
-  // Off again for the next question, which Next ends without "skipped".
-  await g.locator('label[for=mpToggleTimer]').click();
-  await a.waitForFunction(() => !document.getElementById('mpToggleTimer').checked, null, { timeout: 10000 });
-  await a.locator('#mpNextBtn').click();
-  await a.waitForFunction(() => document.getElementById('mpNextBtn').textContent === 'Next' && !document.getElementById('mpRevealBox').offsetParent, null, { timeout: 60000 });
-  await a.locator('#mpNextBtn').click();
-  await g.waitForFunction(() => document.getElementById('mpRevealBox').offsetParent, null, { timeout: 10000 });
-  assert.ok(!/skipped the question/.test(await g.locator('#mpHistory').innerText()), 'not logged as a skip');
-  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await a.waitForFunction(() => document.getElementById('mpRevealBox').offsetParent, null, { timeout: 60000 });
+  assert.ok(!/skipped the question/.test(await a.locator('#mpHistory').innerText()), 'not logged as a skip');
+  assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
 

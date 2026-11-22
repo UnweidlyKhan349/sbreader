@@ -92,9 +92,9 @@ alter table public.mp_players add column if not exists negs integer not null def
 alter table public.mp_players add column if not exists cel_sum real not null default 0 check (cel_sum between 0 and 100000);
 alter table public.mp_players add column if not exists cel_n integer not null default 0 check (cel_n between 0 and 100000);
 -- A named room's settings when last played (added November 2026; see
--- mp_save_settings). Kept apart from mp_rooms so they outlast the daily
--- reset that clears a room and its scores: they go 30 days after the room
--- was last played (mp_sweep).
+-- mp_save_settings). Like everything else about a room, they last until the
+-- daily reset at 08:00 UTC (mp_last_restart; mp_sweep deletes them). Until
+-- November 22, 2026 they were kept for 30 days after the room was last played.
 create table if not exists public.mp_room_settings (
   room text primary key check (room ~ '^[a-z0-9-]{1,32}$'),
   settings jsonb not null check (jsonb_typeof(settings) = 'object' and octet_length(settings::text) <= 8000),
@@ -175,7 +175,7 @@ returns void
 language sql security definer set search_path = public as $$
   delete from mp_rooms r where not mp_room_live(r);
   delete from mp_players p where not mp_player_live(p);
-  delete from mp_room_settings s where s.saved_at < now() - interval '30 days';
+  delete from mp_room_settings s where s.saved_at < mp_last_restart();
 $$;
 
 create or replace function public.mp_list()
@@ -271,9 +271,6 @@ begin
     username = excluded.username, score = excluded.score, correct = excluded.correct,
     incorrect = excluded.incorrect, negs = excluded.negs, cel_sum = excluded.cel_sum,
     cel_n = excluded.cel_n, last_seen = now(), secret_hash = excluded.secret_hash, peer = excluded.peer;
-  -- Played today: the room's saved settings get their 30 days again (at
-  -- most once an hour, to keep heartbeats cheap).
-  update mp_room_settings set saved_at = now() where room = p_room and saved_at < now() - interval '1 hour';
   return true;
 end;
 $$;
@@ -342,7 +339,7 @@ returns jsonb
 language sql stable security definer set search_path = public as $$
   select jsonb_build_object(
     'is_public', r.is_public, 'owner_key', r.owner_key,
-    'settings', (select s.settings from mp_room_settings s where s.room = r.name),
+    'settings', (select s.settings from mp_room_settings s where s.room = r.name and s.saved_at >= mp_last_restart()),
     'banned', coalesce((select jsonb_agg(e.key) from jsonb_each_text(r.ban_times) e
       where e.value::bigint > (extract(epoch from now()) * 1000)::bigint - 1800000), '[]'::jsonb),
     'ban_times', coalesce((select jsonb_object_agg(e.key, e.value::bigint) from jsonb_each_text(r.ban_times) e
@@ -407,7 +404,7 @@ grant execute on function public.mp_room(text), public.mp_set_room(text, text, b
 
 -- Room settings (added November 2026): a named room keeps its settings
 -- (filters, switches, reading speed) in mp_room_settings and opens with
--- them again, for 30 days after it was last played. Any player now in the
+-- them again, until the daily reset at 08:00 UTC. Any player now in the
 -- room (their own live row, by their browser's secret) can save them; the
 -- coordinator does after each change. Built-in rooms keep their fixed
 -- settings and save nothing.
@@ -446,7 +443,7 @@ create or replace function public.mp_saved_settings(p_room text)
 returns jsonb
 language sql stable security definer set search_path = public as $$
   select s.settings from mp_room_settings s
-  where s.room = p_room and s.saved_at >= now() - interval '30 days';
+  where s.room = p_room and s.saved_at >= mp_last_restart();
 $$;
 revoke all on function public.mp_saved_settings(text) from public;
 grant execute on function public.mp_saved_settings(text) to anon, authenticated;
@@ -549,7 +546,7 @@ grant execute on function public.question_stats(integer) to anon, authenticated;
 create or replace function public.sb_schema_version()
 returns integer
 language sql immutable as $$
-  select 20261115;
+  select 20261122;
 $$;
 revoke all on function public.sb_schema_version() from public;
 grant execute on function public.sb_schema_version() to anon, authenticated;

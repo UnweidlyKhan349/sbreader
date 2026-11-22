@@ -105,11 +105,11 @@
     const footer = document.createElement('div');
     footer.className = 'card-footer';
     const src = a.sourceUrl || q.sourceUrl;
-    // "MIT 2020 / RR 3 / Question 6 / Math / Toss-up" (or the packet's own
+    // "MIT 2020 / RR 3 / Toss-up 6 / Math" (or the packet's own
     // name, "2016 Question Exchange / Aug 11 Albany / ...") on the left,
     // "Source packet | Report" on the right.
     const round = SBData.roundLabelFor(q);
-    const left = [q.tournament, round ? shortRound(round) : '', q.num ? 'Question ' + q.num : '', SBData.subjectLabel(q.subject), SBData.qtypeLabel(q)].filter(Boolean).map(escapeHtml).join(' / ');
+    const left = [q.tournament, round ? shortRound(round) : '', q.num ? SBData.qtypeLabel(q) + ' ' + q.num : SBData.qtypeLabel(q), SBData.subjectLabel(q.subject)].filter(Boolean).map(escapeHtml).join(' / ');
     footer.innerHTML = `<small class="text-muted">${left}</small><small class="text-muted float-end card-footer-links"></small>`;
     const links = footer.querySelector('.float-end');
     if (/^https?:\/\//.test(src || '')) links.innerHTML = `<a href="${escapeHtml(src)}" target="_blank" rel="noopener">Source packet</a>`;

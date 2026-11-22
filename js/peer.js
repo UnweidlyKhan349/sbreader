@@ -260,6 +260,16 @@
       setTimeout(() => { if (!self.destroyed && self.disconnected) self.reconnect(); }, 1000);
       setTimeout(() => { if (!self.destroyed && self.disconnected) checkLost(); }, LOST_AFTER_MS);
     });
+    // Checked again every few seconds while the service is out of reach, so
+    // a loss is still told when the last link to another player only times
+    // out (or says goodbye) after the check above: the player always gets
+    // the dialog, however the connection went.
+    if (typeof setInterval === 'function') {
+      const lostWatch = setInterval(() => {
+        if (self.destroyed) { clearInterval(lostWatch); return; }
+        if (self.disconnected) checkLost(); else checkBack();
+      }, 3000);
+    }
     // PeerJS opens again once a reconnect() gets through.
     self.on('open', () => checkBack());
     if (typeof window !== 'undefined') {
@@ -401,7 +411,7 @@
         if (conns.get(id) !== conn) return; // replaced by a newer link
         conns.delete(id);
         if (onLeave) onLeave(id, !!graceful);
-        if (!graceful && conns.size === 0) setTimeout(checkLost, LOST_AFTER_MS);
+        if (conns.size === 0) setTimeout(checkLost, graceful ? 0 : LOST_AFTER_MS);
       };
       const heard = watchConn(conn, () => drop(false));
       conn.on('data', (data) => {

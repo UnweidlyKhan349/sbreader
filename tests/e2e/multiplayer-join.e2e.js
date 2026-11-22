@@ -115,10 +115,10 @@ test('your own live answer doesn\'t jump back to older text when the runner is s
   await ctx.close();
 });
 
-test('a named room keeps its settings after everyone leaves, and after the daily reset', async () => {
+test('a named room keeps its settings after everyone leaves, until the daily reset', async () => {
   const ctx = await newContext(browser, { liveSupabase: true });
-  // As in the database: the room's record (cleared at the daily reset) and
-  // its saved settings (kept 30 days) apart.
+  // As in the database: the room's record and its saved settings, both
+  // cleared at the daily reset (08:00 UTC).
   const rooms = new Set();
   const saved = new Map();
   const saves = [];
@@ -151,10 +151,11 @@ test('a named room keeps its settings after everyone leaves, and after the daily
   const b = await joinRoom(ctx, server.url, r);
   assert.strictEqual(await subjectOn(b, 'chem'), false, 'the room opens with chem still off');
   await b.close();
-  // The daily reset clears the room; its settings stay.
+  // The daily reset clears the room and its settings.
   rooms.clear();
+  saved.clear();
   const c = await joinRoom(ctx, server.url, r);
-  assert.strictEqual(await subjectOn(c, 'chem'), false, 'and still after the reset');
+  assert.strictEqual(await subjectOn(c, 'chem'), true, 'after the reset it opens with the defaults');
   assert.deepStrictEqual([...b.errors, ...c.errors], []);
   await ctx.close();
 });

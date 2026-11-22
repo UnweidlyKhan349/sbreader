@@ -1,9 +1,9 @@
 // Play (solo.html), laid out and behaving like QB Reader's play page: a mode
-// (Random Questions, Starred Questions), subject toggles,
-// type-to-answer / rebuzz / timer switches, and finished questions
-// collapsed into cards under the current one (k opens the latest, t stars it).
+// (Random Questions, Starred Questions), subject toggles, rebuzz and timer
+// switches, each answer you give logged under the question ("Correct
+// neptune"), and finished questions collapsed into cards there too (k opens
+// the latest, t stars it). You always type your answer.
 (function () {
-  const { escapeHtml } = SBData;
   const TOSSUP_BUZZ_MS = 4000;
   const BONUS_BUZZ_MS = 20000;
   const ANSWER_MS = 10000;
@@ -22,12 +22,11 @@
     // [first, last] years, or null for every year.
     yearRange: null,
     includeUnlabeled: true,
-    // Off, as QB Reader's "Type to answer": you buzz, reveal the answer and
-    // grade yourself (counted right; "I was wrong" flips it).
-    typeToAnswer: true,
     rebuzz: false,
     timer: true,
   });
+  // (Type to answer, once a switch, is gone: answers are always typed.)
+  delete settings.typeToAnswer;
   function save() { SBPlay.saveSettings(SETTINGS_KEY, { ...settings, subjects: [...subjects] }); }
   let subjects; // Set of subject keys
   let roundSliderApi;
@@ -152,7 +151,7 @@
     scopeRounds();
 
     // Switches.
-    const switches = { toggleTypeToAnswer: 'typeToAnswer', toggleRebuzz: 'rebuzz', toggleTimer: 'timer' };
+    const switches = { toggleRebuzz: 'rebuzz', toggleTimer: 'timer' };
     Object.entries(switches).forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.checked = !!settings[key];
@@ -201,13 +200,18 @@
     if (moved) settings.roundRange = moved;
   }
 
-  // Enable timer.
+  // Enable timer. Off, nothing is timed and nothing is read out: each
+  // question shows in full at once, open for buzzing until you answer or
+  // move on.
   function applySwitches() {
     document.getElementById('timer').classList.toggle('d-none', !settings.timer);
-    // Turning the timer off mid-countdown stops it; turning it on starts the
-    // buzz window again if the question has finished reading.
-    if (!settings.timer) clearRuntimeTimer();
-    else if (runtime.phase === 'buzzwindow' && !runtime.timer) startBuzzWindow(true);
+    // Turning the timer off mid-countdown stops it (and shows the rest of a
+    // question being read); turning it on starts the buzz window again if
+    // the question has finished reading.
+    if (!settings.timer) {
+      clearRuntimeTimer();
+      if (runtime.phase === 'revealing' && runtime.revealCtl) runtime.revealCtl.skipToEnd();
+    } else if (runtime.phase === 'buzzwindow' && !runtime.timer) startBuzzWindow(true);
   }
 
   // On wide screens the sidebar starts open; on narrow ones it sits above the
@@ -249,6 +253,9 @@
     timer: null, remainingMs: 0, totalMs: 0, timerKind: null, onExpire: null,
     buzzwindowLeftMs: null,
     paused: false,
+    // Counts the questions played, so each one's lines in the history can be
+    // told apart (an index repeats when starred questions start over).
+    serial: 0,
   };
   function sessionActive() { return runtime.phase !== 'idle' && runtime.phase !== 'done'; }
 
@@ -326,6 +333,7 @@
     hideSettingsOnPhone();
 
     session.index++;
+    runtime.serial++;
     const q = currentQ();
     runtime.phase = 'revealing';
     runtime.readingDone = false;
@@ -337,6 +345,7 @@
 
     document.getElementById('revealBox').style.display = 'none';
     document.getElementById('answerRow').classList.add('d-none');
+    parkOverride();
     document.getElementById('overrideBtn').classList.add('d-none');
     resetTimer();
     setNextButtonMode('skip');
@@ -378,6 +387,8 @@
     runtime.revealCtl = SBReveal.startReveal(boxSegments, session.rate, {
       onComplete: () => { runtime.readingDone = true; startBuzzWindow(); },
     });
+    // With the timer off, the whole question at once.
+    if (!settings.timer) runtime.revealCtl.skipToEnd();
   }
 
   // After the question is read: the buzz window (4 s for a tossup, 20 s for a
@@ -395,8 +406,6 @@
   }
 
   function buzzIn() {
-    // Self-graded (Type to answer off): the second press is Reveal.
-    if (runtime.phase === 'answering' && runtime.selfGraded) { selfReveal(); return; }
     if (runtime.phase !== 'revealing' && runtime.phase !== 'buzzwindow') return;
     if (runtime.paused) return;
     runtime.buzzedDuringReading = runtime.phase === 'revealing';
@@ -406,17 +415,6 @@
     if (runtime.phase === 'buzzwindow' && runtime.timer) runtime.buzzwindowLeftMs = runtime.remainingMs;
     clearRuntimeTimer();
     runtime.phase = 'answering';
-    // (Kept for this buzz, whatever the switch does meanwhile.)
-    runtime.selfGraded = !settings.typeToAnswer;
-    if (runtime.selfGraded) {
-      // As on QB Reader: Buzz turns into Reveal while the answer clock runs;
-      // revealing (or running out of time) shows the answer.
-      setNextButtonMode('disabled');
-      setBuzzLabel('Reveal');
-      setBuzzEnabled(true);
-      if (settings.timer) runTimer(ANSWER_MS, 'answer', selfReveal);
-      return;
-    }
     setBuzzEnabled(false);
     setNextButtonMode('disabled');
     const answerRow = document.getElementById('answerRow');
@@ -432,14 +430,37 @@
     if (settings.timer) runTimer(ANSWER_MS, 'answer', () => submitAnswer(document.getElementById('answerInput').value));
   }
 
-  // Self-graded: the answer is shown and the buzz counts as right, unless
-  // you then say "I was wrong" (q).
-  function selfReveal() {
-    if (runtime.phase !== 'answering' || !runtime.selfGraded) return;
-    clearRuntimeTimer();
-    resolveQuestion({ correct: true, userText: '' });
+  // Each answer you give goes into the history under the question as you
+  // give it, as buzzes do in Multiplayer: "Correct neptune" or "Incorrect
+  // mars" (with Close for a near miss), newest first. An override recolours
+  // it, and the "I was wrong" / "I was right" link sits at its right.
+  function logAnswer(correct, userText, close) {
+    const li = document.createElement('li');
+    li.className = 'answer-line';
+    li.dataset.serial = String(runtime.serial);
+    li.innerHTML = '<span class="badge text-white"></span> <span class="user-answer"></span>';
+    li.querySelector('.user-answer').textContent = userText.trim() ? userText : '(blank)';
+    paintAnswerLine(li, correct, close);
+    document.getElementById('questionLog').prepend(li);
   }
-  function setBuzzLabel(text) { document.getElementById('buzzBtn').textContent = text; }
+  function paintAnswerLine(li, correct, close) {
+    const badge = li.querySelector('.badge');
+    badge.classList.toggle('bg-success', correct);
+    badge.classList.toggle('bg-danger', !correct);
+    badge.textContent = correct ? 'Correct' : 'Incorrect';
+    const hint = li.querySelector('.close-hint');
+    if (hint && (correct || !close)) hint.remove();
+    if (!correct && close && !hint) {
+      const h = document.createElement('span');
+      h.className = 'close-hint ms-2';
+      h.textContent = 'Close';
+      li.querySelector('.user-answer').after(h);
+    }
+  }
+  // This question's last answer line.
+  function lastAnswerLine() {
+    return [...document.querySelectorAll('#questionLog > li.answer-line')].find((li) => li.dataset.serial === String(runtime.serial)) || null;
+  }
 
   function submitAnswer(text) {
     if (runtime.phase !== 'answering') return;
@@ -451,6 +472,7 @@
     const result = text.trim() ? SBAnswer.checkAnswer(q, text) : { correct: false };
     document.getElementById('answerRow').classList.add('d-none');
     document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => el.classList.remove('clickable'));
+    logAnswer(!!result.correct, text, !!result.close);
     if (result.correct) {
       resolveQuestion({ correct: true, userText: text });
       return;
@@ -512,7 +534,6 @@
     }
 
     setBuzzEnabled(false);
-    setBuzzLabel('Buzz');
     document.getElementById('pauseBtn').disabled = true;
     document.getElementById('answerRow').classList.add('d-none');
     resetTimer();
@@ -549,20 +570,9 @@
     const q = currentQ();
     const box = document.getElementById('revealBox');
     const outcome = runtime.lastOutcome;
-    let category = 'skipped';
-    if (outcome && outcome.attempted) category = outcome.correct ? 'correct' : 'incorrect';
-    // The answer line first, then how you did: "Correct sqrt 137" (a
-    // skipped question gets no chip, as on QB Reader).
-    let html = `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
-    if (category !== 'skipped') {
-      const badgeText = category === 'correct' ? 'Correct' : 'Incorrect';
-      html += `<div class="mb-1 d-flex align-items-center gap-1 grade-row"><span class="grade-badge ${category}">${badgeText}</span>`;
-      if (outcome.userText) html += ` <span class="user-answer">${escapeHtml(outcome.userText)}</span>`;
-      html += '</div>';
-    }
-    if (category === 'incorrect' && outcome.close) {
-      html += '<div class="close-hint">Close</div>';
-    }
+    // Just the answer line: how you did is on your answer's line in the
+    // history below.
+    const html = `<p class="ans-line mb-1">ANSWER: ${SBData.answerLineHTML(SBData.answerDisplayText(q), q.answer.letter, q.answer.accept, q.answer.reject).replace(/^Answer: /, '')}</p>`;
     parkOverride();
     box.innerHTML = html;
     // Once it's over, the label above the question links to the packet.
@@ -572,10 +582,12 @@
 
     // "I was wrong" undoes a Correct; "I was right" undoes an Incorrect.
     const override = document.getElementById('overrideBtn');
-    if (outcome && outcome.attempted) {
+    const line = outcome && outcome.attempted ? lastAnswerLine() : null;
+    if (line) {
+      paintAnswerLine(line, outcome.correct, outcome.close);
       override.textContent = outcome.correct ? 'I was wrong' : 'I was right';
-      // On the same line as "Correct sqrt 137", at the right.
-      box.querySelector('.grade-row').appendChild(override);
+      // On the same line as "Correct neptune", at the right.
+      line.appendChild(override);
       override.classList.remove('d-none');
     } else {
       override.classList.add('d-none');
@@ -589,12 +601,12 @@
     }
   }
 
-  // The override link lives in the reveal box's grade row while it shows;
-  // it's moved back out before the box is rebuilt, so it isn't thrown away.
+  // The override link lives on your answer's line in the history while the
+  // answer shows; it's moved back out when the next question starts.
   function parkOverride() {
     const override = document.getElementById('overrideBtn');
     const box = document.getElementById('revealBox');
-    if (box.contains(override)) box.before(override);
+    if (override.parentElement !== box.parentElement) box.before(override);
   }
 
   function skipQuestion() {

@@ -295,7 +295,8 @@
         rebuzz: msg.rebuzz === true,
         // Allow skips (on unless turned off).
         skip: msg.skip !== false,
-        timer: msg.timer !== false,
+        // The timer is always on (Enable timer was a room setting once).
+        timer: true,
         isPublic: msg.isPublic !== false,
         subjects: knownValues(msg.subjects, known.subjects),
         qtypes: knownValues(msg.qtypes, known.qtypes),

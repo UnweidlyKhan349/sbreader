@@ -170,7 +170,7 @@ test('room names are cleaned to letters, digits and dashes, and give a stable do
 test('room settings carry the switches, cleaned, and are always random questions', () => {
   const s = cleanHostMessage({ type: 'updateSettings', mode: 'set', setName: meta.tournaments[0].slug, packetNumbers: '1-3, 5<script>', rebuzz: true, timer: false, isPublic: false }, meta);
   assert.deepStrictEqual([s.mode, s.setName, s.packetNumbers], ['random', '', '']);
-  assert.deepStrictEqual([s.rebuzz, s.timer, s.isPublic], [true, false, false]);
+  assert.deepStrictEqual([s.rebuzz, s.timer, s.isPublic], [true, true, false], 'the timer is always on');
   const d = cleanHostMessage({ type: 'updateSettings', mode: 'weird', setName: 'no-such-set' }, meta);
   assert.deepStrictEqual([d.mode, d.setName, d.rebuzz, d.timer, d.isPublic], ['random', '', false, true, true]);
 });

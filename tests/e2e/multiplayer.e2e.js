@@ -338,3 +338,34 @@ test('a wrong answer in the last second of the buzz window leaves the others at 
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
+
+test('the player popover moves with scrolling as QB Reader\'s (Popper) does: kept on screen below the navbar while its row shows, arrow on the row', async () => {
+  const ctx = await newContext(browser, { viewport: { width: 1300, height: 700 } });
+  const a = await joinRoom(ctx, server.url, room());
+  // Room to scroll.
+  await a.evaluate(() => { const d = document.createElement('div'); d.style.height = '3000px'; document.getElementById('mpHistory').after(d); });
+  await a.locator('.mp-player-row.user-score').click();
+  await a.waitForSelector('.custom-popover.show');
+  const geo = () => a.evaluate(() => {
+    const p = document.querySelector('.custom-popover').getBoundingClientRect();
+    const r = document.querySelector('.mp-player-row.user-score').getBoundingClientRect();
+    const arrow = document.querySelector('.custom-popover .popover-arrow').getBoundingClientRect();
+    const nav = document.getElementById('navbar').getBoundingClientRect().bottom;
+    return { pTop: p.top, pBottom: p.bottom, pRight: p.right, rTop: r.top, rBottom: r.bottom, rLeft: r.left, arrowMid: arrow.top + arrow.height / 2, nav };
+  });
+  const g0 = await geo();
+  assert.ok(g0.pRight <= g0.rLeft, 'to the left of the row');
+  // Scroll until the row is just under the navbar.
+  await a.evaluate((dy) => window.scrollBy(0, dy), g0.rTop - g0.nav - 10);
+  await a.waitForTimeout(150);
+  const g1 = await geo();
+  assert.ok(g1.pTop >= g1.nav, `kept below the navbar (${g1.pTop} vs ${g1.nav})`);
+  assert.ok(g1.arrowMid >= g1.rTop && g1.arrowMid <= g1.rBottom, 'the arrow still points at the row');
+  // Scrolled well past: it goes off with the row.
+  await a.evaluate(() => window.scrollBy(0, 600));
+  await a.waitForTimeout(150);
+  const g2 = await geo();
+  assert.ok(g2.pTop < g2.nav && g2.arrowMid <= g2.rBottom, 'tethered: it goes up with the row, arrow still on it');
+  assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});

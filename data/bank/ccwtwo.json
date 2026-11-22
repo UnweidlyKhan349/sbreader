@@ -266,7 +266,7 @@
 {"i":3080,"s":"math","f":"SA","qt":"bonus","n":20,"q":"A staircase has 8 steps. A frog can either leap 1, 2, or 3 steps forward at a time. How many ways are there for the frog to climb the staircase?","a":{"t":"81"},"pg":10},
 {"i":3081,"s":"phys","f":"MC","qt":"tossup","n":21,"q":"Which of the following particles has at least one strange quark?","a":{"t":"Hyperon","l":"Y"},"c":{"W":"Pion","X":"Axion","Y":"Hyperon","Z":"Lambda"},"pg":11},
 {"i":3082,"s":"phys","f":"SA","qt":"bonus","n":21,"q":"The electric potential is given everywhere by the equation V(x,y,z) = x^(2)y^(2)z^3. What is the magnitude of the electric field at the point (1, 1, 1)?","a":{"t":"√17"},"pg":11},
-{"i":3083,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What postulate in organic chemistry states that transition states resemble the products or reactants, depending on the differences in energy?","a":{"t":"HAMMOND’"},"pg":11},
+{"i":3083,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What postulate in organic chemistry states that transition states resemble the products or reactants, depending on the differences in energy?","a":{"t":"HAMMOND’S POSTULATE"},"pg":11},
 {"i":3084,"s":"bio","f":"SA","qt":"tossup","n":23,"q":"Plastocyanin is a carrier protein which contains what metal at its center?","a":{"t":"COPPER"},"pg":12},
 {"i":3085,"s":"bio","f":"SA","qt":"bonus","n":23,"q":"The pentose phosphate pathway occurs in what cell organelle?","a":{"t":"CYTOPLASM","ac":["CYTOSOL"]},"pg":12}]},
 {"rl":"Blair_C_Packet_1_CCWTWO","r":1,"u":"https://lebot.djiang.xyz/packets/CCWTWO/Blair_C_Packet_1_CCWTWO.pdf","q":[
