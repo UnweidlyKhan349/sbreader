@@ -242,6 +242,7 @@ tools/link-sweep.js find the published packet (or tournament folder) for questio
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 tools/stamp-assets.js   stamps each page's script and stylesheet links with a hash of the file (js/x.js?v=…), so a deploy never pairs a new page with a cached old script; run it after changing any .js or .css (npm test checks)
 tools/build-pages.js    builds a static page for every set and packet, and the full sitemap (run by the deploy)
+tools/key-conflicts.js     lists questions that read almost the same but are keyed differently, for finding wrong keys (each pair needs reading)
 tools/grader-stress.js     types variants of a random sample of keys (lower case, a full stop, junk words, typos, a changed digit, a dropped word, other MC letters) and lists any graded against the rules in Answer grading
 tools/override-report.js   the "I was right" clicks regraded with today's grader: what it still marks wrong, most clicked first (see Reports)
 sw.js               the service worker: caches the bank and the site's files (see Caching)

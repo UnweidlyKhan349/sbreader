@@ -2145,11 +2145,10 @@
     game.phase = 'reading'; game.buzzedPlayerId = null; game.lockedOut = new Set();
     game.lastGrade = null; game.attempts = [];
     game.overrideLocked = false;
-    // A new question is starting - make sure the chat box isn't still
-    // holding keyboard focus, so buzz/keyboard shortcuts work immediately
-    // without the player having to click away from chat first.
-    const chatInput = document.getElementById('mpChatInput');
-    if (chatInput && document.activeElement === chatInput) chatInput.blur();
+    // (The chat box keeps the keyboard if you're typing in it when the
+    // question starts: it used to be blurred here, and the rest of what you
+    // typed then went to the page as shortcuts, Space buzzing. Enter sends
+    // the message and Esc closes the box; then the shortcuts work.)
     fullRenderFromState();
   }
   function applyPhaseLocal(phase, lockedOut) {
@@ -3779,7 +3778,7 @@
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (window.SBSite && SBSite.modalOpen()) return;
       const tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (e.target && e.target.isContentEditable)) return;
       switch ((e.key || '').toLowerCase()) {
         case ' ':
           // Nothing focused (a history card, its star) acts on this Space too.

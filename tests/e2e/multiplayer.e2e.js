@@ -370,3 +370,28 @@ test('the player popover moves with scrolling as QB Reader\'s (Popper) does: kep
   assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
+
+test('typing in the chat box is never a shortcut, also when a question starts mid-message: Space types a space, no buzz', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press('Enter'); await g.waitForTimeout(300);
+  await g.keyboard.type('hello');
+  // The other player starts a question while the guest is still typing.
+  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await g.keyboard.type(' there n s p k t q e');
+  await g.waitForTimeout(400);
+  assert.strictEqual(await g.evaluate(() => document.activeElement && document.activeElement.id), 'mpChatInput', 'the chat box kept the keyboard');
+  assert.strictEqual(await g.locator('#mpChatInput').inputValue(), 'hello there n s p k t q e');
+  assert.strictEqual(await g.locator('#mpAnswerRow').isVisible(), false, 'Space did not buzz');
+  assert.ok(!/buzz/i.test(await a.locator('#mpHistory li[data-buzz-player], #mpHistory #live-buzz').allInnerTexts().then((x) => x.join(' '))), 'nobody buzzed');
+  // Enter sends it; then the shortcuts work again.
+  await g.keyboard.press('Enter'); await g.waitForTimeout(500);
+  assert.match(await a.locator('#mpHistory').innerText(), /hello there n s p k t q e/);
+  await g.keyboard.press(' '); await g.waitForTimeout(500);
+  assert.strictEqual(await g.locator('#mpAnswerRow').isVisible(), true, 'now Space buzzes');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});

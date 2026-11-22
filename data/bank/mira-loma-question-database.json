@@ -11144,7 +11144,7 @@
 {"i":111993,"s":"bio","f":"MC","qt":"tossup","n":15,"q":"In the human immune system, what cells release histamine?","c":{"W":"Macrophages","X":"Neutrophils","Y":"Mast Cells","Z":"Microphages"},"a":{"t":"Mast Cells","l":"Y"}},
 {"i":111994,"s":"chem","f":"SA","qt":"tossup","n":16,"q":"Name the most stable conformation of a cyclohexane.","a":{"t":"CHAIR CONFORMATION"}},
 {"i":111995,"s":"phys","f":"MC","qt":"tossup","n":17,"q":"A satellite that orbits the Earth so that it is always above the same place on the ground is known as","c":{"W":"Geosynchronous","X":"Pluripotent","Y":"Geopotent","Z":"Plurisynchronous"},"a":{"t":"Geosynchronous","l":"W"}},
-{"i":111997,"s":"ess","f":"MC","qt":"tossup","n":19,"q":"Which terrestrial planet displays retrograde motion?","c":{"W":"Earth","X":"Mercury","Y":"Venus","Z":"Mars"},"a":{"t":"Mars","l":"Z"}},
+{"i":111997,"s":"ess","f":"MC","qt":"tossup","n":19,"q":"Which terrestrial planet displays retrograde motion?","c":{"W":"Earth","X":"Mercury","Y":"Venus","Z":"Mars"},"a":{"t":"Venus","l":"Y"}},
 {"i":111998,"s":"ess","f":"SA","qt":"tossup","n":20,"q":"What the term for the transformation of sediment into sedimentary rock?","a":{"t":"LITHIFICATION"}},
 {"i":111999,"s":"energy","f":"SA","qt":"tossup","n":21,"q":"What Russian scientist received the Nobel prize in 1904 for his work on the digestive system and is widely known as the founder of classical conditioning?","a":{"t":"IVAN PAVLOV","ac":["PAVLOV"]}},
 {"i":112000,"s":"bio","f":"SA","qt":"tossup","n":22,"q":"What hormone is released by the small intestine to inhibit peristalsis and acid secretion by the stomach?","a":{"t":"CHOLECYSTOKININ","ac":["CCK"]}},
