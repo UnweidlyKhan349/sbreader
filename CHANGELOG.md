@@ -324,3 +324,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Play**: "I was right" / "I was wrong" stays on every past answer's line, so an earlier answer can be claimed later; the counts and your account's stats follow.
 - **Deploy**: the site copy no longer includes `docs/`, the README, the changelog, `package.json` or the data only `npm test` reads (`data/source-subjects.json`, 1.6 MB).
 - Data work: scripts used on the bank now go in `tools/` (see docs/data-history.md, Project conventions).
+- **Multiplayer**: "I was right" / "I was wrong" works on earlier questions too, from the link on your buzz line: the room re-scores it for everyone (taking the question from whoever was marked right, without a penalty, and giving it back if undone), offline players included, and your account's stats follow.

@@ -344,3 +344,89 @@ test('the lobby\'s active player count stays right as players come and go', asyn
   assert.deepStrictEqual(lobby.errors, []);
   await ctx.close();
 });
+
+test('an answer on an earlier question can be claimed later: I was right on its line, for everyone, and taken back', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await strangerIn(ctx, server.url, r); // its own player ID
+  const gName = await g.evaluate(() => document.getElementById('mpUsername').value);
+  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press(' '); await g.waitForTimeout(400);
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
+  await a.keyboard.press('s'); await a.waitForTimeout(1200);
+  // On to the next question: the first is past.
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.keyboard.press('n'); await a.waitForTimeout(1200);
+  const scoreOf = (p) => p.$$eval('.mp-player-row', (rows, n) => {
+    const row = rows.find((x) => x.querySelector('span') && x.querySelector('span').textContent.trim() === n);
+    return row ? row.querySelector('.badge').textContent : 'NaN';
+  }, gName);
+  const before = Number(await scoreOf(a));
+  const pastLink = g.locator('#mpHistory .mp-past-override');
+  await g.waitForSelector('#mpHistory .mp-past-override', { timeout: 10000 });
+  assert.strictEqual(await pastLink.innerText(), 'I was right');
+  assert.strictEqual(await a.locator('#mpHistory .mp-past-override').count(), 0, 'only on your own answers');
+  await pastLink.click();
+  await a.waitForFunction((n) => /changed their answer on an earlier question to correct/.test(document.getElementById('mpHistory').textContent), gName, { timeout: 10000 });
+  // zzzz was 0 (after the reading) or -4 (an interrupt); right, it's +4
+  assert.strictEqual(Number(await scoreOf(a)), 4, 'the score follows');
+  const lineColour = (p) => p.$$eval('#mpHistory li[data-buzz-q]', (ls) => ls.map((l) => (l.querySelector('.badge.bg-success') ? 'green' : 'red')).join(' '));
+  assert.strictEqual(await lineColour(a), 'green');
+  await g.waitForFunction(() => document.querySelector('#mpHistory .mp-past-override') && document.querySelector('#mpHistory .mp-past-override').textContent === 'I was wrong', null, { timeout: 5000 });
+  await g.locator('#mpHistory .mp-past-override').click();
+  await a.waitForFunction(() => /earlier question to incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  assert.strictEqual(Number(await scoreOf(a)), before, 'and back');
+  assert.strictEqual(await lineColour(a), 'red');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('"I was right" on an earlier question someone else got takes it from them (no penalty), and gives it back when undone', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await strangerIn(ctx, server.url, r);
+  const [aName, gName] = [await myName(a), await myName(g)];
+  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press(' '); await g.waitForTimeout(400);
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
+  const reading = () => {
+    const plain = (html) => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent.replace(/\s+/g, ' ').trim(); };
+    const shown = document.getElementById('mpQDisplay').textContent.replace(/\s+/g, ' ').trim();
+    const found = shown.length < 15 ? [] : SBData.questions.filter((q) => plain(SBData.readoutHTML(q)).startsWith(shown));
+    const keys = new Set(found.map((q) => q.answer.letter || q.answer.text));
+    return keys.size === 1 ? [...keys][0] : null;
+  };
+  await a.waitForFunction(reading, null, { timeout: 20000, polling: 250 });
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.keyboard.press(' '); await a.waitForTimeout(400);
+  const answer = await a.evaluate(reading);
+  await a.keyboard.type(answer); await a.keyboard.press('Enter'); await a.waitForTimeout(1000);
+  // (by the exact name: the second player is often "Name 2")
+  const score = (p, name) => p.$$eval('.mp-player-row', (rows, n) => {
+    const row = rows.find((x) => x.querySelector('span') && x.querySelector('span').textContent.trim() === n);
+    return row ? Number(row.querySelector('.badge').textContent) : NaN;
+  }, name);
+  const gBefore = await score(a, gName);
+  assert.strictEqual(await score(a, aName), 4);
+  // Next question: the first is past.
+  await a.locator('body').click({ position: { x: 400, y: 300 } });
+  await a.keyboard.press('n'); await a.waitForTimeout(1200);
+  await g.waitForSelector('#mpHistory .mp-past-override', { timeout: 10000 });
+  await g.locator('#mpHistory .mp-past-override').click();
+  await a.waitForFunction(() => /was marked incorrect on an earlier question/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  assert.strictEqual(await score(a, aName), 0, 'no points, and no penalty');
+  assert.strictEqual(await score(a, gName), 4);
+  assert.ok(gBefore === 0 || gBefore === -4);
+  // The other player can't override it now (someone was overridden to correct).
+  assert.strictEqual(await a.locator('#mpHistory .mp-past-override').count(), 0);
+  await g.locator('#mpHistory .mp-past-override').click();
+  await a.waitForFunction(() => /marked correct again on an earlier question/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  assert.strictEqual(await score(a, aName), 4);
+  assert.strictEqual(await score(a, gName), gBefore);
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});

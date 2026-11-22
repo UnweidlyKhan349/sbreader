@@ -704,6 +704,8 @@
     }
     li.removeAttribute('id');
     li.dataset.buzzPlayer = playerId;
+    const pl = game.players.find((pp) => pp.id === playerId);
+    if (pl && pl.pid) li.dataset.buzzPid = pl.pid;
     li.dataset.buzzQ = String(game.index);
   }
   // A finished buzz from before you joined, as finishBuzzLine leaves one.
@@ -720,6 +722,7 @@
       li.appendChild(hint);
     }
     li.dataset.buzzPlayer = a.playerId;
+    if (a.pid) li.dataset.buzzPid = a.pid;
     if (qIndex != null) li.dataset.buzzQ = String(qIndex);
     historyEl().prepend(li);
   }
@@ -728,7 +731,9 @@
   function recolorBuzzLine(playerId, correct) {
     const li = [...historyEl().querySelectorAll('li[data-buzz-player]')]
       .find((x) => x.dataset.buzzPlayer === playerId && x.dataset.buzzQ === String(game.index));
-    if (!li) return;
+    if (li) paintBuzzLine(li, correct);
+  }
+  function paintBuzzLine(li, correct) {
     const badges = li.querySelectorAll('.badge');
     badges.forEach((b) => { b.classList.toggle('bg-success', correct); b.classList.toggle('bg-danger', !correct); });
     if (badges.length > 1) badges[badges.length - 1].textContent = correct ? 'Correct' : 'Incorrect';
@@ -913,7 +918,8 @@
   function renderOverrideLink() {
     const overrideBtn = document.getElementById('mpOverrideBtn');
     overrideBtn.classList.add('d-none');
-    historyEl().querySelectorAll('.mp-inline-override').forEach((el) => el.remove());
+    historyEl().querySelectorAll('.mp-inline-override, .mp-past-override').forEach((el) => el.remove());
+    renderPastOverrideLinks();
     document.querySelectorAll('#mpRevealBox .answer-report').forEach((el) => el.remove());
     if (game.phase !== 'reveal') return;
     // Report at the right of the answer line, for everyone.
@@ -937,6 +943,31 @@
     link.textContent = label;
     link.addEventListener('click', (e) => { e.preventDefault(); link.blur(); doOverride(); });
     myLine.appendChild(link);
+  }
+
+  // Your answers on earlier questions keep a link too (see hostOverridePast).
+  function renderPastOverrideLinks() {
+    if (!myState.pid) return;
+    (game.log || []).forEach((entry) => {
+      if (!entry || typeof entry.idx !== 'number' || !Array.isArray(entry.attempts)) return;
+      if (entry.idx === game.index && game.phase === 'reveal') return; // the current question's own link
+      const mine = entry.attempts.filter((a) => a.pid === myState.pid).pop();
+      if (!mine) return;
+      if (entry.overrideLocked && entry.overrideLocked !== myState.pid) return;
+      const line = [...historyEl().querySelectorAll('li[data-buzz-q]')]
+        .find((x) => x.dataset.buzzQ === String(entry.idx) && x.dataset.buzzPid === myState.pid);
+      if (!line || line.querySelector('.mp-past-override')) return;
+      const link = document.createElement('a');
+      link.href = '#';
+      link.className = 'btn btn-link p-0 float-end mp-past-override';
+      link.textContent = mine.correct ? 'I was wrong' : 'I was right';
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); link.blur();
+        if (myState.role === 'host') hostOverridePast(myState.myId, entry.idx);
+        else if (client) client.send({ type: 'overridePast', idx: entry.idx });
+      });
+      line.appendChild(link);
+    });
   }
 
   // The answer under the question, as QB Reader shows it.
@@ -1606,6 +1637,7 @@
       return;
     }
     if (msg.type === 'override') { hostOverrideLastGrade(connId); return; }
+    if (msg.type === 'overridePast') { hostOverridePast(connId, msg.idx); return; }
     if (msg.type === 'rename') { hostRenamePlayer(connId, msg.name); return; }
     if (msg.type === 'clearStats') { hostClearStats(connId); return; }
     if (msg.type === 'votekick') { hostVotekick(connId, msg.targetId); return; }
@@ -1881,9 +1913,84 @@
       applyGradeLocal(out.playerId, out.correct, out.delta, scores, out.userText, true, hostGame.overrideLocked, undefined, out.counts, out.by);
     });
     if (game.log.length) game.log[0].category = nowCorrect || regraded.some((m) => m.correct) ? 'correct' : 'incorrect';
+    // (the log keeps each buzz's grade, for "I was right" on it later)
+    if (game.log.length && game.log[0].idx === game.index && Array.isArray(game.log[0].attempts)) {
+      game.log[0].attempts = game.attempts.map((a) => logAttempt(a));
+      game.log[0].overrideLocked = pidOfConn(hostGame.overrideLocked);
+    }
     host.broadcast({ type: 'logUpdate', log: game.log });
     if (nowCorrect && hostGame.phase !== 'reveal') hostReveal();
     fullRenderFromState();
+  }
+
+  function pidOfConn(connId) {
+    if (!connId) return false;
+    const p = hostPlayers.get(connId);
+    return (p && p.pid) || false;
+  }
+  function logAttempt(a) {
+    const gr = hostGame.gradesByConn.get(a.playerId);
+    const p = hostPlayers.get(a.playerId);
+    return {
+      playerId: a.playerId, pid: (p && p.pid) || a.pid || null, playerName: a.playerName, userText: a.userText,
+      correct: !!a.correct, close: !!a.close, at: a.at || 0,
+      early: !!(gr && gr.buzzedDuringReading), celerity: gr && typeof gr.celerity === 'number' ? gr.celerity : 1,
+      displacedBy: gr && gr.displacedBy ? pidOfConn(gr.displacedBy) || null : null,
+    };
+  }
+
+  // "I was right" / "I was wrong" on an earlier question (idx), as on the
+  // current one: only your own answer, and not once someone else has been
+  // overridden to correct on it. Turned right, any other right answer on it
+  // is marked wrong (without a penalty) and given back if you take it back.
+  // Scores and counts follow, offline players' too; everyone is sent the
+  // changed log entry and the new scores. Found by player ID (pid), since a
+  // player's connection can have changed since.
+  function playerByPid(pid) {
+    return [...hostPlayers.values()].find((p) => p.pid === pid) || departedPlayers.get(pid) || null;
+  }
+  function hostOverridePast(connId, idx) {
+    if (idx === game.index && hostGame.phase === 'reveal') { hostOverrideLastGrade(connId); return; }
+    const entry = (game.log || []).find((e) => e && e.idx === idx);
+    if (!entry || !Array.isArray(entry.attempts)) return;
+    const req = hostPlayers.get(connId);
+    const pid = req && req.pid;
+    if (!pid) return;
+    const att = entry.attempts.filter((a) => a.pid === pid).pop();
+    if (!att) return;
+    if (entry.overrideLocked && entry.overrideLocked !== pid) return;
+    const nowCorrect = !att.correct;
+    const changes = [];
+    const deltaOf = (a) => (a.correct ? 4 : (a.displacedBy || !a.early ? 0 : -4));
+    const kindOf = (a) => (a.correct ? 'correct' : (a.displacedBy || !a.early ? 'incorrect' : 'negs'));
+    const flip = (a, correct, displacedBy) => {
+      const p = a.pid ? playerByPid(a.pid) : null;
+      const f = typeof a.celerity === 'number' ? a.celerity : 1;
+      const before = { delta: deltaOf(a), kind: kindOf(a) };
+      a.correct = correct;
+      a.displacedBy = displacedBy || null;
+      const after = { delta: deltaOf(a), kind: kindOf(a) };
+      if (p) {
+        p.score = (p.score || 0) + after.delta - before.delta;
+        p[before.kind] = Math.max(0, (p[before.kind] || 0) - 1);
+        p[after.kind] = (p[after.kind] || 0) + 1;
+        if (before.kind === 'correct') { p.celSum = Math.max(0, (p.celSum || 0) - f); p.celN = Math.max(0, (p.celN || 0) - 1); }
+        if (after.kind === 'correct') { p.celSum = (p.celSum || 0) + f; p.celN = (p.celN || 0) + 1; }
+      }
+      changes.push({ pid: a.pid, name: a.playerName, correct, points: after.delta, celerity: f });
+    };
+    for (const a of entry.attempts) {
+      if (a.pid === pid) continue;
+      if (nowCorrect && a.correct) flip(a, false, pid);
+      else if (!nowCorrect && !a.correct && a.displacedBy === pid) flip(a, true, null);
+    }
+    flip(att, nowCorrect, null);
+    entry.overrideLocked = nowCorrect ? pid : false;
+    entry.category = entry.attempts.some((a) => a.correct) ? 'correct' : 'incorrect';
+    const msg = { type: 'pastGraded', idx, by: pid, changes, entry };
+    host.broadcast(msg);
+    broadcastLobby();
+    applyPastGradedLocal(msg);
   }
 
   function hostReveal() {
@@ -1909,8 +2016,14 @@
       category,
       answeredBy: answeredByPlayer ? answeredByPlayer.name : null,
       userText: grade ? grade.userText : null,
-      // every buzz on it, so someone who joins later sees them in the history
-      attempts: game.attempts.map((a) => ({ playerId: a.playerId, playerName: a.playerName, userText: a.userText, correct: !!a.correct, close: !!a.close, at: a.at || 0 })),
+      // every buzz on it, so someone who joins later sees them in the
+      // history, with what a later "I was right" on it needs: the player's
+      // ID, whether the buzz came while the question was read (a -4 when
+      // wrong), its celerity, and who it was displaced by
+      attempts: game.attempts.map((a) => logAttempt(a)),
+      // which question of the room's run it was (the buzz lines' data-buzz-q)
+      idx: game.index,
+      overrideLocked: pidOfConn(hostGame.overrideLocked),
       at: Date.now(),
     };
     game.log.unshift(logEntry);
@@ -2129,6 +2242,36 @@
     }
     statsRecordedFor = key;
     statsAttempt = SBAccount.recordAnswer(game.question, result, 'mp', extra);
+    if (statsAttempt) myAnswers.set(game.index, statsAttempt);
+  }
+  // Your account's record of each question you answered, by its index, so
+  // "I was right" on an earlier question changes it too.
+  const myAnswers = new Map();
+  function applyPastGradedLocal(msg) {
+    if (!msg || typeof msg.idx !== 'number' || !Array.isArray(msg.changes)) return;
+    const i = (game.log || []).findIndex((e) => e && e.idx === msg.idx);
+    if (i >= 0 && msg.entry && typeof msg.entry === 'object') game.log[i] = msg.entry;
+    const entry = i >= 0 ? game.log[i] : null;
+    msg.changes.forEach((c) => {
+      const line = [...historyEl().querySelectorAll('li[data-buzz-q]')]
+        .find((x) => x.dataset.buzzQ === String(msg.idx) && x.dataset.buzzPid === c.pid);
+      if (line) paintBuzzLine(line, !!c.correct);
+      if (c.pid === myState.pid) {
+        const rec = myAnswers.get(msg.idx);
+        if (rec) rec.update(c.correct ? 'correct' : 'incorrect', { points: c.points, celerity: c.correct ? 1 - c.celerity : null });
+        if (c.correct && msg.by === myState.pid && window.SBReports && entry && entry.question) {
+          const att = (entry.attempts || []).filter((a) => a.pid === c.pid).pop();
+          SBReports.logOverride((SBData.byId && SBData.byId.get(entry.question.id)) || entry.question, att ? att.userText : '', 'mp');
+        }
+      }
+    });
+    const by = msg.changes.find((c) => c.pid === msg.by);
+    msg.changes.filter((c) => c.pid !== msg.by).forEach((c) => {
+      logEvent(c.name || 'Player', `was marked ${c.correct ? 'correct again' : 'incorrect'} on an earlier question: ${by ? by.name : 'another player'} ${c.correct ? 'took back their override' : 'was right'}`);
+    });
+    if (by) logEvent(by.name || 'Player', `changed their answer on an earlier question to ${by.correct ? 'correct' : 'incorrect'}`);
+    renderPlayerList(document.getElementById('mpPlayerList'));
+    renderOverrideLinkSoon();
   }
   function applyRevealLocal(revealData) {
     // A question read in full that nobody got, and you didn't buzz on: no
@@ -2921,7 +3064,7 @@
       // Buzzes too: each finished question's (kept with it in the log) and
       // the current question's so far.
       const buzzItems = [];
-      (game.log || []).forEach((e) => (e.attempts || []).forEach((a) => buzzItems.push({ t: a.at || (e.at || 0) - 1, buzz: a, qtype: e.question && e.question.qtype })));
+      (game.log || []).forEach((e) => (e.attempts || []).forEach((a) => buzzItems.push({ t: a.at || (e.at || 0) - 1, buzz: a, qtype: e.question && e.question.qtype, idx: e.idx })));
       if (game.phase !== 'reveal' || !(game.log[0] && game.log[0].attempts)) {
         (game.attempts || []).forEach((a) => buzzItems.push({ t: a.at || Date.now(), buzz: a, qtype: game.question && game.question.qtype, current: true }));
       }
@@ -2930,7 +3073,7 @@
         .concat(buzzItems);
       items.sort((x, y) => x.t - y.t).forEach((it) => {
         if (it.chat) renderChatAppend(it.chat);
-        else if (it.buzz) pastBuzzLine(it.buzz, it.qtype, (it.current || (game.phase === 'reveal' && game.log[0] && (game.log[0].attempts || []).includes(it.buzz))) ? game.index : null);
+        else if (it.buzz) pastBuzzLine(it.buzz, it.qtype, (it.current || (game.phase === 'reveal' && game.log[0] && (game.log[0].attempts || []).includes(it.buzz))) ? game.index : (typeof it.idx === 'number' ? it.idx : null));
         else addHistoryCard(it.entry);
       });
       if (msg.scores) {
@@ -3016,6 +3159,10 @@
     if (msg.type === 'reveal') {
       if (msg.logEntry) game.log.unshift(msg.logEntry);
       applyRevealLocal(msg);
+      return;
+    }
+    if (msg.type === 'pastGraded') {
+      applyPastGradedLocal(msg);
       return;
     }
     if (msg.type === 'logUpdate') {

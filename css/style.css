@@ -427,7 +427,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
-.room-history .mp-inline-override, .room-history #overrideBtn, .room-history .past-override { line-height: inherit; vertical-align: baseline; border: 0; }
+.room-history .mp-inline-override, .room-history .mp-past-override, .room-history #overrideBtn, .room-history .past-override { line-height: inherit; vertical-align: baseline; border: 0; }
 /* Hidden rooms (empty ones, or "No public rooms." while there are rooms)
    are still in the list, so Bootstrap's sibling rule takes the top border
    and corners off whichever item shows first. Put them back on the first

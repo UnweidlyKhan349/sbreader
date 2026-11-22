@@ -219,6 +219,11 @@
     if (!msg || typeof msg !== 'object' || typeof msg.type !== 'string') return null;
     const { type } = msg;
     if (NO_FIELDS.has(type)) return { type };
+    // "I was right" on an earlier question: which one (its index in the run)
+    if (type === 'overridePast') {
+      const idx = msg.idx;
+      return typeof idx === 'number' && Number.isInteger(idx) && idx >= 0 && idx < 1000000 ? { type, idx } : null;
+    }
     if (type === 'join') {
       const out = { type, name: str(msg.name, LIMITS.name).trim() || 'Player' };
       const pid = cleanPid(msg.pid);

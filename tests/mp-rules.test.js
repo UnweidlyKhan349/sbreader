@@ -223,3 +223,9 @@ test('a player\'s round-trip report is cleaned', () => {
   assert.deepStrictEqual(msg, { type: 'pings', rtts: { p1: 13, p5: 30 }, bank: false });
   assert.deepStrictEqual(cleanHostMessage({ type: 'pings', rtts: [1, 2], bank: true }, meta), { type: 'pings', rtts: {}, bank: true });
 });
+
+test('overridePast carries only a whole question index', () => {
+  const meta = { subjects: [], tournaments: [] };
+  assert.deepStrictEqual(SBMpRules.cleanHostMessage({ type: 'overridePast', idx: 3, extra: 'x' }, meta), { type: 'overridePast', idx: 3 });
+  for (const idx of [-1, 1.5, 'abc', null, 1e7]) assert.strictEqual(SBMpRules.cleanHostMessage({ type: 'overridePast', idx }, meta), null, String(idx));
+});
