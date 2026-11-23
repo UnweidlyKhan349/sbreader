@@ -512,14 +512,16 @@
       // "I was wrong" makes it an interrupt (−4).
       ? { attempted: true, correct: true, userText: win.userText, early: runtime.buzzedDuringReading }
       : runtime.attempts.length
-        ? { attempted: true, correct: false, userText: last.userText, close: last.close }
+        ? { attempted: true, correct: false, userText: last.userText, close: last.close, early: last.early }
         : { attempted: false };
     // What an override needs later, on this question or a past one: the
-    // question, where you buzzed, and whether any wrong buzz was early.
+    // question, where you buzzed, and how many of the wrong buzzes before
+    // the deciding one (the win, or the last wrong answer) were interrupts.
+    const before = win ? runtime.attempts : runtime.attempts.slice(0, -1);
     Object.assign(outcome, {
       q, serial: runtime.serial,
       fraction: runtime.buzzFraction,
-      anyEarly: runtime.attempts.some((a) => a.early),
+      earlierInterrupts: before.filter((a) => a.early).length,
     });
     runtime.lastOutcome = outcome;
 
@@ -571,11 +573,15 @@
     };
   }
 
-  // Science Bowl scoring: +4 right; −4 for a wrong answer buzzed in before
-  // the question finished (an interrupt), at most once per question.
+  // Science Bowl scoring, as Multiplayer keeps it: +4 for the right answer;
+  // −4 for every wrong answer buzzed in while the question was still being
+  // read (an interrupt; with rebuzzes on there can be several), and 0 for a
+  // wrong answer after it was read. A right answer after interrupts still
+  // carries their −4s (two interrupts then the answer: −4).
   function pointsFor(outcome) {
-    if (outcome.correct) return 4;
-    return outcome.early || outcome.anyEarly ? -4 : 0;
+    if (!outcome.attempted) return 0;
+    const deciding = outcome.correct ? 4 : (outcome.early ? -4 : 0);
+    return deciding - 4 * (outcome.earlierInterrupts || 0);
   }
 
   function showReveal() {

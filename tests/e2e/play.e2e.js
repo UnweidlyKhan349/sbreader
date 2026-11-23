@@ -309,3 +309,27 @@ test('a past question\'s answer keeps an I was right / I was wrong link that fli
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });
+
+test('with rebuzzes on, every wrong interrupt costs 4 (as in Multiplayer); a wrong answer after the reading costs nothing', async () => {
+  const { ctx, page } = await freshPlay();
+  await page.locator('#toggleRebuzz').check({ force: true });
+  // slowest reading, so both buzzes come while it's still being read
+  await page.evaluate(() => { const s = document.getElementById('rateSlider'); s.value = 0; s.dispatchEvent(new Event('input')); });
+  await page.keyboard.press('n'); await page.waitForTimeout(300);
+  for (let i = 0; i < 2; i++) {
+    await page.keyboard.press(' ');
+    await page.waitForSelector('#answerInput:visible');
+    await page.keyboard.type('zzzz not the answer');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(200);
+    await page.locator('body').click({ position: { x: 5, y: 300 } });
+  }
+  assert.strictEqual(await page.evaluate(() => document.getElementById('nextBtn').dataset.mode), 'skip', 'still being read');
+  await page.keyboard.press('s'); await page.waitForTimeout(300);
+  assert.match(await page.locator('#statline').innerText(), /\(-8 pts/, 'two interrupts, -4 each');
+  // I was right on the last answer: +4 for it, the earlier interrupt still -4.
+  await page.locator('#overrideBtn').click();
+  assert.match(await page.locator('#statline').innerText(), /\(0 pts/);
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
