@@ -467,8 +467,7 @@ test('a buzz during the reading is an Interrupt; changing the subjects again edi
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' ');
   await a.waitForSelector('#live-buzz', { timeout: 10000 });
-  // (a bonus says "Answer" either way)
-  assert.match(await a.locator('#live-buzz .badge').first().innerText(), /^(Interrupt|Answer)$/);
+  assert.strictEqual(await a.locator('#live-buzz .badge').first().innerText(), 'Interrupt');
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
   const lines = (p) => p.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed the subjects|turned on every subject/.test(t)));
   await g.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click();

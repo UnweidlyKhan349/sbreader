@@ -671,20 +671,17 @@
     historyEl().prepend(li);
     return li;
   }
-  // The live answer line: [Buzz] or [Answer], the name, what they've typed
+  // The live answer line: [Buzz] or [Interrupt], the name, what they've typed
   // so far, then the grade badges.
-  // As on QB Reader: "Answer" on a bonus; on a toss-up, "Interrupt" for a
-  // buzz before the question was all read and "Buzz" for one after.
-  function buzzLabel(qtype, early) {
-    if (qtype === 'bonus') return 'Answer';
-    return early ? 'Interrupt' : 'Buzz';
-  }
+  // "Interrupt" for a buzz before the question was all read, "Buzz" for one
+  // after (tossups and bonuses alike).
+  function buzzLabel(early) { return early ? 'Interrupt' : 'Buzz'; }
   function liveBuzzLine(playerId, name) {
     let li = document.getElementById('live-buzz');
     if (!li) {
       li = document.createElement('li');
       li.id = 'live-buzz';
-      const label = buzzLabel(game.question && game.question.qtype, celerityNow() < 1);
+      const label = buzzLabel(celerityNow() < 1);
       li.innerHTML = `<span class="badge text-light bg-primary">${label}</span> <b></b> <span class="live-answer"></span>`;
       historyEl().prepend(li);
     }
@@ -718,7 +715,7 @@
   function pastBuzzLine(a, qtype, qIndex) {
     const li = document.createElement('li');
     const cls = a.correct ? 'badge text-white bg-success' : 'badge text-white bg-danger';
-    li.innerHTML = `<span class="${cls}">${buzzLabel(qtype, !!a.early)}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
+    li.innerHTML = `<span class="${cls}">${buzzLabel(!!a.early)}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
     li.querySelector('b').textContent = a.playerName || '?';
     li.querySelector('.live-answer').textContent = a.userText ? a.userText : '(blank)';
     if (!a.correct && a.close) {
