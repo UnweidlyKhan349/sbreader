@@ -51,6 +51,10 @@ async function ownerMenu(owner, name, action) {
 // Owners count only in private rooms, as on QB Reader.
 const privateRoom = (r) => `${r}&private=true`;
 
+// Waits until a player row on page p shows the given score.
+const waitScore = (p, name, want) => p.waitForFunction(([n, w]) => [...document.querySelectorAll('.mp-player-row')]
+  .some((x) => x.querySelector('span') && x.querySelector('span').textContent.trim() === n && Number(x.querySelector('.badge').textContent) === w), [name, want], { timeout: 10000 });
+
 test('the room\'s creator has a crown; everyone can change the settings', async () => {
   const ctx = await newContext(browser);
   const r = room();
@@ -369,15 +373,15 @@ test('an answer on an earlier question can be claimed later: I was right on its 
   assert.strictEqual(await pastLink.innerText(), 'I was right');
   assert.strictEqual(await a.locator('#mpHistory .mp-past-override').count(), 0, 'only on your own answers');
   await pastLink.click();
-  await a.waitForFunction((n) => /changed their answer on an earlier question to correct/.test(document.getElementById('mpHistory').textContent), gName, { timeout: 10000 });
+  // (no line in the history for it: the score and the line's colour show it)
+  await waitScore(a, gName, 4);
   // zzzz was 0 (after the reading) or -4 (an interrupt); right, it's +4
   assert.strictEqual(Number(await scoreOf(a)), 4, 'the score follows');
   const lineColour = (p) => p.$$eval('#mpHistory li[data-buzz-q]', (ls) => ls.map((l) => (l.querySelector('.badge.bg-success') ? 'green' : 'red')).join(' '));
   assert.strictEqual(await lineColour(a), 'green');
   await g.waitForFunction(() => document.querySelector('#mpHistory .mp-past-override') && document.querySelector('#mpHistory .mp-past-override').textContent === 'I was wrong', null, { timeout: 5000 });
   await g.locator('#mpHistory .mp-past-override').click();
-  await a.waitForFunction(() => /earlier question to incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
-  assert.strictEqual(Number(await scoreOf(a)), before, 'and back');
+  await waitScore(a, gName, before);
   assert.strictEqual(await lineColour(a), 'red');
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
@@ -425,21 +429,55 @@ test('"I was right" on an earlier question someone else got takes it from them (
   await a.waitForSelector('#mpHistory .mp-past-override', { timeout: 5000 });
   assert.strictEqual(await a.locator('#mpHistory .mp-past-override').innerText(), 'I was right');
   await a.locator('#mpHistory .mp-past-override').click();
-  await g.waitForFunction(() => /changed their answer on an earlier question to correct/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  await waitScore(a, aName, 4);
   assert.strictEqual(await score(a, aName), 4);
   assert.strictEqual(await score(a, gName), 0, 'taken from the guest, without a penalty');
   // and give it back
   await a.locator('#mpHistory .mp-past-override').click();
-  await a.waitForFunction(() => /changed their answer on an earlier question to incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
-  assert.strictEqual(await score(a, gName), 4, 'the guest has it again');
+  await waitScore(a, gName, 4); // the guest has it again
   // ("I was wrong" on a buzz made during the reading is an interrupt, -4)
   const aWrong = await score(a, aName);
   assert.ok(aWrong === 0 || aWrong === -4, String(aWrong));
   // The guest gives it up too: back to their own wrong answer.
   await g.locator('#mpHistory .mp-past-override').click();
-  await a.waitForFunction(() => (document.getElementById('mpHistory').textContent.match(/earlier question to incorrect/g) || []).length >= 2, null, { timeout: 10000 });
-  assert.strictEqual(await score(a, gName), gBefore);
+  await waitScore(a, gName, gBefore);
   assert.strictEqual(await score(a, aName), aWrong);
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('a permanent room\'s link is ?room=general, and Clear all filters there turns on every subject', async () => {
+  const ctx = await newContext(browser);
+  const a = await openPage(ctx, `${server.url}multiplayer?room=general`);
+  await a.waitForFunction(() => document.getElementById('mpPermanentNote') && !document.getElementById('mpPermanentNote').classList.contains('d-none'), null, { timeout: 40000 });
+  assert.match(a.url(), /\?room=general$/);
+  assert.strictEqual(await subjectOn(a, 'energy'), false, 'General starts without Energy');
+  await a.evaluate(() => document.getElementById('mpClearFilters').click());
+  await a.waitForFunction(() => [...document.querySelectorAll('#mpSubjectButtons .btn-subject')].every((b) => b.classList.contains('active')), null, { timeout: 10000 });
+  assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});
+
+test('a buzz during the reading is an Interrupt; changing the subjects again edits the last line', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await strangerIn(ctx, server.url, r);
+  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await g.locator('body').click({ position: { x: 400, y: 300 } });
+  await g.keyboard.press(' ');
+  await a.waitForSelector('#live-buzz', { timeout: 10000 });
+  assert.strictEqual(await a.locator('#live-buzz .badge').first().innerText(), 'Interrupt');
+  await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
+  const lines = (p) => p.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed the subjects|turned on every subject/.test(t)));
+  await g.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click();
+  await a.waitForFunction(() => /changed the subjects|turned on every subject/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  const first = (await lines(a))[0];
+  await g.locator('#mpSubjectButtons .btn-subject[data-subject="bio"]').click();
+  await a.waitForFunction((was) => [...document.querySelectorAll('#mpHistory li i')].some((x) => /changed the subjects|turned on every subject/.test(x.textContent) && x.textContent.trim() !== was), first, { timeout: 10000 });
+  await g.waitForTimeout(500);
+  assert.strictEqual((await lines(a)).length, 1, 'one line, edited');
+  assert.strictEqual((await lines(g)).length, 1);
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });

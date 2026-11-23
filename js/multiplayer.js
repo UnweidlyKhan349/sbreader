@@ -239,7 +239,7 @@
     const byName = new Map((reg ? reg.rooms : []).map((r) => [r.name, r]));
     permanent.innerHTML = '';
     lobbyList.forEach((lobby) => {
-      const href = `${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`;
+      const href = `${location.pathname}?room=${encodeURIComponent(SBMpRules.lobbySlug(lobby))}`;
       if (!counted) { permanent.appendChild(roomItem(href, lobbyLabel(lobby), null, null)); return; }
       const r = byName.get(SBRooms.key('', lobby.key));
       const online = reg ? (r ? r.online : 0) : (probe.get(lobby.peerId) || 0);
@@ -303,7 +303,7 @@
     // just vanishing until the next tick happens to arrive. See
     // fullRenderFromState / applyTickLocal / hideTimer.
     lastTick: null,
-    // attempts: [{ playerId, playerName, userText, correct, close }] - every buzz
+    // attempts: [{ playerId, playerName, userText, correct, close, early }] - every buzz
     // that's been graded on the CURRENT question, oldest first. Kept visible
     // to everyone (not cleared when the next player buzzes) so a wrong
     // answer stays on screen instead of disappearing the moment someone
@@ -391,7 +391,7 @@
 
   // A link to this page that joins the room as soon as it's opened.
   function inviteLink() {
-    if (myState.publicLobby) return `${location.origin}${location.pathname}?lobby=${encodeURIComponent(SBMpRules.lobbySlug(myState.publicLobby))}`;
+    if (myState.publicLobby) return `${location.origin}${location.pathname}?room=${encodeURIComponent(SBMpRules.lobbySlug(myState.publicLobby))}`;
     return `${location.origin}${location.pathname}?room=${encodeURIComponent(myState.roomName)}`;
   }
 
@@ -669,16 +669,19 @@
     i.append(name, document.createTextNode(' ' + text));
     li.appendChild(i);
     historyEl().prepend(li);
+    return li;
   }
-  // The live answer line: [Buzz] or [Answer], the name, what they've typed
+  // The live answer line: [Buzz] or [Interrupt], the name, what they've typed
   // so far, then the grade badges.
+  // "Interrupt" for a buzz before the question was all read, "Buzz" for one
+  // after (tossups and bonuses alike).
+  function buzzLabel(early) { return early ? 'Interrupt' : 'Buzz'; }
   function liveBuzzLine(playerId, name) {
     let li = document.getElementById('live-buzz');
     if (!li) {
       li = document.createElement('li');
       li.id = 'live-buzz';
-      // As on QB Reader: "Buzz" on a toss-up, "Answer" on a bonus.
-      const label = game.question && game.question.qtype === 'bonus' ? 'Answer' : 'Buzz';
+      const label = buzzLabel(celerityNow() < 1);
       li.innerHTML = `<span class="badge text-light bg-primary">${label}</span> <b></b> <span class="live-answer"></span>`;
       historyEl().prepend(li);
     }
@@ -712,7 +715,7 @@
   function pastBuzzLine(a, qtype, qIndex) {
     const li = document.createElement('li');
     const cls = a.correct ? 'badge text-white bg-success' : 'badge text-white bg-danger';
-    li.innerHTML = `<span class="${cls}">${qtype === 'bonus' ? 'Answer' : 'Buzz'}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
+    li.innerHTML = `<span class="${cls}">${buzzLabel(!!a.early)}</span> <b></b> <span class="live-answer"></span><span class="${cls} ms-1">${a.correct ? 'Correct' : 'Incorrect'}</span>`;
     li.querySelector('b').textContent = a.playerName || '?';
     li.querySelector('.live-answer').textContent = a.userText ? a.userText : '(blank)';
     if (!a.correct && a.close) {
@@ -995,12 +998,31 @@
   // room should hear about ("Bob joined the game") travel the same way, as
   // system lines, and show in italics. Chat is open in public rooms too.
   let chatMirror = [];
+  // The newest settings-change line ({ kind, el, entry }), while it's still
+  // the newest chat line.
+  let lastKindLine = null;
   function renderChatAppend(entry) {
     if (!entry.local) {
       chatMirror.push(entry);
       while (chatMirror.length > CHAT_HISTORY) chatMirror.shift();
     }
-    if (entry.system) { logEvent(entry.name || '', entry.text); return; }
+    if (entry.system) {
+      // A settings change of the same kind as the line on top ("changed the
+      // subjects to ...") rewrites that line rather than adding another.
+      const prev = lastKindLine;
+      if (entry.replace && entry.kind && prev && prev.kind === entry.kind && prev.el.isConnected) {
+        const at = chatMirror.lastIndexOf(prev.entry);
+        if (!entry.local && at >= 0) chatMirror.splice(at, 1);
+        const fresh = logEvent(entry.name || '', entry.text);
+        prev.el.replaceWith(fresh);
+        lastKindLine = { kind: entry.kind, el: fresh, entry };
+        return;
+      }
+      const el = logEvent(entry.name || '', entry.text);
+      lastKindLine = entry.kind ? { kind: entry.kind, el, entry } : null;
+      return;
+    }
+    lastKindLine = null;
     if (entry.cid) {
       finishedChats.add(entry.cid);
       // The message was shown while it was typed: it becomes the sent one
@@ -1113,10 +1135,12 @@
     }
   }
   // A system line for the whole room, from whoever runs the game.
-  function hostEvent(connId, text) {
+  // kind: for a settings change ('subjects', 'tournaments', 'rounds',
+  // 'years'), so the next one of that kind can take its line's place.
+  function hostEvent(connId, text, kind) {
     if (myState.role !== 'host') return;
     const p = hostPlayers.get(connId);
-    hostBroadcastChat('SYSTEM', p ? p.name : (connId === myState.myId ? myState.myName : 'Someone'), text, true);
+    hostBroadcastChat('SYSTEM', p ? p.name : (connId === myState.myId ? myState.myName : 'Someone'), text, true, null, kind);
   }
 
   /* ================= HOST-ONLY AUTHORITATIVE LOGIC ================= */
@@ -1487,10 +1511,21 @@
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, bannedAt: game.bannedAt, roomCode: myState.roomId });
   }
 
-  function hostBroadcastChat(fromId, name, text, system, cid) {
+  function hostBroadcastChat(fromId, name, text, system, cid, kind) {
     const entry = { from: fromId, name, text: text.slice(0, SBMpRules.LIMITS.chat), ts: Date.now() };
     if (system) entry.system = true;
     if (cid) entry.cid = cid;
+    if (system && kind) {
+      entry.kind = kind;
+      // The last line is a change of the same kind, and nothing's been
+      // added to the history since: this one replaces it.
+      const last = hostChat[hostChat.length - 1];
+      if (last && last.system && last.kind === kind && lastKindLine && lastKindLine.entry === last
+        && historyEl().firstElementChild === lastKindLine.el) {
+        entry.replace = true;
+        hostChat.pop();
+      }
+    }
     hostChat.push(entry);
     while (hostChat.length > CHAT_HISTORY) hostChat.shift();
     if (host) host.broadcast({ type: 'chat', entry });
@@ -2211,7 +2246,7 @@
       existing.correct = correct;
     } else {
       const p = game.players.find((pp) => pp.id === playerId);
-      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close, at: Date.now() });
+      game.attempts.push({ playerId, playerName: p ? p.name : '?', userText, correct, close: !!close, early: celerityNow() < 1, at: Date.now() });
     }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderBuzzStatus();
@@ -2274,7 +2309,6 @@
     msg.changes.filter((c) => c.pid !== msg.by).forEach((c) => {
       logEvent(c.name || 'Player', `was marked ${c.correct ? 'correct again' : 'incorrect'} on an earlier question: ${by ? by.name : 'another player'} ${c.correct ? 'took back their override' : 'was right'}`);
     });
-    if (by) logEvent(by.name || 'Player', `changed their answer on an earlier question to ${by.correct ? 'correct' : 'incorrect'}`);
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderOverrideLinkSoon();
   }
@@ -3394,7 +3428,7 @@
     if (myState.role !== 'host' || !activeFilterState) return;
     const max = SBData.maxRoundFor(activeFilterState.tournaments);
     const r = activeFilterState.roundRange || [1, max];
-    hostEvent(connId, `changed the rounds to ${Math.max(1, r[0])}-${Math.min(r[1], max)}`);
+    hostEvent(connId, `changed the rounds to ${Math.max(1, r[0])}-${Math.min(r[1], max)}`, 'rounds');
   }
 
   // "Henry changed the years to 2015-2026", the same way, from the year slider.
@@ -3406,11 +3440,11 @@
     if (myState.role !== 'host' || !activeFilterState) return;
     const [first, last] = SBData.yearSpan();
     const r = activeFilterState.yearRange || [first, last];
-    hostEvent(connId, r[0] === r[1] ? `changed the years to ${r[0]}` : `changed the years to ${r[0]}-${r[1]}`);
+    hostEvent(connId, r[0] === r[1] ? `changed the years to ${r[0]}` : `changed the years to ${r[0]}-${r[1]}`, 'years');
   }
 
-  // Clear all filters: every tournament, year, round and subject (General: back to
-  // its default; a one-subject room keeps its subject), questions with no
+  // Clear all filters: every tournament, year, round and subject (General
+  // too, Energy included; a one-subject room keeps its subject), questions with no
   // round number included, and all of a set's packets; sent as one change.
   function clearRoomFilters() {
     const f = midGameFilterState;
@@ -3420,7 +3454,7 @@
       document.getElementById('mpSettingsTournamentSelect').setMultiValues([]);
       if (!fixedSubjectLobby()) {
         f.subjects.clear();
-        (myState.publicLobby ? myState.publicLobby.subjects : SBData.meta.subjects.map((x) => x.key)).forEach((k) => f.subjects.add(k));
+        SBData.meta.subjects.map((x) => x.key).forEach((k) => f.subjects.add(k));
         if (categories) categories.sync();
       }
       f.includeUnlabeled = true;
@@ -3561,13 +3595,13 @@
     if (before.packetNumbers !== after.packetNumbers) out.push(after.packetNumbers ? `changed the packet numbers to ${after.packetNumbers}` : 'cleared the packet numbers');
     if (!sameSet(before.subjects, after.subjects)) {
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
-      out.push(names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}`);
+      out.push({ kind: 'subjects', text: names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}` });
     }
     if (!sameSet(before.tournaments, after.tournaments)) {
       // "selected 3 tournaments (MIT 2025, Stanford 2026, LOST 2)"
       const n = after.tournaments.size;
       const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
-      out.push(n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments');
+      out.push({ kind: 'tournaments', text: n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments' });
     }
     if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
     if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
@@ -3608,7 +3642,7 @@
       // subject click while the set name was blank.)
       activeFilterState = next;
     }
-    describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((text) => hostEvent(byConnId || myState.myId, text));
+    describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((c) => (typeof c === 'string' ? hostEvent(byConnId || myState.myId, c) : hostEvent(byConnId || myState.myId, c.text, c.kind)));
     // The timer switched during the buzz window: on, the countdown starts
     // (a full one: the question has been read); off, it stops, and the
     // question waits for Next.
@@ -3713,13 +3747,16 @@
     setTimeout(beat, 500);
   }
 
-  // multiplayer.html?room=NAME (&private=true for a new private room) and
-  // multiplayer.html?lobby=KEY open that room straight away. With neither,
-  // this is the lobby page.
+  // multiplayer.html?room=NAME (&private=true for a new private room) opens
+  // that room straight away; a permanent room's name in links (?room=general,
+  // ?room=bio) opens it, as do the older ?lobby=KEY links. With neither, this
+  // is the lobby page.
   function joinFromLink() {
     let params;
     try { params = new URLSearchParams(location.search); } catch (e) { return false; }
-    const lobbyKey = params.get('lobby');
+    const roomParam = (params.get('room') || '').trim().toLowerCase();
+    const permanentSlug = SBMpRules.publicLobbies(SBData.meta).some((l) => SBMpRules.lobbySlug(l) === roomParam) ? roomParam : null;
+    const lobbyKey = params.get('lobby') || permanentSlug;
     if (lobbyKey) {
       const lobby = SBMpRules.findPublicLobby(SBData.meta, lobbyKey);
       if (!lobby) { document.documentElement.classList.remove('mp-direct'); setJoinStatus('That room doesn’t exist. Pick one below.', true); return false; }
