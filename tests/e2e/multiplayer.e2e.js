@@ -110,7 +110,7 @@ test('"I was right" after someone else was marked correct takes the question fro
   assert.strictEqual(await g.locator('#mpHistory .mp-inline-override').innerText(), 'I was right');
   await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
   for (const p of [a, g]) assert.strictEqual(await badges(p), 'red green');
-  assert.match(await a.locator('#mpHistory').innerText(), /was marked incorrect: .* was right/);
+  assert.doesNotMatch(await a.locator('#mpHistory').innerText(), /was marked/, 'no line for it');
   assert.strictEqual(await scores(a), await scores(g));
   assert.match(await scores(a), / 0 \| .* 4$/, 'the guest has the 4 points, the other player none');
   // The other player can still say they were right (no lock); here the
