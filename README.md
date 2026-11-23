@@ -253,6 +253,7 @@ tests/              node --test suites: grader, multiplayer rules, data shape, p
 tests/e2e/          browser tests (Playwright): Play, Multiplayer with simulated players, every page
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
 .github/workflows/deploy.yml  once CI passes on a push to main, copies the site to sbreader/sbreader.github.io, which serves https://sbreader.org/
+.github/workflows/redirect-old-address.yml  serves the old address unweidlykhan349.github.io/sbreader/ as redirects to sbreader.org (tools/redirect-site.js)
 ```
 
 ### `js/data.js` (`window.SBData`)
@@ -574,6 +575,16 @@ Setting it up (done once; listed in case it has to be redone):
      (GoDaddy's default `CNAME www → @` has to be edited to point at `sbreader.github.io`.)
    - In `sbreader/sbreader.github.io`, Settings → Pages → Custom domain should then read `sbreader.org` (the deploy's `CNAME` file sets it; typing it there does too). Once the DNS check passes (minutes to a day), tick **Enforce HTTPS**; the certificate can take up to an hour to be issued. `www.sbreader.org` and `sbreader.github.io` both redirect to `https://sbreader.org/`.
    - Supabase: Authentication → URL Configuration, Site URL `https://sbreader.org/`, and add `https://sbreader.org/account.html` to the redirect URLs (see [Accounts](#accounts)). Keep the old `sbreader.github.io` entry until emails sent before the move have expired.
+5. The oldest address, `https://unweidlykhan349.github.io/sbreader/`, is this repo's own GitHub Pages site. It used to serve `main` as it is; now `.github/workflows/redirect-old-address.yml` serves it as pages that send every visitor on to the same page on `sbreader.org`, query and `#…` included (`tools/redirect-site.js`: a stub per page with a script and a `<meta http-equiv="refresh">`, which search engines treat as a permanent move; a `404.html` for every other address; and an `sw.js` that removes the old service worker). Set this repo's **Settings → Pages → Build and deployment → Source** to **GitHub Actions**, then run the workflow once from the Actions tab (**Redirect the old address → Run workflow**); after that it reruns when a page is added. `sbreader.github.io` needs nothing: GitHub Pages redirects it (with a 301) to the custom domain set on that repo.
+
+### Google Analytics
+
+Every page loads the Google tag through Tag Manager container `GTM-MHDN9VXB`, which sends to the GA4 property; nothing in the code names the domain, so the move to `sbreader.org` needed no code change, and the redirect pages at the old addresses carry no tag (the visit is counted once, on `sbreader.org`). In GA4 (Admin):
+- **Data streams** → the web stream → edit the stream URL to `https://sbreader.org` (a label; the Measurement ID stays the same, so history carries on in the same property).
+- **Data streams** → the web stream → **Configure tag settings** → **List unwanted referrals**: add `sbreader.github.io` and `unweidlykhan349.github.io` (match type "contains"), so redirected visits keep their original source instead of showing as referrals from the old addresses.
+- **Product links → Search Console links**: link the new `sbreader.org` Search Console property.
+- In Tag Manager, check that no trigger, variable or filter tests for `sbreader.github.io` (Page Hostname); change any to `sbreader.org` and publish the container. In GA4, the same for any data filter, audience or exploration that uses the hostname.
+- To see the switch, in Reports add a **Hostname** comparison: visits move from `sbreader.github.io` to `sbreader.org`.
 
 The site itself has no build step, `npm install`, or environment variables; the deploy adds the set and packet pages (below). `package.json` only defines the test commands and has no dependencies.
 

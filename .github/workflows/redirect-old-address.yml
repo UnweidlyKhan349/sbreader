@@ -1,0 +1,47 @@
+# Serves the old address, https://unweidlykhan349.github.io/sbreader/, as
+# pages that send every visitor on to https://sbreader.org/ (the same page,
+# query and #fragment), built by tools/redirect-site.js. It replaces the copy
+# of the whole site that GitHub Pages used to serve there from main.
+#
+# Needs this repo's Settings -> Pages -> Build and deployment -> Source set to
+# "GitHub Actions" (see README, Deploying). The real site is deployed by
+# deploy.yml, to sbreader/sbreader.github.io; this one only redirects.
+name: Redirect the old address
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - tools/redirect-site.js
+      - .github/workflows/redirect-old-address.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-old-address
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the redirect pages
+        run: node tools/redirect-site.js "$RUNNER_TEMP/redirect"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/redirect
+      - id: deployment
+        uses: actions/deploy-pages@v4
