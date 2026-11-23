@@ -1,9 +1,9 @@
-# Publishes the site to https://sbreader.github.io/.
+# Publishes the site to https://sbreader.org/.
 #
-# The code stays in UnweidlyKhan349/sbreader; a <name>.github.io address can
-# only be served by a repo of the account called <name>, so every push to
-# main is copied to sbreader/sbreader.github.io, which serves
-# it with GitHub Pages (Deploy from a branch: main, / (root)). It waits for
+# The code stays in UnweidlyKhan349/sbreader; every push to main is copied to
+# sbreader/sbreader.github.io, which serves it with GitHub Pages (Deploy from
+# a branch: main, / (root)) under the custom domain sbreader.org (the CNAME
+# file written below; the old https://sbreader.github.io/ redirects there). It waits for
 # CI (ci.yml: the unit and browser tests) to pass on that push to main, and
 # deploys exactly the commit CI tested; a failed CI run deploys nothing.
 # Running it by hand (workflow_dispatch) deploys main as it is, after the
@@ -11,7 +11,7 @@
 #
 # Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
 # has write access to sbreader/sbreader.github.io (see README, Deploying).
-name: Deploy to sbreader.github.io
+name: Deploy to sbreader.org
 
 on:
   workflow_run:
@@ -85,6 +85,10 @@ jobs:
           external_repository: sbreader/sbreader.github.io
           publish_branch: main
           publish_dir: ${{ runner.temp }}/site
+          # Writes CNAME, which tells GitHub Pages to serve the copy at the
+          # custom domain. force_orphan replaces every file, so it has to be
+          # written on each deploy, or the domain would be dropped.
+          cname: sbreader.org
           force_orphan: true
           user_name: github-actions[bot]
           user_email: 41898299+github-actions[bot]@users.noreply.github.com

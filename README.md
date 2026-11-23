@@ -1,10 +1,10 @@
 # SB Reader: free Science Bowl practice questions, buzzer trainer and multiplayer
 
-[![Live site](https://img.shields.io/badge/live%20site-sbreader.github.io-5b8cff)](https://sbreader.github.io/)
+[![Live site](https://img.shields.io/badge/live%20site-sbreader.org-5b8cff)](https://sbreader.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-35c281)](LICENSE)
 [![CI](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml/badge.svg)](https://github.com/UnweidlyKhan349/sbreader/actions/workflows/ci.yml)
 
-**[Open SB Reader →](https://sbreader.github.io/)**
+**[Open SB Reader →](https://sbreader.org/)**
 
 SB Reader is a free practice site for the **National Science Bowl** (NSB) and other Science Bowl tournaments, for high school and middle school teams. It has over 100,000 real tossups and bonuses in biology, chemistry, physics, math, earth & space science and energy, taken from regional, nationals and invitational packets (MIT, Stanford, Yale and many more) and from practice sets written by school teams. Search them in the catalog, drill alone with a buzzer and automatic grading, or play against friends in an online multiplayer room. No account or install needed.
 
@@ -252,7 +252,7 @@ data/img/<tournament-slug>/<id>.webp   figures for visual questions (537 files, 
 tests/              node --test suites: grader, multiplayer rules, data shape, page building
 tests/e2e/          browser tests (Playwright): Play, Multiplayer with simulated players, every page
 .github/workflows/ci.yml   runs the syntax check and tests on every push and pull request
-.github/workflows/deploy.yml  once CI passes on a push to main, copies the site to sbreader/sbreader.github.io, which serves https://sbreader.github.io/
+.github/workflows/deploy.yml  once CI passes on a push to main, copies the site to sbreader/sbreader.github.io, which serves https://sbreader.org/
 ```
 
 ### `js/data.js` (`window.SBData`)
@@ -491,7 +491,7 @@ Accounts are optional and off until a Supabase project is set up; without one ev
 **Setting it up (once):**
 1. Create a free project at supabase.com.
 2. In its SQL Editor, run `supabase/schema.sql`. It creates three account tables (`bookmarks`, `answers`, `user_settings`) with row-level security, so each account can only read and change its own rows, and the two multiplayer registry tables (`mp_rooms`, `mp_players`), which hold only room names, player names and practice scores and are what the Multiplayer page lists public rooms and player counts from. Nobody reads or writes those two directly: the site calls functions (`mp_list`, which lists public rooms only; `mp_roster`, a room's players by its exact name; `mp_heartbeat`, which saves this browser's own row, and deletes the players and rooms that have lapsed (see Room list and player counts under Multiplayer); `mp_room`, a room's owner key, bans and players in one call; `mp_set_room`, with which a room's creator records those). Each browser keeps a random secret (`localStorage` `sb_mp_secret`); a player row stores a hash of it and only that browser can change the row, and only a room's creator can make it public or private. `mp_save_settings` keeps a named room's settings (in `mp_room_settings`, until the daily reset at 08:00 UTC) for the next time it's opened, and `mp_saved_settings` reads them back; only a player who is in the room can save them. Projects set up before November 8, 2026 should run the file again to switch this on; until then the site uses the tables directly, as before. The file ends with `sb_schema_version()`, the date of its last change the site uses: every page asks for it once per browser session, and when it's missing or older than the site's `SCHEMA_VERSION` (`js/account.js`), the browser console says to run the file again, instead of the site quietly doing without what's missing. Raise both numbers together when the file gains something new.
-3. Under Authentication → URL Configuration, set the Site URL to the site's address (`https://sbreader.github.io/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
+3. Under Authentication → URL Configuration, set the Site URL to the site's address (`https://sbreader.org/`) and add `…/account.html` to the redirect URLs (used by the confirmation and password-reset emails).
 4. Put the Project URL (the **Connect** button at the top of the dashboard, or Project Settings → Data API; it looks like `https://<project-ref>.supabase.co`) and the publishable key (Project Settings → API Keys, `sb_publishable_…`; a legacy anon key works too) in `js/config.js`. Both are meant to be public; the row-level security is what protects the data. Never use the secret key.
 
 **What an account keeps** (`js/account.js`, with the network-free parts in `js/account-core.js`):
@@ -538,23 +538,42 @@ To switch them on, run `supabase/schema.sql` again (the table and the functions 
 
 ## Deploying
 
-The official site is **https://sbreader.github.io/**. It used to be `https://unweidlykhan349.github.io/sbreader/`.
+The official site is **https://sbreader.org/** (a GoDaddy domain). It used to be `https://sbreader.github.io/`, and before that `https://unweidlykhan349.github.io/sbreader/`; GitHub Pages redirects `sbreader.github.io` to the custom domain, so old links keep working.
 
-The code lives and is worked on here, in `UnweidlyKhan349/sbreader`. A `<name>.github.io` address can only be served by a repo of the account called `<name>`, so the site itself is served from a copy, the `sbreader` organization's `sbreader.github.io` repo:
+The code lives and is worked on here, in `UnweidlyKhan349/sbreader`. The site itself is served from a copy, the `sbreader` organization's `sbreader.github.io` repo, with GitHub Pages under the custom domain `sbreader.org`:
 
 ```
 UnweidlyKhan349/sbreader      ← push here
         │  .github/workflows/deploy.yml, once CI passes on a push to main
         ▼
-sbreader/sbreader.github.io   ← copy only, served at https://sbreader.github.io/
+sbreader/sbreader.github.io   ← copy only, served at https://sbreader.org/
 ```
 
-The workflow starts when CI (`ci.yml`: the unit and browser tests) has passed on a push to `main`, and deploys the commit CI tested; if CI fails, nothing is deployed and the site stays as it was. It runs the unit tests again, copies the site (only what it serves: everything but `.git`, `.github`, `tests`, `tools`, `supabase`, `docs`, `README.md`, `CHANGELOG.md`, `package.json` and the data only `npm test` reads, `data/source-subjects.json` (1.6 MB) and `data/subject-overrides.json`; `LICENSE` goes with the copy; the pages link the README, changelog and licence on GitHub) and pushes it to the copy's `main` branch, replacing what was there; the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.github.io → Run workflow**), which deploys `main` as it is without waiting for CI (the unit tests still run first).
+The workflow starts when CI (`ci.yml`: the unit and browser tests) has passed on a push to `main`, and deploys the commit CI tested; if CI fails, nothing is deployed and the site stays as it was. It runs the unit tests again, copies the site (only what it serves: everything but `.git`, `.github`, `tests`, `tools`, `supabase`, `docs`, `README.md`, `CHANGELOG.md`, `package.json` and the data only `npm test` reads, `data/source-subjects.json` (1.6 MB) and `data/subject-overrides.json`; `LICENSE` goes with the copy; the pages link the README, changelog and licence on GitHub) and pushes it to the copy's `main` branch, replacing what was there, and writes the `CNAME` file (`sbreader.org`) that keeps the custom domain (the copy is replaced on every deploy, so a `CNAME` added by hand would be lost); the copy serves it with **Settings → Pages → Deploy from a branch**, `main`, `/ (root)`. Never edit the copy by hand: the next deploy overwrites it. It can also be run by hand from the Actions tab (**Deploy to sbreader.org → Run workflow**), which deploys `main` as it is without waiting for CI (the unit tests still run first).
 
 Setting it up (done once; listed in case it has to be redone):
 1. Create the `sbreader` organization (Free plan) and in it an empty **public** repo named `sbreader.github.io`.
 2. Make a deploy key: `ssh-keygen -t ed25519 -N "" -C "sbreader deploy" -f sbreader_deploy`. Add `sbreader_deploy.pub` to `sbreader/sbreader.github.io` under Settings → Deploy keys, with **Allow write access**. Add the private key `sbreader_deploy` to `UnweidlyKhan349/sbreader` under Settings → Secrets and variables → Actions, named `SBREADER_DEPLOY_KEY`. Then delete both files.
 3. After the first deploy, turn on Pages in `sbreader/sbreader.github.io` (Deploy from a branch, `main`, `/ (root)`).
+4. Custom domain (`sbreader.org`, registered at GoDaddy):
+   - **Verify the domain with GitHub first** (stops anyone else's repo from claiming it): in the `sbreader` organization, Settings → Pages → Add a domain → `sbreader.org`. GitHub shows a TXT record (`_github-pages-challenge-sbreader` with a code); add it in GoDaddy and click Verify.
+   - **DNS at GoDaddy** (My Products → sbreader.org → DNS → Manage DNS). Delete GoDaddy's default `A @ Parked` record and any "Forwarding" set on the domain, then add:
+
+     | Type | Name | Value |
+     |------|------|-------|
+     | A | `@` | `185.199.108.153` |
+     | A | `@` | `185.199.109.153` |
+     | A | `@` | `185.199.110.153` |
+     | A | `@` | `185.199.111.153` |
+     | AAAA | `@` | `2606:50c0:8000::153` |
+     | AAAA | `@` | `2606:50c0:8001::153` |
+     | AAAA | `@` | `2606:50c0:8002::153` |
+     | AAAA | `@` | `2606:50c0:8003::153` |
+     | CNAME | `www` | `sbreader.github.io` |
+
+     (GoDaddy's default `CNAME www → @` has to be edited to point at `sbreader.github.io`.)
+   - In `sbreader/sbreader.github.io`, Settings → Pages → Custom domain should then read `sbreader.org` (the deploy's `CNAME` file sets it; typing it there does too). Once the DNS check passes (minutes to a day), tick **Enforce HTTPS**; the certificate can take up to an hour to be issued. `www.sbreader.org` and `sbreader.github.io` both redirect to `https://sbreader.org/`.
+   - Supabase: Authentication → URL Configuration, Site URL `https://sbreader.org/`, and add `https://sbreader.org/account.html` to the redirect URLs (see [Accounts](#accounts)). Keep the old `sbreader.github.io` entry until emails sent before the move have expired.
 
 The site itself has no build step, `npm install`, or environment variables; the deploy adds the set and packet pages (below). `package.json` only defines the test commands and has no dependencies.
 
@@ -581,10 +600,10 @@ Every deploy runs `tools/stamp-version.js`, which writes `version.json` (the com
 
 - Every indexable page has a `<meta name="description">`, a `<link rel="canonical">`, and Open Graph/Twitter tags (title and summary; there's no preview image), so shared links get a title and summary.
 - **Addresses have no `.html`**: every link is `solo`, `catalog?tournament=…`, `set?set=…` and so on, and the home page is `./`. GitHub Pages serves `/solo` from `solo.html`, so both forms work; the navbar highlights the current page either way. The one exception is the account emails, which send people to `account.html`, the address in the Supabase project's redirect allowlist.
-- **Site name**: the home page carries `WebSite` structured data (JSON-LD) naming the site **SB Reader** (alternates "SBReader", as the page titles and the logo write it, "Science Bowl Reader" and "sbreader.github.io"); `og:site_name`, the web app manifest and the page's own text use the same name. Google shows a site name above each result's title and takes it from the home page of the domain *or subdomain*; a subdomain whose home page doesn't state one gets the parent domain's, which for `github.io` is "GitHub Pages documentation". Google picks the change up when it next crawls the home page (days to weeks); **URL Inspection → Request indexing** for `https://sbreader.github.io/` in Search Console asks for that sooner.
+- **Site name**: the home page carries `WebSite` structured data (JSON-LD) naming the site **SB Reader** (alternates "SBReader", as the page titles and the logo write it, "Science Bowl Reader" and "sbreader.org"); `og:site_name`, the web app manifest and the page's own text use the same name. Google shows a site name above each result's title and takes it from the home page of the domain. Google picks the change up when it next crawls the home page (days to weeks); **URL Inspection → Request indexing** for `https://sbreader.org/` in Search Console asks for that sooner.
 - `account.html`, `stats.html` and `404.html` are `noindex`: there's nothing on them to index.
-- `sitemap.xml` lists the public pages (without `.html`); the deployed copy also lists every set and packet page (see above). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.github.io/sitemap.xml`, in Google Search Console and Bing Webmaster Tools.
-- The canonical, Open Graph, sitemap and `robots.txt` URLs name `https://sbreader.github.io/`, and `404.html` links from the domain root. A fork or a move to another address needs them changed (`grep -rn "sbreader.github.io" *.html sitemap.xml robots.txt`); hosting under a path such as `/<repo>/` also needs `404.html`'s links prefixed with it.
+- `sitemap.xml` lists the public pages (without `.html`); the deployed copy also lists every set and packet page (see above). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.org/sitemap.xml`, in Google Search Console and Bing Webmaster Tools. After the move from `sbreader.github.io`, add `sbreader.org` as a new Search Console property (the `google253f8e427c6e2761.html` verification file is deployed with the site, or verify the whole domain with a TXT record at GoDaddy), submit the sitemap there, and use **Settings → Change of address** on the old `sbreader.github.io` property so Google moves its ranking to the new domain.
+- The canonical, Open Graph, sitemap and `robots.txt` URLs name `https://sbreader.org/` (as do `SITE` in `tools/build-pages.js` and `js/set-pages.js`, and the deploy's `cname`), and `404.html` links from the domain root. A fork or a move to another address needs them changed (`grep -rn "sbreader.org" *.html sitemap.xml robots.txt js tools .github`); hosting under a path such as `/<repo>/` also needs `404.html`'s links prefixed with it.
 
 ## Local development and tests
 
