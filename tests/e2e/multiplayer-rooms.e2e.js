@@ -421,8 +421,7 @@ test('"I was right" on an earlier question someone else got takes it from them (
   await a.keyboard.press('n'); await a.waitForTimeout(1200);
   await g.waitForSelector('#mpHistory .mp-past-override', { timeout: 10000 });
   await g.locator('#mpHistory .mp-past-override').click();
-  await a.waitForFunction(() => /was marked incorrect on an earlier question/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
-  assert.strictEqual(await score(a, aName), 0, 'no points, and no penalty');
+  await waitScore(a, aName, 0); // no points, and no penalty
   assert.strictEqual(await score(a, gName), 4);
   assert.ok(gBefore === 0 || gBefore === -4);
   // The other player can still say they were right: they take it back.

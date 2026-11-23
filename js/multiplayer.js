@@ -2232,8 +2232,9 @@
     }
     if (isOverride) {
       recolorBuzzLine(playerId, correct); renderOverrideLinkSoon();
-      if (by && by !== playerId) logEvent(playerName(playerId), `was marked ${correct ? 'correct again' : 'incorrect'}: ${playerName(by)} ${correct ? 'took back their override' : 'was right'}`);
-      else logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
+      // (Someone else's override changing this player's grade gets no line:
+      // the colours and scores show it.)
+      if (!by || by === playerId) logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
     }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = overrideLocked || false;
@@ -2304,10 +2305,6 @@
           SBReports.logOverride((SBData.byId && SBData.byId.get(entry.question.id)) || entry.question, att ? att.userText : '', 'mp');
         }
       }
-    });
-    const by = msg.changes.find((c) => c.pid === msg.by);
-    msg.changes.filter((c) => c.pid !== msg.by).forEach((c) => {
-      logEvent(c.name || 'Player', `was marked ${c.correct ? 'correct again' : 'incorrect'} on an earlier question: ${by ? by.name : 'another player'} ${c.correct ? 'took back their override' : 'was right'}`);
     });
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderOverrideLinkSoon();
