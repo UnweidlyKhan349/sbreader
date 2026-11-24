@@ -312,7 +312,12 @@
   // "Answer: X) LITHIUM-ION (also accept: Li-ion) (do not accept: LITHIUM)",
   // all on one line.
   function answerLineHTML(mainText, letter, acceptList, rejectList) {
-    let s = 'Answer: ' + (letter ? `${escapeHtml(letter)}) ` : '') + renderMathHTML(mainText);
+    // (In Multiplayer these arrive from another player's browser: anything
+    // but a list of strings is left out rather than breaking the page.)
+    const list = (x) => (Array.isArray(x) ? x.filter((v) => typeof v === 'string') : []);
+    acceptList = list(acceptList);
+    rejectList = list(rejectList);
+    let s = 'Answer: ' + (letter ? `${escapeHtml(letter)}) ` : '') + renderMathHTML(typeof mainText === 'string' ? mainText : '');
     if (acceptList && acceptList.length) {
       s += ' <span class="also-accept">(also accept: ' + renderMathHTML(acceptList.join('; ')) + ')</span>';
     }

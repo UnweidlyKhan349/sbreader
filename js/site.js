@@ -116,7 +116,10 @@
   let backdrop = null;
   function hideModal(el) {
     el = el || openModalEl;
-    if (!el) return;
+    // Only the dialog that's open: a late close of one already replaced
+    // (a report's thank-you closing itself) mustn't take the open one's
+    // backdrop away.
+    if (!el || el !== openModalEl) return;
     el.classList.remove('show');
     el.style.display = 'none';
     el.setAttribute('aria-hidden', 'true');
@@ -172,9 +175,11 @@
         + '</div></div>';
       document.body.appendChild(alertEl);
     }
+    // Shown first: an alert already open closes then (with its own onClose),
+    // and only after that does this one's onClose start listening.
+    showModal(alertEl);
     alertEl.querySelector('#alert-modal-text').textContent = text;
     if (onClose) alertEl.addEventListener('sb-modal-hidden', () => onClose(), { once: true });
-    showModal(alertEl);
     alertEl.querySelector('#alert-modal-close').focus({ preventScroll: true });
   }
 
@@ -200,6 +205,9 @@
         + '</div></div>';
       document.body.appendChild(confirmEl);
     }
+    // Shown first: a question already open is answered "no" then, before
+    // this one's buttons and answer are wired.
+    showModal(confirmEl);
     confirmEl.querySelector('#confirm-modal-title').textContent = opts.title || 'Are you sure?';
     confirmEl.querySelector('#confirm-modal-text').textContent = text;
     const ok = confirmEl.querySelector('#confirm-modal-ok');
@@ -209,7 +217,6 @@
       let yes = false;
       ok.onclick = () => { yes = true; hideModal(confirmEl); };
       confirmEl.addEventListener('sb-modal-hidden', () => resolve(yes), { once: true });
-      showModal(confirmEl);
     });
   }
 
@@ -296,8 +303,9 @@
     // either form of the address counts.
     const bare = (p) => { p = (p || '').split(/[?#]/)[0].split('/').pop().toLowerCase().replace(/\.html$/, ''); return p === '' || p === '.' || p === 'index' ? 'index' : p; };
     let page = bare(location.pathname);
-    // A set's and a packet's pages belong to the Set List.
-    if (page === 'set' || page === 'packet') page = 'set-list';
+    // A set's and a packet's pages belong to the Set List, the static
+    // copies (/sets/<slug>/, /sets/<slug>/<n>) too.
+    if (page === 'set' || page === 'packet' || /\/sets\/[^/]+\//.test(location.pathname)) page = 'set-list';
     document.querySelectorAll('#navbar-navigation a[href]').forEach((link) => {
       if (bare(link.getAttribute('href')) !== page) return;
       link.classList.add('active');

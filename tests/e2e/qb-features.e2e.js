@@ -106,9 +106,32 @@ test('Login: the eye shows the password and turns into a crossed-out eye, which 
   assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'text');
   assert.strictEqual(await btn.getAttribute('aria-label'), 'Hide password');
   assert.notStrictEqual(await icon(), eye, 'the icon changes');
+  // As on QB Reader, the button keeps its outline look (not filled gray) once the pointer leaves it.
+  await page.mouse.move(0, 0);
+  assert.strictEqual(await btn.evaluate((b) => getComputedStyle(b).backgroundColor), 'rgba(0, 0, 0, 0)');
+  assert.strictEqual(await btn.getAttribute('aria-pressed'), 'true');
   await btn.click();
   assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'password');
   assert.strictEqual(await icon(), eye, 'and changes back');
+  await ctx.close();
+});
+
+test('a second alert or question opened over one answers the first, and waits for its own button', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'about');
+  const r = await page.evaluate(async () => {
+    const log = [];
+    SBSite.alert('one', () => log.push('one'));
+    SBSite.alert('two', () => log.push('two'));
+    const whileOpen = [...log];
+    document.getElementById('alert-modal-close').click();
+    const first = SBSite.confirm('a?');
+    const second = SBSite.confirm('b?');
+    const firstAnswer = await first;
+    document.getElementById('confirm-modal-ok').click();
+    return { whileOpen, after: log, firstAnswer, secondAnswer: await second, backdrops: document.querySelectorAll('.modal-backdrop').length, open: SBSite.modalOpen() };
+  });
+  assert.deepStrictEqual(r, { whileOpen: ['one'], after: ['one', 'two'], firstAnswer: false, secondAnswer: true, backdrops: 0, open: false });
   await ctx.close();
 });
 

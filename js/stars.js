@@ -87,8 +87,10 @@
   /* ---------------- Clear ---------------- */
   $('clear-starred').addEventListener('click', () => SBSite.showModal($('clear-starred-modal')));
   $('confirm').addEventListener('click', () => {
-    // One at a time, so each removal reaches the account too.
-    questions.forEach((q) => { if (SBData.bookmarks.isBookmarked(q.id)) SBData.bookmarks.remove(q.id); });
+    // One at a time, so each removal reaches the account too. Every stored
+    // star goes, including ones on questions since removed from the bank,
+    // which have no card here and would otherwise stay forever.
+    SBData.bookmarks.getAll().forEach((id) => SBData.bookmarks.remove(id));
     SBSite.hideModal($('clear-starred-modal'));
     questions = [];
     render(1);

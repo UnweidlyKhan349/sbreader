@@ -293,14 +293,8 @@
 {"i":93198,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Approximately what percent of energy is lost as heat going up the energy pyramid?","c":{"W":"Ten","X":"Eighty","Y":"Thirty","Z":"Ninety"},"a":{"t":"Ninety","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6454","q":[
 {"i":96298,"s":"energy","f":"MC","qt":"tossup","n":6,"q":"Electric power is less expensive at night because:","c":{"W":"more hydroelectric generation is brought on line at night","X":"there is less demand at night","Y":"pollution control is less stringent at night","Z":"power plants are more efficient at night"},"a":{"t":"there is less demand at night","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6455","q":[
-{"i":93201,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"What percent of U.S. electricity is generated from nuclear power?","c":{"W":"5%","X":"10%","Y":"20%","Z":"45%"},"a":{"t":"20%","l":"Y"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6456","q":[
-{"i":96300,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"What fraction of the petroleum (oil) consumed in the United States is used for transportation?","c":{"W":"1/3","X":"1/2","Y":"3/4","Z":"9/10"},"a":{"t":"3/4","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6458","q":[
 {"i":93203,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6458","q":[
-{"i":93204,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In 2009, the economic downturn led to a decline in U.S. energy consumption and energy-related CO2 emissions. What other factor helped reduce CO2 emissions?","c":{"W":"lower natural gas prices","X":"more use of renewable energy","Y":"reduced electricity generation from coal","Z":"all of the above"},"a":{"t":"all of the above","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6459","q":[
 {"i":93205,"s":"energy","f":"MC","qt":"bonus","n":15,"q":"Electricity is called a secondary energy source because","c":{"W":"it's our no 2 source of energy","X":"it's not as important as oil and gas","Y":"we get it from converting other energy sources","Z":"all of the above"},"a":{"t":"we get it from converting other energy sources","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6468","q":[
@@ -4043,8 +4037,6 @@
 {"i":94983,"s":"phys","f":"SA","qt":"tossup","n":1793,"q":"What electrical device is used to convert alternating current to direct current?","a":{"t":"RECTIFIER"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7678","q":[
 {"i":94984,"s":"phys","f":"SA","qt":"bonus","n":1794,"q":"The diode can be seen as the electronic version of what mechanical device, which allows fluids to flow through in one direction?","a":{"t":"CHECK VALVE"}}]},
-{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7679","q":[
-{"i":94985,"s":"phys","f":"SA","qt":"tossup","n":1795,"q":"In 1947 the speed of sound was first exceeded, when an American rocket propelled airplane reached Mach 1.06. What was the name of the plane?","a":{"t":"BELL X-1","ac":["X-1","GLAMOROUS GLENNIS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7679","q":[
 {"i":94986,"s":"phys","f":"MC","qt":"bonus","n":1796,"q":"In 1932 Anderson used a cloud chamber to detect which particle?","c":{"W":"antiproton","X":"positron","Y":"tauon","Z":"Neutron"},"a":{"t":"positron","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7680","q":[
