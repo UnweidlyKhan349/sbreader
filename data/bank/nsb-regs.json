@@ -5868,7 +5868,7 @@
 {"i":61652,"s":"bio","f":"MC","qt":"tossup","n":6,"q":"Which of the following forms of nitrogen cannot be directly utilized by plants?","a":{"t":"Nitrogen gas","l":"Y"},"c":{"W":"Ammonia","X":"Ammonium","Y":"Nitrogen gas","Z":"Nitrite"},"pg":3},
 {"i":61653,"s":"bio","f":"MC","qt":"bonus","n":6,"q":"Which of the following was NOT a component of the Miller-Urey experiment test conditions for the chemical origins of life?","a":{"t":"Carbon dioxide","l":"W"},"c":{"W":"Carbon dioxide","X":"Hydrogen","Y":"Ammonia","Z":"Water"},"pg":3},
 {"i":61654,"s":"phys","f":"MC","qt":"tossup","n":7,"q":"At what point in time is a CFL’s energy consumption greatest, compared to its light output?","a":{"t":"Right after being turned on","l":"W"},"c":{"W":"Right after being turned on","X":"After being on for 15 minutes","Y":"Right after being turned off","Z":"After being turned off for 15 minutes"}},
-{"i":61655,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"Since 2007 all cars and trucks in the US have been produced to be able to use what specific ethanol fuel blend?","a":{"t":"E15","ac":["15% ETHANOL"]},"pg":4},
+{"i":61655,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"The EPA has approved what ethanol fuel blend for use in cars and light trucks of model year 2001 and newer?","a":{"t":"E15","ac":["15% ETHANOL"]},"pg":4},
 {"i":61656,"s":"chem","f":"SA","qt":"tossup","n":8,"q":"Name the two common crystalline forms of carbon.","a":{"t":"GRAPHITE AND DIAMOND"},"pg":4},
 {"i":61657,"s":"chem","f":"MC","qt":"bonus","n":8,"q":"Which of the following neutral ground state atoms has the lowest first ionization energy?","a":{"t":"Oxygen","l":"X"},"c":{"W":"Nitrogen","X":"Oxygen","Y":"Fluorine","Z":"Neon"},"pg":4},
 {"i":61658,"s":"phys","f":"SA","qt":"tossup","n":9,"q":"Unpolarized light is passed through a single polarizing filter. What fraction of the intensity of the light emerges from the filter?","a":{"t":"1/2"},"pg":5},
@@ -12383,8 +12383,7 @@
 {"rl":"Set 6 · Round 10","r":10,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-6/Sample6_ROUND10.pdf","q":[
 {"i":60462,"s":"energy","f":"SA","qt":"bonus","n":22,"q":"Many consider the start of the U.S. natural gas industry to have occurred in 1859, when a 69-foot well in Pennsylvania struck natural gas and oil. Who is credited with drilling this well?","a":{"t":"EDWIN DRAKE","ac":["DRAKE"]},"pg":11}]},
 {"rl":"Set 7 · Round 3","r":3,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-7/ROUND-3.pdf","q":[
-{"i":60846,"s":"energy","f":"SA","qt":"bonus","n":16,"q":"What is the name of the deepest lake in Africa that was formed from continental rifting?","a":{"t":"LAKE TANGANYIKA"},"pg":8},
-{"i":60862,"s":"energy","f":"MC","qt":"bonus","n":24,"q":"A DOE geothermal research project has established the effectiveness of enhanced geothermal systems (EGS) for utilizing geothermal energy for the generation of electricity. Using this approach, which of the following percentages of total U.S. current generating capacity could be generated with EGS?","a":{"t":"50%","l":"Z"},"c":{"W":"5%","X":"15%","Y":"25%","Z":"50%"},"pg":12}]},
+{"i":60846,"s":"energy","f":"SA","qt":"bonus","n":16,"q":"What is the name of the deepest lake in Africa that was formed from continental rifting?","a":{"t":"LAKE TANGANYIKA"},"pg":8}]},
 {"rl":"Set 7 · Round 7","r":7,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-7/ROUND-7.pdf","q":[
 {"i":61017,"s":"energy","f":"MC","qt":"bonus","n":2,"q":"Rare earth magnets are often used in the production of electrical energy. What percentage of world production of the rare earth materials used to produce these magnets was mined in the United States in 2011?","a":{"t":"0%","l":"W"},"c":{"W":"0%","X":"5%","Y":"7%","Z":"12%"},"pg":1}]},
 {"rl":"Set 7 · Round 13","r":13,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-7/ROUND-13.pdf","q":[
@@ -12409,8 +12408,6 @@
 {"i":63863,"s":"energy","f":"MC","qt":"bonus","n":11,"q":"What country used 100% renewable energy for 75 consecutive days in 2015?","a":{"t":"Costa Rica","l":"X"},"c":{"W":"Lesotho","X":"Costa Rica","Y":"Norway","Z":"Sweden"},"pg":6}]},
 {"rl":"Set 11 · Round 10","r":10,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-11/HS_10A.pdf","q":[
 {"i":64312,"s":"energy","f":"SA","qt":"tossup","n":6,"q":"What US state is responsible for generating the most total net electricity?","a":{"t":"TEXAS"},"pg":3}]},
-{"rl":"Set 11 · Round 14","r":14,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-11/HS_14A.pdf","q":[
-{"i":64498,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"Why is solar power underutilized in American households?","a":{"t":"It increases the price of a home by about 5-10%","l":"W"},"c":{"W":"It increases the price of a home by about 5-10%","X":"North America is mostly cloudy","Y":"Solar technology is currently not very effective","Z":"Solar cells are not effective in cold climates"},"pg":4}]},
 {"rl":"Set 11 · Round 17","r":17,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-11/HS_17A.pdf","q":[
 {"i":64632,"s":"energy","f":"SA","qt":"bonus","n":5,"q":"What country is the source of the largest percentage of petroleum imported to the US?","a":{"t":"CANADA"},"pg":3}]},
 {"rl":"Set 12 · Round 5","r":5,"u":"https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-12/2018-HSRound-5.pdf","q":[

@@ -160,7 +160,7 @@
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3591","q":[
 {"i":89104,"s":"energy","f":"SA","qt":"bonus","n":16,"q":"What does the acronym LCD stand for?","a":{"t":"LIQUID CRYSTAL DISPLAY"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3592","q":[
-{"i":89105,"s":"energy","f":"MC","qt":"tossup","n":17,"q":"What large machine, which came on line in the summer of 2000 at the Department of Energy’s Brookhaven National Lab, is the world’s highest energy ion collider:","c":{"W":"Advanced Photon Source","X":"CERN supercollider","Y":"Relativistic Heavy Ion Collider","Z":"Phoenix"},"a":{"t":"Relativistic Heavy Ion Collider","l":"Y"}}]},
+{"i":89105,"s":"energy","f":"MC","qt":"tossup","n":17,"q":"What large machine, which came on line in the summer of 2000 at the Department of Energy’s Brookhaven National Lab, was the world’s highest-energy heavy-ion collider until 2010:","c":{"W":"Advanced Photon Source","X":"CERN supercollider","Y":"Relativistic Heavy Ion Collider","Z":"Phoenix"},"a":{"t":"Relativistic Heavy Ion Collider","l":"Y"}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/bonus/3592","q":[
 {"i":89106,"s":"phys","f":"SA","qt":"bonus","n":17,"q":"According to the standard model of particle physics, what is the name for the three leptons that have no electric charge and little if any mass?","a":{"t":"NEUTRINO","ac":["ELECTRON NEUTRINO","TAU NEUTRINO","MUON NEUTRINO"]}}]},
 {"rl":"Round 3","r":3,"u":"https://scibowldb.com/tossup/3593","q":[
@@ -1264,7 +1264,7 @@
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3471","q":[
 {"i":89658,"s":"math","f":"SA","qt":"bonus","n":21,"q":"In a class of 20 students, each student speaks German, Chinese, or both. Thirteen students speak German and 17 students speak Chinese. How many speak both German and Chinese?","a":{"t":"10"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3472","q":[
-{"i":89659,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"This nurse/statistician was the first person in the English speaking world to apply statistics to the study of public health and invented the pie chart:","a":{"t":"FLORENCE NIGHTINGALE"}}]},
+{"i":89659,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"This nurse/statistician was the first person in the English speaking world to apply statistics to the study of public health and popularized the polar area diagram, or \"coxcomb\":","a":{"t":"FLORENCE NIGHTINGALE"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/bonus/3472","q":[
 {"i":89660,"s":"ess","f":"MC","qt":"bonus","n":22,"q":"Over a time period of thousands of years, which of the following is true for the Carbon Cycle:","c":{"W":"the oceans determine atmospheric CO2 concentration","X":"the atmosphere determines the oceanic CO2 concentration","Y":"the oceans have only a minor affect on atmospheric CO2 concentration","Z":"the terrestrial CO2 reservoir directly determines the oceanic CO2 concentration"},"a":{"t":"the oceans determine atmospheric CO2 concentration","l":"W"}}]},
 {"rl":"Round 14","r":14,"u":"https://scibowldb.com/tossup/3473","q":[
