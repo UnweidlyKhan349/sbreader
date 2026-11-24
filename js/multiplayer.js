@@ -857,6 +857,10 @@
 
     revealBox.style.display = 'none';
     document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => { el.classList.remove('reveal-correct'); el.classList.remove('clickable'); });
+    // (Whether your answer box was already open: a repaint while you answer,
+    // from someone pausing or changing a setting, mustn't wipe what you've
+    // typed or take the keyboard back to it.)
+    const answerWasOpen = !answerRow.classList.contains('d-none');
     answerRow.classList.add('d-none');
     overrideBtn.classList.add('d-none');
     // A re-render isn't always a fresh tick (pausing stops the ticks), so
@@ -897,8 +901,10 @@
       nextBtn.dataset.mode = '';
       if (amBuzzed) {
         answerRow.classList.remove('d-none');
-        document.getElementById('mpAnswerInput').value = '';
-        document.getElementById('mpAnswerInput').focus();
+        if (!answerWasOpen) {
+          document.getElementById('mpAnswerInput').value = '';
+          document.getElementById('mpAnswerInput').focus();
+        }
         if (game.question && game.question.format === 'MC' && game.question.choices) {
           document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => el.classList.add('clickable'));
         }
@@ -986,7 +992,7 @@
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
     const qid = game.question.id;
     SBPlay.headerStar(document.getElementById('mpQDisplay'), qid, () => SBPlay.repaintStars(historyEl(), qid));
-    if (game.question.choices && r.letter) {
+    if (game.question.choices && LETTERS.includes(r.letter)) {
       const el = document.querySelector(`#mpChoicesDisplay .choice-box[data-letter="${r.letter}"]`);
       if (el) el.classList.add('reveal-correct');
     }
@@ -2332,7 +2338,10 @@
     Object.assign(game, { phase: 'lobby', question: null, index: -1, buzzedPlayerId: null, lockedOut: new Set(), lastGrade: null, attempts: [], overrideLocked: false, lastRevealData: null, paused: false, lastTick: null, asked: [] });
     fullRenderFromState();
     const text = mode === 'set' ? 'You have reached the end of the set' : 'You have reached the end of the questions that match the room\'s settings';
-    setTimeout(() => window.alert(text), 50);
+    // On the page, not window.alert: a browser alert freezes the tab, and
+    // when that tab runs the game every timer and message in the room stops
+    // with it until OK is clicked.
+    setTimeout(() => SBSite.alert(text), 50);
   }
 
   /* ================= THE ROOM ================= */
@@ -2400,6 +2409,7 @@
   // lobby makes it ahead of time, so a room opens without waiting for it).
   // Its TURN logins are asked for alongside (see SBPeer.makeMesh).
   const DISCONNECTED_TEXT = 'Disconnected from server';
+  let connectionTimer = null;
   function openMesh() {
     if (!mesh) {
       mesh = SBPeer.makeMesh({
@@ -2416,7 +2426,8 @@
         },
         doorInfo: () => ({ players: game.players.length, coordinator: coordinatorId, term }),
       });
-      setInterval(connectionTick, HANDOFF_CHECK_MS);
+      // (Once: a connection that failed and is made again keeps this one.)
+      if (!connectionTimer) connectionTimer = setInterval(connectionTick, HANDOFF_CHECK_MS);
     }
     return mesh.ready;
   }
@@ -3555,6 +3566,15 @@
     try {
       document.getElementById('mpSettingsTournamentSelect').setMultiValues(Array.from(f.tournaments));
       if (midGameRoundSliderApi && f.roundRange) midGameRoundSliderApi.setRange(f.roundRange[0], f.roundRange[1]);
+      else if (midGameRoundSliderApi) {
+        // Every round (someone cleared the filters): the handles go to the
+        // ends, and the range stays "none" rather than becoming [1, max],
+        // which would leave out unnumbered rounds when those are off.
+        const top = SBData.maxRoundFor(f.tournaments);
+        midGameRoundSliderApi.setMax(top);
+        midGameRoundSliderApi.setRange(1, top);
+        f.roundRange = null;
+      }
       if (midGameYearSliderApi) { const ys = SBData.yearSpan(); const yr = f.yearRange || ys; midGameYearSliderApi.setRange(yr[0], yr[1]); }
       document.getElementById('mpTogglePublic').checked = f.isPublic;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;

@@ -138,6 +138,66 @@ test('chat shows the line as soon as the box opens, then the text as it is typed
   await ctx.close();
 });
 
+test('what you are typing as an answer stays put when someone pauses or changes a setting', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const b = await joinRoom(ctx, server.url, r);
+  await a.locator('#mpNextBtn').click();
+  await b.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled, null, { timeout: 10000 });
+  await b.locator('#mpBuzzBtn').click();
+  await b.waitForFunction(() => !document.getElementById('mpAnswerRow').classList.contains('d-none'), null, { timeout: 10000 });
+  await b.keyboard.type('photosynth');
+  await a.locator('#mpPauseBtn').click(); await a.waitForTimeout(400);
+  await a.locator('#mpPauseBtn').click(); await a.waitForTimeout(400);
+  await a.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click(); await a.waitForTimeout(600);
+  assert.strictEqual(await b.locator('#mpAnswerInput').inputValue(), 'photosynth');
+  assert.strictEqual(await b.evaluate(() => document.activeElement && document.activeElement.id), 'mpAnswerInput');
+  assert.deepStrictEqual([...a.errors, ...b.errors], []);
+  await ctx.close();
+});
+
+test('clearing the filters puts every player\'s round slider back to every round', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  const box = await g.locator('#mpSettingsRoundSlider').boundingBox();
+  const y = box.y + box.height / 2;
+  await g.mouse.move(box.x + box.width - 8, y); await g.mouse.down();
+  await g.mouse.move(box.x + box.width / 2, y, { steps: 5 }); await g.mouse.up();
+  await g.waitForTimeout(800);
+  const range = (p) => p.evaluate(() => [document.getElementById('mpSettingsRoundMin').value, document.getElementById('mpSettingsRoundMax').value, document.getElementById('mpSettingsRoundMax').max]);
+  const [, hi, max] = await range(g);
+  assert.ok(Number(hi) < Number(max), 'the slider was narrowed');
+  await a.locator('#mpClearFilters').click(); await g.waitForTimeout(1000);
+  const [lo2, hi2, max2] = await range(g);
+  assert.deepStrictEqual([lo2, hi2], ['1', max2], 'back to every round on the other player\'s screen too');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('reaching the end of the questions says so in a dialog on the page, not a browser alert that would freeze the room', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const native = [];
+  a.on('dialog', (d) => { native.push(d.message()); d.dismiss(); });
+  // The smallest set (13 questions), every subject.
+  await a.evaluate(() => { const s = document.getElementById('mpSettingsTournamentSelect'); s.setMultiValues(['dast-2']); s.dispatchEvent(new Event('change', { bubbles: true })); });
+  await a.waitForTimeout(500);
+  for (let i = 0; i < 60; i++) {
+    if (await a.evaluate(() => document.getElementById('alert-modal') && document.getElementById('alert-modal').classList.contains('show'))) break;
+    await a.locator('body').click({ position: { x: 5, y: 300 } });
+    await a.keyboard.press('s'); await a.waitForTimeout(120);
+    await a.keyboard.press('n'); await a.waitForTimeout(220);
+  }
+  assert.match(await a.locator('#alert-modal-text').innerText(), /reached the end of the questions/);
+  assert.deepStrictEqual(native, []);
+  assert.deepStrictEqual(a.errors, []);
+  await ctx.close();
+});
+
 test('the room hears about a round change once, when the slider is let go', async () => {
   const ctx = await newContext(browser);
   const r = room();
