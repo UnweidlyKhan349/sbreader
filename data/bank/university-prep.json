@@ -34,7 +34,6 @@
 {"i":55431,"s":"ess","f":"SA","qt":"bonus","n":16,"q":"White dwarfs typically transform into what type of supernova because they lack hydrogen?","a":{"t":"TYPE I"},"pg":6},
 {"i":55432,"s":"math","f":"MC","qt":"tossup","n":17,"q":"What is the fourth prime term in the Fibonacci sequence?","a":{"t":"13","l":"Y"},"c":{"W":"3","X":"7","Y":"13","Z":"89"},"pg":6},
 {"i":55433,"s":"math","f":"SA","qt":"bonus","n":17,"q":"Leonardo Fibonacci considered the idealized population of what animal as a model for his sequence?","a":{"t":"RABBITS"},"pg":6},
-{"i":55434,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"As of January 2014, what is the largest capacity that a hydroelectric power station can generate in megawatts?","a":{"t":"20,000","l":"Z"},"c":{"W":"2,000","X":"4,000","Y":"10,000","Z":"20,000"},"pg":7},
 {"i":55435,"s":"phys","f":"SA","qt":"bonus","n":18,"q":"What is the name of the facility in Livermore, California, that uses laser based inertial confinement to attempt nuclear fusion?","a":{"t":"NATIONAL IGNITION FACILITY","ac":["NIF"]},"pg":7},
 {"i":55436,"s":"bio","f":"MC","qt":"tossup","n":19,"q":"What gaseous hormone promotes fruit ripening and flowering in pineapples?","a":{"t":"Ethylene","l":"W"},"c":{"W":"Ethylene","X":"Methylene","Y":"Cytokinins","Z":"Abscisic acid"},"pg":7},
 {"i":55437,"s":"bio","f":"SA","qt":"bonus","n":19,"q":"What is the predominant natural auxin in plants called?","a":{"t":"INDOLEACETIC ACID","ac":["IAA"]},"pg":7},
