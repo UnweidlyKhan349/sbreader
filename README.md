@@ -16,12 +16,12 @@ Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, 
 
 | Subject | Questions |
 |---|---|
-| Biology | 22,419 |
-| Earth & Space | 20,864 |
-| Physics | 19,710 |
-| Math | 16,721 |
-| Chemistry | 19,131 |
-| Energy | 4,795 |
+| Biology | 23,351 |
+| Earth & Space | 22,455 |
+| Physics | 20,990 |
+| Math | 16,924 |
+| Chemistry | 20,108 |
+| Energy | 2,045 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 
@@ -458,7 +458,7 @@ Questions are read on screen, not heard, so the bank stores each one the way a p
 
 **Placement**
 - A tournament's rounds are numbered in order through its phases (round robin, then double elimination or playoffs, then finals), so the round slider reads in order.
-- **Energy is a last resort.** Every question filed under Energy, whatever its packet called it (NSB's Energy category, General Science, Computer Science, special rounds), is read. If it squarely belongs to Math, Physics, Biology, Chemistry or Earth & Space, it moves there. The question is judged by what it asks, not by a "Researchers at X National Lab" lead-in. Energy keeps computer science, energy technology and resources (reactors, grids, batteries, fuels), units and lab practice, history-of-science trivia, and questions that need two subjects about equally. When in doubt, the question stays in Energy. Every new scrape has to apply this too. A single-subject event (Earth and Space Scrimmage, the National Chemistry Bowl, Lexington Biology Bowl, Trio Online Math Bowl) keeps every question in its subject.
+- **Energy is a last resort.** Every question filed under Energy, whatever its packet called it (NSB's Energy category, General Science, Computer Science, special rounds), is read. If it fits Math, Physics, Biology, Chemistry or Earth & Space, it moves there. The question is judged by what it asks, not by a "Researchers at X National Lab" lead-in. **Energy holds computer science and the science that fits none of the other five**: programming, algorithms, data structures, machine learning, computer hardware and networks; the scientific method and experimental design (variables, controls, hypotheses); questions that need two subjects about equally; and the grid operations, economics and policy questions still in the bank. Energy technology goes to the science it rests on (since November 24, 2026): reactors, fission and fusion, turbines, generators, transmission, solar cells and heat engines to Physics; batteries, fuel cells, fuels, combustion, refining and biofuel chemistry to Chemistry; coal, oil and gas formation, mining, fracking, geothermal resources and carbon storage to Earth & Space; biofuel crops, algae and microbial digestion to Biology; unit conversions to Math, or to Physics when they are about physical units. Every new scrape has to apply this too. A single-subject event (Earth and Space Scrimmage, the National Chemistry Bowl, Lexington Biology Bowl, Trio Online Math Bowl) keeps every question in its subject.
 - **A question's subject matches what its packet prints**, unless the packet mislabels it. `data/source-subjects.json` records the printed subject of every question (`"other"` for Energy, General Science, Physical Science and the like, which the Energy rule places; `null` where no packet could be checked), and `npm test` fails when a question's subject differs from it without an entry in `data/subject-overrides.json`. An override is written `"printed→filed"`, so changing that question's subject again makes the test fail until someone re-reads it. A packet's label is overridden only after reading the question, when it belongs to the other subject at least as much (an enzyme question printed under Chemistry, a Kepler's-laws question under Physics); a question that plainly fits the printed subject keeps it. Every new scrape records the printed subjects with `tools/subject-audit.js` (see [Editing the bank](#databank-the-question-bank)) and settles each difference it lists. A single-subject event's questions are all recorded as its subject.
 - Every tournament has a `level` and an approximate `date` in `meta.json` (see [Data format](#datametajson)).
 

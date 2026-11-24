@@ -300,7 +300,7 @@
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6468","q":[
 {"i":93207,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"The daily amount of energy used in the United States, per person, is about as much energy as....","c":{"W":"100 watt lightbulb left on for 103 days straight","X":"707 quarter-pound hamburgers","Y":"Half a tank of gasoline (7 gallons)","Z":"All of the above"},"a":{"t":"All of the above","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6473","q":[
-{"i":93209,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"NASA's Mars Curiosity rover is powered by:","c":{"W":"Hydrogen Fuel Cell","X":"Nuclear Power","Y":"Diesel Engine","Z":"Solar Power"},"a":{"t":"Nuclear Power","l":"X"}}]},
+{"i":93209,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"NASA's Mars Curiosity rover is powered by:","c":{"W":"Hydrogen Fuel Cell","X":"Nuclear Power","Y":"Diesel Engine","Z":"Solar Power"},"a":{"t":"Nuclear Power","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6484","q":[
 {"i":96307,"s":"math","f":"MC","qt":"tossup","n":1,"q":"The sin(180 degrees + A) is equal to which of the following?","c":{"W":"sin(A)","X":"-sin(A)","Y":"cos(A)","Z":"-cos(A)"},"a":{"t":"-sin(A)","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/bonus/6487","q":[

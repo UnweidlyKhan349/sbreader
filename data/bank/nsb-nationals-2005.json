@@ -248,9 +248,9 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3614","q":[
 {"i":89148,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"What is the only common mineral to be strongly magnetic other than magnetite:","a":{"t":"PYRRHOTITE","ac":["FeS","IRON SULFIDE"]}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3615","q":[
-{"i":89149,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"A quick and simple method commonly used to inspect whether a metal is stainless steel is to:","c":{"W":"test if a magnet will be attracted to it","X":"test if it will react with sulfuric acid","Y":"pass a current through it and measure its resistance","Z":"measure its specific gravity"},"a":{"t":"test if a magnet will be attracted to it","l":"W"}}]},
+{"i":89149,"s":"phys","f":"MC","qt":"tossup","n":15,"q":"A quick and simple method commonly used to inspect whether a metal is stainless steel is to:","c":{"W":"test if a magnet will be attracted to it","X":"test if it will react with sulfuric acid","Y":"pass a current through it and measure its resistance","Z":"measure its specific gravity"},"a":{"t":"test if a magnet will be attracted to it","l":"W"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3615","q":[
-{"i":89150,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"The second stroke in a four stroke engine is most commonly referred to as the:","a":{"t":"COMPRESSION STROKE"}}]},
+{"i":89150,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"The second stroke in a four stroke engine is most commonly referred to as the:","a":{"t":"COMPRESSION STROKE"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3616","q":[
 {"i":89151,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is NOT commonly thought of as an output device:","c":{"W":"video monitor","X":"scanner","Y":"printer","Z":"dot-matrix printer"},"a":{"t":"scanner","l":"X"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3616","q":[
@@ -276,9 +276,9 @@
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3621","q":[
 {"i":89162,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"Which equinox marks the moment when fall begins in the Northern Hemisphere?","a":{"t":"AUTUMNAL EQUINOX"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3622","q":[
-{"i":89163,"s":"energy","f":"SA","qt":"tossup","n":22,"q":"The presence of what radioactive gas in houses poses a health risk for cancer of the lungs and may account for as high as 10% of lung cancer deaths in the USA.","a":{"t":"RADON"}}]},
+{"i":89163,"s":"chem","f":"SA","qt":"tossup","n":22,"q":"The presence of what radioactive gas in houses poses a health risk for cancer of the lungs and may account for as high as 10% of lung cancer deaths in the USA.","a":{"t":"RADON"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3622","q":[
-{"i":89164,"s":"energy","f":"SA","qt":"bonus","n":22,"q":"What is the substance fresh coal becomes after heat has driven off all the elements that give off smoke and yellow flames, and the remaining substance then yields only a blue flame:","a":{"t":"COKE"}}]},
+{"i":89164,"s":"chem","f":"SA","qt":"bonus","n":22,"q":"What is the substance fresh coal becomes after heat has driven off all the elements that give off smoke and yellow flames, and the remaining substance then yields only a blue flame:","a":{"t":"COKE"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/tossup/3623","q":[
 {"i":89165,"s":"phys","f":"MC","qt":"tossup","n":23,"q":"A major advancement in modern science began with the 1946 announcement in the journal “Science” that Oak Ridge Laboratory would make this available to qualified scientists:","c":{"W":"mass produced penicillin","X":"x-ray machines","Y":"radioactive isotopes","Z":"the first electron microscope"},"a":{"t":"radioactive isotopes","l":"Y"}}]},
 {"rl":"Round 4","r":4,"u":"https://scibowldb.com/bonus/3623","q":[
@@ -414,7 +414,7 @@
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3656","q":[
 {"i":89232,"s":"ess","f":"SA","qt":"bonus","n":6,"q":"What is the term for groundwater emerging naturally at the ground surface, where the water table intersects the surface:","a":{"t":"SPRING","ac":["SEEP"]}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3657","q":[
-{"i":89233,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"Which of the following is most specifically designed to measure low temperatures:","c":{"W":"alcohol thermometer","X":"pyrometer","Y":"cryometer","Z":"mercury thermometer"},"a":{"t":"cryometer","l":"Y"}}]},
+{"i":89233,"s":"phys","f":"MC","qt":"tossup","n":7,"q":"Which of the following is most specifically designed to measure low temperatures:","c":{"W":"alcohol thermometer","X":"pyrometer","Y":"cryometer","Z":"mercury thermometer"},"a":{"t":"cryometer","l":"Y"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3658","q":[
 {"i":89235,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"Which of the following would be a measurement of a typical printer’s resolution:","c":{"W":"0.25 millimeters","X":"300 dpi","Y":"640 X 480","Z":"200 RSU"},"a":{"t":"300 dpi","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3658","q":[
@@ -444,7 +444,7 @@
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3664","q":[
 {"i":89248,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"Which of the following latitudes and dates would coincide with the longest duration of insolation:","c":{"W":"23.5° South on September 21","X":"50° North on June 21","Y":"50° South on March 21","Z":"0° on June 21"},"a":{"t":"50° North on June 21","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3665","q":[
-{"i":89249,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"In the tempering of steel tools, the process of rapidly cooling the tool is called:","c":{"W":"quickening","X":"quenching","Y":"drawing","Z":"case hardening"},"a":{"t":"quenching","l":"X"}}]},
+{"i":89249,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"In the tempering of steel tools, the process of rapidly cooling the tool is called:","c":{"W":"quickening","X":"quenching","Y":"drawing","Z":"case hardening"},"a":{"t":"quenching","l":"X"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/bonus/3665","q":[
 {"i":89250,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"What is the general name of the unusual infectious agents that causes spongiform encephalopathy?","a":{"t":"PRIONS"}}]},
 {"rl":"Round 6","r":6,"u":"https://scibowldb.com/tossup/3666","q":[
@@ -544,7 +544,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3690","q":[
 {"i":89298,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What Clark University physics professor was an American pioneer of rocket theory after whom a major NASA space center is named?","a":{"t":"ROBERT GODDARD","ac":["GODDARD"]}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3690","q":[
-{"i":89299,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"The most common recommended method for calibrating a 1 milliliter automatic pipette gun would be to do what?","a":{"t":"WEIGH A MILLILITER OF WATER FROM THE PIPET"}}]},
+{"i":89299,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"The most common recommended method for calibrating a 1 milliliter automatic pipette gun would be to do what?","a":{"t":"WEIGH A MILLILITER OF WATER FROM THE PIPET"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3691","q":[
 {"i":89300,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following is a standard datatype for Java, but not for standard C:","c":{"W":"float","X":"char","Y":"byte","Z":"integer"},"a":{"t":"byte","l":"Y"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3692","q":[
@@ -568,7 +568,7 @@
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3696","q":[
 {"i":89310,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"What is the common name for the test that gives the hardness of the material by the size of an indent left in it by a standard steel ball?","a":{"t":"THE BRINELL TEST"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3697","q":[
-{"i":89311,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"Which of the following is the name for a rotating machine that converts mechanical energy into electrical energy by an armature rotating in a field produced by permanent magnets:","c":{"W":"electric motor","X":"turbine","Y":"magneto","Z":"kinetocycle"},"a":{"t":"magneto","l":"Y"}}]},
+{"i":89311,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"Which of the following is the name for a rotating machine that converts mechanical energy into electrical energy by an armature rotating in a field produced by permanent magnets:","c":{"W":"electric motor","X":"turbine","Y":"magneto","Z":"kinetocycle"},"a":{"t":"magneto","l":"Y"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/bonus/3697","q":[
 {"i":89312,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"Air on Earth consists mainly of three gases. Give their percent composition rounded off to the nearest whole number:","a":{"t":"78% NITROGEN; 21% OXYGEN; AND 1% ARGON"}}]},
 {"rl":"Round 7","r":7,"u":"https://scibowldb.com/tossup/3698","q":[
@@ -668,7 +668,7 @@
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3721","q":[
 {"i":89360,"s":"ess","f":"SA","qt":"bonus","n":21,"q":"Order the following minerals from the hardest to the softest: Topaz; Corundum; Quartz; Fluorite","a":{"t":"CORUNDUM; TOPAZ; QUARTZ; FLUORITE"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3722","q":[
-{"i":89361,"s":"energy","f":"MC","qt":"tossup","n":22,"q":"The SI prefix for the quantity 10^15 is:","c":{"W":"peta","X":"eta","Y":"tera","Z":"yotta"},"a":{"t":"peta","l":"W"}}]},
+{"i":89361,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"The SI prefix for the quantity 10^15 is:","c":{"W":"peta","X":"eta","Y":"tera","Z":"yotta"},"a":{"t":"peta","l":"W"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/bonus/3722","q":[
 {"i":89362,"s":"math","f":"SA","qt":"bonus","n":22,"q":"Order the following from the SMALLEST unit of distance to the LARGEST: mile, rod, feet, furlong.","a":{"t":"FEET, ROD, FURLONG, MILE"}}]},
 {"rl":"Round 8","r":8,"u":"https://scibowldb.com/tossup/3723","q":[
@@ -740,7 +740,7 @@
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3739","q":[
 {"i":89396,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"Steep-sided volcanoes such as Mounts Rainier, Hood, and Fuji, are examples of what kind of volcanoes:","c":{"W":"stratovolcanoes","X":"tephra cone volcanoes","Y":"shield volcanoes","Z":"tower volcanoes"},"a":{"t":"stratovolcanoes","l":"W"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3740","q":[
-{"i":89397,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"A mixture of turpentine, ether, camphor gum, and powdered emory, was historically used for which of the following:","c":{"W":"sealing mirrored surfaces","X":"grinding glass surfaces","Y":"gluing glass plates together","Z":"coating lenses for chromatic aberration"},"a":{"t":"grinding glass surfaces","l":"X"}}]},
+{"i":89397,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"A mixture of turpentine, ether, camphor gum, and powdered emory, was historically used for which of the following:","c":{"W":"sealing mirrored surfaces","X":"grinding glass surfaces","Y":"gluing glass plates together","Z":"coating lenses for chromatic aberration"},"a":{"t":"grinding glass surfaces","l":"X"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/bonus/3740","q":[
 {"i":89398,"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Thermal stratification of lakes occurs in 3 layers. Give the names of these 3 layers from the top of a lake to the bottom:","a":{"t":"EPILIMNION; THERMOCLINE; HYPOLIMNION"}}]},
 {"rl":"Round 9","r":9,"u":"https://scibowldb.com/tossup/3741","q":[
@@ -904,7 +904,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3382","q":[
 {"i":89479,"s":"chem","f":"MC","qt":"tossup","n":7,"q":"A major function of a refractory is:","c":{"W":"as a source of flux material for slag formation","X":"the conduction of heat","Y":"as a source of essential reactants for smelting","Z":"for heat insulation"},"a":{"t":"for heat insulation","l":"Z"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3382","q":[
-{"i":89480,"s":"energy","f":"SA","qt":"bonus","n":7,"q":"How many square inches are in 9 square feet?","a":{"t":"1296"}}]},
+{"i":89480,"s":"math","f":"SA","qt":"bonus","n":7,"q":"How many square inches are in 9 square feet?","a":{"t":"1296"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3383","q":[
 {"i":89481,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"What kind of program was developed to allow the user to store, modify, organize and display data in a meaningful form:","c":{"W":"firmware","X":"database","Y":"graphics","Z":"word processing"},"a":{"t":"database","l":"X"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3383","q":[
@@ -934,7 +934,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3389","q":[
 {"i":89494,"s":"ess","f":"MC","qt":"bonus","n":14,"q":"The supercontinent Pangea started to break apart into our present day continents approximately how many million years ago:","c":{"W":"100","X":"200","Y":"300","Z":"400"},"a":{"t":"200","l":"X"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3390","q":[
-{"i":89495,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Bells are typically cast in which of the following:","c":{"W":"in a bronze alloy of about 75% copper and 25% zinc","X":"in a brass alloy of about 75% copper and 25% tin","Y":"in a bronze alloy of about 75% copper and 25% tin","Z":"in a brass alloy of about 75% copper and 25% zinc"},"a":{"t":"in a bronze alloy of about 75% copper and 25% tin","l":"Y"}}]},
+{"i":89495,"s":"chem","f":"MC","qt":"tossup","n":15,"q":"Bells are typically cast in which of the following:","c":{"W":"in a bronze alloy of about 75% copper and 25% zinc","X":"in a brass alloy of about 75% copper and 25% tin","Y":"in a bronze alloy of about 75% copper and 25% tin","Z":"in a brass alloy of about 75% copper and 25% zinc"},"a":{"t":"in a bronze alloy of about 75% copper and 25% tin","l":"Y"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3390","q":[
 {"i":89496,"s":"chem","f":"SA","qt":"bonus","n":15,"q":"Uranium-238, uranium-235, and thorium-232 all undergo decay to form isotopes of this one element of the carbon group:","a":{"t":"LEAD"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3391","q":[
@@ -964,7 +964,7 @@
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3397","q":[
 {"i":89509,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"A satellite that orbits the equatorial plane of the Earth at a speed matching the Earth’s orbit is said to be in what kind of orbit?","a":{"t":"GEOSYNCHRONOUS"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3397","q":[
-{"i":89510,"s":"energy","f":"MC","qt":"bonus","n":22,"q":"After thorough cleaning and repeated applications of ammonium polysulfide followed by drying, the steel is then rubbed briskly with a cloth and sealed with linseed oil. This process describes which of the following:","c":{"W":"bluing of steel","X":"preparation of steel for cheap jewelry","Y":"long term storage preparation of high grade steel","Z":"preparation of steel for use in nuclear reactors"},"a":{"t":"bluing of steel","l":"W"}}]},
+{"i":89510,"s":"chem","f":"MC","qt":"bonus","n":22,"q":"After thorough cleaning and repeated applications of ammonium polysulfide followed by drying, the steel is then rubbed briskly with a cloth and sealed with linseed oil. This process describes which of the following:","c":{"W":"bluing of steel","X":"preparation of steel for cheap jewelry","Y":"long term storage preparation of high grade steel","Z":"preparation of steel for use in nuclear reactors"},"a":{"t":"bluing of steel","l":"W"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/tossup/3398","q":[
 {"i":89511,"s":"phys","f":"MC","qt":"tossup","n":23,"q":"Which of the following enables the aviation designer to extrapolate from the model to the prototype:","c":{"W":"Goddard equivalence","X":"Reynold’s number","Y":"Mach’s equivalence","Z":"Bernoulli’s number"},"a":{"t":"Reynold’s number","l":"X"}}]},
 {"rl":"Round 11","r":11,"u":"https://scibowldb.com/bonus/3398","q":[
@@ -1004,7 +1004,7 @@
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3407","q":[
 {"i":89529,"s":"energy","f":"SA","qt":"tossup","n":7,"q":"What famous psychologist’s theory of personality introduced the concepts of race memory and the collective unconscious?","a":{"t":"CARL JUNG","ac":["JUNG"]}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3407","q":[
-{"i":89530,"s":"energy","f":"MC","qt":"bonus","n":7,"q":"What optical instrument is an essential tool used for a number of purposes in surveying, navigation, and meteorology:","c":{"W":"wallastone prism","X":"theodolite","Y":"immerect","Z":"two way parralax meter"},"a":{"t":"theodolite","l":"X"}}]},
+{"i":89530,"s":"phys","f":"MC","qt":"bonus","n":7,"q":"What optical instrument is an essential tool used for a number of purposes in surveying, navigation, and meteorology:","c":{"W":"wallastone prism","X":"theodolite","Y":"immerect","Z":"two way parralax meter"},"a":{"t":"theodolite","l":"X"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/tossup/3408","q":[
 {"i":89531,"s":"energy","f":"MC","qt":"tossup","n":8,"q":"A computer that delivers web pages is called a:","c":{"W":"web site","X":"web page","Y":"web server","Z":"web master"},"a":{"t":"web server","l":"Y"}}]},
 {"rl":"Round 12","r":12,"u":"https://scibowldb.com/bonus/3408","q":[
@@ -1136,7 +1136,7 @@
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3440","q":[
 {"i":89595,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"This behavioral scientist’s position on conditioning and reinforcement was influenced by the writings of Ernst Mach, Henri Poincare, and Bertrand Russell:","a":{"t":"B. F. SKINNER"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3440","q":[
-{"i":89596,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"How many picometers are in a nanometer?","a":{"t":"1000","ac":["10^3","TEN TO THE THIRD POWER"]}}]},
+{"i":89596,"s":"phys","f":"SA","qt":"bonus","n":15,"q":"How many picometers are in a nanometer?","a":{"t":"1000","ac":["10^3","TEN TO THE THIRD POWER"]}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/tossup/3441","q":[
 {"i":89597,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"In Java, all objects, including arrays, implement the methods of this class:","c":{"W":"class","X":"object","Y":"array","Z":"system"},"a":{"t":"object","l":"X"}}]},
 {"rl":"Round 13","r":13,"u":"https://scibowldb.com/bonus/3441","q":[
@@ -1524,7 +1524,7 @@
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3539","q":[
 {"i":89792,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"Four of the eras of geologic time are the Proterozoic, Paleozoic, Mesozoic, and the Cenozoic. What is the fifth?","a":{"t":"ARCHEAN"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3540","q":[
-{"i":89793,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What publication of Rachael Carson ushered in a new era of environmental awareness in the USA?","a":{"t":"SILENT SPRING"}}]},
+{"i":89793,"s":"bio","f":"SA","qt":"tossup","n":15,"q":"What publication of Rachael Carson ushered in a new era of environmental awareness in the USA?","a":{"t":"SILENT SPRING"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/bonus/3540","q":[
 {"i":89794,"s":"energy","f":"SA","qt":"bonus","n":15,"q":"What are the names for the International Space Station’s first two segments?","a":{"t":"ZARYA AND UNITY"}}]},
 {"rl":"Round 17","r":17,"u":"https://scibowldb.com/tossup/3541","q":[
