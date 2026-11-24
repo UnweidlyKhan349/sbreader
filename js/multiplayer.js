@@ -201,12 +201,41 @@
   const ROOM_LIST_REFRESH_MS = 15 * 1000;
   let roomListTimer = null;
   let roomListBusy = false;
+  let roomListAgain = false;
+  // Live updates: a player coming into a listed room or leaving it, or a
+  // room made public or private, says so on the room list's live channel
+  // (SBRooms.watch), and the lobby asks for the list again a moment later
+  // (once for a burst of changes). The 15-second asking stays, for what
+  // nobody announces: a player whose tab closed without saying goodbye
+  // stops counting as online 90 seconds after their last heartbeat.
+  const LIVE_REFRESH_DELAY_MS = 700;
+  let stopLobbyWatch = null;
+  let liveRefreshTimer = null;
+  function watchLobby() {
+    if (stopLobbyWatch || !SBRooms.watch) return;
+    stopLobbyWatch = SBRooms.watch(() => {
+      if (liveRefreshTimer) return;
+      liveRefreshTimer = setTimeout(() => {
+        liveRefreshTimer = null;
+        if (lobbyShowing() && document.visibilityState === 'visible') renderRoomLists(true);
+      }, LIVE_REFRESH_DELAY_MS);
+    });
+  }
+  // Into a room: the lobby's channel closes (the room hears nothing from it).
+  function unwatchLobby() {
+    if (stopLobbyWatch) { stopLobbyWatch(); stopLobbyWatch = null; }
+    clearTimeout(liveRefreshTimer);
+    liveRefreshTimer = null;
+  }
   function lobbyShowing() {
     return !myState.role && !joining && document.getElementById('lobbyScreen').style.display !== 'none';
   }
   async function renderRoomLists(again) {
-    if (roomListBusy) return;
+    // Asked again while a request is out: once more when it's back, so a
+    // change announced meanwhile isn't missed.
+    if (roomListBusy) { if (again) roomListAgain = true; return; }
     roomListBusy = true;
+    watchLobby();
     try {
       if (!again) paintRoomLists(null, null);
       const reg = await within(SBRooms.list({ fresh: !!again }), 6000, null);
@@ -218,6 +247,10 @@
       if (lobbyShowing()) paintRoomLists(reg, probe);
     } finally {
       roomListBusy = false;
+    }
+    if (roomListAgain) {
+      roomListAgain = false;
+      if (lobbyShowing()) { renderRoomLists(true); return; }
     }
     if (!roomListTimer) {
       roomListTimer = setInterval(() => {
@@ -1580,6 +1613,7 @@
   // has left.
   let settingsSaveTimer = null;
   let savedSettingsText = '';
+  let savedPublic = null;
   function saveRoomSettingsSoon() {
     if (myState.publicLobby || !myState.roomName || !window.SBRooms || !activeFilterState) return;
     clearTimeout(settingsSaveTimer);
@@ -1591,7 +1625,14 @@
       const payload = settingsStatePayload();
       const text = JSON.stringify(payload);
       if (text === savedSettingsText) return;
-      SBRooms.saveSettings(roomKey(), myState.pid, payload).then((ok) => { if (ok) savedSettingsText = text; }).catch(() => {});
+      SBRooms.saveSettings(roomKey(), myState.pid, payload).then((ok) => {
+        if (!ok) return;
+        savedSettingsText = text;
+        // Saving them sets whether the room is listed: open lobbies hear
+        // when that may have changed (this player's first save included).
+        if (savedPublic !== payload.isPublic) SBRooms.announce();
+        savedPublic = payload.isPublic;
+      }).catch(() => {});
     }, 1500);
   }
 
@@ -2851,12 +2892,20 @@
   // isn't listed as having been in the room, and nobody reports the room's
   // public/private state before they know it.
   let admitted = false;
+  // What the last heartbeat said about the room being listed (null: none
+  // since entering it), so open lobbies hear when this player comes into a
+  // listed room, or it's made public or private (SBRooms.announce).
+  let beatPublic = null;
   function beat() {
     if (!myState.role || !admitted) return;
     const me = game.players.find((p) => p.id === myState.myId) || { name: myState.myName, score: 0 };
+    const isPublic = myState.publicLobby ? true : roomSetting('isPublic', true);
+    const announce = beatPublic === null ? isPublic : beatPublic !== isPublic;
+    beatPublic = isPublic;
     SBRooms.heartbeat(roomKey(), {
-      isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
+      isPublic,
       isPermanent: !!myState.publicLobby,
+      announce,
     }, { pid: myState.pid, peer: mesh && mesh.id, name: me.name || myState.myName, score: me.score || 0, correct: me.correct || 0, incorrect: me.incorrect || 0, negs: me.negs || 0, celSum: me.celSum || 0, celN: me.celN || 0 }).catch(() => {});
   }
   // After a settings change (a dragged slider makes many): one heartbeat,
@@ -2870,10 +2919,12 @@
     if (!myState.role || leftRoomList) return;
     if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
     clearTimeout(beatTimer);
-    leftRoomList = SBRooms.leave(roomKey(), myState.pid).catch(() => {});
+    const listed = !!myState.publicLobby || roomSetting('isPublic', true) !== false;
+    leftRoomList = SBRooms.leave(roomKey(), myState.pid, listed).catch(() => {});
   }
   function startHeartbeat() {
     leftRoomList = null;
+    beatPublic = null;
     if (heartbeatTimer) clearInterval(heartbeatTimer);
     setTimeout(beat, 300);
     heartbeatTimer = setInterval(beat, 30 * 1000);
@@ -3052,12 +3103,13 @@
     document.title = 'SBReader - Multiplayer';
     try { history.replaceState(null, '', location.pathname); } catch (e) { /* e.g. file:// */ }
     setJoinStatus(text, true);
-    if (!lobbyRendered) { lobbyRendered = true; renderRoomLists(); }
+    if (!lobbyRendered) { lobbyRendered = true; renderRoomLists(); } else { watchLobby(); renderRoomLists(true); }
   }
 
   async function enterRoomByDoor({ peerId, label, lobby, filters, key }) {
     if (joining || myState.role) return;
     joining = true;
+    unwatchLobby();
     setJoinStatus('');
     showConnecting(`Connecting to ${label}…`);
     document.title = `SBReader - Multiplayer - ${label}`;
