@@ -14,7 +14,7 @@
 
   // Show / hide the password, as on QB Reader: the eye (Bootstrap Icons'
   // eye) shows it and turns into a crossed-out eye (eye-slash), which hides
-  // it again.
+  // it again. The button itself keeps its outline look.
   const EYE_SLASH = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">'
     + '<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>'
     + '<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>'
@@ -27,7 +27,8 @@
       input.type = show ? 'text' : 'password';
       btn.innerHTML = show ? EYE_SLASH : eye;
       btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
-      btn.classList.toggle('active', show);
+      // Only the icon changes, as on QB Reader: no filled "active" look.
+      btn.setAttribute('aria-pressed', String(show));
     });
   });
 
@@ -68,7 +69,7 @@
       } else if (form.id === 'forgotForm') {
         const email = $('forgotEmail').value.trim();
         await SBAccount.resetPassword(email);
-        message(`A link to reset your password has been sent to ${email}. Check your inbox (and your spam folder).`, 'success');
+        message(`A link to reset your password has been sent to ${email}.`, 'success');
       }
     } catch (err) {
       message(SBAccount.friendlyError(err), 'danger');

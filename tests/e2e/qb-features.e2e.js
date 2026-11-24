@@ -106,6 +106,10 @@ test('Login: the eye shows the password and turns into a crossed-out eye, which 
   assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'text');
   assert.strictEqual(await btn.getAttribute('aria-label'), 'Hide password');
   assert.notStrictEqual(await icon(), eye, 'the icon changes');
+  // As on QB Reader, the button keeps its outline look (not filled gray) once the pointer leaves it.
+  await page.mouse.move(0, 0);
+  assert.strictEqual(await btn.evaluate((b) => getComputedStyle(b).backgroundColor), 'rgba(0, 0, 0, 0)');
+  assert.strictEqual(await btn.getAttribute('aria-pressed'), 'true');
   await btn.click();
   assert.strictEqual(await page.locator('#loginPassword').getAttribute('type'), 'password');
   assert.strictEqual(await icon(), eye, 'and changes back');

@@ -207,8 +207,6 @@
 {"i":95117,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"What rock mostly makes up the low velocity zone in the mantle?","c":{"W":"Basalt","X":"Kaolinite","Y":"Peridotite","Z":"Diorite"},"a":{"t":"Peridotite","l":"Y"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4636","q":[
 {"i":95118,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Which type of surface seismic wave causes horizontal shifting of the earth’s surface during an earthquake?","a":{"t":"Love Waves"}}]},
-{"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4637","q":[
-{"i":95119,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"What percent of the energy used by humans has a geothermal source?","c":{"W":"1%","X":"7%","Y":"15%","Z":"20%"},"a":{"t":"1%","l":"W"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4637","q":[
 {"i":95120,"s":"energy","f":"SA","qt":"bonus","n":4,"q":"Which type of coal contains the most energy?","a":{"t":"Anthracite"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4638","q":[
@@ -1005,8 +1003,6 @@
 {"i":95493,"s":"math","f":"MC","qt":"tossup","n":9,"q":"Which of the following 2 dimensional shapes on a coordinate plane cannot be completely described with 3 parameters?","c":{"W":"Upwards facing parabola","X":"Circle","Y":"Rotated parabola","Z":"Vector in standard position"},"a":{"t":"Rotated parabola","l":"Y"}}]},
 {"rl":"Sep 22 · Blair","r":null,"u":"https://scibowldb.com/bonus/4866","q":[
 {"i":96157,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Compute the sum from n = 1 to infinity of [1/n - 1/(n+1)]","a":{"t":"1"}}]},
-{"rl":"Sep 22 · Blair","r":null,"u":"https://scibowldb.com/tossup/4867","q":[
-{"i":96158,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"By name or number, order the following three countries in increasing order of oil imports in 2014: China, Canada, Japan.","a":{"t":"2, 3, 1","ac":["CANADA, JAPAN, CHINA"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4868","q":[
 {"i":96159,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"The Coriolis Effect deflects winds in the Northern Hemisphere:","c":{"W":"To the west","X":"To the east","Y":"To the left","Z":"To the right"},"a":{"t":"To the right","l":"Z"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4868","q":[
@@ -1067,8 +1063,6 @@
 {"i":96163,"s":"math","f":"MC","qt":"tossup","n":9,"q":"Which of the following functions is odd?","c":{"W":"cos(x^3)","X":"x^3+x^2","Y":"sin(cos(x))","Z":"tanh(x)"},"a":{"t":"tanh(x)","l":"Z"}}]},
 {"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/bonus/4884","q":[
 {"i":95518,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What mathematical concept is commonly used to easily find the sum of the roots of a polynomial all raised to a power?","a":{"t":"NEWTON SUMS","ac":["NEWTON'S IDENTITIES","NEWTON'S SUMS"]}}]},
-{"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/tossup/4885","q":[
-{"i":95519,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"What is the name of the policy in which the government allocates purchasable permits to allow for a certain amount of a pollutant to be released?","a":{"t":"CAP AND TRADE"}}]},
 {"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/bonus/4885","q":[
 {"i":96164,"s":"phys","f":"MC","qt":"bonus","n":12,"q":"Which of the following isotopes is not fissile?","c":{"W":"Uranium-233","X":"Uranium-235","Y":"Plutonium-240","Z":"Plutonium-241"},"a":{"t":"Plutonium-240","l":"Y"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4886","q":[
@@ -1101,8 +1095,6 @@
 {"i":95531,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What term refers to the amount of genetic material passed on to the next generation not only by the individual, but by family members as well?","c":{"W":"Relative fitness","X":"Inclusive fitness","Y":"Adaptation coefficient","Z":"Evolution score"},"a":{"t":"Inclusive fitness","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4893","q":[
 {"i":95532,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"You have to decide if it makes biological sense to save one of your relatives. If you do not save them, their chance of dying is 100%. If you save them, they are guaranteed to survive. You have a 50% chance of dying if you make an attempt to save them. You can produce one more offspring, while your relative can produce two. What is the minimum coefficient of relatedness required for it to make sense to save your relative?","a":{"t":"25%","ac":["0.25"]}}]},
-{"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4894","q":[
-{"i":95534,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"Approximately how many geothermal wells are located at The Geysers?","c":{"W":"150","X":"350","Y":"550","Z":"1000"},"a":{"t":"350","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4895","q":[
 {"i":95535,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"What term is used to describe the electromagnetic radiation with no discernible source left over from the early universe?","a":{"t":"COSMIC MICROWAVE BACKGROUND","ac":["COSMIC BACKGROUND RADIATION","CMB","COSMIC MICROWAVE RADIATION"]}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4896","q":[
@@ -1871,8 +1863,6 @@
 {"i":95861,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Which compound in the atmosphere contributes the most to the greenhouse effect?","a":{"t":"WATER VAPOR","ac":["WATER","H2O"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5115","q":[
 {"i":95862,"s":"energy","f":"MC","qt":"tossup","n":2,"q":"In a conventional light bulb, what is the ratio of light energy to the heat energy produced?","c":{"W":"1:9","X":"3:2","Y":"1:1","Z":"7:3"},"a":{"t":"1:9","l":"W"}}]},
-{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5115","q":[
-{"i":95863,"s":"energy","f":"MC","qt":"bonus","n":3,"q":"The arctic is estimated to hold what percent of the world’s undiscovered oil and natural gas reserves?","c":{"W":"7%","X":"13%","Y":"22%","Z":"35%"},"a":{"t":"22%","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5116","q":[
 {"i":95864,"s":"energy","f":"SA","qt":"bonus","n":5,"q":"List the operating temperatures from lowest to highest of these types of fuel cells: 1) PEMFC, 2) PAFC, 3) MCFC, 4) SOFC","a":{"t":"1, 2, 3, 4","ac":["PEMFC, PAFC, MCFC, SOFC"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5117","q":[
@@ -1885,10 +1875,6 @@
 {"i":96247,"s":"energy","f":"MC","qt":"bonus","n":11,"q":"Which of the following is NOT a fossil fuel?","c":{"W":"Coal","X":"Petroleum","Y":"Natural gas","Z":"Uranium"},"a":{"t":"Uranium","l":"Z"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5120","q":[
 {"i":95867,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"In a gasoline internal combustion engine, what is the name of the device that ignites the fuel?","a":{"t":"Spark plug"}}]},
-{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5121","q":[
-{"i":95869,"s":"energy","f":"SA","qt":"bonus","n":14,"q":"Rank the 2015 coal production of these states from lowest to highest: Wyoming, West Virginia, Illinois, Pennsylvania.","a":{"t":"Pennsylvania, Illinois, West Virginia, Wyoming"}}]},
-{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5122","q":[
-{"i":95870,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Oil, coal, and natural gas supply what percent of energy used in the US?","c":{"W":"10","X":"35","Y":"55","Z":"90"},"a":{"t":"90","l":"Z"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5122","q":[
 {"i":95871,"s":"ess","f":"MC","qt":"bonus","n":16,"q":"A permeable rock that contains hydrocarbon fluids and gasses is called:","c":{"W":"An oil trap","X":"A source bed","Y":"An oil reservoir","Z":"An oil pocket"},"a":{"t":"An oil reservoir","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5123","q":[
@@ -1897,8 +1883,6 @@
 {"i":95873,"s":"energy","f":"SA","qt":"tossup","n":18,"q":"What is the term for oil derived from oil shales or tar sands?","a":{"t":"Syncrude","ac":["SYNTHETIC CRUDE"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5124","q":[
 {"i":96248,"s":"energy","f":"MC","qt":"bonus","n":19,"q":"Burning of which of the following fuels produces the least amount of carbon dioxide per unit of energy?","c":{"W":"coal","X":"oil","Y":"natural gas","Z":"All of these produce the same amount of CO2"},"a":{"t":"natural gas","l":"Y"}}]},
-{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5125","q":[
-{"i":95874,"s":"energy","f":"MC","qt":"tossup","n":20,"q":"Which of the following is closest to the percentage of US electricity generated from natural gas in 2014?","c":{"W":"5%","X":"15%","Y":"25%","Z":"40%"},"a":{"t":"25%","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5125","q":[
 {"i":95875,"s":"energy","f":"MC","qt":"bonus","n":21,"q":"Which of these states contain the largest natural gas field in the US?","c":{"W":"Pennsylvania","X":"Texas","Y":"Louisiana","Z":"Colorado"},"a":{"t":"Pennsylvania","l":"W"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5126","q":[
