@@ -145,7 +145,7 @@ test('a named room keeps its settings after everyone leaves, until the daily res
   assert.strictEqual(saves.length, 1, 'saved once, after the change settles');
   assert.strictEqual(saves[0].p_room, r);
   assert.ok(!saves[0].p_settings.subjects.includes('chem'));
-  assert.ok(!('isPublic' in saves[0].p_settings));
+  assert.strictEqual(saves[0].p_settings.isPublic, true, 'whether the room is listed goes with them');
   await a.close();
   // The room is empty; whoever opens it next gets the settings back.
   const b = await joinRoom(ctx, server.url, r);

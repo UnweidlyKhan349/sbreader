@@ -230,6 +230,9 @@
       if (pid) out.pid = pid;
       const owner = cleanOwnerProof(msg.owner);
       if (owner) out.owner = owner;
+      // Came from the lobby's list of public rooms (which may be out of
+      // date): a room that has gone private since turns them away.
+      if (msg.listed === true) out.listed = true;
       return out;
     }
     if (type === 'ownerAction') {
@@ -303,6 +306,8 @@
         // The timer is always on (Enable timer was a room setting once).
         timer: true,
         isPublic: msg.isPublic !== false,
+        // Lock room from new players (as on QB Reader): private rooms only.
+        locked: msg.locked === true && msg.isPublic === false,
         subjects: knownValues(msg.subjects, known.subjects),
         qtypes: knownValues(msg.qtypes, known.qtypes),
         formats: knownValues(msg.formats, known.formats),

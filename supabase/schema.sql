@@ -403,8 +403,9 @@ revoke all on function public.mp_room(text), public.mp_set_room(text, text, bool
 grant execute on function public.mp_room(text), public.mp_set_room(text, text, boolean, text, text[]) to anon, authenticated;
 
 -- Room settings (added November 2026): a named room keeps its settings
--- (filters, switches, reading speed) in mp_room_settings and opens with
--- them again, until the daily reset at 08:00 UTC. Any player now in the
+-- (filters, switches, reading speed, public or private, locked or not) in
+-- mp_room_settings and opens with them again, until the daily reset at
+-- 08:00 UTC. Saving them also sets whether the room is listed. Any player now in the
 -- room (their own live row, by their browser's secret) can save them; the
 -- coordinator does after each change. Built-in rooms keep their fixed
 -- settings and save nothing.
@@ -433,6 +434,14 @@ begin
   end if;
   insert into mp_room_settings (room, settings, saved_at) values (p_room, p_settings, now())
   on conflict (room) do update set settings = excluded.settings, saved_at = now();
+  -- Whether the room is listed (added November 24, 2026): in a room any
+  -- player can make it public or private, so the room's record follows the
+  -- settings it is saved with, not only its creator's heartbeat. Before, a
+  -- room someone else made private stayed on the lobby's list.
+  if jsonb_typeof(p_settings -> 'isPublic') = 'boolean' then
+    update mp_rooms set is_public = (p_settings ->> 'isPublic')::boolean
+    where name = p_room and not is_permanent and is_public <> (p_settings ->> 'isPublic')::boolean;
+  end if;
   return true;
 end;
 $$;
@@ -581,7 +590,7 @@ grant execute on function public.question_stats(integer) to anon, authenticated;
 create or replace function public.sb_schema_version()
 returns integer
 language sql immutable as $$
-  select 20261123;
+  select 20261124;
 $$;
 revoke all on function public.sb_schema_version() from public;
 grant execute on function public.sb_schema_version() to anon, authenticated;

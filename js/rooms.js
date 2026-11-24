@@ -180,7 +180,8 @@
 
   // This player is in the room: called on joining and every 30 seconds
   // while there, with their current name and score.
-  async function heartbeat(roomKey, { isPublic, isPermanent }, me) {
+  // announce: tell open lobbies once it's saved (see announce below).
+  async function heartbeat(roomKey, { isPublic, isPermanent, announce: tell }, me) {
     if (!enabled || !roomKey || !me || !me.pid) return;
     const name = me.name.slice(0, 24) || 'Player';
     const args = {
@@ -197,6 +198,7 @@
       delete args.p_peer;
       ({ error } = await rpc('mp_heartbeat', args));
     }
+    if (!error && tell) announce();
     if (!error || !error.missing) return;
     const c = await client();
     if (!c) return;
@@ -216,9 +218,14 @@
   // lobby): they stop counting as online now, not 90 seconds after their
   // last heartbeat. keepalive lets it finish while the page unloads. A
   // project without mp_leave just waits out the 90 seconds.
-  function leave(roomKey, pid) {
+  // tell: the room is listed, so open lobbies hear of it too.
+  function leave(roomKey, pid, tell) {
     if (!enabled || !roomKey || !pid) return Promise.resolve();
-    return rpc('mp_leave', { p_room: roomKey, p_pid: pid, p_secret: mySecret() }, true).then(() => {});
+    const done = rpc('mp_leave', { p_room: roomKey, p_pid: pid, p_secret: mySecret() }, true).then(() => {});
+    // Sent at once, not after the leave is saved: the page may be closing.
+    // Lobbies wait a moment before asking for the list (see watch).
+    if (tell) announce(true);
+    return done;
   }
 
   // The room's settings, kept for when it's next opened (see
@@ -229,5 +236,57 @@
     return r.error ? null : r.data === true;
   }
 
-  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, saveSettings, heartbeat, leave, key, ONLINE_MS };
+  // ---- Live updates for the lobby ----
+  // The list changes when someone comes into a listed room or leaves it, or
+  // a room is made public or private. Whoever made the change, once it's
+  // saved, says so on a Supabase Realtime Broadcast channel; every open
+  // lobby listens there and asks for the list again (the message carries
+  // nothing: the list is still read from mp_list). Sending is one plain
+  // request to Realtime's REST endpoint, so a player in a room doesn't
+  // hold the lobby's channel open. Nothing needs setting up in the project:
+  // public Broadcast channels work with the publishable key. Without a
+  // project, or when Realtime can't be reached, the lobby still asks every
+  // 15 seconds.
+  const LOBBY_TOPIC = 'sbreader-lobby';
+  const ANNOUNCE_GAP_MS = 1000;
+  let lastAnnounce = 0;
+  let announceTimer = null;
+  // At most one a second from a page (later ones are folded into one sent
+  // after the gap); `now` (a page closing) goes at once.
+  function announce(now) {
+    if (!enabled) return;
+    const wait = lastAnnounce + ANNOUNCE_GAP_MS - Date.now();
+    if (!now && wait > 0) {
+      if (!announceTimer) announceTimer = setTimeout(() => { announceTimer = null; announce(); }, wait);
+      return;
+    }
+    lastAnnounce = Date.now();
+    try {
+      fetch(`${cfg.supabaseUrl.replace(/\/+$/, '')}/realtime/v1/api/broadcast`, {
+        method: 'POST', keepalive: true,
+        headers: { apikey: cfg.supabaseAnonKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ topic: LOBBY_TOPIC, event: 'changed', payload: {} }] }),
+      }).catch(() => {});
+    } catch (e) { /* no fetch: the lobby still asks every 15 seconds */ }
+  }
+  // Calls onChange whenever a room in the list may have changed. Returns a
+  // function that stops listening.
+  function watch(onChange) {
+    let stopped = false;
+    let c = null;
+    let ch = null;
+    client().then((cl) => {
+      if (!cl || stopped) return;
+      c = cl;
+      ch = cl.channel(LOBBY_TOPIC, { config: { broadcast: { self: false } } });
+      ch.on('broadcast', { event: 'changed' }, () => { if (!stopped) onChange(); });
+      ch.subscribe();
+    }).catch(() => {});
+    return () => {
+      stopped = true;
+      if (c && ch) c.removeChannel(ch).catch(() => {});
+    };
+  }
+
+  window.SBRooms = { enabled, list, roster, roomInfo, saveRoom, saveSettings, heartbeat, leave, announce, watch, key, ONLINE_MS };
 })();

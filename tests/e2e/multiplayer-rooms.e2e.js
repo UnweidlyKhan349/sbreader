@@ -1,5 +1,5 @@
 // Multiplayer, rooms (tests/e2e/fake-peer.js, as in multiplayer.e2e.js):
-// room owners (crown, ban), Allow skips, room links
+// room owners (crown, ban), Allow skips, Lock room, room links
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -478,5 +478,199 @@ test('a buzz during the reading is an Interrupt; changing the subjects again edi
   assert.strictEqual((await lines(a)).length, 1, 'one line, edited');
   assert.strictEqual((await lines(g)).length, 1);
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('Lock room from new players, as on QB Reader: private rooms only; newcomers are turned away, players who have been in come back', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  // A public room can't be locked.
+  assert.strictEqual(await a.locator('#mpToggleLock').isDisabled(), true);
+  const known = await strangerIn(ctx, server.url, r);
+  const knownPid = await known.evaluate(() => localStorage.getItem('sb_mp_pid'));
+  await a.locator('label[for=mpTogglePublic]').click();
+  await known.waitForFunction(() => !document.getElementById('mpToggleLock').disabled, null, { timeout: 10000 });
+  await known.locator('label[for=mpToggleLock]').click();
+  await a.waitForFunction(() => document.getElementById('mpToggleLock').checked, null, { timeout: 10000 });
+  await a.waitForFunction(() => /locked the room/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  // Someone new: a dialog, and they're not let in.
+  const outsider = await stranger(ctx, server.url, r);
+  await outsider.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await outsider.textContent('#alert-modal-text'), 'The room is locked. Only players who have been in it can join.');
+  await Promise.all([outsider.waitForURL(/\/multiplayer$/, { timeout: 15000 }), outsider.click('#alert-modal-close')]);
+  assert.strictEqual(await a.locator('.mp-player-row:not(.offline)').count(), 2);
+  // A player who has been in the room leaves and comes back: let in, score and all.
+  await known.close();
+  await a.waitForFunction(() => document.querySelectorAll('.mp-player-row:not(.offline)').length === 1, null, { timeout: 20000 });
+  const back = await strangerIn(ctx, server.url, r, knownPid);
+  assert.strictEqual(await back.locator('#alert-modal.show').count(), 0);
+  // Made public again, the room is unlocked, and anyone can come in.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await back.waitForFunction(() => document.getElementById('mpToggleLock').disabled && !document.getElementById('mpToggleLock').checked, null, { timeout: 10000 });
+  const later = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await later.locator('#alert-modal.show').count(), 0);
+  assert.deepStrictEqual([...a.errors, ...back.errors, ...later.errors], []);
+  await ctx.close();
+});
+
+test('a room that went private after the lobby listed it turns away whoever picks it from that list', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const r = room();
+  // The lobby's list still has the room as public (it was, when it loaded).
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_list/.test(url)) return ok([{ name: r, is_public: true, is_permanent: false, players: 1, online: 1 }]);
+    if (/\/rpc\/mp_heartbeat|\/rpc\/mp_leave|\/rpc\/mp_save_settings/.test(url)) return ok(true);
+    if (/\/rpc\/mp_room$|\/rpc\/mp_saved_settings|\/rpc\/mp_set_room/.test(url)) return ok(null);
+    return route.abort();
+  });
+  const a = await joinRoom(ctx, server.url, r);
+  // Someone else's lobby (its own player ID: an empty room= is the lobby).
+  const page = await stranger(ctx, server.url, '');
+  await page.waitForSelector(`#roomList a[href*="room=${r}"]`, { timeout: 15000 });
+  // Then the room goes private.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await a.waitForFunction(() => /made the room private/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  await page.locator(`#roomList a[href*="room=${r}"]`).click();
+  await page.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await page.textContent('#alert-modal-text'), 'This room is private now.');
+  assert.strictEqual(await a.locator('.mp-player-row:not(.offline)').count(), 1);
+  // Its link (or its name) still opens it, as on QB Reader: private rooms
+  // are only off the list. Locking is what keeps newcomers out.
+  const linked = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await linked.locator('#alert-modal.show').count(), 0);
+  assert.deepStrictEqual([...a.errors, ...linked.errors], []);
+  await ctx.close();
+});
+
+test('a locked room nobody is in stays locked: a newcomer can\'t open it, a player who has been in it can', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const r = room();
+  const known = 'pidknown12345';
+  // The room list's record of an empty, private, locked room with one past player.
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const body = route.request().postDataJSON() || {};
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_room$/.test(url)) {
+      return ok(body.p_room === r ? {
+        is_public: false, owner_key: null, banned: [], ban_times: {},
+        settings: { subjects: ['chem'], isPublic: false, locked: true, rate: 50 },
+        players: [{ pid: known, username: 'Kim', score: 4, correct: 1, incorrect: 0, last_seen: new Date(Date.now() - 600000).toISOString() }],
+      } : null);
+    }
+    if (/\/rpc\/mp_heartbeat|\/rpc\/mp_leave|\/rpc\/mp_save_settings/.test(url)) return ok(true);
+    if (/\/rpc\/mp_saved_settings|\/rpc\/mp_set_room|\/rpc\/mp_list/.test(url)) return ok(null);
+    return route.abort();
+  });
+  const outsider = await stranger(ctx, server.url, r);
+  await outsider.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await outsider.textContent('#alert-modal-text'), 'The room is locked. Only players who have been in it can join.');
+  await outsider.close();
+  const back = await stranger(ctx, server.url, r, known);
+  await back.waitForFunction(() => document.querySelector('.mp-player-row.user-score'), null, { timeout: 40000 });
+  assert.strictEqual(await back.locator('#alert-modal.show').count(), 0);
+  assert.strictEqual(await back.locator('#mpToggleLock').isChecked(), true, 'still locked');
+  assert.strictEqual(await back.locator('#mpTogglePublic').isChecked(), false);
+  assert.deepStrictEqual(back.errors, []);
+  await ctx.close();
+});
+
+// A stand-in for Supabase Realtime: the WebSocket the library opens (the
+// Phoenix protocol, version 2: [join_ref, ref, topic, event, payload]) and
+// the REST broadcast endpoint, so nothing reaches the real project. Every
+// push is answered ok; a REST broadcast goes to the sockets on its topic.
+async function fakeRealtime(ctx) {
+  const sockets = new Set();
+  await ctx.routeWebSocket(/supabase\.co\/realtime\/v1\/websocket/, (ws) => {
+    const s = { ws, topics: new Set() };
+    sockets.add(s);
+    ws.onMessage((raw) => {
+      if (typeof raw !== 'string') return;
+      let m;
+      try { m = JSON.parse(raw); } catch (e) { return; }
+      if (!Array.isArray(m)) return;
+      const [joinRef, ref, topic, event] = m;
+      if (event === 'phx_join') s.topics.add(topic);
+      if (event === 'phx_leave') s.topics.delete(topic);
+      if (ref != null) ws.send(JSON.stringify([joinRef, ref, topic, 'phx_reply', { status: 'ok', response: {} }]));
+    });
+    ws.onClose(() => sockets.delete(s));
+  });
+  const rt = {
+    sent: 0,
+    broadcast(messages) {
+      (messages || []).forEach(({ topic, event, payload }) => {
+        rt.sent++;
+        sockets.forEach((s) => {
+          if (s.topics.has(`realtime:${topic}`)) s.ws.send(JSON.stringify([null, null, `realtime:${topic}`, 'broadcast', { type: 'broadcast', event, payload }]));
+        });
+      });
+    },
+    listening: (topic) => [...sockets].some((s) => s.topics.has(`realtime:${topic}`)),
+  };
+  return rt;
+}
+
+test('the lobby\'s list updates live: a room shows up, goes private and empties within a second or two, not at the next 15-second check', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const rt = await fakeRealtime(ctx);
+  // The room list, in memory, as in the database: heartbeats and saved
+  // settings set whether a room is listed; mp_leave marks a player offline.
+  const online = new Map(); // "room|pid" -> true
+  const isPublic = new Map();
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const body = route.request().postDataJSON() || {};
+    const ok = (data, status = 200) => route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/realtime\/v1\/api\/broadcast/.test(url)) { rt.broadcast(body.messages); return ok({}, 202); }
+    if (/\/rpc\/mp_heartbeat/.test(url)) {
+      online.set(`${body.p_room}|${body.p_pid}`, true);
+      if (!isPublic.has(body.p_room)) isPublic.set(body.p_room, body.p_is_public);
+      return ok(true);
+    }
+    if (/\/rpc\/mp_save_settings/.test(url)) {
+      if (typeof body.p_settings.isPublic === 'boolean') isPublic.set(body.p_room, body.p_settings.isPublic);
+      return ok(true);
+    }
+    if (/\/rpc\/mp_leave/.test(url)) { online.delete(`${body.p_room}|${body.p_pid}`); return ok(null); }
+    if (/\/rpc\/mp_list/.test(url)) {
+      const rooms = new Map();
+      online.forEach((v, k) => { const name = k.split('|')[0]; rooms.set(name, (rooms.get(name) || 0) + 1); });
+      isPublic.forEach((pub, name) => { if (pub && !rooms.has(name)) rooms.set(name, 0); });
+      return ok([...rooms].filter(([name]) => isPublic.get(name)).map(([name, n]) => ({ name, is_public: true, is_permanent: false, players: n, online: n })));
+    }
+    if (/\/rpc\/mp_room$|\/rpc\/mp_saved_settings|\/rpc\/mp_set_room/.test(url)) return ok(null);
+    return route.abort();
+  });
+  const lobby = await stranger(ctx, server.url, '');
+  await lobby.waitForFunction(() => /active rooms?\.$/.test(document.getElementById('activeSummary').textContent), null, { timeout: 10000 });
+  for (let i = 0; i < 50 && !rt.listening('sbreader-lobby'); i++) await lobby.waitForTimeout(100);
+  assert.ok(rt.listening('sbreader-lobby'), 'the lobby listens for changes');
+  const link = (r) => `#roomList a[href*="room=${r}&"]`;
+  const quick = { timeout: 4000 };
+  // Someone opens a public room: it's on the list at once.
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  await lobby.waitForSelector(link(r), quick);
+  assert.strictEqual(await lobby.textContent('#activeSummary'), 'There is 1 active player in 1 active room.');
+  // Made private: off the list.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await lobby.waitForSelector(link(r), { ...quick, state: 'detached' });
+  // Public again, then they leave: the room stays (empty), and nobody's online.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await lobby.waitForSelector(link(r), quick);
+  await a.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide')));
+  await lobby.waitForFunction(() => document.getElementById('activeSummary').textContent === 'There are 0 active players in 0 active rooms.', null, quick);
+  await a.close();
+  assert.ok(rt.sent >= 4, `announced each change (${rt.sent})`);
+  // In a room, the lobby's channel is closed.
+  await lobby.locator('#permanentRoomList a').first().click();
+  await lobby.waitForFunction(() => document.querySelector('.mp-player-row.user-score'), null, { timeout: 40000 });
+  for (let i = 0; i < 30 && rt.listening('sbreader-lobby'); i++) await lobby.waitForTimeout(100);
+  assert.ok(!rt.listening('sbreader-lobby'), 'not listening from inside a room');
+  assert.deepStrictEqual([...lobby.errors, ...a.errors], []);
   await ctx.close();
 });

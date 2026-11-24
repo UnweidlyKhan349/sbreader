@@ -448,7 +448,7 @@
   // expects, the console says to run the file again, since the site
   // otherwise just does without what's missing. Asked once per browser
   // session; the answer is kept, so each page still says so.
-  const SCHEMA_VERSION = 20261123;
+  const SCHEMA_VERSION = 20261124;
   const SCHEMA_KEY = 'sb_schema_version';
   function schemaWarning(v) {
     if (typeof v === 'number' && v >= SCHEMA_VERSION) return null;

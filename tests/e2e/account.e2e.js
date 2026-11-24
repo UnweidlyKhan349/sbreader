@@ -410,7 +410,7 @@ test('reporting a question thanks you in the form, which then closes, with no br
 });
 
 test('the console says when the database schema is behind, once asked per session', async () => {
-  for (const [answer, want] of [[{ status: 200, body: '20261123' }, null], [{ status: 200, body: '20261101' }, /out of date \(version 20261101/], [{ status: 404, body: '{"code":"PGRST202"}' }, /older than this site/]]) {
+  for (const [answer, want] of [[{ status: 200, body: '20261124' }, null], [{ status: 200, body: '20261101' }, /out of date \(version 20261101/], [{ status: 404, body: '{"code":"PGRST202"}' }, /older than this site/]]) {
     const ctx = await browser.newContext({ serviceWorkers: 'block' });
     await routeCdn(ctx);
     let asked = 0;

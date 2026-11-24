@@ -230,3 +230,13 @@ test('overridePast carries only a whole question index', () => {
   assert.deepStrictEqual(SBMpRules.cleanHostMessage({ type: 'overridePast', idx: 3, extra: 'x' }, meta), { type: 'overridePast', idx: 3 });
   for (const idx of [-1, 1.5, 'abc', null, 1e7]) assert.strictEqual(SBMpRules.cleanHostMessage({ type: 'overridePast', idx }, meta), null, String(idx));
 });
+
+test('a join says whether it came from the lobby\'s list; only a private room can be locked', () => {
+  assert.strictEqual(cleanHostMessage({ type: 'join', name: 'A', listed: true }, meta).listed, true);
+  for (const listed of [undefined, 1, 'true', false]) assert.ok(!('listed' in cleanHostMessage({ type: 'join', name: 'A', listed }, meta)));
+  const base = { type: 'updateSettings', subjects: ['chem'] };
+  assert.strictEqual(cleanHostMessage({ ...base, isPublic: false, locked: true }, meta).locked, true);
+  assert.strictEqual(cleanHostMessage({ ...base, isPublic: true, locked: true }, meta).locked, false);
+  assert.strictEqual(cleanHostMessage({ ...base, locked: true }, meta).locked, false, 'no isPublic: public');
+  assert.strictEqual(cleanHostMessage({ ...base, isPublic: false, locked: 'yes' }, meta).locked, false);
+});
