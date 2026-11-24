@@ -12,16 +12,16 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable catalog, a solo buzzer trainer, a peer-to-peer multiplayer mode, and starred questions kept per device) written in plain HTML/CSS/JS, with no build step, JavaScript framework or server of its own to run, so it can be deployed straight to GitHub Pages or any static host. The optional extras use a [Supabase](https://supabase.com) project: accounts, the Multiplayer room list and relay, and question reports, through the database schema in `supabase/schema.sql`, plus one small Edge Function that hands out TURN logins for Multiplayer (`supabase/functions/turn-credentials`). Without a project everything else still works. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (from the jsDelivr CDN at a fixed version, with an integrity hash) with Light, Night and Auto themes.
 
-**Current question bank: 106,392 questions from 114 sets** (57,576 tossups / 48,816 bonuses; 65,521 short answer / 40,871 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 60,341 of those links open the packet at the question's page or line.
+**Current question bank: 106,364 questions from 114 sets** (57,561 tossups / 48,803 bonuses; 65,512 short answer / 40,852 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 60,323 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|
-| Biology | 23,351 |
-| Earth & Space | 22,411 |
+| Biology | 23,345 |
+| Earth & Space | 22,408 |
 | Physics | 20,955 |
 | Math | 16,922 |
 | Chemistry | 20,106 |
-| Energy | 2,647 |
+| Energy | 2,628 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 

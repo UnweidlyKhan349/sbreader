@@ -297,8 +297,6 @@
 {"i":93199,"s":"energy","f":"MC","qt":"bonus","n":2,"q":"The Thanet offshore wind farm, the world's largest when it opened in 2010, is located in the North Sea off the coast of what country?","c":{"W":"France","X":"UK","Y":"China","Z":"Denmark"},"a":{"t":"UK","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6451","q":[
 {"i":93200,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"The Ruhr, a region heavily dependent on its vast coal reserves is located in which of the following countries?","c":{"W":"France","X":"Germany","Y":"Poland","Z":"Vatican City"},"a":{"t":"Germany","l":"X"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6455","q":[
-{"i":93201,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"What percent of U.S. electricity is generated from nuclear power?","c":{"W":"5%","X":"10%","Y":"20%","Z":"45%"},"a":{"t":"20%","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6457","q":[
 {"i":93202,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which of the following countries has not ratified the NPT (Nuclear non proliferation treaty)?","c":{"W":"Iran","X":"India","Y":"China","Z":"Russia"},"a":{"t":"India","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6454","q":[
@@ -313,8 +311,6 @@
 {"i":93206,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"Which State consumes the most energy?","c":{"W":"California","X":"Florida","Y":"Texas","Z":"New York"},"a":{"t":"Texas","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6468","q":[
 {"i":93207,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"The daily amount of energy used in the United States, per person, is about as much energy as....","c":{"W":"100 watt lightbulb left on for 103 days straight","X":"707 quarter-pound hamburgers","Y":"Half a tank of gasoline (7 gallons)","Z":"All of the above"},"a":{"t":"All of the above","l":"Z"}}]},
-{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6469","q":[
-{"i":93208,"s":"energy","f":"MC","qt":"bonus","n":21,"q":"What country generates the most electricity from nuclear power?","c":{"W":"Japan","X":"United States","Y":"France","Z":"Russia"},"a":{"t":"United States","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6473","q":[
 {"i":93209,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"NASA's Mars Curiosity rover is powered by:","c":{"W":"Hydrogen Fuel Cell","X":"Nuclear Power","Y":"Diesel Engine","Z":"Solar Power"},"a":{"t":"Nuclear Power","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6484","q":[

@@ -233,7 +233,6 @@
 {"i":49003,"s":"phys","f":"SA","qt":"tossup","n":15,"q":"What scientist coined the term ‘radioactivity’ to describe the phenomenon observed by Becquerel?","a":{"t":"MARIE CURIE","ac":["MADAM CURIE","MARIE SLOWDOWSKA CURIE"]},"pg":8},
 {"i":49004,"s":"math","f":"SA","qt":"bonus","n":15,"q":"How many pecks are in a bushel?","a":{"t":"4"},"pg":8},
 {"i":49005,"s":"energy","f":"MC","qt":"tossup","n":16,"q":"Which of the following devices can be safely attached or detached from a running computer and recognized by the operating system:","a":{"t":"USB mouse","l":"W"},"c":{"W":"USB mouse","X":"monitor","Y":"PS/2 keyboard","Z":"serial CD-ROM"},"pg":8},
-{"i":49006,"s":"energy","f":"MC","qt":"bonus","n":16,"q":"Considering the standard printers commonly used today, which of the following can attain resolutions of up to 1400 dpi or higher:","a":{"t":"ink jet","l":"X"},"c":{"W":"laser","X":"ink jet","Y":"dot matrix","Z":"line printer"},"pg":8},
 {"i":49007,"s":"bio","f":"SA","qt":"tossup","n":17,"q":"What is the fluid-filled space inside the blastocyst called?","a":{"t":"BLASTOCOEL"},"pg":9},
 {"i":49008,"s":"bio","f":"MC","qt":"bonus","n":17,"q":"Which of the following is an obligate intracellular parasite:","a":{"t":"Chlamydia","l":"Y"},"c":{"W":"Actinomycetes","X":"Vibrio","Y":"Chlamydia","Z":"Treponema"},"pg":9},
 {"i":49009,"s":"chem","f":"SA","qt":"tossup","n":18,"q":"Two strands of DNA are held together in the double helix by what type of bond?","a":{"t":"HYDROGEN BOND","ac":["HYDROGEN"]},"pg":9},
