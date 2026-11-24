@@ -236,13 +236,14 @@ test('answers are saved with their points and celerity, and without on a project
   await old.ctx.close();
 });
 
-test('starred tossups and bonuses are listed together, and Clear unstars them all', async () => {
+test('starred tossups and bonuses are listed together, and Clear unstars them all (stars on removed questions too)', async () => {
   // Two tossups and a bonus from one packet.
   const packet = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', 'lost-3-ms.json'), 'utf8'))[0].q;
   const tossups = packet.filter((q) => q.qt === 'tossup').slice(0, 2).map((q) => q.i);
   const bonus = packet.find((q) => q.qt === 'bonus').i;
   const all = [...tossups, bonus].sort((a, b) => a - b);
-  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: all });
+  // 92983, removed from the bank (non-science trivia): a star with no card.
+  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [...all, 92983] });
   await page.waitForSelector('#question-list .q-card');
   assert.strictEqual(await page.locator('#question-list .q-card').count(), 3);
   assert.strictEqual(await page.textContent('#clear-starred'), 'Clear Starred Questions');
@@ -291,6 +292,24 @@ test('the account page welcomes you, and the profile and password forms save', a
   await page.click('#submission');
   await page.waitForFunction(() => /Password changed/.test(document.getElementById('acctMsgIn').textContent));
   assert.deepStrictEqual(await page.evaluate(() => window.__authUpdates), [{ password: 'new-password-1' }]);
+  await ctx.close();
+});
+
+test('a password-reset link skips the current password; ?recovery=1 typed into the address does not', async () => {
+  const { ctx, page } = await signedIn('edit-password?recovery=1');
+  await page.waitForSelector('#acctLoggedIn:not([hidden])');
+  assert.strictEqual(await page.isVisible('#old-password-row'), true, 'a hand-typed ?recovery=1 still asks for the current password');
+  await page.goto(server.url + 'account#access_token=t&type=recovery', { waitUntil: 'load' });
+  await page.waitForURL(/edit-password$/);
+  await page.waitForSelector('#acctLoggedIn:not([hidden])');
+  assert.strictEqual(await page.isVisible('#old-password-row'), false, 'from the email: straight to the new password');
+  await page.fill('#new-password', 'new-password-1');
+  await page.fill('#confirm-password', 'new-password-1');
+  await page.click('#submission');
+  await page.waitForFunction(() => /Password changed/.test(document.getElementById('acctMsgIn').textContent));
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForSelector('#acctLoggedIn:not([hidden])');
+  assert.strictEqual(await page.isVisible('#old-password-row'), true, 'once changed, the reset is used up');
   await ctx.close();
 });
 

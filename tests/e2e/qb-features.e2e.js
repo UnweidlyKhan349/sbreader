@@ -116,6 +116,25 @@ test('Login: the eye shows the password and turns into a crossed-out eye, which 
   await ctx.close();
 });
 
+test('a second alert or question opened over one answers the first, and waits for its own button', async () => {
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'about');
+  const r = await page.evaluate(async () => {
+    const log = [];
+    SBSite.alert('one', () => log.push('one'));
+    SBSite.alert('two', () => log.push('two'));
+    const whileOpen = [...log];
+    document.getElementById('alert-modal-close').click();
+    const first = SBSite.confirm('a?');
+    const second = SBSite.confirm('b?');
+    const firstAnswer = await first;
+    document.getElementById('confirm-modal-ok').click();
+    return { whileOpen, after: log, firstAnswer, secondAnswer: await second, backdrops: document.querySelectorAll('.modal-backdrop').length, open: SBSite.modalOpen() };
+  });
+  assert.deepStrictEqual(r, { whileOpen: ['one'], after: ['one', 'two'], firstAnswer: false, secondAnswer: true, backdrops: 0, open: false });
+  await ctx.close();
+});
+
 test('Database cards: the title (with round and question) links the source; Stats | Report beside the answer; no footer; stats from everyone', async () => {
   const { ctx } = await statsContext({ heard: 10, correct: 6, incorrect: 1, negs: 2, unanswered: 1, cel_sum: 3, cel_n: 6 });
   const page = await openPage(ctx, server.url + 'catalog');

@@ -8,8 +8,27 @@
 (function () {
   const $ = (id) => document.getElementById(id);
   // A password-reset email's link lands on account.html already logged in;
-  // noted before the account library tidies the address.
-  const recovery = /type=recovery/.test(location.hash) || new URLSearchParams(location.search).has('recovery');
+  // noted before the account library tidies the address. The note is kept
+  // for this tab (an hour at most) so Edit password skips the current
+  // password only after a real reset link, not for anyone who types
+  // ?recovery=1 into a logged-in browser. (Only where the tab can't store
+  // anything does the address carry it, as it used to.)
+  const RECOVERY_KEY = 'sb_password_recovery';
+  const fromEmail = /type=recovery/.test(location.hash);
+  let canStore = true;
+  if (fromEmail) {
+    try { sessionStorage.setItem(RECOVERY_KEY, String(Date.now())); } catch (e) { canStore = false; }
+  }
+  function recoveryNoted() {
+    try {
+      const t = Number(sessionStorage.getItem(RECOVERY_KEY));
+      return t > 0 && Date.now() - t < 60 * 60 * 1000;
+    } catch (e) {
+      return new URLSearchParams(location.search).has('recovery');
+    }
+  }
+  function forgetRecovery() { try { sessionStorage.removeItem(RECOVERY_KEY); } catch (e) { /* nothing kept */ } }
+  const recovery = fromEmail || recoveryNoted();
 
   function show(id) {
     ['acctLoading', 'acctDisabled', 'acctLoggedIn'].forEach((x) => { if ($(x)) $(x).hidden = x !== id; });
@@ -89,6 +108,7 @@
     if (!valid) return;
     if (!recovery) await SBAccount.checkPassword($('old-password').value);
     await SBAccount.updatePassword($('new-password').value);
+    forgetRecovery();
     form.reset();
     form.classList.remove('was-validated');
     message('Password changed.', 'success');
@@ -99,7 +119,7 @@
     // Logged out: the account pages are the log in page.
     if (!user) { location.replace('login'); return; }
     // From a reset email: straight to choosing the new password.
-    if (recovery && !$('password-form')) { location.replace('edit-password?recovery=1'); return; }
+    if (recovery && !$('password-form')) { location.replace(canStore ? 'edit-password' : 'edit-password?recovery=1'); return; }
     show('acctLoggedIn');
     const name = SBAccount.displayName(user);
     if ($('username-1')) {
