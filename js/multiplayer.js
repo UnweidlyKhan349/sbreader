@@ -21,7 +21,7 @@
   // publicLobby: the built-in public room (from SBMpRules.publicLobbies)
   // this is, or null. roomName: the room's name (multiplayer.html?room=).
   // roomId: the room's peer ID. pid: this browser's player ID (see myPid).
-  const myState = { role: null, myId: null, myName: '', rate: 50, publicLobby: null, roomName: '', roomId: null, pid: '' };
+  const myState = { role: null, myId: null, myName: '', rate: 50, publicLobby: null, roomName: '', roomId: null, pid: '', listed: false };
   // The lobby's room list is asked for at once, before anything else loads
   // (a link straight into a room skips it).
   const linkedToRoom = /[?&](room|lobby)=/.test(location.search);
@@ -112,7 +112,7 @@
   // A new room's settings: every subject, random questions, timer on.
   function defaultFilters(isPublic) {
     return {
-      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, timer: true, isPublic: isPublic !== false,
+      mode: 'random', setName: '', packetNumbers: '', rebuzz: false, skip: true, timer: true, isPublic: isPublic !== false, locked: false,
       subjects: new Set(SBData.meta.subjects.map((x) => x.key)), qtypes: new Set(), formats: new Set(), levels: new Set(), visuals: new Set(),
       tournaments: new Set(), roundRange: null, yearRange: null, includeUnlabeled: true,
     };
@@ -251,7 +251,9 @@
     rooms.sort((a, b) => (b.online - a.online) || (b.players - a.players));
     const showEmpty = document.getElementById('emptyRoomCheckbox').checked;
     rooms.forEach((r) => {
-      const li = roomItem(`${location.pathname}?room=${encodeURIComponent(r.name)}`, r.name, r.players, r.online, true);
+      // listed=1: picked from this list, which may be out of date by the time
+      // it's clicked; a room that has gone private turns them away.
+      const li = roomItem(`${location.pathname}?room=${encodeURIComponent(r.name)}&listed=1`, r.name, r.players, r.online, true);
       if (r.online === 0) li.classList.add('empty-room');
       if (r.online === 0 && !showEmpty) li.classList.add('d-none');
       list.appendChild(li);
@@ -1198,6 +1200,9 @@
       // settings so players on an older copy still understand them.)
       mode: 'random', setName: '', packetNumbers: '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: true, isPublic: f.isPublic !== false,
+      // Lock room from new players: a private room only (making the room
+      // public unlocks it, as on QB Reader).
+      locked: f.locked === true && f.isPublic === false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
       tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
     };
@@ -1316,13 +1321,22 @@
   // player turned away while trying to come back.
   let kickedOut = false;
   function leaveKicked(banned, rejoin) {
+    leaveWithAlert(banned
+      ? (rejoin ? 'You were banned from this room by the room owner, and cannot rejoin it.' : 'You were banned from this room by the room owner.')
+      : (rejoin ? 'You were kicked from this room by room players, and cannot rejoin it.' : 'You were vote kicked from this room by others.'));
+  }
+  // Turned away while coming in (see joinRefusal): a locked room, or a
+  // room that went private after this player's lobby listed it.
+  function leaveRefused(reason) {
+    leaveWithAlert(reason === 'locked'
+      ? 'The room is locked. Only players who have been in it can join.'
+      : 'This room is private now.');
+  }
+  function leaveWithAlert(text) {
     if (kickedOut) return;
     kickedOut = true;
     try { if (mesh) mesh.leave(); } catch (e) { /* gone anyway */ }
     leaveRoomList();
-    const text = banned
-      ? (rejoin ? 'You were banned from this room by the room owner, and cannot rejoin it.' : 'You were banned from this room by the room owner.')
-      : (rejoin ? 'You were kicked from this room by room players, and cannot rejoin it.' : 'You were vote kicked from this room by others.');
     SBSite.alert(text, () => location.replace(location.pathname));
   }
   function requestVotekick(targetId) {
@@ -1548,6 +1562,7 @@
     return {
       mode: 'random', setName: '', packetNumbers: '',
       rebuzz: !!f.rebuzz, skip: f.skip !== false, timer: true, isPublic: f.isPublic !== false,
+      locked: f.locked === true && f.isPublic === false,
       subjects: [...f.subjects], qtypes: [...f.qtypes], formats: [...f.formats], levels: [...f.levels], visuals: [...(f.visuals || [])],
       tournaments: [...f.tournaments], roundRange: f.roundRange, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled,
       rate: myState.rate,
@@ -1570,12 +1585,54 @@
     clearTimeout(settingsSaveTimer);
     settingsSaveTimer = setTimeout(() => {
       if (myState.role !== 'host' || !activeFilterState) return;
+      // isPublic goes too: from it the room list learns that the room went
+      // private (or public) whoever switched it, not only its creator, so a
+      // room made private leaves the lobby's list.
       const payload = settingsStatePayload();
-      delete payload.isPublic; // kept by the room's own record
       const text = JSON.stringify(payload);
       if (text === savedSettingsText) return;
       SBRooms.saveSettings(roomKey(), myState.pid, payload).then((ok) => { if (ok) savedSettingsText = text; }).catch(() => {});
     }, 1500);
+  }
+
+  // Whether a newcomer is turned away from a private room: 'locked' when
+  // it's locked (Lock room from new players, as on QB Reader), 'private'
+  // when they came from the lobby's list of public rooms, which was out of
+  // date (the room went private after their lobby loaded it). Players who
+  // have been in the room (online or offline, by player ID) always get back
+  // in, and so does the owner (checked by the caller).
+  function joinRefusal(msg) {
+    if (!roomIsPrivate() || knownPid(msg.pid)) return null;
+    if (roomSetting('locked', false)) return 'locked';
+    if (msg.listed) return 'private';
+    return null;
+  }
+  function knownPid(pid) {
+    if (!pid) return false;
+    pruneDeparted();
+    return departedPlayers.has(pid) || [...hostPlayers.values()].some((p) => p.pid === pid);
+  }
+  // Players whose owner signature is being checked before they're let in.
+  const admitting = new Set();
+  // A player let into the room: a returning player (same pid, not already
+  // in the room) gets their score back.
+  function admitPlayer(connId, msg, ownerChecked) {
+    const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
+    const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
+    if (back) departedPlayers.delete(msg.pid);
+    hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null), owner: !!ownerChecked });
+    broadcastLobby();
+    hostEvent(connId, 'joined the game');
+    // The room's owner, coming back: their signature says so.
+    if (msg.owner && !ownerChecked) verifyOwnerProof(msg.owner, connId).then((ok) => {
+      const p = hostPlayers.get(connId);
+      if (!ok || !p || myState.role !== 'host') return;
+      p.owner = true;
+      broadcastLobby();
+    });
+    // Everything a joiner needs, including the chat and the question log,
+    // whether or not the game has started.
+    sendSyncTo(connId);
   }
 
   function sendSyncTo(connId) {
@@ -1617,27 +1674,20 @@
     if (msg.type !== 'join' && !hostPlayers.has(connId)) return;
     if (msg.type === 'pings') { pingReports.set(connId, { rtts: msg.rtts, bank: msg.bank, at: Date.now() }); return; }
     if (msg.type === 'join') {
-      if (hostPlayers.has(connId)) return;
+      if (hostPlayers.has(connId) || admitting.has(connId)) return;
       if (SBMpRules.isKicked(game.kicked, msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, rejoin: true }); return; }
       if (isBanned(msg.pid)) { host.sendTo(connId, { type: 'kicked', playerId: connId, banned: true, rejoin: true }); return; }
-      // A returning player (same pid, not already in the room) gets their
-      // score back.
-      const pidInUse = msg.pid && [...hostPlayers.values()].some((p) => p.pid === msg.pid);
-      const back = msg.pid && !pidInUse ? departedPlayers.get(msg.pid) : null;
-      if (back) departedPlayers.delete(msg.pid);
-      hostPlayers.set(connId, { id: connId, name: uniqueName(msg.name, connId), score: back ? back.score : 0, correct: back ? back.correct || 0 : 0, incorrect: back ? back.incorrect || 0 : 0, celSum: back ? back.celSum || 0 : 0, celN: back ? back.celN || 0 : 0, negs: back ? back.negs || 0 : 0, connId, pid: pidInUse ? null : (msg.pid || null) });
-      broadcastLobby();
-      hostEvent(connId, 'joined the game');
-      // The room's owner, coming back: their signature says so.
-      if (msg.owner) verifyOwnerProof(msg.owner, connId).then((ok) => {
-        const p = hostPlayers.get(connId);
-        if (!ok || !p || myState.role !== 'host') return;
-        p.owner = true;
-        broadcastLobby();
+      const why = joinRefusal(msg);
+      if (!why) { admitPlayer(connId, msg); return; }
+      // Turned away, unless it's the room's owner (their signature says so).
+      if (!msg.owner) { host.sendTo(connId, { type: 'refused', playerId: connId, reason: why }); return; }
+      admitting.add(connId);
+      verifyOwnerProof(msg.owner, connId).then((ok) => {
+        admitting.delete(connId);
+        if (myState.role !== 'host' || hostPlayers.has(connId)) return;
+        if (ok) admitPlayer(connId, msg, true);
+        else host.sendTo(connId, { type: 'refused', playerId: connId, reason: why });
       });
-      // Everything a joiner needs, including the chat and the question log,
-      // whether or not the game has started.
-      sendSyncTo(connId);
       return;
     }
     if (msg.type === 'buzz') { hostHandleBuzz(connId); return; }
@@ -1667,7 +1717,7 @@
     }
     if (msg.type === 'updateSettings') {
       hostApplySettingsFromValues({
-        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: true, isPublic: msg.isPublic,
+        mode: msg.mode, setName: msg.setName, packetNumbers: msg.packetNumbers, rebuzz: msg.rebuzz, skip: msg.skip, timer: true, isPublic: msg.isPublic, locked: msg.locked,
         subjects: new Set(msg.subjects), qtypes: new Set(msg.qtypes), formats: new Set(msg.formats), levels: new Set(msg.levels), visuals: new Set(msg.visuals || []), tournaments: new Set(msg.tournaments),
         roundRange: msg.roundRange, yearRange: msg.yearRange, includeUnlabeled: msg.includeUnlabeled, rate: msg.rate, seq: msg.seq,
       }, connId);
@@ -2647,6 +2697,7 @@
 
   // Carry on the room from this player's own copy, exactly where it stands.
   function takeOver() {
+    admitted = true;
     term += 1;
     coordinatorId = mesh.id;
     myState.role = 'host';
@@ -2795,8 +2846,13 @@
   // Tells the room list (when there is one) that this player is here, with
   // their name and score; repeated every 30 seconds.
   let heartbeatTimer = null;
+  // Whether the room has let this player in: until then (a newcomer waiting
+  // for the room's answer) there's no heartbeat, so a player turned away
+  // isn't listed as having been in the room, and nobody reports the room's
+  // public/private state before they know it.
+  let admitted = false;
   function beat() {
-    if (!myState.role) return;
+    if (!myState.role || !admitted) return;
     const me = game.players.find((p) => p.id === myState.myId) || { name: myState.myName, score: 0 };
     SBRooms.heartbeat(roomKey(), {
       isPublic: myState.publicLobby ? true : roomSetting('isPublic', true),
@@ -2845,16 +2901,21 @@
     departedPlayers.clear();
     hostChat.length = 0;
     activeFilterState = copyFilters(filters);
-    // A named room opens with the settings it had when it was last played.
+    // A named room opens with the settings it had when it was last played
+    // (locked or not included).
+    let savedLocked = false;
     if (!lobby && info && info.settings && SBData.meta) {
       const saved = SBMpRules.cleanHostMessage({ ...info.settings, type: 'updateSettings' }, SBData.meta);
       if (saved && saved.subjects.length) {
-        activeFilterState = copyFilters(saved);
+        activeFilterState = copyFilters({ ...saved, isPublic: filters.isPublic });
         myState.rate = saved.rate;
+        savedLocked = saved.locked === true;
       }
     }
     // A room the list knows keeps whether it's listed (not what a link says).
     if (!lobby && info && info.exists && typeof info.isPublic === 'boolean') activeFilterState.isPublic = info.isPublic;
+    // A public room is never locked.
+    activeFilterState.locked = savedLocked && activeFilterState.isPublic === false;
     // The questions are picked when the game starts (rebuildQueue), which
     // waits for the question bank if it's still loading.
     hostGame.queue = [];
@@ -2897,6 +2958,7 @@
       if (SBMpRules.stillOffline(entry, Date.now())) departedPlayers.set(r.pid, entry);
     });
     hostPlayers.set(mesh.id, me);
+    admitted = true;
     enterRoomAs(roomId, name, lobby);
     showSettingsFromState();
     broadcastLobby();
@@ -2926,6 +2988,7 @@
     const owner = await ownerProof();
     const msg = { type: 'join', name, pid: myState.pid };
     if (owner) msg.owner = owner;
+    if (myState.listed) msg.listed = true;
     mesh.broadcast(msg);
     lastJoinMsg = msg;
     return msg;
@@ -3027,6 +3090,15 @@
           leaveKicked(true, true);
           return;
         }
+        // Nobody's in it, but it's locked, or went private since this
+        // player's lobby listed it: the same as the room would say.
+        const why = !lobby && info && info.exists ? await emptyRoomRefusal(info) : null;
+        if (why) {
+          mesh.releaseDoor();
+          joining = false;
+          leaveRefused(why);
+          return;
+        }
         try {
           await startRoom({ roomId: peerId, filters, name, rate: savedRate(), lobby, info });
           joining = false;
@@ -3052,13 +3124,27 @@
     joining = false;
     backToLobby(`Couldn't open ${label}. ${SBPeer.friendlyPeerError(lastErr)}`);
   }
+  // joinRefusal, for a room nobody is in, from what the room list keeps:
+  // whether it's private, its saved settings (locked or not), its players
+  // since the daily reset and its owner.
+  async function emptyRoomRefusal(info) {
+    if (info.isPublic !== false) return null;
+    if ((info.players || []).some((p) => p && p.pid === myState.pid)) return null;
+    const locked = !!(info.settings && info.settings.locked === true);
+    if (!locked && !myState.listed) return null;
+    const mine = info.ownerKey ? await myOwnerKey(false) : null;
+    if (mine && mine.pub === info.ownerKey) return null;
+    return locked ? 'locked' : 'private';
+  }
   function joinPublicLobby(lobby) {
     myState.publicLobby = lobby;
     return enterRoomByDoor({ peerId: lobby.peerId, label: lobbyLabel(lobby), lobby, filters: lobbyFilters(lobby), key: SBRooms.key('', lobby.key) });
   }
   // A named room: opened public unless the link says private=true.
-  function joinNamedRoom(name, isPrivate) {
+  // `listed`: picked from the lobby's list of public rooms.
+  function joinNamedRoom(name, isPrivate, listed) {
     myState.roomName = name;
+    myState.listed = !!listed;
     return enterRoomByDoor({ peerId: SBMpRules.roomPeerId(name), label: name, lobby: null, filters: defaultFilters(!isPrivate), key: name });
   }
 
@@ -3088,6 +3174,8 @@
       return;
     }
     if (msg.type === 'sync') {
+      // Let in: the room list hears about this player from now on.
+      if (!admitted) { admitted = true; setTimeout(beat, 300); }
       // Joined mid-game: catch up instantly instead of sitting on a waiting screen.
       game.index = msg.index; game.total = msg.total; game.question = msg.question;
       game.phase = msg.phase; game.buzzedPlayerId = msg.buzzedPlayerId;
@@ -3192,6 +3280,10 @@
     }
     if (msg.type === 'kicked') {
       if (msg.playerId === myState.myId) leaveKicked(!!msg.banned, !!msg.rejoin);
+      return;
+    }
+    if (msg.type === 'refused') {
+      if (msg.playerId === myState.myId) leaveRefused(msg.reason);
       return;
     }
     if (msg.type === 'votekickRefused' || msg.type === 'notice') {
@@ -3528,9 +3620,15 @@
     document.getElementById('mpClearStats').addEventListener('click', (e) => { e.preventDefault(); e.currentTarget.blur(); doClearStats(); });
 
     // Room switches (shared).
-    [['mpTogglePublic', 'isPublic'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
+    [['mpTogglePublic', 'isPublic'], ['mpToggleLock', 'locked'], ['mpToggleRebuzz', 'rebuzz'], ['mpToggleSkip', 'skip'], ['mpToggleUnlabeled', 'includeUnlabeled']].forEach(([id, key]) => {
       const el = document.getElementById(id);
-      el.addEventListener('change', () => { midGameFilterState[key] = el.checked; el.blur(); onSettingChange(); });
+      el.addEventListener('change', () => {
+        midGameFilterState[key] = el.checked;
+        // A public room can't be locked: making it public unlocks it.
+        if (key === 'isPublic' && el.checked) midGameFilterState.locked = false;
+        el.blur();
+        onSettingChange();
+      });
     });
     const offline = document.getElementById('toggleOfflinePlayers');
     offline.checked = showOffline;
@@ -3577,11 +3675,14 @@
       }
       if (midGameYearSliderApi) { const ys = SBData.yearSpan(); const yr = f.yearRange || ys; midGameYearSliderApi.setRange(yr[0], yr[1]); }
       document.getElementById('mpTogglePublic').checked = f.isPublic;
+      document.getElementById('mpToggleLock').checked = f.locked === true && f.isPublic === false;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;
       document.getElementById('mpToggleSkip').checked = f.skip !== false;
       // A built-in public room keeps its subject and stays public.
       const lobby = myState.publicLobby;
       document.getElementById('mpTogglePublic').disabled = !!lobby;
+      // As on QB Reader, only a private room can be locked.
+      document.getElementById('mpToggleLock').disabled = !!lobby || f.isPublic !== false;
       // A one-subject room shows its subject switched on, and can't change it.
       categories.setDisabled(fixedSubjectLobby());
       document.getElementById('mpToggleUnlabeled').checked = f.includeUnlabeled !== false;
@@ -3624,6 +3725,8 @@
     if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
     if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
     if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
+    // (Made public, the room is unlocked as well; that line says enough.)
+    if (before.locked !== after.locked && !(after.isPublic && !before.isPublic)) out.push(`${after.locked ? 'locked' : 'unlocked'} the room`);
     if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
     return out;
   }
@@ -3709,7 +3812,7 @@
       client.send({
         type: 'updateSettings', seq: settingsSeq,
         mode: values.mode, setName: values.setName, packetNumbers: values.packetNumbers,
-        rebuzz: values.rebuzz, skip: values.skip, timer: values.timer, isPublic: values.isPublic,
+        rebuzz: values.rebuzz, skip: values.skip, timer: values.timer, isPublic: values.isPublic, locked: values.locked,
         subjects: [...values.subjects], qtypes: [], formats: [], levels: [], visuals: [],
         tournaments: [...values.tournaments], roundRange: values.roundRange, yearRange: values.yearRange, includeUnlabeled: values.includeUnlabeled,
         rate: values.rate,
@@ -3782,7 +3885,7 @@
     }
     const name = SBMpRules.cleanRoomName(params.get('room') || '');
     if (!name) { document.documentElement.classList.remove('mp-direct'); return false; }
-    joinNamedRoom(name, params.get('private') === 'true');
+    joinNamedRoom(name, params.get('private') === 'true', params.get('listed') === '1');
     return true;
   }
 

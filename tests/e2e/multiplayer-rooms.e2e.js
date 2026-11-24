@@ -1,5 +1,5 @@
 // Multiplayer, rooms (tests/e2e/fake-peer.js, as in multiplayer.e2e.js):
-// room owners (crown, ban), Allow skips, room links
+// room owners (crown, ban), Allow skips, Lock room, room links
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -478,5 +478,102 @@ test('a buzz during the reading is an Interrupt; changing the subjects again edi
   assert.strictEqual((await lines(a)).length, 1, 'one line, edited');
   assert.strictEqual((await lines(g)).length, 1);
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
+  await ctx.close();
+});
+
+test('Lock room from new players, as on QB Reader: private rooms only; newcomers are turned away, players who have been in come back', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  // A public room can't be locked.
+  assert.strictEqual(await a.locator('#mpToggleLock').isDisabled(), true);
+  const known = await strangerIn(ctx, server.url, r);
+  const knownPid = await known.evaluate(() => localStorage.getItem('sb_mp_pid'));
+  await a.locator('label[for=mpTogglePublic]').click();
+  await known.waitForFunction(() => !document.getElementById('mpToggleLock').disabled, null, { timeout: 10000 });
+  await known.locator('label[for=mpToggleLock]').click();
+  await a.waitForFunction(() => document.getElementById('mpToggleLock').checked, null, { timeout: 10000 });
+  await a.waitForFunction(() => /locked the room/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  // Someone new: a dialog, and they're not let in.
+  const outsider = await stranger(ctx, server.url, r);
+  await outsider.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await outsider.textContent('#alert-modal-text'), 'The room is locked. Only players who have been in it can join.');
+  await Promise.all([outsider.waitForURL(/\/multiplayer$/, { timeout: 15000 }), outsider.click('#alert-modal-close')]);
+  assert.strictEqual(await a.locator('.mp-player-row:not(.offline)').count(), 2);
+  // A player who has been in the room leaves and comes back: let in, score and all.
+  await known.close();
+  await a.waitForFunction(() => document.querySelectorAll('.mp-player-row:not(.offline)').length === 1, null, { timeout: 20000 });
+  const back = await strangerIn(ctx, server.url, r, knownPid);
+  assert.strictEqual(await back.locator('#alert-modal.show').count(), 0);
+  // Made public again, the room is unlocked, and anyone can come in.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await back.waitForFunction(() => document.getElementById('mpToggleLock').disabled && !document.getElementById('mpToggleLock').checked, null, { timeout: 10000 });
+  const later = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await later.locator('#alert-modal.show').count(), 0);
+  assert.deepStrictEqual([...a.errors, ...back.errors, ...later.errors], []);
+  await ctx.close();
+});
+
+test('a room that went private after the lobby listed it turns away whoever picks it from that list', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const r = room();
+  // The lobby's list still has the room as public (it was, when it loaded).
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_list/.test(url)) return ok([{ name: r, is_public: true, is_permanent: false, players: 1, online: 1 }]);
+    if (/\/rpc\/mp_heartbeat|\/rpc\/mp_leave|\/rpc\/mp_save_settings/.test(url)) return ok(true);
+    if (/\/rpc\/mp_room$|\/rpc\/mp_saved_settings|\/rpc\/mp_set_room/.test(url)) return ok(null);
+    return route.abort();
+  });
+  const a = await joinRoom(ctx, server.url, r);
+  // Someone else's lobby (its own player ID: an empty room= is the lobby).
+  const page = await stranger(ctx, server.url, '');
+  await page.waitForSelector(`#roomList a[href*="room=${r}"]`, { timeout: 15000 });
+  // Then the room goes private.
+  await a.locator('label[for=mpTogglePublic]').click();
+  await a.waitForFunction(() => /made the room private/.test(document.getElementById('mpHistory').innerText), null, { timeout: 10000 });
+  await page.locator(`#roomList a[href*="room=${r}"]`).click();
+  await page.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await page.textContent('#alert-modal-text'), 'This room is private now.');
+  assert.strictEqual(await a.locator('.mp-player-row:not(.offline)').count(), 1);
+  // Its link (or its name) still opens it, as on QB Reader: private rooms
+  // are only off the list. Locking is what keeps newcomers out.
+  const linked = await strangerIn(ctx, server.url, r);
+  assert.strictEqual(await linked.locator('#alert-modal.show').count(), 0);
+  assert.deepStrictEqual([...a.errors, ...linked.errors], []);
+  await ctx.close();
+});
+
+test('a locked room nobody is in stays locked: a newcomer can\'t open it, a player who has been in it can', async () => {
+  const ctx = await newContext(browser, { liveSupabase: true });
+  const r = room();
+  const known = 'pidknown12345';
+  // The room list's record of an empty, private, locked room with one past player.
+  await ctx.route(/supabase\.co/, (route) => {
+    const url = route.request().url();
+    const body = route.request().postDataJSON() || {};
+    const ok = (data) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+    if (/\/rpc\/mp_room$/.test(url)) {
+      return ok(body.p_room === r ? {
+        is_public: false, owner_key: null, banned: [], ban_times: {},
+        settings: { subjects: ['chem'], isPublic: false, locked: true, rate: 50 },
+        players: [{ pid: known, username: 'Kim', score: 4, correct: 1, incorrect: 0, last_seen: new Date(Date.now() - 600000).toISOString() }],
+      } : null);
+    }
+    if (/\/rpc\/mp_heartbeat|\/rpc\/mp_leave|\/rpc\/mp_save_settings/.test(url)) return ok(true);
+    if (/\/rpc\/mp_saved_settings|\/rpc\/mp_set_room|\/rpc\/mp_list/.test(url)) return ok(null);
+    return route.abort();
+  });
+  const outsider = await stranger(ctx, server.url, r);
+  await outsider.waitForSelector('#alert-modal.show', { timeout: 30000 });
+  assert.strictEqual(await outsider.textContent('#alert-modal-text'), 'The room is locked. Only players who have been in it can join.');
+  await outsider.close();
+  const back = await stranger(ctx, server.url, r, known);
+  await back.waitForFunction(() => document.querySelector('.mp-player-row.user-score'), null, { timeout: 40000 });
+  assert.strictEqual(await back.locator('#alert-modal.show').count(), 0);
+  assert.strictEqual(await back.locator('#mpToggleLock').isChecked(), true, 'still locked');
+  assert.strictEqual(await back.locator('#mpTogglePublic').isChecked(), false);
+  assert.deepStrictEqual(back.errors, []);
   await ctx.close();
 });
