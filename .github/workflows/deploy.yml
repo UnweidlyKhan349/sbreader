@@ -1,17 +1,13 @@
-# Publishes the site to https://sbreader.github.io/.
+# Publishes the site to https://sbreader.org/ with this repo's own GitHub
+# Pages (Settings -> Pages: Source "GitHub Actions", custom domain
+# sbreader.org; see README, Deploying). The old project address,
+# https://unweidlykhan349.github.io/sbreader/, redirects there by itself.
 #
-# The code stays in UnweidlyKhan349/sbreader; a <name>.github.io address can
-# only be served by a repo of the account called <name>, so every push to
-# main is copied to sbreader/sbreader.github.io, which serves
-# it with GitHub Pages (Deploy from a branch: main, / (root)). It waits for
-# CI (ci.yml: the unit and browser tests) to pass on that push to main, and
-# deploys exactly the commit CI tested; a failed CI run deploys nothing.
-# Running it by hand (workflow_dispatch) deploys main as it is, after the
-# unit tests.
-#
-# Needs the secret SBREADER_DEPLOY_KEY: the private half of a deploy key that
-# has write access to sbreader/sbreader.github.io (see README, Deploying).
-name: Deploy to sbreader.github.io
+# It waits for CI (ci.yml: the unit and browser tests) to pass on a push to
+# main, and deploys exactly the commit CI tested; a failed CI run deploys
+# nothing. Running it by hand (workflow_dispatch) deploys main as it is,
+# after the unit tests.
+name: Deploy to sbreader.org
 
 on:
   workflow_run:
@@ -22,8 +18,13 @@ on:
 
 # One deploy at a time; a newer push replaces a deploy still waiting.
 concurrency:
-  group: deploy-sbreader-github-io
+  group: pages
   cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -34,6 +35,9 @@ jobs:
       (github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       # The commit CI tested (a workflow_run's own github.sha is just main's
       # tip, which may be newer); by hand, main's tip.
@@ -77,15 +81,12 @@ jobs:
       - name: Stamp this deploy's version, so open tabs pick it up
         if: env.STALE != '1'
         run: node tools/stamp-version.js "$RUNNER_TEMP/site" "${{ env.DEPLOY_SHA }}"
-      - name: Push to sbreader/sbreader.github.io
+      - uses: actions/configure-pages@v5
         if: env.STALE != '1'
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        if: env.STALE != '1'
         with:
-          deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
-          external_repository: sbreader/sbreader.github.io
-          publish_branch: main
-          publish_dir: ${{ runner.temp }}/site
-          force_orphan: true
-          user_name: github-actions[bot]
-          user_email: 41898299+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Deploy UnweidlyKhan349/sbreader@${{ env.DEPLOY_SHA }}
+          path: ${{ runner.temp }}/site
+      - id: deployment
+        if: env.STALE != '1'
+        uses: actions/deploy-pages@v4

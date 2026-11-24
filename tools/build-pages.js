@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const SITE = 'https://sbreader.github.io/';
+const SITE = 'https://sbreader.org/';
 globalThis.window = globalThis;
 require(path.join(ROOT, 'js', 'data.js'));
 const SBData = globalThis.SBData;

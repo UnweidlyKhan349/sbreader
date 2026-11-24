@@ -16,7 +16,7 @@
   const setHref = (s) => (isStatic ? `sets/${encodeURIComponent(s)}/` : `set?set=${encodeURIComponent(s)}`);
   const packetHref = (s, n) => (isStatic ? `sets/${encodeURIComponent(s)}/${n}` : `packet?set=${encodeURIComponent(s)}&amp;packet=${n}`);
   // The search-engine address of this page is its static copy.
-  const SITE = 'https://sbreader.github.io/';
+  const SITE = 'https://sbreader.org/';
   function canonical(path) {
     if (isStatic || !slug) return;
     const link = document.createElement('link');

@@ -1,0 +1,64 @@
+# Serves the old address, https://sbreader.github.io/, as pages that send
+# every visitor on to https://sbreader.org/ (the same page, query and
+# #fragment), built by tools/redirect-site.js, including a stub for every set
+# and packet page. They are pushed to sbreader/sbreader.github.io, which used
+# to serve the whole site; the site itself is now deployed by deploy.yml.
+#
+# Needs the secret SBREADER_DEPLOY_KEY (a deploy key with write access to
+# sbreader/sbreader.github.io; see README, Deploying). It reruns when a page
+# is added; run it by hand from the Actions tab otherwise.
+name: Redirect sbreader.github.io
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - tools/redirect-site.js
+      - tools/build-pages.js
+      - .github/workflows/redirect-old-address.yml
+  workflow_dispatch:
+
+concurrency:
+  group: redirect-sbreader-github-io
+  cancel-in-progress: false
+
+jobs:
+  redirect:
+    runs-on: ubuntu-latest
+    steps:
+      # Never send people to sbreader.org before it serves the site (the
+      # domain, DNS and HTTPS are set up by hand; see README, Deploying).
+      - name: Is https://sbreader.org/ live?
+        run: |
+          if ! curl -fsS --max-time 20 https://sbreader.org/version.json > /dev/null; then
+            echo "::warning::https://sbreader.org/ isn't serving the site yet; sbreader.github.io left as it is. Run this workflow again once it is."
+            echo "NOT_LIVE=1" >> "$GITHUB_ENV"
+          fi
+      - uses: actions/checkout@v4
+        if: env.NOT_LIVE != '1'
+      - uses: actions/setup-node@v4
+        if: env.NOT_LIVE != '1'
+        with:
+          node-version: 22
+      - name: Build the set and packet pages, to know their addresses
+        if: env.NOT_LIVE != '1'
+        run: |
+          rsync -a --exclude .git ./ "$RUNNER_TEMP/site/"
+          node tools/build-pages.js "$RUNNER_TEMP/site"
+      - name: Build the redirect pages
+        if: env.NOT_LIVE != '1'
+        run: node tools/redirect-site.js "$RUNNER_TEMP/redirect" "$RUNNER_TEMP/site"
+      - name: Push to sbreader/sbreader.github.io
+        if: env.NOT_LIVE != '1'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
+          external_repository: sbreader/sbreader.github.io
+          publish_branch: main
+          publish_dir: ${{ runner.temp }}/redirect
+          force_orphan: true
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: 41898299+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Redirect to sbreader.org (UnweidlyKhan349/sbreader@${{ github.sha }})
