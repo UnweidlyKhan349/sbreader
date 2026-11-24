@@ -27,17 +27,30 @@ jobs:
   redirect:
     runs-on: ubuntu-latest
     steps:
+      # Never send people to sbreader.org before it serves the site (the
+      # domain, DNS and HTTPS are set up by hand; see README, Deploying).
+      - name: Is https://sbreader.org/ live?
+        run: |
+          if ! curl -fsS --max-time 20 https://sbreader.org/version.json > /dev/null; then
+            echo "::warning::https://sbreader.org/ isn't serving the site yet; sbreader.github.io left as it is. Run this workflow again once it is."
+            echo "NOT_LIVE=1" >> "$GITHUB_ENV"
+          fi
       - uses: actions/checkout@v4
+        if: env.NOT_LIVE != '1'
       - uses: actions/setup-node@v4
+        if: env.NOT_LIVE != '1'
         with:
           node-version: 22
       - name: Build the set and packet pages, to know their addresses
+        if: env.NOT_LIVE != '1'
         run: |
           rsync -a --exclude .git ./ "$RUNNER_TEMP/site/"
           node tools/build-pages.js "$RUNNER_TEMP/site"
       - name: Build the redirect pages
+        if: env.NOT_LIVE != '1'
         run: node tools/redirect-site.js "$RUNNER_TEMP/redirect" "$RUNNER_TEMP/site"
       - name: Push to sbreader/sbreader.github.io
+        if: env.NOT_LIVE != '1'
         uses: peaceiris/actions-gh-pages@v4
         with:
           deploy_key: ${{ secrets.SBREADER_DEPLOY_KEY }}
