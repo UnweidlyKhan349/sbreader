@@ -37,6 +37,8 @@
 {"i":95038,"s":"math","f":"SA","qt":"bonus","n":9,"q":"John has a coin that lands heads 80% of the time. What is the expected value of the number of consecutive heads he will flip at the start of throwing the coin.","a":{"t":"4"}}]},
 {"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/tossup/4587","q":[
 {"i":95039,"s":"bio","f":"SA","qt":"tossup","n":10,"q":"Peat, commonly burned as an energy source, is primarily composed of what genus of moss?","a":{"t":"SPHAGNUM"}}]},
+{"rl":"Aug 11 · Blair","r":null,"u":"https://scibowldb.com/bonus/4587","q":[
+{"i":95040,"s":"energy","f":"MC","qt":"bonus","n":11,"q":"Which country has the largest area of peatland in the world?","c":{"W":"Canada","X":"United States","Y":"Brazil","Z":"Australia"},"a":{"t":"Canada","l":"W"}}]},
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4588","q":[
 {"i":95041,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which pair of things participate in alternation of generations?","c":{"W":"Sporophyte and Gametophyte","X":"Sepal and Petal","Y":"Xylem and Phloem","Z":"Heartwood and Sapwood"},"a":{"t":"Sporophyte and Gametophyte","l":"W"}}]},
 {"rl":"Aug 11 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4588","q":[
@@ -145,6 +147,8 @@
 {"i":96115,"s":"math","f":"SA","qt":"bonus","n":10,"q":"In a normal distribution, approximately what percent of data falls within 2 standard deviations of the mean?","a":{"t":"95%","ac":["95","95.4%"]}}]},
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4617","q":[
 {"i":95088,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Which type of coal is popular for heating homes because it lacks dust and soot and burns for longer periods than other types of coal?","a":{"t":"anthracite"}}]},
+{"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4617","q":[
+{"i":95089,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"What act passed in 1970 established Ambient Air-Quality standards and set limits for 6 different types of pollutants that were hazardous to human health?","a":{"t":"CLEAN AIR ACT"}}]},
 {"rl":"Aug 11 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4619","q":[
 {"i":95090,"s":"math","f":"SA","qt":"tossup","n":1,"q":"If a regular octahedron has side length 10, what is its surface area?","a":{"t":"200√3","ac":["200 ROOT 3"]}}]},
 {"rl":"Aug 11 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4619","q":[
@@ -179,6 +183,8 @@
 {"i":95102,"s":"phys","f":"MC","qt":"tossup","n":9,"q":"A disk is mounted on a frictionless axle with a moment of inertia I. It is spinning with an initial angular speed of ω. A constant torque τ is applied to the disk so that it stops in time t. What is the power required to dissipate the wheel’s energy during this time?","c":{"W":"(Iω^2)/(2t)","X":"(Iω)/t","Y":"(Iω^2)/(2τ)","Z":"(Iω)/τ"},"a":{"t":"(Iω^2)/(2t)","l":"W"}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4628","q":[
 {"i":95103,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"A theorem regarding rigid body motion states that it is always possible to represent an arbitrary displacement of a rigid body by a translation of its center of mass plus a rotation about its center of mass. What is the name of this theorem?","a":{"t":"CHASLES' THEOREM","ac":["CHASLES'S THEOREM"]}}]},
+{"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4629","q":[
+{"i":95104,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What country has the largest geothermal production capacity?","a":{"t":"UNITED STATES","ac":["USA"]}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4630","q":[
 {"i":95105,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"When would we say that a liquid wets the surface?","c":{"W":"the contact angle > 90°","X":"the adhesive force is perpendicular to the surface","Y":"the contact angle < 90°","Z":"the contact angle < 120°"},"a":{"t":"the contact angle < 90°","l":"Y"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/bonus/4630","q":[
@@ -207,6 +213,8 @@
 {"i":95117,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"What rock mostly makes up the low velocity zone in the mantle?","c":{"W":"Basalt","X":"Kaolinite","Y":"Peridotite","Z":"Diorite"},"a":{"t":"Peridotite","l":"Y"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4636","q":[
 {"i":95118,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Which type of surface seismic wave causes horizontal shifting of the earth’s surface during an earthquake?","a":{"t":"Love Waves"}}]},
+{"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4637","q":[
+{"i":95119,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"What percent of the energy used by humans has a geothermal source?","c":{"W":"1%","X":"7%","Y":"15%","Z":"20%"},"a":{"t":"1%","l":"W"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/bonus/4637","q":[
 {"i":95120,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Which type of coal contains the most energy?","a":{"t":"Anthracite"}}]},
 {"rl":"Aug 11 · WWP North","r":null,"u":"https://scibowldb.com/tossup/4638","q":[
@@ -257,6 +265,8 @@
 {"i":95144,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"What is the charge of an oxide ion?","a":{"t":"-2","ac":["2-","MINUS 2","NEGATIVE 2"]}}]},
 {"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/tossup/4651","q":[
 {"i":95145,"s":"ess","f":"MC","qt":"tossup","n":7,"q":"Why is anthracite coal considered a metamorphic rock?","c":{"W":"It is a fossil fuel","X":"Higher burn rates","Y":"Chiefly composed of the element Carbon","Z":"Exposure to elevated temperature and pressure"},"a":{"t":"Exposure to elevated temperature and pressure","l":"Z"}}]},
+{"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/bonus/4651","q":[
+{"i":95146,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"Which country accounts for the majority of global production of anthracite coal?","c":{"W":"Russia","X":"Canada","Y":"Ukraine","Z":"China"},"a":{"t":"China","l":"Z"}}]},
 {"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/tossup/4652","q":[
 {"i":95147,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Given triangle ABC, where AB = 6, AC = 9, and cosA = ⅙, find BC in simplest radical form.","a":{"t":"3√11"}}]},
 {"rl":"Aug 25 · Albany","r":null,"u":"https://scibowldb.com/bonus/4652","q":[
@@ -315,6 +325,8 @@
 {"i":95172,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"What is the common name for a lag in current generated by magnetism, which can be associated with power losses?","a":{"t":"Hysteresis"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4666","q":[
 {"i":95173,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What term describes deposits of natural gas that contain a high sulfide content?","a":{"t":"SOUR GAS"}}]},
+{"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4666","q":[
+{"i":95174,"s":"energy","f":"SA","qt":"bonus","n":2,"q":"What state is the nation’s largest producer of nuclear energy?","a":{"t":"Illinois"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4667","q":[
 {"i":95175,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What is a DNA Molecule used to artificially carry foreign genetic material into a cell called?","c":{"W":"Promoter","X":"Operator","Y":"Vector","Z":"Transgene"},"a":{"t":"Vector","l":"Y"}}]},
 {"rl":"Aug 25 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4667","q":[
@@ -373,6 +385,8 @@
 {"i":95200,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Find the maxima and minima of the quadratic equation 2x^2 + 4 = y","a":{"t":"MINIMUM 4, NO MAXIMUM","ac":["MINIMA = 4, MAXIMA DOES NOT EXIST"]}}]},
 {"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4683","q":[
 {"i":95201,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Type of mining process in which a coal seam is relatively close to the surface. The coal seam removed is usually within 200 feet of the surface. What is it called?","a":{"t":"SURFACE MINING","ac":["STRIP MINING","OPEN-PIT MINING"]}}]},
+{"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4683","q":[
+{"i":95202,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"In the United States, which state is the largest consumer of natural gas?","a":{"t":"Texas"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4684","q":[
 {"i":95203,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Symptoms of the condition known as \"beriberi\" results from a deficiency of which B vitamin?","c":{"W":"Thiamin","X":"Riboflavin","Y":"Niacin","Z":"Biotin"},"a":{"t":"Thiamin","l":"W"}}]},
 {"rl":"Aug 25 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4685","q":[
@@ -439,6 +453,8 @@
 {"i":95230,"s":"math","f":"SA","qt":"bonus","n":2,"q":"The difference between the sum of the harmonic series, and the natural log function approaches what constant?","a":{"t":"EULER-MASCHERONI CONSTANT","ac":["EULER'S CONSTANT","GAMMA"]}}]},
 {"rl":"Aug 25 · RM","r":null,"u":"https://scibowldb.com/tossup/4703","q":[
 {"i":95231,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"Order the following three rocks in increasing order of coal rank. 1) Anthracite 2) Bituminous 3) Lignite","a":{"t":"3, 2, 1","ac":["LIGNITE, BITUMINOUS, ANTHRACITE"]}}]},
+{"rl":"Aug 25 · RM","r":null,"u":"https://scibowldb.com/bonus/4703","q":[
+{"i":95232,"s":"energy","f":"SA","qt":"bonus","n":4,"q":"Which US state produced the most coal in the year 2014?","a":{"t":"Wyoming"}}]},
 {"rl":"Aug 25 · RM","r":null,"u":"https://scibowldb.com/tossup/4704","q":[
 {"i":95233,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"Name all of the following three that affect the period of a pendulum. 1) Length of pendulum 2) Mass of bob 3) Force of gravity","a":{"t":"1 AND 3"}}]},
 {"rl":"Aug 25 · RM","r":null,"u":"https://scibowldb.com/bonus/4704","q":[
@@ -609,6 +625,8 @@
 {"i":95308,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"The sign of the free energy change for spontaneous reactions is:","a":{"t":"Negative"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4752","q":[
 {"i":95309,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"What is the end fate in the life cycle of a star two times the mass of the Sun?","a":{"t":"WHITE DWARF"}}]},
+{"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4752","q":[
+{"i":95310,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Why is it that no black dwarfs are expected to exist in the universe yet?","a":{"t":"The universe is too young for any to have cooled that far","ac":["WHITE DWARFS TAKE LONGER THAN THE AGE OF THE UNIVERSE TO COOL"]}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4753","q":[
 {"i":95311,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Which of the following cell structures are made up of the 9 + 2 pattern of microtubules. This means 9 doublets of microtubules. 1) Cilia 2) Centriole 3) Flagella","a":{"t":"1 and 3"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4753","q":[
@@ -787,6 +805,8 @@
 {"i":95392,"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is the absolute value of 5i+12?","a":{"t":"13"}}]},
 {"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/bonus/4801","q":[
 {"i":95393,"s":"math","f":"SA","qt":"bonus","n":9,"q":"What are the solutions to 2x^3-5x^2+x+2 = 0?","a":{"t":"-1/2, 2, 1"}}]},
+{"rl":"Sep 1 · Blair","r":null,"u":"https://scibowldb.com/tossup/4802","q":[
+{"i":95394,"s":"energy","f":"SA","qt":"tossup","n":10,"q":"Which US state is the largest producer of nuclear energy?","a":{"t":"Illinois"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4803","q":[
 {"i":95395,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"Which kingdom of life uniquely contains ether bonds in its cell membranes?","a":{"t":"Archaea"}}]},
 {"rl":"Sep 1 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4803","q":[
@@ -827,6 +847,8 @@
 {"i":95412,"s":"phys","f":"SA","qt":"tossup","n":9,"q":"What law describes the relationship between the angles of incidence and refraction for waves changing medium?","a":{"t":"Snell's Law","ac":["Snell-Descartes Law"]}}]},
 {"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/bonus/4813","q":[
 {"i":95413,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"Characteristics of simple harmonic motion involve which of the following? 1 – The acceleration is constant. 2 – The restoring force is proportional to the displacement. 3 – The frequency is independent of the amplitude.","a":{"t":"2 and 3"}}]},
+{"rl":"Sep 1 · Granada Hills","r":null,"u":"https://scibowldb.com/tossup/4814","q":[
+{"i":95414,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which country currently generates the most electricity through nuclear reactors?","c":{"W":"United States","X":"France","Y":"Ukraine","Z":"Finland"},"a":{"t":"United States","l":"W"}}]},
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/tossup/4815","q":[
 {"i":95415,"s":"phys","f":"SA","qt":"tossup","n":1,"q":"Consider the unit vectors i, j, and k, and the coordinate axes x, y, and z. i corresponds with the x axis, j corresponds with the y axis, and k corresponds with the z axis. If Joe starts at 0i + 0j - 1k and travels -2i + 4j + 5k, how far is his final position from the origin? Assume all vectors are given in meters.","a":{"t":"6 METERS","ac":["6"]}}]},
 {"rl":"Sep 1 · Mark Keppel","r":null,"u":"https://scibowldb.com/bonus/4815","q":[
@@ -859,6 +881,8 @@
 {"i":95427,"s":"chem","f":"SA","qt":"tossup","n":5,"q":"What particle is released during Alpha Decay?","a":{"t":"Helium nucleus","ac":["2 proton and 2 neutrons"]}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4823","q":[
 {"i":95428,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"What does Carbon 14 decay into during beta decay?","a":{"t":"Nitrogen-14"}}]},
+{"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4824","q":[
+{"i":95429,"s":"energy","f":"MC","qt":"tossup","n":7,"q":"As of 2016, approximately how many gallons of water does an average family of four in the US use per day?","c":{"W":"400 gallons","X":"250 gallons","Y":"100 gallons","Z":"50 gallons"},"a":{"t":"400 gallons","l":"W"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4824","q":[
 {"i":95430,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"Which of the following energy sources typically uses the least amount of water to process?","c":{"W":"Wind and Solar","X":"Nuclear","Y":"Coal","Z":"Natural gas"},"a":{"t":"Wind and Solar","l":"W"}}]},
 {"rl":"Sep 1 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4825","q":[
@@ -947,6 +971,8 @@
 {"i":95465,"s":"math","f":"SA","qt":"bonus","n":9,"q":"List the following angles from smallest to largest: cos^-1(2/5), sin^-1(4/5), tan^-1(2)","a":{"t":"sin^-1(4/5), tan^-1(2), cos^-1(2/5)","ac":["2, 3, 1"]}}]},
 {"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/tossup/4849","q":[
 {"i":95466,"s":"ess","f":"SA","qt":"tossup","n":10,"q":"What is the current (As of late September 2016) concentration of CO2 in the atmosphere in parts per million?","a":{"t":"400 PPM","ac":["400","401 PPM","402 PPM"]}}]},
+{"rl":"Sep 15 · Blair","r":null,"u":"https://scibowldb.com/bonus/4849","q":[
+{"i":95467,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What international climate agreement which aims to reduce the effects of global warming by limiting greenhouse gas emissions was opened for signature in April of 2016?","a":{"t":"PARIS AGREEMENT","ac":["PARIS ACCORDS"]}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/tossup/4850","q":[
 {"i":95468,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"A cell contains a very large number of bound ribosomes. Which type of cell is it most likely to be?","c":{"W":"Goblet cell","X":"Adipose cell","Y":"Neuron","Z":"Red blood cell"},"a":{"t":"Goblet cell","l":"W"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4850","q":[
@@ -965,6 +991,8 @@
 {"i":95475,"s":"math","f":"MC","qt":"bonus","n":8,"q":"Which of the following best describes the shape of the curve described by the equation r=0.2 + cos(theta)?","c":{"W":"A circle","X":"A limacon with a loop","Y":"A cardioid","Z":"A limacon with a dimple"},"a":{"t":"A limacon with a loop","l":"X"}}]},
 {"rl":"Sep 15 · Centennial","r":null,"u":"https://scibowldb.com/bonus/4855","q":[
 {"i":95476,"s":"energy","f":"SA","qt":"bonus","n":9,"q":"Rank the following nuclear reactor technologies in order of decreasing capacity installed: boiling water reactor, pressurized heavy-water reactor, pressurized light-water reactor","a":{"t":"pressurized light-water reactor, boiling water reactor, pressurized heavy-water reactor","ac":["3, 1, 2"]}}]},
+{"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4856","q":[
+{"i":95477,"s":"energy","f":"MC","qt":"tossup","n":1,"q":"What country produces the largest amount of mined uranium per year?","c":{"W":"Kazakhstan","X":"United States","Y":"China","Z":"Australia"},"a":{"t":"Kazakhstan","l":"W"}}]},
 {"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4857","q":[
 {"i":96155,"s":"math","f":"MC","qt":"tossup","n":3,"q":"What is the period of the function sin 3x + cos 2x?","c":{"W":"π/3","X":"π/2","Y":"π","Z":"2π"},"a":{"t":"2π","l":"Z"}}]},
 {"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4857","q":[
@@ -1012,7 +1040,7 @@
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4870","q":[
 {"i":95495,"s":"phys","f":"SA","qt":"bonus","n":4,"q":"A ball of volume 1 cm^3 is fully submerged in a tub of water. Taking the density of water to be 1,000 kg/m^3 and g to be 9.8 m/s^2, what is the buoyant force in Newtons?","a":{"t":"0.0098 N","ac":["0.0098","9.8 × 10^-3 N"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4871","q":[
-{"i":95496,"s":"phys","f":"MC","qt":"tossup","n":5,"q":"The acronym EAST, given to a magnetic fusion energy reactor located in China, stands for what?","c":{"W":"Energy Acquiring Subatomic Torus","X":"East Asian Superconducting Torus","Y":"Electron Accelerating Supersonic Titan","Z":"Experimental Advanced Superconducting Tokamak"},"a":{"t":"Experimental Advanced Superconducting Tokamak","l":"Z"}}]},
+{"i":95496,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"The acronym EAST, given to a magnetic fusion energy reactor located in China, stands for what?","c":{"W":"Energy Acquiring Subatomic Torus","X":"East Asian Superconducting Torus","Y":"Electron Accelerating Supersonic Titan","Z":"Experimental Advanced Superconducting Tokamak"},"a":{"t":"Experimental Advanced Superconducting Tokamak","l":"Z"}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4871","q":[
 {"i":95497,"s":"phys","f":"SA","qt":"bonus","n":6,"q":"What is the name of the world’s largest tokamak that is currently under construction in France?","a":{"t":"International Thermonuclear Experimental Reactor","ac":["ITER"]}}]},
 {"rl":"Sep 22 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4872","q":[
@@ -1063,6 +1091,8 @@
 {"i":96163,"s":"math","f":"MC","qt":"tossup","n":9,"q":"Which of the following functions is odd?","c":{"W":"cos(x^3)","X":"x^3+x^2","Y":"sin(cos(x))","Z":"tanh(x)"},"a":{"t":"tanh(x)","l":"Z"}}]},
 {"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/bonus/4884","q":[
 {"i":95518,"s":"math","f":"SA","qt":"bonus","n":10,"q":"What mathematical concept is commonly used to easily find the sum of the roots of a polynomial all raised to a power?","a":{"t":"NEWTON SUMS","ac":["NEWTON'S IDENTITIES","NEWTON'S SUMS"]}}]},
+{"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/tossup/4885","q":[
+{"i":95519,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"What is the name of the policy in which the government allocates purchasable permits to allow for a certain amount of a pollutant to be released?","a":{"t":"CAP AND TRADE"}}]},
 {"rl":"Sep 8 · Blair","r":null,"u":"https://scibowldb.com/bonus/4885","q":[
 {"i":96164,"s":"phys","f":"MC","qt":"bonus","n":12,"q":"Which of the following isotopes is not fissile?","c":{"W":"Uranium-233","X":"Uranium-235","Y":"Plutonium-240","Z":"Plutonium-241"},"a":{"t":"Plutonium-240","l":"Y"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4886","q":[
@@ -1095,6 +1125,10 @@
 {"i":95531,"s":"bio","f":"MC","qt":"tossup","n":3,"q":"What term refers to the amount of genetic material passed on to the next generation not only by the individual, but by family members as well?","c":{"W":"Relative fitness","X":"Inclusive fitness","Y":"Adaptation coefficient","Z":"Evolution score"},"a":{"t":"Inclusive fitness","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4893","q":[
 {"i":95532,"s":"bio","f":"SA","qt":"bonus","n":4,"q":"You have to decide if it makes biological sense to save one of your relatives. If you do not save them, their chance of dying is 100%. If you save them, they are guaranteed to survive. You have a 50% chance of dying if you make an attempt to save them. You can produce one more offspring, while your relative can produce two. What is the minimum coefficient of relatedness required for it to make sense to save your relative?","a":{"t":"25%","ac":["0.25"]}}]},
+{"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4894","q":[
+{"i":95533,"s":"energy","f":"MC","qt":"tossup","n":5,"q":"What US state is home to the world’s largest geothermal field?","c":{"W":"Texas","X":"Arizona","Y":"California","Z":"Hawaii"},"a":{"t":"California","l":"Y"}}]},
+{"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4894","q":[
+{"i":95534,"s":"energy","f":"MC","qt":"bonus","n":6,"q":"Approximately how many geothermal wells are located at The Geysers?","c":{"W":"150","X":"350","Y":"550","Z":"1000"},"a":{"t":"350","l":"X"}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4895","q":[
 {"i":95535,"s":"ess","f":"SA","qt":"tossup","n":7,"q":"What term is used to describe the electromagnetic radiation with no discernible source left over from the early universe?","a":{"t":"COSMIC MICROWAVE BACKGROUND","ac":["COSMIC BACKGROUND RADIATION","CMB","COSMIC MICROWAVE RADIATION"]}}]},
 {"rl":"Sep 8 · Princeton","r":null,"u":"https://scibowldb.com/tossup/4896","q":[
@@ -1657,6 +1691,8 @@
 {"i":95770,"s":"ess","f":"MC","qt":"tossup","n":12,"q":"The reason there aren't any active volcanoes in the Himalayan mountain range is because:","c":{"W":"The Indian plate is composed of basaltic igneous rock, which only melts at higher temperatures.","X":"It was formed by localized faults in the Earth's upper crust.","Y":"It was formed by the collision of two continental plates with no significant density differences.","Z":"It is composed of extinct volcanoes."},"a":{"t":"It was formed by the collision of two continental plates with no significant density differences.","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5056","q":[
 {"i":95771,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"What is a system or group of parallel mountain ranges together with the intervening plateaus and other features?","a":{"t":"Cordillera"}}]},
+{"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5057","q":[
+{"i":95772,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What mountain has the highest point in the Western Hemisphere?","a":{"t":"Mt. Aconcagua"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5058","q":[
 {"i":96225,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"A solar eclipse can only occur at what phase of the moon?","a":{"t":"New Moon"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5059","q":[
@@ -1750,7 +1786,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5084","q":[
 {"i":95806,"s":"ess","f":"SA","qt":"tossup","n":66,"q":"What behavior of Mercury could not be explained by Newtonian mechanics, and perplexed the astronomical community until it was explained by General Relativity?","a":{"t":"Precession of its orbit","ac":["advance of its perihelion","advance of its periapsis"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5084","q":[
-{"i":95807,"s":"ess","f":"SA","qt":"bonus","n":67,"q":"The space race between the United States and the Soviet Union was a big deal for the two nations in the 1960's and early 1970's. In 1971, NASA deployed the first spacecraft ever to orbit another planet, and beat the USSR's deployment by a month. What planet did the NASA mission orbit?","a":{"t":"Mars"}}]},
+{"i":95807,"s":"energy","f":"SA","qt":"bonus","n":67,"q":"The space race between the United States and the Soviet Union was a big deal for the two nations in the 1960's and early 1970's. In 1971, NASA deployed the first spacecraft ever to orbit another planet, and beat the USSR's deployment by a month. What planet did the NASA mission orbit?","a":{"t":"Mars"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5085","q":[
 {"i":95808,"s":"ess","f":"MC","qt":"tossup","n":68,"q":"What type of star has the most similar characteristics to Jupiter and does not necessarily perform nuclear fusion?","c":{"W":"Red dwarf","X":"White dwarf","Y":"Brown dwarf","Z":"Hot Jupiter"},"a":{"t":"Brown dwarf","l":"Y"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5085","q":[
@@ -1863,6 +1899,8 @@
 {"i":95861,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"Which compound in the atmosphere contributes the most to the greenhouse effect?","a":{"t":"WATER VAPOR","ac":["WATER","H2O"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5115","q":[
 {"i":95862,"s":"phys","f":"MC","qt":"tossup","n":2,"q":"In a conventional light bulb, what is the ratio of light energy to the heat energy produced?","c":{"W":"1:9","X":"3:2","Y":"1:1","Z":"7:3"},"a":{"t":"1:9","l":"W"}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5115","q":[
+{"i":95863,"s":"energy","f":"MC","qt":"bonus","n":3,"q":"The arctic is estimated to hold what percent of the world’s undiscovered oil and natural gas reserves?","c":{"W":"7%","X":"13%","Y":"22%","Z":"35%"},"a":{"t":"22%","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5116","q":[
 {"i":95864,"s":"chem","f":"SA","qt":"bonus","n":5,"q":"List the operating temperatures from lowest to highest of these types of fuel cells: 1) PEMFC, 2) PAFC, 3) MCFC, 4) SOFC","a":{"t":"1, 2, 3, 4","ac":["PEMFC, PAFC, MCFC, SOFC"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5117","q":[
@@ -1875,12 +1913,20 @@
 {"i":96247,"s":"ess","f":"MC","qt":"bonus","n":11,"q":"Which of the following is NOT a fossil fuel?","c":{"W":"Coal","X":"Petroleum","Y":"Natural gas","Z":"Uranium"},"a":{"t":"Uranium","l":"Z"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5120","q":[
 {"i":95867,"s":"phys","f":"SA","qt":"bonus","n":12,"q":"In a gasoline internal combustion engine, what is the name of the device that ignites the fuel?","a":{"t":"Spark plug"}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5121","q":[
+{"i":95868,"s":"energy","f":"SA","qt":"tossup","n":13,"q":"As of 2016, from what country did the US import the most coal?","a":{"t":"COLOMBIA"}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5121","q":[
+{"i":95869,"s":"energy","f":"SA","qt":"bonus","n":14,"q":"Rank the 2015 coal production of these states from lowest to highest: Wyoming, West Virginia, Illinois, Pennsylvania.","a":{"t":"Pennsylvania, Illinois, West Virginia, Wyoming"}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5122","q":[
+{"i":95870,"s":"energy","f":"MC","qt":"tossup","n":15,"q":"Oil, coal, and natural gas supply what percent of energy used in the US?","c":{"W":"10","X":"35","Y":"55","Z":"90"},"a":{"t":"90","l":"Z"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5122","q":[
 {"i":95871,"s":"ess","f":"MC","qt":"bonus","n":16,"q":"A permeable rock that contains hydrocarbon fluids and gasses is called:","c":{"W":"An oil trap","X":"A source bed","Y":"An oil reservoir","Z":"An oil pocket"},"a":{"t":"An oil reservoir","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5123","q":[
 {"i":95872,"s":"energy","f":"SA","qt":"bonus","n":17,"q":"What region of the world holds the majority of already discovered oil fields?","a":{"t":"THE MIDDLE EAST","ac":["MIDDLE EAST","PERSIAN GULF"]}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5124","q":[
 {"i":95873,"s":"ess","f":"SA","qt":"tossup","n":18,"q":"What is the term for oil derived from oil shales or tar sands?","a":{"t":"Syncrude","ac":["SYNTHETIC CRUDE"]}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5125","q":[
+{"i":95874,"s":"energy","f":"MC","qt":"tossup","n":20,"q":"Which of the following is closest to the percentage of US electricity generated from natural gas in 2014?","c":{"W":"5%","X":"15%","Y":"25%","Z":"40%"},"a":{"t":"25%","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5124","q":[
 {"i":96248,"s":"chem","f":"MC","qt":"bonus","n":19,"q":"Burning of which of the following fuels produces the least amount of carbon dioxide per unit of energy?","c":{"W":"coal","X":"oil","Y":"natural gas","Z":"All of these produce the same amount of CO2"},"a":{"t":"natural gas","l":"Y"}}]},
 {"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/bonus/5125","q":[
@@ -2250,5 +2296,11 @@
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/tossup/5233","q":[
 {"i":96047,"s":"phys","f":"SA","qt":"tossup","n":96,"q":"It is known that 28 g of a certain ideal gas occupy 22.4 liters at standard conditions. What volume, in liters, does 42 g of this gas occupy at standard conditions?","a":{"t":"33.6","ac":["33.6 LITERS"]}}]},
 {"rl":"Stuy Physics","r":null,"u":"https://scibowldb.com/bonus/5233","q":[
-{"i":96048,"s":"phys","f":"SA","qt":"bonus","n":97,"q":"If the force of a non-linear spring is defined as F(x) = 3x^2+2x+5, what is the work done on the spring if it's stretched to 3 meters from equilibrium?","a":{"t":"51 J"}}]}
+{"i":96048,"s":"phys","f":"SA","qt":"bonus","n":97,"q":"If the force of a non-linear spring is defined as F(x) = 3x^2+2x+5, what is the work done on the spring if it's stretched to 3 meters from equilibrium?","a":{"t":"51 J"}}]},
+{"rl":"Sep 15 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4856","q":[
+{"i":96154,"s":"energy","f":"SA","qt":"bonus","n":2,"q":"As of 2016, what country had the largest nuclear energy producing capacity?","a":{"t":"United States"}}]},
+{"rl":"Sep 22 · Blair","r":null,"u":"https://scibowldb.com/tossup/4867","q":[
+{"i":96158,"s":"energy","f":"SA","qt":"tossup","n":11,"q":"By name or number, order the following three countries in increasing order of oil imports in 2014: China, Canada, Japan.","a":{"t":"2, 3, 1","ac":["CANADA, JAPAN, CHINA"]}}]},
+{"rl":"Stuy Energy","r":null,"u":"https://scibowldb.com/tossup/5116","q":[
+{"i":96243,"s":"energy","f":"MC","qt":"tossup","n":4,"q":"Which country generates the highest percentage of its energy from nuclear power?","c":{"W":"France","X":"China","Y":"Britain","Z":"Denmark"},"a":{"t":"France","l":"W"}}]}
 ]

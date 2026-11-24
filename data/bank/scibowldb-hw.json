@@ -105,6 +105,8 @@
 {"i":93122,"s":"ess","f":"MC","qt":"tossup","n":52,"q":"Fill in the blank: Mercury has around _______ percent of Earth's mass.","c":{"W":"5","X":"25","Y":"50","Z":"75"},"a":{"t":"5","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5725","q":[
 {"i":93123,"s":"ess","f":"SA","qt":"bonus","n":53,"q":"Name the layer of the Sun's atmosphere that breaks up into jets called spicules at its outer limit.","a":{"t":"Chromosphere"}}]},
+{"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5726","q":[
+{"i":93124,"s":"energy","f":"MC","qt":"bonus","n":54,"q":"The first spacecraft to cross the asteroid belt belonged to which space program?","c":{"W":"Pioneer","X":"Voyager","Y":"Mercury","Z":"Galileo"},"a":{"t":"Pioneer","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5727","q":[
 {"i":93125,"s":"ess","f":"MC","qt":"bonus","n":55,"q":"About what percent of the total mass in our solar system is contained within the Sun?","c":{"W":"99%","X":"86%","Y":"79%","Z":"66%"},"a":{"t":"99%","l":"W"}}]},
 {"rl":"Astronomy","r":null,"u":"https://scibowldb.com/bonus/5728","q":[
@@ -242,7 +244,7 @@
 {"rl":"Chemistry","r":null,"u":"https://scibowldb.com/bonus/6170","q":[
 {"i":93182,"s":"chem","f":"MC","qt":"bonus","n":13,"q":"Which of the following ions would exhibit a violet color in solution?","c":{"W":"Vanadium (II)","X":"Nickel (II)","Y":"Fe (III)","Z":"Co (II)"},"a":{"t":"Vanadium (II)","l":"W"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6322","q":[
-{"i":93183,"s":"ess","f":"MC","qt":"tossup","n":1,"q":"Lake Baikal, the world’s second most voluminous lake, contains this much of the world’s surface fresh water.","c":{"W":"10%","X":"20%","Y":"30%","Z":"50%"},"a":{"t":"20%","l":"X"}}]},
+{"i":93183,"s":"energy","f":"MC","qt":"tossup","n":1,"q":"Lake Baikal, the world’s second most voluminous lake, contains this much of the world’s surface fresh water.","c":{"W":"10%","X":"20%","Y":"30%","Z":"50%"},"a":{"t":"20%","l":"X"}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/tossup/6334","q":[
 {"i":93184,"s":"ess","f":"SA","qt":"tossup","n":2,"q":"During what Epoch of the Cenozoic Era was the most recent ice age on Earth?","a":{"t":"pleistocene","ac":["pleistocene ice age"]}}]},
 {"rl":"Earth Science","r":null,"u":"https://scibowldb.com/bonus/6344","q":[
@@ -291,14 +293,28 @@
 {"i":93197,"s":"ess","f":"MC","qt":"bonus","n":24,"q":"Which of the following soil types is most commonly found in the tropics?","c":{"W":"Oxisols","X":"Alfisols","Y":"Ultisols","Z":"Histosols"},"a":{"t":"Oxisols","l":"W"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6450","q":[
 {"i":93198,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Approximately what percent of energy is lost as heat going up the energy pyramid?","c":{"W":"Ten","X":"Eighty","Y":"Thirty","Z":"Ninety"},"a":{"t":"Ninety","l":"Z"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6450","q":[
+{"i":93199,"s":"energy","f":"MC","qt":"bonus","n":2,"q":"The Thanet offshore wind farm, the world's largest when it opened in 2010, is located in the North Sea off the coast of what country?","c":{"W":"France","X":"UK","Y":"China","Z":"Denmark"},"a":{"t":"UK","l":"X"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6451","q":[
+{"i":93200,"s":"energy","f":"MC","qt":"tossup","n":3,"q":"The Ruhr, a region heavily dependent on its vast coal reserves is located in which of the following countries?","c":{"W":"France","X":"Germany","Y":"Poland","Z":"Vatican City"},"a":{"t":"Germany","l":"X"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6455","q":[
+{"i":93201,"s":"energy","f":"MC","qt":"bonus","n":8,"q":"What percent of U.S. electricity is generated from nuclear power?","c":{"W":"5%","X":"10%","Y":"20%","Z":"45%"},"a":{"t":"20%","l":"Y"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6457","q":[
+{"i":93202,"s":"energy","f":"MC","qt":"tossup","n":11,"q":"Which of the following countries has not ratified the NPT (Nuclear non proliferation treaty)?","c":{"W":"Iran","X":"India","Y":"China","Z":"Russia"},"a":{"t":"India","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6454","q":[
 {"i":96298,"s":"energy","f":"MC","qt":"tossup","n":6,"q":"Electric power is less expensive at night because:","c":{"W":"more hydroelectric generation is brought on line at night","X":"there is less demand at night","Y":"pollution control is less stringent at night","Z":"power plants are more efficient at night"},"a":{"t":"there is less demand at night","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6458","q":[
 {"i":93203,"s":"chem","f":"MC","qt":"tossup","n":12,"q":"Yellowcake refers to which of the following substances?","c":{"W":"U2O5","X":"U3O8","Y":"Np2O5","Z":"Pu3O7"},"a":{"t":"U3O8","l":"X"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6458","q":[
+{"i":93204,"s":"energy","f":"MC","qt":"bonus","n":13,"q":"In 2009, the economic downturn led to a decline in U.S. energy consumption and energy-related CO2 emissions. What other factor helped reduce CO2 emissions?","c":{"W":"lower natural gas prices","X":"more use of renewable energy","Y":"reduced electricity generation from coal","Z":"all of the above"},"a":{"t":"all of the above","l":"Z"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6459","q":[
 {"i":93205,"s":"energy","f":"MC","qt":"bonus","n":15,"q":"Electricity is called a secondary energy source because","c":{"W":"it's our no 2 source of energy","X":"it's not as important as oil and gas","Y":"we get it from converting other energy sources","Z":"all of the above"},"a":{"t":"we get it from converting other energy sources","l":"Y"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6467","q":[
+{"i":93206,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"Which State consumes the most energy?","c":{"W":"California","X":"Florida","Y":"Texas","Z":"New York"},"a":{"t":"Texas","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6468","q":[
 {"i":93207,"s":"energy","f":"MC","qt":"tossup","n":18,"q":"The daily amount of energy used in the United States, per person, is about as much energy as....","c":{"W":"100 watt lightbulb left on for 103 days straight","X":"707 quarter-pound hamburgers","Y":"Half a tank of gasoline (7 gallons)","Z":"All of the above"},"a":{"t":"All of the above","l":"Z"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6469","q":[
+{"i":93208,"s":"energy","f":"MC","qt":"bonus","n":21,"q":"What country generates the most electricity from nuclear power?","c":{"W":"Japan","X":"United States","Y":"France","Z":"Russia"},"a":{"t":"United States","l":"X"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6473","q":[
 {"i":93209,"s":"phys","f":"MC","qt":"tossup","n":22,"q":"NASA's Mars Curiosity rover is powered by:","c":{"W":"Hydrogen Fuel Cell","X":"Nuclear Power","Y":"Diesel Engine","Z":"Solar Power"},"a":{"t":"Nuclear Power","l":"X"}}]},
 {"rl":"Math","r":null,"u":"https://scibowldb.com/tossup/6484","q":[
@@ -709,6 +725,8 @@
 {"i":93395,"s":"phys","f":"MC","qt":"bonus","n":117,"q":"A wire is pointing straight towards you, with current flowing towards you as well. The magnetic field produced is","c":{"W":"pointing radially outward from the wire","X":"pointing radially inward from the wire","Y":"circling the wire, clockwise","Z":"circling the wire, counterclockwise"},"a":{"t":"circling the wire, counterclockwise","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6791","q":[
 {"i":93396,"s":"phys","f":"SA","qt":"tossup","n":118,"q":"The splitting of absorption lines due to the presence of an electric field is known as the what?","a":{"t":"INVERSE STARK EFFECT","ac":["STARK EFFECT"]}}]},
+{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6791","q":[
+{"i":93397,"s":"energy","f":"MC","qt":"bonus","n":119,"q":"Johannes Stark won a nobel prize for his discovery in which year?","c":{"W":"1914","X":"1919","Y":"1929","Z":"1942"},"a":{"t":"1919","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6792","q":[
 {"i":93398,"s":"phys","f":"MC","qt":"tossup","n":120,"q":"A positive point charge is stationary. Electrical equipotential lines caused by this charge will be","c":{"W":"radial lines pointing outward","X":"radial lines pointing inward","Y":"concentric circles","Z":"there are no equipotential lines"},"a":{"t":"concentric circles","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6792","q":[
@@ -1025,6 +1043,8 @@
 {"i":93549,"s":"phys","f":"SA","qt":"bonus","n":276,"q":"Unpolarized light enters a linear polarizer, and then enters another linear polarizer at a different angle. What is the name for the second polarizer?","a":{"t":"ANALYZER"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6873","q":[
 {"i":93550,"s":"phys","f":"SA","qt":"tossup","n":277,"q":"What is the name for the splitting of absorption lines in a spectrum due to a magnetic field?","a":{"t":"INVERSE ZEEMAN EFFECT","ac":["ZEEMAN EFFECT"]}}]},
+{"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6873","q":[
+{"i":93551,"s":"energy","f":"MC","qt":"bonus","n":278,"q":"Zeeman won the Physics Nobel prize in 1902 with what other physicist?","c":{"W":"Lorentz","X":"Thomson","Y":"Lippmann","Z":"Marconi"},"a":{"t":"Lorentz","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6874","q":[
 {"i":93552,"s":"phys","f":"MC","qt":"tossup","n":279,"q":"A pulled string is attached to a 4 kg block, which is attached by string to a 2 kg block. If the string is pulled at 12 newtons, what is the tension in the string that connects the blocks?","c":{"W":"2 N","X":"4 N","Y":"6 N","Z":"12 N"},"a":{"t":"4 N","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6874","q":[
@@ -1094,7 +1114,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6890","q":[
 {"i":93585,"s":"phys","f":"MC","qt":"bonus","n":312,"q":"Typically, viscosity","c":{"W":"increases with increasing temperature","X":"stays constant with changing temperature","Y":"decreases with increasing temperature","Z":"is 0 for most gases"},"a":{"t":"decreases with increasing temperature","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6891","q":[
-{"i":93586,"s":"phys","f":"SA","qt":"tossup","n":313,"q":"Who eventually won the \"War of Currents\"?","a":{"t":"NIKOLA TESLA","ac":["GEORGE WESTINGHOUSE","WESTINGHOUSE","TESLA","TESLA AND WESTINGHOUSE"]}}]},
+{"i":93586,"s":"energy","f":"SA","qt":"tossup","n":313,"q":"Who eventually won the \"War of Currents\"?","a":{"t":"NIKOLA TESLA","ac":["GEORGE WESTINGHOUSE","WESTINGHOUSE","TESLA","TESLA AND WESTINGHOUSE"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6891","q":[
 {"i":93587,"s":"phys","f":"SA","qt":"bonus","n":314,"q":"What kind of an electric current system can a transformer be used in?","a":{"t":"ALTERNATING CURRENT","ac":["AC"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6892","q":[
@@ -1388,7 +1408,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6968","q":[
 {"i":93726,"s":"phys","f":"SA","qt":"bonus","n":461,"q":"X-rays from the range of 10 to 0.10 nanometers and 0.10 to 0.01 nanometers are known respectively as?","a":{"t":"SOFT AND HARD X-RAYS","ac":["SOFT, HARD"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6969","q":[
-{"i":93727,"s":"phys","f":"SA","qt":"tossup","n":462,"q":"Who discovered and identified the four aerodynamic forces of flight?","a":{"t":"GEORGE CAYLEY","ac":["CAYLEY"]}}]},
+{"i":93727,"s":"energy","f":"SA","qt":"tossup","n":462,"q":"Who discovered and identified the four aerodynamic forces of flight?","a":{"t":"GEORGE CAYLEY","ac":["CAYLEY"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/6969","q":[
 {"i":93728,"s":"phys","f":"SA","qt":"bonus","n":463,"q":"What are the four aerodynamic forces of flight?","a":{"t":"WEIGHT, LIFT, DRAG, AND THRUST","ac":["GRAVITY, LIFT, DRAG, THRUST"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/6970","q":[
@@ -1940,9 +1960,9 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7112","q":[
 {"i":93990,"s":"phys","f":"MC","qt":"bonus","n":739,"q":"If Bob continues to tumble frictionlessly down a ramp with height 2.4 meters, what is his final speed at the bottom of the hill?","c":{"W":"4 M/S","X":"6 M/S","Y":"8 M/S","Z":"10 M/S"},"a":{"t":"8 M/S","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7113","q":[
-{"i":93991,"s":"phys","f":"SA","qt":"tossup","n":740,"q":"Who invented dynamite?","a":{"t":"ALFRED NOBEL"}}]},
+{"i":93991,"s":"energy","f":"SA","qt":"tossup","n":740,"q":"Who invented dynamite?","a":{"t":"ALFRED NOBEL"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7113","q":[
-{"i":93992,"s":"phys","f":"MC","qt":"bonus","n":741,"q":"Who invented the AC motor?","c":{"W":"Nikola Tesla","X":"James Otis","Y":"Ernest Lawrence","Z":"Torricelli"},"a":{"t":"Nikola Tesla","l":"W"}}]},
+{"i":93992,"s":"energy","f":"MC","qt":"bonus","n":741,"q":"Who invented the AC motor?","c":{"W":"Nikola Tesla","X":"James Otis","Y":"Ernest Lawrence","Z":"Torricelli"},"a":{"t":"Nikola Tesla","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7114","q":[
 {"i":93993,"s":"phys","f":"SA","qt":"tossup","n":742,"q":"Luminous flux per unit of solid angle, also known as luminous intensity, has what SI unit?","a":{"t":"CANDELA"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7114","q":[
@@ -2252,7 +2272,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7195","q":[
 {"i":94142,"s":"phys","f":"MC","qt":"tossup","n":896,"q":"The light output of digital projectors is measured in what SI unit?","c":{"W":"lumens","X":"candelas","Y":"candlepower","Z":"radiants"},"a":{"t":"lumens","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7195","q":[
-{"i":94143,"s":"phys","f":"MC","qt":"bonus","n":897,"q":"Who is the grandfather of Olivia Newton John and a Nobel Physics laureate?","c":{"W":"Isaac Newton","X":"Max Born","Y":"Gilbert Lewis","Z":"Edwin Thall"},"a":{"t":"Max Born","l":"X"}}]},
+{"i":94143,"s":"energy","f":"MC","qt":"bonus","n":897,"q":"Who is the grandfather of Olivia Newton John and a Nobel Physics laureate?","c":{"W":"Isaac Newton","X":"Max Born","Y":"Gilbert Lewis","Z":"Edwin Thall"},"a":{"t":"Max Born","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7196","q":[
 {"i":94144,"s":"phys","f":"SA","qt":"tossup","n":898,"q":"An object is in uniform circular motion. If it retains the same radius but its velocity is increased by a factor of 5, by what factor does the centripetal acceleration increase?","a":{"t":"25"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7197","q":[
@@ -2628,7 +2648,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7293","q":[
 {"i":94324,"s":"phys","f":"SA","qt":"bonus","n":1084,"q":"Marie and Pierre Curie used two uranium minerals to test their theories of radioactivity. The more radioactive mineral was pitchblende. What was the other mineral?","a":{"t":"TORBERNITE","ac":["CHALCOLITE"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7294","q":[
-{"i":94325,"s":"phys","f":"MC","qt":"tossup","n":1085,"q":"Physics nobel prize winner Nils Dalén was known mainly for his work concerning","c":{"W":"equations of state for non-ideal gases","X":"light fixtures designed for lighthouses","Y":"theory of electron flow in electric current","Z":"wireless transmission across large bodies of water"},"a":{"t":"light fixtures designed for lighthouses","l":"X"}}]},
+{"i":94325,"s":"energy","f":"MC","qt":"tossup","n":1085,"q":"Physics nobel prize winner Nils Dalén was known mainly for his work concerning","c":{"W":"equations of state for non-ideal gases","X":"light fixtures designed for lighthouses","Y":"theory of electron flow in electric current","Z":"wireless transmission across large bodies of water"},"a":{"t":"light fixtures designed for lighthouses","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7294","q":[
 {"i":94326,"s":"phys","f":"SA","qt":"bonus","n":1086,"q":"Carbide lamps, which operate on the same principles as Dalén lights, use what hydrocarbon as fuel?","a":{"t":"ACETYLENE","ac":["ETHYNE"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7295","q":[
@@ -3716,9 +3736,9 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7589","q":[
 {"i":94832,"s":"phys","f":"MC","qt":"tossup","n":1633,"q":"Who coined the phrase \"theory of relativity\"?","c":{"W":"Rutherford","X":"Einstein","Y":"Planck","Z":"Bohr"},"a":{"t":"Planck","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7589","q":[
-{"i":94833,"s":"phys","f":"SA","qt":"bonus","n":1634,"q":"Who is given credit for inventing the superheterodyne receiver?","a":{"t":"EDWIN ARMSTRONG","ac":["ARMSTRONG"]}}]},
+{"i":94833,"s":"energy","f":"SA","qt":"bonus","n":1634,"q":"Who is given credit for inventing the superheterodyne receiver?","a":{"t":"EDWIN ARMSTRONG","ac":["ARMSTRONG"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7590","q":[
-{"i":94834,"s":"phys","f":"SA","qt":"tossup","n":1635,"q":"Taser is an acronym for a fictional weapon. What does it stand for?","a":{"t":"THOMAS A. SWIFT'S ELECTRIC RIFLE"}}]},
+{"i":94834,"s":"energy","f":"SA","qt":"tossup","n":1635,"q":"Taser is an acronym for a fictional weapon. What does it stand for?","a":{"t":"THOMAS A. SWIFT'S ELECTRIC RIFLE"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7590","q":[
 {"i":94835,"s":"phys","f":"MC","qt":"bonus","n":1636,"q":"If you take the sum of all of the masses times their distances and divide by the sum of all the masses you will have found","c":{"W":"Volume","X":"surface area","Y":"moment of inertia","Z":"center of gravity"},"a":{"t":"center of gravity","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7591","q":[
@@ -4037,6 +4057,8 @@
 {"i":94983,"s":"phys","f":"SA","qt":"tossup","n":1793,"q":"What electrical device is used to convert alternating current to direct current?","a":{"t":"RECTIFIER"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7678","q":[
 {"i":94984,"s":"phys","f":"SA","qt":"bonus","n":1794,"q":"The diode can be seen as the electronic version of what mechanical device, which allows fluids to flow through in one direction?","a":{"t":"CHECK VALVE"}}]},
+{"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7679","q":[
+{"i":94985,"s":"energy","f":"SA","qt":"tossup","n":1795,"q":"In 1947 the speed of sound was first exceeded, when an American rocket propelled airplane reached Mach 1.06. What was the name of the plane?","a":{"t":"BELL X-1","ac":["X-1","GLAMOROUS GLENNIS"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7679","q":[
 {"i":94986,"s":"phys","f":"MC","qt":"bonus","n":1796,"q":"In 1932 Anderson used a cloud chamber to detect which particle?","c":{"W":"antiproton","X":"positron","Y":"tauon","Z":"Neutron"},"a":{"t":"positron","l":"X"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7680","q":[
@@ -4076,7 +4098,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7688","q":[
 {"i":95004,"s":"phys","f":"SA","qt":"bonus","n":1814,"q":"What is the name for the process by which fast neutrons are made into thermal neutrons?","a":{"t":"MODERATION","ac":["THERMALIZATION","NEUTRON MODERATION"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7689","q":[
-{"i":95005,"s":"phys","f":"MC","qt":"tossup","n":1815,"q":"Who was the Englishman who created a remarkably modern design for an airplane in 1799?","c":{"W":"George Cayley","X":"Charles Pooles","Y":"Martin Stanley","Z":"Peter cartwright"},"a":{"t":"George Cayley","l":"W"}}]},
+{"i":95005,"s":"energy","f":"MC","qt":"tossup","n":1815,"q":"Who was the Englishman who created a remarkably modern design for an airplane in 1799?","c":{"W":"George Cayley","X":"Charles Pooles","Y":"Martin Stanley","Z":"Peter cartwright"},"a":{"t":"George Cayley","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7689","q":[
 {"i":95006,"s":"phys","f":"SA","qt":"bonus","n":1816,"q":"What is the name of a polyamide that is a very strong material and has a high melting point. It was used as an insulating material on the space shuttles.","a":{"t":"NOMEX"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7690","q":[
@@ -4092,5 +4114,13 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7694","q":[
 {"i":95012,"s":"phys","f":"MC","qt":"tossup","n":1822,"q":"If you quadruple the length of a pendulum of a grandfather clock, this will?","c":{"W":"quadruple the period","X":"double the frequency","Y":"double the period","Z":"have no effect"},"a":{"t":"double the period","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7694","q":[
-{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]}
+{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6456","q":[
+{"i":96300,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"What fraction of the petroleum (oil) consumed in the United States is used for transportation?","c":{"W":"1/3","X":"1/2","Y":"3/4","Z":"9/10"},"a":{"t":"3/4","l":"Y"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6456","q":[
+{"i":96301,"s":"energy","f":"MC","qt":"bonus","n":10,"q":"Which state consumes the most energy?","c":{"W":"California","X":"New York","Y":"Florida","Z":"Texas"},"a":{"t":"Texas","l":"Z"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6459","q":[
+{"i":96302,"s":"energy","f":"MC","qt":"tossup","n":14,"q":"What country produces the most coal?","c":{"W":"Australia","X":"China","Y":"Russia","Z":"United States"},"a":{"t":"China","l":"X"}}]},
+{"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6468","q":[
+{"i":96305,"s":"energy","f":"MC","qt":"bonus","n":19,"q":"What country generates the greatest share of its electricity from wind power?","c":{"W":"Denmark","X":"Spain","Y":"Germany","Z":"United States"},"a":{"t":"Denmark","l":"W"}}]}
 ]

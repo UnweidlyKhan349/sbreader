@@ -800,6 +800,9 @@
 {"rl":"Round 8","r":8,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%208.pdf","q":[
 {"i":87523,"s":"math","f":"SA","qt":"bonus","n":18,"q":"Factor the following completely: x^3 − 12x^2 + 41x − 30","a":{"t":"(x − 1)(x − 5)(x − 6)","ac":["(x-5)(x-6)(x-1)"]},"pg":13}]},
 {"rl":"Round 16","r":16,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%2016.pdf","q":[
-{"i":9418,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"To the nearest integer, what is the value of ring strain, in kJ/mol, of cyclohexane in the chair conformation?","a":{"t":"0"},"pg":6},
+{"i":9418,"s":"chem","f":"SA","qt":"tossup","n":10,"q":"To the nearest integer, what is the value of ring strain, in kJ/mol, of cyclohexane in the chair conformation?","a":{"t":"0"},"pg":6}]},
+{"rl":"Round 2","r":2,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%202.pdf","q":[
+{"i":9516,"s":"energy","f":"SA","qt":"bonus","n":16,"q":"Created as part of the NASA Mars Exploration Program, what rover was launched from Cape Canaveral on November 26th, 2011 and aimed to discover whether or not microbial life could have ever existed on Mars?","a":{"t":"CURIOSITY"},"pg":8}]},
+{"rl":"Round 16","r":16,"u":"https://lebot.djiang.xyz/packets/GWHS%20Rounds/Round%2016.pdf","q":[
 {"i":118093,"s":"bio","f":"MC","qt":"bonus","n":14,"q":"A polar alga whose genes scientists have sequenced is unique because of its ability to produce fats. Which of the following best explains how this could be beneficial to humans and the environment?","c":{"W":"The alga can be used to create a substitute for fur, reducing poaching of endangered animals.","X":"The fats produced by alga can be used in the production of biodiesel.","Y":"The alga can be used as an energy-rich substitute for meat.","Z":"The alga can be used for the production of hydrogen gas."},"a":{"t":"The fats produced by alga can be used in the production of biodiesel.","l":"X"}}]}
 ]

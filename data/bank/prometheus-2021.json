@@ -1,6 +1,6 @@
 [
 {"rl":"Prometheus_DE1","r":8,"u":"https://lebot.djiang.xyz/packets/Prometheus%202021/Prometheus_DE1.pdf","q":[
-{"i":23029,"s":"bio","f":"SA","qt":"tossup","n":1,"q":"Which 6th century pandemic killed approximately 6 million people and contributed to a loss of territory by empires?","a":{"t":"The Plague of Justinian"},"pg":1},
+{"i":23029,"s":"energy","f":"SA","qt":"tossup","n":1,"q":"Which 6th century pandemic killed approximately 6 million people and contributed to a loss of territory by empires?","a":{"t":"The Plague of Justinian"},"pg":1},
 {"i":23030,"s":"bio","f":"MC","qt":"bonus","n":1,"q":"The plague of Justinian was caused by Yersinia pestis, which, despite its rare status in the modern day, still has not been eradicated. Why is it not considered a candidate for eradication?","a":{"t":"It is spread by animal vectors","l":"W"},"c":{"W":"It is spread by animal vectors","X":"There is no vaccine against it","Y":"It can remain on surfaces for long periods of time","Z":"Outbreaks are too infrequent to target it for eradication"},"pg":1},
 {"i":23031,"s":"math","f":"SA","qt":"tossup","n":2,"q":"(3^2022 + 3^2020)/(3^2022 − 3^2020) is equivalent to what real number?","a":{"t":"5/4","ac":["1.25"]}},
 {"i":23032,"s":"math","f":"MC","qt":"bonus","n":2,"q":"What is the eccentricity of the ellipse with equation 16 x^2 + 25 y^2 = 100?","a":{"t":"3/5","l":"X"},"c":{"W":"3/4","X":"3/5","Y":"4/5","Z":"5/4"},"pg":2},
