@@ -40,41 +40,13 @@
   function saveName(name) {
     try { localStorage.setItem(NAME_KEY, name); } catch (e) { /* storage blocked */ }
   }
-  // Random names, as QB Reader gives: for a new room ("quantum-otter") and
-  // for a first-time player ("Quantum Otter").
-  const NAME_WORDS = [
-    [
-      'quantum', 'nimble', 'covalent', 'orbital', 'stellar', 'polar', 'kinetic', 'tidal', 'ionic', 'lunar', 'mitotic', 'prime', 'radiant', 'tectonic',
-      'vector', 'zesty', 'acidic', 'adiabatic', 'alkaline', 'amber', 'angular', 'aquatic', 'arctic', 'atomic', 'auroral', 'basaltic', 'binary', 'boreal',
-      'brisk', 'bubbly', 'cellular', 'chiral', 'cobalt', 'coral', 'cosmic', 'crimson', 'crystal', 'cubic', 'curious', 'dapper', 'daring', 'diatomic',
-      'digital', 'dynamic', 'electric', 'elliptic', 'emerald', 'fractal', 'frosty', 'galactic', 'gamma', 'glacial', 'golden', 'granite', 'gravity', 'helical',
-      'hexagonal', 'humid', 'hyper', 'igneous', 'inert', 'infrared', 'isotopic', 'jolly', 'jovial', 'keen', 'laminar', 'laser', 'lucid', 'luminous',
-      'magnetic', 'martian', 'molar', 'molten', 'mossy', 'nebular', 'neutral', 'noble', 'nova', 'oceanic', 'optic', 'orbiting', 'ozone', 'photonic',
-      'plasma', 'plucky', 'polymer', 'prismatic', 'proton', 'quartz', 'quirky', 'radial', 'rapid', 'redshift', 'rocky', 'rotary', 'saline',
-      'scarlet', 'seismic', 'silicon', 'sleek', 'solar', 'sonic', 'sparky', 'spiral', 'static', 'steady', 'stoic', 'sunny', 'swift', 'thermal',
-      'titan', 'topaz', 'tropic', 'turbo', 'twilight', 'ultra', 'velvet', 'violet', 'vivid', 'volcanic', 'wavy', 'windy', 'zippy',
-    ],
-    [
-      'otter', 'falcon', 'quokka', 'lynx', 'heron', 'tapir', 'gecko', 'ibis', 'marmot', 'narwhal', 'okapi', 'puffin', 'koala', 'newt',
-      'bison', 'wombat', 'axolotl', 'badger', 'beaver', 'bobcat', 'capybara', 'caracal', 'chinchilla', 'condor', 'coyote', 'crane', 'dingo', 'dolphin',
-      'dormouse', 'egret', 'ermine', 'ferret', 'finch', 'flamingo', 'fox', 'gazelle', 'gibbon', 'gopher', 'hedgehog', 'hornbill', 'hyrax', 'iguana',
-      'impala', 'jackal', 'jaguar', 'jay', 'kestrel', 'kingfisher', 'kiwi', 'lemur', 'leopard', 'llama', 'loon', 'macaw', 'manatee', 'mantis',
-      'marlin', 'meerkat', 'mongoose', 'moose', 'ocelot', 'octopus', 'oriole', 'osprey', 'owl', 'panda', 'pangolin', 'panther', 'pelican', 'penguin',
-      'petrel', 'pika', 'platypus', 'porcupine', 'possum', 'quail', 'raccoon', 'raven', 'salamander', 'seahorse', 'seal', 'serval', 'shrew', 'skink',
-      'sloth', 'sparrow', 'squid', 'starling', 'stingray', 'stoat', 'swallow', 'swan', 'swift', 'tamarin', 'tarsier', 'tern', 'tortoise', 'toucan',
-      'tuna', 'turtle', 'urchin', 'vole', 'walrus', 'warbler', 'weasel', 'wolf', 'wolverine', 'wren', 'yak', 'zebra', 'atom', 'boson',
-      'comet', 'electron', 'galaxy', 'gluon', 'ion', 'isotope', 'lepton', 'meson', 'muon', 'neutrino', 'nucleus', 'photon', 'pulsar', 'quark',
-      'quasar',
-    ],
-  ];
-  function randomWords() {
-    const pick = (a) => a[Math.floor(Math.random() * a.length)];
-    return [pick(NAME_WORDS[0]), pick(NAME_WORDS[1])];
-  }
+  // Random names, as QB Reader gives, from the Science Bowl word bank
+  // (js/names.js): for a new room ("okazaki-tholins") and for a first-time
+  // player ("Okazaki Tholins").
   function myName() {
     const saved = savedName();
     if (saved) return saved;
-    const name = randomWords().map((w) => w[0].toUpperCase() + w.slice(1)).join(' ');
+    const name = SBNames.playerName();
     saveName(name);
     return name;
   }
@@ -127,7 +99,7 @@
   // "N players - M online".
   function initLobby() {
     const input = document.getElementById('newRoomName');
-    input.placeholder = randomWords().join('-');
+    input.placeholder = SBNames.roomName();
     document.getElementById('roomForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const name = SBMpRules.cleanRoomName(input.value) || input.placeholder;
