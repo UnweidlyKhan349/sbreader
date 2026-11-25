@@ -118,3 +118,23 @@ test('copied math pastes as x^2, x_1 and CO2, not x2 and x1', async () => {
   assert.strictEqual((await copy('x<sup>ab</sup>c')).text, 'x^(ab)c');
   await ctx.close();
 });
+
+test('phone layouts: the Set List fits, the frequency list heading and Play statline get the full width, the lobby checkbox stays on one line', async () => {
+  const ctx = await newContext(browser, { viewport: { width: 360, height: 800 } });
+  const page = await ctx.newPage();
+  await page.goto(server.url + 'set-list', { waitUntil: 'networkidle' });
+  await page.waitForSelector('#set-metadata-list tr');
+  assert.strictEqual(await page.evaluate(() => { const t = document.querySelector('.table-responsive'); return t.scrollWidth <= t.clientWidth; }), true, 'the Set List has no sideways scroll at 360 px');
+  await page.goto(server.url + 'frequency-list?subject=bio', { waitUntil: 'networkidle' });
+  await page.waitForSelector('#frequency-list tr', { timeout: 30000 });
+  assert.ok(await page.evaluate(() => document.getElementById('freqTitle').getBoundingClientRect().width > 0.8 * document.getElementById('freqPage').clientWidth), 'the heading is not squeezed beside the back link');
+  await page.goto(server.url + 'multiplayer', { waitUntil: 'networkidle' });
+  const label = await page.evaluate(() => { const l = document.querySelector('label[for="emptyRoomCheckbox"]'); return l.getBoundingClientRect().height / parseFloat(getComputedStyle(l).lineHeight); });
+  assert.ok(label < 1.5, 'Show empty rooms is on one line');
+  await page.goto(server.url + 'solo', { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.locator('#nextBtn').click();
+  await page.waitForFunction(() => document.getElementById('questionInfo').textContent.trim());
+  assert.ok(await page.evaluate(() => document.getElementById('questionMetadata').getBoundingClientRect().top >= document.getElementById('statline').getBoundingClientRect().bottom - 1), 'the source is under the statline');
+  await ctx.close();
+});

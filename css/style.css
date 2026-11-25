@@ -572,3 +572,21 @@ html.mp-direct #lobbyScreen { display: none !important; }
    screen and one, shorter, on a phone. */
 .chart-box { position: relative; height: 280px; }
 @media (max-width: 575.98px) { .chart-box { height: 220px; } }
+
+/* Phones: Play's statline and the question's source each on a line of
+   their own, rather than both squeezed into half the width. */
+@media (max-width: 575.98px) {
+  .statline-row { flex-direction: column; }
+  .statline-row #questionMetadata { padding-left: 0 !important; text-align: left !important; }
+}
+/* Phones: the Set List leaves out its Type and packet-count columns (a
+   set's own page lists its packets), says "TUs" and "Bonuses" for "# of
+   Toss-ups" and "# of Bonuses", "HS"/"MS" for the level, and uses smaller
+   text with less padding, so it fits on screen instead of behind a sideways
+   scroll. */
+@media (max-width: 575.98px) {
+  .set-list-table { font-size: .875rem; }
+  .set-list-table th:nth-child(2), .set-list-table td:nth-child(2),
+  .set-list-table th:nth-child(5), .set-list-table td:nth-child(5) { display: none; }
+  .set-list-table > :not(caption) > * > * { padding: .5rem .3rem; }
+}

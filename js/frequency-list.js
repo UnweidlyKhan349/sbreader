@@ -22,9 +22,9 @@
   function renderList(s) {
     document.title = `SBReader - Frequency List - ${s.label}`;
     root.innerHTML = `
-      <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+      <div class="d-flex flex-wrap justify-content-between align-items-start column-gap-3 mb-3 freq-head">
         <div class="lead" id="freqTitle"></div>
-        <div class="text-nowrap"><a href="frequency-list">Back to all frequency lists</a></div>
+        <div class="text-nowrap ms-auto"><a href="frequency-list">Back to all frequency lists</a></div>
       </div>
       <p>Click on an answer to search for it in the database:</p>
       <table class="table table-hover">
