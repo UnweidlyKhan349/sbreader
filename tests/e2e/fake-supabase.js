@@ -2,7 +2,8 @@
 // signed in as one user (verified email, password "old-password"), with each answers insert delayed by
 // window.__INSERT_DELAYS (ms, one per insert, in order) so tests can make
 // inserts finish late or out of order. window.__db holds the tables. A read
-// returns at most window.__MAX_ROWS rows (1,000, as Supabase does).
+// returns at most window.__MAX_ROWS rows (1,000, as Supabase does). With
+// window.__UNREACHABLE set, every write fails as it does offline.
 (function () {
   const db = window.__db = window.__db || { answers: [], bookmarks: [], user_settings: [] };
   let nextId = 1;
@@ -30,6 +31,9 @@
       then(ok, bad) { return run().then(ok, bad); },
     };
     async function run() {
+      // window.__UNREACHABLE: no connection to the project, as supabase-js
+      // reports it (an error with no code).
+      if (window.__UNREACHABLE && action.kind !== 'select') return { data: null, error: { message: 'TypeError: Failed to fetch', code: '' } };
       if (action.kind === 'insert') {
         const delays = window.__INSERT_DELAYS || [];
         // (window.__OLD_ANSWERS: a project whose answers table has no

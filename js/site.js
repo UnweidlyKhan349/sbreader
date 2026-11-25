@@ -225,10 +225,20 @@
   // The service worker (sw.js, beside the pages) keeps the question bank and
   // the site's files cached for repeat visits; see sw.js. It sits next to
   // js/, so its address comes from this script's own.
+  // Once it's running, it's asked to save every page for offline use; it
+  // does that only on the first visit and after a deploy (sw.js).
   const siteScript = document.currentScript && document.currentScript.src;
-  if (siteScript && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  const worker = siteScript && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost');
+  const saveForOffline = (fresh) => {
+    if (!worker || navigator.onLine === false) return;
+    navigator.serviceWorker.ready.then((reg) => {
+      if (reg.active) reg.active.postMessage({ type: 'sb-save-offline', fresh: !!fresh });
+    }).catch(() => {});
+  };
+  if (worker) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register(new URL('../sw.js', siteScript).href, { scope: new URL('../', siteScript).href }).catch(() => {});
+      saveForOffline();
     });
   }
 
@@ -255,6 +265,8 @@
         if (navigator.serviceWorker && navigator.serviceWorker.getRegistration) {
           navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
         }
+        // And the new pages are saved for offline use now, not on the next visit.
+        saveForOffline(true);
       } catch (e) { /* offline: try again later */ }
     };
     window.addEventListener('load', check);

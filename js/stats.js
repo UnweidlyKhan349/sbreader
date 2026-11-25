@@ -117,7 +117,7 @@
     }
     box.innerHTML = '<p class="text-body-secondary">Loading…</p>';
     try { await SBData.loadIds(rows.map((r) => r.question_id)); } catch (e) {
-      box.innerHTML = '<p class="text-body-secondary">Could not load the questions. Try refreshing.</p>';
+      box.innerHTML = `<p class="text-body-secondary">${SBData.escapeHtml(SBData.loadErrorText(e))}</p>`;
       cardsFor = null;
       return;
     }

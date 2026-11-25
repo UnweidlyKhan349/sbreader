@@ -1,5 +1,6 @@
 // Accounts against an in-memory Supabase (tests/e2e/fake-supabase.js):
-// answer changes reach the right row however the inserts finish, deleted
+// answer changes reach the right row however the inserts finish, answers
+// given offline are sent later, deleted
 // data stays deleted, a removed star doesn't come back from an old copy,
 // and the account links work on the generated set and packet pages.
 const test = require('node:test');
@@ -35,6 +36,31 @@ test('an override made before the answer is saved still reaches that answer', as
     return __db.answers.map((r) => [r.question_id, r.result]);
   });
   assert.deepStrictEqual(rows, [[7, 'correct']]);
+  await ctx.close();
+});
+
+test('answers given offline wait in this browser, with their time and overrides, and are sent once the connection is back', async () => {
+  const { ctx, page } = await signedIn('account', { fn: () => { window.__UNREACHABLE = true; }, arg: null });
+  const waiting = await page.evaluate(async () => {
+    SBAccount.recordAnswer({ id: 5, subject: 'bio' }, 'incorrect', 'solo', { points: 0, celerity: 0.5 });
+    await new Promise((r) => setTimeout(r, 200));
+    SBAccount.updateLastAnswer('correct', { points: 4, celerity: 0.5 }); // an override while still offline
+    SBAccount.recordAnswer({ id: 6 }, 'skipped', 'solo');
+    await new Promise((r) => setTimeout(r, 200));
+    return JSON.parse(localStorage.getItem('sb_pending_answers')).map((e) => [e.row.question_id, e.row.result, !!e.row.created_at, e.user]);
+  });
+  assert.deepStrictEqual(waiting, [[5, 'correct', true, 'user-1'], [6, 'skipped', true, 'user-1']]);
+  assert.strictEqual(await page.evaluate(() => __db.answers.length), 0);
+  // Still waiting after a reload; sent once the connection is back.
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForFunction(() => window.SBAccount && SBAccount.user());
+  const sent = await page.evaluate(async () => {
+    window.__UNREACHABLE = false;
+    window.dispatchEvent(new Event('online'));
+    await new Promise((r) => setTimeout(r, 500));
+    return { rows: __db.answers.map((r) => [r.question_id, r.result, r.points ?? null]), left: localStorage.getItem('sb_pending_answers') };
+  });
+  assert.deepStrictEqual(sent, { rows: [[5, 'correct', 4], [6, 'skipped', null]], left: null });
   await ctx.close();
 });
 
