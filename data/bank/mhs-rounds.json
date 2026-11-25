@@ -789,7 +789,7 @@
 {"i":13797,"s":"bio","f":"SA","qt":"bonus","n":18,"q":"A frog who is not poisonous shares the same color pallet as a poison dart frog. What type of mimicry is observed?","a":{"t":"BATESIAN MIMICRY"},"pg":9},
 {"i":13798,"s":"ess","f":"SA","qt":"tossup","n":19,"q":"Rank the following three geologic periods in order from least to most recent: 1) Permian; 2) Silurian; 3) Eocene","a":{"t":"2,1,3"},"pg":10},
 {"i":13799,"s":"ess","f":"MC","qt":"bonus","n":19,"q":"Which of the following metamorphic minerals would be most present in the high grade metamorphism of shale?","a":{"t":"Sillimanite","l":"Z"},"c":{"W":"Chlorite","X":"Kyanite","Y":"Biotite","Z":"Sillimanite"},"pg":10},
-{"i":13800,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is i^37?","a":{"t":"i"}},
+{"i":13800,"s":"math","f":"SA","qt":"tossup","n":20,"q":"What is i^37?","a":{"t":"i"},"pg":10},
 {"i":13801,"s":"math","f":"SA","qt":"bonus","n":20,"q":"What is the total distance travelled from time t = 0 to t = 4π of a particle that can be described by the parametric equations x = 3cos(t) and y = 3sin(t)?","a":{"t":"12π"},"pg":10},
 {"i":13802,"s":"bio","f":"MC","qt":"tossup","n":21,"q":"Which of the following is the organelle that spirochetes use to propel themselves?","a":{"t":"Axial filament","l":"X"},"c":{"W":"Plasma membrane","X":"Axial filament","Y":"Pilum","Z":"Fimbria"},"pg":11},
 {"i":13803,"s":"bio","f":"SA","qt":"bonus","n":21,"q":"The Warburg effect shows that cancer cells tend to go through oxidative phosphorylation less than normal cells, what specific method of cellular respiration do cancer cells go through instead?","a":{"t":"GLYCOLYSIS"},"pg":11},

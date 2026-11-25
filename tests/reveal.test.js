@@ -19,7 +19,7 @@ test('a superscript types in raised, never as a caret (AVES 2 RR 3 B12)', () => 
 test('every frame is well formed: open tags are closed again', () => {
   for (const s of ['Fe^(2+) + 2e^- → Fe', 'CO2 and H2O', 'x^4*e^{-x}', 'Σn=1^∞ (−1)^(n+1)/n^2', 'OH^-(aq) &lt; 5']) {
     for (const f of frames(render(s))) {
-      const opens = (f.match(/<(sup|sub)>/g) || []).length;
+      const opens = (f.match(/<(sup|sub)[ >]/g) || []).length;
       const closes = (f.match(/<\/(sup|sub)>/g) || []).length;
       assert.strictEqual(opens, closes, f);
     }

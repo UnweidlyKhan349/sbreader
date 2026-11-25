@@ -359,7 +359,7 @@
 {"i":55749,"s":"bio","f":"MC","qt":"bonus","n":8,"q":"Which of the following is an essential amino acid?","a":{"t":"Leucine","l":"W"},"c":{"W":"Leucine","X":"Serine","Y":"Alanine","Z":"Glutamate"},"pg":4},
 {"i":55750,"s":"phys","f":"SA","qt":"tossup","n":10,"q":"A ball is falling off a 150 meter high cliff at a terminal velocity of 8 meters per second. What is the net force on the ball, in newtons?","a":{"t":"0"},"pg":5},
 {"i":55751,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"A block of mass 5 kilograms is initially sitting atop a frictionless ramp at a height of 3.2 meters. If the block slides down the ramp and, as it moves with a constant velocity after sliding down the ramp, collides into a spring with a spring constant 8 Newtons/meter, by how much is the spring compressed, in simplest radical form in meters?","a":{"t":"2√10"},"pg":5},
-{"i":55753,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Ephram has 6 Among Us Tasks to complete. Admin: Swipe Card; Electrical: Calibrate Distributor; Shields: Prime Shields; Weapons: Clear Asteroids; Medbay: Submit Scan; Navigation: Chart Course. The distance from Navigation to Medbay is 1. The distance from Medbay to Weapons is 2. The distance from Weapons to Shields is 4. The distance from Shields to Electrical is 8. The distance from Electrical to Admin is 16. His first task has to be Weapons and then he can choose to do whatever task he wants to do next then what is the maximum distance I travel to finish all my tasks exactly once?","a":{"t":"86"}},
+{"i":55753,"s":"math","f":"SA","qt":"bonus","n":11,"q":"Ephram has 6 Among Us Tasks to complete. Admin: Swipe Card; Electrical: Calibrate Distributor; Shields: Prime Shields; Weapons: Clear Asteroids; Medbay: Submit Scan; Navigation: Chart Course. The distance from Navigation to Medbay is 1. The distance from Medbay to Weapons is 2. The distance from Weapons to Shields is 4. The distance from Shields to Electrical is 8. The distance from Electrical to Admin is 16. His first task has to be Weapons and then he can choose to do whatever task he wants to do next then what is the maximum distance I travel to finish all my tasks exactly once?","a":{"t":"86"},"pg":5},
 {"i":55754,"s":"chem","f":"SA","qt":"tossup","n":12,"q":"The mole fraction of nitrogen in the air is 0.8899. Calculate the partial pressure of N2 in air when the atmospheric pressure is 760.(3 sig figs) torr?","a":{"t":"676 torr"},"pg":7},
 {"i":55755,"s":"chem","f":"SA","qt":"bonus","n":12,"q":"A sample of gas at 15 degrees celsius and 1 atm has a volume of 3 L. What volume will this gas occupy at 45 degrees celsius and 1 atm.","a":{"t":"3.31 L"},"pg":7},
 {"i":55756,"s":"bio","f":"SA","qt":"tossup","n":13,"q":"Which organelle responsible for hydrolyzing macromolecules is not present in plant cells?","a":{"t":"LYSOSOME"},"pg":8},
@@ -785,7 +785,7 @@
 {"i":86001,"s":"ess","f":"SA","qt":"tossup","n":21,"q":"What is the most common type of lava formation on/near a seamount?","a":{"t":"Pillow Lavas"},"pg":9}]},
 {"rl":"Round 11","r":11,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2011.pdf","q":[
 {"i":86002,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"What is the van’t hoff factor of the dimerization of benzoic acid in benzene solution?","a":{"t":"1/2"},"pg":2},
-{"i":118103,"s":"math","f":"SA","qt":"tossup","n":21,"q":"Evaluate (2 + 3i)/(3 + 2i).","a":{"t":"12/13 + (5/13)i","ac":["(12 + 5i)/13"]}}]},
+{"i":118103,"s":"math","f":"SA","qt":"tossup","n":21,"q":"Evaluate (2 + 3i)/(3 + 2i).","a":{"t":"12/13 + (5/13)i","ac":["(12 + 5i)/13"]},"pg":2}]},
 {"rl":"Round 13","r":13,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2013.pdf","q":[
 {"i":86003,"s":"chem","f":"SA","qt":"tossup","n":4,"q":"Calculate the formal charge of nitrogen in the nitrate ion.","a":{"t":"+1"},"pg":2},
 {"i":86004,"s":"bio","f":"SA","qt":"tossup","n":21,"q":"By name or by number, identify all of the following statements about Vitamin D that are true: 1. Calcitriol is the active form of Vitamin D that aids in the uptake of calcium within the kidney and gut 2. Cholecalciferol and Ergocalciferol are Vitamins D2 and D3 respectively 3. Calcitonin inhibits the activity of osteoblasts within the bone in order to lower calcium levels in the plasma","a":{"t":"1 only"},"pg":10}]},
@@ -794,7 +794,7 @@
 {"rl":"Round 15","r":15,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2015.pdf","q":[
 {"i":86006,"s":"phys","f":"SA","qt":"tossup","n":6,"q":"What is the baryon number of a deuterium nucleus?","a":{"t":"+2"},"pg":3},
 {"i":86007,"s":"chem","f":"SA","qt":"tossup","n":7,"q":"How many degrees of freedom does a molecule of HCl have?","a":{"t":"6"},"pg":3},
-{"i":118104,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Differentiate y = x^(1/n) with respect to x.","a":{"t":"(1/n)x^((1 − n)/n)","ac":["(1/n)x^(1/n − 1)"]}},
+{"i":118104,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Differentiate y = x^(1/n) with respect to x.","a":{"t":"(1/n)x^((1 − n)/n)","ac":["(1/n)x^(1/n − 1)"]},"pg":4},
 {"i":86008,"s":"math","f":"MC","qt":"tossup","n":24,"q":"In how many ways can a hexagon be triangulated?","a":{"t":"14","l":"Z"},"c":{"W":"5","X":"6","Y":"9","Z":"14"},"pg":12}]},
 {"rl":"Round 16","r":16,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2016.pdf","q":[
 {"i":86009,"s":"math","f":"SA","qt":"tossup","n":7,"q":"How many ways are there to arrange a deck of 4 red and 4 black cards in one pile if the cards must alternate colors?","a":{"t":"1152"},"pg":4},
@@ -806,7 +806,7 @@
 {"i":86014,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"By name or number, identify the period for each of the following epochs: I. Oligocene; II. Pennsylvanian; III. Lopingian.","a":{"t":"I. PALEOGENE; II. CARBONIFEROUS; III. PERMIAN"},"pg":8}]},
 {"rl":"Round 4","r":4,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%204.pdf","q":[
 {"i":86015,"s":"math","f":"MC","qt":"tossup","n":3,"q":"The graphs of y = 2^x and y = x^2 intersect each other at how many points?","a":{"t":"3","l":"Z"},"c":{"W":"0","X":"1","Y":"2","Z":"3"},"pg":5},
-{"i":118105,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"Choose all of the following that are NOT correct about catecholamines. I. They increase heart rate and stroke volume. II. They dilate the bronchioles in the lungs. III. They shunt blood towards the skin, digestive organs, and kidneys.","a":{"t":"III"}}]},
+{"i":118105,"s":"bio","f":"SA","qt":"bonus","n":15,"q":"Choose all of the following that are NOT correct about catecholamines. I. They increase heart rate and stroke volume. II. They dilate the bronchioles in the lungs. III. They shunt blood towards the skin, digestive organs, and kidneys.","a":{"t":"III"},"pg":9}]},
 {"rl":"Round 5","r":5,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%205.pdf","q":[
 {"i":86016,"s":"math","f":"MC","qt":"tossup","n":19,"q":"Find the numerical value of k for which 6/(x+y)=k/(x+z)=10/(z-y) for all x, y, and z such that the denominators of the fractions are nonzero.","a":{"t":"16","l":"Y"},"c":{"W":"10","X":"12","Y":"16","Z":"24"},"pg":10}]},
 {"rl":"Round 7","r":7,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%207.pdf","q":[
@@ -814,7 +814,7 @@
 {"i":86018,"s":"math","f":"SA","qt":"bonus","n":4,"q":"Bobby is flipping a coin and stops when he gets 2 consecutive heads or tails. What is the probability that his first coin flip and his last coin flip have the same result?","a":{"t":"2/3"},"pg":3}]},
 {"rl":"Round 8","r":8,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%208.pdf","q":[
 {"i":86019,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"Which of Kepler’s Laws describes a planet’s orbit as an ellipse with the sun at one focus?","a":{"t":"KEPLER’S FIRST LAW"},"pg":2},
-{"i":118107,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"How many constellations are officially recognized?","c":{"W":"77","X":"88","Y":"99","Z":"101"},"a":{"t":"88","l":"X"}}]},
+{"i":118107,"s":"ess","f":"MC","qt":"tossup","n":9,"q":"How many constellations are officially recognized?","c":{"W":"77","X":"88","Y":"99","Z":"101"},"a":{"t":"88","l":"X"},"pg":5}]},
 {"rl":"Round 9","r":9,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%209.pdf","q":[
 {"i":86020,"s":"chem","f":"SA","qt":"tossup","n":1,"q":"What is the molecular formula of sulfur dioxide?","a":{"t":"SO2"},"pg":1},
 {"i":86021,"s":"math","f":"SA","qt":"tossup","n":17,"q":"How many distinct ways are there to arrange the letters of the word “energy”?","a":{"t":"360"},"pg":7},
@@ -822,7 +822,7 @@
 {"i":86048,"s":"phys","f":"SA","qt":"bonus","n":5,"q":"What is the integral of jerk with respect to time?","a":{"t":"ACCELERATION"},"pg":2}]},
 {"rl":"Round 7","r":7,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%207.pdf","q":[
 {"i":87536,"s":"math","f":"SA","qt":"tossup","n":14,"q":"Daniel’s math test scores are of the increasing sequence 1, 3, 4, 9, 10, 12, 13…(etc), which consists of all the positive integers which are powers of 3 or sums of distinct powers of 3. Find the 44th term of this sequence.","a":{"t":"279"},"pg":8},
-{"i":96056,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the definite integral from 0 to π/3 of sec x dx.","a":{"t":"ln(2 + √3)"}}]},
+{"i":96056,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate the definite integral from 0 to π/3 of sec x dx.","a":{"t":"ln(2 + √3)"},"pg":8}]},
 {"rl":"Round 13","r":13,"u":"https://oly.mehvix.com/pdfs/scibowl/Round%20Share/Lex%20Rounds/Round%2013.pdf","q":[
-{"i":96057,"s":"math","f":"SA","qt":"tossup","n":11,"q":"Evaluate the integral of x^3 cos(x^4 + 2) dx.","a":{"t":"(1/4) sin(x^4 + 2) + C","ac":["sin(x^4 + 2)/4 + C"]}}]}
+{"i":96057,"s":"math","f":"SA","qt":"tossup","n":11,"q":"Evaluate the integral of x^3 cos(x^4 + 2) dx.","a":{"t":"(1/4) sin(x^4 + 2) + C","ac":["sin(x^4 + 2)/4 + C"]},"pg":10}]}
 ]

@@ -357,7 +357,7 @@
 {"i":28718,"s":"ess","f":"SA","qt":"tossup","n":19,"q":"What term describes the rapid ignition of the triple alpha process in the helium core of a large red giant?","a":{"t":"Helium flash"},"pg":12},
 {"i":28719,"s":"ess","f":"SA","qt":"bonus","n":19,"q":"What property, often measured at various points in a stream, describes the volume of water that flows past a point per unit time?","a":{"t":"Discharge"},"pg":12},
 {"i":28720,"s":"math","f":"SA","qt":"tossup","n":20,"q":"Identify all of the following 3 positive integers which have exactly 6 positive integer factors. 1) 12 2) 16 3) 20","a":{"t":"1 and 3"},"pg":12},
-{"i":28721,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Consider the graph of y = xe^x. What is the slope of the line tangent to the graph at x = 3?","a":{"t":"4e^3"}}]},
+{"i":28721,"s":"math","f":"SA","qt":"bonus","n":20,"q":"Consider the graph of y = xe^x. What is the slope of the line tangent to the graph at x = 3?","a":{"t":"4e^3"},"pg":12}]},
 {"rl":"2024 SMH Invitational Cup - RR3_","r":3,"u":"https://lebot.djiang.xyz/packets/SMH-2025/2024%20SMH%20Invitational%20Cup%20-%20RR3_.pdf","q":[
 {"i":28722,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"In humans, what process removes unnecessary neuronal connections in early development in order to lead to proper brain function?","a":{"t":"synaptic pruning","l":"X"},"c":{"W":"neuronal revision","X":"synaptic pruning","Y":"foundational reduction","Z":"deneuralation"},"pg":1},
 {"i":28725,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Besides iron, what element is most abundant by mass in stainless steel?","a":{"t":"chromium"},"pg":2},

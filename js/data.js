@@ -217,7 +217,8 @@
   // "SO42-"), so it's left as typed; "NH4+" and "H3O+" still get their
   // subscripts. A run written with its charge as a superscript ("H3^+",
   // "N5^(+)") is an ion, so a lone element gets its subscript there too.
-  // A coefficient in front stays full size ("2H2O", "5H2O").
+  // A coefficient in front stays full size ("2H2O", "5H2O"). The counts
+  // carry class="chem", so copying a formula gives "CO2" back, not "CO_2".
   // Checked against every matching run in the bank.
   const ELEMENTS = new Set(('H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr ' +
     'Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os ' +
@@ -240,7 +241,7 @@
   function subscriptFormulas(html) {
     return html.replace(CHEM_RUN_RE, (m, run, charge, at, str) =>
       (isFormula(run, charge, ION_SUP_RE.test(str.slice(at + m.length)))
-        ? run.replace(/([A-Za-z)])(\d+)/g, '$1<sub>$2</sub>') : m));
+        ? run.replace(/([A-Za-z)])(\d+)/g, '$1<sub class="chem">$2</sub>') : m));
   }
   SBData.subscriptFormulas = subscriptFormulas;
   function renderMathHTML(s) {
@@ -846,13 +847,14 @@
   // Where in its packet a question is (`pg`, found by
   // tools/packet-locations.js), as a fragment for the packet link: the page
   // of a PDF (browsers' PDF viewers open url#page=N there) or the line of a
-  // GitHub file (#LN). Other links have no such anchor.
+  // GitHub file GitHub shows as text (#LN; a CSV linked with ?plain=1, which
+  // shows its lines rather than a table). Other links have no such anchor.
   function packetAnchor(url, pg) {
     if (!url || !(pg > 0)) return '';
     const bare = url.split(/[?#]/)[0];
     const githubBlob = /^https:\/\/github\.com\/[^/]+\/[^/]+\/blob\//.test(url);
     if (/\.pdf$/i.test(bare) && !githubBlob) return '#page=' + pg;
-    if (githubBlob && /\.(txt|md|round)$/i.test(bare)) return '#L' + pg;
+    if (githubBlob && (/\.(txt|md|round)$/i.test(bare) || (/\.csv$/i.test(bare) && /[?&]plain=1/.test(url)))) return '#L' + pg;
     return '';
   }
   SBData.packetAnchor = packetAnchor;
