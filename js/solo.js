@@ -55,7 +55,7 @@
       el.textContent = '';
       document.getElementById('starredInfo').textContent = n ? '' : 'No starred questions.';
     } else {
-      el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings`;
+      el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings${SBData.missingText()}`;
     }
   }
 
@@ -784,6 +784,6 @@
     const p = new URLSearchParams(location.search);
     if (settings.mode === 'starred' && (p.has('mode') || p.get('bookmarked') === '1')) startSession();
   }).catch((err) => {
-    document.getElementById('qDisplay').textContent = 'Failed to load question data: ' + err.message;
+    document.getElementById('qDisplay').textContent = SBData.loadErrorText(err);
   });
 })();

@@ -8,7 +8,8 @@
 //   - bookmarks: every star mirrored to the account; at login this
 //     device's and the account's are merged (nothing is lost on either side)
 //   - answers: each question answered in Play or Multiplayer, with its
-//     points and celerity, for the stats and graphs pages
+//     points and celerity, for the stats and graphs pages (kept in this
+//     browser while offline, and sent when the connection is back)
 //   - settings: theme, reading speed, multiplayer name and "hide answers";
 //     at login the newer copy wins, and changes are pushed as they happen
 (function () {
@@ -68,6 +69,8 @@
       syncedFor = user.id;
       syncOnLogin().catch((e) => console.warn('Account sync failed:', e));
     }
+    // Answers given offline are sent once this account is known.
+    if (user) setTimeout(sendPending, 0);
     if (!user) syncedFor = null;
     renderNav();
     emit();
@@ -359,24 +362,112 @@
       return res;
     });
   }
+  // Answers given offline (or while the project can't be reached) wait in
+  // this browser, with the time they were given, and are sent once it can
+  // be reached again: when the browser says it's back online, on the next
+  // page load, and every 30 seconds while any are waiting. Each belongs to
+  // the account that gave it, and waits for that account. A change to one
+  // still waiting (an override) changes what will be sent. One tab sends at
+  // a time (navigator.locks), so none is sent twice.
+  const PENDING_KEY = 'sb_pending_answers';
+  const PENDING_MAX = 5000;
+  function readPending() {
+    try { const v = JSON.parse(localStorage.getItem(PENDING_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+  }
+  function writePending(list) {
+    try {
+      if (list.length) localStorage.setItem(PENDING_KEY, JSON.stringify(list.slice(-PENDING_MAX)));
+      else localStorage.removeItem(PENDING_KEY);
+    } catch (e) { /* storage full: these answers are lost, as before */ }
+  }
+  // No answer from the project at all, as opposed to a refusal.
+  function unreachable(error) {
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) return true;
+    return !error || !error.code || /fetch|network|load failed/i.test(error.message || '');
+  }
+  function queueAnswer(userId, row, extra, at) {
+    const key = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    writePending(readPending().concat({ key, user: userId, row: { ...row, created_at: at }, extra: extra || null }));
+    return key;
+  }
+  function changeQueued(key, result, extra) {
+    const list = readPending();
+    const entry = list.find((e) => e.key === key);
+    if (!entry) return false;
+    entry.row.result = result;
+    entry.extra = extra || entry.extra;
+    writePending(list);
+    return true;
+  }
+  const sentIds = new Map(); // queued answer -> its row, once sent from this page
+  let sending = false;
+  async function sendPending() {
+    if (sending || !client || !user || (typeof navigator !== 'undefined' && navigator.onLine === false)) return;
+    const me = user.id;
+    if (!readPending().some((e) => e.user === me)) return;
+    sending = true;
+    const run = async () => {
+      for (;;) {
+        const next = readPending().find((e) => e.user === me);
+        if (!next || !user || user.id !== me) return;
+        const { data, error } = await withExtra(next.extra, (fields) => client.from('answers').insert({ ...next.row, ...fields }).select('id').single())
+          .catch((e) => ({ error: e || {} }));
+        // Not reached: later. Not allowed just now (a login to renew): later
+        // too, but an answer refused ten times is given up on, so it can't
+        // hold up the rest for good.
+        if (error && unreachable(error)) return;
+        if (error && !/^2[23]/.test(String(error.code)) && (next.tries || 0) < 9) {
+          writePending(readPending().map((e) => (e.key === next.key ? { ...e, tries: (e.tries || 0) + 1 } : e)));
+          return;
+        }
+        // Sent, or refused for good (a value the table doesn't take).
+        if (error) console.warn('Answer not saved to your stats:', error.message);
+        else sentIds.set(next.key, data.id);
+        writePending(readPending().filter((e) => e.key !== next.key));
+      }
+    };
+    try {
+      if (typeof navigator !== 'undefined' && navigator.locks) await navigator.locks.request('sb-pending-answers', run);
+      else await run();
+    } catch (e) { /* tried again later */ } finally { sending = false; }
+  }
+  if (enabled) {
+    window.addEventListener('online', () => { sendPending(); });
+    setInterval(() => { if (readPending().length) sendPending(); }, 30 * 1000);
+  }
+
   function recordAnswer(q, result, mode, extra) {
     if (!client || !user || !q) { lastAttempt = null; return null; }
-    const insert = withExtra(extra, (fields) => client.from('answers').insert({
+    const row = {
       question_id: q.id, mode, result,
       subject: q.subject || null, qtype: q.qtype || null, format: q.format || null, tournament: q.tournament || null,
-      ...fields,
-    }).select('id').single()).then(({ data, error }) => {
-      if (error) { console.warn('Answer not saved to your stats:', error.message); return null; }
-      return data.id;
-    }, () => null);
+    };
+    const at = new Date().toISOString();
+    const forUser = user.id;
+    let queued = null;
+    const later = () => { queued = queueAnswer(forUser, { ...row, result: attempt.result }, attempt.extra, at); return null; };
+    const insert = withExtra(extra, (fields) => client.from('answers').insert({ ...row, ...fields }).select('id').single()).then(({ data, error }) => {
+      if (!error) return data.id;
+      if (unreachable(error)) return later();
+      console.warn('Answer not saved to your stats:', error.message);
+      return null;
+    }, later);
     let chain = insert;
     const attempt = {
       result,
+      extra,
       update(newResult, newExtra) {
         attempt.result = newResult;
+        attempt.extra = newExtra;
         const turn = attempt.turn = (attempt.turn || 0) + 1;
         chain = chain.then(() => insert).then((id) => {
-          if (id == null || attempt.turn !== turn) return;
+          if (attempt.turn !== turn) return;
+          // Still waiting to be sent: what's sent changes instead.
+          if (id == null && queued) {
+            if (changeQueued(queued, newResult, newExtra)) return;
+            id = sentIds.get(queued);
+          }
+          if (id == null) return;
           return withExtra(newExtra, (fields) => client.from('answers').update({ result: newResult, ...fields }).eq('id', id)).then(({ error }) => {
             if (error) console.warn('Answer change not saved to your stats:', error.message);
           });
@@ -416,6 +507,9 @@
     const c = await needClient();
     const { error } = await c.from('answers').delete().eq('user_id', user.id);
     if (error) throw error;
+    // Answers still waiting to be sent go too.
+    const me = user.id;
+    writePending(readPending().filter((e) => e.user !== me));
   }
   async function deleteMyData() {
     const c = await needClient();
@@ -423,6 +517,8 @@
       const { error } = await c.from(table).delete().eq('user_id', user.id);
       if (error) throw error;
     }
+    const me = user.id;
+    writePending(readPending().filter((e) => e.user !== me));
     // This browser's copy of the account's stars goes too, or the next login
     // would upload them again. (Theme and reading speed stay: they're this
     // browser's own settings, and the site needs them.)

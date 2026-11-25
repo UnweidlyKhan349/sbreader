@@ -68,7 +68,7 @@
     try {
       if (ids.length) await SBData.loadIds(ids); else await SBData.loadMeta();
     } catch (e) {
-      $('question-list').innerHTML = '<p class="text-body-secondary">Could not load the question bank. Try refreshing.</p>';
+      $('question-list').innerHTML = `<p class="text-body-secondary">${SBData.escapeHtml(SBData.loadErrorText(e))}</p>`;
       return;
     }
     const aliases = (SBData.meta && SBData.meta.idAliases) || {};

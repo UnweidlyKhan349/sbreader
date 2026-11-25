@@ -233,6 +233,13 @@
     return !myState.role && !joining && document.getElementById('lobbyScreen').style.display !== 'none';
   }
   async function renderRoomLists(again) {
+    // Offline, nothing can be counted or joined: the built-in rooms without
+    // counts, and a line saying so, until the connection is back.
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      paintRoomLists(null, null);
+      document.getElementById('activeSummary').textContent = "You're offline. Multiplayer needs an internet connection (Play works offline).";
+      return;
+    }
     // Asked again while a request is out: once more when it's back, so a
     // change announced meanwhile isn't missed.
     if (roomListBusy) { if (again) roomListAgain = true; return; }
@@ -264,6 +271,9 @@
       window.addEventListener('pageshow', (e) => { if (e.persisted) now(); });
     }
   }
+
+  window.addEventListener('online', () => { if (lobbyShowing()) renderRoomLists(true); });
+  window.addEventListener('offline', () => { if (lobbyShowing()) renderRoomLists(true); });
 
   // reg: SBRooms.list()'s answer; probe: the built-in rooms' counts asked
   // directly. Neither yet: the built-in rooms, without counts.
@@ -1821,7 +1831,7 @@
         hostGame.waitingForBank = false;
         onBankLoaded();
         if (myState.role === 'host' && (hostGame.phase === 'lobby' || hostGame.phase === 'reveal')) hostNextQuestion();
-      }).catch((err) => { hostGame.waitingForBank = false; setMatchCountText(`Couldn't load the questions: ${err.message}`); });
+      }).catch((err) => { hostGame.waitingForBank = false; setMatchCountText(SBData.loadErrorText(err)); });
       return;
     }
     if (hostGame.queueStale || (hostGame.index < 0 && !hostGame.queue.length)) rebuildQueue();
@@ -2900,7 +2910,7 @@
     // can be shared as is.
     try { history.replaceState(null, '', inviteLink()); } catch (e) { /* e.g. file:// */ }
     startHeartbeat();
-    SBData.load().then(onBankLoaded).catch((err) => setMatchCountText(`Couldn't load the questions: ${err.message}`));
+    SBData.load().then(onBankLoaded).catch((err) => setMatchCountText(SBData.loadErrorText(err)));
   }
 
   // Tells the room list (when there is one) that this player is here, with
@@ -4024,7 +4034,7 @@
   }).catch((err) => {
     document.documentElement.classList.remove('mp-direct');
     const msg = document.createElement('p');
-    msg.textContent = 'Failed to load question data: ' + err.message;
+    msg.textContent = SBData.loadErrorText(err);
     document.getElementById('lobbyScreen').replaceChildren(msg);
   });
 })();

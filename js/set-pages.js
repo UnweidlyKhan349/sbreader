@@ -84,5 +84,5 @@
       canonical(`sets/${t.slug}/`);
       renderSet(t, packets);
     }
-  }).catch(() => fail('Could not load the question bank. Try refreshing.'));
+  }).catch((err) => fail(SBData.loadErrorText(err)));
 })();

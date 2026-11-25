@@ -235,7 +235,7 @@
       render();
       SBData.prepareSearch();
     }).catch((err) => {
-      document.getElementById('resultCount').textContent = 'Failed to load question data: ' + err.message;
+      document.getElementById('resultCount').textContent = SBData.loadErrorText(err);
     });
   }
 
@@ -302,7 +302,7 @@
     }
     // As on QB Reader: "Showing 25 of 2111 results (1.59 seconds)".
     const seconds = ((performance.now() - started) / 1000).toFixed(2);
-    document.getElementById('resultCount').textContent = `Showing ${pageItems.length} of ${filtered.length} results (${seconds} seconds)`;
+    document.getElementById('resultCount').textContent = `Showing ${pageItems.length} of ${filtered.length} results (${seconds} seconds)${SBData.missingText()}`;
 
     const resultsEl = document.getElementById('results');
     resultsEl.innerHTML = '';

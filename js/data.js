@@ -465,6 +465,26 @@
       img.className = 'q-figure';
       img.title = 'Click to enlarge';
       img.addEventListener('click', () => openLightbox(im.src, img.alt));
+      // A figure that can't load (offline, and never shown on this device)
+      // says so in its place, and is asked for again once the connection is
+      // back.
+      img.addEventListener('error', () => {
+        if (img.hidden) return;
+        img.hidden = true;
+        const note = document.createElement('p');
+        note.className = 'q-figure-missing text-body-secondary small';
+        note.textContent = typeof navigator !== 'undefined' && navigator.onLine === false
+          ? "This figure isn't saved on this device. It will show when you're back online."
+          : "This figure couldn't be loaded.";
+        img.after(note);
+        window.addEventListener('online', () => { img.src = im.src; }, { once: true });
+      });
+      img.addEventListener('load', () => {
+        if (!img.hidden) return;
+        img.hidden = false;
+        const note = img.nextElementSibling;
+        if (note && note.classList.contains('q-figure-missing')) note.remove();
+      });
       wrap.appendChild(img);
     });
     return wrap;
@@ -867,12 +887,37 @@
   SBData.expandQuestions = expandQuestions;
   SBData.flattenBank = flattenBank;
 
+  // A file that couldn't be fetched at all (no connection, and not saved on
+  // this device) fails with err.offline set; one the server refused, with
+  // its HTTP status.
   function fetchJson(url, init) {
-    return fetch(url, init).then((r) => {
+    return fetch(url, init).catch((cause) => {
+      const err = new Error(`${url}: ${cause && cause.message ? cause.message : 'no connection'}`);
+      err.offline = true;
+      throw err;
+    }).then((r) => {
       if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
       return r.json();
     });
   }
+
+  // Added to the question count when some tournaments couldn't be loaded
+  // (SBData.missing), or '' when all of them were.
+  SBData.missingText = function () {
+    const n = (SBData.missing || []).length;
+    if (!n) return '';
+    return `. ${n} tournament${n === 1 ? " isn't" : "s aren't"} saved on this device (reconnect and refresh to add ${n === 1 ? 'it' : 'them'})`;
+  };
+
+  // What a page says when the questions couldn't be loaded.
+  SBData.loadErrorText = function (err) {
+    if (err && err.offline) {
+      return typeof navigator !== 'undefined' && navigator.onLine === false
+        ? "You're offline, and the questions haven't been saved on this device yet. Open SB Reader once while online and they're saved for offline use."
+        : "Couldn't reach SB Reader to download the questions. Check your connection and refresh the page.";
+    }
+    return 'Failed to load question data: ' + (err && err.message);
+  };
 
   // Just meta.json (about 58 KB) - enough for pages that only show counts.
   SBData.loadMeta = function () {
@@ -938,8 +983,22 @@
         }
         return qs;
       })]));
-    return Promise.all(tournaments.map((t) => fetched.get(t.slug)))
+    // A tournament whose file couldn't be fetched at all (offline, and the
+    // download was cut short the last time) is left out, so the page works
+    // with what's saved: SBData.missing names them. Only when none arrived,
+    // or the server refused one, does the load fail.
+    const missing = [];
+    let offlineErr = null;
+    return Promise.all(tournaments.map((t) => fetched.get(t.slug).catch((err) => {
+      if (!err.offline) throw err;
+      missing.push(t);
+      offlineErr = err;
+      return null;
+    })))
       .then((parts) => {
+        if (missing.length && missing.length === tournaments.length) throw offlineErr;
+        SBData.missing = missing;
+        parts = parts.filter(Boolean);
         SBData.questions = [].concat(...parts);
         SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
         return SBData;
@@ -963,6 +1022,10 @@
       migrateBookmarks(meta.idAliases);
       return loadTournaments(meta.tournaments);
     });
+    // Started from <head> on pages that wait for it only later (Multiplayer,
+    // on entering a room): a failure there is reported by whoever waits,
+    // not as an uncaught error.
+    SBData._readyPromise.catch(() => {});
     return SBData._readyPromise;
   };
 

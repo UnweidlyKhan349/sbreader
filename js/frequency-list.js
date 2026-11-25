@@ -51,5 +51,5 @@
     const s = subject && SBData.meta.subjects.find((x) => x.key === subject);
     if (subject && !s) { root.innerHTML = '<p>No such subject. <a href="frequency-list">Back to all frequency lists</a></p>'; return; }
     if (s) renderList(s); else renderIndex();
-  }).catch(() => { root.innerHTML = '<p>Could not load the question bank. Try refreshing.</p>'; });
+  }).catch((err) => { root.innerHTML = `<p>${SBData.escapeHtml(SBData.loadErrorText(err))}</p>`; });
 })();
