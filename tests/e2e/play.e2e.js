@@ -391,3 +391,18 @@ test('with rebuzzes on, every wrong interrupt costs 4 (as in Multiplayer); a wro
   assert.deepStrictEqual(page.errors, []);
   await ctx.close();
 });
+
+test('on a phone, Play opens with its settings showing and the first question folds them to the timer', async () => {
+  const ctx = await newContext(browser, { viewport: { width: 390, height: 844 } });
+  const page = await openPage(ctx, server.url + 'solo');
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  assert.ok(await page.locator('#matchCount').isVisible(), 'the settings show before the first question');
+  await page.locator('#nextBtn').click();
+  await page.waitForTimeout(400);
+  assert.strictEqual(await page.locator('#matchCount').isVisible(), false, 'the first question folds them');
+  assert.ok(await page.locator('#timer').isVisible(), 'the timer stays');
+  await page.locator('#settingsBtn').click();
+  assert.ok(await page.locator('#matchCount').isVisible(), 'the gear opens them again');
+  assert.deepStrictEqual(page.errors, []);
+  await ctx.close();
+});
