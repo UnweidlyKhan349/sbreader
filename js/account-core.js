@@ -3,7 +3,7 @@
 // the stats and graphs pages.
 (function (global) {
   // Settings an account carries between devices (localStorage keys).
-  const SETTINGS_KEYS = ['sb_theme', 'sb_mp_name', 'sb_hide_answers'];
+  const SETTINGS_KEYS = ['sb_theme', 'sb_reading_speed', 'sb_mp_name', 'sb_hide_answers'];
 
   // Bookmarks are merged at login against `base`, the set both sides agreed
   // on at the last sync on this device: a star removed on either side since

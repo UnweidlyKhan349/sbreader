@@ -1,6 +1,6 @@
 // Play in a real browser: reading, buzzing, grading and the override, the
 // history cards (k, t, quick double clicks), t on the question on screen,
-// settings not kept across visits, Space buzzing without opening a
+// settings not kept across visits (but the reading speed), Space buzzing without opening a
 // focused card, Clear all filters, and Clear stats.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -77,7 +77,7 @@ test('t stars the question on screen once it is over, not the card below it', as
   await ctx.close();
 });
 
-test('Play opens on the default settings every time; nothing is saved', async () => {
+test('Play opens on the default settings every time, keeping only your reading speed', async () => {
   const { ctx, page } = await freshPlay();
   const all = await page.locator('#matchCount').innerText();
   await page.locator('#subjectButtons .btn-subject[data-subject="bio"]').click();
@@ -87,7 +87,7 @@ test('Play opens on the default settings every time; nothing is saved', async ()
   await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#matchCount').innerText(), all);
   assert.strictEqual(await page.locator('#toggleRebuzz').isChecked(), false);
-  assert.strictEqual(await page.locator('#rateSlider').inputValue(), '50');
+  assert.strictEqual(await page.locator('#rateSlider').inputValue(), '80', 'your reading speed is kept');
   assert.strictEqual(await page.locator('#subjectButtons .btn-subject.active').count(), await page.locator('#subjectButtons .btn-subject').count());
   await ctx.close();
 });

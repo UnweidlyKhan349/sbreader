@@ -1176,7 +1176,7 @@
   function hostEvent(connId, text, kind) {
     if (myState.role !== 'host') return;
     const p = hostPlayers.get(connId);
-    hostBroadcastChat('SYSTEM', p ? p.name : (connId === myState.myId ? myState.myName : 'Someone'), text, true, null, kind);
+    hostBroadcastChat('SYSTEM', p ? p.name : (connId === myState.myId ? myState.myName : 'Someone'), text, true, null, kind, connId);
   }
 
   /* ================= HOST-ONLY AUTHORITATIVE LOGIC ================= */
@@ -1559,16 +1559,19 @@
     if (host) host.broadcast({ type: 'lobby', players: game.players, departed: game.departed, kicked: game.kicked, ownerKey: game.ownerKey, banned: game.banned, bannedAt: game.bannedAt, roomCode: myState.roomId });
   }
 
-  function hostBroadcastChat(fromId, name, text, system, cid, kind) {
+  // by: the player whose change a settings line reports.
+  function hostBroadcastChat(fromId, name, text, system, cid, kind, by) {
     const entry = { from: fromId, name, text: text.slice(0, SBMpRules.LIMITS.chat), ts: Date.now() };
     if (system) entry.system = true;
     if (cid) entry.cid = cid;
     if (system && kind) {
       entry.kind = kind;
-      // The last line is a change of the same kind, and nothing's been
-      // added to the history since: this one replaces it.
+      if (by) entry.by = by;
+      // The last line is a change of the same kind by the same player, and
+      // nothing's been added to the history since: this one replaces it.
+      // (Another player's change gets its own line.)
       const last = hostChat[hostChat.length - 1];
-      if (last && last.system && last.kind === kind && lastKindLine && lastKindLine.entry === last
+      if (last && last.system && last.kind === kind && last.by && last.by === entry.by && lastKindLine && lastKindLine.entry === last
         && historyEl().firstElementChild === lastKindLine.el) {
         entry.replace = true;
         hostChat.pop();

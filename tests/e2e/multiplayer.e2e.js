@@ -198,7 +198,7 @@ test('reaching the end of the questions says so in a dialog on the page, not a b
   await ctx.close();
 });
 
-test('the room hears about a round change once, when the slider is let go', async () => {
+test('the room hears about a round change once, when the slider is let go; another player\'s change gets its own line', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
@@ -212,6 +212,20 @@ test('the room hears about a round change once, when the slider is let go', asyn
   assert.deepStrictEqual(await events(), [], 'nothing while dragging');
   await g.mouse.up(); await g.waitForTimeout(800);
   assert.strictEqual((await events()).length, 1);
+  // Another player's change to the rounds gets its own line; the same
+  // player's next one edits theirs.
+  const release = async (p, steps) => {
+    const b = await p.locator('#mpSettingsRoundSlider').boundingBox();
+    const yy = b.y + b.height / 2;
+    await p.mouse.move(b.x + 8, yy); await p.mouse.down();
+    for (let i = 1; i <= steps; i++) { await p.mouse.move(b.x + 8 + i * (b.width / 25), yy); await p.waitForTimeout(60); }
+    await p.mouse.up(); await p.waitForTimeout(800);
+  };
+  await release(a, 3);
+  await a.waitForFunction(() => [...document.querySelectorAll('#mpHistory li i')].filter((x) => /changed the rounds/.test(x.textContent)).length === 2, null, { timeout: 5000 });
+  await release(a, 5);
+  assert.strictEqual((await events()).length, 2, 'the same player\'s next change edits their own line');
+  assert.strictEqual((await g.$$eval('#mpHistory li i', (xs) => xs.filter((x) => /changed the rounds/.test(x.textContent)).length)), 2, 'everyone sees both');
   await ctx.close();
 });
 

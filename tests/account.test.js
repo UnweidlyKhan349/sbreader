@@ -18,7 +18,7 @@ test('the newer copy of the settings wins', () => {
   assert.strictEqual(pickSettings(local, '2026-11-01T00:00:00Z', remote, '2026-11-02T00:00:00Z').from, 'remote');
   assert.strictEqual(pickSettings(local, '2026-11-03T00:00:00Z', remote, '2026-11-02T00:00:00Z').from, 'local');
   assert.strictEqual(pickSettings(local, null, null, null).from, 'local');
-  assert.ok(SETTINGS_KEYS.includes('sb_theme') && !SETTINGS_KEYS.includes('sb_reading_speed'));
+  assert.ok(SETTINGS_KEYS.includes('sb_theme') && SETTINGS_KEYS.includes('sb_reading_speed'));
 });
 
 const at = (day, h) => new Date(2026, 10, day, h || 12).toISOString();

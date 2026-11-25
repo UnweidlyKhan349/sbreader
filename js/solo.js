@@ -12,9 +12,11 @@
   const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
 
-  // Everything the sidebar sets. Nothing is saved: Play always opens on the
-  // defaults. (Earlier versions saved them; those copies are dropped.)
-  try { localStorage.removeItem('sb_solo_settings'); localStorage.removeItem('sb_reading_speed'); } catch (e) { /* nothing saved */ }
+  // Everything the sidebar sets. Nothing is saved but the reading speed:
+  // Play always opens on the default filters and switches. (Earlier versions
+  // saved them; that copy is dropped.) The reading speed is kept per device
+  // as sb_reading_speed, and synced to the account when logged in.
+  try { localStorage.removeItem('sb_solo_settings'); } catch (e) { /* nothing saved */ }
   const settings = {
     mode: 'random',
     tournaments: [],
@@ -152,12 +154,25 @@
     applySwitches();
 
     const rateSlider = document.getElementById('rateSlider');
-    // QB Reader's reading speed: 0 to 100, 50 by default.
-    session.rate = SBReveal.normalizeSpeed(null);
+    // QB Reader's reading speed: 0 to 100, 50 by default; your own saved one.
+    let savedRate = null;
+    try { savedRate = localStorage.getItem('sb_reading_speed'); } catch (e) { /* default */ }
+    session.rate = SBReveal.normalizeSpeed(savedRate);
     rateSlider.value = session.rate;
     document.getElementById('rateValue').textContent = String(session.rate);
     rateSlider.addEventListener('input', () => {
       session.rate = SBReveal.normalizeSpeed(rateSlider.value);
+      document.getElementById('rateValue').textContent = String(session.rate);
+      try { localStorage.setItem('sb_reading_speed', String(session.rate)); } catch (e) { /* not saved */ }
+      if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
+    });
+    // Logging in can bring the account's reading speed.
+    window.addEventListener('sb-settings-synced', () => {
+      let v = null;
+      try { v = localStorage.getItem('sb_reading_speed'); } catch (e) { return; }
+      if (v == null) return;
+      session.rate = SBReveal.normalizeSpeed(v);
+      rateSlider.value = session.rate;
       document.getElementById('rateValue').textContent = String(session.rate);
       if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
     });
