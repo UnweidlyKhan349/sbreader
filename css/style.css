@@ -517,6 +517,12 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .history-card .q-text { margin-bottom: .25rem; }
 .history-card .choices { white-space: pre-wrap; }
 .history-card .q-figure { max-height: 300px; }
+/* The footer: where the question is from on the left, "Source packet |
+   Report" on the right. On a narrow screen the links go to a line of their
+   own, still on the right and still inside the footer (as a float they
+   dropped out of its bottom edge). */
+.history-card .card-footer { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .75rem; }
+.history-card .card-footer-links { float: none !important; margin-left: auto; white-space: nowrap; }
 
 /* Player popover (Multiplayer), as QB Reader's: 250 px wide, the stats list
    edge to edge. Drawn over the button bar (1020) but under the sticky navbar
