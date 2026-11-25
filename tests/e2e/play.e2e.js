@@ -161,6 +161,28 @@ test('history cards: the footer reads "Set / RR 3 / Toss-up 6 / Subject", links 
   await ctx.close();
 });
 
+test('on a phone, a history card footer that wraps keeps "Source packet | Report" inside it, on the right', async () => {
+  const ctx = await newContext(browser, { viewport: { width: 390, height: 800 } });
+  const page = await openPage(ctx, server.url + 'solo');
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  const r = await page.evaluate(async () => {
+    await SBData.load();
+    // A footer too long for one line at this width, as in NSBA1's.
+    const q = SBData.questions.find((x) => x.tournament === 'NSBA1' && x.qtype === 'bonus' && x.num >= 10 && /^https?:/.test(x.sourceUrl || ''));
+    const card = SBPlay.historyCard(q);
+    document.getElementById('questionLog').prepend(card);
+    card.querySelector('.card-container').classList.add('show');
+    const footer = card.querySelector('.card-footer').getBoundingClientRect();
+    const where = card.querySelector('.card-footer .text-muted').getBoundingClientRect();
+    const links = card.querySelector('.card-footer-links').getBoundingClientRect();
+    return { footer: [footer.top, footer.bottom, footer.right], where: where.bottom, links: [links.top, links.bottom, links.right] };
+  });
+  assert.ok(r.links[0] >= r.where - 1, 'the links are on a line of their own');
+  assert.ok(r.links[1] <= r.footer[1], `the links end inside the footer (${r.links[1]} > ${r.footer[1]})`);
+  assert.ok(r.footer[2] - r.links[2] < 30, 'the links sit on the right');
+  await ctx.close();
+});
+
 test('q is listed among the shortcuts, and flips I was wrong / I was right in Play', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'solo');
