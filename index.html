@@ -79,9 +79,10 @@
     </div>
   </div>
 </nav>
+<h1 class="visually-hidden" id="pageHeading">SB Reader</h1>
 
 <div class="container-xl mt-3 mb-5 pb-5">
-  <h1 class="lead lh-base mb-3" id="welcomeHeading">Welcome to SB Reader!</h1>
+  <p class="lead" id="welcomeLine">Welcome to SB Reader!</p>
   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-3">
     <div class="col">
       <div class="card h-100">
@@ -174,8 +175,8 @@
 <script>
   // Signed in: "Welcome to SB Reader, <username>!"
   if (window.SBAccount) {
-    const heading = document.getElementById('welcomeHeading');
-    const paint = (u) => { heading.textContent = u ? `Welcome to SB Reader, ${SBAccount.displayName(u)}!` : 'Welcome to SB Reader!'; };
+    const line = document.getElementById('welcomeLine');
+    const paint = (u) => { line.textContent = u ? `Welcome to SB Reader, ${SBAccount.displayName(u)}!` : 'Welcome to SB Reader!'; };
     SBAccount.onChange(paint);
     SBAccount.ready.then(() => paint(SBAccount.user()));
   }
