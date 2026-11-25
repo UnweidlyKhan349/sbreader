@@ -199,8 +199,11 @@
     } else if (runtime.phase === 'buzzwindow' && !runtime.timer) startBuzzWindow(true);
   }
 
-  // On wide screens the sidebar starts open; on narrow ones it sits above the
-  // question showing only the timer. The gear button (or e) toggles it.
+  // On wide screens the sidebar sits beside the question. On narrow ones it
+  // sits above it, open until the first question starts (as on QB Reader, so
+  // the subjects and other settings are there to see before playing), then
+  // showing only the timer. The gear button (or e) toggles it. (Until
+  // November 25, 2026 it started closed on a phone.)
   const WIDE = window.matchMedia('(min-width: 992px)');
   function toggleSidebar() {
     const el = document.getElementById('settings');
