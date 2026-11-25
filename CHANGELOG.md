@@ -375,3 +375,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Play on a phone opens with its settings showing**, as QB Reader's does: the subjects, tournaments and switches are there before the first question, which folds them away to the timer (⚙ still opens them). Before, they started folded, so they were easy to miss.
 - **Home page**: "Welcome to SB Reader!" is a plain line, as on QB Reader, with the same line height and spacing, so it no longer sits a little lower above the cards.
 - **Every page has a main heading** for screen readers and search engines. It names the page (Play, Database, a set or packet, a subject's frequency list) and isn't shown, so no page looks different.
+- **Home page and About**: the list of where questions come from now names every source: ScibowlDB, the National Ocean Sciences Bowl's sample questions, the DOE's 1991–93 subject sets and the school teams' practice sets on GitHub were missing.
