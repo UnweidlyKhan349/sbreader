@@ -615,7 +615,7 @@
 {"rl":"double elimination 6","r":11,"u":"https://lebot.djiang.xyz/packets/tjsbt-2025/double%20elimination%206.pdf","q":[
 {"i":86989,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the eccentricity of a hyperbola that opens up horizontally with asymptotes at y = −(5/12)x and y = (5/12)x?","a":{"t":"13/12"},"pg":5},
 {"i":86990,"s":"math","f":"MC","qt":"bonus","n":4,"q":"How many real values of x satisfy the equation sin(x) = log(x)?","a":{"t":"3","l":"Y"},"c":{"W":"1","X":"2","Y":"3","Z":"4"},"pg":5},
-{"i":86991,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Given that the sum from n = 1 to infinity of 1/n^2 equals π^2/6, compute the sum from n = 0 to infinity of 1/(2n + 1)^2.","a":{"t":"π^2/8"}},
+{"i":86991,"s":"math","f":"SA","qt":"bonus","n":10,"q":"Given that the sum from n = 1 to infinity of 1/n^2 equals π^2/6, compute the sum from n = 0 to infinity of 1/(2n + 1)^2.","a":{"t":"π^2/8"},"pg":5},
 {"i":86992,"s":"phys","f":"SA","qt":"bonus","n":11,"q":"Consider a rod of length L and mass density λ = √x. In terms of L, what is the center of mass of the rod?","a":{"t":"(3/5)L"},"pg":12}]},
 {"rl":"round robin 1","r":1,"u":"https://lebot.djiang.xyz/packets/tjsbt-2025/round%20robin%201.pdf","q":[
 {"i":86993,"s":"math","f":"SA","qt":"tossup","n":4,"q":"What is the probability of getting more heads than tails in a series of 7 coin flips?","a":{"t":"1/2"},"pg":5},

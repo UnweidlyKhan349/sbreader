@@ -212,7 +212,7 @@
 {"i":47884,"s":"phys","f":"MC","qt":"tossup","n":27,"q":"The Poisson spot describes a central bright point that occurs in the shadow of a circular object. Which of the following best describes the mechanism that gives rise to the Poisson spot?","a":{"t":"Near-field diffraction","l":"Y"},"c":{"W":"Near-field refraction","X":"Far-field refraction","Y":"Near-field diffraction","Z":"Far-field diffraction"},"pg":7},
 {"i":47885,"s":"chem","f":"MC","qt":"bonus","n":28,"q":"In the Diels-Alder cycloaddition to form cyclohexene, which two molecular orbitals are interacting to form the new bonds?","a":{"t":"HOMO of butadiene and LUMO of ethene","l":"W"},"c":{"W":"HOMO of butadiene and LUMO of ethene","X":"HOMO of ethene and LUMO of butadiene","Y":"HOMO of butene and LUMO of ethyne","Z":"HOMO of ethyne and LUMO of butene"},"pg":7},
 {"i":47886,"s":"bio","f":"SA","qt":"tossup","n":29,"q":"Fully unabbreviate TAE in TAE buffer, the buffer used to run gels.","a":{"t":"Tris-acetate-ethylene-diamine-tetra-acetic acid","rj":["tris-acetate-EDTA","any other answer failing to unabbreviate EDTA"]},"pg":7},
-{"i":47887,"s":"math","f":"SA","qt":"bonus","n":30,"q":"Calculate the sum from n = 1 to 99 of 1/(√(n + 1) + √n)","a":{"t":"9"}}]},
+{"i":47887,"s":"math","f":"SA","qt":"bonus","n":30,"q":"Calculate the sum from n = 1 to 99 of 1/(√(n + 1) + √n)","a":{"t":"9"},"pg":7}]},
 {"rl":"THUMB SE4 (Finals)","r":9,"u":"https://speriphery.com/query","q":[
 {"i":85338,"s":"math","f":"SA","qt":"tossup","n":null,"q":"Calculate Σ_(n=1)^(99)(1)/(√(n+1)+√n)","a":{"t":"9"}}]}
 ]

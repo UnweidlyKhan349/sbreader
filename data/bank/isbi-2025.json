@@ -4,7 +4,7 @@
 {"i":10900,"s":"phys","f":"SA","qt":"bonus","n":1,"q":"Identify all of the following three conditions in which mechanical energy is conserved. I. An aircraft taking off; II. A perfectly inelastic collision; III. A launched ball bouncing off a wall at its peak and returning to its launch point;","a":{"t":"III only"},"pg":1},
 {"i":10901,"s":"chem","f":"MC","qt":"tossup","n":2,"q":"Which of the following atoms would require the most energy to remove an electron from?","a":{"t":"Carbon","l":"Z"},"c":{"W":"Gallium","X":"Aluminum","Y":"Silicon","Z":"Carbon"},"pg":1},
 {"i":10902,"s":"chem","f":"SA","qt":"bonus","n":2,"q":"Rank the following three orbitals in order of increasing energy. I. 3d; II. 4s; III. 4p.","a":{"t":"II, I, III: 4s, 3d, 4p"},"pg":1},
-{"i":10903,"s":"energy","f":"SA","qt":"tossup","n":4,"q":"What is 5 XOR 3?","a":{"t":"6"}},
+{"i":10903,"s":"energy","f":"SA","qt":"tossup","n":4,"q":"What is 5 XOR 3?","a":{"t":"6"},"pg":1},
 {"i":10904,"s":"energy","f":"SA","qt":"bonus","n":4,"q":"Often, data has patterns to it that allow us to create a version of it using less bits than the original data. What is the process of creating these versions called?","a":{"t":"COMPRESSION"},"pg":2},
 {"i":10905,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"A string is wrapped around a pulley and is used to lift a 50 newton block at constant speed. In newtons, what is the force pulling on the pulley?","a":{"t":"100 NEWTONS"},"pg":3},
 {"i":10906,"s":"phys","f":"MC","qt":"bonus","n":7,"q":"An adiabatic process is best defined in which there is zero of which of the following?","a":{"t":"Heat exchanged with environment","l":"W"},"c":{"W":"Heat exchanged with environment","X":"Change in temperature","Y":"Change in entropy|","Z":"Change in pressure"},"pg":3},

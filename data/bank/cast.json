@@ -61,7 +61,7 @@
 {"i":5049,"s":"phys","f":"SA","qt":"tossup","n":8,"q":"If a particle has position x(t)=12cos(t) - 3sin(t), then what is its instantaneous acceleration at time π/2?","a":{"t":"3"},"pg":4},
 {"i":5050,"s":"phys","f":"SA","qt":"bonus","n":8,"q":"If a particle moving in one dimension has position 0 at time t = 0, and velocity 0 at time t = 0, and the particle's acceleration is never greater than 1, what is the greatest possible position the particle can achieve at time t = 1?","a":{"t":"1/2"},"pg":4},
 {"i":5051,"s":"math","f":"SA","qt":"tossup","n":9,"q":"Evaluate 69^2 - 31^2.","a":{"t":"3800"},"pg":5},
-{"i":5052,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate (1+√2)^3+(1 - √2)^3.","a":{"t":"14"}},
+{"i":5052,"s":"math","f":"SA","qt":"bonus","n":9,"q":"Evaluate (1+√2)^3+(1 - √2)^3.","a":{"t":"14"},"pg":5},
 {"i":5053,"s":"chem","f":"MC","qt":"bonus","n":10,"q":"Researchers at Argonne National Laboratory are researching how to make more efficient batteries. In a standard copper-zinc voltaic cell, what is the effect o f increasing the size of the copper anode on electric potential?","a":{"t":"No change","l":"Z"},"c":{"W":"Voltage increases","X":"Voltage decreases, but not to zero","Y":"Voltage decreases to zero","Z":"No change"},"pg":5},
 {"i":5054,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"What is the largest moon in the Solar System?","a":{"t":"GANYMEDE"},"pg":6},
 {"i":5055,"s":"ess","f":"MC","qt":"bonus","n":11,"q":"Ganymede, Europa, and Io are in 1 to 2 to 4 orbital resonance around Jupiter. For each Europa-Ganymede conjunction, how many Io-Ganymede conjunctions are there?","a":{"t":"3","l":"Y"},"c":{"W":"1","X":"2","Y":"3","Z":"4"},"pg":6},

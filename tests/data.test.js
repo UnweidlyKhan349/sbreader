@@ -259,6 +259,10 @@ test('a packet location becomes a #page= or #L fragment only on PDF and GitHub l
   assert.strictEqual(packetAnchor('https://lebot.djiang.xyz/packets/AVES-2025/AVES%20DE1.pdf', 4), '#page=4');
   assert.strictEqual(packetAnchor('https://example.org/round1.PDF?dl=1', 2), '#page=2');
   assert.strictEqual(packetAnchor('https://github.com/a/b/blob/master/sets/x.txt', 120), '#L120');
+  // A CSV shows as a table unless linked with ?plain=1, which shows its lines.
+  assert.strictEqual(packetAnchor('https://github.com/a/b/blob/abc/Questions.csv?plain=1', 7), '#L7');
+  assert.strictEqual(packetAnchor('https://github.com/a/b/blob/abc/Questions.csv', 7), '');
+  assert.strictEqual(packetAnchor('https://github.com/a/b/blob/master/hs/archive/1.txt.mail', 7), '');
   assert.strictEqual(packetAnchor('https://docs.google.com/document/d/abc/edit', 3), '');
   assert.strictEqual(packetAnchor('https://isobowl.com/premier/tournaments/icsbt-3?round=1', 3), '');
   assert.strictEqual(packetAnchor('https://example.org/a.pdf', undefined), '');

@@ -332,4 +332,55 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireNavbar);
   else wireNavbar();
+
+  // Copying math. Exponents and subscripts are shown raised and lowered
+  // (<sup>/<sub>), which a plain-text copy would flatten: "x²" would paste
+  // as "x2". Copied text gets them back in the notation the questions are
+  // written in - "x^2", "K_c", "x_1", "e^(i*pi)" - with parentheses when
+  // the exponent is more than one number or word, or when it runs straight
+  // into the next letter. A chemical formula's counts (marked class="chem")
+  // paste as typed: CO2, not CO_2. Rich-text pastes (a document editor)
+  // still get the raised and lowered text.
+  const SUP_BARE_RE = /^(?:[+\-−]?(?:\d+(?:\.\d+)?|[A-Za-z][A-Za-z0-9]*|[Ͱ-Ͽ]|∞|°)|[+\-−])$/;
+  const SUB_BARE_RE = /^[+\-−]?(?:[A-Za-z0-9]+|[Ͱ-Ͽ])$/;
+  function scriptAsText(el) {
+    const inner = el.textContent;
+    if (!inner) return '';
+    if (el.tagName === 'SUB' && el.classList.contains('chem')) return inner;
+    const isSup = el.tagName === 'SUP';
+    const next = (el.nextSibling && el.nextSibling.textContent || '').charAt(0);
+    // "x^3y" reads back as x³y (a number exponent stops at its digits);
+    // a word exponent or subscript followed by a letter needs parentheses.
+    const runsOn = /[A-Za-z0-9Ͱ-Ͽ]/.test(next) && !(isSup && /^\d+$/.test(inner) && !/\d/.test(next));
+    const bare = (isSup ? SUP_BARE_RE : SUB_BARE_RE).test(inner) && !runsOn;
+    return (isSup ? '^' : '_') + (bare ? inner : '(' + inner + ')');
+  }
+  function mathAsText(root) {
+    // Innermost first, so "2^(2^2)" keeps its nesting.
+    const scripts = [...root.querySelectorAll('sup, sub')].reverse();
+    scripts.forEach((el) => el.replaceWith(document.createTextNode(scriptAsText(el))));
+  }
+  document.addEventListener('copy', (e) => {
+    const sel = window.getSelection();
+    if (!e.clipboardData || !sel || sel.isCollapsed || !sel.rangeCount) return;
+    const range = sel.getRangeAt(0);
+    const html = document.createElement('div');
+    for (let i = 0; i < sel.rangeCount; i++) html.appendChild(sel.getRangeAt(i).cloneContents());
+    if (!html.querySelector('sup, sub')) return;
+    // The text is read with the copy laid out off screen, so line breaks
+    // come out as the browser's own copy would give them (innerText);
+    // it keeps the white-space rule of where it was copied from, since
+    // question text breaks its numbered statements onto their own lines.
+    const text = html.cloneNode(true);
+    mathAsText(text);
+    let from = range.commonAncestorContainer;
+    if (from.nodeType !== 1) from = from.parentElement;
+    text.style.cssText = 'position:fixed;left:-99999px;top:0;white-space:' + (from ? getComputedStyle(from).whiteSpace : 'normal');
+    document.body.appendChild(text);
+    const plain = text.innerText;
+    text.remove();
+    e.clipboardData.setData('text/plain', plain);
+    e.clipboardData.setData('text/html', html.innerHTML);
+    e.preventDefault();
+  });
 })();

@@ -86,3 +86,35 @@ test('the Database filters work from the keyboard and say whether they are on', 
   await page.waitForFunction(() => document.querySelector('#subjectChips button.chip').getAttribute('aria-pressed') === 'false');
   await ctx.close();
 });
+
+test('copied math pastes as x^2, x_1 and CO2, not x2 and x1', async () => {
+  const ctx = await newContext(browser);
+  const page = await ctx.newPage();
+  await page.goto(server.url + 'tips', { waitUntil: 'networkidle' });
+  await page.addScriptTag({ url: server.url + 'js/data.js' });
+  const copy = (html, white) => page.evaluate(([h, w]) => {
+    const p = document.createElement('p');
+    p.innerHTML = h;
+    if (w) p.style.whiteSpace = w;
+    document.body.appendChild(p);
+    const range = document.createRange();
+    range.selectNodeContents(p);
+    getSelection().removeAllRanges();
+    getSelection().addRange(range);
+    const data = new DataTransfer();
+    document.dispatchEvent(new ClipboardEvent('copy', { clipboardData: data, bubbles: true, cancelable: true }));
+    p.remove();
+    return { text: data.getData('text/plain'), html: data.getData('text/html') };
+  }, [html, white]);
+  const render = (s) => page.evaluate((t) => SBData.renderMathHTML(t), s);
+  for (const s of ['x^2 + y^2', 'x_1 + x_2', 'K_c', 'e^(i*pi)', 'S_(n-1)', 'x^3y', '2^(2^2)', 'H^+', 'Fe^(2+)', '10^-3', 'n^α', 'e^(2x)']) {
+    assert.strictEqual((await copy(await render(s))).text, s, s);
+  }
+  assert.strictEqual((await copy(await render('2H2O and CO2'))).text, '2H2O and CO2');
+  const out = await copy(await render('Name: 1) x^2; 2) y_1'), 'pre-line');
+  assert.strictEqual(out.text, 'Name: 1) x^2; 2) y_1');
+  assert.match(out.html, /<sup>2<\/sup>/);
+  // A word exponent running into the next letter keeps its parentheses.
+  assert.strictEqual((await copy('x<sup>ab</sup>c')).text, 'x^(ab)c');
+  await ctx.close();
+});

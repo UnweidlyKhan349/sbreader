@@ -261,7 +261,7 @@
   // unread at your correct buzzes, 0 to 1 (higher = earlier), e.g. "0.805".
   function celerityText(sum, count) { return (count ? 1 - sum / count : 0).toFixed(3); }
   function updateCounters() {
-    const seen = session.correct + session.incorrect;
+    const seen = session.correct + session.incorrect + session.skipped;
     document.getElementById('statline').textContent =
       `${session.correct}/${session.incorrect} with ${seen} question${seen === 1 ? '' : 's'} seen (${session.points} pts, celerity: ${celerityText(session.celeritySum, session.celerityCount)})`;
   }
@@ -501,9 +501,11 @@
     });
     runtime.lastOutcome = outcome;
 
-    // A skip counts toward Incorrect (you didn't get it) and is logged as such.
+    // A question you didn't buzz on (skipped, or out of time) counts as
+    // seen but not as incorrect, as on QB Reader. (Until November 25, 2026
+    // it counted toward Incorrect too.)
     let category;
-    if (!outcome.attempted) { category = 'skipped'; session.skipped++; session.incorrect++; }
+    if (!outcome.attempted) { category = 'skipped'; session.skipped++; }
     else if (outcome.correct) {
       category = 'correct'; session.correct++;
       session.celeritySum += runtime.buzzFraction == null ? 1 : runtime.buzzFraction;

@@ -1,6 +1,7 @@
 /* Finds where each question sits in its packet, so a source link can open
    the packet there: the page of a PDF (opened as url#page=N) or the line of
-   a GitHub text file (url#LN). The result is each question's `pg` field.
+   a GitHub text file or a CSV linked with ?plain=1 (url#LN). The result is
+   each question's `pg` field.
 
      node tools/packet-locations.js <cache-dir> [--write] [--only <url-substring>]
 
@@ -9,7 +10,11 @@
    pdftotext (poppler-utils) or read as is, and each question located:
    the start of the question's text (letters and digits only, lower case)
    is searched for in the packet, in packet order, falling back to a run of
-   words from its middle. A question that can't be placed gets no `pg`.
+   words from its middle. A PDF question that can't be found takes the page
+   of the questions around it (fillFromNeighbours); a line link isn't
+   guessed. A question that still can't be placed gets no `pg`, and one an
+   earlier run placed keeps its `pg` when its file won't download or its
+   text is no longer found.
    Without --write it only reports; with it, the bank is rewritten through
    tools/bank.js (the same unpack/pack route as every other data change). */
 const fs = require('fs');
@@ -29,9 +34,11 @@ function packetKind(url) {
   // A PDF on github.com opens in GitHub's own viewer, which has no page
   // anchor; a PDF anywhere else opens in the browser's, which does.
   if (PDF_RE.test(bare) && !GH_BLOB_RE.test(url)) return 'pdf';
-  // Only files GitHub shows as text have line anchors (not .doc/.docx/.odt
-  // or mail archives).
-  if (GH_BLOB_RE.test(url || '') && /\.(txt|md|round)$/i.test(bare)) return 'line';
+  // Only files GitHub shows as text have line anchors (not .doc/.docx/.odt,
+  // mail archives, whose questions are base64 attachments, or a file too
+  // big for GitHub to show, like Blurt's 2 MB questions.json). A CSV shows
+  // as a table unless the link asks for its text (?plain=1).
+  if (GH_BLOB_RE.test(url || '') && (/\.(txt|md|round)$/i.test(bare) || (/\.csv$/i.test(bare) && /[?&]plain=1/.test(url)))) return 'line';
   return null;
 }
 
@@ -75,6 +82,31 @@ function locate(doc, question, from) {
   return null;
 }
 
+// A question whose text the PDF's text layer garbles (an equation drawn as
+// an image, a two-column page read out of order) takes the page of the
+// questions around it: the previous question's page when the next one is
+// on that page or a later one (it starts after the one before it, so the
+// link opens on its page or the page before), or, at either end of the
+// packet, the page of a question at most two away. Line links aren't
+// filled: a line anchor highlights its line, so it has to be the right one.
+function fillFromNeighbours(recs) {
+  const placed = recs.map((r) => (r.pg > 0 ? r.pg : null));
+  let filled = 0;
+  recs.forEach((r, i) => {
+    if (placed[i]) return;
+    let p = i - 1; while (p >= 0 && !placed[p]) p--;
+    let n = i + 1; while (n < recs.length && !placed[n]) n++;
+    const prev = p >= 0 ? placed[p] : null;
+    const next = n < recs.length ? placed[n] : null;
+    let pg = null;
+    if (prev && next) pg = prev <= next ? prev : null;
+    else if (prev && i - p <= 2) pg = prev;
+    else if (next && n - i <= 2) pg = next;
+    if (pg) { r.pg = pg; filled++; }
+  });
+  return filled;
+}
+
 async function pool(items, size, fn) {
   let next = 0;
   const workers = Array.from({ length: size }, async () => {
@@ -104,7 +136,7 @@ async function download(url, file) {
 
 function rawGithubUrl(url) {
   const m = url.match(GH_BLOB_RE);
-  return `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}`;
+  return `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3].split(/[?#]/)[0]}`;
 }
 
 async function packetUnits(url, cacheDir) {
@@ -156,38 +188,41 @@ async function main() {
   let done = 0;
   await pool(urls, 4, async (url) => {
     const host = new URL(url).host;
-    if (!stats.has(host)) stats.set(host, { q: 0, placed: 0, failedFiles: 0 });
+    if (!stats.has(host)) stats.set(host, { q: 0, placed: 0, filled: 0, failedFiles: 0 });
     const st = stats.get(host);
     const recs = byUrl.get(url);
     st.q += recs.length;
     const units = await packetUnits(url, cacheDir);
     if (!units) {
       st.failedFiles++;
-      recs.forEach((r) => { delete r.pg; unplaced.push([r.i, url, 'file not readable']); });
+      // (A download that fails keeps the pages an earlier run found.)
+      recs.forEach((r) => { if (!(r.pg > 0)) unplaced.push([r, url, 'file not readable']); });
     } else {
       const doc = indexUnits(units);
       let from = 0;
       recs.forEach((r) => {
         const at = locate(doc, r.q, from);
         if (at === null) {
-          delete r.pg;
-          unplaced.push([r.i, url, 'text not found']);
+          if (r.pg > 0) { st.placed++; return; } // placed by an earlier run
+          unplaced.push([r, url, 'text not found']);
           return;
         }
         r.pg = doc.unitAt(at);
         from = at + 1;
         st.placed++;
       });
+      if (packetKind(url) === 'pdf') st.filled += fillFromNeighbours(recs);
     }
     if (++done % 100 === 0) console.error(`  ${done}/${urls.length}`);
   });
 
-  console.log('host\tquestions\tplaced\tunreadable files');
+  console.log('host\tquestions\tplaced\tfrom neighbours\tunreadable files');
   [...stats.entries()].sort((a, b) => b[1].q - a[1].q).forEach(([h, s]) => {
-    console.log(`${h}\t${s.q}\t${s.placed} (${((100 * s.placed) / s.q).toFixed(1)}%)\t${s.failedFiles}`);
+    console.log(`${h}\t${s.q}\t${s.placed} (${((100 * s.placed) / s.q).toFixed(1)}%)\t${s.filled}\t${s.failedFiles}`);
   });
-  fs.writeFileSync(path.join(cacheDir, 'unplaced.json'), JSON.stringify(unplaced, null, 1));
-  console.log(`${unplaced.length} questions not placed (listed in ${path.join(cacheDir, 'unplaced.json')})`);
+  const left = unplaced.filter(([r]) => !(r.pg > 0)).map(([r, url, why]) => [r.i, url, why]);
+  fs.writeFileSync(path.join(cacheDir, 'unplaced.json'), JSON.stringify(left, null, 1));
+  console.log(`${left.length} questions not placed (listed in ${path.join(cacheDir, 'unplaced.json')})`);
   if (write) {
     pack(records);
     console.log('Bank rewritten with pg fields.');
