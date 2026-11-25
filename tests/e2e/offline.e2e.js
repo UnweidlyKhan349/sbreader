@@ -82,7 +82,6 @@ test('after one visit, the whole site works offline', async () => {
   // The Multiplayer lobby says it needs a connection.
   await page.goto(base + 'multiplayer', { waitUntil: 'load' });
   await page.waitForFunction(() => /offline/.test(document.getElementById('activeSummary').textContent), null, { timeout: 20000 });
-  assert.strictEqual(await page.locator('#activeSummary').evaluate((el) => getComputedStyle(el).display), 'block', 'on its own line');
 
   // An address never saved (a built set page, or anything else).
   await page.goto(base + 'sets/lost-3-hs/2', { waitUntil: 'load' });

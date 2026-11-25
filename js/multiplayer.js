@@ -237,10 +237,7 @@
     // counts, and a line saying so, until the connection is back.
     if (typeof navigator !== 'undefined' && navigator.onLine === false) {
       paintRoomLists(null, null);
-      const summary = document.getElementById('activeSummary');
-      summary.textContent = "You're offline. Multiplayer needs an internet connection (Play works offline).";
-      // On its own line, under the sentence about inviting friends.
-      summary.classList.add('d-block');
+      document.getElementById('activeSummary').textContent = "You're offline. Multiplayer needs an internet connection (Play works offline).";
       return;
     }
     // Asked again while a request is out: once more when it's back, so a
@@ -315,9 +312,7 @@
     const activeRooms = reg ? reg.activeRooms : [...probe.values()].filter((c) => c > 0).length;
     // "There is 1 active player in 1 active room." / "There are 3 active players in 2 active rooms."
     const plural = (n, word) => `${n.toLocaleString()} active ${word}${n === 1 ? '' : 's'}`;
-    const summary = document.getElementById('activeSummary');
-    summary.textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
-    summary.classList.remove('d-block');
+    document.getElementById('activeSummary').textContent = `There ${activePlayers === 1 ? 'is' : 'are'} ${plural(activePlayers, 'player')} in ${plural(activeRooms, 'room')}.`;
   }
 
   /* ================= SHARED GAME STATE (rendered identically on host & clients) ================= */
