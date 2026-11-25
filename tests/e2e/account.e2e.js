@@ -242,8 +242,8 @@ test('starred tossups and bonuses are listed together, and Clear unstars them al
   const tossups = packet.filter((q) => q.qt === 'tossup').slice(0, 2).map((q) => q.i);
   const bonus = packet.find((q) => q.qt === 'bonus').i;
   const all = [...tossups, bonus].sort((a, b) => a - b);
-  // 92983, removed from the bank (non-science trivia): a star with no card.
-  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [...all, 92983] });
+  // 64498, removed from the bank (wrong key): a star with no card.
+  const { ctx, page } = await signedIn('stars', { fn: (ids) => { localStorage.setItem('sb_bookmarks_v1', JSON.stringify(ids)); }, arg: [...all, 64498] });
   await page.waitForSelector('#question-list .q-card');
   assert.strictEqual(await page.locator('#question-list .q-card').count(), 3);
   assert.strictEqual(await page.textContent('#clear-starred'), 'Clear Starred Questions');
