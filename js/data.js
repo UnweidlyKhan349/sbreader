@@ -287,6 +287,14 @@
   }
   SBData.answerHead = answerHead;
   SBData.answerKey = answerKey;
+  // Whether an answer's key belongs to a frequency-list entry's: the same
+  // key, or its plural ("ribosomes" for "ribosome"), which the list counts
+  // with it. The Database uses this for the list's links, so a link finds
+  // as many questions as the list says.
+  function answerKeyMatches(key, wanted) {
+    return !!wanted && (key === wanted || key === wanted + 's' || key === wanted + 'es');
+  }
+  SBData.answerKeyMatches = answerKeyMatches;
   // [{ answer, count }], most frequent first (ties A-Z), at most `limit`.
   SBData.frequencyList = function (questions, limit) {
     const groups = new Map();
@@ -299,11 +307,27 @@
       const head = answerHead(q);
       g.forms.set(head, (g.forms.get(head) || 0) + 1);
     });
-    // Each answer is shown in its most common spelling.
-    return [...groups.values()].map((g) => ({
-      answer: [...g.forms].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0],
-      count: g.count,
-    })).sort((a, b) => b.count - a.count || a.answer.localeCompare(b.answer)).slice(0, limit || undefined);
+    // A plural counts with its singular when both are answers ("RIBOSOMES"
+    // with "Ribosome", "cell walls" with "cell wall"); the singular is the
+    // one shown, so its Database search finds both.
+    for (const [key, g] of [...groups]) {
+      const base = [key.replace(/es$/, ''), key.replace(/s$/, '')].find((b) => b !== key && groups.has(b));
+      if (!base) continue;
+      groups.get(base).count += g.count;
+      groups.delete(key);
+    }
+    // Each answer is shown in its most common spelling, preferring one that
+    // isn't all capitals ("Water", not "WATER", when packets print both),
+    // with a lowercase first word capitalized ("Glucose"; "mRNA" and "pH"
+    // stay as they are). (Until November 25, 2026 the most common spelling
+    // was shown as it was, and plurals were counted on their own.)
+    const allCaps = (t) => t === t.toUpperCase() && /[A-Z]/.test(t);
+    return [...groups.values()].map((g) => {
+      const forms = [...g.forms].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+      let answer = (forms.find(([f]) => !allCaps(f)) || forms[0])[0];
+      if (/^[a-z]+(?:\s|$)/.test(answer)) answer = answer[0].toUpperCase() + answer.slice(1);
+      return { answer, count: g.count };
+    }).sort((a, b) => b.count - a.count || a.answer.localeCompare(b.answer)).slice(0, limit || undefined);
   };
 
   // Builds the "Answer: ..." line's inner HTML, with any accept-list

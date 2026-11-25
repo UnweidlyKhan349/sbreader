@@ -346,3 +346,28 @@ test('a practice set holds no word-for-word copy of a tournament question or of 
   }
   assert.deepStrictEqual(copies.slice(0, 10), []);
 });
+
+test('frequency lists count a plural with its singular and show a spelling that is not all capitals', () => {
+  const q = (t) => ({ answer: { text: t } });
+  const list = globalThis.SBData.frequencyList([q('RIBOSOMES'), q('Ribosome'), q('RIBOSOME'), q('WATER'), q('Water'), q('WATER'), q('glucose'), q('mRNA'), q('pH')], 10);
+  assert.deepStrictEqual(list, [
+    { answer: 'Ribosome', count: 3 },
+    { answer: 'Water', count: 3 },
+    { answer: 'Glucose', count: 1 },
+    { answer: 'mRNA', count: 1 },
+    { answer: 'pH', count: 1 },
+  ]);
+});
+
+test("a frequency list's counts are what its Database links find", () => {
+  const { SBData } = globalThis;
+  const { questions } = loadCorpus();
+  for (const subject of ['bio', 'chem', 'phys', 'math', 'ess', 'energy']) {
+    const qs = questions.filter((q) => q.subject === subject);
+    SBData.frequencyList(qs, 50).forEach(({ answer, count }) => {
+      const wanted = SBData.answerKey({ answer: { text: answer } });
+      const found = qs.filter((q) => SBData.answerKeyMatches(SBData.answerKey(q), wanted)).length;
+      assert.strictEqual(found, count, `${subject}: ${answer}`);
+    });
+  }
+});

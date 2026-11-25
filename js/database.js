@@ -283,7 +283,7 @@
       searchType: state.searchType,
       ignoreWordOrder: state.ignoreWordOrder,
       exactWords: state.exactWords,
-    }).filter((q) => !state.exactAnswer || SBData.answerKey(q) === state.exactAnswer), { recent: state.tournaments.size === 0 });
+    }).filter((q) => !state.exactAnswer || SBData.answerKeyMatches(SBData.answerKey(q), state.exactAnswer)), { recent: state.tournaments.size === 0 });
 
     let pageItems;
     let totalPages = 1;
