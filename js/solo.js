@@ -785,5 +785,6 @@
     if (settings.mode === 'starred' && (p.has('mode') || p.get('bookmarked') === '1')) startSession();
   }).catch((err) => {
     document.getElementById('qDisplay').textContent = SBData.loadErrorText(err);
+    document.getElementById('matchCount').textContent = '';
   });
 })();
