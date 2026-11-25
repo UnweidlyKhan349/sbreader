@@ -1,7 +1,7 @@
 // Multiplayer with two simulated players (tests/e2e/fake-peer.js): joining,
 // settings in sync (also with network lag, where a stale echo used to undo
-// quick clicks), overrides, the live chat line, the rounds message on
-// letting go of the slider, the relay when direct links are blocked, a
+// quick clicks), overrides, the live chat line, the rounds message that
+// follows the slider live, the relay when direct links are blocked, a
 // newcomer reading on mid-question, and the coordinator leaving. Room owners
 // and the room's flow are in multiplayer-rooms.e2e.js (run alongside).
 const test = require('node:test');
@@ -198,7 +198,7 @@ test('reaching the end of the questions says so in a dialog on the page, not a b
   await ctx.close();
 });
 
-test('the room hears about a round change once, when the slider is let go; another player\'s change gets its own line', async () => {
+test('a round change reaches the room as the slider moves, on one line that follows it; another player\'s change gets its own line', async () => {
   const ctx = await newContext(browser);
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
@@ -208,10 +208,13 @@ test('the room hears about a round change once, when the slider is let go; anoth
   const y = box.y + box.height / 2;
   await g.mouse.move(box.x + box.width - 8, y); await g.mouse.down();
   for (let i = 1; i <= 8; i++) { await g.mouse.move(box.x + box.width - 8 - i * (box.width / 25), y); await g.waitForTimeout(60); }
-  await g.waitForTimeout(400);
-  assert.deepStrictEqual(await events(), [], 'nothing while dragging');
+  await g.waitForTimeout(600);
+  const during = await events();
+  assert.strictEqual(during.length, 1, 'one line while dragging');
+  assert.match(during[0], /changed the rounds to 1-\d+$/, 'live, as the slider moves');
   await g.mouse.up(); await g.waitForTimeout(800);
   assert.strictEqual((await events()).length, 1);
+  assert.strictEqual(await a.locator('#mpSettingsRoundRangeLabel').innerText(), await g.locator('#mpSettingsRoundRangeLabel').innerText(), 'everyone\'s slider follows');
   // Another player's change to the rounds gets its own line; the same
   // player's next one edits theirs.
   const release = async (p, steps) => {
@@ -226,6 +229,23 @@ test('the room hears about a round change once, when the slider is let go; anoth
   await release(a, 5);
   assert.strictEqual((await events()).length, 2, 'the same player\'s next change edits their own line');
   assert.strictEqual((await g.$$eval('#mpHistory li i', (xs) => xs.filter((x) => /changed the rounds/.test(x.textContent)).length)), 2, 'everyone sees both');
+  await ctx.close();
+});
+
+test('the reading speed reaches the room as its slider moves, on one line', async () => {
+  const ctx = await newContext(browser);
+  const r = room();
+  const a = await joinRoom(ctx, server.url, r);
+  const g = await joinRoom(ctx, server.url, r);
+  const lines = () => a.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed the reading speed/.test(t)));
+  for (const v of [55, 60, 65, 70]) {
+    await g.evaluate((x) => { const el = document.getElementById('mpSettingsRateSlider'); el.value = x; el.dispatchEvent(new Event('input', { bubbles: true })); }, v);
+    await g.waitForTimeout(150);
+  }
+  await a.waitForFunction(() => document.getElementById('mpSettingsRateValue').textContent === '70', null, { timeout: 10000 });
+  await a.waitForTimeout(500);
+  assert.deepStrictEqual((await lines()).map((t) => t.replace(/^.*changed/, 'changed')), ['changed the reading speed to 70'], 'one line, before the slider is let go');
+  assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
 

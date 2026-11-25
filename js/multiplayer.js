@@ -1171,7 +1171,7 @@
   }
   // A system line for the whole room, from whoever runs the game.
   // kind: for a settings change ('subjects', 'tournaments', 'rounds',
-  // 'years', 'rate', 'timer', ...: see describeChanges), so the next one of
+  // 'rate', 'timer', ...: see describeChanges), so the next one of
   // that kind can take its line's place.
   function hostEvent(connId, text, kind) {
     if (myState.role !== 'host') return;
@@ -1232,7 +1232,9 @@
       // public unlocks it, as on QB Reader).
       locked: f.locked === true && f.isPublic === false,
       subjects: new Set(f.subjects), qtypes: new Set(f.qtypes || []), formats: new Set(f.formats || []), levels: new Set(f.levels || []), visuals: new Set(f.visuals || []),
-      tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: f.yearRange || null, includeUnlabeled: f.includeUnlabeled !== false,
+      // (No year range: its slider was removed on November 25, 2026, so a
+      // range from an older copy or a room's saved settings is dropped.)
+      tournaments: new Set(f.tournaments || []), roundRange: f.roundRange || null, yearRange: null, includeUnlabeled: f.includeUnlabeled !== false,
     };
   }
 
@@ -1746,7 +1748,6 @@
     }
     if (msg.type === 'next') { if (hostGame.phase === 'reveal' || hostGame.phase === 'lobby') { if (hostGame.phase === 'lobby') hostEvent(connId, 'started the game'); hostNextQuestion(); } return; }
     if (msg.type === 'announceRounds') { hostAnnounceRounds(connId); return; }
-    if (msg.type === 'announceYears') { hostAnnounceYears(connId); return; }
     if (msg.type === 'togglePause') { if (hostGame.phase !== 'lobby') hostEvent(connId, hostGame.paused ? 'unpaused the game' : 'paused the game'); hostTogglePause(); return; }
     if (msg.type === 'skip') {
       if (!canSkip()) return;
@@ -3536,7 +3537,6 @@
   // applied there (hostApplySettingsFromValues) and sent back to everyone.
   const midGameFilterState = copyFilters({ subjects: [] });
   let midGameRoundSliderApi = null;
-  let midGameYearSliderApi = null;
   let categories = null;
   let midGameSettingsWired = false;
   // Set while the controls are repainted FROM the room's settings, so that
@@ -3584,12 +3584,9 @@
     requestApplySettings();
   }
 
-  // "Henry changed the rounds to 6-20", once the round slider is let go (the
-  // range itself goes out quietly while it's dragged).
-  function announceRounds() {
-    if (myState.role === 'host') hostAnnounceRounds(myState.myId);
-    else if (client) client.send({ type: 'announceRounds' });
-  }
+  // "Henry changed the rounds to 6-20": the line now comes with the change
+  // itself (describeChanges). An older copy still asks for it when the
+  // slider is let go; that rewrites the same player's line, as is.
   function hostAnnounceRounds(connId) {
     if (myState.role !== 'host' || !activeFilterState) return;
     const max = SBData.maxRoundFor(activeFilterState.tournaments);
@@ -3597,19 +3594,7 @@
     hostEvent(connId, `changed the rounds to ${Math.max(1, r[0])}-${Math.min(r[1], max)}`, 'rounds');
   }
 
-  // "Henry changed the years to 2015-2026", the same way, from the year slider.
-  function announceYears() {
-    if (myState.role === 'host') hostAnnounceYears(myState.myId);
-    else if (client) client.send({ type: 'announceYears' });
-  }
-  function hostAnnounceYears(connId) {
-    if (myState.role !== 'host' || !activeFilterState) return;
-    const [first, last] = SBData.yearSpan();
-    const r = activeFilterState.yearRange || [first, last];
-    hostEvent(connId, r[0] === r[1] ? `changed the years to ${r[0]}` : `changed the years to ${r[0]}-${r[1]}`, 'years');
-  }
-
-  // Clear all filters: every tournament, year and round, no subject picked
+  // Clear all filters: every tournament and round, no subject picked
   // (which plays every subject; a one-subject room keeps its subject),
   // questions with no round number included, and all of a set's packets;
   // sent as one change.
@@ -3628,8 +3613,6 @@
       f.packetNumbers = '';
       if (midGameRoundSliderApi) { midGameRoundSliderApi.setMax(SBData.maxRoundFor(f.tournaments)); midGameRoundSliderApi.reset(); }
       f.roundRange = null;
-      if (midGameYearSliderApi) midGameYearSliderApi.reset();
-      f.yearRange = null;
     } finally {
       suppressSettingsApplyEcho = false;
     }
@@ -3664,22 +3647,8 @@
       fillEl: document.getElementById('mpSettingsRoundSliderFill'),
       labelEl: document.getElementById('mpSettingsRoundRangeLabel'),
       maxRound,
+      // Sent as it moves; the room's line for it follows (describeChanges).
       onChange: (lo, hi) => { midGameFilterState.roundRange = [lo, hi]; onSettingChange(); },
-      // The room hears about it once, when the handle is let go.
-      onCommit: () => { if (!suppressSettingsApplyEcho) announceRounds(); },
-    });
-    // Year range, as on QB Reader: the tournaments' years.
-    const [firstYear, lastYear] = SBData.yearSpan();
-    midGameYearSliderApi = SBData.wireRoundRangeSlider({
-      minInput: document.getElementById('mpSettingsYearMin'),
-      maxInput: document.getElementById('mpSettingsYearMax'),
-      fillEl: document.getElementById('mpSettingsYearSliderFill'),
-      labelEl: document.getElementById('mpSettingsYearRangeLabel'),
-      min: firstYear,
-      maxRound: lastYear,
-      label: SBPlay.yearLabel,
-      onChange: (lo, hi) => { midGameFilterState.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; onSettingChange(); },
-      onCommit: () => { if (!suppressSettingsApplyEcho) announceYears(); },
     });
 
     document.getElementById('mpClearFilters').addEventListener('click', (e) => { e.currentTarget.blur(); clearRoomFilters(); });
@@ -3706,10 +3675,13 @@
     });
 
     const rateSlider = document.getElementById('mpSettingsRateSlider');
+    // Live, as the rounds are: the room reads at the new speed as the slider
+    // moves, and the player's "changed the reading speed to ..." line follows.
     rateSlider.addEventListener('input', () => {
       document.getElementById('mpSettingsRateValue').textContent = String(SBMpRules.readingSpeed(rateSlider.value));
+      requestApplySettings();
     });
-    rateSlider.addEventListener('change', () => { rateSlider.blur(); requestApplySettings(); });
+    rateSlider.addEventListener('change', () => rateSlider.blur());
   }
 
   // Paints the sidebar from the room's current settings: on entering, and
@@ -3739,7 +3711,6 @@
         midGameRoundSliderApi.setRange(1, top);
         f.roundRange = null;
       }
-      if (midGameYearSliderApi) { const ys = SBData.yearSpan(); const yr = f.yearRange || ys; midGameYearSliderApi.setRange(yr[0], yr[1]); }
       document.getElementById('mpTogglePublic').checked = f.isPublic;
       document.getElementById('mpToggleLock').checked = f.locked === true && f.isPublic === false;
       document.getElementById('mpToggleRebuzz').checked = f.rebuzz;
@@ -3775,6 +3746,13 @@
       const n = after.tournaments.size;
       const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
       out.push({ kind: 'tournaments', text: n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments' });
+    } else {
+      // The rounds, live as the slider moves (the player's line on top
+      // follows it). A range that moved only because the tournaments
+      // changed isn't a change of its own.
+      const roundsOf = (f) => { const max = SBData.maxRoundFor(f.tournaments); const r = f.roundRange || [1, max]; return [Math.max(1, r[0]), Math.min(r[1], max)]; };
+      const [b, a] = [roundsOf(before), roundsOf(after)];
+      if (b[0] !== a[0] || b[1] !== a[1]) out.push({ kind: 'rounds', text: `changed the rounds to ${a[0]}-${a[1]}` });
     }
     if (before.rebuzz !== after.rebuzz) out.push({ kind: 'rebuzz', text: `${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes` });
     if (before.skip !== after.skip) out.push({ kind: 'skip', text: `${after.skip ? 'enabled' : 'disabled'} skipping` });

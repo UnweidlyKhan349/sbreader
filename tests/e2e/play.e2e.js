@@ -285,8 +285,12 @@ test('with the timer off, each question shows in full at once and waits for a bu
   await ctx.close();
 });
 
-test('the year slider: a press to the right of two handles sitting together moves the top of the range, to the left the bottom', async () => {
-  const { ctx, page } = await freshPlay();
+test('the Database\'s year slider: a press to the right of two handles sitting together moves the top of the range, to the left the bottom', async () => {
+  // (Play's own year slider was removed on November 25, 2026; the two-handle
+  // slider is the same code there, here and in the round sliders.)
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'database');
+  await page.waitForFunction(() => /seconds/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   const box = await page.locator('#yearSlider').boundingBox();
   const y = box.y + box.height / 2;
   const range = () => page.evaluate(() => [+document.getElementById('yearMin').value, +document.getElementById('yearMax').value]);

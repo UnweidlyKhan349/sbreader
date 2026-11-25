@@ -21,15 +21,12 @@
     mode: 'random',
     tournaments: [],
     roundRange: null,
-    // [first, last] years, or null for every year.
-    yearRange: null,
     includeUnlabeled: true,
     rebuzz: false,
     timer: true,
   };
   let subjects; // Set of subject keys
   let roundSliderApi;
-  let yearSliderApi;
   let categories;
 
   /* ================= QUESTIONS FOR THE CURRENT SETTINGS ================= */
@@ -40,7 +37,6 @@
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
-      yearRange: settings.yearRange,
       includeUnlabeled: settings.includeUnlabeled !== false,
     });
   }
@@ -127,18 +123,6 @@
       maxRound,
       onChange: (lo, hi) => { settings.roundRange = [lo, hi]; onSettingsChange(); },
     });
-    // Year range, as on QB Reader: the tournaments' years.
-    const [firstYear, lastYear] = SBData.yearSpan();
-    yearSliderApi = SBData.wireRoundRangeSlider({
-      minInput: document.getElementById('yearMin'),
-      maxInput: document.getElementById('yearMax'),
-      fillEl: document.getElementById('yearSliderFill'),
-      labelEl: document.getElementById('yearRangeLabel'),
-      min: firstYear,
-      maxRound: lastYear,
-      label: SBPlay.yearLabel,
-      onChange: (lo, hi) => { settings.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; onSettingsChange(); },
-    });
     const unlabeled = document.getElementById('toggleUnlabeled');
     unlabeled.checked = settings.includeUnlabeled !== false;
     unlabeled.addEventListener('change', () => { settings.includeUnlabeled = unlabeled.checked; unlabeled.blur(); onSettingsChange(); });
@@ -193,8 +177,6 @@
     document.getElementById('toggleUnlabeled').checked = true;
     roundSliderApi.reset(); // reports the full range, which saves and recounts
     settings.roundRange = null;
-    yearSliderApi.reset();
-    settings.yearRange = null;
     onSettingsChange();
   }
 

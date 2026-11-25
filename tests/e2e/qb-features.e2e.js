@@ -1,9 +1,9 @@
 // Features from QB Reader (November 2026): the Database's Ignore word order,
 // its cards (title linking the source, Stats | Report on the
 // answer line, no footer), community question stats (the Supabase functions
-// answered here), Play's answers always typed and the year range,
-// the set and packet pages' source links, the plainer frequency lists, and a
-// room's year range in Multiplayer.
+// answered here), Play's answers always typed, no year slider in Play or
+// Multiplayer, the set and packet pages' source links, and the plainer
+// frequency lists.
 const test = require('node:test');
 const assert = require('node:assert');
 const { chromium, startServer, newContext, openPage, joinRoom } = require('./helpers');
@@ -192,40 +192,16 @@ test('Play: answers are always typed (no Type to answer switch); an overridden a
   await ctx.close();
 });
 
-test('Play: the year range narrows the questions', async () => {
+test('Play and Multiplayer have no year slider (the Database keeps its own)', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'solo');
   await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
-  const count = () => page.locator('#matchCount').innerText().then((t) => parseInt(t.replace(/,/g, ''), 10));
-  const all = await count();
-  assert.match(await page.locator('#yearRangeLabel').innerText(), /^Year range: \d{4} - \d{4}$/);
-  const below = async (a, b) => (await page.locator(a).boundingBox()).y > (await page.locator(b).boundingBox()).y;
-  assert.ok(await below('#roundSlider', '#yearSlider'), 'the year slider is above the round slider');
-  await page.evaluate(() => { const el = document.getElementById('yearMin'); el.value = 2025; el.dispatchEvent(new Event('input', { bubbles: true })); });
-  await page.waitForTimeout(300);
-  assert.ok(await count() < all);
-  assert.match(await page.locator('#yearRangeLabel').innerText(), /^Year range: 2025 - /);
-  await page.locator('#clearFilters').click();
-  await page.waitForTimeout(300);
-  assert.strictEqual(await count(), all);
-  await ctx.close();
-});
-
-test('Multiplayer: a year range set by one player reaches the room, which hears it once', async () => {
-  const ctx = await newContext(browser);
+  assert.strictEqual(await page.locator('#yearSlider, #yearRangeLabel').count(), 0);
   const r = 'e2e' + Math.random().toString(36).slice(2, 8);
   const a = await joinRoom(ctx, server.url, r);
-  const b = await joinRoom(ctx, server.url, r);
-  await b.evaluate(() => {
-    const el = document.getElementById('mpSettingsYearMin');
-    el.value = 2024;
-    el.dispatchEvent(new Event('input', { bubbles: true }));
-    el.dispatchEvent(new Event('change', { bubbles: true }));
-  });
-  await a.waitForFunction(() => /^Year range: 2024 - /.test(document.getElementById('mpSettingsYearRangeLabel').textContent), null, { timeout: 10000 });
-  await a.waitForFunction(() => /changed the years to 2024-/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
-  assert.strictEqual(await a.locator('#mpToggleShowHistory').count(), 0);
-  assert.deepStrictEqual([...a.errors, ...b.errors], []);
+  assert.strictEqual(await a.locator('#mpSettingsYearSlider, #mpSettingsYearRangeLabel').count(), 0);
+  assert.ok(await a.locator('#mpSettingsRoundSlider').count() === 1);
+  assert.deepStrictEqual([...page.errors, ...a.errors], []);
   await ctx.close();
 });
 
