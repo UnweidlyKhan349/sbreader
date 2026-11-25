@@ -358,3 +358,16 @@ test('frequency lists count a plural with its singular and show a spelling that 
     { answer: 'pH', count: 1 },
   ]);
 });
+
+test("a frequency list's counts are what its Database links find", () => {
+  const { SBData } = globalThis;
+  const { questions } = loadCorpus();
+  for (const subject of ['bio', 'chem', 'phys', 'math', 'ess', 'energy']) {
+    const qs = questions.filter((q) => q.subject === subject);
+    SBData.frequencyList(qs, 50).forEach(({ answer, count }) => {
+      const wanted = SBData.answerKey({ answer: { text: answer } });
+      const found = qs.filter((q) => SBData.answerKeyMatches(SBData.answerKey(q), wanted)).length;
+      assert.strictEqual(found, count, `${subject}: ${answer}`);
+    });
+  }
+});

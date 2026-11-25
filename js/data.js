@@ -287,6 +287,14 @@
   }
   SBData.answerHead = answerHead;
   SBData.answerKey = answerKey;
+  // Whether an answer's key belongs to a frequency-list entry's: the same
+  // key, or its plural ("ribosomes" for "ribosome"), which the list counts
+  // with it. The Database uses this for the list's links, so a link finds
+  // as many questions as the list says.
+  function answerKeyMatches(key, wanted) {
+    return !!wanted && (key === wanted || key === wanted + 's' || key === wanted + 'es');
+  }
+  SBData.answerKeyMatches = answerKeyMatches;
   // [{ answer, count }], most frequent first (ties A-Z), at most `limit`.
   SBData.frequencyList = function (questions, limit) {
     const groups = new Map();
