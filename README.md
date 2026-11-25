@@ -619,6 +619,10 @@ Every deploy runs `tools/stamp-version.js`, which writes `version.json` (the com
 - `sitemap.xml` lists the public pages (without `.html`); the deployed copy also lists every set and packet page (see above). `robots.txt` allows everything and names the sitemap; the site is at the domain root, so crawlers read it. The sitemap can also be submitted, as `https://sbreader.org/sitemap.xml`, in Google Search Console and Bing Webmaster Tools. After the move from `sbreader.github.io`, add `sbreader.org` as a new Search Console property (the `google253f8e427c6e2761.html` verification file is deployed with the site, or verify the whole domain with a TXT record at GoDaddy), submit the sitemap there, and use **Settings → Change of address** on the old `sbreader.github.io` property so Google moves its ranking to the new domain.
 - The canonical, Open Graph, sitemap and `robots.txt` URLs name `https://sbreader.org/` (as do `SITE` in `tools/build-pages.js` and `js/set-pages.js`, `NEW_SITE` in `tools/redirect-site.js`, and the custom domain in this repo's Pages settings), and `404.html` links from the domain root. A fork or a move to another address needs them changed (`grep -rn "sbreader.org" *.html sitemap.xml robots.txt js tools .github`); hosting under a path such as `/<repo>/` also needs `404.html`'s links prefixed with it.
 
+## Rebuilding the bank from its sources
+
+`tools/ingest/` downloads every source packet again, parses it, applies the corrections recorded there, and checks the result byte for byte against `data/bank/` (`node tools/ingest/build.js --check`). See [tools/ingest/README.md](tools/ingest/README.md). After a hand edit to the bank, `node tools/ingest/build.js --write-corrections --only <slug>` carries it into the corrections.
+
 ## Local development and tests
 
 ```bash

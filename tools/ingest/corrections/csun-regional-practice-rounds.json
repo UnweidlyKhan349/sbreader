@@ -1,0 +1,29 @@
+[
+[
+{"i":118061,"m":0,"set":{"q":"Approximately how many Earth days are there in the Mercurian year?","c":true,"c.W":"111 days","c.X":"88 days","c.Y":"50 days","c.Z":"25 days","a.t":"88 days","a.l":"X"}},
+{"i":118062,"m":1},
+{"i":118063,"m":3,"set":{"q":"Once erythrocytes enter the blood in humans, it is estimated that they have an average lifetime of how many days?","c":true,"c.W":"10 days","c.X":"50 days","c.Y":"120 days","c.Z":"200 days","a.t":"120 days","a.l":"Y"}},
+{"i":118064,"m":5,"set":{"q":"What is the wavelength in millimeters of a sound wave whose frequency is 35 KILOHERTZ? Assume the speed of sound is 350 METERS PER SECOND.","c":true,"c.W":"100 millimeters","c.X":"1,000 millimeters","c.Y":"10 millimeters","c.Z":"1 millimeter","a.t":"10 millimeters","a.l":"Y"}},
+{"i":118065,"m":7,"set":{"q":"Absorption into the nucleus of an electron from the K shell is called \"electron capture\". When this happens to Ar-37, the product is:","c":true,"c.W":"Cl-37","c.X":"Cl-38","c.Y":"K-37","c.Z":"K-38","a.t":"Cl-37","a.l":"W"}},
+{"i":118066,"m":34},
+{"i":118067,"m":36,"set":{"q":"Which of the following pairs of German scientists discovered the atomic fission of uranium and set the stage for the nuclear age?","c":true,"c.W":"Hahn and Strassman","c.X":"Nernst and Planck","c.Y":"Ostwald and Heisenberg","c.Z":"Bohr and Einstein","a.t":"Hahn and Strassman","a.l":"W"}},
+{"i":118068,"m":40,"set":{"q":"What FORTRAN symbol represents a BLANK field?","c":true,"c.W":"X","c.X":"I","c.Y":"E","c.Z":"F","a.t":"X","a.l":"W"}},
+{"i":118069,"m":42,"set":{"q":"When a wound occurs in humans, the platelets in the blood activate what substance which starts the clotting process?","c":true,"c.W":"adenosine","c.X":"histamine","c.Y":"lecithin","c.Z":"thrombin","a.t":"thrombin","a.l":"Z"}},
+{"i":118070,"m":47,"set":{"q":"Which of the following terms refers to a material that slows the speed of neutrons?","c":true,"c.W":"retarder","c.X":"moderator","c.Y":"buffer","c.Z":"bottleneck","a.t":"moderator","a.l":"X"}}],
+[
+{"i":118071,"m":6,"set":{"q":"In cell division, the phase following the metaphase is:","c":true,"c.W":"prophase","c.X":"anaphase","c.Y":"telophase","c.Z":"extophase","a.t":"anaphase","a.l":"X"}},
+{"i":118072,"m":34,"set":{"q":"In geological studies, arkose gets its reddish color from which of the following minerals?","c":true,"c.W":"orthoclase","c.X":"calcite","c.Y":"aragonite","c.Z":"quartz","a.t":"orthoclase","a.l":"W"}}],
+[
+{"i":118073,"m":16,"set":{"q":"How is the atmospheric pressure of Mars as compared to the atmospheric pressure of the earth?","c":true,"c.W":"about the same as the earth's","c.X":"about 1/10th that of the earth's","c.Y":"about 1/200th that of the earth's","c.Z":"half as much as that of the earth's","a.t":"about 1/200th that of the earth's","a.l":"Y"}},
+{"i":118074,"m":21,"set":{"a.t":"C10H8"}},
+{"i":118075,"m":24,"set":{"q":"Which of these pairs is always found in granites?","c":true,"c.W":"muscovite and calcite","c.X":"quartz and orthoclase","c.Y":"hornblende and talc","c.Z":"augite and magnetite","a.t":"quartz and orthoclase","a.l":"X"}},
+{"i":118076,"m":27,"set":{"q":"Which of the following odors does the ester, methyl salicylate, produce?","c":true,"c.W":"cinnamon","c.X":"avocado","c.Y":"orange","c.Z":"oil of wintergreen","a.t":"oil of wintergreen","a.l":"Z"}},
+{"i":118077,"m":36}],
+[
+{"i":118078,"m":2,"set":{"q":"The physical appearance and properties of an organism, also known as the expression of the genetic makeup, is called the:","c":true,"c.W":"phenotype","c.X":"pangenesis","c.Y":"parental trait","c.Z":"genotype","a.t":"phenotype","a.l":"W"}},
+{"i":118079,"m":18,"set":{"q":"Three capacitors with different capacitances are connected in series. Which of the following statements is TRUE?","c":true,"c.W":"All three of the capacitors have the same potential difference between their plates.","c.X":"The magnitude of the charge is the same on all of the capacitor plates.","c.Y":"The capacitance of the system depends on the voltage applied across the three capacitors.","c.Z":"the equivalent capacitance of the system is larger than the largest individual capacitance.","a.t":"The magnitude of the charge is the same on all of the capacitor plates.","a.l":"X"}},
+{"i":118080,"m":26,"set":{"q":"What type of star has a relatively low effective temperature (3,000 to 4,000 kelvins), and has a large radius, about 100 times that of the Sun?"}},
+{"i":118081,"m":30},
+{"i":118082,"m":45,"set":{"q":"Express the decimal number 27 in Base 16."}},
+{"i":118083,"m":47}]
+]

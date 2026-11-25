@@ -1,0 +1,39 @@
+[
+[
+{"i":96072,"m":0,"set":{"q":"What is 45^2?","a.t":"2025"}},
+{"i":96073,"m":1,"set":{"q":"As a base-10 logarithm, what is 3 log_10 2 + log_10 5?","a.t":"log_10 40","a.ac":["LOG 40","LOG BASE 10 OF 40"]}},
+{"i":96074,"m":2,"set":{"a.t":"12"},"sub":{"a":["t","l"]}},
+{"i":96075,"m":3,"set":{"q":"What is the slope of a line with equation 3x + 4y = 15?","a.t":"−3/4","a.ac":["-0.75"]}},
+{"i":96076,"m":4,"set":{"q":"In reduced form, what is the product of (1 + 2i)(3 − i)?"}},
+{"i":96077,"m":5,"set":{"q":"What shape is described by the equation (x − 6)^2 + 4y^2 = 1?"},"sub":{"a":["t","l"]}},
+{"i":96078,"m":6,"set":{"a.ac":["50%","0.5"]}},
+{"i":96079,"m":7,"set":{"a.t":"360"},"sub":{"a":["t","l"]}},
+{"i":96080,"m":8,"sub":{"a":["t","l"]}},
+{"i":96081,"m":9},
+{"i":96082,"m":10,"set":{"q":"How many edges are there in a regular pyramid with 16 faces?","a.t":"30"}},
+{"i":96083,"m":11,"set":{"a.t":"II ONLY","a.ac":["2 ONLY","2"]}},
+{"i":96084,"m":12,"set":{"a.t":"MÖBIUS STRIP","a.ac":["MOBIUS STRIP","KLEIN BOTTLE"]}}],
+[
+{"i":96085,"m":0,"set":{"a.t":"INTERPHASE"}},
+{"i":96086,"m":1,"set":{"a.ac":["FOUR"]}},
+{"i":96087,"m":2,"set":{"a.ac":["1/2"]}},
+{"i":96088,"m":3,"set":{"f":"SA","q":"Mendel crosses two pea plants that are heterozygous for both pea color and pea texture. Green color is dominant to yellow, and round texture is dominant to wrinkled. What proportion of the offspring will have yellow round peas?"}},
+{"i":96089,"m":4,"set":{"q":"Given a DNA sequence of AAATTGC, find the complementary strand’s sequence."}},
+{"i":96090,"m":5,"set":{"a.t":"DOUBLE HELIX"}},
+{"i":96091,"m":6,"set":{"q":"Which of the following bases does not occur in RNA?","c.Z":"Thymine","a.t":"Thymine"},"sub":{"a":["t","l"]}},
+{"i":96092,"m":7,"set":{"c.W":"RNA polymerase","c.Y":"DNA polymerase","a.t":"DNA polymerase"},"sub":{"a":["t","l"]}},
+{"i":96093,"m":8,"set":{"c.W":"Domain","c.X":"Class","c.Y":"Order","c.Z":"Phylum","a.t":"Order"},"sub":{"a":["t","l"]}},
+{"i":96094,"m":9,"set":{"q":"Which of the following would not be classified under Eukarya?","c.W":"Green algae","c.X":"Diatoms","c.Y":"Plants","c.Z":"Chlamydia","a.t":"Chlamydia"},"sub":{"a":["t","l"]}},
+{"i":96095,"m":10,"set":{"q":"What is the name of the response plants have to the relative lengths of light and darkness?","a.t":"PHOTOPERIODISM"}}],
+[
+{"i":96096,"m":0,"set":{"q":"By name or number, order the following 4 minerals from first to last to crystallize in magma: 1) Amphibole; 2) Biotite; 3) Olivine; 4) Quartz","a.ac":["OLIVINE, AMPHIBOLE, BIOTITE, QUARTZ"]}},
+{"i":96097,"m":1,"set":{"q":"What is the minimum number of seismometers needed to locate the epicenter of an earthquake?","a.ac":["THREE"]}},
+{"i":96098,"m":2,"sub":{"a":["t","l"]}},
+{"i":96099,"m":4,"set":{"n":4},"sub":{"a":["t","l"]}},
+{"i":96100,"m":5,"set":{"n":5,"c.W":"Upper left","c.X":"Upper right","c.Y":"Lower left","c.Z":"Lower right","a.t":"Upper left"},"sub":{"a":["t","l"]}},
+{"i":96101,"m":6,"set":{"n":6,"c.W":"Halo","c.X":"Nucleus","c.Y":"Spiral arms","c.Z":"Central bulge","a.t":"Spiral arms"},"sub":{"a":["t","l"]}}],
+[
+{"i":96102,"m":0,"sub":{"a":["t","l"]}},
+{"i":96104,"m":2,"set":{"s":"chem","a.ac":["POLYSTYRENE, GLASS, GOLD"]}},
+{"i":96105,"m":3,"set":{"a.t":"91 PROTONS, 143 NEUTRONS"}}]
+]

@@ -1,0 +1,27 @@
+[
+[
+{"i":11879,"m":18,"set":{"s":"chem"},"order":["s","f","qt","n","q","a","c","pg"],"sub":{"a":["t","l"]}}],
+[
+{"i":11911,"m":4},
+{"i":11921,"m":14,"order":["s","f","qt","n","q","a","c","pg"],"sub":{"a":["t","l"]}}],
+[
+{"i":11985,"m":33}],
+[
+{"i":12012,"m":17},
+{"i":12034,"m":40}],
+[
+{"i":12068,"m":29}],
+[
+{"i":12096,"m":11,"set":{"s":"ess","a.t":"Amber has a hardness of around 2.5 on the Mohs scale while copal only has a hardness of 1.5"},"order":["s","f","qt","n","q","a","c","pg"],"sub":{"a":["t","l"]}},
+{"i":12105,"m":20,"order":["s","f","qt","n","q","a","c","pg"],"sub":{"a":["t","l"]}},
+{"i":12106,"m":21,"order":["s","f","qt","n","q","a","c","pg"],"sub":{"a":["t","l"]}},
+{"i":12114,"m":29,"set":{"q":"The rotational inertia about the z - axis of a uniform rod of mass M and length L set along the x - axis, with one end on the origin, is (1/3)ML^2. What is the moment of inertia of a rod of mass 3 kg and length 4 meters about an axis parallel to the z - axis passing through the middle of the rod?"}},
+{"i":12123,"m":38,"set":{"a.t":"3,1,2"}}],
+[
+{"i":12151,"m":20,"set":{"s":"ess","a.t":"VINE-MATTHEWS-MORLEY HYPOTHESIS","a.ac":["MORLEY-VINE-MATTHEWS HYPOTHESIS"]}}],
+[
+{"i":12195,"m":21},
+{"i":12203,"m":30,"set":{"s":"chem","a.t":"1,2,3"}},
+{"i":12206,"m":33},
+{"i":12207,"m":34}]
+]

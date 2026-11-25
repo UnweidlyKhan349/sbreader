@@ -1,0 +1,23 @@
+[
+[
+{"i":39390,"m":7}],
+[
+{"i":39435,"m":7,"set":{"q":"Identify all of the following four statements that are TRUE concerning phonons, excitations of lattice energy. 1) The Einstein Model assumes that all vibrational nodes of a solid have the same frequency 2) The Debye model is a more accurate representation of phonons. 3) The heat capacitance of a 3D solid saturates to 3R at high temperatures. 4) The low temperature result of an Einstein solid is known as the Dulong-Petit Rule."}},
+{"i":39447,"m":21,"set":{"a.t":"7√19/19"}},
+{"i":39451,"m":25,"set":{"a.t":"√(1/(3-2O))"}},
+{"i":39461,"m":36,"set":{"q":"Which of the following is NOT a property that magnetic monopoles would have if they were allowed to exist in the universe?","c":true,"c.W":"Positive monopoles would attract negative charges","c.X":"The magnetic field from a monopole would vary to the distance to the -1","c.Y":"The divergence of the magnetic field produced would equal the density of magnetic charge times mu naught","c.Z":"The magnetic charge of the monopoles would have units of Webers","a.t":"The magnetic field from a monopole would vary to the distance to the -1","a.l":"X"},"order":["s","f","qt","n","q","a","c"]}],
+[
+{"i":39632,"m":25,"set":{"q":"Give the expression for the indefinite integral of 2x times the sine of (x squared) times the cosine of (x squared) dx.","a.t":"(1/2)sin^2(x^2) + C"}}],
+[
+{"i":39710,"m":11,"set":{"a.t":"√10/2"}}],
+[
+{"i":39752,"m":7,"set":{"q":"What is the indefinite integral of sine of x times the square root of (1 plus tangent of x squared) with respect to x?","a.t":"-ln(|cos(x)|) + C"}},
+{"i":39761,"m":16}],
+[
+{"i":39803,"m":12,"set":{"a.t":"2√38"}}],
+[
+{"i":39821,"m":-1,"set":{"s":"math","f":"SA","qt":"bonus","n":16,"q":"Let F be a 3-D vector field such that F(x, y, z) = (y + z)i + (x - z)j + (y - x)k. Find the curl of F.","a":true,"a.t":"2i + 2j + 0k"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":39823,"m":33},
+{"i":39829,"m":39,"set":{"a.t":"12.2 × 10^-8"}}]
+]
