@@ -59,7 +59,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | LOST 3 MS | 488 | 18 | ms |
 | MEHS Rounds | 776 |  | hs |
 | MHS Rounds | 828 |  | hs |
-| Mira Loma Question Database | 15,417 |  | hs |
+| Mira Loma Question Database | 15,418 |  | hs |
 | MIT 2020 | 600 |  | hs |
 | MIT 2021 | 598 |  | hs |
 | MIT 2022 | 648 |  | hs |
@@ -91,7 +91,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | NWI 2025 | 395 |  | hs |
 | Olympus 2022 | 623 |  | hs |
 | Pohaku 2024 | 322 |  | hs |
-| Prometheus 2021 | 818 |  | hs |
+| Prometheus 2021 | 819 |  | hs |
 | Random | 774 |  | hs |
 | Random Stuff | 350 |  | hs |
 | SBL | 1,244 | 44 | hs |
@@ -118,4 +118,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 457 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (114)** | **106,364** | **567** | |
+| **Total (114)** | **106,366** | **567** | |
