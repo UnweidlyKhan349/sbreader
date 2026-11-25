@@ -27,12 +27,19 @@
   function fail(text) {
     root.innerHTML = `<p>${escapeHtml(text)}</p><p><a href="set-list">Back to all sets</a></p>`;
   }
+  // The page's main heading, for screen readers (it isn't shown): the set's
+  // or packet's name once it's known.
+  function setPageHeading(text) {
+    const h = document.getElementById('pageHeading');
+    if (h) h.textContent = text;
+  }
   function heading(html) {
     return `<div class="float-row mb-3"><span class="float-start">${html}</span><a class="float-end" href="set-list">Back to all sets</a></div>`;
   }
 
   function renderSet(t, packets) {
     document.title = `SBReader - ${t.name}`;
+    setPageHeading(t.name);
     const rows = packets.map((p, i) => {
       const tu = p.questions.filter((q) => q.qtype === 'tossup').length;
       const b = p.questions.length - tu;
@@ -48,6 +55,7 @@
     const p = packets[n - 1];
     if (!p) { fail('No such packet.'); return; }
     document.title = `SBReader - ${t.name} ${p.label}`;
+    setPageHeading(`${t.name} ${p.label}`);
     root.innerHTML = heading(`Packet ${n} (${escapeHtml(p.label)}) of <a href="${setHref(t.slug)}">${escapeHtml(t.name)}</a>:`)
       + SBData.packetSourceHTML(p);
     p.questions.forEach((q, i) => {

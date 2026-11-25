@@ -24,6 +24,7 @@ test('every set and packet gets a page, listed in the sitemap, its packets numbe
     assert.match(set, /<link rel="canonical" href="https:\/\/sbreader\.org\/sets\/lost-3-ms\/" \/>/);
     assert.match(set, /<base href="\/" \/>/);
     assert.match(set, /id="setPage" data-set="lost-3-ms"/);
+    assert.strictEqual((set.match(/<h1[\s>]/g) || []).length, 1);
     const packet = fs.readFileSync(path.join(out, 'sets', 'lost-3-ms', '1.html'), 'utf8');
     assert.match(packet, /data-set="lost-3-ms" data-packet="1"/);
     assert.match(packet, /class="packet-question"/);
@@ -45,6 +46,8 @@ test('every set and packet gets a page, listed in the sitemap, its packets numbe
       const html = fs.readFileSync(path.join(out, 'sets', t.slug, '1.html'), 'utf8');
       const title = html.match(/<title>([^<]*)<\/title>/)[1];
       assert.strictEqual(title, SBData.escapeHtml(`SBReader - ${t.name} ${packets[0].label}`), t.slug);
+      const h1 = html.match(/<h1 class="visually-hidden" id="pageHeading">([^<]*)<\/h1>/)[1];
+      assert.strictEqual(h1, SBData.escapeHtml(`${t.name} ${packets[0].label}`), t.slug);
     }
   } finally {
     fs.rmSync(out, { recursive: true, force: true });

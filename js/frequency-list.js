@@ -21,6 +21,9 @@
   const LIMIT = 50;
   function renderList(s) {
     document.title = `SBReader - Frequency List - ${s.label}`;
+    // The page's main heading, for screen readers (it isn't shown).
+    const pageHeading = document.getElementById('pageHeading');
+    if (pageHeading) pageHeading.textContent = `Frequency List: ${s.label}`;
     root.innerHTML = `
       <div class="d-flex flex-wrap justify-content-between align-items-start column-gap-3 mb-3 freq-head">
         <div class="lead" id="freqTitle"></div>

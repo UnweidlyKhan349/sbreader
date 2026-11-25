@@ -51,6 +51,8 @@ This README covers what the site does, how it's built, the data format, and how 
 
 Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordmark, then **Play** (`solo.html`), **Multiplayer**, **Database ▾** (Search = `database.html`, Set List) and **About**, with a theme menu (Light / Night / Auto) and **Log in** on the right (your name, once logged in). Below 992 px it folds into a ☰ menu. `js/site.js`, loaded in every page's `<head>`, puts the saved theme (`localStorage` `sb_theme`; Light on a first visit, Auto follows the system setting) on `<html data-bs-theme>` before the first paint, sets the browser bar colour (`theme-color`) to match, so a Night page never flashes white, and wires the dropdowns, the ☰ button and the current-page highlight.
 
+Every page has one main heading (`<h1>`) for screen readers and search engines. Where the page shows no title of its own, the heading names the page and isn't shown (`class="visually-hidden"`, `id="pageHeading"`); the set, packet and frequency-list pages fill in the set, packet or subject. `tests/page-heads.test.js` checks every page has exactly one.
+
 ### `index.html` (Home)
 A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer, and a Tips & Instructions button), the question database (live question and tournament counts read from `meta.json` alone, with Search and Set List), the sources, and the code, changelog and licence. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
