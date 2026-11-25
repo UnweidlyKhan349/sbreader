@@ -225,10 +225,16 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    the row, so it wraps onto two lines instead of pushing the page sideways. */
 @media (max-width: 359.98px) { #subjectChips { grid-template-columns: repeat(3, minmax(0, 1fr)); } #subjectChips .chip { white-space: normal; } }
 /* The other filters fill the right half: a 2 x 2 grid of pairs, each chip
-   stretched to share its cell. One pair per row where two won't fit: on
-   phones, and from 992 px (when they move beside the subjects) to 1199 px. */
+   stretched to share its cell. One pair per row on phones, where two won't
+   fit. From 992 px (when they move beside the subjects) to 1199 px the chips
+   are a little smaller so two pairs still fit a row: one pair per row there
+   left an empty space under the subjects. */
 .filter-chip-groups { display: grid; grid-template-columns: 1fr; gap: .375rem 1rem; }
-@media (min-width: 576px) and (max-width: 991.98px), (min-width: 1200px) { .filter-chip-groups { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 576px) { .filter-chip-groups { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .filter-chip-groups { column-gap: .5rem; }
+  .filter-chip-groups .chip { padding: .375rem .4rem; font-size: .9375rem; }
+}
 .filter-chip-groups .chip-row { flex-wrap: nowrap; }
 .filter-chip-groups .chip { flex: 1 1 0; justify-content: center; text-align: center; white-space: nowrap; }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
@@ -297,7 +303,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 .filter-checkbox-label { font-size: 1rem; }
 
-.filter-chip-groups { column-gap: 1rem; row-gap: .375rem; }
 .btn-link { text-decoration: none; }
 .btn-link:hover { text-decoration: underline; }
 .filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; flex-wrap: wrap; gap: .5rem; }
