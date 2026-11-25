@@ -1,13 +1,15 @@
-/* SB Reader - random names for a new room ("okazaki-tholins", the lobby's
-   placeholder) and for a first-time player ("Okazaki Tholins").
+/* SB Reader - random names for a new room ("casparian-tholins", the lobby's
+   placeholder) and for a first-time player ("Casparian Tholins").
 
    The words come from the club's word bank of Science Bowl terms: the
    "SciBowl stock" and "ESS only" lists (the USESO rocks and minerals list is
-   left out, and so are the rocks it names that the ESS list repeats). Each
-   term is split into its words, minus filler like "law" or "effect", and a
-   name is two words that never sit in the same term, so it reads as two
-   unrelated words rather than half of "Hardy-Weinberg". No DOM, so the tests
-   run it under Node. */
+   left out, and so are the rocks it names that the ESS list repeats). A name
+   reads like a term of its own: a describing word, then a noun. The noun is
+   one a term ends on ("strip" in "Casparian strip", "tholins"); the
+   describing word is one that comes before a term's noun ("Casparian",
+   "Okazaki", "thermal"). Filler like "law" or "effect" is skipped, and the
+   two words never sit in the same term, so they're unrelated rather than
+   half of "Hardy-Weinberg". No DOM, so the tests run it under Node. */
 (function (global) {
   const TERMS = [
     // SciBowl stock
@@ -89,39 +91,53 @@
     'Regional metamorphism', 'Metamorphic facies', 'Zeolite', 'Accretionary wedge', 'Partial melting', 'Flux melting', 'Decompression melting',
     'Crenulation', 'Diaphaneity', 'Pleochroism', 'Pressure solution', 'Crystalloblastic series', 'Goldich dissolution series', 'Exfoliation dome',
     'Hummocky-swale cross-stratification',  ];
-  // Words that say what kind of term it is rather than which one.
+  // Words that say what kind of term it is rather than which one, and a
+  // few that make an odd name on their own.
   const FILLER = new Set([
     'the', 'of', 'de', 'el', 'le', 'van', 'up', 'law', 'laws', 'effect', 'theorem', 'equation', 'cycle', 'rule', 'principle', 'inequality', 'hypothesis',
     'series', 'reaction', 'process', 'theory', 'model', 'relation', 'diagram', 'scale', 'product', 'problem', 'formula', 'pathway',
-    'type', 'shaped', 'multi', 'pre', 'mid',
+    'type', 'shaped', 'multi', 'pre', 'mid', 'dredge', 'cutting', 'moutonnee',
     'diamond', // a mineral on the USESO list ("Diamond ring effect" keeps "Ring")
   ]);
+  // Terms of one word are nouns, except these, which describe.
+  const DESCRIBING_ALONE = new Set(['amphoteric', 'meso']);
   // Every usable word, as it's shown ("McNugget", "O'Keefe"), with the terms
-  // it comes from. Possessives lose their "'s"; abbreviations (ABC, RNA),
-  // single letters and anything but letters ("E1", "'t") are left out.
+  // it comes from and whether it can go first (describing), second (the
+  // noun), or either ("spiral": "Spiral galaxy", "Ekman spiral"). Possessives
+  // lose their "'s"; abbreviations (ABC, RNA), single letters and anything
+  // but letters ("E1", "'t") are left out.
   const WORDS = (() => {
     const found = new Map();
     TERMS.forEach((term, i) => {
-      for (let w of term.split(/[\s-]+/)) {
-        w = w.replace(/'s?$/, '');
-        if (w.length < 2 || !/^[A-Za-z][A-Za-z']*$/.test(w) || /^[A-Z]+$/.test(w) || FILLER.has(w.toLowerCase())) continue;
+      const parts = term.split(/[\s-]+/).map((w) => w.replace(/'s?$/, ''));
+      const of = parts.indexOf('of');
+      parts.forEach((w, j) => {
+        if (w.length < 2 || !/^[A-Za-z][A-Za-z']*$/.test(w) || /^[A-Z]+$/.test(w) || FILLER.has(w.toLowerCase())) return;
         const key = w.toLowerCase();
-        if (!found.has(key)) found.set(key, { word: w[0].toUpperCase() + w.slice(1), terms: new Set() });
-        found.get(key).terms.add(i);
-      }
+        if (!found.has(key)) found.set(key, { word: w[0].toUpperCase() + w.slice(1), terms: new Set(), first: false, second: false });
+        const entry = found.get(key);
+        entry.terms.add(i);
+        // A term's noun is its last word, or in "Center of mass" the words
+        // on either side of "of".
+        const noun = j === parts.length - 1 || (of > 0 && j >= of - 1);
+        if (noun && !DESCRIBING_ALONE.has(key)) entry.second = true;
+        else entry.first = true;
+      });
     });
     return [...found.values()];
   })();
+  const FIRST = WORDS.filter((w) => w.first);
+  const SECOND = WORDS.filter((w) => w.second);
   const MAX_NAME = 24; // SBMpRules.LIMITS.name
 
-  // Two words from different terms, as shown ("Okazaki", "Tholins"), that
-  // fit in a player name with a space between them.
+  // A describing word and a noun from different terms, as shown
+  // ("Casparian", "Tholins"), that fit in a player name with a space between.
   function randomPair(rand) {
     const r = rand || Math.random;
-    const pick = () => WORDS[Math.floor(r() * WORDS.length)];
+    const pick = (list) => list[Math.floor(r() * list.length)];
     for (;;) {
-      const a = pick();
-      const b = pick();
+      const a = pick(FIRST);
+      const b = pick(SECOND);
       if (a.word.length + 1 + b.word.length > MAX_NAME) continue;
       if ([...a.terms].some((t) => b.terms.has(t))) continue;
       return [a.word, b.word];
@@ -131,5 +147,5 @@
   // Lower case with dashes, letters only ("o'keefe" loses its apostrophe).
   function roomName(rand) { return randomPair(rand).join('-').toLowerCase().replace(/[^a-z-]/g, ''); }
 
-  global.SBNames = { TERMS, WORDS, MAX_NAME, randomPair, playerName, roomName };
+  global.SBNames = { TERMS, WORDS, FIRST, SECOND, MAX_NAME, randomPair, playerName, roomName };
 })(typeof window !== 'undefined' ? window : globalThis);
