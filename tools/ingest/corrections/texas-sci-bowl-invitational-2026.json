@@ -1,0 +1,867 @@
+[
+[
+{"i":67915,"m":0}],
+[
+{"i":67916,"m":241,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67917,"m":2},
+{"i":67918,"m":3,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67919,"m":4},
+{"i":67920,"m":5},
+{"i":67921,"m":6,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67922,"m":7}],
+[
+{"i":67923,"m":248,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67924,"m":249}],
+[
+{"i":67925,"m":10,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67926,"m":11,"set":{"q":"If the membrane potential is equal to the equilibrium potential for K^(+), what is the net movement of K^(+) across the membrane"}},
+{"i":67927,"m":12,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67928,"m":13,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67929,"m":14},
+{"i":67930,"m":15},
+{"i":67931,"m":16,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67932,"m":17,"set":{"q":"A gas is in a closed container at pressure P . The gas doubles in volume and halves in temperature. What is the new pressure?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67933,"m":258,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67934,"m":19},
+{"i":67935,"m":20}],
+[
+{"i":67936,"m":261,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67937,"m":22},
+{"i":67938,"m":23},
+{"i":67939,"m":24},
+{"i":67940,"m":25,"set":{"c.W":"1/2","c.X":"1/3","c.Y":"1/4","c.Z":"1/5","a.t":"1/4"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67941,"m":26,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67942,"m":27,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67943,"m":268,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67944,"m":-1,"set":{"s":"ess","f":"SA","qt":"bonus","n":15,"q":"Identify all of the following statements that are true about strike-slip faults. 1) They are formed as a result of compressional stress 2) They are found at transform boundaries 3) Their movement is primarily horizontal along the fault plane","a":true,"a.t":"2,3"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":67945,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67946,"m":31}],
+[
+{"i":67947,"m":272,"set":{"q":"Fluorene (with two \"e\"s) and Fluorenone are similar organic compounds, with the exception that fluorenone has a ketone functional group. Which statement identifies which compound dissolves more readily in water and why?","a.t":"Fluorenone, it is more polar"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67948,"m":33,"set":{"q":"Fluorene with an \"e\" surprisingly does not contain any elemental fluorine. Instead, it contains two aromatic rings. Its chemical formula is (C6H4)2CH2. If all hydrogen atoms were instead substituted with fluorine atoms, to the nearest gram per mole, what would be the molecular weight of this new compound?"}},
+{"i":67949,"m":34},
+{"i":67950,"m":35},
+{"i":67951,"m":36,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67952,"m":37}],
+[
+{"i":67953,"m":278,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67954,"m":279,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67955,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67956,"m":1,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67957,"m":382,"set":{"a.t":"+6","a.ac":["6"]},"sub":{"a":["t","ac","rj"]}},
+{"i":67958,"m":383,"set":{"q":"Identify all of the following statements about polyatomic ions that are true: 1) The sum of the oxidation numbers of each atom is equal to the overall charge 2) The sum of the formal charge of each atom is equal to the overall charge 3) In iodite, the oxidation state of iodine is +3"}}],
+[
+{"i":67959,"m":4,"set":{"a.t":"1/256"}}],
+[
+{"i":67960,"m":385,"set":{"c.W":"12/5","c.X":"14/5","c.Y":"16/5","c.Z":"18/5","a.t":"16/5"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67961,"m":6},
+{"i":67962,"m":7,"set":{"q":"A black body with temperature T has brightness B. In terms of B, what is the brightness of the black body if the temperature is doubled?"}}],
+[
+{"i":67963,"m":388,"set":{"c.W":"S-waves","c.Y":"P-waves","a.t":"P-waves"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67964,"m":389}],
+[
+{"i":67965,"m":10,"set":{"q":"In bacteria, which region of DNA does RNA polymerase initially recognize and bind?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67966,"m":11,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67967,"m":12,"set":{"q":"Which equation states that absorptivity is proportional to the product of concentration and optical path length?"}},
+{"i":67968,"m":13,"set":{"q":"Identify all of the following statements that correctly pairs a molecular geometry with all of its bond angles. 1) Tetrahedral, 109.5° only 2) Trigonal Bipyramidal, 90° and 180° 3) Octahedral, 90° and 180°"}},
+{"i":67969,"m":14},
+{"i":67970,"m":15},
+{"i":67971,"m":16,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67972,"m":17},
+{"i":67973,"m":18},
+{"i":67974,"m":19},
+{"i":67975,"m":20,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67976,"m":21}],
+[
+{"i":67977,"m":402},
+{"i":67978,"m":403,"set":{"q":"Which of the following is an example of a substitutional alloy?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67979,"m":404,"set":{"q":"What is 0.3939... as a fraction?","a.t":"13/33"}}],
+[
+{"i":67980,"m":25,"set":{"c.W":"4/11","c.X":"2/3","c.Y":"9/11","c.Z":"19/20","a.t":"9/11"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67981,"m":26},
+{"i":67982,"m":27},
+{"i":67983,"m":28},
+{"i":67984,"m":29,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67985,"m":30},
+{"i":67986,"m":31},
+{"i":67987,"m":32}],
+[
+{"i":67988,"m":413},
+{"i":67989,"m":414,"set":{"q":"What is 12^12 (mod 11)?"}}],
+[
+{"i":67990,"m":35,"set":{"q":"What is the least common multiple of 6^2 and 9^2?"}},
+{"i":67991,"m":36},
+{"i":67992,"m":37,"set":{"q":"A 5 kilogram block is placed on top of a vertical spring with a spring constant of 400 Newtons per meter. Thai wants to compress this by a distance x such that when the block is released and reaches max height h, the distance from h to x is 1 meter. If g = 10m/s^2, how many centimeters would you need to compress the spring?"}}],
+[
+{"i":67993,"m":418,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":67994,"m":-1,"set":{"s":"ess","f":"SA","qt":"bonus","n":20,"q":"Identify all of the following statements that are true about the silicate group. 1) They are the most abundant group of minerals on Earth 2) A silicate can have up to 4 bridging oxygens 3) The fundamental building block of a silicate is SiO2","a":true,"a.t":"1, 2"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":67995,"m":0}],
+[
+{"i":67996,"m":201}],
+[
+{"i":67997,"m":2,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":67998,"m":3,"set":{"q":"What is the name of the phenomena that explains why adding HCl to aqueous lead chloride decreases the concentration of lead ions?"}},
+{"i":67999,"m":4},
+{"i":68000,"m":5,"set":{"a.t":"5/17"}},
+{"i":68001,"m":6,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68002,"m":7,"set":{"a.t":"8 × 10^-6"}}],
+[
+{"i":68003,"m":208}],
+[
+{"i":68004,"m":9},
+{"i":68005,"m":10,"set":{"q":"Loss of negative feedback by thyroid hormone on the pituitary and hypothalamus would most likely cause which of the following conditions?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68006,"m":11},
+{"i":68007,"m":12,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68008,"m":13,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68009,"m":14,"set":{"q":"Michael is playing Zetamac, where he can solve 68 questions in a 120-second round. If he maintains from this rate, how many questions could he solve in a 5 minute round?"}},
+{"i":68010,"m":15,"set":{"a.t":"2/477"}},
+{"i":68011,"m":16,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68012,"m":17},
+{"i":68013,"m":18,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68014,"m":19,"set":{"q":"RR Lyrae stars pulsate due to their radiative opacity varying with their temperature. What is the name for this interaction?"}},
+{"i":68015,"m":20},
+{"i":68016,"m":21},
+{"i":68017,"m":22,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68018,"m":223,"set":{"q":"Let the K_a of acetic acid be 1.8 × 10^-5, and the base-10 log of 1.8 be 0.255. A buffer is created with 0.1 M acetic acid and 0.01 M sodium acetate. To two significant digits, what is the pH of the buffer?","a.t":"3.7"}}],
+[
+{"i":68019,"m":24},
+{"i":68020,"m":25,"set":{"q":"Two points are chosen at random from the circumference of a unit circle. What is the probability the chord connecting them has length exceeding √3?","c.X":"1/6","c.Y":"1/3","c.Z":"1/2","a.t":"1/3"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68021,"m":226}],
+[
+{"i":68022,"m":27},
+{"i":68023,"m":28,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68024,"m":229},
+{"i":68025,"m":230},
+{"i":68026,"m":231,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68027,"m":32},
+{"i":68028,"m":33,"set":{"q":"Calculate the K_sp of a salt AX2 if 6 moles of the salt dissolved into 3 liters of water creates a perfectly saturated solution."}},
+{"i":68029,"m":34},
+{"i":68030,"m":35,"set":{"a.t":"7/18"}},
+{"i":68031,"m":36},
+{"i":68032,"m":37},
+{"i":68033,"m":38,"set":{"q":"Order the following stages of intermediate-mass stellar evolution in increasing chronological order. 1) Red giant branch 2) Asymptotic giant branch 3) Blue loop"}},
+{"i":68034,"m":39}],
+[
+{"i":68035,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68036,"m":421,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68037,"m":422,"set":{"c.W":"S^(2−)","c.X":"Cl^−","c.Z":"Ca^(2+)","a.t":"Ca^(2+)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68038,"m":3,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68039,"m":424},
+{"i":68040,"m":425},
+{"i":68041,"m":426,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68042,"m":7,"set":{"a.t":"1.4"}},
+{"i":68043,"m":8,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68044,"m":9,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68045,"m":10},
+{"i":68046,"m":11,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68047,"m":12},
+{"i":68048,"m":13,"set":{"a.t":"s^-1 · M^-4","a.ac":["liters to the fourth whole over second times moles to the fourth"]}},
+{"i":68049,"m":14},
+{"i":68051,"m":16,"set":{"a.t":"2/3"}},
+{"i":68052,"m":17},
+{"i":68053,"m":18}],
+[
+{"i":68054,"m":439},
+{"i":68055,"m":440}],
+[
+{"i":68056,"m":21}],
+[
+{"i":68057,"m":442,"set":{"q":"Which of the following compounds is least soluble in water?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68058,"m":23},
+{"i":68059,"m":24},
+{"i":68060,"m":25,"set":{"a.t":"1/3"}},
+{"i":68061,"m":26},
+{"i":68062,"m":27},
+{"i":68063,"m":28},
+{"i":68064,"m":29,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68065,"m":30},
+{"i":68066,"m":31,"set":{"a.ac":["mate copying","non-independent mate choice"]}},
+{"i":68067,"m":32},
+{"i":68068,"m":33},
+{"i":68069,"m":34}],
+[
+{"i":68070,"m":455}],
+[
+{"i":68071,"m":36,"set":{"q":"When two waves interact with each other, their amplitudes may line up and cancel each other out. What is this phenomenon called?"}},
+{"i":68072,"m":37}],
+[
+{"i":68073,"m":458,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68074,"m":39}],
+[
+{"i":68075,"m":0},
+{"i":68076,"m":1},
+{"i":68077,"m":2,"set":{"q":"What laboratory technique, often used to monitor the progress of organic reactions, separates small amounts of compounds on a silicacoated plate and reports their movement as an Rf value?"}},
+{"i":68078,"m":3,"set":{"q":"Sam performs paper chromatography on a mixture of dyes. One dye spot travels 4.5 centimeters, while the solvent front travels 9.0 centimeters. What is the R_f value of the dye?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68079,"m":4},
+{"i":68080,"m":5,"set":{"a.t":"99/50"}},
+{"i":68081,"m":6,"set":{"q":"The temperature gradient across the bottom of a pot is 40 degrees centigrade per centimeter. If the pot has a radius of 10 centimeters and thermal conductivity of 1/π, how many seconds will it take for the stove to transfer 100 Joules of energy?"}},
+{"i":68082,"m":7,"set":{"a.l":"W"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68083,"m":8,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68084,"m":469},
+{"i":68085,"m":470}],
+[
+{"i":68086,"m":11,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68087,"m":12},
+{"i":68088,"m":13,"set":{"q":"When 64 grams of methane are completely combusted, to the nearest integer, how many grams of carbon dioxide are produced?"}}],
+[
+{"i":68089,"m":-1,"set":{"s":"math","f":"SA","qt":"tossup","n":8,"q":"What is 7^15 (mod 50)?","a":true,"a.t":"43"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":68090,"m":15,"set":{"q":"A coffee shop is trying to determine the optimal price of their coffee. They know that if the price is P, the number of cups sold will be 1200 − 200P . If the average cost to produce 1 cup of coffee is $1.50, what price of coffee will produce the highest total profit?"}},
+{"i":68091,"m":16},
+{"i":68092,"m":17}],
+[
+{"i":68093,"m":478,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68094,"m":19}],
+[
+{"i":68095,"m":480,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68096,"m":21},
+{"i":68097,"m":22,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68098,"m":23,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68099,"m":24,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68100,"m":25},
+{"i":68101,"m":26,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68102,"m":27},
+{"i":68103,"m":28},
+{"i":68104,"m":29,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68105,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68106,"m":491,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68107,"m":32,"set":{"q":"The formation of water from hydrogen and oxygen gas is an exothermic reaction with ΔS < 0. If the pressure and temperature of the reaction chambers was increased, which direction would the reaction shift?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68108,"m":33,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68109,"m":34},
+{"i":68110,"m":35},
+{"i":68111,"m":36,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68112,"m":37},
+{"i":68113,"m":38},
+{"i":68114,"m":39,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68115,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68116,"m":151,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68117,"m":2,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68118,"m":3},
+{"i":68119,"m":4}],
+[
+{"i":68120,"m":155,"set":{"q":"What is the cross product of i + j and k?"}}],
+[
+{"i":68121,"m":6,"set":{"q":"The angular position of a point 50 centimeters away from the center of a rotating disc is given by θ(t) = t^4, where t is time in seconds. What is the translational velocity, in meters per second, of the point at t = 2 seconds?"}},
+{"i":68122,"m":7,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68123,"m":8,"set":{"q":"What type of waves are formed when polar air moves towards the equator while tropical air moves toward the poles, typically associated with the jetstream?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68124,"m":9},
+{"i":68125,"m":10,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68126,"m":161,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68127,"m":12},
+{"i":68128,"m":13,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68129,"m":14,"set":{"q":"An event has a 1 in 10,000 probability of occuring any given year. Which of the following is closest to the probability that it occurs at least once over 10,000 years?","c.W":"1 − 2/e","c.X":"1 − 1/e","c.Y":"1 − 1/(2e)","a.t":"1 − 1/e"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68130,"m":16,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68131,"m":17},
+{"i":68132,"m":18},
+{"i":68133,"m":19}],
+[
+{"i":68134,"m":170,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68135,"m":171}],
+[
+{"i":68136,"m":22}],
+[
+{"i":68137,"m":173}],
+[
+{"i":68138,"m":24},
+{"i":68139,"m":25},
+{"i":68140,"m":26,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68141,"m":27,"set":{"q":"Thai is spinning a ball in a horizontal loop in uniform circular motion. Identify all of following 3 values of the ball that are not changing: 1) Velocity 2) Gravitational force 3) Acceleration"}},
+{"i":68142,"m":28},
+{"i":68143,"m":29,"set":{"q":"Robert observes a star at culmination from Lafayette, Indiana, approximately 40° N 87° W. He notes that the declination of the star is 35° and the right ascension is 3 hours. Identify all of the true statements about the star. 1) The star is circumpolar 2) The current sidereal time is 3 hours 3) The star will lie on the meridian in 12 hours"}},
+{"i":68144,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68145,"m":31,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68146,"m":32,"set":{"a.t":"Numerator: Activation Energy, Denominator: Universal Gas Constant","a.ac":["E_a, R","Activation Energy, Ideal Gas Constant","E_a, Ideal Gas Constant","Activation Energy, R"]}},
+{"i":68147,"m":33},
+{"i":68148,"m":34,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68149,"m":35},
+{"i":68150,"m":36},
+{"i":68151,"m":37},
+{"i":68152,"m":38},
+{"i":68153,"m":39,"set":{"q":"An asteroid is in an orbit with an eccentricity of 0.6 and a semi-major axis of 5 AU. What is the distance in AU between the asteroid and the Sun at perihelion?"}},
+{"i":68154,"m":40},
+{"i":68155,"m":41},
+{"i":68156,"m":42,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68157,"m":193,"set":{"q":"By name or number, order the following compounds by increasing acidity: 1) Acetylene 2) Ethane 3) Ethylene"}}],
+[
+{"i":68158,"m":44,"set":{"a.t":"1/16"}},
+{"i":68159,"m":45,"set":{"q":"A triangle has three coordinates. In polar form, they are (6, π/3), (4√2, π/4), and (8, π/6). Find the area of the triangle.","a.t":"26 − 14√3"}},
+{"i":68160,"m":46,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68161,"m":47,"set":{"q":"Which of the following particle classes follow Fermi-Dirac statistics? 1) Leptons 2) Fermions 3) Bosons"}}],
+[
+{"i":68162,"m":198}],
+[
+{"i":68163,"m":49,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68164,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68165,"m":1},
+{"i":68166,"m":2}],
+[
+{"i":68167,"m":103,"set":{"q":"Which of the following is true about meso compounds? 1) A compound with one chiral center can be a meso compound 2) meso compounds are not optically active 3) Meso compounds must have an internal plane of symmetry"}}],
+[
+{"i":68168,"m":4},
+{"i":68169,"m":5}],
+[
+{"i":68170,"m":106,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68171,"m":7},
+{"i":68172,"m":8,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68173,"m":9,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68174,"m":10,"set":{"c.W":"Twin 1 – type A, Twin 2 – type B","c.X":"Twin 1 – type A, Twin 2 – type O","c.Y":"Twin 1 – type A, Twin 2 – type A","c.Z":"Twin 1 – type B, Twin 2 – type B","a.t":"Twin 1 – type A, Twin 2 – type O"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68175,"m":11,"set":{"q":"Identify all of the following sex determination systems that are correctly matched to the organism: 1) Mouse – X0 system 2) Butterfly – ZW system 3) Bee – Haplodiploid system","a.t":"2 and 3"}},
+{"i":68176,"m":12,"set":{"c.W":"1500 cm^-1","c.X":"2500 cm^-1","c.Y":"3500 cm^-1","c.Z":"4500 cm^-1","a.t":"3500 cm^-1"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68177,"m":13},
+{"i":68178,"m":14,"set":{"q":"What is the difference between the probability of summing to 3 with 2 die, and summing to 3 with 3 die?","c.W":"11/216","c.X":"1/18","c.Y":"13/216","c.Z":"7/108","a.t":"11/216"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68179,"m":15}],
+[
+{"i":68180,"m":116,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68181,"m":17,"set":{"q":"The distance x, in meters, between two point masses is given as a function of time t by x = (t − 3)^2 + 3. How many times greater is the maximum gravitational force between the point masses compared to the initial gravitational force?"}},
+{"i":68182,"m":18,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68183,"m":19},
+{"i":68184,"m":20,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68185,"m":21},
+{"i":68186,"m":22},
+{"i":68187,"m":23}],
+[
+{"i":68188,"m":124,"set":{"q":"If f(x) = x^6 − 3x^5 − 4x^4 − 3x^3 + 2x, which of the following is a valid possible number of real negative zeroes by Descarte’s rule of signs?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68189,"m":25},
+{"i":68190,"m":26,"set":{"q":"Cosmo is currently studying particles of mass behaving as waves. Assuming all the particles have the same velocity, which of the following has the smallest wavelength?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68191,"m":27,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68192,"m":28,"set":{"q":"In seismic tomography, what does a region of slower seismic velocity indicate about the rock compared to its surroundings?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68193,"m":129,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68194,"m":30},
+{"i":68195,"m":31,"set":{"q":"A plant deficient in which of the following macronutrients would most likely experience death of terminal buds?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68196,"m":32,"set":{"q":"Which of the following functional groups activate the aromatic ring for nucleophilic aromatic substitution under neutral conditions?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68197,"m":33,"set":{"q":"The desired product for a synthesis is 2-chloro-4-nitroisopropylbenzene. By name or number, arrange the following reagents in the order they will appear in the synthesis starting from benzene: 1) chlorine gas 2) nitric acid 3) isopropyl chloride"}},
+{"i":68199,"m":35},
+{"i":68200,"m":36}],
+[
+{"i":68201,"m":137}],
+[
+{"i":68202,"m":38,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68203,"m":39},
+{"i":68204,"m":40,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68205,"m":41,"set":{"q":"An increase in end-diastolic volume stretches cardiac muscle fibers, increasing stroke volume. What law best describes this phenomenon?"}},
+{"i":68206,"m":42}],
+[
+{"i":68207,"m":143,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68208,"m":44},
+{"i":68209,"m":45},
+{"i":68210,"m":46,"set":{"q":"A substance has both its enthalpy and entropy doubled. By what factor does the exergy of the substance change?"}},
+{"i":68211,"m":47,"set":{"q":"A coil has inductance 0.2 henry and internal resistance 4 ohms. The coil is connected directly across a 12 volt ideal battery. After 0.05 seconds, which is closest to the current in amps?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68212,"m":48,"set":{"a.t":"K-Pg Mass Extinction","a.rj":["End-Cretaceous"]}},
+{"i":68213,"m":49}],
+[
+{"i":68214,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68215,"m":1,"set":{"a.t":"2 and 3"}},
+{"i":68216,"m":2},
+{"i":68217,"m":3,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68218,"m":4,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68219,"m":505,"set":{"q":"How many solutions exist for the equation (7 − x)^(x^2 − 8x + 15) = 1?"}}],
+[
+{"i":68220,"m":6,"set":{"q":"A spacecraft at distance r from a planet is moving tangentially with speed v = √2 times the circular-orbit speed at that distance. Neglecting atmosphere, what is the shape of its trajectory?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68221,"m":7}],
+[
+{"i":68222,"m":508,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68223,"m":509}],
+[
+{"i":68224,"m":10,"set":{"c.W":"Strigolactones – attraction of mycorrhizal fungi to the roots","c.X":"Brassinosteroids – promote leaf abscission","c.Y":"Ethylene – induces the triple response","c.Z":"Methylsalicylic acid – induces immune response in the un-infected parts of the plant","a.t":"Brassinosteroids – promote leaf abscission"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68225,"m":11},
+{"i":68226,"m":12},
+{"i":68227,"m":13},
+{"i":68228,"m":14,"set":{"c.W":"6,500,000","c.X":"7,000,000","c.Y":"7,500,000","c.Z":"8,000,000","a.t":"7,500,000"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68229,"m":15,"set":{"a.t":"5/27"}},
+{"i":68230,"m":16,"set":{"c.W":"√(2/5)","c.X":"√(4/5)","c.Y":"√(5/4)","c.Z":"√(5/2)","a.t":"√(4/5)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68231,"m":17,"set":{"q":"A uniform solid disk (M = 1.5kg, R = 0.20m) starts from rest. A constant tangential force of 3.0N is applied at the rim. Neglecting friction and in seconds to two significant figures, how long in seconds does it take to reach ω = 10rad/s?"}},
+{"i":68232,"m":18,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68233,"m":19},
+{"i":68234,"m":20,"set":{"q":"Vasopressin primarily increases the activity of aquaporin in what parts of the nephron?","a.t":"Collecting duct","a.ac":["distal tubule"]}},
+{"i":68235,"m":21}],
+[
+{"i":68236,"m":522,"set":{"q":"Order the following functional groups from smallest to largest ^1H chemical shift 1) Ethylene 2) Acetylene 3) Benzene"}}],
+[
+{"i":68237,"m":23,"set":{"c.W":"CH3^+","c.X":"(CH3)3C^+","c.Y":"CH2CHCH2^+","c.Z":"C6H5CH2^+","a.t":"C6H5CH2^+"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68238,"m":524,"set":{"q":"Let f(x) = (1/2)x^2 − 1. How many real solutions exist to the equation f(f(x)) = 0?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68239,"m":25},
+{"i":68240,"m":26,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68241,"m":27},
+{"i":68242,"m":28,"set":{"q":"If the atmosphere is said to be conditionally stable, what is the stability conditional upon?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68243,"m":29},
+{"i":68244,"m":30},
+{"i":68245,"m":31,"set":{"a.t":"1 and 3"}},
+{"i":68246,"m":32},
+{"i":68247,"m":33}],
+[
+{"i":68248,"m":534,"set":{"q":"Let f(x) = 3x^3 − 8x^2 + 4x − 1. Which of the following best describes the graph y = f(x) at x = 1?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68249,"m":35},
+{"i":68250,"m":36,"set":{"q":"A string fixed at both ends has fundamental frequency f . If the tension is quadrupled and the length is doubled with unchanged linear density, in units of f, what is the new fundamental frequency?","c.W":"f/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68251,"m":37},
+{"i":68252,"m":38,"set":{"q":"Identify all of the following three phenomena that occur on the Sun’s photosphere: 1) Granulation 2) Sunspots 3) Faculae"}},
+{"i":68253,"m":39,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68254,"m":40,"set":{"q":"What triskelion protein coats vesicles during receptor-mediated endocytosis and promotes membrane curvature for vesicle formation?"}}],
+[
+{"i":68255,"m":541,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68256,"m":42,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68257,"m":43,"set":{"q":"The pink hexaaquacobalt (II) complex is in equilibrium with the blue tetrachlorocobaltate (II) ion. Addition of which of the following reagents will cause the blue hue of solution to intensify? 1) Calcium chloride 2) Acetone 3) Silver nitrate"}}],
+[
+{"i":68258,"m":544,"set":{"q":"Let z be a complex number. If ∥z∥ = 2 and ∥z − 1∥ = √3, what is ∥z + 1∥?","c.W":"√3","c.X":"√5","c.Y":"√7","a.t":"√7"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68259,"m":45,"set":{"q":"Aidan flips 8 coins simultaneously. What is the probability that there are more heads than tails?","a.t":"93/256"}},
+{"i":68260,"m":46,"set":{"q":"Light of wavelength 310nm shines on a metal with work function 2.5eV. Using hc = 1240eV · nm, what is the resulting stopping potential in volts?"}}],
+[
+{"i":68261,"m":547}],
+[
+{"i":68262,"m":48},
+{"i":68263,"m":49,"set":{"q":"Identify all of the following three properties that one would expect to observe at a passive continental margin: 1) Shallow continental slope 2) Thick sediment beds 3) Trench"}}],
+[
+{"i":68264,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68265,"m":1}],
+[
+{"i":68266,"m":282,"set":{"q":"Order the following 3 molecules by increasing number of hydrogen donors. 1) Ammonia 2) Water 3) Hydrogen fluoride"}}],
+[
+{"i":68267,"m":3},
+{"i":68268,"m":5},
+{"i":68269,"m":6,"set":{"c.W":"0°","c.X":"60°","c.Y":"90°","c.Z":"180°","a.t":"90°"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68270,"m":7,"set":{"q":"A flywheel with moment of inertia I = 0.50 kg · m^2 rotates at 2.0 rev/s. A constant opposing torque of magnitude 1.0 N · m is applied until it stops. To two significant figures, how many revolutions does it make before stopping?"}},
+{"i":68271,"m":8,"set":{"q":"The sinking of cold, moist air in thunderstorms tends to form what kind of clouds?"}}],
+[
+{"i":68272,"m":289,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68273,"m":290,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68274,"m":291,"set":{"a.t":"3"}},
+{"i":68275,"m":292,"set":{"q":"How many vibrational modes are present in cyclopropane?"}},
+{"i":68276,"m":293}],
+[
+{"i":68277,"m":14},
+{"i":68278,"m":16,"set":{"q":"A long solid wire of radius R carries a steady current I uniformly distributed across its cross-section. What is the ratio between the magnitude of the magnetic field at a radius R/2 to that at a radius R at the surface of the wire?","c.W":"1/4","c.X":"1/2","a.t":"1/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68279,"m":17,"set":{"q":"A parallel-plate capacitor with area A and separation d has half its area filled side-by-side with a dielectric of κ = 5 and the other half with air. Neglect fringing, what is the new capacitance in terms of the original capacitance C_0?","a.t":"3C_0"}},
+{"i":68280,"m":18,"set":{"a.ac":["TYPE 1B AND TYPE 1C"]}},
+{"i":68281,"m":19},
+{"i":68282,"m":20},
+{"i":68283,"m":21,"set":{"q":"Identify all of the following three types of phospholipids that are found in the cell membrane of humans: 1) Phosphatidylethanolamine 2) Phosphatidylcholine 3) Phosphatidylserine"}},
+{"i":68284,"m":22}],
+[
+{"i":68285,"m":303,"set":{"a.t":"Michael Addition","a.ac":["conjugate addition"]}}],
+[
+{"i":68286,"m":24,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68287,"m":25,"set":{"q":"2026 has exactly 4 factors. Let X be the smallest positive integer with 2026 factors. Which of the following is the closest to log_10 (X)?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68288,"m":26,"set":{"q":"In a double-slit experiment, the fringe spacing on the screen is Δy. If the slit separation is doubled and the screen distance is tripled, while the wavelength is fixed, by what factor is the fringe spacing multiplied by?","c.W":"1/6","c.X":"1/2","c.Y":"3/2","a.t":"3/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68289,"m":27,"set":{"q":"A thin film of refractive index n = 1.50 and thickness t = 200 nm is in air and viewed at normal incidence. Assuming a phase inversion occurs only at the top (air-film) surface, in nanometers (nm), what is the largest wavelength in air that is constructively reflected?"}},
+{"i":68290,"m":28,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68291,"m":29},
+{"i":68292,"m":30,"set":{"q":"Longhorns have three possible coat colors under incomplete dominance: chestnut, roan, and white, where roan is the heterozygote form. The chestnut allele frequency is 0.7 and the white allele frequency is 0.3. Assuming Hardy-Weinberg equilibrium in a longhorn population of 500, how many roan longhorns are there?"}},
+{"i":68293,"m":31,"set":{"q":"Approximately 8% of men in a population are red-green colorblind. How many women are expected to be carriers for red-green colorblindness in this population of 2000? Round to the nearest whole number.","a.ac":["147"]}}],
+[
+{"i":68294,"m":312,"set":{"q":"Order the following 3 organic solvents by increasing boiling point. 1) Dichloromethane 2) Chloroform 3) Carbon tetrachloride"}}],
+[
+{"i":68295,"m":33,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68296,"m":34,"set":{"c.X":"2/π^2","c.Y":"1/π"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68297,"m":35}],
+[
+{"i":68298,"m":316,"set":{"q":"An ideal gas undergoes an isothermal expansion. Which best describes the change in its internal energy ΔU?","a.t":"Zero"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68299,"m":317,"set":{"q":"A monatomic ideal gas with γ = 5/3 is initially at temperature 300 K. It undergoes an adiabatic compression that doubles its pressure. In kelvins (K) to the nearest multiple of 100, what is the final temperature of the gas?"}}],
+[
+{"i":68300,"m":38,"set":{"a.t":"It has strong rotational emission at typical molecular cloud temperatures"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68301,"m":39},
+{"i":68302,"m":40,"set":{"q":"PYY is secreted from what section of the small intestine characterized by villi and abundant goblet cells, aiding in nutrient absorption and mucus secretion?"}},
+{"i":68303,"m":41,"set":{"a.t":"1 and 3"}},
+{"i":68304,"m":42,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68305,"m":323}],
+[
+{"i":68306,"m":44},
+{"i":68307,"m":45}],
+[
+{"i":68308,"m":326,"set":{"q":"In Compton scattering of photons from stationary electrons, what is the maximum possible wavelength shift Δλ_max in terms of the electron Compton wavelength λ_C?","c.W":"0λ_C","c.X":"1λ_C","c.Y":"2λ_C","c.Z":"4λ_C","a.t":"2λ_C"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68309,"m":47,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68310,"m":328}],
+[
+{"i":68311,"m":49}],
+[
+{"i":68312,"m":0,"set":{"q":"There are two regulatory mechanisms for the trp operon: one involving the trp repressor and the other involving the trpL sequence. Which of the following combinations of trp regulation occur when tryptophan levels are high?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68313,"m":1,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68314,"m":2,"set":{"q":"At the Hsu Lab, Sam is working on an organic synthesis but gets a percent yield fo 500% after isolating his product. The 1H-NMR reveals that his sample is heavily contaminated with water. Which of the following solvents is most suitable for azeotropic removal of water?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68315,"m":53,"set":{"q":"The Soai reaction, which proceeds by the following scheme, autocatalytically converts pyrimidine-5-carbaldehyde into an enantioenriched, chiral alcohol. What family of functions describes its concentration as a function of time?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68316,"m":4,"set":{"a.ac":["Gram-Schmidt","Gram-Schmidt Algorithm"]}}],
+[
+{"i":68317,"m":55,"set":{"q":"Let R be the annulus centered at the origin with radii of 3 and 5. What is the integral of √(x^2 + y^2) on this region?","c.W":"184π/3","c.X":"196π/3","c.Y":"200π/3","c.Z":"212π/3","a.t":"196π/3"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68318,"m":6,"set":{"a.t":"√(3g/L)"}},
+{"i":68319,"m":7,"set":{"c.W":"0 and √(2k/m)","c.X":"√(k/m) and √(2k/m)","c.Y":"0 and √(k/m)","c.Z":"√(k/m) and √(3k/m)","a.t":"0 and √(2k/m)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68320,"m":8,"set":{"a.ac":["S0, SBa, Sc"]}},
+{"i":68321,"m":9}],
+[
+{"i":68322,"m":60,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68323,"m":11},
+{"i":68324,"m":12,"set":{"c.W":"1H","c.X":"13C","c.Y":"15N","c.Z":"19F","a.t":"15N"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68325,"m":13,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68326,"m":64,"set":{"q":"What is the remainder when 7^38 is divided by 13?"}}],
+[
+{"i":68327,"m":15,"set":{"q":"How many lattice points are strictly in the interior of the region defined by |x| + |2y| ≤ 10?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68328,"m":16,"set":{"c.W":"q′ = −q R/a at b = R^2/a","c.X":"q′ = −q a/R at b = R^2/a","c.Y":"q′ = +q R/a at b = R^2/a","c.Z":"q′ = −q R/a at b = a^2/R","a.t":"q′ = −q R/a at b = R^2/a"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68329,"m":17,"set":{"a.t":"F = k q^2Ra/(a^2 − R^2)^2"}}],
+[
+{"i":68330,"m":68,"set":{"a.t":"The weakening of the trade winds during La Nina deepens the thermocline in the Eastern Pacific."},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68331,"m":19},
+{"i":68332,"m":20,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68333,"m":21}],
+[
+{"i":68334,"m":72},
+{"i":68335,"m":73}],
+[
+{"i":68336,"m":24,"set":{"q":"Let X be equal to the sum 3^100 + 3^101 + 3^102 + 3^103 + 3^104. Which of the following is the largest prime factor of X?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68337,"m":25,"set":{"q":"Consider the 2 × 2 matrix with first row 4,1 and second row 2,3. What are the eigenvalues of A?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68338,"m":26,"set":{"q":"Light in air strikes a glass surface with refractive index n = √3. What is Brewster’s angle?","c.W":"30°","c.X":"45°","c.Y":"60°","c.Z":"75°","a.t":"60°"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68339,"m":27,"set":{"q":"A telescope has a circular aperture of diameter D = 0.20m and observes light of wavelength λ = 500nm. Using the Rayleigh criterion, in radians (rad) to two significant figures, what is the diffraction-limited angular resolution?"}},
+{"i":68340,"m":28,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68341,"m":29,"set":{"q":"Identify all of the following three statements regarding ephemeral streams that are true: 1) They pose relatively low flash flooding risks 2) They tend to be losing streams 3) They typically form in regions of impervious sediment."}}],
+[
+{"i":68342,"m":80}],
+[
+{"i":68343,"m":31,"set":{"a.t":"1 and 3"}},
+{"i":68344,"m":32,"set":{"a.t":"−1/2"}},
+{"i":68345,"m":33,"set":{"a.t":"27/32"}},
+{"i":68346,"m":34,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68347,"m":35,"set":{"q":"How many solutions for x exist in the equation 2 sin^2(x) + cos(x) + 1 = 0 when x is in the range [0, 4π)?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68348,"m":36,"set":{"c.Y":"nC_V ln 2","c.Z":"nC_P ln 2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68349,"m":37,"set":{"q":"A monatomic ideal gas (γ = 5/3) expands adiabatically from volume V to 8V . What is the ratio between the new and old pressure?","a.t":"1/32"}}],
+[
+{"i":68350,"m":88,"set":{"a.ac":["ANTARES, SIRIUS A, BARNARD’S STAR"]}}],
+[
+{"i":68351,"m":39,"set":{"q":"Identify all of the following three quantities that are typically smaller for Population I stars compared to Population II stars: 1) B-V index 2) Scale height above the galactic plane 3) Orbital eccentricity around the galactic center.","a.ac":["1","2","3"]}},
+{"i":68352,"m":40},
+{"i":68353,"m":41,"set":{"q":"Plant raphides are microscopic, needle-shaped crystals composed of what compound?"}},
+{"i":68354,"m":42,"set":{"a.t":"2 only"}}],
+[
+{"i":68355,"m":93,"set":{"q":"Which of the following statements about electrochemical cells are true? 1) Increasing reactant concentration decreases cell potential. 2) A negative cell potential corresponds to a spontaneous reaction. 3) The Nernst equation predicts that E increases as Q decreases."}}],
+[
+{"i":68356,"m":44,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68357,"m":45,"set":{"a.t":"8/27"}}],
+[
+{"i":68358,"m":96,"set":{"q":"A particle in a 1D infinite square well of width L has energies E_n = (nπℏ)^2/(2mL^2). The state at t = 0 is (|1⟩ + |2⟩)/√2. What is the smallest positive time t for which the probability density |ψ(x, t)|^2 is identical to |ψ(x, 0)|^2 for all x?","c.W":"2mL^2/(πℏ)","c.X":"4mL^2/(3πℏ)","c.Y":"4mL^2/(πℏ)","c.Z":"8mL^2/(3πℏ)","a.t":"4mL^2/(3πℏ)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68359,"m":47,"set":{"q":"A particle of mass m and energy E encounters a step potential where V = V_0 for x > 0 and V = 0 for x < 0. If E = 2V_0, what is the ratio between the reflected current and the total incident probability current?","a.t":"17 − 12√2"}},
+{"i":68360,"m":48}],
+[
+{"i":68361,"m":99}],
+[
+{"i":68362,"m":0,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68363,"m":1},
+{"i":68364,"m":2},
+{"i":68365,"m":3,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68366,"m":4},
+{"i":68367,"m":6,"set":{"c.W":"2/7","c.X":"5/12","c.Y":"7/12","c.Z":"5/7","a.t":"5/7"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68368,"m":7,"set":{"q":"A disk of mass M and radius R spinning at angular velocity ω_0 is dropped onto a rough horizontal surface. After the disk begins rolling without slipping, in terms of R and ω_0, what is its final linear speed?","a.t":"(1/3)Rω_0"}},
+{"i":68369,"m":8,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68370,"m":9},
+{"i":68371,"m":10},
+{"i":68372,"m":11},
+{"i":68373,"m":12,"set":{"q":"What name is given to the ratio of radiative relaxation events over the total of all relaxation processes for a fluorophore?"}},
+{"i":68374,"m":13,"set":{"q":"Order the following 3 symmetry elements by increasing number of axes in methane. 1) C_2 2) C_3 3) C_4"}},
+{"i":68375,"m":14},
+{"i":68376,"m":15,"set":{"q":"Consider all points that satisfy x + 2y + 3z = 18. What is the maximum value of xy^2z^3?"}},
+{"i":68377,"m":16,"set":{"q":"A parallel-plate capacitor stores energy U when connected to a battery of voltage V. The battery remains connected while a dielectric of constant κ is inserted and the plate separation is simultaneously doubled. In terms of κ, what is the ratio of the final stored energy to the initial stored energy?","c.W":"κ/4","c.X":"κ/2","a.t":"κ/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68378,"m":17,"set":{"q":"Two identical LC circuits with natural frequency ω_0 are weakly coupled. The normal mode frequencies are ω_0√(1 ± ε) where ε ≪ 1. If one circuit is excited while the other is at rest, approximately how many oscillations occur before the energy transfers completely to the second circuit?","c.W":"1/ε","c.X":"π/ε","c.Y":"1/(2ε)","c.Z":"2π/ε","a.t":"1/(2ε)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68379,"m":18},
+{"i":68380,"m":19,"set":{"q":"Identify all of the following three statements regarding the planetary boundary layer (PBL) that are TRUE: 1) Winds in the PBL are typically geostrophic in nature 2) The PBL increases in height during the day 3) The equator generally has reduced PBL heights relative to the rest of the Earth."}},
+{"i":68381,"m":20,"set":{"q":"The HbS allele, which causes sickle cell anemia in homozygote recessives, is also known to provide resistance to malaria. The maintenance of both the HbA allele and HbS allele in the population is known as what type of selection?"}},
+{"i":68382,"m":21,"set":{"q":"A man who is a balanced carrier of the 14-21 Robertsonian translocation marries a healthy woman. What is the probability their first two children will have trisomies and their third child will be a balanced carrier?"}},
+{"i":68383,"m":22,"set":{"q":"How many molecules participate in the rate-determining step of a typical SN1 reaction?"}},
+{"i":68384,"m":23},
+{"i":68385,"m":24,"set":{"q":"What is the alternating sum of reciprocals of odd integers beginning with 1 − 1/3 + 1/5 − ...?","a.t":"π/4"}},
+{"i":68386,"m":26,"set":{"q":"A wave has dispersion relation ω = Ak^2 where A is a constant. What is the ratio of the group velocity to the phase velocity?","c.W":"1/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68387,"m":27,"set":{"c.W":"T ∼ ℏ^2n^(2/3)/(mk_B)","c.X":"T ∼ mk_B/(ℏ^2n^(2/3))","c.Y":"T ∼ ℏn^(1/3)/(mk_B)","c.Z":"T ∼ k_B/(ℏ^2mn^(2/3))","a.t":"T ∼ ℏ^2n^(2/3)/(mk_B)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68388,"m":28},
+{"i":68389,"m":29,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68390,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68391,"m":31,"set":{"q":"Which of the following drugs could cause overheating and heat intolerance if taken in the wrong dosage?","c.W":"Drug W – antagonist drug that binds to TSH receptors on the thyroid","c.X":"Drug X – drug permitting hydrogen proton diffusion across the inner mitochondrial membrane","c.Y":"Drug Y – agonist drug that binds to GLP-1 receptors","c.Z":"Drug Z – allosteric inhibitor of the lysosomal enzyme beta-β-hexosaminidase A","a.t":"Drug X – drug permitting hydrogen proton diffusion across the inner mitochondrial membrane"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68392,"m":32,"set":{"q":"In the Van der Waals modification of the ideal gas law, what physical phenomenon does the term an^2/V^2 correct for?","a.ac":["attractive/repulsive forces","IMFs"]}}],
+[
+{"i":68393,"m":33}],
+[
+{"i":68394,"m":34}],
+[
+{"i":68395,"m":35,"set":{"q":"Alice and Bob both flip 4 fair coins. What is the probability that they both get the exact same number of heads?","a.t":"35/128"}}],
+[
+{"i":68396,"m":36,"set":{"q":"A 3D nonrelativistic ideal Fermi gas at T = 0 has total energy U and volume V. In terms of the energy density u = U/V, what is its pressure?","c.W":"u/3","c.X":"2u/3","c.Y":"2u/5","c.Z":"5u/2","a.t":"2u/3"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68397,"m":37,"set":{"q":"For a spin-1/2 3D ideal Fermi gas of number density n = N/V at T = 0, the filled Fermi sphere satisfies n = k_F^3/(3π^2). In terms of n, m, and ℏ, what is the Fermi energy E_F?","a.t":"E_F = (ℏ^2/2m)(3π^2n)^(2/3)","a.ac":["(ℏ^2(3π^2)^(2/3)/2m) n^(2/3)"]}}],
+[
+{"i":68398,"m":38,"set":{"a.ac":["ENCLEADUS, TITAN, MIMAS"]}},
+{"i":68399,"m":39,"set":{"a.ac":["1","2","3"]}},
+{"i":68400,"m":40,"set":{"q":"During plant development and in response to wounding or pathogen attack, plants deposit a β-1,3-linked glucose polymer at plasmodesmata and phloem sieve plates to regulate intercellular transport. What is the name of this carbohydrate?"}}],
+[
+{"i":68401,"m":41,"set":{"a.t":"1 and 3"}}],
+[
+{"i":68402,"m":42,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68403,"m":43},
+{"i":68404,"m":44,"set":{"q":"Let S^1 be the points (x, y) in ℝ^2 such that x^2 + y^2 = 1. What topological surface is formed by the Cartesian product S^1 × S^1?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68405,"m":45,"set":{"q":"A water tank is an inverted cone with radius 4 meters and height 12 meters. It is being filled at a constant rate of 2.5 m^3/min. When the water height is 6 meters, in meters per minute, how fast is the height increasing?","a.t":"5/(8π)"}},
+{"i":68406,"m":46,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68407,"m":47,"set":{"q":"A particle of mass m and energy E encounters a rectangular potential barrier of height V_0 > E and width a. In the WKB approximation, the transmission probability depends exponentially on which quantity?","c.W":"a√(2m(V_0 − E))/ℏ","c.X":"a√(2mE)/ℏ","c.Y":"a√(2mV_0)/ℏ","c.Z":"aV_0/E","a.t":"a√(2m(V_0 − E))/ℏ"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68408,"m":48}],
+[
+{"i":68409,"m":49}],
+[
+{"i":68410,"m":0},
+{"i":68411,"m":1,"set":{"q":"A patient presents to your emergency department with diabetic ketoacidosis (DKA). They have fruity smelling breath with every exhale. In order, what causes the fruit smelling breath, and what causes the acidosis?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68412,"m":602,"set":{"q":"In the Suzuki coupling, what functional group is coupled to aryl halides, forming a sp^2-sp^2 carbon-carbon bond?"}}],
+[
+{"i":68413,"m":3,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68414,"m":604,"set":{"q":"Given that 100! ≈ 9.3 × 10^157, which is closest to the number of derangements of the integers from 1 to 100 inclusive?","a.l":"Y"},"order":["s","f","qt","n","q","a","c"]}],
+[
+{"i":68415,"m":5}],
+[
+{"i":68417,"m":607,"set":{"q":"A gyroscope with moment of inertia I spins at angular velocity ω_s about its symmetry axis. The axis is oriented horizontally with one end supported, at distance d from the center of mass. If the gyroscope has mass M, what is the angular frequency Ω of precession?","a.t":"Mgd/(Iω_s)"}}],
+[
+{"i":68418,"m":8},
+{"i":68419,"m":9,"set":{"q":"Identify all of the following three variables that have a positive correlation with water discharge based on Manning’s equation: 1) Manning coefficient 2) Cross sectional area 3) Hydraulic Radius"}},
+{"i":68420,"m":10,"set":{"a.t":"2"}},
+{"i":68421,"m":11,"set":{"a.t":"1 and 2"}},
+{"i":68422,"m":12},
+{"i":68423,"m":13},
+{"i":68424,"m":14},
+{"i":68425,"m":15}],
+[
+{"i":68426,"m":616,"set":{"q":"At a boundary between two linear dielectric materials with no free surface charge, which of the following must be continuous across the boundary? 1) The tangential component of E 2) The normal component of E 3) The normal component of D"}}],
+[
+{"i":68427,"m":17,"set":{"q":"A cylindrical capacitor has inner radius a, outer radius b, and length L ≫ b. A cylindrical dielectric shell with constant κ fills the region from radius a to radius c, where a < c < b. Express the capacitance in terms of ε_0, κ, a, b, c, and L.","a.t":"2πε_0L/((1/κ) ln(c/a) + ln(b/c))"}},
+{"i":68428,"m":18},
+{"i":68429,"m":19},
+{"i":68430,"m":20,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68431,"m":21,"set":{"q":"Accumulation of misfolded proteins within the endoplasmic reticulum activates a cellular stress response termed the unfolded protein response. Which of the following would be most directly associated with the unfolded protein response."},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68432,"m":622}],
+[
+{"i":68433,"m":23,"set":{"q":"Mercury (II) nitrate is a highly toxic inorganic salt usied in synthesis. Upon heating, this salt undergoes thermal decomposition. How many unique solid and gaseous species are released in this reaction, respectively?"}}],
+[
+{"i":68434,"m":624,"set":{"q":"In the trinomial expansion of (3x + y + 2z)^5, what is the coefficient of xy^2z^2 term?"}}],
+[
+{"i":68435,"m":25},
+{"i":68436,"m":26,"set":{"q":"An electron in a hydrogen atom transitions from the n = 3 state to the n = 1 ground state. What is the wavelength of the emitted photon? Use hc = 1240 eV·nm and the ground state energy E_1 = −13.6 eV."},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68437,"m":27,"set":{"a.t":"1/3 + √3/(2π)"}},
+{"i":68438,"m":28,"set":{"q":"Identify all of the following three statements regarding Antarctic circulation that are true: 1) The Antarctic Circumpolar current is driven by prevailing westerlies. 2) AABW formation is primarily driven by the deflection of water into the continent by the polar easterlies. 3) Antarctic Divergence occurs because the westerlies and easterlies deflect water in different directions due to Ekman Transport."}},
+{"i":68439,"m":30,"set":{"q":"Identify all of the following three toxins which are correctly matched with their mechanism of action. 1) Botulinum neurotoxin – breaks down SNARE proteins 2) Cholera toxin – permanently inactivates a G-inhibitory protein 3) Pertussis toxin – permanently activates a G-stimulatory protein","a.t":"1"}},
+{"i":68440,"m":31}],
+[
+{"i":68441,"m":632,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68442,"m":33,"set":{"q":"Ben prepares iron coordination complexes with sulfido (S^(2−)) and hydroxo (OH^−) ligands. According to Hard-Soft Acid-Base theory, which ligands are most likely to form insoluble Fe(II) and Fe(III) salts, respectively?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68443,"m":34,"set":{"q":"When multiplying 2 n × n matrices using the Strassen algorithm, the time complexity can best be described as O(n^α). To the nearest hundredth, what is the value of α?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68444,"m":635,"set":{"q":"Identify all of the solutions to the following ODE: y′′′ − 4y′′ + 5y′ − 2y = 0 1) 3xe^x 2) 4e^x + 5e^(2x) 3) xe^(2x)"}}],
+[
+{"i":68445,"m":36,"set":{"q":"A quantum harmonic oscillator is in its first excited state. Using the raising and lowering operators, what is the expectation value of x^2 in terms of ℏ, m, and ω?","c.W":"ℏ/(2mω)","c.X":"ℏ/(mω)","c.Y":"3ℏ/(2mω)","c.Z":"2ℏ/(mω)","a.t":"3ℏ/(2mω)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68446,"m":37,"set":{"q":"A 3D cubical cavity supports standing-wave modes labeled by nonnegative integers (n_x, n_y, n_z), not all zero. If n_x, n_y, and n_z can each be 0, 1, 2, or 3, how many distinct mode triplets are possible?"}},
+{"i":68447,"m":38,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68448,"m":39},
+{"i":68449,"m":40,"set":{"q":"Multiple Sequence Alignment is a process that aligns three or more biological sequences, typically either protein, RNA, or DNA in order to infer evolutionary relationships. Which of the following algorithms is NOT typically used in Multiple Sequence Alignment?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68450,"m":41,"set":{"a.ac":["FSC"],"a.rj":["Side-Scatter","SSC"]}},
+{"i":68451,"m":42,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68452,"m":643,"set":{"q":"A thermal electrocyclic ring opening of cyclobutene is:","a.t":"4 e-, conrotatory","a.l":"W"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68453,"m":644,"set":{"q":"How many integer values does the expression 7 sin(x) + 12 cos(x) take on?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68454,"m":45,"set":{"q":"Let x, y, and z be real numbers such that x^2 + y^2 + z^2 = 24. What is the maximum value of x + 2y + z?"}},
+{"i":68455,"m":46,"set":{"q":"Two events in an inertial frame are separated by Δt = 1.0μs and Δx = 600m along the x-axis. Using c = 3.0 × 10^8 m/s, how are the events separated?","c.Z":"They cannot be classified without knowing Δy and Δz"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68456,"m":47,"set":{"q":"A muon created in the upper atmosphere has a proper lifetime of 2.2μs. If the muon travels at 0.99c relative to Earth, to the nearest kilometer, what is the average distance it travels in the Earth frame before decaying?"}},
+{"i":68457,"m":48,"set":{"q":"The city of TSB has decided to implement a policy that requires all roofs and sidewalks to be painted with reflective white paint. Which of the following best describes the potential impacts of this choice?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68458,"m":49}],
+[
+{"i":68459,"m":0},
+{"i":68460,"m":1,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68461,"m":332,"set":{"q":"The Evans Method and Guoy balance are chemical techniques to measure what quantity, which is proportional to the number of unpaired d-electrons?"}}],
+[
+{"i":68462,"m":3,"set":{"q":"What is the symmetry operation that results from applying a C_2 rotation 67 times, followed by inversion 41 times?","a.t":"σ_h","a.ac":["horizontal mirror plane"]}},
+{"i":68463,"m":4,"set":{"q":"Order the following numbers in order of increasing value: 1) log_2 10; 2) π; 3) √12"}},
+{"i":68465,"m":7,"set":{"q":"A bead of mass m slides without friction on a circular hoop of radius R rotating about a vertical diameter with constant angular velocity ω. At what angle θ from the bottom of the hoop (measured from center) is there a stable equilibrium for ω > √(g/R)?","a.t":"θ = cos^(-1)(g/(Rω^2))"}},
+{"i":68466,"m":8,"set":{"q":"Given the following sequence of rock from bottom to top in a column: Limestone, Sandstone, Limestone, Sandstone, Shale, which of the following sequences of events most likely occurred?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68467,"m":9},
+{"i":68468,"m":10,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68469,"m":11,"set":{"q":"A population of flowers contains blue, yellow, and red as its possible phenotypes. When crossing true-breeding blue flowers with true-breeding yellow flowers, you only get red flowers as the F1 generation. When crossing the F1 red flowers amongst themselves, you get 80 blue offspring, 60 yellow offspring, and 180 red offspring. Which of the following statements is true?","c.X":"Crossing the resultant blue offspring with each other produces only blue offspring","a.t":"Crossing the resultant blue offspring with each other produces only blue offspring"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68470,"m":342,"set":{"q":"Which of the following are true of Helmholtz and Gibbs Free Energy? 1) The integrated formulas require only pressure to be held constant 2) Entropy is a natural variable in both differential identities 3) The magnitude of Helmholtz Free Energy is identically larger than the magnitude of Gibbs Free Energy"}}],
+[
+{"i":68471,"m":13,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68472,"m":344,"set":{"q":"Let A be the set {1, 2, 3, 4, 5}. Let f: A → A be a function. How many functions f(x) satisfy f(f(f(x))) = x for all x in A?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68473,"m":345,"set":{"q":"Let f(x) equal the number of integers k such that C(x, k) is odd. What is the maximum value of f(x) when x is an integer between 1 and 2026, inclusive?"}},
+{"i":68474,"m":346,"set":{"q":"Consider the Ampère-Maxwell law. Taking the divergence of both sides and using Gauss’s law, what must be true for the equation to be self-consistent?","c.W":"∇ · J = 0","c.X":"∇ · J + ∂ρ/∂t = 0","c.Y":"∇ · E = 0","c.Z":"∂ρ/∂t = 0","a.t":"∇ · J + ∂ρ/∂t = 0"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68475,"m":17,"set":{"a.t":"E = (μ_0Nr/2L)(dI/dt)"}},
+{"i":68476,"m":18,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68477,"m":19,"set":{"q":"A planet orbits two identical stars. At a particular instant, the stars are 2 AU apart and the planet is located a distance √3 AU from the binary’s barycenter along a line perpendicular to the line joining the stars. Assuming the stars are point sources, to the nearest percent, what is the maximum fraction of the planet’s surface area that can receive light from at least one of the stars at that instant?"}},
+{"i":68478,"m":20},
+{"i":68479,"m":21},
+{"i":68480,"m":22,"set":{"q":"In square planar transition metal complexes, the rate at which a ligand is substituted in a ligand replacement reaction is highly dependent on the group trans to the ligand. Order the following ligands in increasing effect of accelerating removal of a group trans to itself. 1) nitrite 2) hydroxide 3) cyanide"}},
+{"i":68481,"m":23,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68482,"m":24}],
+[
+{"i":68483,"m":355,"set":{"q":"In triangle ABC, let D be point on segment AB, let E be a point on segment BC, and let F be a point on segment CA. If AD/DB = 2/3, BE/EC = 2, and CF/FA = 3/4. Which of the following statements is true about the 3 lines AE, BF, and CD?","c.X":"The 3 lines are concurrent if and only if ∠ABC is a right angle"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68484,"m":26,"set":{"q":"A particle in a one-dimensional infinite square well is in the state (|1⟩ + |3⟩)/√2 at t = 0. In terms of the ground-state energy E_1, what is the expectation value ⟨E⟩?","a.t":"5E_1"}}],
+[
+{"i":68485,"m":357,"set":{"a.t":"(15/2)ρv^2"}}],
+[
+{"i":68486,"m":28,"set":{"q":"As the universe expands, the temperature of the cosmic microwave background scales by the scale factor raised to what power?"}},
+{"i":68487,"m":29},
+{"i":68488,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68489,"m":31,"set":{"q":"Vishal buys unbloomed poinsettias, a short-day plant, for his significant other on Christmas. When he presents them to her, he wants the poinsettias to be fully bloomed in beautiful red colors. If he buys them at 1:00 AM and his date is at 10:00 PM, what combinations of light and darkness would be appropriate for his goal? 1) Keep in the darkness until 10:00 AM, then keep in white light until his date 2) Keep in the darkness until 2:00 PM, then keep in white light until his date 3) Keep in the darkness until 10:00 AM, 680 nanometer light flash, keep in darkness again until 2:00 PM, then keep in white light until his date","a.t":"2"}},
+{"i":68490,"m":32},
+{"i":68491,"m":33,"set":{"q":"Which of the following statements are consistent with nucleophile trajectory in the Felkin-Anh model? 1) Sodium hydride approaches towards the small substituent 2) Organolithiums may approach towards the medium or large substituent 3) Organolithiums can increase DR by transition state chelation"}},
+{"i":68492,"m":35,"set":{"q":"Let T be a regular tetrahedron with side length 4, and let X be the centroid of the tetrahedron. Let V be the region inside T that is closer to X than any of the 4 vertices of T . What is the ratio of the volume of V to the volume of T?","a.t":"101/128"}},
+{"i":68493,"m":36,"set":{"q":"At low temperatures, the heat capacity of a metal has the form C = γT + αT^3, what particle contributes to the linear term?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68494,"m":37,"set":{"q":"A photon gas (blackbody radiation) has energy density u = aT^4. In terms of a and T, what is its entropy density s?","a.t":"(4/3)aT^3"}},
+{"i":68495,"m":38,"set":{"q":"Ben is cataloging three meteorite samples under identical lighting conditions, but each sample’s label lists only its dominant mineral rather than its meteorite class. Using only this information, order the following three samples from lowest to highest typical albedo: 1) Sample labeled \"kaolinite\" 2) Sample labeled \"kamacite\" 3) Sample labeled \"olivine\""}},
+{"i":68496,"m":39,"set":{"q":"Astronomer Jophy compiles a large, unbiased catalog of exoplanet orbits, meaning the detection method is equally sensitive to all orbital orientations. In this catalog, each planet’s orbital angular momentum vector points in a random direction in three-dimensional space. Let i denote the orbital inclination angle. Which of the following functions of i, is uniformly distributed across the catalog?","c.Y":"sin^2(i)","c.Z":"cos^2(i)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68497,"m":40},
+{"i":68498,"m":41},
+{"i":68499,"m":42}],
+[
+{"i":68500,"m":373,"set":{"q":"Diazocines are a class of photoswitchable, bridged azobenzenes. In the ground state, the Z-boat isomer is favored. Upon excitation with UV light, which metastable conformer is most stable?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68501,"m":45,"set":{"a.t":"√5"}},
+{"i":68502,"m":46,"set":{"q":"A photon of energy E collides head-on with an electron at rest. After the collision, the electron moves in the original photon direction. What is the minimum photon energy E for this to be kinematically possible?","c.W":"(1/2)m_ec^2","c.X":"m_ec^2","c.Y":"2m_ec^2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68503,"m":47,"set":{"q":"Two photons each have energy E and their directions of travel make a 60° angle with each other. What is the invariant mass M of the two-photon system in terms of E and c?","a.t":"M = E/c^2"}},
+{"i":68504,"m":48,"set":{"c.X":"ENSO is generally considered to occur due to air-sea coupling relationships, while MJO is mainly an atmospheric phenomenon","c.Y":"The effects of MJO propogate across the Pacfic, making regional changes easier to predict than ENSO changes","c.Z":"MJO generally has smaller scale impacts than ENSO","a.t":"The effects of MJO propogate across the Pacfic, making regional changes easier to predict than ENSO changes"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68505,"m":0,"set":{"q":"Jerry’s local pest control company is advertising that they have developed a new pesticide called Arizonotoxin that works on insects by degrading the excitatory neurotransmitter released at insect neuromuscular junctions. What neurotransmitter is most likely to be effected by Arizonotoxin?"}},
+{"i":68506,"m":1,"set":{"q":"In Saccharomyces Cerevisiae, two genes A and B each have two alleles, capital A, lowercase a, capital B, and lowercase b. A diploid is constructed by mating haploids dominant in each gene to haploids recessive in each gene, and then the diploid is induced to undergo meiosis. You dissect 200 unordered tetrads and score them. 120 of the tetrads are parental ditypes, 70 are tetratypes, and 10 are nonparental ditypes. What is the map distance between genes A and B in centimorgans to the nearest tenth?"}},
+{"i":68507,"m":2,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68508,"m":3,"set":{"q":"Order the following complexes by largest to smallest Jahn-Teller distortion. Assume all complexes have identical ligands about a metal center. 1) O_h, d^6, low-spin 2) O_h, d^7, low-spin 3) T_d, d^1"}},
+{"i":68509,"m":4,"set":{"q":"Named after a Greek-French mathematician, what is another name for ζ(3), where zeta is the Riemann zeta function?"}}],
+[
+{"i":68510,"m":555,"set":{"q":"Let M(x) = Σ_(k=1)^x μ(k), where μ is the Mobius function. What is the maximum value of M(x) across the first 10,000 positive integers?","c.Z":"3,500"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68511,"m":6,"set":{"q":"A particle of mass m moves in an attractive inverse-square potential V(r) = −k/r and is in a bound orbit with total energy E < 0. In terms of E and k, what is the semi-major axis a of the orbit?","c.W":"a = k/(2E)","c.X":"a = −k/(2E)","c.Y":"a = −2E/k","c.Z":"a = k/E","a.t":"a = −k/(2E)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68512,"m":7,"set":{"a.t":"ω_1 = √(g/L) (symmetric mode) and ω_2 = √(g/L + 2k/m) (antisymmetric mode)"}},
+{"i":68513,"m":8},
+{"i":68514,"m":9,"set":{"q":"Identify all of the following three observances that would be consistent with a strong Watadi-Benioff zone: 1) Small forearc basin 2) Large accretionary wedge 3) High concentration of hydrated minerals on seafloor."}},
+{"i":68515,"m":10,"set":{"a.l":"W"},"order":["s","f","qt","n","q","a","c"]},
+{"i":68516,"m":11,"set":{"q":"Which of the following answer choices best describes the effect that a rapid increase in the NADH/NAD+ ratio in the mitochondrial matrix would have on the Citric Acid Cycle?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68517,"m":12,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68518,"m":13}],
+[
+{"i":68519,"m":564,"set":{"q":"What is Σ_(n=0)^∞ C_n/4^n, where C_n is the nth Catalan number?"}}],
+[
+{"i":68520,"m":15}],
+[
+{"i":68521,"m":566,"set":{"q":"In some inertial frame, uniform fields satisfy E ⊥ B and E > cB. One can boost parallel to E × B to reach a frame where B′ = 0. What is the magnitude of the electric field in that frame?","c.X":"√(E^2 − c^2B^2)","c.Y":"(E^2 − c^2B^2)/E","c.Z":"√(E^2 + c^2B^2)","a.t":"√(E^2 − c^2B^2)"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68522,"m":17,"set":{"a.t":"v^2/c^2","a.ac":["β^2"]}},
+{"i":68523,"m":18,"set":{"q":"Identify all of the following three statements regarding glacial dynamics that are TRUE: 1) Due to overburden pressure, glacial ice does not form crevasses below a depth of 50 meters. 2) Lower soil saturation allows soil to compress and increases the driving force, increasing flow velocity. 3) Channelized drainage patterns under a glacier tend to promote efficient drainage and reduce basal slip."}},
+{"i":68524,"m":19}],
+[
+{"i":68525,"m":570}],
+[
+{"i":68526,"m":21},
+{"i":68527,"m":22},
+{"i":68528,"m":23,"set":{"q":"Molecular oxygen can be inserted into gold hydride complexes by a radical chain mechanism. What order is the reaction in the gold complex, and in which solvent would it proceed most quickly?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68529,"m":574,"set":{"q":"Consider the series 1 − 1/2 + 1/3 − 1/4 + .... According to the Riemann Rearrangement Theorem, which of the following three sums can be possible values of this series, when the series is rearranged? 1) ln 2 2) π/2 3) π/3"}},
+{"i":68530,"m":575,"set":{"q":"In the equation x^3 ≡ 1 (mod 2401), how many integer solutions exist between 0 and 2400 inclusive?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68531,"m":26},
+{"i":68532,"m":27,"set":{"q":"A torque-free rigid body has principal moments I_1 < I_2 < I_3. If it spins primarily about the axis with moment I_2 with small perturbations, the perturbation amplitude evolves as e^(σt) where σ^2 is proportional to:","c.W":"(I_3 − I_2)(I_2 − I_1), so σ is real","c.X":"(I_3 − I_2)(I_1 − I_2), so σ is imaginary","c.Y":"(I_1 − I_3)^2, so σ is imaginary","c.Z":"(I_2 − I_1)(I_2 − I_3), so σ is imaginary","a.t":"(I_3 − I_2)(I_2 − I_1), so σ is real"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68533,"m":28,"set":{"c.X":"The jet stream is migrating northward, which strengthens Rossby wave formation.","c.Z":"The jet stream is migrating southward, which strengthens Rossby wave formation.","a.t":"The jet stream is migrating northward, which strengthens Rossby wave formation."},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68534,"m":29,"set":{"q":"Quasi-stationary spiral structure in disk galaxies, in which spiral arms persist as a long-lived pattern with a pattern speed distinct from the orbital speeds of individual stars, can be explained by what theory?"}},
+{"i":68535,"m":30,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68536,"m":31,"set":{"q":"A patient is placed on extra-corporeal membrane oxygenation (ECMO), a medical device used as a life saving intervention. ECMO bypasses and assists either the heart or the lungs to depending on if the device is cannulated in a vein and/or artery. This patient requires cardiac support in addition to oxygenation. What ECMO cannulation strategy is most appropriate?"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68537,"m":582,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68538,"m":33,"set":{"q":"Which statements correctly explain why substituted molecules cyclize faster and with more thermodynamic stability compared to their unsubstituted counterparts? 1) substituents decrease the bond angles in the starting materials 2) substituents increase the rotational freedom in the starting materials 3) substituents reduce the rotational freedom in the products"}},
+{"i":68539,"m":34,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68540,"m":35,"set":{"q":"Warith has 100 numbers in an array, and he can spend a dollar to pick a number and change it to any other number. If he always uses this operation optimally, what is the maximum number of dollars he may need to spend to sort the numbers in non-increasing OR non-decreasing with only this operation?"}},
+{"i":68541,"m":36,"set":{"q":"A 2D electron gas of density n is in a perpendicular magnetic field B. The filling factor is defined as ν = nh/(eB). If ν = 2 (ignoring spin), what fraction of the electrons occupy the lowest Landau level?","a.t":"1/2"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}},
+{"i":68542,"m":37},
+{"i":68543,"m":38,"set":{"q":"In stellar structure theory, what differential equation describes the dimensionless density profile of a self-gravitating polytropic sphere?"}},
+{"i":68544,"m":39,"set":{"a.ac":["1","2","3"]}}],
+[
+{"i":68545,"m":590,"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68546,"m":41,"set":{"q":"Emma is curious about the production of sex hormones in the human body. From watching the MIT Science Bowl finals, she knows that the enzyme aromatase is responsible for converting androstenedione into estrone and testosterone into estradiol. However, she does not remember the enzyme that converts androstenedione into testosterone and estrone into estradiol. What is the name of this enzyme?"}},
+{"i":68547,"m":42,"set":{"q":"What polymerization mechanism produces polynorbornene from its bicyclic monomer?","a.t":"Ring-opening metathesis polymerization","a.ac":["ROMP"]}}],
+[
+{"i":68548,"m":593,"set":{"q":"How many 1H NMR signals with integration 3 are expected for DMF?"}}],
+[
+{"i":68549,"m":44,"set":{"q":"What theorem states that two quadratic forms over ℚ are equivalent over ℚ if and only if they are equivalent over ℝ and over ℚ_p for every prime p?","a.t":"Hasse–Minkowski Theorem","a.ac":["local–global principle","Hasse principle for quadratic forms"]}},
+{"i":68550,"m":45,"set":{"a.t":"√(5 + 2√3)"}},
+{"i":68551,"m":46,"set":{"q":"In terms of r_s, at what distance does the escape velocity from a non-rotating black hole equal c/2?","c.W":"(7/4)r_s","c.X":"(8/3)r_s","c.Y":"(9/2)r_s","c.Z":"4r_s","a.t":"4r_s"},"order":["s","f","qt","n","q","a","c"],"sub":{"a":["t","l"]}}],
+[
+{"i":68552,"m":597,"set":{"q":"In Schwarzschild spacetime, light emitted at radius r_e and received at infinity has gravitational redshift 1 + z = 1/√(1 − 2GM/(r_e c^2)). If a photon is received at infinity with half the emission frequency, what is r_e?","a.t":"8GM/(3c^2)"}}],
+[
+{"i":68553,"m":48,"set":{"q":"Order the following three feedback mechanisms in increasing order of time taken for the effects of the cycle to be significantly felt: 1) Carbonate-silicate weathering 2) Cloud feedback 3) Water vapor feedback."}},
+{"i":68554,"m":49}],
+[
+{"i":96050,"m":336,"set":{"c.W":"√(GM/(2a))","c.X":"√(GM/a)","c.Y":"√(2GM/a)"},"sub":{"a":["t","l"]}},
+{"i":96051,"m":-1,"set":{"s":"math","f":"SA","qt":"tossup","n":23,"q":"Let x = e^(2iπ/9). What is ∏_(k=0)^8 (2 − x^k)?","a":true,"a.t":"511"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":96052,"m":-1,"set":{"s":"math","f":"SA","qt":"bonus","n":3,"q":"What is ∫_0^(π/2) 1/(1 + tan x)?","a":true,"a.t":"π/4"},"order":["s","f","qt","n","q","a"]}],
+[
+{"i":96444,"m":335,"set":{"q":"A 7-segment display is often used in digital clocks to display time. Assuming that a configuration refers to one of the 128 possible ways to light up the display, answer the following three questions: 1) What digit uses the most segments in this display? 2) How many configurations have a prime number of lit segments? 3) If neither reflections nor rotations are unique, how many distinct configurations exist on the display?","a.t":"1) 8; 2) 78; 3) 48"}}],
+[
+{"i":96458,"m":165,"set":{"q":"What is the largest prime number p such that √(17p + 625) is an integer?"}}],
+[
+{"i":96459,"m":424,"set":{"q":"If 25!/(23! + x!) = 24, what is the value of x?","a.t":"24"}},
+{"i":96460,"m":295,"set":{"q":"What is the largest integer k such that 7^k divides the binomial coefficient (2026 choose 67)?"}}],
+[
+{"i":96461,"m":-1,"set":{"s":"math","f":"MC","qt":"bonus","n":13,"q":"Evaluate the infinite series Σ_(n=1)^∞ (−1)^(n+1)/n^2.","c":true,"c.W":"(ln 2)^2","c.X":"(ln 2)^2/2","c.Y":"π^2/8","c.Z":"π^2/12","a":true,"a.t":"π^2/12","a.l":"Z"},"order":["s","f","qt","n","q","c","a"]}],
+[
+{"i":96462,"m":364,"set":{"q":"Compute Γ(7/2).","a.t":"15√π/8","a.ac":["15/8 √π","(15/8)√π"]}}]
+]

@@ -1,6 +1,6 @@
 // Pieces Play (solo.html) and Multiplayer share, in QB Reader's style:
-// the subject toggles, the question cards in the history, packet-number
-// parsing, and settings saved per device.
+// the subject toggles, the question cards in the history and packet-number
+// parsing.
 (function () {
   const { escapeHtml } = SBData;
 
@@ -168,7 +168,14 @@
   // k and t act on the newest card in a history list.
   function latestCard(list) { return list.querySelector('.history-card'); }
   function toggleLatest(list) { const c = latestCard(list); if (c) c.toggleOpen(); }
-  function starLatest(list) { const c = latestCard(list); if (c) c.querySelector('.star-question').click(); }
+  // t: the question on screen once it's over (its star by the header line),
+  // else the newest card.
+  function starLatest(list, displayEl) {
+    const current = displayEl && displayEl.querySelector('.header-star .star-question');
+    if (current) { current.click(); return; }
+    const c = latestCard(list);
+    if (c) c.querySelector('.star-question').click();
+  }
   // Repaints every card's star for one question (it may be starred elsewhere).
   function repaintStars(list, qid) {
     list.querySelectorAll('.history-card').forEach((c) => { if (c.dataset.qid === String(qid) && c.paintStar) c.paintStar(); });
@@ -253,14 +260,6 @@
     };
   }
 
-  /* ---------------- Saved settings ---------------- */
-  function loadSettings(key, defaults) {
-    try { return { ...defaults, ...JSON.parse(localStorage.getItem(key) || '{}') }; } catch (e) { return { ...defaults }; }
-  }
-  function saveSettings(key, obj) {
-    try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) { /* not saved */ }
-  }
-
   // "Report" floated to the right of a revealed answer line. Needs reports.js.
   function answerReportLink(q) {
     const a = SBReports.link(q);
@@ -268,12 +267,9 @@
     return a;
   }
 
-  // The year slider's label, as on QB Reader: "Year range: 2010 - 2026".
-  function yearLabel(lo, hi) { return `Year range: ${lo} - ${hi}`; }
-
   window.SBPlay = {
     subjectButtons, packetSelect, historyCard, linkQuestionInfo, toggleLatest, starLatest, repaintStars, headerStar, answerReportLink,
-    packetsOf, parsePacketNumbers, loadSettings, saveSettings, yearLabel,
+    packetsOf, parsePacketNumbers,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.SBPlay;
 })();

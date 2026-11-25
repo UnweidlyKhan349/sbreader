@@ -6,10 +6,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-// Not pages people browse: Google's verification file, and the old Bookmarks
-// address, which only redirects.
-const SKIP = new Set(['bookmarks.html']);
-const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html') && !/^google[0-9a-f]+\.html$/.test(f) && !SKIP.has(f));
+// (Not Google's verification file, which isn't a page people browse.)
+const pages = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html') && !/^google[0-9a-f]+\.html$/.test(f));
 const head = (f) => { const s = fs.readFileSync(path.join(ROOT, f), 'utf8'); return s.slice(0, s.indexOf('</head>')); };
 
 const EVERY_PAGE = {

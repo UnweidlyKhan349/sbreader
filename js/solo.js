@@ -11,26 +11,22 @@
   // question has been read through is never under this.
   const AFTER_BUZZ_MS = 5000;
   const LETTERS = ['W', 'X', 'Y', 'Z'];
-  const SETTINGS_KEY = 'sb_solo_settings';
 
-  // Everything the sidebar sets, saved per device.
-  const settings = SBPlay.loadSettings(SETTINGS_KEY, {
+  // Everything the sidebar sets. Nothing is saved but the reading speed:
+  // Play always opens on the default filters and switches. (Earlier versions
+  // saved them; that copy is dropped.) The reading speed is kept per device
+  // as sb_reading_speed, and synced to the account when logged in.
+  try { localStorage.removeItem('sb_solo_settings'); } catch (e) { /* nothing saved */ }
+  const settings = {
     mode: 'random',
-    subjects: null, // null = every subject
     tournaments: [],
     roundRange: null,
-    // [first, last] years, or null for every year.
-    yearRange: null,
     includeUnlabeled: true,
     rebuzz: false,
     timer: true,
-  });
-  // (Type to answer, once a switch, is gone: answers are always typed.)
-  delete settings.typeToAnswer;
-  function save() { SBPlay.saveSettings(SETTINGS_KEY, { ...settings, subjects: [...subjects] }); }
+  };
   let subjects; // Set of subject keys
   let roundSliderApi;
-  let yearSliderApi;
   let categories;
 
   /* ================= QUESTIONS FOR THE CURRENT SETTINGS ================= */
@@ -41,7 +37,6 @@
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
-      yearRange: settings.yearRange,
       includeUnlabeled: settings.includeUnlabeled !== false,
     });
   }
@@ -70,7 +65,6 @@
   // times a second, and filtering and shuffling the whole bank twice on each
   // made the sidebar lag.
   function onSettingsChange() {
-    save();
     if (!SBData.questions) { updateMatchCount(); return; }
     updateMatchCount(matchingQuestions());
     if (sessionActive()) session.queueStale = true;
@@ -94,8 +88,7 @@
   }
 
   function initSettings() {
-    const all = SBData.meta.subjects.map((s) => s.key);
-    subjects = new Set(Array.isArray(settings.subjects) && settings.subjects.length ? settings.subjects.filter((k) => all.includes(k)) : all);
+    subjects = new Set(SBData.meta.subjects.map((s) => s.key));
     categories = SBPlay.subjectButtons(document.getElementById('subjectButtons'), SBData.meta.subjects, subjects, onSettingsChange);
 
     // Mode.
@@ -121,7 +114,6 @@
     });
     tSelect.addEventListener('change', () => { settings.tournaments = tSelect.getMultiValues(); scopeRounds(); onSettingsChange(); });
     SBData.enhanceMultiSelect(tSelect);
-    if (settings.tournaments.length) tSelect.setMultiValues(settings.tournaments);
     const maxRound = Math.max(1, ...(SBData.meta.rounds && SBData.meta.rounds.length ? SBData.meta.rounds : [1]));
     roundSliderApi = SBData.wireRoundRangeSlider({
       minInput: document.getElementById('roundMin'),
@@ -131,20 +123,6 @@
       maxRound,
       onChange: (lo, hi) => { settings.roundRange = [lo, hi]; onSettingsChange(); },
     });
-    if (settings.roundRange) roundSliderApi.setRange(settings.roundRange[0], settings.roundRange[1]);
-    // Year range, as on QB Reader: the tournaments' years.
-    const [firstYear, lastYear] = SBData.yearSpan();
-    yearSliderApi = SBData.wireRoundRangeSlider({
-      minInput: document.getElementById('yearMin'),
-      maxInput: document.getElementById('yearMax'),
-      fillEl: document.getElementById('yearSliderFill'),
-      labelEl: document.getElementById('yearRangeLabel'),
-      min: firstYear,
-      maxRound: lastYear,
-      label: SBPlay.yearLabel,
-      onChange: (lo, hi) => { settings.yearRange = lo === firstYear && hi === lastYear ? null : [lo, hi]; onSettingsChange(); },
-    });
-    if (settings.yearRange) yearSliderApi.setRange(Math.max(firstYear, settings.yearRange[0]), Math.min(lastYear, settings.yearRange[1]));
     const unlabeled = document.getElementById('toggleUnlabeled');
     unlabeled.checked = settings.includeUnlabeled !== false;
     unlabeled.addEventListener('change', () => { settings.includeUnlabeled = unlabeled.checked; unlabeled.blur(); onSettingsChange(); });
@@ -155,12 +133,12 @@
     Object.entries(switches).forEach(([id, key]) => {
       const el = document.getElementById(id);
       el.checked = !!settings[key];
-      el.addEventListener('change', () => { settings[key] = el.checked; el.blur(); applySwitches(); save(); });
+      el.addEventListener('change', () => { settings[key] = el.checked; el.blur(); applySwitches(); });
     });
     applySwitches();
 
     const rateSlider = document.getElementById('rateSlider');
-    // QB Reader's reading speed: 0 to 100, 50 by default.
+    // QB Reader's reading speed: 0 to 100, 50 by default; your own saved one.
     let savedRate = null;
     try { savedRate = localStorage.getItem('sb_reading_speed'); } catch (e) { /* default */ }
     session.rate = SBReveal.normalizeSpeed(savedRate);
@@ -172,26 +150,33 @@
       try { localStorage.setItem('sb_reading_speed', String(session.rate)); } catch (e) { /* not saved */ }
       if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
     });
+    // Logging in can bring the account's reading speed.
+    window.addEventListener('sb-settings-synced', () => {
+      let v = null;
+      try { v = localStorage.getItem('sb_reading_speed'); } catch (e) { return; }
+      if (v == null) return;
+      session.rate = SBReveal.normalizeSpeed(v);
+      rateSlider.value = session.rate;
+      document.getElementById('rateValue').textContent = String(session.rate);
+      if (runtime.revealCtl && !runtime.revealCtl.isDone()) runtime.revealCtl.setRate(session.rate);
+    });
 
     updateMatchCount();
   }
 
   // The round slider spans the picked tournaments' rounds only.
-  // Clear all filters: every tournament, every round, every subject. The
-  // mode stays.
+  // Clear all filters: every tournament, every round, and no subject picked
+  // (which plays every subject). The mode stays.
   function clearFilters() {
     settings.tournaments = [];
     document.getElementById('tournamentSelect').setMultiValues([]);
     scopeRounds();
     subjects.clear();
-    SBData.meta.subjects.forEach((s) => subjects.add(s.key));
     categories.sync();
     settings.includeUnlabeled = true;
     document.getElementById('toggleUnlabeled').checked = true;
     roundSliderApi.reset(); // reports the full range, which saves and recounts
     settings.roundRange = null;
-    yearSliderApi.reset();
-    settings.yearRange = null;
     onSettingsChange();
   }
 
@@ -354,17 +339,13 @@
     setBuzzEnabled(true);
     document.getElementById('pauseBtn').disabled = false;
     document.getElementById('questionInfo').textContent = SBData.sourceLabelFor(q, ' ');
-    document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => {
-      el.classList.remove('reveal-correct');
-      el.classList.remove('clickable');
-    });
 
     const qDisplay = document.getElementById('qDisplay');
     // Read out as a moderator would: "TOSS-UP Physics Short Answer ...".
     const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, lead: SBReveal.visibleLength(SBData.readoutHeaderHTML(q)) }];
     const choicesDisplay = document.getElementById('choicesDisplay');
     if (q.choices) {
-      choicesDisplay.style.display = 'grid';
+      choicesDisplay.style.display = '';
       LETTERS.forEach((L) => {
         boxSegments.push({ html: SBData.renderMathHTML(q.choices[L] || ''), el: document.getElementById('choiceText' + L) });
       });
@@ -425,10 +406,6 @@
     input.value = '';
     input.focus();
 
-    const q = currentQ();
-    if (q.format === 'MC' && q.choices) {
-      document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => el.classList.add('clickable'));
-    }
     if (settings.timer) runTimer(ANSWER_MS, 'answer', () => submitAnswer(document.getElementById('answerInput').value));
   }
 
@@ -473,7 +450,6 @@
     const q = currentQ();
     const result = text.trim() ? SBAnswer.checkAnswer(q, text) : { correct: false };
     document.getElementById('answerRow').classList.add('d-none');
-    document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => el.classList.remove('clickable'));
     logAnswer(!!result.correct, text, !!result.close);
     if (result.correct) {
       resolveQuestion({ correct: true, userText: text });
@@ -612,11 +588,6 @@
     }
     // Report at the right of the answer line, answered or skipped.
     if (window.SBReports) box.querySelector('.ans-line').prepend(SBPlay.answerReportLink(q));
-
-    if (q.choices && q.answer.letter) {
-      const el = document.querySelector(`.choice-box[data-letter="${q.answer.letter}"]`);
-      if (el) el.classList.add('reveal-correct');
-    }
   }
 
   // The override link lives on your answer's line in the history while the
@@ -766,12 +737,6 @@
     document.getElementById('answerInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); submitAnswer(document.getElementById('answerInput').value); }
     });
-    document.querySelectorAll('#choicesDisplay .choice-box').forEach((el) => {
-      el.addEventListener('click', () => {
-        if (!el.classList.contains('clickable')) return;
-        submitAnswer(el.dataset.letter);
-      });
-    });
 
     // The keys: space buzz, n next, s skip, p pause, e settings, k show/hide
     // the last question, t star/unstar it; plus q for I was wrong/right.
@@ -793,7 +758,7 @@
         case 'p': togglePause(); return;
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(log); return;
-        case 't': SBPlay.starLatest(log); return;
+        case 't': SBPlay.starLatest(log, document.getElementById('qDisplay')); return;
         case 'q': overrideGrading(); return;
         default:
       }

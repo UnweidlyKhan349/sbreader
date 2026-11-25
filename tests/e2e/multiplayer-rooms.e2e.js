@@ -445,14 +445,14 @@ test('"I was right" on an earlier question someone else got takes it from them (
   await ctx.close();
 });
 
-test('a permanent room\'s link is ?room=general, and Clear all filters there turns on every subject', async () => {
+test('a permanent room\'s link is ?room=general, and Clear all filters there deselects every subject', async () => {
   const ctx = await newContext(browser);
   const a = await openPage(ctx, `${server.url}multiplayer?room=general`);
   await a.waitForFunction(() => document.getElementById('mpPermanentNote') && !document.getElementById('mpPermanentNote').classList.contains('d-none'), null, { timeout: 40000 });
   assert.match(a.url(), /\?room=general$/);
   assert.strictEqual(await subjectOn(a, 'energy'), false, 'General starts without Energy');
   await a.evaluate(() => document.getElementById('mpClearFilters').click());
-  await a.waitForFunction(() => [...document.querySelectorAll('#mpSubjectButtons .btn-subject')].every((b) => b.classList.contains('active')), null, { timeout: 10000 });
+  await a.waitForFunction(() => [...document.querySelectorAll('#mpSubjectButtons .btn-subject')].every((b) => !b.classList.contains('active')), null, { timeout: 10000 });
   assert.deepStrictEqual(a.errors, []);
   await ctx.close();
 });
@@ -468,12 +468,12 @@ test('a buzz during the reading is an Interrupt; changing the subjects again edi
   await a.waitForSelector('#live-buzz', { timeout: 10000 });
   assert.strictEqual(await a.locator('#live-buzz .badge').first().innerText(), 'Interrupt');
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
-  const lines = (p) => p.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed the subjects|turned on every subject/.test(t)));
+  const lines = (p) => p.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed the subjects|turned on every subject|cleared the subjects/.test(t)));
   await g.locator('#mpSubjectButtons .btn-subject[data-subject="chem"]').click();
-  await a.waitForFunction(() => /changed the subjects|turned on every subject/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  await a.waitForFunction(() => /changed the subjects|turned on every subject|cleared the subjects/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
   const first = (await lines(a))[0];
   await g.locator('#mpSubjectButtons .btn-subject[data-subject="bio"]').click();
-  await a.waitForFunction((was) => [...document.querySelectorAll('#mpHistory li i')].some((x) => /changed the subjects|turned on every subject/.test(x.textContent) && x.textContent.trim() !== was), first, { timeout: 10000 });
+  await a.waitForFunction((was) => [...document.querySelectorAll('#mpHistory li i')].some((x) => /changed the subjects|turned on every subject|cleared the subjects/.test(x.textContent) && x.textContent.trim() !== was), first, { timeout: 10000 });
   await g.waitForTimeout(500);
   assert.strictEqual((await lines(a)).length, 1, 'one line, edited');
   assert.strictEqual((await lines(g)).length, 1);

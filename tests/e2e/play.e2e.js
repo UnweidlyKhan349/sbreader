@@ -1,5 +1,6 @@
 // Play in a real browser: reading, buzzing, grading and the override, the
-// history cards (k, t, quick double clicks), Space buzzing without opening a
+// history cards (k, t, quick double clicks), t on the question on screen,
+// settings not kept across visits (but the reading speed), Space buzzing without opening a
 // focused card, Clear all filters, and Clear stats.
 const test = require('node:test');
 const assert = require('node:assert');
@@ -63,6 +64,34 @@ test('history cards: k opens the latest, two quick clicks leave it closed, t sta
   await ctx.close();
 });
 
+test('t stars the question on screen once it is over, not the card below it', async () => {
+  const { ctx, page } = await freshPlay();
+  for (const k of ['n', 's', 'n', 's']) { await page.keyboard.press(k); await page.waitForTimeout(400); }
+  const stars = () => page.evaluate(() => JSON.parse(localStorage.getItem('sb_bookmarks_v1') || '[]'));
+  const shown = await page.locator('#qDisplay .header-star .star-question').getAttribute('data-qid');
+  await page.keyboard.press('t');
+  assert.deepStrictEqual(await stars(), [Number(shown)]);
+  assert.strictEqual(await page.locator('#qDisplay .header-star .star-question').getAttribute('aria-pressed'), 'true');
+  await page.keyboard.press('t');
+  assert.deepStrictEqual(await stars(), []);
+  await ctx.close();
+});
+
+test('Play opens on the default settings every time, keeping only your reading speed', async () => {
+  const { ctx, page } = await freshPlay();
+  const all = await page.locator('#matchCount').innerText();
+  await page.locator('#subjectButtons .btn-subject[data-subject="bio"]').click();
+  await page.locator('#toggleRebuzz').click({ force: true });
+  await page.locator('#rateSlider').fill('80');
+  await page.reload();
+  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  assert.strictEqual(await page.locator('#matchCount').innerText(), all);
+  assert.strictEqual(await page.locator('#toggleRebuzz').isChecked(), false);
+  assert.strictEqual(await page.locator('#rateSlider').inputValue(), '80', 'your reading speed is kept');
+  assert.strictEqual(await page.locator('#subjectButtons .btn-subject.active').count(), await page.locator('#subjectButtons .btn-subject').count());
+  await ctx.close();
+});
+
 test('Space buzzes without toggling a card that was clicked earlier', async () => {
   const { ctx, page } = await freshPlay();
   for (const k of ['n', 's', 'n']) { await page.keyboard.press(k); await page.waitForTimeout(400); }
@@ -95,14 +124,15 @@ test('Clear stats starts the counts again; overriding the answer already shown l
   await ctx.close();
 });
 
-test('Clear all filters puts tournaments, rounds and subjects back', async () => {
+test('Clear all filters puts tournaments and rounds back and deselects every subject', async () => {
   const { ctx, page } = await freshPlay();
   const all = await page.locator('#matchCount').innerText();
   await page.locator('#subjectButtons .btn-subject[data-subject="bio"]').click();
   await page.locator('#toggleUnlabeled').click({ force: true });
   assert.notStrictEqual(await page.locator('#matchCount').innerText(), all);
   await page.locator('#clearFilters').click();
-  assert.strictEqual(await page.locator('#matchCount').innerText(), all);
+  assert.strictEqual(await page.locator('#matchCount').innerText(), all, 'no subject picked plays every subject');
+  assert.strictEqual(await page.locator('#subjectButtons .btn-subject.active').count(), 0);
   await ctx.close();
 });
 
@@ -255,8 +285,12 @@ test('with the timer off, each question shows in full at once and waits for a bu
   await ctx.close();
 });
 
-test('the year slider: a press to the right of two handles sitting together moves the top of the range, to the left the bottom', async () => {
-  const { ctx, page } = await freshPlay();
+test('the Database\'s year slider: a press to the right of two handles sitting together moves the top of the range, to the left the bottom', async () => {
+  // (Play's own year slider was removed on November 25, 2026; the two-handle
+  // slider is the same code there, here and in the round sliders.)
+  const ctx = await newContext(browser);
+  const page = await openPage(ctx, server.url + 'database');
+  await page.waitForFunction(() => /seconds/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   const box = await page.locator('#yearSlider').boundingBox();
   const y = box.y + box.height / 2;
   const range = () => page.evaluate(() => [+document.getElementById('yearMin').value, +document.getElementById('yearMax').value]);

@@ -1,0 +1,2296 @@
+[
+[
+{"i":95022,"m":0,"set":{"n":1,"a.t":"EXOTIC ATOMS","a.ac":["EXOTIC ATOM"]}}],
+[
+{"i":95023,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95024,"m":0,"set":{"n":3,"a.t":"OPTIMAL FORAGING THEORY"}}],
+[
+{"i":95025,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":96109,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95026,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95027,"m":0,"set":{"n":7}}],
+[
+{"i":95028,"m":0,"set":{"n":8}}],
+[
+{"i":95029,"m":0,"set":{"s":"chem","n":9}}],
+[
+{"i":95030,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95031,"m":0,"set":{"n":2}}],
+[
+{"i":95032,"m":0,"set":{"n":3,"q":"Under what circumstances do most gases differ the most from the Ideal Gas Law?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95033,"m":0,"set":{"n":4}}],
+[
+{"i":95034,"m":0,"set":{"n":5}}],
+[
+{"i":95035,"m":0,"set":{"n":6}}],
+[
+{"i":95036,"m":0,"set":{"n":7}}],
+[
+{"i":95037,"m":0,"set":{"n":8,"a.t":"KURT GÖDEL","a.ac":["GODEL","GÖDEL","KURT GODEL"]}}],
+[
+{"i":95038,"m":0,"set":{"n":9}}],
+[
+{"i":95039,"m":0,"set":{"s":"bio","n":10}}],
+[
+{"i":95040,"m":0,"set":{"n":11,"c.Z":"Australia"},"sub":{"a":["t","l"]}}],
+[
+{"i":95041,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95042,"m":0,"set":{"n":2}}],
+[
+{"i":95043,"m":0,"set":{"n":3,"a.t":"48.0 A","a.ac":["48 A","48"]}}],
+[
+{"i":95044,"m":0,"set":{"n":4}}],
+[
+{"i":95045,"m":0,"set":{"n":5}}],
+[
+{"i":95046,"m":0,"set":{"n":6,"q":"Gas lamp mantles contain what actinide?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95047,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95048,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95049,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95050,"m":0,"set":{"n":10,"a.t":"FROZEN ORBITS","a.ac":["FROZEN ORBIT"]}}],
+[
+{"i":95051,"m":0,"set":{"s":"phys","n":11},"sub":{"a":["t","l"]}}],
+[
+{"i":95052,"m":0,"set":{"s":"phys","n":12}}],
+[
+{"i":96110,"m":0,"set":{"n":1,"q":"Identify by name or number all of the following three compounds that are common reducing agents 1) Lithium Aluminum Hydride 2) Ozone 3) Sodium Borohydride"}}],
+[
+{"i":95053,"m":0,"set":{"n":2}}],
+[
+{"i":95054,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95055,"m":0,"set":{"n":4,"c.Z":"Susskind and 't Hooft","a.t":"Susskind and 't Hooft"},"sub":{"a":["t","l"]}}],
+[
+{"i":95056,"m":0,"set":{"n":5,"q":"Von Willebrand disease causes symptoms similar to which of the following conditions?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95057,"m":0,"set":{"n":6,"a.t":"CRISPR-CAS9","a.ac":["CRISPR","CAS9"]}}],
+[
+{"i":95058,"m":0,"set":{"n":7,"a.ac":["SADDLE POINT","STATIONARY POINT OF INFLECTION"]}}],
+[
+{"i":95059,"m":0,"set":{"n":8,"a.t":"CEVA'S THEOREM","a.ac":["CEVA"]}}],
+[
+{"i":95060,"m":0,"set":{"n":9,"a.t":"CEPHEID VARIABLES","a.ac":["CEPHEIDS","CEPHEID"]}}],
+[
+{"i":95061,"m":0,"set":{"n":10,"q":"Which of the following materials exhibits piezoelectricity?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95062,"m":0,"set":{"s":"chem","n":11,"a.t":"DISTILLATION","a.ac":["FRACTIONAL DISTILLATION"]}}],
+[
+{"i":95063,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95064,"m":0,"set":{"n":2,"a.t":"ASIATIC LION"}}],
+[
+{"i":95065,"m":0,"set":{"s":"phys","n":3,"a.t":"ENRICO FERMI","a.ac":["FERMI"]}}],
+[
+{"i":96111,"m":0,"set":{"s":"phys","n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95066,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95067,"m":0,"set":{"n":6,"a.ac":["IONOSPHERE"]}}],
+[
+{"i":95068,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95069,"m":0,"set":{"n":8,"q":"A car travels 80 meters due north in 5 seconds. The car then turns around and travels 40 meters due south in 15 seconds. What is the average velocity of the car during this 20 second interval?","a.t":"2 M/S NORTH","a.ac":["2 M/S","2 METERS PER SECOND NORTH"]}}],
+[
+{"i":95070,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":96112,"m":0,"set":{"f":"MC","n":10,"q":"Which of the following is closest to the half life of Francium 223?","c":true,"c.W":"1 minute","c.X":"22 minutes","c.Y":"22 months","c.Z":"22 years","a.t":"22 minutes","a.l":"X"}}],
+[
+{"i":95071,"m":0,"set":{"n":11,"q":"What is the slope of f(x) =3x^2+18x+4 at x=3?"}}],
+[
+{"i":96113,"m":0,"set":{"n":1,"q":"What is the sum from n = 1 to infinity of 1/n?","a.ac":["DIVERGENT","DIVERGES","IT DIVERGES"]}}],
+[
+{"i":95072,"m":0,"set":{"n":2,"q":"What is the name of series 1/n from n = 1 to infinity?","c.W":"Riemann Series"},"sub":{"a":["t","l"]}}],
+[
+{"i":95073,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95074,"m":0,"set":{"n":4,"a.ac":["BIOFILMS"]}}],
+[
+{"i":95075,"m":0,"set":{"n":5,"q":"How much heat is needed to heat 10 grams of pure water from 30 degrees Celsius to 40 degrees Celsius?","a.t":"100 CALORIES","a.ac":["418 JOULES","419 JOULES"]}}],
+[
+{"i":95076,"m":0,"set":{"n":6,"q":"About how long does it take for the moon to rotate about its axis?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95077,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95078,"m":0,"set":{"s":"phys","n":8,"a.t":"The change in volume is positive, and the change in work done by the gas is positive.","a.l":"W"},"sub":{"a":["t","l"]}}],
+[
+{"i":95079,"m":0,"set":{"s":"phys","n":9,"q":"Calculate the theoretical efficiency of the MK Hybrid Car if its engine operates between 10°C and 100°C?","a.t":"24%","a.ac":["24","0.24","24.1%"]}}],
+[
+{"i":95080,"m":0,"set":{"n":1,"a.t":"CYCLIC ELECTRON FLOW","a.ac":["CYCLIC PHOSPHORYLATION"]}}],
+[
+{"i":95081,"m":0,"set":{"n":2}}],
+[
+{"i":95082,"m":0,"set":{"n":3,"a.t":"CHARLES'S LAW","a.ac":["CHARLES' LAW","CHARLES LAW"]}}],
+[
+{"i":95083,"m":0,"set":{"n":4,"a.ac":["IT BOILS","BOILING"]}}],
+[
+{"i":95084,"m":0,"set":{"n":5}}],
+[
+{"i":95085,"m":0,"set":{"n":6}}],
+[
+{"i":95086,"m":0,"set":{"n":7}}],
+[
+{"i":95087,"m":0,"set":{"n":8,"q":"This is a quantum mechanical phenomenon in which the quantum states of two or more objects have to be described with reference to each other, even though the individual objects may be spatially separated. What is it?","a.t":"QUANTUM ENTANGLEMENT","a.ac":["ENTANGLEMENT"]}}],
+[
+{"i":96114,"m":0,"set":{"n":9,"q":"What is the partial derivative of 3x^2 with respect to y?"}}],
+[
+{"i":96115,"m":0,"set":{"n":10,"q":"In a normal distribution, approximately what percent of data falls within 2 standard deviations of the mean?","a.ac":["95","95.4%"]}}],
+[
+{"i":95088,"m":0,"set":{"s":"ess","n":11}}],
+[
+{"i":95089,"m":0,"set":{"n":12,"a.t":"CLEAN AIR ACT"}}],
+[
+{"i":95090,"m":0,"set":{"n":1,"a.ac":["200 ROOT 3"]}}],
+[
+{"i":95091,"m":0,"set":{"n":2}}],
+[
+{"i":95092,"m":0,"set":{"s":"bio","n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95093,"m":0,"set":{"n":4}}],
+[
+{"i":95094,"m":0,"set":{"n":5}}],
+[
+{"i":95095,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95096,"m":0,"set":{"n":7,"a.ac":["SILTSTONE, SANDSTONE, BRECCIA"]}}],
+[
+{"i":95097,"m":0,"set":{"n":8,"a.t":"10 SECONDS","a.ac":["10"]}}],
+[
+{"i":96116,"m":0,"set":{"n":9}}],
+[
+{"i":96117,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95098,"m":0,"set":{"n":2,"a.t":"ONE OF ASPARTIC ACID OR GLUTAMIC ACID AND ONE OF ARGININE, HISTIDINE OR LYSINE"}}],
+[
+{"i":95099,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95100,"m":0,"set":{"n":4,"a.t":"ALL OF THEM","a.ac":["1, 2, 3, 4"]}}],
+[
+{"i":96118,"m":0,"set":{"n":5,"q":"What is the limit of the function sin(x)/x as x approaches 0?"}}],
+[
+{"i":95101,"m":0,"set":{"n":6,"c.W":"-1/12","c.Y":"e","c.Z":"π^2/6","a.t":"π^2/6"},"sub":{"a":["t","l"]}}],
+[
+{"i":95102,"m":0,"set":{"n":9,"c.W":"(Iω^2)/(2t)","c.Y":"(Iω^2)/(2τ)","a.t":"(Iω^2)/(2t)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95103,"m":0,"set":{"n":10,"a.t":"CHASLES' THEOREM","a.ac":["CHASLES'S THEOREM"]}}],
+[
+{"i":95104,"m":0,"set":{"n":11,"a.t":"UNITED STATES","a.ac":["USA"]}}],
+[
+{"i":95105,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95106,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95107,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95108,"m":0,"set":{"n":4,"a.t":"VASCULAR CAMBIUM","a.ac":["LATERAL MERISTEM"]}}],
+[
+{"i":95109,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95110,"m":0,"set":{"n":6}}],
+[
+{"i":95111,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95112,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95113,"m":0,"set":{"n":9}}],
+[
+{"i":95114,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95115,"m":0,"set":{"s":"phys","n":11,"q":"Four collisions with differing attributes are held. Which of the following implies that mechanical energy is not conserved?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95116,"m":0,"set":{"s":"chem","n":12,"q":"Which of the following thermodynamic quantities is related to the equilibrium constant of a chemical reaction?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95117,"m":0,"set":{"n":1,"c.Y":"Peridotite","a.t":"Peridotite","a.l":"Y"}}],
+[
+{"i":95118,"m":0,"set":{"n":2}}],
+[
+{"i":95119,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95120,"m":0,"set":{"s":"ess","n":4}}],
+[
+{"i":95121,"m":0,"set":{"n":5,"c.Z":"Ordovician","a.t":"Ordovician","a.l":"Z"}}],
+[
+{"i":95122,"m":0,"set":{"n":6,"q":"What are calcareous mounds built up of layers of cyanobacteria called? These mounds are the earliest known fossils and still exist in Australia."}}],
+[
+{"i":95123,"m":0,"set":{"n":7,"a.t":"45√3 METERS","a.ac":["45√3","45 ROOT 3"]}}],
+[
+{"i":95124,"m":0,"set":{"n":8,"q":"A small ball of mass m is thrown in the absence of gravity at low speed in a fluid with resistance constant a. After how much time has the ball lost 95% of its initial speed? Give your answer in exact, simplest form.","a.t":"(m/a) ln 20","a.ac":["(m/a) ln(20)"]}}],
+[
+{"i":95125,"m":0,"set":{"n":9,"a.t":"BOTH NEGATIVE","a.ac":["ENTHALPY IS NEGATIVE AND ENTROPY IS NEGATIVE"]}}],
+[
+{"i":95126,"m":0,"set":{"n":10,"q":"What is the derivative with respect to x of ln(sin(x))? Give your answer in simplest form.","a.t":"cot(x)","a.ac":["cot x","cos(x)/sin(x)"]}}],
+[
+{"i":95127,"m":0,"set":{"n":11,"q":"Find an expression for the integral from -a to a for any real number a of sin(x) + 2."}}],
+[
+{"i":95128,"m":0,"set":{"n":1,"a.t":"KROLL PROCESS"}}],
+[
+{"i":95129,"m":0,"set":{"n":2}}],
+[
+{"i":95130,"m":0,"set":{"n":3,"a.t":"THIN-FILM INTERFERENCE","a.ac":["INTERFERENCE"]}}],
+[
+{"i":95131,"m":0,"set":{"n":4}}],
+[
+{"i":95132,"m":0,"set":{"n":5}}],
+[
+{"i":95133,"m":0,"set":{"n":6}}],
+[
+{"i":95134,"m":0,"set":{"n":7,"q":"If x >39 and 39, x and x + 9 are the sides of a right triangle, which of the following is the value of x?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95135,"m":0,"set":{"n":8}}],
+[
+{"i":95136,"m":0,"set":{"n":9}}],
+[
+{"i":95137,"m":0,"set":{"n":10,"q":"What is the term for lakes whose waters mix at least once every year?"}}],
+[
+{"i":95139,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95140,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95141,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95142,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95143,"m":0,"set":{"n":5}}],
+[
+{"i":95144,"m":0,"set":{"n":6,"a.ac":["2-","MINUS 2","NEGATIVE 2"]}}],
+[
+{"i":95145,"m":0,"set":{"s":"ess","n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95146,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95147,"m":0,"set":{"n":9,"q":"Given triangle ABC, where AB = 6, AC = 9, and cosA = ⅙, find BC in simplest radical form."}}],
+[
+{"i":95148,"m":0,"set":{"n":10,"q":"What is ∫ sin(x) dx?","a.t":"-cos(x) + C"}}],
+[
+{"i":96121,"m":0,"set":{"n":11,"a.t":"WILLEBRORD SNELL","a.ac":["SNELL","SNELLIUS"]}}],
+[
+{"i":95149,"m":0,"set":{"n":12,"a.t":"BLAISE PASCAL","a.ac":["PASCAL"]}}],
+[
+{"i":95150,"m":0,"set":{"n":1,"a.t":"Muscles","a.l":"Y"},"sub":{"a":["t","l"]}}],
+[
+{"i":95151,"m":0,"set":{"n":2}}],
+[
+{"i":95152,"m":0,"set":{"n":3}}],
+[
+{"i":95153,"m":0,"set":{"n":4,"a.t":"HELIUM","a.ac":["NITROGEN"]}}],
+[
+{"i":95154,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95155,"m":0,"set":{"n":6}}],
+[
+{"i":95156,"m":0,"set":{"n":7}}],
+[
+{"i":96122,"m":0,"set":{"n":8,"q":"In solar masses and to the nearest tenth, what is the Chandrasekhar limit?","a.ac":["1.4 SOLAR MASSES"]}}],
+[
+{"i":95157,"m":0,"set":{"n":9}}],
+[
+{"i":95158,"m":0,"set":{"n":10,"q":"What is the maximum value of x^(1/x)?","a.t":"e^(1/e)","a.ac":["1.44"]}}],
+[
+{"i":95159,"m":0,"set":{"s":"bio","n":11,"a.ac":["PALM"]}}],
+[
+{"i":95160,"m":0,"set":{"s":"phys","n":12},"sub":{"a":["t","l"]}}],
+[
+{"i":95161,"m":0,"set":{"n":1,"a.t":"1 ONLY","a.ac":["HE2","1"]}}],
+[
+{"i":95162,"m":0,"set":{"n":2,"q":"Which of the following theories provides a reasonably accurate prediction of aromaticity in hydrocarbons?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95163,"m":0,"set":{"n":3,"q":"What once-theorized particle was discovered at the LHC in 2015?","a.t":"PENTAQUARK"}}],
+[
+{"i":95164,"m":0,"set":{"n":4,"q":"What are the fundamental mathematical constructs used in the general theory of relativity, which make up the Einstein field equations?","a.t":"TENSORS","a.ac":["TENSOR"]}}],
+[
+{"i":95165,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95166,"m":0,"set":{"n":6,"a.t":"POLYCISTRONIC"}}],
+[
+{"i":95167,"m":0,"set":{"n":7,"q":"What famous conjecture in topology was proven by Grigori Perelman?","a.t":"POINCARÉ CONJECTURE","a.ac":["POINCARE CONJECTURE"]}}],
+[
+{"i":95168,"m":0,"set":{"n":8,"q":"What is the most common theorem used to prove collinearity of points on the sides of a triangle?","a.t":"MENELAUS' THEOREM","a.ac":["MENELAUS THEOREM"]}}],
+[
+{"i":95169,"m":0,"set":{"n":9,"a.ac":["G2V","G2"]}}],
+[
+{"i":95170,"m":0,"set":{"n":10,"a.t":"Ogive","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":95171,"m":0,"set":{"s":"ess","n":11,"a.t":"FRACKING","a.ac":["HYDRAULIC FRACTURING"]}}],
+[
+{"i":95172,"m":0,"set":{"s":"phys","n":12}}],
+[
+{"i":95173,"m":0,"set":{"s":"chem","n":1,"a.t":"SOUR GAS"}}],
+[
+{"i":95174,"m":0,"set":{"n":2}}],
+[
+{"i":95175,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95176,"m":0,"set":{"f":"SA","n":4,"a.t":"ALL","a.ac":["I, II, III, IV","ALL OF THEM"]}}],
+[
+{"i":95177,"m":0,"set":{"n":5,"a.t":"45 degrees"},"sub":{"a":["t","l"]}}],
+[
+{"i":95178,"m":0,"set":{"n":6,"q":"Light travels at three hundred million meters per second. In hertz, what is the frequency of light with a wavelength of 600 nanometers?","a.t":"5 × 10^14","a.ac":["500 TERAHERTZ"]}}],
+[
+{"i":95179,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95180,"m":0,"set":{"n":8,"a.t":"PLAGIOCLASE","a.ac":["PLAGIOCLASE FELDSPAR"]}}],
+[
+{"i":95181,"m":0,"set":{"n":9}}],
+[
+{"i":95182,"m":0,"set":{"n":10,"q":"By number, list which ones of the following are strong acids: 1) HF, 2) HCl, 3) H2O, 4) HCN, 5) HClO3","a.ac":["HCl AND HClO3"]}}],
+[
+{"i":96123,"m":0,"set":{"n":11},"sub":{"a":["t","l"]}}],
+[
+{"i":95183,"m":0,"set":{"s":"phys","n":12,"a.t":"0.064","a.ac":["64 METERS"]}}],
+[
+{"i":95184,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95185,"m":0,"set":{"n":2}}],
+[
+{"i":95186,"m":0,"set":{"n":3,"q":"What is the integral of cos(x) dx from 1/4 π to 0?","a.t":"-√2/2","a.ac":["-SQUARE ROOT OF 2 OVER 2","-0.707"]}}],
+[
+{"i":95187,"m":0,"set":{"n":4,"q":"Categorize the following molecules according to the arrangement of electron pairs geometry: carbon dioxide, dihydrogen monoxide, and methane.","a.t":"LINEAR; TETRAHEDRAL; TETRAHEDRAL"}}],
+[
+{"i":95188,"m":0,"set":{"n":5}}],
+[
+{"i":95189,"m":0,"set":{"n":6,"a.t":"NEUTRON STARS OR BLACK HOLES; EINSTEIN","a.ac":["PULSARS, EINSTEIN","BLACK HOLES, EINSTEIN","NEUTRON STARS, EINSTEIN"]}}],
+[
+{"i":95190,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95191,"m":0,"set":{"s":"ess","n":8,"c.W":"Earth’s surface would be 40°C, and the earth would gain more energy","c.X":"Earth’s surface would be 20°C, and the earth would lose more energy","c.Y":"Earth’s surface would be -20°C, and the earth would lose more energy","c.Z":"Earth’s surface would be -40°C, and the earth would gain more energy","a.t":"Earth’s surface would be -20°C, and the earth would lose more energy"},"sub":{"a":["t","l"]}}],
+[
+{"i":95192,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95193,"m":0,"set":{"n":2,"a.t":"HYPERNOVAE AND MERGERS OF TWO NEUTRON STARS","a.ac":["COLLAPSARS AND NEUTRON STAR MERGERS"]}}],
+[
+{"i":95194,"m":0,"set":{"n":3,"q":"For all the amino acids, except one, the alpha carbon is bonded to four different groups. Which amino acid is the exception to this rule?","a.t":"GLYCINE"}}],
+[
+{"i":95195,"m":0,"set":{"n":4,"a.t":"ISOELECTRIC POINT"}}],
+[
+{"i":95196,"m":0,"set":{"n":5,"a.t":"STAGGERED CONFORMATION","a.ac":["STAGGERED"]}}],
+[
+{"i":95197,"m":0,"set":{"n":6,"a.t":"DEXTROROTATORY"}}],
+[
+{"i":96124,"m":0,"set":{"n":7,"a.t":"BOTH ARE ZERO","a.ac":["ZERO","0"]}}],
+[
+{"i":95198,"m":0,"set":{"n":8,"q":"A football player running south at 10 m/s and weighing 100 kg collides with another football player running north at 10 m/s weighing 50 kg. Assuming this is an inelastic collision, in which direction do the players move and at what speed?","a.t":"SOUTH AT 3.3 M/S","a.ac":["10/3 M/S SOUTH","3.3 M/S SOUTH"]}}],
+[
+{"i":95199,"m":0,"set":{"n":9,"q":"What is the limit as x → infinity of 1/x?","a.t":"0","a.ac":["ZERO"]}}],
+[
+{"i":95200,"m":0,"set":{"n":10,"q":"Find the maxima and minima of the quadratic equation 2x^2 + 4 = y","a.t":"MINIMUM 4, NO MAXIMUM","a.ac":["MINIMA = 4, MAXIMA DOES NOT EXIST"]}}],
+[
+{"i":95201,"m":0,"set":{"s":"ess","n":11,"q":"Type of mining process in which a coal seam is relatively close to the surface. The coal seam removed is usually within 200 feet of the surface. What is it called?","a.t":"SURFACE MINING","a.ac":["STRIP MINING","OPEN-PIT MINING"]}}],
+[
+{"i":95202,"m":0,"set":{"n":12}}],
+[
+{"i":95203,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95204,"m":0,"set":{"n":2,"a.t":"FOSSIL FUELS"}}],
+[
+{"i":95205,"m":0,"set":{"n":3}}],
+[
+{"i":95206,"m":0,"set":{"n":4,"a.t":"13"}}],
+[
+{"i":95207,"m":0,"set":{"n":6,"q":"What is the name of the derived SI unit given by 1 kg/(m·s^2)?","a.t":"PASCAL"}}],
+[
+{"i":95208,"m":0,"set":{"n":7}}],
+[
+{"i":95209,"m":0,"set":{"n":8,"q":"What is the mass number of the atom that uranium-238 becomes after alpha decay?"}}],
+[
+{"i":95210,"m":0,"set":{"n":9,"a.t":"COUNTERCLOCKWISE"}}],
+[
+{"i":95211,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95212,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95213,"m":0,"set":{"n":2,"q":"Identify a type of plant that belongs to Sphenopsida.","a.t":"HORSETAILS","a.ac":["EQUISETUM","HORSETAIL"]}}],
+[
+{"i":95214,"m":0,"set":{"n":3}}],
+[
+{"i":95215,"m":0,"set":{"n":4,"a.t":"ANY 2 OF: PULSATING, CATACLYSMIC, ECLIPSING VARIABLES"},"del":["a.ac"]}],
+[
+{"i":95216,"m":0,"set":{"n":5}}],
+[
+{"i":95217,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95218,"m":0,"set":{"n":7,"a.t":"VULCANIZATION"}}],
+[
+{"i":95219,"m":0,"set":{"n":8}}],
+[
+{"i":96126,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95220,"m":0,"set":{"n":10}}],
+[
+{"i":95221,"m":0,"set":{"n":1,"c.W":"x(t) = 1/2at^2 + v_0 t + c_0","c.X":"v_f^2 = v_i^2 + 2aΔx","c.Z":"a = (dv)/dt","a.t":"v_f^2 = v_i^2 + 2aΔx"},"sub":{"a":["t","l"]}}],
+[
+{"i":95222,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95223,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":96127,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95224,"m":0,"set":{"n":5,"q":"Cu[H2O]6^(2+) is blue and CuCl4^(2-) is green in aqueous solution. You have an aqueous solution of CuSO4. You add NaCl and the solution becomes green. Which of the following explains this color change?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95225,"m":0,"set":{"n":6,"q":"An organic compound has a sharp peak in its IR spectrum at 1700 cm^-1. In its 1H-NMR spectrum, it detects a proton at 9.8ppm. What functional group do you suspect that this organic compound contains?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95226,"m":0,"set":{"n":7}}],
+[
+{"i":95227,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95228,"m":0,"set":{"n":9}}],
+[
+{"i":96128,"m":0,"set":{"s":"phys","n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":96129,"m":0,"set":{"s":"chem","n":11,"a.t":"7s","a.l":"Z"},"sub":{"a":["t","l"]}}],
+[
+{"i":95229,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95230,"m":0,"set":{"n":2,"a.t":"EULER-MASCHERONI CONSTANT","a.ac":["EULER'S CONSTANT","GAMMA"]}}],
+[
+{"i":95231,"m":0,"set":{"s":"ess","n":3,"a.t":"3, 2, 1","a.ac":["LIGNITE, BITUMINOUS, ANTHRACITE"]}}],
+[
+{"i":95232,"m":0,"set":{"n":4}}],
+[
+{"i":95233,"m":0,"set":{"n":5,"a.t":"1 AND 3"}}],
+[
+{"i":95234,"m":0,"set":{"n":6,"a.t":"J/ψ MESON","a.ac":["J/PSI","J/PSI MESON"]}}],
+[
+{"i":95235,"m":0,"set":{"n":7,"q":"Movement of a tree in response to being in contact with a wall is an example of what?","a.t":"THIGMOTROPISM"}}],
+[
+{"i":95236,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95237,"m":0,"set":{"n":9,"a.t":"0.05 arcseconds (Zero point zero five)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95238,"m":0,"set":{"n":10,"a.t":"TIDAL HEATING","a.ac":["TIDAL FLEXING","JUPITER'S TIDAL FORCES"]}}],
+[
+{"i":95239,"m":0,"set":{"n":11,"q":"In diatomic nitrogen, how many valence electrons are in antibonding orbitals in the molecular orbital diagram?"}}],
+[
+{"i":95240,"m":0,"set":{"n":12}}],
+[
+{"i":96130,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95241,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95242,"m":0,"set":{"n":3}}],
+[
+{"i":95243,"m":0,"set":{"n":4,"a.t":"x = 2/π − 1/2","a.ac":["x = (4 − π)/(2π)"]}}],
+[
+{"i":96131,"m":0,"set":{"n":5,"q":"What is the antiderivative, with respect to x, of tan(2x)?","a.t":"ln|sec(2x)|/2 + C","a.ac":["−ln|cos(2x)|/2 + C","(1/2)ln|sec 2x| + C"]}}],
+[
+{"i":95244,"m":0,"set":{"n":6}}],
+[
+{"i":95245,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95246,"m":0,"set":{"n":1,"q":"A reaction with an order of greater than one can become a pseudo-first-order reaction if which of the following is true for all but one of the reactants?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95247,"m":0,"set":{"n":2}}],
+[
+{"i":95248,"m":0,"set":{"n":3,"q":"The idea of \"Tired Light\", the hypothesis that light from distant galaxies loses energy due to collisions with other particles, was an outdated explanation for what discovery?"}}],
+[
+{"i":95249,"m":0,"set":{"n":4,"q":"Newtonian physics predicts that a planet orbiting the Sun would travel in an elliptical orbit and the position of this ellipse would undergo precession due to the other planets in the solar system. However, one of the planets in the solar system deviates from the precession that was predicted, and thus disobeys Newtonian physics. Identify this planet."}}],
+[
+{"i":95250,"m":0,"set":{"n":5}}],
+[
+{"i":95251,"m":0,"set":{"n":6}}],
+[
+{"i":95252,"m":0,"set":{"n":7}}],
+[
+{"i":95253,"m":0,"set":{"n":8}}],
+[
+{"i":95254,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95255,"m":0,"set":{"s":"ess","n":10,"q":"Order the following steps of coal formation chronologically: 1) peat 2) lignite 3) bituminous 4) anthracite"}}],
+[
+{"i":96132,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95256,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95257,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95258,"m":0,"set":{"n":4}}],
+[
+{"i":95259,"m":0,"set":{"n":5}}],
+[
+{"i":95260,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95261,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95262,"m":0,"set":{"s":"phys","n":8,"a.ac":["RUN-OF-RIVER","RUN-OF-THE-RIVER"]}}],
+[
+{"i":95263,"m":0,"set":{"s":"phys","n":9}}],
+[
+{"i":95264,"m":0,"set":{"n":1}}],
+[
+{"i":95265,"m":0,"set":{"n":2,"q":"Given a solid sphere with a mass M and a radius R, what is its moment of inertia?","a.t":"2/5 MR^2","a.ac":["0.4 MR^2"]}}],
+[
+{"i":95266,"m":0,"set":{"n":3,"a.t":"ALCOHOLS","a.ac":["HYDROXYL","O–H","ALCOHOL"]}}],
+[
+{"i":95267,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95268,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95269,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95270,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95271,"m":0,"set":{"n":8,"c.W":"10^7","c.X":"10^8","c.Y":"10^9","c.Z":"10^10","a.t":"10^7"},"sub":{"a":["t","l"]}}],
+[
+{"i":95272,"m":0,"set":{"n":9,"q":"Low-mass stars, upon consuming their core hydrogen fuel, undergo rapid expansion during an aptly named \"helium flash,\" when the triple-alpha process of helium fusion initiates after the star’s contraction heats the core to a critical temperature on the order of magnitude of approximately how many kelvin?","c.W":"10^7","c.X":"10^8","c.Y":"10^9","c.Z":"10^10","a.t":"10^8"},"sub":{"a":["t","l"]}}],
+[
+{"i":95273,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95274,"m":0,"set":{"n":2}}],
+[
+{"i":95275,"m":0,"set":{"n":3}}],
+[
+{"i":95276,"m":0,"set":{"n":4}}],
+[
+{"i":95277,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95278,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95279,"m":0,"set":{"n":7}}],
+[
+{"i":95280,"m":0,"set":{"n":8,"a.t":"Thymine, Cytosine, Uracil"}}],
+[
+{"i":95281,"m":0,"set":{"n":1}}],
+[
+{"i":95282,"m":0,"set":{"n":2,"a.t":"W− BOSON","a.ac":["W−","W MINUS BOSON"]}}],
+[
+{"i":95283,"m":0,"set":{"n":3,"q":"What is the hyperbolic cosine function cosh(x) expressed in terms of e?","a.t":"(e^(x) + e^(-x))/2","a.ac":["(e^(2x) + 1)/(2e^x)"]}}],
+[
+{"i":95284,"m":0,"set":{"n":4,"q":"What is the derivative of the inverse secant function arcsec(x)?","c.W":"1/√(1-x^2)","c.X":"-1/(1+x^2)","c.Y":"1/(|x|√(x^2-1))","c.Z":"-1/(√(x^2+1))","a.t":"1/(|x|√(x^2-1))"},"sub":{"a":["t","l"]}}],
+[
+{"i":95285,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95286,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95287,"m":0,"set":{"s":"phys","n":7,"a.t":"INTERNAL COMBUSTION ENGINE, GAS TURBINE, STEAM TURBINE, HYDRO"}}],
+[
+{"i":95288,"m":0,"set":{"n":1}}],
+[
+{"i":95289,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95290,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":96133,"m":0,"set":{"n":4,"a.t":"−1/3","a.ac":["-1/3"]}}],
+[
+{"i":95291,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95292,"m":0,"set":{"n":6}}],
+[
+{"i":95293,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95294,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95295,"m":0,"set":{"n":9}}],
+[
+{"i":95296,"m":0,"set":{"n":1,"c.W":"∂^2xy/∂f","c.X":"∂x∂y/∂^2f","c.Y":"∂^2f/∂x∂y","c.Z":"∂^2f/∂y∂x","a.t":"∂^2f/∂y∂x"},"sub":{"a":["t","l"]}}],
+[
+{"i":95297,"m":0,"set":{"n":2,"q":"What is the derivative of (x^2 + 3)(3x^2 + 4x)?","a.t":"12x^3 + 12x^2 + 18x + 12","a.ac":["2x(3x^2 + 4x) + (6x + 4)(x^2 + 3)"]}}],
+[
+{"i":95298,"m":0,"set":{"n":3,"q":"Several bodies in our solar system have an atmosphere comprised primarily of nitrogen. Name two.","a.t":"ANY 2 OF: EARTH, TITAN, PLUTO, TRITON"}}],
+[
+{"i":95299,"m":0,"set":{"n":4}}],
+[
+{"i":95300,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95301,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95302,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95303,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":96134,"m":0,"set":{"n":2,"q":"What is the derivative with respect to x of 2^x?","a.t":"2^x · ln(2)","a.ac":["ln(2) · 2^x"]}}],
+[
+{"i":96135,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":96136,"m":0,"set":{"n":4}}],
+[
+{"i":95304,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95305,"m":0,"set":{"n":6}}],
+[
+{"i":96137,"m":0,"set":{"n":7}}],
+[
+{"i":95306,"m":0,"set":{"n":8,"a.t":"1 kg m^2 s^-3 A^-1"}}],
+[
+{"i":95307,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95308,"m":0,"set":{"n":10}}],
+[
+{"i":95309,"m":0,"set":{"n":1,"a.t":"WHITE DWARF"}}],
+[
+{"i":95310,"m":0,"set":{"n":2,"a.t":"The universe is too young for any to have cooled that far","a.ac":["WHITE DWARFS TAKE LONGER THAN THE AGE OF THE UNIVERSE TO COOL"]}}],
+[
+{"i":95311,"m":0,"set":{"n":3}}],
+[
+{"i":95312,"m":0,"set":{"n":4}}],
+[
+{"i":95313,"m":0,"set":{"n":5}}],
+[
+{"i":95314,"m":0,"set":{"s":"phys","n":6,"a.t":"ELECTRIC FIELD AND MAGNETIC FIELD"}}],
+[
+{"i":95315,"m":0,"set":{"s":"phys","n":7}}],
+[
+{"i":95316,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95317,"m":0,"set":{"n":9,"a.t":"20,000 HZ","a.ac":["20 KHZ"]}}],
+[
+{"i":95318,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95319,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95320,"m":0,"set":{"n":3}}],
+[
+{"i":95321,"m":0,"set":{"n":4}}],
+[
+{"i":95322,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95323,"m":0,"set":{"n":6}}],
+[
+{"i":95324,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95325,"m":0,"set":{"n":8,"a.t":"1.74","a.ac":["1.7"]}}],
+[
+{"i":95326,"m":0,"set":{"n":9,"q":"Find the first three nonzero terms in the Maclaurin series for sin^2(x).","a.t":"x^2 - 1/3x^4 + 2/45x^6"}}],
+[
+{"i":95327,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95328,"m":0,"set":{"n":2}}],
+[
+{"i":95329,"m":0,"set":{"n":3}}],
+[
+{"i":95330,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95331,"m":0,"set":{"n":5,"q":"What is the cosecant of π over 6 radians?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95332,"m":0,"set":{"n":6,"a.ac":["(√2 + √6)/4"]}}],
+[
+{"i":96138,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95333,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95334,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95335,"m":0,"set":{"n":10}}],
+[
+{"i":95336,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95337,"m":0,"set":{"n":2,"q":"Consider a rigid spherical shell of radius 50 cm and mass 10 kg that rolls without slipping down a ramp that makes 45 degrees to the horizontal. The shell rolls 14.14 m before reaching a level surface. What is the angular speed, in radians per second, of the shell measured about its axis of rotation when it hits the level surface? Use g = 9.8 m/s^2.","a.t":"21.7","a.ac":["22","21.7 RAD/S"]}}],
+[
+{"i":95338,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95339,"m":0,"set":{"n":4}}],
+[
+{"i":95340,"m":0,"set":{"n":5}}],
+[
+{"i":95341,"m":0,"set":{"n":6,"a.t":"y − 3 = ±(3/4)(x + 2)"}}],
+[
+{"i":95342,"m":0,"set":{"n":7,"a.t":"granite","a.l":"Z"}}],
+[
+{"i":95343,"m":0,"set":{"n":8}}],
+[
+{"i":95344,"m":0,"set":{"n":9,"q":"During the Industrial Revolution, soot from factories darkened the trees around London, the habitats of peppered moths. What type of natural selection did these moths undergo?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95345,"m":0,"set":{"n":10}}],
+[
+{"i":95346,"m":0,"set":{"n":1}}],
+[
+{"i":95347,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95348,"m":0,"set":{"n":3}}],
+[
+{"i":95349,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95350,"m":0,"set":{"n":5,"q":"Find the sum of the squares of the roots, counting double roots as two distinct roots, for the following polynomial: x^3-4x^2+5x-2=0"}}],
+[
+{"i":95351,"m":0,"set":{"n":6}}],
+[
+{"i":95352,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95353,"m":0,"set":{"n":8,"q":"In paper chromatography a solvent carries a solute 10 cm up the paper and then travels an additional 5 cm. Calculate the retention factor of this combination of solute and solvent.","a.t":"2/3"}}],
+[
+{"i":95354,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95355,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95356,"m":0,"set":{"n":3,"a.t":"CADMIUM(II) SELENITE","a.ac":["CADMIUM SELENITE"]}}],
+[
+{"i":95357,"m":0,"set":{"n":4,"c.Y":"Rest mass","a.t":"Rest mass"},"sub":{"a":["t","l"]}}],
+[
+{"i":96139,"m":0,"set":{"n":5}}],
+[
+{"i":95358,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95359,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95360,"m":0,"set":{"n":8,"q":"At what x value(s) does the equation x^4-5/6 x^3-x^2+4/3 x+2 have a point of inflection?","a.t":"2/3, -1/4"}}],
+[
+{"i":95361,"m":0,"set":{"n":9}}],
+[
+{"i":95362,"m":0,"set":{"n":1,"a.t":"DISTANCE","a.ac":["DISTANCE TO NEARBY STARS","DISTANCE TO A CELESTIAL BODY"]}}],
+[
+{"i":95363,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95364,"m":0,"set":{"n":3}}],
+[
+{"i":95365,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95366,"m":0,"set":{"n":5,"a.t":"0","a.ac":["0 J","ZERO","NO CHANGE"]}}],
+[
+{"i":95367,"m":0,"set":{"n":6}}],
+[
+{"i":96140,"m":0,"set":{"n":7,"a.t":"sp^3d^2"}}],
+[
+{"i":95368,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95369,"m":0,"set":{"n":2,"a.t":"MINKOWSKI SPACETIME","a.ac":["MINKOWSKI SPACE"]}}],
+[
+{"i":95370,"m":0,"set":{"n":3}}],
+[
+{"i":95371,"m":0,"set":{"n":4}}],
+[
+{"i":95372,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95373,"m":0,"set":{"n":6}}],
+[
+{"i":95374,"m":0,"set":{"n":7,"a.t":"CIRQUES","a.ac":["CORRIES","CIRQUE","CORRIE"]}}],
+[
+{"i":95375,"m":0,"set":{"n":8}}],
+[
+{"i":95376,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95377,"m":0,"set":{"n":10,"q":"A π-helix is stabilized by hydrogen bonds between the backbones of constituent amino acid. If the surrounding area is all π-helix, what are the numbers of the residue(s) that amino acid number 41 in an arbitrary protein bonds to?"}}],
+[
+{"i":95378,"m":0,"set":{"n":1,"q":"Name all of the following that are atmospheric circulation cells: 1 – Hadley cell, 2 – Ferrel cell, 3 – Daniell cell, 4 – Polar cell","a.t":"1, 2, 4","a.ac":["HADLEY, FERREL, POLAR"]}}],
+[
+{"i":95379,"m":0,"set":{"n":2,"a.t":"Winter"},"sub":{"a":["t","l"]}}],
+[
+{"i":95380,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95381,"m":0,"set":{"n":4,"q":"A block is stationary on an inclined plane with an angle of inclination of 30 degrees. Find the minimum coefficient of static friction between the plane and the block. Give an exact answer.","a.t":"√3/3","a.ac":["1/√3","TAN 30°"]}}],
+[
+{"i":95382,"m":0,"set":{"n":5}}],
+[
+{"i":95383,"m":0,"set":{"n":6,"q":"Name the four elements that are ferromagnetic at or near room temperature, in increasing order of Curie temperature","a.t":"GADOLINIUM, NICKEL, IRON, COBALT","a.ac":["Gd, Ni, Fe, Co"]}}],
+[
+{"i":96141,"m":0,"set":{"n":7,"a.t":"25"}}],
+[
+{"i":96142,"m":0,"set":{"n":8}}],
+[
+{"i":95384,"m":0,"set":{"n":9,"q":"This is a process by which Nickel can be extracted from its tetracarbonylnickel form. First a nickel oxide is reacted with a syngas to form an impure nickel sample. This is then reacted in excess with carbon monoxide to form tetracarbonylnickel, which can then be broken down into its pure form."},"sub":{"a":["t","l"]}}],
+[
+{"i":95385,"m":0,"set":{"n":10,"a.t":"THYROID-STIMULATING IMMUNOGLOBULIN","a.ac":["TSI","IGG","TSH RECEPTOR ANTIBODY"]}}],
+[
+{"i":95386,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":96143,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95387,"m":0,"set":{"n":3,"q":"What type of glass are most beakers made of?","a.t":"BOROSILICATE GLASS","a.ac":["BOROSILICATE","PYREX"]}}],
+[
+{"i":95388,"m":0,"set":{"n":4,"q":"More highly reactive than others of its kind, what is a cyclic ether with a three atom ring called in organic chemistry?","a.t":"EPOXIDE","a.ac":["EPOXIDES","OXIRANE"]}}],
+[
+{"i":95389,"m":0,"set":{"n":5,"c.W":"10^4","c.X":"10^7","c.Y":"10^-7","c.Z":"10^-4","a.t":"10^7"},"sub":{"a":["t","l"]}}],
+[
+{"i":95390,"m":0,"set":{"n":6}}],
+[
+{"i":95391,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95392,"m":0,"set":{"n":8,"q":"What is the absolute value of 5i+12?"}}],
+[
+{"i":95393,"m":0,"set":{"n":9,"q":"What are the solutions to 2x^3-5x^2+x+2 = 0?","a.t":"-1/2, 2, 1"}}],
+[
+{"i":95394,"m":0,"set":{"n":10}}],
+[
+{"i":95395,"m":0,"set":{"n":1}}],
+[
+{"i":95396,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95397,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95398,"m":0,"set":{"n":4,"q":"A mass of 1.0kg is suspended by a thin, light rod, 1.0m in length, over a 3.0kg mass resting on a frictionless floor. A small push topples the system. How far does the 3.0kg mass move, to the nearest hundredth of a meter?","a.t":"0.25 M","a.ac":["0.25"]}}],
+[
+{"i":95399,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95400,"m":0,"set":{"n":6}}],
+[
+{"i":95401,"m":0,"set":{"n":7,"q":"What is (1+√3i)^15?","a.t":"-32768"}}],
+[
+{"i":95402,"m":0,"set":{"n":8}}],
+[
+{"i":95403,"m":0,"set":{"n":9}}],
+[
+{"i":95404,"m":0,"set":{"s":"phys","n":10,"a.t":"A fan"},"sub":{"a":["t","l"]}}],
+[
+{"i":95405,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95406,"m":0,"set":{"n":2}}],
+[
+{"i":95407,"m":0,"set":{"n":3,"q":"What is the name for the topmost vertebra of the backbone in a human, which supports the globe of the head?"}}],
+[
+{"i":95408,"m":0,"set":{"n":4,"q":"What is the theory that explains the origin of eukaryotic cells from prokaryotes called?"}}],
+[
+{"i":95409,"m":0,"set":{"n":5}}],
+[
+{"i":95410,"m":0,"set":{"n":6,"q":"If f(x) = 12 - 3x, what is f(2x/5) when x = 1/3, to the nearest tenth?"}}],
+[
+{"i":95411,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":96144,"m":0,"set":{"n":8}}],
+[
+{"i":95412,"m":0,"set":{"n":9}}],
+[
+{"i":95413,"m":0,"set":{"n":10,"q":"Characteristics of simple harmonic motion involve which of the following? 1 – The acceleration is constant. 2 – The restoring force is proportional to the displacement. 3 – The frequency is independent of the amplitude."}}],
+[
+{"i":95415,"m":0,"set":{"n":1,"q":"Consider the unit vectors i, j, and k, and the coordinate axes x, y, and z. i corresponds with the x axis, j corresponds with the y axis, and k corresponds with the z axis. If Joe starts at 0i + 0j - 1k and travels -2i + 4j + 5k, how far is his final position from the origin? Assume all vectors are given in meters.","a.t":"6 METERS","a.ac":["6"]}}],
+[
+{"i":95416,"m":0,"set":{"n":2}}],
+[
+{"i":95417,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95418,"m":0,"set":{"n":4}}],
+[
+{"i":95419,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95420,"m":0,"set":{"n":6,"q":"Carla multiplies the IQR by 1.5, and then subtracts it from first quartile and adds it to the third quartile. What is Carla trying to find?","a.t":"OUTLIERS","a.ac":["OUTLIER","OUTLIER FENCES","BOUNDS FOR OUTLIERS"]}}],
+[
+{"i":96145,"m":0,"set":{"s":"ess","n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95421,"m":0,"set":{"n":8,"q":"What NASA spacecraft entered orbit around Jupiter in 2016?"}}],
+[
+{"i":95422,"m":0,"set":{"n":9}}],
+[
+{"i":95423,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95424,"m":0,"set":{"n":1,"a.ac":["Chest wall pain","costosternal syndrome","costosternal chondrodynia"]}}],
+[
+{"i":95425,"m":0,"set":{"n":2}}],
+[
+{"i":96146,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95426,"m":0,"set":{"n":4}}],
+[
+{"i":95427,"m":0,"set":{"n":5}}],
+[
+{"i":95428,"m":0,"set":{"n":6}}],
+[
+{"i":95430,"m":0,"set":{"n":8,"a.t":"Wind and Solar","a.l":"W"},"sub":{"a":["t","l"]}}],
+[
+{"i":95431,"m":0,"set":{"n":9}}],
+[
+{"i":95432,"m":0,"set":{"n":10}}],
+[
+{"i":96147,"m":0,"set":{"n":11,"a.ac":["jolt","surge","lurch"]}}],
+[
+{"i":95433,"m":0,"set":{"n":12,"q":"If the gravitational acceleration on the surface of Earth is 10 m/s^2, what is the gravitational acceleration on the surface of a planet with the same density as Earth, but twice the volume, to the nearest m/s^2? Assume both planets are spherical with uniform density.","a.ac":["13 M/S^2"]}}],
+[
+{"i":95434,"m":0,"set":{"n":1}}],
+[
+{"i":95435,"m":0,"set":{"n":2}}],
+[
+{"i":96148,"m":0,"set":{"n":3,"q":"What is the indefinite integral of x^3?","c.W":"1/4 x^4","c.X":"3 x^2","c.Y":"x^4","c.Z":"1/4 x^4 + C","a.t":"1/4 x^4 + C"},"sub":{"a":["t","l"]}}],
+[
+{"i":95436,"m":0,"set":{"n":4,"q":"Evaluate the derivative of (2x+2)^4 at 1/2."}}],
+[
+{"i":96149,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95437,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95438,"m":0,"set":{"s":"phys","n":7,"a.t":"1000","a.ac":["1,000 JOULES","1000 J"]}}],
+[
+{"i":95439,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95440,"m":0,"set":{"n":9,"c.W":"Kirchhoff","a.t":"Kirchhoff"},"sub":{"a":["t","l"]}}],
+[
+{"i":95441,"m":0,"set":{"n":10}}],
+[
+{"i":95442,"m":0,"set":{"n":11},"sub":{"a":["t","l"]}}],
+[
+{"i":95443,"m":0,"set":{"n":1}}],
+[
+{"i":95444,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":96150,"m":0,"set":{"n":3,"a.t":"+6","a.ac":["6","6+"]}}],
+[
+{"i":95445,"m":0,"set":{"n":4,"q":"How many lattice points belong to one face-centered cubic unit cell?"}}],
+[
+{"i":95446,"m":0,"set":{"n":5,"q":"Name all of the intervals where the function y = 2x^3+3x^2-12x+5 is increasing.","a.t":"(−∞, −2) AND (1, ∞)","a.ac":["NEGATIVE INFINITY TO NEGATIVE TWO AND 1 TO INFINITY","X < −2 AND X > 1"]}}],
+[
+{"i":95447,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95448,"m":0,"set":{"n":7,"q":"What is the long branching structure in fungi that is responsible for vegetative growth?"}}],
+[
+{"i":96151,"m":0,"set":{"n":8,"c.Z":"A protein structure on chromatids used to pull sister chromatids apart","a.t":"A protein structure on chromatids used to pull sister chromatids apart"},"sub":{"a":["t","l"]}}],
+[
+{"i":95449,"m":0,"set":{"s":"chem","n":9}}],
+[
+{"i":95450,"m":0,"set":{"n":1,"q":"What is the name of the mathematical theorem that states that the first derivative of a differentiable function must equal zero at some point between two distinct points on the curve that have the same y-value?"}}],
+[
+{"i":95451,"m":0,"set":{"n":2}}],
+[
+{"i":95452,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95453,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95454,"m":0,"set":{"n":5}}],
+[
+{"i":95455,"m":0,"set":{"n":6}}],
+[
+{"i":95456,"m":0,"set":{"n":7}}],
+[
+{"i":96152,"m":0,"set":{"n":8}}],
+[
+{"i":95457,"m":0,"set":{"n":9}}],
+[
+{"i":95458,"m":0,"set":{"n":1,"q":"Though their names come from the order in which they were discovered, there are other biological differences between Photosystem I and Photosystem II. Which of the following correctly describes a difference between the two?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95459,"m":0,"set":{"n":2}}],
+[
+{"i":96153,"m":0,"set":{"n":3,"q":"In Potassium Permanganate (KMnO4) what is the oxidation number of the manganese atom?"}}],
+[
+{"i":95460,"m":0,"set":{"n":4}}],
+[
+{"i":95461,"m":0,"set":{"n":5}}],
+[
+{"i":95462,"m":0,"set":{"n":6,"q":"Quarks contain the following properties: isospin, strangeness, charm, bottomness, and topness. All of these are examples of what type of quantum numbers?"}}],
+[
+{"i":95463,"m":0,"set":{"n":7,"q":"What moon of Saturn has a tidally heated subsurface ocean that vents through plumes near its south pole?"}}],
+[
+{"i":95464,"m":0,"set":{"n":8,"c.W":"tan^-1(1) and sin^-1(√3/2)","c.X":"cos^-1(2/3) and cos^-1(-2/3)","c.Y":"sin^-1(1/3) and cos^-1(1/3)","c.Z":"tan^-1(1/5) and cos^-1(4/5)","a.t":"sin^-1(1/3) and cos^-1(1/3)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95465,"m":0,"set":{"n":9,"q":"List the following angles from smallest to largest: cos^-1(2/5), sin^-1(4/5), tan^-1(2)","a.t":"sin^-1(4/5), tan^-1(2), cos^-1(2/5)"}}],
+[
+{"i":95467,"m":0,"set":{"n":11}}],
+[
+{"i":95468,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95469,"m":0,"set":{"n":2}}],
+[
+{"i":95470,"m":0,"set":{"n":3,"c.X":"It is multiplied by √2","c.Z":"It is divided by √2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95471,"m":0,"set":{"n":4,"a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":95472,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95473,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95474,"m":0,"set":{"n":7}}],
+[
+{"i":95475,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95476,"m":0,"set":{"n":9}}],
+[
+{"i":95477,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":96155,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95478,"m":0,"set":{"n":4}}],
+[
+{"i":95479,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95480,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95481,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95482,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95483,"m":0,"set":{"n":9}}],
+[
+{"i":95484,"m":0,"set":{"n":10}}],
+[
+{"i":95485,"m":0,"set":{"n":11}}],
+[
+{"i":95486,"m":0,"set":{"n":1,"q":"Which phylum of fungi is characterized by bearing spores in groups of four on the basidium?"}}],
+[
+{"i":95487,"m":0,"set":{"n":2}}],
+[
+{"i":95488,"m":0,"set":{"n":3}}],
+[
+{"i":95489,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":96156,"m":0,"set":{"n":5}}],
+[
+{"i":95490,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95491,"m":0,"set":{"n":7}}],
+[
+{"i":95492,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95493,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":96157,"m":0,"set":{"n":10}}],
+[
+{"i":96159,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95494,"m":0,"set":{"n":2}}],
+[
+{"i":96160,"m":0,"set":{"n":3}}],
+[
+{"i":95495,"m":0,"set":{"n":4,"q":"A ball of volume 1 cm^3 is fully submerged in a tub of water. Taking the density of water to be 1,000 kg/m^3 and g to be 9.8 m/s^2, what is the buoyant force in Newtons?","a.ac":["0.0098","9.8 × 10^-3 N"]}}],
+[
+{"i":95496,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95497,"m":0,"set":{"s":"phys","n":6}}],
+[
+{"i":95498,"m":0,"set":{"n":7,"q":"What is the derivative with respect to x of x^4 + 12x^2 + xy + z?","a.t":"4x^3 + 24x + y"}}],
+[
+{"i":95499,"m":0,"set":{"n":8,"q":"What is the integral with respect to x of -sin(x) + 1/x?","a.t":"cos(x) + ln|x| + C","a.ac":["cos(x) + ln(x) + C"]},"del":["a.rj"]}],
+[
+{"i":95500,"m":0,"set":{"n":9,"c.X":"Only passed on through the mother, since the Y chromosome does not have a copy of the responsible gene","c.Y":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence","c.Z":"Becomes more severe over successive generations, since misfolded proteins are passed on through the egg cell","a.t":"Becomes more severe over successive generations, since the responsible gene accumulates more and more copies of the same sequence"},"sub":{"a":["t","l"]}}],
+[
+{"i":95501,"m":0,"set":{"n":10,"a.t":"Transposons","a.ac":["transposable elements"]}}],
+[
+{"i":95502,"m":0,"set":{"n":1,"q":"Which type of leukocyte is the most common in human blood?","a.t":"NEUTROPHILS","a.ac":["NEUTROPHIL"]}}],
+[
+{"i":95503,"m":0,"set":{"n":2}}],
+[
+{"i":95504,"m":0,"set":{"n":3}}],
+[
+{"i":95505,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95506,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95507,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":96161,"m":0,"set":{"s":"phys","n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95508,"m":0,"set":{"n":8,"q":"What is the largest tidal power plant in the world?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95509,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95510,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95511,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95512,"m":0,"set":{"n":2,"q":"Which of the following is a purine?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95513,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95514,"m":0,"set":{"n":4}}],
+[
+{"i":95515,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95516,"m":0,"set":{"n":6}}],
+[
+{"i":96162,"m":0,"set":{"n":7},"sub":{"a":["t","l"]}}],
+[
+{"i":95517,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":96163,"m":0,"set":{"f":"MC","n":9,"q":"Which of the following functions is odd?","c":true,"c.W":"cos(x^3)","c.X":"x^3+x^2","c.Y":"sin(cos(x))","c.Z":"tanh(x)","a.t":"tanh(x)","a.l":"Z"}}],
+[
+{"i":95518,"m":0,"set":{"n":10,"a.ac":["NEWTON'S IDENTITIES","NEWTON'S SUMS"]}}],
+[
+{"i":95519,"m":0,"set":{"n":11}}],
+[
+{"i":96164,"m":0,"set":{"s":"phys","n":12},"sub":{"a":["t","l"]}}],
+[
+{"i":95520,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95521,"m":0,"set":{"n":2}}],
+[
+{"i":96165,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95522,"m":0,"set":{"n":4,"a.t":"PYROXENE","a.ac":["OLIVINE"]}}],
+[
+{"i":95523,"m":0,"set":{"s":"phys","n":5,"q":"Which of the following geothermal plants can harvest energy from reservoirs at temperatures as low as 57°C?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95524,"m":0,"set":{"s":"phys","n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95525,"m":0,"set":{"n":7,"a.t":"3.0 × 10^5","a.rj":["3 × 10^5 or 300000"]}}],
+[
+{"i":95526,"m":0,"set":{"n":8,"a.t":"15/17 c","a.ac":["15/17","0.88c"]}}],
+[
+{"i":95527,"m":0,"set":{"n":9}}],
+[
+{"i":95528,"m":0,"set":{"n":10}}],
+[
+{"i":96166,"m":0,"set":{"n":11}}],
+[
+{"i":95529,"m":0,"set":{"n":1,"q":"What molecule can cause the splitting of alkenes at their double bond locations, forming an intermediate with a five member ring?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95530,"m":0,"set":{"n":2}}],
+[
+{"i":95531,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95532,"m":0,"set":{"n":4,"a.t":"25%","a.ac":["0.25"]}}],
+[
+{"i":95533,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95534,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95535,"m":0,"set":{"n":7,"q":"What term is used to describe the electromagnetic radiation with no discernible source left over from the early universe?","a.t":"COSMIC MICROWAVE BACKGROUND","a.ac":["COSMIC BACKGROUND RADIATION","CMB","COSMIC MICROWAVE RADIATION"]}}],
+[
+{"i":95536,"m":0,"set":{"n":8,"q":"An object with a mass of 5 kg is dropped from a cliff. Just before touching the ground, it has a velocity of 10 m/s. Assuming gravitational acceleration as 10 m/s^2 and air resistance is negligible, what is the height of the cliff?"}}],
+[
+{"i":95537,"m":0,"set":{"n":9,"q":"A car accelerates from rest to a final velocity of 16 m/s over a distance of 32 m. What is the acceleration of the car in m/s^2?","a.t":"4 m/s^2"}}],
+[
+{"i":95538,"m":0,"set":{"n":10}}],
+[
+{"i":95539,"m":0,"set":{"n":11}}],
+[
+{"i":95540,"m":0,"set":{"n":1}}],
+[
+{"i":95541,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":96167,"m":0,"set":{"n":3,"a.t":"HSO4^-","a.ac":["HYDROGEN SULFATE","BISULFATE"]}}],
+[
+{"i":95542,"m":0,"set":{"n":4,"q":"What is the name for a mixture that can’t be separated via distillation?"}}],
+[
+{"i":95543,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":96168,"m":0,"set":{"n":6,"q":"What is the name for the process that alters rocks due to magma?"}}],
+[
+{"i":95544,"m":0,"set":{"n":7}}],
+[
+{"i":95545,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95546,"m":0,"set":{"n":9,"a.ac":["LEAF SENESCENCE","ABSCISSION"]}}],
+[
+{"i":95547,"m":0,"set":{"n":10,"q":"Hydra belong to which of the following phyla?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95548,"m":0,"set":{"s":"phys","n":11,"q":"Joe pushes a box straight up, against gravity, accelerating at 2 m/s^2. If the box has a mass of 10 kg, how much work, in joules, has Joe done in moving the box 20 meters?","a.ac":["2360 J"]}}],
+[
+{"i":95549,"m":0,"set":{"n":12}}],
+[
+{"i":95550,"m":0,"set":{"n":1},"sub":{"a":["t","l"]}}],
+[
+{"i":95551,"m":0,"set":{"n":2}}],
+[
+{"i":95552,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95553,"m":0,"set":{"n":4,"q":"What scientist was responsible for finding the charge of an electron?"}}],
+[
+{"i":95554,"m":0,"set":{"n":5}}],
+[
+{"i":95555,"m":0,"set":{"n":6,"q":"Which of the following countries leads in usage of hydroelectric power?","a.t":"China","a.l":"W"},"sub":{"a":["t","l"]}}],
+[
+{"i":95556,"m":0,"set":{"s":"ess","n":7,"q":"What device is used to measure wind speed?"}}],
+[
+{"i":95557,"m":0,"set":{"n":8,"q":"What is the limiting reactant in the following chemical reaction if you have 12 g of Mg(OH)2 and 42 g of HCl? Mg(OH)2 + 2HCl → MgCl2 + 2H2O","a.t":"Mg(OH)2","a.ac":["MAGNESIUM HYDROXIDE"]}}],
+[
+{"i":96169,"m":0,"set":{"n":9,"q":"What scientist discovered the law of conservation of mass?"}}],
+[
+{"i":95558,"m":0,"set":{"n":1,"a.t":"DNA POLYMERASE","a.ac":["DNA POLYMERASE DELTA","DNA POLYMERASE EPSILON"]}}],
+[
+{"i":95559,"m":0,"set":{"n":2}}],
+[
+{"i":96170,"m":0,"set":{"n":3}}],
+[
+{"i":95560,"m":0,"set":{"n":4},"sub":{"a":["t","l"]}}],
+[
+{"i":95561,"m":0,"set":{"n":5}}],
+[
+{"i":95562,"m":0,"set":{"n":6}}],
+[
+{"i":95563,"m":0,"set":{"n":7}}],
+[
+{"i":95564,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95565,"m":0,"set":{"n":9},"sub":{"a":["t","l"]}}],
+[
+{"i":95566,"m":0,"set":{"n":10}}],
+[
+{"i":95567,"m":0,"set":{"n":11}}],
+[
+{"i":95568,"m":0,"set":{"n":12}}],
+[
+{"i":95569,"m":0,"set":{"n":13},"sub":{"a":["t","l"]}}],
+[
+{"i":95570,"m":0,"set":{"n":14},"sub":{"a":["t","l"]}}],
+[
+{"i":96171,"m":0,"set":{"n":15},"sub":{"a":["t","l"]}}],
+[
+{"i":95571,"m":0,"set":{"n":16},"sub":{"a":["t","l"]}}],
+[
+{"i":95572,"m":0,"set":{"n":17}}],
+[
+{"i":95573,"m":0,"set":{"n":18}}],
+[
+{"i":95574,"m":0,"set":{"n":19}}],
+[
+{"i":96172,"m":0,"set":{"n":20}}],
+[
+{"i":95575,"m":0,"set":{"n":21,"q":"In C4 and CAM photosynthesis, which specific enzyme is used to fix CO2 in lieu of RuBisCO?","a.t":"PEP CARBOXYLASE","a.ac":["PHOSPHOENOLPYRUVATE CARBOXYLASE","PEPC"]}}],
+[
+{"i":95576,"m":0,"set":{"n":22}}],
+[
+{"i":95577,"m":0,"set":{"n":23}}],
+[
+{"i":95578,"m":0,"set":{"n":24},"sub":{"a":["t","l"]}}],
+[
+{"i":95579,"m":0,"set":{"n":25},"sub":{"a":["t","l"]}}],
+[
+{"i":95580,"m":0,"set":{"n":26}}],
+[
+{"i":95581,"m":0,"set":{"n":27,"q":"How many cotyledons do dicots have?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95582,"m":0,"set":{"n":28}}],
+[
+{"i":95583,"m":0,"set":{"n":29,"q":"Which of these human diseases is not caused by roundworms?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95584,"m":0,"set":{"n":30,"q":"What hormone causes vesicles carrying aquaporins to embed in the membranes of cells in the collecting duct?","a.t":"ADH","a.ac":["ANTIDIURETIC HORMONE","VASOPRESSIN"]}}],
+[
+{"i":96173,"m":0,"set":{"n":31},"sub":{"a":["t","l"]}}],
+[
+{"i":95585,"m":0,"set":{"n":32,"q":"Who developed the first successful polio vaccine?"}}],
+[
+{"i":95586,"m":0,"set":{"n":33},"sub":{"a":["t","l"]}}],
+[
+{"i":96174,"m":0,"set":{"n":34}}],
+[
+{"i":95587,"m":0,"set":{"n":35},"sub":{"a":["t","l"]}}],
+[
+{"i":95588,"m":0,"set":{"n":36,"q":"What molecule do Ras proteins hydrolyze?"}}],
+[
+{"i":95589,"m":0,"set":{"n":37},"sub":{"a":["t","l"]}}],
+[
+{"i":96175,"m":0,"set":{"n":38,"a.t":"SA NODE","a.ac":["SINOATRIAL NODE","SINOATRIAL"]}}],
+[
+{"i":95590,"m":0,"set":{"n":39,"a.t":"Colistin","a.l":"W"}}],
+[
+{"i":95591,"m":0,"set":{"n":40,"a.t":"TEICHOIC ACID","a.ac":["LIPOTEICHOIC ACID","TEICHOIC ACIDS"]}}],
+[
+{"i":96177,"m":0,"set":{"n":42}}],
+[
+{"i":95592,"m":0,"set":{"n":43},"sub":{"a":["t","l"]}}],
+[
+{"i":95593,"m":0,"set":{"n":44},"sub":{"a":["t","l"]}}],
+[
+{"i":95594,"m":0,"set":{"n":45},"sub":{"a":["t","l"]}}],
+[
+{"i":95595,"m":0,"set":{"n":46},"sub":{"a":["t","l"]}}],
+[
+{"i":95596,"m":0,"set":{"n":47}}],
+[
+{"i":95597,"m":0,"set":{"n":48,"a.t":"18","a.ac":["18 MOLECULES OF ATP"]}}],
+[
+{"i":95598,"m":0,"set":{"n":49,"a.t":"NADPH","a.l":"W"}}],
+[
+{"i":95599,"m":0,"set":{"n":50},"sub":{"a":["t","l"]}}],
+[
+{"i":95600,"m":0,"set":{"n":51},"sub":{"a":["t","l"]}}],
+[
+{"i":95601,"m":0,"set":{"n":52,"c.W":"spindle fibers are composed largely of microtubules","c.X":"centrioles consist of nine triplets of microtubules arranged in a circle"},"sub":{"a":["t","l"]}}],
+[
+{"i":95602,"m":0,"set":{"n":53},"sub":{"a":["t","l"]}}],
+[
+{"i":95603,"m":0,"set":{"n":54,"q":"A human genetic defect that is caused by nondisjunction of the sex chromosomes is"},"sub":{"a":["t","l"]}}],
+[
+{"i":95604,"m":0,"set":{"n":55},"sub":{"a":["t","l"]}}],
+[
+{"i":95605,"m":0,"set":{"n":56},"sub":{"a":["t","l"]}}],
+[
+{"i":95606,"m":0,"set":{"n":57,"c.W":"peptidoglycan"},"sub":{"a":["t","l"]}}],
+[
+{"i":95607,"m":0,"set":{"n":58},"sub":{"a":["t","l"]}}],
+[
+{"i":95608,"m":0,"set":{"n":59},"sub":{"a":["t","l"]}}],
+[
+{"i":95609,"m":0,"set":{"n":60},"sub":{"a":["t","l"]}}],
+[
+{"i":95610,"m":0,"set":{"n":61,"a.t":"Casparian strip","a.l":"W"}}],
+[
+{"i":95611,"m":0,"set":{"n":62},"sub":{"a":["t","l"]}}],
+[
+{"i":95612,"m":0,"set":{"n":63,"a.t":"during embryonic development","a.l":"W"}}],
+[
+{"i":95613,"m":0,"set":{"n":64},"sub":{"a":["t","l"]}}],
+[
+{"i":95614,"m":0,"set":{"n":65,"q":"What hormone is an antioxidant, binds cadmium and other metals, and is produced to help regulate the circadian cycle for animals?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95615,"m":0,"set":{"n":66,"q":"Myasthenia gravis is a disease characterized by muscle weakness and fatigue, and is caused when antibodies block the receptors for a neurotransmitter. What is this neurotransmitter?"}}],
+[
+{"i":95616,"m":0,"set":{"n":67,"q":"If the recessive allele of gene A is epistatic to gene B, what is the expected phenotypic ratio in the F2 of a dihybrid cross?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95617,"m":0,"set":{"n":68}}],
+[
+{"i":95618,"m":0,"set":{"n":69}}],
+[
+{"i":95619,"m":0,"set":{"n":70}}],
+[
+{"i":96178,"m":0,"set":{"n":71},"sub":{"a":["t","l"]}}],
+[
+{"i":95620,"m":0,"set":{"n":72,"a.ac":["DOMAIN, KINGDOM, PHYLUM, CLASS, ORDER, FAMILY, GENUS, SPECIES"]}}],
+[
+{"i":95621,"m":0,"set":{"n":73},"sub":{"a":["t","l"]}}],
+[
+{"i":95622,"m":0,"set":{"n":74},"sub":{"a":["t","l"]}}],
+[
+{"i":95623,"m":0,"set":{"n":75,"a.t":"rib","a.l":"W"}}],
+[
+{"i":95624,"m":0,"set":{"n":76,"a.t":"facet","a.l":"W"}}],
+[
+{"i":95625,"m":0,"set":{"n":77,"a.t":"fossa","a.l":"W"}}],
+[
+{"i":95626,"m":0,"set":{"n":78,"c.Y":"sagittal suture","c.Z":"squamous suture"},"sub":{"a":["t","l"]}}],
+[
+{"i":95627,"m":0,"set":{"n":79},"sub":{"a":["t","l"]}}],
+[
+{"i":95628,"m":0,"set":{"n":80,"a.t":"FOUR HAPLOID CELLS","a.ac":["FOUR MONOPLOID CELLS","FOUR SPERMATIDS","FOUR SPERM CELLS"]}}],
+[
+{"i":95629,"m":0,"set":{"n":81,"a.t":"SIGNAL SEQUENCE","a.ac":["SIGNAL PEPTIDE","TARGETING SIGNAL","LEADER SEQUENCE"]}}],
+[
+{"i":95630,"m":0,"set":{"n":82}}],
+[
+{"i":95631,"m":0,"set":{"n":83},"sub":{"a":["t","l"]}}],
+[
+{"i":95632,"m":0,"set":{"n":84,"a.t":"IN A RING","a.ac":["RING"]}}],
+[
+{"i":95633,"m":0,"set":{"n":85,"q":"Which of the following is a ground tissue with thick secondary cell walls reinforced with lignin?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95634,"m":0,"set":{"n":86,"a.t":"PSEUDOPODIA","a.ac":["PSEUDOPODS","PSEUDOPOD"]}}],
+[
+{"i":95635,"m":0,"set":{"n":87},"sub":{"a":["t","l"]}}],
+[
+{"i":95636,"m":0,"set":{"n":88},"sub":{"a":["t","l"]}}],
+[
+{"i":95637,"m":0,"set":{"n":89},"sub":{"a":["t","l"]}}],
+[
+{"i":95638,"m":0,"set":{"n":90,"a.t":"ALLOPATRIC SPECIATION","a.ac":["GEOGRAPHIC SPECIATION"]}}],
+[
+{"i":95639,"m":0,"set":{"n":91},"sub":{"a":["t","l"]}}],
+[
+{"i":95640,"m":0,"set":{"n":92,"a.t":"METHYLATION AND ACETYLATION","a.ac":["METHYLATION; ACETYLATION","in that order"]}}],
+[
+{"i":95641,"m":0,"set":{"n":93},"sub":{"a":["t","l"]}}],
+[
+{"i":95642,"m":0,"set":{"n":94}}],
+[
+{"i":95643,"m":0,"set":{"n":95},"sub":{"a":["t","l"]}}],
+[
+{"i":95644,"m":0,"set":{"n":96,"q":"What is the specific name for the mode of straight-line movement that pythons and boas use?","a.t":"RECTILINEAR LOCOMOTION","a.ac":["RECTILINEAR MOTION","RECTILINEAR"]}}],
+[
+{"i":95645,"m":0,"set":{"n":97},"sub":{"a":["t","l"]}}],
+[
+{"i":95646,"m":0,"set":{"n":98}}],
+[
+{"i":95647,"m":0,"set":{"n":1,"c.W":"sp^3","c.X":"sp^3d^2","c.Y":"sp^3d^3","a.t":"sp^3d^2","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":96179,"m":0,"set":{"n":2,"c.Z":"Lysine"},"sub":{"a":["t","l"]}}],
+[
+{"i":95648,"m":0,"set":{"n":3},"sub":{"a":["t","l"]}}],
+[
+{"i":95649,"m":0,"set":{"n":4,"a.t":"1s^2 2s^2 2p^6 3s^2 3p^6 3d^5","a.ac":["[Ar] 3d^5"]}}],
+[
+{"i":95650,"m":0,"set":{"n":5,"q":"What is the name for the elements in Group 16?"}}],
+[
+{"i":95651,"m":0,"set":{"n":6,"a.t":"WATER AND CARBON DIOXIDE","a.ac":["H2O AND CO2","DIHYDROGEN MONOXIDE AND CARBON DIOXIDE"]}}],
+[
+{"i":96180,"m":0,"set":{"n":7,"a.t":"SCN^-"}}],
+[
+{"i":95652,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95653,"m":0,"set":{"n":9,"q":"What feature of a chemical species allows it to act as a ligand in a complex ion?","a.t":"A LONE PAIR OF ELECTRONS (IT IS A LEWIS BASE)","a.ac":["IT ACTS AS A LEWIS BASE","HAS A LONE PAIR"]}}],
+[
+{"i":95654,"m":0,"set":{"n":10,"c.W":"Cu^(2+)","c.X":"Ni^(2+)","c.Y":"Mn^(7+)","c.Z":"Zn^(2+)","a.t":"Zn^(2+)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95655,"m":0,"set":{"n":11}}],
+[
+{"i":95656,"m":0,"set":{"n":12},"sub":{"a":["t","l"]}}],
+[
+{"i":95657,"m":0,"set":{"n":13,"q":"What is the pH of a Ca(OH)2 solution with Calcium(2+) concentration of 5.0 × 10^-6 M?"}}],
+[
+{"i":95658,"m":0,"set":{"n":14,"q":"What is the value of Kw, the ion-product constant of water, at 25 °C?","a.t":"1.0 × 10^-14"}}],
+[
+{"i":96181,"m":0,"set":{"n":15},"sub":{"a":["t","l"]}}],
+[
+{"i":95659,"m":0,"set":{"n":16}}],
+[
+{"i":95660,"m":0,"set":{"n":17,"q":"Naphthalene is the classic active ingredient in what household products, which share its smell?","a.t":"MOTHBALLS","a.ac":["MOTH BALLS"]}}],
+[
+{"i":95661,"m":0,"set":{"n":18},"sub":{"a":["t","l"]}}],
+[
+{"i":96182,"m":0,"set":{"n":19},"sub":{"a":["t","l"]}}],
+[
+{"i":96183,"m":0,"set":{"n":20},"sub":{"a":["t","l"]}}],
+[
+{"i":95662,"m":0,"set":{"n":21},"sub":{"a":["t","l"]}}],
+[
+{"i":95663,"m":0,"set":{"n":22},"sub":{"a":["t","l"]}}],
+[
+{"i":96184,"m":0,"set":{"n":23,"c.W":"KH2PO4","c.X":"CaC2H3O2","c.Y":"Na2ClO4","c.Z":"Ba(CO3)2","a.t":"KH2PO4"},"sub":{"a":["t","l"]}}],
+[
+{"i":95664,"m":0,"set":{"n":24,"a.t":"IO3^-"}}],
+[
+{"i":95665,"m":0,"set":{"n":25,"q":"What name should be given to a molecule with the formula N2O5?"}}],
+[
+{"i":95666,"m":0,"set":{"n":26,"q":"Sulfur forms the following compounds: SO2, SCl2, and SO3^(2-). Which form of hybridization is NOT represented by these molecules?","c.X":"sp^2","c.Y":"sp^3"},"sub":{"a":["t","l"]}}],
+[
+{"i":95667,"m":0,"set":{"n":27},"sub":{"a":["t","l"]}}],
+[
+{"i":95668,"m":0,"set":{"n":28},"sub":{"a":["t","l"]}}],
+[
+{"i":95669,"m":0,"set":{"n":29,"q":"A gas has a density, at STP, of 3.48 g/L. The most reasonable formula for this compound is","c.Y":"CCl4"},"sub":{"a":["t","l"]}}],
+[
+{"i":95670,"m":0,"set":{"n":30,"a.t":"Ca","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":95671,"m":0,"set":{"n":31,"q":"A student observed that a small amount of acetone sprayed on the back of the hand felt very cool compared to a similar amount of water. Your explanation of this phenomenon should be that"},"sub":{"a":["t","l"]}}],
+[
+{"i":95672,"m":0,"set":{"n":32},"sub":{"a":["t","l"]}}],
+[
+{"i":95673,"m":0,"set":{"n":33},"sub":{"a":["t","l"]}}],
+[
+{"i":96185,"m":0,"set":{"n":34},"sub":{"a":["t","l"]}}],
+[
+{"i":95674,"m":0,"set":{"n":35},"sub":{"a":["t","l"]}}],
+[
+{"i":95675,"m":0,"set":{"n":36,"c.Z":"a negative delta H and a positive delta S"},"sub":{"a":["t","l"]}}],
+[
+{"i":96186,"m":0,"set":{"n":37,"c.X":"A positive delta G indicates a thermodynamically favorable reaction","c.Y":"A positive delta S always means that the reaction is thermodynamically favored","c.Z":"A thermodynamically favored reaction always goes to completion"},"sub":{"a":["t","l"]}}],
+[
+{"i":95676,"m":0,"set":{"n":38},"sub":{"a":["t","l"]}}],
+[
+{"i":96187,"m":0,"set":{"n":39,"c.Z":"Electrolysis reactions always produce a gas at at least one electrode","a.t":"Electrolysis reactions always produce a gas at at least one electrode"},"sub":{"a":["t","l"]}}],
+[
+{"i":95677,"m":0,"set":{"n":40},"sub":{"a":["t","l"]}}],
+[
+{"i":95678,"m":0,"set":{"n":41}}],
+[
+{"i":95679,"m":0,"set":{"n":42,"q":"What is the conjugate base of HPO4^(2-)?","a.t":"PO4^(3-)","a.ac":["PHOSPHATE"]}}],
+[
+{"i":95680,"m":0,"set":{"n":43,"q":"Which of the following is true regarding complex ions?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95681,"m":0,"set":{"n":44},"sub":{"a":["t","l"]}}],
+[
+{"i":95682,"m":0,"set":{"n":45,"c.W":"Ag2CrO4 and AgBr","c.X":"Ag2SO4 and CaSO4","c.Y":"PbCl2 and PbSO4","c.Z":"ZnS and AgI","a.t":"ZnS and AgI"},"sub":{"a":["t","l"]}}],
+[
+{"i":95683,"m":0,"set":{"n":46}}],
+[
+{"i":95684,"m":0,"set":{"n":47}}],
+[
+{"i":96188,"m":0,"set":{"n":48}}],
+[
+{"i":96189,"m":0,"set":{"n":49}}],
+[
+{"i":96190,"m":0,"set":{"n":50,"a.ac":["CS","FRANCIUM"]}}],
+[
+{"i":96191,"m":0,"set":{"n":51,"a.t":"sp^3"}}],
+[
+{"i":95685,"m":0,"set":{"n":52,"a.t":"HELIUM","a.ac":["HE"]}}],
+[
+{"i":96192,"m":0,"set":{"n":53}}],
+[
+{"i":95686,"m":0,"set":{"n":54}}],
+[
+{"i":95687,"m":0,"set":{"n":55}}],
+[
+{"i":95688,"m":0,"set":{"n":56,"a.ac":["TWO","+2"]}}],
+[
+{"i":96193,"m":0,"set":{"n":57}}],
+[
+{"i":96194,"m":0,"set":{"n":58,"a.t":"sp^3"}}],
+[
+{"i":95689,"m":0,"set":{"n":59,"a.t":"SALT BRIDGE","a.ac":["POROUS BARRIER"],"a.rj":["STANDARD HYDROGEN ELECTRODE"]}}],
+[
+{"i":95690,"m":0,"set":{"n":60}}],
+[
+{"i":96195,"m":0,"set":{"n":61,"q":"An aqueous solution in which the amount of OH^- ions is greater than that of H^+ ions is described as what?"}}],
+[
+{"i":95691,"m":0,"set":{"n":62}}],
+[
+{"i":96197,"m":0,"set":{"n":64}}],
+[
+{"i":96198,"m":0,"set":{"n":65,"q":"What is the formula for potassium perchlorate?","a.t":"KClO4"}}],
+[
+{"i":96199,"m":0,"set":{"n":66}}],
+[
+{"i":96200,"m":0,"set":{"n":67}}],
+[
+{"i":96201,"m":0,"set":{"n":68},"sub":{"a":["t","l"]}}],
+[
+{"i":95692,"m":0,"set":{"n":69,"q":"What naturally occurring halogen has no stable isotopes?"}}],
+[
+{"i":95693,"m":0,"set":{"n":70,"c.Y":"CH3OH"},"sub":{"a":["t","l"]}}],
+[
+{"i":95694,"m":0,"set":{"n":71,"c.Y":"sp^2","c.Z":"sp^3","a.t":"sp^3"},"sub":{"a":["t","l"]}}],
+[
+{"i":95695,"m":0,"set":{"n":72,"q":"How does a Bronsted-Lowry acid differ from its conjugate base?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95696,"m":0,"set":{"n":73,"c.Y":"SO2","a.t":"SO2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95697,"m":0,"set":{"n":74,"q":"What mass of HCl dissolved to make a 1 liter solution will give a pH of 1? Give your answer in grams rounded to the nearest hundredth.","a.t":"3.65","a.ac":["3.65 G","3.6"]}}],
+[
+{"i":95698,"m":0,"set":{"n":75}}],
+[
+{"i":95699,"m":0,"set":{"n":76,"a.t":"ACTINIUM SERIES","a.ac":["4N+3 SERIES"]}}],
+[
+{"i":95700,"m":0,"set":{"n":77},"sub":{"a":["t","l"]}}],
+[
+{"i":95701,"m":0,"set":{"n":78},"sub":{"a":["t","l"]}}],
+[
+{"i":95702,"m":0,"set":{"n":79,"q":"Name all of the following properties that a superfluid exhibits: 1) extreme surface tension, 2) near-zero viscosity, 3) high electrical conductivity, 4) high thermal conductivity.","a.t":"2 AND 4","a.ac":["NEAR-ZERO VISCOSITY AND HIGH THERMAL CONDUCTIVITY"]}}],
+[
+{"i":95703,"m":0,"set":{"n":80},"sub":{"a":["t","l"]}}],
+[
+{"i":95704,"m":0,"set":{"n":81,"q":"Name all of the following types of fuel cells that mainly use platinum catalysts: 1) PEMFC, 2) PAFC, 3) DMFC, 4) MCFC.","a.t":"1, 2 AND 3","a.ac":["PEMFC, PAFC AND DMFC"]}}],
+[
+{"i":95705,"m":0,"set":{"n":82}}],
+[
+{"i":96202,"m":0,"set":{"n":83},"sub":{"a":["t","l"]}}],
+[
+{"i":96203,"m":0,"set":{"n":84},"sub":{"a":["t","l"]}}],
+[
+{"i":95706,"m":0,"set":{"n":85}}],
+[
+{"i":95707,"m":0,"set":{"n":86}}],
+[
+{"i":95708,"m":0,"set":{"n":87,"a.t":"PHENYLALANINE","a.ac":["TYROSINE"]}}],
+[
+{"i":95709,"m":0,"set":{"n":88}}],
+[
+{"i":95710,"m":0,"set":{"n":89},"sub":{"a":["t","l"]}}],
+[
+{"i":95711,"m":0,"set":{"n":90}}],
+[
+{"i":95712,"m":0,"set":{"n":91},"sub":{"a":["t","l"]}}],
+[
+{"i":95713,"m":0,"set":{"n":92,"q":"What form of hybridization does the carbonyl carbon of a ketone have?","a.t":"sp^2"}}],
+[
+{"i":96204,"m":0,"set":{"n":93},"sub":{"a":["t","l"]}}],
+[
+{"i":95714,"m":0,"set":{"n":94,"c.Y":"HCl","c.Z":"CO2","a.t":"CO2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95715,"m":0,"set":{"n":95,"q":"M represents some unknown element. When M2S3 is heated in air, it is converted to MO2. A 4.000g sample of M2S3 shows a decrease in mass of .277 g when it is heated in air. To the nearest whole number, what is the average atomic mass of M?","a.t":"184","a.ac":["184 G/MOL"]}}],
+[
+{"i":96205,"m":0,"set":{"n":96}}],
+[
+{"i":96207,"m":0,"set":{"n":98}}],
+[
+{"i":96208,"m":0,"set":{"n":99}}],
+[
+{"i":95716,"m":0,"set":{"n":100,"q":"Name all of the following 4 species that contain an odd number of electrons: O2^-; O2^(2-); SO2; CO","a.t":"O2^- (SUPEROXIDE)","a.ac":["O2^-","SUPEROXIDE"]}}],
+[
+{"i":95718,"m":0,"set":{"n":105,"a.t":"VOLUME AND TEMPERATURE (V_1/T_1 = V_2/T_2)","a.ac":["V_1/T_1 = V_2/T_2","V/T IS CONSTANT"]}}],
+[
+{"i":96214,"m":0,"set":{"n":108,"q":"Which is the correct name for N2O3?"}}],
+[
+{"i":96216,"m":0,"set":{"n":110,"q":"The wavelength of yellow light is 600 nanometers. What is the wavelength in centimeters: (use scientific notation)?","a.t":"6.0 × 10^-5","a.ac":["6 × 10^-5"]}}],
+[
+{"i":95719,"m":0,"set":{"s":"phys","n":111},"sub":{"a":["t","l"]}}],
+[
+{"i":95720,"m":0,"set":{"n":112},"sub":{"a":["t","l"]}}],
+[
+{"i":95721,"m":0,"set":{"s":"phys","n":113},"sub":{"a":["t","l"]}}],
+[
+{"i":95722,"m":0,"set":{"s":"phys","n":114},"sub":{"a":["t","l"]}}],
+[
+{"i":95723,"m":0,"set":{"s":"phys","n":115},"sub":{"a":["t","l"]}}],
+[
+{"i":95724,"m":0,"set":{"s":"phys","n":116}}],
+[
+{"i":95725,"m":0,"set":{"s":"phys","n":117},"sub":{"a":["t","l"]}}],
+[
+{"i":95726,"m":0,"set":{"s":"phys","n":118},"sub":{"a":["t","l"]}}],
+[
+{"i":96217,"m":0,"set":{"n":119},"sub":{"a":["t","l"]}}],
+[
+{"i":95727,"m":0,"set":{"s":"phys","n":120,"c.Z":"all adiabatic processes"},"sub":{"a":["t","l"]}}],
+[
+{"i":95728,"m":0,"set":{"n":121},"sub":{"a":["t","l"]}}],
+[
+{"i":95729,"m":0,"set":{"n":122,"a.t":"LAVOISIER","a.ac":["ANTOINE LAVOISIER"]}}],
+[
+{"i":95730,"m":0,"set":{"n":123,"c.W":"Pb^(2+)","c.X":"I2"},"sub":{"a":["t","l"]}}],
+[
+{"i":96218,"m":0,"set":{"n":124,"c.W":"sp^2","c.X":"sp^3","c.Y":"sp^3d","c.Z":"sp^3d^2","a.t":"sp^3d"},"sub":{"a":["t","l"]}}],
+[
+{"i":95731,"m":0,"set":{"n":125,"q":"Which famous chemist was responsible for creating the field of colloid chemistry and created laws for effusion and diffusion?"}}],
+[
+{"i":95732,"m":0,"set":{"n":126,"a.t":"LAW OF DEFINITE PROPORTIONS","a.ac":["LAW OF CONSTANT COMPOSITION"]}}],
+[
+{"i":95733,"m":0,"set":{"n":127,"q":"In 1774, Joseph Priestley isolated what element by heating a powdered mercury compound?"}}],
+[
+{"i":95734,"m":0,"set":{"n":128},"sub":{"a":["t","l"]}}],
+[
+{"i":96219,"m":0,"set":{"n":129,"a.t":"BUCKMINSTERFULLERENE","a.ac":["BUCKYBALL","BUCKYBALLS","FULLERENE"]}}],
+[
+{"i":95735,"m":0,"set":{"n":130},"sub":{"a":["t","l"]}}],
+[
+{"i":95736,"m":0,"set":{"n":131,"a.t":"THREE-CENTER TWO-ELECTRON BOND","a.ac":["THREE-CENTER BOND","3C-2E BOND","BANANA BOND"]}}],
+[
+{"i":95737,"m":0,"set":{"n":132}}],
+[
+{"i":95738,"m":0,"set":{"n":133},"sub":{"a":["t","l"]}}],
+[
+{"i":95739,"m":0,"set":{"n":134,"q":"How many carbon atoms are in a single molecule of trinitrotoluene, or TNT?"}}],
+[
+{"i":95740,"m":0,"set":{"n":135}}],
+[
+{"i":95741,"m":0,"set":{"n":136,"q":"The formula for the combustion of methane is CH4 + 2O2 yields CO2 + 2H2O. Given that the heat of formation of methane gas is -75 kilojoules per mole, the heat of formation of carbon dioxide is -400 kilojoules per mole, and the heat of formation of water is -300 kilojoules per mole, find the heat of combustion for methane.","a.t":"−925 KJ/MOL","a.ac":["-925","925 KJ/MOL RELEASED"]}}],
+[
+{"i":95742,"m":0,"set":{"n":137},"sub":{"a":["t","l"]}}],
+[
+{"i":95743,"m":0,"set":{"n":138}}],
+[
+{"i":95744,"m":0,"set":{"n":139},"sub":{"a":["t","l"]}}],
+[
+{"i":95745,"m":0,"set":{"n":140,"q":"A solution contains some BaSO4 at 25 °C. It is found to contain 4 × 10^-5 mole/liter of Ba^(2+) ions. What is the Ksp of the BaSO4 in scientific notation?","a.t":"1.6 × 10^-9"}}],
+[
+{"i":95746,"m":0,"set":{"n":141},"sub":{"a":["t","l"]}}],
+[
+{"i":95747,"m":0,"set":{"n":142,"c.W":"when [HA] = [A^-]","a.t":"when [HA] = [A^-]"},"sub":{"a":["t","l"]}}],
+[
+{"i":95748,"m":0,"set":{"n":143},"sub":{"a":["t","l"]}}],
+[
+{"i":96220,"m":0,"set":{"n":144},"sub":{"a":["t","l"]}}],
+[
+{"i":95749,"m":0,"set":{"n":147},"sub":{"a":["t","l"]}}],
+[
+{"i":95750,"m":0,"set":{"n":148}}],
+[
+{"i":95751,"m":0,"set":{"n":149},"sub":{"a":["t","l"]}}],
+[
+{"i":95752,"m":0,"set":{"n":150,"q":"When KCl dissolves in water, the solution cools noticeably to the touch. It may be concluded that","c.X":"KCl is relatively insoluble in water","c.Y":"the entropy decreases when KCl dissolves"},"sub":{"a":["t","l"]}}],
+[
+{"i":95753,"m":0,"set":{"n":151},"sub":{"a":["t","l"]}}],
+[
+{"i":95754,"m":0,"set":{"n":152},"sub":{"a":["t","l"]}}],
+[
+{"i":95755,"m":0,"set":{"n":153,"c.W":"I2","c.X":"HCl","c.Y":"AgNO3","a.t":"I2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95756,"m":0,"set":{"n":154,"a.t":"COBALT GLASS","a.ac":["COBALT BLUE GLASS","SMALT"]}}],
+[
+{"i":95757,"m":0,"set":{"n":155}}],
+[
+{"i":95758,"m":0,"set":{"n":156},"sub":{"a":["t","l"]}}],
+[
+{"i":95759,"m":0,"set":{"n":1}}],
+[
+{"i":95760,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95761,"m":0,"set":{"n":3,"a.t":"MOHS SCALE","a.ac":["MOHS","MOHS HARDNESS SCALE"]}}],
+[
+{"i":95762,"m":0,"set":{"n":4,"a.t":"RED DWARFS","a.ac":["RED DWARF","M DWARFS"]}}],
+[
+{"i":95763,"m":0,"set":{"n":5},"sub":{"a":["t","l"]}}],
+[
+{"i":95764,"m":0,"set":{"n":6}}],
+[
+{"i":95765,"m":0,"set":{"n":7}}],
+[
+{"i":95766,"m":0,"set":{"n":8},"sub":{"a":["t","l"]}}],
+[
+{"i":95767,"m":0,"set":{"n":9,"q":"At the boundary between which two geologic periods did the largest number of species of marine and terrestrial organisms die off?","a.t":"PERMIAN AND TRIASSIC"}}],
+[
+{"i":95768,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95769,"m":0,"set":{"n":11}}],
+[
+{"i":95770,"m":0,"set":{"n":12},"sub":{"a":["t","l"]}}],
+[
+{"i":95771,"m":0,"set":{"n":14}}],
+[
+{"i":95772,"m":0,"set":{"s":"energy","n":15}}],
+[
+{"i":96225,"m":0,"set":{"n":17}}],
+[
+{"i":96226,"m":0,"set":{"n":18},"sub":{"a":["t","l"]}}],
+[
+{"i":96227,"m":0,"set":{"n":19,"q":"What is the 29½ days it takes the Moon to complete an orbit around the Earth called?"}}],
+[
+{"i":96228,"m":0,"set":{"n":20},"sub":{"a":["t","l"]}}],
+[
+{"i":96229,"m":0,"set":{"n":21},"sub":{"a":["t","l"]}}],
+[
+{"i":96230,"m":0,"set":{"n":22}}],
+[
+{"i":96231,"m":0,"set":{"n":23,"a.t":"M45","a.ac":["SEVEN SISTERS","THE SEVEN SISTERS","SUBARU"]}}],
+[
+{"i":96232,"m":0,"set":{"n":24}}],
+[
+{"i":96233,"m":0,"set":{"n":25}}],
+[
+{"i":95773,"m":0,"set":{"n":26}}],
+[
+{"i":95774,"m":0,"set":{"n":30},"sub":{"a":["t","l"]}}],
+[
+{"i":95775,"m":0,"set":{"n":31}}],
+[
+{"i":95776,"m":0,"set":{"n":32}}],
+[
+{"i":95777,"m":0,"set":{"n":33,"a.t":"It orbits in retrograde motion.","a.l":"W"}}],
+[
+{"i":95778,"m":0,"set":{"n":34},"sub":{"a":["t","l"]}}],
+[
+{"i":95779,"m":0,"set":{"n":35},"sub":{"a":["t","l"]}}],
+[
+{"i":95780,"m":0,"set":{"n":36},"sub":{"a":["t","l"]}}],
+[
+{"i":95781,"m":0,"set":{"n":37}}],
+[
+{"i":95782,"m":0,"set":{"n":38,"a.t":"ALLUVIUM","a.ac":["ALLUVIAL DEPOSITS","ALLUVIAL"]}}],
+[
+{"i":95783,"m":0,"set":{"n":39,"a.t":"Americium","a.l":"W"}}],
+[
+{"i":95784,"m":0,"set":{"n":40}}],
+[
+{"i":95785,"m":0,"set":{"n":41},"sub":{"a":["t","l"]}}],
+[
+{"i":95786,"m":0,"set":{"n":42},"sub":{"a":["t","l"]}}],
+[
+{"i":95787,"m":0,"set":{"n":43,"q":"By about 3000 AD, Errai (Gamma Cephei) will be closer to the north celestial pole than Polaris. What phenomenon is mostly responsible for this?","a.t":"PRECESSION","a.ac":["PRECESSION OF THE EQUINOXES","AXIAL PRECESSION"]}}],
+[
+{"i":95788,"m":0,"set":{"n":44,"c.W":"Class A","c.X":"Class B","c.Y":"Class M","c.Z":"Class O","a.t":"Class O"},"sub":{"a":["t","l"]}}],
+[
+{"i":95789,"m":0,"set":{"n":45}}],
+[
+{"i":95790,"m":0,"set":{"n":46}}],
+[
+{"i":95791,"m":0,"set":{"n":47},"sub":{"a":["t","l"]}}],
+[
+{"i":95792,"m":0,"set":{"n":48},"sub":{"a":["t","l"]}}],
+[
+{"i":95793,"m":0,"set":{"n":49,"a.t":"JUPITER'S GRAVITY DISTURBED THE REGION AND PREVENTED ACCRETION","a.ac":["JUPITER'S GRAVITY","GRAVITATIONAL DISTURBANCE BY JUPITER"]}}],
+[
+{"i":96237,"m":0,"set":{"n":50}}],
+[
+{"i":95794,"m":0,"set":{"s":"chem","n":51,"a.t":"RED","a.ac":["CRIMSON"]}}],
+[
+{"i":96238,"m":0,"set":{"n":52}}],
+[
+{"i":95795,"m":0,"set":{"n":53,"a.t":"EARTH AND MERCURY","a.ac":["MERCURY AND EARTH"]}}],
+[
+{"i":95796,"m":0,"set":{"n":55},"sub":{"a":["t","l"]}}],
+[
+{"i":95797,"m":0,"set":{"n":56,"q":"What is the name for the apparent line dividing night and day?","c.W":"Separator"},"sub":{"a":["t","l"]}}],
+[
+{"i":95798,"m":0,"set":{"n":57,"q":"What Gas Giant emits the least amount of energy percentage-wise, based on the total amount of energy it receives from the sun?"}}],
+[
+{"i":95799,"m":0,"set":{"n":58},"sub":{"a":["t","l"]}}],
+[
+{"i":95800,"m":0,"set":{"n":59,"q":"An amateur astronomer observes a star over the course of a year and finds that from January 1 to July 1, the star's position on the celestial sphere shifts by 3 arcseconds. How far is the star from the Earth, to the nearest tenth of a parsec?"},"sub":{"a":["t","l"]}}],
+[
+{"i":96240,"m":0,"set":{"n":60}}],
+[
+{"i":95801,"m":0,"set":{"n":61,"a.t":"Carbon dioxide","a.l":"W"}}],
+[
+{"i":95802,"m":0,"set":{"n":62}}],
+[
+{"i":95803,"m":0,"set":{"n":63,"a.t":"THE ION TAIL","a.ac":["GAS TAIL","PLASMA TAIL","ION TAIL"],"a.rj":["DUST TAIL"]}}],
+[
+{"i":95804,"m":0,"set":{"n":64,"a.t":"IO"}}],
+[
+{"i":95805,"m":0,"set":{"n":65,"q":"What effect gives Io the energy for this volcanic activity?","a.ac":["tidal friction","tidal forces","tidal forces by Jupiter","tidal forces by Jupiter and its moons"]}}],
+[
+{"i":95806,"m":0,"set":{"n":66}}],
+[
+{"i":95807,"m":0,"set":{"s":"energy","n":67,"q":"The space race between the United States and the Soviet Union was a big deal for the two nations in the 1960's and early 1970's. In 1971, NASA deployed the first spacecraft ever to orbit another planet, and beat the USSR's deployment by a month. What planet did the NASA mission orbit?"}}],
+[
+{"i":95808,"m":0,"set":{"n":68},"sub":{"a":["t","l"]}}],
+[
+{"i":95809,"m":0,"set":{"n":69,"a.t":"KELVIN-HELMHOLTZ MECHANISM","a.ac":["KELVIN-HELMHOLTZ CONTRACTION","GRAVITATIONAL CONTRACTION"]}}],
+[
+{"i":95810,"m":0,"set":{"n":70}}],
+[
+{"i":95811,"m":0,"set":{"n":71,"a.t":"PROGRADE AND RETROGRADE","a.ac":["RETROGRADE AND PROGRADE","DIRECT AND RETROGRADE"]}}],
+[
+{"i":95812,"m":0,"set":{"n":72,"c.Z":"Unable to complete nuclear fusion","a.t":"A small and cool star in the main sequence","a.l":"Y"}}],
+[
+{"i":95813,"m":0,"set":{"n":73,"a.t":"High magnetic field flux, and cooler temperature","a.l":"W"}}],
+[
+{"i":95814,"m":0,"set":{"n":74,"c.Z":"57 years","a.t":"11 years","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":95816,"m":0,"set":{"n":76}}],
+[
+{"i":95817,"m":0,"set":{"n":77,"a.t":"IO, EUROPA, GANYMEDE, CALLISTO"}}],
+[
+{"i":95818,"m":0,"set":{"n":78,"a.t":"Winter","a.l":"W"}}],
+[
+{"i":95819,"m":0,"set":{"n":79},"sub":{"a":["t","l"]}}],
+[
+{"i":95820,"m":0,"set":{"n":80},"sub":{"a":["t","l"]}}],
+[
+{"i":95821,"m":0,"set":{"n":81,"c.W":"an increase in the amount of solar radiation received by Earth"},"sub":{"a":["t","l"]}}],
+[
+{"i":95822,"m":0,"set":{"n":82},"sub":{"a":["t","l"]}}],
+[
+{"i":95823,"m":0,"set":{"n":83}}],
+[
+{"i":95824,"m":0,"set":{"n":84},"sub":{"a":["t","l"]}}],
+[
+{"i":95825,"m":0,"set":{"n":85}}],
+[
+{"i":95826,"m":0,"set":{"n":86,"c.Z":"Different star constellations are seen from Earth at different times of the year","a.t":"Different star constellations are seen from Earth at different times of the year"},"sub":{"a":["t","l"]}}],
+[
+{"i":95827,"m":0,"set":{"n":87,"q":"What is the name of the paradox that asks why the night sky is dark if the universe is infinite and should contain an infinite number of stars?","a.t":"OLBERS' PARADOX","a.ac":["OLBERS PARADOX"]}}],
+[
+{"i":95828,"m":0,"set":{"n":88},"sub":{"a":["t","l"]}}],
+[
+{"i":95829,"m":0,"set":{"n":89},"sub":{"a":["t","l"]}}],
+[
+{"i":95830,"m":0,"set":{"n":90,"a.t":"A galaxy consists of stars; a nebula consists of dust and gas.","a.l":"W"}}],
+[
+{"i":95831,"m":0,"set":{"n":91,"a.t":"HERTZSPRUNG-RUSSELL DIAGRAM","a.ac":["H-R DIAGRAM","HR DIAGRAM"]}}],
+[
+{"i":95832,"m":0,"set":{"n":92},"sub":{"a":["t","l"]}}],
+[
+{"i":95833,"m":0,"set":{"n":93,"a.t":"Star A will use up its fuel faster than star B.","a.l":"W"}}],
+[
+{"i":95834,"m":0,"set":{"n":94,"c.W":"Venus has many active volcanoes","c.X":"Venus has a slow rate of rotation","c.Z":"The atmosphere of Venus contains a high percentage of carbon dioxide","a.t":"The atmosphere of Venus contains a high percentage of carbon dioxide"},"sub":{"a":["t","l"]}}],
+[
+{"i":95835,"m":0,"set":{"n":95,"a.t":"the lack of an atmosphere on the Moon","a.l":"W"}}],
+[
+{"i":96241,"m":0,"set":{"n":96},"sub":{"a":["t","l"]}}],
+[
+{"i":95836,"m":0,"set":{"n":97},"sub":{"a":["t","l"]}}],
+[
+{"i":95837,"m":0,"set":{"n":98,"c.W":"substances of low density rise to Earth's surface, while those of high density sink toward its center","c.X":"substances of high density float to Earth's surface, while those of low density sink toward its center","c.Y":"substances of high and low density chemically combine to form uniformly dense substances","c.Z":"substances of high density form gases, while those of low density form solids","a.t":"substances of low density rise to Earth's surface, while those of high density sink toward its center","a.l":"W"}}],
+[
+{"i":95838,"m":0,"set":{"n":99},"sub":{"a":["t","l"]}}],
+[
+{"i":95839,"m":0,"set":{"n":100},"sub":{"a":["t","l"]}}],
+[
+{"i":95840,"m":0,"set":{"n":101},"sub":{"a":["t","l"]}}],
+[
+{"i":95841,"m":0,"set":{"n":102},"sub":{"a":["t","l"]}}],
+[
+{"i":95842,"m":0,"set":{"n":103,"c.X":"comparing the sizes of the crystals found in the upper and lower parts of the rock","a.t":"comparing the amounts of decayed and undecayed radioactive isotopes in the rock","a.l":"W"}}],
+[
+{"i":95843,"m":0,"set":{"n":104},"sub":{"a":["t","l"]}}],
+[
+{"i":95844,"m":0,"set":{"n":105,"a.t":"2, 4, 3, 1","a.ac":["HYDROGEN, HELIUM, OXYGEN, CARBON"]}}],
+[
+{"i":95845,"m":0,"set":{"n":106,"q":"As of 2016, what is the innermost planet that has an orbital period longer than the average human lifespan?"}}],
+[
+{"i":95846,"m":0,"set":{"n":107},"sub":{"a":["t","l"]}}],
+[
+{"i":95847,"m":0,"set":{"n":108}}],
+[
+{"i":95848,"m":0,"set":{"n":109,"a.t":"C-TYPE, S-TYPE, M-TYPE","a.ac":["CARBONACEOUS, SILICATE, METALLIC"]}}],
+[
+{"i":95849,"m":0,"set":{"n":110,"q":"Order the three compositional types of asteroid (C-type, M-type and S-type) from most common to least common in the asteroid belt.","a.t":"C-TYPE, S-TYPE, M-TYPE","a.ac":["CARBONACEOUS, SILICATE, METAL-RICH"]}}],
+[
+{"i":95850,"m":0,"set":{"n":111}}],
+[
+{"i":96242,"m":0,"set":{"n":112}}],
+[
+{"i":95851,"m":0,"set":{"n":113}}],
+[
+{"i":95852,"m":0,"set":{"n":114}}],
+[
+{"i":95853,"m":0,"set":{"n":115}}],
+[
+{"i":95854,"m":0,"set":{"n":116,"a.t":"POPULATION II","a.ac":["POPULATION 2","POP II"]}}],
+[
+{"i":95855,"m":0,"set":{"n":117,"q":"In 2013, NASA announced that Voyager 1 had left the Solar System in August 2012. What boundary did the spacecraft cross to merit this announcement?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95856,"m":0,"set":{"n":118},"sub":{"a":["t","l"]}}],
+[
+{"i":95857,"m":0,"set":{"n":119}}],
+[
+{"i":95858,"m":0,"set":{"n":120,"a.t":"Pannotia","a.l":"W"}}],
+[
+{"i":95859,"m":0,"set":{"n":121,"q":"Which of the following parts of the sun has the lowest temperature?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95860,"m":0,"set":{"n":122}}],
+[
+{"i":95861,"m":0,"set":{"s":"ess","n":1,"a.t":"WATER VAPOR","a.ac":["WATER","H2O"]}}],
+[
+{"i":95862,"m":0,"set":{"s":"phys","n":2,"a.t":"1:9","a.l":"W"}}],
+[
+{"i":95863,"m":0,"set":{"n":3,"q":"The arctic is estimated to hold what percent of the world’s undiscovered oil and natural gas reserves?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95864,"m":0,"set":{"s":"chem","n":5,"q":"List the operating temperatures from lowest to highest of these types of fuel cells: 1) PEMFC, 2) PAFC, 3) MCFC, 4) SOFC","a.t":"1, 2, 3, 4","a.ac":["PEMFC, PAFC, MCFC, SOFC"]}}],
+[
+{"i":95865,"m":0,"set":{"s":"chem","n":6,"q":"Which uranium oxide is most commonly used in light water reactors?","a.t":"uranium(IV) oxide","a.l":"W"}}],
+[
+{"i":95866,"m":0,"set":{"s":"phys","n":7,"c.W":"4.8 × 10^-3","c.X":"2.9 × 10^15","c.Y":"7.8 × 10^19","c.Z":"4.4 × 10^22","a.t":"7.8 × 10^19"},"sub":{"a":["t","l"]}}],
+[
+{"i":96246,"m":0,"set":{"s":"ess","n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":96247,"m":0,"set":{"s":"ess","n":11},"sub":{"a":["t","l"]}}],
+[
+{"i":95867,"m":0,"set":{"s":"phys","n":12,"q":"In a gasoline internal combustion engine, what is the name of the device that ignites the fuel?"}}],
+[
+{"i":95868,"m":0,"set":{"n":13,"q":"As of 2016, from what country did the US import the most coal?","a.t":"COLOMBIA"}}],
+[
+{"i":95869,"m":0,"set":{"n":14,"q":"Rank the 2015 coal production of these states from lowest to highest: Wyoming, West Virginia, Illinois, Pennsylvania.","a.t":"Pennsylvania, Illinois, West Virginia, Wyoming"}}],
+[
+{"i":95870,"m":0,"set":{"n":15},"sub":{"a":["t","l"]}}],
+[
+{"i":95871,"m":0,"set":{"s":"ess","n":16},"sub":{"a":["t","l"]}}],
+[
+{"i":95872,"m":0,"set":{"n":17,"a.t":"THE MIDDLE EAST","a.ac":["MIDDLE EAST","PERSIAN GULF"]}}],
+[
+{"i":95873,"m":0,"set":{"s":"ess","n":18,"a.ac":["SYNTHETIC CRUDE"]}}],
+[
+{"i":96248,"m":0,"set":{"s":"chem","n":19,"c.Z":"All of these produce the same amount of CO2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95875,"m":0,"set":{"n":21,"a.t":"Pennsylvania","a.l":"W"}}],
+[
+{"i":95876,"m":0,"set":{"s":"chem","n":22},"sub":{"a":["t","l"]}}],
+[
+{"i":95877,"m":0,"set":{"n":1}}],
+[
+{"i":95878,"m":0,"set":{"n":2,"c.W":"3^x","c.X":"10(3/2)^x","c.Y":"x^2","c.Z":"2^(2x)","a.t":"2^(2x)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95879,"m":0,"set":{"n":3,"q":"Given 504 = 2^3 × 3^2 × 7, compute the sum of the positive divisors of 504"}}],
+[
+{"i":95880,"m":0,"set":{"n":4,"q":"Simplify (sin15° cos75° − cos15° sin75°)/(cos15° cos75° + sin15° sin75°)","c.W":"−√3","c.Z":"(√6 − √2)/2","a.t":"−√3"},"sub":{"a":["t","l"]}}],
+[
+{"i":95881,"m":0,"set":{"n":5,"q":"Compute (2 + 2√3 i)^6."}}],
+[
+{"i":95882,"m":0,"set":{"n":6},"sub":{"a":["t","l"]}}],
+[
+{"i":95883,"m":0,"set":{"n":7,"a.t":"91","a.l":"W"}}],
+[
+{"i":95884,"m":0,"set":{"n":8,"q":"In simplest terms, find the value of the limit as x approaches 0 of (4^x − 2^x)/x","a.ac":["ln 2","ln(4) − ln(2)"]},"del":["a.rj"]}],
+[
+{"i":95885,"m":0,"set":{"n":9}}],
+[
+{"i":95886,"m":0,"set":{"n":10},"sub":{"a":["t","l"]}}],
+[
+{"i":95887,"m":0,"set":{"n":11,"q":"Two REAL numbers x and y satisfy the system of equations: x + y = 12; x^2 + y^2 = 64. Find the value of the product xy.","a.t":"NO REAL SOLUTION","a.ac":["THE SYSTEM HAS NO SOLUTIONS","NONE"]}}],
+[
+{"i":95888,"m":0,"set":{"n":12,"q":"Compute 3C1+4C2+5C3+6C4+7C5.","a.t":"55","a.l":"W"}}],
+[
+{"i":95889,"m":0,"set":{"n":13}}],
+[
+{"i":95890,"m":0,"set":{"n":14}}],
+[
+{"i":95891,"m":0,"set":{"n":15,"q":"If z_1 = 3 − 4i and z_2 = 7 + i, find the absolute value of z_1 z_2 in simplest terms.","a.t":"25√2"}}],
+[
+{"i":95892,"m":0,"set":{"n":16,"q":"What is the inverse of the 2x2 matrix (row 1: 6 10), (row 2: 3 5)?","a.t":"NO INVERSE (THE DETERMINANT IS 0)","a.ac":["IT HAS NO INVERSE","DOES NOT EXIST"]}}],
+[
+{"i":95893,"m":0,"set":{"n":17,"q":"If θ is an angle such that sin(θ) < 0 and cos(θ) = 0, where in the coordinate plane is it located?","a.t":"Between the 3rd and 4th quadrants","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":95894,"m":0,"set":{"n":18,"q":"What is the remainder of x^10 + x + 1 divided by (x − 1)^2?"}}],
+[
+{"i":95895,"m":0,"set":{"n":19,"q":"Given the equation of a conic section, y^2/16 − x^2/25 = 1, what is the length of the conjugate axis?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95896,"m":0,"set":{"n":20,"q":"Compute log base 2 of 2048^2"},"sub":{"a":["t","l"]}}],
+[
+{"i":95897,"m":0,"set":{"n":21,"c.Y":"√(3+i)","c.Z":"6 - π*i","a.t":"6 - π*i"},"sub":{"a":["t","l"]}}],
+[
+{"i":95898,"m":0,"set":{"n":22}}],
+[
+{"i":95899,"m":0,"set":{"n":23,"q":"Fermat's Last Theorem conjectures that no three positive integers a,b, and c can satisfy the equation a^n + b^n = c^n for any integer value of n greater than 2. It went unproved for more than 300 years until it was finally proved in 1994 by a mathematician who received the Abel Prize for it in 2016. What is the name of this mathematician?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95900,"m":0,"set":{"n":24,"q":"Prime numbers of the form 2^(2^n) + 1, where n is a non-negative integer, are known as this.","a.t":"FERMAT PRIMES","a.ac":["FERMAT PRIME"]}}],
+[
+{"i":95901,"m":0,"set":{"n":25}}],
+[
+{"i":95902,"m":0,"set":{"n":26}}],
+[
+{"i":95903,"m":0,"set":{"n":27,"q":"Find the perimeter of a right triangle with legs 11 and 60.","a.t":"132"}}],
+[
+{"i":96249,"m":0,"set":{"n":28}}],
+[
+{"i":95904,"m":0,"set":{"n":29,"q":"If the log of n is 10, what is the log of 100n?"}}],
+[
+{"i":95905,"m":0,"set":{"n":30}}],
+[
+{"i":95906,"m":0,"set":{"n":31}}],
+[
+{"i":95907,"m":0,"set":{"n":32,"q":"(64 + 196 + 81)(49 + 256 + 49) > (56 + 224 + 63)^2 is most directly an example of what inequality?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95908,"m":0,"set":{"n":33,"q":"Completely expand (x − 2y)^3","a.t":"x^3 − 6x^2y + 12xy^2 − 8y^3"}}],
+[
+{"i":95909,"m":0,"set":{"n":36,"q":"Let f(x) = ax^7 + bx^3 + cx - 5, where a,b, and c are real numbers. What is the value of f(7) if f(-7) = 8?"}}],
+[
+{"i":95910,"m":0,"set":{"n":37,"q":"Which of the following are true about the roots of the polynomial x^3 − 29x^2 + 229x? I. 0 is a root; II. There must be a real, positive root; III. There must be three real roots","a.t":"I ONLY","a.ac":["I"]}}],
+[
+{"i":95911,"m":0,"set":{"n":38,"q":"Solve the following linear system of equations in 3 variables: 2x + y + 4z = 9; -x + 2y + 5z = -11; 5x + 3y + 3z = -4","a.t":"x = 4, y = −11, z = 3","a.ac":["(4, −11, 3)"]}}],
+[
+{"i":95912,"m":0,"set":{"n":39,"q":"To test products, there is a test that identifies 95% of defective products as defective, but also labels 10% of all working products as defective. If 85% of the products made are not defective, approximately what percentage of the products the test labels defective are actually defective?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95913,"m":0,"set":{"n":40}}],
+[
+{"i":95914,"m":0,"set":{"n":41,"a.t":"0","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":96252,"m":0,"set":{"n":42,"c.W":"An irrational number raised to an irrational power must have an irrational value","c.X":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)","c.Z":"There are more complex numbers than there are real numbers","a.t":"For all positive numbers x and y, x^ln(y) is equal to y^ln(x)"},"sub":{"a":["t","l"]}}],
+[
+{"i":95915,"m":0,"set":{"n":43}}],
+[
+{"i":95916,"m":0,"set":{"n":44,"a.t":"√2/2 + (√2/2)i","a.ac":["1/√2 + i/√2"]}}],
+[
+{"i":95917,"m":0,"set":{"n":45}}],
+[
+{"i":95918,"m":0,"set":{"n":46}}],
+[
+{"i":95919,"m":0,"set":{"n":47}}],
+[
+{"i":95920,"m":0,"set":{"n":48,"q":"What is the value of e to the (π times i/2)?","c.W":"e^-1"},"sub":{"a":["t","l"]}}],
+[
+{"i":95921,"m":0,"set":{"n":49,"a.t":"ln|sec x + tan x| + C"}}],
+[
+{"i":95922,"m":0,"set":{"n":50,"c.W":"∫ (sin^5 x)(cos^6 x) dx","c.X":"∫ e^x · x^3 dx","c.Y":"∫ e^(x^2) dx","c.Z":"∫ tan x sin x dx","a.t":"∫ e^(x^2) dx"},"sub":{"a":["t","l"]}}],
+[
+{"i":95923,"m":0,"set":{"n":51},"sub":{"a":["t","l"]}}],
+[
+{"i":95924,"m":0,"set":{"n":52,"q":"Given two attempts, what are the odds of guessing a multiple choice question with 5 choices correctly, if you never repeat a guess?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95925,"m":0,"set":{"n":53},"sub":{"a":["t","l"]}}],
+[
+{"i":95926,"m":0,"set":{"n":54}}],
+[
+{"i":95927,"m":0,"set":{"n":55}}],
+[
+{"i":95928,"m":0,"set":{"n":56}}],
+[
+{"i":95929,"m":0,"set":{"n":57},"sub":{"a":["t","l"]}}],
+[
+{"i":95930,"m":0,"set":{"n":58,"q":"What is the y-intercept in the equation y = 4x + 3 -2?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95931,"m":0,"set":{"n":59,"q":"If 3x - y = 12, what is 8^x / 2^y","c.W":"2^12","c.X":"4^4","c.Y":"8^3","a.t":"2^12"},"sub":{"a":["t","l"]}}],
+[
+{"i":95932,"m":0,"set":{"n":60,"q":"What shape is the graph of y = x^2 + 1?"}}],
+[
+{"i":95933,"m":0,"set":{"n":61}}],
+[
+{"i":95934,"m":0,"set":{"n":63,"q":"What is the degree of a vertex in a complete graph K_n?","a.t":"n − 1","a.ac":["N MINUS 1"]}}],
+[
+{"i":95935,"m":0,"set":{"n":64},"sub":{"a":["t","l"]}}],
+[
+{"i":95936,"m":0,"set":{"n":65,"q":"Convert 6/5 π radians to degrees"}}],
+[
+{"i":95937,"m":0,"set":{"n":66,"a.t":"21"}}],
+[
+{"i":95938,"m":0,"set":{"n":67},"sub":{"a":["t","l"]}}],
+[
+{"i":96254,"m":0,"set":{"n":68,"a.t":"√3"}}],
+[
+{"i":95939,"m":0,"set":{"n":69,"q":"What is the largest integer that can't be written as the sum of 3's and 4's?"}}],
+[
+{"i":96255,"m":0,"set":{"n":70,"q":"What is the limit as x approaches 0 of x times ln x?","c.Z":"The limit does not exist"},"sub":{"a":["t","l"]}}],
+[
+{"i":95940,"m":0,"set":{"n":71,"a.t":"1/(|x|√(x^2 − 1))","a.ac":["1/(x√(x^2 − 1))"]}}],
+[
+{"i":95941,"m":0,"set":{"n":72,"c.X":"√2","c.Y":"e^(πi)","c.Z":"π","a.t":"π"},"sub":{"a":["t","l"]}}],
+[
+{"i":95942,"m":0,"set":{"n":73,"q":"What conic section does this equation create? 25x^2 − 150x − 16y^2 − 128y + 481 = 0","a.t":"HYPERBOLA"}}],
+[
+{"i":96256,"m":0,"set":{"n":74},"sub":{"a":["t","l"]}}],
+[
+{"i":95943,"m":0,"set":{"n":75,"q":"Find the smallest positive solution to the congruences x ≡ 3 (mod 13) and x ≡ 8 (mod 11).","a.t":"107","a.ac":["x = 107"]}}],
+[
+{"i":95944,"m":0,"set":{"n":76},"sub":{"a":["t","l"]}}],
+[
+{"i":95945,"m":0,"set":{"n":77,"q":"Given sin x = 1/3, compute cos^2(3x).","a.t":"200/729"}}],
+[
+{"i":95946,"m":0,"set":{"n":78}}],
+[
+{"i":95947,"m":0,"set":{"n":79,"q":"What is the smallest positive integer with 5 distinct prime factors?","a.t":"2310"}}],
+[
+{"i":95948,"m":0,"set":{"n":80,"q":"What is the geometric mean of the roots of the polynomial 2x^3 − 2x^2 − 228x − 432?"},"sub":{"a":["t","l"]}}],
+[
+{"i":95949,"m":0,"set":{"n":81,"q":"The first term of an arithmetic sequence is x, and the xth term is x^2, for x not equal to 1. If the common difference is equal to 7, what is the 12th term of the sequence?"}}],
+[
+{"i":95950,"m":0,"set":{"n":82,"q":"For an infinite sequence of numbers a_0, a_1, ..., which of the following best describes the polynomial P(x) = sum(i=0 to infinity) a_i x^i.","c.W":"Riemann zeta function"},"sub":{"a":["t","l"]}}],
+[
+{"i":95951,"m":0,"set":{"n":83,"q":"In the Pell equation x^2 − 3y^2 = 1 the smallest solution is x=2 and y=1. The next smallest solution is x=7 and y=4. Compute the third smallest solution.","a.t":"x = 26, y = 15","a.ac":["(26, 15)"]}}],
+[
+{"i":95952,"m":0,"set":{"n":84},"sub":{"a":["t","l"]}}],
+[
+{"i":95953,"m":0,"set":{"n":85,"q":"Which of the following statements concerning prime numbers are true? 1. If a and n are relatively prime then there are infinitely many primes that leave a remainder of a when divided by n. 2. All integers less than p are quadratic residues modulo p 3. There are infinitely many prime numbers"}}],
+[
+{"i":95954,"m":0,"set":{"n":86,"q":"If a_1 + a_2 + a_3 + a_4 + a_5 = 17 for positive integers a_1, a_2, a_3, a_4, a_5, then maximize the product a_1 a_2 a_3 a_4 a_5?"}}],
+[
+{"i":95955,"m":0,"set":{"n":87}}],
+[
+{"i":95956,"m":0,"set":{"n":88,"q":"In a circle O, diameter AB is drawn. Chord CD intersects AB at P. If CP =3, DP =6, AP =x, and BP =x+4, compute the radius of the circle.","a.t":"√22"}}],
+[
+{"i":95957,"m":0,"set":{"n":89,"q":"What is the value of the quantity (sin^4 x + 2cos^2 x sin^2 x + cos^4 x)^2?"}}],
+[
+{"i":95958,"m":0,"set":{"n":90}}],
+[
+{"i":95959,"m":0,"set":{"n":91,"q":"In triangle ABC, AB=14, AC=13, and BC=15. Let the incenter be I. Compute CI in simplest radical form.","a.t":"√65"}}],
+[
+{"i":95960,"m":0,"set":{"n":1,"a.t":"SCHRÖDINGER EQUATION","a.ac":["SCHRODINGER'S","SCHRODINGER EQUATION"]}}],
+[
+{"i":95961,"m":0,"set":{"n":2},"sub":{"a":["t","l"]}}],
+[
+{"i":95962,"m":0,"set":{"n":3,"q":"An object with a magnetic moment of 83 N·m/T experiences what maximum torque, in N·m, when placed in an external magnetic field of 120 teslas?","a.t":"9960","a.ac":["9960 N·M"]}}],
+[
+{"i":95963,"m":0,"set":{"n":4,"q":"A certain capacitor, in series with a 720-Ω resistor, is being charged. At the end of 10 ms(milliseconds) its charge is half the final value. The capacitance is about:","c.W":"9.6 μF","c.X":"14 μF","c.Y":"20 μF","c.Z":"7.2 F","a.t":"20 μF"},"sub":{"a":["t","l"]}}],
+[
+{"i":95964,"m":0,"set":{"n":5,"q":"In the capacitor discharge formula q = q_0 e^(−t/(RC)) the term RC is more commonly referred to as:","a.t":"The time constant","a.l":"Y"},"sub":{"a":["t","l"]}}],
+[
+{"i":95965,"m":0,"set":{"n":6,"q":"Resistor 1 has twice the resistance of resistor 2. They are connected in parallel to a battery. The ratio of the thermal energy generation rate in 1 to that in 2 is:"}}],
+[
+{"i":95966,"m":0,"set":{"n":7,"q":"What is the equivalent capacitance in microfarads of two capacitors connected in series, one with a capacitance of 4 microfarads and the other with a capacitance of 2 microfarads?","a.t":"4/3","a.ac":["4/3 MICROFARADS","1.33 MICROFARADS"]}}],
+[
+{"i":95967,"m":0,"set":{"n":8,"q":"What is the approximate capacitance, in farads, between two parallel plates of area 10 cm^2 separated by 1 meter in vacuum? Give your answer in scientific notation to two significant figures.","a.t":"8.9 × 10^-15","a.ac":["8.9 × 10^-15 F"]}}],
+[
+{"i":95968,"m":0,"set":{"n":9,"q":"By name or number, list all of the following elements that are ferromagnetic: 1) Cobalt, 2) Manganese, 3) Cadmium, 4) Silver","a.t":"COBALT","a.ac":["CO","1"]}}],
+[
+{"i":95969,"m":0,"set":{"n":10,"q":"When charging or discharging a capacitor, what is the quantity RC known as?"}}],
+[
+{"i":95970,"m":0,"set":{"n":11},"sub":{"a":["t","l"]}}],
+[
+{"i":95971,"m":0,"set":{"n":12},"sub":{"a":["t","l"]}}],
+[
+{"i":95972,"m":0,"set":{"n":13}}],
+[
+{"i":95973,"m":0,"set":{"n":14,"q":"A free electron has a momentum of 5.0 × 10^-24 kg·m/s. The wavelength of its wave function in meters is:","a.t":"1.3 × 10^-10","a.ac":["1.3 × 10^-10 M"]}}],
+[
+{"i":95974,"m":0,"set":{"n":15},"sub":{"a":["t","l"]}}],
+[
+{"i":95975,"m":0,"set":{"n":16,"a.t":"[10, 20]","a.ac":["BETWEEN 10 AND 20 NEWTONS INCLUSIVE","10 TO 20 N"]}}],
+[
+{"i":95976,"m":0,"set":{"n":17}}],
+[
+{"i":96258,"m":0,"set":{"n":19,"a.t":"NÉEL TEMPERATURE","a.ac":["NEEL TEMPERATURE","NEEL POINT"]}}],
+[
+{"i":95977,"m":0,"set":{"n":20,"c.W":"Capacitance"},"sub":{"a":["t","l"]}}],
+[
+{"i":95978,"m":0,"set":{"n":21},"sub":{"a":["t","l"]}}],
+[
+{"i":95979,"m":0,"set":{"n":22,"q":"A coil has a resistance of 60 Ω and an impedance of 100 Ω. Its reactance, in ohms, is:"},"sub":{"a":["t","l"]}}],
+[
+{"i":95980,"m":0,"set":{"n":23},"sub":{"a":["t","l"]}}],
+[
+{"i":95981,"m":0,"set":{"n":24,"c.W":"0.33c","c.X":"0.5c","c.Y":"0.71c","c.Z":"0.8c","a.t":"0.8c"},"sub":{"a":["t","l"]}}],
+[
+{"i":95982,"m":0,"set":{"n":25,"a.t":"3","a.l":"W"}}],
+[
+{"i":95983,"m":0,"set":{"n":26},"sub":{"a":["t","l"]}}],
+[
+{"i":95984,"m":0,"set":{"n":27},"sub":{"a":["t","l"]}}],
+[
+{"i":95985,"m":0,"set":{"n":28,"q":"A radium-226 atom emits an alpha particle. The number of protons in the resulting atom is","a.t":"86","a.l":"Y"}}],
+[
+{"i":95986,"m":0,"set":{"n":29},"sub":{"a":["t","l"]}}],
+[
+{"i":95987,"m":0,"set":{"n":30,"q":"A magnet is brought close to a flat square coil of 50 loops. The coil is .2 meters on each side, and the magnetic field passing through the coil increased uniformly from 3 Tesla to 8 Tesla in 4 seconds. While that change in magnetic field takes place, using correct signs, what is the induced emf in the coil?"}}],
+[
+{"i":96259,"m":0,"set":{"n":31}}],
+[
+{"i":95988,"m":0,"set":{"n":33,"q":"What is the SI unit for Inductance?","a.t":"HENRY","a.ac":["H","HENRIES"]}}],
+[
+{"i":95989,"m":0,"set":{"n":34},"sub":{"a":["t","l"]}}],
+[
+{"i":95990,"m":0,"set":{"n":35}}],
+[
+{"i":95991,"m":0,"set":{"n":36,"q":"Determine the amount of charge stored on either plate of a capacitor of 4 micro Farads when connected across a 12 Volt battery.","a.t":"48 MICROCOULOMBS","a.ac":["4.8 × 10^-5 COULOMBS","48 μC"]}}],
+[
+{"i":95992,"m":0,"set":{"n":37,"a.t":"WATTS PER SQUARE METER","a.ac":["W/M^2"]}}],
+[
+{"i":95993,"m":0,"set":{"n":38}}],
+[
+{"i":95994,"m":0,"set":{"n":39}}],
+[
+{"i":95995,"m":0,"set":{"n":40}}],
+[
+{"i":95996,"m":0,"set":{"n":41,"a.t":"9 Coulomb-Meters in the direction of the positive x-axis","a.l":"W"}}],
+[
+{"i":95997,"m":0,"set":{"n":42,"a.t":"ULTRAVIOLET CATASTROPHE"}}],
+[
+{"i":95998,"m":0,"set":{"n":43,"c.Y":"Planck's Law"},"sub":{"a":["t","l"]}}],
+[
+{"i":96261,"m":0,"set":{"n":44}}],
+[
+{"i":95999,"m":0,"set":{"n":45,"c.W":"2.27 × 10^-12 F/m","c.X":"8.85 × 10^-12 F/m","c.Y":"8.99 × 10^9 F/m","c.Z":"6.67 × 10^-11 F/m","a.t":"8.85 × 10^-12 F/m"},"sub":{"a":["t","l"]}}],
+[
+{"i":96000,"m":0,"set":{"n":46,"q":"For what major contribution was Albert Einstein awarded the Nobel Prize in 1921?","c.W":"Einstein field equations","c.X":"General theory of relativity","c.Y":"Special theory of relativity","c.Z":"Photoelectric effect","a.t":"Photoelectric effect","a.l":"Z"}}],
+[
+{"i":96001,"m":0,"set":{"n":47},"sub":{"a":["t","l"]}}],
+[
+{"i":96002,"m":0,"set":{"n":48,"q":"What is the first derivative of velocity with respect to time?"}}],
+[
+{"i":96003,"m":0,"set":{"n":49}}],
+[
+{"i":96004,"m":0,"set":{"n":50}}],
+[
+{"i":96005,"m":0,"set":{"n":51},"sub":{"a":["t","l"]}}],
+[
+{"i":96262,"m":0,"set":{"n":52},"sub":{"a":["t","l"]}}],
+[
+{"i":96006,"m":0,"set":{"n":53,"q":"Using g = 10 m/s^2, given the weight of an object is 2700 Newtons, what is the mass of the object on the Moon, if its gravitational force is 1/6 as strong as that on Earth? Round your answer to the first decimal place.","a.t":"270 KG","a.ac":["270","270.0 KG"]}}],
+[
+{"i":96007,"m":0,"set":{"n":54,"q":"Which of the following units are a measure of magnetic field strength? 1-Gauss 2-Tesla 3 - Weber 4-Henry","a.t":"1, 2","a.ac":["GAUSS AND TESLA"]}}],
+[
+{"i":96008,"m":0,"set":{"n":55},"sub":{"a":["t","l"]}}],
+[
+{"i":96009,"m":0,"set":{"n":56},"sub":{"a":["t","l"]}}],
+[
+{"i":96010,"m":0,"set":{"n":57,"a.t":"2200 N","a.ac":["2200","2.2 × 10^3 N"]}}],
+[
+{"i":96264,"m":0,"set":{"n":59},"sub":{"a":["t","l"]}}],
+[
+{"i":96011,"m":0,"set":{"n":60,"q":"The Kondo effect describes this quantity's divergence at low temperatures. Strain gauges operate by detecting changes in this quantity, because it is proportional to length and inversely proportional to cross-sectional area. Its AC-circuit extension is the complex quantity impedance, and its inverse, measured in siemens, is the conductance. Equal to voltage divided by current, according to Ohm's law, it is high for insulators and low for conductors. Name this measure of how much an object opposes electric current."}}],
+[
+{"i":96012,"m":0,"set":{"n":61,"q":"What's the emf in volts produced by an inductor with an inductance of 0.3 henry and a current with equation I(t) = 2t^2 + 2 after 3 seconds of operation?","a.t":"3.6","a.ac":["3.6 VOLTS","−3.6 V"]}}],
+[
+{"i":96013,"m":0,"set":{"n":62,"c.W":"π/2","c.X":"π/3","c.Y":"π/6","c.Z":"π","a.t":"π/6"},"sub":{"a":["t","l"]}}],
+[
+{"i":96014,"m":0,"set":{"n":63,"a.t":"12 CM BEHIND THE MIRROR","a.ac":["−12 CM"]}}],
+[
+{"i":96015,"m":0,"set":{"n":64,"a.t":"−3√3·Gxy/a","a.ac":["−3√3 G x y / a"]}}],
+[
+{"i":96016,"m":0,"set":{"n":65,"c.W":"−9√3·Gxy/a","c.X":"−3√3·Gx^2/a","c.Y":"−3Gx^2/a","c.Z":"−√3·Gx^2/a","a.t":"−3Gx^2/a"},"sub":{"a":["t","l"]}}],
+[
+{"i":96017,"m":0,"set":{"n":66,"c.W":"2πR^2 p","c.X":"4πR^2 p","c.Y":"πR^2 p","c.Z":"(4/3)πR^2 p","a.t":"πR^2 p"},"sub":{"a":["t","l"]}}],
+[
+{"i":96018,"m":0,"set":{"n":67,"q":"A boat floating in fresh water displaces 16,000 N of water. How many newtons of saltwater would it displace if it floats in saltwater of specific gravity 1.17?"}}],
+[
+{"i":96019,"m":0,"set":{"n":68}}],
+[
+{"i":96020,"m":0,"set":{"n":69,"q":"In a spherical shell with radius of 2 meters a magnetic field with strength of 2 teslas passes through. What is the net magnetic flux?"}}],
+[
+{"i":96021,"m":0,"set":{"n":70}}],
+[
+{"i":96022,"m":0,"set":{"n":71,"a.t":"closer to the Sun than to either of the other bodies","a.l":"W"}}],
+[
+{"i":96023,"m":0,"set":{"n":72},"sub":{"a":["t","l"]}}],
+[
+{"i":96024,"m":0,"set":{"n":73,"q":"What is the torque in newton-meters acting on a disk with radius of 3 meters, mass of 5kg, and rotating with an angular acceleration of 10 rad/s^2?","a.t":"225","a.ac":["225 N·M"]}}],
+[
+{"i":96025,"m":0,"set":{"n":74,"a.t":"4, 2, 1, 3","a.ac":["RADIO, YELLOW, BLUE, X-RAYS"]}}],
+[
+{"i":96026,"m":0,"set":{"n":75,"q":"The work function for a certain sample is 2.3 eV. The stopping potential for electrons ejected from the sample by 7.0 × 10^14 Hz electromagnetic radiation is:","a.t":"0.6 V","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":96027,"m":0,"set":{"n":76},"sub":{"a":["t","l"]}}],
+[
+{"i":96028,"m":0,"set":{"n":77}}],
+[
+{"i":96029,"m":0,"set":{"n":78,"q":"What is the name of the five points in a two body system where a small object can stay in equilibrium relative to the two bodies?","a.t":"LAGRANGE POINTS","a.ac":["LAGRANGIAN POINTS","L-POINTS"]}}],
+[
+{"i":96030,"m":0,"set":{"n":79},"sub":{"a":["t","l"]}}],
+[
+{"i":96031,"m":0,"set":{"n":80,"a.t":"100 RPM CLOCKWISE","a.ac":["100 REVOLUTIONS PER MINUTE CLOCKWISE"]}}],
+[
+{"i":96032,"m":0,"set":{"n":81,"q":"A diverging lens produces an image of a real object that is:","c.Z":"real, larger, and upright","a.t":"virtual, smaller, and upright","a.l":"W"}}],
+[
+{"i":96033,"m":0,"set":{"n":82}}],
+[
+{"i":96034,"m":0,"set":{"n":83,"q":"A Carnot refrigerator runs between a cold reservoir at temperature T_C and a hot reservoir at temperature T_H. You want to increase its coefficient of performance. Of the following, which change results in the greatest increase in the coefficient? The value of ΔT is the same for all changes.","c.W":"Raise the temperature of the hot reservoir by ΔT","c.X":"Raise the temperature of the cold reservoir by ΔT","c.Y":"Lower the temperature of the hot reservoir by ½ΔT and raise the temperature of the cold reservoir by ½ΔT","c.Z":"Lower the temperature of the cold reservoir by ΔT","a.t":"Raise the temperature of the cold reservoir by ΔT"},"sub":{"a":["t","l"]}}],
+[
+{"i":96035,"m":0,"set":{"n":84,"a.t":"1/4","a.l":"W"}}],
+[
+{"i":96036,"m":0,"set":{"n":85,"a.t":"4.9 × 10^-7","a.ac":["4.9 × 10^-7 J"]}}],
+[
+{"i":96037,"m":0,"set":{"n":86,"c.Z":"15","a.t":"1.3","a.l":"X"},"sub":{"a":["t","l"]}}],
+[
+{"i":96038,"m":0,"set":{"n":87,"a.t":"third harmonic","a.l":"Y"},"sub":{"a":["t","l"]}}],
+[
+{"i":96039,"m":0,"set":{"n":88},"sub":{"a":["t","l"]}}],
+[
+{"i":96040,"m":0,"set":{"n":89,"a.t":"KIRCHHOFF","a.ac":["GUSTAV KIRCHHOFF"]}}],
+[
+{"i":96041,"m":0,"set":{"n":90},"sub":{"a":["t","l"]}}],
+[
+{"i":96042,"m":0,"set":{"n":91},"sub":{"a":["t","l"]}}],
+[
+{"i":96043,"m":0,"set":{"n":92}}],
+[
+{"i":96044,"m":0,"set":{"n":93,"q":"In a well-known physical experiment, two small masses were suspended by a thread, each positioned near two much larger stationary masses. A mirror was used to measure the angle through which the thread twists due to the rotation of the small masses' movement. Which physicist conducted this experiment, and what constant did he derive from it?","a.t":"HENRY CAVENDISH; THE UNIVERSAL GRAVITATIONAL CONSTANT","a.ac":["CAVENDISH; BIG G","CAVENDISH; G"],"a.rj":["GRAVITY","LITTLE G"]}}],
+[
+{"i":96045,"m":0,"set":{"n":94}}],
+[
+{"i":96046,"m":0,"set":{"n":95}}],
+[
+{"i":96047,"m":0,"set":{"n":96,"q":"It is known that 28 g of a certain ideal gas occupy 22.4 liters at standard conditions. What volume, in liters, does 42 g of this gas occupy at standard conditions?","a.t":"33.6","a.ac":["33.6 LITERS"]}}],
+[
+{"i":96048,"m":0,"set":{"n":97,"q":"If the force of a non-linear spring is defined as F(x) = 3x^2+2x+5, what is the work done on the spring if it's stretched to 3 meters from equilibrium?"}}],
+[
+{"i":96158,"m":0,"set":{"n":11,"a.ac":["CANADA, JAPAN, CHINA"]}}],
+[
+{"i":96243,"m":0,"set":{"n":4,"a.t":"France","a.l":"W"}}]
+]

@@ -122,6 +122,8 @@
       try { localStorage.setItem(k, data[k]); } catch (e) { /* not saved */ }
     });
     if (data.sb_theme && window.SBSite) window.SBSite.setTheme(data.sb_theme);
+    // Pages showing a synced setting (Play's reading speed) pick it up.
+    window.dispatchEvent(new CustomEvent('sb-settings-synced'));
   }
   function localStamp() {
     try { return localStorage.getItem(SETTINGS_STAMP); } catch (e) { return null; }

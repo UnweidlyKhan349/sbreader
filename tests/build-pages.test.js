@@ -9,12 +9,16 @@ const path = require('path');
 const vm = require('vm');
 const { build } = require('../tools/build-pages.js');
 
-test('every set and packet gets a page, listed in the sitemap', () => {
+// The pages are built one tournament after another; each set's packets must
+// also be numbered as the live set page numbers them (a sort order cached
+// from the first tournament once put later sets' packets out of order).
+test('every set and packet gets a page, listed in the sitemap, its packets numbered as the live pages do', () => {
   const out = fs.mkdtempSync(path.join(os.tmpdir(), 'sbreader-pages-'));
   try {
     fs.copyFileSync(path.join(__dirname, '..', 'sitemap.xml'), path.join(out, 'sitemap.xml'));
     const r = build(out);
-    const meta = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'meta.json'), 'utf8'));
+    const root = path.join(__dirname, '..');
+    const meta = JSON.parse(fs.readFileSync(path.join(root, 'data', 'meta.json'), 'utf8'));
     assert.strictEqual(fs.readdirSync(path.join(out, 'sets')).length, meta.tournaments.length);
     const set = fs.readFileSync(path.join(out, 'sets', 'lost-3-ms', 'index.html'), 'utf8');
     assert.match(set, /<link rel="canonical" href="https:\/\/sbreader\.org\/sets\/lost-3-ms\/" \/>/);
@@ -26,22 +30,8 @@ test('every set and packet gets a page, listed in the sitemap', () => {
     assert.match(packet, /ANSWER: /);
     const sitemap = fs.readFileSync(path.join(out, 'sitemap.xml'), 'utf8');
     assert.strictEqual((sitemap.match(/<loc>[^<]*\/sets\//g) || []).length, r.urls);
-  } finally {
-    fs.rmSync(out, { recursive: true, force: true });
-  }
-});
 
-// The pages are built one tournament after another; each set's packets must
-// be numbered as the live set page numbers them (a sort order cached from
-// the first tournament once put later sets' packets out of order).
-test('every built set numbers its packets as the live pages do', () => {
-  const out = fs.mkdtempSync(path.join(os.tmpdir(), 'sbreader-pages-'));
-  try {
-    fs.copyFileSync(path.join(__dirname, '..', 'sitemap.xml'), path.join(out, 'sitemap.xml'));
-    build(out);
-    const root = path.join(__dirname, '..');
     const scripts = ['data.js', 'play-common.js'].map((f) => fs.readFileSync(path.join(root, 'js', f), 'utf8'));
-    const meta = JSON.parse(fs.readFileSync(path.join(root, 'data', 'meta.json'), 'utf8'));
     for (const t of meta.tournaments) {
       // A fresh copy of the scripts for each set, as a browser has on its page.
       const win = vm.createContext({ console });
