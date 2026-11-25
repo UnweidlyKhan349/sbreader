@@ -222,8 +222,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 #subjectChips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .375rem; }
 #subjectChips .chip { justify-content: center; text-align: center; white-space: nowrap; }
 /* On the narrowest phones (under 360 px) "Earth & Space" doesn't fit a third of
-   the row, so it wraps onto two lines instead of pushing the page sideways. */
-@media (max-width: 359.98px) { #subjectChips { grid-template-columns: repeat(3, minmax(0, 1fr)); } #subjectChips .chip { white-space: normal; } }
+   the row, so the subjects go two to a row there. (Before November 25, 2026
+   it wrapped onto two lines, making its row taller than the other.) */
+@media (max-width: 359.98px) { #subjectChips { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 /* The other filters fill the right half: a 2 x 2 grid of pairs, each chip
    stretched to share its cell. One pair per row on phones, where two won't
    fit. From 992 px (when they move beside the subjects) to 1199 px the chips
@@ -503,7 +504,11 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 /* ---------------- Subject toggles (SBPlay.subjectButtons) ---------------- */
 /* Each subject is an outline toggle in its own colour, filled when it's on,
    as QB Reader's category buttons are, two to a row in the sidebar. */
-.subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .375rem; }
+.subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .375rem; container-type: inline-size; }
+/* Where the two columns are narrow (the sidebar of a window about 1000 to
+   1260 px wide), slightly smaller text and padding keep "Earth & Space" on
+   one line, so every box in the grid is the same height. */
+@container (max-width: 290px) { .btn-subject { padding-inline: .25rem; font-size: .9375rem; } }
 /* Subject toggles: QB Reader's category boxes (red outline, square corners). */
 .btn-subject {
   --bs-btn-disabled-color: var(--bs-danger); --bs-btn-disabled-border-color: var(--bs-danger);
@@ -518,6 +523,11 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .history-card .card-header-clickable { flex: 1; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }
+/* Small links get a bigger area to tap, at least 24 px each way, without
+   moving anything: the star's padding is taken back by a negative margin,
+   and padding above and below an inline link doesn't change the line. */
+.star-question { padding: 4px; margin: -4px; }
+.stats-link, .report-link, [id^="download-questions-"] { padding-block: 4px; }
 /* A finished question's star, at the right of its "TOSS-UP Physics …" line. */
 .q-display .header-star { float: right; margin-left: .5rem; white-space: normal; }
 .history-card .q-text { margin-bottom: .25rem; }
@@ -570,6 +580,28 @@ html.mp-direct #lobbyScreen { display: none !important; }
 .stats-table th, .stats-table td { white-space: nowrap; }
 .stats-table thead th { user-select: none; }
 .stats-table td, .stats-table tfoot th { font-variant-numeric: tabular-nums; }
+/* On a phone the eight columns fit the screen: tighter cells, smaller text
+   (smaller still under 400 and 360 px), and the first column (subject,
+   format, level or set) may wrap. If a table is still too wide (a set name
+   with a long word on the narrowest phones) it scrolls sideways, and a
+   shadow at the edge shows there's more (the cells are see-through so it
+   shows behind them). */
+@media (max-width: 575.98px) {
+  .stats-table { font-size: .875rem; --bs-table-bg: transparent; }
+  .stats-table > :not(caption) > * > * { padding: .4rem .2rem; }
+  .stats-table > * > tr > :first-child { white-space: normal; min-width: 4.5rem; }
+  .table-responsive:has(> .stats-table) {
+    background:
+      linear-gradient(to right, var(--bs-body-bg) 30%, rgba(var(--bs-body-bg-rgb), 0)) left center / 2.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--bs-body-bg) 30%, rgba(var(--bs-body-bg-rgb), 0)) right center / 2.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent) left center / 1rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, var(--scroll-shadow), transparent) right center / 1rem 100% no-repeat scroll;
+  }
+}
+@media (max-width: 399.98px) { .stats-table { font-size: .8125rem; } }
+@media (max-width: 359.98px) { .stats-table { font-size: .75rem; } .stats-table > * > tr > :first-child { min-width: 4rem; } }
+:root { --scroll-shadow: rgba(0, 0, 0, .35); }
+[data-bs-theme=dark] { --scroll-shadow: rgba(255, 255, 255, .3); }
 #form input[type=date] { color-scheme: light; }
 [data-bs-theme=dark] #form input[type=date] { color-scheme: dark; }
 /* Best Buzz: "(#)" where you buzzed, highlighted as QB Reader's. */

@@ -377,3 +377,9 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Every page has a main heading** for screen readers and search engines. It names the page (Play, Database, a set or packet, a subject's frequency list) and isn't shown, so no page looks different.
 - **Home page and About**: the list of where questions come from now names every source: ScibowlDB, the National Ocean Sciences Bowl's sample questions, the DOE's 1991–93 subject sets and the school teams' practice sets on GitHub were missing.
 - **Database**: in a window 992 to 1199 px wide, the Toss-up / Bonus, format, level and visual buttons sit two pairs to a row, a little smaller, instead of one pair per row, which left an empty space under the subjects.
+- **Multiplayer**: a room in a window 992 to 1199 px wide no longer scrolls sideways (the keyboard shortcuts at the bottom of the sidebar wrap instead of widening the page).
+- **Easier to tap on a phone**: the star, a question's **Stats** and **Report** links, and **TXT / CSV / JSON** on Starred Questions answer a tap in a bigger area around them. They look the same.
+- **Database on a tablet** (768 to 991 px): the Years and Rounds sliders have a row of their own under the tournaments, instead of short sliders squeezed beside it.
+- **Stats on a phone**: the tables fit the screen, with smaller text and the subject or set name wrapping, so Celerity, Points and PPQ aren't cut off. A table that's still too wide scrolls sideways, with a shadow at the edge showing there's more.
+- **"Earth & Space" on one line**: in Play's and Multiplayer's settings (in windows about 1000 to 1260 px wide) and in the Database on the narrowest phones, its box is no longer taller than the others.
+- **404, offline and Multiplayer lobby pages**: as wide as the rest of the site, so on a tablet their content lines up with the navbar.
