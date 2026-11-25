@@ -373,3 +373,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Frequency lists**: a plural counts with its singular ("Ribosome" 52, where "Ribosome" 28 and "RIBOSOMES" 24 were listed apart), and its Database link finds both, and answers show in a spelling that isn't all capitals ("Water", not "WATER") with a capital first letter.
 - **Tips**: Multiplayer's room settings no longer list years (the year slider left Multiplayer earlier today).
 - **Play on a phone opens with its settings showing**, as QB Reader's does: the subjects, tournaments and switches are there before the first question, which folds them away to the timer (⚙ still opens them). Before, they started folded, so they were easy to miss.
+- **Home page**: "Welcome to SB Reader!" is a plain lead line, as on QB Reader, not a heading, so it sits with the same line height and spacing.
