@@ -31,7 +31,7 @@ const results = (page) => page.locator('#resultCount').innerText().then((t) => p
 
 test('Database: ignore word order (on by default); all text / question only / answer only as radio buttons', async () => {
   const ctx = await newContext(browser);
-  const page = await openPage(ctx, server.url + 'catalog');
+  const page = await openPage(ctx, server.url + 'database');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#ignoreWordOrder').isChecked(), true);
   assert.strictEqual(await page.locator('select#searchType, #minYear, #maxYear').count(), 0, 'no dropdown or year boxes');
@@ -78,7 +78,7 @@ test('Database: ignore word order (on by default); all text / question only / an
 
 test('Database: a year slider, before the rounds, narrows the results', async () => {
   const ctx = await newContext(browser);
-  const page = await openPage(ctx, server.url + 'catalog');
+  const page = await openPage(ctx, server.url + 'database');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   const all = await results(page);
   const box = async (sel) => page.locator(sel).boundingBox();
@@ -137,7 +137,7 @@ test('a second alert or question opened over one answers the first, and waits fo
 
 test('Database cards: the title (with round and question) links the source; Stats | Report beside the answer; no footer; stats from everyone', async () => {
   const { ctx } = await statsContext({ heard: 10, correct: 6, incorrect: 1, negs: 2, unanswered: 1, cel_sum: 3, cel_n: 6 });
-  const page = await openPage(ctx, server.url + 'catalog');
+  const page = await openPage(ctx, server.url + 'database');
   await page.waitForFunction(() => document.querySelector('#results .q-card'), null, { timeout: 60000 });
   const card = page.locator('#results .q-card').first();
   const title = card.locator('.q-card-title a.q-card-title-text');
@@ -259,7 +259,7 @@ test('Set and packet pages link their sources; packet questions have no tag line
 
 test('Database: Exact words finds whole words only, marks only them, and a wrong choice or an accepted answer is searched', async () => {
   const ctx = await newContext(browser);
-  const page = await openPage(ctx, server.url + 'catalog');
+  const page = await openPage(ctx, server.url + 'database');
   await page.waitForFunction(() => /Showing/.test(document.getElementById('resultCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#exactWords').isChecked(), false);
   const search = async (text) => { await page.fill('#searchBox', text); await page.keyboard.press('Enter'); await page.waitForTimeout(500); return results(page); };

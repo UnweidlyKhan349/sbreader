@@ -329,7 +329,7 @@
   SBData.answerLineHTML = answerLineHTML;
   SBData.escapeHtml = escapeHtml;
 
-  /* ---------------- Question cards (catalog, bookmarks, session logs) ---------------- */
+  /* ---------------- Question cards (database, starred questions, session logs) ---------------- */
   const QTYPE_LABELS = { tossup: 'Toss-up', bonus: 'Bonus' };
   const FORMAT_LABELS = { SA: 'Short Answer', MC: 'Multiple Choice' };
   const GRADE_LABELS = { correct: 'Correct', incorrect: 'Incorrect', skipped: 'Skipped' };
@@ -634,7 +634,7 @@
   //   header - "AVES 2 | Physics | Tossup | Multiple Choice" and the star
   //   body   - "1. " and the question, its figures and choices, a rule, the answer
   //   footer - the packet and question number, and the packet link
-  // Used by the catalog and the Stats page.
+  // Used by the Database and the Stats page.
   // opts: {
   //   grade: 'correct'|'incorrect'|'skipped'  badge before the source label
   //   answer: reveal data for answerBlock (multiplayer; default the question's own)
@@ -867,8 +867,8 @@
   SBData.expandQuestions = expandQuestions;
   SBData.flattenBank = flattenBank;
 
-  function fetchJson(url) {
-    return fetch(url).then((r) => {
+  function fetchJson(url, init) {
+    return fetch(url, init).then((r) => {
       if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
       return r.json();
     });
@@ -890,11 +890,55 @@
     return meta.tournaments.map(bankUrl);
   };
 
+  // Tournaments newest first (by meta.json date; undated ones last), ties
+  // A-Z: the order the Database lists them in with no tournament picked
+  // (buildPacketRank's 'recent').
+  function newestFirst(tournaments) {
+    const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+    return [...tournaments].sort((a, b) => {
+      const da = a.date || '', db = b.date || '';
+      return (da === db ? 0 : da > db ? -1 : 1) || coll.compare(a.name || '', b.name || '');
+    });
+  }
+  SBData.newestFirst = newestFirst;
+
+  // Each tournament's questions as its file arrives (slug -> questions), so a
+  // page can start on part of the bank: the Database shows its first page
+  // once the newest tournaments are in, and Multiplayer's first question can
+  // come from what has arrived. 'sb-bank-part' fires after each one.
+  SBData.parts = new Map();
+  // The questions of every tournament that has arrived so far.
+  SBData.loadedSoFar = function () { return [].concat(...SBData.parts.values()); };
+  // The newest tournaments' questions, as far as they've all arrived in a
+  // row from the newest: what the Database's newest-first list starts with.
+  SBData.newestLoaded = function () {
+    const out = [];
+    for (const t of newestFirst((SBData.meta && SBData.meta.tournaments) || [])) {
+      const qs = SBData.parts.get(t.slug);
+      if (!qs) break;
+      out.push(...qs);
+    }
+    return out;
+  };
+
   // Downloads the given tournaments' files in parallel, expanding each one as
-  // it arrives so the work overlaps the downloads still in flight.
+  // it arrives so the work overlaps the downloads still in flight. The
+  // newest few are asked for first and at high priority (the rest at low),
+  // since they're what a page shows first.
+  const FIRST_FILES = 6;
   function loadTournaments(tournaments) {
-    return Promise.all(tournaments.map((t) =>
-      fetchJson(bankUrl(t)).then((packets) => expandTournament(t, packets))))
+    const order = newestFirst(tournaments);
+    const rank = new Map(order.map((t, i) => [t.slug, i]));
+    const fetched = new Map(order.map((t, i) => [t.slug,
+      fetchJson(bankUrl(t), { priority: i < FIRST_FILES ? 'high' : 'low' }).then((packets) => {
+        const qs = expandTournament(t, packets);
+        SBData.parts.set(t.slug, qs);
+        if (typeof window !== 'undefined' && window.dispatchEvent && typeof CustomEvent === 'function') {
+          window.dispatchEvent(new CustomEvent('sb-bank-part', { detail: { slug: t.slug, rank: rank.get(t.slug) } }));
+        }
+        return qs;
+      })]));
+    return Promise.all(tournaments.map((t) => fetched.get(t.slug)))
       .then((parts) => {
         SBData.questions = [].concat(...parts);
         SBData.byId = new Map(SBData.questions.map((q) => [q.id, q]));
@@ -1090,10 +1134,10 @@
     });
     return rank;
   }
-  function buildPacketRank(recent) {
+  function buildPacketRank(recent, pool) {
     const coll = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
     const nullsLast = (a, b) => (a == null ? (b == null ? 0 : 1) : (b == null ? -1 : a - b));
-    const tRank = collatedRanks(coll, SBData.questions.map((q) => q.tournament || ''));
+    const tRank = collatedRanks(coll, pool.map((q) => q.tournament || ''));
     if (recent) {
       // Newest date first; tournaments without a date go last, A-Z.
       const dates = new Map(((SBData.meta && SBData.meta.tournaments) || []).map((t) => [t.name, t.date || '']));
@@ -1103,8 +1147,8 @@
       });
       names.forEach((n, i) => tRank.set(n, i));
     }
-    const rlRank = collatedRanks(coll, SBData.questions.map((q) => q.roundLabel || ''));
-    const all = SBData.questions.map((q, i) => ({
+    const rlRank = collatedRanks(coll, pool.map((q) => q.roundLabel || ''));
+    const all = pool.map((q, i) => ({
       q, i, t: tRank.get(q.tournament || ''), rl: rlRank.get(q.roundLabel || ''), qt: qtypeRank(q.qtype),
     }));
     all.sort((x, y) => {
@@ -1120,8 +1164,11 @@
   }
   SBData.sortByPacketOrder = function (list, opts) {
     const key = opts && opts.recent ? 'recent' : 'az';
-    if (packetRanksFor !== SBData.questions) { packetRanks = {}; packetRanksFor = SBData.questions; }
-    const packetRank = packetRanks[key] || (packetRanks[key] = buildPacketRank(key === 'recent'));
+    // opts.pool: rank within these questions instead of the whole bank (part
+    // of it, while the rest is still arriving).
+    const pool = (opts && opts.pool) || SBData.questions;
+    if (packetRanksFor !== pool) { packetRanks = {}; packetRanksFor = pool; }
+    const packetRank = packetRanks[key] || (packetRanks[key] = buildPacketRank(key === 'recent', pool));
     // Every question has its own rank, so drop each into its slot instead of
     // sorting (linear time; this runs on every filter change and keystroke).
     const slots = new Array(packetRank.size);
@@ -1153,7 +1200,8 @@
     const yearRange = opts.yearRange || null; // [min, max] inclusive
     const includeUnlabeled = opts.includeUnlabeled !== false;
 
-    let out = SBData.questions.filter((q) => {
+    // opts.pool: these questions instead of the whole bank.
+    let out = (opts.pool || SBData.questions).filter((q) => {
       if (subjects && !subjects.has(q.subject)) return false;
       if (roundRange) {
         if (q.round == null) { if (!includeUnlabeled) return false; }

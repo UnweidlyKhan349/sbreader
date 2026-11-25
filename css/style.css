@@ -380,13 +380,11 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    there so revealing a question's tags doesn't shift anything) are both
    dropped instead of leaving a large empty gap above and below that line. */
 .question-panel.mp-lobby-compact { min-height: 0; }
-.choices-display { margin-top: .75rem; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
-.choice-box { border: var(--bs-border-width) solid var(--bs-border-color); border-radius: var(--bs-border-radius); padding: .5rem .75rem; line-height: 1.5; }
-.choice-box .letter { font-weight: 700; margin-right: .5rem; }
-.choice-box.reveal-correct { border-color: var(--bs-success); background: var(--bs-success-bg-subtle); }
-.choice-box.clickable { cursor: pointer; transition: border-color .12s ease, background .12s ease; }
-.choice-box.clickable:hover { border-color: var(--bs-primary); background: var(--bs-tertiary-bg); }
-@media (max-width: 767.98px) { .choices-display { grid-template-columns: 1fr; } }
+/* Multiple-choice options listed under the question, one per line, as a
+   moderator reads them ("W) Divergent"), like the items of an ordering
+   question. */
+.choices-display { line-height: 1.5; }
+.choice-box .letter { white-space: pre; }
 
 .reveal-box { margin-top: .75rem; }
 .reveal-box .ans-line { font-weight: 700; margin-bottom: .25rem; }
@@ -531,9 +529,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    only appears once its text starts, and everything below moves down as
    the question fills in. */
 .choice-box:has(> .choice-text:empty) { display: none; }
-/* No room for the choices until the first one is read out, so the rule under
-   the question sits as close as QB Reader's while the stem is read. */
-.choices-display:not(:has(.choice-text:not(:empty))) { margin-top: 0; }
 
 /* Set List sort carets sit on the text's baseline, like Bootstrap Icons. */
 .sort-indicator svg { vertical-align: -.125em; }

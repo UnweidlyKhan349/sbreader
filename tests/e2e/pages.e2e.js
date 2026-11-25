@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const { chromium, startServer, newContext } = require('./helpers');
 
-const PAGES = ['', 'about', 'tips', 'solo', 'multiplayer', 'catalog', 'catalog?answer=mitochondria', 'set-list', 'set?set=lost-3-hs', 'packet?set=lost-3-ms&packet=10', 'frequency-list', 'frequency-list?subject=bio', 'login', 'signup', 'forgot-password', 'account', 'stats', 'graphs', 'stars', 'edit-profile', 'edit-password'];
+const PAGES = ['', 'about', 'tips', 'solo', 'multiplayer', 'database', 'database?answer=mitochondria', 'set-list', 'set?set=lost-3-hs', 'packet?set=lost-3-ms&packet=10', 'frequency-list', 'frequency-list?subject=bio', 'login', 'signup', 'forgot-password', 'account', 'stats', 'graphs', 'stars', 'edit-profile', 'edit-password'];
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
@@ -75,7 +75,7 @@ test('a page older than the deployed version shows no alert and is not reloaded;
 test('the Database filters work from the keyboard and say whether they are on', async () => {
   const ctx = await newContext(browser);
   const page = await ctx.newPage();
-  await page.goto(server.url + 'catalog', { waitUntil: 'load' });
+  await page.goto(server.url + 'database', { waitUntil: 'load' });
   await page.waitForSelector('#subjectChips button.chip', { timeout: 60000 });
   const chip = page.locator('#subjectChips button.chip').first();
   assert.strictEqual(await chip.getAttribute('aria-pressed'), 'false');

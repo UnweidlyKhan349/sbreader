@@ -65,9 +65,32 @@
   }
 
   let subjectItems, qtypeItems, formatItems, levelItems, visualItems, roundSliderApi, yearSliderApi;
+  // Set once the whole bank is in and the filters are wired: until then the
+  // sliders' setup doesn't filter the bank (once per slider) for nothing.
+  let ready = false;
+
+  // Opened with no filters in the address, the first page is the newest
+  // tournaments' first questions: it's shown as soon as those files are in,
+  // before the rest of the bank arrives (they're fetched first; see
+  // SBData.newestFirst), and the full list then takes its place, unchanged.
+  let previewed = false;
+  function preview() {
+    if (ready || previewed || location.search || !SBData.meta) return;
+    const pool = SBData.newestLoaded();
+    if (pool.length < PAGE_SIZE) return;
+    previewed = true;
+    const items = SBData.sortByPacketOrder(pool, { recent: true, pool }).slice(0, PAGE_SIZE);
+    const total = SBData.meta.tournaments.reduce((n, t) => n + (t.count || 0), 0);
+    document.getElementById('resultCount').textContent = `Showing ${items.length} of ${total} results (loading the rest…)`;
+    const resultsEl = document.getElementById('results');
+    resultsEl.replaceChildren(...items.map(renderCard));
+  }
 
   function init() {
+    SBData.loadMeta().then(preview).catch(() => {});
+    window.addEventListener('sb-bank-part', preview);
     SBData.load().then(() => {
+      window.removeEventListener('sb-bank-part', preview);
       subjectItems = SBData.meta.subjects.map((s) => ({ value: s.key, label: s.label, subjectAttr: s.key }));
       buildChips(document.getElementById('subjectChips'), subjectItems, 'subjects', (i) => i.label);
 
@@ -127,7 +150,7 @@
       });
       SBData.enhanceMultiSelect(tSelect);
 
-      // catalog.html?tournament=<slug>[,<slug>] (the set list's links)
+      // database?tournament=<slug>[,<slug>] (the set list's links)
       // opens with those tournaments picked.
       const wanted = (new URLSearchParams(location.search).get('tournament') || '')
         .split(',').map((x) => x.trim()).filter((slug) => SBData.meta.tournaments.some((t) => t.slug === slug));
@@ -137,7 +160,7 @@
       }
 
       const searchBox = document.getElementById('searchBox');
-      // catalog.html?answer=<answer>&subject=<key>[&qtype=][&level=] (the
+      // database?answer=<answer>&subject=<key>[&qtype=][&level=] (the
       // frequency list's links): that answer's questions.
       const url = new URLSearchParams(location.search);
       if (url.get('answer')) {
@@ -208,6 +231,7 @@
         render();
       });
 
+      ready = true;
       render();
       SBData.prepareSearch();
     }).catch((err) => {
@@ -236,6 +260,7 @@
   }
 
   function render() {
+    if (!ready) return;
     syncChipVisuals();
     if (roundSliderApi) {
       const moved = roundSliderApi.setMax(SBData.maxRoundFor(state.tournaments));

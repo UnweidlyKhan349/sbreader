@@ -38,7 +38,7 @@
       tr.insertCell().textContent = i + 1;
       const a = document.createElement('a');
       a.className = 'text-body text-decoration-none';
-      a.href = 'catalog?' + new URLSearchParams({ answer, subject: s.key });
+      a.href = 'database?' + new URLSearchParams({ answer, subject: s.key });
       a.innerHTML = SBData.renderMathHTML(answer);
       tr.insertCell().appendChild(a);
       tr.insertCell().textContent = count;

@@ -100,8 +100,10 @@
   // Filter toggles (the room settings in the sidebar use these).
   // The questions for a set of room settings, in reading order: random
   // questions matching the filters (mixed evenly across subjects).
-  function queueFor(values) {
+  // pool: part of the bank (what has arrived so far) instead of all of it.
+  function queueFor(values, pool) {
     return SBData.stratifiedQueue(SBData.filterQuestions({
+      pool,
       subjects: values.subjects,
       roundRange: values.roundRange,
       yearRange: values.yearRange,
@@ -815,7 +817,7 @@
     const boxSegments = [{ html: SBData.readoutHTML(q), el: qDisplay, lead: SBReveal.visibleLength(SBData.readoutHeaderHTML(q)) }];
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
     if (q.choices) {
-      choicesDisplay.style.display = 'grid';
+      choicesDisplay.style.display = '';
       LETTERS.forEach((L) => boxSegments.push({ html: SBData.renderMathHTML(q.choices[L] || ''), el: document.getElementById('mpChoiceText' + L) }));
     } else {
       choicesDisplay.style.display = 'none';
@@ -882,7 +884,7 @@
     const pauseBtn = document.getElementById('mpPauseBtn');
     const choicesDisplay = document.getElementById('mpChoicesDisplay');
 
-    choicesDisplay.style.display = game.question && game.question.choices ? 'grid' : 'none';
+    choicesDisplay.style.display = game.question && game.question.choices ? '' : 'none';
     document.getElementById('mpQFigures').style.display = game.question && game.question.visual ? '' : 'none';
     document.getElementById('mpQuestionPanel').classList.toggle('mp-lobby-compact', game.phase === 'lobby');
     const info = document.getElementById('mpQuestionInfo');
@@ -891,7 +893,6 @@
     document.getElementById('mpTimer').classList.toggle('d-none', !roomSetting('timer', true));
 
     revealBox.style.display = 'none';
-    document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => { el.classList.remove('reveal-correct'); el.classList.remove('clickable'); });
     // (Whether your answer box was already open: a repaint while you answer,
     // from someone pausing or changing a setting, mustn't wipe what you've
     // typed or take the keyboard back to it.)
@@ -939,9 +940,6 @@
         if (!answerWasOpen) {
           document.getElementById('mpAnswerInput').value = '';
           document.getElementById('mpAnswerInput').focus();
-        }
-        if (game.question && game.question.format === 'MC' && game.question.choices) {
-          document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => el.classList.add('clickable'));
         }
       }
     } else if (game.phase === 'reveal') {
@@ -1027,10 +1025,6 @@
     if (revealCtl && !revealCtl.isDone()) revealCtl.skipToEnd();
     const qid = game.question.id;
     SBPlay.headerStar(document.getElementById('mpQDisplay'), qid, () => SBPlay.repaintStars(historyEl(), qid));
-    if (game.question.choices && LETTERS.includes(r.letter)) {
-      const el = document.querySelector(`#mpChoicesDisplay .choice-box[data-letter="${r.letter}"]`);
-      if (el) el.classList.add('reveal-correct');
-    }
   }
 
   /* ================= CHAT ================= */
@@ -1177,7 +1171,8 @@
   }
   // A system line for the whole room, from whoever runs the game.
   // kind: for a settings change ('subjects', 'tournaments', 'rounds',
-  // 'years'), so the next one of that kind can take its line's place.
+  // 'years', 'rate', 'timer', ...: see describeChanges), so the next one of
+  // that kind can take its line's place.
   function hostEvent(connId, text, kind) {
     if (myState.role !== 'host') return;
     const p = hostPlayers.get(connId);
@@ -1800,8 +1795,21 @@
   }
 
   function hostNextQuestion() {
-    // The first question waits for the question bank, if it's still loading.
-    if (!bankLoaded()) {
+    // The bank is still arriving: the game starts on the tournaments already
+    // in (the newest come first), and the questions still to come are made
+    // again from the whole bank once it's here (onBankLoaded). With nothing
+    // in yet that matches the room's settings, the first question waits.
+    if (!bankLoaded() && hostGame.index < 0 && !hostGame.queue.length && activeFilterState) {
+      const partial = queueFor(activeFilterState, SBData.loadedSoFar()).filter((q) => !game.asked.includes(q.id));
+      if (partial.length) {
+        hostGame.queue = partial;
+        game.total = partial.length;
+        hostGame.partialQueue = true;
+        SBData.load().then(onBankLoaded).catch(() => {});
+      }
+    }
+    // (Or the part that had arrived has been played through: on to the rest.)
+    if (!bankLoaded() && !(hostGame.partialQueue && hostGame.index + 1 < hostGame.queue.length)) {
       if (hostGame.waitingForBank) return;
       hostGame.waitingForBank = true;
       setMatchCountText('Loading questions…');
@@ -2325,13 +2333,20 @@
     if (!isOverride) hideTimer();
     game.lastGrade = { playerId, correct, userText };
     if (isOverride && correct && !by && playerId === myState.myId && window.SBReports && game.question) {
-      SBReports.logOverride(SBData.byId.get(game.question.id), userText, 'mp');
+      SBReports.logOverride((SBData.byId && SBData.byId.get(game.question.id)) || game.question, userText, 'mp');
     }
     if (isOverride) {
       recolorBuzzLine(playerId, correct); renderOverrideLinkSoon();
       // (Someone else's override changing this player's grade gets no line:
       // the colours and scores show it.)
-      if (!by || by === playerId) logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
+      // A player flipping their answer back and forth rewrites the line on
+      // top ("changed their answer to ...") rather than adding another.
+      if (!by || by === playerId) {
+        const top = historyEl().firstElementChild;
+        const li = logEvent(playerName(playerId), `changed their answer to ${correct ? 'correct' : 'incorrect'}`);
+        li.dataset.answerChange = playerId;
+        if (top && top.dataset.answerChange === playerId) top.remove();
+      }
     }
     else finishBuzzLine(playerId, playerName(playerId), correct, userText, close);
     if (overrideLocked !== undefined) game.overrideLocked = overrideLocked || false;
@@ -2930,10 +2945,6 @@
     heartbeatTimer = setInterval(beat, 30 * 1000);
   }
 
-  function savedRate() {
-    return SBMpRules.readingSpeed((() => { try { return localStorage.getItem('sb_reading_speed'); } catch (e) { return null; } })());
-  }
-
   // Opens the room under `roomId`, with this player first in it, once this
   // player holds its door (enterRoomByDoor). `info` is what the room list
   // keeps about it (SBRooms.roomInfo), or null.
@@ -3049,7 +3060,8 @@
   // The questions arrived after the room opened: the queue (for whoever
   // runs the game) and the sidebar's count catch up.
   function onBankLoaded() {
-    if (myState.role === 'host' && hostGame.index < 0) hostGame.queueStale = true;
+    if (myState.role === 'host' && (hostGame.index < 0 || hostGame.partialQueue)) hostGame.queueStale = true;
+    hostGame.partialQueue = false;
     if (midGameSettingsWired) updateMidGameMatchCount();
   }
 
@@ -3152,7 +3164,7 @@
           return;
         }
         try {
-          await startRoom({ roomId: peerId, filters, name, rate: savedRate(), lobby, info });
+          await startRoom({ roomId: peerId, filters, name, rate: SBMpRules.readingSpeed(null), lobby, info });
           joining = false;
           return;
         } catch (err) {
@@ -3426,7 +3438,6 @@
   }
   function doNext() {
     if (game.phase !== 'reveal' && game.phase !== 'lobby') return;
-    ensureSomeSubjects();
     if (myState.role === 'host') { if (game.phase === 'lobby') hostEvent(myState.myId, 'started the game'); hostNextQuestion(); }
     else if (client) client.send({ type: 'next' });
   }
@@ -3595,9 +3606,10 @@
     hostEvent(connId, r[0] === r[1] ? `changed the years to ${r[0]}` : `changed the years to ${r[0]}-${r[1]}`, 'years');
   }
 
-  // Clear all filters: every tournament, year, round and subject (General
-  // too, Energy included; a one-subject room keeps its subject), questions with no
-  // round number included, and all of a set's packets; sent as one change.
+  // Clear all filters: every tournament, year and round, no subject picked
+  // (which plays every subject; a one-subject room keeps its subject),
+  // questions with no round number included, and all of a set's packets;
+  // sent as one change.
   function clearRoomFilters() {
     const f = midGameFilterState;
     suppressSettingsApplyEcho = true;
@@ -3606,7 +3618,6 @@
       document.getElementById('mpSettingsTournamentSelect').setMultiValues([]);
       if (!fixedSubjectLobby()) {
         f.subjects.clear();
-        SBData.meta.subjects.map((x) => x.key).forEach((k) => f.subjects.add(k));
         if (categories) categories.sync();
       }
       f.includeUnlabeled = true;
@@ -3747,25 +3758,14 @@
     fullRenderFromState();
   }
 
-  // Every subject switched off would match nothing, so before the next
-  // question the room goes back to all subjects, sent out like any change.
-  function ensureSomeSubjects() {
-    if (midGameFilterState.subjects.size === 0) {
-      (myState.publicLobby ? myState.publicLobby.subjects : SBData.meta.subjects.map((x) => x.key)).forEach((k) => midGameFilterState.subjects.add(k));
-      if (categories) categories.sync();
-      updateMidGameMatchCount();
-      requestApplySettings();
-    }
-  }
-
   // What changed, as the room hears it ("Bob made the room private").
   function describeChanges(before, after, rateBefore, rateAfter) {
     const out = [];
     const sameSet = (a, b) => a.size === b.size && [...a].every((x) => b.has(x));
-    if (before.packetNumbers !== after.packetNumbers) out.push(after.packetNumbers ? `changed the packet numbers to ${after.packetNumbers}` : 'cleared the packet numbers');
+    if (before.packetNumbers !== after.packetNumbers) out.push({ kind: 'packets', text: after.packetNumbers ? `changed the packet numbers to ${after.packetNumbers}` : 'cleared the packet numbers' });
     if (!sameSet(before.subjects, after.subjects)) {
       const names = SBData.meta.subjects.filter((x) => after.subjects.has(x.key)).map((x) => x.label);
-      out.push({ kind: 'subjects', text: names.length === SBData.meta.subjects.length ? 'turned on every subject' : `changed the subjects to ${names.join(', ') || 'none'}` });
+      out.push({ kind: 'subjects', text: names.length === SBData.meta.subjects.length ? 'turned on every subject' : names.length ? `changed the subjects to ${names.join(', ')}` : 'cleared the subjects' });
     }
     if (!sameSet(before.tournaments, after.tournaments)) {
       // "selected 3 tournaments (MIT 2025, Stanford 2026, LOST 2)"
@@ -3773,13 +3773,13 @@
       const names = SBData.meta.tournaments.filter((t) => after.tournaments.has(t.slug)).map((t) => t.name);
       out.push({ kind: 'tournaments', text: n ? `selected ${n} tournament${n === 1 ? '' : 's'}${n <= 3 && names.length === n ? ` (${names.join(', ')})` : ''}` : 'cleared the tournaments' });
     }
-    if (before.rebuzz !== after.rebuzz) out.push(`${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes`);
-    if (before.skip !== after.skip) out.push(`${after.skip ? 'enabled' : 'disabled'} skipping`);
-    if (before.timer !== after.timer) out.push(`${after.timer ? 'enabled' : 'disabled'} the timer`);
-    if (before.isPublic !== after.isPublic) out.push(`made the room ${after.isPublic ? 'public' : 'private'}`);
+    if (before.rebuzz !== after.rebuzz) out.push({ kind: 'rebuzz', text: `${after.rebuzz ? 'enabled' : 'disabled'} multiple buzzes` });
+    if (before.skip !== after.skip) out.push({ kind: 'skip', text: `${after.skip ? 'enabled' : 'disabled'} skipping` });
+    if (before.timer !== after.timer) out.push({ kind: 'timer', text: `${after.timer ? 'enabled' : 'disabled'} the timer` });
+    if (before.isPublic !== after.isPublic) out.push({ kind: 'public', text: `made the room ${after.isPublic ? 'public' : 'private'}` });
     // (Made public, the room is unlocked as well; that line says enough.)
-    if (before.locked !== after.locked && !(after.isPublic && !before.isPublic)) out.push(`${after.locked ? 'locked' : 'unlocked'} the room`);
-    if (rateBefore !== rateAfter) out.push(`changed the reading speed to ${rateAfter}`);
+    if (before.locked !== after.locked && !(after.isPublic && !before.isPublic)) out.push({ kind: 'locked', text: `${after.locked ? 'locked' : 'unlocked'} the room` });
+    if (rateBefore !== rateAfter) out.push({ kind: 'rate', text: `changed the reading speed to ${rateAfter}` });
     return out;
   }
 
@@ -3814,7 +3814,7 @@
       // subject click while the set name was blank.)
       activeFilterState = next;
     }
-    describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((c) => (typeof c === 'string' ? hostEvent(byConnId || myState.myId, c) : hostEvent(byConnId || myState.myId, c.text, c.kind)));
+    describeChanges(before, activeFilterState, rateBefore, myState.rate).forEach((c) => hostEvent(byConnId || myState.myId, c.text, c.kind));
     // The timer switched during the buzz window: on, the countdown starts
     // (a full one: the question has been read); off, it stops, and the
     // question waits for Next.
@@ -3963,12 +3963,6 @@
       if (e.key === 'Enter') { e.preventDefault(); doSubmitAnswer(document.getElementById('mpAnswerInput').value); }
     });
     document.getElementById('mpAnswerInput').addEventListener('input', (e) => doTypingInput(e.target.value));
-    document.querySelectorAll('#mpChoicesDisplay .choice-box').forEach((el) => {
-      el.addEventListener('click', () => {
-        if (!el.classList.contains('clickable')) return;
-        doSubmitAnswer(el.dataset.letter);
-      });
-    });
     const sendFromBox = () => {
       const input = document.getElementById('mpChatInput');
       sendChat(input.value);
@@ -4000,7 +3994,7 @@
         case 'p': doTogglePause(); return;
         case 'e': toggleSidebar(); return;
         case 'k': SBPlay.toggleLatest(historyEl()); return;
-        case 't': SBPlay.starLatest(historyEl()); return;
+        case 't': SBPlay.starLatest(historyEl(), document.getElementById('mpQDisplay')); return;
         case 'q': doOverride(); return;
         case 'enter': case '/': e.preventDefault(); showChatRow(); return;
         default:

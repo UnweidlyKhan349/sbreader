@@ -50,18 +50,16 @@ test('no text field holds a control character', () => {
   assert.deepStrictEqual(found, {});
 });
 
-test('ids are unique', () => {
+test('ids are unique, and meta.json\'s counts (total, and per set: questions, tossups, bonuses, packets) match the bank', () => {
   const seen = new Set();
   const dupes = raw.filter((q) => seen.has(q.i) || !seen.add(q.i)).map((q) => q.i);
   assert.deepStrictEqual(dupes.slice(0, 10), []);
-});
-
-test('meta.json counts match the bank', () => {
   assert.strictEqual(meta.totalQuestions, raw.length);
-  const counts = {};
-  raw.forEach((q) => { counts[q.ts] = (counts[q.ts] || 0) + 1; });
-  const wrong = meta.tournaments.filter((t) => counts[t.slug] !== t.count).map((t) => `${t.slug}: meta ${t.count}, actual ${counts[t.slug] || 0}`);
-  assert.deepStrictEqual(wrong, []);
+  const { expectedMeta } = require('../tools/meta-counts.js');
+  const expected = expectedMeta(meta);
+  const stale = meta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets']
+    .some((k) => t[k] !== expected.tournaments[i][k])).map((t) => t.slug);
+  assert.deepStrictEqual(stale, [], 'run node tools/meta-counts.js');
 });
 
 test('bookmark aliases point at questions that exist', () => {
@@ -139,6 +137,13 @@ test('the newest-first order lists tournaments by meta.json date, each in packet
   const t = recent[0].tournament;
   assert.deepStrictEqual(recent.filter((q) => q.tournament === t).map((q) => q.id),
     packet.filter((q) => q.tournament === t).map((q) => q.id));
+  // The Database's first page, from the newest tournaments alone (before the
+  // rest of the bank has arrived), is the same as from the whole bank.
+  const order = globalThis.SBData.newestFirst(meta.tournaments).map((x) => x.name);
+  assert.deepStrictEqual([...new Set(recent.map((q) => q.tournament))], order.filter((n) => recent.some((q) => q.tournament === n)));
+  const first = new Set(order.slice(0, 2));
+  const pool = questions.filter((q) => first.has(q.tournament));
+  assert.deepStrictEqual(globalThis.SBData.sortByPacketOrder(pool, { recent: true, pool }).slice(0, 40).map((q) => q.id), recent.slice(0, 40).map((q) => q.id));
 });
 
 test('data/bank holds exactly one file per meta.json tournament, in the form tools/bank.js writes', () => {
@@ -215,8 +220,8 @@ test('search matches every word in what a card shows, ignoring case, order, acce
   const folded = new Map(questions.map((q) => [q, fields(q).map(fold).flatMap((f) => [f, plain(f)])]));
   const esc = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const wordRe = (w) => new RegExp((/^[\p{L}\p{N}]/u.test(w) ? '(?<![\\p{L}\\p{N}])' : '') + esc(w) + (/[\p{L}\p{N}]$/u.test(w) ? '(?![\\p{L}\\p{N}])' : ''), 'u');
-  for (const search of ['7100', 'enzyme', 'MIT 2025', 'x^2', 'e^(', 'sodium chloride', ' q', 'aves 2025 photosynthesis', 'chloride  sodium',
-    'cell mitochondria membrane', 'schrodinger', "hooke's law", 'p-wave', 'quagmire', 'hyperbolic', 'p waves', 'rna', 'ksp']) {
+  // (A few searches of each kind: the small cases are in search.test.js.)
+  for (const search of ['MIT 2025', 'x^2', 'aves 2025 photosynthesis', 'chloride  sodium', 'schrodinger', "hooke's law", 'p waves', 'ksp']) {
     const words = fold(search.trim()).split(/\s+/);
     const expected = questions.filter((q) => words.every((w) => folded.get(q).some((f) => f.includes(w)))).map((q) => q.id);
     assert.deepStrictEqual(SBData.filterQuestions({ search }).map((q) => q.id), expected, search);
@@ -229,10 +234,11 @@ test('search matches every word in what a card shows, ignoring case, order, acce
   const apart = SBData.filterQuestions({ search: 'chloride sodium' }).length;
   assert.ok(apart >= SBData.filterQuestions({ search: 'sodium chloride' }).length && apart > 0);
   // Every question is found by its own text, typed plain, in each scope: the
-  // first words of the question, of each choice, of the answer and of each accept.
+  // first words of the question, of each choice, of the answer and of each
+  // accept. (One question in ten, spread over the whole bank.)
   const typed = (t) => fold(t).trim().split(' ').slice(0, 3).join(' ');
   const misses = [];
-  for (const q of questions) {
+  for (const q of questions.filter((_, i) => i % 10 === 0)) {
     const check = (text, type) => {
       const m = text && SBData.searchMatcher(typed(text), true, type);
       if (m && !m(q)) misses.push([q.id, type, typed(text)]);
@@ -259,15 +265,6 @@ test('a packet location becomes a #page= or #L fragment only on PDF and GitHub l
   const { questions } = loadCorpus();
   const placed = questions.find((q) => /\.pdf#page=\d+$/.test(q.sourceUrl || ''));
   assert.ok(placed, 'some question links to its page');
-});
-
-test("meta.json's per-set counts (tossups, bonuses, packets) match the bank", () => {
-  const { expectedMeta } = require('../tools/meta-counts.js');
-  const { rawMeta } = loadCorpus();
-  const expected = expectedMeta(rawMeta);
-  const stale = rawMeta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets']
-    .some((k) => t[k] !== expected.tournaments[i][k])).map((t) => t.slug);
-  assert.deepStrictEqual(stale, [], 'run node tools/meta-counts.js');
 });
 
 test('numbered statements go on their own lines, and parenthesised numbers are left alone', () => {

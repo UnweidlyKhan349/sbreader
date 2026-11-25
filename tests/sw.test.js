@@ -56,17 +56,12 @@ async function request(onFetch, url) {
   return { response };
 }
 
-test('a stamped file still loads when the cache is full', async () => {
+test('a stamped file and a page still load when the cache is full', async () => {
   const onFetch = loadWorker({ open: async () => fullCache() });
   const { response } = await request(onFetch, ORIGIN + '/js/solo.js?v=abc');
   assert.strictEqual(response.status, 200);
   assert.strictEqual(await response.text(), 'body');
-});
-
-test('a page still loads when the cache is full', async () => {
-  const onFetch = loadWorker({ open: async () => fullCache() });
-  const { response } = await request(onFetch, ORIGIN + '/solo.html');
-  assert.strictEqual(response.status, 200);
+  assert.strictEqual((await request(onFetch, ORIGIN + '/solo.html')).response.status, 200);
 });
 
 test('files still load when the cache cannot be opened or read', async () => {
