@@ -199,6 +199,8 @@ test('n starts and goes on but never skips; s only skips', async () => {
   await press('s');
   assert.strictEqual(await mode(), 'next', 's skips');
   assert.match(await page.locator('#revealBox').innerText(), /ANSWER:/);
+  // A skip is a question seen, not an incorrect one.
+  assert.match(await page.locator('#statline').innerText(), /^0\/0 with 1 question seen \(0 pts/);
   // Once it's over, the question's star sits at the right of its header line.
   await page.locator('#qDisplay .header-star .star-question').click();
   assert.strictEqual(await page.locator('#qDisplay .header-star .star-question').getAttribute('aria-pressed'), 'true');
