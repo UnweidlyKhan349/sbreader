@@ -22,6 +22,23 @@
   const tickLabel = (ms) => new Date(ms).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   const phone = window.innerWidth < 576;
   const DAY = 24 * 60 * 60 * 1000;
+  // The date axis is labelled on whole days, an even step apart: the
+  // smallest of these steps (in days) that needs no more labels than fit.
+  // (Left to Chart.js, labels fell at uneven times, "Sep 2, Sep 5, Sep 7",
+  // and the same day could be labelled twice.)
+  const STEPS = [1, 2, 3, 7, 14, 30, 61, 91, 182, 365, 730];
+  const MAX_TICKS = phone ? 4 : 6;
+  function dayTicks(axis) {
+    const { min, max } = axis;
+    if (!Number.isFinite(min) || !Number.isFinite(max) || max <= min) return;
+    const span = Math.round((max - min) / DAY);
+    const step = STEPS.find((s) => span / s <= MAX_TICKS - 1) || Math.ceil(span / (MAX_TICKS - 1));
+    const ticks = [];
+    // min is a day's noon (a day before the first day played), so every
+    // label falls at noon and names its own day.
+    for (let t = min; t <= max + DAY / 2; t += step * DAY) ticks.push({ value: t });
+    axis.ticks = ticks;
+  }
 
   function makeChart(id, y) {
     return new Chart($(id), {
@@ -35,7 +52,8 @@
         scales: {
           x: {
             type: 'linear',
-            ticks: { maxTicksLimit: phone ? 4 : 6, maxRotation: 0, callback: (v) => tickLabel(v) },
+            afterBuildTicks: dayTicks,
+            ticks: { maxRotation: 0, callback: (v) => tickLabel(v) },
           },
           y: y || { beginAtZero: true, ticks: { precision: 0 } },
         },
@@ -78,6 +96,9 @@
     if ($('filter').checked) days = days.filter((d) => d.count >= 5);
     const note = $('graphNote');
     note.hidden = days.length > 0;
+    // Nothing to plot: the note says why, and the empty charts are hidden
+    // (they had no dates to show, and labelled their axes "Jan 1").
+    $('graphCharts').hidden = !days.length;
     if (!days.length) {
       note.textContent = played
         ? 'No day has 5 or more questions yet. Turn off "Exclude days with fewer than 5 data points" to see them all.'

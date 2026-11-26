@@ -220,7 +220,15 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   const { ctx, page } = await withStats('graphs');
   await page.waitForFunction(() => !document.getElementById('graphNote').hidden);
   assert.match(await page.textContent('#graphNote'), /No day has 5 or more questions/);
+  // Nothing to plot: the charts are hidden, not drawn empty with "Jan 1" dates.
+  assert.strictEqual(await page.isVisible('#graphCharts'), false);
   await page.uncheck('#filter');
+  assert.strictEqual(await page.isVisible('#graphCharts'), true);
+  // The date axis is labelled on whole days, an even step apart, no day twice.
+  const ticks = await page.evaluate(() => Chart.getChart('question-count').scales.x.ticks.map((t) => [t.value, t.label]));
+  const steps = new Set(ticks.slice(1).map(([v], i) => Math.round((v - ticks[i][0]) / 864e5)));
+  assert.strictEqual(steps.size, 1, `labels an even number of days apart: ${JSON.stringify(ticks)}`);
+  assert.strictEqual(new Set(ticks.map(([, l]) => l)).size, ticks.length, 'no day labelled twice');
   const points = () => page.evaluate(() => Chart.getChart('question-count').data.datasets.map((d) => [d.label, d.data.map((p) => p.y)]));
   assert.deepStrictEqual(await points(), [['Total', [2, 2, 2]], ['4s', [1, 0, 2]], ['0s', [0, 1, 0]], ['Dead', [0, 1, 0]], ['Negs', [1, 0, 0]]]);
   await page.check('#cumulative');
@@ -235,6 +243,7 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   await page.setViewportSize({ width: 390, height: 800 });
   await page.reload({ waitUntil: 'load' });
   await page.waitForFunction(() => !document.getElementById('statsBody').hidden);
+  await page.uncheck('#filter');
   assert.deepStrictEqual(await heights(), [220, 220, 220, 220]);
   assert.strictEqual(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
   await ctx.close();
