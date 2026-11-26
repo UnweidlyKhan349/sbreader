@@ -428,9 +428,7 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 }
 .mp-player-row.offline { color: var(--bs-secondary-color); }
 :root { --user-score-background: #FFF9C4; }
-/* Night: a deeper blue than QB Reader's #4A90E2, so the name on it can be read
-   (5:1; it was 2.5:1). */
-[data-bs-theme=dark] { --user-score-background: #285f9e; }
+[data-bs-theme=dark] { --user-score-background: #4A90E2; }
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
@@ -632,17 +630,11 @@ html.mp-direct #lobbyScreen { display: none !important; }
 }
 
 /* ---------------- Night: readable text colours ----------------
-   Bootstrap keeps its light-theme blue, red and grey for these in Night,
-   which on the dark page read at 2.2 to 3.5:1 (4.5:1 is the usual minimum).
-   Their lighter Night shades read at 6 to 7.5:1. */
+   Bootstrap keeps its light-theme blue and grey for these in Night, which on
+   the dark page read at 2.2 and 3.4:1 (4.5:1 is the usual minimum). Their
+   lighter Night shades read at 6.6 and 7.7:1. */
 /* TXT / CSV / JSON (Starred Questions) and CSV (Stats). */
 [data-bs-theme=dark] .link-primary { color: var(--bs-link-color) !important; text-decoration-color: var(--bs-link-color) !important; }
 [data-bs-theme=dark] .link-primary:hover, [data-bs-theme=dark] .link-primary:focus { color: var(--bs-link-hover-color) !important; text-decoration-color: var(--bs-link-hover-color) !important; }
-/* Red text and outlines: subject boxes that are off, "Delete my data" and its
-   buttons. A subject that's on keeps the red fill with white text. */
-[data-bs-theme=dark] .text-danger { color: var(--bs-danger-text-emphasis) !important; }
-[data-bs-theme=dark] .chip[data-subject]:not(.active) { --chip-color: var(--bs-danger-text-emphasis); }
-[data-bs-theme=dark] .btn-outline-danger { --bs-btn-color: var(--bs-danger-text-emphasis); --bs-btn-border-color: var(--bs-danger-text-emphasis); }
-[data-bs-theme=dark] .btn-subject { --bs-btn-hover-color: var(--bs-danger-text-emphasis); --bs-btn-hover-border-color: var(--bs-danger-text-emphasis); --bs-btn-disabled-color: var(--bs-danger-text-emphasis); --bs-btn-disabled-border-color: var(--bs-danger-text-emphasis); }
 /* Grey outline buttons (Back). */
 [data-bs-theme=dark] .btn-outline-secondary { --bs-btn-color: var(--bs-secondary-color); }

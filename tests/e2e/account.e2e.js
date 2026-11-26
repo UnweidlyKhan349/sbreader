@@ -220,10 +220,18 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   const { ctx, page } = await withStats('graphs');
   await page.waitForFunction(() => !document.getElementById('graphNote').hidden);
   assert.match(await page.textContent('#graphNote'), /No day has 5 or more questions/);
-  // Nothing to plot: the charts are hidden, not drawn empty with "Jan 1" dates.
-  assert.strictEqual(await page.isVisible('#graphCharts'), false);
+  // Nothing to plot: the charts still show, with their legends, over the past
+  // week (not "Jan 1" on every label, as when the axis had no dates).
+  const empty = await page.evaluate(() => {
+    const c = Chart.getChart('question-count');
+    return { legend: c.legend.legendItems.map((i) => i.text), labels: c.scales.x.ticks.map((t) => t.label), visible: c.canvas.getBoundingClientRect().height > 0 };
+  });
+  assert.ok(empty.visible);
+  assert.deepStrictEqual(empty.legend, ['Total', '4s', '0s', 'Dead', 'Negs']);
+  const todayLabel = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  assert.strictEqual(empty.labels[empty.labels.length - 1], todayLabel, `the week ends today: ${empty.labels}`);
+  assert.strictEqual(new Set(empty.labels).size, empty.labels.length, `no day labelled twice: ${empty.labels}`);
   await page.uncheck('#filter');
-  assert.strictEqual(await page.isVisible('#graphCharts'), true);
   // The date axis is labelled on whole days, an even step apart, no day twice.
   const ticks = await page.evaluate(() => Chart.getChart('question-count').scales.x.ticks.map((t) => [t.value, t.label]));
   const steps = new Set(ticks.slice(1).map(([v], i) => Math.round((v - ticks[i][0]) / 864e5)));
@@ -243,7 +251,6 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   await page.setViewportSize({ width: 390, height: 800 });
   await page.reload({ waitUntil: 'load' });
   await page.waitForFunction(() => !document.getElementById('statsBody').hidden);
-  await page.uncheck('#filter');
   assert.deepStrictEqual(await heights(), [220, 220, 220, 220]);
   assert.strictEqual(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
   await ctx.close();

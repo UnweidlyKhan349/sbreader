@@ -96,9 +96,6 @@
     if ($('filter').checked) days = days.filter((d) => d.count >= 5);
     const note = $('graphNote');
     note.hidden = days.length > 0;
-    // Nothing to plot: the note says why, and the empty charts are hidden
-    // (they had no dates to show, and labelled their axes "Jan 1").
-    $('graphCharts').hidden = !days.length;
     if (!days.length) {
       note.textContent = played
         ? 'No day has 5 or more questions yet. Turn off "Exclude days with fewer than 5 data points" to see them all.'
@@ -129,9 +126,13 @@
         line('Average Buzzpoint', COLORS.right, days.map((d) => d.buzzpoint)),
       ];
     }
-    // A day of room either side, so a single day sits mid-chart.
-    const min = xs.length ? xs[0] - DAY : undefined;
-    const max = xs.length ? xs[xs.length - 1] + DAY : undefined;
+    // A day of room either side, so a single day sits mid-chart. With
+    // nothing to plot, the charts still show, with their legends, over the
+    // past week (with no dates the axis began at 1970: every label read "Jan 1").
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12).getTime();
+    const min = xs.length ? xs[0] - DAY : today - 6 * DAY;
+    const max = xs.length ? xs[xs.length - 1] + DAY : today;
     Object.values(charts).forEach((c) => {
       if (!c) return;
       c.options.scales.x.min = min;
