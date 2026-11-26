@@ -156,7 +156,7 @@
     modal.querySelector('#qStatsWhich').textContent = SBData.sourceLabelFor ? SBData.sourceLabelFor(q, ' / ') : '';
     show('<p class="mb-0">Loading…</p>');
     SBSite.showModal(modal);
-    if (!enabled) { show('<p class="mb-0">Question stats aren\'t switched on for this copy of SB Reader.</p>'); return; }
+    if (!enabled) { show('<p class="mb-0">Question stats aren\'t switched on for this copy of SBReader.</p>'); return; }
     // This browser's own play of it, still waiting to be sent, counts too.
     if (pending && pending.id === q.id) flush();
     try {

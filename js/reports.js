@@ -77,7 +77,7 @@
     if (sent.has(q.id)) { status('You already reported this question. Thanks!', 'secondary'); return; }
     if (sent.size >= MAX_PER_PAGE) { status('Thanks for all the reports! Reload the page to send more.', 'secondary'); return; }
     const c = await client();
-    if (!c) { status("Reports aren't switched on for this copy of SB Reader.", 'warning'); return; }
+    if (!c) { status("Reports aren't switched on for this copy of SBReader.", 'warning'); return; }
     btn.disabled = true;
     const reason = (modal.querySelector('input[name="reportReason"]:checked') || {}).value || 'other';
     const note = modal.querySelector('#reportNote').value.trim().slice(0, 500);

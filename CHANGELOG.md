@@ -400,3 +400,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - A first visit follows your device's light or dark setting (Auto), as QB Reader does, instead of always starting in Light.
 - Night: the tournament, packet and level pickers' lists are dark grey instead of white.
 - Search engines can now index the login and sign-up pages, so searching for "SB Reader login" or "SB Reader sign up" finds them.
+- The site calls itself SBReader everywhere (search results, link previews, the home-screen name and the pages' text), as its titles and logo do, so Google can show "SBReader" above its results instead of "sbreader.org".

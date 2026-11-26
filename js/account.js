@@ -550,7 +550,7 @@
   const SCHEMA_KEY = 'sb_schema_version';
   function schemaWarning(v) {
     if (typeof v === 'number' && v >= SCHEMA_VERSION) return null;
-    return `SB Reader: the Supabase database schema is ${typeof v === 'number' ? `out of date (version ${v}, this site needs ${SCHEMA_VERSION})` : 'older than this site'}. `
+    return `SBReader: the Supabase database schema is ${typeof v === 'number' ? `out of date (version ${v}, this site needs ${SCHEMA_VERSION})` : 'older than this site'}. `
       + 'Run supabase/schema.sql again in the SQL Editor (it is safe to re-run); until then the features that need the newer schema are left out.';
   }
   async function checkSchema() {
