@@ -18,7 +18,7 @@ Static Science Bowl practice site (https://sbreader.org): plain HTML/CSS/JS, no 
 - `npm run test:e2e`: browser tests (Playwright, Chromium). Run after UI changes (a few minutes). One file: `node --test tests/e2e/play.e2e.js`.
 - Syntax check, as CI does: `for f in js/*.js tests/*.js tests/e2e/*.js tools/*.js sw.js; do node --check "$f"; done`
 - After editing any file under `js/` or `css/`: `node tools/stamp-assets.js` (the `?v=` stamps in every page; a unit test fails otherwise).
-- After changing the bank: `node tools/meta-counts.js` (counts and stamps in `meta.json`).
+- After changing the bank or adding a tournament: `node tools/meta-counts.js` (counts and stamps in `meta.json`, and the question and tournament counts on the home page; `npm test` fails if any is stale).
 - Local server: `python3 -m http.server 8000`.
 
 ## Conventions

@@ -54,7 +54,7 @@ Every page shares one navbar, laid out like QB Reader's: the **SB**Reader wordma
 Every page has one main heading (`<h1>`) for screen readers and search engines. Where the page shows no title of its own, the heading names the page and isn't shown (`class="visually-hidden"`, `id="pageHeading"`); the set, packet and frequency-list pages fill in the set, packet or subject. `tests/page-heads.test.js` checks every page has exactly one.
 
 ### `index.html` (Home)
-A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer, and a Tips & Instructions button), the question database (live question and tournament counts read from `meta.json` alone, with Search and Set List), the sources, and the code, changelog and licence. Once the page has loaded and the browser is idle, it prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
+A welcome line and four cards, as on QB Reader's home page: the question reader (Play, Multiplayer, and a Tips & Instructions button), the question database (the number of questions and tournaments, written into the page by `node tools/meta-counts.js` so it shows them without downloading anything, with Search and Set List), the sources, and the code, changelog and licence. The page itself loads no question data: once it has loaded and the browser is idle, it reads `meta.json` and prefetches the question bank's files into the browser cache at low priority, so the page you open next doesn't wait for the download (skipped when the browser reports Save-Data or a 2G connection).
 
 ### `about.html` (About), `tips.html` (Tips & Instructions) and `set-list.html` (Set List)
 Tips & Instructions is laid out like QB Reader's: a heading and lead line, then cards two to a row (one on a phone), each a short list: Getting Started, Searching the Database, Accounts & Progress, Help & Community, and Multiplayer. Grading is on About, which it links. (The keyboard shortcuts are listed in Play's and Multiplayer's sidebars, not on About.) The home page's Sources card (a blue Tips & Instructions button, as on QB Reader) and the About page link to it.
@@ -249,11 +249,12 @@ data/source-subjects.json   the subject each question's packet prints (checked b
 data/subject-overrides.json questions deliberately filed under a different subject than their packet prints
 tools/bank.js       converts the bank to and from one flat list of records, for editing
 tools/packet-locations.js   finds each question's page (PDF) or line (GitHub text) in its packet, for the pg field
-tools/meta-counts.js refreshes each tournament's question, tossup, bonus and packet counts in meta.json
+tools/meta-counts.js refreshes each tournament's question, tossup, bonus and packet counts in meta.json, the total, and the counts on the home page
 tools/link-sweep.js find the published packet (or tournament folder) for questions with no link, in public Drive archives
 tools/subject-audit.js   checks each question's subject, type and number against its packet; records the printed subject in data/source-subjects.json
 tools/stamp-assets.js   stamps each page's script and stylesheet links with a hash of the file (js/x.js?v=…), so a deploy never pairs a new page with a cached old script; run it after changing any .js or .css (npm test checks)
 tools/build-pages.js    builds a static page for every set and packet, and the full sitemap (run by the deploy)
+tools/load-audit.js     times every page's first load on a slow phone or desktop connection (docs/audit/load-time-2026-11.md)
 tools/key-conflicts.js     lists questions that read almost the same but are keyed differently, for finding wrong keys (each pair needs reading)
 tools/grader-stress.js     types variants of a random sample of keys (lower case, a full stop, junk words, typos, a changed digit, a dropped word, other MC letters) and lists any graded against the rules in Answer grading
 tools/override-report.js   the "I was right" clicks regraded with today's grader: what it still marks wrong, most clicked first (see Reports)

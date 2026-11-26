@@ -62,6 +62,13 @@ test('ids are unique, and meta.json\'s counts (total, and per set: questions, to
   assert.deepStrictEqual(stale, [], 'run node tools/meta-counts.js');
 });
 
+test('the home page shows the bank\'s question and tournament counts (node tools/meta-counts.js)', () => {
+  const { expectedHome } = require('../tools/meta-counts.js');
+  const home = require('fs').readFileSync(require('path').join(__dirname, '..', 'index.html'), 'utf8');
+  assert.match(home, new RegExp(`${raw.length.toLocaleString('en-US')} Science Bowl questions from ${meta.tournaments.length} tournaments`));
+  assert.strictEqual(home, expectedHome(home, meta), 'run node tools/meta-counts.js');
+});
+
 test('bookmark aliases point at questions that exist', () => {
   const ids = new Set(raw.map((q) => q.i));
   const broken = Object.entries(meta.idAliases || {}).filter(([, to]) => !ids.has(to)).slice(0, 10);

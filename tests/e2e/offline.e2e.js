@@ -34,14 +34,16 @@ async function visitAndSave(ctx, bankShare) {
   page.errors = [];
   page.on('pageerror', (e) => page.errors.push(e.message));
   await page.goto(base, { waitUntil: 'load' });
-  const saved = (share) => page.evaluate(async (want) => {
-    if (!window.SBData || !SBData.meta) return false;
+  // (The home page loads no question data of its own, so the bank's
+  // addresses are worked out from meta.json here, as SBData.bankUrls does.)
+  const meta = await page.evaluate(() => fetch('data/meta.json').then((r) => r.json()));
+  const saved = (share) => page.evaluate(async ([want, tournaments]) => {
     const c = await caches.open('sbreader-v1');
     const keys = new Set((await c.keys()).map((r) => r.url));
     const pages = ['', 'solo', 'database', 'multiplayer', 'offline'].map((p) => location.origin + '/' + p);
-    const bank = SBData.bankUrls(SBData.meta).map((u) => new URL(u, location.href).href);
+    const bank = tournaments.map((t) => new URL('data/bank/' + t.slug + '.json' + (t.v ? '?v=' + t.v : ''), location.href).href);
     return pages.every((p) => keys.has(p)) && bank.filter((u) => keys.has(u)).length >= Math.floor(bank.length * want);
-  }, share);
+  }, [share, meta.tournaments]);
   const until = Date.now() + 120000;
   while (!(await saved(bankShare))) {
     assert.ok(Date.now() < until, 'the site was saved for offline use');

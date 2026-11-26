@@ -1,6 +1,8 @@
 /* Refreshes each tournament's counts in data/meta.json from the bank:
    count (questions), tossups, bonuses and packets (distinct round labels),
-   which the Set List shows.
+   which the Set List shows, and the total. It also writes the number of
+   questions and tournaments into the home page (index.html, #tagline),
+   which shows them without loading meta.json.
 
      node tools/meta-counts.js            rewrite data/meta.json
      node tools/meta-counts.js --check    exit 1 if anything is out of date */
@@ -10,6 +12,7 @@ const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
 const META = path.join(ROOT, 'data', 'meta.json');
+const HOME = path.join(ROOT, 'index.html');
 const { readBank } = require(path.join(ROOT, 'tools', 'bank.js'));
 
 function countsFor(packets) {
@@ -37,11 +40,23 @@ function fileStamp(rel) {
 
 function expectedMeta(meta) {
   const bank = new Map(readBank(meta).map((b) => [b.slug, b.packets]));
+  const tournaments = meta.tournaments.map((t) => ({ ...t, ...countsFor(bank.get(t.slug) || []), v: fileStamp(`data/bank/${t.slug}.json`) }));
   return {
     ...meta,
+    totalQuestions: tournaments.reduce((n, t) => n + t.count, 0),
     bankIndex: fileStamp('data/bank/index.json'),
-    tournaments: meta.tournaments.map((t) => ({ ...t, ...countsFor(bank.get(t.slug) || []), v: fileStamp(`data/bank/${t.slug}.json`) })),
+    tournaments,
   };
+}
+
+// The home page's Question Database line, with the counts in it.
+const TAGLINE_RE = /<p id="tagline">[^<]*<\/p>/;
+function homeTagline(meta) {
+  return `<p id="tagline">A searchable database of ${meta.totalQuestions.toLocaleString('en-US')} Science Bowl questions from ${meta.tournaments.length} tournaments, from regionals and nationals to invitationals and school-team practice sets.</p>`;
+}
+function expectedHome(html, meta) {
+  if (!TAGLINE_RE.test(html)) throw new Error('index.html has no <p id="tagline">');
+  return html.replace(TAGLINE_RE, () => homeTagline(meta));
 }
 
 // meta.json is written the way Python's json.dumps writes it (", " and
@@ -53,7 +68,7 @@ function pyJson(v) {
   return JSON.stringify(v);
 }
 
-module.exports = { countsFor, expectedMeta, fileStamp, pyJson };
+module.exports = { countsFor, expectedMeta, expectedHome, fileStamp, pyJson };
 
 if (require.main === module) {
   const text = fs.readFileSync(META, 'utf8');
@@ -61,11 +76,16 @@ if (require.main === module) {
   const next = expectedMeta(meta);
   const stale = meta.tournaments.filter((t, i) => ['count', 'tossups', 'bonuses', 'packets', 'v'].some((k) => t[k] !== next.tournaments[i][k]));
   if (meta.bankIndex !== next.bankIndex) stale.push({ slug: 'index.json' });
+  if (meta.totalQuestions !== next.totalQuestions) stale.push({ slug: 'totalQuestions' });
+  const home = fs.readFileSync(HOME, 'utf8');
+  const nextHome = expectedHome(home, next);
+  if (home !== nextHome) stale.push({ slug: 'the home page (index.html)' });
   if (process.argv.includes('--check')) {
     if (stale.length) { console.error('Out of date:', stale.map((t) => t.slug).join(', ')); process.exit(1); }
-    console.log('meta.json counts are up to date.');
+    console.log('meta.json counts and the home page are up to date.');
   } else {
     fs.writeFileSync(META, pyJson(next) + (text.endsWith('\n') ? '\n' : ''));
-    console.log(`Updated ${stale.length} tournament(s).`);
+    fs.writeFileSync(HOME, nextHome);
+    console.log(`Updated ${stale.length} item(s): ${stale.map((t) => t.slug).join(', ') || 'none'}.`);
   }
 }
