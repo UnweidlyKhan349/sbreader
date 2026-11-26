@@ -2047,7 +2047,10 @@
       // if there isn't room on the left.
       menu.classList.remove('dropdown-menu-start-fallback');
       if (menu.getBoundingClientRect().left < 8) menu.classList.add('dropdown-menu-start-fallback');
-      setTimeout(() => search.focus(), 0);
+      // Each opening starts at the top of the list, not wherever it was
+      // scrolled to last time.
+      menu.scrollTop = 0;
+      setTimeout(() => search.focus({ preventScroll: true }), 0);
     }
     function closeMenu() {
       menu.classList.remove('show');
