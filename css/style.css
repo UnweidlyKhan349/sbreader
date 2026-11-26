@@ -244,6 +244,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    square corners, filled red when on. */
 .chip[data-subject] { --chip-color: var(--bs-danger); border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
 .chip[data-subject].active { color: #fff; }
+/* No darker fill on hover either, as on Play's subject buttons: only clicking
+   turns a subject on or off. (Removed on November 26, 2026; the darkening
+   came in with the Bootstrap restyle on November 4, 2026.) */
+.chip[data-subject].active:hover { filter: none; }
 
 /* ---------------- Badges for subject / type / format ---------------- */
 .tag {

@@ -391,3 +391,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Multiplayer's lobby is quicker on a slow connection**: the question bank downloads behind the lobby's own files and the room list, at low priority, until you join a room.
 - **Every page with questions starts sooner**: the list of old question ids (for moving stars off removed duplicates) is no longer part of `meta.json`, which shrank from 97 KB to 23 KB; it's downloaded only by visitors with starred questions and on Stats.
 - **Pages draw sooner**: Bootstrap's stylesheet comes from the site itself instead of a CDN, so the browser doesn't have to open a second connection before it can draw anything.
+- Database: a selected subject box no longer turns a darker red on hover, as in Play; only clicking turns a subject on or off.
