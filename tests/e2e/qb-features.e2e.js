@@ -107,7 +107,10 @@ test('Login: the eye shows the password and turns into a crossed-out eye, which 
   assert.strictEqual(await btn.getAttribute('aria-label'), 'Hide password');
   assert.notStrictEqual(await icon(), eye, 'the icon changes');
   // As on QB Reader, the button keeps its outline look (not filled gray) once the pointer leaves it.
+  // (Bootstrap fades a button's background over 0.15 s, so this waits for
+  // the fade to end rather than reading it halfway.)
   await page.mouse.move(0, 0);
+  await btn.evaluate((b) => new Promise((done) => setTimeout(done, 400)));
   assert.strictEqual(await btn.evaluate((b) => getComputedStyle(b).backgroundColor), 'rgba(0, 0, 0, 0)');
   assert.strictEqual(await btn.getAttribute('aria-pressed'), 'true');
   await btn.click();
