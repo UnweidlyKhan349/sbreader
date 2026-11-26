@@ -395,4 +395,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - The tournament, packet and level pickers open scrolled to the top each time, instead of where you left it.
 - Links no longer underline when you hover over them, as on QB Reader; they only change colour. This includes the theme button in the navbar, which used to underline.
 - Tournament, packet and level pickers: hovering over the label or the arrow outlines it in the text colour, as on QB Reader.
-- Checkboxes, radio buttons and switches, and their labels, show the hand cursor when you point at them.
+- Checkboxes, radio buttons and switches (and their labels) and dropdown lists show the hand cursor when you point at them.

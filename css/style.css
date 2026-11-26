@@ -529,6 +529,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
    cursor, since clicking either one flips them. Not when they're disabled. */
 .form-check-input, .form-check-label { cursor: pointer; }
 .form-check-input:disabled, .form-check-input:disabled ~ .form-check-label { cursor: default; }
+/* Dropdown lists too (Play's mode list): clicking anywhere on one opens it. */
+select { cursor: pointer; }
+select:disabled { cursor: default; }
 .history-card .card-header-clickable { flex: 1; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }
