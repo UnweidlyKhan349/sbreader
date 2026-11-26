@@ -391,6 +391,8 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - **Multiplayer's lobby is quicker on a slow connection**: the question bank downloads behind the lobby's own files and the room list, at low priority, until you join a room.
 - **Every page with questions starts sooner**: the list of old question ids (for moving stars off removed duplicates) is no longer part of `meta.json`, which shrank from 97 KB to 23 KB; it's downloaded only by visitors with starred questions and on Stats.
 - **Pages draw sooner**: Bootstrap's stylesheet comes from the site itself instead of a CDN, so the browser doesn't have to open a second connection before it can draw anything.
-- Database: a selected subject box no longer turns a darker red on hover, as in Play; only clicking turns a subject on or off.
+- Database: a selected filter box (a subject, Toss-up, Bonus, a format, a level, Visual or Text only) no longer turns darker on hover, as Play's subject buttons don't; only clicking turns it on or off.
 - The tournament, packet and level pickers open scrolled to the top each time, instead of where you left it.
 - Links no longer underline when you hover over them, as on QB Reader; they only change colour. This includes the theme button in the navbar, which used to underline.
+- Tournament, packet and level pickers: hovering over the label or the arrow outlines it in the text colour, as on QB Reader.
+- Checkboxes, radio buttons and switches, and their labels, show the hand cursor when you point at them.

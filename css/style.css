@@ -185,6 +185,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .dropdown-checklist { --dropdown-checklist-border-color: #ced4da; }
 [data-bs-theme=dark] .dropdown-checklist { --dropdown-checklist-border-color: #6c757d; }
 .dropdown-checklist button { border-color: var(--dropdown-checklist-border-color); --bs-btn-hover-border-color: var(--dropdown-checklist-border-color); }
+/* Hovering over the label or the caret outlines that button in the text
+   colour (dark in Light, light grey in Night), as on QB Reader. */
+.dropdown-checklist > button { --bs-btn-hover-border-color: currentColor; }
 .dropdown-checklist-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .checkbox-menu {
   background-color: #fff !important; color-scheme: light; max-height: min(60vh, 26rem); overflow-y: auto;
@@ -241,15 +244,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .filter-chip-groups .chip-row { flex-wrap: nowrap; }
 .filter-chip-groups .chip { flex: 1 1 0; justify-content: center; text-align: center; white-space: nowrap; }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
-.chip.active:hover { filter: brightness(.92); color: #fff; }
+/* A box that's on keeps its colour on hover: only clicking changes it.
+   (It darkened on hover until November 26, 2026.) */
+.chip.active:hover { color: #fff; }
 /* Subject chips are QB Reader's category boxes, as in Play: red outline,
    square corners, filled red when on. */
 .chip[data-subject] { --chip-color: var(--bs-danger); border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
 .chip[data-subject].active { color: #fff; }
-/* No darker fill on hover either, as on Play's subject buttons: only clicking
-   turns a subject on or off. (Removed on November 26, 2026; the darkening
-   came in with the Bootstrap restyle on November 4, 2026.) */
-.chip[data-subject].active:hover { filter: none; }
 
 /* ---------------- Badges for subject / type / format ---------------- */
 .tag {
@@ -524,6 +525,10 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */
 .clickable { cursor: pointer; }
+/* Checkboxes, radio buttons and switches, and their labels, show the hand
+   cursor, since clicking either one flips them. Not when they're disabled. */
+.form-check-input, .form-check-label { cursor: pointer; }
+.form-check-input:disabled, .form-check-input:disabled ~ .form-check-label { cursor: default; }
 .history-card .card-header-clickable { flex: 1; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }
