@@ -397,3 +397,5 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Tournament, packet and level pickers: hovering over the label or the arrow outlines it in the text colour, as on QB Reader.
 - Checkboxes, radio buttons and switches (and their labels) and dropdown lists show the hand cursor when you point at them.
 - Question bank: 50 questions whose answer is an explanation in a sentence ("What is the use of hygroscopic nuclei?") removed, and 99 keys that wrap a fact in a sentence cut down to the fact, so typing "decrease" for "IT WILL DECREASE" is now right. See the data history.
+- A first visit follows your device's light or dark setting (Auto), as QB Reader does, instead of always starting in Light.
+- Night: the tournament, packet and level pickers' lists are dark grey instead of white.

@@ -206,6 +206,17 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .checkbox-menu-tools .form-control { background: #fff; color: #333; border-color: #ced4da; }
 .checkbox-menu-tools .btn-link { color: #0d6efd; }
 .checkbox-menu-empty { padding: 3px 10px; color: #6c757d; font-size: .875rem; }
+/* Night: the same list in dark grey (QB Reader keeps it white). A ticked row
+   is a dark lavender, lighter on hover, as the white list's lavender is. */
+[data-bs-theme=dark] .checkbox-menu { background-color: #2d2d2d !important; color-scheme: dark; --bs-dropdown-border-color: #555; }
+[data-bs-theme=dark] .checkbox-menu li label { color: #e0e0e0; }
+[data-bs-theme=dark] .checkbox-menu li label:hover, [data-bs-theme=dark] .checkbox-menu li label:focus { background-color: #3a3a3a; }
+[data-bs-theme=dark] .checkbox-menu li.active label { background-color: #3d3d75; }
+[data-bs-theme=dark] .checkbox-menu li.active label:hover, [data-bs-theme=dark] .checkbox-menu li.active label:focus { background-color: #4a4a8c; }
+[data-bs-theme=dark] .checkbox-menu-tools { background: #2d2d2d; }
+[data-bs-theme=dark] .checkbox-menu-tools .form-control { background: #222; color: #e0e0e0; border-color: #555; }
+[data-bs-theme=dark] .checkbox-menu-tools .btn-link { color: var(--bs-link-color); }
+[data-bs-theme=dark] .checkbox-menu-empty { color: #adb5bd; }
 
 /* ---------------- Filter toggles ---------------- */
 /* A .chip is a small outline button that fills in when it's on. Built by

@@ -1947,8 +1947,8 @@
     const menu = document.createElement('ul');
     menu.className = 'dropdown-menu dropdown-menu-end checkbox-menu allow-focus';
     menu.setAttribute('data-bs-popper', 'static');
-    // White in both themes, as QB Reader's is.
-    menu.setAttribute('data-bs-theme', 'light');
+    // It follows the page's theme: white in Light, dark grey in Night. (It
+    // was white in both, as QB Reader's is, until November 26, 2026.)
     // The <select> goes last, so Bootstrap's button-group corners still see
     // the two buttons as the first pair.
     wrap.append(labelBtn, caretBtn, menu, selectEl);

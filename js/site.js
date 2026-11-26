@@ -18,9 +18,11 @@
       const v = localStorage.getItem(KEY);
       if (THEMES.includes(v)) return v;
     } catch (e) { /* storage blocked: fall through to the default */ }
-    // A first visit (nothing saved) starts in Light, as QB Reader does;
-    // Auto and Night stay a click away.
-    return 'light';
+    // A first visit (nothing saved) follows the device's setting, as QB
+    // Reader does: Night on a device set to dark mode. The theme menu shows
+    // Auto until Light or Night is picked. (Light every time from November 7
+    // to November 26, 2026.)
+    return 'auto';
   }
   function resolved(theme) {
     if (theme === 'auto') return darkQuery && darkQuery.matches ? 'dark' : 'light';
