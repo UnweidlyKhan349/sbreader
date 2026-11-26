@@ -1572,7 +1572,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7013","q":[
 {"i":93809,"s":"phys","f":"MC","qt":"tossup","n":546,"q":"Helmholtz free energy is a thermodynamic potential measured at:","c":{"W":"constant pressure only","X":"constant temperature only","Y":"constant temperature and volume","Z":"constant temperature and pressure"},"a":{"t":"constant temperature and volume","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7013","q":[
-{"i":93810,"s":"phys","f":"SA","qt":"bonus","n":547,"q":"If the average speed of the particles in a gas is doubled, what is the change in radiated energy?","a":{"t":"IT INCREASES BY A FACTOR OF 256","ac":["256 TIMES","256"]}}]},
+{"i":93810,"s":"phys","f":"SA","qt":"bonus","n":547,"q":"If the average speed of the particles in a gas is doubled, what is the change in radiated energy?","a":{"t":"256 TIMES","ac":["256","IT INCREASES BY A FACTOR OF 256"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7014","q":[
 {"i":93811,"s":"phys","f":"MC","qt":"tossup","n":548,"q":"The hadronic force is also given what other name?","c":{"W":"strong force","X":"electroweak force","Y":"gravitational force","Z":"none of the above"},"a":{"t":"strong force","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7014","q":[
@@ -1610,7 +1610,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7022","q":[
 {"i":93828,"s":"phys","f":"SA","qt":"bonus","n":565,"q":"What term describes a variable that is independent of the path by which a system was brought to its current status?","a":{"t":"STATE FUNCTION","ac":["STATE VARIABLE"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7023","q":[
-{"i":93829,"s":"phys","f":"SA","qt":"tossup","n":566,"q":"A 5-kg ball and a 10-kg ball approach each other with velocities of 4 meters per second and 2 meters per second, respectively, from the perspective of some separate observer. After they collide inelastically, what are the final speeds of each of the balls?","a":{"t":"BOTH ARE STATIONARY","ac":["0","ZERO","BOTH ZERO"]}}]},
+{"i":93829,"s":"phys","f":"SA","qt":"tossup","n":566,"q":"A 5-kg ball and a 10-kg ball approach each other with velocities of 4 meters per second and 2 meters per second, respectively, from the perspective of some separate observer. After they collide inelastically, what are the final speeds of each of the balls?","a":{"t":"ZERO","ac":["0","BOTH ZERO","BOTH ARE STATIONARY","STATIONARY"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7023","q":[
 {"i":93830,"s":"phys","f":"SA","qt":"bonus","n":567,"q":"In an elastic collision, what two quantities must be conserved?","a":{"t":"KINETIC ENERGY AND MOMENTUM","ac":["MOMENTUM AND KINETIC ENERGY"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7024","q":[
@@ -3398,7 +3398,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7498","q":[
 {"i":94678,"s":"phys","f":"MC","qt":"tossup","n":1463,"q":"What is the name for the change in perceived gravitational force caused by the change in centrifugal acceleration?","c":{"W":"Gravity declination effect","X":"Einstein effect","Y":"Lorentz effect","Z":"Eötvös effect"},"a":{"t":"Eötvös effect","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7498","q":[
-{"i":94679,"s":"phys","f":"SA","qt":"bonus","n":1464,"q":"A man is stationary relative to the Earth and measures his weight to be W. If the man starts driving eastward, how will his new weight compare with his old weight?","a":{"t":"IT WILL BE SMALLER","ac":["SMALLER","LESS"]}}]},
+{"i":94679,"s":"phys","f":"SA","qt":"bonus","n":1464,"q":"A man is stationary relative to the Earth and measures his weight to be W. If the man starts driving eastward, how will his new weight compare with his old weight?","a":{"t":"SMALLER","ac":["LESS","LOWER","DECREASES","IT WILL BE SMALLER"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7499","q":[
 {"i":96388,"s":"phys","f":"MC","qt":"tossup","n":1465,"q":"What are the SI units of polarization?","c":{"W":"Volt / meters","X":"Volt / square meter","Y":"Coulomb / meter","Z":"Coulomb / square meter"},"a":{"t":"Coulomb / square meter","l":"Z"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7499","q":[
@@ -4040,7 +4040,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7675","q":[
 {"i":94977,"s":"phys","f":"MC","qt":"tossup","n":1787,"q":"Shot noise is a type of electronic noise caused by:","c":{"W":"The discrete nature of electric charge","X":"The small mass of electric charges","Y":"The electron’s size","Z":"The structure of the atom"},"a":{"t":"The discrete nature of electric charge","l":"W"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7675","q":[
-{"i":94978,"s":"phys","f":"SA","qt":"bonus","n":1788,"q":"Lanthanum hexaboride and cerium hexaboride are commonly used as the coating of some high-current cathodes for thermionic emission. Why are they used over other materials?","a":{"t":"THEY HAVE A LOW WORK FUNCTION","ac":["LOW WORK FUNCTION"]}}]},
+{"i":94978,"s":"phys","f":"SA","qt":"bonus","n":1788,"q":"Lanthanum hexaboride and cerium hexaboride are commonly used as the coating of some high-current cathodes for thermionic emission. Why are they used over other materials?","a":{"t":"LOW WORK FUNCTION","ac":["THEY HAVE A LOW WORK FUNCTION"]}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7676","q":[
 {"i":94979,"s":"phys","f":"SA","qt":"tossup","n":1789,"q":"What concept in particle physics combines and unifies isospins and flavor into a single charge?","a":{"t":"HYPERCHARGE"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7676","q":[
@@ -4110,7 +4110,7 @@
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/tossup/7694","q":[
 {"i":95012,"s":"phys","f":"MC","qt":"tossup","n":1822,"q":"If you quadruple the length of a pendulum of a grandfather clock, this will?","c":{"W":"quadruple the period","X":"double the frequency","Y":"double the period","Z":"have no effect"},"a":{"t":"double the period","l":"Y"}}]},
 {"rl":"Physics","r":null,"u":"https://scibowldb.com/bonus/7694","q":[
-{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"TO RECTIFY AC TO DC","ac":["RECTIFICATION","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]},
+{"i":95013,"s":"phys","f":"SA","qt":"bonus","n":1823,"q":"What is the primary use of a diode?","a":{"t":"RECTIFICATION","ac":["TO RECTIFY AC TO DC","RECTIFY","AC TO DC","TO LET CURRENT FLOW IN ONLY ONE DIRECTION"]}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/tossup/6456","q":[
 {"i":96300,"s":"energy","f":"MC","qt":"tossup","n":9,"q":"What fraction of the petroleum (oil) consumed in the United States is used for transportation?","c":{"W":"1/3","X":"1/2","Y":"3/4","Z":"9/10"},"a":{"t":"3/4","l":"Y"}}]},
 {"rl":"Energy","r":null,"u":"https://scibowldb.com/bonus/6456","q":[

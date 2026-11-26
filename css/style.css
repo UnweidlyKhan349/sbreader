@@ -81,9 +81,11 @@
 [data-bs-theme=dark] .pagination { --bs-pagination-active-bg: #375a7f; --bs-pagination-active-border-color: #375a7f; }
 [data-bs-theme=dark] .form-check-input:checked { background-color: #375a7f; border-color: #375a7f; }
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
-.btn:hover, .nav-link:hover, .dropdown-item:hover, #logo:hover { text-decoration: none; }
+/* Links aren't underlined, and hovering doesn't underline them either, as on
+   QB Reader: only the colour changes. (Underline on hover removed on
+   November 26, 2026.) Links that are always underlined, like a question
+   card's title, keep their underline. */
+a, .btn-link { text-decoration: none; }
 body { min-height: 100vh; }
 
 /* Catalog search-term highlight. */
@@ -183,6 +185,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .dropdown-checklist { --dropdown-checklist-border-color: #ced4da; }
 [data-bs-theme=dark] .dropdown-checklist { --dropdown-checklist-border-color: #6c757d; }
 .dropdown-checklist button { border-color: var(--dropdown-checklist-border-color); --bs-btn-hover-border-color: var(--dropdown-checklist-border-color); }
+/* Hovering over the label or the caret outlines that button in the text
+   colour (dark in Light, light grey in Night), as on QB Reader. */
+.dropdown-checklist > button { --bs-btn-hover-border-color: currentColor; }
 .dropdown-checklist-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .checkbox-menu {
   background-color: #fff !important; color-scheme: light; max-height: min(60vh, 26rem); overflow-y: auto;
@@ -201,6 +206,17 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .checkbox-menu-tools .form-control { background: #fff; color: #333; border-color: #ced4da; }
 .checkbox-menu-tools .btn-link { color: #0d6efd; }
 .checkbox-menu-empty { padding: 3px 10px; color: #6c757d; font-size: .875rem; }
+/* Night: the same list in dark grey (QB Reader keeps it white). A ticked row
+   is a dark lavender, lighter on hover, as the white list's lavender is. */
+[data-bs-theme=dark] .checkbox-menu { background-color: #2d2d2d !important; color-scheme: dark; --bs-dropdown-border-color: #555; }
+[data-bs-theme=dark] .checkbox-menu li label { color: #e0e0e0; }
+[data-bs-theme=dark] .checkbox-menu li label:hover, [data-bs-theme=dark] .checkbox-menu li label:focus { background-color: #3a3a3a; }
+[data-bs-theme=dark] .checkbox-menu li.active label { background-color: #3d3d75; }
+[data-bs-theme=dark] .checkbox-menu li.active label:hover, [data-bs-theme=dark] .checkbox-menu li.active label:focus { background-color: #4a4a8c; }
+[data-bs-theme=dark] .checkbox-menu-tools { background: #2d2d2d; }
+[data-bs-theme=dark] .checkbox-menu-tools .form-control { background: #222; color: #e0e0e0; border-color: #555; }
+[data-bs-theme=dark] .checkbox-menu-tools .btn-link { color: var(--bs-link-color); }
+[data-bs-theme=dark] .checkbox-menu-empty { color: #adb5bd; }
 
 /* ---------------- Filter toggles ---------------- */
 /* A .chip is a small outline button that fills in when it's on. Built by
@@ -239,7 +255,9 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .filter-chip-groups .chip-row { flex-wrap: nowrap; }
 .filter-chip-groups .chip { flex: 1 1 0; justify-content: center; text-align: center; white-space: nowrap; }
 .chip.active { background: var(--chip-color); border-color: var(--chip-color); color: #fff; }
-.chip.active:hover { filter: brightness(.92); color: #fff; }
+/* A box that's on keeps its colour on hover: only clicking changes it.
+   (It darkened on hover until November 26, 2026.) */
+.chip.active:hover { color: #fff; }
 /* Subject chips are QB Reader's category boxes, as in Play: red outline,
    square corners, filled red when on. */
 .chip[data-subject] { --chip-color: var(--bs-danger); border-color: var(--chip-color); color: var(--chip-color); border-radius: 0; }
@@ -304,8 +322,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 .filter-checkbox-label { font-size: 1rem; }
 
-.btn-link { text-decoration: none; }
-.btn-link:hover { text-decoration: underline; }
 .filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; flex-wrap: wrap; gap: .5rem; }
 .filter-actions { display: flex; gap: .5rem; }
 
@@ -520,6 +536,13 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */
 .clickable { cursor: pointer; }
+/* Checkboxes, radio buttons and switches, and their labels, show the hand
+   cursor, since clicking either one flips them. Not when they're disabled. */
+.form-check-input, .form-check-label { cursor: pointer; }
+.form-check-input:disabled, .form-check-input:disabled ~ .form-check-label { cursor: default; }
+/* Dropdown lists too (Play's mode list): clicking anywhere on one opens it. */
+select { cursor: pointer; }
+select:disabled { cursor: default; }
 .history-card .card-header-clickable { flex: 1; }
 .star-question { display: inline-flex; align-items: center; line-height: 1.5; }
 .star-question svg { display: block; }

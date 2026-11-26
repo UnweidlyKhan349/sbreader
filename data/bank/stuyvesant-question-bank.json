@@ -167,8 +167,7 @@
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/pre-parsing/Questions.csv?plain=1","q":[
 {"i":98462,"s":"bio","f":"SA","qt":"tossup","n":73,"q":"What are the 5 senses?","a":{"t":"Taste smell sight hearing touch"},"pg":265},
 {"i":98463,"s":"bio","f":"SA","qt":"bonus","n":73,"q":"What is an important component to \"taste\"?","a":{"t":"Smell!"},"pg":265},
-{"i":98464,"s":"bio","f":"SA","qt":"tossup","n":74,"q":"What is the material that makes up part of your nose and ears?","a":{"t":"Cartilage"},"pg":266},
-{"i":98465,"s":"bio","f":"SA","qt":"bonus","n":74,"q":"How does one acquire an infection of the ear?","a":{"t":"By a virus","ac":["bacteria"]},"pg":266}]},
+{"i":98464,"s":"bio","f":"SA","qt":"tossup","n":74,"q":"What is the material that makes up part of your nose and ears?","a":{"t":"Cartilage"},"pg":266}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
 {"i":98119,"s":"bio","f":"SA","qt":"tossup","n":75,"q":"What hormone regulates sleep cycles?","a":{"t":"Melatonin"},"pg":14},
 {"i":98120,"s":"bio","f":"SA","qt":"bonus","n":75,"q":"What blood type is considered the universal donor?","a":{"t":"O-","ac":["O-neg","O-negative"]},"pg":14}]},
@@ -359,10 +358,8 @@
 {"i":98590,"s":"bio","f":"SA","qt":"bonus","n":163,"q":"What enzyme catalyses the removal of electrons?","a":{"t":"oxidase"},"pg":649}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
 {"i":98194,"s":"bio","f":"MC","qt":"tossup","n":164,"q":"How is the lagging strand of DNA synthesised during DNA replication?","c":{"W":"Semi-conservatively","X":"Okazaki Fragments","Y":"With topoisomerase","Z":"Continuously"},"a":{"t":"Okazaki Fragments","l":"X"},"pg":132},
-{"i":98195,"s":"bio","f":"SA","qt":"bonus","n":164,"q":"What is the purpose of topoisomerase?","a":{"t":"Ensure that DNA isn't wound to tightly"},"pg":132},
-{"i":98196,"s":"bio","f":"SA","qt":"tossup","n":165,"q":"What is the purpose of SSBs (single strand binding proteins) in DNA replication?","a":{"t":"To prevent hybridisation of original parent strands"},"pg":200},
 {"i":98197,"s":"bio","f":"SA","qt":"bonus","n":165,"q":"What is the origin of replication called?","a":{"t":"Ori"},"pg":200},
-{"i":98198,"s":"bio","f":"SA","qt":"tossup","n":166,"q":"What determines the properties of an amino acid?","a":{"t":"Its variable R group"},"pg":261}]},
+{"i":98198,"s":"bio","f":"SA","qt":"tossup","n":166,"q":"What determines the properties of an amino acid?","a":{"t":"R GROUP","ac":["ITS VARIABLE R GROUP","VARIABLE R GROUP","SIDE CHAIN"]},"pg":261}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl","q":[
 {"i":98199,"s":"bio","f":"SA","qt":"bonus","n":166,"q":"Which of the 20 common amino acids can form disulfide bridges?","a":{"t":"Cysteine"}}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
@@ -395,7 +392,7 @@
 {"i":98215,"s":"bio","f":"SA","qt":"bonus","n":178,"q":"How many carbons does ribulose bisphosphate have?","a":{"t":"5"},"pg":189}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/pre-parsing/Questions.csv?plain=1","q":[
 {"i":98481,"s":"bio","f":"SA","qt":"bonus","n":179,"q":"What hormone maintains the thick lining of the uterus?","a":{"t":"Progesterone"},"pg":696},
-{"i":98482,"s":"bio","f":"SA","qt":"tossup","n":180,"q":"What do CFC's do to the environment?","a":{"t":"They destroy the ozone layer"},"pg":697},
+{"i":98482,"s":"bio","f":"SA","qt":"tossup","n":180,"q":"What do CFC's do to the environment?","a":{"t":"DESTROY THE OZONE LAYER","ac":["THEY DESTROY THE OZONE LAYER","OZONE DEPLETION","DEPLETE THE OZONE LAYER"]},"pg":697},
 {"i":98483,"s":"bio","f":"SA","qt":"bonus","n":180,"q":"Name three structures that are in plant cells but not animal cells.","a":{"t":"Chloroplasts, cell wall, and central vacuole"},"pg":697},
 {"i":98484,"s":"bio","f":"SA","qt":"tossup","n":181,"q":"Name three structures that are in animal cells but not plant cells.","a":{"t":"Centrioles, Flagella"},"pg":699},
 {"i":98486,"s":"bio","f":"SA","qt":"tossup","n":182,"q":"Name three structures in cells that have double membranes.","a":{"t":"Chloroplasts, mitochondria, and the nucleus"},"pg":700},
@@ -495,7 +492,7 @@
 {"i":98256,"s":"bio","f":"SA","qt":"bonus","n":222,"q":"The light reactions occur in which part of the chloroplast?","a":{"t":"the thylakoid","ac":["thylakoid membrane"]},"pg":23},
 {"i":98257,"s":"bio","f":"MC","qt":"tossup","n":223,"q":"Protein digestion in humans begins in the","c":{"W":"mouth","X":"stomach","Y":"small intestine","Z":"large intestine"},"a":{"t":"stomach","l":"X"},"pg":4},
 {"i":98258,"s":"bio","f":"SA","qt":"bonus","n":223,"q":"Which protein is responsible for protein digestion in the stomach?","a":{"t":"pepsin","rj":["pepsinogen"]},"pg":4},
-{"i":98259,"s":"bio","f":"SA","qt":"tossup","n":226,"q":"Why is oxygen required for cellular respiration?","a":{"t":"It is the final electron acceptor"},"pg":72}]},
+{"i":98259,"s":"bio","f":"SA","qt":"tossup","n":226,"q":"Why is oxygen required for cellular respiration?","a":{"t":"FINAL ELECTRON ACCEPTOR","ac":["IT IS THE FINAL ELECTRON ACCEPTOR","TERMINAL ELECTRON ACCEPTOR","ELECTRON ACCEPTOR"]},"pg":72}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/pre-parsing/Questions.csv?plain=1","q":[
 {"i":98520,"s":"bio","f":"SA","qt":"bonus","n":224,"q":"What type of acid do birds excrete?","a":{"t":"Uric acid"},"pg":855},
 {"i":98521,"s":"bio","f":"SA","qt":"tossup","n":225,"q":"What type of cell are chromosomes located in the nucleus?","a":{"t":"Eukaryotes"},"pg":856},
@@ -545,7 +542,7 @@
 {"i":98287,"s":"bio","f":"SA","qt":"tossup","n":244,"q":"Who discovered that DNA has equal amounts of adenine and thymine as well as equal amounts of guanine and cytosine?","a":{"t":"Erwin Chargaff","ac":["Chargaff"]},"pg":12},
 {"i":98288,"s":"bio","f":"SA","qt":"bonus","n":244,"q":"What method was used to obtain Photograph 51, which was used to determine the structure of DNA?","a":{"t":"X-ray diffraction"},"pg":12},
 {"i":98289,"s":"bio","f":"SA","qt":"tossup","n":245,"q":"Where in the DNA are short tandem repeats usually located?","a":{"t":"introns","ac":["noncoding DNA"]},"pg":34},
-{"i":98290,"s":"bio","f":"SA","qt":"bonus","n":245,"q":"Why do DNA molecules travel through the gel in gel electrophoresis?","a":{"t":"DNA has a negative charge"},"pg":34},
+{"i":98290,"s":"bio","f":"SA","qt":"bonus","n":245,"q":"Why do DNA molecules travel through the gel in gel electrophoresis?","a":{"t":"NEGATIVE CHARGE","ac":["DNA HAS A NEGATIVE CHARGE","NEGATIVELY CHARGED","DNA IS NEGATIVELY CHARGED"]},"pg":34},
 {"i":98291,"s":"bio","f":"MC","qt":"tossup","n":246,"q":"What stimulates root branching in plants?","c":{"W":"Gibberellin","X":"Auxin","Y":"Ethylene","Z":"Cytokinin"},"a":{"t":"Auxin","l":"X"},"pg":125},
 {"i":98292,"s":"bio","f":"MC","qt":"bonus","n":246,"q":"A plant with low levels of gibberellin will have","c":{"W":"high levels of ethylene","X":"decreased levels of lignin","Y":"undeveloped leaves","Z":"decreased growth"},"a":{"t":"decreased growth","l":"Z"},"pg":125}]},
 {"rl":"Biology","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/pre-parsing/Questions.csv?plain=1","q":[
@@ -1188,7 +1185,7 @@
 {"i":99000,"s":"chem","f":"SA","qt":"bonus","n":133,"q":"Name all the atoms that are diatomic.","a":{"t":"HYDROGEN, NITROGEN, OXYGEN, FLUORINE, CHLORINE, BROMINE, IODINE"},"pg":294}]},
 {"rl":"Chemistry","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
 {"i":99192,"s":"chem","f":"SA","qt":"tossup","n":134,"q":"What property of elements did Mendeleev use to arrange the periodic table?","a":{"t":"Atomic Mass"},"pg":519},
-{"i":99193,"s":"chem","f":"SA","qt":"bonus","n":134,"q":"How did Moseley change the periodic table?","a":{"t":"He arranged the elements in increasing atomic numbers"},"pg":519},
+{"i":99193,"s":"chem","f":"SA","qt":"bonus","n":134,"q":"How did Moseley change the periodic table?","a":{"t":"BY ATOMIC NUMBER","ac":["ARRANGED BY ATOMIC NUMBER","ATOMIC NUMBER","INCREASING ATOMIC NUMBER","HE ARRANGED THE ELEMENTS IN INCREASING ATOMIC NUMBERS"]},"pg":519},
 {"i":99194,"s":"chem","f":"SA","qt":"tossup","n":136,"q":"Find the molecular geometry for a NH3 ion","a":{"t":"Trigonal Pyramidal"},"pg":382},
 {"i":99195,"s":"chem","f":"SA","qt":"bonus","n":136,"q":"State all the group numbers which consist of the representative elements.","a":{"t":"1,2,13,14,15,16,17, and 18","ac":["1-2","13-18"]},"pg":382}]},
 {"rl":"Chemistry","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
@@ -1402,7 +1399,6 @@
 {"i":99517,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"If planet A is twice as close to the sun as planet B, how many times brighter does the sun appear on planet A than planet B?","a":{"t":"4"},"pg":658}]},
 {"rl":"Earth and Space","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
 {"i":99275,"s":"ess","f":"SA","qt":"tossup","n":3,"q":"What is a front?","a":{"t":"boundary between two air masses"},"pg":577},
-{"i":99276,"s":"ess","f":"SA","qt":"bonus","n":3,"q":"How does a cold front form?","a":{"t":"cold air moves in and pushes warm air up"},"pg":577},
 {"i":99277,"s":"ess","f":"SA","qt":"tossup","n":4,"q":"What is the closest star to the solar system, 4.25 light years away from the sun?","a":{"t":"Proxima Centauri"},"pg":558},
 {"i":99278,"s":"ess","f":"SA","qt":"bonus","n":4,"q":"On approximately which two days of the Gregorian calendar do full moons most commonly appear?","a":{"t":"15th and 16th of each month"},"pg":558},
 {"i":99279,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"What is the speed of light in km/hr, in scientific notation, to 2 decimal places?","a":{"t":"1.08 × 10^9"},"pg":586},
@@ -1447,7 +1443,6 @@
 {"i":99305,"s":"ess","f":"SA","qt":"tossup","n":22,"q":"What is the US state with the most glaciers?","a":{"t":"Alaska"},"pg":545},
 {"i":99306,"s":"ess","f":"SA","qt":"bonus","n":22,"q":"How many glaciers are there in Hawaii rounded to the nearest 1000?","a":{"t":"0"},"pg":545},
 {"i":99307,"s":"ess","f":"MC","qt":"tossup","n":23,"q":"What happens as air rises?","c":{"W":"It gets warmer","X":"It gets colder","Y":"The temperature fluctuates","Z":"Nothing"},"a":{"t":"It gets colder","l":"X"},"pg":534},
-{"i":99308,"s":"ess","f":"SA","qt":"bonus","n":23,"q":"How are winds named?","a":{"t":"By the direction they are coming in"},"pg":534},
 {"i":99309,"s":"ess","f":"SA","qt":"tossup","n":24,"q":"What is the main driving force behind all erosion?","a":{"t":"Gravity"},"pg":547},
 {"i":99310,"s":"ess","f":"SA","qt":"bonus","n":24,"q":"What type of body of water causes erosion to happen quickly?","a":{"t":"fast flowing streams and rivers"},"pg":547},
 {"i":99311,"s":"ess","f":"SA","qt":"tossup","n":25,"q":"What determines a mineral's properties?","a":{"t":"The internal arrangement of its atoms"},"pg":582},
@@ -1790,7 +1785,7 @@
 {"i":99860,"s":"math","f":"SA","qt":"tossup","n":55,"q":"How many non empty subsets are there of the set {1,2,6,9}?","a":{"t":"15"},"pg":864},
 {"i":99861,"s":"math","f":"SA","qt":"bonus","n":55,"q":"What are the roots of x^4-5x^2+4?","a":{"t":"1,-1,2,-2"},"pg":864}]},
 {"rl":"Mathematics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
-{"i":99705,"s":"math","f":"SA","qt":"tossup","n":56,"q":"What are all the rational roots of the polynomial y^3 +10y^2+123y+5?","a":{"t":"There are none"},"pg":738},
+{"i":99705,"s":"math","f":"SA","qt":"tossup","n":56,"q":"What are all the rational roots of the polynomial y^3 +10y^2+123y+5?","a":{"t":"NONE","ac":["THERE ARE NONE","NO RATIONAL ROOTS"]},"pg":738},
 {"i":99706,"s":"math","f":"SA","qt":"bonus","n":56,"q":"What is the area of a equilateral triangle inscribed in a circle with a radius of 6?","a":{"t":"27√3","ac":["27 RADICAL 3"]},"pg":738}]},
 {"rl":"Mathematics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
 {"i":99862,"s":"math","f":"MC","qt":"tossup","n":57,"q":"What is the height of an equilateral triangle with side length 4?","c":{"W":"8","X":"4","Y":"2rad3","Z":"4rad3"},"a":{"t":"2rad3","l":"Y"},"pg":860},
@@ -1887,7 +1882,7 @@
 {"i":99754,"s":"math","f":"SA","qt":"bonus","n":99,"q":"What is the total surface area of a cone, given l as the slant height?","a":{"t":"(pi)r^2 + pi*r*l"},"pg":686},
 {"i":99755,"s":"math","f":"SA","qt":"tossup","n":100,"q":"What type of number is defined as a number that is not a root of a polynomial with rational coefficients?","a":{"t":"Transcendental numbers"},"pg":710},
 {"i":99756,"s":"math","f":"SA","qt":"bonus","n":100,"q":"Of the following, which of these numbers is transcendental? pi, e, i, phi, e times i, 2^(√2)","a":{"t":"pi, e, e times i, 2^(√2)"},"pg":710},
-{"i":99757,"s":"math","f":"SA","qt":"tossup","n":101,"q":"Given y = | x -6 |, what is the derivative at x = 6?","a":{"t":"The derivative does not exist"},"pg":694},
+{"i":99757,"s":"math","f":"SA","qt":"tossup","n":101,"q":"Given y = | x -6 |, what is the derivative at x = 6?","a":{"t":"DOES NOT EXIST","ac":["DNE","UNDEFINED","THE DERIVATIVE DOES NOT EXIST"]},"pg":694},
 {"i":99758,"s":"math","f":"SA","qt":"bonus","n":101,"q":"Find the derivative of x^3 / x^2","a":{"t":"1"},"pg":694},
 {"i":99759,"s":"math","f":"SA","qt":"tossup","n":102,"q":"Find the derivative of: 4x^3 + 18x + 2","a":{"t":"12x^2 + 18"},"pg":697},
 {"i":99760,"s":"math","f":"SA","qt":"bonus","n":102,"q":"At what point is the slope of the tangent line to the parabola y= 3x^2 + 5x + 23 equal to 0?","a":{"t":"(-5/6, 251/12)"},"pg":697},
@@ -1951,7 +1946,7 @@
 {"i":99790,"s":"math","f":"MC","qt":"tossup","n":133,"q":"Which of the following are prime factors of the number 5304?","c":{"W":"19","X":"7","Y":"5","Z":"13"},"a":{"t":"13","l":"Z"},"pg":845},
 {"i":99791,"s":"math","f":"SA","qt":"bonus","n":133,"q":"What integer satisfies the equation y = x^3 -1 when y = 0?","a":{"t":"x = 1"},"pg":845},
 {"i":99792,"s":"math","f":"SA","qt":"tossup","n":134,"q":"On which point does y = 10x + 8 and y = x + 5 intersect?","a":{"t":"( -1 / 3, 14 / 3 )"},"pg":734},
-{"i":99793,"s":"math","f":"SA","qt":"bonus","n":134,"q":"How many distinct roots does the cubic equation y = x^3 -4x^2 + 4x have?","a":{"t":"It has 2 roots"},"pg":734},
+{"i":99793,"s":"math","f":"SA","qt":"bonus","n":134,"q":"How many distinct roots does the cubic equation y = x^3 -4x^2 + 4x have?","a":{"t":"2","ac":["TWO","2 ROOTS","IT HAS 2 ROOTS"]},"pg":734},
 {"i":99794,"s":"math","f":"SA","qt":"tossup","n":135,"q":"What is the volume of a sphere if the radius is 7 inches? (use 22 / 7 for pi) You may either use fractions or decimals rounded to the nearest hundredth as your answer.","a":{"t":"4312/3 CUBIC INCHES","ac":["1437.33 CUBIC INCHES"]},"pg":861},
 {"i":99795,"s":"math","f":"SA","qt":"bonus","n":135,"q":"Find the surface area of a rectangular prism if the length is 2 inches, the width is 3 inches, and the height is 2 inches.","a":{"t":"32 square inches"},"pg":863}]},
 {"rl":"Mathematics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
@@ -2140,7 +2135,7 @@
 {"i":99857,"s":"math","f":"SA","qt":"tossup","n":224,"q":"Find x/y + y/x in simplest form if x=7 and y=3","a":{"t":"58/21"},"pg":737}]},
 {"rl":"Mathematics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
 {"i":100026,"s":"math","f":"MC","qt":"tossup","n":225,"q":"If there are 4 white marbles and 2 black marbles in a bag, what is the probability of pulling 2 white marbles in a row (without replacement)?","c":{"W":"1/3","X":"2/3","Y":"2/5","Z":"4/9"},"a":{"t":"2/5","l":"Y"},"pg":898},
-{"i":100027,"s":"math","f":"SA","qt":"bonus","n":225,"q":"What is the limit of n/3 as n approaches infinity?","a":{"t":"There is no limit"},"pg":898},
+{"i":100027,"s":"math","f":"SA","qt":"bonus","n":225,"q":"What is the limit of n/3 as n approaches infinity?","a":{"t":"DOES NOT EXIST","ac":["THERE IS NO LIMIT","NO LIMIT","DNE","INFINITY"]},"pg":898},
 {"i":100028,"s":"math","f":"SA","qt":"tossup","n":226,"q":"What is 27^1/3 (27 raised to the one-third power)","a":{"t":"3"},"pg":775},
 {"i":100029,"s":"math","f":"MC","qt":"tossup","n":227,"q":"Which of the following graphs passes through quadrant 1 and 2?","c":{"W":"x = 5","X":"x=5y","Y":"x^2 = y","Z":"y= -x(x-3)^2"},"a":{"t":"x^2 = y","l":"Y"},"pg":790},
 {"i":100030,"s":"math","f":"SA","qt":"bonus","n":227,"q":"What is the second term in the binomial expansion of (a + b)^5?","a":{"t":"5a^4b"},"pg":790}]},
@@ -2232,9 +2227,9 @@
 {"rl":"Physics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/Questions.csv?plain=1","q":[
 {"i":100106,"s":"phys","f":"SA","qt":"tossup","n":44,"q":"A car accelerates from rest at 4 m/s^2. What is the distance traveled by the car in 3 seconds?","a":{"t":"18 meters (m)"},"pg":964},
 {"i":100107,"s":"phys","f":"MC","qt":"bonus","n":44,"q":"A motor scooter travels east at a speed of 13 m/s. The driver then reverses direction and heads west at 17 m/s. What was the change in velocity of the scooter?","c":{"W":"13 m/s","X":"17 m/s","Y":"30 m/s","Z":"4 m/s"},"a":{"t":"30 m/s","l":"Y"},"pg":964},
-{"i":100108,"s":"phys","f":"SA","qt":"tossup","n":45,"q":"A car with a mass of one ton collides with a truck with a mass of ten tons. Which applies the greatest force on the other, in Newtons?","a":{"t":"They both apply an equal force"},"pg":924},
-{"i":100110,"s":"phys","f":"SA","qt":"tossup","n":46,"q":"If the acceleration is always perpendicular to an object's velocity, what can be deduced about the object's motion?","a":{"t":"It is circular motion"},"pg":979},
-{"i":100111,"s":"phys","f":"SA","qt":"bonus","n":46,"q":"If the acceleration of an object is opposite its velocity, what can be said about the object's velocity over time? Assume that the direction of the velocity is positive.","a":{"t":"It is decreasing"},"pg":979},
+{"i":100108,"s":"phys","f":"SA","qt":"tossup","n":45,"q":"A car with a mass of one ton collides with a truck with a mass of ten tons. Which applies the greatest force on the other, in Newtons?","a":{"t":"EQUAL","ac":["THEY BOTH APPLY AN EQUAL FORCE","EQUAL FORCE","SAME","NEITHER","BOTH EQUAL"]},"pg":924},
+{"i":100110,"s":"phys","f":"SA","qt":"tossup","n":46,"q":"If the acceleration is always perpendicular to an object's velocity, what can be deduced about the object's motion?","a":{"t":"CIRCULAR MOTION","ac":["IT IS CIRCULAR MOTION","CIRCULAR","UNIFORM CIRCULAR MOTION"]},"pg":979},
+{"i":100111,"s":"phys","f":"SA","qt":"bonus","n":46,"q":"If the acceleration of an object is opposite its velocity, what can be said about the object's velocity over time? Assume that the direction of the velocity is positive.","a":{"t":"DECREASING","ac":["IT IS DECREASING","DECREASES","SLOWING DOWN"]},"pg":979},
 {"i":100112,"s":"phys","f":"MC","qt":"bonus","n":47,"q":"As defined in physics, work is","c":{"W":"scalar quantity","X":"always a positive quantity","Y":"a vector quantity","Z":"always 0"},"a":{"t":"scalar quantity","l":"W"},"pg":951},
 {"i":100113,"s":"phys","f":"MC","qt":"tossup","n":48,"q":"A pendulum which is suspended from the ceiling of a railroad car is observed to hang at an angle of 10 degrees to the right of vertical. Which of the following answers could explain this phenomena?","c":{"W":"The railroad car is at rest","X":"The railroad car is accelerating to the left","Y":"The railroad car is accelerating to the right","Z":"Huh?"},"a":{"t":"The railroad car is accelerating to the left","l":"X"},"pg":1000},
 {"i":100114,"s":"phys","f":"MC","qt":"bonus","n":48,"q":"Two forces have magnitudes of 11 newtons and 5 newtons. The magnitude of their sum could NOT be equal to which of the following values?","c":{"W":"16","X":"5","Y":"9","Z":"7"},"a":{"t":"5","l":"X"},"pg":1001},
@@ -2447,7 +2442,7 @@
 {"i":100279,"s":"phys","f":"MC","qt":"tossup","n":157,"q":"The process in which an atom reradiates a photon after interacting with an incident photon of the same energy is called","c":{"W":"Cooleo Theorem","X":"the Cherenkov effect","Y":"Bragg's Law","Z":"Thomson scattering"},"a":{"t":"Thomson scattering","l":"Z"},"pg":1030},
 {"i":100280,"s":"phys","f":"MC","qt":"bonus","n":157,"q":"A protanomalous person has decreased sensitivity of the red cones in his or her eyes. Which of the following color pairs will this person have difficulty distinguishing between","c":{"W":"black and yellow","X":"blue green","Y":"purple blue","Z":"red and yellow"},"a":{"t":"purple blue","l":"Y"},"pg":1031},
 {"i":100281,"s":"phys","f":"MC","qt":"tossup","n":158,"q":"In a compound gearing arrangement where a 40-tooth gear drives an 80-tooth gear which is directly connected to a 50-tooth gear that drives a 100-tooth gear, the total reduction is a factor of","c":{"W":"2","X":"6","Y":"4","Z":"21"},"a":{"t":"4","l":"Y"},"pg":1007},
-{"i":100428,"s":"phys","f":"SA","qt":"tossup","n":160,"q":"If the distance between two objects is halved and the mass of one of them is doubled, what happens to the gravitational force between them?","a":{"t":"It increases by a factor of 8","ac":["8 times as strong","It is multiplied by 8","octupled"]},"pg":1027}]},
+{"i":100428,"s":"phys","f":"SA","qt":"tossup","n":160,"q":"If the distance between two objects is halved and the mass of one of them is doubled, what happens to the gravitational force between them?","a":{"t":"8 TIMES","ac":["8","OCTUPLED","8 TIMES AS STRONG","IT IS MULTIPLIED BY 8","INCREASES BY A FACTOR OF 8","IT INCREASES BY A FACTOR OF 8"]},"pg":1027}]},
 {"rl":"Physics","r":null,"u":"https://github.com/Stuyvesant-Science-Bowl/ScienceBowl/blob/801ec3afbe5937022a1664333999b0933c498944/old2/Questions.csv?plain=1","q":[
 {"i":100429,"s":"phys","f":"MC","qt":"bonus","n":160,"q":"Which of the following is NOT a factor that affects the force of gravity between them?","c":{"W":"The distance between them","X":"The mass of the more massive object","Y":"The density of the less massive object","Z":"The mass of the less massive object"},"a":{"t":"The density of the less massive object","l":"Y"},"pg":1005},
 {"i":100430,"s":"phys","f":"SA","qt":"tossup","n":161,"q":"When measured in meters, visible light has a wavelength with what order of magnitude?","a":{"t":"10^-7"},"pg":997},
@@ -2511,7 +2506,7 @@
 {"i":100313,"s":"phys","f":"SA","qt":"bonus","n":193,"q":"A force of 100 newtons is used to move an object a distance of 15 meters. Find the time the force is applied to achieve a power of 25 Watts.","a":{"t":"60 seconds"},"pg":1014},
 {"i":100314,"s":"phys","f":"SA","qt":"tossup","n":194,"q":"A bulldozer does 30,000 joules of work to push another boulder a distance of 20 meters. How much force is applied to push the boulder?","a":{"t":"1,500 N"},"pg":953},
 {"i":100315,"s":"phys","f":"SA","qt":"bonus","n":194,"q":"A 450-newton gymnast jumps upward a distance of 0.50 meters to reach the uneven parallel bars. How much work,in joules, did she do before she even began her routine?","a":{"t":"225"},"pg":953},
-{"i":100316,"s":"phys","f":"SA","qt":"tossup","n":195,"q":"A conveyor-belt, horizontally, moves a 600Kg bag a distance of 100 meters through the airport. How much work was done?","a":{"t":"No work was done"},"pg":1020},
+{"i":100316,"s":"phys","f":"SA","qt":"tossup","n":195,"q":"A conveyor-belt, horizontally, moves a 600Kg bag a distance of 100 meters through the airport. How much work was done?","a":{"t":"NONE","ac":["0","ZERO","NO WORK","NO WORK WAS DONE","0 JOULES"]},"pg":1020},
 {"i":100317,"s":"phys","f":"SA","qt":"bonus","n":195,"q":"A dryer has a power rating of 2500 watts. To dry a few towels this dryer uses 6,750,000 joules of energy. How long will it take to dry these towels, in minutes","a":{"t":"45 minutes"},"pg":1020},
 {"i":100318,"s":"phys","f":"SA","qt":"tossup","n":196,"q":"A 1-kilogram ball is thrown into the air with an initial velocity of 30 m/sec. How high in the air did it travel, assuming gravitational acceleration is 10m/s^2?","a":{"t":"45 meters"},"pg":915},
 {"i":100319,"s":"phys","f":"SA","qt":"bonus","n":196,"q":"What is the velocity of an 500-kilogram elevator that has 4,000 joules of energy?","a":{"t":"4 m/sec"},"pg":915},

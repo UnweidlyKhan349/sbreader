@@ -132,7 +132,7 @@
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4613","q":[
 {"i":95082,"s":"chem","f":"SA","qt":"tossup","n":3,"q":"The volume of a fixed amount of gas at constant pressure is directly proportional to the Kelvin temperature. What is this law also known as?","a":{"t":"CHARLES'S LAW","ac":["CHARLES' LAW","CHARLES LAW"]}}]},
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4613","q":[
-{"i":95083,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"When the pressure exerted by escaping molecules equals that exerted by molecules of the atmosphere, what happens in a liquid?","a":{"t":"IT BEGINS TO BOIL","ac":["IT BOILS","BOILING"]}}]},
+{"i":95083,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"When the pressure exerted by escaping molecules equals that exerted by molecules of the atmosphere, what happens in a liquid?","a":{"t":"BOILS","ac":["IT BOILS","BOILING","IT BEGINS TO BOIL"]}}]},
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4614","q":[
 {"i":95084,"s":"ess","f":"SA","qt":"tossup","n":5,"q":"What is the unit used to measure the ozone layer?","a":{"t":"Dobson Unit"}}]},
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4614","q":[
@@ -376,7 +376,7 @@
 {"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4680","q":[
 {"i":95197,"s":"chem","f":"SA","qt":"bonus","n":6,"q":"An organic compound exhibiting a positive, or clockwise, rotation is known as what?","a":{"t":"DEXTROROTATORY"}}]},
 {"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4681","q":[
-{"i":96124,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the charge and mass of a photon?","a":{"t":"BOTH ARE ZERO","ac":["ZERO","0"]}}]},
+{"i":96124,"s":"phys","f":"SA","qt":"tossup","n":7,"q":"What is the charge and mass of a photon?","a":{"t":"ZERO","ac":["0","BOTH ARE ZERO","BOTH ZERO"]}}]},
 {"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4681","q":[
 {"i":95198,"s":"phys","f":"SA","qt":"bonus","n":8,"q":"A football player running south at 10 m/s and weighing 100 kg collides with another football player running north at 10 m/s weighing 50 kg. Assuming this is an inelastic collision, in which direction do the players move and at what speed?","a":{"t":"SOUTH AT 3.3 M/S","ac":["10/3 M/S SOUTH","3.3 M/S SOUTH"]}}]},
 {"rl":"Aug 25 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4682","q":[
@@ -625,8 +625,6 @@
 {"i":95308,"s":"chem","f":"SA","qt":"bonus","n":10,"q":"The sign of the free energy change for spontaneous reactions is:","a":{"t":"Negative"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4752","q":[
 {"i":95309,"s":"ess","f":"SA","qt":"tossup","n":1,"q":"What is the end fate in the life cycle of a star two times the mass of the Sun?","a":{"t":"WHITE DWARF"}}]},
-{"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4752","q":[
-{"i":95310,"s":"ess","f":"SA","qt":"bonus","n":2,"q":"Why is it that no black dwarfs are expected to exist in the universe yet?","a":{"t":"The universe is too young for any to have cooled that far","ac":["WHITE DWARFS TAKE LONGER THAN THE AGE OF THE UNIVERSE TO COOL"]}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/tossup/4753","q":[
 {"i":95311,"s":"bio","f":"SA","qt":"tossup","n":3,"q":"Which of the following cell structures are made up of the 9 + 2 pattern of microtubules. This means 9 doublets of microtubules. 1) Cilia 2) Centriole 3) Flagella","a":{"t":"1 and 3"}}]},
 {"rl":"Jul 28 · WWP South","r":null,"u":"https://scibowldb.com/bonus/4753","q":[
@@ -1091,8 +1089,6 @@
 {"i":96164,"s":"phys","f":"MC","qt":"bonus","n":12,"q":"Which of the following isotopes is not fissile?","c":{"W":"Uranium-233","X":"Uranium-235","Y":"Plutonium-240","Z":"Plutonium-241"},"a":{"t":"Plutonium-240","l":"Y"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4886","q":[
 {"i":95520,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"The musculoskeletal injury known as Game Keeper’s Thumb or Skier’s Thumb mainly involves a tear to which structure?","c":{"W":"Abductor pollicis muscle","X":"Proximal phalanx","Y":"Metacarpophalangeal joint","Z":"Ulnar collateral ligament"},"a":{"t":"Ulnar collateral ligament","l":"Z"}}]},
-{"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4886","q":[
-{"i":95521,"s":"bio","f":"SA","qt":"bonus","n":2,"q":"What is the difference between strains and sprains?","a":{"t":"Strains are stretching/tearing of muscles; sprains are stretching/tearing of ligaments"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4887","q":[
 {"i":96165,"s":"ess","f":"MC","qt":"tossup","n":3,"q":"Which of the following igneous rocks is felsic?","c":{"W":"Rhyolite","X":"Diorite","Y":"Gabbro","Z":"Komatite"},"a":{"t":"Rhyolite","l":"W"}}]},
 {"rl":"Sep 8 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4887","q":[
@@ -1561,8 +1557,6 @@
 {"i":96205,"s":"chem","f":"SA","qt":"tossup","n":96,"q":"What is the theoretical end of a titration?","a":{"t":"equivalence point"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5015","q":[
 {"i":96207,"s":"chem","f":"SA","qt":"tossup","n":98,"q":"A Buchner funnel is a piece of laboratory glassware to carry out what process?","a":{"t":"Filtration"}}]},
-{"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/bonus/5015","q":[
-{"i":96208,"s":"chem","f":"SA","qt":"bonus","n":99,"q":"Why are oxygenates used as gasoline additives?","a":{"t":"they allow for more complete combustion"}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5016","q":[
 {"i":95716,"s":"chem","f":"SA","qt":"tossup","n":100,"q":"Name all of the following 4 species that contain an odd number of electrons: O2^-; O2^(2-); SO2; CO","a":{"t":"O2^- (SUPEROXIDE)","ac":["O2^-","SUPEROXIDE"]}}]},
 {"rl":"Stuy Chemistry","r":null,"u":"https://scibowldb.com/tossup/5019","q":[

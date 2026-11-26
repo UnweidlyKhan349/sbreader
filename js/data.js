@@ -1947,8 +1947,8 @@
     const menu = document.createElement('ul');
     menu.className = 'dropdown-menu dropdown-menu-end checkbox-menu allow-focus';
     menu.setAttribute('data-bs-popper', 'static');
-    // White in both themes, as QB Reader's is.
-    menu.setAttribute('data-bs-theme', 'light');
+    // It follows the page's theme: white in Light, dark grey in Night. (It
+    // was white in both, as QB Reader's is, until November 26, 2026.)
     // The <select> goes last, so Bootstrap's button-group corners still see
     // the two buttons as the first pair.
     wrap.append(labelBtn, caretBtn, menu, selectEl);
@@ -2047,7 +2047,10 @@
       // if there isn't room on the left.
       menu.classList.remove('dropdown-menu-start-fallback');
       if (menu.getBoundingClientRect().left < 8) menu.classList.add('dropdown-menu-start-fallback');
-      setTimeout(() => search.focus(), 0);
+      // Each opening starts at the top of the list, not wherever it was
+      // scrolled to last time.
+      menu.scrollTop = 0;
+      setTimeout(() => search.focus({ preventScroll: true }), 0);
     }
     function closeMenu() {
       menu.classList.remove('show');
