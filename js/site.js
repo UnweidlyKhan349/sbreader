@@ -18,8 +18,8 @@
       const v = localStorage.getItem(KEY);
       if (THEMES.includes(v)) return v;
     } catch (e) { /* storage blocked: fall through to the default */ }
-    // A first visit (nothing saved) starts in Light; Auto and Night stay a
-    // click away. (QB Reader starts in Night on a device set to dark mode.)
+    // A first visit (nothing saved) starts in Light, as QB Reader does;
+    // Auto and Night stay a click away.
     return 'light';
   }
   function resolved(theme) {

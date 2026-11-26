@@ -434,13 +434,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
 .mp-player-row.offline { color: var(--bs-secondary-color); }
 :root { --user-score-background: #FFF9C4; }
 [data-bs-theme=dark] { --user-score-background: #4A90E2; }
-/* In Night your own row keeps QB Reader's blue, with dark text: QB Reader's
-   light grey on it read at 2.5:1 (dark text reads at 6:1). (Light grey until
-   November 26, 2026.) */
-[data-bs-theme=dark] .mp-player-row.user-score,
-[data-bs-theme=dark] .mp-player-row.user-score:hover,
-[data-bs-theme=dark] .mp-player-row.user-score:focus,
-[data-bs-theme=dark] .mp-player-row.user-score:active { color: #000; }
 .room-history .event-username { font-weight: 500; }
 /* A chat message still being typed reads a little greyer, as on QB Reader. */
 .room-history .chat-live .live-chat-text { color: var(--bs-secondary-color) !important; }
@@ -528,14 +521,6 @@ input[type="range"]::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; bo
   --bs-btn-hover-bg: transparent; --bs-btn-hover-color: var(--bs-danger); --bs-btn-hover-border-color: var(--bs-danger);
 }
 .btn-subject:disabled.active { opacity: 1; background-color: var(--bs-danger); border-color: var(--bs-danger); color: #fff; }
-/* Red text on Night's dark grey: QB Reader's red reads at 3.4:1 there, too
-   faint for words, so the words in outlined red buttons and red headings use
-   Bootstrap's lighter Night red (6:1). The outlines and the filled boxes keep
-   QB Reader's red. (QB Reader's red until November 26, 2026.) */
-[data-bs-theme=dark] .text-danger { color: #ea868f !important; }
-[data-bs-theme=dark] .btn-outline-danger { --bs-btn-color: #ea868f; }
-[data-bs-theme=dark] .btn-subject { --bs-btn-hover-color: #ea868f; --bs-btn-disabled-color: #ea868f; }
-[data-bs-theme=dark] .chip[data-subject]:not(.active) { color: #ea868f; }
 .modal-backdrop.show { opacity: .5; }
 
 /* ---------------- History cards (SBPlay.historyCard) ---------------- */
