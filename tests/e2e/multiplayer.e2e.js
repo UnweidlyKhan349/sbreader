@@ -118,6 +118,12 @@ test('"I was right" after someone else was marked correct takes the question fro
   assert.strictEqual(await a.locator('#mpHistory .mp-inline-override').innerText(), 'I was right');
   await g.locator('#mpHistory .mp-inline-override').click(); await g.waitForTimeout(1000);
   for (const p of [a, g]) assert.strictEqual(await badges(p), 'green red');
+  // The guest flipped twice: one line, rewritten.
+  for (const p of [a, g]) {
+    const ls = await p.$$eval('#mpHistory li i', (xs) => xs.map((x) => x.textContent.trim()).filter((t) => /changed their answer to/.test(t)));
+    assert.strictEqual(ls.length, 1, 'one line, edited');
+    assert.match(ls[0], /to incorrect$/);
+  }
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
 });
