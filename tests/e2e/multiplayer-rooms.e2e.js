@@ -373,7 +373,7 @@ test('an answer on an earlier question can be claimed later: I was right on its 
   assert.strictEqual(await pastLink.innerText(), 'I was right');
   assert.strictEqual(await a.locator('#mpHistory .mp-past-override').count(), 0, 'only on your own answers');
   await pastLink.click();
-  // (no line in the history for it: the score and the line's colour show it)
+  await a.waitForFunction(() => /changed their answer on an earlier question to correct/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
   await waitScore(a, gName, 4);
   // zzzz was 0 (after the reading) or -4 (an interrupt); right, it's +4
   assert.strictEqual(Number(await scoreOf(a)), 4, 'the score follows');

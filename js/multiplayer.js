@@ -2404,6 +2404,8 @@
         }
       }
     });
+    const by = msg.changes.find((c) => c.pid === msg.by);
+    if (by) logEvent(by.name || 'Player', `changed their answer on an earlier question to ${by.correct ? 'correct' : 'incorrect'}`);
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderOverrideLinkSoon();
   }
