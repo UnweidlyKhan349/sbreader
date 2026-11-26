@@ -396,3 +396,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Links no longer underline when you hover over them, as on QB Reader; they only change colour. This includes the theme button in the navbar, which used to underline.
 - Tournament, packet and level pickers: hovering over the label or the arrow outlines it in the text colour, as on QB Reader.
 - Checkboxes, radio buttons and switches (and their labels) and dropdown lists show the hand cursor when you point at them.
+- Question bank: 50 questions whose answer is an explanation in a sentence ("What is the use of hygroscopic nuclei?") removed, and 99 keys that wrap a fact in a sentence cut down to the fact, so typing "decrease" for "IT WILL DECREASE" is now right. See the data history.

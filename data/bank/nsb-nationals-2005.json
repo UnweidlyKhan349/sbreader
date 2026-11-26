@@ -92,7 +92,7 @@
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3574","q":[
 {"i":89070,"s":"phys","f":"MC","qt":"tossup","n":24,"q":"When a person whirls a rock on the end of a string and maintains it in uniform circular motion, the force exerted on the rock is most accurately referred to as:","c":{"W":"centrifugal","X":"centripetal","Y":"rotational","Z":"center fleeing"},"a":{"t":"centripetal","l":"X"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3574","q":[
-{"i":89071,"s":"phys","f":"SA","qt":"bonus","n":24,"q":"For two objects separated by a distance d, if the mass of one of the objects is doubled, what will happen to the gravitational attraction between them?","a":{"t":"IT IS DOUBLED","ac":["DOUBLES","DOUBLED"]}}]},
+{"i":89071,"s":"phys","f":"SA","qt":"bonus","n":24,"q":"For two objects separated by a distance d, if the mass of one of the objects is doubled, what will happen to the gravitational attraction between them?","a":{"t":"DOUBLED","ac":["DOUBLES","IT IS DOUBLED","IT DOUBLES","2 TIMES"]}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/tossup/3575","q":[
 {"i":89072,"s":"bio","f":"SA","qt":"tossup","n":25,"q":"The biological term for programmed cell death is:","a":{"t":"APOPTOSIS"}}]},
 {"rl":"Round 2","r":2,"u":"https://scibowldb.com/bonus/3575","q":[
