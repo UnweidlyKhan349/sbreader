@@ -218,7 +218,17 @@ When every check above has failed and the answer isn't on the reject list, the g
 - **Constant of integration (changed)**: on an integral or antiderivative, `+ C` typed where the key has none is right; left off where the key has it, Close. Before, both were wrong.
 - **Formulas, symbols and names, also in lists**: `Tc and Pm` for `TECHNETIUM AND PROMETHIUM`, `co2` for `carbon dioxide`, `NO3-` for `NITRATE` (the charge must be right), `Leu and Ile` for the amino acids. A name where the question asks for the formula or symbol is Close. A lower-case symbol that is also a formula (`co`, `hf`) stays Close, since it could be either. The tables are `COMPOUND_NAMES`, `ION_NAMES` and `AMINO_ACIDS`.
 - **A person by last name (changed)**: `Lavoisier` for `Antoine Lavoisier` when the question asks for a scientist (chemist, physicist, …) or "who", unless it asks for the full name. Before, a missing first name was an incomplete answer.
+- **A unit the question names**: `14 V` or `14 volts` for `14` on a question in volts, `100 GJ` for `100` "in gigajoules", `6h` "to the nearest hour", `4.5 units`, and the thing counted (`9 times` for "how many times", `4 moons`). Another unit is still wrong (`14 amps`).
+- **A unit after an expression** can be left off or abbreviated: `sqrt(k)/7` for `(√k / 7) HERTZ`, `8pi x 10^-5 A` for `8π × 10^-5 Amps`.
+- **Equation forms**: `sin x` for `f(x)=sinx`; `x^2-6x+13` for `x^2-6x + 13 = 0` when an equation is asked for.
+- **Signs and small stand-ins**: `negative one` for `-1`; `1-` for `-1` and `2+` for `+2` on a charge or oxidation state (also when a bare `2` is on the reject list); a typed ASCII `-` is the key's `−`; `1e-15` for `10^-15`; `pi squared` for `π^2`; `x 10^` for `× 10^`; `11:10` for `11/10` when a ratio is asked for.
+- **"None" said another way**: `none of them`, `none are true`, `neither` for `NONE`; a bare `0` is Close.
+- **More standard abbreviations**: `ACh`, `IR`, `GABA`, `CSF`, `ETC`, `GFP`, `RBC`, `ITCZ`, `ENSO`, `JWST`, `LHC`, `QED`, `SHM`, `AC`/`DC`, `TNT`, `THF`, `RFID`, `FISH` and others, both ways (`STANDARD_ABBREVIATIONS`); and the abbreviation a key gives in brackets (`RFID` for `Radio Frequency Identification Device (RFID)`).
+- **A hyphen the key doesn't have**: `counter-current exchange` for `COUNTERCURRENT EXCHANGE` (the reverse already passed).
+- **Listed items by another name**: in a ranking or "identify all", an item may be given by its element symbol or name (`Li, K, Na`; `iron` for `Fe^(2+)`), its formula (`HCl` for Hydrogen Chloride), its initials (`LDL`), a standard abbreviation (`LH`), or its name without its last word (`Turner` for `Turner's syndrome`), as long as that names one item only. Items written `1.Megakaryocyte` or `I – Notochord` are read as numbered items.
 - **Words the question supplies**: the word the question asks by, and what it is "of", may be added (`second law of thermodynamics` for `SECOND LAW` on "Which law of thermodynamics …"); and the key's last words may be left off when the question says them (`X` for `X CHROMOSOME` on "On what chromosome …"). Never a chemical class word (`carbon` isn't `CARBON DIOXIDE`), never the describing word dropped (`dwarf` isn't `WHITE DWARF`), and not on list questions.
+
+Two answers that used to pass are now wrong: a key that numbers its own answers holds them to that order (`diurnal, semidiurnal, mixed` for `1) Semidiurnal, 2) Diurnal, 3) Mixed`), and an interval's brackets count even when an accept is written as an inequality (`[-2,2]` for `(-2, 2)`).
 
 ### Close: a moderator would look twice
 
