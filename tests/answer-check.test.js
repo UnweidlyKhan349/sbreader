@@ -784,10 +784,10 @@ test('equal value is not enough when the typed answer works the question out, ch
     ['(x − 2)(x + 2)', 'x^2-4', 'Factor x^2 − 4.'],
     ['5√2', '√50', 'Simplify √50.'],
     ['√3', 'tan(pi/3)', 'What is the exact value of tan(π/3)?'],
-    ['3/28', '15/140', 'Multiply.'], ['380', '380.0', 'Q?'],
+    ['3/28', '15/140', 'Multiply.'],
     ['e^7 √π', 'e^7*1.7724538509', 'Q?'],
     ['16ε0', '26ε0', 'Q?'], ['1.0 × 10^-14', '2.0 × 10^-14', 'Q?'], ['300 μ0', '400 μ0', 'Q?'],
-    ['1', '1.0', 'Q?'], ['i', '1 only', 'What is the sum of i^(5k)?'],
+    ['i', '1 only', 'What is the sum of i^(5k)?'],
     ['x^2 + C', 'x^2', 'Integrate 2x.'],
   ]) assert.ok(!isCorrect(key, typed, { question: q }), `${typed} for ${key}`);
 });
@@ -1111,4 +1111,66 @@ test('November 22 rules: simplified forms only, ± typed any way, multi-part spl
   for (const typed of ['first quarter, full', 'first quarter full', 'first quarter; full']) assert.ok(isCorrect('FIRST QUARTER; FULL', typed), typed);
   for (const typed of ['16 18', '16, 18', '4s 1/16'].slice(0, 2)) assert.ok(isCorrect('16; 18', typed), typed);
   assert.ok(isCorrect('1) 4s; 2) 1/16', '4s 1/16'));
+});
+
+// A second look (November 26, 2026): answers a moderator would take that the
+// checks above refuse.
+test('second look: trailing zeros, unreduced fractions, percent and fraction', () => {
+  const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && !!r.close; };
+  for (const [key, typed] of [['1.50 L', '1.5'], ['380', '380.0'], ['1', '1.0'], ['$100,000.00', '100000'], ['2.5', '2.50']]) assert.ok(isCorrect(key, typed, { question: 'How much?' }), `${typed} for ${key}`);
+  assert.ok(closeOnly('1.50', '1.5', { question: 'Give your answer to three significant figures.' }));
+  assert.ok(closeOnly('2.50', '2.5', { question: 'Give your answer to the nearest hundredth.' }));
+  assert.ok(closeOnly('1/2', '3/6', { question: 'What fraction?' }));
+  assert.ok(closeOnly('3/28', '15/140', { question: 'Multiply.' }));
+  assert.ok(isCorrect('1/2', '50%', { question: 'What is the probability?' }));
+  assert.ok(isCorrect('3/4', '75 percent', { question: 'What is the probability?' }));
+  assert.ok(closeOnly('1/2', '50%', { question: 'What is the probability, as a fraction?' }));
+  assert.ok(!isCorrect('1/3', '33%', { question: 'What is the probability?' }));
+  assert.ok(isCorrect('48%', '0.48', { question: 'What is the efficiency?' }));
+  assert.ok(closeOnly('48', '0.48', { question: 'What percent of the light passes?' }));
+  assert.ok(!isCorrect('24500', '24501'));
+});
+
+test('second look: constant of integration', () => {
+  const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && !!r.close; };
+  assert.ok(isCorrect('x^2', 'x^2 + C', { question: 'What is the antiderivative of 2x?' }));
+  assert.ok(closeOnly('x^2 + C', 'x^2', { question: 'Integrate 2x.' }));
+  assert.ok(isCorrect('x^2 + C', 'x^2 + C', { question: 'Integrate 2x.' }));
+  assert.ok(!isCorrect('x^3', 'x^2 + C', { question: 'Integrate 3x^2.' }));
+});
+
+test('second look: SI prefixes and scientific notation', () => {
+  assert.ok(isCorrect('1200', '1.2 kPa', { question: 'What is the pressure in pascals?' }));
+  assert.ok(isCorrect('25 GRAMS', '0.025 kg', { question: 'What mass?' }));
+  assert.ok(isCorrect('360 KJ', '360000 joules', { question: 'How much energy?' }));
+  assert.ok(isCorrect('207 J', '2.07 x 10^2 J', { question: 'How much energy?' }));
+  assert.ok(!isCorrect('25 GRAMS', '0.25 kg', { question: 'What mass?' }));
+  assert.ok(!isCorrect('360 KJ', '360000 watts', { question: 'How much energy?' }));
+  assert.ok(!isCorrect('207 J', '2.07 x 10^2 J', { question: 'Give your answer to three significant figures.' }));
+});
+
+test('second look: formulas and symbols for names', () => {
+  const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); return !r.correct && !!r.close; };
+  assert.ok(isCorrect('TECHNETIUM AND PROMETHIUM', 'Tc and Pm', { question: 'Name the two elements.' }));
+  assert.ok(isCorrect('carbon dioxide', 'co2', { question: 'What gas do plants take in?' }));
+  assert.ok(isCorrect('NITRATE', 'NO3-', { question: 'What ion?' }));
+  assert.ok(!isCorrect('NITRATE', 'NO3 2-', { question: 'What ion?' }));
+  assert.ok(isCorrect('LEUCINE AND ISOLEUCINE', 'Leu and Ile', { question: 'Name the two amino acids.' }));
+  assert.ok(closeOnly('H2O', 'water', { question: 'What is the chemical formula?' }));
+  assert.ok(!isCorrect('Co', 'co', { question: 'What element is it?' }));
+});
+
+test('second look: a last name for a person', () => {
+  assert.ok(isCorrect('Antoine Lavoisier', 'Lavoisier', { question: 'Which French chemist named oxygen?' }));
+  assert.ok(isCorrect('Barbara McClintock', 'mcclintock', { question: 'Who discovered transposons?' }));
+  assert.ok(!isCorrect('Antoine Lavoisier', 'Lavoisier', { question: 'Give the full name of the chemist who named oxygen.' }));
+  assert.ok(!isCorrect('Antoine Lavoisier', 'Antoine', { question: 'Which chemist named oxygen?' }));
+  assert.ok(!isCorrect('Halley Comet', 'comet', { question: 'Which comet?' }));
+});
+
+test('second look: words the question supplies', () => {
+  assert.ok(isCorrect('SECOND LAW', 'second law of thermodynamics', { question: 'Which law of thermodynamics says entropy increases?' }));
+  assert.ok(isCorrect('X CHROMOSOME', 'X', { question: 'On what chromosome is the gene for hemophilia?' }));
+  assert.ok(!isCorrect('CARBON DIOXIDE', 'carbon', { question: 'What dioxide do plants take in?' }));
+  assert.ok(!isCorrect('WHITE DWARF', 'dwarf', { question: 'What kind of dwarf star is Sirius B?' }));
 });
