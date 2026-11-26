@@ -399,4 +399,4 @@ Site and UI changes, newest last. Data changes are in [docs/data-history.md](doc
 - Question bank: 50 questions whose answer is an explanation in a sentence ("What is the use of hygroscopic nuclei?") removed, and 99 keys that wrap a fact in a sentence cut down to the fact, so typing "decrease" for "IT WILL DECREASE" is now right. See the data history.
 - A first visit follows your device's light or dark setting (Auto), as QB Reader does, instead of always starting in Light.
 - Night: the tournament, packet and level pickers' lists are dark grey instead of white.
-- Search engines can now index the login page, so searching for "SB Reader login" finds it.
+- Search engines can now index the login and sign-up pages, so searching for "SB Reader login" or "SB Reader sign up" finds them.
