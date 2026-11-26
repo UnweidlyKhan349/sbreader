@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment-retry.outputs.page_url }}
     env:
       # The commit CI tested (a workflow_run's own github.sha is just main's
       # tip, which may be newer); by hand, main's tip.
@@ -89,6 +89,17 @@ jobs:
         if: env.STALE != '1'
         with:
           path: ${{ runner.temp }}/site
+      # GitHub sometimes lists no artifact for a moment after the upload
+      # ("No artifacts named github-pages were found", November 26, 2026,
+      # twice in a row; a re-run deployed fine). So a failed deploy is tried
+      # once more after 30 seconds before the job fails.
       - id: deployment
         if: env.STALE != '1'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Wait before trying the deploy again
+        if: env.STALE != '1' && steps.deployment.outcome == 'failure'
+        run: sleep 30
+      - id: deployment-retry
+        if: env.STALE != '1' && steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
