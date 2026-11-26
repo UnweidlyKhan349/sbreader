@@ -54,7 +54,7 @@
     if (!SBAccount.enabled || !user) {
       $('statsLoggedOut').hidden = false;
       $('statsBody').hidden = true;
-      if (!SBAccount.enabled) $('statsLoggedOut').innerHTML = '<p class="lead">Your stats</p><p>Accounts aren\'t switched on for this copy of SBReader.</p>';
+      if (!SBAccount.enabled) $('statsLoggedOut').innerHTML = '<p class="lead">Your stats</p><p>Accounts aren\'t switched on for this copy of SB Reader.</p>';
       return;
     }
     $('statsLoggedOut').hidden = true;

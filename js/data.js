@@ -939,8 +939,8 @@
   SBData.loadErrorText = function (err) {
     if (err && err.offline) {
       return typeof navigator !== 'undefined' && navigator.onLine === false
-        ? "You're offline, and the questions haven't been saved on this device yet. Open SBReader once while online and they're saved for offline use."
-        : "Couldn't reach SBReader to download the questions. Check your connection and refresh the page.";
+        ? "You're offline, and the questions haven't been saved on this device yet. Open SB Reader once while online and they're saved for offline use."
+        : "Couldn't reach SB Reader to download the questions. Check your connection and refresh the page.";
     }
     return 'Failed to load question data: ' + (err && err.message);
   };
