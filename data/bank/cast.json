@@ -384,7 +384,7 @@
 {"rl":"Round 5","r":5,"u":"https://drive.google.com/file/d/1cmLKDGigg9zFqfNS_ZDrdOGXCml3UPqK/view","q":[
 {"i":70687,"s":"chem","f":"SA","qt":"bonus","n":4,"q":"Calculate the vapor pressure, in torr to 2 significant figures, of a mixture containing 252 g pentane and 1400 g of hexane, given that pentane and hexane have vapor pressures of 420 torr and 40 torr, respectively.","a":{"t":"110"}},
 {"i":70688,"s":"phys","f":"SA","qt":"tossup","n":5,"q":"A parallel-plate capacitor with capacitance C has square plate areas with A. A dielectric with dielectric constant 0.5 is put between the plates, and the side lengths of the plates are doubled. In terms of C, what is the new capacitance of the capacitor?","a":{"t":"2C"}},
-{"i":70689,"s":"energy","f":"SA","qt":"tossup","n":13,"q":"Researchers at Fermilab are building quantum computers. What is the fundamental informational unit used in quantum computers?","a":{"t":"QUBIT"}},
+{"i":70689,"s":"energy","f":"SA","qt":"tossup","n":13,"q":"Researchers at Fermilab are building quantum computers. What is the fundamental informational unit used in quantum computers?","a":{"t":"QUBIT","ac":["quantum bit","qbit"]}},
 {"i":70690,"s":"phys","f":"SA","qt":"bonus","n":23,"q":"If a particle has a half-life of 6000 years, if you start with 1 mole of a substance, how much will you have after 9000 years, in moles to 2 significant figures?","a":{"t":"0.35"}}]},
 {"rl":"Round 5","r":5,"u":"https://speriphery.com/query","q":[
 {"i":73654,"s":"bio","f":"MC","qt":"tossup","n":1,"q":"Which of the following is an example of a prion-caused disease?","a":{"t":"Kuru","l":"W"},"c":{"W":"Kuru","X":"Gastritis","Y":"Achondroplasia","Z":"Boils"}}]},

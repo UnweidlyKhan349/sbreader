@@ -274,7 +274,7 @@
 {"i":85830,"s":"chem","f":"MC","qt":"tossup","n":3,"q":"What is the unit cell type for Zinc Sulfide?","a":{"t":"Cubic and Face Centered","l":"X"},"c":{"W":"Cubic and Simple","X":"Cubic and Face Centered","Y":"Cubic and Body Centered","Z":"Tetragonal and Body Centered"},"pg":2}]},
 {"rl":"Scibowl_Blair_B_Set_1","r":1,"u":"https://lebot.djiang.xyz/packets/CCWTWO/Scibowl_Blair_B_Set_1.pdf","q":[
 {"i":85831,"s":"math","f":"SA","qt":"bonus","n":4,"q":"The point P at (3,2) is reflected across the line y-2x=1 to point P’. What are the coordinates of P’?","a":{"t":"(-1,4)"},"pg":2},
-{"i":85832,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"What is the name of the grey, hard, and porous fuel, derived from coal or petroleum, that has high carbon content and is often used to smelt iron ore?","a":{"t":"Coke"},"pg":9}]},
+{"i":85832,"s":"chem","f":"SA","qt":"bonus","n":18,"q":"What is the name of the grey, hard, and porous fuel, derived from coal or petroleum, that has high carbon content and is often used to smelt iron ore?","a":{"t":"Coke","ac":["metallurgical coke"]},"pg":9}]},
 {"rl":"Copy of Van Nuys Science Bowl_ CCTWO Questions","r":null,"u":"https://lebot.djiang.xyz/packets/CCWTWO/Copy%20of%20Van%20Nuys%20Science%20Bowl_%20CCTWO%20Questions.pdf","q":[
 {"i":85947,"s":"bio","f":"SA","qt":"bonus","n":7,"q":"What is the type of cartilage found in between the intervertebral disks?","a":{"t":"FIBROCARTILAGE"},"pg":4},
 {"i":85948,"s":"phys","f":"MC","qt":"tossup","n":10,"q":"If a circuit has a current of 10 amps and a resistance of 10 ohms, what is the power in watts?","a":{"t":"1000","l":"Y"},"c":{"W":"10","X":"100","Y":"1000","Z":"10000"},"pg":5},

@@ -1642,7 +1642,7 @@
 {"i":49569,"s":"phys","f":"SA","qt":"tossup","n":25,"q":"What is the most common scientific name for the form of radiation that is emitted when relativistic electrons are forced to travel through a curved trajectory in a magnetic field?","a":{"t":"SYNCHROTRON RADIATION"},"pg":13},
 {"i":49570,"s":"energy","f":"SA","qt":"bonus","n":25,"q":"The Department of Energy’s Brookhaven National Lab is the home of the RHIC, which is world’s highest energy particle collider. What do the letters R, H, I, and C each respectively stand for?","a":{"t":"RELATIVISTIC HEAVY ION COLLIDER"},"pg":13}]},
 {"rl":"round1-9","r":1,"u":"https://lebot.djiang.xyz/packets/CSUB/rround1-9.pdf","q":[
-{"i":49586,"s":"energy","f":"SA","qt":"bonus","n":8,"q":"What country is referred to by the domain name extension of.za?","a":{"t":"SOUTH AFRICA"},"pg":4},
+{"i":49586,"s":"energy","f":"SA","qt":"bonus","n":8,"q":"What country is referred to by the domain name extension of.za?","a":{"t":"SOUTH AFRICA","ac":["RSA","Republic of South Africa"]},"pg":4},
 {"i":49700,"s":"energy","f":"SA","qt":"tossup","n":16,"q":"Who was the first human to set foot on the moon?","a":{"t":"(NEIL) ARMSTRONG"},"pg":31},
 {"i":49816,"s":"energy","f":"SA","qt":"tossup","n":24,"q":"What country is referred to by the domain name extension.de?","a":{"t":"GERMANY"},"pg":59}]},
 {"rl":"round10-17","r":10,"u":"https://lebot.djiang.xyz/packets/CSUB/rround10-17.pdf","q":[

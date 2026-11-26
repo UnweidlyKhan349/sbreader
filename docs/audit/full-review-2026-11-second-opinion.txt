@@ -7171,3 +7171,1421 @@
 29342|ac|ia
 29346|ac|magnetite and iron
 29395|ac|columnar joints
+118151|a|Y
+118180|a|phosphorus, sulfur, oxygen, hydrogen, nitrogen, carbon
+118138|q|["muscles and gland","muscles and glands"]
+118368|q|["a cts","acts"]
+118368|a|Stabilizing selection
+118393|rmac|Pluripotent
+118134|ac|21
+118134|ac|chr 21
+118137|ac|Alu
+118137|ac|Alu element
+118170|ac|ester bond
+118170|ac|ester linkage
+118178|ac|gradualism and punctuated equilibrium
+118178|ac|punctuated equilibrium and gradualism
+118191|ac|antigenic determinant
+118195|ac|NH2
+118208|ac|C4 photosynthesis
+118208|ac|C4 pathway
+118219|ac|intercalated disks
+118229|ac|cyclin and cyclin-dependent kinase
+118233|ac|synthesis phase
+118244|ac|plasmodial slime mould
+118246|ac|one half
+118255|ac|sympathetic nervous system
+118257|ac|hCG
+118257|ac|chorionic gonadotropin
+118258|ac|PSII
+118258|ac|PS II
+118260|ac|scanning electron microscopy
+118269|ac|adipocytes
+118269|ac|fat cells
+118274|ac|Cdks
+118275|ac|15N
+118275|ac|nitrogen-15
+118281|ac|molting hormone
+118300|ac|scaffold proteins
+118300|ac|scaffold protein
+118313|ac|two percent
+118319|ac|top down model
+118319|ac|trophic cascade
+118335|ac|Jean-Baptiste Lamarck
+118341|ac|murein
+118352|ac|medulla and pons
+118354|ac|complementary DNA
+118368|ac|stabilizing
+118368|ac|stabilising selection
+118372|ac|NPP
+118372|ac|net primary production
+118374|ac|Trematoda, Cestoda, Turbellaria
+118374|ac|trematodes, cestodes, turbellarians
+118384|ac|Alu
+118384|ac|Alu sequences
+118384|ac|Alu repeats
+118386|ac|glomerulus, PCT, loop of Henle, DCT, collecting duct
+118388|ac|haemolymph
+118389|ac|notochord, pharyngeal gill slits, post-anal tail
+118395|ac|microgametophytes
+118398|ac|caecum
+118405|ac|paedomorphism
+118405|ac|pedomorphosis
+118406|ac|duck-billed platypus and echidna
+118413|ac|diffusion of water across a selectively permeable membrane
+118415|ac|Hoogsteen base pair
+118436|ac|pyloric valve
+118438|ac|thymus gland
+118444|ac|cyclic AMP
+118448|ac|C
+118449|ac|pH 5.6
+118449|ac|5.6 pH
+118503|a|Ribulose bisphosphate carboxylase/oxygenase
+118516|a|Alveoli
+118697|a|euphotic and dysphotic zones
+118597|q|["thiamines","thymines"]
+118453|ac|g1
+118453|ac|gap 1 phase
+118456|ac|golgi body
+118456|ac|golgi complex
+118463|ac|pi
+118463|ac|isoelectric ph
+118467|ac|haematopoiesis
+118467|ac|hemopoiesis
+118475|ac|archibald garrod
+118477|ac|pol ii
+118477|ac|rna pol ii
+118483|ac|topoisomerase
+118483|ac|dna gyrase
+118487|ac|single stranded binding protein
+118487|ac|ssbp
+118488|ac|mercaptans
+118491|ac|3-7
+118503|ac|ribulose bisphosphate carboxylase
+118506|ac|a, p, e
+118506|ac|a p e
+118511|ac|beta sheets
+118511|ac|beta sheet
+118516|ac|alveolus
+118516|ac|alveoli
+118529|ac|freeze fracturing
+118540|ac|cnidaria
+118540|ac|phylum cnidaria
+118541|ac|medusae
+118551|ac|c4 plants, cam plants
+118559|ac|calculus
+118559|ac|dental calculus
+118565|ac|heterocephalus glaber
+118571|ac|erythrocytes
+118573|ac|2 alpha and 2 beta
+118573|ac|two alpha and two beta
+118581|ac|a and g
+118582|ac|double circulation
+118597|ac|erwin chargaff
+118606|ac|prokaryotic and eukaryotic
+118617|ac|lps
+118622|ac|greater than 0
+118622|ac|> 0
+118634|ac|cadb
+118648|ac|0
+118648|ac|zero
+118650|ac|ethanal
+118652|ac|pfk
+118652|ac|phosphofructokinase-1
+118652|ac|pfk-1
+118657|ac|g1, s, g2
+118657|ac|g1 s g2
+118661|ac|antigenic determinant
+118664|ac|kinetosome
+118672|ac|aestivation and hibernation
+118697|ac|euphotic and disphotic zones
+118697|ac|euphotic, dysphotic
+118699|ac|zooxanthella
+118714|ac|positive, peptidoglycan
+118731|ac|ligase
+118739|ac|cyclin and cyclin-dependent kinase
+118743|ac|heat energy
+118743|ac|thermal energy
+118748|ac|schindleria brevipinguis
+118767|ac|diphtheria tetanus whooping cough
+118770|ac|ssb
+118770|ac|ssb protein
+118770|ac|single-stranded binding protein
+118773|ac|james d. watson and francis crick
+118781|ac|laryngeal prominence
+118783|ac|vasopressin and oxytocin
+118802|ac|sea jelly
+118810|ac|cellular respiration
+118551|rj|cam, c4
+118630|rj|osteoclasts, osteoblasts
+118769|rj|nadph, atp
+118932|q|["The evolution of lungs from the swim bladder","The evolution of the swim bladder from lungs"]
+122263|a|Coeliac disease
+118999|a|Trigonal bipyramidal
+118833|ac|H+ pump
+118834|ac|2 NADH and 2 ATP
+118851|ac|S. pneumoniae
+118851|ac|pneumococcus
+118864|ac|sex cells
+118868|ac|chiasma
+118874|ac|antidiuretic hormone
+118874|ac|vasopressin
+118876|ac|cortex
+118876|ac|kidney cortex
+118879|ac|snRNA
+118903|ac|tumour suppressor genes
+118906|ac|promoter, operator, structural genes
+118931|ac|one sixteenth
+118934|ac|wobble hypothesis
+118934|ac|wobble pairing
+118943|ac|F factor
+118943|ac|fertility factor
+118943|ac|fertility plasmid
+118952|ac|cM
+118954|ac|reticular activating system
+118954|ac|RAS
+118961|ac|choanoflagellata
+118968|ac|stop codon
+118968|ac|termination codon
+118970|ac|septae
+118972|ac|imperfect fungi
+118972|ac|fungi imperfecti
+118977|ac|euphausiids
+119208|ac|HIV integrase
+119712|ac|hammer, anvil, stirrup
+120485|ac|vitamins B and K
+121463|ac|smolting
+121847|ac|animal
+121847|ac|animals
+121847|ac|animal kingdom
+122050|ac|chl c
+122104|ac|Danio rerio
+122104|ac|zebra danio
+122113|ac|horned lizards
+122113|ac|horned lizard
+122116|ac|DCS
+122124|ac|80 kcal
+122196|ac|zoonosis
+122196|ac|zoonotic disease
+122214|ac|rapid eye movement
+122214|ac|rapid eye movement sleep
+122263|ac|celiac disease
+122263|ac|celiac
+122263|ac|celiac sprue
+118988|ac|vitamin C
+118988|ac|L-ascorbic acid
+118994|ac|blue cobalt glass
+118994|ac|cobalt blue glass
+118998|ac|d2sp3
+118999|ac|trigonal bipyramid
+119001|ac|W
+119019|ac|Pb(NO3)2
+119019|ac|lead nitrate
+119027|ac|acid-base titration
+119033|ac|1 m
+119033|ac|1 mol/kg
+119045|ac|1.204 x 10^24
+119047|ac|latent heat of vaporization
+119047|ac|heat of vaporization
+119047|ac|enthalpy of vaporization
+119050|ac|selectively permeable membrane
+119050|ac|semipermeable
+119053|ac|sodium carbonate, copper(II) sulfate, calcium bromide
+119054|ac|60.09 g/mol
+119055|ac|258.31 g/mol
+122299|rj|plastron, carapace
+119074|a|Vanadium, Iodine, Uranium, Sulfur
+119177|a|Yttrium
+119064|ac|make ammonia
+119064|ac|produce ammonia
+119069|ac|Robert Millikan
+119070|ac|uncertainty principle
+119079|ac|pyrite
+119079|ac|FeS2
+119083|ac|bauxite
+119085|ac|first law of thermodynamics
+119086|ac|joules per kelvin
+119088|ac|2.014 amu
+119088|ac|2.014 u
+119096|ac|lanthanoids and actinoids
+119097|ac|aluminium
+119102|ac|L-ascorbic acid
+119110|ac|louis de broglie
+119115|ac|139 pm
+119115|ac|139 picometres
+119115|ac|1.39 angstroms
+119116|ac|0 kJ/mol
+119143|ac|oleic
+119180|ac|h/24
+119180|ac|(1/24)h
+119191|ac|ultraviolet light
+119198|ac|Curie point
+119211|ac|second law
+119212|ac|Isaac Newton
+119212|ac|Newton
+119221|ac|aluminium, nickel, cobalt
+119229|ac|carbamide
+119246|ac|helium nucleus
+119246|ac|He-4 nucleus
+119254|ac|silver-white
+119256|ac|propanone
+119256|ac|2-propanone
+119256|ac|dimethyl ketone
+119271|ac|-1.9 C
+119272|ac|0 C
+119280|ac|+1
+119280|ac|plus one
+119282|ac|hydrogen bonding
+119320|ac|sp2, 1s
+119320|ac|sp2 and s
+119326|ac|4 sigma, 2 pi
+119327|ac|carbon tetrafluoride, tetrahedral
+119332|ac|12 sigma, 3 pi, 0 delta
+119332|ac|12, 3, 0
+119351|ac|vitamin E
+119358|ac|CH3(CH2)2COOH
+119358|ac|CH3-CH2-CH2-COOH
+119358|ac|C3H7COOH
+119383|ac|2 J/g K, 4 J/g K
+119406|ac|nitric acid and nitrous acid
+119406|ac|HNO3 and HNO2
+119413|ac|Lewis acid and Bronsted acid
+119414|ac|building-up principle
+119425|ac|safety matches
+119428|ac|styrene and 1,3-butadiene
+119438|ac|ortho, meta, para
+119438|ac|o-, m-, p-
+119441|ac|perchloric and nitric
+119445|ac|alkoxide ion
+119507|a|3x10^-5
+119507|ac|3e-5
+119507|ac|.00003
+119507|ac|3 x 10^-5
+119450|ac|TFE
+119450|ac|tetrafluoroethene
+119458|ac|1 g/cm3
+119458|ac|1 g/mL
+119458|ac|1000 kg/m3
+119475|ac|NaNO3 and H2O
+119476|ac|OH-
+119476|ac|hydroxide
+119476|ac|hydroxide ions
+119520|ac|k and T
+119521|ac|undercooling
+119522|ac|incongruent dissolving
+119535|ac|crystallize
+119535|ac|crystallization
+119548|ac|oxygen is more electronegative than hydrogen
+119561|ac|silver halide
+119561|ac|AgNO3
+120397|ac|trigonal pyramidal
+120397|ac|triangular pyramidal
+122039|ac|pH = -log[H+]
+122039|ac|negative log of hydrogen ion concentration
+122154|ac|10^8
+122154|ac|1e8
+122184|ac|malleable
+122277|ac|china clay
+122297|ac|octane rating
+95089|ac|CAA
+95104|ac|US
+95104|ac|United States of America
+95772|ac|Aconcagua
+95772|ac|Mount Aconcagua
+95772|ac|Cerro Aconcagua
+118683|ac|Nautilus
+118683|ac|the Nautilus
+119740|ac|Lake 90 Degrees East and Lake Sovetskaya
+120825|ac|first person on the moon, July 20, 1969
+120929|ac|Year of Astronomy
+120929|ac|IYA 2009
+120943|ac|pool
+121885|ac|11 km and 9 km
+122192|ac|van der Waals
+122192|ac|Johannes van der Waals
+122192|ac|J. D. van der Waals
+122208|ac|Xi and He
+122267|ac|Yucca
+118926|ac|North American and Pacific
+118926|ac|Pacific plate and North American plate
+119312|ac|dimethyl sulphide
+119338|ac|Antarctic
+119338|ac|Antarctica
+119338|ac|Southern
+119342|ac|methane clathrate
+119342|ac|methane gas hydrate
+119374|ac|surface, midwater, demersal
+119374|ac|surface, mid-water, bottom
+119377|ac|5000 meters, equatorial Pacific Ocean
+119381|ac|0 ppt
+119387|ac|35 parts per thousand, 71 percent
+119397|ac|bicarbonate, calcium, silica
+119454|ac|DU
+119546|ac|bicarbonate ion
+119546|ac|hydrogen carbonate
+119558|ac|Earth's crust
+119565|ac|Antarctic intermediate water, North Atlantic deep water, Antarctic bottom water
+119572|ac|opening and closing of ocean basins
+120528|ac|gamma
+120534|ac|Sun, Earth, Moon
+120536|ac|umbra
+120549|ac|Jupiter's Great Red Spot
+120553|ac|stellar occultation
+119514|rj|carbonic is triprotic, phosphoric is diprotic, acetic is monoprotic
+122117|rj|Fortran, Lisp, C, Pascal
+122286|rj|microwave oven, laser, blue led, red led
+120591|rmac|Planetary nebula
+120564|ac|all of them
+120564|ac|all three
+120574|ac|retrograde
+120578|ac|day and night
+120578|ac|the boundary between day and night
+120586|ac|a
+120589|ac|interferometer
+120591|ac|white dwarf star
+120593|ac|o, b, a, f, g, k, m
+120595|ac|visible and radio waves
+120595|ac|visible light and radio
+120611|ac|fusion
+120611|ac|nuclear fusion
+120613|ac|absorption nebula
+120616|ac|solar wind and radiation pressure
+120616|ac|radiation pressure and solar wind
+120625|ac|brightness
+120625|ac|its brightness
+120629|ac|between mars and jupiter
+120645|ac|synchronous rotation
+120651|ac|the point from which meteors appear to come
+120654|ac|parallax arcsecond
+120659|ac|by composition
+120659|ac|their composition
+120714|ac|sir isaac newton
+120719|ac|claudius ptolemy
+120719|ac|ptolemaeus
+120722|ac|between a and b rings
+120734|ac|fusion
+120734|ac|hydrogen fusion
+120734|ac|thermonuclear fusion
+120742|ac|4 square units
+120759|ac|giovanni domenico cassini
+120766|ac|galactic bulge
+120766|ac|central bulge
+120766|ac|nuclear bulge
+120770|ac|runaway greenhouse effect
+120779|ac|saturn, kronos
+120779|ac|saturn and cronus
+120779|ac|saturn, cronus
+120791|ac|27 earth years
+120811|ac|tired light hypothesis
+120828|ac|29.5 years
+120833|ac|spiral, barred spiral, irregular, elliptical
+120842|ac|classical nova
+120846|ac|axial precession
+120865|ac|bailey's beads
+120871|ac|solar prominences
+120890|ac|middle
+120899|ac|8 earth years
+120906|ac|sir william herschel
+120907|ac|cmb
+120907|ac|cosmic microwave background
+120910|q|["austonomer","astronomer"]
+121038|q|["10–26 watts","10^-26 watts"]
+121098|drop|
+121115|a|Olympus Mons
+120909|ac|giovanni riccioli
+120911|ac|copernicus, tycho, galileo, kepler, cassini, huygens
+120921|ac|152 million
+120921|ac|152 million km
+120921|ac|152000000
+120931|ac|agb
+120936|ac|same direction as jupiter's rotation
+120938|ac|how elliptical an orbit is
+120938|ac|shape of orbit
+120940|ac|foucault pendulum
+120951|ac|ursa major and polaris
+120953|ac|109p/swift-tuttle
+120955|ac|5th planet
+120957|ac|fe-60
+120957|ac|iron-60
+120961|ac|pop i
+120961|ac|pop 1
+120963|ac|p=1/d
+120965|ac|blue violet
+120965|ac|blue-violet
+120966|ac|stefan's law
+120967|ac|inverse square law
+120979|ac|synchronous orbit
+120981|ac|hyperbolic
+120982|ac|argon-37
+120982|ac|ar-37
+120988|ac|spiral and larger
+120988|ac|spiral galaxy, bigger
+120990|ac|swift
+120990|ac|voltaire
+121012|ac|sir isaac newton
+121023|ac|scintillation
+121029|ac|leon foucault
+121033|ac|sgr a*
+121033|ac|sagittarius a star
+121037|ac|o-c
+121037|ac|o minus c diagram
+121038|ac|jy
+121041|ac|obafgkm
+121047|ac|water ice
+121047|ac|nitrogen
+121049|ac|pluto, ceres, eris, makemake
+121055|ac|solar prominences
+121059|ac|tts
+121081|ac|edgeworth-kuiper belt
+121098|ac|perseus, sagittarius, orion
+121103|ac|eighty-eight
+121113|ac|water, methane, ammonia, carbon dioxide
+121125|ac|radio waves
+121125|ac|radio wavelengths
+121127|ac|compton effect
+121139|ac|hydrogen gas
+121142|ac|m33, m101, m51
+121146|ac|ion tail and dust tail
+121147|ac|hydrogen gas
+121147|ac|molecular hydrogen
+121157|ac|jul
+121163|ac|tethys ocean
+121168|ac|hypocentre
+121173|ac|cp and mt
+121176|ac|sea to land
+121188|ac|si and o
+121193|ac|divergent plate boundary
+121195|ac|terminator
+121200|ac|cenozoic
+121200|ac|the cenozoic
+121209|ac|anticlockwise
+121212|ac|ozone layer
+121216|ac|hadean, archean, proterozoic
+121218|ac|temperature and moisture
+121218|ac|temp and humidity
+121222|ac|anticlockwise
+121223|ac|fe, mg, si, o
+121224|ac|gondwanaland and laurasia
+121227|ac|thermohaline conveyor
+121228|ac|laurasia and gondwana
+121228|ac|gondwana and laurasia
+121228|ac|laurasia, gondwana
+121232|ac|dendritic drainage
+121238|ac|aquiclude
+121238|ac|aquicludes
+121244|ac|glaze ice
+121252|ac|milutin milankovic
+121257|ac|meander cutoff
+121263|ac|mercalli scale
+121263|ac|modified mercalli
+121263|ac|mercalli
+121044|rj|coma, nucleus
+121176|rj|land to ocean
+121308|a|In the center of the stream, just under the surface
+121356|a|Aquitard
+121267|ac|high pressure ridge
+121267|ac|ridge of high pressure
+121270|ac|ice
+121291|ac|trellis drainage
+121293|ac|bomb
+121297|ac|aluminum oxide
+121304|ac|karst
+121304|ac|karst landscape
+121318|ac|solar day
+121327|ac|stratovolcano
+121327|ac|composite volcano
+121327|ac|composite
+121350|ac|plagioclase feldspar
+121357|ac|lapse rate
+121370|ac|aa lava
+121376|ac|iron pyrite
+121376|ac|FeS2
+121392|ac|desalinization
+121392|ac|desalting
+121420|ac|MMI
+121421|ac|glacial flour
+121434|ac|oblique fault
+121459|ac|inversion
+121459|ac|thermal inversion
+121460|ac|horizontal
+121469|ac|cw
+121483|ac|composite volcano
+121485|ac|soil horizons
+121498|ac|right lateral fault
+121498|ac|right-lateral
+121502|ac|orogeny
+121507|ac|arkosic sandstone
+121525|ac|desublimation
+121534|ac|119 kph
+121560|ac|silica
+121577|ac|OAEBC
+121581|ac|iceberg calving
+121583|ac|Modified Mercalli
+121583|ac|Mercalli scale
+121583|ac|MMI
+121592|ac|iron(III) oxide
+121592|ac|Fe2O3
+121594|ac|chinook winds
+121600|ac|frost weathering
+121600|ac|ice wedging
+121611|ac|mean sea level
+121614|ac|K-feldspar
+121633|a|Suspended load, dissolved load, bed load
+121883|a|Lead, iron, nickel, copper, zinc
+121928|a|Chlorite, illite, montmorillonite, kaolinite
+121625|ac|Atacama Trench
+121631|ac|Richter
+121631|ac|Charles F. Richter
+121633|ac|bed load, suspended load, dissolved load
+121636|ac|fluorspar
+121639|ac|Rayleigh and Love
+121639|ac|Love and Rayleigh
+121641|ac|maximum particle size
+121652|ac|isostatic equilibrium
+121655|ac|temperature
+121656|ac|90 billion
+121658|ac|ice wedging
+121662|ac|compaction and cementation
+121670|ac|shells
+121674|ac|sand dunes and loess
+121682|ac|rime ice
+121716|ac|all of them
+121716|ac|all four
+121729|ac|Gulf Stream, Kuroshio, Agulhas
+121755|ac|anthracite coal
+121775|ac|iron(III) oxide
+121775|ac|ferric oxide
+121795|ac|Norwegian and Weddell
+121802|ac|speed
+121813|ac|Gondwana
+121837|ac|tidal pool
+121849|ac|limestone
+121849|ac|chalk
+121851|ac|coccolithophores, pteropods, foraminifera
+121856|ac|pillow lava
+121864|ac|4.6 billion years
+121867|ac|Puerto Rico trench and South Sandwich trench
+121867|ac|Puerto Rico and South Sandwich
+121883|ac|iron, copper, zinc
+121883|ac|lead, zinc, copper
+121887|ac|back-arc basin
+121897|ac|guyot
+121897|ac|tablemount
+121924|ac|littoral cell
+121924|ac|coastal cell
+121931|ac|cementation and compaction
+121934|ac|semidiurnal tides
+121945|ac|harbour wave
+121947|ac|guanay
+121948|ac|move landward
+121967|ac|North Equatorial, Kuroshio, North Pacific, California
+121970|ac|overturn
+122083|a|Descending down the coast of Antarctica
+122199|a|Guyot
+122259|a|Magellan: Venus, Huygens: Saturn, Viking: Mars
+120115|a|2
+120224|a|7/8 or 87.5%
+122017|ac|North Atlantic, South Atlantic, North Pacific, South Pacific, Indian Ocean
+122029|ac|castle icebergs
+122029|ac|castle iceberg
+122035|ac|thickness = 10*sqrt(age)
+122035|ac|t = 10 sqrt(age)
+122038|ac|storm and winter
+122071|ac|H2O, CO2, CH4
+122077|ac|amphidrome
+122088|ac|Acoustic Thermometry of Ocean Climate
+122093|ac|westerlies
+122093|ac|westerly winds
+122093|ac|prevailing westerlies
+122095|ac|oil and natural gas
+122095|ac|petroleum and natural gas
+122100|ac|Peru-Chile current
+122120|ac|flow rate
+122120|ac|streamflow
+122199|ac|tablemount
+122239|ac|calcium sulfate dihydrate
+122239|ac|CaSO4*2H2O
+122259|ac|Venus, Saturn, Mars
+122309|ac|oxygen-16 and oxygen-18
+122309|ac|16O and 18O
+122309|ac|O-16 and O-18
+120107|ac|131 base 5
+120107|ac|131_5
+120123|ac|3, -4
+120123|ac|-4 and 3
+120123|ac|x=-4 or 3
+120125|ac|1+i and 1-i
+120135|ac|3/2
+120135|ac|1.5
+120142|ac|pi to 1
+120150|ac|60 minutes
+120163|ac|x=95 or -97
+120166|ac|(x+y)(x^2-x*y+y^2)
+120169|ac|(-3, 0)
+120170|ac|-3, -5, -7
+120170|ac|x=-3,-5,-7
+120185|ac|b=-2, c=2
+120188|ac|sqrt(27)
+120220|ac|3 sqrt(3)
+120220|ac|3sqrt(3)
+120220|ac|3*sqrt(3)
+120223|ac|a=12, b=18
+120254|ac|x=-2 or 5
+120266|ac|tridecagon
+120266|ac|13-sided polygon
+122030|rj|nutrient, oxygen
+120317|a|arctan(x) + C
+120380|rmac|(5m – 1)(3m + 2)
+120404|a|104
+120429|a|5/3 hours
+120445|a|40 π^2 cm^2
+120507|rm|
+119576|a|The Joule
+119608|a|Charles Augustin de Coulomb
+119628|a|1/sqrt(3)
+120301|ac|0x1B
+120303|ac|sqrt(8)
+120317|ac|arctan(x)+C
+120317|ac|tan^-1(x)+C
+120317|ac|inverse tangent of x plus c
+120325|ac|540
+120328|ac|1/sin^2(theta)
+120328|ac|cosecant squared theta
+120333|ac|0.8 hours
+120334|ac|1/3 hour
+120336|ac|C=0 or C=-2
+120339|ac|log(xy)=log x + log y
+120339|ac|product rule of logarithms
+120341|ac|60 and 29
+120341|ac|mean 60, sd 29
+120347|ac|60 seconds
+120347|ac|1/60 hour
+120379|ac|h=-b/(2a)
+120379|ac|-b/(2a)
+120382|ac|1, 11/9
+120382|ac|x=11/9 or x=1
+120382|ac|11/9 and 1
+120385|ac|[3,-1]
+120404|ac|104
+120406|ac|mean 10, sd 5
+120413|ac|1600 dm^2
+120413|ac|1600 dm2
+120425|ac|sqrt(48)
+120426|ac|none
+120426|ac|no values
+120428|ac|rabbits
+120428|ac|counting rabbits
+120429|ac|1 hour 40 minutes
+120429|ac|100 minutes
+120429|ac|1 2/3 hours
+120430|ac|500 square centimeters
+120442|ac|FLT
+120444|ac|24 square cm
+120445|ac|40pi^2
+120445|ac|40π²
+120445|ac|40 pi^2 cm^2
+120448|ac|no positive solutions
+120448|ac|none exist
+120448|ac|0 solutions
+120456|ac|all of them
+120456|ac|all three
+120462|ac|1/2
+120462|ac|half a banana
+120472|ac|96 ft
+120473|ac|160,000 dollars
+120477|ac|A=4, B=-1
+120478|ac|2xz^3 sqrt(2x)/(3y^2)
+120486|ac|6/7
+120487|ac|5/24 and 24/5 hours
+120487|ac|rate 5/24, 4.8 hours
+120495|ac|θ/2 + sin(2θ)/4 + C
+120495|ac|1/2 theta + 1/4 sin(2 theta) + c
+119576|ac|joule
+119576|ac|J
+119576|ac|kg m^2/s^2
+119578|ac|N*s
+119578|ac|newton seconds
+119591|ac|instantaneous and average
+119591|ac|average and instantaneous
+119602|ac|0 kg
+119604|ac|W. Pauli
+119608|ac|Charles Coulomb
+119616|ac|contact angle goniometer
+119618|ac|incident angle, critical angle
+119622|ac|4x10^4 Pa
+119628|ac|sqrt(3)/3
+119637|ac|kg, s, m
+119638|ac|Meissner-Ochsenfeld effect
+120380|rj|(5m-1)(3m+2)
+120410|rj|pi/2
+119693|q|["accelerates at a rate of 4 m/s and","accelerates at a rate of 4 m/s^2 and"]
+119959|q|["accelerates at 4 m/s from rest","accelerates at 4 m/s^2 from rest"]
+119749|a|3.31 x 10^-34 m
+119648|ac|1/pi hz
+119648|ac|1/pi s^-1
+119650|ac|6000 m/s
+119650|ac|6000 meters per second
+119659|ac|ideal current source
+119660|ac|pi/4 radians
+119662|ac|s
+119662|ac|sec
+119667|ac|9.81 m/s^2 down
+119676|ac|n*m
+119676|ac|kg m^2/s^2
+119687|ac|1/4 F
+119697|ac|-38 m/s2
+119700|ac|ferromagnetism
+119701|ac|pa
+119701|ac|n/m^2
+119703|ac|kirchhoff's current law
+119703|ac|kirchhoff's first rule
+119703|ac|kcl
+119713|ac|hydrogen-2
+119713|ac|2H
+119714|ac|International Thermonuclear Experimental Reactor
+119723|ac|6/11
+119726|ac|linear momentum
+119734|ac|proton: uud; neutron: udd
+119734|ac|uud and udd
+119734|ac|proton uud, neutron udd
+119742|ac|cherenkov effect
+119742|ac|cerenkov radiation
+119743|ac|snell's law
+119743|ac|law of refraction
+119743|ac|snell
+119749|ac|3.31 x 10^-34
+119749|ac|3.31x10^-34
+119753|ac|2^(4/3)
+119756|ac|newtons per meter
+119764|ac|5/4
+119766|ac|goes up
+119766|ac|speeds up
+119770|ac|k meson
+119772|ac|hot air engine
+119776|ac|pi/m
+119776|ac|pi rad/m
+119778|ac|0.1 siemens
+119778|ac|0.1 mho
+119778|ac|1/10 siemens
+119786|ac|500 kg m/s
+119791|ac|am fm microwaves infrared
+119794|ac|2e3 ergs
+119796|ac|X or Y
+119797|ac|W and Z
+119797|ac|w boson and z boson
+119797|ac|w+ and z
+119800|ac|5 n/m^2
+119801|ac|1e5 pascals
+119808|ac|zero
+119816|ac|125 j
+119816|ac|125 joules
+119835|ac|ev
+119838|ac|0 n
+119838|ac|0 newtons
+119841|ac|5.5 m/s2
+119842|ac|down
+119842|ac|toward the ground
+119849|ac|sqrt(2)/2
+119851|ac|infrasonic
+119851|ac|infrasonic waves
+119855|ac|change in speed
+119855|ac|change of speed
+119856|ac|half-integer
+119856|ac|half integer spin
+119856|ac|half-odd-integer
+119860|ac|stokes raman scattering
+119886|ac|cow 1 stops and cow 2 moves at 4 m/s
+119886|ac|0 and 4
+119886|ac|0 m/s and 4 m/s
+119890|ac|g^0.5 cm^1.5 s^-1
+119890|ac|g^(1/2) cm^(3/2)/s
+119890|ac|sqrt(g) cm^(3/2) / s
+119893|ac|diamagnetic, paramagnetic, ferromagnetic
+119900|ac|3/2
+119901|ac|speed of light
+119901|ac|3 x 10^8 m/s
+119901|ac|3e8 m/s
+119910|ac|watts
+119910|ac|w
+119910|ac|horsepower
+119915|ac|f
+119916|ac|it runs faster
+119916|ac|speed up
+119922|ac|2 meters per second
+119928|ac|6/sqrt(2) m/s
+119930|ac|equilibrium
+119942|ac|ke = 0, pe = 160 j
+119951|ac|nucleons
+119959|ac|2.5 m/s2
+119974|ac|10/3
+119975|ac|t
+119976|ac|twice
+119976|ac|doubled
+119985|ac|W and Z
+119985|ac|w boson and z boson
+119985|ac|w+, w-, z
+119673|rj|turbulent, laminar
+119908|rj|3:5
+120001|a|–1.6 × 10^-16 N
+122219|q|["10-28 m2","10^-28 m^2"]
+119994|ac|the poles
+119994|ac|north pole and south pole
+120000|ac|electrostatic induction
+120000|ac|charging by induction
+120003|ac|modulus of elasticity
+120013|ac|gravitational radiation
+120017|ac|A*s
+120030|ac|HDM
+120031|ac|pressure, temp
+120042|ac|-273.15 C
+120046|ac|resistance
+120046|ac|electric resistance
+120055|ac|strain gauge
+120055|ac|strain gauges
+120056|ac|c
+120056|ac|299792458 m/s
+120068|ac|charge
+120075|ac|cyan, magenta, yellow, black
+120075|ac|cyan magenta yellow black
+120076|ac|blackbody
+120076|ac|ideal black body
+120083|ac|crystal lattice
+120083|ac|crystalline lattice
+120086|ac|ionization, recombination
+120086|ac|ionization and recombination
+120087|ac|per second
+120090|ac|Pa
+120090|ac|N/m^2
+120912|ac|ionized gas
+121811|ac|christiaan huygens
+122052|ac|open and closed
+122052|ac|open, closed
+122152|ac|lead ions
+122174|ac|planck, electron, gravity, avogadro
+122206|ac|gluon, electron, charm
+122240|ac|St Elmos fire
+122240|ac|st. elmo's fire
+120031|rj|temperature, pressure
+122174|rj|avogadro's number, acceleration due to gravity, electron charge, planck's constant
+117460|ac|35 ppt
+117460|ac|3.5%
+117460|ac|35 parts per thousand
+117722|ac|RV Sally Ride
+117773|ac|LDEO
+117773|ac|Lamont Doherty
+117787|ac|Larsen C
+117943|ac|chronometer
+117989|ac|Bab al-Mandab
+117916|ac|declination
+117916|ac|magnetic variation
+117935|ac|increases
+117935|ac|it goes up
+54094|rm|
+74651|a|2
+74662|a|3 and 4 and 2 and 1
+29610|q|["ionized sodium","ionized calcium"]
+68946|q|["const int array","final int array"]
+84937|ac|biomass recalcitrance
+55883|ac|FBC
+55883|ac|fluidized bed combustion
+55883|ac|fluidised bed combustor
+73779|ac|li-ion
+73817|ac|water vapor
+84576|ac|coal then petroleum then natural gas
+85115|ac|blue hydrogen
+85832|ac|metallurgical coke
+20368|ac|Charles Proteus Steinmetz
+20368|ac|Charles Steinmetz
+31325|ac|Galileo probe
+42370|ac|S. Korea
+42370|ac|Republic of Korea
+49586|ac|RSA
+49586|ac|Republic of South Africa
+52437|ac|dynamic dispatch
+52437|ac|late binding
+53030|ac|quantum bit
+53030|ac|qbit
+53031|ac|recursive function
+53080|ac|matrix
+53220|ac|fast fourier transformation
+53309|ac|ConvNet
+53426|ac|binary search algorithm
+68591|ac|thread of execution
+68592|ac|A star
+68592|ac|A-star
+68675|ac|sqrt decomposition
+69009|ac|array list, doubly linked list, singly linked list
+70689|ac|quantum bit
+70689|ac|qbit
+70992|ac|0xFB
+70992|ac|0xfb
+70992|ac|fb hex
+73718|ac|qbit
+74613|ac|deep double descent
+74620|ac|statement 2
+74635|ac|ReLU activation
+74637|ac|grover search
+74637|ac|Grover's search algorithm
+74638|ac|t_cd
+74638|ac|tcd
+74646|ac|web spider
+74646|ac|spiders
+74646|ac|crawlers
+74656|ac|.
+74660|ac|function call stack
+74660|ac|execution stack
+74662|ac|3, 4, 2, 1
+74662|ac|asic, fpga, cpu, gpu
+74664|ac|binary adder
+74664|ac|adder circuit
+74666|ac|knowledge distillation
+74666|ac|model distillation
+74670|ac|turing completeness
+74675|ac|amortized analysis
+74675|ac|amortised
+74675|ac|amortized complexity
+84621|ac|baseload demand
+84621|ac|base load demand
+84982|ac|n-1
+84982|ac|N-1 standard
+85780|ac|2^7-1
+85780|ac|2^7 - 1
+85972|ac|plus
+85972|ac|plus sign
+86123|ac|binary digit
+86167|ac|concatenate
+86167|ac|concat
+86251|ac|3xx
+86295|ac|xor gate
+86295|ac|exclusive or
+86296|ac|n log n
+86296|ac|theta(n log n)
+86381|ac|SQL injection attack
+86381|ac|sqli
+86422|ac|fnn
+86466|ac|zero
+86466|ac|none
+86508|ac|overfit
+29467|ac|pp chain
+29467|ac|proton-proton
+29548|ac|H1 regions
+29607|ac|sulphuric acid
+29673|ac|apparent superluminal motion
+74662|rj|3, 4, 1, 2
+29827|a|W
+30943|a|3 1 2
+31033|a|W
+31146|a|320 MILLION SOLAR MASSES
+31158|a|1 2 3 4
+31246|a|2,3
+29791|q|["Reisnner-Nordstrom","Reissner-Nordstrom"]
+30894|q|["thermal protons","thermal photons"]
+30987|q|["Milgram","Milgrom"]
+29732|ac|coronal gas, hi regions, molecular clouds
+29739|ac|dark halo
+29763|ac|slow neutron capture
+29978|ac|1a
+30604|ac|photolysis
+30616|ac|cno
+30616|ac|cno process
+30638|ac|2400
+30649|ac|silica ooze
+30650|ac|african and arabian
+30656|ac|wbf process
+30656|ac|bergeron-findeisen process
+30690|ac|tidal disruption event
+30690|ac|tde
+30756|ac|electron-positron pair production
+30805|ac|sgr a*
+30805|ac|sagittarius a star
+30823|ac|metallic hydrogen
+30823|ac|liquid metallic hydrogen
+30839|ac|tidal flexing
+30861|ac|ocean gyre
+30938|ac|birkeland current
+30938|ac|field-aligned currents
+30975|ac|gamma
+30976|ac|widmanstatten structure
+30976|ac|widmanstatten
+30983|ac|poynting-robertson drag
+30983|ac|pr drag
+31005|ac|eddington limit
+31008|ac|class m
+31008|ac|m-type
+31020|ac|du
+31021|ac|continental flood basalt
+31029|ac|whim
+31042|ac|thermokarst topography
+31054|ac|4 vesta
+31055|ac|cygnus x1
+31055|ac|cyg x1
+31067|ac|bullet galaxy cluster
+31087|ac|photolysis
+31099|ac|vera c. rubin
+31120|ac|hcs
+31153|ac|hh objects
+31166|ac|telluric currents
+31166|ac|earth currents
+31169|ac|accreted terrane
+31215|ac|penetration twin
+31215|ac|penetration twins
+31228|ac|solar corona
+31260|ac|maria
+31260|ac|mare
+31265|ac|hypocentre
+31313|ac|botryoidal habit
+31323|ac|1,2,3,4
+31340|ac|saltwater encroachment
+31379|ac|accretion disk
+31394|ac|degassing
+31402|ac|helium nuclei
+31435|ac|white dwarf star
+31448|ac|no hair theorem and mass, charge, spin
+31451|ac|m1
+31486|ac|cno
+31486|ac|cno process
+31492|ac|tolman-oppenheimer-volkoff limit
+31492|ac|tov
+31492|ac|oppenheimer-volkoff limit
+31493|ac|electron degeneracy pressure
+31493|ac|neutron degeneracy pressure
+31569|ac|cosmic void
+31577|ac|liquid metallic hydrogen
+31928|a|CAMBRIAN, ORDOVICIAN
+33009|a|SAGITTARIUS
+33089|a|Phobos and Deimos
+33471|a|2,3,4
+33380|rmac|phoenix
+33791|rmac|phoenix
+31611|ac|bergeron-findeisen process
+31611|ac|wegener-bergeron-findeisen process
+31751|ac|increase
+31751|ac|increased productivity
+31770|ac|lambda
+31800|ac|co2, ch4, h2o, sf6
+31812|ac|lustre
+31845|ac|oxygen, silicon, aluminum
+31846|ac|north and south celestial poles
+31891|ac|cepheids
+31891|ac|cepheid
+31928|ac|cambrian and ordovician
+31928|ac|ordovician and cambrian
+31934|ac|parabolic, star, barchanoid
+31958|ac|open, isoclinal, overturned, recumbent, fault
+31967|ac|1.5e8
+32614|ac|core helium flash
+32614|ac|helium core flash
+32661|ac|hii region
+32661|ac|h ii region
+32679|ac|carbon-12
+32680|ac|gamma process
+32691|ac|planetary nebulae
+32740|ac|12:25
+32740|ac|12 h 25 min
+32760|ac|f scale
+32809|ac|shield volcano
+32928|ac|hyperbola
+32928|ac|hyperbolic orbit
+32929|ac|sulphur
+32934|ac|3.5th power
+32934|ac|3 1/2
+32954|ac|absolutely unstable
+32974|ac|pressure release melting
+32974|ac|adiabatic decompression melting
+33004|ac|eddington luminosity
+33005|ac|3^7 l
+33078|ac|hydrogen gas
+33079|ac|supernovae
+33089|ac|deimos and phobos
+33089|ac|phobos, deimos
+33106|ac|hertzsprung-russell diagram
+33106|ac|hr chart
+33112|ac|1 au
+33123|ac|oceanic-continental convergent
+33123|ac|ocean-continent convergence
+33142|ac|hypocentre
+33144|ac|rhyolite, andesite, basalt
+33146|ac|exfoliation weathering
+33147|ac|diurnal tide
+33147|ac|diurnal tides
+33150|ac|fiord
+33150|ac|fiords
+33151|ac|till
+33152|ac|o, a, e
+33235|ac|greenhouse gas effect
+33242|ac|h-r diagram
+33242|ac|hr diagram
+33253|ac|solar corona
+33275|ac|l1 point
+33275|ac|inner lagrange point
+33275|ac|first lagrange point
+33311|ac|3.5th power
+33311|ac|3 1/2
+33312|ac|b, c, a
+33391|ac|pp chain, cno cycle, triple alpha
+33403|ac|-2
+33403|ac|negative 2
+33403|ac|minus 2
+33404|ac|sargasso
+33413|ac|ocean floor spreading
+33483|ac|glacial till
+33541|ac|u-pb dating
+33550|ac|sunlight zone
+33551|ac|cno
+33551|ac|carbon nitrogen oxygen cycle
+33551|ac|carbon-nitrogen-oxygen cycle
+33563|ac|13 light years
+33563|ac|13 light-years
+33595|ac|calcium ion
+33620|ac|arcmin
+33687|ac|cosmic voids
+33687|ac|cosmic void
+33698|ac|carbonate ooze
+33698|ac|calcium carbonate ooze
+33705|ac|astrophysical jet
+33723|ac|cassini gap
+33745|ac|35/12 solar masses
+33780|ac|ferrel and polar cells
+33780|ac|polar and ferrel cells
+33790|ac|-2
+33790|ac|negative 2
+33790|ac|minus 2
+34899|ac|hydrogen nuclei
+35114|a|2,1,3
+36133|rm|
+36201|drop|
+36368|rm|
+34967|ac|charge and angular momentum
+34967|ac|electric charge and angular momentum
+35025|ac|KH instability
+35026|ac|serpentinisation
+35105|ac|no planets
+35114|ac|2, 1, 3
+35114|ac|2 1 3
+35114|ac|opposition, quadrature, conjunction
+35124|ac|weak cosmic censorship hypothesis
+35124|ac|cosmic censorship conjecture
+35136|ac|Lane-Emden polytropes
+35137|ac|40 d
+35157|ac|GP trough
+35193|ac|electron degeneracy
+35193|ac|degenerate electron pressure
+35193|ac|electron degenerate pressure
+35245|ac|alpha ursae minoris
+35312|ac|O, E, B
+35333|ac|30
+35336|ac|IV
+35432|ac|calcite compensation depth
+35477|ac|coulomb potential barrier
+35495|ac|Baily's beads
+35495|ac|Bailys beads
+35495|ac|Baily beads
+35525|ac|no points
+36181|ac|opacity mechanism
+36231|ac|Conrad, Moho, Gutenberg
+36250|ac|Schwarzschild, Reissner-Nordstrom, Kerr-Newman
+36271|ac|wintertime
+36321|ac|piezometric surface
+36403|ac|dew point temperature
+36403|ac|dewpoint temperature
+36452|ac|proton-proton, CNO, triple alpha
+36512|ac|law of superposition
+36512|ac|the law of superposition
+36532|ac|Earth, Pluto, Halley's comet
+36553|ac|soil creep
+36602|ac|Sol
+36622|ac|equilibrium line altitude
+36622|ac|ELA
+36643|ac|E and B horizons
+36662|ac|1/4 L
+36662|ac|L divided by 4
+37761|ac|lambda
+37761|ac|cosmological term
+37781|ac|shepherding moons
+37781|ac|shepherd satellites
+37854|ac|BIF
+37854|ac|BIFs
+37989|ac|Eddington luminosity
+37989|ac|Eddington accretion limit
+38508|a|1, 2, 3
+38889|a|1, 2
+38932|a|HED meteorites
+38958|a|X
+39272|a|Terrane
+39848|a|1, 2
+39883|a|1, 2
+39924|a|2, 3
+39952|a|30
+39953|a|1, 3
+40007|a|1, 3
+40033|a|1, 2
+39243|q|["Procession","Precession"]
+39089|q|["following four asteroid groups","following three asteroid groups"]
+39899|q|["star with mass 8m","star with mass 9m"]
+38009|ac|hypocentre
+38045|ac|Doppler shift
+38300|ac|Cepheids, Tully-Fisher, Hubble's law
+38311|ac|solid solution
+38312|ac|immiscibility gap
+38323|ac|La Nina event
+38323|ac|la nina conditions
+38324|ac|coastal upwelling
+38382|ac|3
+38392|ac|calcium carbonate compensation depth
+38415|ac|Benioff zone
+38416|ac|dip angle
+38462|ac|end-Permian extinction
+38462|ac|Permian extinction
+38520|ac|F region
+38530|ac|billow clouds
+38530|ac|KH clouds
+38566|ac|magmatic stoping
+38575|ac|adiabatic decompression melting
+38575|ac|pressure release melting
+38588|ac|composite cone
+38667|ac|HB
+38774|ac|tidal flexing
+38813|ac|Caloris
+38823|ac|southern lights
+38867|ac|cosmic filaments
+38867|ac|galactic filaments
+38943|ac|S Doradus variable
+38986|ac|Gilbert-type delta
+39000|ac|Saint Elmo's fire
+39065|ac|Pogson constant
+39068|ac|buoyancy frequency
+39075|ac|Taconic, Acadian, Alleghanian
+39093|ac|Hayashi forbidden zone
+39093|ac|forbidden region
+39216|ac|Faber Jackson law
+39226|ac|roAp stars
+39226|ac|roAp
+39243|ac|eccentricity, obliquity, precession
+39244|ac|salt fingering
+39281|ac|AAIW, NADW, AABW
+39374|ac|one tenth
+39374|ac|decrease by factor of 10
+39840|ac|CME
+39844|ac|hotspot volcanism
+39949|ac|Benioff zone
+39950|ac|chaotic tumbling
+39978|ac|the quasar
+39999|ac|Hjulstrom curve
+40047|ac|0.006 arcseconds
+40057|ac|Hubble-Lemaitre law
+40074|ac|secondary wave
+40074|ac|shear wave
+40085|ac|Hadley circulation
+40097|ac|electric charge
+39952|rj|-20
+40242|a|1, 2 AND 3
+40477|q|["Illmenite","Ilmenite"]
+40477|q|["studying is a sample","studying a sample"]
+40502|a|Y
+40721|rm|
+41189|a|2, 3 AND 4
+41271|a|1 AND 2
+41422|a|1 AND 3
+41477|a|1 AND 2
+41487|a|1 AND 2
+41590|a|2 AND 3
+41604|a|2 AND 3
+41638|a|1 AND 2
+40242|ac|all
+40242|ac|1 2 3
+40242|ac|1, 2, 3
+41189|ac|dolostone, chalk, gypsum
+41189|ac|2 3 4
+41189|ac|2, 3, and 4
+41271|ac|decomposition and deforestation
+41271|ac|1, 2
+41422|ac|u-shaped valley and drumlin
+41422|ac|1, 3
+41487|ac|Ia and Ib
+41487|ac|type ia and type ib
+41590|ac|malachite and chalcocite
+41590|ac|2, 3
+41604|ac|superior conjunction and eastern quadrature
+41604|ac|2, 3
+41638|ac|direct imaging and doppler spectroscopy
+41638|ac|1, 2
+40116|ac|strong interaction
+40160|ac|Chandra
+40160|ac|Chandra X-ray Observatory
+40208|ac|flocculent galaxy
+40287|ac|conditionally unstable
+40288|ac|Ic supernova
+40311|ac|synodic rotation period
+40322|ac|frontal wedging
+40397|ac|Penrose mechanism
+40409|ac|internal gravity waves
+40431|ac|MOC
+40432|ac|thermal remanent magnetization
+40432|ac|TRM
+40477|ac|pyroxene and ilmenite
+40478|ac|Wilson-Bappu relation
+40548|ac|reaction curve
+40548|ac|equilibrium curve
+40578|ac|TZO
+40588|ac|Oberth manoeuvre
+40600|ac|Pe
+40634|ac|no-hair conjecture
+40654|ac|E/sqrt(2)
+40655|ac|Lagrangian points
+40678|ac|competency
+40678|ac|stream competence
+40743|ac|lag time
+40743|ac|basin lag time
+40754|ac|isochron lines
+40778|ac|HH objects
+40778|ac|Herbig Haro
+41106|ac|full phase
+41161|ac|Hadley circulation
+41162|ac|statement 3
+41167|ac|neve
+41167|ac|névé
+41182|ac|natural levee
+41182|ac|natural levees
+41183|ac|Einstein's cosmological constant
+41214|ac|lunar libration
+41225|ac|Magellanic spiral galaxy
+41243|ac|Zeeman splitting
+41254|ac|galactic bar
+41255|ac|conditional instability
+41265|ac|intertidal
+41288|ac|glacier calving
+41288|ac|ice calving
+41289|ac|12 million years
+41301|ac|cosmological redshift
+41333|ac|conservation of angular momentum
+41346|ac|64 yrs
+41433|ac|white dwarf star
+41441|ac|cosmic inflation
+41441|ac|inflationary theory
+41464|ac|quasi-stellar objects
+41464|ac|QSOs
+41499|ac|B, C, D, A
+41505|ac|dinitrogen monoxide
+41541|ac|Chandrasekhar mass
+41553|ac|ablation area
+41650|ac|T Tauri star
+41650|ac|T-Tauri star
+41672|ac|pressure release melting
+41672|ac|adiabatic decompression melting
+41680|ac|red sprites
+41694|ac|core helium flash
+41718|ac|kilonovae
+41718|ac|macronova
+41743|ac|red clay and calcareous ooze
+41777|ac|Tully Fisher relation
+41786|ac|20 yrs
+41787|ac|solar neutrino deficit
+41787|ac|solar neutrino puzzle
+41791|ac|coronograph
+41808|ac|molecular clouds, H-I, H-II, coronal gas
+41832|ac|negatively curved
+41839|ac|reverse dip-slip fault
+41894|ac|TOV limit and Chandrasekhar limit
+41927|ac|2.512
+41927|ac|10^0.4
+41590|rj|2 only

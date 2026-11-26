@@ -6,7 +6,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 |---|---|---|---|
 | 2016 Question Exchange | 1,142 |  | hs |
 | 2026 Texas Science Bowl Invitational | 644 |  | hs |
-| AVES 2 | 579 | 17 | hs |
+| AVES 2 | 577 | 17 | hs |
 | AVES 2025 | 520 |  | hs |
 | BASED 2025 | 609 | 5 | hs |
 | Bash 2025 | 652 | 25 | hs |
@@ -43,7 +43,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | FE!M 2025 | 596 | 5 | hs |
 | GWHS Rounds | 768 |  | hs |
 | HSBT 2026 | 639 | 27 | hs |
-| ICSBT 2 | 546 | 5 | hs |
+| ICSBT 2 | 545 | 5 | hs |
 | ICSBT 2025 | 452 |  | hs |
 | ICSBT 3 | 518 | 10 | hs |
 | IGNIS 2022 | 720 |  | hs |
@@ -54,7 +54,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | Lexington HS 2020-21 | 777 |  | hs |
 | Lexscibowl 2021 | 17 |  | hs |
 | LOST 1 | 643 | 34 | hs |
-| LOST 2 | 607 | 46 | hs |
+| LOST 2 | 606 | 46 | hs |
 | LOST 3 HS | 569 | 18 | hs |
 | LOST 3 MS | 487 | 18 | ms |
 | MEHS Rounds | 769 |  | hs |
@@ -98,7 +98,7 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | SBST | 641 |  | hs |
 | SBST (Spring) | 611 |  | hs |
 | SCB 2025 | 478 | 1 | hs |
-| scibowl.com Submissions | 3,705 |  | hs |
+| scibowl.com Submissions | 3,704 |  | hs |
 | ScibowlDB HW | 2,055 |  | hs |
 | Science Bowl Subject Sets 1991–93 | 3,281 |  | hs |
 | SMH 2025 | 508 | 11 | hs |
@@ -118,4 +118,4 @@ Question counts per tournament, from `data/meta.json`. "Visual" is how many of t
 | WISC 2021 | 370 | 5 | hs |
 | WSBT | 456 | 23 | hs |
 | Yale 2026 | 92 |  | hs |
-| **Total (114)** | **106,131** | **567** | |
+| **Total (114)** | **106,126** | **567** | |

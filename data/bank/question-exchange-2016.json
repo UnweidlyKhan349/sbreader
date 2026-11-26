@@ -148,7 +148,7 @@
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/tossup/4617","q":[
 {"i":95088,"s":"ess","f":"SA","qt":"tossup","n":11,"q":"Which type of coal is popular for heating homes because it lacks dust and soot and burns for longer periods than other types of coal?","a":{"t":"anthracite","ac":["hard coal"]}}]},
 {"rl":"Aug 11 · Oxford","r":null,"u":"https://scibowldb.com/bonus/4617","q":[
-{"i":95089,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"What act passed in 1970 established Ambient Air-Quality standards and set limits for 6 different types of pollutants that were hazardous to human health?","a":{"t":"CLEAN AIR ACT"}}]},
+{"i":95089,"s":"energy","f":"SA","qt":"bonus","n":12,"q":"What act passed in 1970 established Ambient Air-Quality standards and set limits for 6 different types of pollutants that were hazardous to human health?","a":{"t":"CLEAN AIR ACT","ac":["CAA"]}}]},
 {"rl":"Aug 11 · Palo Alto","r":null,"u":"https://scibowldb.com/tossup/4619","q":[
 {"i":95090,"s":"math","f":"SA","qt":"tossup","n":1,"q":"If a regular octahedron has side length 10, what is its surface area?","a":{"t":"200√3","ac":["200 ROOT 3"]}}]},
 {"rl":"Aug 11 · Palo Alto","r":null,"u":"https://scibowldb.com/bonus/4619","q":[
@@ -184,7 +184,7 @@
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4628","q":[
 {"i":95103,"s":"phys","f":"SA","qt":"bonus","n":10,"q":"A theorem regarding rigid body motion states that it is always possible to represent an arbitrary displacement of a rigid body by a translation of its center of mass plus a rotation about its center of mass. What is the name of this theorem?","a":{"t":"CHASLES' THEOREM","ac":["CHASLES'S THEOREM","mozzi-chasles theorem"]}}]},
 {"rl":"Aug 11 · Princeton","r":null,"u":"https://scibowldb.com/bonus/4629","q":[
-{"i":95104,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What country has the largest geothermal production capacity?","a":{"t":"UNITED STATES","ac":["USA"]}}]},
+{"i":95104,"s":"energy","f":"SA","qt":"bonus","n":11,"q":"What country has the largest geothermal production capacity?","a":{"t":"UNITED STATES","ac":["USA","US","United States of America"]}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/tossup/4630","q":[
 {"i":95105,"s":"phys","f":"MC","qt":"tossup","n":1,"q":"When would we say that a liquid wets the surface?","c":{"W":"the contact angle > 90°","X":"the adhesive force is perpendicular to the surface","Y":"the contact angle < 90°","Z":"the contact angle < 120°"},"a":{"t":"the contact angle < 90°","l":"Y"}}]},
 {"rl":"Aug 11 · Proof","r":null,"u":"https://scibowldb.com/bonus/4630","q":[
@@ -1678,7 +1678,7 @@
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/bonus/5056","q":[
 {"i":95771,"s":"ess","f":"SA","qt":"bonus","n":14,"q":"What is a system or group of parallel mountain ranges together with the intervening plateaus and other features?","a":{"t":"Cordillera"}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5057","q":[
-{"i":95772,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What mountain has the highest point in the Western Hemisphere?","a":{"t":"Mt. Aconcagua"}}]},
+{"i":95772,"s":"energy","f":"SA","qt":"tossup","n":15,"q":"What mountain has the highest point in the Western Hemisphere?","a":{"t":"Mt. Aconcagua","ac":["Aconcagua","Mount Aconcagua","Cerro Aconcagua"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5058","q":[
 {"i":96225,"s":"ess","f":"SA","qt":"tossup","n":17,"q":"A solar eclipse can only occur at what phase of the moon?","a":{"t":"New Moon","ac":["new"]}}]},
 {"rl":"Stuy EarthSpace","r":null,"u":"https://scibowldb.com/tossup/5059","q":[
