@@ -201,11 +201,13 @@ function librariesIn(js) {
   return out;
 }
 // Each tournament's bank file as the pages ask for it (SBData's bankUrl),
-// and the bank's index (10 KB, for the Stars and Stats pages, which load
-// only the tournaments holding their questions).
+// the bank's index (10 KB, for the Stars and Stats pages, which load only
+// the tournaments holding their questions) and the old-to-new question ids
+// (aliases.json, for starred questions and Stats).
 function bankFiles(meta, scope) {
   const out = (meta.tournaments || []).map((t) => new URL('data/bank/' + t.slug + '.json' + (t.v ? '?v=' + t.v : ''), scope).href);
   if (meta.bankIndex) out.push(new URL('data/bank/index.json?v=' + meta.bankIndex, scope).href);
+  if (meta.bankAliases) out.push(new URL('data/bank/aliases.json?v=' + meta.bankAliases, scope).href);
   return out;
 }
 

@@ -32,8 +32,10 @@
   /* ================= QUESTIONS FOR THE CURRENT SETTINGS ================= */
   // The questions the settings match, in no particular order.
   function matchingQuestions() {
-    if (settings.mode === 'starred') return SBData.filterQuestions({ bookmarkedOnly: true });
+    const pool = SBData.questions || SBData.loadedSoFar();
+    if (settings.mode === 'starred') return SBData.filterQuestions({ pool, bookmarkedOnly: true });
     return SBData.filterQuestions({
+      pool,
       subjects,
       tournaments: settings.tournaments.length ? new Set(settings.tournaments) : null,
       roundRange: settings.roundRange,
@@ -46,16 +48,43 @@
     return SBData.stratifiedQueue(matches || matchingQuestions(), (q) => q.subject);
   }
 
+  // Play needn't wait for the whole bank (8.7 MB, most of a minute on a
+  // slow phone). Start works once the files the settings need are in: the
+  // picked tournaments; in Starred mode, the ones holding every starred
+  // question; otherwise the newest few tournaments, which are fetched first
+  // (SBData.FIRST_FILES). Each file that arrives after that is mixed into
+  // the questions still to come (the queue is rebuilt before the next
+  // question, as after a settings change), so the first few questions lean
+  // toward the newest tournaments. (Until November 26, 2026 Start waited
+  // for every file.)
+  let sidebarReady = false; // meta.json is in and the sidebar is drawn
+  let bankFailed = false;
+  function bankComplete() { return !!SBData.questions; }
+  function someLoaded() { return sidebarReady && (bankComplete() || SBData.parts.size > 0); }
+  function enoughLoaded() {
+    if (bankComplete()) return true;
+    if (!someLoaded()) return false;
+    if (settings.mode === 'starred') return matchingQuestions().length >= SBData.bookmarks.getAll().size;
+    if (settings.tournaments.length) return settings.tournaments.every((slug) => SBData.parts.has(slug));
+    return SBData.parts.size >= Math.min(SBData.FIRST_FILES, SBData.meta.tournaments.length);
+  }
+  // Before the first question: Start (Next) works once enough has arrived.
+  function refreshStart() {
+    if (session.index >= 0 || runtime.phase !== 'idle') return;
+    setNextButtonMode(enoughLoaded() && !bankFailed ? 'start' : 'disabled');
+  }
+
   function updateMatchCount(matches) {
     const el = document.getElementById('matchCount');
     // The sidebar shows before the question bank has arrived.
-    if (!SBData.questions) { el.textContent = 'Loading questions…'; return; }
+    if (!someLoaded()) { el.textContent = 'Loading questions…'; return; }
     const n = (matches || matchingQuestions()).length;
     if (settings.mode === 'starred') {
       el.textContent = '';
-      document.getElementById('starredInfo').textContent = n ? '' : 'No starred questions.';
+      document.getElementById('starredInfo').textContent = n || !bankComplete() ? '' : 'No starred questions.';
     } else {
-      el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings${SBData.missingText()}`;
+      const sofar = bankComplete() ? '' : ' so far (the rest are still loading)';
+      el.textContent = `${n.toLocaleString()} question${n === 1 ? '' : 's'} match your settings${sofar}${SBData.missingText()}`;
     }
   }
 
@@ -65,9 +94,10 @@
   // times a second, and filtering and shuffling the whole bank twice on each
   // made the sidebar lag.
   function onSettingsChange() {
-    if (!SBData.questions) { updateMatchCount(); return; }
+    if (!someLoaded()) { updateMatchCount(); return; }
     updateMatchCount(matchingQuestions());
     if (sessionActive()) session.queueStale = true;
+    refreshStart();
   }
   function rebuildQueue() {
     session.queueStale = false;
@@ -310,6 +340,8 @@
       }
       session.index = next - 1;
     } else if (session.index + 1 >= session.queue.length) {
+      // Every question that has arrived has been asked, and more are coming.
+      if (!bankComplete() && !bankFailed) { waitForMore(); return; }
       // As on QB Reader: an alert, and the last question stays where it is.
       window.alert('You have reached the end of the questions that match your settings');
       return;
@@ -775,20 +807,65 @@
   setNextButtonMode('disabled');
   updateCounters();
 
-  // The sidebar needs only meta.json (76 KB), so it's drawn at once; Next
-  // waits for the question bank (SBData.load, started from <head>).
+  // Arriving for starred questions (e.g. an old bookmarks link) starts as
+  // soon as they're in.
+  let autoStart = false;
+  function maybeAutoStart() {
+    if (!autoStart || bankFailed || session.index >= 0 || !enoughLoaded()) return;
+    autoStart = false;
+    startSession();
+  }
+
+  // The questions still to come have run out, but more files are on the
+  // way: the next question is read as soon as the next one arrives.
+  let waitingForMore = false;
+  function waitForMore() {
+    if (waitingForMore) return;
+    waitingForMore = true;
+    setNextButtonMode('disabled');
+    document.getElementById('matchCount').textContent = 'Loading more questions…';
+    const go = () => {
+      if (!waitingForMore) return;
+      waitingForMore = false;
+      window.removeEventListener('sb-bank-part', go);
+      session.queueStale = true;
+      nextQuestion();
+    };
+    window.addEventListener('sb-bank-part', go);
+    SBData.load().then(go, () => { bankFailed = true; go(); });
+  }
+
+  // Each tournament file as it arrives (a few at a time, not on every one).
+  let partTimer = null;
+  window.addEventListener('sb-bank-part', () => {
+    if (partTimer || !sidebarReady) return;
+    partTimer = setTimeout(() => {
+      partTimer = null;
+      onSettingsChange();
+      maybeAutoStart();
+    }, 300);
+  });
+
+  // The sidebar needs only meta.json (23 KB), so it's drawn at once; the
+  // question bank (SBData.load) was started from <head>.
   const metaReady = SBData.loadMeta().then(() => {
     initSettings();
     wireGameControls();
+    sidebarReady = true;
+    const p = new URLSearchParams(location.search);
+    autoStart = settings.mode === 'starred' && (p.has('mode') || p.get('bookmarked') === '1');
+    onSettingsChange();
+    maybeAutoStart();
   });
   Promise.all([metaReady, SBData.load()]).then(() => {
     scopeRounds();
-    updateMatchCount();
-    setNextButtonMode('start');
-    // Arriving for starred questions (e.g. an old bookmarks link) starts at once.
-    const p = new URLSearchParams(location.search);
-    if (settings.mode === 'starred' && (p.has('mode') || p.get('bookmarked') === '1')) startSession();
+    onSettingsChange();
+    maybeAutoStart();
   }).catch((err) => {
+    bankFailed = true;
+    // Already playing on the files that came: say so, and carry on.
+    if (session.index >= 0) { document.getElementById('matchCount').textContent = SBData.loadErrorText(err); return; }
+    setNextButtonMode('disabled');
     document.getElementById('qDisplay').textContent = SBData.loadErrorText(err);
     document.getElementById('matchCount').textContent = '';
   });

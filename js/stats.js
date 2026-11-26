@@ -99,7 +99,7 @@
   // Cards need the questions themselves, so these two are filled in only
   // when their tab is opened (and again when the filters change it).
   function questionFor(id) {
-    const aliases = (SBData.meta && SBData.meta.idAliases) || {};
+    const aliases = SBData.idAliases || {};
     return SBData.byId.get(id) || SBData.byId.get(aliases[id]);
   }
   const RESULT = { correct: 'Correct', incorrect: 'Incorrect', neg: 'Incorrect', dead: 'No answer' };

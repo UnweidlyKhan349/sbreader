@@ -34,14 +34,16 @@ async function visitAndSave(ctx, bankShare) {
   page.errors = [];
   page.on('pageerror', (e) => page.errors.push(e.message));
   await page.goto(base, { waitUntil: 'load' });
-  const saved = (share) => page.evaluate(async (want) => {
-    if (!window.SBData || !SBData.meta) return false;
+  // (The home page loads no question data of its own, so the bank's
+  // addresses are worked out from meta.json here, as SBData.bankUrls does.)
+  const meta = await page.evaluate(() => fetch('data/meta.json').then((r) => r.json()));
+  const saved = (share) => page.evaluate(async ([want, tournaments]) => {
     const c = await caches.open('sbreader-v1');
     const keys = new Set((await c.keys()).map((r) => r.url));
     const pages = ['', 'solo', 'database', 'multiplayer', 'offline'].map((p) => location.origin + '/' + p);
-    const bank = SBData.bankUrls(SBData.meta).map((u) => new URL(u, location.href).href);
+    const bank = tournaments.map((t) => new URL('data/bank/' + t.slug + '.json' + (t.v ? '?v=' + t.v : ''), location.href).href);
     return pages.every((p) => keys.has(p)) && bank.filter((u) => keys.has(u)).length >= Math.floor(bank.length * want);
-  }, share);
+  }, [share, meta.tournaments]);
   const until = Date.now() + 120000;
   while (!(await saved(bankShare))) {
     assert.ok(Date.now() < until, 'the site was saved for offline use');
@@ -64,7 +66,7 @@ test('after one visit, the whole site works offline', async () => {
 
   // Play: the whole bank, a question read, buzzed and graded.
   await page.goto(base + 'solo', { waitUntil: 'load' });
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.doesNotMatch(await page.locator('#matchCount').innerText(), /saved/);
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);
@@ -98,7 +100,7 @@ test('offline with part of the bank saved, Play plays what is saved and says wha
   const page = await visitAndSave(ctx, 1 / 3);
   await ctx.setOffline(true);
   await page.goto(base + 'solo', { waitUntil: 'load' });
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.match(await page.locator('#matchCount').innerText(), /\d+ tournaments aren't saved on this device/);
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);

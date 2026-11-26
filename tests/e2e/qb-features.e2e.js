@@ -163,7 +163,7 @@ test('Database cards: the title (with round and question) links the source; Stat
 test('Play: answers are always typed (no Type to answer switch); an overridden answer is counted for the question\'s stats as it finally stood', async () => {
   const { ctx, plays } = await statsContext({ heard: 0 });
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#toggleTypeToAnswer').count(), 0, 'Type to answer is gone');
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);
@@ -195,7 +195,7 @@ test('Play: answers are always typed (no Type to answer switch); an overridden a
 test('Play and Multiplayer have no year slider (the Database keeps its own)', async () => {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#yearSlider, #yearRangeLabel').count(), 0);
   const r = 'e2e' + Math.random().toString(36).slice(2, 8);
   const a = await joinRoom(ctx, server.url, r);
@@ -216,8 +216,12 @@ test('Set and packet pages link their sources; packet questions have no tag line
   assert.match(await packet.locator('.set-source a').getAttribute('href'), /^https:\/\/drive\.google\.com\//);
   const text = await packet.locator('#setPage').innerText();
   assert.doesNotMatch(text, /Download packet|<Physics|Report/);
+  const bankFiles = [];
+  ctx.on('request', (r) => { if (/\/data\/bank\//.test(r.url())) bankFiles.push(r.url()); });
   const freq = await openPage(ctx, server.url + 'frequency-list?subject=bio');
   await freq.waitForSelector('#frequency-list tr', { timeout: 30000 });
+  // The lists come from data/frequency.json, not the whole bank.
+  assert.deepStrictEqual(bankFiles, [], 'the frequency list downloads no bank files');
   // Just the top 50: no downloads, round, limit, type or year pickers.
   const page = await freq.locator('#freqPage').innerText();
   assert.doesNotMatch(page, /Download this page|Choose a round|Choose a limit|Choose a question type|Year range/);
@@ -268,7 +272,7 @@ test('Database: Exact words finds whole words only, marks only them, and a wrong
 test('Play: I was right on an earlier question changes its community-stats play, already sent, by the key sent with it', async () => {
   const { ctx, plays, changes } = await statsContext({ heard: 0 });
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   await page.keyboard.press('n'); await page.waitForTimeout(500);
   await page.keyboard.press(' ');
   await page.keyboard.type('zzzz not the answer');

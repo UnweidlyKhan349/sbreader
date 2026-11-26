@@ -71,7 +71,7 @@
       $('question-list').innerHTML = `<p class="text-body-secondary">${SBData.escapeHtml(SBData.loadErrorText(e))}</p>`;
       return;
     }
-    const aliases = (SBData.meta && SBData.meta.idAliases) || {};
+    const aliases = SBData.idAliases || {};
     const seen = new Set();
     questions = [];
     ids.forEach((id) => {

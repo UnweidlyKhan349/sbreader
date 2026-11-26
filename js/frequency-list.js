@@ -17,9 +17,12 @@
   // A subject's 50 most frequent answers over the whole bank. (Round,
   // limit, type and year filters and TXT/CSV downloads were here once;
   // removed on November 22, 2026. Old links with those parameters show the
-  // plain list.)
+  // plain list.) The lists are worked out ahead of time, whenever the bank
+  // changes (data/frequency.json, from tools/meta-counts.js), so the page
+  // downloads a few KB instead of the whole bank. (Until November 26, 2026
+  // it downloaded all 8.7 MB and counted them in the browser.)
   const LIMIT = 50;
-  function renderList(s) {
+  function renderList(s, list) {
     document.title = `SBReader - Frequency List - ${s.label}`;
     // The page's main heading, for screen readers (it isn't shown).
     const pageHeading = document.getElementById('pageHeading');
@@ -36,7 +39,7 @@
       </table>`;
     document.getElementById('freqTitle').textContent = `The ${LIMIT} most frequent answers in ${s.label} questions:`;
     const body = document.getElementById('frequency-list');
-    SBData.frequencyList(SBData.filterQuestions({ subjects: [s.key] }), LIMIT).forEach(({ answer, count }, i) => {
+    list.slice(0, LIMIT).forEach(({ answer, count }, i) => {
       const tr = body.insertRow();
       tr.insertCell().textContent = i + 1;
       const a = document.createElement('a');
@@ -50,9 +53,9 @@
     if ([...params.keys()].some((k) => k !== 'subject')) history.replaceState(null, '', 'frequency-list?' + new URLSearchParams({ subject: s.key }));
   }
 
-  (subject ? SBData.load() : SBData.loadMeta()).then(() => {
+  Promise.all([SBData.loadMeta(), subject ? SBData.loadFrequency() : null]).then(([, lists]) => {
     const s = subject && SBData.meta.subjects.find((x) => x.key === subject);
     if (subject && !s) { root.innerHTML = '<p>No such subject. <a href="frequency-list">Back to all frequency lists</a></p>'; return; }
-    if (s) renderList(s); else renderIndex();
+    if (s) renderList(s, lists[s.key] || []); else renderIndex();
   }).catch((err) => { root.innerHTML = `<p>${SBData.escapeHtml(SBData.loadErrorText(err))}</p>`; });
 })();

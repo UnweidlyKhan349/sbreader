@@ -132,7 +132,7 @@ test('phone layouts: the Set List fits, the frequency list heading and Play stat
   const label = await page.evaluate(() => { const l = document.querySelector('label[for="emptyRoomCheckbox"]'); return l.getBoundingClientRect().height / parseFloat(getComputedStyle(l).lineHeight); });
   assert.ok(label < 1.5, 'Show empty rooms is on one line');
   await page.goto(server.url + 'solo', { waitUntil: 'networkidle' });
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   await page.locator('#nextBtn').click();
   await page.waitForFunction(() => document.getElementById('questionInfo').textContent.trim());
   assert.ok(await page.evaluate(() => document.getElementById('questionMetadata').getBoundingClientRect().top >= document.getElementById('statline').getBoundingClientRect().bottom - 1), 'the source is under the statline');

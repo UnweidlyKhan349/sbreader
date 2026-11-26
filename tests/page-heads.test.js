@@ -15,7 +15,7 @@ const EVERY_PAGE = {
   charset: /<meta charset="UTF-8" \/>/,
   viewport: /<meta name="viewport" content="width=device-width, initial-scale=1\.0" \/>/,
   title: /<title>SBReader - [^<]+<\/title>/,
-  Bootstrap: /bootstrap@5\.3\.8\/dist\/css\/bootstrap\.min\.css/,
+  Bootstrap: /href="\/?css\/bootstrap\.min\.css\?v=/,
   stylesheet: /href="\/?css\/style\.css\?v=/,
   'site.js': /src="\/?js\/site\.js\?v=/,
   'favicon.ico': /<link rel="icon" href="\/?favicon\.ico" sizes="32x32" \/>/,

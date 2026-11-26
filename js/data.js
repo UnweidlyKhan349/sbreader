@@ -957,6 +957,7 @@
   // tools/meta-counts.js) so a cached copy is only used while it's current.
   function bankUrl(t) { return BANK_DIR + t.slug + '.json' + (t.v ? '?v=' + t.v : ''); }
   function indexUrl() { const v = SBData.meta && SBData.meta.bankIndex; return BANK_DIR + 'index.json' + (v ? '?v=' + v : ''); }
+  function aliasesUrl() { const v = SBData.meta && SBData.meta.bankAliases; return BANK_DIR + 'aliases.json' + (v ? '?v=' + v : ''); }
   SBData.bankUrls = function (meta) {
     return meta.tournaments.map(bankUrl);
   };
@@ -995,13 +996,17 @@
   // Downloads the given tournaments' files in parallel, expanding each one as
   // it arrives so the work overlaps the downloads still in flight. The
   // newest few are asked for first and at high priority (the rest at low),
-  // since they're what a page shows first.
+  // since they're what a page shows first. With opts.lowPriority every file
+  // is asked for at low priority (Multiplayer's lobby, which doesn't need
+  // the bank until you join a room).
   const FIRST_FILES = 6;
-  function loadTournaments(tournaments) {
+  SBData.FIRST_FILES = FIRST_FILES;
+  function loadTournaments(tournaments, opts) {
+    const low = !!(opts && opts.lowPriority);
     const order = newestFirst(tournaments);
     const rank = new Map(order.map((t, i) => [t.slug, i]));
     const fetched = new Map(order.map((t, i) => [t.slug,
-      fetchJson(bankUrl(t), { priority: i < FIRST_FILES ? 'high' : 'low' }).then((packets) => {
+      fetchJson(bankUrl(t), { priority: !low && i < FIRST_FILES ? 'high' : 'low' }).then((packets) => {
         const qs = expandTournament(t, packets);
         SBData.parts.set(t.slug, qs);
         if (typeof window !== 'undefined' && window.dispatchEvent && typeof CustomEvent === 'function') {
@@ -1032,6 +1037,17 @@
   }
 
   // Just one tournament's questions (the set and packet pages).
+  // The precomputed frequency lists, { subject: [{ answer, count }] }
+  // (data/frequency.json, written by tools/meta-counts.js from
+  // SBData.frequencyList), so a list doesn't need the whole bank.
+  SBData.loadFrequency = function () {
+    if (!SBData._frequencyPromise) {
+      SBData._frequencyPromise = fetchJson('data/frequency.json');
+      SBData._frequencyPromise.catch(() => { SBData._frequencyPromise = null; });
+    }
+    return SBData._frequencyPromise;
+  };
+
   SBData.loadSet = function (slug) {
     return SBData.loadMeta().then((meta) => {
       const t = meta.tournaments.find((x) => x.slug === slug);
@@ -1041,13 +1057,14 @@
 
   // The whole bank, for the pages whose filters and search span all of it.
   // The pages call this from <head>, so the downloads start before the rest
-  // of the page has loaded; later calls return the same promise.
-  SBData.load = function () {
+  // of the page has loaded; later calls return the same promise (and their
+  // opts are ignored). opts.lowPriority: see loadTournaments.
+  SBData.load = function (opts) {
     if (SBData._readyPromise) return SBData._readyPromise;
-    SBData._readyPromise = SBData.loadMeta().then((meta) => {
-      migrateBookmarks(meta.idAliases);
-      return loadTournaments(meta.tournaments);
-    });
+    SBData._readyPromise = SBData.loadMeta().then((meta) => Promise.all([
+      loadTournaments(meta.tournaments, opts),
+      migrateStars(),
+    ])).then(([data]) => data);
     // Started from <head> on pages that wait for it only later (Multiplayer,
     // on entering a room): a failure there is reported by whoever waits,
     // not as an uncaught error.
@@ -1074,9 +1091,8 @@
   SBData.loadBookmarked = function () {
     if (SBData._readyPromise) return SBData._readyPromise;
     if (SBData._bookmarkedPromise) return SBData._bookmarkedPromise;
-    SBData._bookmarkedPromise = SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl())]))
+    SBData._bookmarkedPromise = SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl()), migrateStars()]))
       .then(([meta, index]) => {
-        migrateBookmarks(meta.idAliases);
         const slugs = new Set([...bookmarkSet()].map((id) => slugForId(index.ids, id)));
         return loadTournaments(meta.tournaments.filter((t) => slugs.has(t.slug)));
       });
@@ -1087,10 +1103,9 @@
   // recent answers). Ids that moved when duplicates were merged are
   // followed to the copy that was kept.
   SBData.loadIds = function (ids) {
-    if (SBData._readyPromise) return SBData._readyPromise;
-    return SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl())]))
-      .then(([meta, index]) => {
-        const aliases = meta.idAliases || {};
+    if (SBData._readyPromise) return Promise.all([SBData._readyPromise, SBData.loadAliases()]).then(([data]) => data);
+    return SBData.loadMeta().then((meta) => Promise.all([meta, fetchJson(indexUrl()), SBData.loadAliases()]))
+      .then(([meta, index, aliases]) => {
         const slugs = new Set(ids.map((id) => slugForId(index.ids, aliases[id] != null ? aliases[id] : id)));
         return loadTournaments(meta.tournaments.filter((t) => slugs.has(t.slug)));
       });
@@ -1130,9 +1145,28 @@
     });
   }
 
-  // Duplicate questions were merged into one kept copy; meta.json maps each
-  // removed id to the id that replaced it. Point any saved bookmark at its
-  // kept copy so it doesn't silently disappear.
+  // Duplicate questions were merged into one kept copy;
+  // data/bank/aliases.json maps each removed id to the id that replaced it
+  // (SBData.idAliases once loaded). It's fetched only by the pages that need
+  // it: when there are starred questions to move, and on Stats and Starred
+  // Questions, whose saved ids may be old ones. (Until November 26, 2026 it
+  // was part of meta.json, three quarters of that file, which every page
+  // with questions waited for.) A failed fetch gives no aliases, and is
+  // tried again next time.
+  SBData.idAliases = null;
+  SBData.loadAliases = function () {
+    if (!SBData._aliasesPromise) {
+      SBData._aliasesPromise = SBData.loadMeta().then(() => fetchJson(aliasesUrl()))
+        .then((aliases) => { SBData.idAliases = aliases; return aliases; })
+        .catch(() => { SBData._aliasesPromise = null; return {}; });
+    }
+    return SBData._aliasesPromise;
+  };
+  // Points any saved bookmark at its kept copy so it doesn't silently
+  // disappear. Nothing is fetched when nothing is starred.
+  function migrateStars() {
+    return bookmarkSet().size ? SBData.loadAliases().then(migrateBookmarks) : Promise.resolve();
+  }
   function migrateBookmarks(aliases) {
     if (!aliases) return;
     const set = readBookmarks();
