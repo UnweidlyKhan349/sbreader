@@ -26,7 +26,7 @@ Static Science Bowl practice site (https://sbreader.org): plain HTML/CSS/JS, no 
 - Write comments, README and CHANGELOG entries in plain words about what the user sees and why, as the existing ones do. Date notes about removed behavior ("removed on November 22, 2026").
 - Every user-visible change gets a CHANGELOG line (newest last); data changes go in `docs/data-history.md`. Update the README section for the feature you change.
 - Keep behavior close to QB Reader's equivalent page unless told otherwise.
-- New pages copy the shared `<head>` (analytics, icons, manifest, theme colors); `tests/page-heads.test.js` checks it. Indexable pages go in `sitemap.xml`.
+- New pages copy the shared `<head>` (analytics, icons, manifest, theme colors) and have exactly one `<h1>` (hidden with `visually-hidden` if the page shows no title); `tests/page-heads.test.js` checks both. Indexable pages go in `sitemap.xml`.
 - Multiplayer: whoever runs the game ("host"/coordinator) validates every message with `SBMpRules.cleanHostMessage`. Never trust a client's message.
 - Don't hand-edit `?v=` stamps or `meta.json` counts; use the tools above.
 - Deploys happen from `main` only, after CI passes (`.github/workflows/deploy.yml`). Don't push to `main` unless asked.

@@ -62,13 +62,16 @@ function packetBody(t, p, n) {
   return html;
 }
 
-// set.html / packet.html with this page's title, description, address and
-// content filled in.
-function fillTemplate(template, { title, description, urlPath, data, body }) {
+// set.html / packet.html with this page's title, main heading (not shown),
+// description, address and content filled in.
+function fillTemplate(template, { title, heading, description, urlPath, data, body }) {
   let out = template
     .replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n<base href="/" />`)
     .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>\n<link rel="canonical" href="${SITE}${urlPath}" />`)
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeHtml(description)}" />`);
+  const h1 = /<h1 class="visually-hidden" id="pageHeading">[^<]*<\/h1>/;
+  if (!h1.test(out)) throw new Error('#pageHeading not found in the template');
+  out = out.replace(h1, () => `<h1 class="visually-hidden" id="pageHeading">${escapeHtml(heading)}</h1>`);
   const open = out.match(/<div class="container-xl mt-3 mb-5 pb-5" id="setPage">[\s\S]*?<\/div>\n<\/div>/);
   if (!open) throw new Error('#setPage not found in the template');
   const attrs = Object.entries(data).map(([k, v]) => ` data-${k}="${escapeHtml(String(v))}"`).join('');
@@ -93,6 +96,7 @@ function build(outDir) {
     const level = t.level === 'ms' ? 'middle school' : 'high school';
     fs.writeFileSync(path.join(dir, 'index.html'), fillTemplate(setTpl, {
       title: `SBReader - ${t.name}`,
+      heading: t.name,
       description: `${t.name}: ${t.count.toLocaleString('en-US')} ${level} Science Bowl questions in ${packets.length} packets, with answers.`,
       urlPath: `sets/${t.slug}/`,
       data: { set: t.slug },
@@ -104,6 +108,7 @@ function build(outDir) {
       const n = i + 1;
       fs.writeFileSync(path.join(dir, n + '.html'), fillTemplate(packetTpl, {
         title: `SBReader - ${t.name} ${p.label}`,
+        heading: `${t.name} ${p.label}`,
         description: `${t.name} ${p.label}: ${p.questions.length} Science Bowl toss-ups and bonuses, with answers.`,
         urlPath: `sets/${t.slug}/${n}`,
         data: { set: t.slug, packet: n },

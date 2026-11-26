@@ -59,3 +59,14 @@ test('every page in the sitemap exists and is indexable', () => {
     assert.doesNotMatch(head(f), /noindex/, `${f} is in the sitemap but noindex`);
   }
 });
+
+test('every page has exactly one main heading (<h1>)', () => {
+  // Screen readers and search engines use it as the page's title. Pages
+  // with no visible title have one that isn't shown (class="visually-hidden").
+  const wrong = [];
+  for (const f of pages) {
+    const n = (fs.readFileSync(path.join(ROOT, f), 'utf8').match(/<h1[\s>]/g) || []).length;
+    if (n !== 1) wrong.push(`${f}: ${n}`);
+  }
+  assert.deepStrictEqual(wrong, []);
+});

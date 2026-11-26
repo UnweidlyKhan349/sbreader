@@ -220,7 +220,23 @@ test('graphs plot a point per day, leaving out thin days until the switch is tur
   const { ctx, page } = await withStats('graphs');
   await page.waitForFunction(() => !document.getElementById('graphNote').hidden);
   assert.match(await page.textContent('#graphNote'), /No day has 5 or more questions/);
+  // Nothing to plot: the charts still show, with their legends, over the past
+  // week (not "Jan 1" on every label, as when the axis had no dates).
+  const empty = await page.evaluate(() => {
+    const c = Chart.getChart('question-count');
+    return { legend: c.legend.legendItems.map((i) => i.text), labels: c.scales.x.ticks.map((t) => t.label), visible: c.canvas.getBoundingClientRect().height > 0 };
+  });
+  assert.ok(empty.visible);
+  assert.deepStrictEqual(empty.legend, ['Total', '4s', '0s', 'Dead', 'Negs']);
+  const todayLabel = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  assert.strictEqual(empty.labels[empty.labels.length - 1], todayLabel, `the week ends today: ${empty.labels}`);
+  assert.strictEqual(new Set(empty.labels).size, empty.labels.length, `no day labelled twice: ${empty.labels}`);
   await page.uncheck('#filter');
+  // The date axis is labelled on whole days, an even step apart, no day twice.
+  const ticks = await page.evaluate(() => Chart.getChart('question-count').scales.x.ticks.map((t) => [t.value, t.label]));
+  const steps = new Set(ticks.slice(1).map(([v], i) => Math.round((v - ticks[i][0]) / 864e5)));
+  assert.strictEqual(steps.size, 1, `labels an even number of days apart: ${JSON.stringify(ticks)}`);
+  assert.strictEqual(new Set(ticks.map(([, l]) => l)).size, ticks.length, 'no day labelled twice');
   const points = () => page.evaluate(() => Chart.getChart('question-count').data.datasets.map((d) => [d.label, d.data.map((p) => p.y)]));
   assert.deepStrictEqual(await points(), [['Total', [2, 2, 2]], ['4s', [1, 0, 2]], ['0s', [0, 1, 0]], ['Dead', [0, 1, 0]], ['Negs', [1, 0, 0]]]);
   await page.check('#cumulative');
