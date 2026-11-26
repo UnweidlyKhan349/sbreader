@@ -66,7 +66,7 @@ test('after one visit, the whole site works offline', async () => {
 
   // Play: the whole bank, a question read, buzzed and graded.
   await page.goto(base + 'solo', { waitUntil: 'load' });
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.doesNotMatch(await page.locator('#matchCount').innerText(), /saved/);
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);
@@ -100,7 +100,7 @@ test('offline with part of the bank saved, Play plays what is saved and says wha
   const page = await visitAndSave(ctx, 1 / 3);
   await ctx.setOffline(true);
   await page.goto(base + 'solo', { waitUntil: 'load' });
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.match(await page.locator('#matchCount').innerText(), /\d+ tournaments aren't saved on this device/);
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(600);

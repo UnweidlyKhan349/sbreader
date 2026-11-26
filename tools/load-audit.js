@@ -18,8 +18,9 @@
    For each page it prints the median of the runs: first contentful paint,
    largest contentful paint, the load event, "ready" (when the page's
    question bank, or meta.json, has arrived, for the pages that load them),
-   the time the network went quiet, the KB downloaded and the number of
-   requests. Needs Playwright (npm install --no-save playwright). */
+   "usable" (when the page can be used: Play's Start button works, the
+   Database shows its first results, a frequency list is drawn), the time
+   the network went quiet, the KB downloaded and the number of requests. Needs Playwright (npm install --no-save playwright). */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -29,6 +30,12 @@ const crypto = require('crypto');
 const PAGES = ['', 'solo', 'multiplayer', 'database', 'set-list', 'set?set=lost-3-hs', 'packet?set=lost-3-ms&packet=10',
   'frequency-list', 'frequency-list?subject=bio', 'about', 'tips', 'login', 'signup', 'forgot-password', 'account',
   'stats', 'graphs', 'stars', 'edit-profile', 'edit-password', 'offline', 'no-such-page'];
+// When each page can be used, as a test run in the page (by its path).
+const USABLE = {
+  solo: () => !document.getElementById('nextBtn').disabled,
+  database: () => /Showing \d/.test(document.getElementById('resultCount').textContent),
+  'frequency-list?subject=bio': () => !!document.querySelector('#frequency-list tr'),
+};
 const PROFILES = {
   mobile: { latency: 150, down: 1.6e6 / 8, up: 750e3 / 8, cpu: 4 },
   desktop: { latency: 40, down: 10e6 / 8, up: 5e6 / 8, cpu: 1 },
@@ -87,6 +94,12 @@ async function measure(browser, url, prof) {
     new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
   });
   await page.goto(url, { waitUntil: 'load', timeout: 300000 });
+  const test = USABLE[url.replace(/^https?:\/\/[^/]+\//, '')];
+  let usable = null;
+  if (test) {
+    await page.waitForFunction(test, null, { timeout: 300000, polling: 50 });
+    usable = await page.evaluate(() => performance.now());
+  }
   const ready = await page.evaluate(async () => {
     const S = window.SBData;
     try {
@@ -112,7 +125,7 @@ async function measure(browser, url, prof) {
   const list = [...reqs.values()].filter((r) => !r.url.startsWith('data:'));
   const t0 = Math.min(...list.map((r) => r.start));
   await ctx.close();
-  return { ...nav, ready, quiet: (Math.max(...list.filter((r) => r.end).map((r) => r.end)) - t0) * 1000, bytes: list.reduce((s, r) => s + (r.bytes || 0), 0), requests: list.length };
+  return { ...nav, ready, usable, quiet: (Math.max(...list.filter((r) => r.end).map((r) => r.end)) - t0) * 1000, bytes: list.reduce((s, r) => s + (r.bytes || 0), 0), requests: list.length };
 }
 
 async function main() {
@@ -129,14 +142,14 @@ async function main() {
   const browser = await chromium.launch(proxy ? { proxy: { server: proxy, bypass: '127.0.0.1' } } : {});
   const rows = [];
   const median = (xs) => { const v = xs.filter((x) => x != null).sort((a, b) => a - b); return v.length ? Math.round(v[Math.floor(v.length / 2)]) : null; };
-  console.log(['page', 'FCP ms', 'LCP ms', 'load ms', 'ready ms', 'quiet ms', 'KB', 'requests'].join('\t'));
+  console.log(['page', 'FCP ms', 'LCP ms', 'load ms', 'ready ms', 'usable ms', 'quiet ms', 'KB', 'requests'].join('\t'));
   for (const p of pages) {
     const got = [];
     for (let i = 0; i < runs; i++) got.push(await measure(browser, base + p, prof));
     const row = { page: '/' + p };
-    for (const k of ['fcp', 'lcp', 'load', 'ready', 'quiet', 'bytes', 'requests']) row[k] = median(got.map((g) => g[k]));
+    for (const k of ['fcp', 'lcp', 'load', 'ready', 'usable', 'quiet', 'bytes', 'requests']) row[k] = median(got.map((g) => g[k]));
     rows.push(row);
-    console.log([row.page, row.fcp, row.lcp, row.load, row.ready ?? '', row.quiet, Math.round(row.bytes / 1024), row.requests].join('\t'));
+    console.log([row.page, row.fcp, row.lcp, row.load, row.ready ?? '', row.usable ?? '', row.quiet, Math.round(row.bytes / 1024), row.requests].join('\t'));
   }
   if (arg('--json')) fs.writeFileSync(arg('--json'), JSON.stringify(rows, null, 1) + '\n');
   await browser.close();

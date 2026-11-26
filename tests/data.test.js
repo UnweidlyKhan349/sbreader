@@ -5,6 +5,8 @@ const { loadCorpus, ROOT } = require('./helpers');
 
 const { raw, rawMeta: meta } = loadCorpus();
 const LETTERS = ['W', 'X', 'Y', 'Z'];
+// data/bank/aliases.json: removed duplicate's id -> the kept copy's id.
+const aliases = () => JSON.parse(require('fs').readFileSync(require('path').join(ROOT, 'data/bank/aliases.json'), 'utf8'));
 
 // Collects up to 10 offending ids per problem so a failure says where to look.
 function check(rows, problems) {
@@ -71,7 +73,7 @@ test('the home page shows the bank\'s question and tournament counts (node tools
 
 test('bookmark aliases point at questions that exist', () => {
   const ids = new Set(raw.map((q) => q.i));
-  const broken = Object.entries(meta.idAliases || {}).filter(([, to]) => !ids.has(to)).slice(0, 10);
+  const broken = Object.entries(aliases()).filter(([, to]) => !ids.has(to)).slice(0, 10);
   assert.deepStrictEqual(broken, []);
 });
 
@@ -158,7 +160,7 @@ test('data/bank holds exactly one file per meta.json tournament, in the form too
   const path = require('path');
   const { packRecords, formatShard } = require('../tools/bank.js');
   const dir = path.join(ROOT, 'data/bank');
-  const files = fs.readdirSync(dir).filter((f) => f !== 'index.json').sort();
+  const files = fs.readdirSync(dir).filter((f) => f !== 'index.json' && f !== 'aliases.json').sort();
   assert.deepStrictEqual(files, meta.tournaments.map((t) => t.slug + '.json').sort());
   // Re-packing the flat records reproduces every file byte for byte, so the
   // files and the tool agree on the format (and packets aren't split up).
@@ -176,7 +178,7 @@ test('data/bank/index.json maps every question id to its own tournament', () => 
   const wrong = raw.filter((q) => SBData.slugForId(index.ids, q.i) !== q.ts).map((q) => q.i);
   assert.deepStrictEqual(wrong.slice(0, 10), []);
   // Every alias target resolves too, since bookmarks are migrated first.
-  const aliasWrong = Object.values(meta.idAliases || {}).filter((to) => !SBData.slugForId(index.ids, to));
+  const aliasWrong = Object.values(aliases()).filter((to) => !SBData.slugForId(index.ids, to));
   assert.deepStrictEqual(aliasWrong.slice(0, 10), []);
 });
 
@@ -309,6 +311,7 @@ test('meta.json stamps each bank file with its contents (node tools/meta-counts.
   const { fileStamp } = require('../tools/meta-counts.js');
   const meta = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'data', 'meta.json'), 'utf8'));
   assert.strictEqual(meta.bankIndex, fileStamp('data/bank/index.json'));
+  assert.strictEqual(meta.bankAliases, fileStamp('data/bank/aliases.json'));
   for (const t of meta.tournaments) assert.strictEqual(t.v, fileStamp(`data/bank/${t.slug}.json`), t.slug);
 });
 
@@ -364,6 +367,15 @@ test('frequency lists count a plural with its singular and show a spelling that 
     { answer: 'mRNA', count: 1 },
     { answer: 'pH', count: 1 },
   ]);
+});
+
+test('data/frequency.json holds each subject\'s current frequency list (node tools/meta-counts.js)', () => {
+  const { expectedFrequency } = require('../tools/meta-counts.js');
+  const file = require('fs').readFileSync(require('path').join(ROOT, 'data/frequency.json'), 'utf8');
+  assert.strictEqual(file, expectedFrequency(JSON.parse(require('fs').readFileSync(require('path').join(ROOT, 'data/meta.json'), 'utf8'))), 'run node tools/meta-counts.js');
+  const lists = JSON.parse(file);
+  assert.deepStrictEqual(Object.keys(lists).sort(), meta.subjects.map((x) => x.key || x).sort());
+  for (const list of Object.values(lists)) assert.strictEqual(list.length, 50);
 });
 
 test("a frequency list's counts are what its Database links find", () => {

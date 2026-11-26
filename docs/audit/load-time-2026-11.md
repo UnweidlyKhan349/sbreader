@@ -61,6 +61,43 @@ background prefetch.
 | Before | 1.18 s | 2.44 s | 0.50 s |
 | After | 0.93 s | **0.93 s** | **0.20 s** |
 
+## Done on November 26, 2026: items 1, 4 and 5 below
+
+Measured the same way (median of 2 runs), on this branch against the one
+before it. "Usable" is when Play's Start button works, a frequency list is
+drawn, or the Database shows its first results.
+
+| Page | Before: phone | After: phone | Before: desktop | After: desktop |
+|---|---:|---:|---:|---:|
+| Play, usable | 48.5 s | **6.5 s** | 7.9 s | **1.0 s** |
+| Frequency List (one subject), usable | 48.3 s | **2.4 s** | 7.9 s | **0.6 s** |
+| Frequency List (one subject), KB downloaded | 9,066 | **337** | | |
+| Database, first results | 5.6 s | 5.4 s | 0.9 s | 0.7 s |
+| Set List, meta.json in | 2.4 s | 2.3 s | 0.8 s | 0.4 s |
+| First paint: Play / Database / Set List / About | 1.7 / 1.3 / 1.2 / 0.9 s | 1.4 / 1.2 / 1.1 / 0.9 s | 0.2–0.4 s | 0.2–0.3 s |
+
+- **Play** starts once the files the settings need have arrived (the six
+  newest tournaments, the picked ones, or those holding the starred
+  questions) and mixes the rest in as it comes. Its 6.5 s on a slow phone
+  is the page's own load event (the Google tag finishes at about 5.5 s);
+  the first six files are in by about 4 s.
+- **Frequency lists** come from `data/frequency.json`, written by
+  `node tools/meta-counts.js`.
+- **Multiplayer's lobby** fetches the bank at low priority until you join
+  a room. This lab setup has no measure of when the lobby is ready (the
+  room list comes from Supabase, which the audit blocks), so there's no
+  number for it.
+- **The id aliases** moved out of meta.json into `data/bank/aliases.json`
+  (meta.json 97 KB → 23 KB; 29 → 5 KB gzipped). Pages that wait for
+  meta.json gain about a tenth of a second on a slow phone.
+- **Bootstrap's stylesheet** is served by the site. The gain in first
+  paint here is up to 0.25 s on a slow phone, less than estimated below:
+  Chromium's network throttling delays each request but doesn't simulate
+  the DNS, TCP and TLS round trips of a new connection, which is what
+  serving it from the site saves, so the real gain on a phone should be
+  larger than this measures. (The site's gzipped copy is 31 KB, against
+  the CDN's 23 KB in Brotli.)
+
 ## Ways to cut loading time, biggest first
 
 ### 1. Four pages wait for the whole 8.7 MB bank (48 s on a slow phone, 8 s on 10 Mbps)

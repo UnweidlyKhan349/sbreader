@@ -13,7 +13,7 @@ test.after(async () => { await browser.close(); await server.close(); });
 async function freshPlay() {
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   return { ctx, page };
 }
 
@@ -84,11 +84,52 @@ test('Play opens on the default settings every time, keeping only your reading s
   await page.locator('#toggleRebuzz').click({ force: true });
   await page.locator('#rateSlider').fill('80');
   await page.reload();
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.strictEqual(await page.locator('#matchCount').innerText(), all);
   assert.strictEqual(await page.locator('#toggleRebuzz').isChecked(), false);
   assert.strictEqual(await page.locator('#rateSlider').inputValue(), '80', 'your reading speed is kept');
   assert.strictEqual(await page.locator('#subjectButtons .btn-subject.active').count(), await page.locator('#subjectButtons .btn-subject').count());
+  await ctx.close();
+});
+
+// Start works once the newest tournaments are in; the rest of the bank,
+// held back here, is mixed in when it arrives.
+test('Play starts on the newest tournaments while the rest of the bank downloads', async () => {
+  const fs = require('fs');
+  const path = require('path');
+  const meta = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'meta.json'), 'utf8'));
+  require('../../js/data.js');
+  const first = new Set(globalThis.SBData.newestFirst(meta.tournaments).slice(0, globalThis.SBData.FIRST_FILES).map((t) => t.slug));
+  const ctx = await newContext(browser);
+  const held = [];
+  let release = false;
+  await ctx.route(/\/data\/bank\/[^/?]+\.json/, (route) => {
+    const slug = new URL(route.request().url()).pathname.split('/').pop().replace(/\.json$/, '');
+    if (release || first.has(slug)) route.continue(); else held.push(route);
+  });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('dialog', (d) => d.dismiss());
+  await page.goto(server.url + 'solo');
+  await page.waitForFunction(() => /match your settings so far/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  assert.strictEqual(await page.locator('#nextBtn').isDisabled(), false, 'Start works before the whole bank is in');
+  assert.ok(held.length > 0, 'the older tournaments are still on their way');
+  await page.locator('#nextBtn').click();
+  await page.waitForTimeout(600);
+  assert.match(await page.locator('#qDisplay').innerText(), /TOSS-UP|BONUS/);
+  release = true;
+  held.splice(0).forEach((r) => r.continue());
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  const all = await page.evaluate(() => SBData.questions.length);
+  assert.ok(all > 10000, 'the whole bank arrived');
+  // The next question comes from the rebuilt queue, and play carries on.
+  await page.keyboard.press('s');
+  await page.waitForTimeout(400);
+  await page.keyboard.press('n');
+  await page.waitForTimeout(600);
+  assert.match(await page.locator('#qDisplay').innerText(), /TOSS-UP|BONUS/);
+  assert.deepStrictEqual(errors, []);
   await ctx.close();
 });
 
@@ -164,7 +205,7 @@ test('history cards: the footer reads "Set / RR 3 / Toss-up 6 / Subject", links 
 test('on a phone, a history card footer that wraps keeps "Source packet | Report" inside it, on the right', async () => {
   const ctx = await newContext(browser, { viewport: { width: 390, height: 800 } });
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   const r = await page.evaluate(async () => {
     await SBData.load();
     // A footer too long for one line at this width, as in NSBA1's.
@@ -187,7 +228,7 @@ test('q is listed among the shortcuts, and flips I was wrong / I was right in Pl
   const ctx = await newContext(browser);
   const page = await openPage(ctx, server.url + 'solo');
   assert.match(await page.locator('body').innerText(), /q = I was wrong \/ I was right/);
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   await page.keyboard.press('n');
   await page.waitForTimeout(600);
   await page.keyboard.press('Space');
@@ -395,7 +436,7 @@ test('with rebuzzes on, every wrong interrupt costs 4 (as in Multiplayer); a wro
 test('on a phone, Play opens with its settings showing and the first question folds them to the timer', async () => {
   const ctx = await newContext(browser, { viewport: { width: 390, height: 844 } });
   const page = await openPage(ctx, server.url + 'solo');
-  await page.waitForFunction(() => /match your settings/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
+  await page.waitForFunction(() => /match your settings(?! so far)/.test(document.getElementById('matchCount').textContent), null, { timeout: 60000 });
   assert.ok(await page.locator('#matchCount').isVisible(), 'the settings show before the first question');
   await page.locator('#nextBtn').click();
   await page.waitForTimeout(400);

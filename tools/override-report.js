@@ -88,7 +88,7 @@ function loadQuestions() {
   const meta = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'meta.json'), 'utf8'));
   const bank = meta.tournaments.map((t) => ({ slug: t.slug, packets: JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', t.slug + '.json'), 'utf8')) }));
   const byId = new Map(SBData.expandQuestions(meta, bank).map((q) => [q.id, q]));
-  const aliases = meta.idAliases || {};
+  const aliases = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'bank', 'aliases.json'), 'utf8'));
   return (id) => byId.get(id) || byId.get(aliases[id]) || null;
 }
 

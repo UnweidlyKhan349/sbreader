@@ -19,7 +19,7 @@
 <meta property="og:description" content="Join a public Science Bowl lobby, or create or join a room with a 5-letter code. Everyone can buzz, with a live scoreboard, chat and real Science Bowl scoring. Free, no accounts or installs." />
 <meta property="og:url" content="https://sbreader.org/multiplayer" />
 <meta name="twitter:card" content="summary" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+<link rel="stylesheet" href="css/bootstrap.min.css?v=8f8173cb2d" />
 <link rel="stylesheet" href="css/style.css?v=26ee41c204" />
 <script src="js/site.js?v=3dedcd63e7"></script>
 <link rel="preload" href="data/meta.json" as="fetch" crossorigin />
@@ -31,9 +31,12 @@
 <meta name="theme-color" content="#dfebfb" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)" />
 <!-- Loaded here rather than at the end of <body> so the question bank starts
-     downloading at once, while the rest of the page loads. -->
-<script src="js/data.js?v=88a86dc7ec"></script>
-<script>SBData.load();</script>
+     downloading at once, while the rest of the page loads. In the lobby
+     nothing needs it until you join a room, so there it's fetched at low
+     priority, behind the lobby's own files and the room list; a link
+     straight into a room (?room= or ?lobby=) fetches it as Play does. -->
+<script src="js/data.js?v=f8dc8a3245"></script>
+<script>SBData.load({ lowPriority: !/[?&](room|lobby)=/.test(location.search) });</script>
 <!-- A link straight into a room (?room= or ?lobby=) shows the room at once,
      with "Connecting…", instead of the lobby first. -->
 <script>if (/[?&](room|lobby)=/.test(location.search)) document.documentElement.classList.add('mp-direct');</script>

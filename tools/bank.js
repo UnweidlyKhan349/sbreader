@@ -101,7 +101,7 @@ function formatIndex(index) {
 function pack(records) {
   const bySlug = packRecords(records);
   fs.mkdirSync(BANK_DIR, { recursive: true });
-  const keep = new Set(['index.json']);
+  const keep = new Set(['index.json', 'aliases.json']);
   bySlug.forEach((packets, slug) => {
     keep.add(slug + '.json');
     fs.writeFileSync(path.join(BANK_DIR, slug + '.json'), formatShard(packets));
