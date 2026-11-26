@@ -22,7 +22,7 @@ The `alt` answers are also how grader gaps are found: a kind of answer refused a
 
 `node tools/keycheck.js status` shows what is checked (`docs/audit/checked-ids.txt`). The first 31,278 questions were read on an older copy of the bank (November 15–17, 2026) and brought onto `main`'s bank on November 26, 2026, question by question (see data-history); the review continues from there, on top of `main`. The earlier key-only check's list is kept as `checked-ids-keycheck-2026-11.txt`; the full review starts again from zero because it checks more.
 
-Chunks were first cut in this order, 300 questions each: practice, other bowls, team-written tournaments, official DOE sets, school-team sets. Chunks 1–106 are done. What is left was cut again on November 26, 2026 (the bank had grown by the scibowl.com Submissions practice set), numbered from 107 in the same group order. **Do not re-cut the chunks mid-review**: cut them all at the start (`chunks` skips checked ids, so re-cutting renumbers everything).
+Chunks were first cut in this order, 300 questions each: practice, other bowls, team-written tournaments, official DOE sets, school-team sets. Chunks 1–106 are done. What is left was cut again on November 26, 2026 (the bank had grown by the scibowl.com Submissions practice set), numbered from 1 again (in a fresh scratch directory) in the same group order. **Do not re-cut the chunks mid-review**: cut them all at the start (`chunks` skips checked ids, so re-cutting renumbers everything).
 
 ```bash
 for g in practice other team official school; do node tools/keycheck.js chunks <dir> $g 300; done
