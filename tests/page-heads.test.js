@@ -22,7 +22,7 @@ const EVERY_PAGE = {
   'favicon.svg': /<link rel="icon" href="\/?favicon\.svg" type="image\/svg\+xml" \/>/,
   'apple-touch-icon': /<link rel="apple-touch-icon" href="\/?apple-touch-icon\.png" \/>/,
   manifest: /<link rel="manifest" href="\/?site\.webmanifest" \/>/,
-  'home-screen name': /<meta name="apple-mobile-web-app-title" content="SB Reader" \/>/,
+  'home-screen name': /<meta name="apple-mobile-web-app-title" content="SBReader" \/>/,
   'light theme colour': /<meta name="theme-color" content="#dfebfb" media="\(prefers-color-scheme: light\)" \/>/,
   'dark theme colour': /<meta name="theme-color" content="#333333" media="\(prefers-color-scheme: dark\)" \/>/,
 };

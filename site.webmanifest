@@ -1,6 +1,6 @@
 {
-  "name": "SB Reader",
-  "short_name": "SB Reader",
+  "name": "SBReader",
+  "short_name": "SBReader",
   "description": "Free Science Bowl practice built from real tournament packets: a question database, a solo buzzer trainer and online multiplayer.",
   "id": "/",
   "start_url": "/",
