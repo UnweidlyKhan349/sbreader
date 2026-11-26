@@ -113,4 +113,13 @@ async function joinRoom(ctx, base, room) {
   return page;
 }
 
-module.exports = { chromium, startServer, newContext, openPage, joinRoom, routeCdn, ROOT };
+// After Next: waits until each player's screen is reading the question and
+// its Buzz button works, so a buzz that follows isn't lost on a slow CI
+// machine (a fixed wait sometimes buzzed before the question had arrived).
+async function untilReading(...pages) {
+  for (const p of pages) {
+    await p.waitForFunction(() => !document.getElementById('mpBuzzBtn').disabled && document.getElementById('mpQDisplay').textContent.trim().length > 0, null, { timeout: 20000 });
+  }
+}
+
+module.exports = { chromium, startServer, newContext, openPage, joinRoom, untilReading, routeCdn, ROOT };

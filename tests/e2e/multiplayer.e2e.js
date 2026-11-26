@@ -6,7 +6,7 @@
 // and the room's flow are in multiplayer-rooms.e2e.js (run alongside).
 const test = require('node:test');
 const assert = require('node:assert');
-const { chromium, startServer, newContext, joinRoom } = require('./helpers');
+const { chromium, startServer, newContext, joinRoom, untilReading } = require('./helpers');
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
@@ -50,7 +50,7 @@ test('a wrong answer can be overridden, and taken back, on the buzz line', async
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
   const g = await joinRoom(ctx, server.url, r);
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' '); await g.waitForTimeout(400);
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
@@ -80,7 +80,7 @@ test('"I was right" after someone else was marked correct takes the question fro
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
   const g = await joinRoom(ctx, server.url, r);
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   // The guest interrupts and is wrong; the question reads on.
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' '); await g.waitForTimeout(400);
@@ -474,7 +474,7 @@ test('typing in the chat box is never a shortcut, also when a question starts mi
   await g.keyboard.press('Enter'); await g.waitForTimeout(300);
   await g.keyboard.type('hello');
   // The other player starts a question while the guest is still typing.
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   await g.keyboard.type(' there n s p k t q e');
   await g.waitForTimeout(400);
   assert.strictEqual(await g.evaluate(() => document.activeElement && document.activeElement.id), 'mpChatInput', 'the chat box kept the keyboard');

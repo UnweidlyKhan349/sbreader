@@ -3,7 +3,7 @@
 // and joining from the lobby, join messages, and the end of a set.
 const test = require('node:test');
 const assert = require('node:assert');
-const { chromium, startServer, newContext, joinRoom, openPage } = require('./helpers');
+const { chromium, startServer, newContext, joinRoom, openPage, untilReading } = require('./helpers');
 
 let server; let browser;
 test.before(async () => { server = await startServer(); browser = await chromium.launch(); });
@@ -355,7 +355,7 @@ test('an answer on an earlier question can be claimed later: I was right on its 
   const a = await joinRoom(ctx, server.url, r);
   const g = await strangerIn(ctx, server.url, r); // its own player ID
   const gName = await g.evaluate(() => document.getElementById('mpUsername').value);
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' '); await g.waitForTimeout(400);
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
@@ -393,7 +393,7 @@ test('"I was right" on an earlier question someone else got takes it from them (
   const a = await joinRoom(ctx, server.url, r);
   const g = await strangerIn(ctx, server.url, r);
   const [aName, gName] = [await myName(a), await myName(g)];
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' '); await g.waitForTimeout(400);
   await g.keyboard.type('zzzz'); await g.keyboard.press('Enter'); await g.waitForTimeout(600);
@@ -462,7 +462,7 @@ test('a buzz during the reading is an Interrupt; changing the subjects again edi
   const r = room();
   const a = await joinRoom(ctx, server.url, r);
   const g = await strangerIn(ctx, server.url, r);
-  await a.locator('#mpNextBtn').click(); await a.waitForTimeout(1200);
+  await a.locator('#mpNextBtn').click(); await untilReading(a, g); await a.waitForTimeout(800);
   await g.locator('body').click({ position: { x: 400, y: 300 } });
   await g.keyboard.press(' ');
   await a.waitForSelector('#live-buzz', { timeout: 10000 });
