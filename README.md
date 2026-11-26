@@ -12,16 +12,16 @@ Created by **Henry Lu** ([UnweidlyKhan349](https://github.com/UnweidlyKhan349) o
 
 Under the hood it's a static site (a searchable question database, a solo buzzer trainer, a peer-to-peer multiplayer mode, and starred questions kept per device) written in plain HTML/CSS/JS, with no build step, JavaScript framework or server of its own to run, so it can be deployed straight to GitHub Pages or any static host. The optional extras use a [Supabase](https://supabase.com) project: accounts, the Multiplayer room list and relay, and question reports, through the database schema in `supabase/schema.sql`, plus one small Edge Function that hands out TURN logins for Multiplayer (`supabase/functions/turn-credentials`). Without a project everything else still works. Its look follows [QB Reader](https://www.qbreader.org/), the quizbowl reader: Bootstrap 5.3's stylesheet (a copy of 5.3.8 served by the site itself, `css/bootstrap.min.css`) with Light, Night and Auto themes.
 
-**Current question bank: 106,316 questions from 114 sets** (57,546 tossups / 48,770 bonuses; 65,464 short answer / 40,852 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 60,324 of those links open the packet at the question's page or line.
+**Current question bank: 106,131 questions from 114 sets** (57,461 tossups / 48,670 bonuses; 65,388 short answer / 40,743 multiple choice), including **567 visual questions** whose figures (569 images) are shown with the question. Every question links to where it's published, and 63,162 of those links open the packet at the question's page or line.
 
 | Subject | Questions |
 |---|---|
-| Biology | 23,345 |
-| Earth & Space | 22,409 |
-| Physics | 20,956 |
-| Math | 16,922 |
-| Chemistry | 20,106 |
-| Energy | 2,628 |
+| Biology | 23,277 |
+| Earth & Space | 22,367 |
+| Physics | 20,937 |
+| Math | 16,912 |
+| Chemistry | 20,020 |
+| Energy | 2,618 |
 
 This README covers what the site does, how it's built, the data format, and how to run and test it. Where the questions came from and how they were cleaned is in [docs/data-history.md](docs/data-history.md), the per-tournament counts are in [docs/tournaments.md](docs/tournaments.md), and site changes are in [CHANGELOG.md](CHANGELOG.md).
 

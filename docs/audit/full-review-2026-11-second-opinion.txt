@@ -1,0 +1,7173 @@
+24702|a|PUROMYCIN
+24728|a|I, II, III, IV
+24829|a|ISOCITRATE
+30165|rmac|Timpy
+34300|rmac|Ethmoidal
+34312|rmac|Theory of…
+34312|rmac|Tree of…
+34349|a|DINOFLAGELLATES
+34444|a|THIGMOMORPHOGENESIS
+34551|a|2 AND 3
+24677|rm|
+34283|rm|
+34215|q|["Aden yly l cyclase is a n integral membrane protein activated by G-proteins to catalyze the form a tion of what molecule?","Adenylyl cyclase is an integral membrane protein activated by G-proteins to catalyze the formation of what molecule?"]
+34273|q|["The scolex is the posterior tip","The scolex is the anterior tip"]
+34539|q|["starch ri ch tissue","starch rich tissue"]
+34755|q|["Republic of Congo","Democratic Republic of the Congo"]
+6718|ac|glycosidic linkage
+6773|ac|reelin protein
+6782|ac|haemocyte
+6819|ac|SD sequence
+6873|ac|0.32
+6884|ac|optic disk peripheral retina fovea
+6901|ac|sigma subunit
+6918|ac|hepatolenticular degeneration
+6969|ac|vacuolar sap
+6984|ac|amygdalae
+24473|ac|Ca and Na outside, K inside
+24492|ac|IP3 and DAG
+24492|ac|inositol trisphosphate and diacylglycerol
+24533|ac|fungal viruses
+24535|ac|ethene
+24556|ac|PSII
+24559|ac|molting
+24559|ac|moulting
+24593|ac|kinesin motor
+24604|ac|sponges
+24614|ac|CN VIII
+24614|ac|cranial nerve VIII
+24676|ac|CCR5 receptor
+24676|ac|C-C chemokine receptor type 5
+24696|ac|serine residue
+24727|ac|NK cell
+24727|ac|NK cells
+24737|ac|ZW
+24759|ac|both ventricles
+24760|ac|atrial depolarization ventricular depolarization ventricular repolarization
+24767|ac|molecular chaperones
+24767|ac|chaperone proteins
+24918|ac|adaptive immunity
+24918|ac|adaptive
+24919|ac|thymus gland
+24932|ac|dideoxynucleoside triphosphates
+24932|ac|dideoxynucleotide triphosphates
+24932|ac|dideoxynucleoside triphosphate
+30074|ac|Sec
+30096|ac|Emsley mimicry
+30096|ac|Mertens mimicry
+30104|ac|80 millimeters of mercury
+30121|ac|connecting peptide
+30140|ac|photoperiodic response
+30162|ac|cytoplasmic dynein
+34113|ac|6
+34113|ac|chr 6
+34124|ac|peptidoglycan, lipopolysaccharide, N-formylmethionine
+34147|ac|1 oviparous 2 oviparous 3 viviparous 4 viviparous
+34191|ac|Hebb's rule
+34191|ac|Hebbian theory
+34252|ac|Huntington's chorea
+34272|ac|gill cover
+34301|ac|fimbria
+34350|ac|heterokonts
+34350|ac|Stramenopila
+34358|ac|cri-du-chat syndrome
+34358|ac|cat cry syndrome
+34358|ac|5p minus syndrome
+34376|ac|Togaviridae
+34407|ac|motor cells
+34408|ac|slope increases and y-intercept decreases
+34419|ac|axoaxonic
+34420|ac|RISC, Dicer, Exportin-5
+34431|ac|haemocoel
+34432|ac|yellowing
+34444|ac|thigmomorphogenesis response
+34453|ac|forming face
+34477|ac|amyloid beta
+34477|ac|amyloid-beta
+34477|ac|Abeta
+34521|ac|RAG recombinase
+34521|ac|V(D)J recombinase
+34526|ac|MeHg
+34529|ac|salivary amylase pepsin chymotrypsin
+34539|ac|endosperm tissue
+34547|ac|islet beta cells
+34551|ac|2 and 3
+34551|ac|isoleucine and methionine
+34557|ac|meningitis infection
+34571|ac|eumetazoans
+34571|ac|Eumetazoa clade
+34581|ac|-80 mV
+34581|ac|negative 80 mV
+34591|ac|membrane rafts
+34622|ac|0
+34626|ac|beta-lactam antibiotics
+34626|ac|antibiotic compounds
+34637|ac|reduced nicotinamide adenine dinucleotide
+34660|ac|ascorbate
+34670|ac|C and G
+34677|ac|AQP
+34678|ac|geographic speciation
+34725|ac|pentose phosphate shunt
+34725|ac|PPP
+34725|ac|hexose monophosphate shunt
+34732|ac|0.22
+34755|ac|Ebola virus disease
+34755|ac|EVD
+34772|ac|pyruvic acid
+34779|ac|haemocyanin
+34788|ac|D. melanogaster
+34794|ac|sclerenchyma cells
+34834|ac|protons
+34844|ac|catabolic reactions
+34844|ac|catabolic pathways
+34845|ac|tympanic membrane oval window cochlea
+34856|ac|Protoctista
+34860|ac|0
+34331|rj|Bacillus
+6709|a|1.00
+6709|ac|1
+6709|ac|1.0 atm
+6709|ac|1.00 atm
+34883|ac|murein
+85981|ac|ABA
+93153|ac|haemoglobin
+95039|ac|peat moss
+95057|ac|CRISPR-Cas
+95064|ac|Indian lion
+95080|ac|cyclic photophosphorylation
+95081|ac|IFN
+95094|ac|dauer larvae
+95166|ac|polycistronic mRNA
+95195|ac|pI
+95280|ac|C, T, U
+95288|ac|coenocyte
+95345|ac|genetic bottleneck effect
+95377|ac|36 and 46
+95377|ac|36, 46
+95395|ac|archaebacteria
+95407|ac|C1
+95407|ac|atlas vertebra
+95408|ac|endosymbiosis
+95408|ac|endosymbiont theory
+95408|ac|endosymbiosis theory
+95418|ac|CFTR, chromosome 7
+95418|ac|CFTR, 7
+95448|ac|hypha
+95454|ac|D. melanogaster
+95455|ac|Alfred Hershey and Martha Chase
+95459|ac|fructose-bisphosphate aldolase
+95501|ac|jumping genes
+95558|ac|DNA pol
+95568|ac|T2 phage, sulfur-35 and phosphorus-32
+95568|ac|T2, 35S and 32P
+95572|ac|actin filaments
+95573|ac|cisternal progression model
+95574|ac|actin filaments
+95577|ac|alcaptonuria
+95580|ac|ecological niche
+95582|ac|4
+95582|ac|four
+95617|ac|lactose operon
+95630|ac|cervical, thoracic, lumbar
+95630|ac|cervical thoracic lumbar
+95642|ac|Ub
+95646|ac|L-tryptophan
+96136|ac|molecular oxygen
+96174|ac|glutamic acid
+96175|ac|sinus node
+6722|ac|per second
+6722|ac|1/sec
+6736|ac|s, l, l
+6753|ac|half chair conformation
+6754|ac|statements 1 and 3
+6780|ac|disulfide bond
+6798|ac|t-butoxide
+95487|rj|silicon
+6976|a|Y
+6927|drop|
+24469|a|2 ONLY
+24572|a|X
+24591|a|+5
+24716|rm|
+34117|rm|
+34142|rm|
+34163|a|II, I, III
+34555|q|["while their hydrophobic tails remain facing outward","while their hydrophilic heads remain facing outward"]
+34723|a|400 grams per mole
+34746|rm|
+6799|ac|phenol, ethyne, ethene
+6836|ac|water and ethanethiol
+6845|ac|0
+6891|ac|lindlar and p-2
+6909|ac|C12 H24
+6982|ac|lanthanoid contraction
+24469|ac|2
+24469|ac|Fe(SCN)6^3-
+24480|ac|neighboring group participation
+24480|ac|neighbouring group participation
+24480|ac|NGP
+24584|ac|all paramagnetic
+24584|ac|paramagnetic, paramagnetic, paramagnetic
+24591|ac|5
+24591|ac|+5
+24945|ac|mie scattering
+30113|ac|eta-2
+30114|ac|atropisomer
+30153|ac|ionization isomerism
+30153|ac|ionisation isomer
+30203|ac|cyclohexane, chair
+30203|ac|cyclohexane and chair
+34119|ac|enthalpy of fusion
+34119|ac|latent heat of fusion
+34119|ac|molar enthalpy of fusion
+34120|ac|1.3x10^2 kJ
+34127|ac|nickel chromium
+34127|ac|nickel-chromium
+34143|ac|0 J
+34143|ac|0 kJ
+34144|ac|decrease, increase, decrease, increase
+34163|ac|2,1,3
+34163|ac|Cl-, H2O, OH-
+34241|ac|sigma, pi, delta
+34251|ac|CCl4, CHCl3, CH2Cl2
+34363|ac|sp3d
+34428|ac|r^6
+34428|ac|sixth power
+34513|ac|mclafferty
+34538|ac|compressibility factor
+34538|ac|z factor
+34588|ac|zero
+34589|ac|zero
+34618|ac|ISC
+34644|ac|2 sqrt(3) hbar
+34644|ac|sqrt(12) hbar
+34645|ac|HCO2-
+34654|ac|olefin
+34654|ac|olefins
+34689|ac|Mg2+, Na+, F-
+34723|ac|400
+34723|ac|400 g/mol
+34723|ac|4x10^2 g/mol
+34757|ac|Br2, H2O2, diethyl ether
+34857|ac|zero order
+34857|ac|zeroth order
+34890|ac|gaseous
+34890|ac|vapor
+85928|ac|copper, +1, diazonium salts
+30087|rj|1,3,2
+34723|rj|100 g/mol
+34427|drop|
+34749|rm|
+95125|ac|negative and negative
+95125|ac|both are negative
+95197|ac|dextrorotary
+95218|ac|vulcanisation
+95247|ac|white, red, violet, black
+95252|ac|piezoelectric effect
+95252|ac|piezoelectric
+95253|ac|1, 2, 3, 4
+95308|ac|less than zero
+95308|ac|<0
+95313|ac|van der waals equation
+95313|ac|johannes van der waals
+95353|ac|10/15
+95367|ac|dihydric alcohol
+95422|ac|gamma radiation
+95422|ac|gamma photons
+95427|ac|alpha particle
+95427|ac|he-4 nucleus
+95427|ac|helium-4 nucleus
+95485|ac|silicon, carbon, manganese
+95488|ac|meta-bromobenzenesulfonic acid
+95514|ac|radio
+95514|ac|radio frequency
+95530|ac|homolytic cleavage
+95530|ac|homolytic fission
+95542|ac|azeotropic mixture
+95678|ac|4 electrons
+95679|ac|phosphate ion
+95686|ac|oxygen family
+95690|ac|16 h
+95698|ac|building-up principle
+95699|ac|actinium
+95699|ac|4n+3
+95705|ac|hard coal
+95709|ac|1.4:1
+95716|ac|superoxide ion
+95718|ac|volume and temperature
+95718|ac|relationship between volume and temperature
+95732|ac|law of definite composition
+95732|ac|law of constant proportions
+95732|ac|Proust's law
+95736|ac|3c2e bond
+96160|ac|p-xylene
+96169|ac|antoine-laurent lavoisier
+96190|ac|caesium
+96193|ac|hydrogen-1
+96193|ac|h-1
+96193|ac|1h
+96195|ac|alkaline
+96200|ac|isopropanol
+96200|ac|2-propanol
+96205|ac|equivalence
+96205|ac|stoichiometric point
+96207|ac|filtering
+118081|ac|4 electrons
+6730|ac|semiconducting materials
+95029|ac|co2, co, h2
+95029|ac|h2, co, co2
+95088|ac|hard coal
+95173|ac|sour natural gas
+95201|ac|surface mine
+95201|ac|strip mine
+95216|ac|hubbert peak
+95216|ac|peak oil production
+95287|ac|internal combustion, gas turbine, steam turbine, hydro
+95315|ac|wpd
+95476|ac|pwr, bwr, phwr
+95741|rj|+925 kj/mol
+6734|a|DARK MATTER
+24486|a|1 AND 3
+24521|a|1,2,3,4
+24522|rmac|this one might be a little vague too, let me know if people complain about it
+34116|drop|
+34125|a|Y
+24674|a|CHROMIUM
+24730|a|RADIATION PRESSURE
+24948|rm|
+34345|a|4,2,1,3
+34400|a|r
+30118|rm|
+6863|q|["Charon was first discovered by New Horizons in 2015","Charon was first discovered in 1978"]
+24509|q|["is less than the atmospheric lapse rate but the wet adiabatic lapse rate is greater than the atmospheric lapse rate","is greater than the atmospheric lapse rate but the wet adiabatic lapse rate is less than the atmospheric lapse rate"]
+95873|ac|synthetic crude oil
+6706|ac|liquefaction
+6717|ac|two neutron stars
+6717|ac|binary neutron stars
+6762|ac|dyke
+6762|ac|igneous dike
+6843|ac|messier catalog
+6843|ac|messier catalogue
+6853|ac|milankovitch
+6853|ac|milutin milankovitch
+6862|ac|aluminium
+6913|ac|foliated rocks
+24503|ac|melting point depression
+24508|ac|reverse zonation
+24508|ac|reversed zoning
+24517|ac|type 1a supernova
+24517|ac|ia
+24528|ac|1 kpc
+24568|ac|positive feedback
+24580|ac|2.5 yr
+24580|ac|2.5 y
+24638|ac|thalweg line
+24638|ac|talweg
+24647|ac|thermohaline circulation
+24647|ac|global conveyor belt
+24647|ac|great ocean conveyor belt
+24655|ac|h and he
+24657|ac|Phanerozoic, Cenozoic, Quaternary, Holocene
+24659|ac|16x
+24674|ac|chromium(III)
+24674|ac|cr
+24707|ac|failed rift
+24707|ac|failed rift arm
+24730|ac|solar radiation pressure
+24730|ac|photon pressure
+24740|ac|seyfert
+24750|ac|hadley circulation
+24750|ac|hadley
+24762|ac|widmanstatten structure
+24780|ac|dredge-up
+24821|ac|meghalayan stage
+24922|ac|end moraine
+24929|ac|post-glacial rebound
+24929|ac|postglacial rebound
+24938|ac|eddington luminosity
+24938|ac|eddington luminosity limit
+30094|ac|tov and chandrasekhar
+30117|ac|baileys beads
+34187|ac|tablemounts
+34207|ac|coulomb potential barrier
+34232|ac|carbon-nitrogen-oxygen cycle
+34232|ac|cno
+34232|ac|carbon nitrogen oxygen cycle
+34249|ac|naalsi3o8
+34259|ac|nlc
+34268|ac|electron degeneracy
+34288|ac|conditionally unstable
+34321|ac|si, o, mg, fe
+34336|ac|cu, mn, ni, w
+34424|ac|el nino, la nina, la nina
+34450|ac|oort
+34515|ac|magma differentiation
+34515|ac|igneous differentiation
+34525|ac|goldich series
+34525|ac|goldich weathering series
+34536|ac|chthonian
+34545|ac|lenticular galaxy
+34560|ac|monogenetic volcano
+34574|ac|bif
+95864|rj|4, 3, 2, 1
+34674|rm|
+34771|a|QUATERNARY
+85922|rm|
+34640|ac|kelvin-helmholtz contraction
+34648|ac|12h 25m
+34809|ac|atmospheric pressure
+34821|ac|objective focal length
+34885|ac|hco3
+85956|ac|white dwarf star
+93130|ac|elliptical
+93130|ac|elliptical orbit
+93187|ac|scleractinia
+93187|ac|stony corals
+93187|ac|scleractinian corals
+94586|ac|ironex experiments
+94587|ac|black and white smokers
+95084|ac|du
+95169|ac|g-type
+95169|ac|g class
+95169|ac|g type star
+95180|ac|plagioclase series
+95193|ac|hypernova and neutron star merger
+95193|ac|hypernovae, neutron star mergers
+95210|ac|ccw
+95215|ac|pulsating and eclipsing
+95215|ac|eclipsing and cataclysmic
+95226|ac|spherical
+95238|ac|tidal heating from jupiter
+95299|ac|basalt, andesite, rhyolite
+95309|ac|white dwarf star
+95351|ac|maximum luminosity
+95362|ac|stellar distance
+95362|ac|distance to stars
+95362|ac|distances to stars
+95378|ac|hadley cell, ferrel cell, polar cell
+95421|ac|juno probe
+95426|ac|2
+95426|ac|two times
+95426|ac|twice as steep
+95434|ac|mw scale
+95434|ac|mms
+95435|ac|10^3
+95466|ac|400 parts per million
+95535|ac|cosmic microwave background radiation
+95535|ac|cmbr
+95535|ac|microwave background
+95759|ac|cassini orbiter
+95762|ac|m-type stars
+95762|ac|m class
+95764|ac|grbs
+95764|ac|grb
+95765|ac|o b a k
+95769|ac|pyroclasts
+95769|ac|pyroclastic material
+95769|ac|pyroclastic fragments
+95773|ac|water ice
+95773|ac|frozen water
+95782|ac|alluvial sediment
+95784|ac|andromeda galaxy
+95784|ac|m31
+95784|ac|messier 31
+95787|ac|precession of earth's axis
+95793|ac|jupiter's gravitational influence
+95793|ac|jupiter's gravitational pull
+95804|ac|jupiter's moon io
+95805|ac|tidal flexing
+95805|ac|tidal forces from jupiter
+95806|ac|perihelion precession
+95806|ac|precession of the perihelion
+95806|ac|orbital precession
+95811|ac|prograde and retrograde motion
+94587|rj|white smokers and black smokers
+95299|rj|rhyolitic, andesitic, basaltic
+95765|rj|1,3,4,2
+95765|rj|2,3,4,1
+95776|rj|jupiter, saturn, neptune, uranus
+96295|rm|
+6803|a|4.0
+6905|a|-2
+6940|a|(1 - e^-2)/2
+24490|a|-sinh(1)
+24554|rm|
+24565|a|-3/5
+24668|a|3/361
+24790|rmac|x
+30078|rm|
+30185|a|-1
+34122|q|["6y^2 = 21","6y^2 = 57"]
+34246|rm|
+34348|rm|
+34359|q|["have two distinct real roots","have no real roots"]
+34523|q|["s_1 and 3","1 and 3"]
+95823|ac|oblate ellipsoid
+95851|ac|chandrasekhar mass
+95854|ac|pop 2
+96168|ac|thermal metamorphism
+96225|ac|new
+96231|ac|messier 45
+6748|ac|log_2(x^(5/3))
+6832|ac|sqrt2^sqrt2, pi^sqrt3, e^pi
+6833|ac|2x ln(x) - 2x
+6833|ac|2xln(x)-2x+c
+6848|ac|(1/2)^6
+6973|ac|3
+6973|ac|statement 3
+6998|ac|diverges, (ln(x))^2/2 + C
+6998|ac|infinity and ln^2(x)/2 + C
+24543|ac|1 29/31
+24587|ac|1, e^(2pi i/3), e^(4pi i/3)
+24711|ac|inclusion-exclusion
+24790|ac|atan(x)
+24790|ac|tan^-1(x)
+24790|ac|inverse tangent of x
+24935|ac|360 minutes
+30137|ac|sin(sin(x))
+34179|ac|2x/cos^2(x^2)
+34277|ac|(10/3)arctan(5x/6)
+34277|ac|10/3 tan^-1(5x/6) + c
+34341|ac|(ln x)^2/2 + C
+34378|ac|(-4,8,-4)
+34382|ac|2sqrt(2) cis pi/4 and 2sqrt(2) cis 5pi/4
+34469|ac|quadrant 2
+34469|ac|quadrant ii
+34554|a|1 AND 2
+34612|q|["csc(x)-sin(x)","(csc(x)-sin(x))/cos(x)"]
+34613|a|8A/CC
+34631|a|2√17+√13+√61
+34763|rm|
+95114|rm|
+34544|ac|(2,-1.5) and 3
+34612|ac|cot(x)
+34612|ac|cotangent
+85921|ac|x=-4
+85921|ac|-4
+93260|ac|any real number
+93260|ac|all reals
+93260|ac|x is any real number
+93272|ac|Argand plane
+95037|ac|Goedel
+95157|ac|conservative field
+95341|ac|y-3 = 3/4(x+2) and y-3 = -3/4(x+2)
+95401|ac|-2^15
+95446|ac|(-inf,-2) U (1,inf)
+95544|ac|-i+2j-2k
+95901|ac|1 5/7
+34544|rj|center (2, 3/2) radius 3
+34554|rj|2
+85921|rj|(0,-4)
+95126|rj|-cot(x)
+95186|rj|√2/2
+95958|rm|
+6720|rm|
+6923|rm|
+6951|rm|
+24766|rm|
+34132|rm|
+34149|rm|
+34635|rm|
+96308|q|["why equals ex squared and why equals ex","y equals x squared and y equals x"]
+6768|q|["would induce an electromotive force","would not induce an electromotive force"]
+30197|q|["If the charge stored in a 10 farad capacitor","If the energy stored in a 10 farad capacitor"]
+6794|a|4 OHMS
+6851|a|5 × 10^6 m
+34131|a|-37 J
+34310|a|10/9 A
+34414|a|1.5 × 10^36 ħ^2
+34392|a|1 ONLY
+34175|a|W
+34311|a|Z
+34575|a|Y
+96084|ac|Mobius band
+96113|ac|infinite
+96309|ac|x=4 or x=-16
+96316|ac|x=4 or x=-2
+118082|ac|0x1B
+6731|ac|W+
+6731|ac|W plus
+6805|ac|p^2/2m + kx^2/2
+6805|ac|p^2/(2m) + (1/2)kx^2
+6805|ac|H = p^2/(2m) + (1/2)kx^2
+6878|ac|16 times
+6878|ac|x16
+6878|ac|2^4
+6887|ac|1 rad/s
+6887|ac|one rad/s
+6908|ac|0.4
+6934|ac|twice
+6941|ac|first power
+6966|ac|16 times
+6989|ac|9e-2 N
+24590|ac|30 N east
+24590|ac|30 N, east
+24590|ac|30 newtons east
+24600|ac|2.5 m/s2
+24610|ac|2 rad/s
+24699|ac|sphere, disk, hoop
+24699|ac|solid sphere, disk, ring
+24723|ac|19.6 m/s^2
+24723|ac|19.6 m/s²
+24751|ac|Lagrange points
+24751|ac|Lagrange point
+24765|ac|weak nuclear interaction
+24774|ac|25 kg m^2
+24774|ac|25 kg*m^2
+30089|ac|Van de Graaff
+30089|ac|Van de Graaff machine
+30130|ac|High Altitude Water Cherenkov
+30139|ac|0 flux
+30175|ac|linear momentum
+30198|ac|40.5 uJ
+30198|ac|40.5 microjoules
+30200|ac|2 cubic meters
+30200|ac|2 m3
+34111|ac|24
+34134|ac|doubles
+34134|ac|factor of 2
+34195|ac|1
+34223|ac|Helmholtz energy
+34223|ac|Helmholtz function
+34227|ac|mu_B
+34245|ac|(-1.5, 0), (-0.5, 0), (0.5, 0), (1.5, 0)
+34292|ac|Fermat's principle of least time
+34322|ac|Bohr correspondence principle
+34322|ac|Bohr's correspondence principle
+34351|ac|9 times d
+34367|ac|positron emission
+34380|ac|20g/3
+34380|ac|(20/3)g
+34404|ac|Pomeranchuk cooling
+34447|ac|synchrotron light
+34487|ac|Bohr correspondence principle
+34500|ac|pi meson
+34508|ac|W+
+34508|ac|W plus
+34541|ac|colorless
+34585|ac|4c/5
+96076|rj|5-5i
+6851|rj|5 × 10^9 m
+34642|a|2.5 MILLIMETERS
+93310|rm|
+34642|ac|2.5
+34642|ac|2.5 mm
+34671|ac|42 kg*m/s
+34671|ac|42 N*s
+34680|ac|30 N
+34680|ac|30 newtons
+34716|ac|lagrangian formulation
+34741|ac|superfluid state
+34753|ac|bernoulli effect
+34764|ac|8 times
+34764|ac|8x
+34777|ac|3.2 GPa
+34786|ac|same and half
+34792|ac|work done
+34793|ac|1.2 kpa
+34803|ac|hoyle resonance
+34816|ac|electromagnetic force
+34816|ac|em force
+34839|ac|-2
+34839|ac|r^-2
+34847|ac|de broglie hypothesis
+34858|ac|net force
+34867|ac|bragg's equation
+34870|ac|30 kg m/s
+34870|ac|30 N s
+34870|ac|30 kg*m/s
+34881|ac|dielectric material
+34882|ac|statement 3
+85836|ac|zero
+85839|ac|confinement and asymptotic freedom
+85839|ac|asymptotic freedom and confinement
+85927|ac|4/3
+85931|ac|2:1
+85931|ac|2/1
+85934|ac|0 V
+85977|ac|higgs
+85977|ac|peter ware higgs
+93285|ac|gmr
+93285|ac|giant magnetoresistance effect
+93291|ac|gravity and drag force
+93291|ac|gravitational force and air resistance
+93291|ac|weight and drag force
+93297|ac|infrared light
+93298|ac|armand fizeau
+93303|ac|5 total
+93305|ac|-20 cm
+93305|ac|20 cm behind
+93314|ac|m, kg, s, a, k, mol, cd
+93316|ac|pi/3
+93331|ac|optical trap
+93334|ac|u and anti-d
+93334|ac|up and antidown quark
+93334|ac|u and d-bar
+93338|ac|mu and mu neutrino
+93338|ac|muon and its neutrino
+93339|ac|0.0005/c
+93348|ac|wolfram
+93352|ac|4600000 ohms, 5%
+93354|ac|meissner-ochsenfeld effect
+93360|ac|2 m/s2
+93364|ac|systeme international d'unites
+93368|ac|8e-3 N
+93370|ac|w boson and z boson
+93378|ac|z0
+93378|ac|z zero
+93378|ac|it is its own antiparticle
+93382|ac|1.8 × 10^2 kcal
+93384|ac|e+ and electron neutrino
+93385|ac|1st
+93393|ac|tauon and tau neutrino
+93393|ac|tau and its neutrino
+93399|ac|4k joules
+93405|ac|meters/second^3
+93409|ac|weak interaction
+93410|ac|zeno effect
+93436|ac|lorentz transforms
+93442|ac|0 m/s
+93442|ac|zero m/s
+93442|ac|0 meters per second
+93449|ac|25 cm in front of mirror
+93449|ac|25 cm in front
+93450|ac|synchrotron emission
+93454|ac|dielectric breakdown voltage
+93454|ac|breakdown potential
+93458|ac|coefficient of compressibility
+93464|ac|remanence
+93468|ac|2^(1/2)
+93470|ac|negative 3 joules
+93478|ac|torricelli's theorem
+93478|ac|torricelli's equation
+93489|ac|gauss's law for magnetic fields
+93492|ac|small angle approx
+93496|ac|phasor plot
+93498|ac|top and bottom quarks
+93498|ac|t and b
+93510|ac|tension and compression
+34642|rj|5 mm
+93334|rj|down and anti-up
+93525|ac|leiden jar
+93527|ac|electron holes
+93530|ac|farsighted
+93531|ac|200x
+93531|ac|200 times magnification
+93533|ac|venturi flow meter
+93537|ac|lambda transition
+93549|ac|analyser
+93553|ac|(1-beta^2)^(-1/2)
+93567|ac|x=4
+93574|ac|cyclotron emission
+93587|ac|ac current
+93593|ac|planck's radiation law
+93600|ac|streamline flow
+93614|ac|10 degrees
+93615|ac|141.5/specific gravity-131.5
+93629|ac|cdm
+93635|ac|grating
+93641|ac|delta x and delta p
+93641|ac|dx and dp
+93645|ac|hydrogen-3
+93645|ac|h-3
+93645|ac|3h
+93650|ac|w-
+93650|ac|w minus
+93662|ac|loadstone
+93662|ac|fe3o4
+93667|ac|active medium
+93667|ac|laser medium
+93678|ac|virtual photon
+93682|ac|corona effect
+93688|ac|pi/6
+93688|ac|pi/6 radians
+93705|ac|inviscid and incompressible
+93717|ac|chaos
+93718|ac|sensitive dependence on initial conditions
+93721|ac|gustav robert kirchhoff
+93725|ac|wilhelm roentgen
+93726|ac|soft x-rays and hard x-rays
+93727|ac|sir george cayley
+93731|ac|magnus force
+93732|ac|raman effect
+93734|ac|infrared light
+93748|ac|atomic vapour laser isotope separation
+93748|ac|atomic vapor laser isotopic separation
+93750|ac|neutron absorbers
+93760|ac|aoa
+93761|ac|aerofoil
+93761|ac|aerofoils
+93763|ac|rc time constant
+93764|ac|nematic phase
+93764|ac|nematic liquid crystal
+93765|ac|illuminant metamerism
+93768|ac|goniochromism
+93771|ac|1e-42 m
+93773|ac|novikov principle
+93773|ac|novikov consistency principle
+93774|ac|hydrostatic stress
+93774|ac|volumetric stress
+93775|ac|pa
+93775|ac|n/m^2
+93777|ac|josephson tunneling
+93779|ac|electrophotography
+93789|ac|42t m/s^2
+93791|ac|10 cm behind
+93793|ac|fiber optic endoscope
+93808|ac|jj thomson
+93808|ac|sir j. j. thomson
+93816|ac|gamma radiation
+93816|ac|gamma
+93817|ac|balmer lines
+93822|ac|u, d, c, s, t, b
+93824|ac|brachistochrone curve
+93824|ac|cycloid curve
+93826|ac|s quark
+93703|ac|josephson tunneling
+93597|rj|flint and crown
+93990|rm|
+93828|ac|state quantity
+93829|ac|0 m/s
+93829|ac|at rest
+93858|ac|Wb
+93859|ac|S
+93867|ac|maxwell's displacement current
+93873|ac|anticlockwise
+93886|ac|normal
+93891|ac|thrust force
+93897|ac|SUSY
+93897|ac|supersymmetric theory
+93905|ac|dyn
+93924|ac|14.40 dollars
+93924|ac|1440 cents
+93925|ac|rgb
+93929|ac|Romer
+93929|ac|Ole Romer
+93929|ac|Olaus Roemer
+93943|ac|half an hour
+93945|ac|Lawrence Bragg
+93952|ac|twice
+93958|ac|Foucault currents
+93959|ac|fermat's principle of least time
+93959|ac|principle of least time
+93961|ac|anti-electron neutrino
+93962|ac|scotch yoke mechanism
+93967|ac|quantization of energy
+93969|ac|Sir Isaac Newton
+93971|ac|potentiometer circuit
+93974|ac|infrasonic waves
+93976|ac|cyclotron accelerator
+93986|ac|josephson tunnel junction
+93991|ac|Alfred Bernhard Nobel
+93993|ac|cd
+93995|ac|photoionisation
+93997|ac|degrees Rankine
+93998|ac|140.3 F
+93999|ac|Stark-Lo Surdo effect
+94017|ac|100 C
+94017|ac|100 degrees
+94048|ac|STM
+94048|ac|scanning tunnelling microscope
+94053|ac|4x
+94058|ac|force carriers
+94058|ac|force carrier particles
+94068|ac|non conservative
+94071|ac|electromagnetism and weak, electroweak
+94071|ac|electroweak force
+94073|ac|critical damping
+94074|ac|interference fringes
+94076|ac|compound pendulum
+94081|ac|mass spec
+94081|ac|mass spectrograph
+94086|ac|intrinsic angular momentum
+94086|ac|spin angular momentum
+94093|ac|Bq
+94096|ac|four moons
+94099|ac|intake, compression, expansion, exhaust
+94100|ac|one revolution
+94101|ac|gyroscopic precession
+94101|ac|torque-induced precession
+94104|ac|4.5 N s
+94104|ac|4.5 Ns
+94111|ac|rgb
+94112|ac|cmy
+94114|ac|maxwell's displacement current
+94118|ac|terminal speed
+94119|ac|monochromatic light
+94124|ac|TIR
+94138|ac|5π rad/s
+94138|ac|5 pi rad/s
+94156|ac|1e-10 m
+94163|ac|equipartition principle
+94170|ac|speed of light in vacuum
+94202|ac|1.62 m/s^2
+94215|ac|A divided by r squared
+94219|ac|louis victor de broglie
+94221|ac|32 f and 0.006 atm
+94225|ac|penzias and wilson at bell laboratories
+94232|ac|3.1e15 rad/s
+94243|ac|coriolis force
+94251|ac|hendrik antoon lorentz
+94251|ac|h. a. lorentz
+94254|ac|string landscape
+94257|ac|paul dirac and carl david anderson
+94271|ac|debounce
+94271|ac|button debouncing
+94289|ac|lepton and baryon number
+94291|ac|forbidden gap
+94346|ac|strong, electromagnetic, weak, gravitational
+94353|ac|cerenkov radiation
+94353|ac|cherenkov light
+94370|ac|magnetic penetration depth
+94372|ac|planck's radiation law
+94381|ac|linear electro-optic effect
+94396|ac|jj thomson
+94396|ac|joseph j. thomson
+94400|ac|full width half maximum
+94400|ac|full width at half max
+94400|ac|full-width half-maximum
+94402|ac|antielectron
+94402|ac|anti-electron
+94404|ac|wilson cloud chamber
+94406|ac|klmn
+94408|ac|0.01 c and 0.006 atm
+94413|ac|1e4 n
+94421|ac|zero joules
+94656|a|X
+94473|rm|
+94719|rm|
+94437|ac|20 m/s n
+94446|ac|bimetal strip, thermal expansion
+94467|ac|h
+94469|ac|decrease its radius by a factor of 4
+94469|ac|decrease radius by 4
+94475|ac|curie temp
+94488|ac|lorentz transform
+94499|ac|helmholtz coil pair
+94500|ac|amp-second
+94500|ac|amp second
+94507|ac|3: bosons
+94511|ac|quark confinement
+94523|ac|w+ and w-
+94543|ac|decreases
+94543|ac|wavelength decreases
+94555|ac|superconducting material
+94556|ac|meissner-ochsenfeld effect
+94561|ac|braking radiation
+94561|ac|bremsstrahlung radiation
+94563|ac|ra-226
+94570|ac|gravitational, electromagnetic, strong nuclear, weak nuclear
+94570|ac|strong, weak, electromagnetic, gravity
+94583|ac|monopoles
+94591|ac|0 N
+94591|ac|zero newtons
+94591|ac|0 newtons
+94597|ac|92 kohms
+94601|ac|4*pi*epsilon0*G
+94603|ac|wb and mx
+94605|ac|destructive wave interference
+94614|ac|relative dielectric constant
+94619|ac|franklin
+94620|ac|faraday rotation
+94623|ac|lorentz force law
+94629|ac|zeeman splitting
+94630|ac|hendrik antoon lorentz
+94630|ac|h. a. lorentz
+94634|ac|0.003 A and 0.02055 A
+94635|ac|(I1*w1 + I2*w2)/(I1 + I2)
+94635|ac|(i1w1+i2w2)/(i1+i2)
+94641|ac|4.8e-3 m/s^2 up
+94645|ac|susceptibility = relative permeability - 1
+94645|ac|mu_r - 1
+94645|ac|relative permeability - 1
+94649|ac|3.14e6 m^-1
+94649|ac|3.14 × 10^6 rad/m
+94653|ac|1.4e3 m/s^2
+94655|ac|zero amps
+94657|ac|low-pass
+94662|ac|debye radius
+94662|ac|debye screening length
+94663|ac|100 v*m
+94669|ac|thermalised
+94675|ac|5e4 ohms
+94675|ac|50 kohms
+94675|ac|50 kilohms
+94679|ac|it will be less
+94679|ac|lower
+94679|ac|it decreases
+94680|ac|2.5 cm
+94681|ac|transmission stops
+94683|ac|83.33 joules
+94684|ac|polarizing angle
+94701|ac|sqrt(2)/2
+94702|ac|coulomb's law of electrostatics
+94707|ac|h/wavelength
+94713|ac|condensations
+94713|ac|condensation
+94723|ac|0.1996 m/s
+94729|ac|electroweak interaction
+94734|ac|exclusion principle
+94749|ac|condenser
+94752|ac|0 kg m/s
+94752|ac|0 kg*m/s
+94756|ac|ar-37
+94758|ac|gauge symmetry
+94758|ac|local gauge transformations
+94769|ac|princess
+94769|ac|princess cut diamond
+94777|ac|12.5 s^-1
+94783|ac|mass, spin, and charge
+94785|ac|1.2 × 10^4 N
+94787|ac|785.4 A
+94794|ac|mho
+94796|ac|2.04 seconds
+94803|ac|31.25 m/s2
+94807|ac|light pressure
+94809|ac|elliptical polarization
+94815|ac|2, 2, 3
+94815|ac|2 2 3
+94818|ac|von guericke
+94818|ac|otto guericke
+94821|ac|bose-einstein condensation
+94823|ac|spinning black holes
+94829|ac|francium-218
+94829|ac|fr-218
+94833|ac|edwin howard armstrong
+94843|ac|GEM
+94851|ac|.8 amperes
+94855|ac|nothing
+94855|ac|all travel at the same speed
+94862|ac|half a cubic meter
+94862|ac|0.5 cubic metres
+94868|ac|net charge enclosed
+94868|ac|total enclosed charge
+94868|ac|Q enclosed
+94873|ac|electromotive force, V
+94875|ac|field strength tensor
+94884|ac|degauss
+94885|ac|faraday shield
+94893|ac|voltage dependent resistor
+94902|ac|paraboloid of revolution
+94904|ac|doubled
+94904|ac|resistance doubles
+94907|ac|zero total charge
+94907|ac|the net charge is zero
+94909|ac|5.65 × 10^3 J
+94923|ac|4e-8 m/s
+94923|ac|0.00000004 m/s
+94931|ac|b-h loop
+94931|ac|magnetic hysteresis loop
+94941|ac|vacuum energy density
+94943|ac|frozen flux theorem
+94945|ac|constitutive relationships
+94946|ac|0 W
+94946|ac|0 watts
+94950|ac|charge continuity equation
+94952|ac|wave zone
+94954|ac|advective derivative
+94954|ac|Lagrangian derivative
+94958|ac|method of image charges
+94961|ac|helmholtz pair
+94961|ac|helmholtz coil pair
+94963|ac|the em field
+94965|ac|cherenkov radiation
+94965|ac|cherenkov effect
+94965|ac|cerenkov effect
+94967|ac|magnetogyric ratio
+94973|ac|thermoacoustic engines
+94980|ac|Qx/(4 pi e0 R^3)
+94980|ac|rho x/(3 epsilon0)
+94981|ac|quantum flavourdynamics
+94984|ac|one-way valve
+94984|ac|non-return valve
+94985|ac|bell x1
+94985|ac|x1
+94987|ac|nuclear spallation
+94989|ac|in electrostatic equilibrium
+94989|ac|it is in electrostatic equilibrium
+94999|ac|tunneling diode
+95004|ac|neutron thermalization
+95004|ac|thermalisation
+95008|ac|5L/2 from the ball of mass m
+95008|ac|2.5L from the mass m
+95013|ac|to convert ac to dc
+95013|ac|rectify
+95013|ac|to allow current in one direction only
+95044|ac|avalanche, zener, silicon, germanium
+95069|ac|2 m/s to the north
+95069|ac|2 m/s northward
+95075|ac|418.4 J
+95086|ac|bose-einstein condensation
+95103|ac|mozzi-chasles theorem
+94744|rj|1 meter
+95043|rj|48 mA
+95172|ac|magnetic hysteresis
+95185|ac|heat energy
+95198|ac|3.33 m/s south
+95198|ac|south at 10/3 m/s
+95207|ac|pa
+95234|ac|jpsi
+95234|ac|j/psi particle
+95281|ac|top
+95281|ac|t quark
+95292|ac|heavy hydrogen
+95292|ac|2H
+95323|ac|remanent magnetization
+95323|ac|residual magnetization
+95323|ac|remnant magnetism
+95337|ac|21.69
+95416|ac|2i+14j
+95461|ac|2 and 3
+95462|ac|flavour quantum numbers
+95462|ac|flavour
+95525|ac|300000
+95526|ac|0.882c
+95537|ac|4 m/s2
+95540|ac|monopole
+95554|ac|doppler shift
+95724|ac|temp
+95965|ac|0.5
+95966|ac|1.3333
+95969|ac|tau
+95969|ac|rc time constant
+95972|ac|quantum superposition
+95992|ac|watts per meter squared
+95992|ac|watt/m^2
+95995|ac|1e3 n
+96003|ac|0.5 s
+96003|ac|1/2 second
+96003|ac|half a second
+96011|ac|electrical resistance
+96014|ac|virtual image 12 cm behind the mirror
+96020|ac|0 wb
+96020|ac|0 weber
+96024|ac|225 newton-meters
+96031|ac|clockwise at 100 rpm
+96040|ac|gustav robert kirchhoff
+96044|ac|cavendish, gravitational constant
+96045|ac|8/3
+96046|ac|35 uf
+96046|ac|35 microfarads
+96046|ac|35 μf
+96067|ac|statement 2 only
+96105|ac|91 p, 143 n
+96116|ac|terminal speed
+96121|ac|willebrord snellius
+96124|ac|both zero
+96124|ac|zero and zero
+96124|ac|0 and 0
+96137|ac|kg
+96139|ac|s=-1
+96258|ac|neel temp
+96259|ac|kg
+96261|ac|gauss's law of electricity
+96324|ac|exclusion principle
+96324|ac|pauli principle
+96330|ac|p + d → he-3 + gamma
+96330|ac|deuteron + proton -> helium-3 + gamma
+96330|ac|p + 2h -> 3he + gamma
+96331|ac|brownian movement
+96336|ac|p + p → d + e+ + neutrino
+96336|ac|proton + proton -> deuterium + positron + neutrino
+96336|ac|p + p -> d + e+ + ve
+96338|ac|volta's pile
+96341|ac|electron holes
+96341|ac|positive holes
+96347|ac|gravitation
+96347|ac|gravitational force
+96358|ac|lm
+96362|ac|exclusion principle
+96373|ac|meissner-ochsenfeld effect
+96375|ac|helium-4
+96375|ac|helium 4
+96376|ac|electron, muon, tau
+96376|ac|electron, muon and tau neutrinos
+96377|ac|h
+96386|ac|1.047
+96390|ac|jolt
+96391|ac|focal ratio
+96400|ac|20 db
+96400|ac|20 decibels
+96408|ac|newtonian telescope
+96408|ac|newtonian
+95183|rj|64
+95965|rj|2:1
+96025|rj|3,1,2,4
+96025|rj|1,2,3,4
+74159|rm|
+74170|rm|
+74234|rm|
+74192|q|["following four neural cells","following three neural cells"]
+74239|a|2, 1, 3
+74241|a|2 only
+74313|a|1 and 3
+74380|a|Y
+74099|ac|heterozygous advantage
+74100|ac|disulfide
+74100|ac|disulphide bridge
+74103|ac|aestivation
+74115|ac|MS
+74117|ac|zonula occludens
+74119|ac|punctuationism
+74131|ac|intercalated disks
+74139|ac|lactate fermentation
+74157|ac|TTX
+74168|ac|scaffold proteins
+74168|ac|scaffold protein
+74168|ac|scaffold proteins
+74172|ac|CCR5 receptor
+74181|ac|chondrichthyan
+74182|ac|ENS
+74184|ac|V(D)J recombination
+74184|ac|VDJ
+74193|ac|ketones
+74208|ac|none
+74219|ac|medusae
+74222|ac|2000 g C/m2/yr
+74225|ac|none
+74235|ac|common carotid
+74235|ac|carotid arteries
+74243|ac|pia mater and arachnoid mater
+74243|ac|arachnoid mater and pia mater
+74271|ac|NK cells
+74284|ac|Zn2+
+74298|ac|Kozak consensus sequence
+74298|ac|Kozak consensus
+74301|ac|lacZ, lacY, lacA
+74304|ac|trochophore
+74306|ac|hepatopancreatic sphincter
+74315|ac|none
+74322|ac|preadaptation
+74333|ac|ependyma
+74337|ac|L-arginine
+74344|ac|HMG-CoA reductase inhibitors
+74350|ac|terpenoids
+74350|ac|isoprenoids
+74372|ac|leghaemoglobin
+74374|ac|Escherichia coli
+74377|ac|MVP
+74377|ac|minimum viable population size
+74381|ac|glyoxylate pathway
+74381|ac|glyoxylate shunt
+74385|ac|sigma subunit
+74389|ac|none
+74429|a|Y
+74435|rmac|SUPERIOR OLIVE
+74435|rmac|INFERIOR COLLICULI
+74443|a|PULMONARY STRETCH RECEPTORS
+74452|rm|
+74479|a|WOOD-LJUNGDAHL PATHWAY
+74494|a|0.6
+74518|rm|
+117823|a|X
+117972|q|["provide energy for the algae through which process","provide energy for the coral through which process"]
+43800|q|["what is the concentration of iodine?","what is the concentration of KIO3?"]
+43802|q|["which of the following four compounds","which of the following three compounds"]
+43812|rm|
+74397|ac|GSH
+74407|ac|Mn2+
+74433|ac|CYP450
+74433|ac|cytochrome P-450
+74435|ac|MGN
+74435|ac|medial geniculate body
+74437|ac|glycerol phosphate shuttle
+74437|ac|G3P shuttle
+74441|ac|aleurone layer
+74455|ac|transcription attenuation
+74462|ac|PCOS
+74462|ac|polycystic ovary syndrome
+74462|ac|polycystic ovarian disease
+74466|ac|Tajima's test
+74474|ac|decussation of the pyramids
+74474|ac|pyramidal decussation
+74475|ac|fumaric acid
+74479|ac|Wood-Ljungdahl
+74479|ac|reductive acetyl-CoA pathway
+74492|ac|Eadie-Hofstee
+74492|ac|Eadie Hofstee plot
+74492|ac|Eadie-Hofstee diagram
+74495|ac|Strasburger cells
+74500|ac|vWF
+74514|ac|MK test
+117541|ac|DVM
+43798|ac|1.7 kJ
+43798|ac|1.7e3 J
+43802|ac|lithium tri-tert-butoxyaluminum hydride
+43814|ac|U
+43814|ac|internal energy of the gas
+43815|ac|Beer's law
+43817|ac|fingerprint
+43839|q|["cyclopetadiene","cyclopentadiene"]
+43843|rm|
+43908|q|["silver coating","gold coating"]
+43910|a|6
+43922|rm|
+43974|a|Quantum yield
+43823|ac|auger process
+43828|ac|helmholtz energy
+43828|ac|helmholtz function
+43830|ac|3c-2e bond
+43830|ac|3c2e bond
+43835|ac|ground state energy
+43835|ac|zpe
+43836|ac|both negative
+43838|ac|arenium ion
+43838|ac|wheland intermediate
+43839|ac|non-aromatic, anti-aromatic, aromatic
+43842|ac|joule-kelvin effect
+43845|ac|clathrate compounds
+43847|ac|9 to 6 to 1
+43850|ac|second law
+43850|ac|2nd law
+43851|ac|second order and first order
+43858|ac|phase rule
+43869|ac|chromophore group
+43874|ac|rayleigh-jeans catastrophe
+43881|ac|mu
+43881|ac|partial molar gibbs energy
+43883|ac|triangular
+43883|ac|equilateral triangular
+43886|ac|methoxy, chloro, fluoro
+43889|ac|eyring-polanyi equation
+43893|ac|elimination unimolecular conjugate base
+43893|ac|e1cb mechanism
+43895|ac|pentagonal bipyramid
+43904|ac|triclinic system
+43904|ac|triclinic lattice
+43910|ac|six
+43912|ac|+5.67
+43913|ac|forster energy transfer
+43913|ac|fluorescence resonant energy transfer
+43916|ac|16 sigma and 4 pi
+43926|ac|acrylonitrile and methyl acrylate
+43928|ac|oxidation state
+43928|ac|oxidation states
+43929|ac|virial equation
+43929|ac|virial equation of state
+43929|ac|virial series
+43930|ac|z
+43930|ac|compression factor
+43930|ac|z factor
+43932|ac|pi stacking
+43932|ac|pi-pi interaction
+43934|ac|2,2
+43934|ac|second order in both
+43935|ac|lft
+43937|ac|particle in a one-dimensional box
+43937|ac|infinite square well
+43937|ac|particle in an infinite potential well
+43940|ac|enone, enamine, enolate
+43961|ac|hammett acidity function
+43961|ac|hammett function
+43968|ac|dos
+43973|ac|bo approximation
+43974|ac|fluorescence quantum yield
+43976|ac|gaseous
+43976|ac|gas phase
+43982|ac|resonance structures
+43983|ac|nernst eqn
+43985|ac|hyperconjugative stabilization
+43986|ac|le chatelier's law
+43990|ac|hofmann product
+43990|ac|hofmann alkene
+43993|ac|state property
+43994|ac|trigonal bipyramid
+43998|ac|steady state hypothesis
+43998|ac|pseudo-steady-state approximation
+44007|ac|o2+, o2, o2-
+44009|ac|5x
+44019|ac|c6h5ona
+44021|ac|-2 power
+44022|ac|hydrogen gas and bromine
+44027|ac|henry's gas law
+44030|ac|azeotropic mixture
+44030|ac|constant boiling mixture
+44037|ac|tyndall scattering
+44038|ac|hund's rule of maximum multiplicity
+44040|ac|hammond-leffler postulate
+44040|ac|hammond principle
+44044|ac|birch
+44044|ac|birch reaction
+44045|ac|cooper electron pairs
+44047|ac|lanthanoid contraction
+44049|ac|condensation reaction
+44051|ac|aufbau rule
+44051|ac|building-up principle
+44053|ac|linear and trigonal bipyramid
+44059|ac|c6h5cooh
+44059|ac|benzenecarboxylic acid
+44060|ac|pauli principle
+44069|ac|none
+44071|ac|dipolar ion
+87769|ac|og
+87769|ac|element 118
+87774|ac|-1/2 power
+87774|ac|negative one half
+87775|ac|heterogeneous catalysis
+87777|ac|avogadro constant and boltzmann constant
+87777|ac|n_a and k_b
+87779|ac|nernst eqn
+87780|ac|semiconductor doping
+87781|ac|interstitial
+87781|ac|interstitial alloying
+87782|ac|london forces
+87782|ac|dispersion forces
+87782|ac|vdw forces
+87783|ac|reductants
+87792|ac|fischer
+87795|ac|f-19 and p-31
+87796|ac|chair form
+87798|ac|radical and redox
+87800|ac|sp3d hybridized
+87802|ac|oxirane
+87803|ac|quantum tunneling
+87803|ac|tunneling
+87803|ac|tunnelling
+87807|ac|lithium dialkylcuprates
+87808|ac|perovskite materials
+87809|ac|law of constant heat summation
+43839|rj|nonaromatic, aromatic, antiaromatic
+87973|q|["H-NMR spectrum","C-13 NMR spectrum"]
+87988|q|["trimethylamine","triethylamine"]
+87811|ac|Ea
+87813|ac|heat of sublimation
+87826|ac|ionization potential
+87826|ac|first ionization energy
+87826|ac|IE
+87828|ac|nodal points
+87830|ac|A factor
+87830|ac|frequency factor
+87830|ac|pre-exponential
+87842|ac|newman diagram
+87842|ac|newman
+87844|ac|pauli principle
+87844|ac|exclusion principle
+87852|ac|termination step
+87856|ac|brownian movement
+87857|ac|pi stacking
+87857|ac|pi-pi interaction
+87887|ac|phosphorus pentoxide
+87887|ac|P2O5
+87887|ac|tetraphosphorus decoxide
+87902|ac|inversion of configuration
+87904|ac|CFT
+87911|ac|PES
+87938|ac|1/(2sqrt(2))
+87940|ac|endo-exo
+87940|ac|endo exo
+87945|ac|molecular point group
+87945|ac|symmetry point group
+87947|ac|trouton's law
+87953|ac|borazole
+87975|ac|H2SO4.SO3
+87988|ac|ethanedioyl chloride
+88001|ac|migratory ability
+88003|ac|back bonding
+88003|ac|backbonding
+88005|ac|diels alder dimerization
+88019|ac|ferric ferrocyanide
+88021|ac|favorskii reaction
+88024|ac|strecker amino acid synthesis
+88024|ac|strecker reaction
+88026|ac|1,1-elimination
+88027|ac|HCHO
+88046|ac|analytical concentration
+88046|ac|formal concentration
+88047|ac|antiferromagnetic
+88051|ac|auger electron emission
+88051|ac|auger process
+88055|ac|chromate ion
+88056|ac|kjeldahl
+88057|ac|Joule Kelvin effect
+88062|ac|fluorosilicic acid
+88062|ac|hydrofluorosilicic acid
+88063|ac|time-dependent schrodinger equation
+88064|ac|MALDI-TOF MS
+88065|ac|Hammett acidity
+88065|ac|Hammett function
+88071|ac|heat capacity at constant pressure
+88071|ac|Cp
+88071|ac|molar heat capacity at constant pressure
+88078|ac|ionisation isomerism
+88080|ac|Neel point
+88086|ac|deliquescence
+88091|ac|Tg
+88091|ac|glass transition point
+88097|ac|a0
+88105|ac|ground state energy
+88105|ac|ZPE
+88109|ac|Meisenheimer intermediate
+117951|a|ANY 2 OF: River inputs, Atmospheric inputs (dust, fixed nitrogen from lightning), In-situ nitrogen fixation, Underwater volcanoes
+88115|ac|naked ion
+88116|ac|balmer series
+88121|ac|mu
+88123|ac|epimers of each other
+88127|ac|carbonyl oxide
+88132|ac|primary kinetic salt effect
+88135|ac|McLafferty
+88135|ac|Mclafferty
+88137|ac|calcium fluoride structure
+88137|ac|CaF2 structure
+88145|ac|Zintl compounds
+88147|ac|Lindemann-Hinshelwood mechanism
+88148|ac|l and m
+88152|ac|1,2-dioxane, 1,3-dioxane, 1,4-dioxane
+88155|ac|Langmuir isotherm
+88156|ac|maximum multiplicity
+88156|ac|Hund's first rule
+88160|ac|superparamagnetic
+88162|ac|Baldwin's rules for ring closure
+88165|ac|Jablonski energy diagram
+88165|ac|Perrin-Jablonski diagram
+88166|ac|first concentration gradient with respect to position
+88167|ac|m/z 43
+88171|ac|Bailar twist mechanism
+88174|ac|50% and 2.5%
+88175|ac|saddle point azeotrope
+88179|ac|TOF
+88181|ac|flocculation process
+88183|ac|solvatochromic effect
+88185|ac|N-methoxy-N-methylamides
+88186|ac|tetrahydropyranyl and trityl
+88188|ac|FLP
+88188|ac|FLPs
+88190|ac|Marangoni convection
+88190|ac|Marangoni flow
+88192|ac|solid phase peptide synthesis
+88192|ac|SPPS
+88192|ac|Merrifield solid-phase synthesis
+117466|ac|Principle of Constant Proportions
+117466|ac|Law of constant proportions
+117475|ac|hypoxia
+117475|ac|hypoxic water
+117505|ac|seawater
+117505|ac|sea water
+117532|ac|mean residence time
+117545|ac|4000 J/kg/C
+117545|ac|4000 J/(kg C)
+117557|ac|mineral precipitation
+117575|ac|iron sulphides
+117585|ac|Na, Cl, SO4, Mg, Ca, K
+117637|ac|CCD
+117637|ac|carbonate compensation depth
+117764|ac|510 microequivalents per kilogram
+117764|ac|510 ueq/kg
+117924|ac|ppt
+117924|ac|parts per thousand
+117924|ac|per mil
+117936|ac|hydrogen bonding
+117936|ac|hydrogen bonds
+117936|ac|H-bonding
+117946|ac|thermal convection
+117949|ac|it increases
+117949|ac|increases
+117949|ac|goes up
+117958|ac|decrease
+117958|ac|it decreases
+117958|ac|pH decreases
+117969|ac|HCO3- and CO3 2-
+117457|ac|Chesapeake
+117469|ac|Alvin submersible
+117469|ac|DSV Alvin
+117469|ac|HOV Alvin
+117477|ac|wind fetch
+117482|ac|rock weathering
+117484|ac|left
+117484|ac|leftward
+117493|ac|Argo floats
+117500|ac|wind speed, duration, fetch
+117500|ac|speed, duration, fetch
+117500|ac|velocity, time, fetch
+117516|ac|littoral current
+117522|ac|Laurasia and Gondwana
+117522|ac|Gondwana and Laurasia
+117554|ac|it decreases
+117554|ac|upwelling decreases
+117554|ac|decrease
+117559|ac|glacial isostatic adjustment
+117559|ac|post-glacial rebound
+117561|ac|South Pacific subtropical gyre
+117566|ac|breakers
+117571|ac|Hadley circulation
+117583|ac|sediments from land
+117583|ac|land-derived sediments
+117583|ac|sediments derived from continents
+117591|ac|fiord
+117596|ac|harbour wave
+117600|ac|relative density
+117602|ac|OMZ
+117606|ac|biogenous and lithogenous
+117606|ac|biogenic and terrigenous
+117606|ac|biogenous and terrigenous
+117613|ac|coastal Kelvin wave
+117619|ac|Caspian
+117619|ac|the Caspian
+117624|ac|Mediterranean
+117634|ac|60 south
+117634|ac|60 degrees S
+117634|ac|60S
+117636|ac|Hadley, Ferrel, Polar
+117636|ac|Hadley cell, Ferrel cell, polar cell
+117636|ac|polar, Ferrel, Hadley
+117639|ac|Captain Joshua Slocum
+117641|ac|floc formation
+117644|ac|western boundary intensification
+117655|ac|64 kt
+117668|ac|upwelling regions
+117668|ac|upwelling areas
+117672|ac|poleward and upward
+117672|ac|toward the poles and higher in altitude
+117672|ac|poleward and higher
+117684|ac|tidal front
+117693|ac|Mississippi River and Columbia River
+117696|ac|Baikal
+117703|ac|visible light
+117711|ac|calcareous chalk
+117717|ac|moored current meter
+117893|a|Y
+117948|a|1- astrolabe, 2- magnetic compass, 3- chronometer, 4- gyrocompass, 5- Global Positioning System (GPS)
+117970|a|friction (drag) and the Coriolis force
+117733|ac|California, Humboldt, Canary, Benguela
+117733|ac|California, Peru, Canary, Benguela
+117737|ac|SOFAR
+117737|ac|sound fixing and ranging
+117742|ac|compass correction
+117742|ac|correcting compass deviation
+117742|ac|compensating the compass
+117749|ac|anticyclone
+117751|ac|Big Diomede and Little Diomede
+117757|ac|HMS Challenger expedition
+117767|ac|no effect
+117768|ac|Grand Banks of Newfoundland
+117783|ac|brine exclusion
+117899|ac|intertropical convergence
+117904|ac|DSV Alvin
+117904|ac|Alvin submersible
+117905|ac|GBR
+117905|ac|Great Barrier Reef of Australia
+117910|ac|deep-sea reversing thermometer
+117911|ac|one nautical mile per hour
+117911|ac|1 nautical mile per hour
+117921|ac|conductivity, temperature, depth
+117921|ac|salinity, temperature, depth
+117923|ac|SWATH ship
+117934|ac|ATT
+117934|ac|American Telephone and Telegraph
+117937|ac|water transparency
+117941|ac|beach erosion
+117947|ac|oceanic and continental
+117947|ac|mid-ocean ridges and continental rifts
+117953|ac|melting ice sheets
+117966|ac|calcareous and siliceous ooze
+117968|ac|bathyscaphe Trieste
+117970|ac|friction and Coriolis
+117970|ac|Coriolis and friction
+117970|ac|drag and Coriolis effect
+117971|ac|Matthew Maury
+117996|ac|calcium carbonate
+117996|ac|CaCO3
+118002|ac|wave speed, wavelength, period
+71546|ac|Pythagoras theorem
+71546|ac|Pythagoras' theorem
+71549|ac|1 in 100
+71554|ac|tetrahedron, triangular prism, cube
+71560|ac|1 - 1/256
+71564|ac|one sixth
+71590|ac|3n+1 problem
+71590|ac|Collatz problem
+71616|ac|complex numbers
+71621|ac|proof by induction
+71643|ac|iterated exponentiation
+71650|ac|x=4, x=7
+71658|ac|log base 3 of x
+71687|ac|epsilon-delta definition
+71687|ac|delta-epsilon
+71703|ac|366/372
+71706|ac|degree 5
+71706|ac|5th degree
+71812|a|Y
+71835|a|5/3 + 6√2
+71998|a|CHINESE DUMBASS NOTATION
+71726|q|["structure. repeatedly makes","structure. What algorithmic paradigm repeatedly makes"]
+71826|q|["states that every non-empty subset of the non-negative integers contains a least element","states that every set can be given an ordering in which every non-empty subset contains a least element"]
+71711|ac|radical line
+71719|ac|rotation and homothety
+71719|ac|rotation and scaling
+71726|ac|greedy method
+71733|ac|multiplicative order
+71733|ac|order of a mod n
+71733|ac|multiplicative order of a
+71736|ac|circumcircle radius
+71742|ac|primitive root mod p
+71742|ac|primitive root modulo p
+71748|ac|skew lines
+71749|ac|idempotent matrix
+71752|ac|flt
+71754|ac|four color theorem
+71754|ac|4 color theorem
+71754|ac|four colour theorem
+71772|ac|incentre
+71774|ac|zeno's dichotomy paradox
+71774|ac|zeno's dichotomy
+71776|ac|homogeneous
+71776|ac|homogeneous inequalities
+71781|ac|simson-wallace line
+71781|ac|wallace-simson line
+71801|ac|(x/2, y/2, 0)
+71801|ac|<x/2, y/2, 0>
+71807|ac|12-fold way
+71808|ac|ideal point
+71815|ac|4e-5
+71815|ac|4x10^-5
+71826|ac|well-ordering theorem
+71835|ac|5/3 + 6sqrt(2)
+71835|ac|6sqrt(2)+5/3
+71835|ac|6*sqrt(2)+5/3
+71856|ac|ravi transformation
+71864|ac|cr equations
+71865|ac|tangent line method
+71876|ac|f(x)=x^4-16x^2+16
+71894|ac|pointwise fallacy
+71898|ac|stirling numbers of the second kind
+71898|ac|stirling numbers of second kind
+71898|ac|second kind stirling numbers
+71901|ac|chebyshev t polynomials
+71903|ac|lagrange interpolation formula
+71903|ac|lagrange polynomial
+71928|ac|vieta jump
+71934|ac|2^16-1
+71934|ac|2^16 - 1
+71942|ac|euler-poincare characteristic
+71955|ac|frobenius map
+71958|ac|monge-d'alembert theorem
+71966|ac|lll
+71977|ac|erdos-mordell theorem
+71987|ac|socks-shoes theorem
+71994|ac|morley's trisector theorem
+72006|ac|majorization inequality
+72007|ac|1e10+20
+71998|rj|sum of squares
+72012|ac|sporadic simple groups
+72017|ac|cramer's random model
+72021|ac|king's property
+85615|ac|negative one half
+85617|ac|circumcentre
+85621|ac|radius sqrt(79) center (5,-7)
+85621|ac|radius sqrt(79), center (5, -7)
+85629|ac|13/34 + 1/34i
+85668|ac|log(3)/log(2)
+85668|ac|ln(3)/ln(2)
+85669|ac|arctan((5/3)^x)/ln(5/3)
+85669|ac|atan((5/3)^x)/ln(5/3)
+85669|ac|tan^-1((5/3)^x)/ln(5/3) + C
+85659|rj|0; infinity
+1241|a|Joseph Lister and antiseptic surgery
+2600|a|INTRINSIC FACTOR
+2611|a|Y
+1332|q|["cubic milliliter","cubic millimeter"]
+1525|q|["HIV and Corona Viruses","HIV and HTLV"]
+62|ac|blunt
+83|ac|A and B
+192|ac|vitelline membrane
+192|ac|vitelline envelope
+261|ac|malic acid
+281|ac|pol alpha
+281|ac|DNA pol alpha
+299|ac|muller glia
+299|ac|muller glial cells
+300|ac|5' gcagat 3'
+358|ac|phosphate group
+398|ac|lymph system
+427|ac|iii
+507|ac|instrumental conditioning
+1118|ac|gas bladder
+1118|ac|air bladder
+1151|ac|fovea centralis
+1185|ac|bcc
+1185|ac|basal cell cancer
+1230|ac|sars-cov-2
+1230|ac|sars cov 2
+1230|ac|severe acute respiratory syndrome coronavirus 2
+1251|ac|m. tuberculosis, m. leprae
+1251|ac|m tuberculosis and m leprae
+1263|ac|leak channel
+1394|ac|ischaemic stroke
+1405|ac|fertilized egg
+1438|ac|nephron loop
+1450|ac|atp and f6p
+1504|ac|aars
+1505|ac|glutamate and valine
+1548|ac|eosinophil
+1548|ac|eosinophils
+1598|ac|hyaline and fibrocartilage
+1598|ac|hyaline, fibrocartilage
+1608|ac|tb
+1609|ac|tse
+1621|ac|lyme, tick
+1719|ac|water channels
+1762|ac|crystalline lens
+1763|ac|aqueous and vitreous humor
+1763|ac|aqueous humour and vitreous humour
+1794|ac|alpha helix and beta sheet
+1794|ac|alpha helices and beta sheets
+1806|ac|overall magnification
+2574|ac|dna pol i
+2574|ac|polymerase i
+2574|ac|DNA polymerase 1
+2575|ac|12.2 cM
+2600|ac|gastric intrinsic factor
+2662|ac|nadp
+2662|ac|nadp plus
+2672|ac|anhydride bond
+2715|ac|golgi
+2715|ac|golgi complex
+2715|ac|golgi body
+2735|ac|iron and sulphur
+2749|ac|calciferol
+2750|ac|1,2,3
+2750|ac|sunlight, fish oils, egg yolk
+2777|ac|cis face and trans face
+2777|ac|cis and trans faces
+2786|ac|lysine residues
+2794|ac|5-ht
+2794|ac|5-hydroxytryptamine
+2794|ac|5ht
+2823|ac|a. thaliana
+2823|ac|a thaliana
+2863|ac|chelicerates
+2863|ac|chelicerate
+2865|ac|frank-starling mechanism
+3145|a|I ONLY
+3156|rm|
+3239|a|W
+5222|a|BASIDIOMYCOTA
+5610|a|METHYL SALICYLATE
+5701|a|X
+5814|rm|
+2916|ac|s pneumoniae
+2916|ac|pneumococcus
+2917|ac|oak and soybean
+2917|ac|oak, soybean
+2967|ac|pressoreceptors
+2998|ac|tata
+3009|ac|spiral organ
+3031|ac|b5
+3031|ac|vit b5
+3032|ac|angiotensin 2
+3032|ac|ang ii
+3178|ac|medulla and pons
+3178|ac|pons and medulla
+3263|ac|0.48
+3271|ac|rna and proteins
+3314|ac|ii and iv
+3314|ac|3' cap and polyu tail
+3314|ac|2, 4
+3387|ac|a, c, b
+3387|ac|b, c, a
+3395|ac|wobble hypothesis
+3424|ac|interstitial cells
+3424|ac|interstitial cells of leydig
+3456|ac|cyt c
+3496|ac|calcium
+3496|ac|ca2+
+3496|ac|calcium ions
+3583|ac|lacrimal gland
+4991|ac|9+0
+5006|ac|ester bonds
+5007|ac|van der waals forces
+5026|ac|coenzyme q
+5026|ac|coq10
+5026|ac|coenzyme q10
+5045|ac|ache
+5045|ac|acetylcholine esterase
+5078|ac|scn
+5120|ac|v(d)j recombination
+5120|ac|vdj
+5128|ac|neurohypophysis
+5162|ac|ucp1
+5162|ac|uncoupling protein 1
+5233|ac|2
+5251|ac|hemichordates
+5315|ac|forams
+5315|ac|foraminiferans
+5394|ac|codominant
+5418|ac|molecular oxygen
+5432|ac|foveae
+5432|ac|fovea centralis
+5466|ac|kangaroo marsupial, wolverine eutherian, flying squirrel eutherian
+5478|ac|statement 2
+5556|ac|punctuated equilibrium theory
+5610|ac|methylsalicylate
+5638|ac|33 cm
+5650|ac|hco3
+5661|ac|arbuscular mycorrhiza
+5674|ac|microglial cells
+5683|ac|dura
+5700|ac|hayflick
+5700|ac|hayflick phenomenon
+5702|ac|statement 1
+5727|ac|jg cells
+5727|ac|granular cells
+5739|ac|separin
+5740|ac|thyroid gland
+5747|ac|ph chromosome
+5748|ac|somatic hybridization
+5748|ac|somatic cell hybridization
+5764|ac|cohesion-tension theory
+5771|ac|statement 1
+5777|ac|symbiotic algae
+5784|ac|sd sequence
+5794|ac|l-tryptophan
+5795|ac|pyy
+5799|ac|membrane rafts
+5809|ac|18/256
+5813|ac|3-hydroxy-3-methylglutaryl-coa
+5829|ac|n-formyl
+5846|ac|sd sequence
+5891|ac|snare complex
+5913|ac|twice
+5937|ac|12 white 3 red 1 blue
+8058|a|INTERFERON GAMMA
+8090|a|3,2,1
+8094|a|II and III
+8622|a|W
+8003|rm|
+8414|q|["DNA transcription","DNA replication"]
+5970|ac|immunoglobulin M
+6179|ac|tRNA synthetases
+7065|ac|condensation
+7065|ac|condensation reaction
+7065|ac|dehydration reaction
+7066|ac|suspension feeding
+7170|ac|mycorrhiza
+7231|ac|type 1
+7231|ac|type I
+7248|ac|TATA
+7339|ac|cytotoxic T lymphocytes
+7339|ac|CD8 T cells
+7339|ac|killer T cells
+7375|ac|circadian cycle
+8058|ac|interferon-gamma
+8058|ac|IFN-gamma
+8058|ac|IFN gamma
+8072|ac|TPP riboswitch
+8090|ac|parenchymatous cortical layer, endodermal cortical layer, central cells
+8094|ac|PC and PS
+8094|ac|phosphatidylcholine and phosphatidylserine
+8101|ac|Lotka-Volterra equations
+8111|ac|zinc finger motif
+8129|ac|haemolymph
+8398|ac|actin filaments
+8398|ac|F-actin
+8484|ac|JA
+8496|ac|high lactose, low glucose
+8510|ac|BAT
+8661|ac|Frank Starling law
+8661|ac|Starling's law
+8661|ac|Frank-Starling mechanism
+8776|rm|
+8835|a|2/3
+8892|q|["glu-taminolysis","glutaminolysis"]
+9078|a|1, 2 and 3
+9155|a|UNCOMPETITIVE
+9314|a|1,3
+9676|q|["They make up the centromeres","They make up the centrioles"]
+9769|a|1,3,4
+9802|drop|
+9812|a|RED, GREEN, BLUE
+9911|a|1.22
+9993|rm|
+8963|rm|
+10021|a|3 ONLY
+10099|a|Triacylglycerol
+8730|ac|Na+
+8730|ac|sodium ion
+8853|ac|bisulphite
+8924|ac|biological magnification
+8933|ac|FAP
+8953|ac|wobble pairing
+8992|ac|allopolyploidization
+9021|ac|pi-pi stacking
+9030|ac|genetic imprinting
+9051|ac|agamospermy
+9088|ac|wernicke's
+9103|ac|CD4 receptor
+9103|ac|CD4 protein
+9139|ac|stone cell
+9147|ac|pressure sore
+9156|ac|uncompetitive inhibition
+9193|ac|cyclosis
+9193|ac|protoplasmic streaming
+9209|ac|VMH
+9227|ac|middle lamellae
+9232|ac|saprotrophic nutrition
+9232|ac|saprotrophy
+9244|ac|gram's iodine
+9244|ac|lugol's solution
+9287|ac|coenocytic hyphae
+9295|ac|amebocytes
+9297|ac|chlorophyll P680
+9342|ac|median plane
+9342|ac|median sagittal
+9360|ac|amide nitrogen
+9360|ac|backbone nitrogen
+9365|ac|z, b, a
+9380|ac|hypnagogia
+9383|ac|nitrogenase, extra cell walls, degradation of PSII
+9397|ac|gout
+9413|ac|syntrophic relationship
+9449|ac|BCC
+9449|ac|basal cell cancer
+9466|ac|primary structure
+9510|ac|parasympathetic nervous system
+9512|ac|postsynaptic cell
+9535|ac|secondary structure
+9536|ac|primary structure
+9540|ac|lac repressor and CRP
+9551|ac|ribulose bisphosphate carboxylase oxygenase
+9552|ac|photolysis of water
+9586|ac|helicase
+9596|ac|chordates
+9630|ac|stoma
+9630|ac|stomates
+9631|ac|immunoglobulin E
+9658|ac|red bone marrow
+9659|ac|erythropoiesis
+9659|ac|production of erythrocytes
+9700|ac|abiogenesis
+9710|ac|arachnoid
+9710|ac|arachnoid layer
+9717|ac|chromosomal nondisjunction
+9749|ac|actinomycetota
+9785|ac|D. melanogaster
+9786|ac|19.3 cM
+9786|ac|19.3 centimorgans
+9800|ac|CH3Hg+
+9800|ac|monomethylmercury
+9802|ac|G3P
+9802|ac|GAP
+9828|ac|ABC model
+9832|ac|fluorescent in situ hybridization
+9832|ac|fluorescence in situ hybridisation
+9841|ac|palisade
+9841|ac|palisade parenchyma
+9842|ac|casparian band
+9857|ac|SA
+9882|ac|prostaglandin H synthase
+9929|ac|disulfide bonds
+9929|ac|S-S bonds
+10055|ac|Fd
+10055|ac|reduced ferredoxin
+10082|ac|bacterial transformation
+10099|ac|TAG
+10099|ac|triacylglycerols
+10143|rmac|s
+10812|rmac|ACCPET: Haplodiploidy
+11669|drop|
+11320|rm|
+11645|rm|
+10283|q|["mature pre-miRNAs","mature miRNAs"]
+11296|q|["on the way to the cerebellum","on the way to the cerebrum"]
+10140|ac|polygenic inheritance
+10140|ac|polygenic trait
+10158|ac|phosphodiester linkage
+10180|ac|VZV
+10180|ac|human herpesvirus 3
+10188|ac|intercalated disks
+10188|ac|intercalated disk
+10224|ac|nematodes
+10224|ac|roundworms
+10295|ac|dideoxynucleotides
+10343|ac|Lyme borreliosis
+10392|ac|Apicomplexa
+10408|ac|GOF
+10488|ac|folate
+10488|ac|vitamin B9
+10492|ac|zoonotic disease
+10492|ac|zoonotic infection
+10499|ac|safranin O
+10500|ac|leghaemoglobin
+10528|ac|orthomyxovirus
+10528|ac|orthomyxoviruses
+10563|ac|BBB
+10583|ac|bipolar neurons
+10635|ac|COX-1 and COX-2
+10644|ac|LGN
+10644|ac|lateral geniculate body
+10671|ac|biological magnification
+10704|ac|cohesion-tension theory
+10704|ac|cohesion tension theory
+10731|ac|dichlorodiphenyltrichloroethane
+10775|ac|RuBP carboxylase oxygenase
+10787|ac|RNA dependent DNA polymerase
+10788|ac|lysogeny
+10859|ac|fluid phase endocytosis
+10871|ac|Na+/K+ ATPase
+10871|ac|Na/K pump
+11228|ac|TP53
+11228|ac|p53 protein
+11239|ac|OH
+11239|ac|-OH
+11241|ac|STRs
+11307|ac|tetraiodothyronine
+11318|ac|caveola
+11372|ac|CpG motifs
+11443|ac|gastric intrinsic factor
+11462|ac|26S proteasome
+11463|ac|pulmonary surfactant
+11499|ac|5-HT
+11499|ac|5-hydroxytryptamine
+11540|ac|snurps
+11586|ac|SSB
+11586|ac|single-stranded binding proteins
+11597|ac|phosphocreatine
+11597|ac|PCr
+11613|ac|catalytic RNA
+11619|ac|Hox genes
+11655|ac|porphyrin
+11655|ac|porphyrins
+11670|ac|PLA2
+11670|ac|phospholipase A-2
+11690|ac|HA
+11690|ac|haemagglutinin
+11693|ac|GSH
+11694|ac|decapods
+11809|ac|dinoflagellates
+11809|ac|dinoflagellate
+11809|ac|Dinophyta
+12034|ac|gastropods
+12034|ac|gastropod
+12232|ac|analogous traits
+12253|ac|aminoacyl site
+12345|a|COELOM
+12354|rm|
+12355|rmac|FGC
+12572|a|DIAPHYSIS
+12626|rmac|DIPLOE VIENS
+12946|a|24
+12972|a|3 ONLY
+13059|a|3 ONLY
+13406|a|2 AND 3
+13541|rm|
+13621|q|["P2O4^-4","P2O7^4-"]
+13688|rm|
+12278|ac|oxaloacetate
+12355|ac|FDG
+12355|ac|fludeoxyglucose
+12370|ac|seed leaves
+12390|ac|jg apparatus
+12435|ac|G2
+12435|ac|gap 2
+12444|ac|G-actin
+12444|ac|globular actin
+12445|ac|B1
+12445|ac|thiamin
+12525|ac|magnesium ion
+12597|ac|calcium
+12606|ac|porin
+12608|ac|gly pro hyp
+12626|ac|veins of the diploe
+12662|ac|AQP
+12672|ac|murein
+12673|ac|transposable element
+12673|ac|jumping gene
+12699|ac|myosin II
+12735|ac|B7
+12735|ac|vitamin H
+12754|ac|circadian cycle
+12810|ac|cytotoxic T lymphocyte
+12810|ac|CTL
+12810|ac|killer T cell
+12856|ac|cell nucleus
+12936|ac|G0 phase
+12994|ac|SIDS
+13014|ac|26S proteasome
+13015|ac|nephron loop
+13018|ac|F factor
+13018|ac|F plasmid
+13051|ac|roundworms
+13124|ac|BBB
+13160|ac|complex III
+13160|ac|3
+13160|ac|cytochrome bc1 complex
+13185|ac|C4 pathway
+13185|ac|C4 photosynthesis
+13185|ac|Hatch-Slack
+13205|ac|Golgi
+13205|ac|Golgi apparatus
+13205|ac|Golgi complex
+13206|ac|cohesive ends
+13251|ac|trimethylamine N-oxide
+13286|ac|double reciprocal plot
+13324|ac|hydrocortisone
+13369|ac|dihydrolipoyl transacetylase
+13369|ac|E2 enzyme
+13387|ac|opsonisation
+13394|ac|3/4
+13405|ac|NAD and NADP
+13424|ac|AChE
+13461|ac|chelation therapy
+13485|ac|r selection
+13485|ac|r-selection
+13534|ac|blue-green algae
+13596|ac|oxyntic cells
+13621|ac|PPi
+13621|ac|diphosphate
+13621|ac|inorganic pyrophosphate
+13632|ac|Asn-Pro-Ala motif
+13667|ac|cranial nerve I
+13667|ac|CN I
+13678|ac|cerebral spinal fluid
+13716|ac|gut microbiota
+13716|ac|intestinal microbiome
+13723|ac|peripatry
+13734|ac|catalytic RNA
+13741|ac|blue-green algae
+13751|ac|gouty arthritis
+13757|ac|haemolymph
+13935|a|Z
+13936|q|["3) Inulin","3) Insulin"]
+14230|rm|
+14363|a|1 and 3
+15069|a|1 and 2
+14942|a|Cryogenic electron microscopy
+13779|ac|TV
+13788|ac|NADP plus
+13796|ac|DC
+13814|ac|variola
+13860|ac|none
+13888|ac|HA and NA
+13932|ac|ganglion, amacrine, horizontal, rods and cones, pigmented epithelium
+13951|ac|glomerular capsule
+13984|ac|bcd
+13996|ac|MADS
+14004|ac|statements 1 and 2
+14033|ac|SP
+14055|ac|A D E K
+14078|ac|nine sixteenths
+14100|ac|A P E
+14100|ac|A, P, E
+14139|ac|biological altruism
+14144|ac|D
+14176|ac|releaser
+14176|ac|key stimulus
+14228|ac|transcytosis across the endothelium
+14255|ac|interstitial cells
+14255|ac|interstitial cells of Leydig
+14263|ac|fMet
+14273|ac|P680 chlorophyll
+14279|ac|JGA
+14279|ac|juxtaglomerular complex
+14325|ac|lacO
+14344|ac|ABA
+14355|ac|linoleic acid and linolenic acid
+14355|ac|linoleic and alpha-linolenic
+14355|ac|omega-6 linoleic and omega-3 linolenic
+14395|ac|DNA gyrase
+14411|ac|ethanal
+14461|ac|genomic imprint
+14471|ac|HIF-1 alpha
+14471|ac|HIF1a
+14471|ac|HIF-1alpha
+14474|ac|gastrin hormone
+14475|ac|apocrine glands
+14487|ac|man o war and sea cucumber
+14510|ac|Ames
+14510|ac|Ames assay
+14511|ac|3' addition and 3' removal
+14519|ac|4, Hoogsteen
+14519|ac|4 and Hoogsteen base pairing
+14545|ac|intestinal glands
+14557|ac|molten globule state
+14559|ac|apicomplexan
+14560|ac|5'-NGG-3'
+14560|ac|NGG PAM
+14583|ac|zidovudine
+14583|ac|ZDV
+14616|ac|RNA degradosome
+14618|ac|leghaemoglobin
+14675|ac|BP
+14715|ac|myelin sheath
+14732|ac|atria and ventricles oxygen-poor
+14743|ac|transcription initiation
+14743|ac|initiation of transcription
+14768|ac|Permian-Triassic extinction
+14816|ac|AMP and fructose-2,6-bisphosphate
+14817|ac|si RNA
+14829|ac|stenohaline animals
+14889|ac|tropic hormone
+14900|ac|960 individuals
+14914|ac|transcription attenuation
+14922|ac|neutral
+14933|ac|plasmodesma
+15003|ac|sickle cell disease
+15003|ac|sickle cell
+15051|ac|parental imprinting
+15108|ac|granular leukocytes
+15108|ac|granular white blood cells
+15119|ac|HCN, Na+
+15119|ac|funny channels, sodium
+15202|ac|Kozak consensus sequence
+15232|ac|peptide tyrosine tyrosine
+15233|ac|nicotinic acid
+15235|ac|RT
+15267|a|1/8
+15583|a|V(D)J recombination
+15600|a|Cl-
+15715|rm|
+16252|q|["a metabolic product of cysteine","a metabolic precursor of cysteine"]
+16401|q|["half the wolves","half the foxes"]
+16461|q|["DE-FICIENS","DEFICIENS"]
+16516|a|W
+16700|q|["proteobac-terial","proteobacterial"]
+15289|ac|alternative RNA splicing
+15318|ac|protein kinases
+15346|ac|apoplastic pathway
+15354|ac|bilaterians
+15435|ac|releaser
+15435|ac|key stimulus
+15473|ac|renin angiotensin system
+15579|ac|Ramachandran diagram
+15627|ac|exons, introns, transposable elements
+15645|ac|bacterial cell wall
+15646|ac|conjugation pilus
+15646|ac|F pilus
+15650|ac|CH3
+15692|ac|vitamin B9
+15728|ac|0
+15739|ac|SHM
+15817|ac|glycolysis and citric acid cycle
+15829|ac|AT
+15923|ac|programmed cell death
+16061|ac|oxyntic cells
+16120|ac|MII
+16273|ac|echinodermata and asteroidea
+16353|ac|RyR
+16461|ac|MADS
+16475|ac|T4, epinephrine, both
+16541|ac|punctuated equilibrium theory
+16542|ac|haemocyanin
+16564|ac|iPSC
+16605|ac|LV
+16656|ac|influenza virus
+16656|ac|flu
+16678|ac|glutamic acid
+16975|a|X
+17150|q|["overproduces vitreous humor","overproduces aqueous humor"]
+17590|a|QUORUM SENSING
+17617|rm|
+16708|ac|ecological character displacement
+16882|ac|frame shift
+16933|ac|radial glial cells
+16986|ac|ethene
+17076|ac|aspartic acid
+17170|ac|hydrocortisone
+17180|ac|Tn5
+17208|ac|aconitate hydratase
+17268|ac|CYP19
+17268|ac|estrogen synthetase
+17269|ac|incretin hormones
+17280|ac|ribulose bisphosphate carboxylase oxygenase
+17287|ac|MHC class I
+17324|ac|intercalated disk
+17336|ac|protein kinases
+17336|ac|protein kinase
+17364|ac|haemolymph
+17421|ac|angiotensin 2
+17421|ac|ang II
+17470|ac|restriction endonuclease
+17470|ac|restriction endonucleases
+17478|ac|Ub
+17492|ac|acetyl coenzyme A
+17530|ac|SNARE proteins
+17558|ac|uncoupling protein 1
+17558|ac|UCP-1
+17585|ac|D-ribose
+17598|ac|broca
+17664|ac|B lymphocyte
+17707|ac|arginine vasopressin
+17707|ac|AVP
+17717|ac|zero
+17723|ac|polyploidization
+17737|ac|OH group
+17789|ac|sponges
+17790|ac|zero
+17803|ac|Ca++
+18496|ac|stoma
+18496|ac|stomates
+18507|ac|haemocyanin
+18518|ac|temperate phages
+18518|ac|temperate phage
+18622|ac|induced fit theory
+18622|ac|induced fit hypothesis
+18653|ac|chi-squared test
+18653|ac|chi squared
+18654|ac|disulfide bridges
+18781|ac|zero
+18847|ac|DNA helicase
+19583|a|Y
+19608|rm|
+19905|a|HYPOTHALAMUS
+19990|q|["a methyl group in chlorophyll b is replaced by what group in chlorophyll a","a methyl group in chlorophyll a is replaced by what group in chlorophyll b"]
+20362|a|LUCIFERIN
+18859|ac|immunoglobulins
+18884|ac|heterozygote superiority
+18884|ac|overdominance
+18952|ac|fMet
+18952|ac|N-formylmethionine
+19513|ac|vitamin b3
+19657|ac|chiropterans
+19665|ac|auditory tube
+19665|ac|pharyngotympanic tube
+19808|ac|papilla
+19808|ac|lingual papillae
+19955|ac|oral cavity
+19961|ac|peptide linkage
+19971|ac|molecular oxygen
+19972|ac|RuBP
+19972|ac|ribulose bisphosphate
+19972|ac|ribulose 1,5-bisphosphate
+19990|ac|CHO
+20004|ac|restriction endonucleases
+20004|ac|restriction endonuclease
+20013|ac|porifera
+20036|ac|arthropods
+20044|ac|cultural eutrophication
+20045|ac|batesian mimicry
+20052|ac|flowering plants
+20053|ac|monocotyledons
+20258|ac|vitamin k
+20259|ac|factor II
+20299|ac|bryophyta
+20376|ac|rhesus
+20376|ac|rhesus macaque
+20405|ac|casparian band
+20458|ac|sinus node
+20481|ac|arginine vasopressin
+20528|ac|dinitrogen
+20558|ac|archaebacteria
+20569|ac|disease vector
+20574|ac|35S
+20585|ac|bryophyta
+20604|ac|XP
+20608|ac|T cell and NK cell
+20642|ac|estrogen synthase
+20721|q|["indehiscent fruit","dehiscent fruit"]
+21083|q|["rigid protein","rigid polymer"]
+21296|q|["Researchers like to pee. ",""]
+21447|q|["caused by you","caused by autoimmunity"]
+21230|a|1 AND 2
+21503|a|16
+21720|a|3,1,2
+21809|rmac|PROCESS
+21813|a|NADP+
+20754|rmac|1
+21167|rmac|KARTAGENER’S SYNDROME
+21240|rm|
+21466|rm|
+21513|rm|
+20660|ac|angiotensin 1
+20686|ac|b5
+20693|ac|islet beta cells
+20739|ac|spongy bone
+20742|ac|ramachandran diagram
+20784|ac|ache
+20784|ac|acetylcholine esterase
+20822|ac|pepc
+20833|ac|oxyntic cells
+20845|ac|mhc molecules
+20903|ac|microglial cells
+20903|ac|microglial cell
+20934|ac|cytokine release syndrome
+20959|ac|sustentacular cells
+21014|ac|spike glycoprotein
+21026|ac|monomethylmercury
+21062|ac|rt
+21104|ac|aqueous humour
+21109|ac|malate
+21133|ac|apocrine sweat glands
+21150|ac|zw system
+21150|ac|zw sex determination
+21155|ac|sympathetic nervous system
+21166|ac|vitamin b1
+21166|ac|thiamin
+21199|ac|potassium and chloride
+21230|ac|1,2
+21249|ac|trophic hormones
+21296|ac|ppp
+21296|ac|hexose monophosphate shunt
+21376|ac|none
+21389|ac|bacteriophage lambda
+21490|ac|v(d)j recombination
+21490|ac|vdj
+21503|ac|sixteen
+21525|ac|agrobacterium tumefaciens
+21532|ac|b lymphocytes
+21532|ac|b lymphocyte
+21559|ac|l-tyrosine
+21569|ac|0
+21569|ac|zero
+21570|ac|hemocoele
+21570|ac|haemocoel
+21588|ac|glucose transporter 4
+21588|ac|glut-4
+21601|ac|cyclic guanosine monophosphate
+21608|ac|complex v
+21608|ac|atp synthetase
+21622|ac|succinate dehydrogenase
+21641|ac|sex chromatin
+21720|ac|3 1 2
+21720|ac|hypodermis, dermis, epidermis
+21809|ac|acrosomal reaction
+21813|ac|nadp
+21813|ac|nadp plus
+21927|ac|jga
+21927|ac|juxtaglomerular complex
+21975|ac|cupulae
+21988|ac|ips cells
+22033|ac|breathing roots
+22045|ac|ampulla of lorenzini
+22079|ac|transposable elements
+22079|ac|transposable element
+22081|ac|cultural eutrophication
+22130|ac|fructose-6-phosphate
+22130|ac|fructose 6-phosphate
+22130|ac|f6p
+22139|ac|5' amp-activated protein kinase
+22152|ac|etbr
+22163|ac|na/k atpase
+22175|ac|oligodendroglia
+22187|ac|hemocoele
+22187|ac|haemocoel
+22222|ac|hydrogen bonding
+22222|ac|h bonds
+22246|ac|aqp
+22246|ac|aquaporin proteins
+22884|a|1, 2 AND 3
+23120|rmac|cCMP
+23253|rm|
+23328|q|["deliver mRNA to cells","deliver DNA to cells"]
+23875|q|["gamma carboxyglutamate residues on fibrin","gamma carboxyglutamate residues on prothrombin"]
+23897|a|Y
+23949|a|CYTOCHROME C OXIDASE
+22329|ac|microsatellites
+22339|ac|MMR, chickenpox, and yellow fever
+22365|ac|jasmonic acid
+22365|ac|JA
+22807|ac|denaturation, annealing, extension
+22819|ac|0
+22852|ac|zoonotic disease
+22884|ac|1,2,3
+22884|ac|oxytocin, GRH, and vasopressin
+22896|ac|B gene
+22896|ac|gene B
+22896|ac|B function
+22907|ac|G6PD
+22907|ac|G6PDH
+22909|ac|mesencephalon
+22916|ac|4
+22916|ac|stage 4
+22916|ac|stage IV
+22922|ac|EPO
+22934|ac|type III
+22934|ac|type 3
+22934|ac|3
+22960|ac|EGF
+22995|ac|cryo-EM
+22995|ac|cryoEM
+22995|ac|cryo electron microscopy
+23029|ac|Justinianic plague
+23041|ac|suffering risk
+23054|ac|EBV
+23054|ac|human herpesvirus 4
+23061|ac|lysine residue
+23086|ac|sigma
+23086|ac|sigma subunit
+23098|ac|0
+23098|ac|no factors
+23110|ac|PLA2
+23124|ac|Ebola
+23124|ac|EVD
+23132|ac|immunoglobulin A
+23132|ac|secretory IgA
+23132|ac|sIgA
+23145|ac|Philadelphia
+23145|ac|Ph chromosome
+23184|ac|chaperone inhibitors
+23205|ac|Helicobacter pylori
+23217|ac|AGO
+23217|ac|Argonaute protein
+23228|ac|0
+23264|ac|acrocentric chromosomes
+23280|ac|mAbs
+23280|ac|mAb
+23289|ac|0
+23328|ac|chimpanzee adenovirus
+23328|ac|chimp adenovirus
+23336|ac|2-phosphoglycolate
+23336|ac|phosphoglycolic acid
+23349|ac|all-trans retinoic acid
+23349|ac|ATRA
+23377|ac|A. aegypti
+23377|ac|yellow fever mosquito
+23397|ac|ATP sulphurylase
+23444|ac|acid-fast bacteria
+23473|ac|HeV
+23480|ac|glycoprotein 120
+23517|ac|fenestra vestibuli
+23576|ac|plasmodesma
+23577|ac|0
+23589|ac|Casparian band
+23624|ac|3' hydroxyl
+23624|ac|OH group
+23660|ac|zoonotic disease
+23661|ac|ethanal
+23661|ac|CH3CHO
+23708|ac|hydrogen carbonate
+23724|ac|gray goo
+23732|ac|annealing, elongation, denaturation
+23773|ac|aggregate suffering
+23792|ac|CN X
+23792|ac|10th cranial nerve
+23815|ac|palisade parenchyma
+23815|ac|palisade layer
+23840|ac|imagines
+23851|ac|enteropeptidase
+23863|ac|coeliac disease
+23863|ac|celiac sprue
+23910|ac|Edman sequencing
+23910|ac|Edman
+23921|ac|chloride, sodium, potassium
+23933|ac|Rh antigen
+23945|ac|ether bond
+23949|ac|complex IV
+23949|ac|cytochrome oxidase
+23993|ac|Holliday structure
+23993|ac|Holliday intermediate
+24065|ac|Cre
+24066|ac|Z-DNA
+24066|ac|Z DNA
+24126|a|1 AND 2
+24178|a|W
+24186|a|9
+24341|rm|
+25093|a|FIBRONECTIN
+25139|a|3 ONLY
+25249|a|1 AND 2
+25295|a|1 AND 2
+25260|a|IRON
+25287|rm|
+26301|q|["Phosphodiesterase is a signaling enzyme","Adenylyl cyclase is a signaling enzyme"]
+26552|a|TETANUS
+24125|ac|tense state
+24125|ac|tense
+24129|ac|herpesviruses
+24129|ac|herpesvirus
+24174|ac|HCN
+24198|ac|ethene
+24198|ac|C2H4
+24221|ac|ornithine cycle
+24221|ac|Krebs-Henseleit cycle
+24293|ac|cnidarians
+24317|ac|lysogeny
+24345|ac|glossina
+24390|ac|disulfide bridges
+24390|ac|disulfide linkages
+24390|ac|S-S bonds
+24425|ac|ketones
+24425|ac|ketone
+24449|ac|magnesium
+24460|ac|DDC
+24460|ac|aromatic L-amino acid decarboxylase
+24460|ac|AADC
+24994|ac|semelparous
+25040|ac|NKCC2
+25049|ac|T
+25067|ac|NA
+25067|ac|sialidase
+25094|ac|viviparous
+25112|ac|TV
+25112|ac|VT
+25113|ac|AMPs
+25152|ac|OEC
+25152|ac|water-oxidizing complex
+25260|ac|Fe
+25273|ac|Muller glia
+25273|ac|Muller glial cells
+25294|ac|brown fat
+25294|ac|BAT
+25306|ac|L-tryptophan
+25504|ac|pancreatic beta cells
+25516|ac|sponges
+25527|ac|Dinophyta
+25527|ac|Pyrrophyta
+25653|ac|neurohypophysis
+25678|ac|pseudocoel
+25752|ac|PSII
+25752|ac|PS2
+25774|ac|safranin O
+25930|ac|cyt c
+25941|ac|5-HT
+25941|ac|5-hydroxytryptamine
+25959|ac|PD
+26017|ac|GA
+26022|ac|adipocytes
+26022|ac|fat cells
+26022|ac|adipocyte
+26064|ac|AChE
+26064|ac|acetylcholine esterase
+26201|ac|tracheae
+26227|ac|PDE
+26364|ac|proenzyme
+26364|ac|proenzymes
+26408|ac|CYP19
+26408|ac|estrogen synthase
+26408|ac|CYP19A1
+26481|ac|PKC
+26507|ac|vWF
+26527|ac|HMGCR
+26536|ac|MADS
+26646|a|3, 2, 1
+26672|a|3,1,2
+26721|a|1 AND 3
+26812|q|["which hormone in the kidney","which enzyme in the kidney"]
+26980|rm|
+27160|a|2 AND 3
+27179|a|1 AND 3
+27199|a|LENTICELS
+27225|rmac|COBALAMIN
+27260|rm|
+27302|a|7.1 BILLION
+27319|a|Y
+27853|a|ABSCISIC ACID
+28079|a|Y
+28274|q|["intraventricular septum","interatrial septum"]
+26645|ac|zero
+26726|ac|legumes
+26726|ac|leguminosae
+26812|ac|1-alpha-hydroxylase
+26812|ac|1 alpha hydroxylase
+26812|ac|25-hydroxyvitamin D 1-alpha-hydroxylase
+26816|ac|haploid gametophyte
+26844|ac|circadian
+26870|ac|h+
+26870|ac|protons
+26889|ac|cnidarians
+26921|ac|hermaphroditic
+27055|ac|mg2+
+27056|ac|type I survivorship
+27063|ac|virulent phage
+27072|ac|lps
+27075|ac|embryonic induction
+27111|ac|na+
+27131|ac|phenylalanine 4-hydroxylase
+27131|ac|pah
+27133|ac|b-oxidation
+27152|ac|26s proteasome
+27218|ac|ppi
+27218|ac|diphosphate
+27218|ac|inorganic pyrophosphate
+27226|ac|guanosine
+27272|ac|sdh
+27341|ac|sa
+27538|ac|hk
+27548|ac|zymogenic cells
+27548|ac|peptic cells
+27549|ac|rt
+27576|ac|2,3-dpg
+27576|ac|2,3-diphosphoglycerate
+27643|ac|wobble pairing
+27643|ac|wobble hypothesis
+27680|ac|saltatory
+27680|ac|saltatory propagation
+27714|ac|immunoglobulin g
+27853|ac|aba
+27882|ac|apicomplexa
+27902|ac|juxtacrine signaling
+27902|ac|contact-dependent signaling
+27933|ac|glyoxylate shunt
+28031|ac|dna loop extrusion
+28038|ac|nuclear localization sequence
+28046|ac|2-methyl-1,3-butadiene
+28087|ac|ppp
+28087|ac|hexose monophosphate shunt
+28148|ac|castle-wright equation
+28148|ac|castle wright
+28195|ac|parsimony
+28333|a|Y
+28403|rm|
+28470|rm|
+28928|a|Hoogsteen base pairing
+28940|a|0.97
+29382|a|1/32
+28324|ac|compound leaves
+28344|ac|JH
+28404|ac|ependymocytes
+28422|ac|air bladder
+28422|ac|gas bladder
+28431|ac|ethene
+28431|ac|C2H4
+28461|ac|golgi
+28461|ac|golgi body
+28461|ac|golgi complex
+28471|ac|signal peptide
+28481|ac|pentose phosphate shunt
+28481|ac|PPP
+28481|ac|hexose monophosphate shunt
+28490|ac|HR
+28683|ac|GA
+28743|ac|base and sugar
+28799|ac|0
+28799|ac|no statements
+28808|ac|FAP
+28817|ac|chiasma
+28917|ac|propionyl coenzyme A
+28918|ac|Refsum
+28939|ac|EPO
+28940|ac|.97
+28951|ac|hypophysiotropic factors
+28962|ac|hydrocephaly
+28990|ac|0.5
+29013|ac|lysogeny
+29013|ac|lysogenic cycle
+29038|ac|CRISPR
+29049|ac|sex chromatin
+29068|ac|glomerulosa, fasciculata, reticularis
+29095|ac|tRNA synthetase
+29096|ac|pulmonary and cutaneous
+29096|ac|cutaneous and pulmonary
+29096|ac|cutaneous respiration and pulmonary respiration
+29104|ac|amyloid fibers
+29117|ac|SD sequence
+29118|ac|0
+29125|ac|microbial leaching
+29163|ac|pineal
+29163|ac|pineal body
+29171|ac|deuterostomia
+29176|ac|pacinian
+29183|ac|peptidases
+29210|ac|eccrine sweat gland
+29220|ac|goitre
+29220|ac|thyroid goiter
+29266|ac|abscission layer
+29266|ac|abscission layers
+29279|ac|nematocyte
+29279|ac|cnidoblast
+29298|ac|lactic acid fermentation
+29298|ac|lactate fermentation
+29299|ac|chaperone proteins
+29360|ac|retroviridae
+29371|ac|TATA
+29371|ac|goldberg-hogness box
+29382|ac|0.03125
+29382|ac|3.125%
+29405|ac|ventricular systole
+29442|ac|ENS
+29453|ac|gause's principle
+29470|ac|ABA
+29544|ac|O minus
+29544|ac|O-
+29585|ac|suprachiasmatic
+29599|ac|FAP
+29600|ac|PFK
+29600|ac|PFK-1
+29600|ac|phosphofructokinase-1
+29621|ac|AAUAAA
+29621|ac|polyA signal
+29621|ac|poly-A signal
+29632|ac|ascending loop, distal tubule, proximal tubule
+29637|ac|sustentacular cells
+29687|ac|0
+29698|ac|0
+29698|ac|no changes
+29759|ac|arachidonate
+29789|ac|Forster resonance energy transfer
+29794|ac|0
+29812|ac|0
+29823|ac|keratin filaments, dense plaques, cadherins
+30963|a|NONE
+31018|a|ALL
+31110|q|["other major phot belong to?","other major photosynthetic protists belong to?"]
+29877|ac|genetic complementation
+29890|ac|PIN
+29890|ac|PIN-FORMED
+29890|ac|PINFORMED
+30002|ac|mendel's law of independent assortment
+30002|ac|mendel's second law
+30444|ac|a, d, e, k
+30454|ac|hillock
+30466|ac|gibberellic acid
+30466|ac|GA
+30477|ac|lysogeny
+30579|ac|echinoderms
+30579|ac|echinoderm
+30589|ac|chorionic gonadotropin
+30625|ac|cooperative binding
+30625|ac|positive cooperativity
+30693|ac|hypersensitive reaction
+30705|ac|hydroxylapatite
+30779|ac|paragaster
+30813|ac|vitamin h
+30835|ac|CF
+30836|ac|pituitary
+30895|ac|graves
+30896|ac|glyoxylate shunt
+30896|ac|glyoxylate pathway
+30940|ac|retinaldehyde
+30960|ac|CJD
+30961|ac|CTE
+30961|ac|dementia pugilistica
+31167|ac|goitre
+31273|ac|ENS
+31299|ac|EtBr
+31345|ac|temporal fenestrae
+31346|ac|pedomorphosis
+31355|ac|blood clotting
+31384|ac|actin filaments
+31442|ac|ethological isolation
+31498|ac|b12
+31501|ac|cranial nerve x
+31510|ac|DNA photolyase
+31545|ac|endosymbiont theory
+31615|ac|vitamin b2
+31615|ac|b2
+31642|ac|interstitial fluid and blood plasma
+31768|ac|secondary protein structure
+31774|ac|okazaki
+31802|ac|fluorine-18
+31802|ac|f-18
+31802|ac|18f
+31941|rm|
+32922|rm|
+32667|q|["Recently, the Arizona Supreme Court chose to uphold an old 19th century law banning many abortions. Included in the ban is which form of abortion which is most common","In 2024 the Arizona Supreme Court upheld an old 19th century law banning many abortions. Which form of abortion is most common"]
+32784|q|["who have a diploid chromosome number of 48","with diploid chromosome numbers of 46 and 48 respectively"]
+32684|a|1, 2 AND 4
+32945|a|3,1,4,2
+33006|a|PLASMODIAL SLIME MOLDS
+34958|a|3 ONLY
+31827|ac|it increases
+31876|ac|b complex
+31893|ac|cyclic photophosphorylation
+31893|ac|cyclic electron transport
+31939|ac|species diversity
+32633|ac|cam photosynthesis
+32667|ac|suction aspiration
+32693|ac|hcg
+32716|ac|ependymocytes
+32717|ac|giant chromosomes
+32729|ac|folate
+32729|ac|folacin
+32765|ac|flagellar hook
+32785|ac|aluminium
+32841|ac|bulimia
+32856|ac|a-synuclein
+32883|ac|pol iii and pol i
+32883|ac|dna pol i and iii
+32883|ac|pol i and pol iii
+32894|ac|estrogen synthetase
+32894|ac|cyp19a1
+32907|ac|tlr-5
+32923|ac|pti
+32923|ac|pamp-triggered immunity
+32923|ac|mamp-triggered immunity
+32997|ac|cryo-em
+32997|ac|cryoem
+33056|ac|its molecular weight
+33056|ac|molecular mass
+33058|ac|blood plasma
+33059|ac|oxphos
+33096|ac|u
+33236|ac|eubacteria
+33386|ac|myelin
+33389|ac|carbonate dehydratase
+33402|ac|synovia
+33436|ac|g1, s, g2
+33469|ac|stoma
+33489|ac|polyploid
+33492|ac|t lymphocytes
+33493|ac|nucleotide sequencing
+33515|ac|echinoderms
+33515|ac|echinoderm
+33526|ac|ribulose bisphosphate carboxylase
+33526|ac|rubp carboxylase
+33526|ac|ribulose-1,5-bisphosphate carboxylase/oxygenase
+33527|ac|a and d
+33549|ac|acetyl coenzyme a
+33549|ac|acetyl-coenzyme a
+33572|ac|founder
+33581|ac|vestigial structure
+33581|ac|vestigial structures
+33593|ac|rt
+33605|ac|communicating junction
+33658|ac|islet beta cells
+33662|ac|zymogenic cells
+33662|ac|peptic cells
+33663|ac|casparian band
+33675|ac|cas-9
+33675|ac|crispr-associated protein 9
+33739|ac|luteinizing and follicle stimulating hormone
+33762|ac|hermaphroditic
+33787|ac|diabetic ketoacidosis
+33787|ac|dka
+34916|ac|programmed cell death
+34949|ac|b12
+34949|ac|cobalamin
+34968|ac|leaves
+35029|ac|wasmann mimicry
+35038|ac|topologically associated domains
+35042|ac|growth hormone inhibiting hormone
+35042|ac|ghih
+35089|ac|isoprenoids
+35109|ac|topo ii
+35109|ac|topoisomerase 2
+35109|ac|type ii topoisomerase
+35130|ac|strasburger cells
+35140|ac|holliday structure
+35140|ac|holliday intermediate
+35151|ac|atac
+35443|a|2,3,1
+35533|a|5/13
+37704|a|2 AND 3
+35185|ac|tap root
+35251|ac|pseudopods
+35305|ac|turgor
+35334|ac|kinase cascade
+36274|ac|pantothenate
+36274|ac|B5
+36305|ac|condensin 2
+36397|ac|auditory tube
+36397|ac|pharyngotympanic tube
+36456|ac|mollusks
+36456|ac|molluscs
+36456|ac|mollusc
+36476|ac|thylakoid membrane
+36506|ac|AQP
+36516|ac|drift
+36516|ac|random genetic drift
+36556|ac|DNA helicase
+36586|ac|bile acids
+36636|ac|positive cooperativity
+36656|ac|lactate fermentation
+37691|ac|transposable elements
+37691|ac|mobile genetic elements
+37691|ac|jumping genes
+37703|ac|inactive X chromosome
+37727|ac|RT
+37740|ac|breathing roots
+37725|ac|Gause's principle
+37955|ac|NER
+38027|ac|population bottleneck
+38123|ac|ribulose bisphosphate carboxylase
+38207|ac|oxygen gas
+38232|ac|sponges
+38292|rm|
+38303|rm|
+38453|a|LYMPHOCYTES
+38706|drop|
+39118|drop|
+39838|rmac|ANAEROBIC RESPIRATION
+39929|q|["Hashimoto's disease is an autoimmune disorder","Graves' disease is an autoimmune disorder"]
+38268|ac|ethene
+38279|ac|second messengers
+38279|ac|second messenger
+38328|ac|sensory neurons
+38430|ac|jasmonate
+38441|ac|ner
+38454|ac|ebv
+38476|ac|amyloid beta
+38476|ac|beta-amyloid
+38558|ac|gtp hydrolysis
+38637|ac|ribulose bisphosphate carboxylase
+38649|ac|ethene
+38684|ac|l-tyrosine
+38705|ac|1,25-dihydroxyvitamin d3
+38705|ac|1,25-dihydroxycholecalciferol
+38917|ac|jga
+38917|ac|juxtaglomerular complex
+38925|ac|pin-formed proteins
+38944|ac|cushings
+38969|ac|mads-box genes
+38970|ac|muller glia
+38970|ac|muller glial cells
+38988|ac|zonules
+39017|ac|zone of polarising activity
+39027|ac|ser-his-asp
+39041|ac|mesonephric ducts
+39078|ac|hmgcr
+39085|ac|prebotc
+39098|ac|y2h
+39121|ac|v(d)j recombination
+39122|ac|bpg
+39153|ac|plasmodium parasite
+39163|ac|olfactory sensory neurons
+39169|ac|beta globin gene
+39170|ac|hscs
+39217|ac|disulfide bonds
+39217|ac|disulfide linkages
+39255|ac|camp receptor protein
+39293|ac|ssb
+39293|ac|ssbs
+39308|ac|aarss
+39362|ac|leghaemoglobin
+39875|ac|mhc 2
+39875|ac|mhc class ii
+39902|ac|5-ht
+39902|ac|5ht
+39946|ac|lysine residue
+40005|ac|polycistronic mrna
+40037|ac|convergent
+40060|ac|neurological system
+40103|ac|proviral dna
+40139|ac|complementation assay
+40146|ac|saprobes
+40146|ac|saprophytes
+40167|ac|viruses that infect bacteria
+40250|ac|tata-binding protein
+40325|a|Z
+41147|a|1 AND 3
+41179|a|3 AND 4
+41201|a|1 AND 3
+41261|a|1 AND 3
+41272|a|1 AND 2
+41341|a|1 AND 3
+41473|a|2 AND 3
+41571|a|2 AND 3
+41592|a|1 AND 2
+41632|a|1 AND 2
+40279|ac|batesian
+40326|ac|ucp
+40335|ac|shh
+40358|ac|kranz anatomy
+40359|ac|no statements
+40370|ac|membrane blebbing
+40505|ac|hr
+40505|ac|hypersensitive reaction
+40615|ac|koshland model
+40670|ac|ethanal
+40689|ac|parathormone
+40747|ac|adenylate cyclase
+40922|ac|calcaneal tendon
+40926|ac|sr
+41091|ac|tertiary structure
+41112|ac|convergence
+41145|ac|microsatellites
+41157|ac|fertility factor
+41169|ac|zero
+41208|ac|ucp1
+41208|ac|uncoupling protein 1
+41251|ac|cyclic photophosphorylation
+41251|ac|cyclic electron transport
+41374|ac|glia
+41374|ac|neuroglia
+41428|ac|vitamin b12
+41446|ac|transposable elements
+41446|ac|transposable element
+41494|ac|7-methylguanine
+41631|ac|geographic speciation
+41843|ac|disulfide linkage
+41856|ac|zero
+41878|ac|k selection
+41878|ac|k-selection
+41943|ac|dna topoisomerase
+41965|ac|pancreatic islets
+41987|ac|chromosome 18
+41988|ac|aestivation
+41147|rj|1 only
+41179|rj|3 only
+41201|rj|1 only
+41261|rj|1 only
+41341|rj|1 only
+41473|rj|2 only
+41592|rj|1 only
+41632|rj|1 only
+44120|a|II, I, III
+44264|a|SURFACTANT
+42486|q|["after treatment? than isotonic","after treatment?"]
+42762|q|["this outcome? specific gene expression","this outcome?"]
+42915|q|["paracrine signaling? cells","paracrine signaling?"]
+43651|q|["is an enzyme that aids","is a hormone that aids"]
+42001|ac|cancellous bone
+42004|ac|no statements
+42025|ac|transposable element
+42025|ac|jumping gene
+42036|ac|protein synthesis
+42070|ac|genomic imprinting
+42070|ac|imprinting
+42086|ac|diverticuli
+42095|ac|Purkinje fibres
+42113|ac|OSKM
+42155|ac|heterozygous
+42155|ac|heterozygote
+42262|ac|CoQ
+42262|ac|coenzyme Q10
+42270|ac|operant
+42270|ac|instrumental learning
+42277|ac|red queen effect
+42295|ac|MMR, chickenpox, yellow fever
+42297|ac|E. coli
+42306|ac|ribulose-1,5-bisphosphate carboxylase/oxygenase
+42324|ac|inositol 1,4,5-trisphosphate
+42333|ac|safranin O
+42380|ac|particulate inheritance
+42380|ac|particulate theory of inheritance
+42381|ac|Hex A
+42406|ac|T2DM
+42407|ac|paradoxical pulse
+42424|ac|retinaldehyde
+42591|ac|0
+42591|ac|no statements
+42632|ac|NER
+42685|ac|immunoglobulin E
+42685|ac|IgE antibody
+42721|ac|PPP
+42721|ac|pentose phosphate shunt
+42721|ac|hexose monophosphate shunt
+42737|ac|L-type calcium channels
+42737|ac|L-type voltage-gated calcium channels
+42779|ac|DICER1
+42793|ac|MAC and opsonization
+42838|ac|glycolysis and citric acid cycle
+42857|ac|cultural eutrophication
+42862|ac|amphipathic molecules
+42914|ac|keystone
+42937|ac|operator region
+42955|ac|ethene
+42955|ac|C2H4
+43007|ac|founder
+43007|ac|founder event
+43561|ac|aneuploid
+43629|ac|endochondral
+43652|ac|large bowel
+43779|ac|F-box family
+43779|ac|F-box
+43787|ac|V
+43788|ac|L-cysteine
+44104|ac|U
+44111|ac|meiosis I prophase
+44114|ac|LA
+44257|ac|X inactivation
+44264|ac|pulmonary surfactant
+44909|ac|tsetse flies
+44913|ac|synthesis phase
+44961|a|NADPH
+45277|a|X
+45323|rm|
+45469|q|["two sister drones who have the same father","two full sisters (workers) who have the same father"]
+45610|q|["during homologous end joining","during homologous recombination"]
+45776|q|["into the guard cells","out of the guard cells"]
+46358|q|["4 exons and 7 introns","4 exons and 3 introns"]
+44925|ac|cAMP-CRP complex
+44955|ac|interleukin-3 and GM-CSF
+44999|ac|endosymbiotic theory
+44999|ac|serial endosymbiosis
+45013|ac|promoter region
+45013|ac|promoter sequence
+45030|ac|murein
+45063|ac|countercurrent heat exchange
+45209|ac|ethanal
+45220|ac|central dogma of molecular biology
+45233|ac|heterozygous advantage
+45233|ac|heterozygote superiority
+45252|ac|pioneer
+45252|ac|pioneer organisms
+45298|ac|Gause's principle
+45343|ac|no disorders
+45367|ac|psychostimulant
+45367|ac|CNS stimulant
+45377|ac|transposable element
+45377|ac|jumping gene
+45389|ac|saltatory
+45389|ac|saltatory propagation
+45434|ac|ecological character displacement
+45459|ac|catabolite activator protein
+45459|ac|cAMP receptor protein
+45481|ac|parsimony
+45523|ac|cM
+45609|ac|glucagon and cAMP
+45654|ac|leukocyte extravasation
+45676|ac|molecular clock hypothesis
+45741|ac|XI, IX, X
+45752|ac|cycads and ginkgo
+45785|ac|acrosomal vesicle
+45828|ac|double reciprocal plot
+45947|ac|Kranz
+45990|ac|Kupffer
+46032|ac|Yamanaka transcription factors
+46032|ac|OSKM
+46033|ac|seismonasty
+46042|ac|opsonisation
+46060|ac|CG islands
+46061|ac|DARC
+46061|ac|Duffy antigen receptor for chemokines
+46119|ac|PIP2
+46142|ac|trimethylamine oxide
+46205|ac|biological magnification
+46219|ac|cnidocyst
+46228|ac|transposable elements
+46228|ac|jumping genes
+46304|ac|PEPC
+46324|ac|myelin sheath
+46325|ac|programmed cell death
+46357|ac|carbamide
+46970|a|CELLULOSE
+47260|a|X
+47624|a|1 AND 3
+47680|a|2 ONLY
+47681|a|X
+47823|a|tracrRNA
+47713|q|["cytochrome c oxidase","cytochrome c"]
+47587|q|["beta-lactamases","beta-lactams"]
+46377|ac|zoonoses
+46377|ac|zoonosis
+46434|ac|calvin-benson cycle
+46434|ac|calvin benson cycle
+46572|ac|central dogma of molecular biology
+46588|ac|chelicera
+46594|ac|molecular oxygen
+46624|ac|termination codons
+46625|ac|phalanx
+46637|ac|wernicke
+46681|ac|corticotropin
+46711|ac|casparian band
+46733|ac|triploid endosperm
+46734|ac|cartilaginous fishes
+46734|ac|chondrichthyans
+46754|ac|qc
+46754|ac|quiescent centre
+46843|ac|genetically engineered organisms
+46923|ac|zoonoses
+46923|ac|zoonotic diseases
+46923|ac|zoonosis
+46958|ac|promoter region
+46958|ac|promoter sequence
+47002|ac|photolysis of water
+47002|ac|water photolysis
+47039|ac|gnathostomata
+47048|ac|hayflick
+47048|ac|hayflick number
+47051|ac|0.2
+47115|ac|okazaki
+47170|ac|actin filaments
+47170|ac|f-actin
+47215|ac|chiasma
+47227|ac|glucose and fructose, g3p and dhap
+47237|ac|middle lamellae
+47282|ac|cambrian radiation
+47317|ac|chorionic gonadotropin
+47351|ac|sustentacular cells
+47351|ac|nurse cells
+47371|ac|b12
+47371|ac|vitamin b-12
+47513|ac|npy
+47587|ac|dd-transpeptidase
+47625|ac|ran
+47689|ac|endosymbiotic theory
+47689|ac|endosymbiont theory
+47689|ac|serial endosymbiosis
+47694|ac|mi
+47694|ac|myocardial infarct
+47718|ac|iii
+47770|ac|rho
+47770|ac|rho protein
+47780|ac|m6p
+47808|ac|shm
+47813|ac|her2/neu
+47813|ac|erbb2
+47813|ac|her-2
+47894|q|["which have a dsDNA genome and replicate through an ssRNA intermediate","which have an ssRNA genome and replicate through a dsDNA intermediate"]
+48105|q|["fats are broken down into triglycerides through enzymes called lipases. These triglycerides are then reformed","triglycerides are broken down into fatty acids and monoglycerides through enzymes called lipases. These products are then reformed"]
+48832|a|ANIMALIA, PLANTAE
+49177|a|Z
+47857|ac|GHRH and GnRH
+47924|ac|one x chromosome
+47924|ac|a single x chromosome
+47935|ac|12.5%
+47955|ac|mg2+
+47974|ac|pulmonary surfactant
+48055|ac|10 cM
+48055|ac|10 map units
+48064|ac|optic disk
+48094|ac|ABA
+48175|ac|basidiomycetes
+48175|ac|basidiomycete
+48234|ac|pI
+48244|ac|firefly luciferase
+48245|ac|0.6
+48275|ac|fructose 2,6-bisphosphate
+48275|ac|F2,6BP
+48294|ac|0.56
+48303|ac|no structures
+48304|ac|85 mmHg
+48373|ac|(1/3)^3
+48413|ac|statement 2
+48492|ac|SAMe
+48492|ac|adenosylmethionine
+48540|ac|amphipathic
+48540|ac|amphiphilic
+48540|ac|amphipathic molecule
+48600|ac|synonymous mutation
+48649|ac|5 ft
+48719|ac|diversifying selection
+48832|ac|animalia and plantae
+48832|ac|animalia, plantae
+48896|ac|myelinated axons
+48896|ac|myelinated neurons
+48930|ac|drosophila melanogaster
+48930|ac|fruit flies
+48973|ac|saturated fat
+48973|ac|saturated fatty acid
+49007|ac|blastocele
+49007|ac|blastocyst cavity
+49110|ac|rhesus factor
+49117|ac|ivan petrovich pavlov
+49141|ac|pinkish red
+49194|ac|immunoglobulin e
+49226|ac|endothelium
+49242|ac|thrombocytes
+49308|ac|tp53
+49320|ac|d
+49322|ac|secretory iga
+49492|a|1N AND 2S
+49566|a|2N AND 4S
+49553|rm|
+50072|rmac|GRANA
+50413|q|["chromosomes!?","chromosomes?"]
+50560|rm|
+49355|ac|succinic acid
+49407|ac|air bladder
+49423|ac|charged tRNA
+49424|ac|glutamate
+49439|ac|wobble hypothesis
+49440|ac|succinate and oxaloacetate
+49440|ac|oxaloacetate, succinate
+49468|ac|citrate and coenzyme A
+49468|ac|citric acid and CoA
+49475|ac|c1 atlas c2 axis
+49508|ac|CoA and NAD+
+49554|ac|oxaloacetate, citrate, alpha-ketoglutarate, succinyl-CoA
+49680|ac|K+
+49681|ac|vasopressin
+49726|ac|plasmodesma
+49765|ac|amniotic sac
+49765|ac|amniotic membrane
+49855|ac|carl linnaeus
+49855|ac|carolus linnaeus
+49895|ac|pancreatic islets
+49913|ac|cerebral hemispheres
+50010|ac|hydrochloric acid
+50032|ac|founding population
+50061|ac|golgi apparatus
+50061|ac|golgi
+50072|ac|thylakoid
+50072|ac|thylakoids
+50118|ac|EPO
+50161|ac|erythrocytes
+50161|ac|RBCs
+50162|ac|K
+50237|ac|ascorbic acid
+50261|ac|passive diffusion
+50262|ac|angina pectoris
+50270|ac|hayflick
+50292|ac|rod cells
+50367|ac|phage
+50384|ac|aestivate
+50397|ac|vitreous
+50397|ac|vitreous body
+50413|ac|one set
+50425|ac|crista
+50431|ac|bivalent
+50537|ac|nephron loop
+50538|ac|statement 3
+50551|ac|pol I
+50551|ac|DNA polymerase 1
+50573|ac|western blotting
+50573|ac|immunoblot
+50637|ac|Ub
+50680|ac|immunoglobulin M
+50680|ac|IgM antibody
+50686|ac|amniota
+50700|ac|statement 3
+50724|ac|statement 2
+50748|ac|ornithine cycle
+50748|ac|Krebs-Henseleit cycle
+50771|ac|filial imprinting
+50778|ac|statement 2
+50797|ac|occluding junction
+50800|ac|beta pleated sheet
+50808|ac|repressor
+50817|ac|crossover
+50818|ac|statement 3
+51141|q|["from bundle sheath cells to mesophyll cells","from mesophyll cells to bundle sheath cells"]
+51149|a|BLASTOPORE
+51198|q|["Oxygen from the blood passively","Oxygen from the alveoli passively"]
+51279|q|["UAA and UGA","UAA and UAG"]
+51344|q|["is glucose dependent","is insulin dependent"]
+51676|q|["disappearance of male bees","disappearance of worker bees"]
+52142|a|HISTAMINE
+52143|a|CONDITIONED STIMULUS
+50866|ac|immunoglobulin E
+50889|ac|GAP
+50940|ac|massively parallel sequencing
+50940|ac|next generation sequencing
+50956|ac|metHb
+50962|ac|DABC
+51011|ac|oxaloacetic acid
+51011|ac|OAA
+51091|ac|a and alpha
+51091|ac|a cells and alpha cells
+51118|ac|PS
+51167|ac|anaerobic glycolysis
+51221|ac|APC
+51221|ac|APC/C
+51226|ac|intercalated disks
+51259|ac|TLS
+51259|ac|translesion DNA synthesis
+51345|ac|ced-9
+51376|ac|cag repeats
+51493|ac|phellogen
+51513|ac|PFK-1
+51513|ac|phosphofructokinase-1
+51544|ac|chiasma
+51569|ac|vitamin B3
+51569|ac|nicotinic acid
+51601|ac|glyoxylate pathway
+51601|ac|glyoxylate shunt
+51657|ac|citric acid cycle
+51657|ac|TCA cycle
+51657|ac|tricarboxylic acid cycle
+51658|ac|ornithine cycle
+51658|ac|krebs-henseleit cycle
+51720|ac|MHC I
+51744|ac|Bohr effect
+51805|ac|leaf
+51805|ac|modified leaves
+51893|ac|canonical wnt pathway
+51919|ac|hitchhiking
+51935|ac|chondrichthyan
+51966|ac|DNMT
+51974|ac|COP2
+51974|ac|coat protein complex II
+51990|ac|xylem cavitation
+51999|ac|mechanism-based inhibition
+51999|ac|suicide inactivation
+52032|ac|gause's principle
+52032|ac|gause's law
+52077|ac|CAM photosynthesis
+52086|ac|fibrin mesh
+52142|ac|histamines
+52157|ac|mycorrhiza
+52157|ac|mycorrhizal symbiosis
+52167|ac|s. aureus
+52167|ac|staph aureus
+52168|ac|murein
+52180|ac|pioneer
+52180|ac|pioneers
+52186|ac|HR
+52235|ac|type 2 survivorship
+52268|ac|SD sequence
+52268|ac|shine dalgarno
+52268|ac|shine-dalgarno
+52281|ac|pseudopeptidoglycan
+52304|ac|macula lutea
+52316|ac|EPO
+52323|ac|troponin C
+52332|ac|statement 2
+52369|ac|synaptic plasticity
+52369|ac|neural plasticity
+50962|rj|A B C D
+53203|a|X
+53233|rm|
+53868|a|1 AND 2
+53193|rm|
+53821|rm|
+53173|q|["Ehlers-Dahlos","Ehlers-Danlos"]
+53766|q|["caspase Ced-9","caspase Ced-3"]
+52371|ac|wobble hypothesis
+52371|ac|wobble pairing
+52383|ac|sponges
+52479|ac|klinefelter
+52479|ac|klinefelters
+52480|ac|V(D)J recombination
+52480|ac|vdj
+52480|ac|v(d)j rearrangement
+52510|ac|diversifying selection
+52552|ac|ethene
+52552|ac|C2H4
+52625|ac|HAB
+52640|ac|casparian band
+52659|ac|1 in 128
+52769|ac|opsonisation
+52804|ac|haemolymph
+52829|ac|dinoflagellata
+52870|ac|vitamin b9
+52870|ac|folic acid
+52895|ac|cephalisation
+52962|ac|choanoflagellida
+52967|ac|260/280
+52967|ac|a260/a280
+52967|ac|260 280 ratio
+53007|ac|CHCl3
+53013|ac|auxin
+53013|ac|indole acetic acid
+53013|ac|indoleacetic acid
+53022|ac|lock and key and induced fit
+53023|ac|hardy weinberg
+53023|ac|hardy-weinberg
+53023|ac|HWE
+53042|ac|mycorrhiza
+53042|ac|mycorrhizal association
+53093|ac|aba and ga
+53123|ac|cag
+53133|ac|r selection
+53133|ac|r-selection
+53162|ac|sliding filament theory
+53163|ac|apoplastic pathway
+53222|ac|LA
+53429|ac|animal
+53429|ac|animals
+53439|ac|RNAP
+53449|ac|fluid mosaic theory
+53488|ac|biosonar
+53518|ac|co2 and h2o
+53518|ac|carbon dioxide and water
+53627|ac|adenylate cyclase
+53627|ac|adenyl cyclase
+53628|ac|no codons
+53639|ac|metastasize
+53675|ac|1 in 4
+53695|ac|hepatopancreatic sphincter
+53696|ac|Na+
+53719|ac|arginine vasopressin
+53719|ac|AVP
+53742|ac|allantoic sac
+53754|ac|chloride
+53762|ac|TATA
+53762|ac|TATA element
+53766|ac|cyt c
+53782|ac|ependyma
+53782|ac|ependymocytes
+53802|ac|5-HT
+53804|ac|malate
+53820|ac|induced-fit model
+53820|ac|induced fit model
+53836|ac|lysine residues
+53856|ac|mollusks
+53856|ac|mollusc
+53857|ac|afferent dilation and kwashiorkor
+53860|ac|programmed cell death
+53867|ac|DICER1
+53883|ac|SD sequence
+53884|ac|mg2+
+53884|ac|magnesium
+53884|ac|magnesium ions
+53991|rmac|SYNAPTOBREVIN
+54015|a|NONE
+55494|a|CETARTIODACTYLA
+53905|ac|auditory tube
+53905|ac|pharyngotympanic tube
+53916|ac|phosphodiesterase
+53916|ac|PDE6
+53928|ac|genetic anticipation
+53940|ac|b6f
+53940|ac|cytochrome b6f complex
+53952|ac|PGI2
+53952|ac|prostaglandin I2
+53963|ac|GH
+53963|ac|HGH
+53963|ac|somatotropin
+53971|ac|VZV
+53971|ac|human herpesvirus 3
+53992|ac|hypertonicity
+54014|ac|nicotinic receptor
+54014|ac|nAChR
+54015|ac|none
+54015|ac|none of them
+54056|ac|succinyl coenzyme a
+54067|ac|vitamin b7
+54067|ac|vitamin h
+54096|ac|nucleus, golgi
+54096|ac|nucleus and golgi apparatus
+54096|ac|1) nucleus; 2) golgi apparatus
+54140|ac|proopiomelanocortin
+54140|ac|pro-opiomelanocortin
+54151|ac|glyoxylate shunt
+54151|ac|glyoxylate pathway
+54170|ac|CD4 receptor
+54177|ac|haemocyanin
+54692|ac|cyclosis
+54692|ac|protoplasmic streaming
+54694|ac|allosteric regulation
+54715|ac|sea squirt
+54737|ac|F0F1 ATPase
+54737|ac|complex V
+54808|ac|Gause's principle
+54844|ac|lamina
+54854|ac|acrosomal vesicle
+54888|ac|antipodal, synergid, egg
+54898|ac|nonshivering heat production
+54943|ac|2:1
+54953|ac|cyt c
+54954|ac|ps2, ps3, ps1
+55021|ac|ecological character displacement
+55022|ac|inositol trisphosphate
+55022|ac|inositol 1,4,5 trisphosphate
+55042|ac|muellerian mimicry
+55101|ac|type 2 survivorship
+55122|ac|drift
+55122|ac|random genetic drift
+55132|ac|Ca2+
+55157|ac|bisexual
+55168|ac|0.18
+55179|ac|ethene
+55191|ac|spine
+55191|ac|spinal column
+55191|ac|backbone
+55192|ac|actin, nebulin, titin
+55204|ac|african trypanosomiasis
+55204|ac|human african trypanosomiasis
+55213|ac|testa
+55214|ac|archegonium
+55224|ac|marrow cavity
+55250|ac|pec major
+55272|ac|lycophyta and anthocerophyta
+55295|ac|OH
+55296|ac|galactose and ribose
+55305|ac|dendritic cell, b cell, macrophage
+55306|ac|MHC I
+55315|ac|interstitial cells
+55317|ac|sialidase
+55341|ac|r-selection
+55341|ac|r strategy
+55342|ac|filial imprinting
+55363|ac|deuterostomia
+55370|ac|true coelom
+55370|ac|eucoelom
+55386|ac|calcium ion
+55401|ac|inhibitor of apoptosis protein
+55437|ac|indole-3-acetic acid
+55455|ac|bombay blood group
+55464|ac|chromosome 21
+55474|ac|EtBr
+55513|ac|WGS
+55532|ac|guanylate cyclase
+55543|ac|plasmodium falciparum, anopheles
+55554|ac|ninety-two
+55555|ac|animal, plant, animal, animal
+55555|ac|animal plant animal animal
+55588|ac|para, sym, para
+55588|ac|psns, sns, psns
+55624|ac|atrium and osculum
+55629|ac|double reciprocal plot
+55653|ac|T. aquaticus
+55683|ac|lh, gh
+55695|ac|fMet
+55695|ac|N-formylmethionine
+55706|ac|ginkgo
+55735|ac|nissl substance
+55735|ac|nissl granules
+55735|ac|chromatophilic substance
+55778|ac|endophytic fungus
+55781|ac|vitamin b5
+55781|ac|pantothenic acid
+55781|ac|b5
+55786|ac|ischaemia
+55800|ac|left and right subclavian veins
+55804|ac|endocrine and paracrine
+55804|ac|paracrine, endocrine
+55814|ac|glutamic acid
+55823|ac|PKC
+55825|ac|serum albumin
+55825|ac|human serum albumin
+55832|ac|CF
+55872|a|POMC
+55959|a|2 AND 3
+68479|rm|
+69380|a|Arbuscular mycorrhizae
+69380|q|["mychorrizae which","mycorrhizae which"]
+69500|a|I AND II
+69630|a|840/1681
+55843|ac|programmed cell death
+55853|ac|X chromosome and Xist gene
+55872|ac|pro-opiomelanocortin
+55872|ac|proopiomelanocortin
+55913|ac|vascular cambium
+55918|ac|PKC and calcium
+55918|ac|protein kinase C and calcium
+55959|ac|2, 3
+55959|ac|2 and 3
+55893|ac|suprachiasmatic nucleus (SCN)
+55969|ac|muscle fiber
+55969|ac|myocyte
+67915|ac|K
+67926|ac|no net movement
+67935|ac|autoimmunity
+67976|ac|ten percent
+68006|ac|18 cM
+68096|ac|NMDAR
+68205|ac|Starling law
+68205|ac|Frank Starling mechanism
+68205|ac|Starling's law of the heart
+68546|ac|17 beta HSD
+68546|ac|17-beta-HSD
+68831|ac|PDE
+68989|ac|cyclosis
+68989|ac|protoplasmic streaming
+69273|ac|Svedberg units
+69273|ac|Svedberg unit
+69292|ac|PFK-1
+69292|ac|phosphofructokinase-1
+69709|ac|atrioventricular bundle
+68065|ac|lysogeny
+68265|ac|kinetoplast DNA
+68372|ac|pulmonary surfactant
+68450|ac|forward scattered light
+69385|ac|kinetoplastids
+70104|ac|climax
+70104|ac|climax stage
+71313|rm|
+71314|a|NADP+
+71340|a|2 AND 3
+72371|a|1 ONLY
+73669|q|["a genus of algae","a genus of protozoa"]
+70150|ac|median eminence of the hypothalamus
+70170|ac|rhodophyta
+70170|ac|rhodophytes
+70222|ac|GAP
+70240|ac|atrioventricular bundle
+70240|ac|AV bundle
+70244|ac|brown fat
+70244|ac|BAT
+70268|ac|wobble hypothesis
+70268|ac|wobble pairing
+70346|ac|madreporite plate
+70346|ac|sieve plate
+70678|ac|eastern blot
+70708|ac|chromosome 15
+70712|ac|phosphopyruvate hydratase
+70743|ac|axonal varicosities
+70789|ac|proopiomelanocortin
+70805|ac|QS
+70817|ac|RNA world theory
+70961|ac|growth hormone inhibiting hormone
+70961|ac|GHIH
+70991|ac|echinoderms
+71005|ac|guillain barre syndrome
+71005|ac|guillain-barre syndrome
+71005|ac|GBS
+71016|ac|PEPC
+71163|ac|haemophilia
+71169|ac|PE
+71170|ac|cohesive ends
+71172|ac|elegans, drosophila, mus
+71174|ac|disulfide bonds
+71174|ac|disulfide bond
+71176|ac|haemolymph
+71180|ac|somatotropin
+71180|ac|human growth hormone
+71183|ac|glycocalyces
+71190|ac|glp1
+71191|ac|oleoplast
+71195|ac|histidine residue
+71292|ac|d cells
+71292|ac|islet delta cells
+71308|ac|QS
+71320|ac|parkinson's disease
+71320|ac|parkinsons disease
+71322|ac|bipolar disorder
+71322|ac|bipolar
+71322|ac|manic depression
+71331|ac|albinism
+71336|ac|EPO
+71339|ac|H. pylori
+71382|ac|3',5'-cyclic AMP
+71401|ac|batesian
+71409|ac|geographic speciation
+71434|ac|NAD
+71434|ac|NAD plus
+71434|ac|nicotinamide adenine dinucleotide
+71493|ac|penicillin-binding protein
+71493|ac|PBP
+71493|ac|DD-transpeptidase
+71498|ac|T. aquaticus
+71503|ac|CoQ
+71503|ac|coq10
+71506|ac|calcium
+71506|ac|calcium ions
+72114|ac|SD sequence
+72114|ac|ribosome binding site
+72196|ac|b-galactosidase
+72196|ac|beta gal
+72205|ac|bacterial transformation
+72222|ac|LPS
+72231|ac|ADH
+72231|ac|vasopressin
+72231|ac|AVP
+72242|ac|2 carbons and 3 oxygens
+72293|ac|ependymal
+72293|ac|ependymocytes
+72328|ac|bacteriophage display
+72342|ac|cranial nerve x
+72342|ac|10th cranial nerve
+72370|ac|a-synuclein
+73663|ac|intrinsic pathway of coagulation
+73670|ac|phosphodiester linkages
+73698|ac|thyroxin
+73698|ac|tetraiodothyronine
+73888|a|W
+74066|a|PLATYHELMINTHES
+74074|rmac|BOTTLENECK EFFECT
+84636|rmac|Uncompetitive
+84963|a|AV BLOCK
+85031|a|COLD DENATURATION
+85083|rm|
+85099|a|GEOGRAPHIC ATROPHY
+85142|a|McDonald-Kreitman test
+85154|rm|
+84919|q|["5 layers","3 layers"]
+85053|q|["most prominent hypokalemia test","most prominent hypocalcemia test"]
+73729|ac|primary structure
+73759|ac|x
+73819|ac|sex-linked recessive
+73842|ac|mendel's second law
+73850|ac|endosymbiotic theory
+73850|ac|endosymbiont theory
+73880|ac|induced fit model
+73943|ac|turgor
+73964|ac|isoenzymes
+73965|ac|alcohol fermentation
+74002|ac|cortex
+74013|ac|uag, uga, uaa
+74013|ac|uaa, uag, uga
+74038|ac|class
+74040|ac|left circumflex artery
+74041|ac|telangiectasia
+74041|ac|telangiectasias
+74051|ac|haem
+74058|ac|lysogeny
+74066|ac|flatworms
+74533|ac|essential amino acids
+74533|ac|essential amino acid
+84556|ac|sr
+84636|ac|noncompetitive inhibition
+84657|ac|basidiomycetes
+84657|ac|basidiomycete
+84760|ac|meselson-stahl experiment
+84816|ac|beta pleated sheet
+84826|ac|trp
+84827|ac|gbs
+84839|ac|leghaemoglobin
+84862|ac|hill function
+84930|ac|kranz
+84931|ac|hatch slack pathway
+84931|ac|hatch-slack pathway
+84953|ac|incretin hormones
+85100|ac|stargardt
+85100|ac|stargardt's
+85118|ac|red queen effect
+85162|ac|induced fit theory
+85427|ac|lacrimal gland
+85427|ac|lacrimal
+85427|ac|tear gland
+85499|ac|haemolymph
+85829|ac|paracrine signaling
+85847|ac|angiotensin converting enzyme 2
+85847|ac|angiotensin-converting enzyme 2
+85905|ac|secretin, cck
+85970|ac|suprachiasmatic nucleus of the hypothalamus
+86026|ac|quaternary structure
+86113|ac|pyruvic acid
+86114|ac|FAP
+86126|ac|complex V
+86126|ac|F1F0 ATP synthase
+86188|ac|Ca++
+86198|ac|GPCR
+86199|ac|oxaloacetic acid
+86242|ac|trophectoderm
+86263|ac|gill cover
+86327|ac|hemizygote
+86349|ac|0
+86360|ac|macula adherens
+86383|ac|intercostal muscles
+86391|ac|biogenetic law
+86391|ac|ontogeny recapitulates phylogeny
+86424|ac|EPO
+86446|ac|matrix
+86446|ac|the matrix
+86489|ac|Young-Laplace law
+86498|ac|botulinum
+86498|ac|BoNT
+86541|ac|26S proteasome
+86586|ac|arrectores pilorum
+86587|ac|trochoid joint
+87004|ac|geographic speciation
+87045|ac|oxyntic cells
+87114|ac|pulmonary surfactant
+87145|ac|B12 and folate
+87165|ac|NER
+87185|ac|central DI
+87185|ac|neurogenic diabetes insipidus
+87195|ac|PPP
+87195|ac|HMP shunt
+87195|ac|hexose monophosphate shunt
+87205|ac|leghaemoglobin
+87214|ac|atrial natriuretic factor
+87214|ac|ANF
+87215|ac|calcium
+87215|ac|Ca++
+87224|ac|parabasalia
+87234|ac|vernalisation
+87254|ac|allelopathic effect
+87274|ac|PC
+87284|ac|oleoplast
+87294|ac|trimethylamine oxide
+87304|ac|Lotka-Volterra equations
+87305|ac|tracheal carina
+87314|ac|T. aquaticus
+87324|ac|SHM
+87335|ac|telome theory
+87345|ac|arachnoid villi
+87354|ac|Pol beta
+87354|ac|POLB
+87355|ac|marsupial pouch
+87364|ac|carnitine palmitoyltransferase system
+87364|ac|CPT system
+87374|ac|TPI
+87375|ac|liverworts
+87404|ac|Kupffer
+87404|ac|stellate macrophages
+87414|ac|eEF1 alpha
+87414|ac|EF-1alpha
+87424|ac|Gilbert mimicry
+87433|ac|WHS
+87433|ac|4p- syndrome
+87443|ac|WAS
+87454|ac|FUT1
+87454|ac|H gene
+87463|ac|alveolar pores
+87464|ac|stringent control
+87474|ac|X-box binding protein 1
+87483|ac|methylmalonyl-CoA pathway
+87505|ac|Starling's law
+87505|ac|Frank-Starling mechanism
+87688|ac|SCM, trapezius
+96432|ac|RT
+96432|ac|RNA-dependent DNA polymerase
+96445|ac|kinesthesia
+96445|ac|kinesthesis
+96608|ac|dispersive replication
+96608|ac|dispersive replication model
+96609|ac|Archaebacteria
+96660|ac|collar cells
+96711|ac|thigmomorphogenic response
+96720|ac|Frank-Starling law
+96720|ac|Starling's law
+96740|ac|tumor protein p53
+96810|ac|anaphase-promoting complex/cyclosome
+96820|ac|-10 box
+96820|ac|Pribnow-Schaller box
+268|a|1, 2, 3
+1120|rm|
+1322|q|["type II-IV","type II-VI"]
+96850|ac|CA
+96910|ac|QC
+96910|ac|quiescent centre
+96930|ac|PWS
+96931|ac|none
+96931|ac|none of them
+96940|ac|anion gap
+96940|ac|serum anion gap
+97050|ac|stoma
+97050|ac|stomate
+97051|ac|capillarity
+97100|ac|cooperative binding
+97230|ac|disulfide bonds
+97230|ac|disulfide linkages
+97260|ac|nadp
+97270|ac|condensation reaction
+97270|ac|dehydration reaction
+97270|ac|condensation
+97290|ac|Gause's principle
+97330|ac|MHC II
+97330|ac|MHC-II
+97350|ac|aestivation
+97360|ac|HR
+97380|ac|primitive gut
+97401|ac|cisternal progression model
+97410|ac|fimbriae
+97460|ac|acrosome reaction
+18|ac|pseudo-steady-state approximation
+168|ac|meso form
+178|ac|Kirchhoff's equation
+198|ac|functional group region
+198|ac|group frequency region
+199|ac|0
+228|ac|Neel point
+257|ac|0
+305|ac|0
+373|ac|law of constant heat summation
+444|ac|0
+453|ac|order 3
+504|ac|-123 C
+1131|ac|0.5 molal
+1131|ac|0.5 mol/kg
+1163|ac|Joule-Kelvin effect
+1232|ac|law of constant heat summation
+1243|ac|osmium tetraoxide
+1243|ac|osmium(VIII) oxide
+1265|ac|monomethylmercury
+1288|ac|heat capacity at constant volume
+1311|ac|antiferromagnetic
+1322|ac|cadmium selenide
+1333|ac|carboxyl
+1333|ac|carboxyl group
+1333|ac|COOH
+1343|ac|C -1, O +1
+1343|ac|carbon -1 and oxygen +1
+1363|ac|Lewis adduct
+1384|ac|ClO-
+1395|ac|(NH4)2Cr2O7
+1395|ac|ammonium bichromate
+1406|ac|superfluid
+1427|ac|chelator
+1427|ac|chelating ligand
+1428|ac|hexadentate
+1433|ac|orthosilicate
+1439|ac|aqua
+1452|ac|n=4, l=3
+1472|ac|1 and 2
+1484|ac|henry's law constant
+1495|ac|azeotropic mixture
+1502|ac|Fischer-Tropsch synthesis
+1796|a|ALKALI METALS
+1807|rm|
+1830|rm|
+2627|a|2 ONLY
+2647|a|6.9 volts
+2724|a|1,3,2
+2734|rm|
+2754|a|34.9 grams
+2851|a|1
+2860|a|14.5
+2981|rm|
+3083|a|HAMMOND POSTULATE
+3211|q|["3CO2 and 2H2O","2CO2 and 3H2O"]
+5016|rm|
+5059|a|214
+5194|a|489
+1506|ac|colloidal suspensions
+1515|ac|nitrous oxide
+1515|ac|dinitrogen monoxide
+1523|ac|EPR
+1523|ac|electron spin resonance
+1523|ac|ESR
+1524|ac|radicals
+1558|ac|sulfur(VI) oxide
+1567|ac|Na3AlF6
+1567|ac|sodium hexafluoroaluminate
+1590|ac|buckyball
+1599|ac|first law of electrolysis
+1599|ac|Faraday's first law
+1600|ac|equivalent mass
+1600|ac|chemical equivalent weight
+1610|ac|Maxwell-Boltzmann
+1622|ac|potassium fluoride
+1634|ac|Benedict's solution
+1644|ac|ammoniacal silver nitrate
+1656|ac|Baeyer-Villiger reaction
+1656|ac|BV oxidation
+1667|ac|cycloaddition, electrocyclic reactions, sigmatropic rearrangements
+1697|ac|constant T and P
+1722|ac|3 atm
+1732|ac|group 5A
+1732|ac|15
+1785|ac|London dispersion forces
+1785|ac|dispersion forces
+1785|ac|London forces
+1791|ac|cathode negative, anode positive
+1828|ac|less than zero
+1828|ac|<0
+1841|ac|6 mol/L
+1842|ac|1.2 mol/L
+1853|ac|1,6,4,4
+1853|ac|1 6 4 4
+2563|ac|N2H4
+2563|ac|diazane
+2638|ac|neighboring group participation
+2638|ac|NGP
+2690|ac|Helmholtz energy
+2691|ac|homoaromatic
+2691|ac|homoaromatic stabilization
+2733|ac|dipolar ion
+2759|ac|F-F, F-Br, Br-I, I-I
+2804|ac|trigonal twist
+2822|ac|R
+2822|ac|gas constant
+2822|ac|universal gas constant
+2859|ac|1/(k[A]o)
+2890|ac|NaCl, PbCl2, AlCl3
+2913|ac|VI
+2915|ac|trigonal bipyramid
+2995|ac|trigonal bipyramid
+2995|ac|TBP
+2996|ac|1 and 4
+2996|ac|1,4
+3001|ac|organomagnesium halide
+3012|ac|H-H equation
+3013|ac|4n+2 rule
+3025|ac|sec-butyl chloride
+3025|ac|2-butyl chloride
+3052|ac|overvoltage
+3083|ac|Hammond-Leffler postulate
+3124|ac|piezoelectric materials
+3306|ac|dipole-dipole interactions
+3336|ac|20.8 amu
+3388|ac|reaction quotient
+3397|ac|0.001
+3397|rj|1000:1
+3404|ac|ZN catalyst
+3417|ac|exp(1000)
+3426|ac|0
+3437|ac|coordinate bond
+3437|ac|dative covalent bond
+3448|ac|intermolecular forces and volume
+3448|ac|attraction between molecules and molecular volume
+3466|ac|0 J/mol
+3475|ac|HBr, H2SO4, acetic acid
+3487|ac|NaCl, XeF6, CaCl2
+3497|ac|statement 2
+3550|ac|Gibbs energy
+3550|ac|delta G
+5004|ac|k
+5035|ac|Pauli principle
+5089|ac|disphenoidal
+5097|ac|Al3+
+5101|ac|chlorine monoxide radical
+5179|ac|uranium(VI) fluoride
+5213|ac|x20
+5242|ac|p-dioxane
+5265|ac|DCU
+5265|ac|N,N'-dicyclohexylurea
+5265|ac|1,3-dicyclohexylurea
+9997|drop|
+10022|rm|
+10023|a|3
+10153|a|2
+10173|q|["potassium sulfate","potassium phosphate"]
+11274|a|3,2,1
+11328|a|1,3,2
+11417|a|BERRY PSEUDOROTATION
+11446|a|1,2
+11488|rm|
+11530|a|-T
+11602|q|["it takes twice as long","it takes half as long"]
+11800|a|2
+11257|rm|
+9977|ac|wolff rearrangement, n2
+9977|ac|wolff rearrangement, dinitrogen
+10007|ac|curtius
+10007|ac|curtius reaction
+10042|ac|fischer indole
+10042|ac|fischer indolization
+10042|ac|fischer indole reaction
+10051|ac|NOE
+10062|ac|suzuki
+10062|ac|suzuki reaction
+10062|ac|suzuki-miyaura coupling
+10089|ac|1 1/3
+10090|ac|sp^2 hybridized
+10152|ac|4n+2 rule
+10153|ac|2.0
+10197|ac|c4h10
+10244|ac|fluoride, ammonia, cyanide
+10315|ac|activation barrier
+10316|ac|disphenoidal
+10340|ac|silver chloride, silver sulfate, magnesium chloride
+10388|ac|KI3
+10543|ac|dismutation
+10663|ac|trigonal bipyramid
+10699|ac|2 to 1
+10699|ac|2:1
+10699|ac|2/1
+10735|ac|sp^3 hybridized
+10772|ac|35.5 amu
+10772|ac|35.5 u
+10856|ac|dioxygen
+10879|ac|tetrahedron
+10880|ac|sodium chloride, magnesium chloride, magnesium oxide
+10902|ac|2,1,3
+10902|ac|4s, 3d, 4p
+10944|ac|wolfram
+11230|ac|perovskite structure
+11247|ac|no, no2, no3-
+11269|ac|50%
+11274|ac|iodide, chloride, fluoride
+11328|ac|pyrrole, pyrimidine, pyridine
+11347|ac|lyotropic phase
+11360|ac|ammonia, chloride, cyanide
+11386|ac|no statements
+11417|ac|berry pseudo-rotation
+11417|ac|berry pseudo rotation
+11434|ac|no statements
+11446|ac|1,2
+11446|ac|1 and 2
+11489|ac|2^(1/2)
+11508|ac|madelung
+11518|ac|no statements
+11530|ac|-t
+11530|ac|negative t
+11546|ac|0 hbar
+11557|ac|0.7 s^-1
+11557|ac|0.7 per second
+11557|ac|0.7 /s
+11569|ac|hyperconjugative stabilization
+11569|ac|hyperconjugative effect
+11611|ac|homolysis
+11611|ac|homolytic fission
+11623|ac|no statements
+11638|ac|atropisomers
+11672|ac|third power
+11704|ac|12-6 potential
+11713|ac|hammond-leffler postulate
+11773|ac|tunneling
+11773|ac|quantum tunnelling
+11800|ac|2
+11800|ac|epoxide ring opening
+12068|ac|.06F
+12123|ac|most probable, average, rms
+12207|ac|cp-
+12221|ac|desublimation
+10723|rj|2:1
+14478|a|2 only
+14750|a|3 only
+14987|rm|
+14028|rm|
+14608|rm|
+15071|a|X
+13768|ac|liquid ammonia
+13777|ac|nematic phase
+13805|ac|n=4, l=3, m=0
+13844|ac|violet
+13874|ac|pentacarbonyliron
+13904|ac|atropisomers
+13908|ac|0
+13908|ac|no statements
+13920|ac|vinyl, tert-butyl, allyl
+13964|ac|aromatic ring current
+13964|ac|diamagnetic ring current
+13989|ac|ethanoic acid
+13989|ac|ch3cooh
+13990|ac|0
+14046|ac|fischer-tropsch synthesis
+14046|ac|ft process
+14193|ac|zero
+14231|ac|constant temperature and pressure
+14231|ac|t and p
+14258|ac|most probable, average, rms
+14337|ac|noe
+14337|ac|overhauser effect
+14350|ac|coordinate bond
+14350|ac|dative covalent bond
+14570|ac|0
+14607|ac|d(x2-y2)
+14633|ac|barium sulfate
+14663|ac|chlorine atom
+14663|ac|cl radical
+14664|ac|clo radical
+14664|ac|chlorine monoxide radical
+14704|ac|0
+14714|ac|sp hybridized
+14756|ac|two and a half
+14757|ac|co
+14772|ac|0
+14787|ac|103 g/mol
+14820|ac|pyrosulfuric acid
+14820|ac|disulfuric acid
+14837|ac|water and oxygen
+14837|ac|h2o and o2
+14837|ac|oxygen and water
+14838|ac|methyl alcohol
+14850|ac|so3 and bf3
+14901|ac|silver(i) chloride
+14982|ac|nitrogen gas
+14982|ac|dinitrogen
+14983|ac|hydroxyl, methyl, tert-butyl
+14986|ac|sulfhydryl
+15028|ac|v-shaped
+15028|ac|angular
+15047|ac|gold(iii)
+15167|ac|hf
+15531|a|300
+15624|a|2,1,3
+15718|a|1, 2, 3
+15854|rm|
+16137|a|W
+16494|a|Franck-Condon principle
+16546|a|-1
+16568|a|-500
+15194|ac|Pr6O11, 4
+15194|ac|Pr6O11 and 4
+15203|ac|click reaction
+15203|ac|click reactions
+15277|ac|0
+15327|ac|1/2
+15366|ac|0.28 M/s
+15366|ac|0.28 molar per second
+15375|ac|9
+15375|ac|9.00
+15391|ac|P(III)
+15406|ac|paramagnetic
+15406|ac|paramagnetic behavior
+15407|ac|all negative
+15432|ac|-SH
+15445|ac|1e1
+15467|ac|162n + 18 g/mol
+15478|ac|triple
+15478|ac|triple bond
+15502|ac|negative one half
+15587|ac|nitrogen monoxide
+15773|ac|arsenic trihydride
+15934|ac|1e6 Q
+16123|ac|m/z
+16166|ac|square pyramid
+16166|ac|square pyramidal geometry
+16175|ac|diamagnetic
+16184|ac|ClO-
+16222|ac|1e6 K
+16267|ac|94 amu
+16267|ac|94 u
+16347|ac|pi*
+16347|ac|pi antibonding
+16463|ac|Jahn-Teller distortion
+16479|ac|p-nitrotoluene
+16567|ac|one and a half
+16630|ac|delta S
+16630|ac|entropy change
+16655|ac|colloidal dispersion
+16655|ac|colloidal solution
+16712|ac|amide group
+16950|a|-2
+17108|a|-7
+17496|a|-1
+17753|a|-1
+17793|a|200
+18568|a|X
+17241|a|1,2,3
+17058|q|["are released","are absorbed"]
+16835|ac|c-13 and n-14
+16896|ac|methyl alcohol
+17214|ac|basis set
+17222|ac|phase rule
+17272|ac|born oppenheimer approximation
+17272|ac|bo approximation
+17283|ac|no and o2
+17449|ac|enantiomers
+17449|ac|enantiomer
+17550|ac|hcl
+17720|ac|energy gap
+17720|ac|band gap energy
+17824|ac|trigonal pyramid
+18488|ac|ideal gas equation
+18501|ac|1.2^2
+18614|ac|cohesive forces
+18768|ac|cnt
+18819|ac|4s orbital
+18865|ac|triiodide ion
+18866|ac|sulfite
+18876|ac|silver chromate
+17753|rj|+1
+18956|rm|
+20510|rm|
+19523|a|Y
+20658|a|FISCHER-TROPSCH PROCESS
+20602|q|["Clasien condensation","Claisen condensation"]
+20682|q|["generating nitric acid","generating ammonia"]
+19463|ac|henri becquerel
+19565|ac|lanthanoids
+19565|ac|lanthanide series
+19609|ac|henry moseley
+19707|ac|trigonal pyramidal
+19714|ac|angular
+19714|ac|v-shaped
+19714|ac|v shaped
+19762|ac|inert gases
+19814|ac|antoine lavoisier
+19814|ac|antoine-laurent de lavoisier
+20006|ac|k
+20104|ac|specific heat capacity
+20157|ac|caloric fluid
+20252|ac|0 c and 1 atm
+20252|ac|273.15 k and 1 atm
+20252|ac|0 degrees celsius and 101.325 kpa
+20367|ac|antoine lavoisier
+20372|ac|seignette salt
+20389|ac|daniel rutherford
+20408|ac|copper(ii) sulfate
+20408|ac|cuso4
+20408|ac|copper(ii) sulfate pentahydrate
+20463|ac|supersaturated solution
+20475|ac|law of constant heat summation
+20488|ac|176 g/mol
+20555|ac|bragg equation
+20556|ac|-11.4 c
+20582|ac|co
+20602|ac|dieckmann reaction
+20602|ac|dieckmann cyclization
+20613|ac|frost-ebsworth diagram
+20613|ac|frost ebsworth diagram
+20637|ac|hammond-leffler postulate
+20650|ac|telechelic polymers
+20658|ac|fischer-tropsch
+20658|ac|fischer tropsch process
+20658|ac|fischer-tropsch synthesis
+20727|ac|babler-dauben oxidation
+20727|ac|babler dauben oxidation
+20759|ac|boric oxide
+20759|ac|boron oxide
+20807|ac|immiscible
+21205|a|3,2,1
+21820|a|-0.083
+21832|a|1 AND 2
+22188|a|4,3,2,1
+22332|a|Y
+22307|q|["800 kJ","800 J"]
+22011|q|["body centered cubic structure","face centered cubic structure"]
+21236|q|["isoelectronic point","isoelectric point"]
+22812|rm|
+20852|ac|miller index
+21057|ac|oxirane
+21068|ac|jj thomson
+21127|ac|levelling effect
+21138|ac|carbon monoxide and hydrogen gas
+21161|ac|3c-2e bond
+21161|ac|3c2e
+21225|ac|dibal-h
+21225|ac|diisobutylaluminum hydride
+21655|ac|2
+21808|ac|silver ion
+22084|ac|hexafluorosilicate
+22084|ac|sif6^2-
+22142|ac|4 mm/s
+22224|ac|boltzmann constant and avogadro constant
+22224|ac|kb and na
+22340|ac|electrooxidation
+22877|ac|potassium hydrogen carbonate
+22296|ac|21 and 6
+21777|ac|methylbenzene
+21695|ac|5:1
+21695|ac|5 to 1
+23171|a|0
+23201|a|27Δ/5
+23561|a|5
+23692|a|2,3,1
+23729|a|2 AND 3
+25127|a|2,1,3
+24230|rmac|I
+23058|q|["so the lower effective nuclear charge gives them","so the higher effective nuclear charge gives them"]
+23369|rm|
+24385|rm|
+24158|rm|
+25021|rm|
+22937|ac|rate = k[A]
+22965|ac|group 17
+22965|ac|group 7A
+23017|ac|104.1 C
+23106|ac|silver ion
+23106|ac|silver(I) ion
+23128|ac|epoxyethane
+23140|ac|laughing gas
+23153|ac|CH3CHO
+23171|ac|zero
+23171|ac|0 J/K
+23200|ac|16 electrons
+23237|ac|octahedron
+23260|ac|lyotropic liquid crystals
+23452|ac|autoionization
+23453|ac|triple
+23453|ac|triple bond
+23549|ac|disphenoidal
+23633|ac|beta plus
+23717|ac|nitrogen monoxide
+23717|ac|nitrogen(II) oxide
+23729|ac|2,3
+23741|ac|3 radial and 0 angular
+23753|ac|retardation factor
+23764|ac|building up principle
+23765|ac|-H/R
+23765|ac|-ΔH/R
+23824|ac|no elements
+23835|ac|cyano group
+23870|ac|tetrahedron
+23883|ac|dichlorine heptoxide
+23883|ac|chlorine(VII) oxide
+23893|ac|change in dipole moment
+23965|ac|T shape
+23966|ac|log k against 1/T
+23977|ac|electron spin
+23997|ac|Weizsacker formula
+23997|ac|SEMF
+24037|ac|Helmholtz energy
+24061|ac|SiMe4
+24061|ac|Si(CH3)4
+24062|ac|second power
+24146|ac|75%
+24181|ac|tunneling
+24181|ac|tunnelling
+24230|ac|AgI
+24230|ac|silver(I) iodide
+24289|ac|K^0.5
+24325|ac|supercritical
+24325|ac|supercritical phase
+24373|ac|methyl alcohol
+24422|ac|chlorine axial, methyl equatorial
+24961|ac|thixotropic
+24977|ac|Morse oscillator
+25013|ac|polarity inversion
+25110|ac|Wittig reaction
+25118|ac|dinitrogen
+25233|ac|triple
+25240|ac|dinitrogen
+25317|a|-2
+25888|a|ALKENE
+26548|a|PI STAR
+26549|a|2,3,1
+26900|a|POTASSIUM HEXANOATE
+27233|a|ALKYL CHLORIDE
+26308|q|["function al group","functional group"]
+26741|q|["isoelectronic point","isoelectric point"]
+26973|q|["following four molecules","following three molecules"]
+25286|ac|Cahn Ingold Prelog rules
+25318|ac|aldehyde group
+25328|ac|hydrofluoric
+25428|ac|ml
+25545|ac|back donation
+25545|ac|backbonding
+25645|ac|chelate effect
+25670|ac|C=O
+25685|ac|white P
+25809|ac|heat capacity at constant pressure
+25820|ac|lithium dendrites
+25892|ac|LC
+26023|ac|KIE
+26051|ac|plus 3
+26164|ac|pyramidal inversion
+26268|ac|distribution coefficient
+26268|ac|partition constant
+26285|ac|iodomethane
+26285|ac|CH3I
+26323|ac|ambient pressure
+26367|ac|2p orbital
+26367|ac|empty 2p orbital
+26375|ac|inversely proportional
+26400|ac|gem diol
+26459|ac|quantum tunnelling
+26505|ac|Sabatier reaction
+26676|ac|4 times x
+26695|ac|acetic acid and triiodomethane
+26695|ac|ethanoic acid and iodoform
+26758|ac|trigonal prism
+26773|ac|formate ion
+26773|ac|HCOO-
+26781|ac|phi = pi/2
+26781|ac|phi = 90 degrees
+26800|ac|chloride ion and chlorate ion
+26821|ac|3e3
+26821|ac|3*10^3
+26846|ac|t shape
+26900|ac|potassium caproate
+26930|ac|electromagnetic force
+26941|ac|V and T
+27009|ac|ring structures
+27033|ac|5e-2
+27033|ac|5*10^-2
+27039|ac|zinc metal
+27077|ac|kB
+27077|ac|k_B
+27084|ac|plus 3
+27098|ac|acid catalyst
+27256|ac|hydrogen gas
+27258|ac|1st law
+27292|a|1,2,3
+27774|a|1,2,3
+27582|a|-11.2
+27847|drop|
+28145|a|2,1,3
+28675|a|1,2,3
+28124|rm|
+28763|rm|
+27582|rj|-3.7
+27540|ac|+7
+27556|ac|5 and 6 membered
+27581|ac|q
+27603|ac|undercooled
+27670|ac|equipartition of energy
+27730|ac|oxirane
+27799|ac|linkage isomer
+27952|ac|frequency factor
+27962|ac|pseudo-steady state approximation
+28000|ac|energy gap
+28166|ac|acid-base indicator
+28166|ac|ph indicator
+28296|ac|4:1
+28345|ac|concentration galvanic cell
+28424|ac|delta u
+28424|ac|change in internal energy
+28452|ac|ionization potential
+28452|ac|first ionization energy
+28463|ac|equipartition of energy
+28618|ac|hydrogen chloride and sulfur dioxide
+28655|ac|ea
+28745|ac|c=o
+28829|ac|beer's law
+28929|ac|+6
+29021|a|3,1,2
+29090|a|1 AND 2
+29191|a|LITHIUM-7
+29241|rm|
+29550|rm|
+29723|a|ALL
+29832|a|2,3,1
+29908|a|3
+29936|a|Z
+30775|rmac|Meisler/Superconductors
+30788|rmac|Klein
+28999|ac|octahedron
+29070|ac|square pyramid
+29332|ac|nmr
+29332|ac|nuclear magnetic resonance
+29349|ac|Ea
+29365|ac|water electrolysis
+29365|ac|electrolysis of water
+29373|ac|trigonal pyramid
+29416|ac|2^6
+29425|ac|helium nucleus
+29425|ac|helium-4 nucleus
+29461|ac|2:1
+29461|ac|2/1
+29653|ac|dismutation
+29702|ac|R^2T^2
+29733|ac|Si(CH3)4
+29785|ac|TST
+29785|ac|activated complex theory
+29889|ac|epoxide group
+29909|ac|contact ion pair
+29909|ac|tight ion pair
+30067|ac|4:1
+30425|ac|2^3
+30632|ac|copper oxidized, silver reduced, nitrogen unchanged
+30632|rj|1 reduced, 2 oxidized, 3 unchanged
+30699|ac|polymerisation
+30775|ac|meissner-ochsenfeld effect
+30788|ac|raney ni
+30833|ac|enol form
+30833|ac|enol tautomer
+30867|ac|gacl3, alcl3, bcl3
+30891|ac|titania
+30891|ac|titanium(IV) oxide
+30927|ac|SEC
+30927|ac|size exclusion chromatography
+30927|ac|GPC
+31038|a|2 AND 3
+31072|a|1 AND 2
+31388|a|PROTACTINIUM-234
+31471|a|2, 3 AND 4
+31612|rm|
+31753|a|MAGNETIC QUANTUM NUMBER
+31825|rmac|METHANE
+32635|a|2 ONLY
+32697|q|["hydrobromation","hydroboration"]
+32781|rm|
+32813|a|2
+32909|rm|
+32983|rm|
+33074|a|NOBLE GASES
+31094|ac|electron spin resonance
+31094|ac|ESR
+31094|ac|EPR spectroscopy
+31176|ac|wheland intermediate
+31226|ac|propanone
+31226|ac|dimethyl ketone
+31281|ac|CRT
+31291|ac|activation energy (Ea)
+31388|ac|Pa-234
+31388|ac|protactinium 234
+31413|ac|octasulfur
+31413|ac|cyclo-octasulfur
+31443|ac|methanal
+31443|ac|CH2O
+31554|ac|lanthanoid contraction
+31779|ac|gibbs energy
+31825|ac|CH3
+31855|ac|beta plus decay
+31855|ac|beta+ decay
+31855|ac|positron decay
+31870|ac|cubic close packed
+32616|ac|buffer solution
+32698|ac|MnO2
+32737|ac|BEP principle
+32837|ac|beta-
+33022|ac|C6H5NO2
+33074|ac|noble gas
+33138|ac|ionization potential
+33138|ac|ionisation energy
+33303|ac|organomagnesium reagent
+33316|ac|quasi-steady state approximation
+33384|ac|overvoltage
+35081|a|1 ONLY
+35390|a|-198
+36610|rm|
+33499|ac|2s orbital
+33681|ac|bomb calorimeter
+33736|ac|coordinate bond
+33773|ac|sulfur trioxide
+35023|ac|thiosulfate ion
+35100|ac|Eyring-Polanyi equation
+35120|ac|pi stacking
+35148|ac|Beckmann
+35178|ac|inverse electron demand
+35178|ac|IEDDA
+35250|ac|coordinate bond
+35250|ac|coordinate covalent bond
+35250|ac|dative covalent bond
+35275|ac|mass spec
+35275|ac|MS
+35275|ac|mass spectroscopy
+35327|ac|Dalton's law of partial pressures
+35327|ac|law of partial pressures
+36130|ac|r and f
+36149|ac|lanthanoid contraction
+36159|ac|coordinate covalent bond
+36209|ac|4x
+36209|ac|4 times
+36230|ac|heat of vaporization
+36278|ac|E1cB mechanism
+36460|ac|substitutional
+36470|ac|exclusion principle
+36611|ac|particle in a 1d box
+36611|ac|infinite square well
+37969|a|1 ONLY
+38306|a|-2 AND 2
+38464|a|1 AND 2
+38547|a|Z
+38606|rm|
+38627|a|Y
+38790|a|0.009
+38832|a|2 1 3
+39011|a|1 ONLY
+37813|ac|arrhenius law
+37873|ac|overvoltage
+37881|ac|quasi-steady-state approximation
+38125|ac|pauli principle
+38269|ac|law of constant heat summation
+38317|ac|arrhenius law
+38329|ac|pseudorotation
+38329|ac|berry mechanism
+38330|ac|square antiprism
+38339|ac|energy gap
+38347|ac|PP
+38732|ac|iii
+38777|ac|reversible process
+38822|ac|amide group
+38845|ac|dipolar ion
+38886|ac|van t hoff equation
+38897|ac|CFT
+38927|ac|amphiphile
+38946|ac|acidic anhydride
+39044|ac|langmuir isotherm
+39044|ac|langmuir adsorption model
+39063|ac|electrocyclization
+39102|ac|Ea
+39102|ac|activation barrier
+39103|ac|Keq
+39105|ac|EC
+39175|ac|LFT
+38754|ac|-5.6 C
+38744|ac|0.4
+5286|a|X
+5373|a|Y
+5318|rm|
+5540|a|2,3,1
+5680|q|["sp^2-hybridized","sp^3-hybridized"]
+5779|a|1 ONLY
+5816|rm|
+5872|rm|
+5997|a|HUND'S RULE
+6019|a|2-METHYLCYCLOBUTANONE
+7200|a|1 ONLY
+7386|q|["the sulfur atom in IF5","the iodine atom in IF5"]
+8045|a|I AND III
+8063|a|SQRT(6/5)
+8240|a|3
+8354|a|I, II
+5366|ac|cpni(no)
+5374|ac|c9h7bro
+5378|ac|becl2, kf, rbf
+5379|ac|sf6, h2o, nh3, co3 2-
+5415|ac|2^5
+5481|ac|sp3d2 hybridization
+5540|ac|propionic acid, butanal, pentane
+5589|ac|vanadium(v) oxide
+5602|ac|pi-pi interactions
+5668|ac|3c-4e bond
+5668|ac|three-center four-electron bond
+5668|ac|3 center 4 electron
+5699|ac|2-methyl-1,3-butadiene
+5720|ac|ring current effect
+5720|ac|aromatic ring current
+5725|ac|l and ml
+5778|ac|2^7
+5779|ac|1
+5779|ac|1 only
+5791|ac|h+ and carbenium
+5947|ac|fischer indolization
+5951|ac|heat
+5951|ac|thermally
+5963|ac|[3,3] sigmatropic
+5973|ac|robinson annelation
+5973|ac|robinson ring annulation
+5981|ac|cryo-electron microscopy
+5996|ac|jablonski energy diagram
+5997|ac|hund's rule of maximum multiplicity
+6009|ac|n-methylmorpholine oxide
+6019|ac|2-methyl cyclobutanone
+6042|ac|fe(co)5
+6042|ac|pentacarbonyliron
+6055|ac|cheletropic reaction
+6055|ac|cheletropic
+6076|ac|dipolar ion
+6110|ac|ch3i, ch3br, ch3f
+6130|ac|c60
+6146|ac|chemical activity
+6165|ac|mofs
+6165|ac|mof
+6169|ac|x = 0, l/3, 2l/3, l
+7143|ac|gibbs energy
+7143|ac|delta g
+7183|ac|acid-base neutralization
+7200|ac|1
+7253|ac|sixth
+7253|ac|6th
+7253|ac|sixth power
+7381|ac|chemical equilibrium
+7381|ac|dynamic equilibrium
+7382|ac|trigonal bipyramid
+7965|ac|sodium borohydride
+7991|ac|dft
+8045|ac|1 and 3
+8045|ac|i, iii
+8063|ac|sqrt(1.2)
+8074|ac|2-propynyl
+8074|ac|prop-2-ynyl
+8099|ac|4 membered, oxaphosphetane
+8125|ac|central -1, outer 0
+8133|ac|aromatic ring current
+8156|ac|jahn-teller distortion
+8240|ac|three
+8317|ac|positron emission and electron capture
+8332|ac|2 radial, 1 angular
+8339|ac|0.42 v
+8354|ac|1,2
+8354|ac|i and ii
+8354|ac|hcp and fcc
+8399|ac|vdw
+8415|a|-1384
+8523|a|Z
+8560|a|X
+8604|a|1,2,3
+8654|a|1/4
+8663|rm|
+8716|a|1,3,2
+8758|q|["The inside hydrogens have a chemical shift of 9.28 ppm, while those on the outside have a shift of -2.9 ppm","The inside hydrogens have a chemical shift of -2.9 ppm, while those on the outside have a shift of 9.28 ppm"]
+8855|a|Felkin-Anh Model
+8865|a|Y
+9044|a|Z
+9348|a|3
+9823|rm|
+9839|a|2,4,3,1
+9840|a|3
+9926|a|1,2,3
+8415|ac|-1384 kJ
+8415|ac|-1384 kJ/mol
+8448|ac|oxygen 0, fluorine -1
+8474|ac|steady-state approximation
+8474|ac|steady state approximation
+8507|ac|1 1/2
+8517|ac|methylbenzene
+8593|ac|methyl alcohol and ethanoic acid
+8593|ac|methanol and ethanoic acid
+8593|ac|CH3OH and CH3COOH
+8604|ac|1 2 3
+8604|ac|1, 2, 3
+8654|ac|1:4
+8654|ac|0.25
+8673|ac|Madelung
+8693|ac|dehydrobenzene
+8693|ac|1,2-didehydrobenzene
+8713|ac|Eyring-Polanyi equation
+8758|ac|aromatic ring current
+8777|ac|alpha-nitropyrrole
+8797|ac|4.5x
+8855|ac|Felkin-Anh
+8855|ac|Felkin Anh
+8855|ac|Felkin-Anh model
+9006|ac|inert s-pair effect
+9101|ac|oxidation-reduction
+9101|ac|reduction-oxidation
+9122|ac|methyl alcohol
+9122|ac|wood alcohol
+9284|ac|transactinide elements
+9303|ac|Cu2+ and Zn
+9303|ac|copper(II) and zinc
+9348|ac|argon and bromine
+9348|ac|3 only
+9351|ac|Cahn Ingold Prelog
+9351|ac|CIP rules
+9351|ac|CIP priority rules
+9361|ac|electron cloud
+9361|ac|electrons around the nucleus
+9374|ac|3c-2e bond
+9387|ac|racemic mixture
+9387|ac|racemate
+9388|ac|methanol and hydronium ion
+9391|ac|Fischer-Speier esterification
+9403|ac|+6
+9403|ac|U(VI)
+9403|ac|6
+9434|ac|Woodward cis-dihydroxylation
+9435|ac|2-methyl-2-chlorobutane
+9468|ac|Langmuir isotherm
+9468|ac|Langmuir adsorption isotherm
+9478|ac|equatorial conformer
+9478|ac|the equatorial one
+9478|ac|methyl equatorial
+9500|ac|oxygen is reduced and lithium is oxidized
+9577|ac|Na and Cl2
+9622|ac|none
+9652|ac|Haber-Bosch process
+9652|ac|Haber Bosch
+9721|ac|7, 1
+9734|ac|methanol and bromide ion
+9734|ac|methyl alcohol and bromide
+9793|ac|-1.86 degrees
+9847|ac|eclipsing strain
+9863|ac|zeroth
+9863|ac|zeroth order
+9864|ac|v/2^0.5
+9880|ac|carbonyl process
+9916|ac|DIBAL
+9916|ac|DIBAH
+9916|ac|diisobutylaluminium hydride
+8480|rj|3:2
+12267|a|3 ONLY
+12306|rm|
+12321|q|["-181 kelvin","-181 degrees Celsius"]
+12386|q|["electronsremain","electrons remain"]
+12402|q|["i s the","is the"]
+12410|rm|
+12411|rm|
+12431|a|2 ONLY
+12443|drop|
+12448|rm|
+12449|rm|
+12457|a|2,1,4,3
+12494|a|4
+12521|a|W
+12567|a|Y
+12671|a|1 2 4
+12722|q|["type o f","type of"]
+12731|a|2,3
+12769|a|2 AND 3
+12822|rm|
+12823|a|1.008 KILOJOULES
+12904|q|["s ulfu r tetrafluoride","sulfur tetrafluoride"]
+13009|rm|
+13152|a|1 AND 2
+13403|a|2,1,3
+13531|a|2,4,3,1
+13561|a|NONE
+13584|a|VALENCE BAND
+13721|rm|
+12267|ac|3
+12307|ac|hydrogen phosphate
+12307|ac|hydrogen phosphate ion
+12307|ac|HPO4 2-
+12321|ac|becoming a superconductor
+12341|ac|take the square root
+12341|ac|sqrt
+12353|ac|orientation factor
+12386|ac|inert s pair effect
+12403|ac|chair conformation
+12431|ac|2
+12431|ac|4s
+12457|ac|chlorine, fluorine, silicon, boron
+12476|ac|iodide and tetrathionate
+12476|ac|I- and S4O6 2-
+12502|ac|0.02 per second
+12502|ac|0.02 s^-1
+12534|ac|leveling effect
+12586|ac|dimer formation
+12671|ac|iron, magnesium, germanium
+12671|ac|1,2,4
+12685|ac|interstitial compound
+12731|ac|2 AND 3
+12731|ac|beryllium and zinc
+12763|ac|successful collision
+12769|ac|2,3
+12815|ac|Amontons's law
+12823|ac|1.008
+12823|ac|1008 joules
+12823|ac|1008 J
+12899|ac|dichlorine oxide
+12899|ac|chlorine(I) oxide
+12944|ac|C60
+12997|ac|oxirane
+13021|ac|Wittig olefination
+13027|ac|copper(II) and cyanide
+13040|ac|ammonium
+13107|ac|Hammett acidity function
+13107|ac|Hammett function
+13122|ac|sp3, sp2, sp
+13130|ac|Hammond-Leffler postulate
+13152|ac|1,2
+13152|ac|alkene and diene
+13168|ac|Grignard reagent
+13168|ac|alkylmagnesium bromide
+13175|ac|FT
+13175|ac|Fourier transformation
+13186|ac|catalytic hydrogenation
+13186|ac|hydrogenation reaction
+13248|ac|3, d5
+13266|ac|Re face
+13311|ac|ethyl, isopropyl, tert-butyl
+13339|ac|thermogravimetric analysis
+13350|ac|[4+2] cycloaddition
+13350|ac|4+2 cycloaddition
+13357|ac|Hartree Fock method
+13396|ac|hydride transfer
+13396|ac|hydride ion
+13396|ac|H-
+13403|ac|oxidative addition, transmetalation, reductive elimination
+13425|ac|hydrogen bonding
+13425|ac|H-bonding
+13522|ac|change in entropy
+13531|ac|sigma, pi, pi star, sigma star
+13539|ac|zeroth
+13539|ac|zero order
+13561|ac|none of them
+13584|ac|valence
+13584|ac|VB
+13630|ac|Rydberg formula
+13640|ac|Ti4+
+13676|ac|temperature change
+13698|ac|coordinate covalent bond
+13698|ac|dative covalent bond
+13731|ac|sulfuric
+12431|rj|2 AND 4
+12671|rj|1 2 3
+39230|rm|
+39933|rm|
+40107|rm|
+39370|a|2 AND 3
+39380|a|1 2 3
+40017|a|Y
+40424|a|Z
+40772|a|Clausius-Clapeyron Equation
+41125|a|1 AND 3
+41160|a|2 AND 3
+41317|a|1 AND 3
+41343|a|1 AND 4
+41344|drop|
+41375|drop|
+41405|a|Y
+39269|ac|zeroth
+39269|ac|zero order
+39270|ac|AlK(SO4)2
+39290|ac|1 alpha, 3 positron
+39299|ac|L^3 mol^-3 s^-1
+39299|ac|M^-2 s^-1
+39322|ac|law of constant heat summation
+39351|ac|Avogadro's hypothesis
+39359|ac|SHE
+39369|ac|pre-exponential
+39370|ac|2, 3
+39370|ac|p and d
+39370|ac|2 and 3
+39380|ac|1, 2, 3
+39380|ac|sigma 2s, sigma 2p, sigma 2p star
+39871|ac|orbital angular momentum
+39941|ac|0.5[A]
+39941|ac|0.5A
+39941|ac|1/2 [A]
+39961|ac|canonical partition function
+39967|ac|prop-1-ene
+40045|ac|carboxyl and amine
+40094|ac|gravimetry
+40121|ac|Bq
+40221|ac|hydrogen bonds
+40221|ac|H-bonding
+40252|ac|10^-6 M
+40274|ac|DFT
+40284|ac|autodissociation
+40328|ac|overvoltage
+40537|ac|levelling effect
+40579|ac|C-F, C-H, C-Si
+40590|ac|neighboring group participation
+40590|ac|NGP
+40591|ac|ligand substitution
+40657|ac|simplified molecular-input line-entry system
+40657|ac|simplified molecular input line entry system
+40714|ac|colloidal mixture
+40749|ac|energy gap
+40749|ac|band gap energy
+40772|ac|Clausius-Clapeyron equation
+40772|ac|Clausius Clapeyron
+40782|ac|disproportionation reaction
+40782|ac|dismutation
+40794|ac|most probable, average, rms
+40805|ac|NO-, NO, NO+
+41092|ac|chemical equilibrium
+41092|ac|dynamic equilibrium
+41125|ac|1, 3
+41125|ac|nickel and tungsten
+41149|ac|steady state approximation
+41150|ac|3e3 J
+41160|ac|2, 3
+41160|ac|2 and 3
+41317|ac|1, 3
+41343|ac|1, 4
+41343|ac|boron and silicon
+41125|rj|1 only
+41160|rj|2 only
+41317|rj|1 only
+41552|a|1 AND 3
+41593|a|1 AND 3
+41603|a|1 AND 2
+41628|a|1 AND 2
+41630|a|1 AND 2
+42039|drop|
+42145|a|CHLORIDE AND HYPOCHLORITE
+42313|a|ELECTROWINNING
+42523|a|2.9
+42749|rm|
+42122|q|["react nitrous oxide with oxygen gas","react nitric oxide with oxygen gas"]
+42122|q|["formation of nitrous oxide is 90 kJ/mol","formation of nitric oxide is 90 kJ/mol"]
+41484|ac|heat of sublimation
+41484|ac|enthalpy of sublimation
+41497|ac|zeroth order
+41582|ac|maxwell-boltzmann distribution
+41649|ac|law of constant heat summation
+41668|ac|30
+41673|ac|sodium nitrate
+41722|ac|racemate
+41732|ac|nimh and lead-acid
+41746|ac|chiral
+41772|ac|rf
+41772|ac|rf value
+41772|ac|retardation factor
+41773|ac|triple
+41804|ac|most probable, average, rms
+41815|ac|hi, hbr, hcl, hf
+41848|ac|k[no][h2]^3
+41912|ac|oh
+41912|ac|hydroxy
+41935|ac|0.231 s^-1
+42029|ac|vanadium(v) oxide
+42059|ac|rate = k[a]^2[b]
+42098|ac|antiaromatic
+42098|ac|anti-aromatic
+42165|ac|helium nucleus
+42165|ac|he-4
+42166|ac|goes down
+42193|ac|baso4, ag2so4, ba(no3)2
+42223|ac|perfluoroalkyl and polyfluoroalkyl substances
+42231|ac|[ar] 4s1 3d5
+42231|ac|[ar]3d5 4s1
+42321|ac|paramagnetic
+42321|ac|paramagnet
+42376|ac|claisen reaction
+42395|ac|nitroso group
+42413|ac|mtbe
+42413|ac|methyl t-butyl ether
+42413|ac|2-methoxy-2-methylpropane
+42455|ac|azeotropic mixture
+42478|ac|first order
+42487|ac|photoelectric work function
+42536|ac|photoelectric work function
+42522|ac|lanthanoid contraction
+42544|ac|0 hbar
+42554|ac|kie
+42595|ac|enolate ion
+42595|ac|enolate anion
+42638|ac|n2 2-
+42657|ac|p4
+42667|ac|wittig olefination
+42668|ac|refluxing
+42668|ac|heating under reflux
+42679|ac|nabh3cn, nabh4, lialh4
+42800|ac|2,3-dimethylbut-2-ene, ethene, acrylonitrile
+42843|ac|nitrate ion
+42848|ac|allotropic forms
+42854|ac|alpha emission
+42854|ac|alpha particle emission
+42881|ac|building-up principle
+42893|ac|c-14, c-13, c-12
+42900|ac|an increase of 4
+42916|ac|supersaturated solution
+42917|ac|n-n, c=c, c-o
+42941|ac|negative one half
+41552|rj|1 only
+41593|rj|1 only
+41603|rj|1 only
+41630|rj|1 only
+42679|rj|3, 2, 1
+43581|a|0.165 MOLES
+43592|a|MAXWELL-BOLTZMANN DISTRIBUTION LAW
+43591|q|["Kinetic Molecular Theory? Kelvin temperature of the gas","Kinetic Molecular Theory?"]
+43591|drop|
+44250|rm|
+44967|a|1, 2 AND 3
+45392|rm|
+45461|a|4
+45678|a|0.32 g
+45874|a|1 ONLY
+46072|rm|
+43552|ac|positive and negative ions
+43563|ac|polyprotic
+43581|ac|0.165
+43581|ac|0.165 mol
+43592|ac|Maxwell-Boltzmann distribution
+43592|ac|Maxwell-Boltzmann
+43602|ac|Graham's law of effusion
+43688|ac|staggered conformation
+43724|ac|ferrochromium
+43732|ac|black body radiator
+43732|ac|blackbody radiator
+44294|ac|Tyndall scattering
+44903|ac|C-C, C-H, C-F
+44940|ac|diborane and H3+
+44967|ac|1, 2, 3
+44967|ac|all
+44967|ac|all three
+44973|ac|meso form
+45009|ac|van der Waals equation of state
+45011|ac|trigonal pyramid
+45024|ac|neutral
+45028|ac|supercritical
+45028|ac|supercritical state
+45028|ac|supercritical phase
+45051|ac|L/mol/s
+45051|ac|M^-1 s^-1
+45051|ac|L mol^-1 s^-1
+45069|ac|ionic crystals
+45234|ac|Hund's rule of maximum multiplicity
+45279|ac|3
+45301|ac|silver
+45301|ac|silver ion
+45333|ac|NO-, NO, NO+
+45342|ac|hydrogen-2
+45342|ac|H-2
+45342|ac|2H
+45380|ac|15 sigma 2 pi
+45380|ac|15 sigma, 2 pi
+45436|ac|KIE
+45437|ac|chloride, ammonia, cyanide
+45460|ac|racemic mixture
+45460|ac|racemate
+45461|ac|four
+45591|ac|delta bonding
+45671|ac|compressibility factor
+45671|ac|Z
+45678|ac|0.32
+45678|ac|0.32 grams
+45722|ac|Debye-Huckel theory
+45722|ac|Debye Huckel limiting law
+45722|ac|Debye-Huckel equation
+45742|ac|Fick's first law
+45765|ac|Lipinski's rule
+45765|ac|rule of five
+45765|ac|Rule of 5
+45787|ac|ground state energy
+45787|ac|ZPE
+45797|ac|dismutation
+45807|ac|sp2 hybridization
+45807|ac|sp2 hybridized
+45808|ac|IE and EA
+45830|ac|eutectic mixture
+45831|ac|Boyle point
+45863|ac|T
+45874|ac|1
+45874|ac|red
+45874|ac|red only
+45907|ac|gold nanoparticles
+45970|ac|o, m, p
+45980|ac|NaCl, Na2SO4, Na2CO3
+46053|ac|sigma*
+46053|ac|C-X sigma*
+46054|ac|242 amu
+46054|ac|242 u
+46062|ac|tungsten, chromium, manganese
+46066|ac|statements 1 and 2
+46082|ac|pyridine, 2-tert-butylpyridine, 2-methylpyridine, 2,6-dimethylpyridine
+45051|rj|moles per liter per second
+47400|q|["dinitrogen pentoxide","dinitrogen tetroxide"]
+47561|rm|
+46112|ac|quintuplet
+46112|ac|pentet
+46133|ac|Marcus inverted region
+46133|ac|inverted regime
+46134|ac|Hg(NH2)Cl
+46134|ac|HgClNH2
+46197|ac|Hund's rule of maximum multiplicity
+46293|ac|most probable, mean, rms
+46349|ac|inert s pair effect
+46380|ac|1.1e3
+46380|ac|1.1 x 10^3
+46455|ac|hydrogen ions
+46479|ac|e-
+46489|ac|limiting reagent
+46522|ac|left
+46522|ac|toward the reactants
+46522|ac|reverse direction
+46674|ac|rotoreflection
+46702|ac|high specific heat
+46702|ac|specific heat capacity
+46702|ac|specific heat
+46712|ac|F
+46735|ac|azeotropic mixture
+46735|ac|minimum boiling azeotrope
+46745|ac|dipolar ion
+46755|ac|buffer solution
+46769|ac|group 17
+46769|ac|group 7A
+46792|ac|solid, liquid, gas
+46818|ac|valence electrons
+46818|ac|delocalized electrons
+46826|ac|1:1
+46826|ac|1 to 1
+46838|ac|endothermic reaction
+46851|ac|6.022 x 10^23
+46860|ac|helium-4
+46861|ac|hydrogen-3
+46861|ac|H-3
+46861|ac|3H
+46897|ac|activation barrier
+46897|ac|Ea
+46931|ac|sodium and chlorine
+46935|ac|amorphous solids
+46935|ac|amorphous solid
+46942|ac|none
+46989|ac|3 mol/L
+47045|ac|element 43
+47056|ac|HH equation
+47081|ac|kB
+47120|ac|alpha emission
+47133|ac|quicklime
+47164|ac|F
+47177|ac|London dispersion
+47177|ac|dispersion forces
+47178|ac|absolute temperature
+47178|ac|T
+47200|ac|hydrogen bond
+47200|ac|H-bonding
+47221|ac|carbon -1, oxygen +1
+47222|ac|KI, NaCl, MgCl2
+47232|ac|2 g/mol
+47232|ac|2 grams per mole
+47311|ac|Hoffmann product
+47321|ac|dismutation
+47342|ac|Hund's rule of maximum multiplicity
+47376|ac|zwitterionic compounds
+47463|ac|N2
+47463|ac|dinitrogen
+47463|ac|nitrogen
+47496|ac|hydroxybenzene
+47496|ac|C6H5OH
+47540|ac|octahedron
+47562|ac|black and red
+47562|ac|black, red
+47592|ac|polarity inversion
+47619|ac|living polymerisation
+47619|ac|living chain polymerization
+47620|ac|Weinreb-Nahm amides
+47620|ac|N-methoxy-N-methylamides
+47628|ac|2.30
+47629|ac|Debye Huckel theory
+47636|ac|Zintl anions
+47648|ac|NOE
+47648|ac|Overhauser effect
+47693|rmac|Ideal gas law
+47755|q|[" (ENFORCE STALLS)",""]
+48239|a|3.5U
+48386|rm|
+48612|q|["nitric acid and sulfuric acid","nitric acid and hydrochloric acid"]
+48721|q|["4,7-heptadiene","3,6-heptadiene"]
+48795|rmac|ELECTRONS
+49076|a|DINITROGEN MONOXIDE
+47774|ac|beer's law
+47875|ac|C6H5CHO
+47978|ac|NaOBr
+47989|ac|hcl, h2so4, h3po4
+48049|ac|SF6, N2, He
+48119|ac|11, 2
+48129|ac|hammond principle
+48168|ac|atropisomer
+48188|ac|helmholtz energy
+48248|ac|synproportionation
+48318|ac|45000 J
+48376|ac|nickel carbonyl
+48376|ac|tetracarbonylnickel
+48416|ac|hammett function
+48417|ac|(e-1)/e
+48417|ac|1 - e^-1
+48457|ac|1-phenyl-2-propanone and NaBH3CN
+48562|ac|KI, LiCl, CaS
+48662|ac|Cl- and K+
+48662|ac|1 and 3
+48771|ac|gaseous
+48860|ac|specific heat capacity
+48898|ac|silicon tetrafluoride and water
+48929|ac|iron and water
+48960|ac|le chatelier principle
+48968|ac|henri le chatelier
+48978|ac|10^-12 M, pH 12
+49036|ac|0 C and 760 mm Hg
+49036|ac|0 degrees C and 760 mmHg
+49056|ac|bond dissociation enthalpy
+49121|ac|buret
+49206|ac|triacylglycerol
+49272|ac|carboxylic acid group
+49384|rm|
+49404|q|["between ethane and bromine","between ethene and bromine"]
+49505|a|TYNDALL EFFECT
+49542|a|0.16
+49635|q|["Bromine, Iodine, and Antimony","Bromine, Iodine, and Astatine"]
+50329|a|AVOGADRO
+49319|ac|galvanizing
+49341|ac|nitrocellulose
+49458|ac|0.4 j/g°c
+49541|ac|po4 3-
+49591|ac|enthalpy of fusion
+49642|ac|relative density
+50024|ac|pauli principle
+50024|ac|exclusion principle
+50069|ac|stoichiometric coefficient
+50120|ac|homolysis
+50120|ac|homolytic fission
+50142|ac|+2
+50142|ac|sr2+
+50157|ac|graham's law of effusion
+50174|ac|haloalkane
+50225|ac|hydroxy
+50313|ac|eclipsing strain
+50329|ac|avogadro's hypothesis
+50329|ac|avogadro's principle
+50329|ac|avogadro's law
+50574|ac|oxirane
+50665|ac|carbon monoxide and hydrazine
+50728|ac|1:4
+50745|ac|agno3 and agf
+50810|ac|salt and decreasing temperature
+50821|ac|1/2
+50821|ac|0.5
+50823|ac|methyl
+50833|ac|sodium phenolate
+50930|a|NONE
+51120|a|Cannizzaro reaction
+51572|a|3, 4, 2, 1
+51718|a|Z
+51746|a|3, 2, 4, 1
+51972|a|3, 2, 1
+52309|a|3
+52419|a|2, 3, 1
+51768|rm|
+51085|q|["following four compounds that act as electrophiles","following three compounds that act as electrophiles"]
+51320|q|["triprotic acid","diprotic acid"]
+50882|ac|metal to ligand charge transfer
+50903|ac|p4
+50941|ac|tert-butyl alcohol
+50941|ac|2-methyl-2-propanol
+50941|ac|t-butanol
+50989|ac|three-membered ring
+51014|ac|square pyramid
+51018|ac|flory huggins theory
+51034|ac|1h-indole
+51042|ac|3 degree alcohol
+51058|ac|torsional
+51058|ac|torsion strain
+51120|ac|cannizzaro
+51120|ac|cannizzaro reaction
+51126|ac|eutectic mixture
+51135|ac|hydrogen bond
+51135|ac|h-bonding
+51135|ac|hydrogen bonds
+51164|ac|2.5e-3
+51164|ac|2.5x10^-3 m
+51189|ac|cyclopentadienyl, eta5
+51189|ac|cp, 5
+51234|ac|tetrachloroaurate(III)
+51286|ac|non-leveling solvents
+51383|ac|0 radial 2 angular
+51410|ac|graham's law of effusion
+51411|ac|supernatant liquid
+51411|ac|supernate
+51420|ac|pale pink
+51420|ac|light pink
+51480|ac|0.00011
+51486|ac|zn anode, mno2 cathode
+51567|ac|law of constant heat summation
+51631|ac|sodium methanoate
+51631|ac|hcoona
+51649|ac|dative bond
+51649|ac|coordinate bond
+51649|ac|dative covalent bond
+51762|ac|crosslinking
+51762|ac|cross-linking
+51763|ac|n-propyl acetate
+51811|ac|sigma star
+51811|ac|sigma*
+51874|ac|1,2
+51874|ac|1 radial, 2 angular
+51949|ac|jahn teller effect
+51949|ac|jahn-teller
+52003|ac|atom efficiency
+52067|ac|amide bond
+52081|ac|sp
+52081|ac|sp hybridization
+52087|ac|vdw equation
+52087|ac|van der waals equation of state
+52128|ac|pauli principle
+52128|ac|exclusion principle
+52146|ac|saturated solution
+52271|ac|chemical adsorption
+52320|ac|hyperconjugative effect
+52335|ac|4^-5
+52335|ac|1/4^5
+52372|ac|steric effects
+52384|ac|anisotropic materials
+52511|a|Y
+52641|a|0.05
+52642|a|84
+52660|a|W
+52897|rmac|SODIUM CHLORIDE
+52897|rmac|NaCl
+53330|a|GAS
+52456|q|["If gold crystallizes","If aluminum crystallizes"]
+52567|q|["test?up","test?"]
+52567|q|["Strontiumltech","Strontium"]
+52786|q|["with a pKa of 5.6","with a pKb of 5.6"]
+52934|q|["N2O is in equilibrium","NO2 is in equilibrium"]
+52934|q|["number of N2O molecules","number of NO2 molecules"]
+53292|q|["records it as a square planar compound","records it as a square pyramidal compound"]
+53292|q|["trigonal bipyramidal and square planar shapes","trigonal bipyramidal and square pyramidal shapes"]
+53560|q|["[CoCl3(NH3)3]^(2+)","[CoCl3(NH3)3]"]
+52469|ac|acetone
+52469|ac|propan-2-one
+52519|ac|ln2/ln4
+52554|ac|liquid and vapor
+53075|ac|dispersion forces
+53215|ac|van der Waals
+53215|ac|van der Waals equation
+53274|ac|Henderson-Hasselbalch
+53274|ac|Henderson Hasselbalch equation
+53528|ac|+5 oxidation state
+53871|ac|Woodward-Hoffmann rules
+53871|ac|Woodward Hoffmann
+53914|ac|Debye-Huckel theory
+54004|ac|pi stacking interaction
+54114|a|2, 1, 3
+54120|a|1, 2, 3
+54171|rm|
+54769|a|1 AND 4
+54857|a|Ni(CO)4
+54911|a|1 AND 2
+54945|a|Z
+55251|drop|
+55365|a|1
+55456|rm|
+55505|a|NONE
+55535|a|X
+55636|rm|
+55818|q|["CeF","CsF"]
+55818|q|["CeCl","CsCl"]
+55818|q|["CeBr","CsBr"]
+55818|q|["CeI","CsI"]
+55822|rm|
+55900|a|-56.5 kJ/mol
+55939|a|Cristobalite, SiO2
+55944|rm|
+54038|ac|diphenylmethanone, 5, less
+54038|ac|1) diphenylmethanone; 2) 5; 3) less than
+54050|ac|ortho nitroaniline, meta nitroaniline, aniline
+54148|ac|configurational entropy
+54148|ac|entropy of mixing
+54187|ac|anisotropic polarizability
+54187|ac|polarizability anisotropy
+54683|ac|coordinate bond
+54683|ac|dative covalent bond
+54789|ac|no2-, no2, no2+
+54834|ac|pentagonal bipyramid
+54847|ac|2500 m^-1 s^-1
+54857|ac|tetracarbonylnickel(0)
+54864|ac|gap, zns, aln
+54867|ac|h+
+54878|ac|first law of electrolysis
+54879|ac|0.0002
+54919|ac|keto-enol tautomerism
+54919|ac|tautomerization
+54962|ac|entropy of mixing
+54966|ac|no change
+54966|ac|unchanged
+54966|ac|1x
+54979|ac|liquid crystal phase
+55000|ac|meso compound
+55000|ac|meso compounds
+55045|ac|law of constant heat summation
+55057|ac|4e-5
+55102|ac|sf4 and so2
+55170|ac|2 1/2
+55205|ac|c6h5oh
+55216|ac|no change
+55227|ac|n=4 l=3
+55228|ac|biradical
+55251|ac|na2co3
+55251|ac|soda ash
+55273|ac|overvoltage
+55274|ac|cv
+55286|ac|1.0 x 10^4, products
+55297|ac|sodium metal
+55308|ac|electron withdrawing group, meisenheimer intermediate
+55343|ac|tppo
+55343|ac|triphenylphosphane oxide
+55344|ac|cui and i2
+55344|ac|cuprous iodide and iodine
+55373|ac|12 c
+55415|ac|isoelectronic
+55415|ac|isoelectronic species
+55427|ac|to the right
+55427|ac|forward
+55427|ac|products
+55466|ac|linear, sp3d
+55477|ac|ni(co)4 and nicl4 2-
+55497|ac|methyl ethanoate
+55552|ac|charles, gay-lussac, boyle
+55570|ac|precipitate reaction
+55586|ac|fission reaction
+55591|ac|kcl, glucose, li3n, napo4
+55649|ac|o-o, c-c, c=o
+55659|ac|octahedron
+55687|ac|hammond-leffler postulate
+55693|ac|cao and co2
+55826|ac|delta orbital
+55834|ac|zeroth
+55844|ac|sodium nitrite
+55925|ac|14, 1
+55930|ac|evaporation and melting
+55930|ac|evaporation, melting
+55934|ac|eutectic, 14%
+67938|ac|327 c
+68227|a|2
+68246|a|2,1,3
+68413|q|["cobalt hexacarbonyl complex","cobalt hexacyanide complex"]
+68797|rm|
+68866|a|Y
+69525|rm|
+69600|q|["isotope of phosphorus","allotrope of phosphorus"]
+69632|a|HYPERCONJUGATION
+69639|a|ZINC BLENDE
+69661|rm|
+69986|q|["conrotary","disrotatory"]
+67967|ac|Beer's law
+68048|ac|L^4 mol^-4 s^-1
+68087|ac|azeotropic mixture
+68166|ac|LJ potential
+68187|ac|equipartition of energy
+68373|ac|fluorescence quantum yield
+68827|ac|4n+2 rule
+68840|ac|potential-pH diagram
+68974|ac|virial expansion
+69423|ac|Marcus theory of electron transfer
+69402|ac|lanthanoid contraction
+69410|ac|Dinfh
+69422|ac|Fe(Cp)2
+69422|ac|bis(cyclopentadienyl)iron
+68726|ac|Hammett acidity
+68726|ac|Hammett function
+68802|ac|-0.5
+69944|ac|A factor
+69944|ac|frequency factor
+69944|ac|pre-exponential
+69898|ac|chair conformation
+68284|ac|desiccant
+68284|ac|drying reagent
+68246|rj|3,1,2
+70291|a|1 ONLY
+70394|a|132 grams
+70441|a|TRANSITION STATE
+70644|a|W
+70687|a|110
+71122|a|W
+71285|a|1,5-HEXADIENE
+71361|a|0
+71460|a|XENON
+72294|a|OXYGEN BOND DISSOCIATION ENERGY
+70287|rm|
+71388|rm|
+73655|rm|
+70666|q|["the acid’s conjugate acid","the acid’s conjugate base"]
+70031|ac|Balz-Schiemann reaction
+70031|ac|Balz-Schiemann
+70044|ac|Jahn-Teller distortion
+70078|ac|HCl, HBr, H2S
+70099|ac|5p, 6s, 4f, 5d
+70099|ac|4,3,1,2
+70172|ac|inversely proportional
+70182|ac|London dispersion forces
+70182|ac|van der Waals
+70197|ac|reciprocal of heat capacity
+70279|ac|aldol addition
+70332|ac|Bragg equation
+70375|ac|hydrogen ions
+70407|ac|racemic mixture
+70407|ac|racemate
+70420|ac|IC
+70424|ac|Arrhenius pre-exponential factor
+70429|ac|glycerin
+70429|ac|glycerine
+70429|ac|propane-1,2,3-triol
+70440|ac|M^-1 s^-1
+70440|ac|L/(mol s)
+70524|ac|Peierls instability
+70548|ac|5.0
+70588|ac|15 M^-1
+70660|ac|double bond
+70798|ac|synproportionation
+70798|ac|symproportionation
+71101|ac|second
+71101|ac|second order
+71101|ac|2nd order
+71201|ac|nuclear atom
+71201|ac|Rutherford model
+71201|ac|Rutherford nuclear model
+71262|ac|Hammett function
+71274|ac|iminium
+71274|ac|iminium cation
+71349|ac|TMS
+71349|ac|Si(CH3)4
+71365|ac|isobutane, butane, 1-propanol
+71473|ac|5p orbital
+71484|ac|2x
+71496|ac|noncrystalline solids
+71501|ac|exothermic reaction
+71501|ac|exothermic process
+71528|ac|CH3CN
+71528|ac|methyl cyanide
+71543|ac|C triple bond C, C-H, O-H
+72026|ac|none
+72026|ac|no modes
+72052|ac|levelling effect
+72171|ac|0
+72171|ac|zero
+72216|ac|F/2^7
+72216|ac|1/128 F
+72233|ac|carboxylate ion
+72233|ac|carboxylate anion
+72233|ac|RCOO-
+72253|ac|virial expansion
+72269|ac|hydroxybenzene
+72269|ac|C6H5OH
+72344|ac|Evans aldol
+72354|ac|18-crown-6 ether
+72365|ac|triflate group
+72365|ac|trifluoromethanesulfonate
+72373|ac|eta1
+72373|ac|monohapto
+73630|ac|3 sigma and 3 pi
+73723|ac|none
+72286|rj|5:2
+84829|a|1, 4, 2, 3
+73844|q|["density of 1 g/cm^3","density of 1 g/L"]
+73796|ac|81 protons and 124 neutrons
+73847|ac|gibbs energy
+73857|ac|mass deficit
+73897|ac|d subshell
+74000|ac|none
+74000|ac|none of them
+74082|ac|ion-dipole
+74082|ac|ion dipole forces
+74082|ac|ion-dipole force
+74085|ac|-17.1 c
+74085|ac|-17.1 degrees
+74526|ac|aufbau rule
+74546|ac|reaction quotient Q
+74685|ac|CH2=CH2
+84694|ac|t-shape
+84728|ac|enantiomeric pair
+84773|ac|disproportionation reaction
+84773|ac|dismutation
+84783|ac|dipolar ion
+84783|ac|dipolar ions
+84819|ac|0.80 atm
+84989|ac|27 mmHg
+84989|ac|27.0
+85009|ac|partial molar Gibbs energy
+85066|ac|1 degree amine
+85086|ac|0.5
+85127|ac|2
+85127|ac|(2E,4Z)-hexa-2,4-diene
+85155|ac|haptotropic shift
+85344|ac|t-shape
+85405|ac|HCHO
+85414|ac|Fe2O3 + 2 Al -> 2 Fe + Al2O3
+85453|ac|helium-4
+85789|ac|nitrite ion
+85820|ac|propane-1,2,3-triol
+85820|ac|1,2,3-propanetriol
+85824|ac|brownian movement
+85846|ac|mohr titration
+85896|ac|1) tempo; 2) electron paramagnetic resonance
+85915|ac|mercaptan
+85942|ac|ether and diethyl ether
+85943|ac|6 and 1.5
+85944|ac|banana bond, Al2Cl6, Diels-Alder
+85944|ac|three-center two-electron bond, Al2Cl6, Diels-Alder
+85946|ac|[4+2], 0, claisen rearrangement
+85946|ac|A) [4+2]; B) 0; C) CLAISEN
+86097|ac|maxwell boltzmann
+86097|ac|maxwell speed distribution
+86119|ac|C6H6O7(2-)
+86132|ac|dalton's law of multiple proportions
+86174|ac|hydrogen bonding
+86174|ac|H-bonds
+86194|ac|+2
+86194|ac|2
+86247|ac|3 sigma and 4 pi
+86355|ac|9x
+86355|ac|9 times
+86367|ac|nitrogen-14
+86387|ac|dsp3
+86388|ac|1900 kJ/mol
+86397|ac|triplet dioxygen
+86397|ac|triplet O2
+86418|ac|polarisability
+86419|ac|bragg equation
+86439|ac|amorphous solids
+86439|ac|amorphous solid
+73984|rj|3:4
+87336|a|Walden inversion
+96663|a|KIRCHHOFF'S LAW
+96722|q|["dimethyl sulfide, DMSO","dimethyl sulfoxide, DMSO"]
+96853|q|["6,2'(prime)-dichloro-2'(prime),6-dibromobiphenyl","6,2'(prime)-dichloro-2,6'(prime)-dibromobiphenyl"]
+86452|ac|maillard browning
+86461|ac|n=1 state
+86473|ac|synproportionation
+86473|ac|comproportionation reaction
+86525|ac|z factor
+86575|ac|jahn-teller distortion
+86591|ac|lj potential
+86591|ac|12-6 potential
+86592|ac|octahedral and tetrahedral
+86610|ac|ra-ni
+87037|ac|4n+2 rule
+87136|ac|lanthanoid contraction
+87167|ac|van t hoff equation
+87176|ac|N_A
+87177|ac|1/2 R
+87267|ac|change in number of moles of gas
+87267|ac|delta n
+87267|ac|delta n gas
+87276|ac|si(ch3)4
+87286|ac|b2
+87286|ac|second virial coefficient b2
+87287|ac|simmons-smith cyclopropanation
+87395|ac|cryptand ligand
+87425|ac|suzuki reaction
+87425|ac|suzuki-miyaura reaction
+87445|ac|karplus equation
+87507|ac|jacobsen epoxidation
+87508|ac|dcd model
+87508|ac|dewar-chatt-duncanson bonding model
+87642|ac|3.7 MPa
+87117|ac|pi
+87117|ac|pi orbital
+96527|ac|azeotropic mixture
+96527|ac|constant boiling mixture
+96663|ac|kirchhoffs law
+96663|ac|kirchhoff's law of thermochemistry
+96672|ac|change in polarizability
+96672|ac|polarisability
+96683|ac|3c-2e bond
+96702|ac|lanthanoid contraction
+96712|ac|maillard browning
+96773|ac|jahn-teller effect
+96872|ac|delta H double dagger
+96873|ac|backbonding
+96873|ac|pi backdonation
+96902|ac|levelling effect
+96902|ac|leveling
+96922|ac|sigmatropic reaction
+97002|ac|homolytic fission
+97033|ac|williamson synthesis
+97033|ac|williamson ether
+97063|ac|oxygen and ozone
+97063|ac|O2 and O3
+97063|ac|dioxygen and ozone
+97082|ac|desublimation
+97452|rm|
+5171|a|Y
+9955|rm|
+11002|a|I
+1565|rmac|Facility for
+1306|rm|
+5282|rm|
+9945|rm|
+10986|rm|
+11689|rm|
+97353|q|["Cycloehexane","Cyclohexane"]
+5387|q|["Thorium-288","Thorium-227"]
+97282|ac|none
+97282|ac|none of them
+97293|ac|none
+97293|ac|none of them
+97393|ac|overvoltage
+97443|ac|standard electrode potential
+118131|ac|chemically equivalent hydrogens
+1139|ac|cold nuclear fusion
+1149|ac|pumped hydro
+1149|ac|pumped storage
+1149|ac|pumped hydroelectric storage
+1170|ac|betz limit
+1239|ac|$0.06
+1239|ac|6 ¢
+1284|ac|h+
+1284|ac|hydrogen ion
+1349|ac|h+
+1349|ac|hydrogen ion
+1392|ac|low temp combustion
+1435|ac|ultracapacitor
+1565|ac|facility for advanced accelerator experimental tests
+1573|ac|nuclear microreactors
+1574|ac|tristructural isotropic fuel
+1606|ac|2h
+1739|ac|pwr and bwr
+1750|ac|parabolic
+1750|ac|parabolic shape
+1804|ac|horizontal axis and vertical axis
+1804|ac|hawt and vawt
+3019|ac|normal heptane
+3375|ac|nimh
+3375|ac|ni-mh
+3454|ac|carbonyl sulphide
+5326|ac|backprop
+5821|ac|afm
+5821|ac|atomic force microscope
+7018|ac|ro
+8014|ac|roc
+8014|ac|receiver operating characteristic
+8014|ac|roc graph
+8049|ac|roc
+8049|ac|receiver operating characteristic
+8049|ac|roc graph
+9665|ac|xps
+10083|ac|greedy algorithm
+10103|ac|rectified linear
+10131|ac|cas
+10192|ac|overfit
+10311|ac|black box model
+10360|ac|pwr
+10552|ac|ensemble methods
+10660|ac|superintelligent ai
+10660|ac|artificial superintelligence
+10755|ac|mutual assured destruction
+10851|ac|neural net
+10904|ac|data compression
+10931|ac|sigmoid function
+10931|ac|logistic sigmoid
+10946|ac|hallucinating
+10965|ac|state value function
+10998|ac|denoising diffusion
+11263|ac|pet
+11263|ac|positron emission tomography
+12477|ac|resonance absorption
+12477|ac|resonant capture
+13595|ac|unsupervised machine learning
+13604|ac|monte carlo method
+13604|ac|monte carlo simulation
+13604|ac|monte carlo methods
+14941|ac|qds
+14941|ac|qd
+15980|ac|qbit
+7018|rj|osmosis
+16680|a|1 and 2
+20073|a|FISCHER-TROPSCH
+20830|a|STENT
+21629|q|["random sampling to calculate an","random sampling to calculate an approximate numerical result?"]
+22231|a|Y
+22255|a|O(n+e)
+23173|a|CONVENTION ON CERTAIN CONVENTIONAL WEAPONS
+23736|rm|
+16947|ac|monte carlo method
+17448|ac|pet scan
+17508|ac|backprop
+17756|ac|sparse matrix
+17756|ac|sparse matrices
+19806|ac|list processor
+19890|ac|john backus
+20200|ac|hypertext markup language
+20305|ac|reduced instruction set computing
+21195|ac|(previous, current) => previous * current
+21499|ac|multiplexor
+21544|ac|ethyl alcohol
+21629|ac|monte carlo method
+21629|ac|monte carlo simulation
+21919|ac|cpu registers
+21932|ac|and and or
+21956|ac|clock jitter
+22002|ac|regular languages
+22086|ac|operation code
+22110|ac|tail call elimination
+22110|ac|tco
+22110|ac|tail recursion optimization
+22121|ac|memoisation
+22185|ac|carbon capture and sequestration
+22255|ac|o(n+e)
+22268|ac|linear
+22813|ac|montreal protocol on substances that deplete the ozone layer
+22841|ac|microwave radiation
+22929|ac|synchrotron
+22929|ac|synchrotron radiation
+22978|ac|current carrying capacity
+23077|ac|cumulative reward
+23113|ac|teg
+23113|ac|seebeck generator
+23244|ac|gan
+23245|ac|cnn
+23245|ac|convnet
+23304|ac|ergodic
+23400|ac|hmm
+23400|ac|hidden markov model
+23412|ac|fbr
+23460|ac|high explosive lens
+23485|ac|landauer bound
+23592|ac|rl
+23628|ac|ml
+23629|ac|neural net
+23629|ac|artificial neural network
+23629|ac|ann
+23914|ac|f1 score
+23914|ac|f1
+23914|ac|f-measure
+23961|ac|rl
+23962|ac|kmeans
+24105|ac|agency problem
+24165|ac|bias-variance dilemma
+27642|a|X
+31119|a|STELLARATOR
+31672|rm|
+42260|rm|
+38577|rmac|DEEP LEARNING
+40711|rmac|Few-shot
+41759|rmac|SRAM
+45534|a|1 and 3
+28932|a|PHOTOLITHOGRAPHY
+40449|a|Low Rank Adaptation
+24238|ac|overfit
+24310|ac|trolley dilemma
+25165|ac|additive manufacturing
+25165|ac|3d printed
+25819|ac|RO
+29400|ac|H-3
+29400|ac|hydrogen-3
+29570|ac|transformer model
+29639|ac|overfit
+31211|ac|farnsworth-hirsch fusor
+31243|ac|nuclear fusion
+31465|ac|fusion
+31465|ac|fusion energy
+31734|ac|PEM
+33088|ac|UV rays
+33130|ac|maize
+33442|ac|solar power
+38417|ac|selective laser sintering (SLS)
+38440|ac|RTG
+38670|ac|neither 1 nor 2
+39148|ac|mosfet transistor
+39159|ac|RL
+39160|ac|euv
+39165|ac|sparse mixture of experts
+39166|ac|knowledge distillation
+39182|ac|nothing
+39187|ac|single-layer perceptron
+40062|ac|UV-Vis spectrophotometer
+40093|ac|RO
+40300|ac|nondeterministic polynomial
+40416|ac|masking
+40450|ac|MoE
+40483|ac|V
+40496|ac|linearly
+40496|ac|first power
+40613|ac|black box problem
+40635|ac|BFS
+40635|ac|breadth first
+40667|ac|data leak
+40711|ac|zero-shot learning
+40723|ac|eighty-five
+40790|ac|deadlock situation
+40791|ac|vanishing gradients
+40791|ac|vanishing gradient
+40853|ac|PV panels
+40900|ac|ethyl alcohol
+41727|ac|QDs
+42269|ac|bituminous coal
+42304|ac|pumped hydro
+42304|ac|PSH
+42315|ac|ICF
+42315|ac|inertial fusion
+42562|ac|RL
+42736|ac|SAE
+42868|ac|graphene sheet
+42868|ac|monolayer graphene
+44297|ac|thread of execution
+44974|ac|lithium dendrites
+45263|ac|overfit
+45321|ac|4x4
+45321|ac|4 x 4
+45321|ac|4 by 4 matrix
+45478|ac|knapsack problem
+45478|ac|the knapsack problem
+45564|ac|2^7 - 1
+45662|ac|directed and acyclic
+45942|ac|Euler's theorem on rotation
+45984|ac|mangrove forests
+45984|ac|mangrove trees
+46256|ac|racemic mixture
+46383|ac|heap, bubble, bogo
+46418|a|Z
+49353|q|["COBAL","COBOL"]
+49834|rm|
+50138|a|INTEGRATED SERVICES DIGITAL NETWORK
+50185|rm|
+51940|a|Z
+46673|ac|BFS
+47173|ac|vanishing gradient problem
+47394|ac|electrical breakdown
+47394|ac|dielectric breakdown of air
+47460|ac|double-ended queue
+47460|ac|double ended queue
+47607|ac|algorithmic complexity
+48792|ac|rambus dram
+49137|ac|mead
+49386|ac|network interface controller
+49402|ac|formula translation
+49573|ac|download
+49659|ac|upload
+49685|ac|300 bps
+49685|ac|300 bits/s
+49756|ac|ncsa mosaic
+49775|ac|radiocarbon dating
+49775|ac|carbon-14 dating
+49775|ac|c-14 dating
+49858|ac|mhz
+50165|ac|gb
+50215|ac|cache memory
+50335|ac|ctrl alt del
+52343|ac|alphafold2
+52343|ac|alphafold 2
+49639|ac|absolute reference
+49651|ac|international system of units
+49651|ac|systeme international d'unites
+50093|ac|rotational latency
+1147|a|Y
+1446|a|Z
+2624|a|Z
+2645|a|1 and 3
+2685|rm|
+118130|rm|
+1270|rm|
+1445|rm|
+96|q|["the largest structure known in the universe","a huge structure in the universe"]
+1258|q|["Beringer Crater","Barringer Crater"]
+96509|ac|concatenate
+96509|ac|string concatenation
+118022|ac|memory resistor
+118057|ac|quantum bit
+36|ac|eddington luminosity
+46|ac|porphyritic texture
+187|ac|8 times M
+226|ac|cloud albedo effect
+226|ac|first indirect effect
+274|ac|lithospheric delamination
+284|ac|fermi mechanism
+304|ac|0
+304|ac|no statements
+313|ac|perthite
+333|ac|coastal upwelling
+352|ac|lagrangian points
+391|ac|barycentre
+411|ac|accretionary complex
+411|ac|accretion wedge
+422|ac|outwash
+422|ac|sandur
+431|ac|thermal metamorphism
+491|ac|binary neutron stars
+511|ac|ridge push force
+511|ac|gravitational sliding
+1168|ac|msp
+1181|ac|oxygen gas
+1192|ac|quasi-stellar object
+1192|ac|qso
+1192|ac|quasi stellar radio source
+1215|ac|scoria cone
+1238|ac|globular
+1282|ac|black hole evaporation
+1282|ac|hawking evaporation
+1304|ac|degeneracy pressure
+1304|ac|electron degeneracy
+1305|ac|chandrasekhar mass
+1327|ac|pacific ring of fire
+1327|ac|circum-pacific belt
+1328|ac|soil liquefaction
+1347|ac|c-type star
+1347|ac|c star
+1348|ac|wr stars
+1356|ac|z=0.4
+1400|ac|pyroxene group
+1411|ac|aluminium
+1434|ac|ring silicates
+1457|ac|oil sands
+1457|ac|oil sand
+1468|ac|two bodies
+1474|ac|3 mpc
+1479|ac|james jeans
+1479|ac|sir james jeans
+1500|ac|xrbs
+1512|ac|apparent superluminal motion
+1544|ac|dyke
+1562|ac|pp chain
+1562|ac|p-p chain
+1563|ac|he flash
+1584|ac|reflection nebulae
+1595|ac|pyroclastic density current
+1595|ac|nuee ardente
+1640|ac|cno
+1640|ac|cno process
+1640|ac|carbon nitrogen oxygen cycle
+1661|ac|laurasia and gondwanaland
+1661|ac|gondwanaland and laurasia
+1662|ac|bif
+1662|ac|bifs
+1727|ac|an exoplanet
+1727|ac|exoplanet
+1770|ac|blue straggler star
+1779|ac|occlusion
+1823|ac|dog star
+1858|ac|glacial horn
+1858|ac|pyramidal peak
+1858|ac|horn peak
+1859|ac|terminal moraine
+2550|ac|supergene enrichment
+2550|ac|secondary sulfide enrichment
+2571|ac|tablemount
+2580|ac|hubble-lemaitre law
+2633|ac|langmuir cells
+2655|ac|ppiv
+2655|ac|pp4
+2655|ac|hep process
+2665|ac|rps
+2708|ac|366.256 rotations
+2718|ac|0
+2758|rm|
+2790|a|2 ONLY
+2873|q|["schist, BASIS Peoria Late Regionals DE-Mid Nationals DE depending","schist, depending"]
+2970|q|["around the sun","around Jupiter"]
+3105|a|IV ONLY
+3327|a|I ONLY
+3376|a|HUBBLE'S LAW
+5064|a|BOWEN'S REACTION SERIES
+5142|q|["l ignite","lignite"]
+5149|a|KEPLER'S SECOND LAW
+5150|a|(577+408*sqrt(2))K, about 1154K
+5323|q|["proponent","component"]
+2738|ac|chromite ore
+2738|ac|FeCr2O4
+2833|ac|shepherding moon
+2836|ac|stratocone
+2839|ac|transform boundary
+2839|ac|transform boundaries
+2840|ac|d double prime
+2840|ac|d''
+2840|ac|d prime prime
+2885|ac|ic
+2896|ac|turbidite deposit
+2898|ac|degassing
+2921|ac|wave shoaling
+3028|ac|striations
+3028|ac|glacial striae
+3028|ac|striae
+3039|ac|triclinic system
+3047|ac|16 light years
+3077|ac|benioff zone
+3162|ac|stellar occultation
+3207|ac|inflationary theory
+3208|ac|beryllium-8 and carbon-12
+3236|ac|coriolis force
+3348|ac|16 solar masses
+3372|ac|backswamps
+3391|ac|ccd
+4999|ac|cepheid instability strip
+5010|ac|cosmogenic
+5022|ac|grand design spiral
+5031|ac|hypocentre
+5077|ac|maunder butterfly diagram
+5077|ac|sunspot butterfly diagram
+5094|ac|chandrasekhar mass
+5169|ac|24h50m
+5199|ac|gravitational radiation
+5200|ac|michelson interferometer
+5229|ac|inflationary epoch
+5246|ac|anthropocene epoch
+5248|ac|dynamo theory
+5311|ac|distance and recession velocity
+5354|ac|energy-momentum tensor
+5354|ac|stress-energy-momentum tensor
+5371|ac|wr stars
+5388|ac|trade winds westerlies polar winds
+5420|ac|transform fault
+5421|ac|karst landscape
+5450|ac|polarisation
+5450|ac|light polarization
+5489|ac|pp chain
+5489|ac|p-p chain
+5511|ac|ultraviolet light
+5511|ac|ultraviolet region
+5519|ac|tungsten ore
+5594|ac|period luminosity relation
+5594|ac|period-luminosity relation
+5594|ac|leavitt law
+5601|ac|tidal lock
+5601|ac|tidally locked
+5627|ac|gravitational lens
+5635|ac|200 solar masses
+5636|ac|doppler shift
+5656|ac|increases, decreases, decreases
+5656|ac|increase, decrease, decrease
+5744|ac|chain silicates
+5744|ac|chain silicate
+5760|ac|homoclinal
+5766|ac|september 12
+5766|ac|sept 12
+5766|ac|9/12
+6143|a|Y
+7058|rm|
+7140|a|W
+7179|rm|
+7954|a|Z
+8070|rm|
+8071|a|3,2,1
+8117|a|3,2,1
+8236|a|3,2,1
+8287|q|["following 4 atomic weights","following 3 atomic weights"]
+5787|ac|2^-10
+5850|ac|WR star
+5928|ac|1b and 1c
+5940|ac|amphidrome
+5952|ac|TOV mass limit
+5958|ac|herbig haro
+5958|ac|HH object
+5958|ac|herbig-haro
+5975|ac|zz ceti stars
+5975|ac|ZZ Ceti star
+5986|ac|failed rift arm
+5986|ac|failed rift
+6004|ac|southeast 45
+6004|ac|45 degrees SE
+6004|ac|45 SE
+6044|ac|CaTiO3
+6044|ac|calcium titanate
+6067|ac|phreatic
+6072|ac|starburst galaxies
+6079|ac|class C
+6102|ac|eddington luminosity
+6113|ac|se
+6125|ac|tail disconnection event
+6125|ac|comet tail disconnection
+6158|ac|lagrange point 2
+6158|ac|sun-earth L2
+6183|ac|SOFAR
+6183|ac|deep sound channel
+6183|ac|sound fixing and ranging channel
+6195|ac|main-sequence turnoff
+6195|ac|MS turnoff
+6195|ac|main sequence turn off
+7011|ac|lustre
+7084|ac|c layer
+7178|ac|axial precession
+7178|ac|precession of the equinoxes
+7219|ac|coriolis force
+7220|ac|solar filaments
+7230|ac|basal slip
+7268|ac|dynamo
+7268|ac|dynamo theory
+7331|ac|iron and aluminum
+7331|ac|aluminum and iron
+7331|ac|Fe and Al
+7336|ac|metallic sulfides
+7372|ac|2.4 solar masses
+7372|ac|2.4 Msun
+7374|ac|frontal uplift
+7374|ac|frontal lift
+7395|ac|LHB
+7395|ac|lunar cataclysm
+8017|ac|IC scattering
+8060|ac|59 earth days
+8084|ac|equatorial kelvin waves
+8116|ac|turbidity flows
+8124|ac|gravitational force
+8124|ac|gravitation
+8155|ac|valve mechanism
+8165|ac|o and e horizons
+8190|ac|Si II
+8277|ac|calcium carbonate
+8277|ac|CaCO3
+8289|ac|sw
+8307|ac|protoplanetary disc
+8369|ac|relativistic jets
+8369|ac|radio jets
+8385|ac|BIF
+8385|ac|BIFs
+8503|ac|AAIW, NADW, AABW
+8511|ac|giant elliptical galaxy
+8512|ac|comet coma
+8512|ac|cometary coma
+6097|rj|albite, anorthite
+8597|rm|
+8752|a|1, 2, 3
+8782|drop|
+9302|a|4
+9345|rm|
+9411|q|["4 events relating","5 events relating"]
+9498|a|2, 3, 4
+9558|a|URBAIN LE VERRIER, JOHN COUCH ADAMS
+9814|a|X
+9835|a|Homocline
+9913|a|1 3 2
+9950|a|NONE
+8696|ac|cyanite
+8772|ac|calcium ion
+8912|ac|Ia
+8912|ac|1a
+9163|ac|9x
+9163|ac|9 times
+9164|ac|Juan de Fuca plate and North American plate
+9198|ac|geostrophic flow
+9225|ac|11 degree days
+9225|ac|11 CDD
+9267|ac|dec and ra
+9268|ac|0 deg and 0 h
+9294|ac|supercritical fluid
+9339|ac|lenticular clouds
+9339|ac|altocumulus lenticularis
+9346|ac|16x
+9379|ac|accreted terranes
+9394|ac|scattered disk
+9394|ac|SDOs
+9647|ac|shepherd satellites
+9657|ac|undercut bank
+9683|ac|tablemount
+9698|ac|hydrogen gas
+9811|ac|Hayashi
+9836|ac|monogenetic volcano
+9849|ac|conditionally unstable
+9862|ac|Kelvin-Helmholtz contraction
+9903|ac|reversed zoning
+9912|ac|hydrogen line
+10078|ac|Bowen series
+10235|a|MESOCYCLONE
+10630|a|-2 and -4
+11277|a|1,2,3
+11481|rmac|MAGNESITE
+11811|a|Z
+10133|ac|double refraction
+10144|ac|ia
+10144|ac|type ia supernova
+10187|ac|rotational slide
+10187|ac|rotational slump
+10282|ac|wegener-bergeron-findeisen process
+10282|ac|bergeron-findeisen process
+10318|ac|statement 3
+10336|ac|grb
+10336|ac|grbs
+10348|ac|jupiter trojans
+10348|ac|trojan asteroids
+10353|ac|NE
+10354|ac|accretion wedge
+10401|ac|zinc blende
+10401|ac|zns
+10618|ac|EPR
+10630|ac|-2, -4
+10630|ac|-2 -4
+10641|ac|drainage wind
+10677|ac|ecliptic plane
+10678|ac|h2o ice
+10719|ac|surface albedo
+10744|ac|HZ
+10749|ac|chandrasekhar mass
+10750|ac|hyperbola
+10767|ac|ozone layer
+10881|ac|columnar joints
+10940|ac|ephemeral streams
+10982|ac|benioff zone
+11231|ac|CNO
+11231|ac|carbon-nitrogen-oxygen cycle
+11240|ac|H0
+11242|ac|oxbow
+11264|ac|k-feldspar
+11264|ac|k feldspar
+11264|ac|potash feldspar
+11265|ac|basal sliding
+11277|ac|anorthite, albite, gibbsite
+11277|ac|1 2 3
+11278|ac|magmatic stoping
+11345|ac|optical libration
+11356|ac|slow neutron capture
+11388|ac|massive compact halo objects
+11427|ac|Ca II
+11545|ac|juan de fuca plate, cocos plate, nazca plate
+11567|ac|longshore drift
+11567|ac|littoral drift
+11570|ac|phreatic surface
+11643|ac|4 solar masses and 8 solar masses
+11676|ac|sunlight zone
+11712|ac|statement 1
+12151|ac|vine-matthews hypothesis
+12235|ac|reddening
+12254|ac|pp chain
+12254|ac|pp cycle
+12291|ac|BIF
+12291|ac|BIFs
+11750|rj|2,3,1
+12316|a|X
+12417|a|3
+13094|rm|
+12909|q|["Rotation of the universe","Rotation of the cloud"]
+12317|ac|transgression
+12346|ac|total penumbral eclipse
+12361|ac|PPN
+12416|ac|PSC
+12426|ac|warm vents
+12462|ac|isostatic equilibrium
+12481|ac|quasi-stellar object
+12481|ac|QSO
+12482|ac|glaze ice
+12573|ac|SGR
+12573|ac|soft gamma-ray repeater
+12589|ac|yanai wave
+12599|ac|WR star
+12654|ac|CCN
+12654|ac|condensation nuclei
+12701|ac|hyperbola
+12726|ac|13 square meters
+12726|ac|13 m2
+12747|ac|dyke
+12756|ac|planetary nebulae
+12757|ac|128 times brighter
+12793|ac|seeding
+12802|ac|van allen radiation belts
+12802|ac|radiation belts
+12848|ac|soil creep
+12872|ac|filaments
+12872|ac|cosmic filaments
+12928|ac|SSW
+12928|ac|sudden stratospheric warming event
+12938|ac|basal slip
+12938|ac|basal slide
+12963|ac|degassing
+12983|ac|earth's bow shock
+13048|ac|south america
+13048|ac|south america plate
+13057|ac|cepheid
+13057|ac|cepheids
+13071|ac|salt content
+13084|ac|quarrying
+13084|ac|glacial plucking
+13116|ac|littoral drift
+13116|ac|longshore transport
+13193|ac|drawdown cone
+13194|ac|amphidromes
+13208|ac|extrasolar planets
+13241|ac|lunar soil
+13310|ac|giant impact theory
+13319|ac|HB
+13319|ac|horizontal branch phase
+13320|ac|500 million
+13320|ac|0.5 Gyr
+13332|ac|r-process and s-process
+13332|ac|r process and s process
+13355|ac|oddo-harkins effect
+13390|ac|saha ionization equation
+13411|ac|hesperian era
+13435|ac|hayashi
+13446|ac|molecular hydrogen
+13456|ac|UO2
+13467|ac|mercalli scale
+13467|ac|modified mercalli intensity scale
+13467|ac|MMI
+13493|ac|cliffs of dover
+13512|ac|newtonian reflector
+13537|ac|krakatoa, end of ice age, extinction of dinosaurs, breakup of pangea
+13549|ac|haematite
+13570|ac|ferrel
+13570|ac|ferrel circulation
+13570|ac|mid-latitude cell
+13578|ac|dynamo theory
+13582|ac|orogenesis
+13628|ac|solar magnetic field
+13638|ac|organic horizon
+13674|ac|nicolas steno
+13674|ac|niels stensen
+13719|ac|A and B
+13753|ac|p-wave shadow
+13754|ac|inner core superrotation
+13775|ac|6.5 light years
+13785|ac|ion tail
+13785|ac|plasma tail
+13809|ac|coriolis effect
+13824|ac|calcite compensation depth
+13824|ac|calcium carbonate compensation depth
+13856|ac|alpha leonis
+13856|ac|cor leonis
+13857|ac|-5 magnitude
+13879|ac|nitrogen gas
+13879|ac|molecular nitrogen
+13356|rj|7:2
+13929|a|Synchrotron radiation
+14023|a|1,2,3,4
+14483|a|2 only
+15211|a|X
+14636|rmac|transit timing
+14060|rm|
+14905|q|["desert mountains","island mountains"]
+13929|ac|synchrotron
+13929|ac|synchrotron emission
+13930|ac|2.5 arcsec
+13980|ac|6.25e4
+14042|ac|3, 75
+14042|ac|eyepiece 3, 75x
+14097|ac|atomic hydrogen
+14097|ac|neutral hydrogen
+14272|ac|9x
+14301|ac|HH object
+14301|ac|Herbig-Haro
+14381|ac|amphidrome
+14431|ac|surging
+14431|ac|glacier surge
+14490|ac|longshore drift
+14490|ac|littoral drift
+14512|ac|Reissner-Nordstrom
+14512|ac|reissner nordstrom
+14512|ac|RN metric
+14524|ac|21 cm line
+14524|ac|21 cm
+14524|ac|HI line
+14598|ac|FRW metric
+14598|ac|Friedmann-Lemaitre-Robertson-Walker metric
+14609|ac|radial velocity
+14609|ac|Doppler spectroscopy
+14609|ac|doppler method
+14624|ac|F region
+14636|ac|transit photometry
+14698|ac|CMB
+14698|ac|cosmic microwave background
+14727|ac|statement 3
+14788|ac|basal sliding
+14841|ac|dykes
+14859|ac|epoch of recombination
+14859|ac|recombination era
+14931|ac|Titius-Bode rule
+14944|ac|Forbes bands
+14953|ac|silicon II
+14980|ac|vertical pressure gradient force
+15197|ac|RM effect
+15261|ac|kerr solution
+15307|ac|SZE
+15362|ac|braided river
+15381|ac|drumlin and crag and tail
+15511|ac|listric normal fault
+15512|ac|33 ly
+15512|ac|33 light years
+15521|ac|calcite and aragonite; andalusite and kyanite
+15654|q|["three rocks","four rocks"]
+17122|q|["E ring","A ring"]
+15859|a|X
+15966|a|2 only
+16056|rm|
+16328|rm|
+16771|a|W
+16849|a|Bjerknes Feedback
+16863|a|Jeans instability
+16871|a|1,3,2
+16983|a|Z
+17056|a|2:3
+17067|a|3 ONLY
+15542|ac|m, l, t
+15593|ac|glacial erratics
+15639|ac|ichnofossils
+15639|ac|ichnofossil
+15653|ac|1010 mb
+15667|ac|Zeeman splitting
+15668|ac|10^7
+15668|ac|1e7
+15704|ac|wave shoaling
+15710|ac|isotropy
+15766|ac|TOV limit
+16052|ac|anti-umbra
+16052|ac|antumbral shadow
+16084|ac|ICM
+16206|ac|pisolitic texture
+16229|ac|COBE, WMAP, Planck
+16237|ac|AO
+16350|ac|Rayleigh-Taylor instability
+16350|ac|RTI
+16368|ac|5:1
+16368|ac|5 to 1
+16395|ac|opacity mechanism
+16410|ac|5.0
+16518|ac|amphidrome
+16562|ac|LHB
+16576|ac|1.4 solar masses
+16601|ac|3-alpha process
+16625|ac|geodynamo
+16625|ac|dynamo
+16659|ac|Caloris
+16691|ac|widmanstatten structure
+16714|ac|E ring
+16714|ac|the E ring
+16754|ac|infrared light
+16778|ac|7 m/s
+16778|ac|7 meters per second
+16807|ac|Kelvin-Helmholtz contraction
+16819|ac|324x
+16925|ac|L-1
+16962|ac|PISN
+17009|ac|1e4
+17010|ac|25x
+17010|ac|25 times
+17035|ac|twinning
+17046|ac|phreatic explosion
+17205|ac|gravity, strong, weak
+17279|drop|
+17599|rm|
+17676|a|Z
+17775|q|["Unsorted and Angulalr","Unsorted and Angular"]
+17792|a|ATLANTIC MERIDIONAL OVERTURNING CIRCULATION
+17819|q|["four celestial objects","three celestial objects"]
+18582|q|["in finite universe","infinite universe"]
+19517|rm|
+19747|rm|
+19932|rm|
+17610|ac|625 solar luminosities
+17610|ac|625 L_sun
+18524|ac|LHB
+18537|ac|RA and Dec
+18549|ac|main sequence turnoff
+18549|ac|MSTO
+18558|ac|RGB
+18587|ac|turbidity flow
+18615|ac|tidal lock
+18684|ac|M dwarfs
+18684|ac|M dwarf
+18707|ac|electron degeneracy
+18730|ac|Ferrel circulation
+18744|ac|SiO2
+18786|ac|thermal inversion
+18798|ac|S0
+18889|ac|planetary differentiation
+18893|ac|UHI
+18893|ac|urban heat island effect
+18945|ac|shepherding moons
+19425|ac|electron degeneracy pressure
+19435|ac|James Hutton
+19447|ac|red giant star
+19634|ac|the serpent bearer
+19659|ac|Gutenberg-Wiechert discontinuity
+19893|ac|year 2061
+19992|ac|Tropic of Cancer and Tropic of Capricorn
+20190|q|["that was recently devastated","that was devastated in 1997"]
+20285|q|["large mineral grades","large mineral grains"]
+20395|a|ROCKY MOUNTAINS
+20575|q|["Transverse","Transform"]
+20768|a|Z
+20768|q|["A spiral galaxy is classified as E4","An elliptical galaxy is classified as E4"]
+21008|q|["experience retrograde motion,","have retrograde rotation,"]
+21053|rm|
+21156|rm|
+21443|q|["the an isotropic","the anisotropic"]
+20143|ac|16:1
+20143|ac|16
+20301|ac|kilauea volcano
+20375|ac|between mars and jupiter
+20392|ac|frank drake
+20392|ac|drake equation
+20471|ac|synchronous rotation
+20471|ac|tidal lock
+20505|ac|gravity slingshot
+20505|ac|gravitational assist
+20506|ac|gutenberg
+20529|ac|milankovitch theory
+20536|ac|vadose
+20587|ac|big bang nucleosynthesis
+20587|ac|primordial nucleosynthesis
+20634|ac|sze
+20655|ac|stark pressure broadening
+20666|ac|supernova 1054
+20677|ac|groynes
+20700|ac|forbes bands
+20711|ac|300000 meters
+20789|ac|synodic month
+20789|ac|synodic
+20848|ac|atmospheric seeing
+20848|ac|astronomical seeing
+20893|ac|degeneracy pressure
+20893|ac|electron degeneracy
+20906|ac|clock drive
+20962|ac|hubble tuning fork
+20998|ac|ecliptic plane
+21019|ac|nodes
+21019|ac|ascending and descending nodes
+21031|ac|ultraviolet light
+21031|ac|uv light
+21123|ac|t^-7/2
+21123|ac|t^-3.5
+21175|ac|oppenheimer-volkoff limit
+21213|ac|sze
+21244|ac|inner and outer lindblad resonance
+21258|ac|lithospheric delamination
+21351|ac|pressure gradient force and centrifugal force
+21351|ac|pressure gradient and centrifugal force
+21409|ac|1/s
+21409|ac|s^-1
+21409|ac|per second
+21439|ac|rgb
+21483|ac|cosmic filaments
+21562|ac|pyroclastic density current
+21562|ac|pdc
+21563|ac|peru-chile current
+21788|a|2 ONLY
+21806|a|Y
+21829|a|1,3,2
+22144|a|Z
+22238|a|W
+23178|a|West
+22346|rm|
+21674|ac|talus slope
+21684|ac|fibrolite
+21829|ac|deuterium lithium protium
+21829|ac|1 3 2
+21849|ac|no facies
+21862|ac|3 times a
+21873|ac|c s m
+21921|ac|gravitational lensing effect
+21945|ac|henyey
+21957|ac|eddington luminosity
+21969|ac|double refraction
+21969|ac|birefringent
+21981|ac|circumpolar current
+21982|ac|tropical
+21982|ac|type a
+21992|ac|d double prime
+21992|ac|d prime prime layer
+22099|ac|langmuir cells
+22111|ac|infrared window
+22156|ac|900 m
+22173|ac|brachiopoda
+22179|ac|paternoster lake chain
+22237|ac|listric fault
+22261|ac|upper crust and lower crust
+22262|ac|seiche wave
+22274|ac|sungrazing comets
+22274|ac|sungrazing comet
+22285|ac|doppler method
+22298|ac|410 km
+22316|ac|tov limit
+22316|ac|oppenheimer-volkoff limit
+22345|ac|critical angle of repose
+22358|ac|sodium airglow layer
+22368|ac|low pressure and mid to high temperature
+22369|ac|47600 w/m2
+22369|ac|47600 watts per square meter
+22776|ac|trellis drainage
+22776|ac|trellis pattern
+22787|ac|soil creep
+22794|ac|rodinia gondwana pangaea
+22840|ac|zone of aeration
+22840|ac|vadose
+22865|ac|red sea atlantic pacific mediterranean
+22880|ac|terrane accretionary wedge wadati-benioff zone
+22930|ac|aabw nadw aaiw
+22997|ac|3 solar masses
+23047|ac|hierarchical formation
+23059|ac|mantle layer
+23072|ac|b-type main sequence and classical cepheids
+23083|ac|soft hail
+23083|ac|snow pellets
+23154|ac|zeolite minerals
+23202|ac|ph3
+23238|ac|stellar birthline
+23274|ac|amphidromic point
+23274|ac|amphidromic
+23298|ac|langmuir cells
+23316|ac|sai
+23323|ac|squall line bow echo comma echo
+23334|ac|cmd
+23335|ac|no conditions
+23359|ac|10^4
+23359|ac|10000
+23407|ac|polytropic
+23437|ac|euxinic
+23437|ac|euxinic conditions
+23437|ac|euxinic waters
+23466|ac|casio3
+23478|ac|cnb
+23478|ac|relic neutrino background
+23503|ac|blandford znajek mechanism
+23539|ac|eye rain bands eyewall
+23550|ac|4 astronomical units
+25125|a|2 ONLY
+25275|a|3,2,1
+25515|a|HUBBLE'S LAW
+23604|ac|plume
+23622|ac|Ia
+23622|ac|SN Ia
+23623|ac|lenticular galaxy
+23688|ac|Mount Toba
+23754|ac|methane clathrates
+23754|ac|methane hydrate
+23754|ac|gas hydrates
+23789|ac|Zeeman splitting
+23813|ac|21 cm
+23837|ac|radiation belts
+23837|ac|van allen radiation belts
+23908|ac|globular
+24195|ac|Lissajous orbits
+24225|ac|pyroclastic density current
+24231|ac|boreal summer
+24261|ac|CME
+24292|ac|Eddington luminosity
+24375|ac|H-3
+24375|ac|hydrogen-3
+24375|ac|3H
+24400|ac|SO4 2-
+24400|ac|sulphate
+24990|ac|Kelvin-Helmholtz contraction
+25012|ac|rho
+25012|ac|mass density
+25071|ac|pair annihilation
+25071|ac|matter-antimatter annihilation
+25102|ac|rho
+25102|ac|mass density
+25125|ac|2
+25181|ac|June solstice
+25275|ac|3 2 1
+25356|ac|T Tauri
+25356|ac|TTS
+25448|ac|gravitational lens
+25515|ac|Hubble-Lemaitre law
+25552|ac|S0
+25561|ac|glowing cloud
+25607|ac|glowing cloud
+25657|ac|LHB
+25657|ac|lunar cataclysm
+25666|ac|Forbes bands
+25800|ac|confining layers
+25879|ac|ET
+25962|a|2 AND 3
+26706|a|2,1,3
+26873|a|EINSTEIN RING
+26887|a|2,1,3
+26895|a|RIME
+27523|a|Z
+27649|a|1 AND 4
+27732|a|Y
+27672|rmac|LIN-
+27412|rm|
+26858|rm|
+26354|q|["H e believes","He believes"]
+26480|q|["crust an d","crust and"]
+26230|ac|white dwarf star
+26429|ac|3 Rs
+26429|ac|3Rs
+26509|ac|reissner-nordstrom metric
+26510|ac|collisional ring galaxy
+26578|ac|pair annihilation
+26578|ac|matter-antimatter annihilation
+26762|ac|nova
+26762|ac|classical nova
+26787|ac|babcock model, 22 years
+26791|ac|cosmic filaments
+26827|ac|gamma radiation
+26838|ac|hyperbolic
+26841|ac|atomic hydrogen
+26841|ac|neutral hydrogen
+26895|ac|rime ice
+26913|ac|acc
+26928|ac|calcite compensation depth
+26942|ac|ef scale
+26952|ac|penumbral shadow
+26962|ac|scoria cone
+27007|ac|diurnal tide
+27007|ac|diurnal tides
+27042|ac|kirkwood
+27095|ac|electron degeneracy
+27120|ac|h0
+27146|ac|3x10^4
+27246|ac|sn ia
+27338|ac|3.5th power
+27411|ac|quenching
+27411|ac|galaxy quenching
+27468|ac|crustquake
+27545|ac|sulphur
+27638|ac|liquefaction
+27672|ac|lin-shu density wave theory
+27784|ac|neutron capture
+27854|ac|sulphate
+27916|rmac|Rayleigh
+27927|a|3,2,1
+28111|rm|
+28279|a|Coccolithophores and foraminifera
+28594|rm|
+28728|a|W
+28766|q|["The luminosity of a star is proportional","The apparent brightness (flux) of a star is proportional"]
+29334|a|GLACIERS
+27954|ac|gravitational lens
+27954|ac|lensing
+27989|ac|western boundary intensification
+28146|ac|friedmann-lemaitre-robertson-walker metric
+28146|ac|frw metric
+28188|ac|electrostatic barrier
+28189|ac|epoch of recombination
+28229|ac|cno
+28239|ac|darcy's equation
+28279|ac|foraminifera and coccolithophores
+28279|ac|coccolithophores and foraminifera
+28370|ac|C, B, A
+28574|ac|rapid neutron capture
+28593|ac|superluminal
+28593|ac|apparent superluminal motion
+28739|ac|trojan asteroids
+28882|ac|calcium and magnesium
+28897|ac|short grb
+28943|ac|indian and eurasian plates
+29003|ac|cepheid instability strip
+29063|ac|darcy's equation
+29085|ac|orographic lifting
+29085|ac|orographic uplift
+29093|ac|wegener-bergeron-findeisen process
+29093|ac|wbf process
+29108|ac|pop ii
+29119|ac|ice wedging
+29222|ac|synchronous rotation
+29222|ac|tidal lock
+29262|ac|channel avulsion
+29274|ac|achromatic doublet
+29274|ac|achromat
+29342|ac|ia
+29346|ac|magnetite and iron
+29395|ac|columnar joints

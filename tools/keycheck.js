@@ -1,0 +1,364 @@
+/* Answer-key check with reader agents: splits questions into chunk files,
+   shows an agent's findings beside the questions, validates and queues them,
+   and applies the queue to the bank. The procedure is in docs/audit/HANDOFF.md.
+
+     node tools/keycheck.js status
+     node tools/keycheck.js chunks <dir> <group> [size]   group: team | official | practice | other | school | all
+     node tools/keycheck.js review <dir> <n> [n...]       findings of chunk n beside their questions
+     node tools/keycheck.js queue  <dir> <n> [n...]       validate out_<n>.txt, append to <dir>/fixes.txt
+     node tools/keycheck.js verify <dir> <n> [n...]       write vin_<n>.txt for a second-opinion agent
+     node tools/keycheck.js collect <dir> <n> [n...]      queue what the second opinion in vout_<n>.txt confirms
+     node tools/keycheck.js apply  <dir>                  apply <dir>/fixes.txt to the bank, sync, run npm test
+     node tools/keycheck.js done   <dir> <n> [n...]       mark chunk n's ids as checked
+
+   Files in <dir>: in_<n>.txt (one question per line), out_<n>.txt (an agent's
+   findings), fixes.txt (id|action|value, edited by hand as needed),
+   fixes.done (lines already applied). */
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+
+const ROOT = path.join(__dirname, '..');
+const CHECKED = path.join(ROOT, 'docs', 'audit', 'checked-ids.txt');
+const SCHOOL = new Set(['mira-loma-question-database', 'stuyvesant-question-bank', 'tycho-practice-rounds', 'evan-zhong-study-sets']);
+const pad = (n) => String(n).padStart(3, '0');
+
+function corpus() {
+  const { loadCorpus } = require(path.join(ROOT, 'tests', 'helpers.js'));
+  return loadCorpus();
+}
+function groupOf(q, kind) {
+  if (SCHOOL.has(q.tSlug)) return 'school';
+  const k = kind.get(q.tSlug);
+  if (k === 'practice') return 'practice';
+  if (k === 'other') return 'other';
+  return /^nsb-|^science-bowl-subject/.test(q.tSlug) ? 'official' : 'team';
+}
+function checkedIds() {
+  return new Set(fs.existsSync(CHECKED) ? fs.readFileSync(CHECKED, 'utf8').split('\n').filter(Boolean).map(Number) : []);
+}
+function line(q) {
+  return `${q.id} | ${q.subject} | ${q.format} | Q: ${q.question}` +
+    (q.choices ? ' | CHOICES: ' + Object.entries(q.choices).map(([l, t]) => l + ') ' + t).join('  ') : '') +
+    ` | KEY: ${q.answer.letter ? q.answer.letter + ') ' : ''}${q.answer.text}` +
+    ((q.answer.accept || []).length ? ' | ALSO ACCEPTED: ' + q.answer.accept.join('; ') : '');
+}
+
+const cmds = {
+  status() {
+    const { questions, meta } = corpus();
+    const kind = new Map(meta.tournaments.map((t) => [t.slug, t.kind]));
+    const done = checkedIds();
+    const c = {};
+    for (const q of questions) {
+      const g = groupOf(q, kind);
+      c[g] = c[g] || { questions: 0, checked: 0, visual: 0 };
+      c[g].questions++;
+      if (done.has(q.id)) c[g].checked++;
+      if (q.visual) c[g].visual++;
+    }
+    console.table(c);
+  },
+
+  // Visual questions are left out: an agent can't see the figure.
+  chunks(dir, group, size) {
+    size = +size || 300;
+    const { questions, meta } = corpus();
+    const kind = new Map(meta.tournaments.map((t) => [t.slug, t.kind]));
+    const done = checkedIds();
+    const qs = questions.filter((q) => !q.visual && !done.has(q.id) && (group === 'all' || groupOf(q, kind) === group));
+    qs.sort((a, b) => (a.subject < b.subject ? -1 : a.subject > b.subject ? 1 : a.id - b.id));
+    fs.mkdirSync(dir, { recursive: true });
+    const first = fs.readdirSync(dir).filter((f) => /^in_\d+\.txt$/.test(f)).length;
+    let n = first;
+    for (let i = 0; i < qs.length; i += size) {
+      n++;
+      fs.writeFileSync(path.join(dir, `in_${pad(n)}.txt`), qs.slice(i, i + size).map(line).join('\n') + '\n');
+    }
+    console.log(`${qs.length} questions -> chunks ${pad(first + 1)}..${pad(n)} in ${dir}`);
+  },
+
+  review(dir, ...ns) {
+    const { questions } = corpus();
+    const by = new Map(questions.map((q) => [q.id, q]));
+    for (const n of ns) {
+      const f = path.join(dir, `out_${pad(n)}.txt`);
+      if (!fs.existsSync(f)) { console.log('no findings file for chunk', n); continue; }
+      for (const l of fs.readFileSync(f, 'utf8').split('\n')) {
+        if (!l.trim()) continue;
+        const q = by.get(+l.split('|')[0]);
+        if (!q) { console.log('?? ' + l); continue; }
+        console.log(`${l}\n   [${q.tSlug}] Q: ${q.question}` +
+          (q.choices ? ' [' + Object.entries(q.choices).map(([k, v]) => k + ') ' + v).join(' / ') + ']' : '') +
+          ` => ${q.answer.letter ? q.answer.letter + ') ' : ''}${q.answer.text}\n`);
+      }
+    }
+  },
+
+  // A finding is queued only if it can be applied as written: the id exists, a
+  // new multiple-choice key is one of the four choices and differs from the old
+  // one, a text repair matches the stem exactly.
+  queue(dir, ...ns) {
+    const { questions } = corpus();
+    const by = new Map(questions.map((q) => [q.id, q]));
+    const fixes = path.join(dir, 'fixes.txt');
+    const have = new Set(fs.existsSync(fixes) ? fs.readFileSync(fixes, 'utf8').split('\n') : []);
+    const out = []; let rejected = 0;
+    const reject = (why, l) => { rejected++; console.log(why, l.slice(0, 140)); };
+    for (const n of ns) {
+      const f = path.join(dir, `out_${pad(n)}.txt`);
+      if (!fs.existsSync(f)) { console.log('no findings file for chunk', n); continue; }
+      for (const l of fs.readFileSync(f, 'utf8').split('\n')) {
+        if (!l.trim()) continue;
+        const m = l.match(/^(\d+)\|(a|rm|q)\|(.*)$/);
+        if (!m) { reject('BAD LINE', l); continue; }
+        const id = +m[1], act = m[2], q = by.get(id);
+        if (!q) { reject('NO SUCH ID', l); continue; }
+        let fix;
+        if (act === 'rm') fix = `${id}|rm|`;
+        else if (act === 'q') {
+          const k = m[3].lastIndexOf(']|');
+          let arr; try { arr = JSON.parse(k >= 0 ? m[3].slice(0, k + 1) : m[3]); } catch (e) { reject('BAD JSON', l); continue; }
+          if (!Array.isArray(arr) || arr.length !== 2 || !arr[0] || !q.question.includes(arr[0])) { reject('TEXT NOT IN STEM', l); continue; }
+          fix = `${id}|q|${JSON.stringify(arr)}`;
+        } else {
+          const k = m[3].indexOf('|');
+          const val = (k >= 0 ? m[3].slice(0, k) : m[3]).trim();
+          if (!val) { reject('EMPTY', l); continue; }
+          if (q.format === 'MC') {
+            let L = /^[WXYZ]$/i.test(val) ? val.toUpperCase() : '';
+            if (!L) { const hit = Object.entries(q.choices).find(([, v]) => v.toLowerCase().trim() === val.toLowerCase()); L = hit ? hit[0] : ''; }
+            if (!L || !q.choices[L]) { reject('NOT A CHOICE', l); continue; }
+            if (L === q.answer.letter) { reject('SAME KEY', l); continue; }
+            fix = `${id}|a|${L}`;
+          } else {
+            if (val.toLowerCase() === q.answer.text.toLowerCase()) { reject('SAME KEY', l); continue; }
+            fix = `${id}|a|${val}`;
+          }
+        }
+        if (!have.has(fix)) { out.push(fix); have.add(fix); }
+      }
+    }
+    if (out.length) fs.appendFileSync(fixes, out.join('\n') + '\n');
+    console.log(`queued ${out.length}, rejected ${rejected} -> ${fixes}`);
+  },
+
+  // Second opinion: writes vin_<n>.txt for a verifier agent (docs/audit/VERIFIER-INSTRUCTIONS.md)
+  // from out_<n>.txt: the findings (F), the proposed alternates the grader refuses (A), and the
+  // near misses it accepts (N).
+  verify(dir, ...ns) {
+    const { questions } = corpus();
+    require(path.join(ROOT, 'js', 'answer-check.js'));
+    const G = globalThis.SBAnswer;
+    const by = new Map(questions.map((q) => [q.id, q]));
+    for (const n of ns) {
+      const f = path.join(dir, `out_${pad(n)}.txt`);
+      if (!fs.existsSync(f)) { console.log('no findings file for chunk', n); continue; }
+      const F = [], A = new Map(), N = [];
+      const also = (q) => ((q.answer.accept || []).length ? ' | ALSO: ' + q.answer.accept.join('; ') : ' | ALSO: (none)');
+      for (const l of fs.readFileSync(f, 'utf8').split('\n')) {
+        const m = l.match(/^(\d+)\|(a|rm|q|alt|not)\|(.*)$/);
+        if (!m) continue;
+        const q = by.get(+m[1]);
+        if (!q) continue;
+        if (m[2] === 'alt' || m[2] === 'not') {
+          if (q.format !== 'SA') continue;
+          for (const t of m[3].split(';;').map((x) => x.replace(/\|.*$/, '').trim()).filter(Boolean)) {
+            let r; try { r = G.checkAnswer(q, t); } catch (e) { r = { correct: false }; }
+            if (m[2] === 'alt' && !r.correct) { if (!A.has(q.id)) A.set(q.id, new Set()); A.get(q.id).add(t); }
+            if (m[2] === 'not' && r.correct && t.toLowerCase() !== q.answer.text.toLowerCase() && !(q.answer.accept || []).some((x) => x.toLowerCase() === t.toLowerCase())) {
+              N.push(`N | ${q.id} | ${q.subject} | Q: ${q.question} | KEY: ${q.answer.text}${also(q)} | TYPED: ${t}`);
+            }
+          }
+        } else {
+          let want = 'rm', why = m[3];
+          if (m[2] === 'q') { const k = m[3].lastIndexOf(']|'); want = 'q=' + (k >= 0 ? m[3].slice(0, k + 1) : m[3]); why = k >= 0 ? m[3].slice(k + 2) : ''; }
+          else if (m[2] === 'a') { const k = m[3].indexOf('|'); want = 'a=' + (k >= 0 ? m[3].slice(0, k) : m[3]); why = k >= 0 ? m[3].slice(k + 1) : ''; }
+          else why = m[3].replace(/^\|/, '');
+          F.push(`F | ${line(q).replace('ALSO ACCEPTED:', 'ALSO:')} | FINDING: ${want} | WHY: ${why}`);
+        }
+      }
+      const lines = [...F, ...[...A].map(([id, set]) => { const q = by.get(id); return `A | ${id} | ${q.subject} | Q: ${q.question} | KEY: ${q.answer.text}${also(q)} | TYPED: ${[...set].join(' ;; ')}`; }), ...N];
+      fs.writeFileSync(path.join(dir, `vin_${pad(n)}.txt`), lines.join('\n') + '\n');
+      console.log(`chunk ${n}: ${F.length} findings, ${A.size} questions with refused alternates, ${N.length} accepted near misses`);
+    }
+  },
+
+  // Reads vout_<n>.txt against vin_<n>.txt. A finding is queued when the verifier agrees with the
+  // first reviewer; a disagreement goes to disputed.txt to be read by hand. Alternates (ac), bad
+  // accepts (rmac) and near misses to refuse (rj) are queued when they were among those proposed.
+  collect(dir, ...ns) {
+    const { questions } = corpus();
+    const by = new Map(questions.map((q) => [q.id, q]));
+    const fixes = path.join(dir, 'fixes.txt'), disputed = path.join(dir, 'disputed.txt');
+    const have = new Set(fs.existsSync(fixes) ? fs.readFileSync(fixes, 'utf8').split('\n') : []);
+    const out = [], disp = []; const c = { agreed: 0, dropped: 0, disputed: 0, ac: 0, rj: 0, rmac: 0, bad: 0, unanswered: 0 };
+    const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]+/g, '');
+    for (const n of ns) {
+      const vin = path.join(dir, `vin_${pad(n)}.txt`), vout = path.join(dir, `vout_${pad(n)}.txt`);
+      if (!fs.existsSync(vin) || !fs.existsSync(vout)) { console.log('missing vin/vout for chunk', n); continue; }
+      const F = new Map(), typed = new Map();
+      for (const l of fs.readFileSync(vin, 'utf8').split('\n')) {
+        const p = l.split(' | ');
+        if (p[0] === 'F') { const m = l.match(/ \| FINDING: (.*?) \| WHY: /); F.set(+p[1], { want: m ? m[1] : '', line: l, seen: false }); }
+        if (p[0] === 'A' || p[0] === 'N') {
+          const t = l.slice(l.lastIndexOf(' | TYPED: ') + 10).split(';;').map((x) => x.trim()).filter(Boolean);
+          const key = p[0] + p[1]; typed.set(key, (typed.get(key) || []).concat(t));
+        }
+      }
+      // findings first, so an alternate for a corrected key is added after the key changes,
+      // and never when the correction itself was not agreed
+      const vlines = fs.readFileSync(vout, 'utf8').split('\n');
+      const isList = (l) => /^\d+\|(?:ac|rj)\|/.test(l.trim());
+      const keyChanged = new Set(), settled = new Set();
+      for (const l of [...vlines.filter((x) => !isList(x)), ...vlines.filter(isList)]) {
+        const m = l.trim().match(/^(\d+)\|(a|rm|q|drop|rmac|ac|rj)\|(.*)$/);
+        if (!m) { if (l.trim()) c.bad++; continue; }
+        const id = +m[1], act = m[2], val = m[3].trim(), q = by.get(id);
+        if (!q) { c.bad++; continue; }
+        let fix = null;
+        if ((act === 'ac' || act === 'rj') && F.has(id) && /^(?:a=|rm)/.test(F.get(id).want) && !settled.has(id)) { c.held = (c.held || 0) + 1; continue; }
+        if (act === 'ac' || act === 'rj') {
+          const list = typed.get((act === 'ac' ? 'A' : 'N') + id) || [];
+          const hit = list.find((t) => t === val) || list.find((t) => norm(t) === norm(val));
+          if (!hit || q.format !== 'SA') { c.bad++; continue; }
+          fix = `${id}|${act}|${hit}`; c[act]++;
+        } else if (act === 'rmac') {
+          const hit = (q.answer.accept || []).find((t) => norm(t) === norm(val));
+          if (!hit) { c.bad++; continue; }
+          fix = `${id}|rmac|${hit}`; c.rmac++;
+          if (F.has(id)) F.get(id).seen = true;
+        } else {
+          const f = F.get(id);
+          if (!f) { disp.push(`NEW (verifier only) ${l.trim()} || ${line(q)}`); c.disputed++; continue; }
+          f.seen = true;
+          if (act === 'drop') { c.dropped++; if (!/\bALSO\b|accept/i.test(f.line.split(' | WHY: ')[1] || '')) settled.add(id); continue; }
+          const wantAct = f.want === 'rm' ? 'rm' : f.want[0];
+          const wantVal = f.want === 'rm' ? '' : f.want.slice(2);
+          let agree = act === wantAct;
+          if (agree && act === 'a') {
+            if (q.format === 'MC') {
+              const L = (x) => (/^[WXYZ]$/i.test(x.trim()) ? x.trim().toUpperCase() : (Object.entries(q.choices).find(([, v]) => norm(v) === norm(x)) || [''])[0]);
+              agree = !!L(val) && L(val) === L(wantVal) && L(val) !== q.answer.letter;
+              if (agree) fix = `${id}|a|${L(val)}`;
+            } else {
+              agree = norm(val) === norm(wantVal) && /[+\-−–]/.test(val) === /[+\-−–]/.test(wantVal) && val.trim().toLowerCase() !== q.answer.text.trim().toLowerCase();
+              if (agree) fix = `${id}|a|${wantVal.trim()}`;
+            }
+          } else if (agree && act === 'q') {
+            let x, y; try { x = JSON.parse(val); y = JSON.parse(wantVal); } catch (e) { agree = false; }
+            agree = agree && Array.isArray(x) && Array.isArray(y) && x.length === 2 && x[0] === y[0] && norm(x[1]) === norm(y[1]) && q.question.includes(x[0]);
+            if (agree) fix = `${id}|q|${JSON.stringify(y)}`;
+          } else if (agree) fix = `${id}|rm|`;
+          // both readers say the question is wrong but not how to fix it: it goes
+          if (!agree && (act === 'a' || act === 'rm') && (wantAct === 'a' || wantAct === 'rm')) {
+            fix = `${id}|rm|`; c.removedOnDisagreement = (c.removedOnDisagreement || 0) + 1;
+            disp.push(`chunk ${n} REMOVED (readers disagree) ${l.trim()} || ${f.line}`);
+            if (!have.has(fix)) { out.push(fix); have.add(fix); }
+            continue;
+          }
+          if (!agree) { disp.push(`chunk ${n} VERIFIER ${l.trim()} || ${f.line}`); c.disputed++; continue; }
+          c.agreed++;
+          if (act === 'a') settled.add(id);
+        }
+        if (fix && !have.has(fix)) { out.push(fix); have.add(fix); }
+      }
+      for (const [, f] of F) if (!f.seen) c.unanswered++;
+    }
+    if (out.length) fs.appendFileSync(fixes, out.join('\n') + '\n');
+    if (disp.length) fs.appendFileSync(disputed, disp.join('\n') + '\n');
+    console.log(JSON.stringify(c), `queued ${out.length} -> ${fixes}; disputed -> ${disputed}`);
+  },
+
+  // fixes.txt lines: id|rm|   id|a|<new key or MC letter>   id|q|["old","new"]   id|ac|<extra accepted answer>
+  apply(dir) {
+    const fixes = path.join(dir, 'fixes.txt'), doneFile = path.join(dir, 'fixes.done'), flat = path.join(dir, 'flat.json');
+    const run = (cmd, args) => execFileSync(cmd, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'inherit'] }).toString();
+    run('node', ['tools/bank.js', 'unpack', flat]);
+    let a = JSON.parse(fs.readFileSync(flat, 'utf8'));
+    const done = new Set(fs.existsSync(doneFile) ? fs.readFileSync(doneFile, 'utf8').split('\n') : []);
+    const by = new Map(a.map((r) => [r.i, r]));
+    const rm = new Set(); let n = 0, bad = 0;
+    for (const l of fs.readFileSync(fixes, 'utf8').split('\n')) {
+      if (!l || l[0] === '#' || done.has(l)) continue;
+      const i = l.indexOf('|'), j = l.indexOf('|', i + 1);
+      const id = +l.slice(0, i), act = l.slice(i + 1, j), val = l.slice(j + 1), r = by.get(id);
+      const fail = (why) => { bad++; console.log(why, l.slice(0, 140)); };
+      if (!r) { fail('MISSING'); continue; }
+      if (act === 'rm') rm.add(id);
+      else if (act === 'a') {
+        if (r.f === 'MC') { if (!/^[WXYZ]$/.test(val) || !r.c[val]) { fail('BAD MC KEY'); continue; } r.a = { t: r.c[val], l: val }; }
+        else { const o = { t: val }; if (r.a.rj) o.rj = r.a.rj; r.a = o; }   // old alternates went with the old key
+      } else if (act === 'ac' || act === 'rj' || act === 'rmac') {
+        if (r.f === 'MC') { fail('MC HAS NO LISTS'); continue; }
+        const same = (x) => String(x).trim().toLowerCase() === val.trim().toLowerCase();
+        let ac = (r.a.ac || []).slice(), rj = (r.a.rj || []).slice();
+        if (act === 'ac') { if (ac.some(same) || same(r.a.t)) { done.add(l); continue; } ac.push(val.trim()); }
+        if (act === 'rj') { if (rj.some(same)) { done.add(l); continue; } if (same(r.a.t)) { fail('REJECT IS THE KEY'); continue; } rj.push(val.trim()); ac = ac.filter((x) => !same(x)); }
+        if (act === 'rmac') { if (!ac.some(same)) { fail('NOT IN ACCEPTS'); continue; } ac = ac.filter((x) => !same(x)); }
+        const o = { t: r.a.t }; if (r.a.l) o.l = r.a.l; if (ac.length) o.ac = ac; if (rj.length) o.rj = rj; r.a = o;
+      } else if (act === 'q') {
+        const [x, y] = JSON.parse(val);
+        if (!r.q.includes(x)) { fail('TEXT NOT IN STEM'); continue; }
+        r.q = r.q.replace(x, y).replace(/\s+/g, ' ').trim();
+      } else { fail('UNKNOWN ACTION'); continue; }
+      done.add(l); n++;
+    }
+    a = a.filter((r) => !rm.has(r.i));
+    fs.writeFileSync(flat, JSON.stringify(a));
+    fs.writeFileSync(doneFile, [...done].join('\n'));
+    console.log(`applied ${n} (removed ${rm.size}), could not apply ${bad}; bank is ${a.length}`);
+    run('node', ['tools/bank.js', 'pack', flat]);
+    console.log(run('python3', ['tools/keycheck_sync.py']).trim());
+    // A repaired practice-set question can become a word-for-word copy: remove it, with an alias to the kept one.
+    const pairs = copies();
+    if (pairs.length) {
+      console.log('now copies, removing:', pairs.join(' '));
+      fs.appendFileSync(fixes, pairs.map((p) => p.split('=')[0] + '|rm|').join('\n') + '\n');
+      let b = JSON.parse(fs.readFileSync(flat, 'utf8'));
+      const gone = new Set(pairs.map((p) => +p.split('=')[0]));
+      b = b.filter((r) => !gone.has(r.i));
+      fs.writeFileSync(flat, JSON.stringify(b));
+      fs.appendFileSync(doneFile, '\n' + pairs.map((p) => p.split('=')[0] + '|rm|').join('\n'));
+      run('node', ['tools/bank.js', 'pack', flat]);
+      console.log(run('python3', ['tools/keycheck_sync.py', ...pairs]).trim());
+    }
+    run('node', ['tools/meta-counts.js']);
+    console.log(run('python3', ['tools/doc-counts.py']).trim());
+    run('node', ['tools/stamp-assets.js']);
+    try { run('npm', ['test', '--silent']); console.log('npm test: pass'); }
+    catch (e) { console.log('npm test: FAILED - run `npm test` and fix before committing'); process.exitCode = 1; }
+  },
+
+  done(dir, ...ns) {
+    const ids = checkedIds();
+    for (const n of ns) {
+      for (const l of fs.readFileSync(path.join(dir, `in_${pad(n)}.txt`), 'utf8').split('\n')) if (l) ids.add(+l.split(' | ')[0]);
+    }
+    fs.writeFileSync(CHECKED, [...ids].sort((x, y) => x - y).join('\n') + '\n');
+    console.log(`${ids.size} ids marked checked`);
+  },
+};
+
+// Same test as tests/data.test.js: a practice-set question word for word the
+// same as a tournament question or an earlier practice-set question.
+function copies() {
+  delete require.cache[require.resolve(path.join(ROOT, 'tests', 'helpers.js'))];
+  const { questions, meta } = corpus();
+  const practice = new Set(meta.tournaments.filter((t) => t.kind === 'practice').map((t) => t.slug));
+  const key = (q) => (q.question + ' | ' + ['W', 'X', 'Y', 'Z'].map((L) => (q.choices || {})[L] || '').join(' | ')).toLowerCase()
+    .replace(/[−–]/g, '-').replace(/[^a-z0-9+\-=<>^/*.%√π ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const seen = new Map();
+  for (const q of questions) { const k = key(q); if (k.length < 20) continue; if (!seen.has(k)) seen.set(k, []); seen.get(k).push(q); }
+  const out = [];
+  for (const g of seen.values()) {
+    if (g.length < 2) continue;
+    const keep = g.find((q) => !practice.has(q.tSlug)) || g[0];
+    for (const q of g) if (q !== keep && practice.has(q.tSlug)) out.push(q.id + '=' + keep.id);
+  }
+  return out;
+}
+
+const [cmd, ...args] = process.argv.slice(2);
+if (!cmds[cmd]) { console.log(fs.readFileSync(__filename, 'utf8').split('*/')[0].slice(3)); process.exit(1); }
+cmds[cmd](...args);
