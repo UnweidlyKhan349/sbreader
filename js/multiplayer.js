@@ -2405,7 +2405,15 @@
       }
     });
     const by = msg.changes.find((c) => c.pid === msg.by);
-    if (by) logEvent(by.name || 'Player', `changed their answer on an earlier question to ${by.correct ? 'correct' : 'incorrect'}`);
+    // The same player flipping the same earlier answer again rewrites the
+    // line on top rather than adding another.
+    if (by) {
+      const key = `${by.pid}:${msg.idx}`;
+      const top = historyEl().firstElementChild;
+      const li = logEvent(by.name || 'Player', `changed their answer on an earlier question to ${by.correct ? 'correct' : 'incorrect'}`);
+      li.dataset.pastAnswerChange = key;
+      if (top && top.dataset.pastAnswerChange === key) top.remove();
+    }
     renderPlayerList(document.getElementById('mpPlayerList'));
     renderOverrideLinkSoon();
   }

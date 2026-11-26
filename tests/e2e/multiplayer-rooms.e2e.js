@@ -382,6 +382,10 @@ test('an answer on an earlier question can be claimed later: I was right on its 
   await g.waitForFunction(() => document.querySelector('#mpHistory .mp-past-override') && document.querySelector('#mpHistory .mp-past-override').textContent === 'I was wrong', null, { timeout: 5000 });
   await g.locator('#mpHistory .mp-past-override').click();
   await waitScore(a, gName, before);
+  // Flipped back by the same player: the line is rewritten, not added to.
+  await a.waitForFunction(() => /changed their answer on an earlier question to incorrect/.test(document.getElementById('mpHistory').textContent), null, { timeout: 10000 });
+  const pastLines = await a.$$eval('#mpHistory li i', (xs) => xs.filter((x) => /changed their answer on an earlier question/.test(x.textContent)).length);
+  assert.strictEqual(pastLines, 1, 'one line, edited');
   assert.strictEqual(await lineColour(a), 'red');
   assert.deepStrictEqual([...a.errors, ...g.errors], []);
   await ctx.close();
