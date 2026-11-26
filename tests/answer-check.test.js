@@ -1180,7 +1180,10 @@ const closeOnly = (key, typed, extra) => { const r = grade(key, typed, extra); r
 test('second look: none, trailing zeros, percent, + C, equation forms', () => {
   const idAll = 'Identify all of the following three moraines that are sorted: 1) Lateral 2) Ground 3) Terminal';
   for (const t of ['none of them', 'none are true', 'none of the above', 'neither']) assert.ok(isCorrect('None', t, { question: idAll }), t);
-  assert.ok(closeOnly('None', '0', { question: idAll }));
+  // 0 is "none of the numbers" when the question numbers its items; Close otherwise
+  assert.ok(isCorrect('None', '0', { question: idAll }));
+  assert.ok(isCorrect('NONE', '0', { question: 'Which of the following are noble gases? I) Nitrogen II) Oxygen III) Chlorine' }));
+  assert.ok(closeOnly('None', '0', { question: 'How many of its moons are larger than Mercury?' }));
   // equal value, other trailing zeros: right, unless the question asks for a precision
   assert.ok(isCorrect('1.50 L', '1.5', { question: 'What volume is needed? Give your answer in liters.' }));
   assert.ok(isCorrect('1.50 L', '1.5 liters', { question: 'What volume is needed? Give your answer in liters.' }));

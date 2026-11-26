@@ -3466,10 +3466,12 @@
     const tries = [];
     const attempt = (t2, q2, verdict) => { tries.push([t2, q2, verdict || RIGHT]); };
 
-    // "none of them", "none are true" for NONE; a bare 0 is Close
+    // "none of them", "none are true" for NONE. A bare 0 is right when the
+    // question numbers its items ("Which of the following ... 1) ... 2) ...",
+    // where 0 is "none of the numbers"), and Close otherwise.
     if (keys.some((k) => NONE_KEY_RE.test(normalize(withoutEndNote(k))))) {
       if (NONE_TYPED_RE.test(typed)) return RIGHT;
-      if (/^(?:0|zero)$/i.test(typed)) return CLOSE;
+      if (/^(?:0|zero)$/i.test(typed)) return detectItemCount(q) ? RIGHT : CLOSE;
     }
 
     // trailing zeros and a currency sign: "1.5" for "1.50 L", "100,000" for
